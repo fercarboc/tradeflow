@@ -1,0 +1,483 @@
+{
+  "id": 93,
+  "oficio": "Albañilería",
+  "texto": "Cambiar piscina de skimmer a desbordante, reforma completa del vaso y sistema de filtración",
+  "http_status": 200,
+  "latency_ms": 40737,
+  "raw_response": {
+    "transcript": "Cambiar piscina de skimmer a desbordante, reforma completa del vaso y sistema de filtración",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambiar piscina de skimmer a desbordante, reforma completa del vaso y sistema de filtración",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de piscina: requiere vaciado completo, diagnóstico estructural previo y coordinación de múltiples fases",
+          "Cambio de sistema de circulación (skimmer → desbordante) implica nueva red hidráulica, depuradora y cuadro eléctrico",
+          "Impermeabilización del vaso es crítica: requiere inspección de grietas activas y posible inyección de resina",
+          "Presupuesto estimado en rango alto por complejidad: 15000-45000€ según dimensiones y estado actual"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición parcial, reparación estructura vaso, coronación y revestimiento"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización total del vaso, lámina armada o gresite, sellado de grietas"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Nueva red hidráulica PVC presión, skimmers desbordantes, sumideros, boquillas, tuberías aspiración e impulsión"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Cuadro eléctrico piscina, protecciones diferenciales, conexión bomba recirculación, iluminación si aplica"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado completo piscina y retirada agua",
+          "descripcion": "Vaciado total de la piscina existente, bombeo y gestión de agua según normativa",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 320,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Diagnóstico y reparación estructura vaso",
+          "descripcion": "Inspección completa del vaso, detección de grietas activas, inyección de resina o mortero hidrofugo en grietas, reparación de zonas deterioradas",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 360,
+          "total": 1080,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de jornadas depende de dimensiones y estado del vaso; requiere inspección previa"
+        },
+        {
+          "concepto": "Inyección de resina poliuretano en grietas activas",
+          "descripcion": "Inyección de resina expansiva o poliuretano en grietas activas del vaso para sellar filtraciones",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material y cantidad dependen de número y tamaño de grietas; instalador debe revisar presupuesto"
+        },
+        {
+          "concepto": "Impermeabilización total vaso con lámina armada o gresite",
+          "descripcion": "Aplicación de lámina armada PVC/EPDM o revestimiento con gresite cerámico en toda la superficie interior del vaso (paredes y fondo)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 depende de dimensiones de la piscina (largo × ancho × profundidad × 1.10); instalador debe calcular"
+        },
+        {
+          "concepto": "Suministro lámina armada o gresite",
+          "descripcion": "Lámina armada PVC 0.75mm o gresite cerámico de primera calidad para revestimiento interior vaso",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo de material (lámina vs gresite) y calidad; instalador debe revisar"
+        },
+        {
+          "concepto": "Desmontaje sistema skimmer antiguo",
+          "descripcion": "Extracción de skimmers, tuberías de aspiración, sumidero fondo y boquillas del sistema antiguo",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 400,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación sistema desbordante: skimmers desbordantes y sumideros",
+          "descripcion": "Instalación de 2-4 skimmers desbordantes (según dimensiones), sumidero fondo y boquillas de impulsión en nuevo sistema de circulación",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de skimmers depende de dimensiones; instalador debe ajustar (típicamente 1 por cada 25-30 m2)"
+        },
+        {
+          "concepto": "Suministro skimmers desbordantes, sumideros y boquillas",
+          "descripcion": "Skimmers desbordantes de PVC, sumidero fondo, boquillas de impulsión/retorno de primera calidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario depende de marca y especificaciones; instalador debe revisar"
+        },
+        {
+          "concepto": "Red hidráulica nueva: tuberías PVC presión aspiración e impulsión",
+          "descripcion": "Instalación de tuberías PVC presión (Ø32-50mm) para circuito de aspiración desde skimmers/sumidero y circuito de impulsión desde depuradora",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje depende de ubicación depuradora y distancia a piscina; instalador debe calcular"
+        },
+        {
+          "concepto": "Suministro tuberías PVC presión y accesorios",
+          "descripcion": "Tuberías PVC presión, codos, tes, válvulas de retención, bridas y pequeño material de fontanería",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de diámetros y accesorios; instalador debe revisar"
+        },
+        {
+          "concepto": "Desmontaje depuradora y bomba antiguas",
+          "descripcion": "Extracción de depuradora (filtro arena), bomba recirculación y tuberías del sistema antiguo",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 400,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación depuradora nueva (filtro arena) y bomba recirculación",
+          "descripcion": "Instalación de depuradora con filtro de arena (capacidad según volumen piscina) y bomba recirculación con protección térmica",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 400,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Jornadas dependen de tamaño depuradora y complejidad instalación; instalador debe revisar"
+        },
+        {
+          "concepto": "Suministro depuradora y bomba recirculación",
+          "descripcion": "Depuradora con filtro arena (6-12 m3/h según volumen piscina) y bomba recirculación monofásica o trifásica",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de capacidad (m3/h) y marca; instalador debe revisar según volumen piscina"
+        },
+        {
+          "concepto": "Desmontaje cuadro eléctrico piscina antiguo",
+          "descripcion": "Extracción de cuadro eléctrico, protecciones y conexiones eléctricas del sistema antiguo",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 400,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación cuadro eléctrico piscina nuevo con protecciones",
+          "descripcion": "Instalación de cuadro eléctrico específico para piscina con diferenciales 30mA, magnetotérmicos, contactor y protección térmica bomba según REBT",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 400,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro cuadro eléctrico piscina y protecciones",
+          "descripcion": "Cuadro eléctrico IP65 para piscina, diferenciales 30mA, magnetotérmicos, contactor, protección térmica, cableado y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia (monofásica/trifásica) y componentes; instalador debe revisar"
+        },
+        {
+          "concepto": "Cableado y conexión bomba recirculación",
+          "descripcion": "Cableado desde cuadro a bomba recirculación, conexión con enchufe industrial o directa según potencia",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje depende de distancia cuadro-bomba; instalador debe calcular"
+        },
+        {
+          "concepto": "Suministro cableado y accesorios eléctricos",
+          "descripcion": "Cable RV-K 3x2.5 o 3x4 según potencia, tubo corrugado, conectores y pequeño material eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de sección cable y accesorios; instalador debe revisar"
+        },
+        {
+          "concepto": "Coronación y bordillo perimetral piscina",
+          "descripcion": "Reposición o reparación de coronación y bordillo perimetral en hormigón o piedra natural",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje = 2×(largo+ancho); instalador debe calcular según dimensiones piscina"
+        },
+        {
+          "concepto": "Suministro material coronación y bordillo",
+          "descripcion": "Hormigón, piedra natural o prefabricado para coronación y bordillo perimetral",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de material elegido; instalador debe revisar"
+        },
+        {
+          "concepto": "Llenado piscina y puesta en marcha sistema",
+          "descripcion": "Llenado de agua, purgado de circuitos, pruebas de funcionamiento bomba y depuradora, ajuste inicial de válvulas",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 400,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ajuste químico inicial y tratamiento agua",
+          "descripcion": "Análisis de agua, ajuste de pH, cloro, alcalinidad y otros parámetros; tratamiento anti-algas inicial",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de volumen piscina y productos químicos; instalador debe revisar"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Tornillería, selladores, adhesivos, cinta teflón, juntas, herramientas consumibles y otros materiales auxiliares",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 300-800€ según alcance; instalador debe revisar"
+        }
+      ],
+      "calculos": {
+        "subtotal": 5970,
+        "iva_porcentaje": 21,
+        "iva": 1253.7,
+        "total": 7223.7
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente dimensiones exactas de la piscina (largo × ancho × profundidad) para calcular m2 de impermeabilización y metraje de tuberías",
+        "Confirmar ubicación de la depuradora (caseta técnica, sótano, etc.) para estimar metraje de tuberías",
+        "Especificar tipo de revestimiento preferido: lámina armada PVC (más económica, 15-25€/m2) vs gresite cerámico (más estético, 40-80€/m2)",
+        "Confirmar si el sistema actual tiene grietas activas o filtraciones para presupuestar inyección de resina",
+        "Verificar si hay caseta técnica existente o si requiere construcción nueva",
+        "Consultar si desea iluminación LED subacuática en el nuevo sistema (partida adicional)",
+        "Confirmar potencia disponible (monofásica 230V o trifásica 400V) para dimensionar bomba y cuadro eléctrico"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Inyección de resina poliuretano en grietas activas",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material específico para sellar grietas activas; precio depende de volumen de resina"
+        },
+        {
+          "concepto": "Suministro lámina armada o gresite",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material de revestimiento interior; precio variable según tipo y calidad"
+        },
+        {
+          "concepto": "Suministro skimmers desbordantes, sumideros y boquillas",
+          "oficio": "fontaneria",
+          "motivo": "Componentes específicos del sistema desbordante; precio depende de marca"
+        },
+        {
+          "concepto": "Suministro tuberías PVC presión y accesorios",
+          "oficio": "fontaneria",
+          "motivo": "Red hidráulica nueva; precio variable según diámetros y accesorios"
+        },
+        {
+          "concepto": "Suministro depuradora y bomba recirculación",
+          "oficio": "fontaneria",
+          "motivo": "Equipamiento principal; precio depende de capacidad (m3/h) y marca"
+        },
+        {
+          "concepto": "Suministro cuadro eléctrico piscina y protecciones",
+          "oficio": "electricidad",
+          "motivo": "Cuadro específico para piscina; precio depende de potencia y componentes"
+        },
+        {
+          "concepto": "Suministro cableado y accesorios eléctricos",
+          "oficio": "electricidad",
+          "motivo": "Cableado de conexión; precio variable según sección y metraje"
+        },
+        {
+          "concepto": "Suministro material coronación y bordillo",
+          "oficio": "albanileria",
+          "motivo": "Material de acabado perimetral; precio depende de tipo elegido"
+        },
+        {
+          "concepto": "Ajuste químico inicial y tratamiento agua",
+          "oficio": "fontaneria",
+          "motivo": "Productos químicos para puesta en marcha; precio depende de volumen piscina"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "albanileria",
+          "motivo": "Materiales auxiliares; presupuesto estimado 300-800€"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_piscina_con_filtraciones",
+      "reforma_integral_cocina_completa",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda",
+      "construccion_de_piscina_de_obra",
+      "renovacion_de_instalacion_de_fontaneria_en_vivienda"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4411,
+      "tokens_out": 6595
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 23,
+    "n_catalogo": 13,
+    "n_sugeridas": 10,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

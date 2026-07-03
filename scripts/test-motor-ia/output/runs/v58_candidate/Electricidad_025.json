@@ -1,0 +1,156 @@
+{
+  "id": 25,
+  "oficio": "Electricidad",
+  "texto": "Poner 4 enchufes nuevos en el salón y uno en la cocina para microondas independiente",
+  "http_status": 200,
+  "latency_ms": 11160,
+  "raw_response": {
+    "transcript": "Poner 4 enchufes nuevos en el salón y uno en la cocina para microondas independiente",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner 4 enchufes nuevos en el salón y uno en la cocina para microondas independiente",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si la instalación requiere nuevos circuitos o ampliación de cuadro eléctrico",
+          "Confirmar potencia del microondas para dimensionar correctamente el circuito dedicado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación de enchufes nuevos y circuito dedicado para electrodoméstico"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Instalación de enchufes nuevos en salón",
+          "descripcion": "Apertura de rozas, tendido de cable, cajas de empotrar y colocación de 4 enchufes nuevos en salón con mecanismo y placa",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de enchufe dedicado para microondas en cocina",
+          "descripcion": "Apertura de roza, tendido de cable, caja de empotrar y colocación de enchufe independiente con circuito dedicado para microondas",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cajas de empotrar y mecanismos para enchufes",
+          "descripcion": "5 cajas de empotrar estándar, 5 mecanismos de enchufe y 5 placas de acabado",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales (cajas, mecanismos, placas) a definir por instalador según marca y calidad"
+        },
+        {
+          "concepto": "Cable eléctrico para tendido de enchufes",
+          "descripcion": "Cable de cobre 2.5mm² para enchufes salón y cocina, incluyendo conexiones en cuadro",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "metro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje exacto y sección de cable a confirmar según plano y distancia. Circuito dedicado microondas puede requerir 4mm²"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, tacos, pasta térmica, cinta aislante y otros accesorios menores",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado de pequeño material a definir"
+        }
+      ],
+      "calculos": {
+        "subtotal": 260,
+        "iva_porcentaje": 21,
+        "iva": 54.6,
+        "total": 314.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar si existe partida específica 'Instalación de circuito dedicado para electrodoméstico' en catálogo",
+        "Considerar si se requiere ampliación o modificación del cuadro eléctrico (no incluida en presupuesto actual)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cajas de empotrar y mecanismos para enchufes",
+          "oficio": "electricidad",
+          "motivo": "Material estándar, precio a definir por instalador"
+        },
+        {
+          "concepto": "Cable eléctrico para tendido de enchufes",
+          "oficio": "electricidad",
+          "motivo": "Metraje y sección variable según obra, requiere confirmación in situ"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "electricidad",
+          "motivo": "Lote de accesorios menores, importe estimado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "instalacion_electrica_local_hosteleria",
+      "instalacion_mampara_ducha",
+      "instalacion_vidrio_de_seguridad_templado",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3649,
+      "tokens_out": 1531
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

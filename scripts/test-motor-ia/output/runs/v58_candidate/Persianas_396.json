@@ -1,0 +1,186 @@
+{
+  "id": 396,
+  "oficio": "Persianas",
+  "texto": "Instalar marquesina plegable de PVC transparente para proteger entrada de portal de la lluvia",
+  "http_status": 200,
+  "latency_ms": 18211,
+  "raw_response": {
+    "transcript": "Instalar marquesina plegable de PVC transparente para proteger entrada de portal de la lluvia",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar marquesina plegable de PVC transparente para proteger entrada de portal de la lluvia",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Marquesina plegable: verificar anclaje estructural a fachada/portal",
+          "PVC transparente: confirmar espesor y resistencia a UV",
+          "Acceso a altura: puede requerir andamio o plataforma elevadora"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de estructura y mecanismo plegable de marquesina"
+        },
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Anclaje a fachada/portal, remates y sellados perimetrales"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Marquesina plegable PVC transparente",
+          "descripcion": "Suministro de marquesina plegable de PVC transparente con estructura metálica (aluminio o acero galvanizado), mecanismo de plegado manual o motorizado, dimensiones según acceso portal",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de dimensiones, mecanismo (manual/motorizado) y calidad PVC. Instalador debe confirmar medidas y especificaciones."
+        },
+        {
+          "concepto": "Instalación estructura marquesina plegable",
+          "descripcion": "Montaje de estructura metálica, ensamblaje de paneles PVC, instalación de mecanismo plegable (bisagras, guías, resortes), ajuste y prueba de funcionamiento",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Anclaje a fachada/portal",
+          "descripcion": "Fijación de soportes laterales y superiores a fachada o estructura portal mediante tacos químicos, tornillería inoxidable, refuerzo de puntos de carga. Incluye perforación, limpieza y sellado de agujeros",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado y remates perimetrales",
+          "descripcion": "Aplicación de silicona neutra o poliuretano en encuentros marquesina-fachada, juntas laterales y superiores. Canaletas de desagüe si aplica. Acabado limpio y estanco",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales auxiliares (tacos, tornillería, silicona, canaletas)",
+          "descripcion": "Tacos químicos M10-M12, tornillería inoxidable A4, silicona neutra, canaletas aluminio, pequeño material de fijación y acabado",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de cantidad de puntos de anclaje y longitud de canaletas. Instalador debe presupuestar según medidas reales."
+        },
+        {
+          "concepto": "Acceso a altura (andamio o plataforma elevadora)",
+          "descripcion": "Alquiler y montaje de andamio modular o plataforma elevadora para acceso seguro a zona de instalación. Incluye EPI (arnés, casco, cinturón seguridad) según altura",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste depende de altura de portal y disponibilidad de andamio. Si altura < 2,5m puede no ser necesario. Instalador debe confirmar."
+        }
+      ],
+      "calculos": {
+        "subtotal": 405,
+        "iva_porcentaje": 21,
+        "iva": 85.05,
+        "total": 490.05
+      },
+      "sugerencias_catalogo": [
+        "Buscar en catálogo: 'instalacion_marquesina_plegable' o 'marquesina_PVC_transparente'",
+        "Si existe partida de 'carpinteria_estructuras_metalicas' o 'fachadas_anclajes_fachada', usar como referencia",
+        "Considerar si mecanismo es motorizado: puede requerir partida adicional de electricidad para conexión"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Marquesina plegable PVC transparente",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "motivo": "Producto específico no encontrado en catálogo base. Requiere especificación de dimensiones y mecanismo."
+        },
+        {
+          "concepto": "Materiales auxiliares (tacos, tornillería, silicona, canaletas)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "motivo": "Pequeño material de fijación y acabado. Precio variable según cantidad de puntos de anclaje."
+        },
+        {
+          "concepto": "Acceso a altura (andamio o plataforma elevadora)",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio auxiliar. Necesidad depende de altura real del portal. Puede no ser necesario si altura < 2,5m."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_cubremuros_o_sombrerete_de_chimenea",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_energia_solar_para_caravana_o_autocaravana",
+      "instalacion_de_extintores_portatiles"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4073,
+      "tokens_out": 2392
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

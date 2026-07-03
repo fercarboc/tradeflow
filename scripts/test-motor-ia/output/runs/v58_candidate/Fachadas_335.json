@@ -1,0 +1,213 @@
+{
+  "id": 335,
+  "oficio": "Fachadas",
+  "texto": "Instalar marquesina de cristal y aluminio en entrada de edificio de oficinas, 3 metros de vuelo",
+  "http_status": 200,
+  "latency_ms": 22449,
+  "raw_response": {
+    "transcript": "Instalar marquesina de cristal y aluminio en entrada de edificio de oficinas, 3 metros de vuelo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar marquesina de cristal y aluminio en entrada de edificio de oficinas, 3 metros de vuelo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Marquesina de 3m de vuelo requiere cálculo estructural y permisos municipales",
+          "Presupuesto incluye suministro de estructura y vidrio con precio=0 (requiere revisión de instalador)",
+          "Obra en fachada de edificio: verificar acceso, andamios y seguridad en altura"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de marquesina en fachada de edificio, revestimiento exterior, anclaje estructural"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Suministro e instalación de vidrio templado de seguridad en marquesina"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de estructura de aluminio, herrajes y remates"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro estructura marquesina aluminio 3m vuelo",
+          "descripcion": "Estructura completa de aluminio anodizado para marquesina de 3 metros de vuelo, incluye perfiles principales, secundarios, cartelas de refuerzo y herrajes de anclaje a fachada",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de estructura aluminio personalizada según cálculo estructural y medidas exactas. Instalador debe cotizar según proveedor y especificaciones técnicas"
+        },
+        {
+          "concepto": "Suministro vidrio templado de seguridad marquesina",
+          "descripcion": "Vidrio templado de seguridad 10mm, templado en horno, marcado CE según EN 12150, dimensiones según estructura (aproximadamente 3m x 1,2m), incluye corte y biselado de bordes",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3.6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vidrio templado personalizado. Requiere medidas exactas y especificación de espesor. Plazo de fabricación 5-10 días"
+        },
+        {
+          "concepto": "Instalación estructura marquesina aluminio",
+          "descripcion": "Montaje de estructura de aluminio, anclaje a fachada con tacos químicos o mecánicos según tipo de muro, nivelación, aplomado y fijación de cartelas de refuerzo",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación vidrio templado en marquesina",
+          "descripcion": "Colocación de vidrio templado en estructura, sellado con silicona neutra de alta resistencia, instalación de juntas de neopreno, prueba de estanqueidad",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro silicona neutra y material sellado",
+          "descripcion": "Silicona neutra de alta resistencia (3 cartuchos), juntas de neopreno, cinta de espuma de cierre, pequeño material de fijación",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de consumibles y pequeño material. Instalador revisa según cantidad exacta de juntas y sellado"
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora para instalación",
+          "descripcion": "Alquiler y montaje de andamio modular o plataforma elevadora para acceso seguro a fachada durante instalación de marquesina (3 días estimados)",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de alquiler de andamio/plataforma según proveedor local y altura de fachada. Puede incluirse en presupuesto general de obra"
+        },
+        {
+          "concepto": "Cálculo estructural y permisos municipales",
+          "descripcion": "Proyecto técnico de cálculo estructural de marquesina (3m vuelo), tramitación de licencia municipal, inspección técnica si requerida",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de proyecto técnico y gestión de permisos. Varía según municipio y complejidad. Puede ser obligatorio para obra en fachada"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1260,
+        "iva_porcentaje": 21,
+        "iva": 264.6,
+        "total": 1524.6
+      },
+      "sugerencias_catalogo": [
+        "Buscar en catálogo: 'instalacion_marquesina_aluminio_cristal' o 'marquesina_entrada_edificio'",
+        "Considerar partida de 'instalacion_vidrio_de_seguridad_templado' como referencia para vidrio",
+        "Revisar partida 'instalacion_de_canaleta_o_canalon_de_fachada' para drenaje de agua en marquesina si aplica"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro estructura marquesina aluminio 3m vuelo",
+          "oficio": "carpinteria",
+          "motivo": "Estructura personalizada de aluminio para marquesina de gran vuelo no existe en catálogo estándar"
+        },
+        {
+          "concepto": "Suministro vidrio templado de seguridad marquesina",
+          "oficio": "cristaleria",
+          "motivo": "Vidrio templado personalizado para marquesina, requiere cálculo de medidas exactas"
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora para instalación",
+          "oficio": "fachadas",
+          "motivo": "Servicio auxiliar de acceso en altura, precio variable según proveedor"
+        },
+        {
+          "concepto": "Cálculo estructural y permisos municipales",
+          "oficio": "fachadas",
+          "motivo": "Servicio de ingeniería y gestión administrativa, obligatorio para obra en fachada de edificio"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_canaleta_o_canalon_de_fachada",
+      "instalacion_persiana_enrollable_aluminio_manual",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_ventana_madera_con_vidrio",
+      "instalacion_de_videoportero_o_intercomunicador"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3968,
+      "tokens_out": 2848
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

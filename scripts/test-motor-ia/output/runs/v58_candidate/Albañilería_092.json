@@ -1,0 +1,187 @@
+{
+  "id": 92,
+  "oficio": "Albañilería",
+  "texto": "Enfocar y enlucir paredes de piso antiguo, superficie total de 120 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 19940,
+  "raw_response": {
+    "transcript": "Enfocar y enlucir paredes de piso antiguo, superficie total de 120 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Enfocar y enlucir paredes de piso antiguo, superficie total de 120 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto basado en superficie declarada de 120 m². Verificar in situ estado real de paredes (grietas, humedad, desprendimientos) que pueden incrementar mano de obra.",
+          "Precio unitario de mano de obra estimado en rango medio (65€/m²). Ajustar según dificultad real (altura, accesibilidad, estado superficie)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Enfocar (guarnecido) y enlucir (acabado yeso) son trabajos de albañilería interior. Referencia: guarnecido_y_maestreado_yeso_paredes_y_techo y enlucido_de_yeso_paredes_interiores."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Yeso grueso de proyección para guarnecido",
+          "descripcion": "Aplicación de yeso grueso (enfoscado/guarnecido) en paredes interiores, espesor 10-15mm, incluye maestras y guías de yeso.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material yeso grueso: instalador debe confirmar cantidad exacta (rendimiento ~1.5-2 kg/m2 según espesor) y precio de mercado local."
+        },
+        {
+          "concepto": "Yeso fino para enlucido y acabado",
+          "descripcion": "Aplicación de yeso fino (enlucido) en paredes, espesor 3-5mm, para acabado liso y uniforme.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material yeso fino: instalador debe confirmar cantidad (rendimiento ~0.8-1.2 kg/m2) y precio local."
+        },
+        {
+          "concepto": "Mano de obra: Enfocar y enlucir paredes",
+          "descripcion": "Aplicación de guarnecido (yeso grueso) y enlucido (yeso fino) en 120 m² de paredes interiores de piso antiguo. Incluye preparación de maestras, aplicación de dos capas de yeso, alisado y acabado uniforme.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 65,
+          "total": 7800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y auxiliares",
+          "descripcion": "Maestras y guías de yeso, cinta de papel, angulares metálicos en esquinas, guardavivos, espátulas, llanas, reglas de aluminio, y otros pequeños materiales necesarios para la ejecución.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: instalador debe estimar cantidad de accesorios (angulares, guardavivos, cinta) según estado de esquinas y encuentros. Presupuestar ~3-8€/m2."
+        },
+        {
+          "concepto": "Imprimación fijadora (si aplica)",
+          "descripcion": "Imprimación fijadora en paredes muy porosas o con cambios de material, para mejorar adherencia del yeso. Aplicación opcional según estado real de la superficie.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Imprimación: evaluar in situ si paredes antiguas requieren fijadora. Si sí, presupuestar ~2-4€/m2 + mano de obra aplicación."
+        },
+        {
+          "concepto": "Andamio o plataforma (si altura > 3m)",
+          "descripcion": "Alquiler y montaje de andamio o plataforma de trabajo si la altura de paredes supera 3 metros. Evaluación in situ obligatoria.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Andamio: CONDICIONAL. Si altura paredes > 3m, presupuestar alquiler andamio (típicamente 150-400€/semana según tipo y altura). Confirmar altura real in situ."
+        }
+      ],
+      "calculos": {
+        "subtotal": 7800,
+        "iva_porcentaje": 21,
+        "iva": 1638,
+        "total": 9438
+      },
+      "sugerencias_catalogo": [
+        "Partida 'Yeso grueso de proyección' → buscar en catálogo 'yeso_grueso_de_proyeccion_o_manual' (albanileria, m2, 22-110€/m2 según calidad y espesor).",
+        "Partida 'Yeso fino para enlucido' → buscar 'yeso_fino_acabado' (albanileria, m2, incluido en rango 22-110€/m2).",
+        "Partida 'Pequeño material' → buscar 'maestras_guias', 'angulo_metalico_en_esquinas', 'guardavivos_metalico' (albanileria, unidad o m2).",
+        "Si se requiere imprimación → buscar 'imprimacion_fijadora' (pintura o albanileria, m2, ~2-4€/m2)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Yeso grueso de proyección para guarnecido",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de yeso grueso. Instalador debe confirmar marca, tipo (proyectable o manual) y precio local."
+        },
+        {
+          "concepto": "Yeso fino para enlucido y acabado",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de yeso fino. Instalador debe confirmar marca y precio local."
+        },
+        {
+          "concepto": "Pequeño material y auxiliares",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Agrupación de accesorios (angulares, guardavivos, cinta, espátulas). Instalador debe desglosar según necesidad real."
+        },
+        {
+          "concepto": "Imprimación fijadora (si aplica)",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida condicional. Evaluar in situ si paredes antiguas requieren fijadora antes de aplicar yeso."
+        },
+        {
+          "concepto": "Andamio o plataforma (si altura > 3m)",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida condicional. Confirmar altura real de paredes. Si > 3m, presupuestar alquiler andamio."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "guarnecido_y_maestreado_yeso_paredes_y_techo",
+      "pintura_plastica_paredes_interiores",
+      "limpieza_y_preparacion_superficie_antes_pintar",
+      "reforma_integral_vivienda_completa",
+      "enlucido_de_yeso_paredes_interiores"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3841,
+      "tokens_out": 2815
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

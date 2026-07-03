@@ -1,0 +1,382 @@
+{
+  "id": 380,
+  "oficio": "Reformas Integrales",
+  "texto": "Presupuesto para reforma de casita de campo abandonada, partida por partida con materiales incluidos",
+  "http_status": 200,
+  "latency_ms": 42779,
+  "raw_response": {
+    "transcript": "Presupuesto para reforma de casita de campo abandonada, partida por partida con materiales incluidos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Presupuesto para reforma de casita de campo abandonada, partida por partida con materiales incluidos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "DESCRIPCIÓN INSUFICIENTE: 'casita de campo abandonada' es demasiado genérica. Se requiere información detallada sobre: superficie total (m²), número de habitaciones/baños, estado estructural, instalaciones existentes (electricidad, fontanería, calefacción), tipo de cubierta, presencia de humedades, amianto u otros materiales peligrosos, acceso a servicios (agua, luz, alcantarillado), presupuesto aproximado del cliente, plazo deseado.",
+          "REFORMA INTEGRAL DETECTADA: Múltiples oficios simultáneos (estructura, fontanería, electricidad, acabados mínimo). Se requiere visita técnica previa con mediciones láser, fotografías y evaluación de estado.",
+          "MATERIALES SIN ESPECIFICAR: El cliente pide 'materiales incluidos' pero no especifica calidades, marcas, acabados. Todas las partidas de material tienen precio_unitario=0 y requieren revisión.",
+          "PRESUPUESTO ESTIMADO PENDIENTE: Sin datos de superficie y alcance, no es posible calcular importe total. Se proporciona estructura de partidas para que el instalador complete con mediciones reales."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma de vivienda completa abandonada implica ≥3 oficios simultáneos: estructura/albañilería, fontanería, electricidad, acabados. Requiere coordinación integral."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición selectiva, reparación estructura, revestimientos, alicatados."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Renovación completa instalación agua fría/caliente, desagües, saneamiento."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación eléctrica nueva o renovación completa, cuadro, circuitos, iluminación."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Puertas, ventanas, armarios, revestimientos interiores."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Preparación paredes, pintura interior y exterior."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado baños, cocina, pavimentos cerámicos/porcelánico."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Demolición genera escombros. Gestión, transporte y vertido obligatorio en reforma de vivienda abandonada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "VISITA TÉCNICA, MEDICIÓN Y EVALUACIÓN ESTADO GENERAL",
+          "descripcion": "Visita completa con medición láser, fotografías estado previo, evaluación estructura, instalaciones existentes, detección humedades, amianto, accesibilidad a servicios. Informe detallado con propuestas y desglose de partidas.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango estimado 600-1200€ según complejidad. Instalador debe fijar precio según superficie y accesibilidad. Puede ser gratuito si se adjudica obra."
+        },
+        {
+          "concepto": "DEMOLICIÓN SELECTIVA Y RETIRADA ESCOMBROS",
+          "descripcion": "Demolición de elementos no estructurales (tabiques, revestimientos, instalaciones obsoletas), segregación de residuos, carga y transporte a vertedero autorizado. Incluye gestión de residuos peligrosos si aplica (amianto, plomo).",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "m3",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen de escombros desconocido. Rango típico 50-200€/m³ según distancia vertedero y tipo residuo. Requiere medición en visita técnica."
+        },
+        {
+          "concepto": "REPARACIÓN ESTRUCTURA Y ALBAÑILERÍA GENERAL",
+          "descripcion": "Reparación grietas estructurales, consolidación muros, revestimiento interior con mortero de cal/cemento, enfoscado exterior, reparación cimientos si necesario. Incluye pequeño material (malla, mortero, aditivos).",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie y alcance desconocidos. Rango típico 40-80€/m² (mano de obra + materiales). Requiere evaluación estado en visita."
+        },
+        {
+          "concepto": "INSTALACIÓN FONTANERÍA COMPLETA",
+          "descripcion": "Red agua fría (tuberías PEX/multicapa), agua caliente (termo eléctrico o caldera), desagües (PVC/PP), saneamiento, grifería monomando, válvulas, accesorios. Incluye pruebas de estanqueidad.",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango estimado 3000-8000€ según número de puntos de agua, tipo caldera y materiales. Requiere medición de metros lineales de tubería en visita."
+        },
+        {
+          "concepto": "INSTALACIÓN ELÉCTRICA COMPLETA",
+          "descripcion": "Cuadro eléctrico nuevo con protecciones (ICP, magnetotérmicos, diferenciales), cableado (tubo corrugado, cable H07V-U), circuitos iluminación/enchufes/fuerza, interruptores, enchufes, luminarias LED básicas, toma tierra. Incluye pruebas de continuidad y aislamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango estimado 2500-6000€ según potencia contratada, número de circuitos y metros de cableado. Requiere proyecto eléctrico si obra significativa."
+        },
+        {
+          "concepto": "CARPINTERÍA: PUERTAS, VENTANAS Y REVESTIMIENTOS",
+          "descripcion": "Puertas interiores (madera/DM), puerta entrada (seguridad), ventanas (PVC/aluminio con doble acristalamiento), marcos, cercos, revestimiento interior con tablero/pladur si necesario. Incluye herrajes y accesorios.",
+          "oficio": "carpinteria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número y tipo de elementos desconocidos. Rango típico: puerta entrada 400-800€, ventana PVC 200-400€/ud, puerta interior 150-300€/ud. Requiere medición en visita."
+        },
+        {
+          "concepto": "ALICATADO BAÑOS Y COCINA",
+          "descripcion": "Alicatado paredes baño/cocina con baldosa cerámica o porcelánico, pavimento antideslizante baño, lechada, sellado juntas. Incluye preparación soporte, mortero cola y pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie desconocida. Rango típico 35-60€/m² (mano de obra + materiales básicos). Requiere medición en visita."
+        },
+        {
+          "concepto": "PAVIMENTOS: SUELOS INTERIORES",
+          "descripcion": "Pavimento interior (cerámica, porcelánico, laminado o vinílico según zonas), preparación solera, mortero de agarre, lechada, sellado. Incluye pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie y tipo material desconocidos. Rango típico 25-50€/m² (mano de obra + materiales básicos). Requiere medición en visita."
+        },
+        {
+          "concepto": "PINTURA INTERIOR Y EXTERIOR",
+          "descripcion": "Preparación paredes (limpieza, reparación grietas, masilla), imprimación, pintura plástica interior 2 manos, pintura exterior resistente intemperie. Incluye pequeño material (rodillos, brochas, cinta, plástico protección).",
+          "oficio": "pintura",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie desconocida. Rango típico 8-15€/m² (mano de obra + pintura básica). Requiere medición en visita."
+        },
+        {
+          "concepto": "CUBIERTA Y CANALONES",
+          "descripcion": "Reparación o sustitución tejas/pizarra, canalones, bajantes, cumbreras, limahoyas, remates zinc. Incluye pequeño material (tornillos, selladores, ganchos).",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie y estado desconocidos. Rango típico 50-100€/m² según material y complejidad. Requiere inspección en visita."
+        },
+        {
+          "concepto": "IMPERMEABILIZACIÓN: HUMEDADES Y FILTRACIONES",
+          "descripcion": "Tratamiento humedades en muros (inyección de resinas, barrera química), impermeabilización terrazas/sótano (lámina EPDM o pintura impermeabilizante), drenaje perimetral si necesario. Incluye pequeño material.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presencia y extensión de humedades desconocidas. Rango típico 30-80€/m² según solución. Requiere diagnóstico en visita."
+        },
+        {
+          "concepto": "IMPREVISTOS Y PEQUEÑO MATERIAL GENERAL",
+          "descripcion": "Partida de contingencia para imprevistos típicos en reforma de vivienda abandonada (sorpresas estructurales, materiales peligrosos, instalaciones ocultas). Pequeño material diverso (tornillos, tacos, adhesivos, selladores, etc.).",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 10-15% del subtotal de obra. Típicamente 1500-3000€ en reforma mediana. Requiere revisión tras presupuesto detallado."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "INFORMACIÓN CRÍTICA REQUERIDA ANTES DE PRESUPUESTAR: (1) Superficie total construida (m²), (2) Número de habitaciones/baños, (3) Fotografías estado actual (fachada, interior, cubierta, instalaciones), (4) Acceso a servicios (agua, luz, alcantarillado, gas), (5) Presencia de humedades/grietas/amianto, (6) Presupuesto aproximado del cliente, (7) Plazo deseado, (8) Nivel de acabado deseado (básico/medio/alto).",
+        "RECOMENDACIÓN: Realizar VISITA TÉCNICA COMPLETA con medición láser, fotografías y evaluación de estado antes de generar presupuesto detallado. Esta visita es fundamental para detectar sorpresas (amianto, estructuras dañadas, instalaciones ocultas) que pueden variar significativamente el coste.",
+        "NORMATIVA APLICABLE: CTE (Código Técnico de la Edificación), RD 1627/1997 (Seguridad y Salud en Obras), Ordenanzas municipales de la localidad. Puede requerir licencia de obra si reforma es significativa.",
+        "MATERIALES SUGERIDOS (a confirmar con cliente): Fontanería PEX/multicapa, electricidad tubo corrugado + cable H07V-U, pintura plástica interior/exterior, baldosa cerámica/porcelánico, puertas PVC/madera, ventanas PVC doble acristalamiento, cubierta tejas/pizarra según zona.",
+        "PLAZO ESTIMADO: Reforma integral casita campo 80-150 m² → 8-16 semanas según complejidad y disponibilidad de oficios.",
+        "PRESUPUESTO ORIENTATIVO (sin datos reales): Reforma básica 80 m² → 25000-40000€ | Reforma media 80 m² → 40000-65000€ | Reforma alta 80 m² → 65000-100000€. Estos rangos son ORIENTATIVOS y requieren presupuesto detallado tras visita."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "VISITA TÉCNICA, MEDICIÓN Y EVALUACIÓN ESTADO GENERAL",
+          "oficio": "reforma_integral",
+          "motivo": "Servicio de diagnóstico previo obligatorio en reforma integral de vivienda abandonada. No tiene precio unitario fijo en catálogo; rango 600-1200€."
+        },
+        {
+          "concepto": "DEMOLICIÓN SELECTIVA Y RETIRADA ESCOMBROS",
+          "oficio": "gestion_residuos",
+          "motivo": "Gestión de residuos de demolición. Precio variable según volumen (m³) y tipo residuo. Rango 50-200€/m³."
+        },
+        {
+          "concepto": "REPARACIÓN ESTRUCTURA Y ALBAÑILERÍA GENERAL",
+          "oficio": "albanileria",
+          "motivo": "Trabajo integral de albañilería en vivienda abandonada. Rango 40-80€/m² (mano de obra + materiales)."
+        },
+        {
+          "concepto": "INSTALACIÓN FONTANERÍA COMPLETA",
+          "oficio": "fontaneria",
+          "motivo": "Renovación completa de instalación de agua. Rango 3000-8000€ según número de puntos y tipo caldera."
+        },
+        {
+          "concepto": "INSTALACIÓN ELÉCTRICA COMPLETA",
+          "oficio": "electricidad",
+          "motivo": "Instalación eléctrica nueva o renovación completa. Rango 2500-6000€ según potencia y circuitos."
+        },
+        {
+          "concepto": "CARPINTERÍA: PUERTAS, VENTANAS Y REVESTIMIENTOS",
+          "oficio": "carpinteria",
+          "motivo": "Trabajo integral de carpintería. Precios unitarios: puerta entrada 400-800€, ventana PVC 200-400€/ud, puerta interior 150-300€/ud."
+        },
+        {
+          "concepto": "ALICATADO BAÑOS Y COCINA",
+          "oficio": "suelos_alicatados",
+          "motivo": "Alicatado especializado. Rango 35-60€/m² (mano de obra + materiales)."
+        },
+        {
+          "concepto": "PAVIMENTOS: SUELOS INTERIORES",
+          "oficio": "suelos_alicatados",
+          "motivo": "Pavimentos interiores diversos. Rango 25-50€/m² (mano de obra + materiales)."
+        },
+        {
+          "concepto": "PINTURA INTERIOR Y EXTERIOR",
+          "oficio": "pintura",
+          "motivo": "Pintura integral. Rango 8-15€/m² (mano de obra + pintura)."
+        },
+        {
+          "concepto": "CUBIERTA Y CANALONES",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Reparación/sustitución cubierta. Rango 50-100€/m² según material."
+        },
+        {
+          "concepto": "IMPERMEABILIZACIÓN: HUMEDADES Y FILTRACIONES",
+          "oficio": "impermeabilizacion",
+          "motivo": "Tratamiento humedades típico en viviendas abandonadas. Rango 30-80€/m²."
+        },
+        {
+          "concepto": "IMPREVISTOS Y PEQUEÑO MATERIAL GENERAL",
+          "oficio": "reforma_integral",
+          "motivo": "Partida de contingencia obligatoria (10-15% subtotal). Típicamente 1500-3000€."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "planificacion_y_presupuesto_reforma_integral",
+      "diagnostico_y_presupuesto_de_jardin",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "diagnostico_y_presupuesto_suelos_y_alicatados",
+      "diagnostico_y_presupuesto_cerrajeria"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3895,
+      "tokens_out": 6093
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 12,
+    "n_catalogo": 0,
+    "n_sugeridas": 12,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

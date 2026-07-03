@@ -1,0 +1,161 @@
+{
+  "id": 116,
+  "oficio": "Climatización",
+  "texto": "Legalización de instalación de gas natural en vivienda, revisión y emisión de certificado",
+  "http_status": 200,
+  "latency_ms": 18689,
+  "raw_response": {
+    "transcript": "Legalización de instalación de gas natural en vivienda, revisión y emisión de certificado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Legalización de instalación de gas natural en vivienda, revisión y emisión de certificado",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo especializado en gas natural: requiere profesional colegiado y autorizado por distribuidora",
+          "Certificado de instalación es obligatorio para legalización",
+          "Posibles mejoras/reparaciones detectadas durante revisión no incluidas en presupuesto base"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mecanica_especializada",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Instalaciones de gas natural requieren especialización técnica certificada. Incluye revisión de tuberías, reguladores, válvulas y emisión de certificado de conformidad."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión completa instalación gas natural",
+          "descripcion": "Inspección visual y funcional de toda la instalación de gas natural: tuberías, conexiones, reguladores de presión, válvulas de corte, tomas de gas, estanqueidad y seguridad. Verificación de cumplimiento normativa vigente (RD 919/2006, ITC-ICG 01-11).",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba de estanqueidad instalación gas",
+          "descripcion": "Realización de prueba de estanqueidad con manómetro diferencial en toda la red de tuberías de gas natural. Detección de fugas mediante detector electrónico y/o agua jabonosa. Documentación de resultados.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe técnico y certificado de conformidad",
+          "descripcion": "Elaboración de informe técnico detallado de la instalación, análisis de conformidad con normativa RD 919/2006 e ITC-ICG 01-11, emisión de certificado de conformidad de instalación de gas natural (documento obligatorio para legalización ante distribuidora).",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del certificado y trámites administrativos debe ser confirmado por profesional colegiado. Rango típico: 150-300€ según complejidad instalación."
+        },
+        {
+          "concepto": "Tramitación legalización ante distribuidora de gas",
+          "descripcion": "Gestión administrativa de legalización: presentación de documentación, certificado de conformidad, solicitud de inspección distribuidora si procede, coordinación con organismo competente. Incluye pequeño material administrativo.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Honorarios de tramitación administrativa. Rango típico: 100-250€ según distribuidora y complejidad. Algunos profesionales incluyen en certificado, otros cobran aparte."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Materiales auxiliares: cinta teflón, pasta selladora, etiquetas identificación, documentación, desplazamientos internos.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado: 30-50€. Incluye consumibles y desplazamientos."
+        }
+      ],
+      "calculos": {
+        "subtotal": 292.5,
+        "iva_porcentaje": 21,
+        "iva": 61.425,
+        "total": 353.925
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la distribuidora de gas local (Naturgy, Redexis, etc.) requiere inspección adicional o documentación específica",
+        "Confirmar si existen deficiencias que requieran reparación/mejora (cambio regulador, válvulas, tuberías) — estas serían partidas adicionales",
+        "Solicitar presupuesto desglosado para: certificado de conformidad + tramitación + pequeño material (varía según profesional)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Informe técnico y certificado de conformidad",
+          "oficio": "mecanica_especializada",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio especializado de legalización gas natural. Precio variable según profesional colegiado y distribuidora."
+        },
+        {
+          "concepto": "Tramitación legalización ante distribuidora de gas",
+          "oficio": "mecanica_especializada",
+          "origen": "sugerida_ia",
+          "motivo": "Gestión administrativa de legalización. Algunos profesionales lo incluyen en certificado, otros cobran aparte."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "mecanica_especializada",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales auxiliares y desplazamientos. Presupuesto estimado 30-50€."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_ventana_madera_con_vidrio",
+      "auditoria_energetica_instalacion_climatizacion",
+      "legalización_instalacion_electrica",
+      "revision_instalacion_electrica_local_comercial",
+      "instalacion_persiana_veneciana_de_madera_o_bambu"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3616,
+      "tokens_out": 1855
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "mecanica_especializada",
+    "coincide_oficio": "NO"
+  }
+}

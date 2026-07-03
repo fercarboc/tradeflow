@@ -1,0 +1,193 @@
+{
+  "id": 266,
+  "oficio": "Cristalería",
+  "texto": "Instalación de cerramiento de terraza con cristal deslizante, 4 hojas de aluminio y vidrio de 6mm",
+  "http_status": 200,
+  "latency_ms": 19459,
+  "raw_response": {
+    "transcript": "Instalación de cerramiento de terraza con cristal deslizante, 4 hojas de aluminio y vidrio de 6mm",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de cerramiento de terraza con cristal deslizante, 4 hojas de aluminio y vidrio de 6mm",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Vidrio de 6mm: verificar espesor según altura del panel y zona de viento (CTE DB SUA)",
+          "Sistema deslizante de 4 hojas: requiere guías de calidad y herrajes reforzados",
+          "Recomendación: solicitar plano de medidas exactas para cálculo de m² y carga estructural"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de cerramiento de terraza con sistema deslizante (cortinas de cristal). Oficio especializado en cerramientos y sistemas móviles de terraza."
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Suministro e instalación de vidrio templado 6mm. Trabajos de cristalería especializada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio templado 6mm para cerramiento deslizante",
+          "descripcion": "Suministro de vidrio templado de 6mm de espesor para 4 hojas de cerramiento deslizante. Incluye corte a medida, biselado de cantos y certificación de templado.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vidrio templado 6mm pendiente de cotización. Depende de m² exactos (medidas de terraza). Rango orientativo: 80-150€/m2 según proveedor."
+        },
+        {
+          "concepto": "Perfilería de aluminio superior e inferior",
+          "descripcion": "Suministro de perfiles de aluminio anodizado para guías superior e inferior del sistema deslizante de 4 hojas. Incluye perfiles de cierre lateral y central.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml depende de medidas exactas de terraza. Precio orientativo: 25-50€/ml según sistema y calidad."
+        },
+        {
+          "concepto": "Guías de deslizamiento para 4 hojas",
+          "descripcion": "Suministro e instalación de guías de rodadura de aluminio o acero inoxidable para sistema deslizante de 4 hojas. Incluye rodillos, topes y cierres.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sistema completo de guías para 4 hojas. Precio orientativo: 300-600€ según calidad y marca."
+        },
+        {
+          "concepto": "Herrajes de acero inoxidable",
+          "descripcion": "Suministro de herrajes, manillas, cierres y topes en acero inoxidable AISI 304 para sistema deslizante de 4 hojas.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Juego completo de herrajes para 4 hojas. Precio orientativo: 150-300€."
+        },
+        {
+          "concepto": "Fijación a forjado o estructura",
+          "descripcion": "Anclajes, tacos químicos y fijaciones calculadas para anclar el sistema deslizante a la estructura de hormigón o acero de la terraza. Incluye pequeño material.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Fijaciones y anclajes. Precio orientativo: 80-150€ según tipo de estructura."
+        },
+        {
+          "concepto": "Instalación de cerramiento deslizante de 4 hojas",
+          "descripcion": "Mano de obra de instalación: montaje de perfilería, colocación de guías, instalación de vidrio templado, ajuste de herrajes, pruebas de funcionamiento y sellado perimetral.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de instalación dependen de m² exactos y complejidad de acceso. Estimación: 16-24 horas para terraza estándar (20-30 m²). Instalador debe confirmar."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_cerramiento_de_terraza_con_cortinas_de_cristal' (oficio=persianas, rango 60-210€/m2 precio alzado)",
+        "Considerar si el presupuesto debe ser por m² (precio alzado) o por partidas individuales. Sistema deslizante de 4 hojas típicamente: 120-180€/m2 instalado.",
+        "Solicitar medidas exactas de terraza (ancho × fondo) para calcular m² totales y horas de instalación."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio templado 6mm para cerramiento deslizante",
+          "oficio": "cristaleria",
+          "motivo": "Material específico de vidrio templado 6mm. Precio pendiente de cotización según m² exactos."
+        },
+        {
+          "concepto": "Perfilería de aluminio superior e inferior",
+          "oficio": "persianas",
+          "motivo": "Perfiles de aluminio para guías deslizantes. Cantidad en ml depende de medidas de terraza."
+        },
+        {
+          "concepto": "Guías de deslizamiento para 4 hojas",
+          "oficio": "persianas",
+          "motivo": "Sistema de rodadura especializado para 4 hojas. Precio unitario pendiente."
+        },
+        {
+          "concepto": "Herrajes de acero inoxidable",
+          "oficio": "persianas",
+          "motivo": "Herrajes, manillas y cierres. Precio unitario pendiente."
+        },
+        {
+          "concepto": "Fijación a forjado o estructura",
+          "oficio": "persianas",
+          "motivo": "Anclajes y tacos. Precio unitario pendiente."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cerramiento_de_terraza_con_cortinas_de_cristal",
+      "instalacion_barandilla_de_vidrio_templado_o_laminado",
+      "instalacion_fachada_de_vidrio_o_muro_cortina",
+      "instalacion_cerramiento_de_terraza_con_sistema_plegable",
+      "aplicacion_de_vinilo_o_pelicula_en_vidrio"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3961,
+      "tokens_out": 2724
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "NO"
+  }
+}

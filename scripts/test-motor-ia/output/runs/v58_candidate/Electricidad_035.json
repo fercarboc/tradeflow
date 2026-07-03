@@ -1,0 +1,223 @@
+{
+  "id": 35,
+  "oficio": "Electricidad",
+  "texto": "Cambio de caja general de protección y contador, coordinación con la compañía eléctrica",
+  "http_status": 200,
+  "latency_ms": 19089,
+  "raw_response": {
+    "transcript": "Cambio de caja general de protección y contador, coordinación con la compañía eléctrica",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de caja general de protección y contador, coordinación con la compañía eléctrica",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo regulado por normativa eléctrica (REBT). Requiere electricista autorizado y coordinación con distribuidora.",
+          "Cambio de contador implica corte de suministro y gestiones administrativas con la compañía eléctrica.",
+          "Precio de materiales (CGP, contador, cableado) pendiente de revisión según modelo y especificaciones técnicas.",
+          "Gestión de trámites con compañía eléctrica puede requerir gestoría especializada."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de caja general de protección y contador. Trabajo de alta tensión/baja tensión regulado por REBT."
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 50,
+            "max": 70
+          },
+          "motivo": "Coordinación y gestión administrativa con compañía eléctrica distribuidora para cambio de contador."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de caja general de protección antigua",
+          "descripcion": "Desmontaje y retirada de CGP existente, desconexión segura de línea de acometida, pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro caja general de protección (CGP) nueva",
+          "descripcion": "Caja general de protección nueva según especificaciones técnicas (modelo, intensidad, tipo de acometida). Incluye interruptor general automático y fusibles/magnetotérmicos.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del modelo, intensidad (40A, 63A, 100A) y tipo de acometida. Revisar especificaciones técnicas con cliente."
+        },
+        {
+          "concepto": "Suministro contador eléctrico nuevo",
+          "descripcion": "Contador eléctrico nuevo (monofásico o trifásico según instalación existente). Incluye accesorios de conexión y precinto.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del tipo (monofásico/trifásico) y modelo. Algunos contadores son suministrados por la distribuidora. Verificar con compañía eléctrica."
+        },
+        {
+          "concepto": "Instalación de caja general de protección y contador",
+          "descripcion": "Montaje de CGP nueva en su ubicación, conexión de línea de acometida, instalación de contador, conexión de derivaciones, pruebas de continuidad y funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y accesorios de conexión (acometida y derivaciones)",
+          "descripcion": "Cable de acometida (si es necesario sustituir), latiguillos de conexión, bornes, terminales, cinta aislante, pequeño material de fijación.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de longitud de acometida, sección de cable y accesorios necesarios. Revisar plano de instalación."
+        },
+        {
+          "concepto": "Coordinación y gestión con compañía eléctrica distribuidora",
+          "descripcion": "Solicitud de corte de suministro, coordinación de fecha y hora de intervención, tramitación de cambio de contador, verificación de precinto, coordinación de puesta en servicio.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de complejidad de gestión y si requiere gestoría especializada. Algunas distribuidoras realizan parte de la gestión sin coste adicional."
+        },
+        {
+          "concepto": "Pruebas, verificación y puesta en servicio",
+          "descripcion": "Pruebas de continuidad de línea, verificación de conexiones, comprobación de funcionamiento de protecciones, medición de aislamiento, informe técnico.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión de residuos y retirada de material antiguo",
+          "descripcion": "Retirada de CGP antigua y contador antiguo, transporte a punto de recogida autorizado, gestión de residuos eléctricos.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de volumen y distancia a punto de recogida. Algunos instaladores incluyen este servicio en mano de obra."
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Verificar si existe partida específica en catálogo para 'Cambio de CGP y contador' como servicio integral.",
+        "Consultar con distribuidora eléctrica si suministra el contador o si debe adquirirse por el cliente.",
+        "Considerar si la coordinación con compañía eléctrica debe facturarse como servicio adicional o incluirse en mano de obra de electricidad.",
+        "Solicitar especificaciones técnicas: intensidad de CGP, tipo de acometida (aérea/subterránea), monofásico/trifásico."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro caja general de protección (CGP) nueva",
+          "oficio": "electricidad",
+          "motivo": "Material específico cuyo precio depende de modelo e intensidad. Requiere revisión de especificaciones técnicas."
+        },
+        {
+          "concepto": "Suministro contador eléctrico nuevo",
+          "oficio": "electricidad",
+          "motivo": "Material específico. Verificar si es suministrado por distribuidora o debe adquirirse. Precio variable según tipo."
+        },
+        {
+          "concepto": "Cableado y accesorios de conexión (acometida y derivaciones)",
+          "oficio": "electricidad",
+          "motivo": "Material variable según longitud de acometida y sección de cable necesaria."
+        },
+        {
+          "concepto": "Coordinación y gestión con compañía eléctrica distribuidora",
+          "oficio": "gestoria_tramites",
+          "motivo": "Servicio administrativo que puede requerir gestoría especializada o incluirse en coordinación del electricista."
+        },
+        {
+          "concepto": "Gestión de residuos y retirada de material antiguo",
+          "oficio": "gestion_residuos",
+          "motivo": "Servicio de gestión de residuos eléctricos. Precio variable según volumen y distancia."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_armario_empotrado_nuevo",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada",
+      "sustitucion_termo_electrico",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "cambio_inodoro"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3780,
+      "tokens_out": 2675
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

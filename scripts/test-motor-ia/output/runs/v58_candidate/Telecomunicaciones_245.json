@@ -1,0 +1,201 @@
+{
+  "id": 245,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar sistema de videovigilancia con 4 cámaras IP exterior e interior, grabación en NVR",
+  "http_status": 200,
+  "latency_ms": 15223,
+  "raw_response": {
+    "transcript": "Instalar sistema de videovigilancia con 4 cámaras IP exterior e interior, grabación en NVR",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de videovigilancia con 4 cámaras IP exterior e interior, grabación en NVR",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Cartel informativo RGPD obligatorio en zona exterior vigilada",
+          "Verificar cumplimiento normativa AEPD si uso profesional/comercial"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación sistema CCTV/videovigilancia con cámaras IP, NVR y cableado estructurado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cámaras IP exterior e interior",
+          "descripcion": "Suministro e instalación de 4 cámaras IP (2 exterior + 2 interior) con resolución mínima 2MP, óptica varifocal, PoE",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cámaras IP según modelo y especificaciones (rango típico 150-400€/ud)"
+        },
+        {
+          "concepto": "Grabador NVR",
+          "descripcion": "Suministro e instalación de grabador NVR 4 canales PoE, almacenamiento mínimo 1TB, acceso remoto",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio NVR según capacidad y funcionalidades (rango típico 300-800€)"
+        },
+        {
+          "concepto": "Cableado Cat6 y pequeño material",
+          "descripcion": "Suministro de cable UTP Cat6 para conexión cámaras-NVR, conectores RJ45, canaletas, bridas, pasta térmica",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación 100ml cableado + accesorios (revisar según layout real)"
+        },
+        {
+          "concepto": "Fuente de alimentación PoE",
+          "descripcion": "Suministro e instalación de inyector PoE o switch PoE gestionado para alimentación cámaras",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según tipo inyector/switch (rango típico 80-300€)"
+        },
+        {
+          "concepto": "Disco duro almacenamiento NVR",
+          "descripcion": "Suministro disco duro 2TB-4TB específico para vigilancia (SATA, 24/7), instalación en NVR",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio disco duro vigilancia (rango típico 80-200€)"
+        },
+        {
+          "concepto": "Montaje, orientación y configuración sistema",
+          "descripcion": "Mano de obra: instalación física cámaras en soportes, orientación, cableado, conexión NVR, configuración IP, pruebas funcionamiento, acceso remoto",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cartel informativo RGPD",
+          "descripcion": "Suministro e instalación cartel aviso videovigilancia RGPD obligatorio en zona exterior",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio cartel RGPD (rango típico 15-40€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: modelos específicos de cámaras IP 2MP+ con PoE (exterior/interior)",
+        "Verificar en catálogo: NVR 4 canales con almacenamiento integrado",
+        "Verificar en catálogo: inyectores PoE o switches PoE gestionados",
+        "Verificar en catálogo: discos duros específicos para vigilancia 24/7"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cámaras IP exterior e interior",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico según modelo y especificaciones técnicas"
+        },
+        {
+          "concepto": "Grabador NVR",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico según capacidad y funcionalidades"
+        },
+        {
+          "concepto": "Cableado Cat6 y pequeño material",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material de instalación según layout real"
+        },
+        {
+          "concepto": "Fuente de alimentación PoE",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico según tipo sistema"
+        },
+        {
+          "concepto": "Disco duro almacenamiento NVR",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico para vigilancia 24/7"
+        },
+        {
+          "concepto": "Cartel informativo RGPD",
+          "oficio": "telecomunicaciones",
+          "motivo": "Obligatorio por normativa RGPD en zona vigilada"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_sistema_cctv_videovigilancia",
+      "instalacion_sistema_free_cooling",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "forrado_exterior_fachada_ventilada"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4012,
+      "tokens_out": 2111
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

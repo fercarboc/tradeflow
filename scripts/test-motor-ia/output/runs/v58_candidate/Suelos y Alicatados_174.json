@@ -1,0 +1,199 @@
+{
+  "id": 174,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Poner suelo antideslizante en escalera exterior de 12 peldaños de piedra desgastada",
+  "http_status": 200,
+  "latency_ms": 18175,
+  "raw_response": {
+    "transcript": "Poner suelo antideslizante en escalera exterior de 12 peldaños de piedra desgastada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner suelo antideslizante en escalera exterior de 12 peldaños de piedra desgastada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Escalera exterior con piedra desgastada: se recomienda evaluación previa del estado estructural",
+          "Antideslizante en escalera: verificar compatibilidad con pendiente y tráfico esperado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Instalación de revestimiento antideslizante en escalera exterior (suelos_alicatados cubre pavimentos y revestimientos de suelo)"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Preparación y sellado de piedra desgastada antes de aplicar antideslizante (impermeabilización y protección de superficie)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de escalera de piedra desgastada",
+          "descripcion": "Limpieza mecánica con cepillo de acero y agua a presión de los 12 peldaños. Eliminación de musgo, suciedad y material suelto. Secado completo.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 360,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellador/imprimación en piedra natural desgastada",
+          "descripcion": "Aplicación de imprimación adherente y sellador en piedra natural para mejorar agarre del antideslizante. Cobertura 12 peldaños (aproximadamente 8-10 m²).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 9,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico: sellador/imprimación para piedra natural. Instalador debe indicar producto y precio (aprox. 8-15€/m²)"
+        },
+        {
+          "concepto": "Aplicación de imprimación en escalera",
+          "descripcion": "Mano de obra para aplicación de imprimación/sellador en 12 peldaños (9 m² aproximados) con brocha o rodillo.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 9,
+          "precio_unitario": 8,
+          "total": 72,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Banda o pintura antideslizante para escalera exterior",
+          "descripcion": "Suministro de banda antideslizante adhesiva o pintura antideslizante con árido (cuarzo) para 12 peldaños. Mínimo R11 según CTE DB-SUA. Incluye pequeño material (adhesivos, disolventes).",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 9,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material antideslizante: banda adhesiva (15-25€/m) o pintura antideslizante (12-20€/m²). Instalador debe especificar tipo y precio."
+        },
+        {
+          "concepto": "Instalación de antideslizante en escalera (12 peldaños)",
+          "descripcion": "Mano de obra para aplicación de banda antideslizante adhesiva o pintura antideslizante con árido en 12 peldaños. Incluye corte, alineación y presionado/curado.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 9,
+          "precio_unitario": 32,
+          "total": 288,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado de juntas y remates en escalera",
+          "descripcion": "Sellado de juntas entre peldaños y remates laterales con silicona o poliuretano flexible para evitar infiltraciones. Pequeño material.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sellante flexible: silicona o poliuretano. Instalador debe indicar producto y precio (aprox. 2-4€/ml)."
+        },
+        {
+          "concepto": "Aplicación de sellante en juntas y remates",
+          "descripcion": "Mano de obra para aplicación de sellante flexible en juntas entre peldaños y remates laterales (aproximadamente 15 ml).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 3,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 765,
+        "iva_porcentaje": 21,
+        "iva": 160.65,
+        "total": 925.65
+      },
+      "sugerencias_catalogo": [
+        "Considerar banda antideslizante adhesiva de alta resistencia (tipo 3M Safety-Walk o equivalente) para escaleras exteriores con tráfico moderado-alto",
+        "Alternativa: pintura antideslizante con árido de cuarzo (mayor durabilidad en exteriores, mejor para piedra desgastada)",
+        "Verificar estado de la piedra: si hay grietas o desprendimientos, puede ser necesaria reparación previa (albanilería)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sellador/imprimación en piedra natural desgastada",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material específico para preparación de piedra natural antes de antideslizante"
+        },
+        {
+          "concepto": "Banda o pintura antideslizante para escalera exterior",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Suministro de antideslizante (banda adhesiva o pintura con árido) para escalera exterior"
+        },
+        {
+          "concepto": "Sellado de juntas y remates en escalera",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Sellante flexible para juntas y remates en escalera exterior"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "solado_exterior_terraza_o_patio",
+      "solado_de_marmol_o_piedra_natural",
+      "solado_ceramico_exterior_terraza",
+      "pintado_de_canchas_de_padel_interior",
+      "instalacion_suelo_de_marmol_o_piedra_natural_interior"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3962,
+      "tokens_out": 2566
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,336 @@
+{
+  "id": 378,
+  "oficio": "Reformas Integrales",
+  "texto": "Construir ático nuevo en solar con cubierta inclinada y terraza de 30 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 32568,
+  "raw_response": {
+    "transcript": "Construir ático nuevo en solar con cubierta inclinada y terraza de 30 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir ático nuevo en solar con cubierta inclinada y terraza de 30 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "OBRA NUEVA COMPLEJA: Requiere proyecto técnico obligatorio (CTE DB-HE, DB-SI, DB-SUA, DB-HR)",
+          "CUBIERTA INCLINADA: Incluye estructura, impermeabilización, tejas/placas, canalones",
+          "TERRAZA 30m²: Incluye pavimento, impermeabilización, drenaje, barandilla de seguridad",
+          "MÚLTIPLES OFICIOS: Obra civil, carpintería, fontanería, electricidad, acabados",
+          "PRESUPUESTO ESTIMADO: Requiere revisión de proyecto y mediciones en obra"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Obra nueva con múltiples oficios simultáneos: estructura, cubierta, terraza, instalaciones"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Estructura muros, forjados, cimentación ático"
+        },
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cubierta inclinada con tejas/placas, canalones, cumbreras"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización terraza 30m², drenaje, encuentros"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pavimento terraza exterior"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica ático completo"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación fontanería ático"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico y dirección de obra",
+          "descripcion": "Proyecto técnico completo (CTE DB-HE, DB-SI, DB-SUA, DB-HR), cálculos estructurales, dirección de obra y coordinación de seguridad",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de proyecto técnico y dirección de obra a definir según complejidad y superficie"
+        },
+        {
+          "concepto": "Estructura ático: muros, forjados y cimentación",
+          "descripcion": "Ejecución de estructura portante del ático: cimentación, muros de carga, forjado de cubierta, arriostramientos. Incluye encofrado, hormigonado, desencofrado y pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipología estructural (hormigón, acero), altura, complejidad. Requiere proyecto"
+        },
+        {
+          "concepto": "Cubierta inclinada: estructura, tejas y canalones",
+          "descripcion": "Estructura de cubierta inclinada (cerchas/vigas), lámina impermeabilizante, tejas cerámicas o de hormigón, mortero de asiento, cumbreras, limahoyas, canalones de aluminio, bajantes. Incluye EPI, andamio perimetral y pequeño material",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 35,
+          "precio_unitario": 50,
+          "total": 1750,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mano de obra según tarifa. Materiales (tejas, canalones, estructura) requieren presupuesto específico"
+        },
+        {
+          "concepto": "Terraza: impermeabilización y drenaje",
+          "descripcion": "Preparación de solera, barrera de vapor, aislante térmico CTE, membrana impermeabilizante (EPDM/TPO), sistema de drenaje con sumideros, sellado de encuentros con muros y barandilla. Incluye EPI y pequeño material",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 45,
+          "total": 1350,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra según tarifa. Materiales impermeabilizantes requieren especificación y presupuesto"
+        },
+        {
+          "concepto": "Pavimento terraza: baldosas o porcelánico",
+          "descripcion": "Colocación de baldosas o porcelánico en terraza 30m². Incluye mortero de agarre, lechada, juntas de dilatación, pequeño material y EPI",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 32,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra según tarifa. Baldosas/porcelánico requieren presupuesto de materiales"
+        },
+        {
+          "concepto": "Barandilla de seguridad terraza",
+          "descripcion": "Barandilla de aluminio o acero inoxidable en perímetro de terraza (altura mínima 1,10m según CTE DB-SUA). Incluye anclajes, tornillería y pequeño material",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perímetro de terraza no especificado. Requiere medición. Precio de barandilla y mano de obra a definir"
+        },
+        {
+          "concepto": "Instalación eléctrica ático",
+          "descripcion": "Cableado, cuadro de distribución, enchufes, interruptores, iluminación interior y exterior, toma de tierra, protecciones diferenciales. Incluye pequeño material y pruebas de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de trabajo a estimar según superficie y complejidad. Materiales eléctricos requieren presupuesto específico"
+        },
+        {
+          "concepto": "Instalación fontanería ático",
+          "descripcion": "Red de agua fría y caliente (tuberías multicapa/PEX), desagües, sifones, válvulas de corte, pruebas de estanqueidad. Incluye pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de trabajo a estimar según número de puntos de agua. Tuberías y accesorios requieren presupuesto"
+        },
+        {
+          "concepto": "Acabados interiores: pladur, pintura y carpintería",
+          "descripcion": "Tabiquería de pladur, aislamiento acústico, pintura interior, puertas interiores, marcos. Incluye pequeño material y EPI",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie de pladur a estimar según distribución interior. Requiere plano de proyecto"
+        },
+        {
+          "concepto": "Gestión de residuos y escombros",
+          "descripcion": "Retirada, transporte y gestión de residuos de construcción (escombros, embalajes, restos de materiales). Incluye contenedor y tasas de vertedero",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen de residuos a estimar. Presupuesto según m³ de escombros y tasas locales"
+        },
+        {
+          "concepto": "Medidas de seguridad y protección en obra",
+          "descripcion": "Vallado perimetral, señalización, EPI obligatorios (cascos, arneses, líneas de vida para trabajos en altura), botiquín, extintores. Incluye coordinación de seguridad",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de seguridad según duración de obra y riesgos específicos"
+        },
+        {
+          "concepto": "Licencias, permisos y trámites administrativos",
+          "descripcion": "Licencia de obra, cédula de habitabilidad, inspección técnica de edificios (ITE) si aplica, gestión de permisos municipales",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto según municipio y complejidad administrativa"
+        }
+      ],
+      "calculos": {
+        "subtotal": 4060,
+        "iva_porcentaje": 21,
+        "iva": 852.6,
+        "total": 4912.6
+      },
+      "sugerencias_catalogo": [
+        "Solicitar presupuesto de materiales de construcción: hormigón, acero, tejas, canalones, baldosas, tuberías, cableado eléctrico",
+        "Incluir presupuesto de proyecto técnico (arquitecto/ingeniero): estimado 2.000-5.000€ según complejidad",
+        "Presupuesto de andamio perimetral: estimado 1.500-3.000€ según altura y duración",
+        "Presupuesto de licencia de obra y gestión administrativa: estimado 500-1.500€ según municipio",
+        "Presupuesto de seguridad en obra: estimado 2.000-5.000€ según duración (3-6 meses estimado)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico y dirección de obra",
+          "oficio": "reforma_integral",
+          "motivo": "Obra nueva requiere proyecto técnico obligatorio"
+        },
+        {
+          "concepto": "Estructura ático: muros, forjados y cimentación",
+          "oficio": "albanileria",
+          "motivo": "Construcción de estructura portante no especificada en catálogo base"
+        },
+        {
+          "concepto": "Barandilla de seguridad terraza",
+          "oficio": "cerrajeria",
+          "motivo": "Elemento de seguridad obligatorio CTE DB-SUA"
+        },
+        {
+          "concepto": "Medidas de seguridad y protección en obra",
+          "oficio": "reforma_integral",
+          "motivo": "Obra nueva en altura requiere medidas específicas de seguridad"
+        },
+        {
+          "concepto": "Licencias, permisos y trámites administrativos",
+          "oficio": "gestoria_tramites",
+          "motivo": "Obra nueva requiere licencia municipal y gestión de permisos"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "construccion_de_cubierta_plana_nueva_desde_cero",
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "instalacion_lucernario_apertura_tipo_velux_o_similar",
+      "renovacion_tejado_de_teja_ceramica_o_de_hormigon",
+      "impermeabilizacion_peto_o_murete_de_cubierta"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4074,
+      "tokens_out": 4986
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 6,
+    "n_sugeridas": 6,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

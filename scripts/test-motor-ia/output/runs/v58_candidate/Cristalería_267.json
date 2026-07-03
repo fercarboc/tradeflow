@@ -1,0 +1,197 @@
+{
+  "id": 267,
+  "oficio": "Cristalería",
+  "texto": "Poner cristal de doble acristalamiento en ventanas de madera antigua, cambio de vidrio simple por DVH",
+  "http_status": 200,
+  "latency_ms": 19265,
+  "raw_response": {
+    "transcript": "Poner cristal de doble acristalamiento en ventanas de madera antigua, cambio de vidrio simple por DVH",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner cristal de doble acristalamiento en ventanas de madera antigua, cambio de vidrio simple por DVH",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar que los marcos de madera antigua tienen rebaje suficiente (mínimo 24-28mm) para alojar el DVH. Si no, puede requerir ampliación de rebaje o premarco.",
+          "Confirmar medidas exactas de cada ventana antes de encargar el DVH (no se puede cortar en obra).",
+          "Evaluar estado de la madera: si hay pudrición o daño, puede requerir reparación previa de carpintería."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de vidrio doble aislante (DVH) en ventanas existentes. Trabajo de cristalería especializada."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Posible ajuste de rebaje en marco de madera antigua si es necesario para alojar el DVH de mayor espesor."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de vidrio simple existente",
+          "descripcion": "Desmontaje cuidadoso de vidrio simple de ventanas de madera antigua, extracción de junquillo y masilla antigua.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Vidrio doble aislante (DVH) bajo emisivo con argón",
+          "descripcion": "Suministro de vidrio doble aislante 4-16Ar-4 (composición estándar con cámara de argón de 16mm) según medidas de ventanas. Bajo emisivo para mejor aislamiento térmico. Cantidad estimada: 4 unidades (ajustar según número real de ventanas).",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del DVH depende de medidas exactas de cada ventana. El instalador debe medir y cotizar con proveedor de vidrio."
+        },
+        {
+          "concepto": "Instalación de vidrio doble aislante en marcos de madera",
+          "descripcion": "Colocación de DVH en rebaje de marco, fijación con junquillo nuevo, sellado perimetral con silicona neutra de alta calidad, asiento correcto y estanqueidad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Junquillo de madera nuevo para fijación DVH",
+          "descripcion": "Suministro e instalación de junquillo de madera (moldura de fijación) para asegurar el DVH en el marco. Cantidad: 4 unidades (una por ventana).",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del junquillo depende de medidas y tipo de madera. Confirmar con proveedor."
+        },
+        {
+          "concepto": "Silicona neutra de sellado perimetral",
+          "descripcion": "Suministro e instalación de silicona neutra de alta calidad para sellado perimetral entre DVH y marco de madera. Garantiza estanqueidad y evita infiltraciones.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de silicona y aplicación. Estimar según cantidad de metros lineales de perímetro."
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Cuñas de fijación, tacos, tornillos, masilla de ajuste, trapos, disolvente y otros consumibles necesarios para la instalación.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimar en función del número de ventanas y complejidad."
+        },
+        {
+          "concepto": "Verificación y ajuste de rebaje en marco (si es necesario)",
+          "descripcion": "Inspección previa del rebaje del marco de madera antigua. Si el espesor es insuficiente para el DVH (mínimo 24-28mm), ampliación controlada del rebaje. Trabajo condicional.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Partida condicional: solo se ejecuta si el rebaje existente es insuficiente. Confirmar en inspección previa."
+        }
+      ],
+      "calculos": {
+        "subtotal": 270,
+        "iva_porcentaje": 21,
+        "iva": 56.7,
+        "total": 326.7
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de cristalería para composiciones de DVH estándar (4-16Ar-4, 4-20Ar-4) y precios según medidas.",
+        "Verificar disponibilidad de junquillo de madera compatible con marcos antiguos.",
+        "Considerar silicona neutra de marca reconocida (Dow Corning, Sika, etc.) para garantía de durabilidad."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio doble aislante (DVH) bajo emisivo con argón",
+          "oficio": "cristaleria",
+          "motivo": "Material específico cuyo precio depende de medidas exactas. Requiere cotización con proveedor de vidrio."
+        },
+        {
+          "concepto": "Junquillo de madera nuevo para fijación DVH",
+          "oficio": "carpinteria",
+          "motivo": "Accesorio de fijación cuyo precio varía según medidas y tipo de madera."
+        },
+        {
+          "concepto": "Silicona neutra de sellado perimetral",
+          "oficio": "cristaleria",
+          "motivo": "Material de sellado cuyo precio depende de cantidad de metros lineales."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_vidrio_en_puerta_interior",
+      "instalacion_doble_acristalamiento_con_gas_argon",
+      "instalacion_vidrio_doble_o_triple_aislante_en_ventana_existente",
+      "fabricacion_e_instalacion_de_ventana_de_madera",
+      "instalacion_vidrio_de_seguridad_templado"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3883,
+      "tokens_out": 2632
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

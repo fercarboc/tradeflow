@@ -1,0 +1,261 @@
+{
+  "id": 52,
+  "oficio": "Carpintería",
+  "texto": "Cambio de puerta de garaje basculante de madera por seccional de aluminio con motorización",
+  "http_status": 200,
+  "latency_ms": 19998,
+  "raw_response": {
+    "transcript": "Cambio de puerta de garaje basculante de madera por seccional de aluminio con motorización",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de puerta de garaje basculante de madera por seccional de aluminio con motorización",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Incluye desmontaje de puerta antigua + suministro nueva puerta seccional + instalación + motorización completa",
+          "Célula fotoeléctrica de seguridad es OBLIGATORIA en puertas motorizadas",
+          "Desbloqueo de emergencia manual es OBLIGATORIO"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Desmontaje puerta basculante antigua, instalación puerta seccional, motorización y sistemas de seguridad"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica del motor, célula fotoeléctrica, botonera de pared y cableado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje puerta basculante madera",
+          "descripcion": "Desmontaje completo de puerta basculante de madera, muelles, brazos, herrajes y pequeño material. Retirada de escombros.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Puerta seccional aluminio con acabado",
+          "descripcion": "Puerta seccional de aluminio con paneles aislados, guías laterales, muelle de torsión calibrado para el peso, junta perimetral de estanqueidad. Medidas estándar (2.4m x 2.1m aprox). Incluye pequeño material de fijación.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de puerta seccional aluminio según medidas exactas y acabado (blanco, gris, madera). Rango típico 800-2500€"
+        },
+        {
+          "concepto": "Motor puerta seccional",
+          "descripcion": "Motor eléctrico para puerta seccional (24V DC o 230V AC según especificación), con reductor y sistema de finales de carrera programables. Incluye receptor radiocontrol integrado.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio motor según potencia y tipo (24V o 230V). Rango típico 300-800€"
+        },
+        {
+          "concepto": "Célula fotoeléctrica de seguridad",
+          "descripcion": "Célula fotoeléctrica de seguridad OBLIGATORIA para puerta motorizada. Incluye emisor y receptor, cable de conexión y pequeño material de fijación. Detiene la puerta si detecta obstáculo.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio célula fotoeléctrica. Rango típico 80-200€"
+        },
+        {
+          "concepto": "Mandos a distancia",
+          "descripcion": "2 mandos a distancia radiocontrol 433 MHz para puerta seccional motorizada. Incluye pilas.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por mando. Rango típico 25-60€/ud"
+        },
+        {
+          "concepto": "Botonera de pared",
+          "descripcion": "Botonera de pared con botones de apertura/cierre/parada para puerta seccional motorizada. Incluye caja de empotrar y pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio botonera. Rango típico 40-100€"
+        },
+        {
+          "concepto": "Sistema desbloqueo emergencia manual",
+          "descripcion": "Sistema de desbloqueo de emergencia manual OBLIGATORIO para puerta motorizada. Permite abrir la puerta manualmente en caso de fallo eléctrico. Incluye palanca y mecanismo de desacoplamiento.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio sistema desbloqueo. Rango típico 60-150€"
+        },
+        {
+          "concepto": "Cableado eléctrico y pequeño material",
+          "descripcion": "Cable eléctrico 3x1.5mm² para conexión motor a cuadro, tubo corrugado, cajas de derivación, regletas de conexión, tornillería y pequeño material de fijación.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio cableado y material. Estimado 80-150€ total"
+        },
+        {
+          "concepto": "Instalación puerta seccional y motor",
+          "descripcion": "Instalación completa: colocación de guías laterales y superior, montaje de paneles, instalación de muelle de torsión calibrado, fijación de motor, programación de finales de carrera, pruebas de funcionamiento y seguridad.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación eléctrica motor y seguridad",
+          "descripcion": "Conexión eléctrica del motor a cuadro, instalación de célula fotoeléctrica, botonera de pared, cableado de control, pruebas de funcionamiento y ajuste de parámetros de seguridad.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 630,
+        "iva_porcentaje": 21,
+        "iva": 132.3,
+        "total": 762.3
+      },
+      "sugerencias_catalogo": [
+        "Verificar medidas exactas del hueco de garaje (ancho y alto libres) para dimensionar correctamente la puerta seccional",
+        "Confirmar tipo de motorización: 24V DC (más segura, más cara) o 230V AC (estándar)",
+        "Especificar acabado de aluminio: blanco, gris, imitación madera, etc.",
+        "Considerar aislamiento térmico de paneles si se requiere eficiencia energética",
+        "Verificar espacio disponible en techo (mínimo 45-50cm) para sistema seccional"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Puerta seccional aluminio con acabado",
+          "oficio": "cerrajeria",
+          "motivo": "Material específico según medidas y acabado. Requiere presupuesto del proveedor."
+        },
+        {
+          "concepto": "Motor puerta seccional",
+          "oficio": "cerrajeria",
+          "motivo": "Equipo motorización según especificaciones técnicas. Requiere presupuesto del proveedor."
+        },
+        {
+          "concepto": "Célula fotoeléctrica de seguridad",
+          "oficio": "electricidad",
+          "motivo": "Componente de seguridad obligatorio. Requiere presupuesto del proveedor."
+        },
+        {
+          "concepto": "Mandos a distancia",
+          "oficio": "cerrajeria",
+          "motivo": "Accesorios de control. Requiere presupuesto del proveedor."
+        },
+        {
+          "concepto": "Botonera de pared",
+          "oficio": "electricidad",
+          "motivo": "Componente de control. Requiere presupuesto del proveedor."
+        },
+        {
+          "concepto": "Sistema desbloqueo emergencia manual",
+          "oficio": "cerrajeria",
+          "motivo": "Componente de seguridad obligatorio. Requiere presupuesto del proveedor."
+        },
+        {
+          "concepto": "Cableado eléctrico y pequeño material",
+          "oficio": "electricidad",
+          "motivo": "Materiales de instalación eléctrica. Requiere presupuesto del proveedor."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_motor_puerta_garaje_seccional_o_basculante",
+      "instalacion_puerta_enrollable_seccional_garaje",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "instalacion_de_puerta_de_garaje_abatible_lateral",
+      "pintado_cancelas_y_portones_metalicos_exterior"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3858,
+      "tokens_out": 3081
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 3,
+    "n_sugeridas": 7,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "NO"
+  }
+}

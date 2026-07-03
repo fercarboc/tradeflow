@@ -1,0 +1,175 @@
+{
+  "id": 46,
+  "oficio": "Carpintería",
+  "texto": "Fabricación e instalación de estantería de madera a medida para biblioteca, 3 metros de ancho y 2.5 de alto",
+  "http_status": 200,
+  "latency_ms": 14442,
+  "raw_response": {
+    "transcript": "Fabricación e instalación de estantería de madera a medida para biblioteca, 3 metros de ancho y 2.5 de alto",
+    "quote": {
+      "resumen": {
+        "texto_original": "Fabricación e instalación de estantería de madera a medida para biblioteca, 3 metros de ancho y 2.5 de alto",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Estantería de gran tamaño (3m x 2.5m) con carga potencial elevada por biblioteca: verificar capacidad de carga y anclaje estructural",
+          "Altura 2.5m requiere acceso con escalera o plataforma durante instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Fabricación e instalación de mueble a medida (estantería modular)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Tablero de madera maciza o contrachapado para estructura y baldas",
+          "descripcion": "Suministro de tablero de madera (pino, roble o similar) para estructura vertical, horizontales y baldas. Dimensiones: 3m ancho x 2.5m alto. Espesor mínimo 30mm para baldas por carga de biblioteca",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tablero según tipo de madera y calidad a definir por instalador"
+        },
+        {
+          "concepto": "Soportes, escuadras y herrajes de fijación",
+          "descripcion": "Escuadras metálicas reforzadas, soportes de acero galvanizado para baldas, tornillería de calidad (Ø8-10mm), tacos de expansión para anclaje a pared. Cantidad estimada para 5-6 baldas en estructura de 3m x 2.5m",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de herrajes según especificación técnica y carga admisible"
+        },
+        {
+          "concepto": "Acabado de cantos y superficie de madera",
+          "descripcion": "Lijado, imprimación y acabado (barniz, pintura o aceite) de todas las superficies vistas. Incluye protección de madera contra humedad y polvo (importante en biblioteca)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de productos de acabado según tipo seleccionado"
+        },
+        {
+          "concepto": "Fabricación de estructura y baldas",
+          "descripcion": "Corte, ensamblaje y preparación de estructura vertical, horizontales y baldas. Incluye cálculo de distribución de cargas, refuerzos internos si es necesario, y preparación de puntos de anclaje a pared",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación y anclaje de estantería a pared",
+          "descripcion": "Transporte a obra, posicionamiento, nivelación, fijación de estructura a pared con tacos y tornillos de alta resistencia. Incluye verificación de aplomado y horizontalidad. Acceso con escalera/plataforma para altura 2.5m",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Tornillería variada, tacos, colas de madera, lijas, cinta de enmascarar, trapos, disolventes y otros consumibles de taller e instalación",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado de consumibles a definir"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1080,
+        "iva_porcentaje": 21,
+        "iva": 226.8,
+        "total": 1306.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'fabricacion_e_instalacion_de_mueble_salon_o_libreria' — aplicable a estantería de biblioteca",
+        "Considerar si la estantería requiere iluminación LED integrada (partida auxiliar en catálogo)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tablero de madera maciza o contrachapado para estructura y baldas",
+          "origen": "sugerida_ia",
+          "razon": "Material específico según tipo de madera elegida"
+        },
+        {
+          "concepto": "Soportes, escuadras y herrajes de fijación",
+          "origen": "sugerida_ia",
+          "razon": "Herrajes reforzados para carga de biblioteca"
+        },
+        {
+          "concepto": "Acabado de cantos y superficie de madera",
+          "origen": "sugerida_ia",
+          "razon": "Productos de acabado según especificación"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "origen": "sugerida_ia",
+          "razon": "Consumibles de taller e instalación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "fabricacion_e_instalacion_de_espejo_con_marco_de_madera",
+      "reparacion_de_marco_de_ventana_o_premarco_deteriorado",
+      "fabricacion_de_estanterias_y_baldas_a_medida",
+      "fabricacion_e_instalacion_de_mueble_salon_o_libreria"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3939,
+      "tokens_out": 1920
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

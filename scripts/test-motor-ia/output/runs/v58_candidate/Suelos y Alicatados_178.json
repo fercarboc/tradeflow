@@ -1,0 +1,155 @@
+{
+  "id": 178,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Reparar baldosas rotas en portal del edificio, 3 metros cuadrados de mármol travertino",
+  "http_status": 200,
+  "latency_ms": 12035,
+  "raw_response": {
+    "transcript": "Reparar baldosas rotas en portal del edificio, 3 metros cuadrados de mármol travertino",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar baldosas rotas en portal del edificio, 3 metros cuadrados de mármol travertino",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Material noble (mármol travertino): requiere especialista en piedra natural. Precio unitario de material pendiente de confirmación del instalador.",
+          "Verificar estado del soporte base antes de reponer baldosas."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de pavimento exterior (baldosas rotas). Aplica partida de Base Maestra: [reparacion_o_reposicion_de_pavimento_exterior_deteriorado]"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de baldosas rotas de mármol travertino",
+          "descripcion": "Demolición y retirada de baldosas rotas de mármol travertino en portal del edificio, incluyendo limpieza de mortero antiguo del soporte",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Baldosas de mármol travertino reposición",
+          "descripcion": "Suministro de baldosas de mármol travertino de igual tipo, color y acabado a las existentes (3 m²). Precio unitario a confirmar por instalador según proveedor y disponibilidad de material noble",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material noble (mármol travertino): precio variable según proveedor y disponibilidad. Instalador debe confirmar precio de mercado."
+        },
+        {
+          "concepto": "Mortero cola C2S2 exterior para mármol",
+          "descripcion": "Mortero cola C2S2 de alta adherencia para colocación de baldosas de mármol travertino en exterior (3 m²)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador según marca y proveedor"
+        },
+        {
+          "concepto": "Colocación de baldosas de mármol travertino",
+          "descripcion": "Colocación de baldosas de mármol travertino con mortero cola C2S2, nivelación y alineación en portal del edificio (3 m²)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lechada de junta exterior para mármol",
+          "descripcion": "Lechada de junta exterior de calidad para mármol travertino, color a juego con baldosas existentes (3 m²)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador según marca y color"
+        },
+        {
+          "concepto": "Rejuntado de baldosas de mármol travertino",
+          "descripcion": "Rejuntado de juntas entre baldosas de mármol travertino con lechada exterior, limpieza y acabado (3 m²)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 360,
+        "iva_porcentaje": 21,
+        "iva": 75.6,
+        "total": 435.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar estado del soporte base (mortero antiguo, grietas, humedad) antes de proceder a la colocación de nuevas baldosas.",
+        "Mármol travertino es material poroso: considerar aplicación de sellador protector tras rejuntado si no está incluido en el presupuesto.",
+        "Confirmar disponibilidad de baldosas de mármol travertino del mismo tipo y acabado en el mercado (puede requerir importación)."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_reposicion_de_pavimento_exterior_deteriorado",
+      "reparacion_de_piscina_con_filtraciones",
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3758,
+      "tokens_out": 1641
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "id": 87,
+  "oficio": "Albañilería",
+  "texto": "Reparar escalera exterior de hormigón, peldaños desgastados, aplicar mortero y antideslizante",
+  "http_status": 200,
+  "latency_ms": 12828,
+  "raw_response": {
+    "transcript": "Reparar escalera exterior de hormigón, peldaños desgastados, aplicar mortero y antideslizante",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar escalera exterior de hormigón, peldaños desgastados, aplicar mortero y antideslizante",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en escalera exterior: verificar acceso y seguridad en altura",
+          "Antideslizante es OBLIGATORIO por CTE DB-SUA en exteriores",
+          "Revisar estado estructural de hormigón antes de reparar"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de hormigón, aplicación de mortero en peldaños"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Aplicación de tratamiento antideslizante y protección en escalera exterior"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo y preparación de peldaños desgastados",
+          "descripcion": "Limpieza, eliminación de material suelto, hormigón degradado y polvo en peldaños. Preparación de superficie para recibir mortero de reparación.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 20,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero de reparación para peldaños",
+          "descripcion": "Suministro e instalación de mortero flexible de reparación estructural para hormigón, aplicado en peldaños desgastados. Espesor 15-25 mm según necesidad.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mortero flexible de reparación a definir por instalador según marca y tipo (polimérico, epoxi, etc.)"
+        },
+        {
+          "concepto": "Aplicación de mortero de reparación",
+          "descripcion": "Mano de obra para extendido, alisado y acabado de mortero de reparación en peldaños. Incluye herramientas y pequeño material.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 25,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación adherente para antideslizante",
+          "descripcion": "Suministro e instalación de imprimación/promotor de adherencia para garantizar fijación del tratamiento antideslizante en hormigón exterior.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de imprimación a definir por instalador"
+        },
+        {
+          "concepto": "Tratamiento antideslizante en peldaños",
+          "descripcion": "Suministro e instalación de acabado antideslizante (pintura epoxi, resina poliuretano o lámina antideslizante) en peldaños de escalera exterior. OBLIGATORIO por CTE DB-SUA.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tratamiento antideslizante a definir por instalador según sistema elegido (pintura, resina, lámina)"
+        },
+        {
+          "concepto": "Aplicación de tratamiento antideslizante",
+          "descripcion": "Mano de obra para aplicación de tratamiento antideslizante en peldaños. Incluye preparación, aplicación uniforme y curado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 32,
+          "total": 256,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 616,
+        "iva_porcentaje": 21,
+        "iva": 129.36,
+        "total": 745.36
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la escalera requiere impermeabilización adicional en juntas o encuentros con muros",
+        "Considerar si es necesario tratamiento de protección en aristas de peldaños (cantoneras antideslizantes)",
+        "Evaluar estado de drenaje en base de escalera para evitar acumulación de agua"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero de reparación para peldaños",
+          "oficio": "albanileria",
+          "motivo": "Material específico de reparación estructural, precio a definir"
+        },
+        {
+          "concepto": "Imprimación adherente para antideslizante",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material de preparación, precio a definir"
+        },
+        {
+          "concepto": "Tratamiento antideslizante en peldaños",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material de acabado antideslizante, precio a definir según sistema"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_fisura_o_grieta_en_muro_o_tabique",
+      "revestimiento_con_mortero_monocapa",
+      "impermeabilizacion_de_escalera_o_rampa_exterior",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "instalacion_barandilla_metalica_de_escalera_exterior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3862,
+      "tokens_out": 1904
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

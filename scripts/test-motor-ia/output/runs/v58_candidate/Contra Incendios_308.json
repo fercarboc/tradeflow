@@ -1,0 +1,206 @@
+{
+  "id": 308,
+  "oficio": "Contra Incendios",
+  "texto": "Plan de emergencia y simulacro de evacuación para empresa de 50 trabajadores, documentación legal",
+  "http_status": 200,
+  "latency_ms": 23206,
+  "raw_response": {
+    "transcript": "Plan de emergencia y simulacro de evacuación para empresa de 50 trabajadores, documentación legal",
+    "quote": {
+      "resumen": {
+        "texto_original": "Plan de emergencia y simulacro de evacuación para empresa de 50 trabajadores, documentación legal",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Servicio de gestión y asesoramiento normativo — requiere profesional especializado en prevención de riesgos laborales (PRL) y normativa RD 393/2007",
+          "Incluye documentación legal y simulacro práctico — verificar si el cliente requiere formación adicional del personal"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 55,
+            "max": 70
+          },
+          "motivo": "Plan de emergencia, evacuación y simulacro son competencia de contra_incendios según normativa RD 393/2007"
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Documentación legal y cumplimiento normativo requiere asesoramiento administrativo"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Elaboración plan de emergencia y autoprotección",
+          "descripcion": "Redacción del plan de emergencia conforme a RD 393/2007, análisis de riesgos, identificación de zonas de riesgo, vías de evacuación, puntos de concentración, roles y responsabilidades del personal, procedimientos de actuación ante emergencia (incendio, accidente, amenaza). Documentación técnica completa para empresa de 50 trabajadores.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por profesional especializado en PRL según complejidad de la empresa y número de plantas/zonas"
+        },
+        {
+          "concepto": "Señalización de emergencia y evacuación",
+          "descripcion": "Suministro e instalación de señalización normalizada fotoluminiscente: carteles de salida de emergencia, recorridos de evacuación, ubicación de equipos de protección (extintores, BIE, pulsadores), señales de prohibición y obligación. Conforme a norma UNE 23034 y RD 485/1997.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de señales a definir según plano de evacuación y distribución de espacios"
+        },
+        {
+          "concepto": "Planos de evacuación por planta/zona",
+          "descripcion": "Elaboración de planos de evacuación en formato normalizado (A3 mínimo), con indicación de vías de evacuación, salidas de emergencia, puntos de concentración, ubicación de equipos de protección, zonas de riesgo especial. Un plano por planta/zona de trabajo. Impresión y plastificación para colocación en puntos visibles.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de planos a definir según número de plantas y zonas diferenciadas"
+        },
+        {
+          "concepto": "Diseño y coordinación de simulacro de evacuación",
+          "descripcion": "Planificación, coordinación y supervisión de simulacro práctico de evacuación con todo el personal (50 trabajadores). Incluye: briefing previo, cronometraje, observación de procedimientos, identificación de deficiencias, informe de resultados y recomendaciones de mejora. Duración estimada 4-6 horas (incluye preparación, ejecución y debriefing).",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 55,
+          "total": 275,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe técnico post-simulacro",
+          "descripcion": "Redacción de informe detallado con resultados del simulacro: tiempos de evacuación, deficiencias detectadas, cumplimiento de procedimientos, recomendaciones de mejora, propuestas de acciones correctivas. Documento para archivo y seguimiento normativo.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido en coordinación del simulacro o a presupuestar por separado según acuerdo"
+        },
+        {
+          "concepto": "Asesoramiento legal y cumplimiento normativo RD 393/2007",
+          "descripcion": "Revisión de cumplimiento normativo conforme a RD 393/2007 (Plan de Autoprotección), RD 485/1997 (señalización), RD 1627/1997 (seguridad en obras si aplica), normativa de accesibilidad. Asesoramiento sobre obligaciones legales, responsabilidades del empresario y delegados de prevención. Documentación de conformidad.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Formación básica del personal en procedimientos de emergencia",
+          "descripcion": "Sesión de formación teórica para personal clave (delegados de prevención, responsables de zonas, coordinadores de evacuación): procedimientos de actuación, uso de equipos de protección, comunicación de emergencia, roles y responsabilidades. Duración 2 horas.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 55,
+          "total": 110,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 535,
+        "iva_porcentaje": 21,
+        "iva": 112.35,
+        "total": 647.35
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el cliente requiere formación adicional para todo el personal (50 trabajadores) — puede implicar sesiones múltiples o formación online",
+        "Considerar contratación de central receptora de alarma si se instala sistema de detección de incendios (no incluido en este presupuesto)",
+        "Revisar si la empresa tiene obligación de Plan de Autoprotección técnico completo según RD 393/2007 (depende de actividad, número de trabajadores y riesgos específicos)",
+        "Proponer mantenimiento anual del plan y simulacros periódicos (recomendado cada 12-24 meses)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Elaboración plan de emergencia y autoprotección",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio especializado de redacción normativa — precio a definir por profesional PRL"
+        },
+        {
+          "concepto": "Señalización de emergencia y evacuación",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Material y suministro — cantidad y tipo a definir según plano de evacuación"
+        },
+        {
+          "concepto": "Planos de evacuación por planta/zona",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de diseño gráfico y documentación técnica — precio a definir según número de plantas"
+        },
+        {
+          "concepto": "Informe técnico post-simulacro",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de redacción técnica — puede incluirse en coordinación del simulacro"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "replanteo_y_trazado_de_obra",
+      "planificacion_y_presupuesto_reforma_integral",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_plan_de_autoproteccion_y_señalizacion",
+      "impermeabilizacion_de_cubierta_verde_con_lamina_antirraiz"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3971,
+      "tokens_out": 3031
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

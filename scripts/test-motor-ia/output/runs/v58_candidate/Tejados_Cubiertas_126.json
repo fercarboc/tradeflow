@@ -1,0 +1,182 @@
+{
+  "id": 126,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Construir cubierta inclinada de panel sándwich para porche de 20 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 17533,
+  "raw_response": {
+    "transcript": "Construir cubierta inclinada de panel sándwich para porche de 20 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir cubierta inclinada de panel sándwich para porche de 20 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si existe estructura soporte existente o requiere construcción nueva",
+          "Confirmar pendiente de inclinación (mínimo 5-10% recomendado para evacuación agua)",
+          "Validar carga de nieve/viento según zona geográfica"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Construcción de cubierta inclinada con panel sándwich - oficio especializado en cubiertas"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Sellado de encuentros, juntas y perfiles para garantizar estanqueidad"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro panel sándwich inclinado",
+          "descripcion": "Panel sándwich aislante (poliuretano/lana mineral) espesor 40-60mm, acabado lacado, para cubierta inclinada. Incluye transporte a obra",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del panel sándwich según espesor, aislamiento y acabado a definir por instalador"
+        },
+        {
+          "concepto": "Suministro perfiles de aluminio y accesorios",
+          "descripcion": "Perfiles de aluminio para encuentros, cumbrera, aleros, tornillos de fijación con arandela EPDM, tapas de cierre de canales",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de perfiles según dimensiones exactas y detalles constructivos"
+        },
+        {
+          "concepto": "Instalación cubierta panel sándwich",
+          "descripcion": "Colocación y fijación de paneles sándwich sobre estructura existente, alineación, nivelación y fijación con tornilería especial",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 45,
+          "total": 900,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación perfiles y encuentros",
+          "descripcion": "Colocación de perfiles de aluminio en cumbrera, aleros, encuentros con fachada, sellado con silicona de poliuretano",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 12,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización de juntas y encuentros",
+          "descripcion": "Sellado de juntas entre paneles, encuentros con estructura, perforaciones y puntos singulares con sellador poliuretano de una componente",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro sellador y pequeño material",
+          "descripcion": "Cartuchos de sellador poliuretano, silicona, arandelas EPDM, tornilería inox, cinta de espuma de cierre, EPI (arnés, casco, guantes)",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de consumibles según superficie y complejidad de encuentros"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1800,
+        "iva_porcentaje": 21,
+        "iva": 378,
+        "total": 2178
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_cubierta_policarbonato_o_acrilico' como referencia de proceso similar (perfiles, impermeabilización, fijación con holgura)",
+        "Considerar si existe estructura soporte: si es nueva, añadir partida de 'estructura_metalica_o_madera_soporte_cubierta' (albanileria/carpinteria)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro panel sándwich inclinado",
+          "oficio": "tejados_cubiertas",
+          "razon": "Material específico de cubierta sándwich no detallado en Base Maestra"
+        },
+        {
+          "concepto": "Suministro perfiles de aluminio y accesorios",
+          "oficio": "tejados_cubiertas",
+          "razon": "Accesorios específicos de instalación sándwich"
+        },
+        {
+          "concepto": "Suministro sellador y pequeño material",
+          "oficio": "tejados_cubiertas",
+          "razon": "Consumibles y EPI para trabajo en altura"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas",
+      "instalacion_de_cubierta_de_policarbonato_o_acrilico",
+      "instalacion_lucernario_apertura_tipo_velux_o_similar"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4099,
+      "tokens_out": 2222
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

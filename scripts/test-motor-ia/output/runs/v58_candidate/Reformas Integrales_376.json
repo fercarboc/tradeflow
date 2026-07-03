@@ -1,0 +1,175 @@
+{
+  "id": 376,
+  "oficio": "Reformas Integrales",
+  "texto": "Rehabilitación de edificio antiguo de 5 pisos con reforma de zonas comunes y fachada",
+  "http_status": 200,
+  "latency_ms": 27506,
+  "raw_response": {
+    "transcript": "Rehabilitación de edificio antiguo de 5 pisos con reforma de zonas comunes y fachada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Rehabilitación de edificio antiguo de 5 pisos con reforma de zonas comunes y fachada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "GRAN OBRA DETECTADA: Rehabilitación integral de edificio completo (5 pisos). Se aplica estructura de CAPÍTULOS agrupados (máximo 4 partidas).",
+          "APROBACIÓN COMUNIDAD OBLIGATORIA para reforma de zonas comunes y fachada.",
+          "LICENCIA MUNICIPAL OBLIGATORIA para reforma de fachada y posibles cambios estructurales.",
+          "PERMISO ANDAMIO OBLIGATORIO para trabajos en fachada de edificio de 5 pisos.",
+          "Se recomienda PROYECTO TÉCNICO previo y posible ITE (Inspección Técnica de Edificios).",
+          "Posible elegibilidad para ayudas NextGenEU/IDAE si incluye mejora energética (SATE, ventanas, climatización).",
+          "TODAS LAS PARTIDAS REQUIEREN REVISIÓN: precios orientativos estimados. El instalador debe desglosar y ajustar según alcance real."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Rehabilitación integral de edificio completo: ≥3 oficios simultáneos (fachada, instalaciones comunes, acabados interiores)."
+        },
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Rehabilitación de envolvente exterior de edificio de 5 pisos."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra de gran envergadura genera volumen significativo de residuos de construcción y demolición."
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 80
+          },
+          "motivo": "Gestión de licencias, permisos municipales, aprobación comunidad, posibles ayudas públicas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición, obra civil y estructuras",
+          "descripcion": "Demolición selectiva de elementos obsoletos (tabiques interiores, revestimientos antiguos, instalaciones fuera de servicio), retirada de escombros, apuntalamientos si necesario, reparación de grietas estructurales, consolidación de muros, nivelación de suelos comunes. Incluye andamio perimetral con permiso municipal para fachada de 5 pisos.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 35000,
+          "total": 35000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio orientativo estimado para edificio de 5 pisos. Requiere levantamiento de planos, cálculo de volumen de escombros y confirmación de alcance estructural. Rango estimado: 25.000–50.000€ según estado del edificio."
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (electricidad, fontanería, climatización, telecomunicaciones)",
+          "descripcion": "Renovación completa de instalación eléctrica (cuadro general, derivaciones, enchufes, iluminación LED en zonas comunes), fontanería (tuberías agua fría/caliente, calefacción central o individual, radiadores), climatización (bomba calor o sistema centralizado), telecomunicaciones (cableado estructurado, fibra óptica, domótica básica). Incluye pruebas de funcionamiento y certificados de instalación.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 45000,
+          "total": 45000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio orientativo estimado para edificio de 5 pisos con múltiples viviendas. Requiere proyecto de instalaciones, cálculo de cargas, especificación de equipos (caldera, bomba calor, cuadro eléctrico, etc.). Rango estimado: 30.000–70.000€ según complejidad y equipamiento."
+        },
+        {
+          "concepto": "CAP.3 – Acabados (pintura, suelos, carpintería, pladur, alicatados)",
+          "descripcion": "Pintura interior de zonas comunes (escaleras, pasillos, portal), sustitución de suelos en zonas comunes (baldosas, tarima o vinílico), reparación/sustitución de puertas de acceso y emergencia, tabiquería de pladur para redistribución de espacios, alicatados en zonas húmedas (portal, escaleras si aplica). Acabados de calidad media-alta.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 28000,
+          "total": 28000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio orientativo estimado para acabados de zonas comunes en edificio de 5 pisos. Requiere medición de superficies (m² de pintura, suelos, alicatados), especificación de materiales y acabados. Rango estimado: 18.000–40.000€."
+        },
+        {
+          "concepto": "CAP.4 – Fachada, impermeabilización y gestión administrativa",
+          "descripcion": "Rehabilitación de fachada: limpieza, reparación de grietas, revestimiento (mortero monocapa, SATE con aislamiento térmico, o pintura impermeabilizante), reparación de canalones y bajantes, sellado de juntas de dilatación, impermeabilización de zonas críticas (sótano si existe, terrazas comunes). Gestión de residuos de construcción y demolición (RCD). Tramitación de licencias, permisos municipales, aprobación de junta de propietarios, coordinación de obra.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 32000,
+          "total": 32000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio orientativo estimado para fachada de edificio de 5 pisos (aprox. 400–600 m² de fachada) + gestión administrativa. Requiere medición de fachada, especificación de sistema de revestimiento (SATE: 250–350€/m²; mortero monocapa: 150–200€/m²), cálculo de RCD, confirmación de trámites. Rango estimado: 20.000–60.000€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 140000,
+        "iva_porcentaje": 21,
+        "iva": 29400,
+        "total": 169400
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente/comunidad: planos del edificio, estado actual de instalaciones, presupuesto energético (si aplica SATE), listado de deficiencias detectadas.",
+        "Recomendar PROYECTO TÉCNICO de rehabilitación (arquitecto/ingeniero) antes de presupuestar en detalle.",
+        "Confirmar si la fachada requiere SATE (aislamiento térmico) para acceso a ayudas NextGenEU/IDAE.",
+        "Verificar si existe ITE (Inspección Técnica de Edificios) y su resultado para priorizar actuaciones.",
+        "Desglosar cada capítulo en partidas técnicas específicas una vez confirmado el alcance exacto.",
+        "Incluir en presupuesto final: seguro de responsabilidad civil, coordinación de seguridad y salud (si obra > 500 m² o > 30 días), plan de gestión de residuos certificado."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Rehabilitación integral de edificio de 5 pisos",
+          "oficio": "reforma_integral",
+          "tipo": "servicio",
+          "motivo": "Obra de gran envergadura que requiere estructura de capítulos agrupados. Cada capítulo es un precio alzado estimado que debe desglosarse en partidas técnicas específicas tras confirmación de alcance."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_de_instalaciones_comunes_edificio",
+      "reforma_de_fachada_de_edificio_comunitario",
+      "tabique_pladur_en_rehabilitacion_edificio_existente",
+      "instalacion_electrica_exterior_urbanizacion",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3838,
+      "tokens_out": 3407
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

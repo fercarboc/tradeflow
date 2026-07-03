@@ -1,0 +1,178 @@
+{
+  "id": 205,
+  "oficio": "Jardinería",
+  "texto": "Plantar seto de mirto o boj para cerrar el perímetro del jardín, longitud 25 metros",
+  "http_status": 200,
+  "latency_ms": 18360,
+  "raw_response": {
+    "transcript": "Plantar seto de mirto o boj para cerrar el perímetro del jardín, longitud 25 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Plantar seto de mirto o boj para cerrar el perímetro del jardín, longitud 25 metros",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "El cliente debe elegir entre mirto o boj antes de finalizar. Mirto es más ornamental y requiere más poda; boj es más denso y formal.",
+          "Se recomienda plantación en otoño o primavera para mejor enraizamiento.",
+          "Incluye riego de asiento crítico para garantizar supervivencia."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Plantación de seto según Base Maestra [plantacion_de_setos_o_sebes]"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación línea de plantación (zanjas/hoyos)",
+          "descripcion": "Excavación y preparación de zanjas para plantación de seto de 25 ml, profundidad 40-50 cm, ancho 60 cm. Incluye limpieza y nivelación del terreno.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 8,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plantas de seto (mirto o boj)",
+          "descripcion": "Suministro de plantas de seto (mirto o boj según elección cliente) de 30-40 cm altura, densidad 4-5 plantas/ml para seto denso. Total aproximado 100-125 plantas.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 110,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de plantas variable según especie (mirto 2-4€/ud, boj 3-6€/ud) y proveedor. Instalador debe confirmar precio y especie elegida."
+        },
+        {
+          "concepto": "Abono de fondo y enmienda de suelo",
+          "descripcion": "Aportación de abono orgánico (compost/turba) y enmienda de suelo en zanjas de plantación. Aproximadamente 1,5-2 m³ para 25 ml de seto.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 1.75,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según tipo de enmienda (compost 15-30€/m³, turba 20-40€/m³). Instalador debe confirmar material y cantidad final."
+        },
+        {
+          "concepto": "Plantación y riego de asiento",
+          "descripcion": "Plantación de cada unidad respetando distancia entre plantas (25-30 cm según especie), colocación correcta de raíces, compactación de tierra y riego abundante de asiento para asentamiento.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 12,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tutores y pequeño material",
+          "descripcion": "Tutores de madera (si plantas altas >40 cm), grapas, alambres de sujeción, cinta de injerto, pequeño material de plantación.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según necesidad de tutores (2-5€/ml si se requieren). Instalador valida si plantas necesitan tutor inicial."
+        },
+        {
+          "concepto": "Geotextil y corteza bajo seto (opcional)",
+          "descripcion": "Colocación de geotextil bajo línea de seto para control de maleza y aislamiento de raíces. Capa de corteza decorativa (5 cm) para protección y estética.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable: geotextil 1-3€/m², corteza 8-15€/m³. Instalador decide si incluir (recomendado para mantenimiento reducido)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 500,
+        "iva_porcentaje": 21,
+        "iva": 105,
+        "total": 605
+      },
+      "sugerencias_catalogo": [
+        "Partida 'Plantacion de setos o sebes' (Base Maestra) rango 12-60€/ml. Este presupuesto estima 20€/ml (mano de obra + materiales básicos), dentro del rango.",
+        "Para seto de 25 ml con densidad estándar (4-5 plantas/ml), presupuestar 100-125 plantas totales.",
+        "Mirto: más ornamental, requiere poda anual, mejor para climas templados. Boj: más denso y formal, crece lentamente, ideal para setos bajos-medios.",
+        "Riego de asiento es CRÍTICO: garantiza enraizamiento y supervivencia. Incluir riego abundante post-plantación."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Plantas de seto (mirto o boj)",
+          "oficio": "jardineria",
+          "motivo": "Material variable según especie elegida por cliente. Precio pendiente de confirmación."
+        },
+        {
+          "concepto": "Abono de fondo y enmienda de suelo",
+          "oficio": "jardineria",
+          "motivo": "Material variable según tipo (compost/turba). Precio pendiente de confirmación."
+        },
+        {
+          "concepto": "Tutores y pequeño material",
+          "oficio": "jardineria",
+          "motivo": "Necesidad variable según altura de plantas. Precio pendiente de confirmación."
+        },
+        {
+          "concepto": "Geotextil y corteza bajo seto (opcional)",
+          "oficio": "jardineria",
+          "motivo": "Material opcional para control de maleza. Precio pendiente de confirmación."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "apertura_y_cierre_de_rozas_para_instalaciones",
+      "instalacion_de_plantas_trepadoras",
+      "plantacion_de_setos_o_sebes",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "instalacion_bomba_de_calor_para_piscina"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3954,
+      "tokens_out": 2428
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

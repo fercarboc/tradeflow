@@ -1,0 +1,203 @@
+{
+  "id": 358,
+  "oficio": "Mantenimiento General",
+  "texto": "Revisar y reparar sistema de ventilación de parking subterráneo, 3 extractores con sensores CO",
+  "http_status": 200,
+  "latency_ms": 15887,
+  "raw_response": {
+    "transcript": "Revisar y reparar sistema de ventilación de parking subterráneo, 3 extractores con sensores CO",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y reparar sistema de ventilación de parking subterráneo, 3 extractores con sensores CO",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema de ventilación con sensores CO en parking: requiere cumplimiento normativa de seguridad (RD 1942/1993 y normativa local de garajes)",
+          "Sensores CO son elementos de seguridad crítica: verificar calibración y funcionamiento obligatorio",
+          "Extractores en parking subterráneo: revisar estado de conductos y posible acumulación de residuos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Revisión y reparación de sistema de ventilación con múltiples componentes (extractores + sensores CO)"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexiones eléctricas de extractores y sensores CO, verificación de circuitos"
+        },
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Sensores CO son elementos de seguridad contraincendios en parking: calibración, prueba y certificación obligatoria"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y revisión sistema ventilación parking",
+          "descripcion": "Inspección completa de 3 extractores, conductos, rejillas y sensores CO. Verificación de funcionamiento, ruidos anómalos, fugas de aire, acumulación de polvo/residuos",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza y deshollinado de 3 extractores",
+          "descripcion": "Desmontaje de rejillas y filtros, limpieza interior de turbinas, eliminación de polvo y residuos acumulados en conductos de ventilación",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 3,
+          "precio_unitario": 35,
+          "total": 105,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Calibración y prueba de 3 sensores CO",
+          "descripcion": "Verificación de funcionamiento de sensores de monóxido de carbono, calibración según fabricante, prueba de respuesta a gas de prueba, registro de valores",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 3,
+          "precio_unitario": 55,
+          "total": 165,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación conexiones eléctricas extractores y sensores",
+          "descripcion": "Revisión de bornes, conectores y cableado de los 3 extractores y 3 sensores CO. Comprobación de continuidad, aislamiento y seguridad eléctrica",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación/sustitución de piezas defectuosas (rodamientos, filtros, sensores)",
+          "descripcion": "Cambio de rodamientos desgastados en extractores, sustitución de filtros obstruidos, reparación de conexiones sueltas o corrosionadas. Materiales y mano de obra",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de piezas de repuesto (rodamientos, filtros, conectores) a determinar según estado real del sistema. Instalador debe revisar y presupuestar"
+        },
+        {
+          "concepto": "Prueba de funcionamiento completo y certificación",
+          "descripcion": "Puesta en marcha de los 3 extractores, verificación de caudales de aire, prueba de sensores CO con gas de prueba, registro de funcionamiento, emisión de certificado de mantenimiento",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 55,
+          "total": 55,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (conectores, cinta aislante, grasa, etc.)",
+          "descripcion": "Consumibles necesarios para la reparación: conectores eléctricos, cinta aislante, grasa lubricante, tornillería, material de limpieza",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado de pequeño material a determinar según necesidades reales. Típicamente 20-50€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 480,
+        "iva_porcentaje": 21,
+        "iva": 100.8,
+        "total": 580.8
+      },
+      "sugerencias_catalogo": [
+        "Considerar contratación de mantenimiento preventivo anual del sistema de ventilación para garantizar cumplimiento normativo en parking",
+        "Sensores CO deben calibrarse anualmente según RD 1942/1993 (Reglamento de Instalaciones de Protección contra Incendios)",
+        "Documentar todas las intervenciones en libro de mantenimiento del edificio/parking"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Reparación/sustitución de piezas defectuosas",
+          "oficio": "mantenimiento_general",
+          "motivo": "Precio de repuestos específicos (rodamientos, filtros, sensores) variable según diagnóstico real"
+        },
+        {
+          "concepto": "Pequeño material",
+          "oficio": "mantenimiento_general",
+          "motivo": "Consumibles varios a determinar en obra"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "revision_y_prueba_de_sistema_de_alarma",
+      "revision_y_recarga_sistema_refrigerante_instalacion_grande",
+      "mantenimiento_y_reparacion_de_sistema_de_riego",
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "instalacion_sistema_de_videovigilancia_CCTV"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3933,
+      "tokens_out": 2253
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 5,
+    "n_sugeridas": 2,
+    "oficio_detectado": "mantenimiento_general",
+    "coincide_oficio": "SI"
+  }
+}

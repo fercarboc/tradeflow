@@ -1,0 +1,152 @@
+{
+  "id": 395,
+  "oficio": "Persianas",
+  "texto": "Conectar persianas motorizadas existentes a sistema domótico de la vivienda, programación horaria",
+  "http_status": 200,
+  "latency_ms": 12718,
+  "raw_response": {
+    "transcript": "Conectar persianas motorizadas existentes a sistema domótico de la vivienda, programación horaria",
+    "quote": {
+      "resumen": {
+        "texto_original": "Conectar persianas motorizadas existentes a sistema domótico de la vivienda, programación horaria",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Integración de persianas motorizadas en sistema domótico, cableado de control, programación y configuración de automatización"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Módulo de control domótico para persianas motorizadas",
+          "descripcion": "Suministro e instalación de módulo/relé domótico compatible con sistema de automatización existente para control de persianas motorizadas (receptor inalámbrico o cableado según sistema)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del módulo domótico a definir según marca y compatibilidad del sistema existente"
+        },
+        {
+          "concepto": "Cableado de control y conexión a central domótica",
+          "descripcion": "Suministro e instalación de cableado de control (cable de 2-4 hilos) desde central domótica hasta motores de persianas, incluyendo canalizaciones, regletas de conexión y pequeño material",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje de cableado a definir según número de persianas y distancia a central domótica"
+        },
+        {
+          "concepto": "Instalación y conexión de módulos de control",
+          "descripcion": "Mano de obra para instalación física de módulos de control en cuadro domótico, conexión eléctrica a central, verificación de continuidad y funcionamiento básico",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Programación horaria y automatización de persianas",
+          "descripcion": "Mano de obra para configuración de horarios automáticos, escenas de control (apertura/cierre por hora, condiciones de luz/temperatura si aplica), integración en interfaz domótica, pruebas de funcionamiento y entrega de manual de uso",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y validación del sistema",
+          "descripcion": "Mano de obra para verificación de respuesta de todas las persianas a comandos domóticos, validación de horarios programados, sincronización, ajustes finales y documentación de configuración",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Confirmar marca y modelo del sistema domótico existente para seleccionar módulo de control compatible",
+        "Especificar número de persianas a conectar y ubicación de central domótica para calcular metraje de cableado",
+        "Definir si se requiere control por sensores adicionales (luz, temperatura, lluvia) o solo horarios",
+        "Considerar si las persianas tienen motor con receptor inalámbrico integrado (simplifica instalación) o requieren módulo externo"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Módulo de control domótico para persianas motorizadas",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Elemento específico de integración domótica no catalogado; precio variable según compatibilidad del sistema"
+        },
+        {
+          "concepto": "Cableado de control y conexión a central domótica",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Partida de material cuyo metraje depende de la configuración específica de la vivienda"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "forrado_exterior_fachada_ventilada",
+      "instalacion_sistema_free_cooling",
+      "instalacion_sistema_agua_helada_chiller",
+      "instalacion_sistema_de_videovigilancia_CCTV"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4069,
+      "tokens_out": 1579
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "NO"
+  }
+}

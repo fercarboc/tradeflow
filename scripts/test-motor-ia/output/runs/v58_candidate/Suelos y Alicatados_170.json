@@ -1,0 +1,190 @@
+{
+  "id": 170,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Instalar suelo radiante eléctrico en baño de 6 metros cuadrados con termostato programable",
+  "http_status": 200,
+  "latency_ms": 18181,
+  "raw_response": {
+    "transcript": "Instalar suelo radiante eléctrico en baño de 6 metros cuadrados con termostato programable",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar suelo radiante eléctrico en baño de 6 metros cuadrados con termostato programable",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Suelo radiante eléctrico en baño: verificar compatibilidad con humedad y normativa eléctrica (RBT)",
+          "Termostato programable: confirmar modelo y compatibilidad con potencia total instalada"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema eléctrico de calefacción por suelo radiante, cableado y termostato"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro cable calefactor suelo radiante eléctrico",
+          "descripcion": "Cable calefactor o manta eléctrica para suelo radiante, 6 m², potencia 900-1200W (150-200W/m²), resistencia a humedad IP67",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico: instalador debe confirmar marca, potencia total y precio de cable/manta calefactora"
+        },
+        {
+          "concepto": "Instalación cable calefactor suelo radiante",
+          "descripcion": "Colocación de cable calefactor o manta eléctrica sobre base nivelada, fijación según especificaciones fabricante, separación y distribución uniforme",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 15,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro termostato programable con sonda suelo",
+          "descripcion": "Termostato digital programable con sonda de temperatura de suelo, control de temperatura ambiente, función temporizador, compatible con 3-4 kW",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico: instalador debe confirmar modelo, marca y precio del termostato programable"
+        },
+        {
+          "concepto": "Instalación termostato programable con sonda suelo",
+          "descripcion": "Montaje de termostato en pared, conexión de sonda de temperatura en tubo corrugado bajo suelo radiante, calibración y programación inicial",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro pequeño material eléctrico (tubo corrugado, conectores, cinta aislante)",
+          "descripcion": "Tubo corrugado para sonda, conectores estancos IP67, cinta aislante, bridas, pequeño material auxiliar para instalación en ambiente húmedo (baño)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar: instalador debe cuantificar y presupuestar según necesidades específicas"
+        },
+        {
+          "concepto": "Conexión a cuadro eléctrico y protecciones",
+          "descripcion": "Instalación de circuito exclusivo con interruptor diferencial 30mA (obligatorio en baño) y magnetotérmico según potencia total, cableado desde cuadro a termostato",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro mortero nivelador conductor (si aplica)",
+          "descripcion": "Mortero autonivelante o convencional para cubrición de cable calefactor, espesor 3-5 cm, con propiedades conductoras si es necesario",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar si incluye mortero y tipo según sistema de cable elegido"
+        }
+      ],
+      "calculos": {
+        "subtotal": 190,
+        "iva_porcentaje": 21,
+        "iva": 39.9,
+        "total": 229.9
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_suelo_radiante_electrico' — rango 8-22€/m2 mano de obra",
+        "Confirmar disponibilidad de cables calefactores de 150-200W/m² para baños (ambiente húmedo)",
+        "Consultar termostatos programables compatibles con potencia 900-1200W en catálogo de electricidad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro cable calefactor suelo radiante eléctrico",
+          "origen": "sugerida_ia",
+          "razon": "Material específico de suelo radiante eléctrico no detallado en catálogo base"
+        },
+        {
+          "concepto": "Suministro termostato programable con sonda suelo",
+          "origen": "sugerida_ia",
+          "razon": "Componente específico de control: instalador debe presupuestar según marca/modelo elegido"
+        },
+        {
+          "concepto": "Suministro pequeño material eléctrico (tubo corrugado, conectores, cinta aislante)",
+          "origen": "sugerida_ia",
+          "razon": "Material auxiliar específico para ambiente húmedo (baño)"
+        },
+        {
+          "concepto": "Suministro mortero nivelador conductor (si aplica)",
+          "origen": "sugerida_ia",
+          "razon": "Material de cubrición: depende del sistema de cable elegido"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_suelo_radiante_agua",
+      "instalacion_distribuidor_calefaccion",
+      "instalacion_suelo_radiante_hidraulico",
+      "instalacion_de_suelo_radiante_en_reforma",
+      "instalacion_suelo_radiante_electrico"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3710,
+      "tokens_out": 2419
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

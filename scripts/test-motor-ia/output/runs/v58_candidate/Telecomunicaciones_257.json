@@ -1,0 +1,152 @@
+{
+  "id": 257,
+  "oficio": "Telecomunicaciones",
+  "texto": "Configurar red separada para invitados en empresa con segmentación VLAN y cortafuegos",
+  "http_status": 200,
+  "latency_ms": 10176,
+  "raw_response": {
+    "transcript": "Configurar red separada para invitados en empresa con segmentación VLAN y cortafuegos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Configurar red separada para invitados en empresa con segmentación VLAN y cortafuegos",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Configuración de red, VLAN, cortafuegos y segmentación de tráfico"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Configuración de VLAN para red de invitados",
+          "descripcion": "Creación y configuración de VLAN dedicada para invitados con aislamiento de tráfico respecto a red corporativa",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de cortafuegos (firewall) para segmentación",
+          "descripcion": "Configuración de reglas de firewall para control de tráfico entre VLAN corporativa e invitados, filtrado de puertos y protocolos",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de políticas de acceso y QoS",
+          "descripcion": "Establecimiento de políticas de acceso a recursos, limitación de ancho de banda para invitados y priorización de tráfico crítico corporativo",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de punto de acceso WiFi para invitados",
+          "descripcion": "Instalación y configuración de AP WiFi separado con SSID dedicado, autenticación y aislamiento de red",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de segmentación y validación de aislamiento",
+          "descripcion": "Verificación de comunicación entre VLANs, pruebas de bloqueo de tráfico no autorizado, validación de QoS y documentación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Documentación técnica y manual de operación",
+          "descripcion": "Generación de esquema de red, documentación de VLAN, reglas de firewall y manual de gestión para administrador",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Documentación técnica - instalador debe estimar coste según complejidad y volumen de documentación"
+        }
+      ],
+      "calculos": {
+        "subtotal": 650,
+        "iva_porcentaje": 21,
+        "iva": 136.5,
+        "total": 786.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el cortafuegos/UTM ya está instalado o requiere adquisición adicional",
+        "Confirmar si los puntos de acceso WiFi ya existen o necesitan suministro",
+        "Considerar contratación de servicio de monitorización continua de segmentación si es crítico"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "configuracion_y_securizacion_de_red_corporativa",
+      "instalacion_armario_metalico_o_taquilla",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_red_de_datos_con_fibra_optica_backbone",
+      "instalacion_fotovoltaica_en_empresa_o_polígono_industrial"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4143,
+      "tokens_out": 1443
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 5,
+    "n_sugeridas": 1,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

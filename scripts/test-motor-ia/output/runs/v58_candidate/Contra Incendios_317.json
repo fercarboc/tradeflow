@@ -1,0 +1,233 @@
+{
+  "id": 317,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar manguera de primera intervención en hospital, punto de agua en cada planta",
+  "http_status": 200,
+  "latency_ms": 27597,
+  "raw_response": {
+    "transcript": "Instalar manguera de primera intervención en hospital, punto de agua en cada planta",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar manguera de primera intervención en hospital, punto de agua en cada planta",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "OBRA CRÍTICA: Instalación de BIE (Bocas de Incendio Equipadas) en hospital requiere cumplimiento normativo estricto (UNE 23500, CTE DB-SI)",
+          "ALCANCE INDEFINIDO: No se especifica número de plantas ni número de puntos por planta. Presupuesto estimado con parámetros asumidos.",
+          "COORDINACIÓN REQUERIDA: Obra en hospital activo requiere coordinación con seguridad, mantenimiento y autoridades sanitarias",
+          "INSPECCIÓN OBLIGATORIA: Todas las BIE deben ser inspeccionadas y certificadas por organismo autorizado post-instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "BIE (Bocas de Incendio Equipadas) = sistema de primera intervención contraincendios. REGLA CRÍTICA: aunque implique fontanería y electricidad, el SISTEMA es contraincendios → oficio: contra_incendios"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de red de agua para alimentación de BIE (tuberías, conexiones, válvulas de corte)"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de señalización luminosa, alarma visual/sonora de activación BIE, cableado de control"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro e instalación BIE 25mm (manguera 25m, lanza, válvula, carrete)",
+          "descripcion": "Boca de Incendio Equipada 25mm completa con manguera de 25m, lanza bifurcada, válvula de cierre, carrete metálico, caja de empotrar/sobreponer, según UNE 23500. Incluye prueba de presión y funcionamiento.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de BIE 25mm varía según marca/certificación (rango típico 280-600€/ud). Instalador debe confirmar especificación técnica y proveedor."
+        },
+        {
+          "concepto": "Instalación BIE por unidad (conexión, pruebas, certificación)",
+          "descripcion": "Mano de obra de instalación de cada BIE: conexión a red de agua, purgado, prueba de presión, verificación de funcionamiento, etiquetado y documentación de instalación.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 55,
+          "total": 55,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Red de tuberías de alimentación BIE (tubo multicapa, válvulas, racores)",
+          "descripcion": "Suministro de tuberías multicapa (16-20mm), válvulas de corte independientes por planta, racores, abrazaderas, pequeño material para red de distribución de agua a BIE. Longitud estimada según plano de hospital.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud real de red no especificada. Precio típico 15-35€/ml. Requiere plano de hospital y cálculo de metraje real."
+        },
+        {
+          "concepto": "Instalación red de tuberías de alimentación BIE",
+          "descripcion": "Mano de obra de instalación de red de agua: tendido de tuberías, fijaciones, conexiones, válvulas de corte, purgado, prueba de presión a 10 bar, reparación de rozas si aplica.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas estimadas según complejidad de red. Obra en hospital activo puede requerir horarios especiales (nocturnos/festivos) con incremento de tarifa."
+        },
+        {
+          "concepto": "Señalización luminosa y alarma de activación BIE",
+          "descripcion": "Suministro de señalización luminosa LED (cartel BIE iluminado), pulsador de alarma, sirena/timbre de activación, cableado de control, relé de activación. Incluye baterías de emergencia si aplica.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de kit señalización+alarma varía 150-400€/ud según integración con central de incendios del hospital."
+        },
+        {
+          "concepto": "Instalación cableado y señalización BIE",
+          "descripcion": "Mano de obra de instalación: tendido de cableado de control, conexión de señalización luminosa, instalación de pulsador/alarma, pruebas de funcionamiento, integración con central de incendios si aplica.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas estimadas. Integración con central de incendios existente puede requerir especialista certificado (incremento de tarifa)."
+        },
+        {
+          "concepto": "Inspección, pruebas y certificación de BIE (por unidad)",
+          "descripcion": "Inspección visual, prueba de presión, prueba de funcionamiento de manguera y lanza, verificación de señalización, generación de certificado de instalación conforme a UNE 23500 y normativa CTE DB-SI.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Inspección y certificación pueden ser realizadas por organismo autorizado externo (coste típico 100-200€/BIE). Confirmar si está incluida en presupuesto o es adicional."
+        },
+        {
+          "concepto": "Coordinación y seguridad en obra (hospital activo)",
+          "descripcion": "Coordinación con seguridad del hospital, planificación de horarios de instalación, señalización de obra, medidas de seguridad en zona sanitaria, documentación de acceso y permisos.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de coordinación y seguridad en hospital activo: típicamente 200-500€/jornada. Requiere confirmación con responsable de seguridad del hospital."
+        }
+      ],
+      "calculos": {
+        "subtotal": 155,
+        "iva_porcentaje": 21,
+        "iva": 32.55,
+        "total": 187.55
+      },
+      "sugerencias_catalogo": [
+        "BÚSQUEDA RECOMENDADA: 'BIE 25mm UNE 23500' — especificar marca, certificación y presión nominal (10 bar estándar)",
+        "BÚSQUEDA RECOMENDADA: 'Tuberías de agua para BIE' — confirmar diámetro (16mm, 20mm, 25mm) según caudal requerido",
+        "BÚSQUEDA RECOMENDADA: 'Señalización luminosa contraincendios' — verificar compatibilidad con central de incendios del hospital",
+        "BÚSQUEDA RECOMENDADA: 'Válvulas de corte independientes por planta' — especificar tipo (esférica, compuerta) y diámetro"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "BIE 25mm completa (manguera, lanza, válvula, carrete)",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "motivo": "Elemento específico de sistema contraincendios. No encontrado en catálogo base. Requiere especificación técnica y certificación UNE 23500."
+        },
+        {
+          "concepto": "Red de tuberías de alimentación BIE",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Red específica para BIE con requisitos de presión y caudal. Longitud no especificada en solicitud."
+        },
+        {
+          "concepto": "Señalización luminosa y alarma de activación BIE",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Kit de señalización específico para BIE. Puede requerir integración con central de incendios existente."
+        },
+        {
+          "concepto": "Coordinación y seguridad en obra (hospital activo)",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio adicional requerido por naturaleza de la obra en instalación sanitaria activa."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_toma_agua_nueva",
+      "instalacion_osmosis_inversa",
+      "sustitucion_desague_lavadora",
+      "instalacion_grifo_exterior_jardin",
+      "instalacion_fontaneria_cocina_completa"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3361,
+      "tokens_out": 3613
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

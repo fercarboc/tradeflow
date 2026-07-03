@@ -1,0 +1,230 @@
+{
+  "id": 166,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Poner microcemento en suelo de cocina y salón como suelo continuo, 50 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 15790,
+  "raw_response": {
+    "transcript": "Poner microcemento en suelo de cocina y salón como suelo continuo, 50 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner microcemento en suelo de cocina y salón como suelo continuo, 50 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Microcemento en cocina requiere sellador de alta resistencia al tráfico y manchas",
+          "Verificar estado del soporte: debe estar sin fisuras, seco y estable",
+          "Tiempo de curado: 7 días antes de tráfico pesado, 72h antes de tráfico pie"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 95
+          },
+          "motivo": "Instalación de microcemento en suelo interior (cocina y salón)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación y limpieza del soporte",
+          "descripcion": "Limpieza, lijado y preparación del soporte existente para recibir microcemento. Reparación de pequeñas fisuras si las hay.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 8,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación adherente bicomponente",
+          "descripcion": "Aplicación de imprimación bicomponente para asegurar adherencia del microcemento al soporte. Incluye material y mano de obra.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar por instalador. Referencia: 3-5€/m2 aproximadamente"
+        },
+        {
+          "concepto": "Microcemento bicomponente - aplicación 3-5 capas",
+          "descripcion": "Aplicación de microcemento bicomponente en 3-5 capas según sistema, con mano de obra especializada. Incluye llana metálica inox y pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 45,
+          "total": 2250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Microcemento bicomponente - material",
+          "descripcion": "Suministro de microcemento bicomponente de calidad para 50 m2 en 3-5 capas.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar por instalador. Referencia: 15-30€/m2 según marca y sistema"
+        },
+        {
+          "concepto": "Lijado progresivo entre capas y acabado final",
+          "descripcion": "Lijado con grano variable (80, 120, 180, 220) entre capas y acabado final para obtener superficie lisa y uniforme.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 12,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellador poliuretano de alta resistencia al tráfico",
+          "descripcion": "Aplicación de sellador poliuretano bicomponente de alta resistencia al tráfico, manchas y humedad. Especialmente importante en cocina. Incluye mano de obra.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 18,
+          "total": 900,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellador poliuretano - material",
+          "descripcion": "Suministro de sellador poliuretano bicomponente de alta resistencia para 50 m2.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar por instalador. Referencia: 8-15€/m2"
+        },
+        {
+          "concepto": "Malla de fibra de vidrio en juntas y encuentros",
+          "descripcion": "Colocación de malla de fibra de vidrio en juntas perimetrales y encuentros con paredes para evitar fisuras.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar a presupuestar. Referencia: 1-2€/m2"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Lijas, discos de lijado, trapos, masilla, cinta de carrocero, protecciones y otros consumibles necesarios para la ejecución.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles a presupuestar. Referencia: 2-4€/m2"
+        }
+      ],
+      "calculos": {
+        "subtotal": 4150,
+        "iva_porcentaje": 21,
+        "iva": 870.5,
+        "total": 5020.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar que el soporte está completamente seco y sin movimientos antes de iniciar",
+        "En cocina, considerar sellador de máxima resistencia a manchas y grasas",
+        "Respetar tiempos de curado: 72h antes de tráfico pie, 7 días antes de tráfico pesado",
+        "Proteger el área durante el curado para evitar polvo y humedad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación adherente bicomponente",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material específico para microcemento, requiere presupuesto del instalador"
+        },
+        {
+          "concepto": "Microcemento bicomponente - material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material principal, requiere presupuesto del instalador según marca y sistema"
+        },
+        {
+          "concepto": "Sellador poliuretano - material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material de acabado, requiere presupuesto del instalador"
+        },
+        {
+          "concepto": "Malla de fibra de vidrio en juntas y encuentros",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material auxiliar obligatorio para evitar fisuras"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Consumibles varios necesarios para la ejecución"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_microcemento_suelo_interior",
+      "solado_ceramico_exterior_terraza",
+      "instalacion_suelo_continuo_de_microcemento_o_cemento_pulido_en_bano",
+      "instalacion_de_perfil_o_junta_de_dilatacion_en_suelo",
+      "acabado_con_microcemento_suelo_o_pared"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4024,
+      "tokens_out": 2569
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

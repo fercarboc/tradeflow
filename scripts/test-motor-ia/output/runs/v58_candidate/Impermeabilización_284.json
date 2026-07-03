@@ -1,0 +1,216 @@
+{
+  "id": 284,
+  "oficio": "Impermeabilización",
+  "texto": "Sellar grieta en muro de sótano por donde entra agua en época de lluvias, inyección de resina",
+  "http_status": 200,
+  "latency_ms": 27361,
+  "raw_response": {
+    "transcript": "Sellar grieta en muro de sótano por donde entra agua en época de lluvias, inyección de resina",
+    "quote": {
+      "resumen": {
+        "texto_original": "Sellar grieta en muro de sótano por donde entra agua en época de lluvias, inyección de resina",
+        "tipo_presupuesto": "reparacion",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Grieta activa con filtración de agua: requiere diagnóstico previo de origen (capilaridad, presión hidrostática, asentamiento)",
+          "Inyección de resina es solución estructural: verificar si la grieta es pasiva o activa antes de proceder",
+          "Sótano con agua en época de lluvias: puede indicar problema de drenaje exterior no resuelto con solo inyección",
+          "Se recomienda diagnóstico e informe de humedades previo a la ejecución"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Grieta en muro enterrado con filtración de agua: impermeabilización es oficio prioritario. Inyección de resina es técnica de impermeabilización estructural."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Saneo y preparación de grieta previa a inyección."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico e informe de humedades y filtraciones en sótano",
+          "descripcion": "Inspección visual, medición de humedad con higrometro, termografía si necesario, fotografia de zonas afectadas, informe escrito con diagnóstico del origen (capilaridad, presión hidrostática, drenaje deficiente) y propuestas de solución integral.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según tamaño de sótano y complejidad. Rango referencia: 400-1500€. El instalador debe estimar según zona afectada."
+        },
+        {
+          "concepto": "Saneo y preparación de grieta en V",
+          "descripcion": "Apertura controlada de grieta en forma de V (ángulo 45°), eliminación de material suelto, polvo y restos, limpieza con aire comprimido y cepillo de acero. Preparación de superficie para inyección.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales de grieta no especificada. Instalador debe medir y completar cantidad. Precio unitario: 40€/ml (tarifa albanilería)."
+        },
+        {
+          "concepto": "Inyección de resina epoxi bicomponente en grieta estructural",
+          "descripcion": "Inyección de resina epoxi de baja viscosidad con sistema de cánulas/packer spacing cada 20-30cm, presión controlada 2-4 bar, sellado de grieta desde interior hacia exterior, curado según ficha técnica (24-48h).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado. Precio y cantidad dependen de: longitud grieta (ml), profundidad (cm), ancho grieta (mm). Resina epoxi: 15-25€/kg. Instalador debe calcular: kg = (ml × profundidad_cm × ancho_mm) / 1000 × densidad_resina."
+        },
+        {
+          "concepto": "Mano de obra inyección de resina epoxi",
+          "descripcion": "Instalación de sistema de inyección (cánulas, packer), inyección controlada con bomba manual o eléctrica, monitoreo de presión, sellado de cánulas, limpieza de excedentes, curado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tiempo estimado: 2-6 horas según longitud y complejidad de grieta. Instalador debe estimar horas reales. Tarifa: 45€/h (impermeabilización)."
+        },
+        {
+          "concepto": "Sellado superficial de grieta con mortero hidrofugo o masilla flexible",
+          "descripcion": "Relleno de grieta desde interior con mortero hidrofugo o masilla poliuretano flexible, alisado, acabado liso. Protección de la inyección de resina.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad depende de longitud y profundidad de grieta. Mortero hidrofugo: 8-15€/kg. Masilla poliuretano: 12-20€/kg. Instalador estima cantidad."
+        },
+        {
+          "concepto": "Mano de obra sellado superficial de grieta",
+          "descripcion": "Aplicación de mortero o masilla en grieta, alisado, acabado, limpieza.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tiempo estimado: 1-2 horas. Instalador ajusta según longitud grieta. Tarifa: 40€/h (albanilería)."
+        },
+        {
+          "concepto": "Pequeño material (cánulas, packers, trapos, disolvente, EPI)",
+          "descripcion": "Cánulas de inyección, packers, trapos de limpieza, disolvente para resina, guantes, gafas, mascarilla, bolsas residuos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado: 50-150€ según cantidad de cánulas y material auxiliar. Instalador revisa."
+        },
+        {
+          "concepto": "Drenaje exterior complementario (si diagnóstico lo requiere)",
+          "descripcion": "Instalación de tubo drenaje perforado a pie de muro exterior, conexión a red pluvial o sumidero, relleno con gravas drenantes. SOLO si diagnóstico previo identifica deficiencia de drenaje como causa de filtración.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "PARTIDA CONDICIONAL: solo si informe de humedades lo recomienda. Precio: 30-60€/ml (excavación, tubo, gravas, conexión). Cantidad: metros lineales de muro afectado."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Partida 'Diagnóstico e informe de humedades y filtraciones en sótano' (origen: BASE MAESTRA) es OBLIGATORIA antes de ejecutar inyección. Identifica si el problema es grieta estructural, capilaridad, presión hidrostática o drenaje deficiente.",
+        "Si el diagnóstico confirma presión hidrostática alta, la inyección de resina SOLA puede no ser suficiente: se requiere drenaje exterior complementario (tubo drenaje a pie de muro + conexión pluvial).",
+        "Inyección de resina es solución para grietas PASIVAS o ESTRUCTURALES sin presión de agua activa. Si hay filtración activa, se recomienda: 1) Drenaje exterior primero, 2) Inyección de resina, 3) Sellado superficial.",
+        "Malla de fibra de vidrio NO es necesaria en este caso (inyección de resina es más resistente que mortero). Se recomienda solo si hay reparación posterior con mortero."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diagnóstico e informe de humedades y filtraciones en sótano",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Trabajo previo obligatorio para identificar causa raíz de filtración."
+        },
+        {
+          "concepto": "Inyección de resina epoxi bicomponente en grieta estructural",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Técnica especializada de impermeabilización estructural. Material y mano de obra requieren revisión de cantidad según medidas reales de grieta."
+        },
+        {
+          "concepto": "Drenaje exterior complementario (si diagnóstico lo requiere)",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Partida condicional: solo si informe de humedades identifica deficiencia de drenaje como causa de filtración."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "diagnostico_e_informe_de_humedades_y_filtraciones",
+      "reparacion_de_fisuras_y_grietas_en_fachada",
+      "reparacion_fisura_o_grieta_en_muro_o_tabique",
+      "impermeabilizacion_de_sotano_o_muro_enterrado_por_exterior",
+      "reparacion_de_grietas_o_fisuras_puntuales_en_paredes"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4007,
+      "tokens_out": 3536
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

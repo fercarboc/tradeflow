@@ -1,0 +1,236 @@
+{
+  "id": 256,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar sistema de control de acceso remoto con cámara y apertura desde smartphone para portal",
+  "http_status": 200,
+  "latency_ms": 18400,
+  "raw_response": {
+    "transcript": "Instalar sistema de control de acceso remoto con cámara y apertura desde smartphone para portal",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de control de acceso remoto con cámara y apertura desde smartphone para portal",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema integrado de acceso y CCTV: requiere coordinación con normativa RGPD",
+          "Apertura remota desde smartphone: verificar compatibilidad con cerradura existente",
+          "Instalación en portal: confirmar disponibilidad de alimentación eléctrica y conectividad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Sistema integrado de control de acceso remoto, cámara IP y gestión desde app móvil"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Adaptación/instalación de cerradura inteligente compatible con sistema de apertura remota"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cámara IP para control de acceso",
+          "descripcion": "Cámara IP de vigilancia para portal con resolución Full HD, visión nocturna, ángulo amplio (120°+), compatible con sistema de control de acceso remoto",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar modelo específico y precio según especificaciones técnicas requeridas"
+        },
+        {
+          "concepto": "Cerradura inteligente con apertura remota",
+          "descripcion": "Cerradura inteligente motorizada compatible con control remoto desde smartphone, con batería de respaldo, integrable con sistema de acceso",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar compatibilidad con cerradura existente y modelo específico"
+        },
+        {
+          "concepto": "Central de control de acceso con gestión remota",
+          "descripcion": "Central/controlador de acceso con capacidad de gestión remota desde app móvil, integración CCTV, comunicación IP/WiFi, interfaz usuario intuitiva",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar plataforma de gestión y compatibilidad con dispositivos"
+        },
+        {
+          "concepto": "Cableado y conexionado sistema acceso-CCTV",
+          "descripcion": "Cableado Cat6 para comunicación, cableado de alimentación 12V/24V para cámara y cerradura, pequeño material (conectores, regletas, canaletas)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe cuantificar metros de cableado según distancias en portal"
+        },
+        {
+          "concepto": "Fuente de alimentación para sistema",
+          "descripcion": "Fuente de alimentación 12V/24V con capacidad suficiente para cámara, cerradura y central de control, con protecciones y batería de respaldo opcional",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar potencia requerida y si incluye batería de respaldo"
+        },
+        {
+          "concepto": "Instalación y configuración sistema control acceso remoto",
+          "descripcion": "Instalación física de cámara en portal, montaje de cerradura inteligente, conexionado eléctrico y de datos, configuración de central de control, emparejamiento de dispositivos, pruebas de funcionamiento remoto desde app",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Adaptación/instalación cerradura inteligente",
+          "descripcion": "Desmontaje de cerradura existente (si aplica), adaptación de marco/puerta para cerradura inteligente, instalación y ajuste de mecanismo motorizado, pruebas de apertura manual y remota",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración app móvil y credenciales de acceso",
+          "descripcion": "Descarga e instalación de aplicación móvil, creación de credenciales de usuario, configuración de permisos de acceso remoto, pruebas de funcionamiento desde smartphone, documentación de acceso",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cartel informativo RGPD y privacidad",
+          "descripcion": "Cartel de aviso de videovigilancia conforme a normativa RGPD, instalación en zona visible del portal",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: cartel estándar RGPD, precio bajo (5-15€ típicamente)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 395,
+        "iva_porcentaje": 21,
+        "iva": 82.95,
+        "total": 477.95
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'Cámara IP Full HD para control de acceso' - rango típico 150-400€",
+        "Verificar en catálogo: 'Cerradura inteligente motorizada' - rango típico 200-600€",
+        "Verificar en catálogo: 'Central de control de acceso con app móvil' - rango típico 300-800€",
+        "Considerar: Sistema integrado 'Control de acceso remoto con CCTV' como precio alzado (200-1500€ según complejidad)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cámara IP para control de acceso",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico no encontrado en catálogo base; requiere especificación técnica"
+        },
+        {
+          "concepto": "Cerradura inteligente con apertura remota",
+          "oficio": "cerrajeria",
+          "motivo": "Material específico no encontrado en catálogo base; requiere compatibilidad con sistema"
+        },
+        {
+          "concepto": "Central de control de acceso con gestión remota",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico no encontrado en catálogo base; requiere plataforma de gestión"
+        },
+        {
+          "concepto": "Cableado y conexionado sistema acceso-CCTV",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico no encontrado en catálogo base; requiere cuantificación según distancias"
+        },
+        {
+          "concepto": "Fuente de alimentación para sistema",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico no encontrado en catálogo base; requiere cálculo de potencia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_control_de_acceso_con_CCTV",
+      "instalacion_electrica_local_nuevo",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "instalacion_sistema_de_riego_por_aspersion"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3984,
+      "tokens_out": 2714
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 3,
+    "n_sugeridas": 6,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

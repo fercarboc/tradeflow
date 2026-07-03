@@ -1,0 +1,210 @@
+{
+  "id": 289,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar piscina de hormigón con sistema de lámina de polipropileno, 60 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 19241,
+  "raw_response": {
+    "transcript": "Impermeabilizar piscina de hormigón con sistema de lámina de polipropileno, 60 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar piscina de hormigón con sistema de lámina de polipropileno, 60 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Lámina de polipropileno (PP) es alternativa a gresite/cerámica. Verificar si cliente prefiere membrana termofusionable o adhesiva.",
+          "Superficie 60 m² es considerable. Confirmar si incluye paredes o solo fondo.",
+          "Requiere vaciado completo y secado previo mínimo 3 días."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización de piscina con membrana/lámina. Oficio especializado en estanqueidad."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado y secado de piscina",
+          "descripcion": "Vaciado completo de piscina de hormigón y secado mínimo 3 días previo a trabajos de impermeabilización",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza y preparación de soporte",
+          "descripcion": "Limpieza exhaustiva de hormigón, eliminación de algas, musgo, sales y preparación de superficie para adhesión de lámina",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 3,
+          "total": 180,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación adhesiva sobre hormigón",
+          "descripcion": "Aplicación de imprimación/primer específico para mejorar adhesión de lámina de polipropileno sobre hormigón poroso",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de imprimación/primer a definir por instalador según marca y tipo (típicamente 2-5€/m²)"
+        },
+        {
+          "concepto": "Lámina de polipropileno (PP) para piscina",
+          "descripcion": "Suministro e instalación de lámina de polipropileno de espesor mínimo 0,75-1,0 mm, resistente a cloro y UV, con solape mínimo 10 cm en juntas",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lámina PP a definir por instalador según calidad y proveedor (típicamente 15-40€/m²)"
+        },
+        {
+          "concepto": "Instalación de lámina de polipropileno",
+          "descripcion": "Colocación, termofusión o adhesión de lámina PP, sellado de juntas con solape mínimo 10 cm, refuerzo en encuentros con paredes y desagües",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 8,
+          "total": 480,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Refuerzo de encuentros, desagües y sumideros",
+          "descripcion": "Refuerzo especial en encuentros con paredes, desagües, sumideros y juntas de dilatación con lámina adicional y sellado de poliuretano",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de refuerzos y sellantes a definir por instalador (típicamente 5-15€/ml)"
+        },
+        {
+          "concepto": "Prueba de estanqueidad",
+          "descripcion": "Llenado parcial de piscina y verificación de estanqueidad durante 24-48 horas antes de llenado completo",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "descripcion": "Equipos de protección individual (mascarillas, guantes, gafas), herramientas menores, cintas de enmascarar, trapos y consumibles",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de EPI y consumibles a definir por instalador (típicamente 50-150€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 795,
+        "iva_porcentaje": 21,
+        "iva": 166.95,
+        "total": 961.95
+      },
+      "sugerencias_catalogo": [
+        "Considerar si la lámina PP es adhesiva o termofusionable (termofusionable es más duradera pero requiere equipo especializado).",
+        "Verificar si el cliente desea sistema de drenaje perimetral bajo la lámina para evitar acumulación de agua.",
+        "Lámina de polipropileno típicamente tiene vida útil de 10-15 años; informar al cliente sobre mantenimiento y reparaciones futuras.",
+        "Si hay fisuras activas en hormigón, considerar inyecciones previas antes de impermeabilización."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación adhesiva sobre hormigón",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Preparación específica para lámina PP; no está en catálogo base pero es obligatoria en proceso de impermeabilización."
+        },
+        {
+          "concepto": "Lámina de polipropileno (PP) para piscina",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de polipropileno. Base maestra incluye gresite/cerámica y pintura, pero no lámina PP explícitamente."
+        },
+        {
+          "concepto": "Refuerzo de encuentros, desagües y sumideros",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Detalle técnico obligatorio en impermeabilización de piscinas; requiere presupuesto específico según complejidad."
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles y protección; presupuesto a definir por instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_bomba_de_calor_para_piscina",
+      "impermeabilizacion_de_piscina_con_gresite_o_ceramica",
+      "impermeabilizacion_cubierta_plana_con_lamina",
+      "impermeabilizacion_de_piscina_con_pintura_especial",
+      "impermeabilizacion_de_forjado_de_piscina_o_spa"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4013,
+      "tokens_out": 2761
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

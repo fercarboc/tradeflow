@@ -1,0 +1,192 @@
+{
+  "id": 146,
+  "oficio": "Pladur",
+  "texto": "Hacer nicho empotrado en la pared del salón para televisión, con iluminación indirecta",
+  "http_status": 200,
+  "latency_ms": 21636,
+  "raw_response": {
+    "transcript": "Hacer nicho empotrado en la pared del salón para televisión, con iluminación indirecta",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer nicho empotrado en la pared del salón para televisión, con iluminación indirecta",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Dimensiones del nicho no especificadas — se asume tamaño estándar TV 55-65 pulgadas (aprox. 1.5m ancho × 0.9m alto × 0.3m fondo). Instalador debe confirmar medidas exactas.",
+          "Tipo de iluminación indirecta no detallado — se presupuesta con tira LED estándar. Revisar si requiere regulador, color específico o potencia mayor.",
+          "Acabado interior del nicho (pintura, papel pintado) no especificado — presupuestado con pintura blanca estándar."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Construcción de nicho empotrado en pladur con estructura interna y acabados."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de iluminación indirecta (tira LED) con conexión eléctrica."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Acabado interior del nicho con pintura."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura y placas de pladur para nicho empotrado",
+          "descripcion": "Construcción de nicho empotrado en pared con estructura de perfiles metálicos (canal y montantes 48mm) y placas de yeso laminado de 15mm a ambos lados. Incluye refuerzo interior con perfiles para soporte de TV y baldas. Dimensiones aproximadas: 1.5m ancho × 0.9m alto × 0.3m fondo.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado por nicho — depende de dimensiones exactas, complejidad de refuerzos internos y accesibilidad. Rango estimado: 800-1500€ (mano de obra + materiales). Instalador debe confirmar medidas y ajustar."
+        },
+        {
+          "concepto": "Cinta de papel, pasta de juntas y acabado fino de pladur",
+          "descripcion": "Aplicación de cinta de papel en juntas, pasta de juntas en dos capas, masilla de acabado fino y lijado para obtener superficie lista para pintar. Incluye ángulos metálicos en esquinas interiores.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales de acabado — cinta, pasta, masilla, ángulos. Presupuestar según superficie total de placas (aprox. 8 m2). Precio estimado: 120-200€."
+        },
+        {
+          "concepto": "Pintura interior del nicho",
+          "descripcion": "Pintura blanca mate de acabado en interior del nicho (paredes y fondo). Incluye imprimación si es necesario. Superficie aproximada: 8 m2.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 32,
+          "total": 256,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tira LED para iluminación indirecta",
+          "descripcion": "Suministro de tira LED RGB o blanca cálida (5-10 metros según perímetro del nicho) para iluminación indirecta. Incluye adhesivo de fijación y conectores. Potencia estimada: 10-15W.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material LED — precio depende de tipo (RGB, blanca cálida, potencia). Rango estimado: 80-250€. Instalador debe especificar modelo y cantidad de metros."
+        },
+        {
+          "concepto": "Instalación de iluminación LED indirecta",
+          "descripcion": "Instalación de tira LED en perímetro superior/inferior del nicho. Conexión a red eléctrica mediante caja de derivación o enchufe. Incluye pruebas de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios (tornillería, tacos, cinta métrica, etc.)",
+          "descripcion": "Tornillos, tacos de fijación, clavos, pequeño material de consumo para montaje de estructura y acabados.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material — presupuestar entre 50-100€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 356,
+        "iva_porcentaje": 21,
+        "iva": 74.76,
+        "total": 430.76
+      },
+      "sugerencias_catalogo": [
+        "Confirmar dimensiones exactas del nicho (ancho, alto, fondo) para ajustar presupuesto de estructura y placas.",
+        "Especificar tipo de iluminación LED: RGB (multicolor), blanca cálida (2700K), blanca fría (6000K) o regulable.",
+        "Indicar si el nicho incluye baldas internas para decoración o solo es para TV.",
+        "Aclarar si la TV se fijará con soporte de pared o se empotrará completamente en el nicho.",
+        "Revisar si hay instalaciones existentes (electricidad, tuberías) que afecten la ubicación del nicho.",
+        "Considerar si se requiere ventilación trasera para disipación de calor de la TV."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estructura y placas de pladur para nicho empotrado",
+          "oficio": "pladur_escayola",
+          "motivo": "Nicho empotrado con refuerzos internos — partida específica de obra personalizada."
+        },
+        {
+          "concepto": "Tira LED para iluminación indirecta",
+          "oficio": "electricidad",
+          "motivo": "Material LED específico — requiere especificación de tipo, potencia y longitud por parte del instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_sencillo_72mm",
+      "tabique_ladrillo_hueco_sencillo",
+      "nicho_o_estanteria_empotrada_en_pladur",
+      "apertura_hueco_en_muro_para_puerta_o_ventana",
+      "fabricacion_de_estanterias_y_baldas_a_medida"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3940,
+      "tokens_out": 2677
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

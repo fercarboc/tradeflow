@@ -1,0 +1,186 @@
+{
+  "id": 19,
+  "oficio": "Fontanería",
+  "texto": "Revisión anual de caldera de condensación y cambio de filtros, emisión de certificado oficial",
+  "http_status": 200,
+  "latency_ms": 13565,
+  "raw_response": {
+    "transcript": "Revisión anual de caldera de condensación y cambio de filtros, emisión de certificado oficial",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión anual de caldera de condensación y cambio de filtros, emisión de certificado oficial",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Técnico debe estar certificado en gas (obligatorio por normativa)",
+          "Certificado oficial debe emitirse tras la revisión",
+          "Filtros específicos según modelo de caldera (pendiente de confirmación)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Mantenimiento anual de caldera de condensación (sistema de calefacción/ACS). Aplica tarifa climatización por ser equipo térmico de calefacción."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión quemador y cámara de combustión",
+          "descripcion": "Inspección visual y limpieza de quemador, cámara de combustión y electrodos de ionización en caldera de condensación",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza intercambiador de calor",
+          "descripcion": "Limpieza del intercambiador primario y secundario (condensador) para optimizar rendimiento y evitar incrustaciones",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación presión vaso de expansión y válvulas de seguridad",
+          "descripcion": "Control de presión del vaso de expansión, comprobación de válvulas de seguridad y purga de aire si es necesario",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Análisis de combustión y verificación evacuación de humos",
+          "descripcion": "Medición de parámetros de combustión (CO2, CO, temperatura humos) y comprobación de conducto de evacuación y condensados",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cambio de filtros (agua y aire)",
+          "descripcion": "Sustitución de filtro de agua (si dispone) y filtro de aire/polvo según especificaciones del fabricante",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de filtros específicos según modelo de caldera (instalador debe confirmar referencias y costes)"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Juntas, teflón, grasa lubricante, desengrasante y otros consumibles necesarios para la revisión",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado según necesidades reales de la revisión"
+        },
+        {
+          "concepto": "Emisión de certificado oficial de mantenimiento",
+          "descripcion": "Generación, cumplimentación y entrega de certificado oficial de revisión anual conforme a normativa de seguridad en instalaciones térmicas",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio administrativo; algunos técnicos lo incluyen en tarifa, otros lo cobran aparte (15-30€ típico)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Confirmar modelo exacto de caldera para identificar referencias de filtros específicos",
+        "Verificar si el cliente tiene contrato de mantenimiento anual (algunos incluyen piezas de desgaste)",
+        "Técnico debe estar certificado en instalaciones de gas (obligatorio por RD 1027/2007)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cambio de filtros (agua y aire)",
+          "razon": "Precio de filtros específicos pendiente de confirmación según modelo",
+          "sugerencia": "Solicitar modelo/referencia caldera al cliente para cotizar filtros exactos"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "razon": "Importe variable según estado de la caldera",
+          "sugerencia": "Estimar entre 20-50€ según necesidades reales"
+        },
+        {
+          "concepto": "Emisión de certificado oficial de mantenimiento",
+          "razon": "Servicio administrativo con coste variable",
+          "sugerencia": "Aclarar si se incluye en tarifa de mano de obra o se cobra aparte (15-30€)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_y_limpieza_de_caldera_de_gas",
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_anual_caldera",
+      "mantenimiento_anual_persianas_y_toldos",
+      "instalacion_solado_de_barro_ceramico_o_terracota"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3760,
+      "tokens_out": 1928
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "NO"
+  }
+}

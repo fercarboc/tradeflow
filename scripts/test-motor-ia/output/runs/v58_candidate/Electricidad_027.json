@@ -1,0 +1,128 @@
+{
+  "id": 27,
+  "oficio": "Electricidad",
+  "texto": "Avería en el cuadro eléctrico, se va el diferencial continuamente cuando arranco la lavadora",
+  "http_status": 200,
+  "latency_ms": 13611,
+  "raw_response": {
+    "transcript": "Avería en el cuadro eléctrico, se va el diferencial continuamente cuando arranco la lavadora",
+    "quote": {
+      "resumen": {
+        "texto_original": "Avería en el cuadro eléctrico, se va el diferencial continuamente cuando arranco la lavadora",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Problema eléctrico con electrodoméstico: requiere diagnóstico en sitio",
+          "Posible fuga a tierra en lavadora o circuito dedicado",
+          "Diferencial saltando bajo carga: riesgo de seguridad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 55,
+            "max": 220
+          },
+          "motivo": "Diagnóstico de avería diferencial y cuadro eléctrico con electrodoméstico implicado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico eléctrico diferencial y circuito lavadora",
+          "descripcion": "Inspección completa del cuadro eléctrico, prueba de diferenciales, medición de fugas a tierra en circuito lavadora, desconexión selectiva de circuitos para identificar origen de la avería",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 55,
+          "total": 82.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material eléctrico (bornes, cinta aislante, conectores)",
+          "descripcion": "Material fungible necesario para pruebas y reparación provisional si aplica",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe estimar coste de material fungible según hallazgos"
+        },
+        {
+          "concepto": "Diferencial 40A 30mA tipo A (si defectuoso)",
+          "descripcion": "Suministro e instalación de diferencial nuevo en caso de que el existente esté averiado tras diagnóstico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del diferencial pendiente de confirmación. Instalación incluida en diagnóstico si es necesario"
+        },
+        {
+          "concepto": "Hora adicional diagnóstico avanzado (si necesario)",
+          "descripcion": "Mano de obra adicional si el diagnóstico requiere pruebas más exhaustivas, medición con telurómetro o inspección de la lavadora",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 55,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad a confirmar tras diagnóstico inicial. Se facturará solo si es necesario"
+        }
+      ],
+      "calculos": {
+        "subtotal": 82.5,
+        "iva_porcentaje": 21,
+        "iva": 17.33,
+        "total": 99.83
+      },
+      "sugerencias_catalogo": [
+        "Tras diagnóstico: si el diferencial está defectuoso, aplicar partida 'Diferencial 40A 30mA tipo A'",
+        "Si la avería está en la lavadora (fuga a tierra en motor/resistencia), derivar a técnico de electrodomésticos",
+        "Si hay humedad en el circuito, considerar impermeabilización de cajas de derivación"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "diagnostico_averia_diferencial",
+      "cambio_cuadro_electrico_vivienda",
+      "inspeccion_y_test_de_toma_de_tierra_y_diferencial",
+      "instalacion_electrica_garaje_comunitario",
+      "mantenimiento_de_instalacion_electrica_en_local_o_empresa"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3675,
+      "tokens_out": 1560
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

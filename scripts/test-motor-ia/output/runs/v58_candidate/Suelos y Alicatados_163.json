@@ -1,0 +1,142 @@
+{
+  "id": 163,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Cambiar azulejos de cocina, quitar los viejos y poner metro a metro de metro de azulejo blanco mate",
+  "http_status": 200,
+  "latency_ms": 10413,
+  "raw_response": {
+    "transcript": "Cambiar azulejos de cocina, quitar los viejos y poner metro a metro de metro de azulejo blanco mate",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambiar azulejos de cocina, quitar los viejos y poner metro a metro de metro de azulejo blanco mate",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se interpreta '1 metro a metro' (1 m²) de azulejo blanco mate. Confirmar superficie exacta con cliente.",
+          "No se especifica si incluye impermeabilización. En cocina se recomienda verificar.",
+          "Precio de azulejo blanco mate pendiente de revisión del instalador."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Desmontaje de azulejos existentes y alicatado de nuevos azulejos cerámicos."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de azulejos existentes",
+          "descripcion": "Demolición y retirada de azulejos viejos de cocina, incluyendo mortero y pequeño material de limpieza.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 20,
+          "total": 20,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Azulejo blanco mate 1 m²",
+          "descripcion": "Suministro de azulejo cerámico blanco mate, formato estándar cocina (aprox. 20x20 cm o similar), cantidad 1 m².",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de azulejo blanco mate a definir por instalador según marca y calidad."
+        },
+        {
+          "concepto": "Mortero cola flexible C2 y lechada",
+          "descripcion": "Mortero cola flexible C2 para fijación de azulejos y lechada de junta flexible, incluido pequeño material (esponjas, cinta carrocero, etc.).",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mortero y lechada a definir por instalador."
+        },
+        {
+          "concepto": "Alicatado de azulejos blancos",
+          "descripcion": "Colocación de azulejos blancos mate en cocina, incluyendo replanteo, cortes, rejuntado y sellado con silicona sanitaria.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 60,
+        "iva_porcentaje": 21,
+        "iva": 12.6,
+        "total": 72.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar con cliente si la superficie es exactamente 1 m² o si hay más metros lineales/superficiales.",
+        "En cocina, considerar impermeabilización si la zona está próxima a salpicaduras de agua o humedad.",
+        "Confirmar formato y acabado del azulejo blanco mate (20x20, 25x25, 30x30, etc.).",
+        "Incluir perfiles de aluminio en esquinas exteriores si aplica."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Azulejo blanco mate 1 m²",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Material específico de acabado, precio variable según marca y proveedor."
+        },
+        {
+          "concepto": "Mortero cola flexible C2 y lechada",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Consumibles de instalación, precio variable según cantidad y marca."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "alicatado_ceramico_pared_interior",
+      "pintado_azulejos_con_pintura_especial",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "sustitucion_banera_por_ducha",
+      "impermeabilizacion_zona_ducha_con_membrana_liquida"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3941,
+      "tokens_out": 1384
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

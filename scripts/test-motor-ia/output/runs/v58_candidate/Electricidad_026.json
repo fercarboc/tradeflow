@@ -1,0 +1,172 @@
+{
+  "id": 26,
+  "oficio": "Electricidad",
+  "texto": "Instalación de sistema de iluminación LED en toda la vivienda, 12 puntos de luz con reguladores de intensidad",
+  "http_status": 200,
+  "latency_ms": 12842,
+  "raw_response": {
+    "transcript": "Instalación de sistema de iluminación LED en toda la vivienda, 12 puntos de luz con reguladores de intensidad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de sistema de iluminación LED en toda la vivienda, 12 puntos de luz con reguladores de intensidad",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye suministro de luminarias LED y reguladores: precios pendiente de revisión del instalador",
+          "Se asume instalación en puntos existentes; si requiere nuevas canalizaciones o cajas, revisar alcance"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de luminarias LED y reguladores de intensidad (dimmers)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro luminarias LED 12 unidades",
+          "descripcion": "Luminarias LED de bajo consumo, 12 unidades, incluyendo casquillos, difusores y accesorios de montaje",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de luminarias LED variable según modelo, potencia y acabado. Instalador debe especificar"
+        },
+        {
+          "concepto": "Suministro reguladores de intensidad (dimmers) 12 unidades",
+          "descripcion": "Reguladores de intensidad (dimmers) compatibles con LED, 12 unidades, incluyendo mecanismos y placas",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de dimmers variable según tecnología (trailing edge, leading edge, DALI). Instalador debe especificar"
+        },
+        {
+          "concepto": "Desmontaje de luminarias existentes",
+          "descripcion": "Desmontaje y retirada de 12 luminarias existentes, desconexión eléctrica segura",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación luminarias LED 12 unidades",
+          "descripcion": "Instalación de 12 luminarias LED en puntos existentes, conexión eléctrica, pruebas de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación reguladores de intensidad 12 unidades",
+          "descripcion": "Instalación de 12 reguladores de intensidad en cajas de mecanismo, conexión eléctrica, configuración y pruebas",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material eléctrico (tornillos, tacos, pasta térmica, etc.)",
+          "descripcion": "Tornillos, tacos de fijación, pasta térmica, cinta aislante, conectores y otros consumibles necesarios para la instalación",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: estimación aproximada 15-30€. Instalador debe revisar"
+        }
+      ],
+      "calculos": {
+        "subtotal": 275,
+        "iva_porcentaje": 21,
+        "iva": 57.75,
+        "total": 332.75
+      },
+      "sugerencias_catalogo": [
+        "Especificar tipo de luminarias LED: empotradas, de superficie, colgantes, spots, etc.",
+        "Indicar potencia de las luminarias (W) y temperatura de color (3000K cálida, 4000K neutra, 6000K fría)",
+        "Confirmar compatibilidad de dimmers con tecnología LED (algunos dimmers antiguos no son compatibles)",
+        "Si hay nuevas canalizaciones o cajas de mecanismo a instalar, añadir partidas de albañilería/pladur"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro luminarias LED 12 unidades",
+          "origen": "sugerida_ia",
+          "razon": "Material específico cuyo precio depende del modelo y especificaciones técnicas"
+        },
+        {
+          "concepto": "Suministro reguladores de intensidad (dimmers) 12 unidades",
+          "origen": "sugerida_ia",
+          "razon": "Material específico cuyo precio depende de la tecnología y compatibilidad LED"
+        },
+        {
+          "concepto": "Pequeño material eléctrico (tornillos, tacos, pasta térmica, etc.)",
+          "origen": "sugerida_ia",
+          "razon": "Consumibles cuyo coste debe ser estimado por el instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_red_de_datos_inalambrica_mesh",
+      "forrado_exterior_fachada_ventilada",
+      "instalacion_sistema_free_cooling",
+      "instalacion_sistema_agua_helada_chiller",
+      "instalacion_de_sistema_de_alarma_intrusion"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4021,
+      "tokens_out": 1786
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

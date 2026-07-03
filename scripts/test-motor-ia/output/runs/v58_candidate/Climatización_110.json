@@ -1,0 +1,240 @@
+{
+  "id": 110,
+  "oficio": "Climatización",
+  "texto": "Sistema de ventilación para cocina de restaurante con extractor industrial y conducto al exterior",
+  "http_status": 200,
+  "latency_ms": 18513,
+  "raw_response": {
+    "transcript": "Sistema de ventilación para cocina de restaurante con extractor industrial y conducto al exterior",
+    "quote": {
+      "resumen": {
+        "texto_original": "Sistema de ventilación para cocina de restaurante con extractor industrial y conducto al exterior",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar dimensiones del conducto y potencia del extractor según caudal de aire requerido (m³/h)",
+          "Confirmar si existe campana extractora o se debe instalar",
+          "Revisar normativa local de evacuación de humos (distancia a vecinos, altura de salida)",
+          "Considerar aislamiento acústico si el ruido es crítico"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Conexión eléctrica del extractor industrial, circuito dedicado, protecciones"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Apertura de paso en pared/fachada para conducto, sellado y remates"
+        },
+        {
+          "oficio": "multiservicio",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 38,
+            "max": 45
+          },
+          "motivo": "Montaje y fijación de conductos, soportes y accesorios"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Extractor industrial para cocina",
+          "descripcion": "Suministro de extractor centrífugo industrial de alta potencia (600-1200 m³/h) con motor trifásico, aislamiento acústico y protección térmica",
+          "oficio": "multiservicio",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia (kW), caudal (m³/h) y marca. Rango típico: 800-3500€"
+        },
+        {
+          "concepto": "Conducto de ventilación galvanizado",
+          "descripcion": "Suministro de conducto circular galvanizado Ø150-200mm, aislado acústicamente, con accesorios (codos, reducciones, bridas)",
+          "oficio": "multiservicio",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por metro lineal depende de diámetro y aislamiento. Rango: 25-60€/ml. Cantidad a confirmar según trazado"
+        },
+        {
+          "concepto": "Instalación de extractor industrial",
+          "descripcion": "Montaje, fijación y conexión del extractor en estructura de cocina, alineación y nivelación",
+          "oficio": "multiservicio",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 38,
+          "total": 114,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de conducto de ventilación",
+          "descripcion": "Montaje, fijación con soportes metálicos, sellado de juntas y accesorios (codos, reducciones, bridas)",
+          "oficio": "multiservicio",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 38,
+          "total": 152,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Apertura de paso en fachada/pared",
+          "descripcion": "Rotura y apertura de paso en pared/fachada para salida de conducto, incluye retirada de escombros",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado y remate de paso exterior",
+          "descripcion": "Sellado con mortero, colocación de reborde/collar de aluminio o acero inoxidable, impermeabilización de la salida",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Circuito eléctrico dedicado para extractor",
+          "descripcion": "Instalación de línea eléctrica trifásica (3x6mm² + tierra) desde cuadro a extractor, protecciones (magnetotérmico 16A, diferencial 30mA), canalización y conexión",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales eléctricos (cable, protecciones, accesorios)",
+          "descripcion": "Suministro de cable trifásico, magnetotérmico, diferencial, canaleta, conectores y pequeño material eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de longitud de línea y tipo de protecciones. Rango estimado: 150-400€"
+        },
+        {
+          "concepto": "Pruebas y puesta en marcha",
+          "descripcion": "Pruebas de funcionamiento del extractor, verificación de caudal, ruido y estanqueidad de conductos",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 716,
+        "iva_porcentaje": 21,
+        "iva": 150.36,
+        "total": 866.36
+      },
+      "sugerencias_catalogo": [
+        "Confirmar potencia del extractor (kW) y caudal requerido (m³/h) según volumen de cocina y número de fogones",
+        "Especificar diámetro del conducto (150mm, 200mm, 250mm) según caudal",
+        "Indicar longitud total del conducto desde extractor a salida exterior",
+        "Verificar si se requiere campana extractora adicional sobre fogones (no incluida en este presupuesto)",
+        "Considerar sistema de control de velocidad variable (variador de frecuencia) para ahorro energético",
+        "Revisar normativa de ruido máximo permitido en zona (típicamente 65-70 dB)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Extractor industrial para cocina",
+          "oficio": "multiservicio",
+          "motivo": "Material específico de hostelería, precio variable según potencia"
+        },
+        {
+          "concepto": "Conducto de ventilación galvanizado",
+          "oficio": "multiservicio",
+          "motivo": "Material específico, precio por metro lineal variable según diámetro"
+        },
+        {
+          "concepto": "Materiales eléctricos (cable, protecciones, accesorios)",
+          "oficio": "electricidad",
+          "motivo": "Materiales auxiliares, precio depende de longitud y especificaciones"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_extincion_en_cocina_industrial",
+      "instalacion_trampa_grasa_cocina",
+      "instalacion_bomba_de_calor_para_piscina",
+      "instalacion_de_sistema_de_extincion_por_espuma",
+      "instalacion_electrica_local_hosteleria"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3843,
+      "tokens_out": 2591
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 6,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

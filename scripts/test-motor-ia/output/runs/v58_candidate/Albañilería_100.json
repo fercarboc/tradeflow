@@ -1,0 +1,217 @@
+{
+  "id": 100,
+  "oficio": "Albañilería",
+  "texto": "Construir rampa de acceso para silla de ruedas en entrada de vivienda, longitud 3 metros",
+  "http_status": 200,
+  "latency_ms": 20421,
+  "raw_response": {
+    "transcript": "Construir rampa de acceso para silla de ruedas en entrada de vivienda, longitud 3 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir rampa de acceso para silla de ruedas en entrada de vivienda, longitud 3 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Rampa de acceso PMR: verificar pendiente máxima 8% (CTE DB-SUA). Para 3m de longitud, altura máxima permitida: 0,24m (24cm). Confirmar con cliente.",
+          "Requiere pavimento antideslizante obligatorio en toda la rampa (CTE DB-SUA).",
+          "Considerar barras de apoyo laterales si altura > 0,20m para mayor seguridad.",
+          "Verificar si requiere licencia municipal (obra en fachada/acceso público)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Construcción de estructura rampa, cimentación, hormigonado, nivelación."
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Acabado antideslizante obligatorio en rampa exterior (CTE DB-SUA)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición y preparación terreno",
+          "descripcion": "Demolición de pavimento existente en zona de acceso, retirada de escombros y preparación del terreno para rampa de 3m de longitud.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de demolición y preparación a criterio del instalador según estado actual del terreno."
+        },
+        {
+          "concepto": "Suministro hormigón estructural rampa",
+          "descripcion": "Hormigón HA-25 para estructura rampa de acceso PMR, 3m de longitud, pendiente 8% máximo, incluye armadura de acero.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen estimado. Precio de hormigón y armadura a revisar según proveedor local."
+        },
+        {
+          "concepto": "Ejecución estructura rampa hormigonada",
+          "descripcion": "Encofrado, hormigonado, vibrado y desencofrado de rampa de acceso de 3m de longitud con pendiente máxima 8% (CTE DB-SUA).",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 40,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro pavimento antideslizante rampa",
+          "descripcion": "Baldosa cerámica o gres antideslizante R11 mínimo para rampa exterior PMR, 12 m2 (3m x 4m ancho estándar).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de baldosa antideslizante a revisar según calidad y proveedor."
+        },
+        {
+          "concepto": "Colocación pavimento antideslizante y acabado rampa",
+          "descripcion": "Preparación base, mortero de asiento, colocación baldosa antideslizante R11, rejuntado y acabado de rampa de 12 m2.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Barras de apoyo laterales rampa",
+          "descripcion": "Suministro e instalación de 2 barras de apoyo de acero inoxidable AISI 304, diámetro 40mm, longitud 3m, fijación cada 50cm a estructura rampa.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de barras inoxidables a revisar según proveedor."
+        },
+        {
+          "concepto": "Instalación barras de apoyo",
+          "descripcion": "Fijación de 2 barras de apoyo inoxidables a estructura rampa con anclajes químicos y tornillería inoxidable.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y EPI",
+          "descripcion": "Mortero, cinta de juntas, pasta de juntas, lechada, herramientas, EPI (guantes, gafas, mascarilla), limpieza final.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe alzado de pequeño material y EPI a criterio del instalador."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1100,
+        "iva_porcentaje": 21,
+        "iva": 231,
+        "total": 1331
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'Rampa de acceso PMR' o 'Rampa hormigonada exterior' para posibles referencias de precio alzado.",
+        "Consultar: 'Baldosa antideslizante exterior R11' para materiales específicos.",
+        "Revisar: 'Barras de apoyo inoxidables' en sección de accesorios de accesibilidad."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro hormigón estructural rampa",
+          "oficio": "albanileria",
+          "motivo": "Material específico para rampa PMR, no encontrado en catálogo base."
+        },
+        {
+          "concepto": "Suministro pavimento antideslizante rampa",
+          "oficio": "impermeabilizacion",
+          "motivo": "Baldosa antideslizante R11 específica para rampa exterior, requiere especificación de proveedor."
+        },
+        {
+          "concepto": "Suministro barras de apoyo laterales rampa",
+          "oficio": "albanileria",
+          "motivo": "Accesorios de accesibilidad PMR, precio variable según fabricante."
+        },
+        {
+          "concepto": "Pequeño material y EPI",
+          "oficio": "albanileria",
+          "motivo": "Partida alzada de consumibles y protección personal."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "rebaje_de_acera_o_vado_vehicular",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "impermeabilizacion_de_escalera_o_rampa_exterior",
+      "fabricacion_e_instalacion_puerta_exterior_madera"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3957,
+      "tokens_out": 2752
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

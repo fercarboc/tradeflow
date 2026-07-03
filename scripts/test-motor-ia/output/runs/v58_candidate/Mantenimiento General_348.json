@@ -1,0 +1,307 @@
+{
+  "id": 348,
+  "oficio": "Mantenimiento General",
+  "texto": "Mantenimiento preventivo de instalaciones de hotel, revisión de fontanería, electricidad y clima",
+  "http_status": 200,
+  "latency_ms": 22284,
+  "raw_response": {
+    "transcript": "Mantenimiento preventivo de instalaciones de hotel, revisión de fontanería, electricidad y clima",
+    "quote": {
+      "resumen": {
+        "texto_original": "Mantenimiento preventivo de instalaciones de hotel, revisión de fontanería, electricidad y clima",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto de mantenimiento preventivo en instalación compleja (hotel). Requiere definir: número de habitaciones, potencia instalada, extensión de red fontanería, frecuencia de visitas, alcance exacto de revisiones.",
+          "Se han generado partidas base. El instalador debe ajustar cantidades, frecuencias y precios según características específicas del hotel."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Revisión de instalación fontanería en hotel"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Revisión de instalación eléctrica en hotel"
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Mantenimiento preventivo de instalación de climatización en hotel"
+        },
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Coordinación y supervisión de mantenimiento preventivo multidisciplinar"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión y diagnóstico instalación fontanería",
+          "descripcion": "Inspección completa de red de distribución de agua fría y caliente, válvulas de corte, grifería, desagües, tuberías visibles y ocultas, detección de fugas, estado de aislamiento térmico, presiones y caudales",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas estimada. Ajustar según tamaño real del hotel y complejidad de instalación"
+        },
+        {
+          "concepto": "Limpieza y desobstrucción de filtros y sifones fontanería",
+          "descripcion": "Limpieza de filtros de entrada, sifones de desagüe, válvulas reductoras de presión, purgadores de aire en radiadores y tuberías",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas estimada según número de puntos de agua"
+        },
+        {
+          "concepto": "Pequeño material fontanería (juntas, teflón, abrazaderas, etc.)",
+          "descripcion": "Suministro de pequeño material consumible para reparaciones menores durante revisión: juntas de goma, cinta teflón, abrazaderas, tuercas, arandelas",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por instalador según necesidades reales"
+        },
+        {
+          "concepto": "Revisión y diagnóstico instalación eléctrica",
+          "descripcion": "Inspección de cuadro eléctrico general, diferenciales, magnetotérmicos, toma de tierra, cableado visible, enchufes, interruptores, iluminación de emergencia, estado general de la instalación",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas estimada. Ajustar según potencia instalada y extensión de red"
+        },
+        {
+          "concepto": "Prueba de diferenciales y magnetotérmicos",
+          "descripcion": "Verificación funcional de todos los diferenciales y magnetotérmicos del cuadro eléctrico, medición de sensibilidad, prueba de disparo",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas estimada según número de dispositivos"
+        },
+        {
+          "concepto": "Medición de toma de tierra y resistencia de aislamiento",
+          "descripcion": "Medición de resistencia de puesta a tierra con telurómetro, verificación de continuidad de conductores de protección, medición de resistencia de aislamiento de circuitos",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión iluminación de emergencia",
+          "descripcion": "Inspección de baterías de emergencia, prueba de funcionamiento en corte de suministro, verificación de señalización de evacuación, estado de luminarias",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas estimada según número de puntos de emergencia"
+        },
+        {
+          "concepto": "Pequeño material electricidad (fusibles, conectores, etc.)",
+          "descripcion": "Suministro de pequeño material consumible: fusibles, conectores, bornes, cinta aislante, pequeñas piezas de reposición",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por instalador"
+        },
+        {
+          "concepto": "Revisión y diagnóstico instalación climatización",
+          "descripcion": "Inspección de unidades interiores y exteriores, verificación de presiones de refrigerante, caudales de aire, estado de filtros, tuberías de cobre, aislamiento, conexiones eléctricas, termostatos",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 60,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas estimada. Ajustar según número de unidades y potencia total instalada"
+        },
+        {
+          "concepto": "Limpieza de filtros y baterías de climatización",
+          "descripcion": "Limpieza de filtros de aire en unidades interiores, limpieza de baterías de intercambio térmico, limpieza de bandejas de condensación",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas estimada según número de unidades"
+        },
+        {
+          "concepto": "Verificación de presiones, caudales y funcionamiento",
+          "descripcion": "Medición de presiones de alta y baja en circuito frigorífico, verificación de caudales de aire, prueba de funcionamiento en calefacción y refrigeración, análisis de consumo energético",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material climatización (filtros, aceite, etc.)",
+          "descripcion": "Suministro de pequeño material consumible: filtros de aire, aceite frigorífico, juntas, tuercas, abrazaderas, cinta aislante",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por instalador según necesidades reales"
+        },
+        {
+          "concepto": "Informe de mantenimiento preventivo y recomendaciones",
+          "descripcion": "Elaboración de informe técnico detallado con estado de cada instalación, recomendaciones de reparación, plan de mantenimiento futuro, documentación de intervenciones realizadas",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por instalador según complejidad del informe"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2370,
+        "iva_porcentaje": 21,
+        "iva": 497.7,
+        "total": 2867.7
+      },
+      "sugerencias_catalogo": [
+        "Considerar contrato anual de mantenimiento preventivo según norma RITE para climatización (visitas periódicas según potencia instalada)",
+        "Incluir termografía infrarroja en revisión eléctrica si se sospecha sobrecalentamientos en cuadro o conexiones",
+        "Documentar todas las intervenciones en registro de mantenimiento del hotel para cumplimiento normativo"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pequeño material fontanería",
+          "oficio": "fontaneria",
+          "motivo": "Material consumible variable según necesidades reales"
+        },
+        {
+          "concepto": "Pequeño material electricidad",
+          "oficio": "electricidad",
+          "motivo": "Material consumible variable según necesidades reales"
+        },
+        {
+          "concepto": "Pequeño material climatización",
+          "oficio": "climatizacion",
+          "motivo": "Material consumible variable según necesidades reales"
+        },
+        {
+          "concepto": "Informe de mantenimiento preventivo",
+          "oficio": "mantenimiento_general",
+          "motivo": "Servicio de documentación y recomendaciones"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_persianas_y_toldos",
+      "instalacion_pasarela_o_plataforma_metalica_de_acceso",
+      "mantenimiento_instalacion_grande_contrato_anual",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "mantenimiento_de_instalacion_electrica_en_local_o_empresa"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3778,
+      "tokens_out": 3545
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 9,
+    "n_sugeridas": 4,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "NO"
+  }
+}

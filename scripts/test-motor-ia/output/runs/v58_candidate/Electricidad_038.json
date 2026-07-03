@@ -1,0 +1,156 @@
+{
+  "id": 38,
+  "oficio": "Electricidad",
+  "texto": "Poner enchufes y luz en trastero sin instalación eléctrica, superficie 8 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 18635,
+  "raw_response": {
+    "transcript": "Poner enchufes y luz en trastero sin instalación eléctrica, superficie 8 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner enchufes y luz en trastero sin instalación eléctrica, superficie 8 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trastero sin instalación eléctrica: requiere acometida desde cuadro general o circuito existente más cercano",
+          "Verificar capacidad del cuadro general y disponibilidad de PIA (Pequeño Interruptor Automático) para nuevos circuitos",
+          "Confirmar número exacto de enchufes y puntos de luz solicitados",
+          "Acceso a cuadro general y trazado de canalizaciones deben validarse in situ"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de circuitos eléctricos nuevos, enchufes y luminarias en trastero"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Acometida y circuito desde cuadro general",
+          "descripcion": "Tendido de cable H07V-K 2.5mm² desde cuadro general hasta trastero, incluyendo tubo corrugado, cajas de derivación y pequeño material. Instalación de PIA (Pequeño Interruptor Automático) 16A en cuadro general para protección del circuito",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Distancia desde cuadro general al trastero debe confirmarse in situ; puede variar entre 2-5 horas según trazado"
+        },
+        {
+          "concepto": "Instalación de enchufes Schuko 16A",
+          "descripcion": "Suministro e instalación de 4 enchufes Schuko 16A con bases de empotrar, cable H07V-K 2.5mm², cajas de empotrar universal, teflon y pequeño material. Incluye rozas en paredes si es necesario y reposición",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 55,
+          "total": 220,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Número de enchufes estimado en 4 (0.5 ud/m²); confirmar cantidad exacta con cliente"
+        },
+        {
+          "concepto": "Instalación de luminarias LED",
+          "descripcion": "Suministro e instalación de 2 luminarias LED de techo (apliques o empotrados) con portalámparas, cable H07V-K 1.5mm², cajas de empotrar, interruptor de pared simple, teflon y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Número de puntos de luz estimado en 2 (1 punto cada 4m²); confirmar cantidad y tipo de luminaria (empotrada, aplique, etc.)"
+        },
+        {
+          "concepto": "Materiales eléctricos (enchufes, luminarias, cable, tubo, cajas)",
+          "descripcion": "Suministro de: 4 enchufes Schuko 16A, 2 luminarias LED, cable H07V-K (2.5mm² y 1.5mm²), tubo corrugado M20, cajas de empotrar, interruptores, teflon, PIA 16A, pequeño material y consumibles",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de materiales pendiente de revisión del instalador. Estimado: 150-250€ según marcas y especificaciones"
+        },
+        {
+          "concepto": "Pruebas y puesta en servicio",
+          "descripcion": "Verificación de continuidad de tierra, medición de aislamiento, prueba de funcionamiento de enchufes y luminarias, comprobación de protecciones diferenciales",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 540,
+        "iva_porcentaje": 21,
+        "iva": 113.4,
+        "total": 653.4
+      },
+      "sugerencias_catalogo": [
+        "Validar en catálogo: [instalacion_enchufe_nuevo] — partidas obligatorias incluyen base_enchufe_schuko_16a, cable_h07vk_2_5mm2, caja_empotrar_universal",
+        "Considerar si el trastero requiere iluminación de emergencia o señalización según normativa local",
+        "Confirmar si la acometida requiere diferencial de 30mA (obligatorio en baños; en trastero depende de uso)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Acometida y circuito desde cuadro general",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "razon": "Trabajo específico de acometida nueva no detallado en BASE MAESTRA; requiere estimación de distancia y trazado"
+        },
+        {
+          "concepto": "Instalación de luminarias LED",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "razon": "Tipo y cantidad de luminarias no especificadas; partida genérica que requiere confirmación de modelo y especificaciones"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_enchufe_nuevo",
+      "instalacion_de_cubierta_de_teja_arabe_o_curvada",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana",
+      "cambio_luna_ventana_rota",
+      "instalacion_llave_escuadra"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3778,
+      "tokens_out": 2365
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 4,
+    "n_sugeridas": 1,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

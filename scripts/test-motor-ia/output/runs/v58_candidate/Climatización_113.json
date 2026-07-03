@@ -1,0 +1,297 @@
+{
+  "id": 113,
+  "oficio": "Climatización",
+  "texto": "Instalar climatizador evaporativo en nave industrial de 500 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 22509,
+  "raw_response": {
+    "transcript": "Instalar climatizador evaporativo en nave industrial de 500 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar climatizador evaporativo en nave industrial de 500 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Verificar humedad relativa ambiente (sistema eficaz solo si HR < 60%)",
+          "Confirmar disponibilidad agua y drenaje en nave",
+          "Validar altura nave para distribución conductos",
+          "Revisar consumo agua estimado con cliente"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación sistema evaporativo/adiabático en nave industrial"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Circuito eléctrico dedicado, conexión cuadro, protecciones"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Conexión agua, drenaje, tuberías suministro"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Climatizador evaporativo/adiabático",
+          "descripcion": "Suministro e instalación climatizador evaporativo industrial según potencia requerida para 500 m² (caudal estimado 15.000-25.000 m³/h). Incluye estructura soporte, conexiones rápidas, puesta en marcha inicial.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia, marca y modelo. Rango estimado 2.500-8.000€. Instalador debe confirmar especificaciones técnicas."
+        },
+        {
+          "concepto": "Red de conductos y difusores",
+          "descripcion": "Suministro e instalación red conductos galvanizados o aluminio, difusores de aire, rejillas de retorno. Distribución en nave según layout. Incluye soportería y aislamiento térmico conductos.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de complejidad distribución. Estimado 15-40€/m² de nave. Total estimado 7.500-20.000€."
+        },
+        {
+          "concepto": "Instalación red conductos y difusores",
+          "descripcion": "Mano de obra instalación red conductos, fijación soportería, conexión difusores y rejillas, pruebas de caudal y estanqueidad.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 60,
+          "total": 2400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión agua suministro",
+          "descripcion": "Suministro tubería PEX o cobre, válvula reguladora presión, filtro agua, conexión a red existente o depósito. Incluye pequeño material (codos, tes, abrazaderas).",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de distancia a toma agua y complejidad. Estimado 300-800€."
+        },
+        {
+          "concepto": "Instalación conexión agua",
+          "descripcion": "Mano de obra conexión tubería agua, instalación válvula reguladora, filtro, prueba estanqueidad y caudal.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema drenaje",
+          "descripcion": "Suministro tubería drenaje PVC, sifón, conexión a desagüe o sumidero. Incluye pequeño material y pendientes.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de distancia a desagüe. Estimado 200-600€."
+        },
+        {
+          "concepto": "Instalación drenaje",
+          "descripcion": "Mano de obra instalación tubería drenaje, sifón, conexión desagüe, prueba funcionamiento.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Circuito eléctrico dedicado",
+          "descripcion": "Suministro cable RZ1-K 4x6 mm² (o sección según potencia), magnetotérmico monofásico/trifásico, diferencial, enchufe industrial, pequeño material (bornas, tuercas, arandelas).",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia climatizador y distancia a cuadro. Estimado 400-1.200€."
+        },
+        {
+          "concepto": "Instalación circuito eléctrico",
+          "descripcion": "Mano de obra tendido cable, instalación magnetotérmico y diferencial en cuadro, conexión enchufe, pruebas aislamiento y funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 50,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema purga automática y control humedad",
+          "descripcion": "Suministro válvula purga automática, sensor humedad relativa, controlador electrónico. Incluye pequeño material.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 300-800€. Opcional pero recomendado para optimizar consumo agua."
+        },
+        {
+          "concepto": "Instalación sistema purga y control",
+          "descripcion": "Mano de obra instalación válvula purga, sensor humedad, programación controlador, pruebas funcionamiento.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Filtros y pequeño material",
+          "descripcion": "Suministro filtros aire (G4, F7), filtro agua, correas, tornillería, cinta teflón, silicona, adhesivos, etc.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 200-500€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 4060,
+        "iva_porcentaje": 21,
+        "iva": 852.6,
+        "total": 4912.6
+      },
+      "sugerencias_catalogo": [
+        "Confirmar potencia climatizador (kW) para dimensionar cable eléctrico y protecciones",
+        "Verificar si nave tiene toma agua existente o requiere nueva acometida",
+        "Comprobar disponibilidad desagüe para drenaje (sumidero, canaleta, etc.)",
+        "Medir altura nave para optimizar distribución conductos",
+        "Solicitar análisis humedad relativa ambiente (sistema solo eficaz si HR < 60%)",
+        "Considerar depósito agua si consumo estimado alto (evaporativos consumen 5-15 l/h)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Climatizador evaporativo/adiabático",
+          "oficio": "climatizacion",
+          "motivo": "Material específico, precio depende de potencia y marca"
+        },
+        {
+          "concepto": "Red de conductos y difusores",
+          "oficio": "climatizacion",
+          "motivo": "Material específico, precio variable según complejidad distribución"
+        },
+        {
+          "concepto": "Conexión agua suministro",
+          "oficio": "fontaneria",
+          "motivo": "Material específico, precio depende de distancia y complejidad"
+        },
+        {
+          "concepto": "Sistema drenaje",
+          "oficio": "fontaneria",
+          "motivo": "Material específico, precio depende de distancia a desagüe"
+        },
+        {
+          "concepto": "Circuito eléctrico dedicado",
+          "oficio": "electricidad",
+          "motivo": "Material específico, precio depende de potencia y distancia"
+        },
+        {
+          "concepto": "Sistema purga automática y control humedad",
+          "oficio": "climatizacion",
+          "motivo": "Material específico, opcional pero recomendado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_evaporativo_o_enfriamiento_adiabático",
+      "instalacion_red_electrica_nave_industrial",
+      "instalacion_cuadro_electrico_industrial_trifasico",
+      "instalacion_conexion_maquina_industrial",
+      "instalacion_pavimento_de_resina_epoxi_en_garaje_o_industrial"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3759,
+      "tokens_out": 3323
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 5,
+    "n_sugeridas": 7,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

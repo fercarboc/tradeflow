@@ -1,0 +1,171 @@
+{
+  "id": 62,
+  "oficio": "Pintura",
+  "texto": "Pintar toda la vivienda interior, paredes y techos, superficie aproximada de 250 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 13135,
+  "raw_response": {
+    "transcript": "Pintar toda la vivienda interior, paredes y techos, superficie aproximada de 250 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar toda la vivienda interior, paredes y techos, superficie aproximada de 250 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se recomienda inspeccionar el estado actual de las paredes (grietas, humedades, pintura antigua) para ajustar el presupuesto de preparación",
+          "Precio unitario de pintura material pendiente de revisión según marca y calidad elegida"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura interior de vivienda, paredes y techos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de superficies",
+          "descripcion": "Limpieza general, reparación de grietas menores, masillado de juntas y tornillos, lijado grano 120-220 de paredes y techos",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 250,
+          "precio_unitario": 6,
+          "total": 1500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación fijadora",
+          "descripcion": "Aplicación de imprimación fijadora en paredes y techos para fijar polvo y mejorar adherencia de pintura final",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 250,
+          "precio_unitario": 3,
+          "total": 750,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura plástica interior mate - 2 manos",
+          "descripcion": "Aplicación de pintura plástica interior de calidad en dos manos en paredes y techos de vivienda",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 250,
+          "precio_unitario": 8,
+          "total": 2000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material pintura plástica interior",
+          "descripcion": "Pintura plástica interior mate de calidad estándar, aproximadamente 12-15 litros para 250 m2 (2 manos)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 13,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de revisión según marca y calidad elegida por el instalador"
+        },
+        {
+          "concepto": "Material imprimación fijadora",
+          "descripcion": "Imprimación fijadora de calidad estándar, aproximadamente 6-8 litros para 250 m2",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 7,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de revisión según marca y calidad elegida"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Rodillos, pinceles, cintas carrocero, trapos, mascarillas, lijas, espátulas y otros consumibles necesarios para la ejecución",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado de consumibles a revisar según necesidades reales de obra"
+        }
+      ],
+      "calculos": {
+        "subtotal": 4250,
+        "iva_porcentaje": 21,
+        "iva": 892.5,
+        "total": 5142.5
+      },
+      "sugerencias_catalogo": [
+        "Confirmar estado actual de las paredes: si hay pintura antigua muy gruesa o descascarada, considerar decapante químico como partida adicional",
+        "Si hay humedades o manchas de moho, considerar tratamiento previo con fungicida",
+        "Especificar si se requiere pintura de calidad superior (pintura ecológica, antiácaros, etc.)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Material pintura plástica interior",
+          "oficio": "pintura",
+          "motivo": "Cantidad de litros estimada según rendimiento estándar, precio unitario a definir por instalador"
+        },
+        {
+          "concepto": "Material imprimación fijadora",
+          "oficio": "pintura",
+          "motivo": "Cantidad de litros estimada según rendimiento estándar, precio unitario a definir por instalador"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "pintura",
+          "motivo": "Importe estimado de herramientas y consumibles, a revisar según necesidades reales"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "limpieza_y_preparacion_superficie_antes_pintar",
+      "pintado_de_nave_industrial_interior",
+      "pintado_de_foso_de_ascensor",
+      "pintura_y_acabado_paredes_de_pladur_nuevo",
+      "pintado_de_sotanos_y_aparcamientos_comunitarios"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3625,
+      "tokens_out": 1702
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

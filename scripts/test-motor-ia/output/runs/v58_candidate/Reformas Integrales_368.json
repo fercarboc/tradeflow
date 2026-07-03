@@ -1,0 +1,534 @@
+{
+  "id": 368,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de local para abrir restaurante, cocina industrial, distribución de sala y servicios",
+  "http_status": 200,
+  "latency_ms": 44710,
+  "raw_response": {
+    "transcript": "Reforma de local para abrir restaurante, cocina industrial, distribución de sala y servicios",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de local para abrir restaurante, cocina industrial, distribución de sala y servicios",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Cambio de uso de local a restaurante requiere LICENCIA URBANÍSTICA obligatoria",
+          "CRÍTICO: Proyecto técnico obligatorio para cumplimiento CTE (habitabilidad, instalaciones, accesibilidad)",
+          "CRÍTICO: Cocina industrial requiere normativa específica (ventilación, extracción de humos, seguridad alimentaria)",
+          "CRÍTICO: Restaurante requiere servicios completos (fontanería, electricidad, climatización, contra incendios)",
+          "Presupuesto estimado: requiere visita técnica para dimensionamiento exacto de instalaciones",
+          "Verificar viabilidad del local ANTES de proceder (altura libre mínima 2.5m, iluminación natural, ventilación)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reforma integral de local: ≥3 oficios simultáneos (albanilería, fontanería, electricidad, climatización, contra incendios, carpintería)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Demolición, tabiquería, distribución de espacios"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación completa de agua fría, ACS, desagües, cocina industrial"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación eléctrica completa, cuadro general, circuitos, cocina industrial, iluminación"
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 65
+          },
+          "motivo": "Climatización sala, extracción de humos cocina industrial"
+        },
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 60
+          },
+          "motivo": "Restaurante requiere sistema contra incendios: extintores, señalización, BIE, detectores"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Acabados finales, pintura paredes y techos"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 32,
+            "max": 35
+          },
+          "motivo": "Alicatado cocina industrial, pavimento sala y servicios"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Puertas, marcos, muebles cocina industrial"
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Licencia urbanística cambio de uso, proyecto técnico, permisos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Licencia urbanística cambio de uso local a restaurante",
+          "descripcion": "Tramitación licencia de actividad y cambio de uso de local a restaurante. Incluye gestión administrativa ante ayuntamiento.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de municipio y complejidad. Rango típico: 800-2500€"
+        },
+        {
+          "concepto": "Proyecto técnico cumplimiento CTE",
+          "descripcion": "Proyecto técnico para reforma integral con cumplimiento CTE DB-HE (energía), DB-HS (salubridad), DB-SI (seguridad incendios), DB-SU (seguridad utilización), instalaciones completas.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de superficie y complejidad. Rango típico: 1500-4000€"
+        },
+        {
+          "concepto": "Demolición y retirada de escombros",
+          "descripcion": "Demolición de tabiques, suelos, instalaciones antiguas. Retirada y gestión de residuos de construcción.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 5,
+          "precio_unitario": 320,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado para local medio (80-120m²). Ajustar según superficie real"
+        },
+        {
+          "concepto": "Tabiquería y distribución de espacios",
+          "descripcion": "Construcción de tabiques para separar cocina, sala, servicios (aseos, almacén). Incluye puertas de paso.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 4,
+          "precio_unitario": 320,
+          "total": 1280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado. Depende de metros lineales de tabiques y complejidad"
+        },
+        {
+          "concepto": "Instalación fontanería completa (agua fría, ACS, desagües)",
+          "descripcion": "Red de agua fría, ACS (termo o caldera), desagües cocina industrial, servicios (aseos, lavamanos). Incluye tuberías, válvulas, sifones, sumideros.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 6,
+          "precio_unitario": 400,
+          "total": 2400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado para local medio. Ajustar según planos y complejidad"
+        },
+        {
+          "concepto": "Suministro e instalación cocina industrial",
+          "descripcion": "Cocina industrial modular: fogones, horno, plancha, freidora, campana extractora con filtros. Conexión gas, agua, electricidad.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de equipamiento. Rango: 3000-15000€"
+        },
+        {
+          "concepto": "Instalación eléctrica completa",
+          "descripcion": "Cuadro general, circuitos iluminación, enchufes, cocina industrial, climatización. Cableado, protecciones, tomas de tierra.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 5,
+          "precio_unitario": 400,
+          "total": 2000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado. Depende de potencia contratada y distribución"
+        },
+        {
+          "concepto": "Suministro materiales eléctricos (cuadro, cableado, protecciones)",
+          "descripcion": "Cuadro general, diferenciales, magnetotérmicos, cableado RZ, tuberías, cajas de derivación, enchufes, interruptores.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia y distribución. Rango: 1500-4000€"
+        },
+        {
+          "concepto": "Instalación climatización (aire acondicionado + extracción humos)",
+          "descripcion": "Unidad exterior + splits interiores para sala. Sistema de extracción de humos cocina industrial con conductos y filtros.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 4,
+          "precio_unitario": 480,
+          "total": 1920,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado. Depende de potencia frigorífica y longitud conductos"
+        },
+        {
+          "concepto": "Suministro equipos climatización",
+          "descripcion": "Unidad exterior, splits interiores, conductos extracción, filtros, válvulas, refrigerante.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia. Rango: 2000-8000€"
+        },
+        {
+          "concepto": "Sistema contra incendios (extintores, señalización, detectores)",
+          "descripcion": "Extintores (polvo ABC, CO2), BIE (boca incendio equipada), detectores humo/CO, señalización fotoluminiscente, registro mantenimiento.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 440,
+          "total": 880,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado. Depende de superficie y normativa local"
+        },
+        {
+          "concepto": "Suministro sistema contra incendios",
+          "descripcion": "Extintores, BIE, detectores, señalización, soportes, pequeño material.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de superficie. Rango: 800-2500€"
+        },
+        {
+          "concepto": "Alicatado cocina industrial y servicios",
+          "descripcion": "Alicatado paredes cocina (azulejo blanco/gres), pavimento cocina (gres antideslizante), aseos y servicios.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 32,
+          "total": 1280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 40m² (cocina + servicios). Ajustar según superficie real"
+        },
+        {
+          "concepto": "Suministro materiales alicatado (azulejos, gres, adhesivo, lechada)",
+          "descripcion": "Azulejos cocina, gres pavimento antideslizante, adhesivo, lechada, perfiles de remate.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de calidad. Rango: 15-40€/m²"
+        },
+        {
+          "concepto": "Pavimento sala (gres o vinílico)",
+          "descripcion": "Pavimento sala comedor: gres porcelánico o vinílico de alta resistencia.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 32,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 50m² sala. Ajustar según superficie real"
+        },
+        {
+          "concepto": "Suministro pavimento sala",
+          "descripcion": "Gres porcelánico o vinílico, adhesivo, lechada, perfiles.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de calidad. Rango: 12-35€/m²"
+        },
+        {
+          "concepto": "Carpintería (puertas, marcos, muebles cocina)",
+          "descripcion": "Puertas de paso (cocina, servicios), marcos, muebles de almacenaje cocina industrial.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 360,
+          "total": 1080,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado. Depende de número y complejidad de puertas"
+        },
+        {
+          "concepto": "Suministro carpintería (puertas, marcos, muebles)",
+          "descripcion": "Puertas, marcos, muebles cocina industrial.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de especificaciones. Rango: 1500-5000€"
+        },
+        {
+          "concepto": "Pintura paredes y techos",
+          "descripcion": "Pintura paredes sala, cocina, servicios. Pintura acrílica lavable en cocina.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 300,
+          "precio_unitario": 4,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 300m² (paredes + techos). Ajustar según superficie real"
+        },
+        {
+          "concepto": "Suministro pintura",
+          "descripcion": "Pintura acrílica, imprimación, pequeño material (rodillos, brochas, cinta).",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de superficie. Rango: 300-800€"
+        },
+        {
+          "concepto": "Gestión de residuos de construcción",
+          "descripcion": "Retirada, transporte y gestión de residuos de construcción y demolición (RCD).",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de volumen. Rango: 500-2000€"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Tornillería, cinta, pasta, selladores, herramientas menores, consumibles.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 5-10% del presupuesto. Rango: 500-1500€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 16240,
+        "iva_porcentaje": 21,
+        "iva": 3410.4,
+        "total": 19650.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'reforma_integral_planta_baja_o_local_para_vivienda' — aplicable si el local se convierte en vivienda. Para restaurante, buscar 'reforma_integral_local_comercial_restaurante'",
+        "Buscar en catálogo partidas específicas de cocina industrial: 'instalacion_cocina_industrial_completa', 'campana_extractora_industrial'",
+        "Buscar en catálogo: 'sistema_contra_incendios_restaurante', 'extintores_restaurante'",
+        "Buscar en catálogo: 'climatizacion_restaurante_con_extraccion_humos'"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Licencia urbanística cambio de uso local a restaurante",
+          "oficio": "gestoria_tramites",
+          "motivo": "Trámite administrativo específico para cambio de uso"
+        },
+        {
+          "concepto": "Proyecto técnico cumplimiento CTE",
+          "oficio": "gestoria_tramites",
+          "motivo": "Obligatorio para reforma integral con cambio de uso"
+        },
+        {
+          "concepto": "Suministro e instalación cocina industrial",
+          "oficio": "fontaneria",
+          "motivo": "Equipamiento específico restaurante no en catálogo general"
+        },
+        {
+          "concepto": "Suministro materiales eléctricos (cuadro, cableado, protecciones)",
+          "oficio": "electricidad",
+          "motivo": "Material específico para instalación eléctrica completa"
+        },
+        {
+          "concepto": "Suministro equipos climatización",
+          "oficio": "climatizacion",
+          "motivo": "Equipamiento específico para restaurante"
+        },
+        {
+          "concepto": "Suministro sistema contra incendios",
+          "oficio": "contra_incendios",
+          "motivo": "Equipamiento específico obligatorio para restaurante"
+        },
+        {
+          "concepto": "Suministro materiales alicatado",
+          "oficio": "suelos_alicatados",
+          "motivo": "Materiales específicos para cocina industrial"
+        },
+        {
+          "concepto": "Suministro pavimento sala",
+          "oficio": "suelos_alicatados",
+          "motivo": "Materiales pavimento sala restaurante"
+        },
+        {
+          "concepto": "Suministro carpintería",
+          "oficio": "carpinteria",
+          "motivo": "Puertas y muebles específicos para restaurante"
+        },
+        {
+          "concepto": "Suministro pintura",
+          "oficio": "pintura",
+          "motivo": "Pintura específica para cocina industrial"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_planta_baja_o_local_para_vivienda",
+      "aplicacion_pintura_de_pizarra_o_pared_escritura",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "instalacion_de_extintores_portatiles"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3910,
+      "tokens_out": 7191
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 22,
+    "n_catalogo": 10,
+    "n_sugeridas": 12,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "id": 91,
+  "oficio": "Albañilería",
+  "texto": "Construir barbacoa de obra en jardín con banco lateral y encimera de granito",
+  "http_status": 200,
+  "latency_ms": 15394,
+  "raw_response": {
+    "transcript": "Construir barbacoa de obra en jardín con banco lateral y encimera de granito",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir barbacoa de obra en jardín con banco lateral y encimera de granito",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Encimera de granito requiere presupuesto de proveedor especializado",
+          "Banco lateral: confirmar si es obra de fábrica o estructura metálica",
+          "Verificar acceso al jardín para acopio de materiales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Construcción barbacoa de obra, banco lateral, cimentación, levantamiento de muros"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización base y encuentros para evitar filtraciones y humedad"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cimentación y base barbacoa",
+          "descripcion": "Excavación, cimentación corrida con hormigón HM-20, solera de hormigón HA-25 con armadura, nivelación y compactación",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 2.5,
+          "precio_unitario": 40,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ladrillo refractario y mortero zona fuego",
+          "descripcion": "Suministro e instalación ladrillo refractario en cámara de combustión, mortero refractario de alta temperatura, pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Proveedor especializado en refractarios debe cotizar según dimensiones finales de cámara"
+        },
+        {
+          "concepto": "Levantamiento muros barbacoa",
+          "descripcion": "Levantamiento muros de ladrillo cerámico exterior (zona no fuego), mortero M-5, rejuntado, pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 4,
+          "precio_unitario": 40,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Parrilla metálica y remates",
+          "descripcion": "Suministro e instalación parrilla metálica (acero inoxidable o hierro), remate de hormigón o cerámico en encimera, pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Proveedor de parrillas debe cotizar según dimensiones y material (inox vs hierro)"
+        },
+        {
+          "concepto": "Banco lateral de obra",
+          "descripcion": "Construcción banco lateral adosado a barbacoa: cimentación, levantamiento muros ladrillo, mortero M-5, encofrado asiento, hormigón HA-25, desencofrado",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Encimera de granito",
+          "descripcion": "Suministro e instalación encimera de granito pulido, acabado perimetral, sellado y rejuntado, pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Marmolista especializado debe cotizar granito según color, acabado y espesor (típicamente 3-4 cm)"
+        },
+        {
+          "concepto": "Impermeabilización base y encuentros",
+          "descripcion": "Lámina impermeabilizante en base (EPDM o PVC), sellado de encuentros con muros, juntas de dilatación, drenaje perimetral",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabados y detalles finales",
+          "descripcion": "Rejuntado general, limpieza, protección de obra, pequeño material, herramientas",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 555,
+        "iva_porcentaje": 21,
+        "iva": 116.55,
+        "total": 671.55
+      },
+      "sugerencias_catalogo": [
+        "Solicitar presupuesto a proveedor de refractarios para ladrillo y mortero de alta temperatura",
+        "Contactar con marmolista para encimera de granito (incluir muestras de color y acabado)",
+        "Cotizar parrilla metálica con fabricante especializado (acero inoxidable recomendado para durabilidad)",
+        "Considerar aislamiento entre tubo de humos y obra exterior si se añade chimenea posterior"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Ladrillo refractario y mortero zona fuego",
+          "oficio": "albanileria",
+          "motivo": "Material especializado de alta temperatura, requiere cotización específica"
+        },
+        {
+          "concepto": "Parrilla metálica y remates",
+          "oficio": "albanileria",
+          "motivo": "Elemento metálico especializado, requiere cotización de fabricante"
+        },
+        {
+          "concepto": "Encimera de granito",
+          "oficio": "albanileria",
+          "motivo": "Material noble, requiere cotización de marmolista especializado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "construccion_barbacoa_obra",
+      "construccion_escalera_de_obra_hormigon",
+      "construccion_de_jardinera_o_bancal_de_obra",
+      "construccion_chimenea_de_obra_salida_humos",
+      "construccion_de_vallado_de_obra_fabrica"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3935,
+      "tokens_out": 2197
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 5,
+    "n_sugeridas": 3,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

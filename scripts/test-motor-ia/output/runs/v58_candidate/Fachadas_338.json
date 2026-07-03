@@ -1,0 +1,215 @@
+{
+  "id": 338,
+  "oficio": "Fachadas",
+  "texto": "Instalar cártel luminoso en fachada de local comercial con iluminación LED interior",
+  "http_status": 200,
+  "latency_ms": 15682,
+  "raw_response": {
+    "transcript": "Instalar cártel luminoso en fachada de local comercial con iluminación LED interior",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar cártel luminoso en fachada de local comercial con iluminación LED interior",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere validación de dimensiones del cártel y potencia eléctrica total",
+          "Se recomienda verificar normativa municipal sobre instalación en fachada y permisos de obra menor"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación de iluminación LED, cableado eléctrico, conexión a cuadro y boletín eléctrico"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de estructura y fijación del cártel luminoso en fachada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro luminarias LED para cártel",
+          "descripcion": "Luminarias LED de interior para cártel comercial, incluyendo módulos LED, drivers y componentes electrónicos",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de dimensiones del cártel, potencia LED requerida y tipo de luminarias (RGB, blanco frío, etc.)"
+        },
+        {
+          "concepto": "Cableado eléctrico y pequeño material",
+          "descripcion": "Cable eléctrico H07V-U/H07V-R, conectores, regletas, tubo corrugado, bridas y accesorios de fijación eléctrica",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de cable y accesorios depende de la longitud de la instalación y complejidad del circuito"
+        },
+        {
+          "concepto": "Instalación de luminarias LED en cártel",
+          "descripcion": "Mano de obra para instalación de luminarias LED, conexionado interno, pruebas de funcionamiento y ajuste de intensidad",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado desde cuadro eléctrico a cártel",
+          "descripcion": "Tendido de cable eléctrico desde cuadro de distribución hasta cártel, incluyendo rozas en fachada si es necesario",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Protección eléctrica y boletín",
+          "descripcion": "Instalación de magnetotérmico y diferencial para circuito del cártel, más boletín eléctrico de conformidad",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio incluye magnetotérmico, diferencial y tramitación de boletín eléctrico"
+        },
+        {
+          "concepto": "Estructura y fijación del cártel en fachada",
+          "descripcion": "Suministro e instalación de estructura metálica (acero inoxidable o aluminio), soportes, anclajes químicos y herrajes de fijación a fachada",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de dimensiones del cártel, material de fachada (hormigón, ladrillo, etc.) y carga a soportar"
+        },
+        {
+          "concepto": "Montaje y fijación del cártel en fachada",
+          "descripcion": "Mano de obra para montaje de estructura, fijación del cártel a fachada, nivelación y alineación",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 45,
+          "total": 225,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas finales y puesta en marcha",
+          "descripcion": "Pruebas de funcionamiento de iluminación LED, verificación de seguridad eléctrica, ajuste de parámetros y entrega al cliente",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 625,
+        "iva_porcentaje": 21,
+        "iva": 131.25,
+        "total": 756.25
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de luminarias LED comerciales para obtener precios de suministro",
+        "Verificar disponibilidad de kits de cártel luminoso prefabricados que podrían optimizar costes",
+        "Considerar si el cliente requiere control remoto o programación de efectos de iluminación (partida adicional de telecomunicaciones/domótica)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro luminarias LED para cártel",
+          "oficio": "electricidad",
+          "motivo": "Material específico de cártel luminoso, requiere presupuesto del proveedor"
+        },
+        {
+          "concepto": "Cableado eléctrico y pequeño material",
+          "oficio": "electricidad",
+          "motivo": "Cantidad variable según longitud de instalación"
+        },
+        {
+          "concepto": "Protección eléctrica y boletín",
+          "oficio": "electricidad",
+          "motivo": "Incluye tramitación de boletín eléctrico"
+        },
+        {
+          "concepto": "Estructura y fijación del cártel en fachada",
+          "oficio": "cristaleria",
+          "motivo": "Material de estructura metálica, dimensiones y anclajes variables"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_escaparate_o_fachada_comercial_en_vidrio",
+      "instalacion_red_electrica_local_comercial",
+      "pintado_locales_comerciales_y_tiendas",
+      "instalacion_iluminacion_comercial_led",
+      "instalacion_sistema_de_climatizacion_en_local_comercial"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3725,
+      "tokens_out": 2285
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

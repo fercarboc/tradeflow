@@ -1,0 +1,201 @@
+{
+  "id": 43,
+  "oficio": "Carpintería",
+  "texto": "Armario empotrado a medida en el dormitorio, de suelo a techo, con puertas correderas y espejo",
+  "http_status": 200,
+  "latency_ms": 17068,
+  "raw_response": {
+    "transcript": "Armario empotrado a medida en el dormitorio, de suelo a techo, con puertas correderas y espejo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Armario empotrado a medida en el dormitorio, de suelo a techo, con puertas correderas y espejo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto requiere medidas exactas del hueco (alto, ancho, fondo)",
+          "Precio final depende de acabado elegido (melanina, lacado, chapa)",
+          "Sistema de puertas correderas requiere nivelación precisa del suelo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Fabricación e instalación de armario empotrado a medida con estructura, puertas y herrajes"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de espejo en puerta corredera del armario"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura interior armario empotrado (tablero melanina o madera)",
+          "descripcion": "Fabricación de estructura interior con tablero melanina o madera maciza según diseño, incluyendo laterales, fondo y divisiones interiores. Medidas de suelo a techo.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas del hueco, material elegido (melanina/madera) y acabado. Instalador debe revisar y ajustar según presupuesto de proveedor."
+        },
+        {
+          "concepto": "Puertas correderas con espejo integrado",
+          "descripcion": "Fabricación e instalación de 2-3 hojas de puerta corredera con espejo (vidrio espejo 4-5mm laminado o templado) en marco de aluminio o madera según diseño. Incluye perfiles guía superior e inferior, ruedas de sistema corredera de calidad, tapas laterales y herraje completo.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de número de hojas, medidas exactas, tipo de espejo (laminado/templado) y sistema de herraje. Presupuesto de proveedor de puertas necesario."
+        },
+        {
+          "concepto": "Barras de colgar ropa",
+          "descripcion": "Instalación de barras cromadas o acero inoxidable para colgar ropa, con soportes de fijación a estructura interior.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio dependen del diseño interior y distribución de espacios. Revisar con cliente."
+        },
+        {
+          "concepto": "Baldas y estantes interiores",
+          "descripcion": "Fabricación e instalación de baldas de tablero melanina o madera maciza con soportes metálicos ajustables, según diseño interior del armario.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número y distribución de baldas dependen del diseño. Presupuesto según cantidad y material."
+        },
+        {
+          "concepto": "Zócalo inferior y cornisa superior",
+          "descripcion": "Fabricación e instalación de zócalo inferior (altura 10-15cm) y cornisa superior (si el armario llega a techo), en tablero o madera según acabado general.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Medidas lineales dependen del ancho del armario. Revisar con medidas exactas."
+        },
+        {
+          "concepto": "Mano de obra: Fabricación, montaje e instalación armario empotrado",
+          "descripcion": "Trabajo de carpintería: toma de medidas, diseño, corte y preparación de piezas, montaje de estructura, instalación de puertas correderas, barras, baldas, herrajes y fijación a pared. Incluye nivelación y ajuste de puertas.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: Instalación y ajuste de espejo en puertas",
+          "descripcion": "Trabajo de cristalería: corte, pulido de cantos si es necesario, instalación de espejo en marco, ajuste de ruedas y herraje de sistema corredera, pruebas de funcionamiento.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 900,
+        "iva_porcentaje": 21,
+        "iva": 189,
+        "total": 1089
+      },
+      "sugerencias_catalogo": [
+        "Solicitar presupuesto a proveedor de puertas correderas con espejo (incluir medidas exactas del hueco)",
+        "Definir con cliente: acabado (melanina blanca/roble/lacado), número de hojas, distribución interior (baldas, barras, cajones)",
+        "Confirmar si el espejo es laminado (seguridad) o templado, y si incluye tratamiento antivaho",
+        "Verificar que el suelo del dormitorio está nivelado para garantizar funcionamiento correcto de puertas correderas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estructura interior armario empotrado",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida específica de fabricación de estructura, no disponible como línea individual en catálogo base"
+        },
+        {
+          "concepto": "Puertas correderas con espejo integrado",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Combinación de puertas correderas + espejo; requiere presupuesto de proveedor especializado"
+        },
+        {
+          "concepto": "Baldas y estantes interiores",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida de acabado interior, cantidad variable según diseño"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_armario_empotrado_a_medida",
+      "instalacion_de_puertas_de_vidrio_templado_corredera_en_armario",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente",
+      "pintado_armarios_empotrados_interiores",
+      "fabricacion_e_instalacion_de_mueble_salon_o_libreria"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4014,
+      "tokens_out": 2331
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

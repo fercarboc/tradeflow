@@ -1,0 +1,172 @@
+{
+  "id": 124,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Revisión y limpieza de tejado de pizarra después de la tormenta, recolocar piezas sueltas",
+  "http_status": 200,
+  "latency_ms": 13561,
+  "raw_response": {
+    "transcript": "Revisión y limpieza de tejado de pizarra después de la tormenta, recolocar piezas sueltas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión y limpieza de tejado de pizarra después de la tormenta, recolocar piezas sueltas",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en altura: obligatorio EPI (línea de vida, arnés, casco)",
+          "Andamio o plataforma de trabajo recomendada para seguridad",
+          "Inspección visual completa recomendada para detectar daños ocultos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Reparación y mantenimiento de cubierta de pizarra tras daños por tormenta"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza de detritus, hojas y suciedad de cubierta de pizarra",
+          "descripcion": "Limpieza completa de la cubierta tras tormenta: retirada de ramas, hojas, detritus y suciedad acumulada",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión y recolocación de piezas de pizarra sueltas",
+          "descripcion": "Inspección visual de la cubierta, identificación y recolocación de piezas de pizarra desplazadas por el viento de tormenta, reajuste de clavos y fijaciones",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza de canalones y sumideros",
+          "descripcion": "Limpieza de canalones, bajantes y sumideros de detritus y obstrucciones causadas por la tormenta",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Clavos inoxidable o cobre para recolocación de pizarra",
+          "descripcion": "Clavos de inoxidable o cobre para fijación de piezas de pizarra recolocadas (material fungible)",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de clavos inox/cobre a definir por instalador según cantidad y tipo exacto"
+        },
+        {
+          "concepto": "EPI y pequeño material (casco, arnés, línea de vida, guantes, herramientas)",
+          "descripcion": "Equipos de protección individual obligatorios para trabajo en altura: casco, arnés de seguridad, línea de vida, guantes de trabajo, herramientas manuales (martillo, destornillador, nivel)",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de EPI y pequeño material a definir por instalador (puede ser amortizado o incluido en tarifa)"
+        },
+        {
+          "concepto": "Informe fotográfico del estado de la cubierta",
+          "descripcion": "Documentación fotográfica del estado actual de la cubierta tras revisión, para registro de daños y seguimiento futuro",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir o no según acuerdo con cliente; precio a definir"
+        }
+      ],
+      "calculos": {
+        "subtotal": 425,
+        "iva_porcentaje": 21,
+        "iva": 89.25,
+        "total": 514.25
+      },
+      "sugerencias_catalogo": [
+        "Si se detectan daños mayores en la impermeabilización bajo la pizarra, considerar partida adicional de impermeabilizacion",
+        "Si hay piezas de pizarra rotas (no solo sueltas), presupuestar suministro de piezas de reemplazo con precio_unitario a revisar",
+        "Considerar andamio o plataforma de trabajo si la cubierta es de difícil acceso o gran superficie"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Clavos inoxidable o cobre para recolocación de pizarra",
+          "origen": "sugerida_ia",
+          "motivo": "Material fungible específico; precio a definir por instalador"
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "origen": "sugerida_ia",
+          "motivo": "Coste variable según disponibilidad de equipos; puede estar incluido en tarifa general"
+        },
+        {
+          "concepto": "Informe fotográfico del estado de la cubierta",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio adicional opcional; precio a acordar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "limpieza_y_mantenimiento_preventivo_de_cubierta",
+      "instalacion_de_cubierta_de_pizarra",
+      "instalacion_de_cubierta_de_teja_arabe_o_curvada",
+      "instalacion_de_cubierta_de_chapa_metalica_o_panel_sandwich",
+      "mantenimiento_anual_caldera_gas"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4091,
+      "tokens_out": 1860
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

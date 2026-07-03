@@ -1,0 +1,169 @@
+{
+  "id": 179,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Poner pavimento de caucho negro en gimnasio de 40 metros cuadrados, espesor 15mm",
+  "http_status": 200,
+  "latency_ms": 12883,
+  "raw_response": {
+    "transcript": "Poner pavimento de caucho negro en gimnasio de 40 metros cuadrados, espesor 15mm",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner pavimento de caucho negro en gimnasio de 40 metros cuadrados, espesor 15mm",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar estado actual del soporte (debe estar limpio, plano y nivelado)",
+          "Confirmar si se requiere regularización previa del pavimento existente",
+          "Espesor 15mm es estándar para gimnasios; validar si cumple normativa de absorción de impacto del cliente"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Instalación de pavimento de caucho en rollo o loseta; oficio especializado en colocación de suelos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Pavimento de caucho negro 15mm",
+          "descripcion": "Suministro de pavimento de caucho negro en rollo o loseta, espesor 15mm, para gimnasio. Cantidad: 40 m²",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico; instalador debe confirmar proveedor, calidad (densidad, absorción impacto) y precio según marca/espesor"
+        },
+        {
+          "concepto": "Adhesivo específico para caucho",
+          "descripcion": "Adhesivo poliuretano o específico para pavimento de caucho, cantidad según cobertura 40 m²",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Adhesivo obligatorio para caucho; precio depende de marca y rendimiento (m²/litro)"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Llanas, espátulas, rodillos, trapos, limpiadores, masilla de juntas si aplica",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles y herramientas; estimación según volumen de obra"
+        },
+        {
+          "concepto": "Preparación y limpieza del soporte",
+          "descripcion": "Limpieza, barrido y preparación del soporte existente para recibir el pavimento de caucho",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 5,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación de pavimento de caucho",
+          "descripcion": "Extendido, pegado y compactación de pavimento de caucho 15mm en 40 m² de gimnasio. Incluye rodillo de presión y acabado de juntas",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 32,
+          "total": 1280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rodapié o perfil perimetral de caucho",
+          "descripcion": "Colocación de rodapié o perfil perimetral de caucho en perímetro del gimnasio (estimado 25 ml para 40 m²)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 12,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1780,
+        "iva_porcentaje": 21,
+        "iva": 373.8,
+        "total": 2153.8
+      },
+      "sugerencias_catalogo": [
+        "Si el soporte actual está irregular o dañado, considerar partida de regularización previa (mortero autonivelante) antes de colocar el caucho",
+        "Para gimnasios con requisitos de absorción de impacto certificada, solicitar documentación técnica del pavimento de caucho (norma UNE EN 1176 si hay zona infantil asociada)",
+        "Espesor 15mm es estándar; si se requiere mayor amortiguación, considerar 20mm o base elástica adicional"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pavimento de caucho negro 15mm",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material específico de gimnasio; requiere validación de proveedor y precio por m²"
+        },
+        {
+          "concepto": "Adhesivo específico para caucho",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Adhesivo obligatorio; precio depende de marca y rendimiento"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_pavimento_de_caucho_o_goma",
+      "instalacion_suelo_de_caucho_o_goma_en_rollo_o_loseta",
+      "instalacion_suelo_de_adoquin_o_loseta_hormigon_exterior",
+      "instalacion_de_perfil_o_junta_de_dilatacion_en_suelo",
+      "regularizacion_y_nivelacion_de_soporte"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3870,
+      "tokens_out": 1783
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

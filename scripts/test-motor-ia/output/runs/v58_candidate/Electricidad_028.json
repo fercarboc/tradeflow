@@ -1,0 +1,261 @@
+{
+  "id": 28,
+  "oficio": "Electricidad",
+  "texto": "Instalación de domótica básica en vivienda, control de persianas, luces y calefacción desde móvil",
+  "http_status": 200,
+  "latency_ms": 19505,
+  "raw_response": {
+    "transcript": "Instalación de domótica básica en vivienda, control de persianas, luces y calefacción desde móvil",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de domótica básica en vivienda, control de persianas, luces y calefacción desde móvil",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema domotico WiFi requiere cobertura WiFi estable en toda la vivienda",
+          "Verificar disponibilidad de neutro en cajas de interruptores para interruptores inteligentes",
+          "Calefacción: confirmar tipo de sistema (radiadores, suelo radiante, bomba calor) para seleccionar actuador correcto"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de interruptores inteligentes WiFi, hub controlador, cableado y conexiones eléctricas"
+        },
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Motorización de persianas existentes o instalación de nuevas persianas motorizadas con control domotico"
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de actuadores/termostatos inteligentes para control de calefacción desde aplicación móvil"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Hub o controlador WiFi domotico",
+          "descripcion": "Controlador central WiFi para gestión de interruptores inteligentes, persianas motorizadas y termostatos. Compatible con asistentes de voz. Incluye app móvil",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del hub controlador a definir por instalador según marca y funcionalidades (Philips Hue, Tuya, Home Assistant, etc.)"
+        },
+        {
+          "concepto": "Interruptores inteligentes WiFi para iluminación",
+          "descripcion": "Instalación de interruptores inteligentes WiFi para control de luces desde móvil. Incluye suministro e instalación en cajas existentes. Requiere neutro en caja",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio unitario de interruptores a definir. Típicamente 4-8 ud en vivienda. Precio 25-80€/ud según marca"
+        },
+        {
+          "concepto": "Mano de obra instalación interruptores inteligentes",
+          "descripcion": "Desmontaje de interruptores existentes, instalación de interruptores WiFi, conexionado y pruebas de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Motorización de persianas enrollables",
+          "descripcion": "Suministro e instalación de motores tubulares para persianas existentes con control domotico WiFi. Incluye receptor radiocontrol integrado, finales de carrera electrónicos y mando a distancia",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de persianas a motorizar y precio unitario del motor a definir. Típicamente 3-6 ud. Precio 150-400€/ud según potencia"
+        },
+        {
+          "concepto": "Mano de obra instalación motores persianas",
+          "descripcion": "Desmontaje de persianas, instalación de motores tubulares, cableado eléctrico, programación de finales de carrera y pruebas",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Termostato inteligente WiFi para calefacción",
+          "descripcion": "Termostato inteligente WiFi para control de calefacción desde móvil. Compatible con radiadores, suelo radiante o bomba de calor. Incluye sensor de temperatura ambiente",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del termostato inteligente a definir según marca y compatibilidad (Nest, Tado, Netatmo, etc.). Rango 80-300€"
+        },
+        {
+          "concepto": "Válvulas termostáticas inteligentes radiadores",
+          "descripcion": "Suministro e instalación de válvulas termostáticas inteligentes WiFi en radiadores para control individual de temperatura por habitación desde aplicación móvil",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de radiadores a equipar y precio unitario a definir. Típicamente 4-8 ud. Precio 40-120€/ud según marca"
+        },
+        {
+          "concepto": "Mano de obra instalación termostatos y válvulas calefacción",
+          "descripcion": "Instalación de termostato central, válvulas termostáticas en radiadores, conexionado eléctrico, configuración de zonas y pruebas de funcionamiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y pequeño material domotico",
+          "descripcion": "Cable eléctrico, tuberías, cajas de derivación, conectores, regletas, bridas y pequeño material necesario para instalación completa del sistema domotico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe de pequeño material y cableado a definir según extensión de instalación. Estimado 100-300€"
+        },
+        {
+          "concepto": "Configuración y puesta en marcha del sistema domotico",
+          "descripcion": "Configuración de hub controlador, emparejamiento de dispositivos WiFi, creación de escenas y automatizaciones, descarga de aplicación móvil, formación básica del usuario y pruebas finales",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 610,
+        "iva_porcentaje": 21,
+        "iva": 128.1,
+        "total": 738.1
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de interruptores inteligentes WiFi compatibles con hub seleccionado",
+        "Verificar disponibilidad de motores tubulares domoticos para persianas en catálogo",
+        "Confirmar compatibilidad de termostatos inteligentes con sistema de calefacción existente",
+        "Considerar integración con asistentes de voz (Alexa, Google Home) si cliente lo solicita"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Hub o controlador WiFi domotico",
+          "oficio": "electricidad",
+          "motivo": "Controlador central para sistema domotico WiFi básico"
+        },
+        {
+          "concepto": "Interruptores inteligentes WiFi para iluminación",
+          "oficio": "electricidad",
+          "motivo": "Control de luces desde móvil mediante interruptores inteligentes"
+        },
+        {
+          "concepto": "Motorización de persianas enrollables",
+          "oficio": "persianas",
+          "motivo": "Motores tubulares con control domotico para persianas existentes"
+        },
+        {
+          "concepto": "Termostato inteligente WiFi para calefacción",
+          "oficio": "climatizacion",
+          "motivo": "Control de calefacción desde aplicación móvil"
+        },
+        {
+          "concepto": "Válvulas termostáticas inteligentes radiadores",
+          "oficio": "climatizacion",
+          "motivo": "Control individual de temperatura por habitación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_domotica_basica_wifi",
+      "instalacion_sistema_knx_bus",
+      "instalacion_cuadro_electrico_piscina",
+      "instalacion_persiana_enrollable_aluminio_motorizada",
+      "instalacion_sistema_climatizacion_para_server_room"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3725,
+      "tokens_out": 3024
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

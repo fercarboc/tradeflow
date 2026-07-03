@@ -1,0 +1,153 @@
+{
+  "id": 299,
+  "oficio": "Impermeabilización",
+  "texto": "Reparar junta de encuentro entre cubierta y pared donde entra agua con mortero elástico",
+  "http_status": 200,
+  "latency_ms": 20889,
+  "raw_response": {
+    "transcript": "Reparar junta de encuentro entre cubierta y pared donde entra agua con mortero elástico",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar junta de encuentro entre cubierta y pared donde entra agua con mortero elástico",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "ALERTA CRÍTICA: El mortero elástico NO es la solución correcta para esta junta. Según normas de impermeabilización, esta junta requiere MEMBRANA IMPERMEABILIZANTE (lámina de plomo/zinc/TPO) o silicona fungicida flexible, NO mortero rígido. El mortero se agrieta con movimientos térmicos y filtraciones. Se recomienda revisar solución técnica con el cliente.",
+          "La junta de encuentro cubierta-pared es CRÍTICA: debe subir 30cm por fachada y bajar 50cm por cubierta mínimo para ser efectiva."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reparación de junta de encuentro cubierta-pared con filtración de agua. Según REGLAS DE OFICIO, cualquier trabajo de impermeabilización de encuentros cubierta-fachada es SIEMPRE impermeabilizacion, no albañilería ni tejados."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo y preparación zona de encuentro cubierta-pared",
+          "descripcion": "Retirada de mortero deteriorado, limpieza profunda, desinfección y secado de la junta. Preparación de superficies para aplicación de membrana impermeabilizante.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Membrana impermeabilizante encuentro cubierta-pared (lámina TPO/PVC o equivalente)",
+          "descripcion": "Suministro e instalación de lámina impermeabilizante flexible (TPO, PVC o membrana líquida) en junta de encuentro. Debe subir mínimo 30cm por fachada y bajar mínimo 50cm por cubierta. Incluye refuerzo geotextil en transición.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material y metraje a definir por instalador. Rango estimado: 20-85€/ml según complejidad y material elegido (lámina plomo/zinc más duradera, o membrana TPO/PVC más económica)."
+        },
+        {
+          "concepto": "Instalación membrana impermeabilizante y refuerzo geotextil",
+          "descripcion": "Colocación de membrana impermeabilizante conformada en junta, fijación mecánica o adhesiva, instalación de banda de refuerzo geotextil en toda la transición cubierta-pared, sellado flexible superior con silicona fungicida.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado flexible superior con silicona fungicida",
+          "descripcion": "Aplicación de silicona neutra fungicida flexible en línea superior de junta para evitar entrada de agua de lluvia. Incluye masking tape para líneas limpias y curado 24h.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje a definir. Silicona fungicida de calidad (Sikaflex, Mapei o equivalente): ~8-15€/cartucho (300ml cubre ~10-15ml)."
+        },
+        {
+          "concepto": "Pequeño material y EPI (masking tape, guantes, mascarilla, gafas)",
+          "descripcion": "Consumibles: masking tape, guantes nitrilo, mascarilla FFP2, gafas protección, trapos, disolvente limpieza.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado: 15-25€ en pequeño material y EPI."
+        }
+      ],
+      "calculos": {
+        "subtotal": 225,
+        "iva_porcentaje": 21,
+        "iva": 47.25,
+        "total": 272.25
+      },
+      "sugerencias_catalogo": [
+        "REVISIÓN TÉCNICA OBLIGATORIA: El cliente menciona 'mortero elástico' pero esta NO es la solución correcta. El mortero rígido o semirrígido se agrieta con movimientos térmicos y filtraciones. La solución técnica correcta es MEMBRANA IMPERMEABILIZANTE (lámina de plomo/zinc para máxima durabilidad, o TPO/PVC para mejor relación coste-beneficio) + silicona fungicida flexible en línea superior.",
+        "Referencia BASE MAESTRA: [impermeabilizacion_de_encuentro_fachada_cubierta] — partidas obligatorias: saneo zona, membrana impermeabilizante, subir 30cm fachada + bajar 50cm cubierta, refuerzo geotextil, sellado flexible, EPI.",
+        "Presupuesto PRELIMINAR: El subtotal de 225€ (mano de obra) es orientativo. El material (membrana + silicona) debe cotizarse según metraje real y tipo de membrana elegida. Rango total estimado: 400-800€ según complejidad y longitud de junta.",
+        "IMPORTANTE: Solicitar al cliente metraje exacto de la junta (longitud en ml) y accesibilidad de la zona (altura, inclinación cubierta) para ajustar presupuesto final."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Membrana impermeabilizante encuentro cubierta-pared",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material específico para impermeabilización de encuentros. Precio a definir por instalador según tipo (plomo/zinc/TPO/PVC) y metraje."
+        },
+        {
+          "concepto": "Silicona fungicida flexible para sellado",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material consumible. Precio a definir según marca y cantidad."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_junta_suelo_pared_en_ducha_o_bano",
+      "reparacion_de_encuentro_de_chimenea_con_cubierta",
+      "reparacion_grifo_o_griferia_averiada",
+      "impermeabilizacion_de_encuentro_fachada_cubierta",
+      "impermeabilizacion_de_chimenea_y_encuentro_con_cubierta"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3895,
+      "tokens_out": 2470
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

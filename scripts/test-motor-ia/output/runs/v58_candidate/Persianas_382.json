@@ -1,0 +1,186 @@
+{
+  "id": 382,
+  "oficio": "Persianas",
+  "texto": "Motorizar 6 persianas de PVC existentes con motores Somfy y mando a distancia central",
+  "http_status": 200,
+  "latency_ms": 14694,
+  "raw_response": {
+    "transcript": "Motorizar 6 persianas de PVC existentes con motores Somfy y mando a distancia central",
+    "quote": {
+      "resumen": {
+        "texto_original": "Motorizar 6 persianas de PVC existentes con motores Somfy y mando a distancia central",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Precio de motores Somfy y mando central pendiente de revisión (origen sugerida_ia)",
+          "Se asume instalación en persianas existentes sin desmontaje mayor"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Motorización de persianas enrollables con motor tubular y sistema de control"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Motores tubulares Somfy para persianas",
+          "descripcion": "Suministro de 6 motores tubulares Somfy (modelo estándar, par según peso estimado de lamas PVC)",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de motor Somfy según modelo y par requerido debe ser confirmado por instalador"
+        },
+        {
+          "concepto": "Mando a distancia central Somfy",
+          "descripcion": "Suministro de mando a distancia centralizado Somfy para control de 6 persianas (receptor radiocontrol integrado o módulo receptor)",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mando central Somfy debe ser confirmado por instalador"
+        },
+        {
+          "concepto": "Receptor radiocontrol para motores",
+          "descripcion": "Suministro de receptores radiocontrol Somfy para integración con mando central (1 por motor o módulo centralizado según configuración)",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de receptores Somfy debe ser confirmado por instalador"
+        },
+        {
+          "concepto": "Cable eléctrico y pequeño material",
+          "descripcion": "Suministro de cable eléctrico (2x1.5mm² aproximadamente), conectores, regletas, bridas y pequeño material para conexión de 6 motores",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de cable y material depende de distancias y configuración final"
+        },
+        {
+          "concepto": "Instalación de motores en persianas existentes",
+          "descripcion": "Desmontaje de tubos enrolladores existentes, instalación de motores tubulares Somfy, reajuste de guías y lamas, pruebas de funcionamiento en 6 persianas",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado eléctrico y conexión de receptores",
+          "descripcion": "Tendido de cable eléctrico desde punto de alimentación a cada motor, conexión de receptores radiocontrol, instalación de regletas de conexión, pruebas de continuidad",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Programación y pruebas del mando central",
+          "descripcion": "Programación del mando a distancia central Somfy, emparejamiento con receptores de los 6 motores, ajuste de finales de carrera, pruebas de funcionamiento completo y entrega de mandos al cliente",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 945,
+        "iva_porcentaje": 21,
+        "iva": 198.45,
+        "total": 1143.45
+      },
+      "sugerencias_catalogo": [
+        "Confirmar modelo exacto de motor Somfy (ej: Somfy Oximo, Glydea, etc.) según par requerido por peso de lamas PVC",
+        "Especificar si el mando central es Somfy Situo, Telis o similar, y si incluye receptor integrado o requiere módulos receptores adicionales",
+        "Considerar si hay punto de alimentación eléctrica cercano o si requiere instalación de circuito eléctrico dedicado",
+        "Verificar si las persianas tienen finales de carrera mecánicos que deben ser desactivados tras motorización"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Motores tubulares Somfy para persianas",
+          "oficio": "persianas",
+          "razon": "Material específico de marca Somfy, precio variable según modelo y par"
+        },
+        {
+          "concepto": "Mando a distancia central Somfy",
+          "oficio": "persianas",
+          "razon": "Sistema de control centralizado Somfy, precio variable según modelo"
+        },
+        {
+          "concepto": "Receptor radiocontrol para motores",
+          "oficio": "persianas",
+          "razon": "Componente de integración Somfy, precio variable según configuración"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_cuadro_y_sistemas_de_control_para_automatismos",
+      "automatizacion_cancela_o_puerta_con_motor",
+      "instalacion_persiana_enrollable_aluminio_motorizada",
+      "instalacion_sistema_knx_bus",
+      "mantenimiento_de_instalacion_contra_incendios_en_local"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3856,
+      "tokens_out": 1983
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

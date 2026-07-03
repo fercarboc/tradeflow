@@ -1,0 +1,183 @@
+{
+  "id": 22,
+  "oficio": "Electricidad",
+  "texto": "Instalación de enchufe en terraza con protección IP exterior y toma de tierra",
+  "http_status": 200,
+  "latency_ms": 19466,
+  "raw_response": {
+    "transcript": "Instalación de enchufe en terraza con protección IP exterior y toma de tierra",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de enchufe en terraza con protección IP exterior y toma de tierra",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si existe toma de tierra previa en la vivienda. Si no existe, se requiere instalación de pica de tierra adicional.",
+          "Confirmar distancia desde cuadro eléctrico a punto de enchufe para estimar longitud de cable.",
+          "Validar si el diferencial de 30mA ya existe en la instalación o requiere instalación nueva."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación eléctrica exterior con protección IP44 y sistema de tierra. Oficio validado en Base Maestra [instalacion_enchufe_exterior_ip44]."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Base enchufe Schuko IP44 exterior",
+          "descripcion": "Base de enchufe Schuko IP44 de superficie, protección contra agua y polvo, apta para uso exterior en terraza",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Material de catálogo validado. Instalador debe confirmar marca y modelo (Legrand, Schneider, Siemens, etc.) y precio de suministro."
+        },
+        {
+          "concepto": "Cable H07RN-F 2x2.5mm² para exterior",
+          "descripcion": "Cable de cobre flexible H07RN-F 2x2.5mm² apto para instalaciones exteriores, resistente a intemperie y rayos UV",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud estimada 10ml (ajustar según distancia real desde cuadro a punto de enchufe). Precio de suministro pendiente de revisión."
+        },
+        {
+          "concepto": "Caja de superficie IP44 para enchufe exterior",
+          "descripcion": "Caja de derivación/superficie IP44 con tapa estanca, para alojamiento de base de enchufe en terraza",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Material de catálogo. Confirmar dimensiones y material (ABS/policarbonato resistente UV)."
+        },
+        {
+          "concepto": "Diferencial 30mA tipo A 2 polos 25A",
+          "descripcion": "Interruptor diferencial de 30mA sensibilidad tipo A, 2 polos, 25A, para protección de circuito de enchufe exterior",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Obligatorio por normativa REBT para circuitos exteriores. Confirmar si ya existe en cuadro o requiere instalación nueva. Precio pendiente."
+        },
+        {
+          "concepto": "Pica de tierra y accesorios",
+          "descripcion": "Pica de acero cobreado 1.5m, cable de cobre desnudo 6mm², abrazadera de conexión y pequeño material para instalación de toma de tierra",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Requerido si no existe toma de tierra previa. Verificar estado de tierra existente antes de presupuestar. Precio de suministro pendiente."
+        },
+        {
+          "concepto": "Mano de obra: instalación enchufe exterior IP44 con tierra",
+          "descripcion": "Instalación completa: replanteo, fijación caja, conexionado cable, instalación base enchufe, conexión diferencial, instalación pica tierra, pruebas y verificación de continuidad",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 50,
+          "total": 125,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 125,
+        "iva_porcentaje": 21,
+        "iva": 26.25,
+        "total": 151.25
+      },
+      "sugerencias_catalogo": [
+        "Validar en Base Maestra: [instalacion_enchufe_exterior_ip44] — todas las partidas obligatorias incluidas.",
+        "Si la terraza está sobre espacio habitable (salón, dormitorio), considerar impermeabilización previa del forjado.",
+        "Considerar instalación de tubo corrugado enterrado si el cable debe pasar bajo tierra desde cuadro a terraza."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Base enchufe Schuko IP44 exterior",
+          "origen": "sugerida_ia",
+          "razon": "Material de catálogo validado, precio pendiente de revisión del instalador."
+        },
+        {
+          "concepto": "Cable H07RN-F 2x2.5mm² para exterior",
+          "origen": "sugerida_ia",
+          "razon": "Material de catálogo validado, longitud estimada, precio pendiente."
+        },
+        {
+          "concepto": "Caja de superficie IP44 para enchufe exterior",
+          "origen": "sugerida_ia",
+          "razon": "Material de catálogo validado, precio pendiente."
+        },
+        {
+          "concepto": "Diferencial 30mA tipo A 2 polos 25A",
+          "origen": "sugerida_ia",
+          "razon": "Material obligatorio por REBT, precio pendiente de revisión."
+        },
+        {
+          "concepto": "Pica de tierra y accesorios",
+          "origen": "sugerida_ia",
+          "razon": "Material condicionado a verificación de tierra existente, precio pendiente."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_enchufe_exterior_ip44",
+      "instalacion_electrica_pergola_terraza",
+      "solado_ceramico_exterior_terraza",
+      "instalacion_suelo_flotante_sobre_plots_regulables",
+      "inspeccion_y_test_de_toma_de_tierra_y_diferencial"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3746,
+      "tokens_out": 2411
+    }
+  },
+  "classification": {
+    "category": "PRECIO_INVALIDO",
+    "n_partidas": 6,
+    "n_catalogo": 6,
+    "n_sugeridas": 0,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI",
+    "error_detalle": "Partida de catálogo con precio 0 o nulo"
+  }
+}

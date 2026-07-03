@@ -1,0 +1,180 @@
+{
+  "id": 58,
+  "oficio": "Carpintería",
+  "texto": "Fabricación e instalación de tresillos y módulos de office en oficina, 5 puestos de trabajo",
+  "http_status": 200,
+  "latency_ms": 14892,
+  "raw_response": {
+    "transcript": "Fabricación e instalación de tresillos y módulos de office en oficina, 5 puestos de trabajo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Fabricación e instalación de tresillos y módulos de office en oficina, 5 puestos de trabajo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye fabricación personalizada de mobiliario: requiere medidas exactas y especificaciones técnicas",
+          "Se asume instalación en oficina existente sin obras de acondicionamiento previo",
+          "Precio de materiales (madera, herrajes, tapicería) pendiente de revisión según especificaciones finales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Fabricación de tresillos y módulos de office (muebles de madera/melamina)"
+        },
+        {
+          "oficio": "multiservicio",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 38,
+            "max": 45
+          },
+          "motivo": "Instalación, montaje y ajuste de módulos en oficina"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Fabricación de tresillos y módulos office",
+          "descripcion": "Fabricación en taller de 5 tresillos/módulos de office con estructura de madera/melamina, cajones, estantes y accesorios según especificaciones técnicas del cliente",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de dimensiones, materiales (madera maciza vs melamina), acabados y herrajes. Instalador debe especificar presupuesto de materiales."
+        },
+        {
+          "concepto": "Mano de obra fabricación tresillos y módulos",
+          "descripcion": "Horas de taller para corte, ensamblaje, acabado y preparación de 5 módulos office completos",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 20,
+          "precio_unitario": 45,
+          "total": 900,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Transporte e instalación de módulos en oficina",
+          "descripcion": "Transporte desde taller a oficina, desembalaje, posicionamiento y nivelación de 5 módulos office en puestos de trabajo",
+          "oficio": "multiservicio",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 38,
+          "total": 304,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Montaje, ajuste y fijación de módulos",
+          "descripcion": "Montaje de patas, accesorios, cajones, estantes; ajuste de puertas y cerraduras; fijación a estructura de oficina si procede; prueba de funcionamiento",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Herrajes, tornillería y accesorios de montaje",
+          "descripcion": "Bisagras, cerraduras, guías de cajones, patas ajustables, tornillería y pequeño material de fijación para 5 módulos",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de calidad y cantidad de herrajes. Instalador debe presupuestar según especificaciones."
+        },
+        {
+          "concepto": "Acabado, pintura o barnizado de módulos",
+          "descripcion": "Acabado final de tresillos (pintura, barniz, laca o tapizado según especificación) para 5 unidades",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo de acabado (pintura, barniz, tapizado). Instalador debe especificar."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1744,
+        "iva_porcentaje": 21,
+        "iva": 366.24,
+        "total": 2110.24
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: planos/croquis de tresillos, dimensiones exactas, materiales preferidos (madera maciza, melamina, MDF), acabados (pintura, barniz, tapizado), herrajes especiales",
+        "Considerar si los módulos requieren instalación eléctrica (enchufes, iluminación integrada, cargadores USB) → coordinar con electricista",
+        "Verificar acceso a oficina: puertas, escaleras, ascensor para transporte de módulos",
+        "Presupuesto de materiales (madera, melamina, herrajes, acabados) debe ser completado por el instalador antes de confirmar presupuesto total"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Fabricación de tresillos y módulos office",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Fabricación personalizada de mobiliario de oficina no está en catálogo estándar. Requiere especificaciones técnicas del cliente."
+        },
+        {
+          "concepto": "Acabado, pintura o barnizado de módulos",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Acabado personalizado depende de especificaciones del cliente (tipo de pintura, barniz, tapizado, etc.)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "tabique_pladur_separacion_zona_oficina",
+      "reparacion_puntual_o_chapuza_varios_trabajos_menores",
+      "instalacion_de_plataforma_elevadora_para_fachada"
+    ],
+    "kb_score": 1.25,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3694,
+      "tokens_out": 1975
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

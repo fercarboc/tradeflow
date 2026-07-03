@@ -1,0 +1,239 @@
+{
+  "id": 291,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar cubierta de nave industrial con poliurea proyectada, 500 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 20131,
+  "raw_response": {
+    "transcript": "Impermeabilizar cubierta de nave industrial con poliurea proyectada, 500 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar cubierta de nave industrial con poliurea proyectada, 500 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Impermeabilización de gran superficie (500 m²) — verificar acceso, andamiaje y condiciones meteorológicas",
+          "Poliurea proyectada requiere equipo especializado y personal certificado",
+          "Presupuesto de materiales estimado — instalador debe confirmar precio de poliurea y equipos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización de cubierta con membrana líquida (poliurea proyectada) — oficio especializado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza mecánica y preparación de cubierta",
+          "descripcion": "Limpieza de suciedad, óxido, algas y restos de impermeabilización anterior. Cepillado mecánico y soplado con aire comprimido. Reparación de grietas y fisuras menores con mortero de reparación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 3,
+          "total": 1500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación antioxidante y adherente",
+          "descripcion": "Aplicación de imprimación epoxídica o poliuretánica para mejorar adherencia de poliurea. Cobertura uniforme en toda la superficie.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de imprimación epoxídica/poliuretánica a confirmar por instalador (típicamente 2-5 €/m²)"
+        },
+        {
+          "concepto": "Membrana de poliurea proyectada",
+          "descripcion": "Aplicación de poliurea proyectada de 2-3 mm de espesor. Sistema de dos componentes (isocianato + poliol) aplicado con equipo de proyección de alta presión. Incluye refuerzo en solapes, encuentros y puntos singulares.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de poliurea proyectada a confirmar por instalador (típicamente 25-60 €/m² según espesor y marca)"
+        },
+        {
+          "concepto": "Mano de obra proyección poliurea",
+          "descripcion": "Aplicación de poliurea proyectada con equipo especializado. Incluye preparación de máquina, aplicación en capas, control de espesor y acabado uniforme.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 12,
+          "total": 6000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Refuerzo de encuentros, solapes y puntos singulares",
+          "descripcion": "Refuerzo con malla de fibra de vidrio o tela en encuentros con petos, chimeneas, tuberías, canalones y zonas de movimiento. Aplicación de capas adicionales de poliurea.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de malla de refuerzo y poliurea adicional a confirmar (estimado 10-20 €/m² de zona reforzada)"
+        },
+        {
+          "concepto": "Mano de obra refuerzo de puntos singulares",
+          "descripcion": "Aplicación manual de refuerzos en encuentros, solapes, petos, chimeneas y tuberías. Trabajo detallado con brocha y rodillo.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 15,
+          "total": 750,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura reflectante blanca de acabado",
+          "descripcion": "Aplicación de pintura acrílica reflectante blanca para protección UV de poliurea y reducción de temperatura interior. Mejora durabilidad y reflectancia solar.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pintura reflectante a confirmar (típicamente 3-8 €/m²)"
+        },
+        {
+          "concepto": "Mano de obra aplicación pintura reflectante",
+          "descripcion": "Aplicación de pintura reflectante blanca con rodillo o brocha. Una o dos manos según cobertura.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 2,
+          "total": 1000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI, línea de vida y equipos de seguridad",
+          "descripcion": "Arnés de seguridad, línea de vida, cascos, gafas, guantes, mascarillas respiratorias (vapores de poliurea), botas de seguridad. Instalación de anclajes temporales si es necesario.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de EPI y equipos de seguridad a confirmar (estimado 300-800 € según número de operarios y duración)"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Trapos, disolventes, cinta de enmascarar, papel de protección, brochas, rodillos, cubetas, etc.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de pequeño material a confirmar (estimado 150-300 €)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 9250,
+        "iva_porcentaje": 21,
+        "iva": 1942.5,
+        "total": 11192.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar que la cubierta no tiene amianto (fibrocemento antiguo) antes de impermeabilizar",
+        "Confirmar pendiente de cubierta — poliurea proyectada es válida para cubiertas planas e inclinadas",
+        "Solicitar certificado de calidad de poliurea (densidad, resistencia UV, elasticidad)",
+        "Considerar garantía de impermeabilización (típicamente 10-15 años con poliurea de calidad)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación antioxidante y adherente",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material específico para preparación de cubierta antes de poliurea"
+        },
+        {
+          "concepto": "Membrana de poliurea proyectada",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material principal — precio variable según marca y espesor"
+        },
+        {
+          "concepto": "Refuerzo de encuentros, solapes y puntos singulares",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material de refuerzo (malla + poliurea adicional)"
+        },
+        {
+          "concepto": "Pintura reflectante blanca de acabado",
+          "oficio": "impermeabilizacion",
+          "motivo": "Acabado protector UV — precio a confirmar"
+        },
+        {
+          "concepto": "EPI, línea de vida y equipos de seguridad",
+          "oficio": "impermeabilizacion",
+          "motivo": "Equipos de protección específicos para trabajo en altura y vapores de poliurea"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_cubierta_metalica_con_membrana_liquida",
+      "instalacion_cubierta_de_fibrocemento_ondulado_o_plano",
+      "impermeabilizacion_peto_o_murete_de_cubierta",
+      "instalacion_puerta_enrollable_rapida_industrial",
+      "impermeabilizacion_de_chimenea_y_encuentro_con_cubierta"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3999,
+      "tokens_out": 2881
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "id": 255,
+  "oficio": "Telecomunicaciones",
+  "texto": "Pasar cable coaxial para televisión en todos los dormitorios, 4 tomas nuevas con amplificador",
+  "http_status": 200,
+  "latency_ms": 14354,
+  "raw_response": {
+    "transcript": "Pasar cable coaxial para televisión en todos los dormitorios, 4 tomas nuevas con amplificador",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pasar cable coaxial para televisión en todos los dormitorios, 4 tomas nuevas con amplificador",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume 4 dormitorios con 1 toma por dormitorio. Confirmar número exacto de tomas y ubicación.",
+          "Amplificador: se presupuesta 1 unidad centralizada. Confirmar si es amplificador de mastil o de distribución.",
+          "Longitud total de cable coaxial: no especificada. Se presupuesta como partida de material a revisar por instalador."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de red de distribución de televisión por cable coaxial con amplificador y tomas de usuario."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cable coaxial 75 ohmios para televisión",
+          "descripcion": "Suministro de cable coaxial RG-6 o equivalente 75Ω para distribución de señal de televisión en dormitorios. Longitud a determinar por instalador según trazado real.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud total de cable no especificada. Instalador debe medir trazado real y confirmar metraje."
+        },
+        {
+          "concepto": "Tomas de usuario para televisión",
+          "descripcion": "Suministro e instalación de 4 tomas de usuario (conectores F hembra) para televisión en dormitorios. Incluye pequeño material (conectores, regletas, etc.).",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tomas y conectores a confirmar por instalador según marca y calidad."
+        },
+        {
+          "concepto": "Amplificador de distribución para televisión",
+          "descripcion": "Suministro de amplificador de distribución (mastil o centralizado) para refuerzo de señal de televisión. Ganancia y número de salidas a confirmar según necesidad de la instalación.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tipo y especificaciones del amplificador (ganancia, número de salidas, alimentación) a confirmar por instalador."
+        },
+        {
+          "concepto": "Instalación de cable coaxial y tomas de televisión",
+          "descripcion": "Mano de obra para pasar cable coaxial por dormitorios, fijación en paredes/techos, instalación de 4 tomas de usuario con conectores, pruebas de continuidad y nivel de señal.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación y configuración del amplificador",
+          "descripcion": "Mano de obra para instalación del amplificador de distribución, conexión a fuente de alimentación, ajuste de ganancia, pruebas de señal en todas las tomas y optimización de nivel.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Bridas, tacos, tornillos, cinta aislante, etiquetado y otros accesorios necesarios para la instalación completa.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe de pequeño material a confirmar por instalador según cantidad y tipo de accesorios utilizados."
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si la instalación requiere rozas en paredes (albanilería) o si el cable se pasa por canaletas/tuberías existentes.",
+        "Verificar si existe antena colectiva en el edificio o si es necesario instalar antena individual.",
+        "Comprobar nivel de señal en la toma de origen antes de presupuestar amplificador (puede no ser necesario si la señal es suficiente).",
+        "Considerar si es necesario instalar derivadores/splitters adicionales para distribuir la señal a múltiples tomas."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cable coaxial 75 ohmios para televisión",
+          "oficio": "telecomunicaciones",
+          "razon": "Material de distribución de señal de TV, requiere especificación de metraje y tipo de cable."
+        },
+        {
+          "concepto": "Amplificador de distribución para televisión",
+          "oficio": "telecomunicaciones",
+          "razon": "Equipo activo de refuerzo de señal, requiere especificación de ganancia y número de salidas."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_antena_colectiva_TDT_en_edificio",
+      "instalacion_de_red_de_datos_con_fibra_optica_backbone",
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "apertura_y_cierre_de_rozas_para_instalaciones",
+      "instalacion_linea_electrica_electrodomestico"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3975,
+      "tokens_out": 1886
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

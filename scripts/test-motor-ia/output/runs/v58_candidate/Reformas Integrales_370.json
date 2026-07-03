@@ -1,0 +1,439 @@
+{
+  "id": 370,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de oficina de 200 metros cuadrados con nueva distribución, iluminación y mobiliario",
+  "http_status": 200,
+  "latency_ms": 35835,
+  "raw_response": {
+    "transcript": "Reforma de oficina de 200 metros cuadrados con nueva distribución, iluminación y mobiliario",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de oficina de 200 metros cuadrados con nueva distribución, iluminación y mobiliario",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral detectada: múltiples oficios (albanilería, electricidad, carpintería, pintura)",
+          "Superficie 200 m² requiere desglose técnico completo",
+          "Mobiliario: requiere especificación de tipo, cantidad y proveedor",
+          "Nueva distribución implica posibles rozas, tabiquería y reposición",
+          "Iluminación debe cumplir normativa UNE EN 12464 (500 lux puestos trabajo, UGR<16)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 45,
+            "max": 45
+          },
+          "motivo": "Reforma integral: ≥3 oficios simultáneos (albanilería, electricidad, carpintería, pintura)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 40,
+            "max": 40
+          },
+          "motivo": "Demoliciones selectivas, rozas, tabiquería nueva, reposición"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 50,
+            "max": 50
+          },
+          "motivo": "Instalación eléctrica completa, iluminación LED, circuitos enchufes, cuadro nuevo"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 45,
+            "max": 45
+          },
+          "motivo": "Divisiones, puertas, marcos, revestimientos interiores"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 32,
+            "recomendado": 32,
+            "max": 32
+          },
+          "motivo": "Pintura paredes y techos, preparación superficies"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 32,
+            "recomendado": 32,
+            "max": 32
+          },
+          "motivo": "Pavimento oficina (baldosa, porcelánico o similar)"
+        },
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 50,
+            "max": 50
+          },
+          "motivo": "Red de datos CAT6 obligatoria en reforma oficina"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 40,
+            "max": 40
+          },
+          "motivo": "Gestión y retirada de escombros y residuos de demolición"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición selectiva y desmontaje",
+          "descripcion": "Demolición de tabiquería existente, desmontaje de instalaciones antiguas, retirada de mobiliario y elementos no estructurales en 200 m²",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 8,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rozas, canalizaciones y reposición",
+          "descripcion": "Ejecución de rozas para instalaciones eléctricas, fontanería y datos. Reposición con mortero y preparación de superficies en 200 m²",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 6,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tabiquería nueva y divisiones",
+          "descripcion": "Construcción de tabiques de ladrillo o bloques para nueva distribución de espacios. Incluye mortero, malla y pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar: altura tabiques, tipo material (ladrillo/bloque), cantidad lineal exacta"
+        },
+        {
+          "concepto": "Mano de obra tabiquería",
+          "descripcion": "Ejecución de tabiques nuevos para redistribución de espacios",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 40,
+          "total": 3200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cuadro eléctrico nuevo y cableado completo",
+          "descripcion": "Instalación de cuadro eléctrico nuevo con protecciones actualizadas (REBT), cableado de distribución en toda la oficina, circuitos independientes para iluminación, enchufes y climatización. Mínimo 14 circuitos",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 220,
+          "total": 220,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Iluminación LED completa (500 lux, UGR<16)",
+          "descripcion": "Instalación de luminarias LED en toda la oficina (200 m²) cumpliendo normativa UNE EN 12464: 500 lux en puestos de trabajo, UGR menor a 16. Incluye downlights, paneles LED, luminarias de emergencia y control DALI si eficiencia energética",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 12,
+          "total": 2400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Circuitos de enchufes y mecanismos",
+          "descripcion": "Instalación de enchufes, interruptores, conmutadores y mecanismos en toda la oficina. Incluye cajas de derivación, pequeño material y conexionado",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Boletín eléctrico y legalización",
+          "descripcion": "Realización de boletín eléctrico, inspección y legalización de la instalación ante organismo competente",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe incluir coste de boletín y legalización (aprox. 150-300€)"
+        },
+        {
+          "concepto": "Red de datos CAT6 completa",
+          "descripcion": "Instalación de cableado estructurado CAT6 en toda la oficina, canaletas, regletas de conexión, tomas RJ45 en puestos de trabajo. Circuito independiente de electricidad",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 400,
+          "precio_unitario": 8,
+          "total": 3200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Puertas y marcos",
+          "descripcion": "Suministro e instalación de puertas (acceso, despachos, aseos) con marcos y herrajes. Incluye ajuste y acabado",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar: número de puertas, tipo (madera/PVC), dimensiones, acabado"
+        },
+        {
+          "concepto": "Mano de obra puertas y marcos",
+          "descripcion": "Instalación de puertas y marcos en nueva distribución",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 180,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pavimento (baldosa/porcelánico)",
+          "descripcion": "Suministro e instalación de pavimento en toda la oficina (200 m²). Incluye preparación de base, adhesivo, lechada y rejuntado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar: tipo pavimento (baldosa, porcelánico, gres), precio m², marca, acabado"
+        },
+        {
+          "concepto": "Mano de obra pavimento",
+          "descripcion": "Colocación de pavimento en 200 m²",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 32,
+          "total": 6400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura paredes y techos",
+          "descripcion": "Preparación de superficies, imprimación y pintura de paredes y techos en toda la oficina (200 m²). Incluye masillado, lijado y acabado final",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 8,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura (material)",
+          "descripcion": "Pintura de paredes y techos (200 m²). Incluye imprimación y acabado",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar: tipo pintura (plástica, acrílica), marca, color, acabado (mate/satinado)"
+        },
+        {
+          "concepto": "Mobiliario de oficina",
+          "descripcion": "Suministro e instalación de mobiliario: mesas de trabajo, sillas, armarios, estanterías, elementos de almacenamiento según nueva distribución",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "CRÍTICO: Instalador debe especificar detalladamente: número de puestos trabajo, tipo mobiliario (estándar/premium), proveedor, presupuesto unitario, total mobiliario"
+        },
+        {
+          "concepto": "Gestión de residuos y escombros",
+          "descripcion": "Retirada, transporte y gestión de residuos de demolición, escombros y embalajes. Incluye contenedor y vertedero autorizado",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "m3",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe estimar volumen de escombros y coste de gestión (aprox. 30-50€/m³)"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Tornillos, tacos, tuercas, cinta aislante, cinta de carrocero, masilla, lijas, discos corte, etc.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe presupuestar pequeño material (aprox. 5-10% del presupuesto total)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 20350,
+        "iva_porcentaje": 21,
+        "iva": 4273.5,
+        "total": 24623.5
+      },
+      "sugerencias_catalogo": [
+        "Especificar tipo de pavimento: baldosa cerámica, porcelánico, gres porcelánico, vinílico o tarima flotante",
+        "Definir número exacto de puertas y tipo: madera maciza, tablero, PVC, aluminio",
+        "Detallar mobiliario: número de puestos trabajo, tipo mesas (rectas/angulares), sillas (operativa/ejecutiva), armarios, estanterías",
+        "Confirmar si requiere climatización (aire acondicionado, ventilación mecánica)",
+        "Especificar si hay aseos/cocina que requieran fontanería",
+        "Definir acabados: colores pintura, tipo pavimento, estilos puertas y mobiliario",
+        "Considerar accesibilidad PMR si es obligatorio",
+        "Presupuestar señalización, emergencia y seguridad laboral"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tabiquería nueva y divisiones",
+          "oficio": "albanileria",
+          "motivo": "Material de construcción de tabiques no especificado en catálogo base"
+        },
+        {
+          "concepto": "Pavimento (baldosa/porcelánico)",
+          "oficio": "suelos_alicatados",
+          "motivo": "Tipo y marca de pavimento no especificado"
+        },
+        {
+          "concepto": "Pintura (material)",
+          "oficio": "pintura",
+          "motivo": "Tipo y marca de pintura no especificado"
+        },
+        {
+          "concepto": "Mobiliario de oficina",
+          "oficio": "carpinteria",
+          "motivo": "Mobiliario específico no detallado en solicitud"
+        },
+        {
+          "concepto": "Boletín eléctrico y legalización",
+          "oficio": "electricidad",
+          "motivo": "Servicio de legalización no presupuestado"
+        },
+        {
+          "concepto": "Gestión de residuos y escombros",
+          "oficio": "gestion_residuos",
+          "motivo": "Volumen y coste de gestión no especificado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_electrica_oficina_completa",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda",
+      "instalacion_electrica_reforma_integral_vivienda",
+      "instalacion_fontaneria_cocina_completa"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3768,
+      "tokens_out": 5768
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 18,
+    "n_catalogo": 10,
+    "n_sugeridas": 8,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

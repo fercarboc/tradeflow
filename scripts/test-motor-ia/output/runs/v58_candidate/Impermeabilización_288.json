@@ -1,0 +1,187 @@
+{
+  "id": 288,
+  "oficio": "Impermeabilización",
+  "texto": "Instalar sistema de drenaje perimetral en jardín para evacuar aguas pluviales, longitud 20 metros",
+  "http_status": 200,
+  "latency_ms": 19305,
+  "raw_response": {
+    "transcript": "Instalar sistema de drenaje perimetral en jardín para evacuar aguas pluviales, longitud 20 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de drenaje perimetral en jardín para evacuar aguas pluviales, longitud 20 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema de drenaje perimetral: requiere inspección de terreno para determinar pendiente, tipo de suelo y profundidad óptima",
+          "Materiales (tuberías, grava, geotextil) requieren confirmación de especificaciones técnicas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Sistema de drenaje perimetral para evacuación de aguas pluviales es función de impermeabilización y gestión de humedad en terrenos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Excavación y preparación zanja drenaje perimetral",
+          "descripcion": "Excavación de zanja perimetral de 20 metros de longitud, profundidad según pendiente del terreno (típicamente 0,60-0,80 m), ancho 0,40 m. Incluye retirada de tierra y nivelación del fondo",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 12,
+          "total": 240,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por metro lineal de excavación debe ajustarse según dureza del terreno y accesibilidad"
+        },
+        {
+          "concepto": "Suministro e instalación tubería drenaje perforada",
+          "descripcion": "Tubería de drenaje perforada (PVC o HDPE) diámetro 110 mm, 20 metros lineales. Incluye suministro, colocación en zanja y conexiones",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe confirmar: tipo de tubería (PVC/HDPE), diámetro, calidad y precio de suministro"
+        },
+        {
+          "concepto": "Suministro e instalación geotextil y grava drenante",
+          "descripcion": "Geotextil de 150 g/m² (20 metros lineales) + grava drenante (árido 16-32 mm) para relleno de zanja. Cantidad aproximada 4 m³",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe confirmar: especificación geotextil, granulometría grava, volumen exacto según profundidad real"
+        },
+        {
+          "concepto": "Instalación sistema drenaje: colocación geotextil, grava y relleno",
+          "descripcion": "Colocación de geotextil en fondo y laterales de zanja, distribución de grava drenante alrededor de tubería, relleno parcial y compactación controlada",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 15,
+          "total": 300,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por metro lineal de instalación de capas drenantes; ajustar según complejidad del terreno"
+        },
+        {
+          "concepto": "Relleno final y restitución terreno",
+          "descripcion": "Relleno de zanja con tierra vegetal compactada en capas, nivelación y restitución del terreno. Incluye compactación según normativa",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 8,
+          "total": 160,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por metro lineal de relleno y compactación; puede variar según volumen de tierra disponible"
+        },
+        {
+          "concepto": "Suministro e instalación arqueta de registro y salida drenaje",
+          "descripcion": "Arqueta de registro (0,60 x 0,60 m) con tapa y rejilla, conexión de tubería de drenaje y salida hacia punto de evacuación (sumidero, pozo, red pluvial)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe confirmar: tipo de arqueta (hormigón/PVC), dimensiones, precio y punto de evacuación final"
+        },
+        {
+          "concepto": "Instalación arqueta de registro y conexiones finales",
+          "descripcion": "Excavación, colocación y nivelación de arqueta, conexión de tubería de drenaje, sellado de juntas, prueba de funcionamiento",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por unidad de arqueta; incluye excavación, colocación y conexiones"
+        }
+      ],
+      "calculos": {
+        "subtotal": 820,
+        "iva_porcentaje": 21,
+        "iva": 172.2,
+        "total": 992.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo si existe partida específica: 'instalacion_sistema_drenaje_perimetral' o 'drenaje_aguas_pluviales'",
+        "Considerar si el proyecto requiere: cálculo de caudal de escorrentía, estudio geotécnico del terreno, o conexión a red de saneamiento municipal"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Excavación y preparación zanja drenaje perimetral",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "motivo": "Trabajo específico de drenaje perimetral no encontrado en catálogo base"
+        },
+        {
+          "concepto": "Suministro e instalación tubería drenaje perforada",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material específico de drenaje; requiere especificación técnica del instalador"
+        },
+        {
+          "concepto": "Suministro e instalación geotextil y grava drenante",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Materiales de drenaje; requiere confirmación de especificaciones"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_bomba_de_calor_para_piscina",
+      "instalacion_sistema_de_riego_por_aspersion",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "instalacion_alarma_perimetral_o_antirrobo_basica"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4051,
+      "tokens_out": 2583
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 7,
+    "n_catalogo": 0,
+    "n_sugeridas": 7,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

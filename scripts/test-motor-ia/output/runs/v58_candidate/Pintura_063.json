@@ -1,0 +1,185 @@
+{
+  "id": 63,
+  "oficio": "Pintura",
+  "texto": "Poner gotelé en el techo del salón y la cocina, reparar manchas de humedad antes de pintar",
+  "http_status": 200,
+  "latency_ms": 15053,
+  "raw_response": {
+    "transcript": "Poner gotelé en el techo del salón y la cocina, reparar manchas de humedad antes de pintar",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner gotelé en el techo del salón y la cocina, reparar manchas de humedad antes de pintar",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Se detectan manchas de humedad: OBLIGATORIO identificar y reparar origen antes de aplicar gotelé",
+          "Superficie exacta no especificada: instalador debe medir techos de salón y cocina",
+          "Gotelé requiere preparación de superficie y posible saneado de hongos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Aplicación de gotelé (pintura texturizada) y reparación de manchas de humedad"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y saneado de manchas de humedad con desinfectante",
+          "descripcion": "Limpieza previa de zonas afectadas por humedad, aplicación de desinfectante fungicida y lejía diluida para eliminar hongos y moho antes de reparación",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie de manchas no especificada: instalador debe medir zonas afectadas"
+        },
+        {
+          "concepto": "Desinfectante fungicida y lejía para tratamiento de humedad",
+          "descripcion": "Producto desinfectante fungicida y lejía diluida para saneado de hongos y moho en manchas de humedad",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de producto a determinar según extensión de manchas"
+        },
+        {
+          "concepto": "Masilla y pasta de reparación para grietas y zonas dañadas por humedad",
+          "descripcion": "Masilla de reparación para sellar grietas, fisuras y zonas dañadas por humedad antes de aplicar gotelé",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según extensión de daños por humedad"
+        },
+        {
+          "concepto": "Imprimación fijadora antimoho",
+          "descripcion": "Imprimación fijadora con propiedades antimoho para sellar zonas reparadas antes de aplicar gotelé",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según superficie total de techos a tratar"
+        },
+        {
+          "concepto": "Aplicación de gotelé en techo salón y cocina",
+          "descripcion": "Preparación de superficie, aplicación de pintura gotelé (texturizada) en dos manos en techos de salón y cocina. Incluye mascarilla de protección respiratoria",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie total de techos no especificada: instalador debe medir salón y cocina"
+        },
+        {
+          "concepto": "Pintura gotelé texturizada",
+          "descripcion": "Pintura gotelé de acabado texturizado, dos manos, para techos de salón y cocina",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según superficie total (rendimiento aprox. 8-10 m2/litro en gotelé)"
+        },
+        {
+          "concepto": "Pequeño material y herramientas (rodillo, bandeja, cinta carrocero, plástico protección)",
+          "descripcion": "Rodillo de pelo largo para gotelé, bandeja de pintura, cinta carrocero, plástico de protección, extensión de rodillo, lija fina",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a determinar según necesidades específicas de obra"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Medir superficie exacta de techos de salón y cocina (m2) para calcular cantidades de pintura y mano de obra",
+        "Identificar origen de humedad: OBLIGATORIO reparar causa antes de aplicar gotelé (goteras, condensación, capilaridad, etc.)",
+        "Considerar ventilación adecuada durante y después de aplicación de gotelé",
+        "Gotelé requiere dos manos mínimo para cobertura uniforme",
+        "Usar mascarilla de protección respiratoria durante aplicación (partículas de gotelé)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Desinfectante fungicida y lejía para tratamiento de humedad",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Producto específico para saneado de hongos en manchas de humedad"
+        },
+        {
+          "concepto": "Imprimación fijadora antimoho",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Imprimación especializada para zonas con historial de humedad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_plastica_techo_interior",
+      "reparacion_gotera_o_humedad_en_pladur",
+      "pintado_techo_con_pintura_especial_humedad_o_moho",
+      "limpieza_y_preparacion_superficie_antes_pintar",
+      "correccion_de_puentes_termicos_en_cubierta"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3690,
+      "tokens_out": 2033
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

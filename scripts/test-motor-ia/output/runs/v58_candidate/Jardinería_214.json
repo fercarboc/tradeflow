@@ -1,0 +1,115 @@
+{
+  "id": 214,
+  "oficio": "Jardinería",
+  "texto": "Limpieza de jardín abandonado, desbroce y retirada de maleza en parcela de 500 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 8371,
+  "raw_response": {
+    "transcript": "Limpieza de jardín abandonado, desbroce y retirada de maleza en parcela de 500 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpieza de jardín abandonado, desbroce y retirada de maleza en parcela de 500 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Desbroce, limpieza y retirada de maleza en parcela — trabajo de jardinería"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desbroce y limpieza de maleza",
+          "descripcion": "Desbroce manual y mecánico de maleza, hierbas silvestres y vegetación invasora en parcela abandonada de 500 m²",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0.8,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Retirada y transporte de residuos vegetales",
+          "descripcion": "Acopio, carga y transporte a gestor autorizado de residuos vegetales (maleza, ramas, escombros ligeros) generados en la limpieza de 500 m²",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "m3",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen estimado de residuos y tarifa de transporte a gestor — requiere confirmación del instalador según cantidad real y distancia"
+        },
+        {
+          "concepto": "Nivelación y preparación del terreno",
+          "descripcion": "Nivelación superficial, eliminación de piedras sueltas y preparación del terreno tras limpieza en parcela de 500 m²",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0.5,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 650,
+        "iva_porcentaje": 21,
+        "iva": 136.5,
+        "total": 786.5
+      },
+      "sugerencias_catalogo": [
+        "Si la parcela requiere aportación de tierra vegetal o acolchado tras limpieza, considerar partida adicional de 'Aporte de tierra vegetal y acolchado'",
+        "Si hay restos de construcción o escombros pesados, cambiar a 'gestion_residuos' con tarifa específica de gestor autorizado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Retirada y transporte de residuos vegetales",
+          "oficio": "jardineria",
+          "motivo": "Volumen y tarifa de transporte variable según gestor y distancia — requiere revisión"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "presupuesto_e_informe_inicial_instalacion_contra_incendios",
+      "reparacion_de_piscina_con_filtraciones",
+      "instalacion_bomba_de_calor_para_piscina",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4061,
+      "tokens_out": 1024
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 3,
+    "n_catalogo": 2,
+    "n_sugeridas": 1,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

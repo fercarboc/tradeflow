@@ -1,0 +1,168 @@
+{
+  "id": 53,
+  "oficio": "Carpintería",
+  "texto": "Zócalos y molduras de madera en todo el piso, colocación de rodapié de 10 centímetros",
+  "http_status": 200,
+  "latency_ms": 16480,
+  "raw_response": {
+    "transcript": "Zócalos y molduras de madera en todo el piso, colocación de rodapié de 10 centímetros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Zócalos y molduras de madera en todo el piso, colocación de rodapié de 10 centímetros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Falta especificar: metros lineales totales de zócalo/rodapié",
+          "Falta especificar: tipo de madera (pino, roble, MDF, etc.)",
+          "Falta especificar: acabado (barniz, pintura, natural)",
+          "Falta especificar: si incluye desmontaje de rodapié anterior",
+          "Presupuesto requiere medición en obra para cuantificar ml exactos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de zócalos y molduras de madera, rodapié"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro rodapié/zócalo madera 10 cm",
+          "descripcion": "Rodapié de madera de 10 cm de altura, tipo y acabado a definir en obra",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo de madera (pino, roble, MDF) y acabado (barnizado, pintado). Instalador debe especificar material y cotizar"
+        },
+        {
+          "concepto": "Desmontaje rodapié anterior (si aplica)",
+          "descripcion": "Retirada y acopio de rodapié existente",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 3,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada 3€/ml. Confirmar si hay rodapié anterior a desmontar"
+        },
+        {
+          "concepto": "Colocación rodapié/zócalo madera",
+          "descripcion": "Instalación, fijación y nivelación de rodapié de madera de 10 cm en todo el perímetro del piso",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada 8€/ml (incluye fijación, nivelación, pequeño material). Depende de complejidad de la obra y estado de paredes"
+        },
+        {
+          "concepto": "Acabado rodapié (barniz o pintura)",
+          "descripcion": "Aplicación de barniz o pintura de acabado al rodapié instalado",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 2,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada 2€/ml. Confirmar si rodapié viene pre-acabado o requiere barnizado/pintado en obra"
+        },
+        {
+          "concepto": "Molduras decorativas madera (si aplica)",
+          "descripcion": "Suministro e instalación de molduras decorativas complementarias",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida opcional. Precio a definir según tipo y cantidad de molduras decorativas solicitadas"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillos, tacos, cola de madera, lija, masilla, cinta carrocero, plástico protección",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado 30-60€ según cantidad de ml. Instalador ajusta según necesidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: metros lineales TOTALES de rodapié (perímetro del piso)",
+        "Especificar tipo de madera: pino, roble, MDF, madera ingeniería",
+        "Especificar acabado: barniz natural, barniz satinado, pintura blanca, color personalizado",
+        "Confirmar: ¿hay rodapié anterior a desmontar?",
+        "Confirmar: ¿rodapié viene pre-acabado o se barniza/pinta en obra?",
+        "Considerar: molduras decorativas complementarias (cornisas, frisos)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Rodapié/zócalo madera 10 cm",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "motivo": "Material de construcción específico, precio variable según tipo de madera y acabado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_esmalte_carpinteria_madera_interior",
+      "pintura_de_valla_o_cerca_madera_exterior",
+      "instalacion_persiana_mallorquina_o_librillo",
+      "instalacion_persiana_veneciana_de_madera_o_bambu",
+      "fabricacion_e_instalacion_puerta_exterior_madera"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3854,
+      "tokens_out": 2184
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 6,
+    "n_catalogo": 0,
+    "n_sugeridas": 6,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

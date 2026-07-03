@@ -1,0 +1,245 @@
+{
+  "id": 202,
+  "oficio": "Jardinería",
+  "texto": "Diseño y plantación de jardín en zona de 80 metros cuadrados de terreno, con plantas mediterráneas",
+  "http_status": 200,
+  "latency_ms": 22695,
+  "raw_response": {
+    "transcript": "Diseño y plantación de jardín en zona de 80 metros cuadrados de terreno, con plantas mediterráneas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Diseño y plantación de jardín en zona de 80 metros cuadrados de terreno, con plantas mediterráneas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye diseño previo. Confirmar con cliente aprobación del plano antes de comprar plantas.",
+          "Plantas mediterráneas requieren zona climática compatible (clima seco, soleado). Verificar ubicación exacta.",
+          "Precio de plantas y tierra vegetal pendiente de revisión según especies seleccionadas y proveedores locales."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Diseño, preparación terreno y plantación de jardín ornamental con plantas mediterráneas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diseño y croquis de jardín aprobado por cliente",
+          "descripcion": "Elaboración de plano o croquis de distribución de plantas mediterráneas en los 80 m² de terreno, con indicación de especies, espaciamientos y zonas de riego.",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de diseño a criterio del profesional según complejidad y tiempo dedicado."
+        },
+        {
+          "concepto": "Preparación y laboreo del terreno",
+          "descripcion": "Limpieza, retirada de malas hierbas, laboreo y nivelación de los 80 m² de terreno para recibir plantación.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 3,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aporte de tierra vegetal de calidad",
+          "descripcion": "Suministro e incorporación de tierra vegetal enriquecida con abono orgánico para los 80 m² de terreno, espesor aproximado 15-20 cm.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tierra vegetal según proveedor local y transporte. Cantidad estimada: 80 m² × 0,15 m = 12 m³."
+        },
+        {
+          "concepto": "Plantación de plantas mediterráneas",
+          "descripcion": "Plantación de plantas y arbustos mediterráneos (romero, lavanda, salvia, mirto, lentisco, etc.) según diseño aprobado. Incluye apertura de hoyos, plantación a nivel correcto, riego de asiento y tutores si es necesario.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 25,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de plantas mediterráneas",
+          "descripcion": "Adquisición de plantas y arbustos mediterráneos variados (romero, lavanda, salvia, mirto, lentisco, cisto, etc.) según proyecto de diseño. Cantidad y especies a definir en plano aprobado.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de plantas según especies seleccionadas, tamaño y vivero. Cantidad a definir en diseño final."
+        },
+        {
+          "concepto": "Acolchado con corteza de pino en zonas de plantación",
+          "descripcion": "Aplicación de geotextil anti-malas hierbas + corteza de pino decorativa (espesor 5-8 cm) en zonas de plantación para conservar humedad y evitar malas hierbas. Aproximadamente 60 m² de cobertura.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de corteza y geotextil según proveedor. Mano de obra de aplicación incluida en partida siguiente."
+        },
+        {
+          "concepto": "Mano de obra aplicación acolchado y geotextil",
+          "descripcion": "Colocación de geotextil anti-malas hierbas y distribución de corteza de pino en 60 m² de zonas de plantación.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 2,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema de riego por goteo básico",
+          "descripcion": "Instalación de sistema de riego por goteo con tuberías, goteros y válvula de control para los 80 m² de jardín. Incluye conexión a toma de agua existente.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de kit de riego por goteo según calidad y extensión. Mano de obra de instalación incluida en partida siguiente."
+        },
+        {
+          "concepto": "Mano de obra instalación sistema de riego",
+          "descripcion": "Instalación de tuberías, goteros, válvulas y conexión del sistema de riego por goteo. Prueba de funcionamiento.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 25,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Herramientas, materiales auxiliares, ataduras, tutores, clavos, tornillos y consumibles necesarios para la ejecución del trabajo.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado entre 50-150€ según necesidades finales."
+        }
+      ],
+      "calculos": {
+        "subtotal": 860,
+        "iva_porcentaje": 21,
+        "iva": 180.6,
+        "total": 1040.6
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente la ubicación exacta del terreno y exposición solar (plantas mediterráneas requieren mínimo 6-8 horas de sol directo).",
+        "Validar disponibilidad de agua para riego inicial y mantenimiento. Plantas mediterráneas son resistentes a sequía pero requieren riego de asiento tras plantación.",
+        "Considerar incluir presupuesto de mantenimiento futuro (riego, poda, reposición de plantas) en contrato de seguimiento.",
+        "Plantas mediterráneas recomendadas: romero, lavanda, salvia, mirto, lentisco, cisto, santolina, espliegos. Evitar especies que requieran mucha agua.",
+        "Época óptima de plantación: otoño (septiembre-noviembre) o primavera (marzo-mayo). Evitar verano y heladas."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diseño y croquis de jardín",
+          "oficio": "jardineria",
+          "motivo": "Servicio de diseño previo no incluido en catálogo base. Precio a criterio del profesional."
+        },
+        {
+          "concepto": "Aporte de tierra vegetal",
+          "oficio": "jardineria",
+          "motivo": "Material de aporte. Precio según proveedor local y transporte."
+        },
+        {
+          "concepto": "Suministro de plantas mediterráneas",
+          "oficio": "jardineria",
+          "motivo": "Material vegetal. Precio según especies, tamaño y vivero seleccionado."
+        },
+        {
+          "concepto": "Acolchado con corteza de pino",
+          "oficio": "jardineria",
+          "motivo": "Material decorativo y funcional. Precio según proveedor."
+        },
+        {
+          "concepto": "Sistema de riego por goteo",
+          "oficio": "jardineria",
+          "motivo": "Material de instalación. Precio según kit seleccionado y extensión."
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "oficio": "jardineria",
+          "motivo": "Consumibles y auxiliares. Importe estimado 50-150€."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "diseno_y_creacion_jardin_nuevo_desde_cero",
+      "instalacion_bomba_de_calor_para_piscina",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "acolchado_mulching_de_zonas_de_plantacion",
+      "instalacion_cubierta_verde_o_ajardinada"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4118,
+      "tokens_out": 3288
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

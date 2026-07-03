@@ -1,0 +1,208 @@
+{
+  "id": 262,
+  "oficio": "Cristalería",
+  "texto": "Instalar mampara de baño de cristal templado de 8mm con perfil de aluminio, ducha de 90x90",
+  "http_status": 200,
+  "latency_ms": 17628,
+  "raw_response": {
+    "transcript": "Instalar mampara de baño de cristal templado de 8mm con perfil de aluminio, ducha de 90x90",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar mampara de baño de cristal templado de 8mm con perfil de aluminio, ducha de 90x90",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medidas de ducha 90x90 cm confirmadas. Vidrio templado 8mm especificado (espesor recomendado).",
+          "Silicona neutra en todos los encuentros con agua es obligatoria.",
+          "Verificar in situ nivelación del plato de ducha antes de instalar."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de mampara de cristal templado con perfil aluminio. Oficio especializado en cristalería."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Conexión y ajuste de ducha, verificación de presión y excentricas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio templado 8mm para mampara ducha 90x90",
+          "descripcion": "Suministro de vidrio templado de 8mm de espesor, medidas exactas 90x90 cm, con marcado CE según EN 12150, templado en fábrica (no cortable en obra).",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vidrio templado 8mm según medida exacta y proveedor local. Rango estimado 150-250€."
+        },
+        {
+          "concepto": "Perfil aluminio para mampara ducha",
+          "descripcion": "Suministro de perfiles de aluminio anodizado (inferior, superior, laterales) para mampara ducha 90x90 cm, sistema estándar con junta de estanqueidad integrada.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de perfiles aluminio según sistema y medidas. Rango estimado 80-150€."
+        },
+        {
+          "concepto": "Silicona neutra sanitaria para encuentros",
+          "descripcion": "Suministro de silicona neutra de calidad sanitaria (no acética) para sellado perimetral completo en encuentros con agua: base inferior, laterales y superior. Cartucho 300ml.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de silicona neutra sanitaria. Rango estimado 8-15€."
+        },
+        {
+          "concepto": "Junta de estanqueidad goma para mampara",
+          "descripcion": "Suministro de junta de goma de estanqueidad (burlete) para cierre hermético de puerta mampara, sistema magnético o de fricción según tipo.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de junta goma estanqueidad. Rango estimado 15-30€."
+        },
+        {
+          "concepto": "Herraje y fijación mampara (tornillería inox, tacos, embellecedores)",
+          "descripcion": "Suministro de tornillería de acero inoxidable, tacos de fijación a pared (según material: hormigón/azulejo), embellecedores cromados, pequeño material de montaje.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de herraje y fijación. Rango estimado 25-50€."
+        },
+        {
+          "concepto": "Instalación mampara de cristal templado 90x90",
+          "descripcion": "Mano de obra de instalación: colocación de perfiles, fijación a pared y suelo, colocación de vidrio templado, sellado con silicona neutra en todos los encuentros, ajuste de puertas, verificación de estanqueidad y nivelación.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación presión ducha y ajuste excentricas",
+          "descripcion": "Mano de obra de fontanería: verificación de presión mínima 2 bar en ducha, ajuste de excentricas de fijación, prueba de funcionamiento y estanqueidad de conexiones.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 185,
+        "iva_porcentaje": 21,
+        "iva": 38.85,
+        "total": 223.85
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: ¿plato de ducha existente nivelado? ¿material de pared (azulejo/hormigón/escayola)? → afecta a tacos de fijación.",
+        "¿Mampara con puerta abatible, corredera o fija? → afecta a herraje y tiempo de instalación.",
+        "¿Incluir barra estabilizadora? → recomendado en mamparas grandes para rigidez estructural.",
+        "Plazo de fabricación vidrio templado: 5-10 días (no cortable en obra, medir exacto antes de pedir)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio templado 8mm para mampara ducha 90x90",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según medidas exactas. Precio pendiente de revisión del instalador según proveedor."
+        },
+        {
+          "concepto": "Perfil aluminio para mampara ducha",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según sistema. Precio pendiente de revisión del instalador."
+        },
+        {
+          "concepto": "Silicona neutra sanitaria para encuentros",
+          "origen": "sugerida_ia",
+          "motivo": "Material consumible. Precio pendiente de revisión del instalador."
+        },
+        {
+          "concepto": "Junta de estanqueidad goma para mampara",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según tipo de cierre. Precio pendiente de revisión del instalador."
+        },
+        {
+          "concepto": "Herraje y fijación mampara (tornillería inox, tacos, embellecedores)",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según tipo de pared. Precio pendiente de revisión del instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_mampara_de_ducha_fija",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_mampara_ducha",
+      "instalacion_ventana_madera_con_vidrio",
+      "sustitucion_columna_ducha"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3701,
+      "tokens_out": 2460
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

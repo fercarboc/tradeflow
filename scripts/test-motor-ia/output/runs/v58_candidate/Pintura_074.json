@@ -1,0 +1,211 @@
+{
+  "id": 74,
+  "oficio": "Pintura",
+  "texto": "Microcement en pared del baño, sustituir azulejos antiguos por acabado continuo gris",
+  "http_status": 200,
+  "latency_ms": 18551,
+  "raw_response": {
+    "transcript": "Microcement en pared del baño, sustituir azulejos antiguos por acabado continuo gris",
+    "quote": {
+      "resumen": {
+        "texto_original": "Microcement en pared del baño, sustituir azulejos antiguos por acabado continuo gris",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye demolición de azulejos, preparación de soporte y aplicación de microcemento. Verificar estado del soporte tras demolición.",
+          "Microcemento requiere impermeabilización previa en zonas de ducha/salpicaduras.",
+          "Sellador poliuretano obligatorio para garantizar durabilidad en ambiente húmedo."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Demolición de azulejos, preparación de soporte, aplicación de microcemento y acabados."
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización previa obligatoria en zonas de ducha/salpicaduras antes de aplicar microcemento."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición y retirada de azulejos antiguos",
+          "descripcion": "Demolición manual de azulejos existentes en pared de baño, retirada de mortero antiguo y limpieza de soporte. Incluye gestión de escombros.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a demoler no especificada. Instalador debe indicar superficie total de pared a intervenir."
+        },
+        {
+          "concepto": "Preparación y nivelación de soporte",
+          "descripcion": "Reparación de irregularidades, grietas y fisuras en soporte tras demolición. Aplicación de mortero de nivelación si es necesario. Lijado final del soporte.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a preparar no especificada. Depende de la superficie total."
+        },
+        {
+          "concepto": "Impermeabilización de zonas de ducha y salpicaduras",
+          "descripcion": "Aplicación de membrana impermeabilizante líquida o lámina en zonas de ducha, salpicaduras y encuentros. Obligatorio antes de aplicar microcemento en ambiente húmedo.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a impermeabilizar no especificada. Indicar superficie de zona ducha/salpicaduras."
+        },
+        {
+          "concepto": "Suministro de microcemento bicomponente gris",
+          "descripcion": "Microcemento bicomponente de calidad profesional, color gris, rendimiento aproximado 2-3 kg/m2. Cantidad según superficie total a revestir.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material sin precio en catálogo. Instalador debe indicar marca, cantidad total en kg y precio unitario."
+        },
+        {
+          "concepto": "Aplicación de microcemento (3-5 capas)",
+          "descripcion": "Aplicación de microcemento bicomponente en 3-5 capas según sistema elegido. Incluye imprimación adherente, capas de microcemento y lijado progresivo entre capas.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada. Instalador debe indicar superficie total de pared a revestir con microcemento."
+        },
+        {
+          "concepto": "Suministro de sellador poliuretano para acabado",
+          "descripcion": "Sellador poliuretano bicomponente de acabado, específico para zonas húmedas. Protege el microcemento de humedad y manchas. Cantidad según superficie.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material sin precio en catálogo. Instalador debe indicar marca, cantidad en litros y precio unitario."
+        },
+        {
+          "concepto": "Aplicación de sellador poliuretano",
+          "descripcion": "Aplicación de sellador poliuretano en 1-2 capas sobre microcemento curado. Garantiza impermeabilidad y durabilidad en ambiente húmedo.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada. Debe coincidir con superficie total de microcemento."
+        },
+        {
+          "concepto": "Suministro de pequeño material y consumibles",
+          "descripcion": "Lijas de varias granulometrías (150, 220, 400), llana metálica, imprimación adherente, cinta carrocero, trapos, disolvente, EPIs y otros consumibles necesarios.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida de consumibles sin precio. Instalador debe estimar coste total de pequeño material."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Buscar en catálogo: 'acabado_con_microcemento_suelo_o_pared' (albanileria, 22-110€/m2) — referencia de precios y partidas obligatorias.",
+        "Buscar en catálogo: 'impermeabilizacion' — para membrana previa en zona ducha.",
+        "Considerar si la pared incluye zona de ducha directa (requiere impermeabilización obligatoria) o solo salpicaduras (impermeabilización recomendada)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Demolición y retirada de azulejos antiguos",
+          "oficio": "albanileria",
+          "motivo": "Trabajo previo necesario para sustituir azulejos por microcemento."
+        },
+        {
+          "concepto": "Preparación y nivelación de soporte",
+          "oficio": "albanileria",
+          "motivo": "Preparación obligatoria del soporte tras demolición antes de aplicar microcemento."
+        },
+        {
+          "concepto": "Aplicación de microcemento (3-5 capas)",
+          "oficio": "albanileria",
+          "motivo": "Aplicación del acabado continuo gris solicitado."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "acabado_decorativo_mortero_impreso_o_microcemento_pared",
+      "acabado_con_microcemento_suelo_o_pared",
+      "alicatado_y_solado_de_bano_completo",
+      "instalacion_suelo_continuo_de_microcemento_o_cemento_pulido_en_bano",
+      "pintura_y_acabado_paredes_de_pladur_nuevo"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3934,
+      "tokens_out": 2755
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

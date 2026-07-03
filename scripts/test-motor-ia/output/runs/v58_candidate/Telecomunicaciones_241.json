@@ -1,0 +1,230 @@
+{
+  "id": 241,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar antena de TDT en tejado para dar señal a 4 televisores del piso con amplificador",
+  "http_status": 200,
+  "latency_ms": 16630,
+  "raw_response": {
+    "transcript": "Instalar antena de TDT en tejado para dar señal a 4 televisores del piso con amplificador",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar antena de TDT en tejado para dar señal a 4 televisores del piso con amplificador",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar zona geográfica para seleccionar antena UHF correcta",
+          "Confirmar número de tomas finales (4 televisores mencionados)",
+          "Revisar accesibilidad y seguridad en tejado para instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de antena TDT, amplificador y red de distribución de señal"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Antena UHF TDT según zona geográfica",
+          "descripcion": "Antena UHF de TDT adaptada a la zona de recepción, con ganancia según cobertura local",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca, modelo y ganancia requerida según zona"
+        },
+        {
+          "concepto": "Amplificador de mástil para antena TDT",
+          "descripcion": "Amplificador de banda UHF instalado en mástil para refuerzo de señal con 4 tomas de usuario",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de ganancia y número de derivaciones (4 tomas)"
+        },
+        {
+          "concepto": "Red de distribución: splitters y derivadores",
+          "descripcion": "Splitters y derivadores para distribución de señal TDT a 4 televisores con pérdida controlada",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de derivadores según distribución final en vivienda"
+        },
+        {
+          "concepto": "Cable coaxial 75 ohmios",
+          "descripcion": "Cable coaxial de 75 ohmios para conexión antena-amplificador-tomas de usuario, incluye conectores",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en metros a determinar según recorrido tejado-interior vivienda"
+        },
+        {
+          "concepto": "Tomas de usuario TDT (4 unidades)",
+          "descripcion": "4 tomas de usuario para conexión de televisores, con conectores F hembra y caja de empotrar",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario por toma según tipo (superficie/empotrada)"
+        },
+        {
+          "concepto": "Pequeño material (tornillería, bridas, cinta aislante)",
+          "descripcion": "Tornillería inoxidable, bridas de sujeción, cinta aislante y accesorios menores para instalación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida alzada de pequeño material"
+        },
+        {
+          "concepto": "Instalación de antena TDT con amplificador en tejado",
+          "descripcion": "Mano de obra: montaje de antena en mástil, fijación segura en tejado, instalación de amplificador, conexionado y pruebas de señal en las 4 tomas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Canalización y tendido de cable coaxial en interior",
+          "descripcion": "Mano de obra: tendido de cable coaxial desde tejado hasta tomas de usuario, canalización en paredes/techos, fijación con bridas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de tomas de usuario y pruebas finales",
+          "descripcion": "Mano de obra: instalación de 4 tomas de usuario, conexionado de cables, medición de nivel de señal en cada toma, ajuste de amplificador",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 400,
+        "iva_porcentaje": 21,
+        "iva": 84,
+        "total": 484
+      },
+      "sugerencias_catalogo": [
+        "Confirmar zona geográfica (cobertura TDT) para seleccionar antena UHF con ganancia correcta",
+        "Verificar si la vivienda requiere amplificador de banda ancha adicional (si hay muchas derivaciones o cable muy largo)",
+        "Medir distancia exacta tejado-tomas para cuantificar cable coaxial",
+        "Considerar protección contra sobretensiones si zona con tormentas frecuentes"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Antena UHF TDT según zona geográfica",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende de zona de cobertura y ganancia requerida"
+        },
+        {
+          "concepto": "Amplificador de mástil para antena TDT",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende de ganancia y número de derivaciones"
+        },
+        {
+          "concepto": "Red de distribución: splitters y derivadores",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende de configuración final de tomas"
+        },
+        {
+          "concepto": "Cable coaxial 75 ohmios",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material cuya cantidad depende del recorrido tejado-interior"
+        },
+        {
+          "concepto": "Tomas de usuario TDT (4 unidades)",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material cuyo precio unitario depende del tipo (superficie/empotrada)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_antena_colectiva_TDT_en_edificio",
+      "instalacion_lucernario_apertura_tipo_velux_o_similar",
+      "instalacion_videoportero_o_interfono",
+      "instalacion_de_paneles_solares_en_tejado_con_gancho_hook",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3958,
+      "tokens_out": 2497
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 3,
+    "n_sugeridas": 6,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,269 @@
+{
+  "id": 290,
+  "oficio": "Impermeabilización",
+  "texto": "Tratar humedad en paredes de cocina y comedor de planta baja, saneado y electroósmosis",
+  "http_status": 200,
+  "latency_ms": 26522,
+  "raw_response": {
+    "transcript": "Tratar humedad en paredes de cocina y comedor de planta baja, saneado y electroósmosis",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tratar humedad en paredes de cocina y comedor de planta baja, saneado y electroósmosis",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de humedad por capilaridad: requiere diagnóstico previo del origen",
+          "Sistema electroosmótico: requiere revisión de viabilidad técnica y presupuesto de instalación",
+          "Superficie estimada pendiente de medición en obra"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Tratamiento de humedades por capilaridad en muros de planta baja (cocina y comedor). Impermeabilización es oficio prioritario para sistemas de inyección y electroósmosis."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Saneado de mortero deteriorado y reposición con mortero hidrofugo tras tratamiento de humedad."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Acabado final con pintura antihumedad en paredes tratadas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y evaluación de origen de humedad",
+          "descripcion": "Inspección técnica de paredes en cocina y comedor para determinar origen de capilaridad, grado de afectación y profundidad de penetración. Incluye medición de humedad relativa y análisis de causa raíz.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Diagnóstico técnico previo obligatorio. Instalador debe presupuestar según complejidad y accesibilidad."
+        },
+        {
+          "concepto": "Inyecciones de resina hidrófoba en hiladas",
+          "descripcion": "Inyecciones de resina hidrófoba en hiladas horizontales cada 12-15 cm de altura en muros afectados de cocina y comedor. Incluye perforación, limpieza de orificios, inyección a presión controlada y sellado de orificios.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml pendiente de medición en obra (perímetro de muros afectados × número de hiladas). Tarifa: 45€/ml recomendado según BASE MAESTRA."
+        },
+        {
+          "concepto": "Materiales inyecciones (resina hidrófoba, selladores, pequeño material)",
+          "descripcion": "Resina hidrófoba de inyección, selladores de orificios, brocas, agujas de inyección, trapos, disolventes y pequeño material consumible para inyecciones.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales de inyección: cantidad y presupuesto pendiente según metraje de inyecciones. Instalador debe presupuestar resina, selladores y consumibles."
+        },
+        {
+          "concepto": "Instalación sistema electroosmótico",
+          "descripcion": "Instalación de sistema electroosmótico para bloqueo de capilaridad en muros. Incluye colocación de electrodo, cableado, conexión a red eléctrica, puesta en marcha y pruebas de funcionamiento.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sistema electroosmótico: presupuesto pendiente. Incluye mano de obra de instalación, conexión eléctrica y puesta en marcha. Revisar viabilidad técnica en obra."
+        },
+        {
+          "concepto": "Equipo electroosmótico (suministro)",
+          "descripcion": "Suministro de equipo electroosmótico completo: generador de impulsos, electrodo de cobre, cableado, conectores y accesorios de instalación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Equipo electroosmótico: presupuesto pendiente según marca, modelo y especificaciones técnicas. Instalador debe cotizar equipo."
+        },
+        {
+          "concepto": "Saneado de mortero deteriorado",
+          "descripcion": "Eliminación de mortero deteriorado, eflorescencias y sales en paredes afectadas por humedad. Picado, limpieza profunda y preparación de superficie para reposición.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 pendiente de medición en obra (superficie de paredes afectadas en cocina y comedor). Tarifa: 40€/h recomendado."
+        },
+        {
+          "concepto": "Reposición con mortero hidrofugo",
+          "descripcion": "Aplicación de mortero hidrofugo de reposición en zonas saneadas. Incluye preparación de mortero, aplicación en capas, fratasado y acabado liso.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 pendiente de medición. Tarifa: 40€/h recomendado. Incluye mano de obra de aplicación."
+        },
+        {
+          "concepto": "Mortero hidrofugo (suministro)",
+          "descripcion": "Mortero hidrofugo de reposición, sacos de 25 kg. Incluye aditivos hidrófugos y plastificantes.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de mortero pendiente según m2 a revestir. Presupuesto de material a cargo del instalador."
+        },
+        {
+          "concepto": "Pintura antihumedad en paredes tratadas",
+          "descripcion": "Aplicación de pintura antihumedad (epoxi o acrílica hidrófuga) en paredes de cocina y comedor tras saneado y reposición. Incluye imprimación consolidante, dos manos de pintura y acabado.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 pendiente de medición en obra. Tarifa: 32€/h recomendado. Incluye imprimación y dos manos mínimo."
+        },
+        {
+          "concepto": "Pintura antihumedad y imprimación (suministro)",
+          "descripcion": "Pintura antihumedad (epoxi o acrílica hidrófuga de calidad), imprimación consolidante, rodillos, pinceles, cinta carrocero y pequeño material de pintura.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales de pintura: cantidad y presupuesto pendiente según m2 a pintar. Instalador debe presupuestar pintura antihumedad de calidad."
+        },
+        {
+          "concepto": "Aireación y ventilación durante tratamiento",
+          "descripcion": "Instalación de ventilación provisional y aireación mecánica durante el proceso de saneado, inyecciones y curado de mortero. Incluye extractor portátil y conductos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Aireación provisional: cantidad de jornadas pendiente según duración del tratamiento. Presupuesto a cargo del instalador."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Partida 'Diagnóstico y evaluación de origen de humedad' → Considerar si existe en catálogo como 'inspección técnica humedad' o 'peritaje humedad'.",
+        "Partida 'Sistema electroosmótico' → Verificar si existe en catálogo como 'electroósmosis', 'sistema electroosmótico antihumedad' o similar.",
+        "Partida 'Inyecciones de resina hidrófoba' → Alineada con BASE MAESTRA [reparacion_de_humedades_por_capilaridad_en_muro]."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diagnóstico y evaluación de origen de humedad",
+          "oficio": "impermeabilizacion",
+          "motivo": "Servicio técnico previo obligatorio no encontrado en catálogo estándar."
+        },
+        {
+          "concepto": "Instalación sistema electroosmótico",
+          "oficio": "impermeabilizacion",
+          "motivo": "Sistema especializado de tratamiento de humedad por capilaridad. Requiere presupuesto específico del instalador."
+        },
+        {
+          "concepto": "Equipo electroosmótico (suministro)",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material especializado. Presupuesto pendiente según marca y especificaciones."
+        },
+        {
+          "concepto": "Aireación y ventilación durante tratamiento",
+          "oficio": "impermeabilizacion",
+          "motivo": "Medios auxiliares para garantizar curado correcto. Presupuesto pendiente según duración."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_interior_zona_humeda_bano_cocina",
+      "reparacion_de_humedades_por_capilaridad_en_muro",
+      "tabique_pladur_hidrofugo_bano_o_cocina",
+      "impermeabilizacion_techos_de_semisotano_o_losa_de_planta_baja",
+      "pintado_de_foso_de_ascensor"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3822,
+      "tokens_out": 3881
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 4,
+    "n_sugeridas": 7,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "id": 47,
+  "oficio": "Carpintería",
+  "texto": "Cambio de ventanas de madera antiguas por PVC con doble acristalamiento en toda la vivienda, 8 ventanas",
+  "http_status": 200,
+  "latency_ms": 14453,
+  "raw_response": {
+    "transcript": "Cambio de ventanas de madera antiguas por PVC con doble acristalamiento en toda la vivienda, 8 ventanas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de ventanas de madera antiguas por PVC con doble acristalamiento en toda la vivienda, 8 ventanas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de sustitución: incluye desmontaje de ventanas antiguas, suministro de nuevas unidades PVC y instalación completa",
+          "Se asume acristalamiento doble estándar (4+6+4 o similar) con bajo emisivo",
+          "Precio de ventanas PVC a revisar según medidas exactas y características (oscilobatiente, fija, etc.)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Desmontaje de ventanas de madera antiguas e instalación de nuevas ventanas PVC"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Suministro e instalación de vidrio doble aislante en ventanas PVC"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de 8 ventanas de madera antiguas",
+          "descripcion": "Desmontaje cuidadoso de 8 ventanas de madera existentes, incluyendo marcos, herrajes y accesorios. Retirada de sellados antiguos y preparación del hueco para nueva instalación.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de 8 ventanas PVC con doble acristalamiento",
+          "descripcion": "Suministro de 8 ventanas de PVC con perfiles reforzados, herrajes de calidad, doble acristalamiento bajo emisivo (4+6+4 mm o similar), sellado perimetral y accesorios de instalación. Medidas a confirmar según huecos existentes.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de ventanas PVC con doble vidrio varía según medidas exactas, tipo de apertura (oscilobatiente, fija, etc.) y características técnicas. Rango orientativo: 250-600€/ud según tamaño."
+        },
+        {
+          "concepto": "Instalación de 8 ventanas PVC con doble acristalamiento",
+          "descripcion": "Instalación completa de 8 ventanas PVC en huecos existentes, incluyendo fijación a premarco o dintel, sellado perimetral con silicona neutra, ajuste de herrajes, prueba de funcionamiento y limpieza final.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado perimetral con silicona neutra y pequeño material",
+          "descripcion": "Sellado completo de juntas perimetrales con silicona neutra de calidad, cinta de espuma de cierre, masilla de ajuste y pequeño material (tornillos, tacos, etc.) para las 8 ventanas.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales de sellado y pequeño material: silicona neutra, cinta espuma, masilla, tornilería. Precio estimado: 15-30€/ud según cantidad y calidad de materiales."
+        },
+        {
+          "concepto": "Retirada y gestión de residuos (ventanas antiguas)",
+          "descripcion": "Retirada, embalaje y transporte a gestor autorizado de 8 ventanas de madera antiguas, marcos y vidrios simples. Gestión de residuos según normativa.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de gestión de residuos: 10-25€/ud según volumen y gestor local."
+        }
+      ],
+      "calculos": {
+        "subtotal": 720,
+        "iva_porcentaje": 21,
+        "iva": 151.2,
+        "total": 871.2
+      },
+      "sugerencias_catalogo": [
+        "Confirmar medidas exactas de cada ventana (ancho x alto) para presupuesto preciso de suministro PVC",
+        "Especificar tipo de apertura: oscilobatiente, fija, corredera, etc.",
+        "Verificar si los huecos existentes requieren adaptación o premarco nuevo",
+        "Considerar tratamiento de madera antigua si hay presencia de xilófagos o humedad",
+        "Solicitar certificado de prestaciones del vidrio doble (transmitancia térmica, factor solar, etc.)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de 8 ventanas PVC con doble acristalamiento",
+          "oficio": "cristaleria",
+          "motivo": "Material específico cuyo precio depende de medidas exactas y características técnicas. Requiere revisión del instalador."
+        },
+        {
+          "concepto": "Sellado perimetral con silicona neutra y pequeño material",
+          "oficio": "cristaleria",
+          "motivo": "Materiales auxiliares de instalación. Precio a confirmar según cantidad y calidad."
+        },
+        {
+          "concepto": "Retirada y gestión de residuos (ventanas antiguas)",
+          "oficio": "gestion_residuos",
+          "motivo": "Servicio de gestión de residuos. Precio variable según gestor local y volumen."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_ventanas_de_madera_exterior",
+      "instalacion_vidrio_doble_o_triple_aislante_en_ventana_existente",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "instalacion_ventana_madera_con_vidrio",
+      "instalacion_vidrio_en_puerta_interior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3829,
+      "tokens_out": 2006
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

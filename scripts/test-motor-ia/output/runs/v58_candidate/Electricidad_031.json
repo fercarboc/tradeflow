@@ -1,0 +1,200 @@
+{
+  "id": 31,
+  "oficio": "Electricidad",
+  "texto": "Revisar y reparar avería en instalación, hay un cable pelado en la pared del pasillo que da calambre",
+  "http_status": 200,
+  "latency_ms": 20456,
+  "raw_response": {
+    "transcript": "Revisar y reparar avería en instalación, hay un cable pelado en la pared del pasillo que da calambre",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y reparar avería en instalación, hay un cable pelado en la pared del pasillo que da calambre",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "RIESGO ELÉCTRICO CRÍTICO: Cable pelado con descarga eléctrica detectada. Requiere intervención URGENTE y diagnóstico completo de la instalación.",
+          "Se recomienda corte de suministro en la zona antes de cualquier trabajo.",
+          "Inspección visual completa del tramo afectado y adyacentes obligatoria."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Reparación de cableado deteriorado con riesgo de descarga eléctrica. Incluye diagnóstico, desmontaje, suministro de cable nuevo y reinstalación."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y localización de avería eléctrica",
+          "descripcion": "Inspección visual completa del tramo de pasillo, localización exacta del cable pelado, verificación de continuidad y aislamiento con multímetro, identificación de la sección y tipo de cable afectado.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desmontaje de cable deteriorado",
+          "descripcion": "Extracción cuidadosa del cable pelado del pasillo, desconexión en origen y destino, retirada de tubo corrugado si está dañado.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 8,
+          "precio_unitario": 12,
+          "total": 96,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de cable H07V-K nuevo (sección a determinar)",
+          "descripcion": "Cable eléctrico H07V-K de la misma sección que el original (a confirmar en diagnóstico: 1.5, 2.5 ó 4 mm²). Longitud aproximada 8 ml.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del cable depende de la sección exacta. Instalador debe confirmar: 1.5 mm² (~0.40€/ml), 2.5 mm² (~0.65€/ml) ó 4 mm² (~1.10€/ml)"
+        },
+        {
+          "concepto": "Suministro de tubo corrugado de protección",
+          "descripcion": "Tubo corrugado de PVC de diámetro adecuado (16-20 mm según sección de cable) para protección del nuevo cableado en el pasillo.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio aproximado 0.30-0.50€/ml según diámetro. Instalador confirma especificación."
+        },
+        {
+          "concepto": "Instalación de cable nuevo y tubo de protección",
+          "descripcion": "Colocación del nuevo cable H07V-K dentro del tubo corrugado, fijación a la pared del pasillo con grapas cada 40 cm, aseguramiento en cajas de derivación en origen y destino.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 8,
+          "precio_unitario": 10,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión y empalmes en cajas de derivación",
+          "descripcion": "Realización de empalmes seguros en cajas de derivación (origen y destino del cable), utilizando conectores de presión o bornes de tornillo, aislamiento con cinta profesional, verificación de continuidad.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de conectores, bornes y pequeño material eléctrico",
+          "descripcion": "Conectores de presión o bornes de tornillo, cinta aislante profesional, grapas de fijación, tuercas y tornillos de acero inoxidable.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto aproximado 15-25€ en pequeño material. Instalador ajusta según cantidad de conectores y accesorios reales."
+        },
+        {
+          "concepto": "Pruebas de continuidad, aislamiento y funcionamiento",
+          "descripcion": "Verificación con multímetro de continuidad del circuito, medición de aislamiento (megohmetría), prueba de funcionamiento bajo carga, confirmación de ausencia de fugas a tierra.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 326,
+        "iva_porcentaje": 21,
+        "iva": 68.46,
+        "total": 394.46
+      },
+      "sugerencias_catalogo": [
+        "Partida 'reparacion_cableado_deteriorado' de Base Maestra aplicada: incluye diagnóstico, desmontaje, suministro de cable nuevo, tubo de protección, instalación y pruebas.",
+        "Se recomienda solicitar al cliente confirmación de la sección del cable original (1.5, 2.5 ó 4 mm²) para ajustar presupuesto de materiales.",
+        "Considerar inspección adicional de toda la instalación del pasillo si hay otros signos de deterioro."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de cable H07V-K nuevo",
+          "motivo": "Material específico cuyo precio depende de la sección exacta del cable original. Requiere confirmación en obra.",
+          "precio_estimado_rango": "3.20-8.80€ (para 8 ml según sección)"
+        },
+        {
+          "concepto": "Suministro de tubo corrugado de protección",
+          "motivo": "Material de protección cuyo precio depende del diámetro. Estimado 2.40-4.00€ para 8 ml.",
+          "precio_estimado_rango": "2.40-4.00€"
+        },
+        {
+          "concepto": "Suministro de conectores, bornes y pequeño material eléctrico",
+          "motivo": "Accesorios de conexión y fijación. Presupuesto estimado 15-25€.",
+          "precio_estimado_rango": "15-25€"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_cableado_deteriorado",
+      "apertura_y_cierre_de_rozas_para_instalaciones",
+      "reparacion_de_grietas_o_fisuras_puntuales_en_paredes",
+      "reparacion_fisura_o_grieta_en_muro_o_tabique",
+      "reconstruccion_de_muro_con_lesiones_estructurales"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3785,
+      "tokens_out": 2708
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 5,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "id": 39,
+  "oficio": "Electricidad",
+  "texto": "Instalación de SAI para servidor de empresa, potencia 2kVA con autonomía de 30 minutos",
+  "http_status": 200,
+  "latency_ms": 12978,
+  "raw_response": {
+    "transcript": "Instalación de SAI para servidor de empresa, potencia 2kVA con autonomía de 30 minutos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de SAI para servidor de empresa, potencia 2kVA con autonomía de 30 minutos",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "SAI 2kVA con autonomía 30 min: verificar capacidad batería (aprox. 1kWh). Precio unitario SAI pendiente de revisión instalador.",
+          "Se recomienda incluir software de gestión y apagado automático de servidores si no está disponible."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de SAI/UPS para protección de equipos informáticos en entorno empresarial"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "SAI 2kVA con autonomía 30 minutos",
+          "descripcion": "Unidad SAI/UPS de 2000VA con batería interna para autonomía de 30 minutos. Incluye entrada monofásica, salidas protegidas y gestión de energía.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de SAI 2kVA pendiente de cotización. Rango estimado: 400-800€ según marca y características."
+        },
+        {
+          "concepto": "Conexionado e instalación SAI",
+          "descripcion": "Conexión de entrada de alimentación, salidas protegidas a servidor, cableado de señal de apagado automático, pruebas de funcionamiento y configuración de umbrales.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y protecciones eléctricas",
+          "descripcion": "Cable de alimentación de entrada, protecciones diferenciales, pequeño material (conectores, bridas, canaletas), instalación y fijación.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales auxiliares: cable, conectores, bridas. Precio estimado: 50-120€"
+        },
+        {
+          "concepto": "Software de gestión y apagado automático",
+          "descripcion": "Instalación de software de monitorización y apagado controlado de servidores ante fallo de red. Configuración de umbrales y alertas.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Software de gestión SAI: puede ser incluido en licencia o requerir compra adicional. Precio estimado: 0-300€ según solución."
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y documentación",
+          "descripcion": "Pruebas de carga, verificación de autonomía, documentación de instalación, manual de usuario y registro de mantenimiento.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 150,
+        "iva_porcentaje": 21,
+        "iva": 31.5,
+        "total": 181.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar con cliente si requiere SAI de doble conversión (online) para mayor protección de servidores críticos.",
+        "Considerar plan de sustitución de baterías cada 3-5 años (mantenimiento preventivo).",
+        "Si hay múltiples servidores, evaluar SAI de mayor potencia o configuración en paralelo.",
+        "Incluir contrato de mantenimiento anual con empresa autorizada para revisiones obligatorias."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "SAI 2kVA con autonomía 30 minutos",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de protección de equipos. Precio pendiente de cotización del instalador."
+        },
+        {
+          "concepto": "Cableado y protecciones eléctricas",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales auxiliares para instalación. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Software de gestión y apagado automático",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de software. Puede estar incluido o requerir licencia adicional."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_rack_o_armario_de_telecomunicaciones",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "instalacion_de_extintores_portatiles"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4098,
+      "tokens_out": 1695
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,190 @@
+{
+  "id": 12,
+  "oficio": "Fontanería",
+  "texto": "Problema con la presión del agua en el cuarto de baño, instalación de grupo de presión con calderín de 24 litros",
+  "http_status": 200,
+  "latency_ms": 17364,
+  "raw_response": {
+    "transcript": "Problema con la presión del agua en el cuarto de baño, instalación de grupo de presión con calderín de 24 litros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Problema con la presión del agua en el cuarto de baño, instalación de grupo de presión con calderín de 24 litros",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar caudal actual y altura manométrica antes de confirmar potencia de bomba",
+          "Confirmar presión de trabajo requerida (típicamente 2-3 bar en vivienda)",
+          "Revisar si hay vaso de expansión existente que deba ser sustituido"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de grupo de presión, bomba, calderín, válvulas y conexiones hidráulicas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Bomba de presión centrífuga",
+          "descripcion": "Suministro e instalación de bomba de presión centrífuga para grupo de presión, potencia según caudal y altura manométrica requerida",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia (0.5-2 kW). Instalador debe confirmar según caudal y altura manométrica"
+        },
+        {
+          "concepto": "Calderín de 24 litros",
+          "descripcion": "Suministro e instalación de vaso de expansión/calderín de 24 litros con membrana EPDM para grupo de presión",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mercado 80-200€. Incluye válvula de carga previa"
+        },
+        {
+          "concepto": "Válvula de retención y manómetro",
+          "descripcion": "Suministro e instalación de válvula de retención (antirretorno) y manómetro con glicerina para control de presión",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Válvula retención 15-40€, manómetro 20-50€"
+        },
+        {
+          "concepto": "Presostato y cuadro de control",
+          "descripcion": "Suministro e instalación de presostato automático (rango 1.5-3 bar) y cuadro de control eléctrico con protección térmica",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presostato 40-80€, cuadro control 60-150€"
+        },
+        {
+          "concepto": "Racores, uniones y pequeño material",
+          "descripcion": "Suministro de racores de latón, uniones roscadas, teflón, abrazaderas y pequeño material de fontanería para conexiones",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 30-60€ según complejidad de conexiones"
+        },
+        {
+          "concepto": "Instalación y conexión del grupo de presión",
+          "descripcion": "Mano de obra: desmontaje de instalación anterior si existe, instalación de bomba, calderín, válvulas, manómetro, presostato, conexión hidráulica a red de agua fría, conexión eléctrica, pruebas de funcionamiento y ajuste de presiones",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Base antivibrante y fijación",
+          "descripcion": "Suministro e instalación de base antivibrante para bomba y fijación estructural del grupo de presión",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 25-50€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 150,
+        "iva_porcentaje": 21,
+        "iva": 31.5,
+        "total": 181.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'cambio_bomba_presion' — contiene partidas obligatorias validadas",
+        "Considerar: 'mantenimiento_preventivo_de_grupo_de_presion' para contrato de revisión semestral posterior"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Bomba de presión centrífuga",
+          "oficio": "fontaneria",
+          "motivo": "Material específico, precio variable según potencia"
+        },
+        {
+          "concepto": "Calderín de 24 litros",
+          "oficio": "fontaneria",
+          "motivo": "Material específico, precio variable según marca y presión nominal"
+        },
+        {
+          "concepto": "Válvula de retención y manómetro",
+          "oficio": "fontaneria",
+          "motivo": "Componentes de grupo de presión, precios de mercado variables"
+        },
+        {
+          "concepto": "Presostato y cuadro de control",
+          "oficio": "fontaneria",
+          "motivo": "Componente eléctrico-hidráulico, precio variable según automatización"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_bomba_presion",
+      "mantenimiento_preventivo_de_grupo_de_presion",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico",
+      "instalacion_suelo_radiante_hidraulico",
+      "impermeabilizacion_de_alfeizar_o_vierteaguas"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3839,
+      "tokens_out": 2343
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

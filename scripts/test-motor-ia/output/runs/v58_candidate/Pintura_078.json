@@ -1,0 +1,170 @@
+{
+  "id": 78,
+  "oficio": "Pintura",
+  "texto": "Pintar piscina con pintura de clorocaucho, vaciado y dos manos, superficie 60 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 12862,
+  "raw_response": {
+    "transcript": "Pintar piscina con pintura de clorocaucho, vaciado y dos manos, superficie 60 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar piscina con pintura de clorocaucho, vaciado y dos manos, superficie 60 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye vaciado, secado y preparación de piscina antes de pintar",
+          "Se contemplan dos manos de pintura clorocaucho según especificación",
+          "Superficie total: 60 m² (paredes + fondo)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura especializada de piscina con clorocaucho, incluye preparación y dos manos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado y secado de piscina",
+          "descripcion": "Vaciado completo de piscina, limpieza de residuos y secado de superficie antes de pintar",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 320,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza y preparación de superficie de piscina",
+          "descripcion": "Lija, hidrolimpieza o rasquetado de superficie, sellado de grietas con mortero hidrofugo, imprimación específica para piscina",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 8,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura de clorocaucho - dos manos",
+          "descripcion": "Aplicación de pintura clorocaucho o epoxi especializada para piscinas, dos manos completas, rendimiento 6-8 m²/litro",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 10,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura clorocaucho para piscina",
+          "descripcion": "Suministro de pintura clorocaucho o epoxi de calidad para piscinas, cantidad estimada 15 litros (60 m² × 2 manos ÷ 8 m²/litro)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pintura clorocaucho especializada pendiente de cotización del instalador"
+        },
+        {
+          "concepto": "Imprimación específica para piscina",
+          "descripcion": "Suministro de imprimación fijadora y adherente específica para superficies de piscina, cantidad estimada 8 litros",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de imprimación especializada pendiente de cotización"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Rodillos, pinceles, brochas, cinta carrocero, plástico de protección, mascarilla vapores orgánicos, lijas, rasquetas, esponjas",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe de consumibles pendiente de cotización"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1400,
+        "iva_porcentaje": 21,
+        "iva": 294,
+        "total": 1694
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo exacto de pintura: clorocaucho, epoxi o poliuretano (cada una tiene diferentes características de durabilidad y coste)",
+        "Verificar estado actual de la piscina: grietas, desprendimientos o daños estructurales que requieran reparación previa",
+        "Considerar si es necesario mortero hidrofugo para sellado de grietas (partida adicional si hay daños)",
+        "Confirmar acceso a agua para hidrolimpieza y disponibilidad de desagüe para vaciado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pintura clorocaucho para piscina",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Material especializado, precio variable según marca y calidad"
+        },
+        {
+          "concepto": "Imprimación específica para piscina",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Imprimación especializada para superficies de piscina, precio pendiente"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "limpieza_y_preparacion_superficie_antes_pintar",
+      "pintura_de_piscina",
+      "pintado_de_medianeras_o_paredes_ciegas",
+      "pintado_y_decoracion_habitacion_infantil",
+      "pintado_locales_comerciales_y_tiendas"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3641,
+      "tokens_out": 1749
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

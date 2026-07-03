@@ -1,0 +1,171 @@
+{
+  "id": 140,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Reparar teja con viento o rotura puntual tras temporal, recolocación y sellado con cemento blanco",
+  "http_status": 200,
+  "latency_ms": 14875,
+  "raw_response": {
+    "transcript": "Reparar teja con viento o rotura puntual tras temporal, recolocación y sellado con cemento blanco",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar teja con viento o rotura puntual tras temporal, recolocación y sellado con cemento blanco",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sellado con cemento blanco NO es recomendable en tejas. Se sugiere sellador elástico poliuretano o silicona para permitir movimientos térmicos y evitar futuras roturas.",
+          "Si hay múltiples tejas rotas o desplazadas, evaluar estado general de la cubierta."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Reparación de tejas, recolocación y sellado de cubierta tras temporal."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada y limpieza de teja dañada",
+          "descripcion": "Desmontaje cuidadoso de teja rota o desplazada por viento, limpieza de mortero antiguo y zona de asiento.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de teja de reposición",
+          "descripcion": "Teja de barro, cerámica o similar según tipo de cubierta existente (árabe, plana, pizarra, hormigón). Incluye pequeño material de fijación.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de teja depende de tipo, tamaño y disponibilidad. Instalador debe especificar modelo y coste."
+        },
+        {
+          "concepto": "Recolocación y fijación de teja",
+          "descripcion": "Colocación de teja en su posición original, asiento sobre mortero de cal o adhesivo, fijación mecánica si es necesario.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado con mortero o sellador elástico",
+          "descripcion": "Sellado de juntas y encuentros con mortero de cal blanco o sellador elástico poliuretano/silicona (recomendado para permitir movimientos térmicos).",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de sellado (mortero blanco vs. sellador elástico) y cantidad dependen de extensión de juntas. Instalador debe especificar producto y coste."
+        },
+        {
+          "concepto": "Mano de obra sellado y acabado",
+          "descripcion": "Aplicación de mortero o sellador, alisado, limpieza y acabado final de juntas.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "descripcion": "Arnés de seguridad, línea de vida, guantes, gafas, herramientas manuales (espátula, cepillo, etc.).",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de EPI y consumibles según disponibilidad en almacén. Instalador debe revisar."
+        }
+      ],
+      "calculos": {
+        "subtotal": 200,
+        "iva_porcentaje": 21,
+        "iva": 42,
+        "total": 242
+      },
+      "sugerencias_catalogo": [
+        "Considerar partida de 'Inspección general de cubierta' si hay indicios de daños múltiples o antiguedad de la cubierta.",
+        "Si la rotura es recurrente, evaluar estado de la estructura de la cubierta y posible necesidad de refuerzo o sustitución parcial.",
+        "Usar sellador elástico (poliuretano o silicona) en lugar de cemento blanco para mayor durabilidad y flexibilidad ante movimientos térmicos."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de teja de reposición",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Tipo y coste de teja dependen del modelo existente. Requiere especificación del instalador."
+        },
+        {
+          "concepto": "Sellado con mortero o sellador elástico",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material y cantidad de sellador dependen de extensión de juntas y tipo de producto elegido."
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Coste de consumibles y EPI debe ser revisado según disponibilidad."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_puntual_de_impermeabilizacion_con_banda_autodhesiva",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "imprimacion_especial_sobre_yeso_nuevo",
+      "impermeabilizacion_de_encuentro_fachada_cubierta"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3831,
+      "tokens_out": 1860
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

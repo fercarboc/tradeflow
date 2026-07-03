@@ -1,0 +1,223 @@
+{
+  "id": 318,
+  "oficio": "Contra Incendios",
+  "texto": "Diseño de plan de autoprotección para colegio con 500 alumnos, evacuación y emergencias",
+  "http_status": 200,
+  "latency_ms": 23542,
+  "raw_response": {
+    "transcript": "Diseño de plan de autoprotección para colegio con 500 alumnos, evacuación y emergencias",
+    "quote": {
+      "resumen": {
+        "texto_original": "Diseño de plan de autoprotección para colegio con 500 alumnos, evacuación y emergencias",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Plan de autoprotección es servicio de consultoría/gestión, NO instalación física de equipos",
+          "Requiere profesional especializado en seguridad y normativa (CTE, RSCIEI, Orden 3614/2006)",
+          "Incluye documentación legal, planos, procedimientos, señalización y formación",
+          "Presupuesto orientativo: revisar con especialista en seguridad contra incendios y evacuación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 55,
+            "max": 75
+          },
+          "motivo": "Plan de autoprotección, evacuación y emergencias es competencia de especialista en seguridad contra incendios"
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 70
+          },
+          "motivo": "Tramitación de documentación, coordinación con autoridades, registro de plan"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Auditoría y diagnóstico de seguridad del edificio",
+          "descripcion": "Inspección completa del colegio (500 alumnos): evaluación de vías de evacuación, salidas de emergencia, señalización, sistemas de detección, iluminación de emergencia, accesibilidad, puntos de concentración, estado estructural y cumplimiento normativo CTE-DB-SI y RSCIEI",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 550,
+          "total": 1100,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio orientativo según complejidad del edificio y número de ocupantes; ajustar según tamaño real y estado"
+        },
+        {
+          "concepto": "Diseño del plan de autoprotección (documento técnico)",
+          "descripcion": "Redacción del plan de autoprotección conforme a Orden 3614/2006: identificación de riesgos, medidas preventivas, procedimientos de actuación ante emergencias, organización de recursos humanos, coordinación con servicios externos (bomberos, policía, sanitarios), simulacros, mantenimiento de equipos",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Documento técnico especializado; precio a definir por consultor (típicamente 1500-3500€ según complejidad)"
+        },
+        {
+          "concepto": "Planos de evacuación y señalización",
+          "descripcion": "Elaboración de planos de evacuación por plantas, señalización de vías de evacuación, salidas de emergencia, puntos de concentración, ubicación de equipos de protección (extintores, BIE, desfibriladores), rutas de acceso para servicios de emergencia",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluye diseño gráfico y planos técnicos; precio a definir (típicamente 800-1500€)"
+        },
+        {
+          "concepto": "Procedimientos de evacuación y emergencias (documentación)",
+          "descripcion": "Redacción de procedimientos específicos: evacuación por incendio, evacuación por amenaza de bomba, evacuación por accidente, procedimientos médicos de emergencia, comunicación de alarma, roles y responsabilidades del personal, instrucciones para personas con movilidad reducida",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Documentación técnica especializada; precio a definir (típicamente 600-1200€)"
+        },
+        {
+          "concepto": "Formación del personal responsable de emergencias",
+          "descripcion": "Sesión de formación para coordinador de emergencias, jefes de planta, responsables de evacuación y personal de primeros auxilios: uso de equipos de protección, procedimientos de evacuación, comunicación de alarma, atención a personas con discapacidad, coordinación con servicios externos",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 55,
+          "total": 440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de formación especializada en seguridad; puede incluir desplazamiento"
+        },
+        {
+          "concepto": "Simulacro de evacuación supervisado",
+          "descripcion": "Organización y supervisión de simulacro de evacuación completo con 500 alumnos y personal: cronometraje, evaluación de procedimientos, identificación de deficiencias, informe de resultados y recomendaciones",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 550,
+          "total": 550,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Jornada completa de coordinación y supervisión; incluye informe"
+        },
+        {
+          "concepto": "Registro y tramitación del plan ante autoridades",
+          "descripcion": "Gestión administrativa: registro del plan de autoprotección ante Administración Pública, coordinación con Protección Civil, comunicación a Cuerpo de Bomberos, obtención de sellos y autorizaciones, archivo de documentación",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Gestión administrativa especializada; precio a definir (típicamente 400-800€)"
+        },
+        {
+          "concepto": "Informe final y entrega de documentación",
+          "descripcion": "Compilación de toda la documentación en formato digital y físico: plan de autoprotección, planos, procedimientos, registros de formación, informe de simulacro, recomendaciones de mejora, manual de mantenimiento de equipos de protección",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Documentación técnica compilada; incluido en honorarios de consultoría"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2090,
+        "iva_porcentaje": 21,
+        "iva": 438.9,
+        "total": 2528.9
+      },
+      "sugerencias_catalogo": [
+        "Este presupuesto incluye SOLO mano de obra de consultoría y servicios profesionales",
+        "NO incluye instalación de equipos físicos (detectores, extintores, BIE, iluminación de emergencia, señalización física)",
+        "Si el colegio requiere INSTALACIÓN de sistemas de protección → presupuestar por separado con partidas de materiales y mano de obra",
+        "Presupuesto total estimado (plan + instalaciones): 8000-25000€ según estado actual del colegio",
+        "Recomendación: contratar especialista certificado en seguridad contra incendios (Ingeniero Técnico Industrial o equivalente)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diseño del plan de autoprotección (documento técnico)",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio de consultoría especializada en seguridad y evacuación"
+        },
+        {
+          "concepto": "Planos de evacuación y señalización",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "motivo": "Diseño gráfico y técnico de planos de evacuación"
+        },
+        {
+          "concepto": "Procedimientos de evacuación y emergencias (documentación)",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "motivo": "Redacción de procedimientos técnicos especializados"
+        },
+        {
+          "concepto": "Registro y tramitación del plan ante autoridades",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "motivo": "Gestión administrativa y tramitación legal"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_cubierta_verde_con_lamina_antirraiz",
+      "impermeabilizacion_de_peto_o_murete_de_cubierta_plana",
+      "replanteo_y_trazado_de_obra",
+      "planificacion_y_presupuesto_reforma_integral",
+      "instalacion_de_plantas_trepadoras"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3913,
+      "tokens_out": 3173
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 1,
+    "n_sugeridas": 7,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

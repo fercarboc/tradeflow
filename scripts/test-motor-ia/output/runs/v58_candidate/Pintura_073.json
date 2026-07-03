@@ -1,0 +1,167 @@
+{
+  "id": 73,
+  "oficio": "Pintura",
+  "texto": "Reparar y pintar paredes de garaje comunitario, superficie 200 metros cuadrados con gotelé fino",
+  "http_status": 200,
+  "latency_ms": 16913,
+  "raw_response": {
+    "transcript": "Reparar y pintar paredes de garaje comunitario, superficie 200 metros cuadrados con gotelé fino",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar y pintar paredes de garaje comunitario, superficie 200 metros cuadrados con gotelé fino",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Superficie importante (200 m²). Verificar acceso, andamios y medios auxiliares en garaje comunitario.",
+          "Gotelé fino requiere aplicación especializada. Confirmar si es reparación puntual o revestimiento completo.",
+          "Incluye preparación de superficie, imprimación y acabado. Revisar estado actual de paredes."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Reparación, preparación y pintura de paredes con acabado gotelé en garaje comunitario."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de superficie (reparación de grietas, masillado)",
+          "descripcion": "Limpieza de paredes, reparación de grietas y desperfectos, masilla de pasta fina, lijado grano 120-220 en 200 m² de paredes de garaje.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 6,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación fijadora consolidante",
+          "descripcion": "Imprimación fijadora sobre superficie preparada, 200 m² (rendimiento 12-15 m²/litro). Fija polvo y consolida superficie antes de pintura final.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material imprimación: instalador debe indicar marca, tipo y coste total (aprox. 14-16 litros × precio/litro)."
+        },
+        {
+          "concepto": "Pintura gotelé fino acabado (2 manos)",
+          "descripcion": "Aplicación de pintura gotelé fino en 200 m² de paredes de garaje comunitario. Incluye 2 manos de acabado con pistola o rodillo especializado para gotelé.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 8,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material pintura gotelé fino (2 manos)",
+          "descripcion": "Pintura gotelé fino de calidad, 2 manos en 200 m² (rendimiento aprox. 8-10 m²/litro). Incluye pigmentación y aditivos para acabado uniforme.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material pintura gotelé: instalador debe indicar marca, tipo (interior/garaje) y coste total (aprox. 40-50 litros × precio/litro)."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Rodillos, pinceles, mascarillas, cinta de carrocero, trapos, esponjas, cubetas, protecciones. Consumibles para 200 m² de trabajo.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: instalador debe estimar coste total (aprox. 200-400€ para obra de esta envergadura)."
+        },
+        {
+          "concepto": "Medios auxiliares y protecciones en garaje comunitario",
+          "descripcion": "Andamios, plataformas, protección de suelo, señalización de zona de trabajo, ventilación forzada si es necesario en garaje cerrado.",
+          "oficio": "pintura",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Medios auxiliares: instalador debe evaluar altura de paredes, acceso a garaje y presupuestar alquiler de andamios/plataformas (aprox. 300-800€ según duración)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 2800,
+        "iva_porcentaje": 21,
+        "iva": 588,
+        "total": 3388
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo si existe partida específica 'Pintura gotelé fino garaje' con precio por m² incluido.",
+        "Considerar si la reparación incluye tratamiento antihumedad (garaje comunitario puede tener condensación).",
+        "Confirmar si el gotelé es aplicación con pistola (más caro) o rodillo (más económico)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Material pintura gotelé fino (2 manos)",
+          "oficio": "pintura",
+          "motivo": "Gotelé fino es acabado especializado. Precio material pendiente de revisión del instalador."
+        },
+        {
+          "concepto": "Medios auxiliares y protecciones en garaje comunitario",
+          "oficio": "pintura",
+          "motivo": "Garaje comunitario requiere andamios/plataformas. Coste variable según altura y acceso."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "limpieza_y_preparacion_superficie_antes_pintar",
+      "pintura_sotano_o_zona_bajo_rasante",
+      "pintado_de_sotanos_y_aparcamientos_comunitarios",
+      "pintado_cancelas_y_portones_metalicos_exterior",
+      "imprimacion_especial_sobre_yeso_nuevo"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3539,
+      "tokens_out": 2265
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "id": 236,
+  "oficio": "Energía Solar",
+  "texto": "Monitorizar producción de instalación fotovoltaica con aplicación y alertas de fallo",
+  "http_status": 200,
+  "latency_ms": 15834,
+  "raw_response": {
+    "transcript": "Monitorizar producción de instalación fotovoltaica con aplicación y alertas de fallo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Monitorizar producción de instalación fotovoltaica con aplicación y alertas de fallo",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Instalación de sistema de monitoreo solar online con datalogger, conectividad y plataforma cloud"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Evaluación instalación fotovoltaica existente",
+          "descripcion": "Inspección visual de módulos, inversor, estructura y cableado. Verificación de datos de producción histórica y configuración actual.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Datalogger o módulo de comunicación",
+          "descripcion": "Suministro de datalogger/módulo comunicación compatible con inversor existente para captura de datos de producción en tiempo real.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del modelo de inversor y tipo de datalogger (WiFi, Ethernet, 4G). Rango típico 150-600€."
+        },
+        {
+          "concepto": "Conexión WiFi/Ethernet/4G",
+          "descripcion": "Instalación de conectividad (WiFi, Ethernet o módulo 4G) para transmisión de datos de producción a plataforma cloud.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plataforma cloud y aplicación móvil",
+          "descripcion": "Configuración de acceso a plataforma cloud del fabricante del inversor. Activación de aplicación móvil con alertas de fallo, bajo rendimiento y anomalías.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Muchos fabricantes incluyen acceso cloud gratuito. Si requiere suscripción premium: 50-200€/año. Especificar con cliente."
+        },
+        {
+          "concepto": "Configuración alertas y notificaciones",
+          "descripcion": "Parametrización de alertas automáticas: fallo inversor, producción baja, desconexión red, anomalías strings. Notificaciones por email y push en app.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sensor de irradiancia (opcional)",
+          "descripcion": "Suministro e instalación de sensor de irradiancia para comparar producción real vs. esperada según condiciones solares.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional. Precio típico 200-500€ + 1h instalación (65€). Mejora precisión diagnóstico de fallos."
+        },
+        {
+          "concepto": "Pruebas y validación del sistema",
+          "descripcion": "Verificación de conectividad, recepción de datos en tiempo real, funcionamiento de alertas y acceso desde aplicación móvil.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Formación usuario y documentación",
+          "descripcion": "Explicación de uso de aplicación, interpretación de datos, gestión de alertas y procedimiento ante fallos. Entrega de manual y credenciales.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (conectores, cable, bridas, etc.)",
+          "descripcion": "Conectores, cable de red, bridas, cinta aislante y material auxiliar para instalación.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 30-80€. Revisar según necesidades específicas de instalación."
+        }
+      ],
+      "calculos": {
+        "subtotal": 422.5,
+        "iva_porcentaje": 21,
+        "iva": 88.725,
+        "total": 511.225
+      },
+      "sugerencias_catalogo": [
+        "Verificar modelo exacto del inversor para compatibilidad de datalogger",
+        "Confirmar si cliente dispone de WiFi estable o requiere módulo 4G",
+        "Aclarar si plataforma cloud es gratuita o requiere suscripción anual",
+        "Considerar sensor de irradiancia si cliente desea diagnóstico avanzado de fallos"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Datalogger o módulo de comunicación",
+          "oficio": "energia_solar",
+          "motivo": "Material específico cuyo precio depende del modelo de inversor"
+        },
+        {
+          "concepto": "Plataforma cloud y aplicación móvil",
+          "oficio": "energia_solar",
+          "motivo": "Servicio que puede ser gratuito o de suscripción según fabricante"
+        },
+        {
+          "concepto": "Sensor de irradiancia (opcional)",
+          "oficio": "energia_solar",
+          "motivo": "Material opcional para mejora de diagnóstico"
+        },
+        {
+          "concepto": "Pequeño material",
+          "oficio": "energia_solar",
+          "motivo": "Material auxiliar de instalación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "diagnostico_averia_instalacion_fotovoltaica_baja_produccion",
+      "instalacion_de_sistema_de_monitoreo_solar_online",
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_sistema_fotovoltaico_con_baterias_hibrido"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4150,
+      "tokens_out": 2271
+    }
+  },
+  "classification": {
+    "category": "PRECIO_INVALIDO",
+    "n_partidas": 9,
+    "n_catalogo": 9,
+    "n_sugeridas": 0,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI",
+    "error_detalle": "Partida de catálogo con precio 0 o nulo"
+  }
+}

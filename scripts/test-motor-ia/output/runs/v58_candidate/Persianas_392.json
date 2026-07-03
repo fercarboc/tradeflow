@@ -1,0 +1,135 @@
+{
+  "id": 392,
+  "oficio": "Persianas",
+  "texto": "Cambiar todas las persianas de PVC de piso de 3 dormitorios por lamas de aluminio de mayor calidad",
+  "http_status": 200,
+  "latency_ms": 11996,
+  "raw_response": {
+    "transcript": "Cambiar todas las persianas de PVC de piso de 3 dormitorios por lamas de aluminio de mayor calidad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambiar todas las persianas de PVC de piso de 3 dormitorios por lamas de aluminio de mayor calidad",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume 1 persiana por dormitorio (3 ud). Si hay más persianas (salón, cocina, etc.), el instalador debe ajustar cantidades.",
+          "Precio de lamas de aluminio pendiente de revisión: se ha marcado requiere_revision=true para que el instalador introduzca el coste real del material."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Sustitución de persianas enrollables: desmontaje de lamas PVC + suministro e instalación de lamas aluminio."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje persianas PVC enrollables",
+          "descripcion": "Desmontaje y retirada de 3 persianas enrollables de PVC (dormitorios). Incluye desinstalación de lamas, guías, cajón y pequeño material. Gestión de residuos PVC.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro lamas aluminio de mayor calidad",
+          "descripcion": "Lamas de aluminio de mayor calidad (espesor reforzado, acabado anodizado o lacado) para 3 persianas enrollables. Medidas según hueco existente. Incluye remates inferiores y pequeño material de ensamblaje.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lamas aluminio de mayor calidad variable según proveedor y especificaciones técnicas (espesor, acabado, color). El instalador debe introducir el coste real del material."
+        },
+        {
+          "concepto": "Instalación lamas aluminio y reensamblaje",
+          "descripcion": "Instalación de nuevas lamas de aluminio en guías existentes (verificación de compatibilidad). Reensamblaje de cajón, guías, cinta enrolladora, tope inferior y final de carrera. Pruebas de funcionamiento.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación/ajuste guías si es necesario",
+          "descripcion": "Verificación y ajuste de guías laterales de aluminio existentes. Si hay deterioro, sustitución de guías. Aplomado y fijación correcta. Pequeño material.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Partida condicionada: solo se ejecuta si las guías existentes requieren reparación o ajuste. El instalador confirmará tras inspección."
+        }
+      ],
+      "calculos": {
+        "subtotal": 390,
+        "iva_porcentaje": 21,
+        "iva": 81.9,
+        "total": 471.9
+      },
+      "sugerencias_catalogo": [
+        "Verificar que las guías de aluminio existentes son compatibles con las nuevas lamas de aluminio de mayor calidad.",
+        "Confirmar medidas exactas de cada persiana (ancho × alto) para asegurar que las lamas se adapten correctamente.",
+        "Si el cajón PVC está deteriorado, considerar sustitución por cajón de aluminio (partida adicional).",
+        "Solicitar al instalador especificaciones técnicas de las lamas de aluminio (espesor, acabado, color) para presupuestar correctamente."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro lamas aluminio de mayor calidad",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "motivo": "Material específico de mayor calidad no cuantificado en catálogo base. Precio pendiente de revisión del instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "reforma_vivienda_adaptada_a_personas_mayores",
+      "reparacion_o_cambio_guias_persiana",
+      "instalacion_persiana_enrollable_aluminio_manual",
+      "instalacion_ventana_corredera_aluminio_con_vidrio"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3873,
+      "tokens_out": 1467
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 3,
+    "n_sugeridas": 1,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

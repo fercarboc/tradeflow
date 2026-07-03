@@ -1,0 +1,183 @@
+{
+  "id": 330,
+  "oficio": "Fachadas",
+  "texto": "Revestir fachada con panel fenólico HPL en color antracita, estructura portante incluida",
+  "http_status": 200,
+  "latency_ms": 20598,
+  "raw_response": {
+    "transcript": "Revestir fachada con panel fenólico HPL en color antracita, estructura portante incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revestir fachada con panel fenólico HPL en color antracita, estructura portante incluida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Panel HPL fenólico es material de alta durabilidad; verificar especificaciones técnicas del fabricante (resistencia UV, clasificación fuego, garantía)",
+          "Estructura portante debe dimensionarse según carga del panel y condiciones climáticas locales",
+          "Recomendable inspección previa del soporte (humedad, planaridad, capacidad portante)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Revestimiento exterior de fachada con material compuesto (HPL fenólico). Oficio especializado en envolvente de edificio."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro panel fenólico HPL color antracita",
+          "descripcion": "Panel fenólico HPL compacto, color antracita, espesor 6-8mm, certificado exterior, resistencia UV y fuego según normativa",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material HPL fenólico: el instalador debe especificar m2 totales, espesor, marca y precio de suministro"
+        },
+        {
+          "concepto": "Estructura portante aluminio o acero galvanizado",
+          "descripcion": "Estructura de soporte (perfiles U, L o T) en aluminio anodizado o acero galvanizado, anclajes a fachada existente, cámara de ventilación 40-60mm, tratamiento anticorrosión",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estructura portante: el instalador debe especificar m2, tipo de perfil, material (aluminio/acero), espesor y precio"
+        },
+        {
+          "concepto": "Fijación mecánica panel HPL (tornillos, remaches, clips)",
+          "descripcion": "Sistema de fijación mecánica: tornillos inox, remaches ciegos o clips de aluminio, arandelas de neopreno, sellado de puntos de fijación",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material de fijación: el instalador debe cuantificar según densidad de fijación y especificar precio"
+        },
+        {
+          "concepto": "Juntas de dilatación y sellado perimetral",
+          "descripcion": "Juntas de dilatación cada 3-4m (vertical y horizontal), sellado perimetral con silicona neutra o poliuretano, perfiles de remate en encuentros (arranque, coronación, esquinas)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Juntas y sellados: el instalador debe especificar ml de juntas, tipo de sellante y precio"
+        },
+        {
+          "concepto": "Preparación y limpieza de soporte",
+          "descripcion": "Limpieza de fachada existente, reparación de grietas o defectos, nivelación de puntos altos, tratamiento de humedad si aplica",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de preparación: el instalador debe estimar según estado del soporte y superficie total"
+        },
+        {
+          "concepto": "Instalación estructura portante y fijación de paneles HPL",
+          "descripcion": "Montaje de estructura portante, nivelación, fijación mecánica de paneles HPL, colocación de juntas y sellado de encuentros",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra instalación: el instalador debe estimar horas según m2 de fachada, altura y complejidad de acceso"
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora",
+          "descripcion": "Alquiler o montaje de andamio tubular o plataforma elevadora para acceso seguro a fachada durante toda la obra",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Andamio: el instalador debe especificar tipo, altura, jornadas necesarias y precio (alquiler o montaje)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Buscar en catálogo: 'revestimiento_fachada_panel_compuesto' o 'fachada_ventilada_panel_hpl'",
+        "Considerar actuación similar: 'colocacion_de_revestimiento_de_madera_o_tablon_en_zocalo_exterior' (estructura portante + cámara ventilación + fijación)",
+        "Panel HPL es material de alta gama; comparar con alternativas: mortero monocapa, cerámica exterior, composite"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Panel fenólico HPL color antracita",
+          "oficio": "fachadas",
+          "tipo": "material",
+          "motivo": "Material específico no encontrado en catálogo base; requiere especificación de m2, espesor, marca y precio de suministro"
+        },
+        {
+          "concepto": "Estructura portante aluminio/acero galvanizado",
+          "oficio": "fachadas",
+          "tipo": "material",
+          "motivo": "Estructura de soporte personalizada; requiere cálculo de perfiles, cantidad y precio según proyecto"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "colocacion_de_revestimiento_de_madera_o_tablon_en_zocalo_exterior",
+      "revestimiento_con_mortero_monocapa",
+      "alicatado_de_fachada_exterior_con_ceramica_o_piedra",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "instalacion_celosias_metalicas_decorativas_o_de_proteccion"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3961,
+      "tokens_out": 2531
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

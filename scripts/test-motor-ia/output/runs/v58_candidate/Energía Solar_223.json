@@ -1,0 +1,238 @@
+{
+  "id": 223,
+  "oficio": "Energía Solar",
+  "texto": "Añadir 4 paneles solares a instalación existente y actualizar inversor para ampliar potencia",
+  "http_status": 200,
+  "latency_ms": 31238,
+  "raw_response": {
+    "transcript": "Añadir 4 paneles solares a instalación existente y actualizar inversor para ampliar potencia",
+    "quote": {
+      "resumen": {
+        "texto_original": "Añadir 4 paneles solares a instalación existente y actualizar inversor para ampliar potencia",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Falta especificar potencia actual instalada (kWp) y potencia objetivo",
+          "CRÍTICO: Falta especificar modelo/potencia del inversor actual y nuevo",
+          "CRÍTICO: Falta especificar potencia unitaria de los 4 paneles (típicamente 400-550W cada uno)",
+          "CRÍTICO: Falta especificar ubicación cubierta (accesibilidad, orientación, espacio disponible)",
+          "CRÍTICO: Falta especificar si la estructura existente soporta ampliación o requiere refuerzo",
+          "Requiere evaluación técnica previa de compatibilidad inversor-paneles y cálculo de amortización"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Ampliación instalación fotovoltaica existente + sustitución inversor"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Evaluación técnica instalación existente",
+          "descripcion": "Inspección inversor actual, medición potencia, verificación estructura soporte, evaluación espacio cubierta, compatibilidad ampliación, cálculo nuevo dimensionado",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe cotizar evaluación técnica previa (típicamente 150-300€)"
+        },
+        {
+          "concepto": "Desmontaje e instalación 4 paneles solares fotovoltaicos",
+          "descripcion": "Desmontaje parcial estructura existente si necesario, instalación 4 nuevos paneles solares (potencia unitaria a especificar), conexionado DC a inversor, pruebas de continuidad y aislamiento",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 65,
+          "total": 260,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa horaria aplicada; requiere especificar horas reales según accesibilidad y complejidad estructura"
+        },
+        {
+          "concepto": "Suministro 4 paneles solares fotovoltaicos",
+          "descripcion": "4 paneles solares de potencia unitaria a especificar (típicamente 400-550W), con certificaciones y garantía fabricante",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe cotizar paneles según potencia unitaria (rango típico 150-250€/panel según potencia)"
+        },
+        {
+          "concepto": "Desmontaje inversor existente",
+          "descripcion": "Desconexión segura inversor actual, desconexión cableado DC y AC, desmontaje físico, etiquetado y almacenamiento",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación inversor nuevo ampliado",
+          "descripcion": "Inversor solar nuevo compatible con ampliación (potencia a especificar según nueva potencia total kWp), instalación en ubicación existente, conexionado DC a paneles y AC a cuadro, configuración parámetros, prueba funcionamiento",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe cotizar inversor según potencia nueva (rango típico 800-2000€ para ampliación estándar)"
+        },
+        {
+          "concepto": "Instalación y configuración inversor nuevo",
+          "descripcion": "Montaje físico inversor, conexionado DC (cableado existente + nuevas derivaciones), conexionado AC a cuadro, configuración parámetros MPPT, curva de potencia, límites, prueba funcionamiento completa",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 65,
+          "total": 260,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas estimadas; puede variar según complejidad configuración y compatibilidad con instalación existente"
+        },
+        {
+          "concepto": "Actualización cableado y protecciones DC",
+          "descripcion": "Revisión cableado DC existente, ampliación derivaciones si necesario, verificación secciones según nueva potencia, actualización protecciones (fusibles/magnetotérmicos DC) según nueva intensidad, pruebas aislamiento",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar metros de cableado nuevo y protecciones necesarias (típicamente 50-200€)"
+        },
+        {
+          "concepto": "Actualización legalizado ante distribuidora",
+          "descripcion": "Tramitación modificación potencia instalada ante distribuidora eléctrica, actualización documentación técnica, certificado instalador, solicitud nueva potencia contratada si procede",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe cotizar gestión administrativa (típicamente 200-400€ según comunidad autónoma)"
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en marcha",
+          "descripcion": "Prueba generación paneles nuevos, verificación curva I-V, medición potencia real, prueba inversor en modo isla y conectado, verificación protecciones, monitoreo inicial, entrega documentación y contraseñas acceso",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "descripcion": "Arnés seguridad, casco, guantes, herramientas especializadas, conectores MC4, terminales, cinta aislante, etiquetas, documentación técnica",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe cotizar (típicamente 80-150€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 780,
+        "iva_porcentaje": 21,
+        "iva": 163.8,
+        "total": 943.8
+      },
+      "sugerencias_catalogo": [
+        "OBLIGATORIO especificar: Potencia actual instalada (kWp) y potencia objetivo tras ampliación",
+        "OBLIGATORIO especificar: Potencia unitaria de los 4 paneles nuevos (típicamente 400-550W)",
+        "OBLIGATORIO especificar: Modelo inversor actual y modelo/potencia inversor nuevo",
+        "OBLIGATORIO especificar: Ubicación cubierta (orientación, inclinación, accesibilidad, espacio disponible)",
+        "OBLIGATORIO especificar: Tipo estructura existente (aluminio, acero, hormigón) y si requiere refuerzo",
+        "Consultar con fabricante inversor actual si admite más potencia en entrada DC o si OBLIGATORIAMENTE requiere sustitución",
+        "Verificar si estructura existente soporta peso adicional 4 paneles (típicamente 20-25 kg/panel)",
+        "Considerar si cableado DC existente tiene sección suficiente para nueva intensidad (cálculo según nueva potencia)",
+        "Verificar si protecciones AC existentes (magnetotérmico, diferencial) soportan nueva potencia o requieren ampliación",
+        "Legalización OBLIGATORIA ante distribuidora: cambio de potencia requiere modificación contrato y documentación técnica"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Evaluación técnica instalación existente",
+          "oficio": "energia_solar",
+          "motivo": "Ampliación fotovoltaica requiere evaluación previa compatibilidad inversor-paneles y estructura"
+        },
+        {
+          "concepto": "Actualización cableado y protecciones DC",
+          "oficio": "energia_solar",
+          "motivo": "Nueva potencia requiere verificación secciones cableado y actualización protecciones"
+        },
+        {
+          "concepto": "Actualización legalizado ante distribuidora",
+          "oficio": "energia_solar",
+          "motivo": "Cambio de potencia instalada requiere tramitación administrativa obligatoria"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "reparacion_o_sustitucion_de_inversor_solar_averiado",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "instalacion_sistema_fotovoltaico_con_baterias_hibrido"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4116,
+      "tokens_out": 3572
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

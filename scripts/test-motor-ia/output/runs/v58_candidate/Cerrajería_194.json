@@ -1,0 +1,214 @@
+{
+  "id": 194,
+  "oficio": "Cerrajería",
+  "texto": "Reforzar puerta de madera antigua con plancha de acero y cerradura de seguridad adicional",
+  "http_status": 200,
+  "latency_ms": 16636,
+  "raw_response": {
+    "transcript": "Reforzar puerta de madera antigua con plancha de acero y cerradura de seguridad adicional",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforzar puerta de madera antigua con plancha de acero y cerradura de seguridad adicional",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo combinado: carpintería + cerrajería. Verificar estado actual de la puerta antes de refuerzo.",
+          "Plancha de acero requiere anclaje estructural en marco existente.",
+          "Cerradura de seguridad adicional implica taladrado/refuerzo en hoja reforzada."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Refuerzo estructural de puerta de madera, desmontaje, preparación y fijación de plancha de acero."
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Instalación de cerradura de seguridad adicional con certificación de alta seguridad."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y preparación puerta madera antigua",
+          "descripcion": "Desmontaje de puerta del marco, limpieza de superficie, lijado y preparación para recibir plancha de acero.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plancha de acero de refuerzo para puerta",
+          "descripcion": "Plancha de acero galvanizado o inoxidable (espesor 2-3mm) cortada a medida para cubrir cara interior de puerta. Incluye pequeño material de fijación.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de plancha de acero a medida pendiente de cotización según dimensiones exactas de puerta (ancho x alto)."
+        },
+        {
+          "concepto": "Instalación y fijación plancha de acero en puerta",
+          "descripcion": "Fijación de plancha de acero mediante tornillos de seguridad o remaches, asegurando anclaje en marco y refuerzo de bisagras si es necesario.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 45,
+          "total": 112.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Refuerzo de bisagras y herrajes existentes",
+          "descripcion": "Revisión y refuerzo de bisagras existentes con tornillos de seguridad de mayor calibre. Sustitución si están deterioradas.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de herrajes de refuerzo (bisagras inox de seguridad, tornillos) pendiente según estado actual."
+        },
+        {
+          "concepto": "Instalación cerradura de seguridad adicional",
+          "descripcion": "Instalación de cerradura de seguridad certificada (UNE EN 1303 o superior) con cilindro antibumping/antitaladro, escudo protector y llaves de seguridad con tarjeta de propietario.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cerradura de seguridad (rango típico 150-400€) pendiente de especificación exacta del nivel de seguridad requerido."
+        },
+        {
+          "concepto": "Taladrado, ajuste y pruebas cerradura de seguridad",
+          "descripcion": "Taladrado en plancha de acero reforzada, instalación de cilindro, ajuste de pestillo y pruebas de funcionamiento. Incluye escudo antitaladro.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recolocación puerta en marco y ajustes finales",
+          "descripcion": "Recolocación de puerta reforzada en marco, aplomado, ajuste de holguras y pruebas de cierre y apertura suave.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabado y protección puerta reforzada",
+          "descripcion": "Limpieza final, retoque de pintura/barniz en zonas de trabajo y protección de plancha de acero con pintura antioxidante si es visible.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 32,
+          "total": 32,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 391.5,
+        "iva_porcentaje": 21,
+        "iva": 82.22,
+        "total": 473.72
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de cerraduras de seguridad certificadas UNE EN 1303 para obtener precio exacto de cilindro antibumping + escudo antitaladro.",
+        "Solicitar presupuesto de plancha de acero galvanizado o inoxidable (2-3mm espesor) cortada a medida según dimensiones exactas de puerta.",
+        "Verificar si bisagras existentes soportan peso adicional de plancha de acero; considerar refuerzo o sustitución por bisagras de seguridad inox."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Plancha de acero de refuerzo para puerta",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de refuerzo estructural no catalogado; precio variable según medidas y espesor."
+        },
+        {
+          "concepto": "Refuerzo de bisagras y herrajes existentes",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Componentes de seguridad adicionales; precio depende de estado actual y especificación de herrajes."
+        },
+        {
+          "concepto": "Instalación cerradura de seguridad adicional",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Cerradura de seguridad certificada; precio rango 150-400€ según nivel de certificación requerido."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cerradura_antibumping_o_antitaladro",
+      "diagnostico_y_presupuesto_cerrajeria",
+      "fabricacion_e_instalacion_puerta_exterior_madera",
+      "instalacion_vidrio_de_seguridad_templado",
+      "pintura_esmalte_carpinteria_madera_interior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3940,
+      "tokens_out": 2420
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 5,
+    "n_sugeridas": 3,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

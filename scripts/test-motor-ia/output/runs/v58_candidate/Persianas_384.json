@@ -1,0 +1,138 @@
+{
+  "id": 384,
+  "oficio": "Persianas",
+  "texto": "Instalar toldos para terraza de bar, 4 toldos de 3x2 metros motorizados con cofre embellecedor",
+  "http_status": 200,
+  "latency_ms": 11106,
+  "raw_response": {
+    "transcript": "Instalar toldos para terraza de bar, 4 toldos de 3x2 metros motorizados con cofre embellecedor",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar toldos para terraza de bar, 4 toldos de 3x2 metros motorizados con cofre embellecedor",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de toldos motorizados con cofre embellecedor en terraza comercial"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Toldo motorizado 3x2m con cofre embellecedor",
+          "descripcion": "Suministro e instalación de toldo de brazos extensibles motorizados, tela acrílica tratada UV, estructura aluminio, motor eléctrico, cofre embellecedor, fijación a pared/estructura. Cantidad: 4 unidades",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de toldo motorizado con cofre a definir por instalador según marca y especificaciones técnicas"
+        },
+        {
+          "concepto": "Instalación toldos motorizados",
+          "descripcion": "Mano de obra de instalación: fijación de brazos, anclaje a estructura, conexión eléctrica del motor, pruebas de funcionamiento, ajuste de tela y cofre embellecedor. 4 unidades",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica motores toldos",
+          "descripcion": "Mano de obra de electricista: tendido de cableado, conexión a cuadro eléctrico, instalación de interruptores/mando a distancia, pruebas de seguridad. 4 motores",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material eléctrico (cableado, interruptores, mandos)",
+          "descripcion": "Cableado eléctrico, interruptores, mandos a distancia inalámbricos, conectores, pequeño material eléctrico para 4 toldos motorizados",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material eléctrico a presupuestar según especificaciones técnicas y distancia de tendido"
+        }
+      ],
+      "calculos": {
+        "subtotal": 740,
+        "iva_porcentaje": 21,
+        "iva": 155.4,
+        "total": 895.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar si los toldos incluyen motor y cofre embellecedor en el suministro o si requieren compra separada",
+        "Confirmar tipo de mando: inalámbrico, pulsador mural o integrado en cofre",
+        "Evaluar si la estructura de la terraza permite fijación directa o requiere refuerzos adicionales",
+        "Considerar si se necesita protección diferencial específica para motores en zona húmeda (terraza exterior)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Toldo motorizado 3x2m con cofre embellecedor",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "motivo": "Producto específico motorizado con cofre; requiere presupuesto de proveedor"
+        },
+        {
+          "concepto": "Material eléctrico (cableado, interruptores, mandos)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Componentes eléctricos auxiliares; requiere presupuesto según proyecto"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "instalacion_lampara_parasol_o_sombrilla_de_brazo",
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3916,
+      "tokens_out": 1400
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

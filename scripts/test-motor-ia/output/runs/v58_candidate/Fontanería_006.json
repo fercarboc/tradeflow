@@ -1,0 +1,195 @@
+{
+  "id": 6,
+  "oficio": "Fontanería",
+  "texto": "Cambio de grifo de ducha termostático y revoque de azulejos afectados por humedad",
+  "http_status": 200,
+  "latency_ms": 15927,
+  "raw_response": {
+    "transcript": "Cambio de grifo de ducha termostático y revoque de azulejos afectados por humedad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de grifo de ducha termostático y revoque de azulejos afectados por humedad",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se detectan dos oficios: fontanería e impermeabilización. La humedad en azulejos requiere diagnóstico de causa raíz antes de proceder.",
+          "El revoque de azulejos implica posible desmontaje y reemplazo; se recomienda inspeccionar la membrana impermeabilizante de la zona de ducha."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de grifo termostático de ducha con desmontaje del anterior."
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Tratamiento de humedad en azulejos; requiere impermeabilización de zona afectada antes de revestimiento."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje grifo ducha termostático existente",
+          "descripcion": "Desmontaje cuidadoso del grifo termostático actual, excentricas y embellecedores. Cierre de llaves de paso.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Grifo termostático de ducha (suministro)",
+          "descripcion": "Grifo termostático de ducha con regulación a 38°C, excentricas 1/2\", embellecedores cromados y pequeño material de instalación.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del grifo termostático a definir por instalador según marca y modelo (rango típico 150-400€)."
+        },
+        {
+          "concepto": "Instalación grifo termostático de ducha",
+          "descripcion": "Instalación del grifo termostático con ajuste de excentricas, embellecedores y verificación de presión mínima 1.5 bar. Pruebas de funcionamiento y regulación de temperatura.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desmontaje azulejos afectados por humedad",
+          "descripcion": "Desmontaje cuidadoso de azulejos dañados por humedad en zona de ducha. Limpieza de mortero y preparación de soporte.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización zona ducha con membrana líquida",
+          "descripcion": "Aplicación de imprimación adherente y membrana líquida elastomérica en zona de ducha afectada. Refuerzo con cinta en rincones y juntas. Extensión mínimo 20 cm fuera de zona mojada. Dos manos con curado según fabricante (24-48h).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales impermeabilización (membrana, imprimación, refuerzos)",
+          "descripcion": "Imprimación adherente, membrana líquida elastomérica, cinta de refuerzo para rincones y juntas, pequeño material y EPI.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales impermeabilizantes a definir por instalador (rango típico 15-70€/m2 según producto)."
+        },
+        {
+          "concepto": "Alicatado zona reparada",
+          "descripcion": "Colocación de azulejos nuevos en zona reparada con adhesivo y rejunta. Acabado limpio y sellado con silicona sanitaria en encuentros.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 35,
+          "total": 105,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Azulejos de reemplazo (suministro)",
+          "descripcion": "Azulejos de reemplazo para zona reparada, adhesivo, rejunta y silicona sanitaria.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de azulejos y materiales de colocación a definir por instalador según tipo y calidad elegida."
+        }
+      ],
+      "calculos": {
+        "subtotal": 382.5,
+        "iva_porcentaje": 21,
+        "iva": 80.325,
+        "total": 462.825
+      },
+      "sugerencias_catalogo": [
+        "Verificar que la causa de la humedad no sea una fuga en la red de agua o deficiencia en la membrana impermeabilizante original.",
+        "Recomendar inspección con humidímetro antes de proceder al desmontaje para evaluar profundidad de daño.",
+        "Si la humedad es recurrente, considerar aplicación de barrera de vapor adicional o drenaje en la base de la ducha.",
+        "Asegurar que el grifo termostático cumpla normativa de seguridad (temperatura máxima 38°C en viviendas)."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "cambio_grifo_lavabo",
+      "impermeabilizacion_zona_ducha_con_membrana_liquida",
+      "sustitucion_columna_ducha",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "instalacion_grifo_termostatico_ducha"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3730,
+      "tokens_out": 2200
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 5,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

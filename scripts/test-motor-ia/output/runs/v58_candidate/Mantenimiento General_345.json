@@ -1,0 +1,163 @@
+{
+  "id": 345,
+  "oficio": "Mantenimiento General",
+  "texto": "Limpieza y mantenimiento de ascensor del edificio, revisión de cables y puertas",
+  "http_status": 200,
+  "latency_ms": 13107,
+  "raw_response": {
+    "transcript": "Limpieza y mantenimiento de ascensor del edificio, revisión de cables y puertas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpieza y mantenimiento de ascensor del edificio, revisión de cables y puertas",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Mantenimiento de ascensor requiere certificación y cumplimiento normativo (ITC-AEM). Verificar que el instalador está autorizado.",
+          "Revisión de cables y mecanismos de seguridad debe incluir informe técnico.",
+          "Precio unitario de mano de obra estimado; requiere revisión según tarifa profesional del sector ascensorista."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Mantenimiento preventivo de ascensor: limpieza, revisión mecánica y de seguridad. Trabajo multidisciplinar de mantenimiento."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza general cabina ascensor",
+          "descripcion": "Limpieza interior cabina, espejos, suelo, paredes, botones de mando y puertas interiores",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 80,
+          "total": 80,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de mantenimiento ascensor; ajustar según profesional especializado"
+        },
+        {
+          "concepto": "Revisión y lubricación de cables de tracción",
+          "descripcion": "Inspección visual de cables, detección de roturas o desgaste, lubricación de poleas y guías",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Trabajo especializado ascensorista; precio pendiente de confirmación"
+        },
+        {
+          "concepto": "Revisión mecanismos de puertas (interior y exterior)",
+          "descripcion": "Inspección de cerraduras, bisagras, guías, ajuste de finales de carrera, verificación de seguridades y cierres",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Revisión de mecanismos de seguridad; tarifa según especialista"
+        },
+        {
+          "concepto": "Verificación de sistemas de seguridad y parada de emergencia",
+          "descripcion": "Comprobación de botón parada emergencia, limitadores de velocidad, amortiguadores, válvulas de seguridad",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 130,
+          "total": 130,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Revisión de seguridad crítica; requiere profesional certificado"
+        },
+        {
+          "concepto": "Pequeño material y consumibles (lubricantes, trapos, etc.)",
+          "descripcion": "Lubricantes especializados, trapos, desengrasantes y pequeño material consumible",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible; precio a definir por profesional"
+        },
+        {
+          "concepto": "Emisión de informe técnico de mantenimiento",
+          "descripcion": "Documento técnico con estado de revisión, observaciones, recomendaciones y certificación de conformidad",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio administrativo; incluir en tarifa o especificar coste"
+        }
+      ],
+      "calculos": {
+        "subtotal": 480,
+        "iva_porcentaje": 21,
+        "iva": 100.8,
+        "total": 580.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar que el profesional dispone de certificación ITC-AEM (Instrucción Técnica Complementaria de Ascensores y Montacargas).",
+        "Considerar contrato de mantenimiento anual/semestral para ascensores; reduce averías y garantiza cumplimiento normativo.",
+        "Si se detectan piezas desgastadas (cables, amortiguadores, válvulas), presupuestar reposición por separado.",
+        "Incluir revisión de cuarto de máquinas si aplica (limpieza, ventilación, estado de instalaciones)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mantenimiento preventivo ascensor",
+          "oficio": "mantenimiento_general",
+          "motivo": "Trabajo especializado de mantenimiento de ascensor; no existe partida específica en catálogo base. Requiere profesional certificado ascensorista."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_preventivo_automatismos_y_cierres",
+      "mantenimiento_de_sistema_de_climatizacion_split",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_anual_split_o_aire_acondicionado"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3897,
+      "tokens_out": 1759
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 6,
+    "n_catalogo": 0,
+    "n_sugeridas": 6,
+    "oficio_detectado": "mantenimiento_general",
+    "coincide_oficio": "SI"
+  }
+}

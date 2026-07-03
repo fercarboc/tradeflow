@@ -1,0 +1,228 @@
+{
+  "id": 240,
+  "oficio": "Energía Solar",
+  "texto": "Legalizar instalación solar fotovoltaica existente que no tiene licencia, adaptación normativa",
+  "http_status": 200,
+  "latency_ms": 18552,
+  "raw_response": {
+    "transcript": "Legalizar instalación solar fotovoltaica existente que no tiene licencia, adaptación normativa",
+    "quote": {
+      "resumen": {
+        "texto_original": "Legalizar instalación solar fotovoltaica existente que no tiene licencia, adaptación normativa",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "CRÍTICO: Legalización de instalación existente sin licencia. Requiere verificación previa del estado técnico de la instalación.",
+          "Se asume que la instalación física (paneles, inversor, cableado) ya existe y está operativa.",
+          "La legalización incluye trámites administrativos ante la distribuidora y organismos competentes.",
+          "Plazo de tramitación variable según distribuidora (1-6 meses típicamente)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Legalización de instalación fotovoltaica existente. Requiere inspección técnica, documentación y tramitación administrativa."
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Tramitación administrativa ante distribuidora, inscripción RIPRE/RAIPRE, gestión de expedientes."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección técnica y evaluación de instalación fotovoltaica existente",
+          "descripcion": "Revisión completa del estado técnico de paneles, inversor, cableado, protecciones y estructura. Verificación de conformidad normativa y detección de deficiencias.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Memoria técnica o proyecto según potencia instalada",
+          "descripcion": "Elaboración de documentación técnica requerida para legalización. Incluye cálculos de potencia, esquemas unifilares, especificaciones de equipos y cumplimiento normativo.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según potencia instalada (hasta 15kW: memoria técnica simplificada 300-600€; mayor 15kW: proyecto ingeniero 800-2000€). El instalador debe especificar potencia real."
+        },
+        {
+          "concepto": "Certificado de instalador SIER autorizado",
+          "descripcion": "Obtención o emisión de certificado de instalador solar (SIER) autorizado por organismo competente. Acreditación de competencia técnica para la instalación.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 150-400€ según CCAA. Si el instalador ya posee certificación vigente, puede ser 0€."
+        },
+        {
+          "concepto": "Contrato de acceso con distribuidora",
+          "descripcion": "Formalización de contrato de acceso a la red eléctrica con la distribuidora local. Incluye negociación de términos y firma de documentación.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inscripción en RIPRE o RAIPRE según caso",
+          "descripcion": "Registro de la instalación en el Registro de Instalaciones de Producción de Energía Eléctrica (RIPRE) o Registro Administrativo de Instalaciones de Producción de Energía Renovable (RAIPRE) según potencia y comunidad autónoma.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 200-500€ según CCAA y complejidad. Incluye tasas administrativas y gestión de expediente."
+        },
+        {
+          "concepto": "Solicitud de contador bidireccional (si aplica)",
+          "descripcion": "Tramitación ante distribuidora para instalación de contador bidireccional que permita medir inyección de excedentes a la red. Incluye coordinación con distribuidora.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acuerdo de compensación de excedentes con comercializadora",
+          "descripcion": "Negociación y formalización de acuerdo con comercializadora para compensación económica de excedentes inyectados a la red (si aplica según normativa autonómica).",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y documentación",
+          "descripcion": "Copias, sellos, certificaciones, pequeño material de oficina y documentación necesaria para tramitación.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 50-150€. El instalador ajusta según necesidades reales."
+        },
+        {
+          "concepto": "Adaptaciones técnicas menores (si detectadas en inspección)",
+          "descripcion": "Correcciones técnicas menores detectadas en inspección: reapriete de conexiones, sustitución de pequeños componentes, ajuste de protecciones, etiquetado normativo.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada. Depende de deficiencias encontradas en inspección. Puede ser 0 si instalación está en perfecto estado."
+        }
+      ],
+      "calculos": {
+        "subtotal": 750,
+        "iva_porcentaje": 21,
+        "iva": 157.5,
+        "total": 907.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar potencia instalada (kWp) para determinar si requiere memoria técnica simplificada o proyecto ingeniero completo.",
+        "Confirmar si el instalador posee certificación SIER vigente (puede reducir costes).",
+        "Identificar distribuidora local para conocer plazo exacto de tramitación y requisitos específicos.",
+        "Consultar normativa autonómica sobre compensación de excedentes (varía según CCAA).",
+        "Si la instalación requiere adaptaciones mayores (sustitución inversor, recableado, nueva estructura), generar presupuesto adicional de reforma."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Memoria técnica o proyecto según potencia instalada",
+          "oficio": "energia_solar",
+          "motivo": "Partida obligatoria de legalización. Precio variable según potencia y CCAA."
+        },
+        {
+          "concepto": "Certificado de instalador SIER autorizado",
+          "oficio": "energia_solar",
+          "motivo": "Requisito administrativo para legalización. Precio variable según CCAA."
+        },
+        {
+          "concepto": "Inscripción en RIPRE o RAIPRE según caso",
+          "oficio": "gestoria_tramites",
+          "motivo": "Trámite administrativo obligatorio. Precio variable según potencia y CCAA."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "legalizado_instalacion_fotovoltaica_ante_distribuidora",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "instalacion_sistema_fotovoltaico_con_baterias_hibrido",
+      "instalacion_energia_solar_para_caravana_o_autocaravana"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4162,
+      "tokens_out": 2686
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 5,
+    "n_sugeridas": 4,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "id": 72,
+  "oficio": "Pintura",
+  "texto": "Pintar vallas y rejas exteriores con imprimación antióxido y esmalte negro",
+  "http_status": 200,
+  "latency_ms": 14141,
+  "raw_response": {
+    "transcript": "Pintar vallas y rejas exteriores con imprimación antióxido y esmalte negro",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar vallas y rejas exteriores con imprimación antióxido y esmalte negro",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se requiere medición en obra: metros lineales de valla/reja y estado actual (oxidación, preparación necesaria)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura de elementos metálicos exteriores (vallas y rejas) con tratamiento antióxido"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Lija metálica y preparación de superficie",
+          "descripcion": "Lijado de valla/reja metálica, eliminación de óxido y suciedad con lija metálica o cepillo de acero",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 6,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en metros lineales a definir en obra según longitud total de valla/reja"
+        },
+        {
+          "concepto": "Imprimación antióxido",
+          "descripcion": "Aplicación de imprimación antióxido en valla/reja metálica exterior, 1 mano",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de imprimación antióxido a definir por instalador según marca y cantidad necesaria"
+        },
+        {
+          "concepto": "Esmalte negro metálico",
+          "descripcion": "Aplicación de esmalte anticorrosión negro en valla/reja metálica exterior, 2 manos",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de esmalte anticorrosión negro a definir por instalador según marca y cantidad necesaria"
+        },
+        {
+          "concepto": "Pintura de valla/reja metálica exterior",
+          "descripcion": "Mano de obra: preparación, imprimación y pintado con esmalte negro (2 manos) de valla/reja metálica exterior",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 18,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en metros lineales a definir en obra. Tarifa incluye preparación, imprimación y 2 manos de esmalte"
+        },
+        {
+          "concepto": "Desengrasante y limpieza",
+          "descripcion": "Desengrasante para eliminación de grasa, polvo y contaminantes antes de imprimación",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de desengrasante a definir por instalador"
+        },
+        {
+          "concepto": "Pequeño material (pinceles, rodillos, cinta carrocero, plástico protección)",
+          "descripcion": "Consumibles: pinceles, rodillos pequeños, cinta carrocero, plástico de protección, trapos",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material a definir por instalador según cantidad de ml a pintar"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar medición exacta en obra: metros lineales totales de valla y reja a pintar",
+        "Evaluar estado de oxidación actual: si hay mucho óxido, considerar convertidor de óxido adicional",
+        "Confirmar color final: esmalte negro anticorrosión (especificar brillo: mate, satinado o brillante)",
+        "Definir si incluye ambas caras de la valla o solo cara visible"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "pintura_esmalte_carpinteria_metalica",
+      "pintado_pasamanos_y_barandillas_interior",
+      "pintado_cancelas_y_portones_metalicos_exterior",
+      "pintura_de_valla_o_cerca_madera_exterior",
+      "pintura_esmalte_carpinteria_madera_interior"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3658,
+      "tokens_out": 1870
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

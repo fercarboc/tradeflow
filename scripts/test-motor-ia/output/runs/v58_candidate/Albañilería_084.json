@@ -1,0 +1,270 @@
+{
+  "id": 84,
+  "oficio": "Albañilería",
+  "texto": "Construir muro de carga en jardín de 10 metros de longitud y 2 metros de altura en bloque de hormigón",
+  "http_status": 200,
+  "latency_ms": 19079,
+  "raw_response": {
+    "transcript": "Construir muro de carga en jardín de 10 metros de longitud y 2 metros de altura en bloque de hormigón",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir muro de carga en jardín de 10 metros de longitud y 2 metros de altura en bloque de hormigón",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Muro de carga: verificar normativa local y posible necesidad de proyecto técnico si altura > 2m o carga estructural significativa",
+          "Cimentación: profundidad y tipo dependen del estudio geotécnico del terreno",
+          "Drenaje: considerar si hay riesgo de humedad o agua en la base del muro"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Construcción de muro de bloque de hormigón con cimentación y acabados"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Replanteo, nivelación y trazado de muro",
+          "descripcion": "Replanteo en terreno, nivelación de base y trazado de alineación para muro de 10 ml x 2 m altura",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 8,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Excavación y cimentación corrida para muro",
+          "descripcion": "Excavación de zanja para cimentación corrida (0.60 m profundidad x 0.40 m ancho x 10 ml), retirada de tierras y preparación de base",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m3",
+          "cantidad": 2.4,
+          "precio_unitario": 35,
+          "total": 84,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Hormigón de cimentación HM-20",
+          "descripcion": "Hormigón HM-20 para cimentación corrida (0.60 m x 0.40 m x 10 ml = 2.4 m3)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 2.4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de hormigón a confirmar por instalador según proveedor local"
+        },
+        {
+          "concepto": "Bloque de hormigón para muro de carga",
+          "descripcion": "Bloques de hormigón 40x20x20 cm para construcción de muro de carga (20 m2 x 12.5 bloques/m2 = 250 unidades aprox.)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 250,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de bloque a confirmar según tipo, dimensión y proveedor"
+        },
+        {
+          "concepto": "Mortero M-5 de asiento y rejuntado",
+          "descripcion": "Mortero M-5 para asiento de bloques y rejuntado de juntas (20 m2 x 0.015 m3/m2 = 0.30 m3)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 0.3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mortero a confirmar según proveedor"
+        },
+        {
+          "concepto": "Construcción de muro de bloque de hormigón",
+          "descripcion": "Mano de obra para levantamiento, colocación y rejuntado de bloques de hormigón (20 m2)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 40,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Armadura vertical en muro",
+          "descripcion": "Armadura vertical (acero corrugado Ø12 mm) cada 2 módulos de bloque para refuerzo estructural (10 ml x 2 m = 20 varillas aprox.)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 48,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de acero corrugado a confirmar"
+        },
+        {
+          "concepto": "Hormigón de relleno en celdas armadas",
+          "descripcion": "Hormigón HM-20 para relleno de celdas con armadura vertical (aprox. 0.50 m3)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 0.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de hormigón a confirmar"
+        },
+        {
+          "concepto": "Remate superior impermeabilizado del muro",
+          "descripcion": "Coronación con mortero impermeabilizado y/o lámina de remate en coronación (10 ml)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de remate/lámina a confirmar"
+        },
+        {
+          "concepto": "Mano de obra remate y coronación",
+          "descripcion": "Colocación de remate impermeabilizado en coronación del muro (10 ml)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 15,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Pequeño material, herramientas, andamios y medios auxiliares para construcción de muro",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado de pequeño material a confirmar (típicamente 5-10% del presupuesto)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1194,
+        "iva_porcentaje": 21,
+        "iva": 250.74,
+        "total": 1444.74
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el muro requiere proyecto técnico según normativa local (altura 2 m puede requerir cálculo estructural)",
+        "Considerar estudio geotécnico del terreno para determinar profundidad y tipo de cimentación",
+        "Evaluar drenaje perimetral si hay riesgo de acumulación de agua o humedad",
+        "Confirmar si se requiere enfoscado o acabado exterior del muro"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Hormigón de cimentación HM-20",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Material de cimentación, precio variable según proveedor"
+        },
+        {
+          "concepto": "Bloque de hormigón para muro de carga",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Material de construcción, precio variable según tipo y dimensión"
+        },
+        {
+          "concepto": "Mortero M-5 de asiento y rejuntado",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Material de asiento, precio variable según proveedor"
+        },
+        {
+          "concepto": "Armadura vertical en muro",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Acero corrugado para refuerzo, precio variable según mercado"
+        },
+        {
+          "concepto": "Hormigón de relleno en celdas armadas",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Hormigón de relleno, precio variable según proveedor"
+        },
+        {
+          "concepto": "Remate superior impermeabilizado del muro",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Lámina o mortero impermeabilizante, precio variable según solución elegida"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Partida auxiliar de pequeño material y medios, importe a estimar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "construccion_muro_de_bloque_de_hormigon",
+      "construccion_de_piscina_de_obra",
+      "reconstruccion_de_muro_con_lesiones_estructurales",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "construccion_de_vallado_de_obra_fabrica"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4251,
+      "tokens_out": 3026
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 4,
+    "n_sugeridas": 7,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

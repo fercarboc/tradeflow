@@ -1,0 +1,197 @@
+{
+  "id": 17,
+  "oficio": "Fontanería",
+  "texto": "Reparación urgente de rotura de tubería en la pared del baño principal, hay agua saliendo y hay que actuar hoy",
+  "http_status": 200,
+  "latency_ms": 22701,
+  "raw_response": {
+    "transcript": "Reparación urgente de rotura de tubería en la pared del baño principal, hay agua saliendo y hay que actuar hoy",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación urgente de rotura de tubería en la pared del baño principal, hay agua saliendo y hay que actuar hoy",
+        "tipo_presupuesto": "urgencia",
+        "requiere_revision_general": true,
+        "alertas": [
+          "URGENCIA DETECTADA: rotura activa con salida de agua. Requiere actuación inmediata.",
+          "Trabajo en espacio confinado (pared baño): posible rotura de alicatado/escayola.",
+          "Precio de mano de obra incrementado por urgencia y horario (tarifa base fontanería 50€/h + recargo urgencia).",
+          "Requiere corte de agua general antes de intervención.",
+          "Documentar para seguro del hogar si procede."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Reparación de rotura de tubería. Tarifa incrementada por urgencia y horario fuera de jornada normal."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reposición de alicatado/escayola en zona de rotura (auxiliar a fontanería)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desplazamiento urgente y diagnóstico",
+          "descripcion": "Desplazamiento inmediato del fontanero, corte de agua general, localización exacta de rotura, evaluación de daños en estructura y acabados.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 75,
+          "total": 75,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": "Tarifa urgencia fontanería (base 50€/h + 25€ recargo urgencia)."
+        },
+        {
+          "concepto": "Reparación de rotura de tubería multicapa",
+          "descripcion": "Corte de zona afectada (mínimo 50cm), extracción de tubo dañado, limpieza de extremos, instalación de manguito de reparación con abrazaderas de presión, juntas de goma y pequeño material de fontanería.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": "Estimación 2 horas para reparación completa con pruebas de estanqueidad."
+        },
+        {
+          "concepto": "Suministro de materiales de reparación fontanería",
+          "descripcion": "Tubo multicapa PEX, manguito de reparación, abrazaderas de presión, juntas de goma, cinta teflón, pequeño material de fontanería.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales pendiente de revisión según longitud exacta de rotura y diámetro de tubería (estimado 40-80€)."
+        },
+        {
+          "concepto": "Retirada de escombros y limpieza",
+          "descripcion": "Retirada de fragmentos de tubería, escayola/alicatado roto, agua residual. Limpieza y secado de zona.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 65,
+          "total": 32.5,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": "Estimación 30 minutos para limpieza y retirada de escombros."
+        },
+        {
+          "concepto": "Reposición de alicatado/escayola en zona de rotura",
+          "descripcion": "Preparación de superficie, aplicación de mortero de agarre, colocación de azulejos o escayola según acabado original, rejuntado y acabado final.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": "Estimación 1.5 horas para reposición de acabados (zona aproximada 0.5-1 m²)."
+        },
+        {
+          "concepto": "Suministro de materiales de reposición (alicatado/escayola)",
+          "descripcion": "Azulejos/porcelánico de reposición, mortero de agarre, lechada de rejuntado, escayola o material de acabado según original.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales pendiente de revisión según superficie exacta y tipo de acabado original (estimado 30-60€)."
+        },
+        {
+          "concepto": "Pruebas de estanqueidad y puesta en servicio",
+          "descripcion": "Reapertura de agua general, prueba de presión en zona reparada, verificación de ausencia de fugas, comprobación de funcionamiento normal de instalación.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 65,
+          "total": 32.5,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": "Estimación 30 minutos para pruebas finales."
+        }
+      ],
+      "calculos": {
+        "subtotal": 337.5,
+        "iva_porcentaje": 21,
+        "iva": 70.875,
+        "total": 408.375
+      },
+      "sugerencias_catalogo": [
+        "Consultar con el cliente sobre cobertura de seguro del hogar para urgencias de fontanería.",
+        "Documentar fotografías de la rotura antes y después de la reparación para posible reclamación al seguro.",
+        "Si la rotura es recurrente o hay signos de corrosión generalizada, sugerir revisión completa de instalación de agua.",
+        "Confirmar con el cliente el tipo de acabado original del baño (alicatado/escayola) para reposición exacta."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Desplazamiento urgente y diagnóstico",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida de urgencia no presente en catálogo base. Incluye desplazamiento inmediato y evaluación de daños."
+        },
+        {
+          "concepto": "Reparación de rotura de tubería multicapa",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida específica de reparación urgente con manguito. Basada en [reparacion_fuga_tuberia] de Base Maestra."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_fuga_tuberia",
+      "actuacion_de_urgencia_en_vivienda_o_local",
+      "instalacion_de_extintores_portatiles",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico",
+      "instalacion_suelo_radiante_hidraulico"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3912,
+      "tokens_out": 2721
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 7,
+    "n_catalogo": 0,
+    "n_sugeridas": 7,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

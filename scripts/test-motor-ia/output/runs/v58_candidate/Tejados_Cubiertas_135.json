@@ -1,0 +1,281 @@
+{
+  "id": 135,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Instalar sumideros sifónicos nuevos en terraza que se embasa de agua, problema de desagüe",
+  "http_status": 200,
+  "latency_ms": 26324,
+  "raw_response": {
+    "transcript": "Instalar sumideros sifónicos nuevos en terraza que se embasa de agua, problema de desagüe",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sumideros sifónicos nuevos en terraza que se embasa de agua, problema de desagüe",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Se requiere diagnóstico previo de la terraza (superficie, pendientes, número de sumideros necesarios, estado de la red de saneamiento existente)",
+          "CRÍTICO: Falta información sobre si hay bajantes existentes o si requieren acometida nueva",
+          "CRÍTICO: No se especifica tipo de sumidero (cazoleta plana, sumidero sifónico estándar, diámetro)",
+          "CRÍTICO: Posible necesidad de impermeabilización perimetral y refuerzo de pendientes",
+          "RECOMENDACIÓN: Incluir inspección previa con cámara endoscópica de red de saneamiento"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Sumideros en cubierta plana (terraza) con problema de drenaje. Oficio prioritario según REGLAS: tejados_cubiertas SIEMPRE para sumideros en cubierta, canalones, impermeabilización de cubierta."
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Refuerzo impermeabilización perimetral de sumideros y posible tratamiento de terraza embalsada. Oficio prioritario según REGLAS: impermeabilizacion SIEMPRE para humedades en cubierta, láminas impermeabilizantes, refuerzo perimetral."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Formación de pendientes hacia sumideros, mortero de agarre, pequeña obra civil si es necesario."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y diagnóstico previo de red de saneamiento",
+          "descripcion": "Inspección con cámara endoscópica de bajantes y red de saneamiento existente para determinar estado, obstrucciones y capacidad de drenaje. Incluye informe técnico.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de revisión. Servicio especializado de diagnóstico."
+        },
+        {
+          "concepto": "Desmontaje de sumideros o cazoletas existentes",
+          "descripcion": "Desmontaje cuidadoso de sumideros, cazoletas o rejillas existentes en terraza. Incluye desconexión de bajantes y limpieza de zona.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sumideros sifónicos nuevos con cazoleta",
+          "descripcion": "Suministro de sumideros sifónicos de nueva generación con cazoleta de diámetro 110-160mm según necesidad, con sifón integrado para evitar malos olores y reflujos. Cantidad: 2 unidades.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente. Material especializado. Revisor debe confirmar tipo, diámetro y cantidad según superficie de terraza."
+        },
+        {
+          "concepto": "Instalación de sumideros sifónicos",
+          "descripcion": "Instalación de 2 sumideros sifónicos en terraza. Incluye posicionamiento, fijación, conexión a bajantes existentes, mortero de agarre y sellado perimetral.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Refuerzo impermeabilización perimetral de sumideros",
+          "descripcion": "Aplicación de lámina impermeabilizante (EPDM, TPO o PVC) alrededor de cada sumidero (perímetro mínimo 50cm). Incluye preparación de superficie, adhesivo y sellado de juntas. Cantidad: 2 sumideros.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente. Material impermeabilizante. Revisor debe confirmar tipo de lámina y metraje según diámetro de sumideros."
+        },
+        {
+          "concepto": "Instalación refuerzo impermeabilización perimetral",
+          "descripcion": "Mano de obra para aplicación de lámina impermeabilizante alrededor de sumideros, incluyendo preparación de superficie, corte, adhesión y sellado de juntas.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Formación de pendientes hacia sumideros",
+          "descripcion": "Formación de pendientes mínimas (1.5-2%) en terraza hacia los sumideros mediante mortero de nivelación o lechada autonivelante. Superficie aproximada: 30-50 m2 según terraza.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente. Material de nivelación. Revisor debe confirmar superficie real de terraza y tipo de mortero."
+        },
+        {
+          "concepto": "Mano de obra formación de pendientes",
+          "descripcion": "Mano de obra para preparación de superficie, aplicación de mortero de nivelación y formación de pendientes hacia sumideros. Incluye alisado y acabado.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 40,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rejillas y sombreros guardahojas",
+          "descripcion": "Suministro de rejillas de protección y sombreros guardahojas para sumideros (2 unidades). Previene obstrucciones por hojas y residuos.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente. Accesorios de protección."
+        },
+        {
+          "concepto": "Instalación rejillas y sombreros",
+          "descripcion": "Instalación de rejillas y sombreros guardahojas en sumideros. Fijación segura.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba de funcionamiento y limpieza final",
+          "descripcion": "Prueba de drenaje de sumideros con agua, verificación de flujo hacia bajantes, limpieza de residuos y comprobación de ausencia de embalsamiento.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 825,
+        "iva_porcentaje": 21,
+        "iva": 173.25,
+        "total": 998.25
+      },
+      "sugerencias_catalogo": [
+        "Consultar en catálogo: [instalacion_de_sumidero_o_cazoleta_en_cubierta_plana] — partidas_obligatorias incluyen cazoleta, conexión a bajante, refuerzo impermeabilización perimetral, rejilla guardahojas.",
+        "Considerar acometida nueva a red de saneamiento si bajantes existentes están obstruidas o insuficientes (partida aparte).",
+        "Si terraza requiere impermeabilización completa (no solo perimetral), considerar proyecto de impermeabilización integral con lámina continua."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Inspección y diagnóstico previo de red de saneamiento",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio especializado no catalogado. Crítico para determinar capacidad de drenaje existente."
+        },
+        {
+          "concepto": "Sumideros sifónicos nuevos con cazoleta",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Material especializado. Precio pendiente de revisión según tipo y diámetro."
+        },
+        {
+          "concepto": "Refuerzo impermeabilización perimetral de sumideros",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material impermeabilizante. Precio pendiente según tipo de lámina (EPDM/TPO/PVC)."
+        },
+        {
+          "concepto": "Formación de pendientes hacia sumideros",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Material de nivelación. Precio pendiente según superficie real y tipo de mortero."
+        },
+        {
+          "concepto": "Rejillas y sombreros guardahojas",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Accesorios de protección. Precio pendiente."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "instalacion_de_sumidero_o_imbornal",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana",
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_electrica_pergola_terraza"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3893,
+      "tokens_out": 3932
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 6,
+    "n_sugeridas": 5,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

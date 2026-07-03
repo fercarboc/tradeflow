@@ -1,0 +1,198 @@
+{
+  "id": 64,
+  "oficio": "Pintura",
+  "texto": "Pintar la fachada exterior del edificio, 5 plantas, con pintura impermeabilizante",
+  "http_status": 200,
+  "latency_ms": 21766,
+  "raw_response": {
+    "transcript": "Pintar la fachada exterior del edificio, 5 plantas, con pintura impermeabilizante",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar la fachada exterior del edificio, 5 plantas, con pintura impermeabilizante",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Superficie total no especificada en m². Se requiere medición en obra para calcular cantidad exacta de pintura y mano de obra.",
+          "Altura de 5 plantas requiere andamio o plataforma elevadora. Costo de acceso debe confirmarse.",
+          "Pintura impermeabilizante sugiere problemas de humedad previos. Se recomienda inspección de grietas y desperfectos antes de presupuestar.",
+          "Permiso municipal probable si se ocupa vía pública con andamio."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Pintura impermeabilizante en fachada exterior → impermeabilizacion (no pintura). Según reglas de oficio, cualquier solución impermeabilizante en fachada/cubierta/sótano es impermeabilizacion, aunque sea pintura."
+        },
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Revestimiento exterior de edificio de 5 plantas. Incluye acceso con andamio/plataforma elevadora."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza previa fachada con agua a presión",
+          "descripcion": "Limpieza de la fachada exterior con agua a presión para eliminar suciedad, algas y depósitos antes de aplicar pintura impermeabilizante. Incluye protección de elementos adyacentes.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 3,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² de fachada no especificada. Instalador debe medir superficie neta en obra."
+        },
+        {
+          "concepto": "Reparación de grietas y desperfectos en fachada",
+          "descripcion": "Sellado y reparación de grietas, fisuras y desperfectos en la fachada con mortero de reparación o masilla elástica antes de impermeabilizar. Incluye pequeño material.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 5,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² y grado de deterioro no especificados. Requiere inspección en obra."
+        },
+        {
+          "concepto": "Imprimación consolidante y fijadora",
+          "descripcion": "Aplicación de imprimación consolidante en zonas porosas o con desprendimientos para fijar la superficie y mejorar adherencia de pintura impermeabilizante.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de litros depende de m² de fachada y porosidad del soporte. Instalador debe calcular según superficie real."
+        },
+        {
+          "concepto": "Pintura impermeabilizante exterior",
+          "descripcion": "Suministro e instalación de pintura impermeabilizante de alta calidad (acrílica, siloxano o poliuretano) con propiedades hidrofugantes. Incluye dos manos de aplicación con rodillo o brocha.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de litros depende de m² de fachada y rendimiento de pintura (6-8 m²/litro típico). Instalador debe especificar marca y rendimiento."
+        },
+        {
+          "concepto": "Mano de obra aplicación pintura impermeabilizante",
+          "descripcion": "Aplicación de pintura impermeabilizante en dos manos sobre fachada exterior de 5 plantas. Incluye preparación de superficies, enmascarado y limpieza final.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² de fachada no especificada. Tarifa incluye dos manos. Superficie real debe medirse en obra."
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora para acceso",
+          "descripcion": "Alquiler, montaje y desmontaje de andamio tubular o plataforma elevadora para acceso seguro a fachada de 5 plantas. Incluye protecciones de seguridad y redes de contención.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Costo de andamio depende de altura, duración de obra, tipo de andamio y disponibilidad en zona. Requiere presupuesto de empresa especializada."
+        },
+        {
+          "concepto": "Cinta carrocero, plásticos de protección y pequeño material",
+          "descripcion": "Suministro de cinta carrocero, plásticos de protección, trapos, brochas, rodillos y pequeño material consumible para la ejecución de trabajos de pintura.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada. Instalador ajusta según necesidades reales de obra."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar medición de superficie total de fachada (m²) para calcular cantidades exactas de pintura y mano de obra.",
+        "Especificar tipo de pintura impermeabilizante: acrílica, siloxano, poliuretano o elastomérica. Cada una tiene rendimiento y precio diferente.",
+        "Inspeccionar fachada para detectar grietas, humedades o desperfectos que requieran reparación previa.",
+        "Confirmar si se requiere permiso municipal para ocupación de vía pública con andamio.",
+        "Considerar si hay elementos a proteger (ventanas, puertas, elementos metálicos) que requieran enmascarado adicional.",
+        "Verificar condiciones climáticas: pintura impermeabilizante requiere temperaturas entre 5-30°C y humedad <85% para curado correcto."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pintura impermeabilizante exterior",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material específico no encontrado en catálogo base. Requiere especificación de marca, tipo (acrílica/siloxano/poliuretano) y rendimiento."
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora para acceso",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio de acceso para altura de 5 plantas. Costo variable según tipo de andamio, duración y disponibilidad local."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_chimenea_exterior",
+      "pintura_de_medianera_o_pared_ciega_exterior",
+      "pintado_de_fachada_de_ladrillo_visto",
+      "pintura_fachada_exterior_plastica_o_siloxano",
+      "pintado_de_muros_de_piedra_o_mamposteria_exterior"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3744,
+      "tokens_out": 2827
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "NO"
+  }
+}

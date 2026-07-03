@@ -1,0 +1,182 @@
+{
+  "id": 44,
+  "oficio": "Carpintería",
+  "texto": "Reparación de puerta de entrada que no cierra bien, se ha combado con la humedad",
+  "http_status": 200,
+  "latency_ms": 16180,
+  "raw_response": {
+    "transcript": "Reparación de puerta de entrada que no cierra bien, se ha combado con la humedad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación de puerta de entrada que no cierra bien, se ha combado con la humedad",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Puerta combada por humedad: evaluar si es reparable o requiere sustitución",
+          "Revisar causa raíz de humedad en marco/zona de entrada"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación de puerta de madera combada, ajuste de bisagras, posible cepillado/lijado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y evaluación de puerta combada",
+          "descripcion": "Inspección completa de la puerta, marco y bisagras. Evaluación del grado de combadura y viabilidad de reparación vs. sustitución. Identificación de causas de humedad.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ajuste y reapriete de bisagras",
+          "descripcion": "Reapriete de tornillos de bisagras, lubricación y ajuste de alineación. Corrección de desplomes leves causados por aflojamiento.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cepillado y lijado de cantos de puerta",
+          "descripcion": "Cepillado selectivo de cantos de puerta para eliminar combadura leve y permitir cierre correcto. Lijado posterior con lija 150-220 para acabado.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lubricación de bisagras y cerraduras",
+          "descripcion": "Aplicación de lubricante específico en bisagras y mecanismo de cierre. Eliminación de óxido si existe.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material lubricante: precio a definir por instalador (lubricante industrial, desoxidante)"
+        },
+        {
+          "concepto": "Pequeño material (tornillos, tacos, masilla)",
+          "descripcion": "Tornillos de bisagra de reemplazo si es necesario, tacos de expansión, masilla de madera para pequeños defectos.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: precio a definir por instalador"
+        },
+        {
+          "concepto": "Acabado: barniz o esmalte en zona cepillada",
+          "descripcion": "Aplicación de barniz exterior o esmalte de alta durabilidad en zonas cepilladas para protección contra humedad y UV.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 32,
+          "total": 32,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material: barniz/esmalte exterior protector",
+          "descripcion": "Barniz marino o esmalte exterior de alta durabilidad con filtro UV para protección de madera contra humedad.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Barniz/esmalte exterior: precio a definir por instalador según marca y calidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 234.5,
+        "iva_porcentaje": 21,
+        "iva": 49.25,
+        "total": 283.75
+      },
+      "sugerencias_catalogo": [
+        "Verificar en visita si la combadura es reparable (< 5mm) o si requiere sustitución de puerta completa",
+        "Investigar origen de humedad: goteras en marco, condensación, capilaridad del suelo. Recomendar solución de impermeabilización si es necesario",
+        "Si la puerta es muy antigua o la combadura es severa (> 10mm), considerar presupuesto de sustitución con puerta nueva exterior de madera o tecnológica"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lubricante industrial para bisagras",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "motivo": "Material consumible específico para mantenimiento de bisagras"
+        },
+        {
+          "concepto": "Barniz/esmalte exterior protector",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Protección de madera contra humedad y UV en zona reparada"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_control_acceso_rfid",
+      "reparacion_o_ajuste_de_puerta_que_no_cierra_bien",
+      "fabricacion_e_instalacion_puerta_exterior_madera",
+      "pintado_de_puerta_de_entrada_o_exterior_madera",
+      "instalacion_toldo_de_pared_o_marquesina_fija"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3871,
+      "tokens_out": 2250
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

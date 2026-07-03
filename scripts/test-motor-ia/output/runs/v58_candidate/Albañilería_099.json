@@ -1,0 +1,215 @@
+{
+  "id": 99,
+  "oficio": "Albañilería",
+  "texto": "Reparar balcón con baldosas sueltas, inyección de resina y sellado de juntas perimetrales",
+  "http_status": 200,
+  "latency_ms": 18889,
+  "raw_response": {
+    "transcript": "Reparar balcón con baldosas sueltas, inyección de resina y sellado de juntas perimetrales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar balcón con baldosas sueltas, inyección de resina y sellado de juntas perimetrales",
+        "tipo_presupuesto": "reparacion",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume balcón de tamaño medio (~15-20 m²). Confirmar superficie exacta.",
+          "Inyección de resina requiere diagnóstico previo de humedades/despegues.",
+          "Sellado perimetral es crítico para evitar filtraciones futuras."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Reparación de baldosas sueltas, inyección y rejuntado en balcón"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Sellado de juntas perimetrales para evitar filtraciones de agua"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Levantamiento y retirada de baldosas sueltas",
+          "descripcion": "Desmontaje cuidadoso de baldosas despegadas, retirada de mortero antiguo y limpieza de base",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 28,
+          "total": 504,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inyección de resina epoxi en base de balcón",
+          "descripcion": "Inyección de resina de dos componentes para consolidar base, rellenar huecos y mejorar adherencia. Incluye material y aplicación",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de resina epoxi y aplicación pendiente de confirmación del instalador (típicamente 15-35€/m²)"
+        },
+        {
+          "concepto": "Colocación de baldosas reparadas y nuevas",
+          "descripcion": "Recolocación de baldosas existentes y suministro/colocación de baldosas nuevas para completar superficie. Adhesivo cementoso flexible",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 32,
+          "total": 576,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de baldosas de reposición",
+          "descripcion": "Baldosas de cerámica/porcelánico para reposición (cantidad estimada 3-5 m²). Precio unitario a confirmar según tipo y origen",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de baldosas variable según calidad y tipo (8-40€/m²). Confirmar especificación con cliente"
+        },
+        {
+          "concepto": "Rejuntado de baldosas con mortero flexible",
+          "descripcion": "Rejuntado completo de superficie reparada con mortero cementoso flexible, apto para balcones con movimiento",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 32,
+          "total": 576,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado de juntas perimetrales con silicona estructural",
+          "descripcion": "Sellado de encuentro balcón-fachada y perímetro con silicona de buena calidad (gris o blanco), incluye limpieza previa, fondo de junta y aplicación",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 45,
+          "total": 1125,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de silicona estructural y fondo de junta",
+          "descripcion": "Silicona poliuretano o acrílica de exterior, fondo de junta espuma polietileno para juntas perimetrales",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible: silicona (~3-8€/cartucho) y fondo de junta (~0.5-1.5€/ml). Confirmar cantidad exacta"
+        },
+        {
+          "concepto": "Limpieza final y protección de balcón",
+          "descripcion": "Limpieza exhaustiva de polvo, restos de mortero y residuos. Protección temporal si es necesario",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 32,
+          "total": 96,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2877,
+        "iva_porcentaje": 21,
+        "iva": 604.17,
+        "total": 3481.17
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si las baldosas existentes son recuperables o requieren sustitución total",
+        "Especificar tipo de resina epoxi (bicomponente, inyectable, con o sin carga)",
+        "Definir color y tipo de silicona (gris, blanco, transparente; poliuretano vs. acrílica)",
+        "Considerar si el balcón tiene problemas de humedad estructural que requieran drenaje adicional"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Inyección de resina epoxi en base de balcón",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Técnica especializada de consolidación; precio variable según volumen y tipo de resina"
+        },
+        {
+          "concepto": "Suministro de baldosas de reposición",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Material variable; requiere especificación de tipo, formato y cantidad exacta"
+        },
+        {
+          "concepto": "Suministro de silicona estructural y fondo de junta",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material consumible; precio depende de marca y cantidad final"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "reparacion_de_embocadura_de_bajante_en_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "imprimacion_especial_sobre_yeso_nuevo",
+      "remate_y_acabado_juntas_pladur_para_pintar"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3786,
+      "tokens_out": 2666
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 5,
+    "n_sugeridas": 3,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "id": 56,
+  "oficio": "Carpintería",
+  "texto": "Montaje de pérgola de madera en terraza de 4x3 metros con vigas y postes de pino tratado",
+  "http_status": 200,
+  "latency_ms": 13157,
+  "raw_response": {
+    "transcript": "Montaje de pérgola de madera en terraza de 4x3 metros con vigas y postes de pino tratado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Montaje de pérgola de madera en terraza de 4x3 metros con vigas y postes de pino tratado",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si la terraza requiere licencia municipal para instalación de pérgola",
+          "Confirmar clase de tratamiento de la madera (mínimo clase 4 para exterior)",
+          "Revisar carga de viento y nieve según zona geográfica"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Fabricación e instalación de estructura de madera (vigas, postes, uniones)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vigas y pilares de pino tratado clase 4",
+          "descripcion": "Suministro de vigas y postes de pino tratado clase 4 para pérgola 4x3m. Incluye cortes y preparación",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a precio de mercado. Instalador debe confirmar cantidad exacta de madera y proveedor"
+        },
+        {
+          "concepto": "Uniones metálicas inoxidables o galvanizadas",
+          "descripcion": "Suministro de herrajes, escuadras, pernos y uniones metálicas inox/galvanizadas para estructura",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Herrajes a precio de mercado según especificación técnica"
+        },
+        {
+          "concepto": "Fijación de pilares a suelo con platinas o empotramiento",
+          "descripcion": "Instalación de platinas de anclaje o empotramiento de postes en terraza. Incluye taladrado y fijación",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Montaje de estructura: vigas, travesaños y uniones",
+          "descripcion": "Ensamblaje y fijación de vigas principales, travesaños y uniones metálicas. Incluye nivelación y aplomado",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento antioxido de herrajes",
+          "descripcion": "Aplicación de tratamiento protector en uniones metálicas para evitar oxidación",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabado con lasur o aceite exterior",
+          "descripcion": "Aplicación de lasur o aceite protector en toda la estructura de madera para protección UV y humedad",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Tornillos inox, tacos, silicona, masilla, lijas, trapos y otros consumibles de montaje",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles a presupuestar según cantidad real"
+        }
+      ],
+      "calculos": {
+        "subtotal": 720,
+        "iva_porcentaje": 21,
+        "iva": 151.2,
+        "total": 871.2
+      },
+      "sugerencias_catalogo": [
+        "Consultar con cliente si desea cubierta adicional (tela, policarbonato o lamas retráctiles)",
+        "Considerar iluminación integrada en la estructura si se solicita",
+        "Verificar si se requiere proyecto técnico o licencia municipal según normativa local",
+        "Recomendar mantenimiento anual con aceite o lasur para prolongar vida útil de la madera"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vigas y pilares de pino tratado clase 4",
+          "oficio": "carpinteria",
+          "motivo": "Material específico a presupuestar según cantidad exacta de madera"
+        },
+        {
+          "concepto": "Uniones metálicas inoxidables o galvanizadas",
+          "oficio": "carpinteria",
+          "motivo": "Herrajes específicos según cálculo estructural"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "carpinteria",
+          "motivo": "Consumibles de montaje a presupuestar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_tarima_exterior_madera_o_composite",
+      "instalacion_ventana_madera_con_vidrio",
+      "instalacion_tarima_exterior_madera_tratada_o_composite",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4024,
+      "tokens_out": 1859
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

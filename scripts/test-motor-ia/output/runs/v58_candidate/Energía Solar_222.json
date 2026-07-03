@@ -1,0 +1,52 @@
+{
+  "id": 222,
+  "oficio": "Energía Solar",
+  "texto": "Presupuesto para instalación solar con baterías de litio para desconectarse de la red eléctrica",
+  "http_status": 200,
+  "latency_ms": 29759,
+  "raw_response": {
+    "transcript": "Presupuesto para instalación solar con baterías de litio para desconectarse de la red eléctrica",
+    "quote": {
+      "resumen": {
+        "texto_original": "",
+        "tipo_presupuesto": "",
+        "requiere_revision_general": true,
+        "alertas": [
+          "No se pudo interpretar el dictado"
+        ]
+      },
+      "oficios_detectados": [],
+      "partidas": [],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_baterias_de_almacenamiento_solar",
+      "informe_y_presupuesto_sistema_solar",
+      "diagnostico_y_presupuesto_proteccion_solar_edificio",
+      "instalacion_sistema_fotovoltaico_con_baterias_hibrido",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "max_tokens",
+      "tokens_in": 4068,
+      "tokens_out": 4096
+    }
+  },
+  "classification": {
+    "category": "VACIO",
+    "n_partidas": 0,
+    "n_catalogo": 0,
+    "n_sugeridas": 0,
+    "oficio_detectado": "",
+    "coincide_oficio": "NO"
+  }
+}

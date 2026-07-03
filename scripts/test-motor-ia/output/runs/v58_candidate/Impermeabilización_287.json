@@ -1,0 +1,249 @@
+{
+  "id": 287,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar balcón con baldosas flotadas que filtran agua al piso inferior, rejuntado y sellado",
+  "http_status": 200,
+  "latency_ms": 28646,
+  "raw_response": {
+    "transcript": "Impermeabilizar balcón con baldosas flotadas que filtran agua al piso inferior, rejuntado y sellado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar balcón con baldosas flotadas que filtran agua al piso inferior, rejuntado y sellado",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Balcón con filtración activa: requiere diagnóstico previo de causa (grietas, juntas rotas, pendiente insuficiente)",
+          "Baldosas flotadas sin impermeabilización previa: riesgo de filtraciones recurrentes si no se sella correctamente la base",
+          "Rejuntado y sellado son críticos: usar productos flexibles y de calidad exterior"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Trabajo de impermeabilización de balcón con filtración activa. Oficio prioritario según reglas: impermeabilizacion → SIEMPRE para humedades en cubierta/terraza, láminas impermeabilizantes, sellado flexible, drenaje de humedad."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Rejuntado y colocación de baldosas flotadas. Oficio secundario para acabado final."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado y desmontaje de baldosas flotadas",
+          "descripcion": "Retirada completa de baldosas flotadas del balcón, limpieza de mortero y residuos. Acopio y gestión de escombros.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 del balcón no especificada. Instalador debe indicar superficie. Tarifa estimada 15-20€/m2 mano de obra."
+        },
+        {
+          "concepto": "Limpieza, imprimación y preparación de base",
+          "descripcion": "Limpieza profunda de la base del balcón, eliminación de polvo y residuos. Aplicación de imprimación consolidante para mejorar adherencia de impermeabilizante.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada. Tarifa estimada 12-18€/m2."
+        },
+        {
+          "concepto": "Membrana impermeabilizante líquida o lámina elastomérica",
+          "descripcion": "Aplicación de membrana impermeabilizante de poliuretano o acrílica elastomérica de 2-3 mm de espesor, con refuerzo en juntas y encuentros. Cubre toda la superficie del balcón incluyendo encuentro con fachada.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material y cantidad de m2 pendiente. Precio estimado 25-60€/m2 según tipo (poliuretano 2K, acrílica, lámina TPO). Instalador especifica producto."
+        },
+        {
+          "concepto": "Aplicación de membrana impermeabilizante (mano de obra)",
+          "descripcion": "Mano de obra para aplicación de membrana impermeabilizante: rodillo, brocha, pistola baja presión. Incluye dos manos si es necesario. Sellado de juntas y encuentros con banda de refuerzo.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada. Tarifa: 45€/m2 (según tabla impermeabilizacion). Rendimiento típico: 1-2 manos en 4-6 horas/100m2."
+        },
+        {
+          "concepto": "Corrección de pendiente y drenaje",
+          "descripcion": "Verificación y corrección de pendiente mínima 2-3% hacia desagüe o sumidero. Instalación de canaleta o sistema de drenaje perimetral si es necesario para evitar encharcamientos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Trabajo auxiliar crítico. Precio estimado 150-300€ según complejidad. Instalador valora si es necesario."
+        },
+        {
+          "concepto": "Colocación de baldosas flotadas con adhesivo flexible",
+          "descripcion": "Colocación de baldosas sobre membrana impermeabilizante usando adhesivo flexible de dos componentes (poliuretano o cementoso flexible). Sistema flotante sin mortero de base.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada. Tarifa: 32€/m2 (según tabla suelos_alicatados). Incluye colocación con adhesivo flexible."
+        },
+        {
+          "concepto": "Adhesivo flexible para baldosas",
+          "descripcion": "Adhesivo de dos componentes (poliuretano o cementoso flexible) para colocación de baldosas sobre membrana impermeabilizante. Cantidad según m2 a cubrir.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada. Rendimiento típico: 3-5 kg/m2. Precio estimado 8-15€/kg."
+        },
+        {
+          "concepto": "Rejuntado con mortero flexible de calidad exterior",
+          "descripcion": "Rejuntado de juntas entre baldosas usando mortero flexible (poliuretano, silicona o cementoso flexible) de calidad exterior. Ancho de junta típico 3-5 mm. Incluye limpieza de juntas.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada. Tarifa: 32€/m2 (según tabla suelos_alicatados). Incluye rejuntado y limpieza."
+        },
+        {
+          "concepto": "Mortero de rejunta flexible",
+          "descripcion": "Mortero flexible (poliuretano, silicona o cementoso flexible) para rejuntado de baldosas. Producto de calidad exterior con resistencia a movimientos y flexibilidad.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada. Rendimiento típico: 1-2 kg/m2 según ancho de junta. Precio estimado 6-12€/kg."
+        },
+        {
+          "concepto": "Sellado de encuentros y juntas perimetrales",
+          "descripcion": "Sellado flexible con silicona o poliuretano de encuentro entre baldosas y fachada, barandilla y otros elementos. Incluye limpieza previa y aplicación con pistola.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perímetro del balcón no especificado. Tarifa estimada 15-25€/ml. Instalador mide perímetro."
+        },
+        {
+          "concepto": "Sellador flexible (silicona o poliuretano)",
+          "descripcion": "Cartucho de sellador flexible de calidad exterior (silicona o poliuretano) para juntas perimetrales y encuentros. Resistencia a UV y movimientos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "cartucho",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de cartuchos no especificada. Rendimiento: 1 cartucho ≈ 10-15 ml. Precio estimado 4-8€/cartucho."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Buscar en catálogo: 'impermeabilizacion_de_balcon_o_terraza' — si existe, usar como referencia de precio alzado",
+        "Buscar: 'membrana_impermeabilizante_poliuretano' o 'lamina_impermeabilizante_elastomerica' — para material",
+        "Buscar: 'rejuntado_baldosas_exterior' — para rejunta flexible",
+        "Buscar: 'sellado_juntas_perimetrales_exterior' — para encuentros"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Corrección de pendiente y drenaje en balcón",
+          "oficio": "impermeabilizacion",
+          "motivo": "Trabajo auxiliar crítico para evitar filtraciones recurrentes. No encontrado en catálogo base."
+        },
+        {
+          "concepto": "Membrana impermeabilizante líquida o lámina elastomérica",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material específico para impermeabilización de balcón. Requiere especificación de tipo y marca por instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_alfeizar_o_vierteaguas",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "impermeabilizacion_de_encuentro_fachada_cubierta"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3892,
+      "tokens_out": 4076
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 3,
+    "n_sugeridas": 8,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

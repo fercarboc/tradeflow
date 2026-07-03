@@ -1,0 +1,189 @@
+{
+  "id": 280,
+  "oficio": "Cristalería",
+  "texto": "Cambio de parabrisas de vehículo industrial de empresa, logotipo adhesivo incluido",
+  "http_status": 200,
+  "latency_ms": 18509,
+  "raw_response": {
+    "transcript": "Cambio de parabrisas de vehículo industrial de empresa, logotipo adhesivo incluido",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de parabrisas de vehículo industrial de empresa, logotipo adhesivo incluido",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye material (parabrisas + adhesivo logotipo) y mano de obra de instalación",
+          "Precio del parabrisas específico debe confirmarse según modelo/marca vehículo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mecanica",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Cambio de parabrisas es trabajo de mecánica/cristalería de vehículos. Se clasifica en mecanica por ser vehículo industrial."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje parabrisas antiguo",
+          "descripcion": "Desmontaje cuidadoso del parabrisas existente, limpieza de restos de adhesivo y preparación del marco",
+          "oficio": "mecanica",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.75,
+          "precio_unitario": 55,
+          "total": 41.25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Parabrisas industrial templado/laminado",
+          "descripcion": "Suministro de parabrisas nuevo templado o laminado según especificaciones del vehículo industrial, con tratamiento anti-UV si aplica",
+          "oficio": "mecanica",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del parabrisas específico según marca, modelo y tipo de vehículo industrial. Rango típico: 150-600€"
+        },
+        {
+          "concepto": "Adhesivo estructural para parabrisas",
+          "descripcion": "Adhesivo poliuretano o silicona estructural de alta resistencia para fijación del parabrisas al marco",
+          "oficio": "mecanica",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del adhesivo estructural. Rango típico: 15-40€"
+        },
+        {
+          "concepto": "Instalación parabrisas nuevo",
+          "descripcion": "Colocación del parabrisas nuevo con adhesivo estructural, alineación correcta, presión uniforme y tiempo de curado",
+          "oficio": "mecanica",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 55,
+          "total": 82.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Logotipo adhesivo empresa",
+          "descripcion": "Suministro e instalación de logotipo adhesivo de empresa en parabrisas (vinilo de alta calidad, resistente a UV y climatología)",
+          "oficio": "mecanica",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del vinilo adhesivo logotipo según tamaño y complejidad. Rango típico: 20-80€"
+        },
+        {
+          "concepto": "Aplicación logotipo adhesivo",
+          "descripcion": "Colocación precisa del logotipo adhesivo en parabrisas, alineación, presión y eliminación de burbujas de aire",
+          "oficio": "mecanica",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 55,
+          "total": 27.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas y verificación final",
+          "descripcion": "Verificación de estanqueidad, resistencia de fijación, limpieza final y prueba de funcionamiento de limpiaparabrisas",
+          "oficio": "mecanica",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.25,
+          "precio_unitario": 55,
+          "total": 13.75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 164.75,
+        "iva_porcentaje": 21,
+        "iva": 34.6,
+        "total": 199.35
+      },
+      "sugerencias_catalogo": [
+        "Confirmar marca, modelo y año del vehículo industrial para obtener precio exacto del parabrisas",
+        "Especificar tipo de parabrisas: templado (estándar) o laminado (mayor seguridad)",
+        "Definir tamaño y diseño del logotipo adhesivo para presupuestar vinilo",
+        "Considerar si requiere tratamiento especial (tintado, privacidad, etc.)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Parabrisas industrial templado/laminado",
+          "oficio": "mecanica",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según vehículo - requiere datos del cliente"
+        },
+        {
+          "concepto": "Adhesivo estructural para parabrisas",
+          "oficio": "mecanica",
+          "origen": "sugerida_ia",
+          "motivo": "Material consumible - precio variable según marca"
+        },
+        {
+          "concepto": "Logotipo adhesivo empresa",
+          "oficio": "mecanica",
+          "origen": "sugerida_ia",
+          "motivo": "Material personalizado - requiere especificaciones del cliente"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_puerta_enrollable_rapida_industrial",
+      "instalacion_pasarela_o_plataforma_metalica_de_acceso",
+      "cambio_inodoro",
+      "instalacion_pavimento_de_resina_epoxi_en_garaje_o_industrial",
+      "instalacion_de_mosquitera_metalica_en_ventana_o_puerta"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3873,
+      "tokens_out": 1944
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "mecanica",
+    "coincide_oficio": "NO"
+  }
+}

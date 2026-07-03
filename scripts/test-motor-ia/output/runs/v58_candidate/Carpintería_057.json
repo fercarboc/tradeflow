@@ -1,0 +1,182 @@
+{
+  "id": 57,
+  "oficio": "Carpintería",
+  "texto": "Cambio de marco de puerta exterior que está podrido por la lluvia, madera de iroko",
+  "http_status": 200,
+  "latency_ms": 17964,
+  "raw_response": {
+    "transcript": "Cambio de marco de puerta exterior que está podrido por la lluvia, madera de iroko",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de marco de puerta exterior que está podrido por la lluvia, madera de iroko",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Deterioro por humedad detectado: verificar causa raíz (canalones, pendiente, sellados)",
+          "Madera de iroko: material de alta durabilidad, precio superior a madera estándar",
+          "Sustitución completa de marco: incluye desmontaje, suministro y instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Sustitución de marco de puerta exterior en madera"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Diagnóstico y reparación de marco deteriorado por humedad"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y desmontaje de marco de puerta exterior deteriorado",
+          "descripcion": "Inspección de causa de deterioro (humedad, falta de mantenimiento), desmontaje cuidadoso del marco podrido, retirada de herrajes y accesorios reutilizables",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de marco de puerta exterior madera de iroko",
+          "descripcion": "Marco exterior de puerta en madera de iroko maciza, con junta de estanqueidad integrada, tratamiento preservante contra humedad y UV, dimensiones según hueco existente",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de marco de iroko variable según dimensiones y proveedor (rango estimado 400-900€). Instalador debe confirmar medidas exactas del hueco y cotizar con proveedores"
+        },
+        {
+          "concepto": "Instalación de marco de puerta exterior con fijación y aplomado",
+          "descripcion": "Colocación del nuevo marco en hueco, fijación con tornillos inox y tacos, aplomado y nivelación, sellado perimetral con silicona de poliuretano exterior, instalación de umbral con goma de estanqueidad",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de herrajes y accesorios de fijación",
+          "descripcion": "Bisagras inox (mínimo 3 ud), tornillos inox A4, tacos de fijación, silicona de poliuretano exterior, goma de estanqueidad para umbral, pequeño material",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de herrajes y accesorios variable (rango estimado 80-150€). Instalador debe cotizar según especificaciones finales"
+        },
+        {
+          "concepto": "Tratamiento preservante y acabado exterior del marco",
+          "descripcion": "Aplicación de tratamiento preservante contra humedad y hongos, acabado con barniz marino o esmalte exterior con filtro UV (2 manos), protección de madera de iroko",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 32,
+          "total": 64,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de productos de acabado exterior",
+          "descripcion": "Barniz marino o esmalte exterior con filtro UV, tratamiento preservante contra humedad, disolvente, materiales de aplicación (pinceles, lijas 150-220)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de productos de acabado variable (rango estimado 60-120€). Instalador debe cotizar según marca y cantidad necesaria"
+        }
+      ],
+      "calculos": {
+        "subtotal": 319,
+        "iva_porcentaje": 21,
+        "iva": 67,
+        "total": 386
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'reparacion_de_marco_de_ventana_o_premarco_deteriorado' (cristaleria) — aplicable a marcos de puerta con adaptaciones",
+        "Considerar: 'fabricacion_e_instalacion_puerta_exterior_madera' si se requiere también sustitución de hoja de puerta"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de marco de puerta exterior madera de iroko",
+          "razon": "Material específico no en catálogo base; precio variable según dimensiones y proveedor",
+          "tarifa_sugerida": "400-900€ (a confirmar por instalador)"
+        },
+        {
+          "concepto": "Suministro de herrajes y accesorios de fijación",
+          "razon": "Accesorios específicos para marco exterior; precio variable según especificaciones",
+          "tarifa_sugerida": "80-150€ (a confirmar por instalador)"
+        },
+        {
+          "concepto": "Suministro de productos de acabado exterior",
+          "razon": "Productos de protección y acabado para madera de iroko; precio variable según marca",
+          "tarifa_sugerida": "60-120€ (a confirmar por instalador)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_marco_de_ventana_o_premarco_deteriorado",
+      "pintado_de_ventanas_de_madera_exterior",
+      "fabricacion_e_instalacion_puerta_exterior_madera",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "pintado_de_puerta_de_entrada_o_exterior_madera"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3876,
+      "tokens_out": 2358
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

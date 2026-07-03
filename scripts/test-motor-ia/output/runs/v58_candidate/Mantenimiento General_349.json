@@ -1,0 +1,177 @@
+{
+  "id": 349,
+  "oficio": "Mantenimiento General",
+  "texto": "Cambiar cerradura de portal que está averiada y revisar timbre y portero automático",
+  "http_status": 200,
+  "latency_ms": 11405,
+  "raw_response": {
+    "transcript": "Cambiar cerradura de portal que está averiada y revisar timbre y portero automático",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambiar cerradura de portal que está averiada y revisar timbre y portero automático",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Revisión de timbre y portero automático: precio de materiales pendiente de confirmación según diagnóstico"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Cambio de cerradura de portal (elemento metálico, acceso)"
+        },
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Revisión y reparación de timbre y portero automático (sistemas de comunicación)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje cerradura averiada",
+          "descripcion": "Desmontaje y extracción de cerradura de portal dañada",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cerradura de portal nueva",
+          "descripcion": "Suministro de cerradura de seguridad para portal (cilindro, cerradero, accesorios)",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo de cerradura (estándar, de seguridad, con cilindro de perfil europeo, etc.)"
+        },
+        {
+          "concepto": "Instalación cerradura nueva",
+          "descripcion": "Instalación, ajuste y prueba de funcionamiento de cerradura nueva en portal",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión timbre y portero automático",
+          "descripcion": "Diagnóstico, revisión funcional y reparación de timbre y portero automático (limpieza contactos, ajuste conexiones, prueba de funcionamiento)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales reparación timbre/portero",
+          "descripcion": "Pequeño material, piezas de reposición o componentes necesarios para reparación (relés, contactos, cables, etc.)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del diagnóstico: puede no requerir materiales (solo ajuste) o necesitar piezas de reposición"
+        },
+        {
+          "concepto": "Pequeño material cerrajería",
+          "descripcion": "Tornillería, tuercas, arandelas, lubricante y otros accesorios para instalación cerradura",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 15,
+          "total": 15,
+          "precio_origen": "estimado",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 210,
+        "iva_porcentaje": 21,
+        "iva": 44.1,
+        "total": 254.1
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de cerradura requerida: estándar (80-150€), seguridad reforzada (150-300€), o con cilindro de perfil europeo (120-250€)",
+        "Diagnóstico de portero automático: verificar si es reparable o requiere sustitución completa",
+        "Solicitar al cliente llaves de repuesto si la cerradura nueva no las incluye"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cerradura de portal nueva",
+          "oficio": "cerrajeria",
+          "motivo": "Material específico cuyo precio depende de especificaciones técnicas"
+        },
+        {
+          "concepto": "Materiales reparación timbre/portero",
+          "oficio": "telecomunicaciones",
+          "motivo": "Componentes de reposición cuya necesidad depende del diagnóstico"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_o_revision_de_detector_de_humos",
+      "sustitucion_llave_paso",
+      "instalacion_llave_escuadra",
+      "sustitucion_tuberia_multicapa",
+      "cambio_de_valvula_termostatica_de_radiador"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3470,
+      "tokens_out": 1689
+    }
+  },
+  "classification": {
+    "category": "PRECIO_INVALIDO",
+    "n_partidas": 6,
+    "n_catalogo": 6,
+    "n_sugeridas": 0,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "NO",
+    "error_detalle": "Partida de catálogo con precio 0 o nulo"
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "id": 82,
+  "oficio": "Albañilería",
+  "texto": "Hacer una rozas en la pared para pasar tuberías nuevas de fontanería y tapar después",
+  "http_status": 200,
+  "latency_ms": 15303,
+  "raw_response": {
+    "transcript": "Hacer una rozas en la pared para pasar tuberías nuevas de fontanería y tapar después",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer una rozas en la pared para pasar tuberías nuevas de fontanería y tapar después",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se requiere especificar: longitud total de rozas (ml), altura de la pared, tipo de soporte (ladrillo, hormigón, piedra), diámetro de tuberías a pasar"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Apertura, cierre y acabado de rozas en paredes para instalaciones de fontanería"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Apertura de rozas en pared para tuberías fontanería",
+          "descripcion": "Apertura de rozas horizontales y/o verticales en pared con rozadora o buril para paso de tuberías de fontanería. Incluye soplado y limpieza de polvo. Medida aproximada: se requiere especificar longitud total en ml.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml no especificada por el cliente. Instalador debe medir y confirmar longitud total de rozas."
+        },
+        {
+          "concepto": "Cierre y acabado de rozas con mortero/yeso",
+          "descripcion": "Cierre de rozas con mortero de cemento o yeso según tipo de soporte. Incluye enrasado, pequeño material y acabado liso para posterior pintura.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de cierre (mortero/yeso) y cantidad dependiente de longitud de rozas. Instalador debe especificar cantidad y tipo de material."
+        },
+        {
+          "concepto": "Tubo corrugado de protección para tuberías",
+          "descripcion": "Suministro e instalación de tubo corrugado de protección para tuberías de fontanería dentro de las rozas. Diámetro según tuberías a instalar.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y diámetro de tubo corrugado no especificados. Depende de longitud de rozas y diámetro de tuberías."
+        },
+        {
+          "concepto": "Malla de fibra de vidrio para refuerzo de rozas",
+          "descripcion": "Colocación de malla de fibra de vidrio en rozas de ancho superior a 3 cm para refuerzo y evitar fisuras en el cierre.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Aplicable solo si rozas de ancho > 3 cm. Cantidad dependiente de longitud total."
+        },
+        {
+          "concepto": "Limpieza y soplado de rozas",
+          "descripcion": "Limpieza exhaustiva de polvo y escombros de las rozas abiertas antes del cierre. Incluye soplado con compresor.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml no especificada. Depende de longitud total de rozas."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Tornillería, tacos, clavos, cintas, masilla de ajuste y otros consumibles necesarios para la ejecución completa de rozas y cierre.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe a determinar según alcance final de la obra. Estimado 5-15% del total de mano de obra."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Referencia: [apertura_y_cierre_de_rozas_para_instalaciones] — rango 25-130€/ml según complejidad, tipo de soporte y acabado.",
+        "Especificar: longitud total (ml), altura de pared, tipo de soporte (ladrillo, hormigón, piedra), diámetro de tuberías, si hay refuerzo estructural."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "apertura_y_cierre_de_rozas_para_instalaciones",
+      "apertura_hueco_en_muro_para_puerta_o_ventana",
+      "reparacion_de_grietas_o_fisuras_puntuales_en_paredes",
+      "reparacion_fisura_o_grieta_en_muro_o_tabique",
+      "tabique_pladur_sencillo_72mm"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3904,
+      "tokens_out": 2053
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

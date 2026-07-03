@@ -1,0 +1,183 @@
+{
+  "id": 247,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar antena parabólica para recepción de señal de satélite con dos salidas",
+  "http_status": 200,
+  "latency_ms": 16912,
+  "raw_response": {
+    "transcript": "Instalar antena parabólica para recepción de señal de satélite con dos salidas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar antena parabólica para recepción de señal de satélite con dos salidas",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye instalación de antena parabólica satelital con distribución a 2 puntos de recepción",
+          "Se asume instalación en cubierta/fachada con acceso seguro",
+          "Requiere verificación de orientación y alineación según ubicación geográfica"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de antena parabólica satelital, cableado de distribución y tomas de usuario"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Antena parabólica satelital",
+          "descripcion": "Suministro e instalación de antena parabólica de recepción satelital (diámetro 60-80cm según zona de cobertura), soporte de acero galvanizado, LNB (cabezal receptor) de banda Ku, herrajes de fijación y pequeño material",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de antena parabólica y LNB pendiente de cotización según marca y especificaciones técnicas (rango estimado 150-400€)"
+        },
+        {
+          "concepto": "Instalación de antena parabólica",
+          "descripcion": "Mano de obra para instalación de antena parabólica: montaje de soporte, fijación a estructura, orientación y alineación de antena según coordenadas geográficas, conexión de LNB, pruebas de señal y nivel de recepción",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cable coaxial 75 ohmios para distribución satelital",
+          "descripcion": "Suministro de cable coaxial de 75 ohmios de calidad para distribución de señal satelital desde antena parabólica a 2 salidas de usuario, con conectores F macho/hembra de latón, longitud estimada 30-40 metros según trazado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 35,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cable coaxial y conectores pendiente de cotización (rango estimado 1,5-3€/ml + conectores 2-5€/ud)"
+        },
+        {
+          "concepto": "Derivador/splitter de 2 salidas para señal satelital",
+          "descripcion": "Suministro e instalación de derivador pasivo de 2 salidas (splitter 1x2) para distribución de señal satelital, con pérdida mínima de señal, conectores F, pequeño material",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de splitter satelital pendiente de cotización (rango estimado 15-40€)"
+        },
+        {
+          "concepto": "Tomas de usuario satelital",
+          "descripcion": "Suministro e instalación de 2 tomas de usuario (conectores F hembra de pared) para recepción de señal satelital, cajas de derivación, pequeño material y tornillería",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tomas de usuario pendiente de cotización (rango estimado 8-20€/ud)"
+        },
+        {
+          "concepto": "Instalación de red de distribución satelital",
+          "descripcion": "Mano de obra para tendido de cable coaxial, instalación de derivador, conexión de tomas de usuario, fijación de cable a estructura, pruebas de continuidad y nivel de señal en cada toma",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Bridas, tacos de fijación, silicona neutra, cinta aislante, pasta térmica para conectores, etiquetado de instalación y documentación técnica",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material pendiente de cotización (rango estimado 20-50€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 250,
+        "iva_porcentaje": 21,
+        "iva": 52.5,
+        "total": 302.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_antena_satelite_si_incluido' como partida auxiliar de sistemas de telecomunicaciones",
+        "Considerar si la instalación requiere puesta a tierra de la antena parabólica (protección contra rayos) — partida adicional de puesta a tierra",
+        "Si la ubicación es en zona de vientos fuertes, considerar refuerzo estructural del soporte"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Antena parabólica satelital con LNB",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "motivo": "Elemento específico de instalación satelital, no encontrado en catálogo base. Requiere cotización de proveedor"
+        },
+        {
+          "concepto": "Derivador/splitter de 2 salidas para señal satelital",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "motivo": "Componente de distribución específico para sistemas satelitales, requiere cotización"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_antena_colectiva_TDT_en_edificio",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_energia_solar_para_caravana_o_autocaravana",
+      "instalacion_de_extintores_portatiles",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4001,
+      "tokens_out": 2159
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "id": 85,
+  "oficio": "Albañilería",
+  "texto": "Alicatar el baño completo con azulejos nuevos, superficie 25 metros cuadrados de paredes y suelo",
+  "http_status": 200,
+  "latency_ms": 17056,
+  "raw_response": {
+    "transcript": "Alicatar el baño completo con azulejos nuevos, superficie 25 metros cuadrados de paredes y suelo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Alicatar el baño completo con azulejos nuevos, superficie 25 metros cuadrados de paredes y suelo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume distribución equilibrada paredes/suelo. Confirmar desglose real (ej: 15m² paredes + 10m² suelo)",
+          "Zona ducha requiere impermeabilización previa obligatoria",
+          "Suelo debe ser antideslizante R11 mínimo en baño"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 95
+          },
+          "motivo": "Alicatado completo baño (paredes y suelo). Oficio suelos_alicatados cubre alicatado integral de baños."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Impermeabilización zona ducha y bañera",
+          "descripcion": "Aplicación de membrana impermeabilizante en zona de ducha/bañera antes del alicatado. Incluye preparación de superficie y sellado de juntas.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material impermeabilizante: instalador debe especificar tipo (EPDM, PVC, pintura impermeabilizante) y precio"
+        },
+        {
+          "concepto": "Azulejo/cerámica pared baño",
+          "descripcion": "Suministro de azulejos o cerámica para paredes de baño. Cantidad estimada para 15m² de paredes.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de azulejo variable según calidad y marca. Instalador debe especificar"
+        },
+        {
+          "concepto": "Baldosa suelo antideslizante R11 baño",
+          "descripcion": "Suministro de baldosa antideslizante R11 para suelo de baño. Cantidad estimada para 10m² de suelo.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de baldosa antideslizante variable. Instalador debe especificar modelo y precio"
+        },
+        {
+          "concepto": "Mortero cola C2 flexible",
+          "descripcion": "Suministro de mortero cola flexible C2S2 para fijación de azulejos y baldosas en baño.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio de mortero cola a confirmar por instalador"
+        },
+        {
+          "concepto": "Lechada flexible/epoxi juntas",
+          "descripcion": "Suministro de lechada flexible o epoxi para juntas de azulejos y baldosas. Recomendado epoxi en baño por resistencia a humedad.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tipo de lechada (flexible vs epoxi) y cantidad a confirmar por instalador"
+        },
+        {
+          "concepto": "Perfiles aluminio esquinas y remates",
+          "descripcion": "Suministro de perfiles de aluminio para esquinas exteriores y remates de encuentros. Incluye ángulos y perfiles de transición.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de perfiles y precio a confirmar según detalles de baño"
+        },
+        {
+          "concepto": "Junta silicona encuentros suelo-pared",
+          "descripcion": "Aplicación de junta de silicona en encuentros entre suelo y paredes, y en encuentros con bañera/ducha. Sellado estanco.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de silicona y precio a confirmar"
+        },
+        {
+          "concepto": "Pequeño material (crucetas, esponjas, etc.)",
+          "descripcion": "Suministro de pequeño material: crucetas de nivelación, esponjas, trapos, cinta de carrocero, etc.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lote de pequeño material a presupuestar por instalador"
+        },
+        {
+          "concepto": "Mano de obra alicatado paredes y suelo baño",
+          "descripcion": "Mano de obra para alicatado completo de baño: replanteo, corte de piezas, colocación de azulejos y baldosas, rejuntado, limpieza final. 25m² totales (paredes + suelo).",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 32,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 800,
+        "iva_porcentaje": 21,
+        "iva": 168,
+        "total": 968
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente si la superficie de 25m² incluye paredes y suelo o solo una de ellas",
+        "Especificar si hay zona de ducha con plato o bañera (requiere impermeabilización obligatoria)",
+        "Definir tipo de azulejo/baldosa (cerámica, porcelánico, gres) y marca para presupuestar materiales",
+        "Confirmar si se incluye rodapié o remate inferior en paredes",
+        "Especificar si hay que hacer formación de pendiente en suelo de ducha"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Impermeabilización zona ducha y bañera",
+          "oficio": "suelos_alicatados",
+          "motivo": "Partida obligatoria según BASE MAESTRA para alicatado baño completo"
+        },
+        {
+          "concepto": "Baldosa suelo antideslizante R11 baño",
+          "oficio": "suelos_alicatados",
+          "motivo": "Partida obligatoria según BASE MAESTRA - suelo antideslizante R11 es requisito normativo en baños"
+        },
+        {
+          "concepto": "Lechada flexible/epoxi juntas",
+          "oficio": "suelos_alicatados",
+          "motivo": "Partida obligatoria según BASE MAESTRA para baños completos"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "alicatado_y_solado_de_bano_completo",
+      "alicatado_y_solado_completo_bano_nuevo",
+      "alicatado_y_solado_completo_cocina",
+      "instalacion_azulejos_o_ceramica_en_zona_de_cocina_profesional",
+      "alicatado_ceramico_pared_interior"
+    ],
+    "kb_score": 3.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4085,
+      "tokens_out": 2533
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 1,
+    "n_sugeridas": 8,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "NO"
+  }
+}

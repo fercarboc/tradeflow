@@ -1,0 +1,260 @@
+{
+  "id": 322,
+  "oficio": "Fachadas",
+  "texto": "Instalar sistema de aislamiento por el exterior SATE en edificio de 5 plantas para mejorar eficiencia",
+  "http_status": 200,
+  "latency_ms": 26997,
+  "raw_response": {
+    "transcript": "Instalar sistema de aislamiento por el exterior SATE en edificio de 5 plantas para mejorar eficiencia",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de aislamiento por el exterior SATE en edificio de 5 plantas para mejorar eficiencia",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Obra en edificio de 5 plantas: requiere cálculo de superficie exacta de fachada",
+          "Sistema SATE requiere proyecto técnico y cumplimiento CTE DB-HE según zona climática",
+          "Necesario andamio o plataforma elevadora para acceso seguro a todas las plantas",
+          "Requiere coordinación con comunidad de propietarios y posibles ayudas de eficiencia energética"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Sistema SATE es revestimiento exterior de fachada con aislamiento integrado. Oficio especializado en fachadas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico y cálculo térmico SATE",
+          "descripcion": "Proyecto técnico de sistema SATE, cálculo de espesor de aislante según CTE DB-HE, zona climática y transmitancia térmica requerida. Incluye planos de detalle, especificaciones de materiales y certificación energética.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de complejidad del edificio y zona climática. Instalador debe revisar según proyecto real."
+        },
+        {
+          "concepto": "Panel aislante EPS o lana de roca según espesor CTE",
+          "descripcion": "Suministro de panel aislante (EPS o lana de roca) con espesor mínimo según CTE DB-HE y zona climática. Incluye transporte a obra y acopio.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad depende de superficie total de fachada (5 plantas). Precio varía según espesor (40-200mm) y material (EPS 15-35€/m2, lana roca 25-50€/m2)."
+        },
+        {
+          "concepto": "Mortero adhesivo de fijación SATE",
+          "descripcion": "Mortero adhesivo específico para sistemas SATE, aplicación en puntos y cordones según normativa. Incluye pequeño material de aplicación.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumo aproximado 5-8 kg/m2. Precio material 3-6€/m2."
+        },
+        {
+          "concepto": "Tacos mecánicos de fijación (mínimo 6 ud/m2)",
+          "descripcion": "Tacos mecánicos tipo mariposa o tornillo para fijación mecánica del aislante. Mínimo 6 unidades por m2 en campo, más en perímetro y esquinas.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad: superficie m2 × 6 tacos/m2 + perímetro. Precio unitario 0,50-1,20€/ud."
+        },
+        {
+          "concepto": "Malla de fibra de vidrio 160 g/m2 embebida en mortero base",
+          "descripcion": "Malla de fibra de vidrio de 160 g/m2 mínimo, embebida en capa de mortero base. Solapamiento mínimo 10 cm en juntas.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material 1,50-3€/m2. Cantidad = superficie fachada + 10% solapamiento."
+        },
+        {
+          "concepto": "Capa base de mortero y acabado mineral o acrílico",
+          "descripcion": "Aplicación de capa base de mortero de regularización y acabado final (mineral o acrílico según especificación). Incluye imprimación si necesario.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumo mortero base 3-5 kg/m2 (2-4€/m2). Acabado mineral 5-12€/m2 o acrílico 8-15€/m2."
+        },
+        {
+          "concepto": "Perfiles de arranque, esquina y goteron",
+          "descripcion": "Suministro e instalación de perfiles de PVC o aluminio: arranque en base, esquinas reforzadas, goterones en alfeizares y remates.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad = perímetro base + perímetro esquinas + alfeizares. Precio 2-6€/ml según tipo."
+        },
+        {
+          "concepto": "Mano de obra: Preparación, limpieza y reparación de fachada",
+          "descripcion": "Limpieza de fachada, reparación de grietas, regularización de superficie, eliminación de elementos salientes. Preparación previa al SATE.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada 8€/m2 (incluido en rango 15-75€/m2 de SATE). Cantidad = superficie fachada."
+        },
+        {
+          "concepto": "Mano de obra: Colocación de aislante y fijación mecánica",
+          "descripcion": "Colocación de paneles aislantes, fijación con mortero adhesivo y tacos mecánicos. Incluye cortes, ajustes y pequeño material.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada 12€/m2 (incluido en rango 15-75€/m2). Cantidad = superficie fachada."
+        },
+        {
+          "concepto": "Mano de obra: Aplicación de malla, mortero base y acabado",
+          "descripcion": "Aplicación de capa base de mortero, embebimiento de malla de fibra, regularización y aplicación de acabado final (mineral o acrílico).",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 15,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada 15€/m2 (incluido en rango 15-75€/m2). Cantidad = superficie fachada."
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora para 5 plantas",
+          "descripcion": "Alquiler y montaje de andamio modular o plataforma elevadora para acceso seguro a todas las plantas. Incluye protecciones y redes de seguridad.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste depende de duración obra, altura (5 plantas ≈ 15-20m) y tipo andamio. Estimado 2000-8000€ según duración."
+        },
+        {
+          "concepto": "Medidas de seguridad y protección en obra",
+          "descripcion": "Señalización, vallado, protecciones perimetrales, EPI para trabajadores, seguros de responsabilidad civil.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 500-2000€ según duración y complejidad."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: superficie total de fachada en m2 (perímetro × altura × número de plantas)",
+        "Determinar zona climática según CTE DB-HE (A, B, C, D, E) para espesor mínimo de aislante",
+        "Especificar tipo de acabado: mineral (más económico, transpirable) o acrílico (más durabilidad, colores)",
+        "Consultar si hay ayudas disponibles: IDAE, fondos NextGenEU, programas autonómicos de eficiencia energética",
+        "Incluir certificación energética antes y después para acreditar mejora de eficiencia",
+        "Coordinar con comunidad de propietarios: permisos, horarios, acceso a viviendas si es necesario"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico y cálculo térmico SATE",
+          "oficio": "fachadas",
+          "motivo": "Servicio profesional de ingeniería, no incluido en catálogo base pero obligatorio para obra de envergadura."
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora para 5 plantas",
+          "oficio": "fachadas",
+          "motivo": "Servicio auxiliar crítico para obra en altura. Precio variable según duración y tipo."
+        },
+        {
+          "concepto": "Medidas de seguridad y protección en obra",
+          "oficio": "fachadas",
+          "motivo": "Servicio de seguridad obligatorio en obra pública/privada de envergadura."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_SATE_aislamiento_exterior_fachada",
+      "reforma_de_vivienda_para_eficiencia_energetica",
+      "instalacion_sistema_sate_aislamiento_exterior",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_de_sistema_de_alarma_intrusion"
+    ],
+    "kb_score": 3.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4265,
+      "tokens_out": 3875
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 3,
+    "n_sugeridas": 9,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

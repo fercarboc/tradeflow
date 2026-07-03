@@ -1,0 +1,174 @@
+{
+  "id": 212,
+  "oficio": "Jardinería",
+  "texto": "Poda y formación de palmeras en finca, 6 palmeras de diferentes alturas con plataforma",
+  "http_status": 200,
+  "latency_ms": 15772,
+  "raw_response": {
+    "transcript": "Poda y formación de palmeras en finca, 6 palmeras de diferentes alturas con plataforma",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poda y formación de palmeras en finca, 6 palmeras de diferentes alturas con plataforma",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en altura: requiere plataforma/andamio y medidas de seguridad (línea de vida si altura >2m)",
+          "Palmeras de diferentes alturas: verificar altura máxima para determinar si se requiere empresa especializada con medios de elevación",
+          "Gestión de residuos vegetales: incluir retirada y posible trituración"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Poda y formación de árboles (palmeras) es trabajo de jardinería especializada"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de plataforma metálica de acceso para trabajo en altura"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Poda y formación de 6 palmeras de diferentes alturas",
+          "descripcion": "Poda selectiva y formación de copa en 6 palmeras de mediano a gran porte. Incluye eliminación de hojas secas, ramas muertas, formación de estructura natural. Desinfección de herramientas entre árboles. Cicatrizante en cortes principales.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 150,
+          "total": 900,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Retirada y gestión de residuos vegetales de poda",
+          "descripcion": "Recogida, acopio y retirada de ramas, hojas y restos vegetales generados en la poda de las 6 palmeras. Transporte a gestor autorizado o trituración en finca si se autoriza.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 200,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plataforma metálica de acceso para trabajo en altura",
+          "descripcion": "Suministro e instalación de plataforma/pasarela metálica de acceso para facilitar trabajo en altura en poda de palmeras. Incluye estructura soporte, suelo antideslizante (tramex o chapa), barandilla perimetral de seguridad (mínimo 100 cm), anclajes calculados, pequeño material y señalización. Galvanizado en caliente si es exterior.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 2500,
+          "total": 2500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según proyecto y altura de palmeras. Requiere verificación de dimensiones y altura máxima de trabajo."
+        },
+        {
+          "concepto": "Línea de vida y equipos de seguridad en altura",
+          "descripcion": "Instalación de línea de vida horizontal o puntos de anclaje para trabajo en altura. Arnés de seguridad, casco, guantes y EPI específicos para trabajo en altura en poda de palmeras.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 300,
+          "total": 300,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de instalación y supervisión de medidas de seguridad en altura. Requiere revisión según normativa local y altura de trabajo."
+        },
+        {
+          "concepto": "Cicatrizante y mastique para cortes principales",
+          "descripcion": "Suministro e aplicación de cicatrizante o mastique en cortes principales de ramas de palmeras para prevenir enfermedades y plagas.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material fungicida/cicatrizante. Precio a determinar por instalador según cantidad y marca."
+        },
+        {
+          "concepto": "Pequeño material y herramientas especializadas",
+          "descripcion": "Herramientas de poda desinfectadas (sierras, podaderas, serruchos), cuerdas de seguridad, desinfectante, bolsas de recogida, cinta de marcaje y otros consumibles.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material y consumibles. Precio a determinar por instalador."
+        }
+      ],
+      "calculos": {
+        "subtotal": 3900,
+        "iva_porcentaje": 21,
+        "iva": 819,
+        "total": 4719
+      },
+      "sugerencias_catalogo": [
+        "Verificar altura máxima de palmeras: si superan 8-10 metros, considerar contratación de empresa especializada con plataforma elevadora o grúa.",
+        "Confirmar si la plataforma es de alquiler temporal o instalación permanente en finca.",
+        "Solicitar certificado de desinfección de herramientas y cumplimiento de normativa fitosanitaria.",
+        "Incluir fotografías antes/después de la poda para documentar el trabajo realizado."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Línea de vida y equipos de seguridad en altura",
+          "oficio": "cerrajeria",
+          "motivo": "Trabajo en altura en poda de palmeras requiere medidas de seguridad específicas no siempre incluidas en catálogo estándar."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_pasarela_o_plataforma_metalica_de_acceso",
+      "instalacion_de_sistema_de_monitoreo_solar_online",
+      "instalacion_de_tarima_o_entarimado_de_madera_elevado_para_escenario_o_zona",
+      "poda_de_arboles_de_mediano_porte",
+      "mantenimiento_jardin_y_zonas_verdes_periodico"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3958,
+      "tokens_out": 1997
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

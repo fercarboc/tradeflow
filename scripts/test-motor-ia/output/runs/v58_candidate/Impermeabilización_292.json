@@ -1,0 +1,195 @@
+{
+  "id": 292,
+  "oficio": "Impermeabilización",
+  "texto": "Reparar filtración en junta de dilatación de cubierta comunitaria, 10 metros lineales con fijación mecánica",
+  "http_status": 200,
+  "latency_ms": 21245,
+  "raw_response": {
+    "transcript": "Reparar filtración en junta de dilatación de cubierta comunitaria, 10 metros lineales con fijación mecánica",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar filtración en junta de dilatación de cubierta comunitaria, 10 metros lineales con fijación mecánica",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Junta de dilatación en cubierta: punto crítico de filtraciones. Verificar estado del material existente antes de aplicar sistema.",
+          "Fijación mecánica especificada: requiere perfilería metálica de cubrición adicional.",
+          "Superficie comunitaria: confirmar acceso seguro y medidas de protección en altura."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Reparación de junta de dilatación en cubierta. Aunque implica impermeabilización, la naturaleza del trabajo (encuentro de cubierta, tejas, canalones, goteras) lo clasifica como tejados_cubiertas según reglas de oficio."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de material existente en junta de dilatación",
+          "descripcion": "Saneo y retirada completa de material deteriorado, sellantes antiguos y residuos en junta de 10 ml. Preparación de superficie para nueva aplicación.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 8,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Fondo de junta con elastómero celular",
+          "descripcion": "Colocación de cordón de espuma elastómera de cierre en junta de dilatación, 10 ml. Base para correcta aplicación del sellado superior.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material elastómero: instalador debe especificar marca, densidad y coste unitario (aprox. 3-8€/ml según calidad)."
+        },
+        {
+          "concepto": "Sistema de impermeabilización de junta con lámina de puente y perfilería metálica",
+          "descripcion": "Aplicación de lámina de puente elastómera + perfil metálico de cubrición (aluminio o zinc) con fijación mecánica en junta de 10 ml. Sistema específico para cubierta que permite movimientos de dilatación.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lámina de puente + perfilería metálica: instalador debe cotizar según tipo de perfil (aluminio anodizado, zinc, acero inox) y espesor. Rango estimado: 25-60€/ml."
+        },
+        {
+          "concepto": "Instalación de lámina de puente y perfilería con fijación mecánica",
+          "descripcion": "Colocación y fijación mecánica (tornillos/remaches inoxidables) de lámina de puente elastómera y perfil metálico de cubrición en junta de 10 ml. Aseguramiento de estanqueidad y movimiento.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 12,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado superior con material elastomérico",
+          "descripcion": "Aplicación de sellante elastómero de poliuretano o silicona en junta superior (10 ml) para cierre final y flexibilidad ante movimientos de dilatación.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sellante elastómero: instalador debe especificar producto (poliuretano, silicona, acrílico elastómero). Coste aprox. 2-6€/ml según calidad."
+        },
+        {
+          "concepto": "Mano de obra: sellado superior y acabado",
+          "descripcion": "Aplicación de sellante elastómero en junta superior de 10 ml, alisado y acabado profesional.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 6,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y pequeño material (tornillos, remaches, cinta, etc.)",
+          "descripcion": "Equipos de protección individual (arnés, línea de vida, casco, guantes), tornillos/remaches inoxidables, cinta de enmascarar, trapos, disolvente de limpieza. Consumibles para 10 ml de junta.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material y EPI: instalador debe estimar según consumibles reales. Rango aprox. 30-80€ por trabajo."
+        }
+      ],
+      "calculos": {
+        "subtotal": 260,
+        "iva_porcentaje": 21,
+        "iva": 54.6,
+        "total": 314.6
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de láminas de puente elastómeras específicas para cubiertas (EPDM, TPO, PVC).",
+        "Verificar disponibilidad de perfilería metálica de cubrición (aluminio anodizado, zinc, acero inoxidable) según ancho de junta.",
+        "Confirmar compatibilidad de sellantes elastómeros con material de cubierta existente (tejas, hormigón, etc.)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Fondo de junta con elastómero celular",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para junta de dilatación en cubierta. Requiere cotización del instalador."
+        },
+        {
+          "concepto": "Sistema de impermeabilización de junta con lámina de puente y perfilería metálica",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Componente principal del sistema. Precio variable según tipo de perfil y lámina. Instalador debe especificar."
+        },
+        {
+          "concepto": "Sellado superior con material elastomérico",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Material de acabado. Requiere selección de producto específico y cotización."
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles y protección. Estimación a cargo del instalador según trabajo real."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana",
+      "reparacion_de_encuentro_de_chimenea_con_cubierta",
+      "reparacion_de_piscina_con_filtraciones",
+      "impermeabilizacion_terraza_con_pintura_poliuretano"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3951,
+      "tokens_out": 2773
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "NO"
+  }
+}

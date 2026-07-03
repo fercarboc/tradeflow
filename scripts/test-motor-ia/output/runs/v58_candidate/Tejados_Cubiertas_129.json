@@ -1,0 +1,190 @@
+{
+  "id": 129,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Reparar remates de zinc en cumbrera y limahoyas del tejado, hay filtraciones de agua",
+  "http_status": 200,
+  "latency_ms": 16106,
+  "raw_response": {
+    "transcript": "Reparar remates de zinc en cumbrera y limahoyas del tejado, hay filtraciones de agua",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar remates de zinc en cumbrera y limahoyas del tejado, hay filtraciones de agua",
+        "tipo_presupuesto": "reparacion",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Filtraciones detectadas: requiere diagnóstico previo de origen exacto (grietas, juntas abiertas, oxidación, desplazamiento)",
+          "Remates de zinc: verificar estado de soldaduras y sellados",
+          "Acceso a cubierta: puede requerir andamio o plataforma de seguridad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Reparación de remates de zinc (cumbrera y limahoyas) en tejado con filtraciones. Oficio específico tejados_cubiertas según reglas de prioridad."
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Sellado y tratamiento impermeabilizante de juntas y filtraciones en remates de zinc."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y localización de filtraciones en cumbrera y limahoyas",
+          "descripcion": "Inspección completa de remates de zinc, identificación de grietas, juntas abiertas, oxidación, desplazamiento o defectos de sellado. Localización exacta de puntos de filtración.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desmontaje y retirada de remates de zinc deteriorados (cumbrera y limahoyas)",
+          "descripcion": "Desmontaje cuidadoso de remates de zinc en cumbrera y limahoyas, retirada de tornillería, sellados antiguos y pequeño material. Preparación de superficies.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de remates de zinc nuevos (cumbrera y limahoyas)",
+          "descripcion": "Remates de zinc para cumbrera y limahoyas, espesor mínimo 0,8 mm, con soldaduras reforzadas y acabado protector. Cantidad según medición en obra.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio de remates de zinc a determinar en obra según medición exacta de cumbrera y limahoyas"
+        },
+        {
+          "concepto": "Instalación de remates de zinc con soldadura y fijación",
+          "descripcion": "Colocación de remates de zinc en cumbrera y limahoyas, soldadura de juntas, fijación con tornillería de acero inoxidable, alineación y nivelación según pendiente.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado e impermeabilización de juntas y uniones",
+          "descripcion": "Sellado de todas las juntas, uniones y puntos de encuentro con silicona de poliuretano de alta resistencia, masilla impermeabilizante en grietas, tratamiento de soldaduras con pintura anticorrosión.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de materiales de sellado e impermeabilización",
+          "descripcion": "Silicona de poliuretano, masilla impermeabilizante, pintura anticorrosión para zinc, imprimación, pequeño material (tornillería inoxidable, arandelas, etc.)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio de materiales de sellado a determinar según extensión de juntas y filtraciones detectadas"
+        },
+        {
+          "concepto": "Prueba de estanqueidad y verificación de reparación",
+          "descripcion": "Prueba de agua en cumbrera y limahoyas para verificar que no hay filtraciones. Inspección visual desde interior del ático/buhardilla. Ajustes finales si es necesario.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 590,
+        "iva_porcentaje": 21,
+        "iva": 123.9,
+        "total": 713.9
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la cubierta requiere andamio o plataforma de seguridad (partida auxiliar no incluida en presupuesto base)",
+        "Si hay oxidación severa en zinc, considerar tratamiento anticorrosión adicional",
+        "Comprobar si hay daños en tejas o estructura de cubierta adyacente a los remates"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de remates de zinc nuevos",
+          "razon": "Material específico cuya cantidad depende de medición en obra"
+        },
+        {
+          "concepto": "Suministro de materiales de sellado e impermeabilización",
+          "razon": "Material específico cuya cantidad depende de extensión de filtraciones"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_piscina_con_filtraciones",
+      "reparacion_grifo_o_griferia_averiada",
+      "reparacion_averia_caldera_gas",
+      "instalacion_de_canaleta_o_canalon_de_fachada",
+      "reparacion_de_marco_de_ventana_o_premarco_deteriorado"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3780,
+      "tokens_out": 2125
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 5,
+    "n_sugeridas": 2,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

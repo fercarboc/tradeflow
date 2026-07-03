@@ -1,0 +1,454 @@
+{
+  "id": 367,
+  "oficio": "Reformas Integrales",
+  "texto": "Adaptar vivienda para persona con movilidad reducida, baño accesible, rampa y pasamanos",
+  "http_status": 200,
+  "latency_ms": 35748,
+  "raw_response": {
+    "transcript": "Adaptar vivienda para persona con movilidad reducida, baño accesible, rampa y pasamanos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Adaptar vivienda para persona con movilidad reducida, baño accesible, rampa y pasamanos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de accesibilidad: requiere cumplimiento normativa UNE EN 17210 y CTE DB-SUA",
+          "Se recomienda proyecto técnico si la obra es significativa",
+          "Posibles subvenciones IMSERSO/CCAA: verificar con cliente",
+          "Pasamanos exterior requiere inoxidable en zona húmeda"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reforma integral con ≥3 oficios simultáneos: albanilería (rampa), fontanería (baño), carpintería/cerrajería (pasamanos), electricidad (accesibilidad)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Construcción rampa, eliminación escalones, pavimento antideslizante"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Adaptación baño: grifería monomando, barras de apoyo ancladas, accesibilidad"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 65
+          },
+          "motivo": "Instalación pasamanos metálico exterior, barandillas, anclajes inoxidables"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Reposicionamiento interruptores y enchufes a altura accesible (120-140 cm)"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Gestión y retirada de escombros y residuos de obra"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico de adaptación accesibilidad",
+          "descripcion": "Proyecto técnico según CTE DB-SUA y UNE EN 17210 para reforma de accesibilidad en vivienda. Incluye planos, cálculos de rampas, dimensiones de espacios, especificaciones técnicas.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir según complejidad de la vivienda y alcance del proyecto"
+        },
+        {
+          "concepto": "Eliminación de barreras arquitectónicas y escalones",
+          "descripcion": "Demolición y retirada de escalones, umbrales y barreras arquitectónicas. Preparación de superficies para rampa. Incluye desmontaje de elementos existentes.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 320,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Construcción rampa de acceso con pendiente máxima 8%",
+          "descripcion": "Rampa de hormigón o mortero con pendiente máxima 8% (según normativa accesibilidad). Incluye base de grava, encofrado, hormigonado, acabado antideslizante. Dimensiones según proyecto.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio a definir según dimensiones de rampa (ancho mínimo 1,20 m, longitud según desnivel)"
+        },
+        {
+          "concepto": "Mano de obra construcción rampa",
+          "descripcion": "Mano de obra para construcción de rampa: encofrado, hormigonado, acabado antideslizante, curado.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 320,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pavimento antideslizante en zonas de paso",
+          "descripcion": "Colocación de pavimento antideslizante (baldosa gres antideslizante o similar) en accesos, pasillos y zonas de paso. Incluye preparación de base, adhesivo, rejuntado.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 a definir según superficie de zonas de paso"
+        },
+        {
+          "concepto": "Mano de obra colocación pavimento antideslizante",
+          "descripcion": "Mano de obra para colocación de pavimento antideslizante: preparación base, adhesivo, colocación, rejuntado.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 a definir según superficie"
+        },
+        {
+          "concepto": "Adaptación baño accesible: demolición y preparación",
+          "descripcion": "Demolición de elementos existentes en baño (azulejos, sanitarios, muebles) para adaptación a baño accesible. Preparación de superficies.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 320,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Barras de apoyo en baño (acero inoxidable)",
+          "descripcion": "Suministro e instalación de barras de apoyo en acero inoxidable 304 en baño: barra vertical junto a inodoro, barra horizontal en ducha/bañera, barra de transferencia. Anclajes a estructura con tacos químicos.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de barras a definir según especificación (diámetro, longitud, acabado)"
+        },
+        {
+          "concepto": "Instalación barras de apoyo baño",
+          "descripcion": "Mano de obra para instalación de barras de apoyo: taladrado, anclaje con tacos químicos, fijación, sellado impermeable.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Grifería monomando ergonómica en baño",
+          "descripcion": "Suministro e instalación de grifería monomando de fácil accionamiento en lavabo y ducha. Diseño ergonómico para personas con movilidad reducida.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de grifería a definir según marca y especificación"
+        },
+        {
+          "concepto": "Instalación grifería monomando",
+          "descripcion": "Mano de obra para instalación de grifería: desconexión de grifería antigua, instalación de nueva, conexiones hidráulicas, pruebas de funcionamiento.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Asiento de ducha abatible o banco de transferencia",
+          "descripcion": "Suministro e instalación de asiento de ducha abatible en acero inoxidable o banco de transferencia para facilitar acceso a ducha/bañera.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir según tipo y especificación del asiento"
+        },
+        {
+          "concepto": "Instalación asiento de ducha",
+          "descripcion": "Mano de obra para instalación de asiento de ducha: taladrado, anclaje, fijación segura.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pasamanos exterior en acero inoxidable",
+          "descripcion": "Suministro e instalación de pasamanos en acero inoxidable 316 (zona exterior/húmeda) para rampa y accesos. Incluye soportes de anclaje inoxidables y sellado impermeable.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml a definir según longitud de rampa y accesos"
+        },
+        {
+          "concepto": "Instalación pasamanos exterior",
+          "descripcion": "Mano de obra para instalación de pasamanos: taladrado, anclaje con tacos químicos inoxidables, fijación, soldadura TIG si es necesario, sellado impermeable de anclajes.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 60,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml a definir según longitud de pasamanos"
+        },
+        {
+          "concepto": "Reposicionamiento interruptores y enchufes a altura accesible",
+          "descripcion": "Reposicionamiento de interruptores y enchufes a altura accesible (120-140 cm desde suelo). Incluye desmontaje, cableado, instalación en nueva posición.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de puntos a definir según número de interruptores y enchufes a reposicionar"
+        },
+        {
+          "concepto": "Iluminación reforzada sin sombras en baño y accesos",
+          "descripcion": "Instalación de iluminación reforzada (mayor que estándar) en baño y zonas de acceso para mejorar visibilidad. Incluye luminarias LED, cableado, instalación.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio a definir según número de luminarias y especificación"
+        },
+        {
+          "concepto": "Mano de obra instalación iluminación",
+          "descripcion": "Mano de obra para instalación de luminarias: cableado, conexiones, fijación, pruebas.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad a definir según número de luminarias"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Pequeño material: tacos, tornillos inoxidables, selladores, adhesivos, cinta de obra, etc.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado a definir según alcance de obra (típicamente 5-10% del presupuesto)"
+        },
+        {
+          "concepto": "Gestión de residuos y escombros",
+          "descripcion": "Retirada, transporte y gestión de residuos de obra (escombros, embalajes, materiales de demolición) según normativa ambiental.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 280,
+          "total": 560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 4140,
+        "iva_porcentaje": 21,
+        "iva": 869.4,
+        "total": 5009.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'adecuacion_de_vivienda_para_accesibilidad_PMR' (precio alzado 8000-90000€) como referencia de alcance y partidas obligatorias",
+        "Consultar subvenciones disponibles: IMSERSO, CCAA, fondos de accesibilidad para personas con movilidad reducida",
+        "Normativa aplicable: CTE DB-SUA, UNE EN 17210, Ley de Accesibilidad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico de adaptación accesibilidad",
+          "oficio": "reforma_integral",
+          "motivo": "Servicio profesional de diseño y cálculo según normativa"
+        },
+        {
+          "concepto": "Construcción rampa de acceso con pendiente máxima 8%",
+          "oficio": "albanileria",
+          "motivo": "Material de rampa (hormigón, mortero, acabado antideslizante)"
+        },
+        {
+          "concepto": "Pavimento antideslizante en zonas de paso",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material de pavimento antideslizante"
+        },
+        {
+          "concepto": "Barras de apoyo en baño (acero inoxidable)",
+          "oficio": "cerrajeria",
+          "motivo": "Material de barras de apoyo inoxidables"
+        },
+        {
+          "concepto": "Grifería monomando ergonómica en baño",
+          "oficio": "fontaneria",
+          "motivo": "Material de grifería monomando"
+        },
+        {
+          "concepto": "Asiento de ducha abatible o banco de transferencia",
+          "oficio": "cerrajeria",
+          "motivo": "Material de asiento de ducha"
+        },
+        {
+          "concepto": "Pasamanos exterior en acero inoxidable",
+          "oficio": "cerrajeria",
+          "motivo": "Material de pasamanos inoxidable 316"
+        },
+        {
+          "concepto": "Iluminación reforzada sin sombras en baño y accesos",
+          "oficio": "electricidad",
+          "motivo": "Material de luminarias LED reforzadas"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "reforma_integral",
+          "motivo": "Consumibles varios de obra"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_vivienda_adaptada_a_personas_mayores",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "instalacion_barandilla_metalica_de_escalera_exterior",
+      "instalacion_enchufe_exterior_ip44",
+      "reforma_de_vivienda_para_eficiencia_energetica"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4044,
+      "tokens_out": 5859
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 20,
+    "n_catalogo": 11,
+    "n_sugeridas": 9,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

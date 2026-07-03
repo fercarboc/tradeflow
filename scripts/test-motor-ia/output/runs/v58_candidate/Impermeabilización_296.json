@@ -1,0 +1,234 @@
+{
+  "id": 296,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar canal de hormigón en finca agrícola para almacenamiento de agua",
+  "http_status": 200,
+  "latency_ms": 26590,
+  "raw_response": {
+    "transcript": "Impermeabilizar canal de hormigón en finca agrícola para almacenamiento de agua",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar canal de hormigón en finca agrícola para almacenamiento de agua",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Obra en finca agrícola: verificar acceso, disponibilidad agua/electricidad, permisos municipales/confederación hidrográfica",
+          "Canal de almacenamiento: requiere cálculo de superficie exacta (m2) y volumen (m3) para dimensionar impermeabilización",
+          "Material hormigón existente: inspeccionar estado (grietas, erosión, porosidad) antes de impermeabilizar",
+          "Método impermeabilización: confirmar si lámina (EPDM/TPO/PVC), mortero hidrofugo, pintura impermeabilizante o cristalizante",
+          "Drenaje y pendientes: verificar sistema de desagüe y pendientes hacia salida",
+          "Presupuesto pendiente de revisión: precios de materiales y mano de obra a confirmar por instalador según accesibilidad y superficie real"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización de estructura de hormigón (canal agrícola). Oficio especializado en tratamientos hidrofugos, láminas impermeables y sellados estancos."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Preparación de superficie: limpieza, reparación de grietas, mortero de agarre y acabados en hormigón."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de superficie de canal",
+          "descripcion": "Vaciado, limpieza mecánica de algas, sedimentos y suciedad acumulada en canal de hormigón. Cepillado y eliminación de musgo. Preparación para impermeabilización.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 (superficie interior del canal) a confirmar por instalador. Tarifa estimada según complejidad de limpieza agrícola."
+        },
+        {
+          "concepto": "Reparación de grietas y fisuras en hormigón",
+          "descripcion": "Sellado de grietas y fisuras existentes en hormigón con mortero hidrofugo o resina epoxídica. Preparación de juntas para impermeabilización posterior.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 15,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud de grietas (ml) a inspeccionar in situ. Tarifa por metro lineal de sellado."
+        },
+        {
+          "concepto": "Imprimación consolidante en hormigón",
+          "descripcion": "Aplicación de imprimación consolidante para sellar porosidad del hormigón y mejorar adherencia de impermeabilizante. Cobertura según especificación técnica.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de imprimación (€/m2 o €/litro) a confirmar. Cantidad en m2 (superficie interior canal) pendiente."
+        },
+        {
+          "concepto": "Impermeabilización con lámina EPDM o TPO",
+          "descripcion": "Colocación de lámina impermeabilizante (EPDM 1.5mm o TPO 1.2mm) sobre superficie preparada. Incluye solape, sellado de juntas y fijación mecánica en coronación del canal.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio lámina (€/m2) y tipo (EPDM/TPO) a confirmar. Cantidad en m2 (superficie interior + solapes) a calcular según dimensiones reales del canal."
+        },
+        {
+          "concepto": "Instalación de lámina impermeabilizante",
+          "descripcion": "Mano de obra de colocación, solape, sellado de juntas con adhesivo o soldadura térmica, y fijación mecánica en coronación del canal.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 18,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa por m2 de instalación. Cantidad en m2 a confirmar. Puede variar según accesibilidad en finca agrícola."
+        },
+        {
+          "concepto": "Sellado de juntas de dilatación y encuentros",
+          "descripcion": "Sellado con silicona flexible o banda hidrofuga en juntas de dilatación del hormigón, encuentros con paredes laterales y esquinas interiores del canal.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sellante/banda (€/ml) a confirmar. Longitud de juntas (ml) a medir in situ."
+        },
+        {
+          "concepto": "Mano de obra sellado de juntas",
+          "descripcion": "Aplicación de sellante flexible o banda hidrofuga en juntas de dilatación, encuentros y esquinas. Limpieza y acabado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa por metro lineal. Longitud total de juntas a medir."
+        },
+        {
+          "concepto": "Protección de coronación del canal",
+          "descripcion": "Colocación de remate de protección (chapa galvanizada, PVC o hormigón) en coronación del canal para proteger borde de lámina impermeabilizante y evitar daños por UV y manipulación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de remate (€/ml) y material a confirmar. Perímetro del canal (ml) a medir."
+        },
+        {
+          "concepto": "Instalación de remate de coronación",
+          "descripcion": "Fijación mecánica de remate de protección en coronación del canal. Incluye pequeño material y acabado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa por metro lineal de instalación. Perímetro del canal a confirmar."
+        },
+        {
+          "concepto": "Prueba de estanqueidad del canal",
+          "descripcion": "Llenado parcial del canal y verificación de ausencia de filtraciones durante 24-48 horas. Inspección de juntas, lámina y remates. Informe de resultado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de prueba de estanqueidad a confirmar. Incluye tiempo de inspección y documentación."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: dimensiones exactas del canal (largo, ancho, profundidad en metros), estado actual (grietas, erosión), tipo de agua a almacenar (lluvia, riego, industrial), y accesibilidad en finca.",
+        "Inspección in situ obligatoria para: medir superficie interior (m2), longitud de juntas (ml), perímetro de coronación (ml), evaluar estado del hormigón y determinar método de impermeabilización más adecuado.",
+        "Considerar alternativas: lámina EPDM (más flexible, mejor para grietas), TPO (más resistente UV), mortero hidrofugo (más económico, menos flexible), o cristalizante (penetrante, para hormigón poroso).",
+        "Verificar normativa: permisos de confederación hidrográfica si el canal conecta con red de agua pública o zona protegida.",
+        "Presupuesto final: suma de mano de obra (horas reales × tarifa) + materiales (m2 lámina, ml sellante, remates) + prueba de estanqueidad."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Impermeabilización de canal agrícola",
+          "oficio": "impermeabilizacion",
+          "motivo": "Trabajo especializado en impermeabilización de infraestructura de almacenamiento de agua en finca agrícola. Requiere cálculo de superficie exacta y selección de método impermeabilizante según estado del hormigón y uso final."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_canaleta_de_recogida_agua_toldo_o_cubierta",
+      "instalacion_de_canaleta_de_drenaje_lineal",
+      "reparacion_averia_caldera_gas",
+      "impermeabilizacion_de_alfeizar_o_vierteaguas",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3827,
+      "tokens_out": 3635
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 10,
+    "n_catalogo": 0,
+    "n_sugeridas": 10,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

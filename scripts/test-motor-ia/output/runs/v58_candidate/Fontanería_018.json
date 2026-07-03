@@ -1,0 +1,176 @@
+{
+  "id": 18,
+  "oficio": "Fontanería",
+  "texto": "Montaje de cocina nueva con conexiones de agua fría y caliente, desagüe fregadero y lavavajillas",
+  "http_status": 200,
+  "latency_ms": 12846,
+  "raw_response": {
+    "transcript": "Montaje de cocina nueva con conexiones de agua fría y caliente, desagüe fregadero y lavavajillas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Montaje de cocina nueva con conexiones de agua fría y caliente, desagüe fregadero y lavavajillas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume instalación de muebles de cocina (carpintería) no incluida en esta presupuestación. Confirmar si se incluye montaje de muebles.",
+          "Presupuesto enfocado en fontanería completa. Verificar si hay obra civil (rozas, reposición) necesaria."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación completa de fontanería: agua fría, agua caliente, desagües múltiples"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro e instalación tubería multicapa agua fría y caliente",
+          "descripcion": "Tubería multicapa PEX 16mm para distribución agua fría y caliente desde acometida principal a cocina, incluyendo tes, codos, abrazaderas y pequeño material de fijación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material multicapa: instalador debe confirmar metraje real y precio según proveedor"
+        },
+        {
+          "concepto": "Instalación mano de obra fontanería agua fría y caliente",
+          "descripcion": "Mano de obra para instalación de tuberías multicapa, conexiones, tes, llaves de paso independientes para agua fría y caliente, prueba de presión",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación desagüe fregadero y lavavajillas",
+          "descripcion": "Tubo PVC 40mm para desagüe fregadero y lavavajillas, sifón doble, codos, abrazaderas, pequeño material y conexión a bajante existente",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material desagüe: instalador debe confirmar tipo de conexión (bajante existente vs nueva) y precio"
+        },
+        {
+          "concepto": "Instalación mano de obra desagüe fregadero y lavavajillas",
+          "descripcion": "Mano de obra para instalación de sifón, tuberías desagüe, conexión a bajante, prueba de estanqueidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Llaves de paso independientes agua fría y caliente",
+          "descripcion": "2 llaves de paso de bola 1/2\" cromadas para control independiente agua fría y caliente en cocina, con racores de conexión",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar modelo y precio de llaves de paso"
+        },
+        {
+          "concepto": "Pequeño material fontanería (racores, latiguillos, teflón, abrazaderas)",
+          "descripcion": "Racores, latiguillos de conexión, cinta de teflón, abrazaderas metálicas, clips de fijación y otros consumibles necesarios para la instalación completa",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: instalador debe confirmar cantidad y precio según necesidades reales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 250,
+        "iva_porcentaje": 21,
+        "iva": 52.5,
+        "total": 302.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: [instalacion_cocina_completa_fontaneria] para validar partidas obligatorias adicionales",
+        "Verificar en catálogo: [instalacion_fontaneria_cocina_completa] para detalles de tuberías y conexiones",
+        "Considerar si se requiere rozas y reposición de paredes/suelos (obra civil)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación tubería multicapa agua fría y caliente",
+          "origen": "sugerida_ia",
+          "razon": "Material específico de fontanería, requiere confirmación de metraje y proveedor"
+        },
+        {
+          "concepto": "Suministro e instalación desagüe fregadero y lavavajillas",
+          "origen": "sugerida_ia",
+          "razon": "Material específico de desagüe, requiere confirmación de tipo de conexión"
+        },
+        {
+          "concepto": "Llaves de paso independientes agua fría y caliente",
+          "origen": "sugerida_ia",
+          "razon": "Material específico, requiere confirmación de modelo y precio"
+        },
+        {
+          "concepto": "Pequeño material fontanería",
+          "origen": "sugerida_ia",
+          "razon": "Consumibles varios, requiere confirmación de cantidad y precio"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cocina_completa_fontaneria",
+      "instalacion_toma_agua_nueva",
+      "instalacion_fontaneria_cocina_completa",
+      "desatasco_fregadero",
+      "instalacion_osmosis_inversa"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3381,
+      "tokens_out": 1932
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

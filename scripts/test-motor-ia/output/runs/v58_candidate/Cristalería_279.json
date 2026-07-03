@@ -1,0 +1,210 @@
+{
+  "id": 279,
+  "oficio": "Cristalería",
+  "texto": "Instalar ventana de proyección de vidrio translúcido para luz natural en tabique interior",
+  "http_status": 200,
+  "latency_ms": 13863,
+  "raw_response": {
+    "transcript": "Instalar ventana de proyección de vidrio translúcido para luz natural en tabique interior",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar ventana de proyección de vidrio translúcido para luz natural en tabique interior",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Ventana interior en tabique: verificar si requiere refuerzo estructural del tabique",
+          "Vidrio translúcido: confirmar tipo (satinado, opalino, etc.) y espesor recomendado",
+          "Tabique interior: evaluar si es de pladur o ladrillo para método de fijación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de marco y fijación de ventana en tabique interior"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Suministro e instalación de vidrio translúcido y sellado"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Apertura/refuerzo de hueco en tabique si es necesario"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Apertura de hueco en tabique interior",
+          "descripcion": "Corte y apertura de hueco en tabique interior para alojamiento de ventana de proyección. Incluye refuerzo estructural si es necesario (dintel, refuerzos laterales).",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo de tabique (pladur/ladrillo), dimensiones del hueco y necesidad de refuerzo estructural"
+        },
+        {
+          "concepto": "Marco de ventana de proyección",
+          "descripcion": "Suministro de marco de aluminio o PVC para ventana de proyección interior, con herrajes de apertura y cierre.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de dimensiones exactas del hueco y material del marco (aluminio/PVC)"
+        },
+        {
+          "concepto": "Vidrio translúcido templado",
+          "descripcion": "Suministro de vidrio templado translúcido (satinado, opalino u otro tipo) según medidas exactas del hueco. Espesor mínimo 6mm recomendado para seguridad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de dimensiones exactas, tipo de translucidez y espesor del vidrio templado"
+        },
+        {
+          "concepto": "Fijación e instalación de marco en tabique",
+          "descripcion": "Instalación y fijación del marco de ventana al tabique interior. Incluye nivelación, aplomado y fijación con tacos/tornillos según tipo de tabique.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación de vidrio y sellado",
+          "descripcion": "Instalación del vidrio translúcido templado en el marco. Sellado perimetral con silicona neutra de calidad. Ajuste de herrajes de apertura.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Silicona neutra y pequeño material",
+          "descripcion": "Silicona neutra de calidad para sellado perimetral, tacos, tornillos y pequeño material de fijación.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de cantidad de silicona y tipo de tacos necesarios según tabique"
+        },
+        {
+          "concepto": "Acabado y remate de tabique",
+          "descripcion": "Remate de bordes del hueco con masilla, pintura o acabado según tipo de tabique. Limpieza final de obra.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 197.5,
+        "iva_porcentaje": 21,
+        "iva": 41.48,
+        "total": 238.98
+      },
+      "sugerencias_catalogo": [
+        "Confirmar dimensiones exactas del hueco antes de encargar marco y vidrio",
+        "Especificar tipo de translucidez del vidrio (satinado, opalino, decorativo, etc.)",
+        "Verificar si el tabique es de pladur o ladrillo para determinar método de fijación",
+        "Considerar vidrio templado obligatorio por seguridad en ventanas interiores",
+        "Evaluar si se requiere refuerzo estructural del tabique según carga y dimensiones"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Apertura de hueco en tabique interior",
+          "oficio": "albanileria",
+          "motivo": "Trabajo específico de apertura/refuerzo en tabique interior no catalogado explícitamente"
+        },
+        {
+          "concepto": "Marco de ventana de proyección",
+          "oficio": "carpinteria",
+          "motivo": "Suministro de marco específico para ventana de proyección interior"
+        },
+        {
+          "concepto": "Vidrio translúcido templado",
+          "oficio": "cristaleria",
+          "motivo": "Suministro de vidrio translúcido templado con especificaciones particulares"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_claraboya_tubular_o_solatube",
+      "aplicacion_de_vinilo_o_pelicula_en_vidrio",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_ventana_madera_con_vidrio",
+      "instalacion_estor_enrollable_interior"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3851,
+      "tokens_out": 2212
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

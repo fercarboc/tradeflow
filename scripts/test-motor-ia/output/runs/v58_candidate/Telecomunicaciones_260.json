@@ -1,0 +1,231 @@
+{
+  "id": 260,
+  "oficio": "Telecomunicaciones",
+  "texto": "Revisión y actualización de instalación de telecomunicaciones en edificio de 20 años, ICT2",
+  "http_status": 200,
+  "latency_ms": 20565,
+  "raw_response": {
+    "transcript": "Revisión y actualización de instalación de telecomunicaciones en edificio de 20 años, ICT2",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión y actualización de instalación de telecomunicaciones en edificio de 20 años, ICT2",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Edificio de 20 años: probable obsolescencia de cableado y equipos",
+          "ICT2 implica infraestructura de telecomunicaciones compleja (cableado estructurado, distribuidores, tomas)",
+          "Requiere diagnóstico previo para determinar alcance exacto de sustituciones",
+          "Posible necesidad de certificación de instalación tras actualización"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Revisión, diagnóstico y actualización de red de telecomunicaciones estructurada ICT2"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y auditoría de instalación ICT2 existente",
+          "descripcion": "Revisión completa del estado de cableado, distribuidores, tomas y equipos activos. Identificación de obsolescencias, roturas, degradación y necesidades de actualización. Generación de informe técnico.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sustitución de cableado estructurado Cat.6A en canaletas y tubos",
+          "descripcion": "Retirada de cableado antiguo (Cat.5/Cat.5e), limpieza de canaletas y tubos, tendido de nuevo cableado Cat.6A con respeto a radios de curvatura. Incluye pequeño material (bridas, etiquetado).",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 500,
+          "precio_unitario": 2.5,
+          "total": 1250,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mano de obra por ml de tendido de cableado Cat.6A; incluye desmontaje antiguo y preparación de vías"
+        },
+        {
+          "concepto": "Suministro de cableado Cat.6A para red estructurada",
+          "descripcion": "Cableado Cat.6A de calidad certificada (500 ml aproximados según diagnóstico). Incluye conectores RJ45 Cat.6A, paneles de parcheo, pequeño material de instalación.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cableado Cat.6A, conectores y accesorios a definir por instalador según marca y especificaciones"
+        },
+        {
+          "concepto": "Actualización de distribuidor principal (DP) y distribuidores secundarios (DS)",
+          "descripcion": "Sustitución de equipos de distribución obsoletos. Instalación de nuevos armarios/racks con paneles de parcheo Cat.6A, regletas de conexión, organizadores de cables. Incluye desmontaje de equipos antiguos.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de armarios, paneles y equipos de distribución",
+          "descripcion": "Armarios/racks, paneles de parcheo Cat.6A, regletas de conexión, organizadores de cables, pequeño material de montaje. Cantidad: 3 distribuidores (1 principal + 2 secundarios).",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de armarios, paneles y accesorios a definir según especificaciones técnicas y marca"
+        },
+        {
+          "concepto": "Sustitución de tomas de telecomunicaciones (RJ45)",
+          "descripcion": "Retirada de tomas antiguas, instalación de nuevas tomas Cat.6A en cajas de mecanismo. Incluye pequeño material (cajas, tornillería, etiquetado). Cantidad estimada: 80 tomas.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 80,
+          "precio_unitario": 8,
+          "total": 640,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mano de obra por toma RJ45 Cat.6A (desmontaje + instalación + terminación)"
+        },
+        {
+          "concepto": "Suministro de tomas RJ45 Cat.6A y cajas de mecanismo",
+          "descripcion": "Tomas RJ45 Cat.6A de calidad certificada, cajas de mecanismo, placas de acabado, tornillería. Cantidad: 80 unidades.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tomas RJ45 Cat.6A y cajas a definir por instalador"
+        },
+        {
+          "concepto": "Certificación y pruebas de instalación ICT2",
+          "descripcion": "Medición y certificación de cableado (atenuación, diafonía, impedancia). Pruebas de continuidad en todas las tomas. Generación de certificado de conformidad según normativa ICT.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Documentación técnica y planos as-built",
+          "descripcion": "Elaboración de planos as-built de la instalación actualizada, esquemas de distribución, listado de tomas, documentación de conformidad normativa ICT2.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2290,
+        "iva_porcentaje": 21,
+        "iva": 481,
+        "total": 2771
+      },
+      "sugerencias_catalogo": [
+        "Considerar si la instalación requiere también actualización de equipos activos (switches, routers) más allá de cableado pasivo",
+        "Verificar si el edificio necesita cumplir normativa de accesibilidad en distribuidores (altura de paneles, espacios de trabajo)",
+        "Evaluar si es necesario incluir servicios de gestión de residuos (cableado antiguo) en presupuesto final",
+        "Confirmar si ICT2 incluye también infraestructura de TV/radio o solo datos (afecta a cableado y distribuidores)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sustitución de cableado estructurado Cat.6A en canaletas y tubos",
+          "oficio": "telecomunicaciones",
+          "motivo": "Actualización de red de telecomunicaciones en edificio antiguo; cableado Cat.6A es estándar actual para ICT2"
+        },
+        {
+          "concepto": "Suministro de cableado Cat.6A para red estructurada",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material de suministro; precio pendiente de especificación técnica"
+        },
+        {
+          "concepto": "Actualización de distribuidor principal (DP) y distribuidores secundarios (DS)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Equipos de distribución obsoletos en edificio de 20 años; requiere sustitución completa"
+        },
+        {
+          "concepto": "Suministro de armarios, paneles y equipos de distribución",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material de suministro; precio pendiente de especificación técnica"
+        },
+        {
+          "concepto": "Sustitución de tomas de telecomunicaciones (RJ45)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Actualización de tomas a Cat.6A; cantidad estimada según diagnóstico"
+        },
+        {
+          "concepto": "Suministro de tomas RJ45 Cat.6A y cajas de mecanismo",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material de suministro; precio pendiente de especificación técnica"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "instalacion_sistema_agua_helada_chiller",
+      "falso_techo_pladur_ignifugo_o_cortafuego",
+      "instalacion_de_red_de_datos_en_hotel_u_hospitality",
+      "instalacion_de_columna_seca_en_edificio"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4058,
+      "tokens_out": 2895
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

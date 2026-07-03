@@ -1,0 +1,343 @@
+{
+  "id": 366,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de ático dúplex de 100 metros cuadrados con escalera interior y terraza acristalada",
+  "http_status": 200,
+  "latency_ms": 34946,
+  "raw_response": {
+    "transcript": "Reforma de ático dúplex de 100 metros cuadrados con escalera interior y terraza acristalada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de ático dúplex de 100 metros cuadrados con escalera interior y terraza acristalada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral detectada: múltiples oficios simultáneos (≥3). Presupuesto estructurado en 12 partidas técnicas máximo.",
+          "Escalera interior: requiere definición de material (madera/pladur/metal) y diseño para precisar presupuesto.",
+          "Terraza acristalada: requiere especificación de tipo de acristalamiento (simple/doble, marco aluminio/PVC) y superficie exacta.",
+          "Ático dúplex 100m²: se asume reforma de espacios interiores + cubierta/terraza. Requiere revisión de alcance exacto (¿solo acabados? ¿instalaciones nuevas? ¿estructura?).",
+          "Presupuesto orientativo. Instalador debe revisar precios de materiales y confirmar especificaciones técnicas."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral: ≥3 oficios simultáneos (carpintería escalera, cristalería terraza, acabados interiores, posibles instalaciones)."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Escalera interior de madera/pladur. Barandillas. Puertas interiores."
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Terraza acristalada: cerramientos, ventanas, puertas corredera, acristalamiento."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Acabados interiores: pintura paredes, techos."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pavimentos interiores: alicatado, porcelánico, gres."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica: puntos de luz, enchufes, cuadro, iluminación LED."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación fontanería: agua fría/caliente, desagües si aplica."
+        },
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 42
+          },
+          "motivo": "Tabiquería, falsos techos, revestimientos interiores."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición y preparación de espacios interiores",
+          "descripcion": "Desmontaje de tabiques no estructurales, retirada de pavimentos antiguos, limpieza y preparación de superficies para reforma. Incluye gestión de escombros.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 8,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio orientativo por m². Requiere confirmación según estado actual del ático y volumen de escombros."
+        },
+        {
+          "concepto": "Escalera interior de madera (peldaños, tabicas, barandilla)",
+          "descripcion": "Fabricación e instalación de escalera de madera interior completa: peldaños según especie, tabicas, zancas/soportes, barandilla según normativa CTE (altura mínima 90cm), herrajes de fijación, barniz/aceite acabado. Incluye pequeño material.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 2500,
+          "total": 2500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado orientativo para escalera interior 1 tramo (aprox. 12-15 peldaños). Requiere confirmación de número de peldaños, especie de madera, diseño y acabado."
+        },
+        {
+          "concepto": "Suministro e instalación de acristalamiento terraza (marco + vidrio)",
+          "descripcion": "Suministro e instalación de cerramientos acristalados para terraza: marcos aluminio o PVC, vidrio templado doble acristalamiento (4+4/6mm), puertas corredera, juntas de estanqueidad, herrajes, sellado impermeable. Incluye pequeño material.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 45,
+          "total": 1125,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mano de obra por m² de acristalamiento. Requiere confirmación de superficie exacta de terraza, tipo de vidrio (simple/doble), marco (aluminio/PVC) y especificaciones técnicas."
+        },
+        {
+          "concepto": "Materiales acristalamiento terraza (vidrio, marcos, herrajes)",
+          "descripcion": "Suministro de vidrio templado doble acristalamiento, marcos aluminio/PVC, puertas corredera, juntas EPDM, selladores, herrajes inox, pequeño material.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales pendiente de revisión. Varía según tipo de vidrio, marco y especificaciones técnicas. Instalador debe cotizar con proveedores."
+        },
+        {
+          "concepto": "Instalación de pavimentos interiores (alicatado/porcelánico)",
+          "descripcion": "Colocación de baldosas porcelánico/gres en espacios interiores (salón, dormitorios, cocina, baños): preparación de base, adhesivo, rejuntado, acabado. Incluye pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 32,
+          "total": 2560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de pavimentos interiores (baldosas, adhesivo, lechada)",
+          "descripcion": "Baldosas porcelánico/gres, adhesivo C2, lechada epoxídica o cementosa, pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales pendiente. Varía según calidad y tipo de baldosa. Instalador debe cotizar."
+        },
+        {
+          "concepto": "Instalación eléctrica completa (puntos luz, enchufes, cuadro, iluminación LED)",
+          "descripcion": "Instalación de circuitos eléctricos: cableado, canalizaciones, puntos de luz (apliques, empotrados, LED), enchufes, interruptores, cuadro de distribución con protecciones, tomas de tierra. Incluye pequeño material y pruebas.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 50,
+          "total": 2000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de 40 horas para reforma eléctrica completa de 100m². Requiere confirmación según número de circuitos, puntos de luz y enchufes."
+        },
+        {
+          "concepto": "Suministro de materiales eléctricos (cable, canaletas, luminarias, cuadro)",
+          "descripcion": "Cable H07V-U/H07V-R, canaletas, luminarias LED, enchufes, interruptores, cuadro de distribución, protecciones (PIA, diferencial), pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales eléctricos pendiente. Instalador debe cotizar según especificaciones técnicas y número de puntos."
+        },
+        {
+          "concepto": "Instalación fontanería (agua fría/caliente, desagües)",
+          "descripcion": "Instalación de tuberías agua fría/caliente (PEX o cobre), desagües PVC, válvulas, grifería, sifones. Incluye pruebas de estanqueidad y pequeño material.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 20,
+          "precio_unitario": 50,
+          "total": 1000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de 20 horas para instalación fontanería básica. Requiere confirmación según número de puntos de agua y complejidad de trazado."
+        },
+        {
+          "concepto": "Suministro de materiales fontanería (tuberías, grifería, válvulas)",
+          "descripcion": "Tuberías PEX/cobre, desagües PVC, grifería, válvulas, sifones, pequeño material.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales fontanería pendiente. Instalador debe cotizar según especificaciones técnicas."
+        },
+        {
+          "concepto": "Pintura de paredes y techos interiores",
+          "descripcion": "Preparación de superficies (limpieza, reparación grietas, masillado), imprimación, pintura plástica mate/satinada en paredes y techos. Incluye pequeño material.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 350,
+          "precio_unitario": 32,
+          "total": 11200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de pintura y materiales auxiliares",
+          "descripcion": "Pintura plástica interior, imprimación, masilla, pequeño material (rodillos, brochas, cinta, lijas).",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales de pintura pendiente. Instalador debe cotizar según superficie y calidad de pintura."
+        }
+      ],
+      "calculos": {
+        "subtotal": 21185,
+        "iva_porcentaje": 21,
+        "iva": 4448.85,
+        "total": 25633.85
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de escalera interior: ¿madera maciza, laminada, pladur con acabado madera, o metal? Afecta presupuesto significativamente (rango 600-6000€).",
+        "Especificar acristalamiento terraza: ¿superficie exacta? ¿vidrio simple/doble? ¿marco aluminio/PVC? ¿puertas corredera/abatibles? Presupuesto varía 30-160€/m².",
+        "Definir acabados interiores: ¿solo pintura? ¿alicatado en baños/cocina? ¿tarima flotante o porcelánico? ¿pladur en techos?",
+        "Revisar instalaciones: ¿reforma eléctrica/fontanería completa o solo puntos nuevos? ¿climatización? ¿calefacción?",
+        "Considerar cubierta/terraza: ¿impermeabilización? ¿drenaje? ¿canalones? Puede requerir oficio tejados_cubiertas o impermeabilizacion."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Escalera interior de madera",
+          "oficio": "carpinteria",
+          "motivo": "Partida estándar en catálogo BASE MAESTRA. Incluye peldaños, tabicas, barandilla, herrajes, acabado."
+        },
+        {
+          "concepto": "Acristalamiento terraza (mano de obra + materiales)",
+          "oficio": "cristaleria",
+          "motivo": "Partida sugerida. Requiere especificación de tipo de vidrio, marco y superficie exacta."
+        },
+        {
+          "concepto": "Instalación eléctrica completa",
+          "oficio": "electricidad",
+          "motivo": "Partida sugerida. Estimación de horas según complejidad de reforma."
+        },
+        {
+          "concepto": "Instalación fontanería",
+          "oficio": "fontaneria",
+          "motivo": "Partida sugerida. Estimación de horas según número de puntos de agua."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "estructura_pladur_para_escalera_interior_nueva",
+      "instalacion_barandilla_metalica_de_escalera_exterior",
+      "instalacion_de_escalera_de_acceso_a_cubierta_o_zona_tecnica",
+      "correccion_de_puentes_termicos_en_cubierta",
+      "instalacion_escalera_de_madera_interior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3977,
+      "tokens_out": 4946
+    }
+  },
+  "classification": {
+    "category": "PRECIO_INVALIDO",
+    "n_partidas": 12,
+    "n_catalogo": 12,
+    "n_sugeridas": 0,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO",
+    "error_detalle": "Partida de catálogo con precio 0 o nulo"
+  }
+}

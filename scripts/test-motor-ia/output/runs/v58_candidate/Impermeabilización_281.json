@@ -1,0 +1,195 @@
+{
+  "id": 281,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar terraza plana de piso con goteras en la planta de abajo, 20 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 19544,
+  "raw_response": {
+    "transcript": "Impermeabilizar terraza plana de piso con goteras en la planta de abajo, 20 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar terraza plana de piso con goteras en la planta de abajo, 20 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Terraza con goteras activas: verificar estado de la estructura y posibles daños por humedad antes de impermeabilizar",
+          "Superficie: 20 m² + encuentros con paramentos verticales (estimado +10% = 22 m²)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización de terraza plana con lámina. Oficio especializado según reglas de prioridad."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de terraza",
+          "descripcion": "Limpieza profunda de la superficie, eliminación de suciedad, algas y restos de impermeabilizante anterior si existe. Reparación de fisuras y grietas con mortero de reparación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 22,
+          "precio_unitario": 8,
+          "total": 176,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación bituminosa adherente",
+          "descripcion": "Aplicación de imprimación bituminosa de adherencia previa sobre toda la superficie de la terraza (22 m² incluyendo encuentros).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 22,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: imprimación bituminosa. Instalador debe indicar precio según marca y rendimiento (típicamente 0,5-1 kg/m²)"
+        },
+        {
+          "concepto": "Lámina impermeabilizante betún polímero LBM 40 FP",
+          "descripcion": "Colocación de lámina de betún polímero LBM 40 FP (40 daN/m, fieltro de poliéster) sobre toda la terraza. Solape mínimo 10 cm en juntas, correctamente sellado con soplete.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 24,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: lámina betún polímero. Cantidad incluye solapes (20 m² + 20% por solapes = 24 m²). Instalador debe indicar precio según marca y espesor."
+        },
+        {
+          "concepto": "Refuerzo de encuentros con geotextil y lámina adicional",
+          "descripcion": "Refuerzo obligatorio en encuentros con paramentos verticales (perímetro estimado 12 ml) con geotextil de 300 g/m² y lámina adicional de betún polímero en banda de 30 cm de altura.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: geotextil + lámina refuerzo. Instalador debe indicar precio por metro lineal."
+        },
+        {
+          "concepto": "Cinta de aluminio en uniones y encuentros",
+          "descripcion": "Colocación de cinta de aluminio adhesiva en uniones de láminas y encuentros con paramentos para mayor estanqueidad y protección mecánica.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: cinta aluminio. Instalador debe indicar precio por metro lineal."
+        },
+        {
+          "concepto": "Capa de protección con grava o geotextil pesado",
+          "descripcion": "Colocación de capa de protección sobre la lámina impermeabilizante: grava de 4-6 cm de espesor (aproximadamente 80 kg/m²) o geotextil pesado de 500 g/m² para proteger la lámina de rayos UV y daños mecánicos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: grava o geotextil pesado. Instalador debe indicar precio según opción elegida (grava ~15-25€/m² o geotextil ~5-10€/m²)."
+        },
+        {
+          "concepto": "Instalación de lámina impermeabilizante y acabados",
+          "descripcion": "Mano de obra: colocación de lámina con soplete, sellado de solapes, refuerzo de encuentros, colocación de cinta aluminio y capa de protección. Incluye EPI de altura y pequeño material.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 896,
+        "iva_porcentaje": 21,
+        "iva": 188.16,
+        "total": 1084.16
+      },
+      "sugerencias_catalogo": [
+        "Verificar con el cliente si prefiere protección con grava (más económica, menos estética) o geotextil pesado (más limpio, mejor para terrazas transitables).",
+        "Si la terraza es transitable, considerar baldosas flotantes sobre geotextil en lugar de grava para mejor acabado.",
+        "Inspeccionar la estructura de la terraza: si hay daños por humedad, puede ser necesario reparación de hormigón antes de impermeabilizar."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación bituminosa adherente",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material de base para lámina impermeabilizante. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Lámina impermeabilizante betún polímero LBM 40 FP",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material principal. Precio pendiente de revisión según marca y disponibilidad."
+        },
+        {
+          "concepto": "Refuerzo de encuentros con geotextil y lámina adicional",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material de refuerzo obligatorio. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Cinta de aluminio en uniones y encuentros",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material complementario. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Capa de protección con grava o geotextil pesado",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material de protección final. Precio pendiente de revisión según opción elegida."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina",
+      "impermeabilizacion_terraza_con_pintura_poliuretano",
+      "impermeabilizacion_cubierta_plana_con_lamina",
+      "impermeabilizacion_cubierta_plana_con_lamina_EPDM",
+      "impermeabilizacion_de_terraza_invertida_con_XPS"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4122,
+      "tokens_out": 2767
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

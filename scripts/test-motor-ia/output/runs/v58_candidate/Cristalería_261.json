@@ -1,0 +1,154 @@
+{
+  "id": 261,
+  "oficio": "Cristalería",
+  "texto": "Cambio de luna de ventana rota, vidrio de seguridad de 4mm en ventana de 80x120 centímetros",
+  "http_status": 200,
+  "latency_ms": 13378,
+  "raw_response": {
+    "transcript": "Cambio de luna de ventana rota, vidrio de seguridad de 4mm en ventana de 80x120 centímetros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de luna de ventana rota, vidrio de seguridad de 4mm en ventana de 80x120 centímetros",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Vidrio de seguridad templado de 4mm especificado. Verificar que cumple CTE DB-SUA según ubicación (baños, puertas, zonas de paso requieren templado obligatorio).",
+          "Medida exacta: 80x120 cm = 0,96 m². Precio unitario del vidrio debe confirmarse según proveedor y tipo exacto (templado vs laminado)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Cambio de luna (vidrio) en ventana existente. Oficio cristalería según Base Maestra."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de luna rota con medidas de seguridad",
+          "descripcion": "Desmontaje y retirada segura de vidrio roto de 80x120 cm. Incluye protección, embolsado y gestión de fragmentos.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Vidrio de seguridad templado 4mm (80x120 cm)",
+          "descripcion": "Suministro de luna de vidrio templado de seguridad, espesor 4mm, medidas 80x120 cm (0,96 m²). Certificado CE EN 12150. Incluye marcado de seguridad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del vidrio templado 4mm debe confirmarse con proveedor. Rango orientativo: 150-250€ según proveedor y certificaciones."
+        },
+        {
+          "concepto": "Silicona neutra de fijación en marco",
+          "descripcion": "Suministro e instalación de silicona neutra de alta calidad para fijación de luna en marco existente. Incluye limpieza previa del marco y aplicación profesional.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Precio estimado: 15-25€ (cartucho silicona + aplicación)."
+        },
+        {
+          "concepto": "Instalación de luna en marco y acabado",
+          "descripcion": "Colocación de luna templada en marco existente, nivelación, fijación con silicona, limpieza de excedentes y prueba de estanqueidad. Incluye pequeño material (junquillo si necesario).",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza de vidrio y marco previo",
+          "descripcion": "Limpieza exhaustiva del vidrio nuevo y marco existente antes de la instalación. Eliminación de polvo, restos de silicona antigua y suciedad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 45,
+          "total": 22.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 135,
+        "iva_porcentaje": 21,
+        "iva": 28.35,
+        "total": 163.35
+      },
+      "sugerencias_catalogo": [
+        "Verificar con el cliente la ubicación exacta de la ventana (baño, puerta, zona de paso) para confirmar que vidrio templado 4mm cumple normativa CTE DB-SUA.",
+        "Si la ventana está en zona de paso o puerta, considerar vidrio laminado de seguridad como alternativa (mayor protección ante impacto).",
+        "Solicitar presupuesto de proveedor de vidrio templado certificado antes de confirmar precio final del material."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio de seguridad templado 4mm (80x120 cm)",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico. Precio pendiente de confirmación con proveedor. Rango: 150-250€."
+        },
+        {
+          "concepto": "Silicona neutra de fijación en marco",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Material consumible. Precio estimado: 15-25€."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "aplicacion_de_vinilo_o_pelicula_en_vidrio",
+      "instalacion_vidrio_doble_o_triple_aislante_en_ventana_existente",
+      "cambio_luna_ventana_rota",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_vidrio_laminado_de_seguridad"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3817,
+      "tokens_out": 1689
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

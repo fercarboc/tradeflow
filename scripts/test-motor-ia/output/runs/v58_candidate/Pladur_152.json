@@ -1,0 +1,188 @@
+{
+  "id": 152,
+  "oficio": "Pladur",
+  "texto": "Renovar paredes de dormitorio con trasdosado de pladur y mejorar aislamiento acústico de vecinos",
+  "http_status": 200,
+  "latency_ms": 19193,
+  "raw_response": {
+    "transcript": "Renovar paredes de dormitorio con trasdosado de pladur y mejorar aislamiento acústico de vecinos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Renovar paredes de dormitorio con trasdosado de pladur y mejorar aislamiento acústico de vecinos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume que las paredes son medianeras (colindantes con vecinos). Si no es así, ajustar a trasdosado estándar.",
+          "Medición de m² de pared a trasdosar pendiente de confirmación en obra."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Trasdosado acústico de pared medianera con estructura y aislante."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Acabado e imprimación de pladur nuevo."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm para trasdosado acústico",
+          "descripcion": "Suministro e instalación de placa de yeso laminado de 15mm de espesor para trasdosado acústico de pared medianera.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de confirmación. Instalador debe indicar m² reales y precio unitario."
+        },
+        {
+          "concepto": "Perfil metálico con banda resiliente para trasdosado acústico",
+          "descripcion": "Suministro de perfiles canal y montantes (70mm) con sistema de banda resiliente para desacoplamiento acústico de estructura respecto a pared medianera.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de perfilería y banda resiliente pendiente. Incluye tornillería."
+        },
+        {
+          "concepto": "Lana mineral alta densidad (70-80 kg/m³) para aislamiento acústico",
+          "descripcion": "Suministro de lana mineral o lana de roca de alta densidad (70-80 kg/m³) para relleno entre estructura y pared medianera. Espesor recomendado 80mm.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de aislante acústico pendiente de confirmación según espesor y densidad."
+        },
+        {
+          "concepto": "Banda resiliente perimetral para trasdosado acústico",
+          "descripcion": "Suministro e instalación de banda resiliente perimetral en encuentros con suelo, techo y paredes laterales para evitar transmisión de ruido por vía rígida.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de banda resiliente pendiente. Medición en metros lineales de perímetro."
+        },
+        {
+          "concepto": "Instalación de estructura y trasdosado acústico de pladur",
+          "descripcion": "Mano de obra para montaje de estructura metálica con banda resiliente, colocación de aislante acústico, instalación de placas de yeso laminado, cinta de juntas y pasta de juntas. Incluye sellado perimetral con silicona.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² pendiente de medición en obra. Tarifa recomendada 35€/m² incluye estructura, aislante, placas, juntas y sellado."
+        },
+        {
+          "concepto": "Imprimación fijadora para pladur nuevo",
+          "descripcion": "Suministro e imprimación fijadora obligatoria sobre placas de yeso laminado nuevo para preparar superficie antes de pintura.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de imprimación pendiente. Cantidad igual a m² de pladur trasdosado."
+        },
+        {
+          "concepto": "Masilla, lijado y pintura de acabado en pladur",
+          "descripcion": "Mano de obra para masillar juntas y tornillos, lijar con grano 150-220, aplicar dos manos de pintura plástica mate. Incluye cinta carrocero y pequeño material.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 10,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² pendiente. Tarifa 10€/m² incluye masilla, lijado y dos manos de pintura."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Confirmar en obra: metros cuadrados exactos de pared medianera a trasdosar.",
+        "Especificar si la pared medianera tiene humedad, grietas o problemas previos que requieran reparación antes del trasdosado.",
+        "Definir color y acabado de pintura final.",
+        "Considerar si es necesario desmontar enchufes, interruptores o elementos fijos en la pared antes de trasdosar.",
+        "Verificar que la estructura se apoya SOLO en suelo y techo con bandas resilientes, sin anclajes rígidos a la pared medianera, para máximo aislamiento acústico."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Banda resiliente perimetral para trasdosado acústico",
+          "oficio": "pladur_escayola",
+          "motivo": "Sistema específico de desacoplamiento acústico. No existe partida exacta en catálogo base."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "trasdosado_con_estructura_pladur_y_aislante",
+      "trasdosado_pladur_para_mejora_energetica_fachada",
+      "trasdosado_directo_pladur_sobre_pared_existente",
+      "trasdosado_acustico_pared_medianera",
+      "pintura_y_acabado_paredes_de_pladur_nuevo"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3872,
+      "tokens_out": 2653
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

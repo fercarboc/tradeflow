@@ -1,0 +1,206 @@
+{
+  "id": 327,
+  "oficio": "Fachadas",
+  "texto": "Reparar desprendimientos de revestimiento en fachada de bloque de viviendas, andamio incluido",
+  "http_status": 200,
+  "latency_ms": 19269,
+  "raw_response": {
+    "transcript": "Reparar desprendimientos de revestimiento en fachada de bloque de viviendas, andamio incluido",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar desprendimientos de revestimiento en fachada de bloque de viviendas, andamio incluido",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Extensión de fachada no especificada: presupuesto estimado, requiere medición en obra",
+          "Altura del bloque no indicada: andamio puede requerir proyecto técnico si altura > planta baja",
+          "Tipo de revestimiento no especificado: se asume mortero tradicional, confirmar en obra",
+          "Grado de desprendimiento no cuantificado: se estima cobertura media (30-40% de fachada afectada)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación de desprendimientos de revestimiento en fachada: saneo, imprimación, mortero de reparación, acabado coordinado. Oficio especializado en envolvente exterior."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo de zona afectada y perímetro suelto",
+          "descripcion": "Retirada completa de revestimiento desprendido y material suelto en perímetro de afectación. Incluye limpieza de polvo y restos.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 35,
+          "precio_unitario": 12,
+          "total": 420,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en 35 m2 (cobertura media de desprendimientos en bloque). Confirmar extensión real en medición de obra."
+        },
+        {
+          "concepto": "Imprimación adherente",
+          "descripcion": "Aplicación de imprimación adherente sobre superficie preparada para mejorar agarre del mortero de reparación.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 35,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: imprimación adherente. Precio pendiente de revisión del instalador según marca y tipo."
+        },
+        {
+          "concepto": "Mortero de reparación compatible",
+          "descripcion": "Suministro e instalación de mortero de reparación compatible con revestimiento existente. Aplicación manual en zonas desprendidas.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 35,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: mortero de reparación. Precio pendiente según tipo (hidráulico, acrílico, etc.) y cantidad real de m2."
+        },
+        {
+          "concepto": "Mano de obra aplicación mortero de reparación",
+          "descripcion": "Aplicación manual del mortero de reparación en zonas desprendidas, nivelación y acabado preliminar.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 35,
+          "precio_unitario": 18,
+          "total": 630,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabado coordinado con revestimiento existente",
+          "descripcion": "Acabado final (fratasado, texturizado o pintura) coordinado con el revestimiento existente para uniformidad visual.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 35,
+          "precio_unitario": 15,
+          "total": 525,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tipo de acabado no especificado: se asume fratasado estándar. Confirmar en obra si requiere pintura adicional o textura especial."
+        },
+        {
+          "concepto": "Andamio metálico modular",
+          "descripcion": "Suministro, montaje y desmontaje de andamio metálico modular para acceso seguro a fachada durante reparación. Incluido en presupuesto.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Andamio: coste estimado en 5 jornadas (montaje 1, trabajo 3, desmontaje 1). Precio pendiente según altura del bloque y extensión de fachada. Puede requerir proyecto técnico si altura > planta baja."
+        },
+        {
+          "concepto": "Señalización de zona de peligro",
+          "descripcion": "Colocación y mantenimiento de señalización de zona de peligro bajo andamio durante toda la duración de la obra. Obligatorio por seguridad.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Señalización: vallas, cintas, carteles. Precio pendiente según extensión de perímetro afectado."
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Pequeño material consumible: espátulas, cepillos, trapos, mascarillas, guantes, etc. Herramientas menores para saneo y aplicación.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: estimado en 5 jornadas de trabajo. Precio pendiente según consumo real."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1575,
+        "iva_porcentaje": 21,
+        "iva": 330.75,
+        "total": 1905.75
+      },
+      "sugerencias_catalogo": [
+        "Confirmar en obra: extensión real de desprendimientos (m2 de fachada afectada)",
+        "Confirmar altura del bloque: si > planta baja, andamio puede requerir proyecto técnico de seguridad",
+        "Confirmar tipo de revestimiento existente: mortero tradicional, acrílico, monocapa, etc.",
+        "Confirmar tipo de acabado final: fratasado, texturizado, pintura, etc.",
+        "Solicitar presupuesto de andamio especializado si altura es significativa (> 10 m)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación adherente",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "motivo": "Material específico para reparación de fachada, no encontrado en catálogo base. Requiere precio del instalador."
+        },
+        {
+          "concepto": "Mortero de reparación compatible",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "motivo": "Material específico para reparación de fachada, no encontrado en catálogo base. Requiere precio del instalador."
+        },
+        {
+          "concepto": "Andamio metálico modular",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio de alquiler/montaje de andamio. Precio variable según altura y duración. Requiere presupuesto especializado."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_desprendimiento_de_revestimiento_fachada",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "forrado_exterior_fachada_ventilada",
+      "instalacion_fachada_ventilada_con_revestimiento_ceramico"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3959,
+      "tokens_out": 2454
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

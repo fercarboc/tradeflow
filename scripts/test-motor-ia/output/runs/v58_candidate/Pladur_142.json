@@ -1,0 +1,191 @@
+{
+  "id": 142,
+  "oficio": "Pladur",
+  "texto": "Trasdosado de pared exterior con pladur e insulación, para mejorar el aislamiento térmico y acústico",
+  "http_status": 200,
+  "latency_ms": 19663,
+  "raw_response": {
+    "transcript": "Trasdosado de pared exterior con pladur e insulación, para mejorar el aislamiento térmico y acústico",
+    "quote": {
+      "resumen": {
+        "texto_original": "Trasdosado de pared exterior con pladur e insulación, para mejorar el aislamiento térmico y acústico",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo en fachada exterior: requiere medición exacta de m² y zona climática CTE DB-HE",
+          "Aislante: espesor debe ajustarse a normativa según ubicación geográfica",
+          "Barrera de vapor: OBLIGATORIA en trasdosado de fachada exterior",
+          "Andamio: puede ser necesario si altura > 3m; incluir en presupuesto final"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 35,
+            "max": 65
+          },
+          "motivo": "Trasdosado con estructura metálica, aislante y acabado de pladur en fachada exterior"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm para trasdosado exterior",
+          "descripcion": "Suministro e instalación de placa de yeso laminado de 15mm de espesor, resistente a humedad (tipo GD o GDH), para trasdosado de fachada exterior",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de revisión. Incluir cantidad en m² de fachada a trasdosar"
+        },
+        {
+          "concepto": "Perfiles metálicos (canal y montante) 70mm para estructura trasdosado",
+          "descripcion": "Suministro e instalación de perfiles de acero galvanizado: canales y montantes de 70mm de altura para estructura portante del trasdosado exterior",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente. Cantidad en m² de fachada"
+        },
+        {
+          "concepto": "Aislante lana mineral alta densidad 80mm",
+          "descripcion": "Suministro e instalación de lana mineral o lana de roca de alta densidad (80mm de espesor mínimo) entre estructura metálica para aislamiento térmico y acústico en fachada exterior",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente. Espesor puede variar según zona climática CTE DB-HE"
+        },
+        {
+          "concepto": "Barrera de vapor para trasdosado exterior",
+          "descripcion": "Suministro e instalación de lámina barrera de vapor (polietileno o similar) en cara interior del trasdosado para evitar condensaciones en fachada exterior",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "OBLIGATORIA en fachada exterior. Precio de material pendiente"
+        },
+        {
+          "concepto": "Tornillería y pequeño material para trasdosado",
+          "descripcion": "Suministro de tornillos autorroscantes, tacos, anclajes, cinta de papel para juntas, pasta de juntas y masilla de acabado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente. Cantidad en m² de fachada"
+        },
+        {
+          "concepto": "Mano de obra: montaje estructura metálica y colocación aislante",
+          "descripcion": "Instalación de perfiles metálicos (canal y montante), colocación de barrera de vapor y aislante lana mineral entre estructura",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas pendiente según m² y complejidad de fachada (altura, accesibilidad, andamio)"
+        },
+        {
+          "concepto": "Mano de obra: colocación placas pladur y acabado de juntas",
+          "descripcion": "Instalación de placas de yeso laminado 15mm, colocación de cinta de papel en juntas, aplicación de pasta de juntas y masilla de acabado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas pendiente según m² y acabado requerido"
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora (si necesario)",
+          "descripcion": "Alquiler y montaje de andamio o plataforma elevadora para acceso seguro a fachada exterior durante ejecución del trasdosado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Necesario si altura > 3m. Precio y duración pendiente según altura y accesibilidad de fachada"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: altura total de fachada a trasdosar (m²), zona climática (CTE DB-HE), accesibilidad (necesidad de andamio), acabado final deseado (pintura, revestimiento)",
+        "Considerar si es necesario proyecto técnico o cálculo de espesor de aislante según normativa térmica de la zona",
+        "Incluir en presupuesto final: coste de andamio si altura > 3m, gestión de residuos de obra, imprimación/pintura final si aplica"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Barrera de vapor para trasdosado exterior",
+          "oficio": "pladur_escayola",
+          "motivo": "Elemento obligatorio en fachada exterior no explícitamente en catálogo base, pero requerido por normativa CTE"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "trasdosado_directo_pladur_sobre_pared_existente",
+      "trasdosado_con_estructura_pladur_y_aislante",
+      "trasdosado_pladur_para_mejora_energetica_fachada",
+      "instalacion_sistema_SATE_aislamiento_exterior_fachada",
+      "trasdosado_acustico_pared_medianera"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3983,
+      "tokens_out": 2617
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "id": 1,
+  "oficio": "Fontanería",
+  "texto": "Quiero poner un grifo nuevo en la cocina y cambiar el sifón del fregadero",
+  "http_status": 200,
+  "latency_ms": 11045,
+  "raw_response": {
+    "transcript": "Quiero poner un grifo nuevo en la cocina y cambiar el sifón del fregadero",
+    "quote": {
+      "resumen": {
+        "texto_original": "Quiero poner un grifo nuevo en la cocina y cambiar el sifón del fregadero",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cambio de grifo y sifón en cocina - trabajo de fontanería estándar"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje grifo cocina antiguo",
+          "descripcion": "Desmontaje y retirada de grifo monomando existente en cocina",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Grifo monomando cocina nuevo",
+          "descripcion": "Suministro e instalación de grifo monomando de cocina con caño giratorio",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del grifo a definir por instalador según marca y modelo"
+        },
+        {
+          "concepto": "Instalación grifo cocina",
+          "descripcion": "Instalación y conexión del grifo monomando nuevo en cocina",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.75,
+          "precio_unitario": 50,
+          "total": 37.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Latiguillos flexibles 40cm (2 ud)",
+          "descripcion": "Suministro de 2 latiguillos flexibles de 40cm (agua fría y caliente) con conexiones 1/2\"",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de latiguillos a definir por instalador"
+        },
+        {
+          "concepto": "Desmontaje sifón fregadero antiguo",
+          "descripcion": "Desmontaje y retirada del sifón existente bajo el fregadero",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sifón fregadero nuevo",
+          "descripcion": "Suministro e instalación de sifón cromado nuevo para fregadero de cocina",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del sifón a definir por instalador según tipo y material"
+        },
+        {
+          "concepto": "Instalación sifón fregadero",
+          "descripcion": "Instalación y conexión del sifón nuevo al desagüe del fregadero",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.75,
+          "precio_unitario": 50,
+          "total": 37.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Silicona sanitaria y pequeño material",
+          "descripcion": "Silicona sanitaria, teflón, tacos y pequeño material de fijación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de consumibles a definir por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 125,
+        "iva_porcentaje": 21,
+        "iva": 26.25,
+        "total": 151.25
+      },
+      "sugerencias_catalogo": [
+        "Verificar diámetro de conexiones existentes (habitualmente 1/2\") antes de suministrar latiguillos",
+        "Comprobar estado de llaves de escuadra bajo fregadero; si están defectuosas, añadir partida de sustitución",
+        "Revisar presión de red de agua (mínimo 2 bar recomendado para grifo monomando)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Grifo monomando cocina nuevo",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "motivo": "Material cuyo precio depende de marca y modelo seleccionado por cliente"
+        },
+        {
+          "concepto": "Sifón fregadero nuevo",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "motivo": "Material cuyo precio depende de tipo y acabado seleccionado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_grifo_cocina",
+      "cambio_grifo_bano_general",
+      "cambio_grifo_lavabo",
+      "cambio_inodoro",
+      "sustitucion_columna_ducha"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3414,
+      "tokens_out": 1863
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

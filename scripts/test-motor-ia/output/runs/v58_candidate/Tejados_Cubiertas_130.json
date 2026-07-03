@@ -1,0 +1,167 @@
+{
+  "id": 130,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Limpieza de musgo y liquen en tejado de pizarra, tratamiento antimusgo e hidrofugado",
+  "http_status": 200,
+  "latency_ms": 18187,
+  "raw_response": {
+    "transcript": "Limpieza de musgo y liquen en tejado de pizarra, tratamiento antimusgo e hidrofugado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpieza de musgo y liquen en tejado de pizarra, tratamiento antimusgo e hidrofugado",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en altura: EPI y medidas de seguridad obligatorias",
+          "Productos químicos: especificar marcas y dosis según análisis previo del estado",
+          "Pizarra: material frágil, requiere técnica cuidadosa para no dañar"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Limpieza, tratamiento y mantenimiento de cubierta de pizarra. Regla estricta: tejados_cubiertas cubre goteras, limpieza, tratamientos impermeabilizantes y mantenimiento preventivo de cubiertas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza de musgo y liquen en cubierta de pizarra",
+          "descripcion": "Limpieza manual y mecánica de musgo, liquen y suciedad acumulada en tejado de pizarra. Incluye cepillado suave, eliminación de detritus y preparación de superficie. Trabajo en altura con EPI obligatorio.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar superficie total (m2) de tejado a limpiar. Tarifa típica: 15-25€/m2 según accesibilidad y grado de suciedad."
+        },
+        {
+          "concepto": "Tratamiento antimusgo y antialgas en cubierta",
+          "descripcion": "Aplicación de producto biocida/antimosgo (sulfato de hierro, cobre o similar) para eliminar esporas y prevenir reaparición de musgo y liquen. Incluye dilución según especificaciones técnicas y aplicación uniforme.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar: litros necesarios según superficie y producto elegido. Precio típico: 8-20€/litro (producto concentrado). Mano de obra aplicación: 20-30€/hora."
+        },
+        {
+          "concepto": "Hidrofugado/impermeabilizante en cubierta de pizarra",
+          "descripcion": "Aplicación de tratamiento hidrofugante (pintura impermeabilizante, resina acrílica o silicona) para proteger pizarra, mejorar escorrentía y prevenir infiltraciones. Incluye preparación de superficie y aplicación uniforme.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar: litros necesarios según superficie y tipo de hidrofugante (acrílico, silicona, poliuretano). Precio típico: 15-40€/litro. Mano de obra aplicación: 25-35€/hora."
+        },
+        {
+          "concepto": "Mano de obra aplicación tratamientos (biocida + hidrofugante)",
+          "descripcion": "Aplicación de productos biocida e hidrofugante en cubierta de pizarra. Incluye preparación, aplicación uniforme, tiempo de secado y control de calidad.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar horas totales de aplicación. Tarifa recomendada: 50€/hora (tejados_cubiertas). Estimación: 1-3 horas según superficie."
+        },
+        {
+          "concepto": "EPI y medidas de seguridad en trabajos en altura",
+          "descripcion": "Equipamiento de protección individual (arnés, línea de vida, casco, guantes, botas antideslizantes) y medidas de seguridad para trabajos en cubierta. Incluye montaje de puntos de anclaje si es necesario.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar número de jornadas. Precio típico: 50-100€/jornada (alquiler EPI + montaje seguridad)."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Cepillos, esponjas, trapos, cubos, escaleras, pequeñas herramientas, desengrasantes y otros consumibles necesarios para la limpieza y aplicación de tratamientos.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe estimar según jornadas. Precio típico: 30-60€/jornada."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de productos biocidas homologados (sulfato de hierro, cobre, etc.) para especificar marca y dosis.",
+        "Consultar catálogo de hidrofugantes/impermeabilizantes específicos para pizarra (acrílicos, siliconas, poliuretanos).",
+        "Considerar si la cubierta requiere revisión previa de estado (grietas, desprendimientos) antes de aplicar tratamientos."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tratamiento antimusgo y antialgas en cubierta",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Producto químico específico para eliminación de musgo/liquen. Precio pendiente de especificación de producto y litros."
+        },
+        {
+          "concepto": "Hidrofugado/impermeabilizante en cubierta de pizarra",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Tratamiento impermeabilizante específico para pizarra. Precio pendiente de especificación de producto y litros."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_y_consolidacion_de_estructura_de_madera_cubierta",
+      "limpieza_y_mantenimiento_preventivo_de_cubierta",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "tratamiento_de_musgo_y_algas_en_cesped",
+      "instalacion_de_cubierta_de_teja_arabe_o_curvada"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4057,
+      "tokens_out": 2430
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,186 @@
+{
+  "id": 175,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Retirar moqueta antigua y preparar suelo para colocar tarima de madera de roble, 45 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 14295,
+  "raw_response": {
+    "transcript": "Retirar moqueta antigua y preparar suelo para colocar tarima de madera de roble, 45 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Retirar moqueta antigua y preparar suelo para colocar tarima de madera de roble, 45 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume suelo interior. Si es planta baja en contacto con terreno, se requiere barrera vapor.",
+          "Precio de tarima de roble pendiente de revisión (material sugerido por IA).",
+          "Rodapié no incluido en presupuesto base; cliente puede solicitarlo."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de tarima flotante de madera (roble). Oficio principal."
+        },
+        {
+          "oficio": "limpieza",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 18,
+            "recomendado": 20,
+            "max": 25
+          },
+          "motivo": "Retirada de moqueta antigua y preparación del suelo."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de moqueta antigua",
+          "descripcion": "Desmontaje y retirada de moqueta antigua, incluyendo adhesivo residual. Preparación de suelo base. 45 m².",
+          "oficio": "limpieza",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 5,
+          "total": 225,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tarima de madera de roble",
+          "descripcion": "Suministro de tarima flotante de roble, calidad estándar, espesor 14-15 mm, sistema click. 45 m² (incluye 5% mermas).",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 47.25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tarima de roble a definir por instalador según calidad y proveedor. Rango orientativo: 80-150 €/m²."
+        },
+        {
+          "concepto": "Lámina aislante espuma polietileno",
+          "descripcion": "Suministro e instalación de lámina aislante de espuma polietileno (6-8 mm) bajo tarima flotante. 45 m².",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lámina aislante a definir. Rango orientativo: 3-8 €/m²."
+        },
+        {
+          "concepto": "Instalación de tarima flotante de roble",
+          "descripcion": "Colocación de tarima flotante sistema click, incluyendo aclimatación previa (48-72h), nivelación de base, colocación de tablas con separación 3-5 mm entre ellas, y junta perimetral de 10-12 mm. 45 m².",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 32,
+          "total": 1440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Junta perimetral y pequeño material",
+          "descripcion": "Suministro e instalación de junta perimetral (10-12 mm) en todo el perímetro, cinta de espuma, tornillos, adhesivo y pequeño material de fijación.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de junta perimetral y pequeño material a definir. Rango orientativo: 2-5 €/m²."
+        },
+        {
+          "concepto": "Limpieza final y acabado",
+          "descripcion": "Limpieza de polvo y residuos tras instalación. Revisión de juntas y acabado final.",
+          "oficio": "limpieza",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 2,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1755,
+        "iva_porcentaje": 21,
+        "iva": 368.55,
+        "total": 2123.55
+      },
+      "sugerencias_catalogo": [
+        "Consultar con cliente si desea rodapié de madera de roble (partida adicional, ~8-12 €/ml).",
+        "Si la vivienda es planta baja en contacto con terreno, añadir barrera vapor bajo la lámina aislante (~2-4 €/m²).",
+        "Tarima de roble requiere mantenimiento anual con aceite protector (partida de mantenimiento posterior)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tarima de madera de roble",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "motivo": "Material específico de cliente; precio a definir por instalador."
+        },
+        {
+          "concepto": "Lámina aislante espuma polietileno",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "motivo": "Partida obligatoria en instalación de tarima flotante; precio a definir."
+        },
+        {
+          "concepto": "Junta perimetral y pequeño material",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "motivo": "Partida obligatoria (junta perimetral 10-12 mm); precio a definir."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tarima_exterior_madera_o_composite",
+      "colocacion_parquet_flotante_o_tarima_laminada",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_tarima_exterior_madera_tratada_o_composite",
+      "solado_de_parquet_o_madera"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4050,
+      "tokens_out": 1992
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

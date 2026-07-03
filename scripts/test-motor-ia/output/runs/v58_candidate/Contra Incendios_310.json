@@ -1,0 +1,234 @@
+{
+  "id": 310,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar puerta cortafuego RF90 en escalera comunitaria del edificio, con ferretería homologada",
+  "http_status": 200,
+  "latency_ms": 21519,
+  "raw_response": {
+    "transcript": "Instalar puerta cortafuego RF90 en escalera comunitaria del edificio, con ferretería homologada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar puerta cortafuego RF90 en escalera comunitaria del edificio, con ferretería homologada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Certificación RF90 (EI90) requiere verificación de proyecto y normativa CTE DB-SI",
+          "Junta intumescente es OBLIGATORIA alrededor del marco",
+          "Cierrapuertas hidráulico es OBLIGATORIO en puertas de emergencia",
+          "Señalización de emergencia debe cumplir normativa de evacuación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de puerta cortafuego certificada con ferretería homologada"
+        },
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 70
+          },
+          "motivo": "Verificación de cumplimiento normativo CTE DB-SI y señalización de emergencia"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Puerta cortafuego RF90 (EI90) certificada",
+          "descripcion": "Suministro e instalación de puerta cortafuego homologada RF90 (EI90) según normativa CTE DB-SI, con marco certificado, sin puentes térmicos",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de puerta cortafuego RF90 certificada varía según fabricante y medidas exactas (rango típico 800-1200€). El instalador debe introducir precio real según proyecto y homologación"
+        },
+        {
+          "concepto": "Cierrapuertas hidráulico homologado",
+          "descripcion": "Cierrapuertas hidráulico OBLIGATORIO para puerta cortafuego en escalera de emergencia, con regulación de velocidad de cierre y reapertura",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio cierrapuertas hidráulico homologado (rango 150-400€). Debe ser compatible con certificación RF90"
+        },
+        {
+          "concepto": "Junta intumescente perimetral",
+          "descripcion": "Junta intumescente OBLIGATORIA alrededor del marco de la puerta cortafuego para garantizar estanqueidad al humo y fuego según CTE DB-SI",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml según medidas exactas de la puerta (típicamente 6-10 ml). Precio aproximado 15-25€/ml"
+        },
+        {
+          "concepto": "Marco cortafuego certificado",
+          "descripcion": "Marco metálico certificado RF90 (EI90) con anclajes y fijaciones según homologación, instalado sin puentes térmicos",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio marco cortafuego certificado (rango 200-500€). Incluido frecuentemente en el suministro de la puerta"
+        },
+        {
+          "concepto": "Instalación puerta cortafuego RF90",
+          "descripcion": "Mano de obra de instalación: desmontaje de puerta anterior si existe, colocación de marco, instalación de hoja, ajuste de cierrapuertas, regulación de cierre, pruebas de funcionamiento y cierre hermético",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Barra antipánico o manilla de emergencia",
+          "descripcion": "Barra antipánico homologada UNE EN-1125 o manilla de emergencia según normativa, instalada en puerta de escalera comunitaria",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio barra antipánico homologada (rango 120-300€). Obligatoria en puertas de emergencia según CTE DB-SI"
+        },
+        {
+          "concepto": "Señalización de emergencia y evacuación",
+          "descripcion": "Señalización de salida de emergencia, pictogramas de evacuación y señales luminiscentes según normativa CTE DB-SI, instaladas en puerta y alrededores",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio señalización (rango 50-150€). Incluye cartel salida emergencia y pictogramas"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, tacos, silicona neutra, masilla, cinta de espuma, materiales auxiliares para instalación correcta",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pequeño material (rango 30-80€)"
+        },
+        {
+          "concepto": "Verificación y pruebas de funcionamiento",
+          "descripcion": "Mano de obra: verificación de cierre hermético, prueba de cierrapuertas, comprobación de estanqueidad al humo, ajustes finales y documentación de cumplimiento normativo",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 55,
+          "total": 82.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 322.5,
+        "iva_porcentaje": 21,
+        "iva": 67.73,
+        "total": 390.23
+      },
+      "sugerencias_catalogo": [
+        "Verificar en proyecto técnico la certificación exacta requerida (RF90/EI90 es la más exigente)",
+        "Confirmar si la puerta anterior debe ser desmontada (incluido en presupuesto)",
+        "Solicitar certificado de homologación de la puerta al fabricante antes de instalar",
+        "Comprobar que el cierrapuertas es compatible con la certificación RF90",
+        "La junta intumescente es OBLIGATORIA: no puede omitirse",
+        "Considerar si se requiere conexión a central de incendios (no incluida en este presupuesto)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Puerta cortafuego RF90 (EI90) certificada",
+          "oficio": "cerrajeria",
+          "motivo": "Material específico de seguridad contra incendios, requiere certificación homologada"
+        },
+        {
+          "concepto": "Cierrapuertas hidráulico homologado",
+          "oficio": "cerrajeria",
+          "motivo": "Componente obligatorio para puertas cortafuego en escaleras de emergencia"
+        },
+        {
+          "concepto": "Junta intumescente perimetral",
+          "oficio": "contra_incendios",
+          "motivo": "Material obligatorio para garantizar estanqueidad al fuego según CTE DB-SI"
+        },
+        {
+          "concepto": "Barra antipánico o manilla de emergencia",
+          "oficio": "cerrajeria",
+          "motivo": "Elemento obligatorio en puertas de emergencia según normativa de evacuación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_puerta_cortafuego",
+      "instalacion_de_compuertas_cortafuego_en_conductos_HVAC",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente",
+      "instalacion_de_barra_antipánico",
+      "instalacion_vidrio_de_seguridad_templado"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3959,
+      "tokens_out": 3092
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 2,
+    "n_sugeridas": 7,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

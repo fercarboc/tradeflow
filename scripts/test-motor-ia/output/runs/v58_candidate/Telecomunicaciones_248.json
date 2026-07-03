@@ -1,0 +1,137 @@
+{
+  "id": 248,
+  "oficio": "Telecomunicaciones",
+  "texto": "Poner rosetas de red RJ45 en 3 habitaciones y conectar al router del salón con cable",
+  "http_status": 200,
+  "latency_ms": 13942,
+  "raw_response": {
+    "transcript": "Poner rosetas de red RJ45 en 3 habitaciones y conectar al router del salón con cable",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner rosetas de red RJ45 en 3 habitaciones y conectar al router del salón con cable",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Distancia total de cable no especificada. Verificar que no supere 100m sin repetidor.",
+          "Tipo de cable (CAT6/CAT5e) no indicado. Se asume CAT6 (estándar actual).",
+          "Necesidad de rozas/reposición depende de obra nueva vs. reforma. Revisar con cliente."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de tomas de red RJ45 y cableado estructurado (telecomunicaciones/electricidad)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Tomas RJ45 CAT6 en habitaciones",
+          "descripcion": "Suministro e instalación de 3 tomas de red RJ45 CAT6 con caja de empotrar y pequeño material (tornillos, pasta térmica, etc.)",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cable UTP CAT6 para distribución",
+          "descripcion": "Suministro de cable UTP CAT6 para conectar las 3 tomas al router del salón (longitud a determinar según plano)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales no especificada. Instalador debe medir distancia real desde router a cada habitación y proporcionar precio/ml (típico 0.50-1.50€/ml según calidad)."
+        },
+        {
+          "concepto": "Mano de obra tendido y conexión cable CAT6",
+          "descripcion": "Tendido de cable UTP CAT6 desde router a las 3 tomas, incluyendo pasos por canaletas, rozas o tuberías existentes, y conexión en tomas y router",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de 3 horas (1h por toma + tendido). Revisar según complejidad real (rozas, tuberías, distancia)."
+        },
+        {
+          "concepto": "Certificación y prueba de red CAT6",
+          "descripcion": "Medición y certificación de cada toma con tester CAT6 para verificar velocidad y continuidad",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de certificación. Precio típico 30-60€. Instalador revisa si incluye o cobra aparte."
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Verificar si es necesario patch panel o switch en el salón para centralizar las conexiones.",
+        "Si las distancias superan 100m, considerar repetidor o switch intermedio.",
+        "Confirmar tipo de canalización: canaletas, tuberías existentes, o necesidad de rozas (obra)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cable UTP CAT6 para distribución",
+          "motivo": "Material cuya cantidad depende de medición en obra. Precio unitario pendiente de revisión."
+        },
+        {
+          "concepto": "Certificación y prueba de red CAT6",
+          "motivo": "Servicio complementario. Precio a definir por instalador según tarifa."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_toma_red_ethernet_cat6",
+      "instalacion_cocina_gas",
+      "instalacion_toma_tierra_nueva",
+      "instalacion_toma_television_coaxial",
+      "instalacion_de_cubierta_de_teja_arabe_o_curvada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3620,
+      "tokens_out": 1593
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

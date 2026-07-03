@@ -1,0 +1,172 @@
+{
+  "id": 157,
+  "oficio": "Pladur",
+  "texto": "Instalar techo registrable de placas en local comercial de 100 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 13720,
+  "raw_response": {
+    "transcript": "Instalar techo registrable de placas en local comercial de 100 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar techo registrable de placas en local comercial de 100 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si el local requiere normativa de resistencia al fuego (RF) según actividad y regulaciones locales",
+          "Confirmar altura disponible bajo forjado para cuelgue de estructura",
+          "Especificar tipo de placa: estándar, ignífuga (RF), acústica o hidrófuga según uso final"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Instalación de falso techo con placas de yeso laminado (pladur) en local comercial"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro de placas de yeso laminado estándar 15mm",
+          "descripcion": "Placas de yeso laminado estándar 15mm para techo registrable. Cantidad estimada: 110 m² (incluye mermas 10%)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 110,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador según proveedor y tipo de placa (estándar/ignífuga/acústica)"
+        },
+        {
+          "concepto": "Estructura de cuelgue: perfiles de acero galvanizado y varillas roscadas",
+          "descripcion": "Perfiles maestros y secundarios de acero galvanizado, varillas roscadas M8, horquillas de suspensión y pequeño material de fijación para estructura de cuelgue en 100 m²",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de estructura metálica a confirmar según densidad de cuelgue y altura de suspensión"
+        },
+        {
+          "concepto": "Mano de obra: instalación de estructura de cuelgue",
+          "descripcion": "Colocación de varillas roscadas, perfiles maestros y secundarios, horquillas de suspensión y nivelación de estructura en 100 m²",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 8,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: colocación de placas de yeso laminado",
+          "descripcion": "Fijación de placas de yeso laminado a estructura metálica con tornillería, incluyendo cortes y ajustes en 100 m²",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 12,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de cinta de juntas, pasta de juntas y sellador",
+          "descripcion": "Cinta de papel reforzada, pasta de juntas, lija y sellador para acabado de juntas entre placas en 100 m²",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales de acabado a confirmar según cantidad de pasadas y tipo de sellador"
+        },
+        {
+          "concepto": "Mano de obra: acabado de juntas (masillado y lijado)",
+          "descripcion": "Aplicación de pasta de juntas, lijado y preparación de superficie para pintura en 100 m²",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 6,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2600,
+        "iva_porcentaje": 21,
+        "iva": 546,
+        "total": 3146
+      },
+      "sugerencias_catalogo": [
+        "Si el local requiere resistencia al fuego (RF-30, RF-60, RF-120), solicitar presupuesto adicional con placas ignífugas rosa y sellador intumescente",
+        "Si se requiere aislamiento acústico, considerar lana de roca entre estructura y placas",
+        "Para acabado final, presupuestar pintura blanca mate en partida separada (oficio: pintura)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de placas de yeso laminado estándar 15mm",
+          "origen": "sugerida_ia",
+          "motivo": "Material base del techo registrable; precio variable según proveedor y especificación técnica"
+        },
+        {
+          "concepto": "Estructura de cuelgue: perfiles de acero galvanizado y varillas roscadas",
+          "origen": "sugerida_ia",
+          "motivo": "Componentes estructurales; precio variable según densidad de cuelgue y altura de suspensión"
+        },
+        {
+          "concepto": "Suministro de cinta de juntas, pasta de juntas y sellador",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales de acabado; precio variable según cantidad de pasadas y tipo de sellador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "falso_techo_pladur_en_local_con_normativa_incendios",
+      "instalacion_de_sistema_de_rociadores_sprinklers",
+      "instalacion_de_sistema_de_megafonia_y_hilo_musical",
+      "instalacion_iluminacion_comercial_led",
+      "instalacion_red_electrica_local_comercial"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3907,
+      "tokens_out": 1906
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

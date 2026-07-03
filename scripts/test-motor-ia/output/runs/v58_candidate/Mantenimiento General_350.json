@@ -1,0 +1,181 @@
+{
+  "id": 350,
+  "oficio": "Mantenimiento General",
+  "texto": "Pintar zona de carga y descarga de almacén con líneas de seguridad y señalización de suelo",
+  "http_status": 200,
+  "latency_ms": 18355,
+  "raw_response": {
+    "transcript": "Pintar zona de carga y descarga de almacén con líneas de seguridad y señalización de suelo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar zona de carga y descarga de almacén con líneas de seguridad y señalización de suelo",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere medición de superficie en m² para ajustar cantidad total",
+          "Especificar tipo de pintura (epoxi, poliuretano, acrílica industrial) según tráfico esperado",
+          "Confirmar si incluye preparación de superficie (limpieza, desengrasante)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura industrial de suelo con líneas de seguridad y señalización"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y desengrasante de suelo almacén",
+          "descripcion": "Limpieza profunda, barrido y desengrasante químico del suelo antes de pintar. Incluye hidrolimpiadora si es necesario.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de m² y confirmación de método de limpieza (manual o hidrolimpiadora)"
+        },
+        {
+          "concepto": "Imprimación consolidante y adherente para hormigón",
+          "descripcion": "Aplicación de imprimación para mejorar adherencia de pintura en suelo de hormigón. Una mano.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material pendiente. Rendimiento típico 8-10 m²/litro"
+        },
+        {
+          "concepto": "Pintura epoxi o poliuretano para suelo industrial",
+          "descripcion": "Pintura de tráfico para zona de carga/descarga. Dos manos mínimo. Resistente a abrasión, químicos y tráfico rodante.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material pendiente. Rendimiento 5-7 m²/litro en dos manos"
+        },
+        {
+          "concepto": "Aplicación de pintura de suelo (dos manos)",
+          "descripcion": "Mano de obra para aplicación de pintura epoxi/poliuretano en dos manos con rodillo de pelo corto. Incluye secado entre manos.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 8,
+          "total": 8,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio base 8€/m² (dos manos). Ajustar según superficie total medida"
+        },
+        {
+          "concepto": "Líneas de seguridad y demarcación vial",
+          "descripcion": "Pintura de líneas de seguridad, pasos peatonales, zonas de carga/descarga y señalización de suelo según normativa. Incluye cintas de enmascarar y pintura específica.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de metros lineales de líneas a pintar. Alternativa: presupuestar por unidad (ud) si se conoce número de líneas"
+        },
+        {
+          "concepto": "Señalización de suelo (símbolos, flechas, textos)",
+          "descripcion": "Pintura de símbolos de seguridad, flechas direccionales, textos de advertencia y señalización específica de almacén. Incluye plantillas si es necesario.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere especificar número y complejidad de símbolos/señales a pintar"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Rodillos, brochas, cintas de enmascarar, trapos, disolvente, EPI (guantes, mascarilla, gafas), etc.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según superficie total (estimado 30-80€ para zona pequeña-mediana)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 8,
+        "iva_porcentaje": 21,
+        "iva": 1.68,
+        "total": 9.68
+      },
+      "sugerencias_catalogo": [
+        "Buscar en catálogo: 'pintado_de_garaje_o_parking_suelo' — aplicable a zona de carga/descarga con líneas viales",
+        "Considerar si la zona requiere antideslizante (cuarzo) para mayor seguridad en zona mojada",
+        "Confirmar normativa de señalización: UNE 1307, ISO 3864 para símbolos de seguridad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Líneas de seguridad y demarcación vial",
+          "oficio": "pintura",
+          "motivo": "Partida específica de señalización de suelo en almacén — requiere medición en ml o número de líneas"
+        },
+        {
+          "concepto": "Señalización de suelo (símbolos, flechas, textos)",
+          "oficio": "pintura",
+          "motivo": "Partida específica de símbolos y textos de seguridad — requiere especificación de cantidad y complejidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_garaje_o_parking_suelo",
+      "instalacion_de_tarima_o_entarimado_de_madera_elevado_para_escenario_o_zona",
+      "impermeabilizacion_de_camara_frigorifica_o_zona_fria",
+      "pintado_de_canchas_de_padel_interior",
+      "limpieza_y_soplado_de_jardines_y_zonas_exteriores"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3811,
+      "tokens_out": 2378
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "NO"
+  }
+}

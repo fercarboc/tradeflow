@@ -1,0 +1,210 @@
+{
+  "id": 176,
+  "oficio": "suelos_alicatados",
+  "texto": "Instalar suelo de cemento pulido en loft industrial, 80 metros cuadrados con sellado protector",
+  "latency_ms": 18589,
+  "raw_response": {
+    "transcript": "Instalar suelo de cemento pulido en loft industrial, 80 metros cuadrados con sellado protector",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar suelo de cemento pulido en loft industrial, 80 metros cuadrados con sellado protector",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Superficie grande (80 m²): verificar estado actual del soporte y necesidad de base de hormigón",
+          "Loft industrial: confirmar si hay tráfico pesado o maquinaria que requiera endurecedor superficial adicional",
+          "Sellado protector: especificar tipo (poliuretano, epoxi) según uso final"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 95
+          },
+          "motivo": "Instalación de suelo continuo de cemento pulido (microcemento/cemento bruñido)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Hormigón HA-20 o mortero de cemento base",
+          "descripcion": "Suministro y colocación de hormigón HA-20 o mortero de cemento para base de suelo pulido, 80 m²",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de hormigón/mortero base a confirmar por instalador según proveedor local"
+        },
+        {
+          "concepto": "Fratasado y pulido mecánico de cemento",
+          "descripcion": "Fratasado mecánico con helicóptero (superficie >50 m²) y pulido progresivo de cemento, 80 m²",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 32,
+          "total": 2560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Juntas de retracción y dilatación",
+          "descripcion": "Ejecución de juntas de retracción cada 4-5 m y juntas de dilatación perimetral, 80 m²",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de juntas (sellador, perfiles) a presupuestar por instalador"
+        },
+        {
+          "concepto": "Curado del hormigón/cemento",
+          "descripcion": "Curado con film de polietileno o líquido de curado durante 7 días, 80 m²",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Costo de film o líquido de curado a confirmar"
+        },
+        {
+          "concepto": "Endurecedor superficial (tráfico industrial)",
+          "descripcion": "Aplicación de endurecedor superficial de color para aumentar resistencia al tráfico y desgaste, 80 m²",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Endurecedor específico para loft industrial a presupuestar"
+        },
+        {
+          "concepto": "Sellado protector poliuretano o epoxi",
+          "descripcion": "Aplicación de sellador protector de alta resistencia (poliuretano o epoxi) para protección y acabado, 80 m²",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tipo y cantidad de sellador a definir según especificaciones de uso final"
+        },
+        {
+          "concepto": "Mano de obra: sellado y acabados finales",
+          "descripcion": "Aplicación de sellador protector, pulido final y control de calidad, 80 m²",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 32,
+          "total": 2560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Lijas, discos de pulido, trapos, desengrasantes, protecciones, etc.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles a presupuestar según necesidades reales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 5120,
+        "iva_porcentaje": 21,
+        "iva": 1075.2,
+        "total": 6195.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_suelo_de_cemento_portland_bruñido' para rangos de precio de mano de obra (25-95 €/m²)",
+        "Considerar si el loft requiere 'acabado_con_microcemento_suelo_o_pared' si se opta por microcemento en lugar de cemento pulido tradicional",
+        "Confirmar si hay necesidad de 'impermeabilizacion' si el loft tiene zonas húmedas o sótano"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Hormigón HA-20 o mortero de cemento base",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Material base para suelo de cemento pulido"
+        },
+        {
+          "concepto": "Juntas de retracción y dilatación",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Obligatorio en superficies >50 m² cada 4-5 m"
+        },
+        {
+          "concepto": "Curado del hormigón/cemento",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Proceso crítico primeros 7 días"
+        },
+        {
+          "concepto": "Endurecedor superficial (tráfico industrial)",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Recomendado para loft industrial con tráfico"
+        },
+        {
+          "concepto": "Sellado protector poliuretano o epoxi",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Sellador específico solicitado por cliente"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_suelo_de_cemento_portland_bruñido",
+      "instalacion_microcemento_suelo_interior",
+      "instalacion_suelo_continuo_de_microcemento_o_cemento_pulido_en_bano",
+      "acabado_con_microcemento_suelo_o_pared",
+      "instalacion_pavimento_de_hormigon_impreso_o_decorativo"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4014,
+      "tokens_out": 2778
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "oficio_detectado": "suelos_alicatados"
+  }
+}

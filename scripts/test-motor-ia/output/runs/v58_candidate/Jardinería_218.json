@@ -1,0 +1,285 @@
+{
+  "id": 218,
+  "oficio": "Jardinería",
+  "texto": "Diseño y construcción de estanque ornamental con fuente y plantas acuáticas, 4 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 28187,
+  "raw_response": {
+    "transcript": "Diseño y construcción de estanque ornamental con fuente y plantas acuáticas, 4 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Diseño y construcción de estanque ornamental con fuente y plantas acuáticas, 4 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar profundidad del estanque para determinar si requiere vallado de seguridad (CTE DB-SUA si profundidad > 50cm y hay menores)",
+          "Confirmar si el estanque será enterrado o elevado (afecta a excavación e impermeabilización)",
+          "Especificar tipo de plantas acuáticas (flotantes, sumergidas, oxigenantes) para ajustar cantidad y precio",
+          "Revisar acceso a electricidad para bomba de recirculación (distancia, protección diferencial obligatoria)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Diseño, construcción, plantación y mantenimiento de estanque ornamental con plantas acuáticas"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Excavación, preparación de base, encofrado y acabados estructurales del estanque"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica de bomba de recirculación con protección diferencial y toma de tierra"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Excavación y preparación de base para estanque enterrado",
+          "descripcion": "Excavación de 4 m² a profundidad media de 0,80 m (3,2 m³), retirada de tierra, nivelación y compactación de base",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 4,
+          "precio_unitario": 35,
+          "total": 140,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización con lámina EPDM de 1,5 mm",
+          "descripcion": "Suministro e instalación de lámina EPDM de 1,5 mm de espesor para impermeabilización completa del estanque (4 m² + solapas laterales y fondo)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material EPDM: precio pendiente de revisión según proveedor y espesor. Cantidad estimada incluyendo solapas y remates."
+        },
+        {
+          "concepto": "Instalación de lámina impermeabilizante EPDM",
+          "descripcion": "Mano de obra de colocación, sellado de juntas, remates en bordes y prueba de estanqueidad",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Bomba de recirculación sumergible para fuente",
+          "descripcion": "Suministro de bomba sumergible 1.500-2.000 W con caudal 4.000-6.000 l/h, apta para estanques de 4 m²",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Bomba sumergible: precio pendiente. Rango típico 150-400€ según potencia y marca."
+        },
+        {
+          "concepto": "Instalación de bomba de recirculación y tuberías",
+          "descripcion": "Colocación de bomba sumergible, conexión de tuberías de PVC (entrada/salida), instalación de surtidor o cascada, prueba de funcionamiento",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 25,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica de bomba con protección diferencial",
+          "descripcion": "Tendido de cable eléctrico (RZ 3x2,5 mm²) desde cuadro a bomba, instalación de diferencial 30 mA, toma de tierra, caja de conexión estanca IP65, prueba de aislamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material eléctrico (cable, diferencial, caja estanca)",
+          "descripcion": "Suministro de cable RZ 3x2,5 mm², diferencial 30 mA, caja de conexión IP65, conectores estancos y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material eléctrico: precio pendiente según longitud de cable y componentes específicos."
+        },
+        {
+          "concepto": "Plantación de plantas acuáticas (flotantes, sumergidas y oxigenantes)",
+          "descripcion": "Suministro e instalación de plantas acuáticas variadas: nenúfares, jacinto de agua, plantas oxigenantes (elodea, ludwigia), plantas sumergidas. Cantidad estimada 8-12 unidades según especie",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Plantas acuáticas: precio pendiente. Rango típico 15-80€/unidad según especie y tamaño."
+        },
+        {
+          "concepto": "Mano de obra plantación de plantas acuáticas",
+          "descripcion": "Plantación de plantas en macetas sumergidas, flotadores y zonas de borde, distribución equilibrada, riego de asiento",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Vallado de seguridad (si profundidad > 50 cm y hay menores)",
+          "descripcion": "Suministro e instalación de valla de seguridad perimetral de acero galvanizado o aluminio, altura mínima 1,10 m, según CTE DB-SUA. Longitud estimada 8 ml (perímetro estanque 4 m²)",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Vallado: CONDICIONADO a profundidad > 50 cm y presencia de menores. Precio pendiente según material y diseño."
+        },
+        {
+          "concepto": "Instalación de vallado de seguridad",
+          "descripcion": "Mano de obra de montaje, anclaje a base de hormigón, nivelación y acabados",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra condicionada a confirmación de necesidad de vallado por profundidad y normativa."
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, anclajes, selladores, juntas, tuberías PVC, conectores, macetas sumergibles, flotadores, sustrato acuático, pequeño material diverso",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: precio pendiente de revisión según cantidad y especificaciones finales."
+        }
+      ],
+      "calculos": {
+        "subtotal": 815,
+        "iva_porcentaje": 21,
+        "iva": 171.15,
+        "total": 986.15
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: ¿Estanque enterrado o elevado? (afecta excavación y estructura)",
+        "Especificar profundidad exacta del estanque (determina vallado obligatorio según CTE DB-SUA)",
+        "Definir tipo de fuente: surtidor simple, cascada, fuente decorativa (afecta a bomba y tuberías)",
+        "Solicitar presupuesto de plantas acuáticas al vivero especializado (especies, tamaños, cantidades)",
+        "Verificar disponibilidad de toma eléctrica cercana (distancia < 5 m recomendado para seguridad)",
+        "Considerar filtro de agua si se desean peces (no incluido en presupuesto base)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Bomba de recirculación sumergible para fuente",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "motivo": "Material específico para estanque ornamental con fuente"
+        },
+        {
+          "concepto": "Lámina EPDM de impermeabilización",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material de impermeabilización específico para estanques"
+        },
+        {
+          "concepto": "Plantas acuáticas variadas",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "motivo": "Suministro de flora acuática específica"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_fuente_o_estanque_ornamental",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "abonado_y_enmienda_de_suelo_del_jardin",
+      "forjado_de_vigueta_y_bovedilla",
+      "tratamiento_fitosanitario_plagas_y_enfermedades"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "max_tokens",
+      "tokens_in": 4057,
+      "tokens_out": 4096
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 6,
+    "n_sugeridas": 6,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

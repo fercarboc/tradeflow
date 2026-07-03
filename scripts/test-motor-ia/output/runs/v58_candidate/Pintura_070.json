@@ -1,0 +1,175 @@
+{
+  "id": 70,
+  "oficio": "Pintura",
+  "texto": "Repintar portería del edificio, zona de buzones y escalera hasta el primer piso",
+  "http_status": 200,
+  "latency_ms": 14707,
+  "raw_response": {
+    "transcript": "Repintar portería del edificio, zona de buzones y escalera hasta el primer piso",
+    "quote": {
+      "resumen": {
+        "texto_original": "Repintar portería del edificio, zona de buzones y escalera hasta el primer piso",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se recomienda inspeccionar estado actual de paredes y techo para detectar grietas, humedades o desperfectos que requieran masilla o reparación previa",
+          "Confirmar si hay elementos metálicos (barandillas, herrajes) que requieran pintura esmalte adicional"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Repintado de zonas interiores: portería, buzones y escalera comunitaria"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Imprimación fijadora en portería, buzones y escalera",
+          "descripcion": "Aplicación de imprimación fijadora en paredes y techo de portería, zona de buzones y escalera hasta primer piso. Preparación de superficies con limpieza y lijado ligero.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 4,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie estimada en 45 m2 (portería ~12 m2, buzones ~8 m2, escalera hasta 1º piso ~25 m2). Confirmar medición real en obra."
+        },
+        {
+          "concepto": "Pintura plástica mate interior en portería, buzones y escalera",
+          "descripcion": "Aplicación de pintura plástica mate de calidad en 2 manos en paredes y techo de portería, zona de buzones y escalera hasta primer piso.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 6,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie estimada en 45 m2. Precio incluye 2 manos. Confirmar medición real."
+        },
+        {
+          "concepto": "Masilla y reparación de desperfectos",
+          "descripcion": "Reparación de grietas, agujeros y desperfectos en paredes y techo con masilla de calidad. Lijado posterior para acabado uniforme.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de revisión según estado actual de paredes. Incluye masilla, lija y pequeño material."
+        },
+        {
+          "concepto": "Pintura esmalte en barandillas y herrajes metálicos",
+          "descripcion": "Pintura esmalte satinado en barandillas, pasamanos y herrajes metálicos de escalera y portería. Incluye limpieza, desoxidante y 2 manos de esmalte.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 8,
+          "total": 160,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud estimada de barandillas y pasamanos. Confirmar en obra si hay elementos metálicos a pintar."
+        },
+        {
+          "concepto": "Cinta carrocero, plástico de protección y pequeño material",
+          "descripcion": "Suministro e instalación de cinta carrocero, plástico de protección para suelos y mobiliario, pinceles, rodillos y pequeño material consumible.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de revisión. Incluye consumibles: cinta, plástico, pinceles, rodillos, trapos, etc."
+        },
+        {
+          "concepto": "Andamio o escalera telescópica para acceso a zonas altas",
+          "descripcion": "Alquiler y montaje de escalera telescópica o andamio móvil para acceso seguro a techo y zonas altas de escalera y portería.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de revisión. Confirmar si se requiere alquiler de escalera o andamio según altura de escalera."
+        }
+      ],
+      "calculos": {
+        "subtotal": 610,
+        "iva_porcentaje": 21,
+        "iva": 128.1,
+        "total": 738.1
+      },
+      "sugerencias_catalogo": [
+        "Referencia: [pintura_de_escalera_comunitaria_completa] — rango 4-16€/m2. Presupuesto utiliza 6€/m2 (mano de obra pintura) + 4€/m2 (imprimación), dentro del rango.",
+        "Considerar si hay humedades en escalera o portería → podría requerir tratamiento impermeabilizante previo (oficio: impermeabilizacion)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Masilla y reparación de desperfectos",
+          "oficio": "pintura",
+          "motivo": "Partida sugerida por IA. Precio material pendiente de revisión según estado actual de paredes."
+        },
+        {
+          "concepto": "Pintura esmalte en barandillas y herrajes metálicos",
+          "oficio": "pintura",
+          "motivo": "Partida sugerida por IA. Cantidad (ml) y precio unitario pendientes de confirmación en obra."
+        },
+        {
+          "concepto": "Cinta carrocero, plástico de protección y pequeño material",
+          "oficio": "pintura",
+          "motivo": "Partida sugerida por IA. Precio material pendiente de revisión."
+        },
+        {
+          "concepto": "Andamio o escalera telescópica para acceso a zonas altas",
+          "oficio": "pintura",
+          "motivo": "Partida sugerida por IA. Precio alquiler pendiente de revisión según disponibilidad y duración."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_chapas_y_numeros_en_puertas_o_buzon",
+      "instalacion_de_escalera_de_acceso_a_cubierta_o_zona_tecnica",
+      "pintura_de_escalera_comunitaria_completa",
+      "instalacion_de_pavimento_o_suelo_de_vidrio_o_cristal",
+      "tabique_pladur_para_caja_escalera_comunitaria"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3854,
+      "tokens_out": 2081
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

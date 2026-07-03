@@ -1,0 +1,386 @@
+{
+  "id": 136,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Construir cubierta vegetal en azotea comunitaria, sistema de jardinera con riego automático",
+  "http_status": 200,
+  "latency_ms": 32609,
+  "raw_response": {
+    "transcript": "Construir cubierta vegetal en azotea comunitaria, sistema de jardinera con riego automático",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir cubierta vegetal en azotea comunitaria, sistema de jardinera con riego automático",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Obra de envergadura en zona común: requiere proyecto técnico y permisos municipales",
+          "Carga estructural de cubierta vegetal: verificar capacidad portante de la losa",
+          "Sistema de riego automático: requiere acometida eléctrica y fontanería",
+          "Impermeabilización reforzada obligatoria bajo sistema de drenaje"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Construcción de cubierta vegetal, estructura portante, drenaje y sumideros"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización reforzada bajo sistema de drenaje de cubierta vegetal"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación de sistema de riego automático, tuberías y goteros"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Acometida eléctrica para programador y bomba de riego automático"
+        },
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 22,
+            "recomendado": 25,
+            "max": 28
+          },
+          "motivo": "Plantación de especies vegetales y mantenimiento inicial"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico cubierta vegetal",
+          "descripcion": "Proyecto técnico y cálculo estructural de cubierta vegetal, verificación de cargas, drenaje y riego. Incluye planos de ejecución y especificaciones técnicas.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de proyecto técnico a definir por profesional colegiado"
+        },
+        {
+          "concepto": "Impermeabilización reforzada bajo cubierta vegetal",
+          "descripcion": "Lámina impermeabilizante de PVC/TPO de alta resistencia (1.5mm mínimo) con refuerzo en encuentros, sumideros y zonas de paso. Incluye imprimación, sellado de juntas y protección mecánica.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie de azotea a medir. Precio material + instalación a definir según m2 reales"
+        },
+        {
+          "concepto": "Instalación impermeabilización cubierta vegetal",
+          "descripcion": "Mano de obra de colocación de lámina impermeabilizante, sellado de juntas, refuerzo en encuentros con paramentos, sumideros y zonas singulares.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de instalación a estimar según superficie y complejidad"
+        },
+        {
+          "concepto": "Sistema de drenaje modular con geotextil",
+          "descripcion": "Capa drenante modular (lámina drenante de polietileno con geotextil integrado) para evacuación rápida de agua. Incluye geotextil filtro y conexión a sumideros.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie a medir. Precio material según m2 reales"
+        },
+        {
+          "concepto": "Instalación sistema drenaje cubierta vegetal",
+          "descripcion": "Mano de obra de colocación de lámina drenante, geotextil filtro, conexión a sumideros y desbordadero de emergencia.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas a estimar según superficie y complejidad del sistema"
+        },
+        {
+          "concepto": "Sumideros y desbordadero cubierta vegetal",
+          "descripcion": "Instalación de sumideros de cubierta (cazoletas) con rejilla guardahojas y desbordadero de emergencia. Conexión a bajantes existentes o nuevas.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de sumideros a definir según superficie (1 cada 25-50m2). Precio unitario a revisar"
+        },
+        {
+          "concepto": "Sustrato y capa de cultivo cubierta vegetal",
+          "descripcion": "Sustrato drenante especial para cubierta vegetal (mezcla de compost, perlita y fibra de coco) con espesor mínimo 15-20cm. Incluye suministro y colocación.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen a calcular según superficie y espesor. Precio material a definir"
+        },
+        {
+          "concepto": "Plantación de especies vegetales",
+          "descripcion": "Plantación de especies vegetales adaptadas a cubierta (sedum, plantas aromáticas, gramíneas). Incluye plantas, enraizamiento y riego inicial.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie a medir. Precio según densidad de plantación y especies seleccionadas"
+        },
+        {
+          "concepto": "Mano de obra plantación y enraizamiento",
+          "descripcion": "Mano de obra de plantación de especies, distribución de sustrato, riego inicial y cuidados de enraizamiento.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 25,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas a estimar según superficie y complejidad de plantación"
+        },
+        {
+          "concepto": "Sistema de riego automático por goteo",
+          "descripcion": "Instalación de sistema de riego automático: tuberías de distribución PEX, goteros regulables, válvulas de control, filtro de agua y accesorios de conexión.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie a medir. Precio según densidad de goteros y complejidad de red"
+        },
+        {
+          "concepto": "Instalación red riego automático",
+          "descripcion": "Mano de obra de tendido de tuberías, colocación de goteros, conexión a acometida de agua, pruebas de funcionamiento y ajuste de caudales.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas a estimar según complejidad de red y superficie"
+        },
+        {
+          "concepto": "Programador y bomba de riego automático",
+          "descripcion": "Suministro e instalación de programador de riego (temporizador digital) y bomba de circulación (si necesario). Incluye accesorios de conexión.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de programador y bomba a definir según especificaciones técnicas"
+        },
+        {
+          "concepto": "Acometida eléctrica para riego automático",
+          "descripcion": "Instalación de acometida eléctrica desde cuadro existente hasta zona de riego. Incluye cableado, protecciones, toma de corriente estanca IP65 y puesta a tierra.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Distancia a medir. Precio según longitud de cableado y complejidad"
+        },
+        {
+          "concepto": "Instalación acometida eléctrica riego",
+          "descripcion": "Mano de obra de tendido de cableado, conexión a cuadro, instalación de toma estanca, pruebas de funcionamiento y puesta en servicio.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas a estimar según distancia y complejidad de instalación"
+        },
+        {
+          "concepto": "Protección perimetral y barandilla cubierta vegetal",
+          "descripcion": "Instalación de barandilla de seguridad perimetral (altura mínima 1.1m) según normativa de cubiertas transitables. Incluye estructura metálica y anclajes.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perímetro a medir. Precio según tipo de barandilla y material"
+        },
+        {
+          "concepto": "Instalación barandilla perimetral",
+          "descripcion": "Mano de obra de montaje de barandilla, anclajes a losa, nivelación y pruebas de estabilidad.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas a estimar según perímetro y complejidad de anclajes"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: láminas impermeabilizantes PVC/TPO para cubiertas vegetales (resistencia a raíces)",
+        "Verificar en catálogo: sistemas de drenaje modular específicos para cubiertas verdes",
+        "Verificar en catálogo: sustratos especiales para cubierta vegetal (composición y densidad)",
+        "Verificar en catálogo: especies vegetales recomendadas para cubiertas (sedum, aromáticas)",
+        "Verificar en catálogo: sistemas de riego por goteo para cubiertas (presión y caudal)",
+        "Verificar en catálogo: programadores de riego automático (temporizadores digitales)",
+        "Verificar en catálogo: barandillas de seguridad para cubiertas transitables"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico cubierta vegetal",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Obra de envergadura en zona común requiere proyecto técnico colegiado"
+        },
+        {
+          "concepto": "Impermeabilización reforzada bajo cubierta vegetal",
+          "oficio": "impermeabilizacion",
+          "motivo": "Especificación técnica para cubierta vegetal con cargas de agua y sustrato"
+        },
+        {
+          "concepto": "Sistema de drenaje modular con geotextil",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Sistema específico para cubierta vegetal, no estándar de cubierta plana"
+        },
+        {
+          "concepto": "Sustrato y capa de cultivo cubierta vegetal",
+          "oficio": "jardineria",
+          "motivo": "Material específico para cubierta vegetal, mezcla drenante especial"
+        },
+        {
+          "concepto": "Plantación de especies vegetales",
+          "oficio": "jardineria",
+          "motivo": "Suministro de plantas adaptadas a cubierta vegetal"
+        },
+        {
+          "concepto": "Sistema de riego automático por goteo",
+          "oficio": "fontaneria",
+          "motivo": "Sistema de riego específico para cubierta vegetal con goteros regulables"
+        },
+        {
+          "concepto": "Programador y bomba de riego automático",
+          "oficio": "fontaneria",
+          "motivo": "Equipo de automatización de riego"
+        },
+        {
+          "concepto": "Protección perimetral y barandilla cubierta vegetal",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Seguridad obligatoria en cubierta transitable según normativa"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_drenaje_cubierta_plana",
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "construccion_de_cubierta_plana_nueva_desde_cero",
+      "impermeabilizacion_terraza_con_pintura_poliuretano",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3949,
+      "tokens_out": 5128
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 16,
+    "n_catalogo": 6,
+    "n_sugeridas": 10,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

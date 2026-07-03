@@ -1,0 +1,248 @@
+{
+  "id": 151,
+  "oficio": "Pladur",
+  "texto": "Instalar tablero de pladur hidrófugo verde en baño para sustituir tabique de ladrillo",
+  "http_status": 200,
+  "latency_ms": 21350,
+  "raw_response": {
+    "transcript": "Instalar tablero de pladur hidrófugo verde en baño para sustituir tabique de ladrillo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar tablero de pladur hidrófugo verde en baño para sustituir tabique de ladrillo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume demolición de tabique de ladrillo existente. Confirmar si incluye gestión de residuos.",
+          "Se asume aplicación de impermeabilizante si hay zona de ducha/bañera próxima."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición y desmontaje de tabique de ladrillo existente"
+        },
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Instalación de estructura y placas de pladur hidrófugo verde en baño"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Aplicación de impermeabilizante en zona húmeda (baño)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición y desmontaje tabique ladrillo",
+          "descripcion": "Demolición completa de tabique de ladrillo existente, incluyendo mortero y limpieza de superficie base. Preparación para nueva estructura de pladur.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 debe confirmarse según altura y longitud real del tabique"
+        },
+        {
+          "concepto": "Estructura metálica pladur (perfiles canal y montantes galvanizados)",
+          "descripcion": "Suministro e instalación de perfiles canal (48-70mm) y montantes galvanizados para estructura de tabique hidrófugo en baño. Incluye tornillería inox.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de perfiles y tornillería debe ser confirmado por instalador según proveedor"
+        },
+        {
+          "concepto": "Instalación estructura metálica pladur",
+          "descripcion": "Montaje de estructura metálica (perfiles canal, montantes galvanizados, fijaciones). Incluye nivelación y aplomado.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 35,
+          "total": 35,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 debe confirmarse según dimensiones reales del tabique"
+        },
+        {
+          "concepto": "Placa yeso hidrófugo verde 15mm (ambas caras)",
+          "descripcion": "Suministro de placas de yeso laminado hidrófugo verde de 15mm para revestimiento de ambas caras del tabique. Obligatorio en baño.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de placas hidrófugas debe ser confirmado. Cantidad x2 para ambas caras."
+        },
+        {
+          "concepto": "Colocación placas pladur hidrófugo",
+          "descripcion": "Fijación de placas de yeso hidrófugo verde a estructura metálica con tornillería inox. Incluye cortes y ajustes.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 2,
+          "precio_unitario": 35,
+          "total": 70,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad x2 para ambas caras. Confirmar m2 reales."
+        },
+        {
+          "concepto": "Cinta papel juntas + pasta hidrófuga",
+          "descripcion": "Suministro e instalación de cinta de papel para juntas y pasta de juntas hidrófuga. Preparación de superficies para acabado.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cinta y pasta hidrófuga debe ser confirmado por instalador"
+        },
+        {
+          "concepto": "Acabado juntas (masillado y lijado)",
+          "descripcion": "Masillado de juntas con pasta hidrófuga, lijado y preparación de superficie para pintura o alicatado posterior.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 2,
+          "precio_unitario": 35,
+          "total": 70,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad x2 para ambas caras. Confirmar m2 reales."
+        },
+        {
+          "concepto": "Lámina impermeabilizante líquida en zona húmeda",
+          "descripcion": "Aplicación de membrana impermeabilizante líquida sobre placa hidrófugo en zona de ducha/bañera (si aplica). Protección adicional contra humedades.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Aplicar solo si hay ducha/bañera próxima. Precio de membrana a confirmar."
+        },
+        {
+          "concepto": "Aplicación impermeabilizante líquido",
+          "descripcion": "Proyección/aplicación de impermeabilizante líquido sobre placa pladur en zona de ducha. Incluye secado y curado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Aplicar solo si hay ducha/bañera. Confirmar m2 a impermeabilizar."
+        },
+        {
+          "concepto": "Banda estanca perimetral + ángulos metálicos",
+          "descripcion": "Suministro e instalación de banda estanca perimetral en base del tabique y ángulos metálicos en esquinas para refuerzo y estanqueidad.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de banda estanca y ángulos a confirmar. Cantidad en ml según perímetro."
+        },
+        {
+          "concepto": "Instalación banda estanca y ángulos",
+          "descripcion": "Colocación de banda estanca perimetral y ángulos metálicos en esquinas. Fijación y sellado.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 35,
+          "total": 35,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml según perímetro real del tabique"
+        }
+      ],
+      "calculos": {
+        "subtotal": 295,
+        "iva_porcentaje": 21,
+        "iva": 61.95,
+        "total": 356.95
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si el tabique sustituye completamente al de ladrillo o si es parcial (altura/longitud).",
+        "Especificar si hay zona de ducha/bañera próxima para aplicar impermeabilizante obligatorio.",
+        "Incluir gestión de residuos de demolición si no está contemplada en otra partida.",
+        "Considerar si se requiere refuerzo en zona de fijación de accesorios (toalleros, espejos, etc.)."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_hidrofugo_bano_o_cocina",
+      "instalacion_de_marcos_de_puertas_en_pared_de_pladur",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "estructura_pladur_para_zona_expositiva_o_showroom",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3884,
+      "tokens_out": 3094
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 6,
+    "n_sugeridas": 5,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

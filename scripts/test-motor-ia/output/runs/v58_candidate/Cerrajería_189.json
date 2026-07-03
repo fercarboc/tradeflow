@@ -1,0 +1,254 @@
+{
+  "id": 189,
+  "oficio": "Cerrajería",
+  "texto": "Instalación de sistema de control de acceso con tarjeta RFID para empresa, 2 puertas y 15 tarjetas",
+  "http_status": 200,
+  "latency_ms": 16311,
+  "raw_response": {
+    "transcript": "Instalación de sistema de control de acceso con tarjeta RFID para empresa, 2 puertas y 15 tarjetas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de sistema de control de acceso con tarjeta RFID para empresa, 2 puertas y 15 tarjetas",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema de control de acceso RFID: verificar si se requiere integración con CCTV o solo control de acceso puro",
+          "Revisar si las 2 puertas requieren cerraduras electromagnéticas o electromecánicas según tipo de puerta",
+          "Confirmar si se necesita software de gestión de acceso o solo funcionamiento básico de controladora"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de controladora, fuentes de alimentación, cableado eléctrico y conexiones de cerraduras electromagnéticas"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de cerraduras electromagnéticas/electromecánicas en puertas y ajuste de mecanismos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Controladora de acceso RFID",
+          "descripcion": "Controladora de acceso RFID de 2 puertas con capacidad para gestión de tarjetas y usuarios",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de controladora RFID 2 puertas a definir por instalador según marca y funcionalidades"
+        },
+        {
+          "concepto": "Lectores RFID de proximidad",
+          "descripcion": "2 lectores RFID de proximidad (uno por puerta) para lectura de tarjetas",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de lector RFID a definir por instalador según especificaciones técnicas"
+        },
+        {
+          "concepto": "Cerraduras electromagnéticas",
+          "descripcion": "2 cerraduras electromagnéticas de 12V DC para control de acceso en puertas",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cerradura electromagnética a definir según tipo de puerta y carga de retención"
+        },
+        {
+          "concepto": "Fuente de alimentación con batería de respaldo",
+          "descripcion": "Fuente de alimentación 12V DC con batería de respaldo para garantizar funcionamiento en caso de corte eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de fuente con batería backup a definir según capacidad requerida"
+        },
+        {
+          "concepto": "Tarjetas RFID",
+          "descripcion": "15 tarjetas RFID para acceso de usuarios",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de tarjeta RFID a definir según tipo (proximidad, contacto, etc.)"
+        },
+        {
+          "concepto": "Cableado UTP Cat5e y pequeño material",
+          "descripcion": "Cableado UTP Cat5e para comunicación entre controladora y lectores, conectores, canaletas y pequeño material de instalación",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cableado y accesorios a definir según longitud real de instalación"
+        },
+        {
+          "concepto": "Instalación de controladora y lectores RFID",
+          "descripcion": "Instalación de controladora de acceso, montaje de 2 lectores RFID en puertas, conexionado eléctrico y configuración inicial",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de cerraduras electromagnéticas",
+          "descripcion": "Instalación de 2 cerraduras electromagnéticas en puertas, ajuste de marcos y pruebas de funcionamiento",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y conexionado",
+          "descripcion": "Tendido de cableado UTP entre controladora y lectores, instalación de canaletas, conexionado de fuente de alimentación y cerraduras",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Programación de tarjetas y pruebas del sistema",
+          "descripcion": "Programación de 15 tarjetas RFID en la controladora, creación de usuarios, pruebas de acceso en ambas puertas y entrega de documentación",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 630,
+        "iva_porcentaje": 21,
+        "iva": 132.3,
+        "total": 762.3
+      },
+      "sugerencias_catalogo": [
+        "Considerar integración con software de gestión de acceso si se requiere control remoto o reportes de acceso",
+        "Evaluar si se necesita interfono o videoportero integrado en el sistema de control de acceso",
+        "Verificar si se requiere UPS adicional para garantizar funcionamiento prolongado en caso de corte eléctrico"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Controladora de acceso RFID",
+          "oficio": "electricidad",
+          "motivo": "Material específico de sistema RFID, precio a definir por instalador"
+        },
+        {
+          "concepto": "Lectores RFID de proximidad",
+          "oficio": "electricidad",
+          "motivo": "Material específico de sistema RFID, precio a definir por instalador"
+        },
+        {
+          "concepto": "Cerraduras electromagnéticas",
+          "oficio": "cerrajeria",
+          "motivo": "Material específico para control de acceso, precio a definir según especificaciones"
+        },
+        {
+          "concepto": "Fuente de alimentación con batería de respaldo",
+          "oficio": "electricidad",
+          "motivo": "Material específico de sistema RFID, precio a definir por instalador"
+        },
+        {
+          "concepto": "Tarjetas RFID",
+          "oficio": "electricidad",
+          "motivo": "Material consumible, precio unitario a definir por instalador"
+        },
+        {
+          "concepto": "Cableado UTP Cat5e y pequeño material",
+          "oficio": "electricidad",
+          "motivo": "Material de instalación, precio a definir según longitud real y accesorios"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_control_acceso_rfid",
+      "instalacion_de_sistema_de_control_de_acceso_con_CCTV",
+      "instalacion_de_cuadro_y_sistemas_de_control_para_automatismos",
+      "instalacion_malla_anti_palomas_o_aves_en_fachada",
+      "instalacion_de_sistema_de_localizacion_RFID_o_GPS_activos"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3910,
+      "tokens_out": 2722
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

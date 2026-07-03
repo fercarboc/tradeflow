@@ -1,0 +1,164 @@
+{
+  "id": 225,
+  "oficio": "Energía Solar",
+  "texto": "Mantenimiento y limpieza de instalación solar fotovoltaica, revisión de conexiones y rendimiento",
+  "http_status": 200,
+  "latency_ms": 14196,
+  "raw_response": {
+    "transcript": "Mantenimiento y limpieza de instalación solar fotovoltaica, revisión de conexiones y rendimiento",
+    "quote": {
+      "resumen": {
+        "texto_original": "Mantenimiento y limpieza de instalación solar fotovoltaica, revisión de conexiones y rendimiento",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume instalación fotovoltaica existente. Confirmar número de módulos, potencia total (kWp) y ubicación (cubierta/suelo) para ajustar tiempo y precio final.",
+          "Incluye trabajos en altura: se requiere EPI y medidas de seguridad específicas.",
+          "Precio final dependerá del tamaño de la instalación y accesibilidad."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Mantenimiento anual de instalación fotovoltaica: limpieza, revisión visual, verificación de conexiones, análisis de rendimiento."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza de módulos fotovoltaicos",
+          "descripcion": "Limpieza completa de paneles solares con agua desionizada y cepillo suave para eliminar polvo, suciedad y depósitos minerales. Incluye acceso seguro con arnés y EPI.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión visual de módulos y estructura",
+          "descripcion": "Inspección visual detallada de todos los módulos fotovoltaicos, marcos, soportes y estructura de fijación. Detección de grietas, delaminaciones, corrosión o daños físicos.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación de conexiones y protecciones eléctricas",
+          "descripcion": "Revisión de conectores MC4, cajas de conexión, fusibles, interruptores DC/AC, toma de tierra y continuidad de la instalación. Comprobación de aislamiento y seguridad eléctrica.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión funcionamiento inversor y lectura de producción",
+          "descripcion": "Comprobación del estado operativo del inversor, lectura de parámetros de funcionamiento, voltajes, intensidades, frecuencia. Análisis de datos históricos de producción y comparativa con valores esperados.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe de resultados y producción histórica",
+          "descripcion": "Elaboración de informe técnico con resultados de inspección, estado de la instalación, análisis de rendimiento, comparativa producción real vs. esperada, recomendaciones de mantenimiento y certificación de revisión.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y EPI (trabajos en altura)",
+          "descripcion": "Suministro de pequeño material consumible (trapos, desinfectante, agua desionizada), EPI de seguridad (arnés, casco, guantes, gafas) y equipos de medición portátiles para revisión.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material y EPI a definir por instalador según cantidad y tipo específico."
+        }
+      ],
+      "calculos": {
+        "subtotal": 585,
+        "iva_porcentaje": 21,
+        "iva": 122.85,
+        "total": 707.85
+      },
+      "sugerencias_catalogo": [
+        "Si se detectan módulos con bajo rendimiento, considerar termografía infrarroja (partida auxiliar) para identificar puntos calientes o células defectuosas.",
+        "Si hay pérdida de presión de gas refrigerante en inversor híbrido con bomba de calor, incluir carga de gas como partida adicional.",
+        "Si los paneles están muy sucios o en zona con polvo/polen, recomendar limpieza 2 veces al año.",
+        "Revisar si la instalación requiere mantenimiento cada 2 años según normativa RITE o contrato de garantía del fabricante."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pequeño material y EPI (trabajos en altura)",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material consumible y equipos de protección personal para trabajos en altura. Precio a definir por instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_instalacion_fotovoltaica",
+      "mantenimiento_anual_split_o_aire_acondicionado",
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "mantenimiento_de_sistema_de_climatizacion_split"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3960,
+      "tokens_out": 1827
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 5,
+    "n_sugeridas": 1,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

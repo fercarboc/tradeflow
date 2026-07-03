@@ -1,0 +1,47 @@
+{
+  "id": 7,
+  "oficio": "fontaneria",
+  "texto": "Instalación completa de baño nuevo con lavabo empotrado, inodoro suspendido, ducha y griferías cromadas",
+  "latency_ms": 24174,
+  "raw_response": {
+    "transcript": "Instalación completa de baño nuevo con lavabo empotrado, inodoro suspendido, ducha y griferías cromadas",
+    "quote": {
+      "resumen": {
+        "texto_original": "",
+        "tipo_presupuesto": "",
+        "requiere_revision_general": true,
+        "alertas": [
+          "No se pudo interpretar el dictado"
+        ]
+      },
+      "oficios_detectados": [],
+      "partidas": [],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": []
+    },
+    "actuacion_ids_matched": [
+      "cambio_sifon",
+      "cambio_grifo_lavabo",
+      "cambio_inodoro",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "cambio_lavabo"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "max_tokens",
+      "tokens_in": 3588,
+      "tokens_out": 4096
+    }
+  },
+  "classification": {
+    "category": "VACIO",
+    "oficio_detectado": ""
+  }
+}

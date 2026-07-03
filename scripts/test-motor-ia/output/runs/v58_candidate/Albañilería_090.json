@@ -1,0 +1,227 @@
+{
+  "id": 90,
+  "oficio": "Albañilería",
+  "texto": "Reparación de chimenea exterior, rejuntar ladrillo, impermeabilizar remate y revisar conducto",
+  "http_status": 200,
+  "latency_ms": 19675,
+  "raw_response": {
+    "transcript": "Reparación de chimenea exterior, rejuntar ladrillo, impermeabilizar remate y revisar conducto",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación de chimenea exterior, rejuntar ladrillo, impermeabilizar remate y revisar conducto",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Chimenea exterior: verificar acceso seguro y necesidad de andamios/línea de vida",
+          "Rejuntado: confirmar extensión (chimenea completa o solo remate)",
+          "Impermeabilización: si hay encuentro con cubierta, aplicar protocolo específico de lámina plomo/zinc"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación y rejuntado de chimenea exterior (revestimiento/fachada)"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización de remate de chimenea (lámina, sellado, membrana)"
+        },
+        {
+          "oficio": "mecanica_especializada",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Revisión y limpieza de conducto (inspección técnica, posible deshollinado)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo y limpieza zona afectada chimenea",
+          "descripcion": "Limpieza, retirada de mortero suelto, polvo y residuos en zona de trabajo de chimenea exterior",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rejuntado de ladrillo en chimenea exterior",
+          "descripcion": "Rejuntado completo de juntas de ladrillo en chimenea exterior con mortero de cal-cemento, herramientas y pequeño material",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero de rejuntado (cal-cemento)",
+          "descripcion": "Mortero de cal-cemento para rejuntado de ladrillo, sacos necesarios según extensión",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar cantidad y precio según extensión real de rejuntado"
+        },
+        {
+          "concepto": "Lámina de plomo o zinc para remate chimenea",
+          "descripcion": "Lámina de plomo o zinc conformada sobre remate de chimenea, sellado flexible superior, refuerzo geotextil en encuentros",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: lámina plomo/zinc es solución más duradera; instalador confirma tipo, dimensiones y precio"
+        },
+        {
+          "concepto": "Instalación lámina impermeabilizante en remate",
+          "descripcion": "Colocación, conformado y sellado de lámina plomo/zinc en remate de chimenea, sellado flexible superior, pequeño material",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión y limpieza de conducto de chimenea",
+          "descripcion": "Inspección técnica del conducto, limpieza de hollín y residuos, verificación de estanqueidad y funcionamiento",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y línea de vida (acceso en altura)",
+          "descripcion": "Equipos de protección individual (arnés, casco, guantes), línea de vida y anclajes para trabajo en altura en chimenea exterior",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material/servicio: confirmar si se alquila línea de vida o se incluye en tarifa; precio según proveedor"
+        },
+        {
+          "concepto": "Pequeño material (cinta, pasta juntas, selladores, herramientas)",
+          "descripcion": "Cinta de juntas, pasta de juntas, selladores flexibles, herramientas menores y consumibles para rejuntado e impermeabilización",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador confirma cantidad y precio según consumibles reales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 422.5,
+        "iva_porcentaje": 21,
+        "iva": 88.725,
+        "total": 511.225
+      },
+      "sugerencias_catalogo": [
+        "Consultar Base Maestra: [reparacion_de_encuentro_de_chimenea_con_cubierta] si hay encuentro con cubierta (rango 80-650€/ud)",
+        "Consultar Base Maestra: [impermeabilizacion_de_chimenea_y_encuentro_con_cubierta] para protocolo específico de lámina plomo/zinc (rango 25-280€/ud)",
+        "Si chimenea está activa (en uso): incluir inspección de tiro y posible limpieza profesional de conducto"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero de rejuntado (cal-cemento)",
+          "oficio": "fachadas",
+          "motivo": "Material específico para rejuntado; precio variable según marca y cantidad"
+        },
+        {
+          "concepto": "Lámina de plomo o zinc para remate chimenea",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material específico; precio variable según tipo (plomo vs zinc) y dimensiones"
+        },
+        {
+          "concepto": "EPI y línea de vida (acceso en altura)",
+          "oficio": "fachadas",
+          "motivo": "Servicio/material de seguridad; precio variable según alquiler o compra"
+        },
+        {
+          "concepto": "Pequeño material (cinta, pasta juntas, selladores, herramientas)",
+          "oficio": "fachadas",
+          "motivo": "Consumibles varios; precio variable según cantidad real"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_encuentro_de_chimenea_con_cubierta",
+      "impermeabilizacion_de_chimenea_y_encuentro_con_cubierta",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico",
+      "tabique_pladur_para_sepultar_conductos_climatizacion",
+      "impermeabilizacion_de_camara_frigorifica_o_zona_fria"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3948,
+      "tokens_out": 2731
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "NO"
+  }
+}

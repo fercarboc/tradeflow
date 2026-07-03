@@ -1,0 +1,140 @@
+{
+  "id": 65,
+  "oficio": "Pintura",
+  "texto": "Barnizado de puertas y ventanas de madera, son 6 puertas interiores y 4 ventanas exteriores",
+  "http_status": 200,
+  "latency_ms": 14339,
+  "raw_response": {
+    "transcript": "Barnizado de puertas y ventanas de madera, son 6 puertas interiores y 4 ventanas exteriores",
+    "quote": {
+      "resumen": {
+        "texto_original": "Barnizado de puertas y ventanas de madera, son 6 puertas interiores y 4 ventanas exteriores",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye dos tipos de acabado: barniz interior (puertas) y esmalte exterior (ventanas). Precios unitarios deben revisarse según estado actual de las superficies."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Barnizado y pintado de carpintería de madera interior y exterior"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Barnizado de puertas interiores de madera",
+          "descripcion": "Preparación, lijado, imprimación y aplicación de barniz en 6 puertas interiores. Incluye lija grano 150-220, masilla de madera si necesario, cinta carrocero, plástico de protección y pequeño material. Dos manos de barniz mínimo.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de barniz para puertas interiores",
+          "descripcion": "Barniz sintético o acrílico satinado de calidad para 6 puertas interiores (aprox. 3-4 litros según estado y porosidad de la madera)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 3.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador según marca y calidad del barniz"
+        },
+        {
+          "concepto": "Pintado de ventanas exteriores de madera",
+          "descripcion": "Preparación, lijado, imprimación y aplicación de esmalte exterior de alta durabilidad en 4 ventanas exteriores. Incluye lija 150-220, masilla exterior, cinta carrocero, plástico de protección y pequeño material. Dos manos de imprimación más dos de esmalte.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 65,
+          "total": 260,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de esmalte exterior para ventanas",
+          "descripcion": "Esmalte poliuretano o alquidal de alta durabilidad para exterior, 4 ventanas (aprox. 2-3 litros según tamaño y número de manos)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 2.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador según marca y calidad del esmalte exterior"
+        },
+        {
+          "concepto": "Pequeño material y consumibles (lijas, masilla, cinta, etc.)",
+          "descripcion": "Lijas grano 150 y 220, masilla de madera, cinta carrocero, plástico de protección, pinceles, trapos y otros consumibles para el conjunto de trabajos",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado de consumibles a definir por instalador (típicamente 30-60€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 530,
+        "iva_porcentaje": 21,
+        "iva": 111.3,
+        "total": 641.3
+      },
+      "sugerencias_catalogo": [
+        "Verificar estado actual de puertas y ventanas: si tienen capas de barniz/pintura antigua degradada, considerar decapante químico (partida adicional de material).",
+        "Para ventanas exteriores, confirmar si requieren tratamiento anti-hongos o protección UV adicional.",
+        "Considerar si el cliente desea acabado mate, satinado o brillante (afecta a selección de producto)."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "aplicacion_de_lasur_madera_exterior",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "instalacion_de_puertas_de_vidrio_templado_corredera_en_armario",
+      "pintado_de_ventanas_de_madera_exterior",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3852,
+      "tokens_out": 1503
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

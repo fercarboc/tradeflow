@@ -1,0 +1,172 @@
+{
+  "id": 184,
+  "oficio": "Cerrajería",
+  "texto": "Hacer llave maestra para 6 puertas de apartamentos turísticos, sistema de cerrojo unificado",
+  "http_status": 200,
+  "latency_ms": 12658,
+  "raw_response": {
+    "transcript": "Hacer llave maestra para 6 puertas de apartamentos turísticos, sistema de cerrojo unificado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer llave maestra para 6 puertas de apartamentos turísticos, sistema de cerrojo unificado",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema de llave maestra requiere coordinación con cerrajero especializado en sistemas de seguridad hotelera",
+          "Verificar compatibilidad de cerrojos existentes o presupuestar sustitución de cilindros",
+          "Considerar si incluye recodificación de cerrojos o solo fabricación de llaves maestras"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Fabricación e instalación de sistema de llave maestra, recodificación de cerrojos, trabajo especializado en seguridad"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Visita técnica y diagnóstico de cerrojos existentes",
+          "descripcion": "Inspección de los 6 cerrojos de puertas de apartamentos turísticos, evaluación de compatibilidad para sistema de llave maestra, informe técnico",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recodificación de cilindros de cerrojo para sistema maestro",
+          "descripcion": "Recodificación de 6 cilindros de cerrojo existentes para funcionar con llave maestra unificada, ajuste de pernos internos",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Fabricación de llave maestra",
+          "descripcion": "Fabricación de llave maestra en acero inoxidable para acceso a las 6 puertas de apartamentos turísticos, corte y acabado profesional",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de fabricación de llave maestra especializada pendiente de cotización del cerrajero (material + mecanizado)"
+        },
+        {
+          "concepto": "Fabricación de llaves individuales de apartamentos",
+          "descripcion": "Fabricación de 6 llaves individuales (una por apartamento) compatibles con el sistema de cerrojo unificado",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de llaves individuales pendiente de cotización (material + mecanizado)"
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y ajustes finales",
+          "descripcion": "Prueba de funcionamiento de llave maestra y llaves individuales en los 6 cerrojos, ajustes de precisión, garantía de funcionamiento",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Lubricantes, limpiadores, material de protección, embalaje de llaves",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe de pequeño material a estimar por cerrajero"
+        }
+      ],
+      "calculos": {
+        "subtotal": 510,
+        "iva_porcentaje": 21,
+        "iva": 107.1,
+        "total": 617.1
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si los cerrojos existentes son compatibles con sistema de llave maestra o si requieren sustitución completa",
+        "Considerar incluir servicio de entrega de llaves con documentación de seguridad para apartamentos turísticos",
+        "Evaluar si se requiere sistema de control de acceso adicional (registro de quién abre cada puerta y cuándo)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Fabricación de llave maestra",
+          "oficio": "cerrajeria",
+          "motivo": "Servicio especializado de mecanizado de llave maestra, no disponible en catálogo estándar"
+        },
+        {
+          "concepto": "Fabricación de llaves individuales de apartamentos",
+          "oficio": "cerrajeria",
+          "motivo": "Llaves individuales mecanizadas según especificaciones del sistema maestro"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "cerrajeria",
+          "motivo": "Material auxiliar específico para sistema de llave maestra"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "diagnostico_y_presupuesto_cerrajeria",
+      "fabricacion_e_instalacion_de_espejo_con_marco_de_madera",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_arqueta_de_registro"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3827,
+      "tokens_out": 1755
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

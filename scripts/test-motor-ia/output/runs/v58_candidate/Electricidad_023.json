@@ -1,0 +1,233 @@
+{
+  "id": 23,
+  "oficio": "Electricidad",
+  "texto": "Cambio de toda la instalación eléctrica del piso de 80 metros cuadrados, cableado nuevo y cajas de registro",
+  "http_status": 200,
+  "latency_ms": 21630,
+  "raw_response": {
+    "transcript": "Cambio de toda la instalación eléctrica del piso de 80 metros cuadrados, cableado nuevo y cajas de registro",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de toda la instalación eléctrica del piso de 80 metros cuadrados, cableado nuevo y cajas de registro",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "REFORMA ELÉCTRICA INTEGRAL: Requiere Boletín Eléctrico obligatorio (REBT) y firma de instalador autorizado",
+          "Superficie 80 m² → Presupuesto estimado 8.000-15.000€ según complejidad y número de circuitos",
+          "Coordinar con otros gremios ANTES de cerrar rozas (fontanería, climatización, etc.)",
+          "Verificar estado de acometida y cuadro general existente"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica completa: cableado, cajas, circuitos, cuadro"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Apertura de rozas para paso de cableado y reposición de paramentos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cuadro eléctrico nuevo según REBT",
+          "descripcion": "Suministro e instalación de cuadro eléctrico nuevo con protecciones diferenciales, magnetotérmicos y bases de enchufe según normativa REBT. Incluye etiquetado de circuitos.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del cuadro según marca, número de circuitos y protecciones a definir por instalador"
+        },
+        {
+          "concepto": "Cableado completo por rozas",
+          "descripcion": "Suministro de cable de cobre (2.5mm², 4mm², 6mm² según circuito) para iluminación, enchufes, cocina, climatización y circuitos especiales. Incluye tubo corrugado y canaletas si aplica.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje total de cableado a calcular según plano de circuitos (estimado 400-600 ml para 80 m²)"
+        },
+        {
+          "concepto": "Apertura de rozas y reposición de paramentos",
+          "descripcion": "Apertura de rozas en muros y techos para paso de cableado. Incluye reposición con mortero y posterior acabado (sin pintura).",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 40,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de cajas de registro y mecanismos",
+          "descripcion": "Suministro e instalación de cajas de registro (derivación, toma de corriente, interruptores, conmutadores). Incluye mecanismos de enchufes, interruptores y conmutadores según REBT.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de puntos (enchufes, interruptores, conmutadores) a definir según proyecto. Estimado 25-35 puntos para 80 m²"
+        },
+        {
+          "concepto": "Instalación de cableado y conexionado",
+          "descripcion": "Mano de obra de instalación: tendido de cable en rozas, conexionado en cuadro, cajas de registro y mecanismos. Incluye pruebas de continuidad y aislamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 32,
+          "precio_unitario": 50,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Boletín Eléctrico REBT (OBLIGATORIO)",
+          "descripcion": "Emisión de Boletín Eléctrico por instalador autorizado según REBT. Incluye inspección final, pruebas de seguridad y firma del técnico competente.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de Boletín Eléctrico según comunidad autónoma (estimado 150-300€)"
+        },
+        {
+          "concepto": "Pequeño material eléctrico",
+          "descripcion": "Tornillos, tacos, bridas, cinta aislante, pasta térmica, etiquetas, tuercas de conexión y otros consumibles necesarios para la instalación.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado 100-200€ según cantidad de puntos y complejidad"
+        },
+        {
+          "concepto": "Retirada y gestión de residuos de instalación antigua",
+          "descripcion": "Desmontaje de cableado, cajas y cuadro eléctrico antiguo. Retirada y gestión de residuos según normativa.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2640,
+        "iva_porcentaje": 21,
+        "iva": 554.4,
+        "total": 3194.4
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de cuadros eléctricos según número de circuitos (estimado 8-12 circuitos para 80 m²)",
+        "Verificar disponibilidad de cable de cobre en secciones 2.5mm², 4mm², 6mm² y 10mm²",
+        "Confirmar mecanismos de enchufes e interruptores (marca, acabado, tipo de instalación)",
+        "Solicitar presupuesto de Boletín Eléctrico a organismo competente de la comunidad autónoma"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cuadro eléctrico nuevo según REBT",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende de marca, número de circuitos y protecciones"
+        },
+        {
+          "concepto": "Cableado completo por rozas",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende del metraje total y secciones de cable"
+        },
+        {
+          "concepto": "Instalación de cajas de registro y mecanismos",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende del número de puntos (enchufes, interruptores, conmutadores)"
+        },
+        {
+          "concepto": "Boletín Eléctrico REBT (OBLIGATORIO)",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio administrativo obligatorio cuyo precio varía según comunidad autónoma"
+        },
+        {
+          "concepto": "Pequeño material eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles varios cuyo importe se estima como porcentaje del total de materiales"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "renovacion_de_instalacion_electrica_completa_en_vivienda",
+      "cambio_radiador",
+      "cambio_inodoro",
+      "sustitucion_termo_electrico",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3790,
+      "tokens_out": 3148
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

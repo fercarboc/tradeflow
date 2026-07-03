@@ -1,0 +1,216 @@
+{
+  "id": 344,
+  "oficio": "Mantenimiento General",
+  "texto": "Reparar varios desperfectos en piso de alquiler: grifo roto, persiana caída y bisagra de puerta",
+  "http_status": 200,
+  "latency_ms": 16318,
+  "raw_response": {
+    "transcript": "Reparar varios desperfectos en piso de alquiler: grifo roto, persiana caída y bisagra de puerta",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar varios desperfectos en piso de alquiler: grifo roto, persiana caída y bisagra de puerta",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto de mantenimiento general: 3 oficios distintos, trabajo puntual sin reforma",
+          "Algunas partidas requieren revisión de precios de materiales (grifo, bisagra, cinta persiana)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Trabajo combinado de 3 oficios distintos (fontanería, persianas, cerrajería) sin reforma mayor. Clasificado como mantenimiento general de vivienda."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y reparación grifo roto",
+          "descripcion": "Inspección de grifo averiado, desmontaje, evaluación de estado, suministro de pieza de repuesto o grifo nuevo según diagnóstico, instalación y prueba de funcionamiento",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 80,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Grifo de repuesto (monomando o bimando)",
+          "descripcion": "Grifo de cocina o baño de calidad estándar, cromado, con aireador y flexibles de conexión",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de grifo a definir por instalador según marca y modelo (rango típico 60-200€)"
+        },
+        {
+          "concepto": "Pequeño material grifo (silicona, teflón, juntas)",
+          "descripcion": "Silicona sanitaria, cinta teflón, juntas de goma y pequeño material de fontanería",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material a presupuestar (rango típico 8-15€)"
+        },
+        {
+          "concepto": "Reparación persiana caída - cinta enrolladora",
+          "descripcion": "Desmontaje de persiana, inspección de mecanismo, suministro de cinta enrolladora nueva (ancho 18-26mm según tipo), recogedor si está deteriorado, reensamblaje y prueba de funcionamiento",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cinta enrolladora persiana (18-26mm)",
+          "descripcion": "Cinta de persiana enrollable de poliéster reforzado, ancho según tipo de recogedor existente",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cinta a definir según ancho y longitud (rango típico 25-80€)"
+        },
+        {
+          "concepto": "Recogedor persiana si deteriorado",
+          "descripcion": "Recogedor de cinta con muelle, si el existente está roto o flojo",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional según diagnóstico (rango típico 15-40€ si necesario)"
+        },
+        {
+          "concepto": "Reparación bisagra puerta - sustitución",
+          "descripcion": "Desmontaje de bisagra averiada, inspección de marco y puerta, suministro de bisagra nueva (acero inoxidable o cromada), instalación con tornillería y ajuste de puerta",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Bisagra de puerta (acero inoxidable o cromada)",
+          "descripcion": "Bisagra de 3.5\" o 4\" según tipo de puerta, acero inoxidable o cromado, con tornillería",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de bisagra a definir según tipo y material (rango típico 12-35€)"
+        },
+        {
+          "concepto": "Pequeño material bisagra (tornillos, tacos)",
+          "descripcion": "Tornillería, tacos de expansión y pequeño material de cerrajería",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material a presupuestar (rango típico 5-10€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 260,
+        "iva_porcentaje": 21,
+        "iva": 54.6,
+        "total": 314.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: [reparacion_grifo_o_griferia_averiada] — partidas obligatorias: diagnóstico, pieza repuesto, pequeño material",
+        "Verificar en catálogo: [reparacion_cinta_enrolladora_persiana] — partidas obligatorias: cinta, recogedor si deteriorado",
+        "Verificar en catálogo: [reparacion_bisagra_puerta] — partidas obligatorias: bisagra nueva, tornillería, ajuste"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Grifo de repuesto",
+          "oficio": "mantenimiento_general",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico a presupuestar por instalador"
+        },
+        {
+          "concepto": "Cinta enrolladora persiana",
+          "oficio": "mantenimiento_general",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico a presupuestar por instalador"
+        },
+        {
+          "concepto": "Bisagra de puerta",
+          "oficio": "mantenimiento_general",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico a presupuestar por instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_grifo_o_griferia_averiada",
+      "reparacion_y_soldadura_de_estructura_metalica",
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "reparacion_cinta_enrolladora_persiana",
+      "reparacion_de_fisuras_y_grietas_en_fachada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3755,
+      "tokens_out": 2427
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 3,
+    "n_sugeridas": 6,
+    "oficio_detectado": "mantenimiento_general",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "id": 294,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar depósito de agua de hormigón para riego, limpieza interior y revestimiento epoxy",
+  "http_status": 200,
+  "latency_ms": 22224,
+  "raw_response": {
+    "transcript": "Impermeabilizar depósito de agua de hormigón para riego, limpieza interior y revestimiento epoxy",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar depósito de agua de hormigón para riego, limpieza interior y revestimiento epoxy",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Depósito de agua para riego (no potable): verificar si epoxy es compatible con uso agrícola o si requiere pintura específica para agua no potable",
+          "Volumen/dimensiones del depósito no especificadas: precio estimado por m² de superficie interior. Solicitar medidas para ajustar presupuesto"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización de depósito hormigón con revestimiento epoxy"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Aplicación de pintura/revestimiento epoxy interior"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado, drenaje y limpieza interior depósito",
+          "descripcion": "Vaciado completo del depósito, drenaje de agua residual, limpieza mecánica de sedimentos, algas y depósitos calcáreos. Incluye pequeño material y EPI",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 320,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Jornada estimada; ajustar según volumen real del depósito (m³)"
+        },
+        {
+          "concepto": "Lija, granallado o decapado previo de hormigón",
+          "descripcion": "Preparación de superficie interior: lija mecánica, granallado o decapado químico para eliminar óxidos, eflorescencias y garantizar adherencia del epoxy. Incluye EPI respiratorio",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² de superficie interior a definir por instalador"
+        },
+        {
+          "concepto": "Imprimación consolidante y selladora",
+          "descripcion": "Aplicación de imprimación epoxy de baja viscosidad para consolidar hormigón poroso y sellar microporosidades. Mejora adherencia del revestimiento final",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio a definir por instalador según marca y rendimiento (típico 0,5-1 L/m²)"
+        },
+        {
+          "concepto": "Aplicación de revestimiento epoxy de dos componentes",
+          "descripcion": "Pintura epoxy de dos componentes (resina + endurecedor) homologada para depósitos de agua. Aplicación en 2 capas mínimo. Incluye mezcla, aplicación con rodillo/brocha y curado",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio a definir por instalador según marca, espesor y rendimiento (típico 1,5-2 L/m² para 2 capas)"
+        },
+        {
+          "concepto": "Mano de obra aplicación revestimiento epoxy",
+          "descripcion": "Aplicación de revestimiento epoxy en 2 capas sobre superficie preparada. Incluye mezcla de componentes, aplicación uniforme, control de espesores y tiempos de curado entre capas",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa por m²; cantidad a definir por superficie interior real"
+        },
+        {
+          "concepto": "Ventilación forzada durante aplicación y curado",
+          "descripcion": "Instalación de ventilación forzada (extractor + conductos) durante aplicación de epoxy y período de curado (48-72h). Obligatorio para seguridad y calidad de acabado",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 280,
+          "total": 280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Jornada estimada; puede requerir más días según volumen y condiciones de curado"
+        },
+        {
+          "concepto": "Inspección final, prueba de estanqueidad y puesta en servicio",
+          "descripcion": "Inspección visual de revestimiento, prueba de estanqueidad (llenado parcial y observación 24h), verificación de ausencia de filtraciones, limpieza final y puesta en servicio",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 750,
+        "iva_porcentaje": 21,
+        "iva": 157.5,
+        "total": 907.5
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: dimensiones exactas del depósito (largo × ancho × alto en metros) para calcular m² de superficie interior",
+        "Confirmar si el depósito es para agua potable o riego agrícola: afecta a la selección de epoxy (potable requiere homologación específica)",
+        "Verificar acceso al interior: ¿boca de hombre suficiente? ¿requiere andamio o plataforma interior?",
+        "Definir si se incluye desmontaje/retirada de tapa, escalera interior u otros elementos fijos",
+        "Presupuesto actual es ESTIMADO: incluye solo mano de obra de fases principales. Materiales (epoxy, imprimación, pequeño material) requieren revisión y ajuste de precios"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación consolidante y selladora",
+          "oficio": "pintura",
+          "motivo": "Material específico para depósitos; precio a definir por instalador"
+        },
+        {
+          "concepto": "Aplicación de revestimiento epoxy de dos componentes",
+          "oficio": "pintura",
+          "motivo": "Material específico para depósitos; precio a definir por instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_de_depositos_agua_potable_interior",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico",
+      "impermeabilizacion_de_alfeizar_o_vierteaguas",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3872,
+      "tokens_out": 2761
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 5,
+    "n_sugeridas": 2,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

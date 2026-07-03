@@ -1,0 +1,201 @@
+{
+  "id": 9,
+  "oficio": "Fontanería",
+  "texto": "Cambio de tuberías de plomo por multicapa en toda la instalación del piso de 80 metros cuadrados, incluye apertura y cierre de rozas",
+  "http_status": 200,
+  "latency_ms": 17661,
+  "raw_response": {
+    "transcript": "Cambio de tuberías de plomo por multicapa en toda la instalación del piso de 80 metros cuadrados, incluye apertura y cierre de rozas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de tuberías de plomo por multicapa en toda la instalación del piso de 80 metros cuadrados, incluye apertura y cierre de rozas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de fontanería integral: requiere coordinación con electricista si hay rozas compartidas",
+          "Gestión de residuos de tuberías de plomo: verificar normativa local de eliminación",
+          "Presupuesto basado en 80 m² de vivienda: precio final dependerá de longitud real de tuberías y complejidad de trazado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Sustitución completa de instalación de agua: desmontaje tuberías plomo, instalación tuberías multicapa, apertura/cierre rozas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de tuberías de plomo",
+          "descripcion": "Desmontaje completo de la instalación de tuberías de plomo existente en toda la vivienda, desconexión de acometida y aparatos sanitarios, preparación para gestión de residuos",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 400,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Apertura de rozas en muros y tabiques",
+          "descripcion": "Apertura de rozas en muros y tabiques para paso de tuberías multicapa PEX, incluyendo hormigón, ladrillo y yeso según encuentros",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "metro",
+          "cantidad": 120,
+          "precio_unitario": 8,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación de tuberías multicapa PEX",
+          "descripcion": "Tuberías multicapa PEX de 16, 20 y 25 mm según tramos, incluyendo accesorios de conexión, válvulas de corte por estancia, colectores de distribución, conexión a acometida y saneamiento",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "metro",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material multicapa PEX: instalador debe cotizar según diámetros reales y accesorios necesarios (válvulas, colectores, latiguillos)"
+        },
+        {
+          "concepto": "Instalación de tuberías multicapa PEX",
+          "descripcion": "Instalación completa de tuberías multicapa PEX, fijación a muros, conexión de válvulas de corte por estancia, colectores de distribución, pruebas de estanqueidad y presión",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "metro",
+          "cantidad": 120,
+          "precio_unitario": 12,
+          "total": 1440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cierre y reposición de rozas",
+          "descripcion": "Cierre de rozas con mortero de cemento, reposición de yeso/escayola en tabiques, acabado liso y preparado para pintura",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "metro",
+          "cantidad": 120,
+          "precio_unitario": 6,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios fontanería",
+          "descripcion": "Válvulas de corte, colectores, latiguillos, teflón, pasta selladora, abrazaderas, soportes, tornillería y material auxiliar",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: instalador debe cuantificar válvulas de corte (mínimo 4-6 por vivienda), colectores, latiguillos y accesorios según trazado real"
+        },
+        {
+          "concepto": "Gestión de residuos de tuberías de plomo",
+          "descripcion": "Retirada, transporte y gestión de residuos de tuberías de plomo según normativa ambiental local, incluyendo documentación de eliminación",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Gestión de residuos peligrosos (plomo): instalador debe contactar con gestor autorizado y presupuestar según cantidad y normativa local"
+        },
+        {
+          "concepto": "Pruebas de estanqueidad y presión",
+          "descripcion": "Pruebas de estanqueidad de toda la instalación, presurización a 10 bar, detección de fugas, certificación de conformidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 400,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 4320,
+        "iva_porcentaje": 21,
+        "iva": 907.2,
+        "total": 5227.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'Tuberías multicapa PEX 16/20/25 mm' para cotizar material según diámetros reales",
+        "Verificar en catálogo: 'Válvulas de corte por estancia' y 'Colectores de distribución' para presupuestar accesorios",
+        "Considerar: 'Descalcificador' si la zona tiene agua dura (mejora durabilidad de tuberías multicapa)",
+        "Considerar: 'Termo eléctrico nuevo' si el existente es muy antiguo y está conectado a tuberías de plomo"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación de tuberías multicapa PEX",
+          "oficio": "fontaneria",
+          "motivo": "Material específico: tuberías multicapa PEX con accesorios. Precio pendiente de cotización según diámetros y longitud real"
+        },
+        {
+          "concepto": "Pequeño material y accesorios fontanería",
+          "oficio": "fontaneria",
+          "motivo": "Válvulas, colectores, latiguillos y accesorios: cantidad y precio dependen del trazado real de la instalación"
+        },
+        {
+          "concepto": "Gestión de residuos de tuberías de plomo",
+          "oficio": "fontaneria",
+          "motivo": "Servicio especializado: requiere gestor autorizado y cumplimiento normativa ambiental local"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_planta_baja_o_local_para_vivienda",
+      "renovacion_de_instalacion_de_fontaneria_en_vivienda",
+      "acabado_con_microcemento_suelo_o_pared",
+      "sustitucion_termo_electrico",
+      "instalacion_solado_de_barro_ceramico_o_terracota"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4005,
+      "tokens_out": 2399
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 5,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

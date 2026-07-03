@@ -1,0 +1,197 @@
+{
+  "id": 185,
+  "oficio": "Cerrajería",
+  "texto": "Instalación de cerradura electrónica con código y huella dactilar en puerta de oficina",
+  "http_status": 200,
+  "latency_ms": 21350,
+  "raw_response": {
+    "transcript": "Instalación de cerradura electrónica con código y huella dactilar en puerta de oficina",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de cerradura electrónica con código y huella dactilar en puerta de oficina",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Cerradura biométrica (huella) + teclado (código): requiere validación de marca/modelo y compatibilidad con puerta",
+          "Fuente de alimentación con batería de respaldo: OBLIGATORIA para seguridad",
+          "Software de gestión de usuarios: incluido en instalación básica"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de cerradura electrónica biométrica + teclado código. Oficio principal: cerrajería especializada en sistemas de acceso."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cerradura electrónica biométrica con lector de huella dactilar",
+          "descripcion": "Suministro de cerradura electrónica de seguridad con lector biométrico integrado (huella dactilar), compatible con puerta de oficina, incluyendo cilindro de seguridad y mecanismo de cierre.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cerradura biométrica variable según marca/modelo (rango típico 400-1200€). Instalador debe confirmar especificaciones y presupuesto del fabricante."
+        },
+        {
+          "concepto": "Teclado numérico para código de acceso",
+          "descripcion": "Suministro de teclado numérico retroiluminado para entrada de código PIN, compatible con cerradura electrónica biométrica, con protección contra manipulación.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio teclado numérico: 80-250€ según calidad y compatibilidad. Requiere validación con modelo de cerradura."
+        },
+        {
+          "concepto": "Fuente de alimentación con batería de respaldo",
+          "descripcion": "Suministro de fuente de alimentación 12V DC con batería de respaldo (UPS) para garantizar funcionamiento de cerradura en caso de corte de suministro eléctrico. Autonomía mínima 24-48 horas.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio fuente + batería: 150-400€. Capacidad de batería debe dimensionarse según consumo de cerradura."
+        },
+        {
+          "concepto": "Cableado eléctrico y conexiones",
+          "descripcion": "Suministro e instalación de cable eléctrico (mínimo 2x1.5mm² + tierra) desde fuente de alimentación a cerradura y teclado. Incluye conectores de seguridad y pequeño material (bornes, canaletas si necesario).",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación 5 metros de cableado. Precio: 2-5€/metro + conectores. Ajustar según distancia real puerta-fuente."
+        },
+        {
+          "concepto": "Software de gestión de usuarios y accesos",
+          "descripcion": "Configuración e instalación de software de gestión de usuarios, perfiles de acceso, registro de entradas/salidas y administración de códigos PIN y datos biométricos. Incluye programación inicial de usuarios autorizados.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Software: puede ser gratuito (incluido en cerradura) o de pago (50-300€ según funcionalidades). Confirmar con fabricante."
+        },
+        {
+          "concepto": "Instalación, ajuste y pruebas de cerradura electrónica biométrica",
+          "descripcion": "Mano de obra: desmontaje de cerradura anterior (si existe), instalación de nueva cerradura biométrica, montaje de teclado, conexión de fuente de alimentación, ajuste de mecanismo, pruebas de funcionamiento (huella dactilar + código), calibración y entrega de documentación.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios de instalación",
+          "descripcion": "Tornillos de seguridad, arandelas, tacos de fijación, pasta térmica, silicona neutra, cinta aislante, conectores rápidos y otros accesorios menores necesarios para la instalación completa.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: estimado 30-80€. Incluir en presupuesto final."
+        }
+      ],
+      "calculos": {
+        "subtotal": 180,
+        "iva_porcentaje": 21,
+        "iva": 37.8,
+        "total": 217.8
+      },
+      "sugerencias_catalogo": [
+        "Validar compatibilidad de cerradura biométrica con tipo de puerta (grosor, material, tipo de marco).",
+        "Confirmar si la puerta requiere refuerzo de escudo anti-taladro (partida adicional de cerrajería).",
+        "Solicitar al fabricante: hoja de especificaciones técnicas, consumo eléctrico, autonomía de batería, garantía.",
+        "Considerar si se requiere integración con sistema de control de acceso centralizado o alarma.",
+        "Documentar: códigos PIN iniciales, datos biométricos registrados, manual de usuario, certificado de instalación."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cerradura electrónica biométrica con lector de huella dactilar",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema biométrico avanzado no especificado en catálogo base. Precio variable según marca (Salto, Assa Abloy, Dormakaba, etc.). Rango estimado: 400-1200€."
+        },
+        {
+          "concepto": "Teclado numérico para código de acceso",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Componente complementario de acceso por código. Precio: 80-250€ según compatibilidad y retroiluminación."
+        },
+        {
+          "concepto": "Fuente de alimentación con batería de respaldo",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema de respaldo obligatorio para seguridad. Precio: 150-400€ según capacidad de batería."
+        },
+        {
+          "concepto": "Software de gestión de usuarios y accesos",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Gestión de perfiles y registro de accesos. Puede ser incluido o adicional según fabricante (0-300€)."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_control_de_acceso_por_tarjeta_codigo_o_huella",
+      "instalacion_control_acceso_rfid",
+      "cambio_de_cerradura_completa",
+      "apertura_puerta_cerradura_sin_llave",
+      "instalacion_de_escudo_o_placa_de_proteccion_cerradura"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3686,
+      "tokens_out": 2843
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

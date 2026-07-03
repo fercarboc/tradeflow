@@ -1,0 +1,200 @@
+{
+  "id": 254,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar centralita telefónica IP para empresa de 10 extensiones con número de empresa",
+  "http_status": 200,
+  "latency_ms": 16889,
+  "raw_response": {
+    "transcript": "Instalar centralita telefónica IP para empresa de 10 extensiones con número de empresa",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar centralita telefónica IP para empresa de 10 extensiones con número de empresa",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere confirmación de: tipo de central (on-premise vs cloud), número de líneas externas SIP/ISDN, necesidad de gateway PSTN, servicios adicionales (IVR, grabación, cola de llamadas)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema telefónico IP con cableado estructurado y configuración de extensiones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Central PBX IP on-premise (10 extensiones)",
+          "descripcion": "Suministro e instalación de central telefónica IP (PBX) con capacidad para 10 extensiones, incluyendo licencias de usuario",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca/modelo (Asterisk, 3CX, Avaya, etc.) y licencias. Rango estimado: 800-2000€"
+        },
+        {
+          "concepto": "Teléfonos IP (10 unidades)",
+          "descripcion": "Suministro de 10 teléfonos IP con PoE integrado, incluyendo auriculares y bases",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por unidad: 150-400€ según modelo (Yealink, Grandstream, Cisco, etc.)"
+        },
+        {
+          "concepto": "Switch PoE gestionado (24 puertos)",
+          "descripcion": "Suministro de switch Ethernet gestionado con PoE (Power over Ethernet) para alimentar teléfonos IP y dispositivos de red",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 300-800€ según marca y especificaciones PoE"
+        },
+        {
+          "concepto": "Cableado Cat6 estructurado",
+          "descripcion": "Suministro e instalación de cableado Cat6 desde switch a puestos de trabajo (10 puntos), incluyendo canaletas, tomas RJ45 y etiquetado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "ml",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 3-8€/ml (material + instalación). Total estimado: 600-1600€"
+        },
+        {
+          "concepto": "Configuración de extensiones y grupos",
+          "descripcion": "Configuración de 10 extensiones, grupos de llamada, desvíos, buzón de voz y parámetros de la central",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión a SIP Trunk (líneas externas)",
+          "descripcion": "Configuración de conexión SIP Trunk para líneas externas de empresa, incluyendo parámetros de operador y pruebas de funcionamiento",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación física de central y switch",
+          "descripcion": "Instalación en rack o armario, conexionado de equipos, pruebas de funcionamiento y puesta en marcha",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (conectores, etiquetas, cinta aislante)",
+          "descripcion": "Conectores RJ45, etiquetas, cinta aislante, bridas, tornillería y otros consumibles",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 100-200€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 500,
+        "iva_porcentaje": 21,
+        "iva": 105,
+        "total": 605
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: ¿Central on-premise (3CX, Asterisk) o cloud (Jitsi, Nextiva)? Cloud es más económica para 10 extensiones.",
+        "¿Cuántas líneas externas SIP necesita? (mínimo 2-3 recomendado para empresa)",
+        "¿Necesita servicios adicionales?: IVR (menú automático), grabación de llamadas, cola de llamadas, app móvil",
+        "¿Requiere gateway PSTN para líneas analógicas antiguas? (si tiene teléfono fijo tradicional)",
+        "Presupuesto de materiales estimado (sin revisar): 2500-5000€ + mano de obra 500€ = Total estimado 3000-5500€"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Central PBX IP on-premise",
+          "oficio": "telecomunicaciones",
+          "motivo": "Especificación técnica de marca/modelo pendiente de cliente"
+        },
+        {
+          "concepto": "Teléfonos IP",
+          "oficio": "telecomunicaciones",
+          "motivo": "Modelo y marca a confirmar con cliente"
+        },
+        {
+          "concepto": "Switch PoE gestionado",
+          "oficio": "telecomunicaciones",
+          "motivo": "Especificaciones técnicas a confirmar según infraestructura existente"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_central_telefonica_IP_o_PBX",
+      "instalacion_armario_metalico_o_taquilla",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_red_de_datos_con_fibra_optica_backbone",
+      "instalacion_vidrio_de_seguridad_templado"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4086,
+      "tokens_out": 2212
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

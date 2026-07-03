@@ -1,0 +1,188 @@
+{
+  "id": 264,
+  "oficio": "Cristalería",
+  "texto": "Instalar barandilla de cristal templado en terraza, longitud 6 metros con pasamanos de acero",
+  "http_status": 200,
+  "latency_ms": 20436,
+  "raw_response": {
+    "transcript": "Instalar barandilla de cristal templado en terraza, longitud 6 metros con pasamanos de acero",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar barandilla de cristal templado en terraza, longitud 6 metros con pasamanos de acero",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Barandilla exterior en terraza: verificar normativa CTE DB SUA (altura mínima 100cm uso público, 90cm privado)",
+          "Vidrio laminado OBLIGATORIO en barandillas (no solo templado) para evitar fragmentación en rotura",
+          "Pasamanos de acero: especificar si inox 316 (zona marítima) o inox 304 (interior seco)",
+          "Anclajes deben ser sellados impermeablemente para evitar corrosión en puntos de entrada de agua"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de vidrio de seguridad templado/laminado en barandilla"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 65
+          },
+          "motivo": "Instalación de pasamanos de acero inoxidable y anclajes metálicos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio laminado de seguridad templado para barandilla exterior",
+          "descripcion": "Suministro de vidrio laminado templado (espesor 8-10mm según cálculo de carga) para barandilla de terraza, longitud 6 metros. Incluye marcado CE y certificación EN 12150. Vidrio laminado obligatorio para evitar fragmentación en caso de rotura.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vidrio laminado templado según espesor y medidas exactas a definir por instalador"
+        },
+        {
+          "concepto": "Perfil de sujeción inferior y horquillas de acero inoxidable",
+          "descripcion": "Suministro de perfil de sujeción inferior (aluminio anodizado o acero inox) y horquillas de fijación inoxidable para anclaje del vidrio a la estructura de la terraza. Incluye pequeño material (tornillos, tuercas inox).",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de perfiles y herrajes según sistema de fijación elegido"
+        },
+        {
+          "concepto": "Pasamanos de tubo acero inoxidable",
+          "descripcion": "Suministro de pasamanos de tubo redondo acero inoxidable (diámetro 40-50mm, espesor 2-3mm). Especificar inox 316 si zona marítima, inox 304 si interior seco. Longitud 6 metros.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tubo inox según diámetro y tipo de inox (304 vs 316)"
+        },
+        {
+          "concepto": "Anclajes inoxidables a estructura con sellado impermeable",
+          "descripcion": "Suministro de anclajes inoxidables (tacos químicos o mecánicos según soporte: hormigón, acero, madera) para fijación de pasamanos y perfiles a la estructura de terraza. Incluye sellado impermeable en puntos de entrada de agua para evitar corrosión. Cantidad: 12 anclajes (cada 0,5m).",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de anclajes según tipo de soporte (hormigón, acero, madera)"
+        },
+        {
+          "concepto": "Instalación barandilla de vidrio y pasamanos",
+          "descripcion": "Mano de obra de instalación: colocación de perfiles de sujeción, fijación de vidrio laminado templado, instalación de pasamanos de acero inoxidable, anclaje a estructura, sellado impermeable de puntos de entrada de agua, verificación de carga (1,5 kN/ml mínimo), ajustes y pruebas finales.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Anclaje y sellado impermeable de pasamanos",
+          "descripcion": "Mano de obra de anclaje de pasamanos a estructura de terraza, taladrado, colocación de tacos, atornillado, sellado impermeable con silicona neutra o poliuretano en puntos de entrada de agua.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 600,
+        "iva_porcentaje": 21,
+        "iva": 126,
+        "total": 726
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_barandilla_de_vidrio_templado_o_laminado' (cristaleria, 30-165€/ml) — aplicable a este proyecto",
+        "Considerar: 'instalacion_barandilla_metalica_de_escalera_exterior' (cerrajeria, 30-160€/ml) — pasamanos metálico exterior"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio laminado de seguridad templado para barandilla exterior",
+          "oficio": "cristaleria",
+          "motivo": "Material específico de seguridad; precio variable según espesor (8-10mm) y medidas exactas"
+        },
+        {
+          "concepto": "Perfil de sujeción inferior y horquillas de acero inoxidable",
+          "oficio": "cristaleria",
+          "motivo": "Herraje de fijación; precio variable según sistema elegido"
+        },
+        {
+          "concepto": "Pasamanos de tubo acero inoxidable",
+          "oficio": "cerrajeria",
+          "motivo": "Material metálico; precio variable según tipo inox (304 vs 316) y diámetro"
+        },
+        {
+          "concepto": "Anclajes inoxidables a estructura con sellado impermeable",
+          "oficio": "cerrajeria",
+          "motivo": "Material de fijación; precio variable según tipo de soporte (hormigón, acero, madera)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_barandilla_metalica_de_escalera_interior",
+      "instalacion_barandilla_de_vidrio_templado_o_laminado",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_barandilla_metalica_de_escalera_exterior",
+      "cambio_radiador"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3892,
+      "tokens_out": 2726
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

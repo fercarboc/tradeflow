@@ -1,0 +1,198 @@
+{
+  "id": 259,
+  "oficio": "Telecomunicaciones",
+  "texto": "Poner antena de repetidor de móvil interior en local con mala cobertura, sistema pasivo",
+  "http_status": 200,
+  "latency_ms": 16712,
+  "raw_response": {
+    "transcript": "Poner antena de repetidor de móvil interior en local con mala cobertura, sistema pasivo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner antena de repetidor de móvil interior en local con mala cobertura, sistema pasivo",
+        "tipo_presupuesto": "mejora",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema pasivo detectado: requiere validación de viabilidad técnica y homologación CNAF",
+          "Antena exterior donante es OBLIGATORIA para sistema pasivo",
+          "Notificación a operador móvil y CNAF requerida según normativa",
+          "Precio de materiales pendiente de revisión del instalador"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema de cobertura móvil interior con componentes de radiofrecuencia"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Antena exterior donante hacia torre operador",
+          "descripcion": "Antena exterior omnidireccional o directiva orientada a torre operador móvil, montaje en fachada o cubierta con soporte y herrajes",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico de radiofrecuencia, precio según marca y ganancia (dBi). Rango estimado 150-400€"
+        },
+        {
+          "concepto": "Antena interior de servicio (panel o dipolo)",
+          "descripcion": "Antena interior pasiva tipo panel o dipolo para distribución de señal en local, montaje en pared o techo",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Antena interior pasiva, precio según ganancia y tipo. Rango estimado 80-250€"
+        },
+        {
+          "concepto": "Cable coaxial de baja pérdida",
+          "descripcion": "Cable coaxial de calidad (tipo LMR-400 o equivalente) para conexión entre antena exterior e interior, con conectores N o SMA según sistema",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud a determinar según ubicación antenas. Precio aproximado 8-15€/ml. Requiere medición en obra"
+        },
+        {
+          "concepto": "Divisor/acoplador de señal (si múltiples operadores)",
+          "descripcion": "Divisor pasivo de señal RF para distribuir cobertura a múltiples operadores o zonas del local, si aplica",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional según número de operadores a cubrir. Precio estimado 40-120€. Cantidad a confirmar"
+        },
+        {
+          "concepto": "Pequeño material (conectores, adaptadores, cinta, bridas)",
+          "descripcion": "Conectores N/SMA, adaptadores, cinta de aluminio, bridas de sujeción, silicona, tornillería",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida alzada de pequeño material. Rango estimado 30-80€"
+        },
+        {
+          "concepto": "Instalación y orientación de antenas + cableado",
+          "descripcion": "Montaje de antena exterior en fachada/cubierta con orientación a torre operador, tendido de cable coaxial, instalación de antena interior, pruebas de señal y ajustes",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Notificación a operador móvil y CNAF (trámite administrativo)",
+          "descripcion": "Gestión de notificación a operador móvil y Comisión Nacional de los Mercados y la Competencia (CNAF) según normativa de sistemas pasivos de cobertura interior",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Trámite administrativo obligatorio. Precio estimado 100-300€ según complejidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 200,
+        "iva_porcentaje": 21,
+        "iva": 42,
+        "total": 242
+      },
+      "sugerencias_catalogo": [
+        "Validar con operador móvil si sistema pasivo es viable en la zona (cobertura exterior suficiente)",
+        "Confirmar ganancia de antenas (dBi) según nivel de cobertura requerido",
+        "Medir distancia exacta entre antena exterior e interior para calcular atenuación de cable",
+        "Considerar alternativa: femtocell del operador si cobertura exterior es muy débil",
+        "Realizar pruebas de cobertura pre y post instalación con medidor de campo"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Antena exterior donante hacia torre operador",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "razon": "Componente obligatorio en sistema pasivo de cobertura interior, no encontrado en catálogo base"
+        },
+        {
+          "concepto": "Antena interior de servicio (panel o dipolo)",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "razon": "Componente específico de radiofrecuencia para distribución interior, requiere especificación técnica"
+        },
+        {
+          "concepto": "Cable coaxial de baja pérdida",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "razon": "Material especializado de RF, precio variable según longitud y tipo de cable"
+        },
+        {
+          "concepto": "Notificación a operador móvil y CNAF",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "razon": "Trámite administrativo obligatorio para sistemas pasivos según normativa española"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_mejora_de_cobertura_movil_en_interior",
+      "reparacion_cordon_o_sistema_tiro_persiana",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "pintado_locales_comerciales_y_tiendas",
+      "instalacion_cerrojo_adicional"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3870,
+      "tokens_out": 2222
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

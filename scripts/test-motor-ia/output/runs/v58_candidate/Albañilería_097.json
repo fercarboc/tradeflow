@@ -1,0 +1,176 @@
+{
+  "id": 97,
+  "oficio": "Albañilería",
+  "texto": "Tabique de ladrillo visto para separar salón comedor, longitud 3 metros sin revestir",
+  "http_status": 200,
+  "latency_ms": 16779,
+  "raw_response": {
+    "transcript": "Tabique de ladrillo visto para separar salón comedor, longitud 3 metros sin revestir",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tabique de ladrillo visto para separar salón comedor, longitud 3 metros sin revestir",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume altura estándar de 2.5m (no especificada). Confirmar con cliente.",
+          "Ladrillo visto sin revestimiento: requiere mortero de calidad y juntas limpias.",
+          "Superficie aproximada: 7.5 m² (3m × 2.5m). Revisar medidas en obra."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Construcción de tabique de ladrillo visto. Oficio principal de albañilería."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Replanteo y nivelación",
+          "descripcion": "Replanteo de la línea del tabique, nivelación de base y marcado de ejes para tabique de 3m de longitud.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m",
+          "cantidad": 3,
+          "precio_unitario": 12,
+          "total": 36,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ladrillo hueco visto",
+          "descripcion": "Suministro de ladrillo hueco de 4cm para tabique visto, 7.5 m² (3m × 2.5m aprox.). Incluye transporte a obra.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 7.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador según tipo y calidad de ladrillo visto seleccionado."
+        },
+        {
+          "concepto": "Mortero de agarre M5 (cal-cemento)",
+          "descripcion": "Suministro de mortero de agarre M5 para rejuntado de ladrillo visto. Cantidad estimada: 0.15 m³ (7.5 m² × 0.02m espesor medio).",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 0.15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mortero a confirmar. Usar mortero compatible con ladrillo visto (cal-cemento blanco recomendado)."
+        },
+        {
+          "concepto": "Malla de armadura (si longitud > 3m)",
+          "descripcion": "Malla de armadura de acero para refuerzo horizontal cada 3 hiladas. Longitud: 3m. Cantidad: 1 unidad.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Malla de armadura: verificar si es necesaria según normativa local y altura final. Precio a confirmar."
+        },
+        {
+          "concepto": "Ejecución de tabique de ladrillo visto",
+          "descripcion": "Mano de obra para construcción de tabique de ladrillo visto de 7.5 m² (3m × 2.5m). Incluye: colocación de ladrillo, rejuntado limpio, limpieza de juntas y acabado visto.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 7.5,
+          "precio_unitario": 40,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza final de ladrillo visto",
+          "descripcion": "Limpieza final de la fábrica de ladrillo visto para eliminar restos de mortero y polvo. Incluye cepillado y limpieza con agua.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 7.5,
+          "precio_unitario": 8,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 396,
+        "iva_porcentaje": 21,
+        "iva": 83.16,
+        "total": 479.16
+      },
+      "sugerencias_catalogo": [
+        "Si el tabique requiere aislamiento acústico adicional, considerar revestimiento posterior con pladur + lana mineral.",
+        "Si se detectan irregularidades en la base, presupuestar enfoscado previo de nivelación.",
+        "Confirmar altura real en obra (se asume 2.5m estándar).",
+        "Ladrillo visto sin revestir: verificar que el cliente acepta la estética final y la durabilidad del mortero expuesto."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Ladrillo hueco visto",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Material específico de ladrillo visto. Precio variable según proveedor y tipo de ladrillo."
+        },
+        {
+          "concepto": "Mortero de agarre M5 (cal-cemento)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Mortero específico para ladrillo visto. Precio variable según marca y composición."
+        },
+        {
+          "concepto": "Malla de armadura (si longitud > 3m)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Refuerzo estructural. Precio variable según especificación técnica."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_ladrillo_hueco_sencillo",
+      "tabique_pladur_sencillo_72mm",
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "tabique_pladur_separacion_zona_oficina"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3964,
+      "tokens_out": 2261
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

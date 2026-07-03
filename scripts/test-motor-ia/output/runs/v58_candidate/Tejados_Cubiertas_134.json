@@ -1,0 +1,181 @@
+{
+  "id": 134,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Reparar gotera en cubierta plana mediante proyección de poliurea, superficie afectada 10 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 14917,
+  "raw_response": {
+    "transcript": "Reparar gotera en cubierta plana mediante proyección de poliurea, superficie afectada 10 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar gotera en cubierta plana mediante proyección de poliurea, superficie afectada 10 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Reparación puntual de gotera: se recomienda diagnóstico previo del origen real de la filtración (el agua puede entrar lejos del punto visible)",
+          "Proyección de poliurea es solución de alto rendimiento; verificar que el estado general de la cubierta justifica esta inversión vs. reparación provisional",
+          "Superficie 10 m²: si el deterioro es generalizado en toda la cubierta, considerar impermeabilización integral"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación de gotera en cubierta plana con proyección de poliurea (impermeabilización especializada)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y saneo de zona afectada por gotera",
+          "descripcion": "Inspección visual de la zona de filtración, localización del origen real de la gotera, retirada de material deteriorado, limpieza y secado de la superficie",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación y preparación de superficie para proyección",
+          "descripcion": "Aplicación de imprimación adherente/promotora de adhesión en superficie de 10 m² para optimizar agarre de poliurea",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material imprimación: instalador debe especificar producto y coste (aprox. 5-15€/m²)"
+        },
+        {
+          "concepto": "Proyección de poliurea en cubierta plana",
+          "descripcion": "Aplicación de revestimiento de poliurea proyectada (espesor 2-3 mm) en superficie de 10 m² para impermeabilización y protección contra goteras",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material poliurea proyectada: instalador debe especificar producto, rendimiento y coste (aprox. 40-80€/m² material + aplicación)"
+        },
+        {
+          "concepto": "Mano de obra proyección de poliurea",
+          "descripcion": "Aplicación especializada de poliurea proyectada en 10 m² (incluye preparación de equipos, proyección, acabado y limpieza)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 45,
+          "total": 450,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Refuerzo de bordes y encuentros de reparación",
+          "descripcion": "Sellado y refuerzo de los bordes perimetrales de la zona reparada con sellador elástico poliuretano para evitar infiltraciones en los límites",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sellador elástico: instalador debe especificar producto y coste (aprox. 3-8€/ml)"
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "descripcion": "Equipos de protección individual (arnés línea de vida, casco, guantes, gafas), herramientas menores y consumibles para la reparación",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "EPI y consumibles: instalador debe estimar coste (aprox. 50-150€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 540,
+        "iva_porcentaje": 21,
+        "iva": 113.4,
+        "total": 653.4
+      },
+      "sugerencias_catalogo": [
+        "Partida 'Diagnóstico y saneo' basada en protocolo de reparación_puntual_de_gotera_en_cubierta_plana (obligatorio diagnóstico previo)",
+        "Proyección de poliurea es técnica especializada de impermeabilización; considerar si el cliente requiere garantía de 10+ años (poliurea ofrece durabilidad superior a otras soluciones)",
+        "Si la cubierta tiene más de 20 años o deterioro generalizado, recomendar impermeabilización integral en lugar de reparación puntual"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación y preparación de superficie para proyección",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para preparación de cubierta antes de proyección de poliurea"
+        },
+        {
+          "concepto": "Proyección de poliurea en cubierta plana",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material poliurea proyectada: técnica especializada no incluida en catálogo base, requiere especificación de producto y rendimiento"
+        },
+        {
+          "concepto": "Refuerzo de bordes y encuentros de reparación",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Sellador elástico para perimetral de reparación: material específico según protocolo de reparación de goteras"
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles y equipos de protección para trabajo en altura en cubierta"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana",
+      "impermeabilizacion_de_peto_o_murete_de_cubierta_plana",
+      "reparacion_puntual_de_gotera_en_cubierta_plana",
+      "reparacion_puntual_de_impermeabilizacion_con_banda_autodhesiva",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3918,
+      "tokens_out": 2110
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "NO"
+  }
+}

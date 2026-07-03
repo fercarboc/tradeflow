@@ -1,0 +1,253 @@
+{
+  "id": 233,
+  "oficio": "Energía Solar",
+  "texto": "Instalación de seguidores solares para optimizar producción de paneles, sistema de 6kW",
+  "http_status": 200,
+  "latency_ms": 25399,
+  "raw_response": {
+    "transcript": "Instalación de seguidores solares para optimizar producción de paneles, sistema de 6kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de seguidores solares para optimizar producción de paneles, sistema de 6kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema de seguimiento solar: requiere cálculo estructural y legalización ante distribuidora",
+          "Obra civil: cimentación y anclajes deben dimensionarse según ubicación geográfica y vientos",
+          "Electricidad: conexión a inversor existente o nuevo según potencia total",
+          "Mantenimiento: sistema mecánico requiere revisiones periódicas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación sistema fotovoltaico con seguidor solar de 6kW"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Obra civil: cimentación y preparación terreno para estructura seguidor"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica, protecciones, legalización ante distribuidora"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro e instalación estructura seguidor solar 6kW (2 ejes, motorizado)",
+          "descripcion": "Estructura metálica de seguimiento solar de 2 ejes (azimutal y elevación) con motores paso a paso, controlador de posición, sensores solares y sistema de seguridad anti-viento. Incluye anclajes y tornillería.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de estructura seguidor 6kW pendiente de cotización. Rango estimado: 3500-6000€ según fabricante y especificaciones"
+        },
+        {
+          "concepto": "Suministro paneles fotovoltaicos 6kW (aprox. 15-18 módulos 400W)",
+          "descripcion": "Módulos fotovoltaicos monocristalinos 400W, rendimiento ≥20%, con certificación IEC 61215. Cantidad según potencia total 6kW.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio módulos fotovoltaicos 400W: rango 150-250€/unidad. Total estimado: 2250-3750€"
+        },
+        {
+          "concepto": "Suministro e instalación inversor 6kW (trifásico o monofásico según conexión)",
+          "descripcion": "Inversor string o central 6kW, entrada DC 600-1000V, salida AC 230/400V, eficiencia ≥97%, con protecciones integradas y monitoreo. Compatible con seguidor solar.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio inversor 6kW: rango 1200-2000€ según marca y características"
+        },
+        {
+          "concepto": "Cableado DC, protecciones y pequeño material fotovoltaico",
+          "descripcion": "Cable solar 6mm² y 10mm² tinned copper, conectores MC4, fusibles DC, interruptores DC, tomas de tierra, canaletas, abrazaderas, pasta térmica, EPI.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cableado y protecciones: rango estimado 400-700€"
+        },
+        {
+          "concepto": "Obra civil: cimentación y preparación terreno para seguidor 6kW",
+          "descripcion": "Excavación, hormigonado de zapatas (4-6 puntos de anclaje), nivelación terreno, drenaje si necesario. Incluye materiales (hormigón, acero, grava) y mano de obra.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Obra civil cimentación: rango estimado 800-1500€ según terreno y accesibilidad"
+        },
+        {
+          "concepto": "Mano de obra: instalación estructura seguidor y paneles fotovoltaicos",
+          "descripcion": "Montaje estructura seguidor, instalación paneles sobre estructura, conexionado DC entre módulos, pruebas mecánicas y de movimiento.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 65,
+          "total": 1040,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: instalación inversor, cableado AC y protecciones eléctricas",
+          "descripcion": "Montaje inversor en cuadro, conexionado AC a red/consumo, instalación protecciones (interruptores, diferenciales, magnetotérmicos), puesta a tierra, pruebas eléctricas.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: obra civil, cimentación y anclajes",
+          "descripcion": "Excavación, hormigonado zapatas, nivelación, anclaje estructura seguidor, compactación.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 40,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Legalización ante distribuidora y tramitación administrativa",
+          "descripcion": "Solicitud de conexión a red, inspección técnica, certificado de instalación, alta en distribuidora, documentación RITE si aplica.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tramitación administrativa: rango estimado 300-600€ según comunidad autónoma"
+        },
+        {
+          "concepto": "Pruebas funcionales, puesta en marcha y formación",
+          "descripcion": "Pruebas de movimiento seguidor (manual y automático), calibración sensores solares, pruebas de generación, sincronización con inversor, formación básica usuario.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 65,
+          "total": 260,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2180,
+        "iva_porcentaje": 21,
+        "iva": 457.8,
+        "total": 2637.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar si existe partida específica en catálogo para 'estructura seguidor solar 2 ejes 6kW' con precio cerrado",
+        "Consultar con proveedor de paneles fotovoltaicos para descuentos por volumen (15 módulos)",
+        "Solicitar presupuesto a fabricantes de seguidores: Array Technologies (ATI), Soltec, Nextracker, Ideematec",
+        "Confirmar si la instalación requiere proyecto técnico (probable para sistemas >5kW conectados a red)",
+        "Evaluar si se necesita estudio geotécnico para cimentación según ubicación y tipo de terreno"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estructura seguidor solar 2 ejes motorizado 6kW",
+          "oficio": "energia_solar",
+          "motivo": "Sistema de seguimiento solar no encontrado en catálogo base. Requiere cotización específica de fabricante."
+        },
+        {
+          "concepto": "Paneles fotovoltaicos 400W (lote 15 unidades)",
+          "oficio": "energia_solar",
+          "motivo": "Cantidad específica para 6kW. Precio unitario pendiente de actualización de mercado."
+        },
+        {
+          "concepto": "Inversor 6kW compatible con seguidor",
+          "oficio": "energia_solar",
+          "motivo": "Especificación técnica (compatibilidad seguidor) requiere validación con fabricante."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_solar_termico_colectivo_para_edificio",
+      "instalacion_solar_termica_para_calefaccion_y_ACS",
+      "instalacion_sistema_fotovoltaico_aislado_off_grid",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_sistema_fotovoltaico_con_baterias_hibrido"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4237,
+      "tokens_out": 3351
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,261 @@
+{
+  "id": 321,
+  "oficio": "Fachadas",
+  "texto": "Rehabilitar fachada de edificio con revestimiento de mortero monocapa y zócalo de piedra",
+  "http_status": 200,
+  "latency_ms": 29034,
+  "raw_response": {
+    "transcript": "Rehabilitar fachada de edificio con revestimiento de mortero monocapa y zócalo de piedra",
+    "quote": {
+      "resumen": {
+        "texto_original": "Rehabilitar fachada de edificio con revestimiento de mortero monocapa y zócalo de piedra",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: No se especifica superficie (m²) de fachada ni altura del edificio. Presupuesto estructurado pero requiere mediciones reales del instalador.",
+          "CRÍTICO: No se especifica tipo de piedra para zócalo (granito, pizarra, caliza, etc.) ni dimensiones. Precio de material pendiente de revisión.",
+          "CRÍTICO: No se especifica si existe andamio disponible o requiere alquiler/montaje. Partida de andamio incluida pero requiere confirmación de altura y duración.",
+          "CRÍTICO: No se especifica textura ni color del mortero monocapa. Precio de material estimado, requiere revisión según especificaciones finales.",
+          "AVISO: Presupuesto generado para 100 m² de fachada y 20 ml de zócalo como referencia. El instalador DEBE actualizar cantidades reales."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Revestimiento exterior de edificio con mortero monocapa. Oficio especializado en rehabilitación de envolvente."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Alicatado de zócalo con piedra natural en fachada exterior. Técnica similar a alicatado pero en vertical exterior."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Preparación de soporte, saneo y trabajos auxiliares de albañilería en fachada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo y preparación de soporte en fachada",
+          "descripcion": "Limpieza, saneo de zonas sueltas, eliminación de revestimiento deficiente, imprimación adherente y pequeño material. Incluye replanteo de zonas a intervenir.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 12,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en 100 m². Instalador debe confirmar superficie real de fachada a rehabilitar."
+        },
+        {
+          "concepto": "Mortero monocapa predosificado para fachada",
+          "descripcion": "Mortero monocapa predosificado según textura y color especificado. Incluye malla de fibra de vidrio en encuentros, maestras guías y pequeño material. Espesor 15-20 mm.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente. Varía según textura (lisa, rugosa, proyectada) y color. Rango estimado: 15-75 €/m². Instalador debe especificar tipo y obtener presupuesto de proveedor."
+        },
+        {
+          "concepto": "Aplicación de mortero monocapa en fachada",
+          "descripcion": "Mano de obra para aplicación de mortero monocapa en fachada. Incluye maestras guías, malla de fibra en encuentros, juntas de dilatación cada 6 m, y acabado según especificación. Rendimiento: 15-20 kg/m².",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 35,
+          "total": 3500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada en rango 15-75 €/m² según complejidad. Se aplica 35 €/m² como valor medio. Ajustar según dificultad de acceso y estado del soporte."
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora para fachada",
+          "descripcion": "Alquiler, montaje y desmontaje de andamio o plataforma elevadora para acceso seguro a fachada durante toda la obra. Incluye protecciones y señalización.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "CRÍTICO: No se especifica altura del edificio ni duración estimada de obra. Presupuesto de andamio pendiente. Instalador debe confirmar: altura (plantas), duración (días/semanas), tipo de andamio (tubular, modular, plataforma elevadora)."
+        },
+        {
+          "concepto": "Piedra natural para zócalo de fachada",
+          "descripcion": "Piedra natural (granito, pizarra, caliza u otra según especificación) para revestimiento de zócalo en fachada. Incluye piezas cortadas, clasificadas y con acabado especificado.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente. Varía significativamente según tipo de piedra (granito 80-150 €/ml, pizarra 60-120 €/ml, caliza 40-80 €/ml). Instalador debe especificar tipo, espesor y acabado."
+        },
+        {
+          "concepto": "Alicatado de zócalo con piedra natural en fachada",
+          "descripcion": "Mano de obra para alicatado de zócalo con piedra natural. Incluye mortero cola C2S2 exterior, doble encolado, junta de dilatación perimetral y flexible, anclaje mecánico si altura > 3 m, y pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 40,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada en rango 25-95 €/m² (convertido a ml según altura de zócalo típica 0,8-1,2 m). Se aplica 40 €/ml como valor medio. Ajustar según altura real y complejidad de piezas."
+        },
+        {
+          "concepto": "Mortero cola C2S2 exterior y lechada para zócalo",
+          "descripcion": "Mortero cola C2S2 exterior para doble encolado de piedra natural, y lechada de junta exterior flexible. Incluye pequeño material y herramientas.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente. Estimado: 8-15 €/ml según cantidad de mortero y lechada. Instalador debe confirmar con proveedor."
+        },
+        {
+          "concepto": "Juntas de dilatación en fachada y zócalo",
+          "descripcion": "Juntas de dilatación perimetral y en campo cada 6 m en fachada, y juntas de dilatación en zócalo según normativa. Incluye sellado con material flexible.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio pendientes. Depende de perímetro de fachada y número de juntas. Estimado: 5-12 €/ml. Instalador debe calcular según planos."
+        },
+        {
+          "concepto": "Señalización y protección de zona de obra en fachada",
+          "descripcion": "Señalización de zona de peligro, vallas de protección, lonas de contención de polvo, y señales de advertencia durante toda la duración de la obra.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en función de duración de obra (no especificada). Presupuesto pendiente. Instalador debe confirmar duración estimada en jornadas."
+        }
+      ],
+      "calculos": {
+        "subtotal": 5500,
+        "iva_porcentaje": 21,
+        "iva": 1155,
+        "total": 6655
+      },
+      "sugerencias_catalogo": [
+        "Buscar en catálogo: 'aplicacion_mortero_monocapa_en_fachada' — partida de mano de obra con tarifa 15-75 €/m² según complejidad.",
+        "Buscar en catálogo: 'alicatado_de_fachada_exterior_con_ceramica_o_piedra' — partida de mano de obra con tarifa 25-95 €/m² (aplicable a zócalo de piedra).",
+        "Buscar en catálogo: 'revestimiento_con_mortero_monocapa' — alternativa de albanilería con tarifa 22-110 €/m².",
+        "Buscar en catálogo: 'forrado_exterior_fachada_ventilada' — si se considera sistema de fachada ventilada como alternativa.",
+        "Buscar en catálogo: 'reparacion_de_desprendimiento_de_revestimiento_fachada' — para saneo y preparación de soporte."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero monocapa predosificado para fachada",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "motivo": "Material específico no encontrado en catálogo base. Requiere especificación de textura, color y proveedor."
+        },
+        {
+          "concepto": "Piedra natural para zócalo de fachada",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material específico no encontrado en catálogo base. Requiere especificación de tipo de piedra, espesor y acabado."
+        },
+        {
+          "concepto": "Mortero cola C2S2 exterior y lechada para zócalo",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material auxiliar no encontrado en catálogo base. Requiere presupuesto de proveedor."
+        },
+        {
+          "concepto": "Juntas de dilatación en fachada y zócalo",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "motivo": "Material auxiliar no encontrado en catálogo base. Requiere cálculo de cantidad según planos."
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora para fachada",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio auxiliar crítico no especificado. Requiere confirmación de altura del edificio y duración de obra."
+        },
+        {
+          "concepto": "Señalización y protección de zona de obra en fachada",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio auxiliar no especificado. Requiere confirmación de duración de obra."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "aplicacion_mortero_monocapa_en_fachada",
+      "revestimiento_con_mortero_monocapa",
+      "forrado_exterior_fachada_ventilada",
+      "alicatado_de_fachada_exterior_con_ceramica_o_piedra",
+      "reparacion_de_desprendimiento_de_revestimiento_fachada"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3985,
+      "tokens_out": 4288
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 3,
+    "n_sugeridas": 6,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

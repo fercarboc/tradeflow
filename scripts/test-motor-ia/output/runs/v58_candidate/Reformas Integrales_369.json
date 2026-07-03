@@ -1,0 +1,445 @@
+{
+  "id": 369,
+  "oficio": "Reformas Integrales",
+  "texto": "Rehabilitación de casa rural antigua de piedra, nueva instalación, aislamiento y acabados",
+  "http_status": 200,
+  "latency_ms": 33209,
+  "raw_response": {
+    "transcript": "Rehabilitación de casa rural antigua de piedra, nueva instalación, aislamiento y acabados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Rehabilitación de casa rural antigua de piedra, nueva instalación, aislamiento y acabados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de vivienda antigua: requiere inspección estructural previa",
+          "Casa de piedra: prioridad en aislamiento térmico y humedad",
+          "Nueva instalación eléctrica y fontanería: verificar estado actual antes de presupuestar",
+          "Presupuesto estimado: requiere mediciones en obra y confirmación de alcance"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral: ≥3 oficios simultáneos (albanilería, fontanería, electricidad, aislamiento, acabados)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación estructura piedra, revestimientos, morteros"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Tratamiento humedad en casa antigua de piedra, sellado de grietas, drenaje"
+        },
+        {
+          "oficio": "aislamiento_termico",
+          "existe_en_catalogo": false,
+          "nuevo_oficio": true,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Aislamiento interior/exterior en casa de piedra (SATE o cámara de aire)"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Nueva instalación eléctrica completa"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Nueva instalación fontanería completa"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Acabados interiores: pintura paredes y techos"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 45
+          },
+          "motivo": "Alicatado baños y cocina"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Puertas, marcos, acabados de madera"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Gestión y retirada de escombros y residuos de demolición"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección estructural y diagnóstico previo",
+          "descripcion": "Revisión completa del estado estructural de la casa antigua de piedra, detección de grietas, humedad, asientos diferenciales y capacidad portante",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de inspección técnica a definir por profesional cualificado"
+        },
+        {
+          "concepto": "Demolición selectiva y retirada de elementos obsoletos",
+          "descripcion": "Demolición de tabiques no estructurales, retirada de instalaciones antiguas (tuberías, cableado), limpieza de escombros y residuos",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 8,
+          "precio_unitario": 320,
+          "total": 2560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación y consolidación de estructura de piedra",
+          "descripcion": "Restitución de juntas de mortero en muros de piedra, reparación de grietas estructurales, consolidación de esquinas y vanos",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 10,
+          "precio_unitario": 320,
+          "total": 3200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento de humedad y drenaje perimetral",
+          "descripcion": "Inyección de resinas impermeabilizantes en muros, creación de cámara de aire, drenaje perimetral en cimentación, barrera de vapor",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 6,
+          "precio_unitario": 360,
+          "total": 2160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aislamiento térmico interior (cámara de aire + lana mineral)",
+          "descripcion": "Instalación de cámara de aire ventilada + lana mineral 80mm en muros interiores, barrera de vapor, anclajes mecánicos",
+          "oficio": "aislamiento_termico",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de superficie total de muros a aislar en obra"
+        },
+        {
+          "concepto": "Suministro de materiales aislamiento (lana mineral, barrera vapor, anclajes)",
+          "descripcion": "Lana mineral 80mm, barrera de vapor, perfiles metálicos, anclajes mecánicos, pequeño material",
+          "oficio": "aislamiento_termico",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales a definir según superficie total (pendiente medición)"
+        },
+        {
+          "concepto": "Nueva instalación eléctrica completa",
+          "descripcion": "Cableado de distribución (tubo PVC, cable 2.5-6mm²), cuadro general, diferenciales, magnetotérmicos, enchufes, interruptores, iluminación interior",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 10,
+          "precio_unitario": 400,
+          "total": 4000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de materiales eléctricos (cableado, cuadro, enchufes, iluminación)",
+          "descripcion": "Cable 2.5-6mm², tubo PVC, cuadro general, diferenciales, magnetotérmicos, enchufes, interruptores, luminarias LED, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de materiales eléctricos a definir según alcance (número de circuitos, puntos de luz, enchufes)"
+        },
+        {
+          "concepto": "Nueva instalación de fontanería completa",
+          "descripcion": "Red de distribución agua fría/caliente (tuberías multicapa PEX), válvulas, grifería, desagües, sifones, pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 8,
+          "precio_unitario": 400,
+          "total": 3200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de materiales fontanería (tuberías, válvulas, grifería, desagües)",
+          "descripcion": "Tuberías multicapa PEX, válvulas de corte, grifería, desagües, sifones, accesorios, pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de materiales fontanería a definir según número de baños, cocina y puntos de agua"
+        },
+        {
+          "concepto": "Alicatado baños y cocina",
+          "descripcion": "Alicatado de paredes en baños y cocina con baldosa cerámica/porcelánico, rejuntado, acabado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de superficie de alicatado en obra"
+        },
+        {
+          "concepto": "Suministro de baldosas y material alicatado",
+          "descripcion": "Baldosas cerámica/porcelánico, adhesivo, lechada, perfiles de remate, pequeño material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de baldosas a definir según selección y superficie (pendiente medición)"
+        },
+        {
+          "concepto": "Colocación de pavimentos (suelos)",
+          "descripcion": "Preparación de base, colocación de baldosa/gres en suelos, rejuntado, acabado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de superficie de pavimento en obra"
+        },
+        {
+          "concepto": "Suministro de pavimentos (baldosas suelos)",
+          "descripcion": "Baldosas gres/porcelánico para suelos, adhesivo, lechada, perfiles de remate, pequeño material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pavimentos a definir según selección y superficie (pendiente medición)"
+        },
+        {
+          "concepto": "Pintura interior (paredes y techos)",
+          "descripcion": "Preparación de superficies, imprimación, pintura plástica mate 2 manos en paredes y techos",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de superficie total a pintar en obra"
+        },
+        {
+          "concepto": "Suministro de pintura y materiales de acabado",
+          "descripcion": "Pintura plástica mate, imprimación, masilla, lija, pequeño material",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pintura a definir según superficie total (pendiente medición)"
+        },
+        {
+          "concepto": "Carpintería: puertas interiores y marcos",
+          "descripcion": "Suministro e instalación de puertas interiores de madera, marcos, cerraduras, bisagras, ajuste y acabado",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 180,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere definición del número de puertas en proyecto"
+        },
+        {
+          "concepto": "Suministro de puertas y herrajes",
+          "descripcion": "Puertas de madera, marcos, cerraduras, bisagras, pequeño material",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de puertas a definir según número y calidad (pendiente proyecto)"
+        },
+        {
+          "concepto": "Gestión de residuos y escombros",
+          "descripcion": "Retirada, transporte y gestión de escombros, residuos de demolición y construcción según normativa",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 4,
+          "precio_unitario": 280,
+          "total": 1120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 16240,
+        "iva_porcentaje": 21,
+        "iva": 3410.4,
+        "total": 19650.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'reforma_vivienda_segunda_residencia_o_casa_campo' — incluye partidas obligatorias para casas antiguas",
+        "Verificar en catálogo: 'reforma_para_eficiencia_energetica' — si el cliente busca mejora de aislamiento y certificado energético",
+        "Considerar: análisis de agua de pozo si la casa no tiene red de agua municipal",
+        "Considerar: fosa séptica si la casa no tiene red de saneamiento"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "oficio": "aislamiento_termico",
+          "concepto": "Aislamiento térmico interior",
+          "motivo": "Oficio no presente en catálogo estándar, pero crítico en rehabilitación de casa de piedra antigua"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_vivienda_segunda_residencia_o_casa_campo",
+      "cambio_de_cerradura_completa",
+      "reforma_de_vivienda_para_eficiencia_energetica",
+      "reforma_para_instalar_piscina_en_vivienda_unifamiliar",
+      "diseno_y_creacion_jardin_nuevo_desde_cero"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4101,
+      "tokens_out": 5334
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 19,
+    "n_catalogo": 10,
+    "n_sugeridas": 9,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

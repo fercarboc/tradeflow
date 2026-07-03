@@ -1,0 +1,169 @@
+{
+  "id": 3,
+  "oficio": "Fontanería",
+  "texto": "Reparación de fuga en tubería de agua caliente bajo el lavabo del baño",
+  "http_status": 200,
+  "latency_ms": 14072,
+  "raw_response": {
+    "transcript": "Reparación de fuga en tubería de agua caliente bajo el lavabo del baño",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación de fuga en tubería de agua caliente bajo el lavabo del baño",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar accesibilidad bajo lavabo para trabajar",
+          "Confirmar si la fuga es en junta, latiguillo o tubería principal",
+          "Revisar estado general de tuberías de agua caliente en la zona"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Reparación de fuga en tubería de agua caliente - trabajo de fontanería estándar"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y vaciado de tubería",
+          "descripcion": "Desmontaje de tuberías afectadas, vaciado de agua residual y preparación de zona de trabajo",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Junta de reparación tubería agua caliente",
+          "descripcion": "Junta de teflón, manguito de reparación o acoplamiento según tipo de fuga (multicapa, cobre o PEX)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del tipo de tubería y acoplamiento específico - revisar in situ"
+        },
+        {
+          "concepto": "Latiguillo inoxidable agua caliente",
+          "descripcion": "Latiguillo de acero inoxidable trenzado para conexión flexible bajo lavabo (si es necesario sustituir)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según longitud y diámetro - confirmar necesidad de sustitución"
+        },
+        {
+          "concepto": "Pequeño material (teflón, pasta, abrazaderas)",
+          "descripcion": "Cinta de teflón, pasta de fontanero, abrazaderas de sujeción y otros consumibles menores",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material - incluir en presupuesto final"
+        },
+        {
+          "concepto": "Montaje, prueba de estanqueidad y llenado",
+          "descripcion": "Montaje de reparación, prueba de estanqueidad en agua caliente, llenado de circuito y verificación de funcionamiento",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación de instalación de agua caliente",
+          "descripcion": "Inspección visual de conexiones, comprobación de presión y temperatura, y revisión de otras posibles fugas en la zona",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 125,
+        "iva_porcentaje": 21,
+        "iva": 26.25,
+        "total": 151.25
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de tubería (multicapa, cobre, PEX) para seleccionar acoplamiento correcto",
+        "Verificar si hay válvula de corte de agua caliente accesible bajo el lavabo",
+        "Considerar sustitución de latiguillos si tienen más de 5 años de antigüedad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Junta de reparación tubería agua caliente",
+          "motivo": "Material específico según tipo de tubería - requiere revisión in situ"
+        },
+        {
+          "concepto": "Latiguillo inoxidable agua caliente",
+          "motivo": "Material opcional según diagnóstico - precio variable por longitud"
+        },
+        {
+          "concepto": "Pequeño material (teflón, pasta, abrazaderas)",
+          "motivo": "Consumibles menores - precio a determinar por instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_fuga_calentador_gas",
+      "reparacion_fuga_cisterna",
+      "reparacion_fuga_radiador",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "instalacion_suelo_radiante_hidraulico"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3594,
+      "tokens_out": 1666
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

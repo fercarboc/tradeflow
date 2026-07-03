@@ -1,0 +1,52 @@
+{
+  "id": 106,
+  "oficio": "Climatización",
+  "texto": "Instalación de suelo radiante con bomba de calor en planta baja de 90 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 25232,
+  "raw_response": {
+    "transcript": "Instalación de suelo radiante con bomba de calor en planta baja de 90 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "",
+        "tipo_presupuesto": "",
+        "requiere_revision_general": true,
+        "alertas": [
+          "No se pudo interpretar el dictado"
+        ]
+      },
+      "oficios_detectados": [],
+      "partidas": [],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_aerotermia_bomba_calor_aire_agua",
+      "instalacion_bomba_calor_geotermia",
+      "instalacion_suelo_radiante_agua",
+      "instalacion_de_suelo_radiante_en_reforma",
+      "instalacion_bomba_de_calor_para_piscina"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "max_tokens",
+      "tokens_in": 3924,
+      "tokens_out": 4096
+    }
+  },
+  "classification": {
+    "category": "VACIO",
+    "n_partidas": 0,
+    "n_catalogo": 0,
+    "n_sugeridas": 0,
+    "oficio_detectado": "",
+    "coincide_oficio": "NO"
+  }
+}

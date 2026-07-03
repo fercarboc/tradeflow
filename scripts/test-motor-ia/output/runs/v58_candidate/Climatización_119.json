@@ -1,0 +1,308 @@
+{
+  "id": 119,
+  "oficio": "Climatización",
+  "texto": "Instalar 5 unidades de cassette en local comercial con unidad exterior de 14kW",
+  "http_status": 200,
+  "latency_ms": 21336,
+  "raw_response": {
+    "transcript": "Instalar 5 unidades de cassette en local comercial con unidad exterior de 14kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar 5 unidades de cassette en local comercial con unidad externa de 14kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Verificar cálculo térmico: 5 cassettes con unidad externa 14kW requiere validación de potencia distribuida",
+          "Confirmar disponibilidad de espacio en falso techo para 5 cassettes de 600x600mm",
+          "Revisar trazado de tuberías frigoríficas y condensados en local comercial",
+          "Presupuesto de materiales (gas, tuberías, cables) pendiente de revisión instalador"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema split multi-cassette con unidad exterior centralizada"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Circuitos eléctricos exclusivos para unidad externa y cassettes, cuadro de control"
+        },
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Adaptación de falso techo para alojar 5 cassettes 600x600mm"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Unidad exterior condensadora 14kW inverter",
+          "descripcion": "Suministro e instalación de unidad externa 14kW para sistema multi-cassette, incluye soporte estructural, anclaje antivibración y pequeño material",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de unidad externa 14kW pendiente de cotización instalador"
+        },
+        {
+          "concepto": "Instalación unidad externa 14kW",
+          "descripcion": "Mano de obra: posicionamiento, anclaje estructural, nivelación, conexiones preliminares",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cassettes inverter 5 unidades",
+          "descripcion": "Suministro de 5 unidades cassette techo 600x600mm, potencia distribuida según cálculo térmico, incluye marcos decorativos y pequeño material",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario cassette pendiente de cotización (varía según potencia individual)"
+        },
+        {
+          "concepto": "Instalación cassettes 5 unidades",
+          "descripcion": "Mano de obra: posicionamiento en falso techo, anclaje a forjado, conexión preliminar de tuberías y cables",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 60,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Red de tuberías frigoríficas",
+          "descripcion": "Suministro de tuberías de cobre aisladas (ida y retorno) desde unidad externa a 5 cassettes, incluye accesorios, válvulas de corte y pequeño material",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales y precio pendiente de medición en obra"
+        },
+        {
+          "concepto": "Instalación red frigorífica",
+          "descripcion": "Mano de obra: tendido, conexión, soldadura, prueba de estanqueidad y carga de gas refrigerante",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 60,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gas refrigerante R32/R410A",
+          "descripcion": "Suministro de gas refrigerante según carga calculada para sistema 14kW",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de kg y precio pendiente de cálculo técnico"
+        },
+        {
+          "concepto": "Red de desagüe condensados",
+          "descripcion": "Suministro de tuberías PVC desagüe condensados desde cassettes a sumidero, incluye bomba de condensados si es necesario y pequeño material",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros y necesidad de bomba pendiente de medición en obra"
+        },
+        {
+          "concepto": "Instalación desagüe condensados",
+          "descripcion": "Mano de obra: tendido de tuberías, conexión a sumidero, instalación de bomba si procede",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Circuitos eléctricos exclusivos",
+          "descripcion": "Suministro de cable RV-K 2x2.5mm² para unidad externa, cable 3x2.5mm² para cassettes, magnetotérmicos, diferenciales, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros y especificaciones pendiente de proyecto eléctrico"
+        },
+        {
+          "concepto": "Instalación circuitos eléctricos",
+          "descripcion": "Mano de obra: tendido de cables, conexión a cuadro, instalación de protecciones, pruebas de continuidad y aislamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Adaptación falso techo para 5 cassettes",
+          "descripcion": "Mano de obra: apertura de huecos 600x600mm en falso techo, refuerzo estructural si necesario, preparación para alojamiento de cassettes",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 35,
+          "total": 175,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas, puesta en marcha y documentación",
+          "descripcion": "Mano de obra: pruebas de funcionamiento, equilibrado de caudales, ajuste de termostatos, entrega de documentación y garantía",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2155,
+        "iva_porcentaje": 21,
+        "iva": 452.55,
+        "total": 2607.55
+      },
+      "sugerencias_catalogo": [
+        "Consultar BASE MAESTRA [instalacion_split_1x1_cassette_techo] para validar partidas obligatorias por cassette",
+        "Considerar si el local requiere proyecto técnico de climatización (obligatorio si potencia > 70kW)",
+        "Verificar si existe falso techo existente o requiere instalación previa"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Unidad exterior condensadora 14kW inverter",
+          "oficio": "climatizacion",
+          "motivo": "Material específico, precio pendiente cotización"
+        },
+        {
+          "concepto": "Cassettes inverter 5 unidades",
+          "oficio": "climatizacion",
+          "motivo": "Material específico, precio pendiente cotización"
+        },
+        {
+          "concepto": "Red de tuberías frigoríficas",
+          "oficio": "climatizacion",
+          "motivo": "Material específico, cantidad pendiente medición"
+        },
+        {
+          "concepto": "Gas refrigerante R32/R410A",
+          "oficio": "climatizacion",
+          "motivo": "Material específico, cantidad pendiente cálculo técnico"
+        },
+        {
+          "concepto": "Red de desagüe condensados",
+          "oficio": "climatizacion",
+          "motivo": "Material específico, cantidad pendiente medición"
+        },
+        {
+          "concepto": "Circuitos eléctricos exclusivos",
+          "oficio": "electricidad",
+          "motivo": "Material específico, cantidad pendiente proyecto eléctrico"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_iluminacion_comercial_led",
+      "reforma_para_instalar_ascensor_en_edificio_sin_ascensor",
+      "instalacion_electrica_exterior_urbanizacion",
+      "instalacion_sistema_de_expansion_directa_roof_top",
+      "instalacion_split_1x1_cassette_techo"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3756,
+      "tokens_out": 3345
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 7,
+    "n_sugeridas": 6,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

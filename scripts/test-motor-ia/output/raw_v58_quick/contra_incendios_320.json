@@ -1,0 +1,265 @@
+{
+  "id": 320,
+  "oficio": "contra_incendios",
+  "texto": "Instalar detección temprana de incendios en archivo de documentación, sistema de aspiración VESDA",
+  "latency_ms": 28023,
+  "raw_response": {
+    "transcript": "Instalar detección temprana de incendios en archivo de documentación, sistema de aspiración VESDA",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar detección temprana de incendios en archivo de documentación, sistema de aspiración VESDA",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema VESDA es tecnología especializada de detección muy temprana (aspiración de aire). Requiere proyecto técnico específico y empresa certificada.",
+          "Archivo de documentación es zona de riesgo especial: requiere análisis de carga fuego y cumplimiento CTE DB-SI.",
+          "Instalación incluye obra civil (perforación, canalización), electricidad (alimentación, batería respaldo) y contra-incendios (sistema de detección)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Sistema VESDA es detección automática de incendios de aspiración. Clasificado como contra-incendios por normativa CTE DB-SI y UNE 23007."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Alimentación eléctrica del sistema VESDA, batería respaldo 72h mínimo, cableado resistente al fuego E30."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra civil: perforación de muros, canalización de tuberías de aspiración, remates y sellados."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico sistema VESDA",
+          "descripcion": "Proyecto técnico especializado para sistema de detección temprana por aspiración VESDA en archivo de documentación. Incluye cálculo de caudal de aspiración, posicionamiento de captadores, análisis de carga fuego, cumplimiento CTE DB-SI y UNE 23007.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Proyecto técnico especializado VESDA. Instalador debe cotizar según complejidad del archivo y normativa aplicable."
+        },
+        {
+          "concepto": "Central de detección VESDA (unidad de control y procesamiento)",
+          "descripcion": "Suministro de central VESDA certificada EN 54-2 y EN 54-4, con procesador de aire, válvulas de control, módulo de alarma integrado, batería respaldo 72h mínimo, conexión a red de aspiración.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Equipo VESDA especializado. Precio varía según modelo (VEA, VEA-E, VEA-P) y capacidad de tuberías. Instalador cotiza."
+        },
+        {
+          "concepto": "Red de tuberías de aspiración VESDA",
+          "descripcion": "Suministro e instalación de tuberías de aspiración (cobre o PVC según proyecto), conectores, codos, derivaciones y accesorios para red de captación de aire desde archivo hacia central VESDA. Incluye sellado de juntas.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud de red a determinar según plano del archivo. Instalador mide y cotiza €/ml según diámetro y material."
+        },
+        {
+          "concepto": "Captadores de aire VESDA (puntos de aspiración)",
+          "descripcion": "Suministro de captadores/puntos de aspiración VESDA certificados, con filtros de malla, ubicados estratégicamente en archivo de documentación según proyecto técnico. Incluye pequeño material de fijación.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de captadores a determinar por proyecto técnico según superficie y distribución del archivo. Instalador cotiza cantidad y precio unitario."
+        },
+        {
+          "concepto": "Instalación de red de tuberías y captadores VESDA",
+          "descripcion": "Mano de obra para instalación de tuberías de aspiración, fijación de captadores, conexión a central VESDA, pruebas de estanqueidad y puesta en marcha del sistema.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 55,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de instalación a estimar según complejidad del archivo y longitud de red. Instalador calcula horas reales."
+        },
+        {
+          "concepto": "Obra civil: perforación y canalización",
+          "descripcion": "Perforación de muros, paso de tuberías VESDA, canalización en falsos techos o conductos, remates con mortero y sellado de penetraciones. Incluye protección de documentación durante obra.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de obra civil a estimar según número de perforaciones y longitud de canalización. Instalador calcula."
+        },
+        {
+          "concepto": "Instalación eléctrica: alimentación y batería VESDA",
+          "descripcion": "Mano de obra para instalación de línea eléctrica dedicada a central VESDA (protección diferencial 30mA, magnetotérmico), conexión de batería respaldo 72h mínimo, cableado resistente al fuego E30 según CTE DB-SI, pruebas de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de instalación eléctrica a estimar según distancia de cuadro a central VESDA y complejidad de cableado. Instalador calcula."
+        },
+        {
+          "concepto": "Cableado resistente al fuego E30 y accesorios eléctricos",
+          "descripcion": "Suministro de cableado resistente al fuego E30 (obligatorio CTE DB-SI), canaletas, conectores, regletas de bornes, pequeño material eléctrico para alimentación de central VESDA.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud de cableado a determinar según ubicación de cuadro eléctrico y central VESDA. Instalador mide y cotiza."
+        },
+        {
+          "concepto": "Batería respaldo 72h para central VESDA",
+          "descripcion": "Suministro de batería de respaldo (mínimo 72 horas) para central VESDA, con cargador integrado, conexión a central y pruebas de autonomía.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Batería especializada VESDA. Precio varía según capacidad y modelo. Instalador cotiza."
+        },
+        {
+          "concepto": "Señalización y placas normalizadas",
+          "descripcion": "Suministro e instalación de señalización normalizada (UNE 23033) indicando presencia de sistema VESDA, ubicación de central, puntos de aspiración, instrucciones de uso y mantenimiento.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de placas a determinar según distribución del archivo. Instalador cotiza."
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y puesta en marcha VESDA",
+          "descripcion": "Pruebas de estanqueidad de red de tuberías, calibración de sensores, pruebas de alarma, verificación de batería respaldo, documentación de pruebas y entrega de manual de operación.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio especializado de puesta en marcha VESDA. Instalador cotiza según complejidad."
+        },
+        {
+          "concepto": "Revisión trimestral y mantenimiento anual VESDA (primer año)",
+          "descripcion": "Contrato de mantenimiento preventivo: 4 revisiones trimestrales en primer año (obligatorio CTE DB-SI), limpieza de filtros, verificación de presión, calibración de sensores, informe técnico.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mantenimiento especializado VESDA. Instalador cotiza contrato anual según modelo y ubicación."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Verificar con fabricante VESDA (Xtralis) disponibilidad de modelos y capacidades para archivo de documentación.",
+        "Solicitar certificación EN 54-2 y EN 54-4 de la central VESDA a suministrador.",
+        "Confirmar con cliente si existe red de agua contra-incendios existente o si se requiere instalación adicional de BIE (bocas de incendio equipadas) como complemento.",
+        "Evaluar si archivo requiere también sistema de extinción automática (sprinklers o gas inerte) además de detección VESDA."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sistema VESDA (detección temprana por aspiración)",
+          "razon": "Tecnología especializada de detección de incendios muy temprana. No existe en catálogo estándar. Requiere proveedor certificado y proyecto técnico específico.",
+          "clasificacion": "contra_incendios",
+          "recomendacion": "Instalador debe contactar con distribuidor VESDA autorizado para cotización de central, tuberías, captadores y mantenimiento."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_rociadores_sprinklers",
+      "instalacion_central_deteccion_y_alarma_incendios",
+      "instalacion_de_central_de_incendios_deteccion_automatica",
+      "instalacion_recuperacion_aguas_pluviales",
+      "instalacion_bocas_de_incendio_equipadas_BIE_25mm"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4190,
+      "tokens_out": 3987
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "oficio_detectado": "contra_incendios"
+  }
+}

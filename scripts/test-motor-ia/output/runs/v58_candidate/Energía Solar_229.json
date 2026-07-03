@@ -1,0 +1,287 @@
+{
+  "id": 229,
+  "oficio": "Energía Solar",
+  "texto": "Instalar cargador de coche eléctrico alimentado por energía solar con gestión inteligente de carga",
+  "http_status": 200,
+  "latency_ms": 29962,
+  "raw_response": {
+    "transcript": "Instalar cargador de coche eléctrico alimentado por energía solar con gestión inteligente de carga",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar cargador de coche eléctrico alimentado por energía solar con gestión inteligente de carga",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto requiere confirmación de: potencia contratada actual, tipo de vivienda (unifamiliar/piso), ubicación paneles solares, modelo vehículo (compatibilidad carga inteligente), distancia cuadro a punto carga",
+          "Incluye integración solar + wallbox + gestión inteligente: obra compleja que combina 2 oficios principales",
+          "Precio final dependerá de: potencia wallbox (7.4kW vs 11kW vs 22kW), tipo inversor (híbrido vs simple), complejidad instalación eléctrica"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación fotovoltaica + cargador vehículo eléctrico integrado + gestión inteligente. Oficio principal según BASE MAESTRA: [instalacion_de_cargador_de_vehiculo_electrico_en_vivienda] + [integracion_solar_fotovoltaica_en_vehiculo_electrico_V2H_V2G]"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Protecciones eléctricas (magnetotérmico, diferencial tipo A), cableado, toma de tierra, circuito exclusivo REBT obligatorio"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Wallbox cargador vehículo eléctrico 7.4kW monofásico",
+          "descripcion": "Suministro e instalación de wallbox 7.4kW monofásico (32A) con conectores tipo 2, protección IP54, apto para uso residencial",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio wallbox varía 400-1200€ según marca/potencia. Instalador debe confirmar modelo y potencia requerida (7.4kW monofásico vs 11kW vs 22kW trifásico)"
+        },
+        {
+          "concepto": "Cable de alimentación wallbox 6mm² (derivación cuadro-wallbox)",
+          "descripcion": "Suministro cable H07V-K 6mm² (mínimo para 7.4kW según REBT), bandejas, pasamuros, pequeño material de fijación",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml depende de distancia cuadro a punto carga. Instalador debe medir. Precio ~3-5€/ml material + instalación"
+        },
+        {
+          "concepto": "Protecciones eléctricas circuito wallbox (magnetotérmico 40A + diferencial tipo A 40A)",
+          "descripcion": "Suministro e instalación de magnetotérmico 40A curva C, diferencial tipo A 40mA (OBLIGATORIO para carga vehículos), en cuadro secundario o principal. Incluye pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Protecciones REBT obligatorias. Precio ~80-150€ conjunto magnetotérmico+diferencial tipo A"
+        },
+        {
+          "concepto": "Toma de tierra y conductor de protección",
+          "descripcion": "Verificación/mejora toma de tierra existente, conductor de protección PE desde cuadro a wallbox, medición resistencia tierra (debe ser <40Ω)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Obligatorio REBT. Precio ~50-200€ según estado toma tierra actual"
+        },
+        {
+          "concepto": "Instalación circuito eléctrico wallbox (mano de obra)",
+          "descripcion": "Ejecución de rozas, tendido cable, conexión en cuadro, instalación protecciones, pruebas de funcionamiento y seguridad (continuidad, aislamiento, diferencial)",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Paneles solares fotovoltaicos (suministro)",
+          "descripcion": "Suministro paneles fotovoltaicos monocristalinos 400-450Wp (cantidad según diseño solar). Orientación sur, inclinación 30-35°, pérdidas sombras <10%",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Potencia solar depende de consumo anual vivienda y disponibilidad cubierta. Instalador debe hacer estudio solar. Precio ~150-250€/kWp material"
+        },
+        {
+          "concepto": "Inversor híbrido compatible V2H (suministro)",
+          "descripcion": "Suministro inversor híbrido monofásico/trifásico con capacidad V2H (Vehicle to Home), compatible con wallbox bidireccional, MPPT integrado, monitorización WiFi",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Inversor V2H es tecnología avanzada. Precio ~2000-5000€ según potencia (3-6kW). Verificar compatibilidad con modelo vehículo (no todos soportan V2H)"
+        },
+        {
+          "concepto": "Estructura soporte paneles solares (suministro e instalación)",
+          "descripcion": "Suministro estructura aluminio/acero galvanizado para fijación paneles en cubierta, incluyendo anclajes, tornillería, impermeabilización puntos penetración",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad depende de potencia solar. Precio ~100-150€/kWp estructura + instalación"
+        },
+        {
+          "concepto": "Cableado solar DC (cable RV-K, protecciones DC)",
+          "descripcion": "Suministro cable solar RV-K 6mm² (paneles-inversor), fusibles DC, desconectador DC, canaletas, pequeño material. Incluye instalación",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio ~200-400€ según longitud cableado y complejidad instalación"
+        },
+        {
+          "concepto": "Contador bidireccional (suministro e instalación)",
+          "descripcion": "Suministro e instalación contador bidireccional compatible con inyección a red (si aplica), comunicación con inversor, certificación distribuidora",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio ~150-300€. Requiere coordinación con distribuidora eléctrica para cambio contador"
+        },
+        {
+          "concepto": "Sistema gestión inteligente de carga (software + hardware)",
+          "descripcion": "Suministro e instalación sistema de gestión energética: módulo control carga inteligente, app monitorización, optimización carga con excedentes solares, integración inversor-wallbox-contador",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio ~500-1500€ según complejidad (carga simple vs V2H avanzado con tarifas variables). Incluye configuración software y puesta en marcha"
+        },
+        {
+          "concepto": "Instalación fotovoltaica y sistema solar (mano de obra)",
+          "descripcion": "Montaje estructura paneles, conexión cableado DC, instalación inversor, protecciones, contador, pruebas funcionamiento, puesta en marcha sistema, documentación técnica",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 65,
+          "total": 780,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración y puesta en marcha gestión inteligente (mano de obra)",
+          "descripcion": "Configuración software sistema gestión, integración inversor-wallbox-contador, pruebas carga inteligente, formación usuario, documentación",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1175,
+        "iva_porcentaje": 21,
+        "iva": 246.75,
+        "total": 1421.75
+      },
+      "sugerencias_catalogo": [
+        "BASE MAESTRA [instalacion_de_cargador_de_vehiculo_electrico_en_vivienda]: Confirmar potencia wallbox (7.4kW monofásico recomendado para vivienda estándar, 11kW si disponible trifásico, 22kW solo si contratada potencia suficiente)",
+        "BASE MAESTRA [integracion_solar_fotovoltaica_en_vehiculo_electrico_V2H_V2G]: Verificar ANTES que vehículo es compatible V2H (Tesla, Nissan Leaf, Hyundai Ioniq, BMW i4, etc.). No todos los vehículos soportan V2H/V2G",
+        "Estudio solar previo OBLIGATORIO: consumo anual vivienda, disponibilidad cubierta (orientación, sombras, inclinación), potencia contratada actual, capacidad batería vehículo",
+        "Comunicación distribuidora: cambio contador bidireccional, solicitud autorización inyección a red (si aplica), verificación potencia contratada suficiente para wallbox + consumo hogar",
+        "Normativa REBT: diferencial tipo A obligatorio, circuito exclusivo wallbox, toma tierra <40Ω, protecciones según potencia",
+        "Presupuesto PARCIAL: solo incluye mano de obra (€1.175). Materiales requieren revisión instalador (estimado €4.000-8.000 según potencia solar y tipo inversor V2H)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Wallbox cargador vehículo eléctrico 7.4kW monofásico",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico. Precio depende marca/modelo. Rango típico 400-1200€"
+        },
+        {
+          "concepto": "Inversor híbrido compatible V2H",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Tecnología avanzada V2H. Precio 2000-5000€. Requiere verificación compatibilidad vehículo"
+        },
+        {
+          "concepto": "Sistema gestión inteligente de carga",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Software + hardware control carga. Precio 500-1500€ según complejidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cargador_vehiculo_electrico_wallbox",
+      "instalacion_de_cargador_de_vehiculo_electrico_en_vivienda",
+      "integracion_solar_fotovoltaica_en_vehiculo_electrico_V2H_V2G",
+      "instalacion_punto_recarga_bicicleta_electrica",
+      "instalacion_fotovoltaica_autoconsumo"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "max_tokens",
+      "tokens_in": 3837,
+      "tokens_out": 4096
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 3,
+    "n_sugeridas": 10,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,286 @@
+{
+  "id": 98,
+  "oficio": "Albañilería",
+  "texto": "Reconstruir escalera interior de madera por una de hormigón, 12 peldaños con barandilla",
+  "http_status": 200,
+  "latency_ms": 26721,
+  "raw_response": {
+    "transcript": "Reconstruir escalera interior de madera por una de hormigón, 12 peldaños con barandilla",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reconstruir escalera interior de madera por una de hormigón, 12 peldaños con barandilla",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Obra de envergadura: demolición + obra civil + acabados. Requiere cálculo estructural y permisos municipales.",
+          "Barandilla: debe cumplir CTE DB-SUA (altura mínima 100cm en uso público, 90cm en privado; separación máxima entre barrotes 10cm).",
+          "Hormigón: especificar tipo (in situ colado vs. prefabricado), acabado (pulido, antideslizante, revestimiento).",
+          "Presupuesto orientativo: revisar con profesional estructural y maestro de obra."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma que combina demolición (albanilería) + obra civil (hormigón) + acabados (pintura/antideslizante) + barandilla (cerrajería/carpintería). ≥3 oficios simultáneos."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición escalera madera + preparación hueco + encofrado + hormigonado."
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Barandilla metálica (acero/aluminio) con anclajes y acabado."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Acabado peldaños (pintura antideslizante, sellado hormigón)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición escalera madera interior",
+          "descripcion": "Desmontaje completo escalera de madera (12 peldaños, barandilla, estructura). Retirada de escombros y limpieza de hueco.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 320,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Preparación y encofrado hueco escalera",
+          "descripcion": "Limpieza de hueco, nivelación base, encofrado lateral y peldaños para hormigonado. Incluye apuntalamiento temporal.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 320,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Hormigón estructural escalera (12 peldaños)",
+          "descripcion": "Suministro e instalación hormigón HA-30 para escalera interior (12 peldaños). Incluye armadura, vibrado y curado. Volumen estimado: 3-4 m³.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 3.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio de hormigón HA-30 + transporte + puesta en obra. Revisar volumen exacto con planos."
+        },
+        {
+          "concepto": "Mano de obra hormigonado y acabado bruto",
+          "descripcion": "Vertido, vibrado, nivelación y curado hormigón. Desencofrado y limpieza superficial.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 320,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Barandilla metálica escalera (12 peldaños)",
+          "descripcion": "Suministro e instalación barandilla metálica (acero galvanizado o aluminio anodizado). Altura mínima 100cm (CTE DB-SUA). Incluye pasamanos tubo redondo, barrotes (separación máx. 10cm), anclajes químicos a hormigón, tratamiento antioxido y acabado lacado.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 24,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material barandilla: especificar tipo (acero/aluminio), diseño, acabado. Precio estimado 80-160€/ml según complejidad."
+        },
+        {
+          "concepto": "Instalación barandilla metálica",
+          "descripcion": "Montaje barandilla, anclajes a hormigón con tacos químicos, alineación, fijación pasamanos y barrotes, acabado pintura/lacado.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 24,
+          "precio_unitario": 60,
+          "total": 1440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura antideslizante peldaños",
+          "descripcion": "Aplicación pintura epoxi antideslizante en peldaños (12 ud). Incluye limpieza, imprimación, dos manos pintura con árido antideslizante.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material pintura epoxi antideslizante: especificar marca y rendimiento. Precio estimado 15-30€/ud."
+        },
+        {
+          "concepto": "Mano de obra pintura antideslizante",
+          "descripcion": "Preparación peldaños, aplicación imprimación y dos manos pintura antideslizante con árido.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 32,
+          "total": 384,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado y protección hormigón",
+          "descripcion": "Aplicación sellador/hidrofugante en hormigón para protección y durabilidad. Incluye limpieza y curado.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material sellador hormigón: especificar tipo (poliuretano, acrílico, epoxy). Precio estimado 8-15€/m2."
+        },
+        {
+          "concepto": "Mano de obra sellado hormigón",
+          "descripcion": "Limpieza, desengrasado y aplicación sellador/hidrofugante en superficie escalera.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 32,
+          "total": 192,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión residuos y escombros",
+          "descripcion": "Retirada, transporte y gestión residuos de demolición (madera, hormigón, metales). Incluye contenedor y canon de vertedero.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio gestión residuos: volumen estimado 2-3 m³. Precio estimado 150-300€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 3936,
+        "iva_porcentaje": 21,
+        "iva": 826.56,
+        "total": 4762.56
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo 'instalacion_escalera_de_madera_interior' para referencia de estructura y barandilla (aunque en este caso es hormigón).",
+        "Consultar catálogo 'instalacion_barandilla_metalica_de_escalera_interior' para especificaciones de barandilla metálica (altura, separación barrotes, anclajes).",
+        "Considerar acabado pulido o revestimiento cerámico en peldaños como alternativa a pintura antideslizante."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Hormigón estructural escalera",
+          "oficio": "albanileria",
+          "motivo": "Material específico para escalera hormigón. Requiere especificación de tipo (HA-30), volumen exacto y transporte."
+        },
+        {
+          "concepto": "Barandilla metálica escalera",
+          "oficio": "cerrajeria",
+          "motivo": "Material barandilla. Requiere especificación de tipo (acero/aluminio), diseño, acabado y precio unitario."
+        },
+        {
+          "concepto": "Pintura antideslizante peldaños",
+          "oficio": "pintura",
+          "motivo": "Material pintura epoxi antideslizante. Requiere especificación de marca, rendimiento y precio unitario."
+        },
+        {
+          "concepto": "Sellado y protección hormigón",
+          "oficio": "pintura",
+          "motivo": "Material sellador/hidrofugante. Requiere especificación de tipo y precio unitario."
+        },
+        {
+          "concepto": "Gestión residuos y escombros",
+          "oficio": "gestion_residuos",
+          "motivo": "Servicio de retirada y gestión de residuos de demolición. Requiere presupuesto de gestor autorizado."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_barandilla_metalica_de_escalera_interior",
+      "instalacion_escalera_de_madera_interior",
+      "instalacion_de_zocalos_y_tapajuntas_de_madera_en_obra",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "instalacion_persiana_veneciana_de_madera_o_bambu"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3901,
+      "tokens_out": 3822
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 6,
+    "n_sugeridas": 5,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "id": 213,
+  "oficio": "Jardinería",
+  "texto": "Instalar pérgola metálica con lonas de sombra en terraza de 4x5 metros, montaje completo",
+  "http_status": 200,
+  "latency_ms": 16356,
+  "raw_response": {
+    "transcript": "Instalar pérgola metálica con lonas de sombra en terraza de 4x5 metros, montaje completo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar pérgola metálica con lonas de sombra en terraza de 4x5 metros, montaje completo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Pérgola metálica: verificar si requiere licencia municipal según normativa local",
+          "Lonas de sombra: confirmar tipo de tela (acrílica, poliéster, PVC) y tratamiento UV",
+          "Anclaje a terraza: inspeccionar resistencia de la estructura existente"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Montaje estructural de pérgola metálica y fijación de lonas"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Trabajo con estructura metálica, uniones y herrajes"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro estructura pérgola metálica 4x5m",
+          "descripcion": "Estructura metálica (acero galvanizado o aluminio) para pérgola de 4x5 metros, incluye vigas principales, pilares, travesaños y herrajes de unión",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico: confirmar proveedor, especificaciones técnicas (acero/aluminio), tratamiento anticorrosión y precio"
+        },
+        {
+          "concepto": "Suministro lonas de sombra",
+          "descripcion": "Lonas de sombra (acrílica o poliéster tratada UV) para cubierta de pérgola 4x5m, incluye sistema de fijación perimetral",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar tipo de tela, color, tratamiento UV, sistema de fijación (velcro, ojales, carriles) y precio por m²"
+        },
+        {
+          "concepto": "Desmontaje y preparación terraza",
+          "descripcion": "Limpieza, inspección y preparación de la terraza para recibir la pérgola. Retirada de obstáculos y nivelación si es necesario",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Anclaje de pilares a terraza",
+          "descripcion": "Fijación de pilares metálicos a la terraza mediante platinas, tacos químicos o empotrado según tipo de suelo (hormigón, baldosa, etc.). Incluye taladrado y sellado",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Montaje estructura metálica pérgola",
+          "descripcion": "Ensamblaje y fijación de vigas, travesaños y herrajes. Alineación, nivelación y apriete de uniones. Verificación de escuadra y estabilidad",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación lonas de sombra",
+          "descripcion": "Colocación, tensado y fijación de lonas en estructura. Ajuste de sistema de anclaje perimetral. Prueba de tensión y estabilidad",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento anticorrosión herrajes",
+          "descripcion": "Aplicación de tratamiento anticorrosión (pintura epoxi o similar) en herrajes y uniones metálicas expuestas. Protección contra oxidación",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Tacos, tornillos, tuercas, arandelas, silicona, masilla, disolvente, lijas, cinta de enmascarar y otros consumibles necesarios para el montaje",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimar cantidad según especificaciones finales de la estructura"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1035,
+        "iva_porcentaje": 21,
+        "iva": 217.35,
+        "total": 1252.35
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de 'fabricacion_e_instalacion_de_pergola_de_madera' como referencia de estructura y metodología (aunque esta es metálica)",
+        "Considerar si las lonas requieren sistema motorizado de recogida (partida adicional de electricidad/automatización)",
+        "Verificar si la terraza necesita refuerzo estructural previo (consultar con ingeniero si es necesario)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro estructura pérgola metálica 4x5m",
+          "oficio": "cerrajeria",
+          "motivo": "Estructura metálica específica no disponible en catálogo base. Requiere especificación técnica del proveedor"
+        },
+        {
+          "concepto": "Suministro lonas de sombra",
+          "oficio": "carpinteria",
+          "motivo": "Material textil específico con tratamiento UV. Precio variable según tipo de tela y proveedor"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "carpinteria",
+          "motivo": "Partida de consumibles para montaje. Requiere estimación según especificaciones finales"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana",
+      "cambio_inodoro",
+      "instalacion_de_sumidero_o_imbornal"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3914,
+      "tokens_out": 2299
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 5,
+    "n_sugeridas": 3,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

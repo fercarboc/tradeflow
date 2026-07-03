@@ -1,0 +1,218 @@
+{
+  "id": 333,
+  "oficio": "Fachadas",
+  "texto": "Colocar aplacado de gres porcelánico en fachada de local, zona de 20 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 22695,
+  "raw_response": {
+    "transcript": "Colocar aplacado de gres porcelánico en fachada de local, zona de 20 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Colocar aplacado de gres porcelánico en fachada de local, zona de 20 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se requiere andamio de fachada para acceso seguro a 20 m² de aplacado",
+          "Verificar estado del soporte (limpieza, regularidad, humedad)",
+          "Confirmar tipo de gres porcelánico (espesor, formato, acabado)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Aplacado de fachada con gres porcelánico es trabajo de revestimiento exterior de envolvente"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Colocación de gres porcelánico (técnica de alicatado aplicada a fachada)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Andamio de fachada para aplacado",
+          "descripcion": "Suministro, montaje y desmontaje de andamio tubular de fachada con barandillas, rodapiés y plataformas de trabajo para acceso seguro a 20 m² de aplacado. Incluye arriostramientos a fachada, señalización y protecciones perimetrales.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según altura, duración y complejidad de acceso. Instalador debe confirmar altura de fachada y días de ocupación."
+        },
+        {
+          "concepto": "Limpieza y preparación del soporte",
+          "descripcion": "Limpieza mecánica de fachada, eliminación de suciedad, algas, eflorescencias. Reparación de grietas y regularización del soporte con mortero de nivelación si es necesario. Imprimación adherente.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 8,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gres porcelánico para fachada",
+          "descripcion": "Suministro de gres porcelánico para aplacado de fachada (formato, espesor y acabado a confirmar por instalador). Incluye piezas de corte y pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según tipo, formato y acabado del gres porcelánico (rústico, pulido, antideslizante, etc.). Instalador debe especificar y cotizar."
+        },
+        {
+          "concepto": "Mortero cola C2S2 para fachada",
+          "descripcion": "Mortero adhesivo C2S2 deformable certificado para aplacado de fachada con gres porcelánico. Aplicación en capa de 6-8 mm con llana dentada.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a confirmar según marca y presentación (sacos 25 kg). Consumo aproximado: 4-5 kg/m²."
+        },
+        {
+          "concepto": "Colocación de gres porcelánico en fachada",
+          "descripcion": "Mano de obra de colocación de gres porcelánico en fachada: replanteo, cortes, aplicación de mortero, colocación de piezas, nivelación y aplomado. Incluye trabajos en altura con andamio.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 35,
+          "total": 700,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lechada epoxi o polimérica para juntas",
+          "descripcion": "Suministro e instalación de lechada epoxi o polimérica para juntas de gres porcelánico en fachada. Resistente a humedad, UV y cambios térmicos. Ancho de junta: 3-5 mm.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a confirmar según tipo de lechada (epoxi, polimérica, cementosa). Consumo aproximado: 1-1.5 kg/m²."
+        },
+        {
+          "concepto": "Rejuntado y limpieza final",
+          "descripcion": "Mano de obra de rejuntado de juntas con lechada, limpieza de excedentes, pulido y acabado final. Incluye protección de juntas durante el fraguado.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 12,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado de encuentros y remates",
+          "descripcion": "Sellado de encuentros con silicona neutra o poliuretano en bordes, esquinas, encuentros con carpintería y remates de fachada. Incluye pequeño material y herramientas.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de ml de encuentros a confirmar por instalador. Precio aproximado: 3-5 €/ml (material + mano de obra)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1100,
+        "iva_porcentaje": 21,
+        "iva": 231,
+        "total": 1331
+      },
+      "sugerencias_catalogo": [
+        "Confirmar altura de fachada para presupuestar andamio (coste variable: 500-3000 € según altura y duración)",
+        "Especificar formato y acabado del gres porcelánico (rústico, pulido, mate, brillante, antideslizante)",
+        "Verificar estado del soporte: si hay grietas estructurales o humedad, puede requerir reparación previa",
+        "Considerar si hay elementos a proteger (carpintería, instalaciones) durante la colocación",
+        "Confirmar si incluye trabajos de corte especial o piezas de remate (cantoneras, molduras)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Andamio de fachada para aplacado",
+          "oficio": "fachadas",
+          "motivo": "Servicio auxiliar obligatorio para trabajos en altura en fachada"
+        },
+        {
+          "concepto": "Gres porcelánico para fachada",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material a cotizar según especificaciones técnicas"
+        },
+        {
+          "concepto": "Mortero cola C2S2 para fachada",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material adhesivo específico para aplacado en fachada"
+        },
+        {
+          "concepto": "Lechada epoxi o polimérica para juntas",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material de rejuntado resistente a intemperie"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_gresite_o_mosaico_en_piscina_o_zona_acuatica",
+      "colocacion_de_andamio_de_fachada",
+      "impermeabilizacion_de_piscina_con_gresite_o_ceramica",
+      "construccion_de_piscina_de_obra",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4335,
+      "tokens_out": 3107
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

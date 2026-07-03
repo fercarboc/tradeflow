@@ -1,0 +1,229 @@
+{
+  "id": 306,
+  "oficio": "Contra Incendios",
+  "texto": "Señalización de emergencia y evacuación en edificio de oficinas de 5 plantas, luces de emergencia",
+  "http_status": 200,
+  "latency_ms": 25282,
+  "raw_response": {
+    "transcript": "Señalización de emergencia y evacuación en edificio de oficinas de 5 plantas, luces de emergencia",
+    "quote": {
+      "resumen": {
+        "texto_original": "Señalización de emergencia y evacuación en edificio de oficinas de 5 plantas, luces de emergencia",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye señalización fotoluminiscente + alumbrado de emergencia. Verificar si se requiere Plan de Autoprotección técnico según RD 393/2007 (obligatorio si >500 trabajadores o actividad de riesgo).",
+          "Cantidad de plantas (5) y distribución de salidas/pasillos no especificada: se estima basado en estándar de oficinas. Revisar planos para ajustar cantidad de bloques autónomos y señalización."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Sistema de señalización de emergencia y evacuación + alumbrado de emergencia son funciones de protección contra incendios según normativa RD 393/2007 y UNE 23035."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de circuitos eléctricos exclusivos para alumbrado de emergencia, conexionado y pruebas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Planos de evacuación por planta (5 plantas)",
+          "descripcion": "Elaboración e impresión de planos de evacuación normalizados (formato A3 mínimo) con indicación de recorridos, salidas de emergencia, ubicación de equipos de protección. Uno por planta visible en punto estratégico.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de complejidad del plano y número de plantas. Instalador debe revisar tarifa de diseño gráfico/impresión."
+        },
+        {
+          "concepto": "Señalización fotoluminiscente de recorridos y salidas de emergencia",
+          "descripcion": "Señales fotoluminiscentes normalizadas (UNE 23035) para indicación de recorridos de evacuación, salidas de emergencia, puertas cortafuego. Incluye adhesivos, placas direccionales y de salida. Estimado: 1 señal cada 15m en pasillos + salidas principales (aprox. 40-50 señales para edificio 5 plantas).",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 45,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de señales fotoluminiscentes (típicamente 8-25€/ud según tamaño y material). Revisar cantidad exacta con planos."
+        },
+        {
+          "concepto": "Instalación de señalización fotoluminiscente",
+          "descripcion": "Colocación, fijación y nivelación de señales fotoluminiscentes en recorridos, salidas y equipos de protección. Incluye pequeño material (tornillos, tacos, adhesivos).",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 55,
+          "total": 440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Bloques autónomos de alumbrado de emergencia LED",
+          "descripcion": "Suministro de bloques autónomos de emergencia LED con autonomía mínima 1 hora, iluminancia ≥1 lux en vías de evacuación. Estimado: 1 cada 15m en pasillos + sobre salidas y escaleras (aprox. 25-30 unidades para 5 plantas).",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 28,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de bloque autónomo LED (típicamente 35-80€/ud según marca y prestaciones). Revisar especificaciones técnicas."
+        },
+        {
+          "concepto": "Instalación de bloques autónomos de emergencia",
+          "descripcion": "Montaje, fijación y conexionado de bloques autónomos en techos/paredes. Incluye cable de conexión a circuito de emergencia y pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 50,
+          "total": 500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Circuito eléctrico exclusivo para alumbrado de emergencia",
+          "descripcion": "Instalación de circuito eléctrico independiente desde cuadro general a bloques autónomos. Incluye cableado (sección según cálculo), protecciones (magnetotérmico + diferencial), canalizaciones y pequeño material. Estimado: 150-200ml de cableado para 5 plantas.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 175,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de sección de cable (típicamente 1.5-2.5mm²) y tipo de canalización. Revisar proyecto eléctrico."
+        },
+        {
+          "concepto": "Instalación de circuito eléctrico de emergencia",
+          "descripcion": "Tendido de cableado, instalación de protecciones, conexionado en cuadro y pruebas de funcionamiento del circuito de emergencia.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 50,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y certificación",
+          "descripcion": "Pruebas de autonomía de bloques autónomos (mínimo 1 hora), verificación de iluminancia en vías de evacuación, prueba de señalización fotoluminiscente. Generación de certificado de conformidad.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de complejidad y número de puntos a verificar. Típicamente 200-400€ para edificio de 5 plantas."
+        },
+        {
+          "concepto": "Instrucciones de actuación en caso de emergencia",
+          "descripcion": "Elaboración e impresión de instrucciones normalizadas de actuación en caso de incendio/emergencia. Colocación en punto visible de cada planta.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de número de plantas y complejidad. Típicamente 100-250€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1540,
+        "iva_porcentaje": 21,
+        "iva": 323.4,
+        "total": 1863.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el edificio requiere Plan de Autoprotección técnico según RD 393/2007 (obligatorio si actividad de riesgo o >500 trabajadores). Si es obligatorio, añadir partida de elaboración de Plan Técnico (oficio: contra_incendios, estimado 800-2000€).",
+        "Considerar si se requiere señalización de ubicación de extintores, BIE (bocas de incendio equipadas) o pulsadores de alarma. Si existen, añadir señalización específica.",
+        "Revisar normativa local: algunos municipios requieren inspección técnica posterior por organismo de control (coste adicional 300-600€)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Planos de evacuación por planta",
+          "oficio": "contra_incendios",
+          "motivo": "Partida obligatoria según RD 393/2007 y UNE 23035. Incluida en Base Maestra como partida_obligatoria de [instalacion_plan_de_autoproteccion_y_señalizacion]."
+        },
+        {
+          "concepto": "Señalización fotoluminiscente de recorridos y salidas",
+          "oficio": "contra_incendios",
+          "motivo": "Partida obligatoria según RD 393/2007 y UNE 23035. Incluida en Base Maestra como partida_obligatoria de [instalacion_plan_de_autoproteccion_y_señalizacion]."
+        },
+        {
+          "concepto": "Bloques autónomos de alumbrado de emergencia LED",
+          "oficio": "electricidad",
+          "motivo": "Partida obligatoria según RD 393/2007 y UNE 20392. Incluida en Base Maestra como partida_obligatoria de [instalacion_alumbrado_emergencia]."
+        },
+        {
+          "concepto": "Circuito eléctrico exclusivo para alumbrado de emergencia",
+          "oficio": "electricidad",
+          "motivo": "Partida obligatoria según REBT. Incluida en Base Maestra como partida_obligatoria de [instalacion_alumbrado_emergencia]."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_VRF_con_recuperacion_de_calor",
+      "instalacion_alumbrado_emergencia",
+      "instalacion_plan_de_autoproteccion_y_señalizacion",
+      "instalacion_vrv_o_vrf_sistema_multiple",
+      "reforma_integral_oficina_o_espacio_de_trabajo"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3970,
+      "tokens_out": 3484
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 3,
+    "n_sugeridas": 6,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

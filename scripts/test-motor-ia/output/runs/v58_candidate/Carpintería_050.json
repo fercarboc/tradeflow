@@ -1,0 +1,194 @@
+{
+  "id": 50,
+  "oficio": "Carpintería",
+  "texto": "Instalación de tarima exterior de madera de ipe en terraza de 25 metros cuadrados con estructura",
+  "http_status": 200,
+  "latency_ms": 18420,
+  "raw_response": {
+    "transcript": "Instalación de tarima exterior de madera de ipe en terraza de 25 metros cuadrados con estructura",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de tarima exterior de madera de ipe en terraza de 25 metros cuadrados con estructura",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Madera IPE es tropical, verificar certificación sostenible y tratamiento clase 4",
+          "Estructura incluida: se asume rastreles/vigas de soporte",
+          "Precio unitario de material (madera IPE) requiere revisión según proveedor y calidad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de tarima exterior con estructura de soporte (rastreles/vigas)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Preparación de base/regularización de terraza si es necesario"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro madera IPE tarima exterior",
+          "descripcion": "Madera IPE tratada clase 4, tablas de 25 m² para tarima exterior, incluye pequeño material (tornillos inox, clips, etc.)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de madera IPE varía según proveedor, calidad y disponibilidad. Instalador debe confirmar precio/m² (rango típico 60-120€/m²)"
+        },
+        {
+          "concepto": "Suministro rastreles y estructura de soporte",
+          "descripcion": "Rastreles de madera tratada clase 4 o aluminio, separación 40-50 cm, fijaciones metálicas inoxidables, geotextil antimalas hierbas si aplica",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de estructura varía según material (madera vs aluminio) y complejidad. Rango típico 15-40€/m²"
+        },
+        {
+          "concepto": "Preparación y regularización de base de terraza",
+          "descripcion": "Limpieza, nivelación y regularización de la superficie existente de la terraza. Incluye pequeño material de regularización si es necesario",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 8,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de rastreles y estructura de soporte",
+          "descripcion": "Colocación de rastreles cada 40-50 cm, fijación a base de terraza, nivelación y alineación de estructura. Incluye anclajes y pequeño material",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 12,
+          "total": 300,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de tarima IPE con separación de drenaje",
+          "descripcion": "Colocación de tablas de madera IPE sobre rastreles con separación de 3-5 mm entre tablas para drenaje y dilatación. Fijación con tornillos inox o clips ocultos. Incluye cortes y ajustes perimetrales",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 18,
+          "total": 450,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabado y tratamiento protector de tarima IPE",
+          "descripcion": "Aplicación de aceite protector o lasur exterior en madera IPE para protección UV y mantenimiento. Incluye lijado ligero si es necesario",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 6,
+          "total": 150,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro aceite/lasur protector exterior",
+          "descripcion": "Aceite o lasur protector para madera IPE, cantidad según superficie (aprox. 1 litro/25 m²)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de aceite/lasur varía según marca y calidad. Rango típico 20-50€/litro"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1100,
+        "iva_porcentaje": 21,
+        "iva": 231,
+        "total": 1331
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_tarima_exterior_madera_tratada_o_composite' (rango 120-650€/m²) — aplicable a IPE",
+        "Considerar: 'solado_de_tarima_exterior_de_madera_o_composite' si la base ya está preparada",
+        "Madera IPE es tropical: confirmar certificación FSC/PEFC y cumplimiento normativa sostenibilidad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro madera IPE tarima exterior",
+          "razon": "Material específico (IPE) no detallado en catálogo base. Precio requiere revisión del instalador según proveedor"
+        },
+        {
+          "concepto": "Suministro rastreles y estructura de soporte",
+          "razon": "Estructura incluida en el trabajo. Precio varía según material elegido (madera vs aluminio)"
+        },
+        {
+          "concepto": "Suministro aceite/lasur protector exterior",
+          "razon": "Material de acabado específico. Precio requiere revisión según marca y calidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tarima_exterior_madera_tratada_o_composite",
+      "solado_de_tarima_exterior_de_madera_o_composite",
+      "instalacion_tarima_exterior_madera_o_composite",
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_de_pavimento_flotante_sobre_plots"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3994,
+      "tokens_out": 2603
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

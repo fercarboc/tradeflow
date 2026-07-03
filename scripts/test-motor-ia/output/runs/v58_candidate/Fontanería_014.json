@@ -1,0 +1,141 @@
+{
+  "id": 14,
+  "oficio": "Fontanería",
+  "texto": "Vaciado y limpieza de fosa séptica con camión de bombeo, capacidad de 3000 litros",
+  "http_status": 200,
+  "latency_ms": 12211,
+  "raw_response": {
+    "transcript": "Vaciado y limpieza de fosa séptica con camión de bombeo, capacidad de 3000 litros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Vaciado y limpieza de fosa séptica con camión de bombeo, capacidad de 3000 litros",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Servicio especializado de saneamiento. Requiere profesional autorizado y gestor de residuos certificado.",
+          "El precio del camión de bombeo y gestión de residuos debe ser confirmado por el instalador según empresa contratada."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Vaciado y limpieza de fosa séptica es mantenimiento especializado de infraestructura de saneamiento."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado de fosa séptica con camión de bombeo",
+          "descripcion": "Extracción y bombeo de lodos y residuos de fosa séptica de 3000 litros de capacidad mediante camión cisterna especializado.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del servicio de bombeo y transporte debe ser confirmado por el instalador según tarifa de empresa de saneamiento contratada (típicamente 150-400€ según zona y distancia a gestor autorizado)."
+        },
+        {
+          "concepto": "Limpieza interior de fosa séptica",
+          "descripcion": "Limpieza manual y desinfección de paredes interiores, tuberías de entrada/salida y cámara de decantación de la fosa séptica tras vaciado.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión y transporte de residuos a gestor autorizado",
+          "descripcion": "Transporte y entrega de lodos y residuos de fosa séptica a gestor de residuos peligrosos autorizado. Incluye documentación de trazabilidad (albarán de entrega).",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de gestión de residuos debe ser confirmado por el instalador. Típicamente incluido en tarifa de camión de bombeo o facturado aparte (50-150€)."
+        },
+        {
+          "concepto": "Inspección y verificación de funcionamiento post-limpieza",
+          "descripcion": "Comprobación de integridad de fosa, tuberías de entrada/salida, válvulas de aireación y correcto drenaje tras limpieza. Pequeño material (desinfectante, herramientas).",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 120,
+        "iva_porcentaje": 21,
+        "iva": 25.2,
+        "total": 145.2
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con el instalador la tarifa de la empresa de saneamiento contratada para el servicio de bombeo (varía según zona geográfica, distancia a gestor autorizado y volumen de residuos).",
+        "Verificar que la empresa de bombeo dispone de autorización de gestor de residuos peligrosos y proporciona documentación de trazabilidad.",
+        "Considerar incluir análisis de agua residual post-limpieza si se sospecha contaminación o mal funcionamiento de la fosa.",
+        "Recomendar mantenimiento preventivo anual o cada 2-3 años según uso para evitar obstrucciones y prolongar vida útil de la fosa."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vaciado de fosa séptica con camión de bombeo",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio especializado de saneamiento no incluido en catálogo estándar. Requiere subcontratación con empresa autorizada."
+        },
+        {
+          "concepto": "Gestión y transporte de residuos a gestor autorizado",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio de gestión de residuos peligrosos. Precio variable según gestor y distancia."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "limpieza_y_soplado_de_jardines_y_zonas_exteriores",
+      "mantenimiento_de_sistema_de_climatizacion_split",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3997,
+      "tokens_out": 1574
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "mantenimiento_general",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "id": 387,
+  "oficio": "Persianas",
+  "texto": "Instalar celosía de aluminio orientable en fachada de vivienda para privacidad y sombreado",
+  "http_status": 200,
+  "latency_ms": 20245,
+  "raw_response": {
+    "transcript": "Instalar celosía de aluminio orientable en fachada de vivienda para privacidad y sombreado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar celosía de aluminio orientable en fachada de vivienda para privacidad y sombreado",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se requiere especificar superficie en m² de fachada a cubrir",
+          "Se requiere confirmar si el sistema será manual u motorizado",
+          "Se requiere validar acceso y necesidad de andamio/plataforma elevada"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de celosía orientable exterior — oficio especializado en sistemas de regulación solar y privacidad en fachada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Lamas de aluminio orientables exterior",
+          "descripcion": "Suministro de lamas de aluminio anodizado para celosía orientable, sistema de regulación manual, acabado lacado según diseño",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de superficie total (m²), tipo de aluminio, acabado y proveedor — instalador debe especificar m² y confirmar presupuesto de material"
+        },
+        {
+          "concepto": "Estructura soporte perfiles aluminio",
+          "descripcion": "Suministro e instalación de estructura de perfiles de aluminio anodizado para soporte y fijación de lamas orientables a fachada",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de superficie, tipo de perfil y complejidad de anclaje — requiere cálculo estructural si altura significativa"
+        },
+        {
+          "concepto": "Eje de rotación y mecanismo de regulación manual",
+          "descripcion": "Suministro de eje de rotación en acero inoxidable y mecanismo de regulación manual (varilla o cadena) para orientación de lamas",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario depende de longitud del eje, tipo de mecanismo (varilla, cadena, manivela) y acabado"
+        },
+        {
+          "concepto": "Anclajes y fijación a fachada",
+          "descripcion": "Suministro e instalación de anclajes metálicos (tacos químicos o mecánicos según tipo de fachada), tornillería inoxidable y sellado de puntos de fijación",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de anclaje dependen de superficie, tipo de fachada (hormigón, ladrillo, piedra) y cálculo de cargas por viento"
+        },
+        {
+          "concepto": "Pequeño material y sellado",
+          "descripcion": "Sellado de uniones, juntas de dilatación, masilla de poliuretano, silicona neutra, tornillería inoxidable complementaria",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lote de pequeño material — precio estimado según superficie total y complejidad de sellado"
+        },
+        {
+          "concepto": "Mano de obra: instalación celosía orientable",
+          "descripcion": "Instalación completa de celosía: montaje de estructura soporte, fijación a fachada con anclajes calculados, colocación de lamas, ajuste de mecanismo de regulación, pruebas de funcionamiento y sellado final",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de instalación dependen de superficie (m²), altura de fachada, accesibilidad y complejidad de anclaje — estimación: 1-2 horas por m² según condiciones"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: superficie exacta en m² de fachada a cubrir",
+        "Solicitar al cliente: tipo de fachada (hormigón, ladrillo, piedra, revestimiento)",
+        "Solicitar al cliente: altura de instalación y accesibilidad (¿necesita andamio o plataforma elevada?)",
+        "Solicitar al cliente: preferencia de acabado (lacado, anodizado, color específico)",
+        "Solicitar al cliente: confirmación de sistema manual (recomendado para superficies <15 m²) o motorizado",
+        "Recomendación técnica: realizar cálculo de cargas por viento según zona geográfica y altura de fachada",
+        "Recomendación técnica: si motorizado, incluir motor 24V DC, control remoto y posible integración domótica"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lamas de aluminio orientables exterior",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Partida específica de material — precio depende de m² y especificaciones de aluminio/acabado"
+        },
+        {
+          "concepto": "Estructura soporte perfiles aluminio",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Partida específica de material — precio depende de m² y cálculo estructural"
+        },
+        {
+          "concepto": "Eje de rotación y mecanismo de regulación manual",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Partida específica de material — precio unitario según tipo de mecanismo"
+        },
+        {
+          "concepto": "Anclajes y fijación a fachada",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Partida específica de material — cantidad y tipo dependen de cálculo de cargas"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_alumbrado_exterior_jardin",
+      "instalacion_de_sistema_de_lamas_solares_fijas_en_fachada",
+      "instalacion_de_canaleta_o_canalon_de_fachada",
+      "instalacion_carril_electrificado_focos",
+      "instalacion_celosia_o_lamas_regulables_exteriores"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3775,
+      "tokens_out": 2594
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,227 @@
+{
+  "id": 307,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar bocas de incendio equipadas BIE en nave industrial, conectadas a red de agua",
+  "http_status": 200,
+  "latency_ms": 22025,
+  "raw_response": {
+    "transcript": "Instalar bocas de incendio equipadas BIE en nave industrial, conectadas a red de agua",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar bocas de incendio equipadas BIE en nave industrial, conectadas a red de agua",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "FALTA INFORMACIÓN CRÍTICA: No se especifica número de BIEs a instalar. Se asume 1 unidad como mínimo. El instalador DEBE confirmar cantidad.",
+          "FALTA INFORMACIÓN CRÍTICA: No se especifica si la red de agua contra incendios existe o debe crearse. Se asume conexión a red existente.",
+          "FALTA INFORMACIÓN CRÍTICA: No se especifica longitud de manguera (típico 25m). Se asume estándar 25mm.",
+          "FALTA INFORMACIÓN CRÍTICA: No se especifica ubicación (empotrada/superficie). Se asume superficie.",
+          "PROYECTO TÉCNICO OBLIGATORIO según CTE DB-SI: debe incluirse en presupuesto."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Sistema de bocas de incendio equipadas (BIE) es instalación de protección contra incendios. Oficio especializado contra_incendios según reglas de prioridad."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión a red de agua existente requiere trabajo de fontanería (tuberías, racores, válvulas)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico BIE",
+          "descripcion": "Proyecto técnico de instalación de bocas de incendio equipadas según CTE DB-SI y UNE 23403. Cálculo de presiones, caudales y ubicación óptima.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Proyecto técnico obligatorio. Precio a definir por profesional según complejidad nave."
+        },
+        {
+          "concepto": "Armario BIE 25mm certificado UNE 23403",
+          "descripcion": "Armario BIE 25mm de superficie, certificado UNE 23403, con puerta de cristal templado y marco metálico.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material certificado. Precio según marca y modelo a confirmar por instalador."
+        },
+        {
+          "concepto": "Manguera 25mm y accesorios BIE",
+          "descripcion": "Manguera 25mm de longitud estándar (25m), devanadera semirrígida, lanza boquilla y válvula de cierre para BIE.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Accesorios BIE. Precio según longitud real de manguera a confirmar."
+        },
+        {
+          "concepto": "Conexión a red de agua contra incendios",
+          "descripcion": "Conexión de BIE a red de agua existente: tuberías, racores, válvula de cierre, manómetro de verificación de presión y pequeño material.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales de conexión. Precio según diámetro de red y distancia a confirmar."
+        },
+        {
+          "concepto": "Instalación y montaje BIE",
+          "descripcion": "Instalación del armario BIE en pared, conexión de manguera, válvulas y accesorios. Prueba de funcionamiento y presión.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 55,
+          "total": 165,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión fontanería a red existente",
+          "descripcion": "Mano de obra de conexión de tuberías, válvulas y racores a red de agua existente. Prueba de estanqueidad.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Señalización normalizada BIE",
+          "descripcion": "Señalización de localización de BIE según normativa CTE DB-SI: cartel luminoso o reflectante.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Señalización normalizada. Precio a confirmar."
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, tacos, bridas, cinta teflón, pasta selladora y otros accesorios menores para instalación completa.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material. Precio estimado a confirmar."
+        }
+      ],
+      "calculos": {
+        "subtotal": 265,
+        "iva_porcentaje": 21,
+        "iva": 55.65,
+        "total": 320.65
+      },
+      "sugerencias_catalogo": [
+        "Confirmar NÚMERO DE BIES a instalar. Cada BIE adicional requiere partidas equivalentes.",
+        "Confirmar LONGITUD DE MANGUERA (típico 25m, máximo 25m según CTE). Si es diferente, ajustar precio.",
+        "Confirmar UBICACIÓN: ¿Empotrada o superficie? Afecta a precio de armario y mano de obra.",
+        "Confirmar DISTANCIA A RED DE AGUA: ¿Conexión cercana o requiere rozas/tuberías largas?",
+        "Confirmar PRESIÓN Y CAUDAL DE RED EXISTENTE: ¿Cumple mínimos (2 bar en boquilla, 100 l/min)?",
+        "OBLIGATORIO: Incluir revisión trimestral en contrato de mantenimiento posterior.",
+        "OBLIGATORIO: Certificado de instalación según UNE 23403 tras finalización."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico BIE",
+          "oficio": "contra_incendios",
+          "motivo": "Proyecto técnico obligatorio según CTE DB-SI para instalación de BIEs en nave industrial."
+        },
+        {
+          "concepto": "Armario BIE 25mm certificado UNE 23403",
+          "oficio": "contra_incendios",
+          "motivo": "Material certificado específico para BIE. Precio variable según marca."
+        },
+        {
+          "concepto": "Manguera 25mm y accesorios BIE",
+          "oficio": "contra_incendios",
+          "motivo": "Accesorios específicos de BIE. Precio según longitud real."
+        },
+        {
+          "concepto": "Conexión a red de agua contra incendios",
+          "oficio": "fontaneria",
+          "motivo": "Conexión específica a red existente. Precio según diámetro y distancia."
+        },
+        {
+          "concepto": "Señalización normalizada BIE",
+          "oficio": "contra_incendios",
+          "motivo": "Señalización obligatoria según CTE DB-SI."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_rociadores_sprinklers",
+      "instalacion_bocas_de_incendio_equipadas_BIE_25mm",
+      "instalacion_fontaneria_cocina_completa",
+      "instalacion_descalcificador",
+      "instalacion_suelo_radiante_hidraulico"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3932,
+      "tokens_out": 3076
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

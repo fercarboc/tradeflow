@@ -1,0 +1,209 @@
+{
+  "id": 68,
+  "oficio": "Pintura",
+  "texto": "Quitar papel pintado antiguo, enyesar y pintar las paredes del dormitorio principal",
+  "http_status": 200,
+  "latency_ms": 15042,
+  "raw_response": {
+    "transcript": "Quitar papel pintado antiguo, enyesar y pintar las paredes del dormitorio principal",
+    "quote": {
+      "resumen": {
+        "texto_original": "Quitar papel pintado antiguo, enyesar y pintar las paredes del dormitorio principal",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se requiere medición de superficie (m²) del dormitorio para precisar cantidades",
+          "El precio de pintura varía según estado de la pared tras retirada de papel"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Preparación de superficie (retirada papel pintado), enyesado y pintura de paredes"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de papel pintado antiguo",
+          "descripcion": "Eliminación completa de papel pintado antiguo, raspado de restos de cola y preparación de superficie",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 6,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² pendiente de medición en obra"
+        },
+        {
+          "concepto": "Limpieza y eliminación de restos de cola",
+          "descripcion": "Raspado, lijado y limpieza de residuos de adhesivo de papel pintado",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 4,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² pendiente de medición en obra"
+        },
+        {
+          "concepto": "Imprimación fijadora de cola residual",
+          "descripcion": "Aplicación de imprimación para fijar restos de cola y preparar superficie para masilla",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de revisión. Incluir: imprimación fijadora (litros necesarios)"
+        },
+        {
+          "concepto": "Enyesado y reparación de desperfectos",
+          "descripcion": "Aplicación de masilla para reparar daños en yeso, grietas y zonas dañadas tras retirada de papel",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² pendiente de medición. Precio puede variar según extensión de daños"
+        },
+        {
+          "concepto": "Masilla y material de reparación",
+          "descripcion": "Masilla de pasta fina para reparación de yeso dañado y desperfectos",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio de masilla pendiente de revisión según daños detectados"
+        },
+        {
+          "concepto": "Lijado de superficie (grano 150-220)",
+          "descripcion": "Lijado de toda la superficie tras enyesado para obtener acabado liso y uniforme",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 5,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² pendiente de medición en obra"
+        },
+        {
+          "concepto": "Pintura plástica (2 manos)",
+          "descripcion": "Aplicación de pintura plástica de calidad en dos manos sobre superficie preparada",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² pendiente de medición en obra"
+        },
+        {
+          "concepto": "Pintura plástica (material)",
+          "descripcion": "Pintura plástica de interior, 2 manos, color a elegir",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de litros y precio pendiente de revisión según m² a pintar y rendimiento"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Rodillos, pinceles, bandejas, cinta de carrocero, trapos, esponjas y material fungible",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material pendiente de revisión (estimado 30-50€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar medición de superficie total de paredes del dormitorio (m²) para calcular cantidades exactas",
+        "Confirmar color y tipo de pintura plástica a utilizar",
+        "Evaluar en obra el estado real de la pared tras retirada de papel para ajustar cantidad de masilla necesaria",
+        "Considerar si se requiere protección de suelos y muebles durante el trabajo"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación fijadora de cola residual",
+          "oficio": "pintura",
+          "motivo": "Material específico para fijar restos de adhesivo tras retirada de papel pintado"
+        },
+        {
+          "concepto": "Pintura plástica (material)",
+          "oficio": "pintura",
+          "motivo": "Material de pintura a suministrar por el instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_paredes_habitacion_con_papel_pintado_retirado",
+      "limpieza_y_preparacion_superficie_antes_pintar",
+      "pintado_de_sotanos_y_aparcamientos_comunitarios",
+      "pintado_de_fachada_de_ladrillo_visto",
+      "pintado_de_foso_de_ascensor"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3622,
+      "tokens_out": 2136
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 5,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

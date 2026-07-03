@@ -1,0 +1,182 @@
+{
+  "id": 219,
+  "oficio": "Jardinería",
+  "texto": "Abonar y escarificar césped en primavera, tratamiento de musgo y malas hierbas, 200 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 16899,
+  "raw_response": {
+    "transcript": "Abonar y escarificar césped en primavera, tratamiento de musgo y malas hierbas, 200 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Abonar y escarificar césped en primavera, tratamiento de musgo y malas hierbas, 200 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de jardinería estacional (primavera). Confirmar fecha de ejecución.",
+          "Tratamiento de musgo requiere identificación de causa (humedad, pH, compactación).",
+          "Malas hierbas: se asume control mecánico + químico según necesidad."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Escarificado, aireado, tratamiento musgo, abonado y control malas hierbas en césped."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Escarificado de césped para eliminación de fieltro y musgo",
+          "descripcion": "Escarificado mecánico con máquina verticuladora para eliminar fieltro, musgo y restos vegetales acumulados. Incluye retirada de restos.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 12,
+          "total": 2400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aireado de césped con punzón para descompactación",
+          "descripcion": "Aireado mecánico con máquina de punzón para mejorar drenaje y oxigenación del suelo. Incluye pequeño material.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 8,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento antimosgo con sulfato de hierro",
+          "descripcion": "Aplicación de producto antimosgo (sulfato de hierro u homólogo) según ficha técnica. Incluye EPI (mascarilla, guantes, gafas) y pequeño material.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del producto antimosgo (sulfato de hierro) a definir por instalador según marca y cantidad necesaria (~0,5-1 kg/100m2)."
+        },
+        {
+          "concepto": "Control de malas hierbas (mecánico y químico)",
+          "descripcion": "Eliminación de malas hierbas mediante arranque manual selectivo y/o aplicación de herbicida selectivo post-escarificado. Incluye EPI y pequeño material.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del herbicida selectivo y mano de obra de aplicación a definir según densidad de malas hierbas y producto elegido."
+        },
+        {
+          "concepto": "Abonado de recuperación post-escarificado",
+          "descripcion": "Aplicación de abono granulado equilibrado (NPK) para favorecer recuperación rápida del césped tras escarificado y aireado. Incluye distribución uniforme.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del abono granulado a definir según tipo y dosis (~20-30 kg para 200m2)."
+        },
+        {
+          "concepto": "Resiembra de zonas degradadas",
+          "descripcion": "Resiembra de semilla de césped en zonas con huecos o degradación tras escarificado. Incluye preparación superficial y pequeño material.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de semilla de césped y mano de obra de resiembra a definir. Se estima ~25% de la superficie (50m2) con degradación."
+        }
+      ],
+      "calculos": {
+        "subtotal": 4000,
+        "iva_porcentaje": 21,
+        "iva": 840,
+        "total": 4840
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con el cliente si hay zonas con encharcamiento crónico → considerar mejora de drenaje (canaletas, arenado).",
+        "Si el pH del suelo es muy ácido (<6), considerar aplicación de correctores de pH antes del abonado.",
+        "Tratamiento antimosgo es más efectivo en primavera temprana (marzo-abril) antes de que el musgo se desarrolle.",
+        "Resiembra: usar semilla de calidad adaptada al clima y tipo de suelo local."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tratamiento antimosgo con sulfato de hierro",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "motivo": "Producto específico antimosgo. Precio a definir por instalador."
+        },
+        {
+          "concepto": "Control de malas hierbas (mecánico y químico)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "motivo": "Herbicida selectivo y mano de obra de aplicación. Precio a definir según densidad y producto."
+        },
+        {
+          "concepto": "Abonado de recuperación post-escarificado",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "motivo": "Abono granulado NPK. Precio a definir según tipo y dosis."
+        },
+        {
+          "concepto": "Resiembra de zonas degradadas",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "motivo": "Semilla de césped y mano de obra. Precio a definir según variedad y cantidad."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "escarificado_y_aireado_de_cesped",
+      "tratamiento_de_musgo_y_algas_en_cesped",
+      "tratamiento_fitosanitario_plagas_y_enfermedades",
+      "aplicacion_pintura_antigraffiti_en_fachada",
+      "tratamiento_hidrofugo_incoloro_en_fachada"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3927,
+      "tokens_out": 2304
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "id": 139,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Instalar claraboya de apertura eléctrica en tejado plano para ventilación de escalera",
+  "http_status": 200,
+  "latency_ms": 19394,
+  "raw_response": {
+    "transcript": "Instalar claraboya de apertura eléctrica en tejado plano para ventilación de escalera",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar claraboya de apertura eléctrica en tejado plano para ventilación de escalera",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Claraboya con apertura eléctrica: requiere especificación de marca, modelo y medidas exactas in situ",
+          "Tejado plano: impermeabilización crítica en encuentro con cubierta",
+          "Instalación eléctrica: requiere verificación de circuito disponible y protecciones",
+          "Vidrio laminado obligatorio por CTE en cubiertas",
+          "Trabajos en altura: requiere EPI y medidas de seguridad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de claraboya en cubierta plana, impermeabilización de encuentro, trabajos en altura"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Suministro e instalación de claraboya con vidrio laminado integrado"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de mecanismo de apertura eléctrica, conexión a circuito, protecciones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Claraboya fija con vidrio laminado y marco aluminio",
+          "descripcion": "Suministro de claraboya de apertura eléctrica con vidrio laminado integrado (obligatorio CTE), marco aluminio o acero inoxidable, mecanismo motorizado de apertura, según marca y medidas a especificar in situ. Incluye accesorios de fijación.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca (Velux, Fakro, etc.), medidas exactas y tipo de mecanismo motorizado. Rango estimado: 600-1800€/ud"
+        },
+        {
+          "concepto": "Impermeabilización encuentro claraboya-cubierta",
+          "descripcion": "Impermeabilización específica del encuentro claraboya con cubierta plana: collar de impermeabilización, lámina EPDM o TPO, sellado perimetral con silicona de poliuretano, juntas de dilatación. Según especificaciones del fabricante de la claraboya.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas y tipo de lámina impermeabilizante. Rango estimado: 150-400€/ud"
+        },
+        {
+          "concepto": "Instalación claraboya en cubierta plana",
+          "descripcion": "Mano de obra para instalación de claraboya: preparación de abertura, fijación a estructura, nivelación, sellado perimetral completo, verificación de estanqueidad. Incluye EPI para trabajos en altura (arnés, línea de vida).",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación mecanismo apertura eléctrica",
+          "descripcion": "Mano de obra para instalación del mecanismo motorizado de apertura: montaje del motor, conexión de cables de control, pruebas de funcionamiento, ajuste de finales de carrera.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica mecanismo apertura a circuito",
+          "descripcion": "Suministro e instalación de: cable de alimentación (H07RN-F o similar), protección diferencial (30mA), interruptor de control, canalización/tubo corrugado, pequeño material (conectores, bridas, tacos). Conexión a circuito existente o nuevo según disponibilidad.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de distancia a cuadro eléctrico y tipo de protección requerida. Rango estimado: 80-200€/ud"
+        },
+        {
+          "concepto": "Instalación cableado y protecciones eléctricas",
+          "descripcion": "Mano de obra para tendido de cable desde cuadro eléctrico hasta mecanismo, instalación de protecciones (diferencial, magnetotérmico), conexionado en cuadro, pruebas de funcionamiento y seguridad.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios instalación",
+          "descripcion": "Silicona sanitaria, tornillería inoxidable, tacos especiales, bridas, conectores eléctricos, cinta de teflón, masilla impermeabilizante, EPI (guantes, gafas, arnés).",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 60-120€/ud"
+        }
+      ],
+      "calculos": {
+        "subtotal": 450,
+        "iva_porcentaje": 21,
+        "iva": 94.5,
+        "total": 544.5
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: marca y modelo de claraboya preferida (Velux, Fakro, Roto, etc.)",
+        "Medir in situ: dimensiones exactas de la abertura en cubierta plana",
+        "Verificar: tipo de cubierta (hormigón, madera, acero), pendiente mínima 3-5% para autolavado",
+        "Confirmar: disponibilidad de circuito eléctrico cercano, potencia disponible en cuadro",
+        "Especificar: tipo de control (interruptor manual, sensor de lluvia, temporizador, domótica)",
+        "Revisar CTE: obligatoriedad de vidrio laminado en cubiertas accesibles o de tránsito"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Claraboya fija con vidrio laminado y marco aluminio",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Claraboya de apertura eléctrica con vidrio laminado integrado no está en catálogo base. Requiere especificación de marca, modelo y medidas."
+        },
+        {
+          "concepto": "Impermeabilización encuentro claraboya-cubierta",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Impermeabilización específica para claraboya en cubierta plana. Requiere especificación de tipo de lámina y medidas."
+        },
+        {
+          "concepto": "Conexión eléctrica mecanismo apertura a circuito",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Instalación eléctrica específica para mecanismo motorizado. Requiere verificación de circuito disponible y distancia a cuadro."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_lucernario_apertura_tipo_velux_o_similar",
+      "instalacion_de_lucernarios_en_cubierta_inclinada",
+      "instalacion_lucernario_o_claraboya_fija",
+      "instalacion_de_paneles_solares_en_tejado_con_gancho_hook",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3929,
+      "tokens_out": 2667
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

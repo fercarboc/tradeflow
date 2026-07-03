@@ -1,0 +1,168 @@
+{
+  "id": 231,
+  "oficio": "Energía Solar",
+  "texto": "Instalar batería de acumulación de 10kWh para sistema fotovoltaico existente de 3kW",
+  "http_status": 200,
+  "latency_ms": 14757,
+  "raw_response": {
+    "transcript": "Instalar batería de acumulación de 10kWh para sistema fotovoltaico existente de 3kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar batería de acumulación de 10kWh para sistema fotovoltaico existente de 3kW",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar compatibilidad de la batería con el inversor/regulador existente",
+          "Confirmar si requiere cambio de inversor a inversor-cargador bidireccional",
+          "Validar espacio disponible para instalación de banco de baterías"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema de acumulación energética en instalación fotovoltaica existente"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Banco de baterías de acumulación LiFePO4",
+          "descripcion": "Suministro de batería de acumulación 10kWh para sistema fotovoltaico existente de 3kW. Incluye celdas, BMS (sistema de gestión), carcasa y conectores",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de batería 10kWh variable según tecnología (LiFePO4, Li-ion, plomo-ácido). Instalador debe confirmar modelo y proveedor"
+        },
+        {
+          "concepto": "Inversor-cargador bidireccional",
+          "descripcion": "Suministro e instalación de inversor-cargador DC/AC bidireccional compatible con banco de baterías 10kWh y sistema fotovoltaico 3kW existente. Potencia mínima 3-5kW recomendada",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según marca y potencia. Verificar compatibilidad con inversor existente o necesidad de sustitución"
+        },
+        {
+          "concepto": "Cableado DC y protecciones para banco de baterías",
+          "descripcion": "Suministro de cableado DC de sección adecuada (mínimo 16-25mm² según distancia), fusibles DC, interruptores seccionadores, protecciones magnetotérmicas y pequeño material de conexión",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de longitud de cableado y tipo de protecciones. Instalador debe medir distancias en obra"
+        },
+        {
+          "concepto": "Instalación de banco de baterías y conexionado",
+          "descripcion": "Mano de obra para instalación física del banco de baterías, montaje en estructura/armario, conexionado DC a inversor-cargador, conexionado AC a cuadro existente, pruebas de funcionamiento y puesta en marcha",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 65,
+          "total": 520,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración y programación del sistema",
+          "descripcion": "Mano de obra para configuración de parámetros de carga/descarga, umbrales de batería, modo de funcionamiento (carga solar, carga red, descarga), sincronización con inversor existente y pruebas de funcionamiento integrado",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y documentación",
+          "descripcion": "Mano de obra para pruebas de carga/descarga, verificación de voltajes y corrientes, prueba de funcionamiento en modo isla (si aplica), generación de documentación técnica y entrega de manuales al cliente",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 845,
+        "iva_porcentaje": 21,
+        "iva": 177.45,
+        "total": 1022.45
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si el inversor fotovoltaico existente es compatible con carga desde batería o si requiere sustitución por inversor-cargador bidireccional",
+        "Especificar tecnología de batería: LiFePO4 (mayor durabilidad, 6000-10000 ciclos), Li-ion (estándar, 3000-5000 ciclos) o plomo-ácido (económica, 500-1000 ciclos)",
+        "Validar si el sistema actual tiene capacidad de sobrecarga para cargar batería desde paneles solares sin afectar consumo de vivienda",
+        "Considerar instalación de monitor/display para visualización de estado de carga y flujo energético"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Banco de baterías de acumulación LiFePO4",
+          "oficio": "energia_solar",
+          "razon": "Material específico de acumulación energética, no incluido en catálogo base. Precio variable según tecnología y proveedor"
+        },
+        {
+          "concepto": "Inversor-cargador bidireccional",
+          "oficio": "energia_solar",
+          "razon": "Equipo especializado para integración de batería con sistema fotovoltaico existente. Requiere verificación de compatibilidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_de_riego_por_aspersion",
+      "instalacion_sistema_fotovoltaico_aislado_off_grid",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "instalacion_de_sistema_de_rociadores_sprinklers"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4192,
+      "tokens_out": 1970
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

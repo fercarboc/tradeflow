@@ -1,0 +1,274 @@
+{
+  "id": 211,
+  "oficio": "Jardinería",
+  "texto": "Crear zona de huerto urbano en terraza, con cajas de madera, sustrato y plantas de temporada",
+  "http_status": 200,
+  "latency_ms": 19795,
+  "raw_response": {
+    "transcript": "Crear zona de huerto urbano en terraza, con cajas de madera, sustrato y plantas de temporada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Crear zona de huerto urbano en terraza, con cajas de madera, sustrato y plantas de temporada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar disponibilidad de plantas de temporada en vivero local",
+          "Confirmar capacidad de carga de la terraza (peso cajas + sustrato + agua)",
+          "Revisar orientación solar de la terraza para selección de cultivos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Creación huerto urbano, preparación, plantación y sistema de riego"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Fabricación e instalación de cajas de madera para huerto"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diseño y planificación huerto urbano",
+          "descripcion": "Croquis de distribución de cajas, selección de cultivos según orientación solar y temporada, asesoramiento sobre mantenimiento",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de diseño y asesoramiento - instalador define tarifa"
+        },
+        {
+          "concepto": "Fabricación e instalación cajas de madera para huerto",
+          "descripcion": "Cajas de madera tratada (pino o cedro), dimensiones estándar 120x80x30cm, incluye ensamblaje, tratamiento protector y anclaje a terraza",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material madera tratada + fabricación - instalador define precio según dimensiones reales"
+        },
+        {
+          "concepto": "Mano de obra fabricación e instalación cajas",
+          "descripcion": "Corte, ensamblaje, tratamiento y fijación de 4 cajas de madera a terraza",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aporte de sustrato específico para huerto",
+          "descripcion": "Tierra de cultivo ecológica con compost, turba y perlita, apto para horticultura urbana, aproximadamente 480 litros (4 cajas x 120L)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "l",
+          "cantidad": 480,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material sustrato - instalador define precio según proveedor local"
+        },
+        {
+          "concepto": "Mano de obra preparación y aporte sustrato",
+          "descripcion": "Descarga, distribución y nivelación de sustrato en las 4 cajas",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 25,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plantas de temporada para huerto",
+          "descripcion": "Plantas hortícolas de temporada (tomate, lechuga, pimiento, calabacín, hierbas aromáticas), aproximadamente 12-16 plantas según disponibilidad",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 14,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material plantas - instalador define precio según vivero y variedad"
+        },
+        {
+          "concepto": "Mano de obra siembra y plantación",
+          "descripcion": "Plantación de plantas hortícolas, distribución según espaciamiento, riego inicial y asesoramiento de cuidados",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema de riego por goteo automático",
+          "descripcion": "Tuberías de riego por goteo, goteros regulables, temporizador automático con batería, válvula de corte y accesorios de conexión",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material sistema riego - instalador define precio según marca y complejidad"
+        },
+        {
+          "concepto": "Mano de obra instalación sistema de riego",
+          "descripcion": "Instalación de tuberías, goteros, temporizador y pruebas de funcionamiento",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Geotextil anti-malas hierbas y mulch",
+          "descripcion": "Malla geotextil para base de cajas y corteza de pino decorativa como acolchado",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material geotextil y mulch - instalador define precio"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería inox, anclajes, herramientas menores, etiquetas plantas, tutores, ataduras biodegradables",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material - instalador define precio según cantidad real"
+        }
+      ],
+      "calculos": {
+        "subtotal": 445,
+        "iva_porcentaje": 21,
+        "iva": 93.45,
+        "total": 538.45
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'creacion_de_huerto_urbano_o_familiar' - partidas obligatorias incluyen preparación bancales, tierra cultivo, sistema riego, plantación inicial",
+        "Considerar precio alzado por m² de huerto (8-50€/m²) si el cliente prefiere presupuesto cerrado",
+        "Incluir en propuesta: plan de mantenimiento y rotación de cultivos para próximas temporadas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diseño y planificación huerto urbano",
+          "oficio": "jardineria",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de asesoramiento y diseño previo - no encontrado en catálogo estándar"
+        },
+        {
+          "concepto": "Fabricación e instalación cajas de madera para huerto",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cajas madera tratada - requiere presupuesto de carpintería local"
+        },
+        {
+          "concepto": "Aporte de sustrato específico para huerto",
+          "oficio": "jardineria",
+          "origen": "sugerida_ia",
+          "motivo": "Material sustrato ecológico - precio variable según proveedor"
+        },
+        {
+          "concepto": "Plantas de temporada para huerto",
+          "oficio": "jardineria",
+          "origen": "sugerida_ia",
+          "motivo": "Material plantas hortícolas - disponibilidad y precio según vivero y temporada"
+        },
+        {
+          "concepto": "Sistema de riego por goteo automático",
+          "oficio": "jardineria",
+          "origen": "sugerida_ia",
+          "motivo": "Material sistema riego - precio variable según marca y complejidad"
+        },
+        {
+          "concepto": "Geotextil anti-malas hierbas y mulch",
+          "oficio": "jardineria",
+          "origen": "sugerida_ia",
+          "motivo": "Material complementario - precio según cantidad y tipo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "creacion_de_huerto_urbano_o_familiar",
+      "diseno_y_creacion_jardin_nuevo_desde_cero",
+      "instalacion_de_escalera_de_acceso_a_cubierta_o_zona_tecnica",
+      "tabique_pladur_zona_exterior_cubierta_sotillo",
+      "tratamiento_fitosanitario_plagas_y_enfermedades"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4062,
+      "tokens_out": 2971
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 4,
+    "n_sugeridas": 7,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

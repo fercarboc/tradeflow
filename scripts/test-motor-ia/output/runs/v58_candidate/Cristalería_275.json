@@ -1,0 +1,155 @@
+{
+  "id": 275,
+  "oficio": "Cristalería",
+  "texto": "Aplicar tratamiento antirreflejo en cristales de oficina para reducir deslumbramiento",
+  "http_status": 200,
+  "latency_ms": 12060,
+  "raw_response": {
+    "transcript": "Aplicar tratamiento antirreflejo en cristales de oficina para reducir deslumbramiento",
+    "quote": {
+      "resumen": {
+        "texto_original": "Aplicar tratamiento antirreflejo en cristales de oficina para reducir deslumbramiento",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Tratamiento antirreflejo requiere especificación de tipo de cristal (templado, laminado, simple) y superficie total",
+          "Se recomienda inspección previa para evaluar estado del cristal y viabilidad del tratamiento"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Tratamiento especializado en cristales de oficina, requiere técnica de aplicación específica"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y preparación de cristales",
+          "descripcion": "Inspección previa del estado del cristal, limpieza profunda y preparación de superficie para aplicación de tratamiento antirreflejo",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento antirreflejo en cristales",
+          "descripcion": "Aplicación de recubrimiento antirreflejo especializado para reducir deslumbramiento y reflejos en cristales de oficina. Incluye desengrasante, imprimación y aplicación de tratamiento óptico",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 de cristal a tratar no especificada. Precio unitario del tratamiento antirreflejo pendiente de cotización según tipo (spray, líquido, película adhesiva). Rango estimado: 8-25€/m2"
+        },
+        {
+          "concepto": "Aplicación del tratamiento antirreflejo",
+          "descripcion": "Mano de obra para aplicación uniforme del tratamiento antirreflejo en cristales, incluyendo técnica de pulverización o pincelado según especificación del producto",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Curado y secado controlado",
+          "descripcion": "Control de tiempo de curado y secado del tratamiento antirreflejo según especificaciones técnicas del producto. Incluye ventilación y control de temperatura",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Desengrasantes, trapos, mascarillas, guantes, cinta de protección, papel de protección y otros consumibles necesarios para la aplicación",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado: 15-30€ según cantidad de cristal a tratar"
+        }
+      ],
+      "calculos": {
+        "subtotal": 270,
+        "iva_porcentaje": 21,
+        "iva": 56.7,
+        "total": 326.7
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: superficie total de cristal a tratar (m2), tipo de cristal (templado/laminado/simple), ubicación exacta de los cristales",
+        "Especificar tipo de tratamiento antirreflejo: spray profesional, líquido aplicable con rodillo, o película adhesiva antirreflejo",
+        "Considerar si es necesario tratamiento antiarañazos adicional para mayor durabilidad",
+        "Informar sobre mantenimiento posterior: limpieza con productos específicos para no dañar el tratamiento"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tratamiento antirreflejo en cristales",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "motivo": "Producto especializado de acabado óptico. Precio variable según marca, tipo de aplicación y cantidad. Requiere cotización específica del instalador"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "motivo": "Consumibles específicos para preparación y aplicación de tratamiento antirreflejo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tabique_o_division_de_vidrio_en_oficina",
+      "impermeabilizacion_de_cubierta_de_fibrocemento_con_tratamiento",
+      "instalacion_de_extintores_portatiles",
+      "aplicacion_pintura_termica_o_aislante",
+      "tabique_pladur_separacion_zona_oficina"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3950,
+      "tokens_out": 1618
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

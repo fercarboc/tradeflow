@@ -1,0 +1,157 @@
+{
+  "id": 165,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Instalar suelo vinílico LVT en toda la oficina, 120 metros cuadrados de superficie",
+  "http_status": 200,
+  "latency_ms": 11862,
+  "raw_response": {
+    "transcript": "Instalar suelo vinílico LVT en toda la oficina, 120 metros cuadrados de superficie",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar suelo vinílico LVT en toda la oficina, 120 metros cuadrados de superficie",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Instalación de suelo vinílico LVT (tarima/pavimento flotante). Tarifa: 32€/m² según catálogo suelos_tarimas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro rollo vinílico LVT",
+          "descripcion": "Suministro de rollo vinílico LVT (Luxury Vinyl Tile) para oficina, 120 m², incluye mermas 5-10%",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 126,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material vinílico LVT: precio pendiente de revisión del instalador según calidad y marca seleccionada"
+        },
+        {
+          "concepto": "Lámina aislante/barrera vapor",
+          "descripcion": "Lámina aislante espuma o barrera vapor bajo vinílico LVT, 120 m²",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lámina aislante: precio pendiente de revisión según espesor y tipo seleccionado"
+        },
+        {
+          "concepto": "Junta perimetral y pequeño material",
+          "descripcion": "Junta perimetral de dilatación (10-12 mm) en todo el perímetro de la oficina, adhesivos, selladores y pequeño material",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material y junta perimetral: precio pendiente de revisión"
+        },
+        {
+          "concepto": "Preparación y nivelación del soporte",
+          "descripcion": "Limpieza, reparación de irregularidades y nivelación del soporte existente. Máxima desviación permitida: 3 mm bajo regla de 2 m",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 32,
+          "total": 3840,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación suelo vinílico LVT",
+          "descripcion": "Colocación de suelo vinílico LVT en toda la oficina (120 m²). Incluye aclimatación previa 48-72 h, cortes, ajustes y sellado de juntas perimetrales",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 32,
+          "total": 3840,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 7680,
+        "iva_porcentaje": 21,
+        "iva": 1612.8,
+        "total": 9292.8
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de vinílico LVT (espesor, resistencia, acabado mate/brillo) para ajustar precio de material",
+        "Verificar estado del soporte: si requiere nivelación con mortero autonivelante, añadir partida específica",
+        "Considerar rodapié o umbral de transición si hay cambio de nivel con otras estancias"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro rollo vinílico LVT",
+          "oficio": "suelos_tarimas",
+          "origen": "sugerida_ia",
+          "motivo": "Material vinílico LVT no especificado en catálogo base. Precio pendiente de revisión del instalador"
+        },
+        {
+          "concepto": "Lámina aislante/barrera vapor",
+          "oficio": "suelos_tarimas",
+          "origen": "sugerida_ia",
+          "motivo": "Lámina aislante bajo vinílico: precio pendiente de revisión según tipo y espesor"
+        },
+        {
+          "concepto": "Junta perimetral y pequeño material",
+          "oficio": "suelos_tarimas",
+          "origen": "sugerida_ia",
+          "motivo": "Pequeño material y junta perimetral: precio pendiente de revisión"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_distribuidor_calefaccion",
+      "instalacion_de_suelo_de_corcho_interior",
+      "instalacion_suelo_radiante_hidraulico",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_de_suelo_radiante_en_reforma"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3883,
+      "tokens_out": 1623
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "suelos_tarimas",
+    "coincide_oficio": "SI"
+  }
+}

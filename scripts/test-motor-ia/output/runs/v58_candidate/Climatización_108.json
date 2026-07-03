@@ -1,0 +1,220 @@
+{
+  "id": 108,
+  "oficio": "Climatización",
+  "texto": "Instalar 3 splits inverter en salón y dormitorios, conexión con sistema existente y red eléctrica",
+  "http_status": 200,
+  "latency_ms": 16432,
+  "raw_response": {
+    "transcript": "Instalar 3 splits inverter en salón y dormitorios, conexión con sistema existente y red eléctrica",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar 3 splits inverter en salón y dormitorios, conexión con sistema existente y red eléctrica",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar compatibilidad de splits con sistema existente (capacidad, refrigerante, voltaje)",
+          "Confirmar ubicación exacta de unidades interiores y exteriores",
+          "Revisar acceso a red eléctrica y necesidad de refuerzo de línea"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de equipos split inverter, conexión a sistema existente"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Conexión a red eléctrica, cableado y protecciones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro e instalación de 3 unidades split inverter",
+          "descripcion": "Suministro e instalación de 3 equipos split inverter (unidades interiores y exteriores) con capacidad frigorífica según especificación técnica",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de capacidad (kW), marca y modelo. Instalador debe especificar"
+        },
+        {
+          "concepto": "Instalación de 3 unidades split inverter",
+          "descripcion": "Montaje de unidades interiores en pared, unidades exteriores en fachada/terraza, nivelación y fijación estructural",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 60,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado frigorífico (tuberías cobre aisladas) para 3 splits",
+          "descripcion": "Suministro de tuberías de cobre aisladas (ida y retorno) para conexión entre unidades interiores y exteriores, incluyendo válvulas de corte",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales depende de distancia entre unidades. Instalador debe medir y especificar"
+        },
+        {
+          "concepto": "Conexión de cableado frigorífico y purgado de sistema",
+          "descripcion": "Conexión de tuberías de cobre, soldadura, purgado de aire y carga de refrigerante en los 3 splits",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado eléctrico de alimentación para 3 splits",
+          "descripcion": "Suministro de cable eléctrico (sección según potencia), canaletas, tuberías y pequeño material para conexión de los 3 equipos a red eléctrica",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de sección de cable, distancia y complejidad del recorrido"
+        },
+        {
+          "concepto": "Instalación de cableado eléctrico y protecciones para 3 splits",
+          "descripcion": "Tendido de cable eléctrico, instalación de interruptores diferenciales y magnetotérmicos independientes para cada split, conexión a cuadro eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión a sistema existente y pruebas de funcionamiento",
+          "descripcion": "Integración de los 3 splits con sistema de climatización existente (si aplica), pruebas de funcionamiento, calibración de termostatos y verificación de rendimiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios (válvulas, soportes, aislamiento)",
+          "descripcion": "Válvulas de corte, soportes de fijación, aislamiento de tuberías, bridas, codos, tés y otros accesorios necesarios para la instalación completa",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado entre 150-300€ según cantidad y calidad de accesorios"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1720,
+        "iva_porcentaje": 21,
+        "iva": 361.2,
+        "total": 2081.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'Instalación de unidades split inverter' para tarifas específicas según capacidad",
+        "Consultar: 'Cableado frigorífico y accesorios climatización' para precios de tuberías y válvulas",
+        "Revisar: 'Instalación eléctrica para climatización' para protecciones y cableado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación de 3 unidades split inverter",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "motivo": "Especificación de capacidad (kW) y modelo necesaria para cotización exacta"
+        },
+        {
+          "concepto": "Cableado frigorífico (tuberías cobre aisladas) para 3 splits",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "motivo": "Metraje lineal depende de distancia entre unidades interiores y exteriores"
+        },
+        {
+          "concepto": "Cableado eléctrico de alimentación para 3 splits",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Sección de cable depende de potencia total y distancia a cuadro eléctrico"
+        },
+        {
+          "concepto": "Pequeño material y accesorios (válvulas, soportes, aislamiento)",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "motivo": "Estimación de accesorios necesarios para instalación completa"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_recuperacion_aguas_pluviales",
+      "instalacion_de_sistema_de_sonido_home_cinema",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_central_de_incendios_deteccion_automatica"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4098,
+      "tokens_out": 2441
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

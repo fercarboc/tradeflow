@@ -1,0 +1,213 @@
+{
+  "id": 221,
+  "oficio": "Energía Solar",
+  "texto": "Instalar placas solares fotovoltaicas para autoconsumo en vivienda unifamiliar, potencia 5kW",
+  "http_status": 200,
+  "latency_ms": 16657,
+  "raw_response": {
+    "transcript": "Instalar placas solares fotovoltaicas para autoconsumo en vivienda unifamiliar, potencia 5kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar placas solares fotovoltaicas para autoconsumo en vivienda unifamiliar, potencia 5kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere legalización ante distribuidora de energía (obligatorio para autoconsumo)",
+          "Se recomienda verificar orientación y sombras en cubierta antes de instalación",
+          "Revisar disponibilidad de ayudas NextGenEU/IDAE según comunidad autónoma"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación sistema fotovoltaico autoconsumo vivienda unifamiliar"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión a cuadro eléctrico, protecciones y contador bidireccional"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Módulos fotovoltaicos monocristalinos 5kWp",
+          "descripcion": "Suministro e instalación de 12-13 paneles fotovoltaicos monocristalinos de 400-420W cada uno, total 5kWp. Incluye estructura de soporte en cubierta inclinada, orientación sur, inclinación 30-35°",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de módulos y estructura según proveedor y tipo de cubierta. Rango típico: 800-1200€/kWp en materiales"
+        },
+        {
+          "concepto": "Inversor fotovoltaico monofásico 5kW",
+          "descripcion": "Suministro e instalación de inversor monofásico de 5kW con protecciones integradas, conexión a red, monitoreo online. Incluye cableado DC y AC, protecciones CC y CA",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio inversor 5kW: 1200-2000€ según marca y características"
+        },
+        {
+          "concepto": "Cableado solar DC y AC con protecciones",
+          "descripcion": "Suministro e instalación de cable solar RV-K 6mm² (DC), cable RZ 6mm² (AC), tubería protección, conectores MC4, fusibles DC, interruptor DC, interruptor diferencial y magnetotérmico AC",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales eléctricos y protecciones: 400-600€"
+        },
+        {
+          "concepto": "Contador bidireccional legalizado",
+          "descripcion": "Suministro e instalación de contador bidireccional homologado para autoconsumo con inyección a red. Incluye gestión de legalización ante distribuidora",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Contador + legalización: 300-500€"
+        },
+        {
+          "concepto": "Mano de obra instalación sistema fotovoltaico 5kWp",
+          "descripcion": "Trabajos de instalación: montaje estructura cubierta, colocación módulos, conexionado DC, instalación inversor, conexionado AC, pruebas y puesta en marcha. Incluye EPI trabajos en altura",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 65,
+          "total": 1040,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra conexión eléctrica y legalización",
+          "descripcion": "Trabajos eléctricos: conexión a cuadro principal, instalación protecciones, montaje contador, pruebas de aislamiento, trámites legalización ante distribuidora",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, abrazaderas, canaletas, pasta térmica, etiquetado, documentación técnica, certificados",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: 150-250€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1440,
+        "iva_porcentaje": 21,
+        "iva": 302.4,
+        "total": 1742.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_sistema_fotovoltaico_autoconsumo_vivienda' para validar precios de módulos y estructura según tipo de cubierta",
+        "Considerar solicitud de ayudas NextGenEU/IDAE: partida adicional de gestión de ayudas (300-1800€) si cliente lo solicita",
+        "Si hay sombras parciales en cubierta, añadir optimizadores de potencia (200-400€ adicionales)",
+        "Ofrecer monitoreo online y aplicación móvil (incluido en inversor o 100-200€ adicionales)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Módulos fotovoltaicos monocristalinos 5kWp",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según potencia solicitada. Precio pendiente de revisión del instalador según proveedor"
+        },
+        {
+          "concepto": "Inversor fotovoltaico monofásico 5kW",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Equipo específico según potencia. Precio pendiente de revisión"
+        },
+        {
+          "concepto": "Cableado solar DC y AC con protecciones",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales eléctricos específicos. Precio pendiente de revisión"
+        },
+        {
+          "concepto": "Contador bidireccional legalizado",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Equipo específico para autoconsumo. Precio pendiente de revisión"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales auxiliares. Precio pendiente de revisión"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_fotovoltaico_autoconsumo_vivienda",
+      "instalacion_fotovoltaica_autoconsumo",
+      "instalacion_solar_termica_para_ACS",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "solicitud_y_gestion_de_ayudas_para_energia_solar"
+    ],
+    "kb_score": 5,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4134,
+      "tokens_out": 2448
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

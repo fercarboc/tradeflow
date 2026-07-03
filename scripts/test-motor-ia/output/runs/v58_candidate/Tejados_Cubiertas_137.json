@@ -1,0 +1,166 @@
+{
+  "id": 137,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Revisar y rellenar juntas de cubierta de chapa grecada de nave industrial, 400 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 14983,
+  "raw_response": {
+    "transcript": "Revisar y rellenar juntas de cubierta de chapa grecada de nave industrial, 400 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y rellenar juntas de cubierta de chapa grecada de nave industrial, 400 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de mantenimiento preventivo en cubierta industrial. Verificar estado actual de juntas antes de presupuestar materiales.",
+          "Requiere EPI y medidas de seguridad en altura (línea de vida, arnés)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Reparación y mantenimiento de cubierta metálica (chapa grecada). Oficio específico tejados_cubiertas por tratarse de cubierta industrial con juntas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de juntas de cubierta grecada",
+          "descripcion": "Limpieza mecánica de juntas, eliminación de suciedad, líquenes, óxido superficial y restos de sellador antiguo en cubierta de chapa grecada. Preparación de superficies para nuevo sellado.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 400,
+          "precio_unitario": 8,
+          "total": 3200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellador poliuretano elástico para juntas de cubierta",
+          "descripcion": "Sellador poliuretano de una componente, elástico, resistente a UV y cambios térmicos. Aplicación en juntas de chapa grecada para impermeabilización y estanqueidad. Cantidad estimada: 1 cartucho cada 2-3 m lineales de junta.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "cartucho",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Instalador debe confirmar tipo de sellador (poliuretano, silicona, acrílico) y cantidad según longitud real de juntas y espesor de aplicación."
+        },
+        {
+          "concepto": "Aplicación de sellador en juntas de cubierta grecada",
+          "descripcion": "Aplicación manual de sellador elástico en juntas de chapa grecada. Incluye enmascaramiento, aplicación uniforme y limpieza de excedentes. Trabajo en altura con medidas de seguridad.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 400,
+          "precio_unitario": 12,
+          "total": 4800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación/adhesivo para sellador en juntas metálicas",
+          "descripcion": "Imprimación o adhesivo específico para mejorar adherencia del sellador en superficies metálicas oxidadas o con baja porosidad. Aplicación previa al sellador.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar. Instalador debe confirmar si es necesario imprimación según estado de oxidación y tipo de sellador elegido."
+        },
+        {
+          "concepto": "EPI y medidas de seguridad en altura",
+          "descripcion": "Arnés de seguridad, línea de vida, casco, guantes, gafas de protección y ropa de trabajo. Medidas de prevención de riesgos laborales para trabajos en cubierta a más de 2 metros de altura.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Equipos de protección. Instalador debe confirmar si dispone de equipos propios o si requiere alquiler/compra. Estimado 5 jornadas para 400 m² (80 m²/jornada)."
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Cinta de enmascaramiento, trapos, disolvente de limpieza, brochas, espátulas, pistola de sellador, consumibles menores.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles y herramientas menores. Instalador debe presupuestar según disponibilidad de equipos."
+        }
+      ],
+      "calculos": {
+        "subtotal": 8000,
+        "iva_porcentaje": 21,
+        "iva": 1680,
+        "total": 9680
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de selladores específicos para cubiertas metálicas: poliuretano elástico, silicona neutra, acrílico flexible.",
+        "Verificar disponibilidad de imprimaciones/adhesivos compatibles con el sellador elegido.",
+        "Considerar si la cubierta requiere tratamiento antioxidante previo (pintura elastomérica) si hay oxidación generalizada."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sellador poliuretano elástico para juntas de cubierta",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material específico para sellado de juntas en chapa grecada. Requiere especificación de tipo y cantidad por instalador."
+        },
+        {
+          "concepto": "Imprimación/adhesivo para sellador en juntas metálicas",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material auxiliar. Necesidad depende del estado de la cubierta y tipo de sellador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cubierta_de_fibrocemento_ondulado_o_plano",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas",
+      "instalacion_de_cubierta_de_chapa_metalica_o_panel_sandwich",
+      "impermeabilizacion_de_cubierta_de_fibrocemento_con_tratamiento",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4043,
+      "tokens_out": 1996
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

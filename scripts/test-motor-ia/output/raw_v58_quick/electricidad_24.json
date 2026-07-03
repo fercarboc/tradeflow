@@ -1,0 +1,227 @@
+{
+  "id": 24,
+  "oficio": "electricidad",
+  "texto": "Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje",
+  "latency_ms": 16965,
+  "raw_response": {
+    "transcript": "Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar potencia contratada actual (mínimo 7,4 kW recomendado para wallbox 7kW)",
+          "Confirmar distancia entre cuadro general y punto de instalación en garaje",
+          "Validar tipo de diferencial (Tipo A obligatorio para carga vehículos eléctricos según REBT)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de punto de carga vehículo eléctrico con wallbox integrado en sistema energético"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Circuito eléctrico exclusivo, protecciones REBT, cableado y puesta a tierra"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Wallbox 7kW monofásico",
+          "descripcion": "Cargador de vehículo eléctrico modo 3, potencia 7kW, conexión monofásica, con conectores y protecciones integradas",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del wallbox según marca y especificaciones técnicas a confirmar por instalador"
+        },
+        {
+          "concepto": "Cable de alimentación 6mm² para wallbox 7kW",
+          "descripcion": "Cable manguera H07RN-F 6mm² (derivación mínima para 7,4kW), longitud según distancia cuadro-garaje",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en metros lineales a confirmar según distancia real cuadro-punto de carga"
+        },
+        {
+          "concepto": "Magnetotérmico 40A monofásico",
+          "descripcion": "Interruptor automático 40A, 1P+N, curva C, para circuito exclusivo wallbox",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según marca y características técnicas"
+        },
+        {
+          "concepto": "Diferencial Tipo A 40A",
+          "descripcion": "Interruptor diferencial Tipo A (sensible a corrientes alternas y continuas), 40A, obligatorio para carga vehículos eléctricos según REBT",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Diferencial Tipo A es obligatorio; precio a confirmar"
+        },
+        {
+          "concepto": "Cable de tierra y puesta a tierra",
+          "descripcion": "Cable de tierra 6mm² verde-amarillo, conexión a electrodo de puesta a tierra o línea existente, pequeño material de fijación",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Puesta a tierra obligatoria REBT; precio según complejidad"
+        },
+        {
+          "concepto": "Instalación circuito exclusivo wallbox (mano de obra)",
+          "descripcion": "Ejecución de circuito eléctrico exclusivo desde cuadro general: rozas, tendido de cable, conexionado en cuadro, instalación de protecciones, pruebas de funcionamiento y seguridad",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación wallbox y conexionado (mano de obra)",
+          "descripcion": "Montaje del wallbox en pared, conexionado eléctrico, pruebas de carga, verificación de protecciones y seguridades, puesta en marcha",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Tuercas, arandelas, tornillos, bridas, cinta aislante, pasta térmica, etiquetado, documentación técnica",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado de pequeño material a confirmar"
+        }
+      ],
+      "calculos": {
+        "subtotal": 395,
+        "iva_porcentaje": 21,
+        "iva": 82.95,
+        "total": 477.95
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_cargador_vehiculo_electrico_wallbox' (electricidad, 55-220€/ud)",
+        "Verificar en catálogo: 'instalacion_de_cargador_de_vehiculo_electrico_en_vivienda' (energia_solar, 300-1800€/ud según complejidad)",
+        "Considerar si es necesario ampliar potencia contratada con distribuidora (mínimo 7,4 kW recomendado)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Wallbox 7kW monofásico",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "motivo": "Material específico; precio variable según marca y especificaciones"
+        },
+        {
+          "concepto": "Cable de alimentación 6mm² para wallbox 7kW",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Cantidad en metros lineales variable según distancia cuadro-garaje"
+        },
+        {
+          "concepto": "Magnetotérmico 40A monofásico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Protección obligatoria REBT"
+        },
+        {
+          "concepto": "Diferencial Tipo A 40A",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Obligatorio para carga vehículos eléctricos según REBT"
+        },
+        {
+          "concepto": "Cable de tierra y puesta a tierra",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Puesta a tierra obligatoria REBT"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Materiales auxiliares de instalación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_cargador_de_vehiculo_electrico_en_vivienda",
+      "instalacion_cargador_vehiculo_electrico_wallbox",
+      "instalacion_proteccion_contra_rayos_pararrayo",
+      "mantenimiento_preventivo_automatismos_y_cierres",
+      "instalacion_de_pavimento_de_caucho_o_goma"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3828,
+      "tokens_out": 2530
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "oficio_detectado": "electricidad"
+  }
+}

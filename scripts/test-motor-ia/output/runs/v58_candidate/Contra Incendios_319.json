@@ -1,0 +1,151 @@
+{
+  "id": 319,
+  "oficio": "Contra Incendios",
+  "texto": "Actualizar señalización de evacuación en empresa tras reforma, nuevas rutas de salida",
+  "http_status": 200,
+  "latency_ms": 12125,
+  "raw_response": {
+    "transcript": "Actualizar señalización de evacuación en empresa tras reforma, nuevas rutas de salida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Actualizar señalización de evacuación en empresa tras reforma, nuevas rutas de salida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de contra_incendios: verificar cumplimiento normativa CTE DB SI y RD 486/1997",
+          "Requiere coordinación con reforma previa para identificar nuevas rutas exactas",
+          "Señalización debe cumplir UNE 23034 y ser visible en condiciones de emergencia"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Señalización de evacuación es sistema de protección contra incendios regulado por normativa CTE DB SI"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje señalización evacuación antigua",
+          "descripcion": "Retirada de señales de evacuación, salidas de emergencia y carteles informativos existentes. Incluye desmontaje de soportes y pequeño material",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 440,
+          "total": 440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro señalización evacuación nueva",
+          "descripcion": "Señales de salida de emergencia, flechas direccionales, carteles informativos según nuevas rutas, placas fotoluminiscentes, material según UNE 23034. Cantidad y especificación a determinar según plano de nuevas rutas",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de número de señales, tipo (fotoluminiscentes/LED), tamaño y materiales específicos. Instalador debe cuantificar según plano de evacuación"
+        },
+        {
+          "concepto": "Instalación señalización evacuación",
+          "descripcion": "Colocación de señales en paredes, puertas y pasillos según nuevas rutas de salida. Fijación segura, alineación y verificación de visibilidad. Incluye pequeño material y EPI",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 440,
+          "total": 440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión y prueba de señalización",
+          "descripcion": "Verificación de visibilidad en condiciones normales y de emergencia (oscuridad), comprobación de fotoluminiscencia si aplica, medición de distancias según normativa, informe de conformidad CTE DB SI",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 55,
+          "total": 110,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plano de evacuación actualizado",
+          "descripcion": "Elaboración o actualización de plano de evacuación con nuevas rutas, salidas de emergencia y ubicación de señalización. Documento técnico para cumplimiento normativo",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de complejidad de la empresa y número de plantas. Instalador debe presupuestar según alcance"
+        }
+      ],
+      "calculos": {
+        "subtotal": 990,
+        "iva_porcentaje": 21,
+        "iva": 207.9,
+        "total": 1197.9
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la empresa requiere central de alarma de incendios integrada con sistema de evacuación",
+        "Considerar iluminación de emergencia en rutas de salida si no existe (partida adicional)",
+        "Evaluar necesidad de puertas cortafuego en nuevas rutas según CTE DB SI"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro señalización evacuación nueva",
+          "motivo": "Cantidad y especificación de señales depende del plano de nuevas rutas. Precio a determinar por instalador"
+        },
+        {
+          "concepto": "Plano de evacuación actualizado",
+          "motivo": "Servicio técnico de documentación. Precio variable según complejidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_barra_antipánico",
+      "mantenimiento_de_instalacion_electrica_en_local_o_empresa",
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina",
+      "reparacion_o_cambio_guias_persiana"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3915,
+      "tokens_out": 1571
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

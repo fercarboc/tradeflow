@@ -1,0 +1,196 @@
+{
+  "id": 96,
+  "oficio": "Albañilería",
+  "texto": "Construir cerramiento de terral en la terraza de 15 metros cuadrados con ventanas de aluminio",
+  "http_status": 200,
+  "latency_ms": 20934,
+  "raw_response": {
+    "transcript": "Construir cerramiento de terral en la terraza de 15 metros cuadrados con ventanas de aluminio",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir cerramiento de terral en la terraza de 15 metros cuadrados con ventanas de aluminio",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Término 'terral' no es estándar en construcción. Se interpreta como 'cerramiento de terraza'. Confirmar si es: sistema plegable, cortinas de cristal deslizantes, o estructura fija con ventanas.",
+          "Se asume cerramiento con ventanas de aluminio deslizantes/fijas. Si es plegable o sistema específico, revisar partidas.",
+          "Falta información: ¿altura de paneles?, ¿tipo de vidrio (templado/laminado)?, ¿estanqueidad requerida?, ¿licencia municipal?"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Cerramiento de terraza con sistema de ventanas/cortinas de cristal. Oficio especializado en cerramientos de terrazas."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Estructura y fijación de marcos de aluminio a estructura existente."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Preparación de superficie, sellado perimetral y remates de obra."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro e instalación de perfilería de aluminio para cerramiento de terraza",
+          "descripcion": "Perfiles de aluminio anodizado para marco superior, inferior y laterales. Incluye guías de deslizamiento, herrajes de acero inoxidable, topes y cierres. Fijación a estructura existente con tacos y tornillería.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de perfilería de aluminio según calidad y sistema. Rango estimado: 80-150€/m2. Instalador debe confirmar especificaciones técnicas."
+        },
+        {
+          "concepto": "Suministro e instalación de vidrio templado para cerramiento",
+          "descripcion": "Paneles de vidrio templado de 8mm mínimo para seguridad. Incluye corte a medida, biselado de bordes y tratamiento antirreflejante si aplica.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vidrio templado según espesor y tratamiento. Rango estimado: 60-120€/m2. Confirmar espesor según altura de paneles y exposición al viento."
+        },
+        {
+          "concepto": "Mano de obra de instalación de cerramiento de terraza",
+          "descripcion": "Instalación completa de perfilería, vidrio, herrajes y fijación a estructura. Incluye nivelación, alineación y prueba de funcionamiento de deslizamiento.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 20,
+          "precio_unitario": 45,
+          "total": 900,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Preparación y acondicionamiento de superficie de terraza",
+          "descripcion": "Limpieza, nivelación y preparación de la superficie donde se fijará el cerramiento. Reparación de grietas o irregularidades en forjado.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 40,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado perimetral y remates de obra",
+          "descripcion": "Sellado con silicona de poliuretano o similar en juntas perimetrales. Remates en encuentros con estructura existente. Pequeño material (tacos, tornillería, silicona).",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sellado y pequeño material. Rango estimado: 8-15€/ml. Incluye silicona, tacos, tornillería."
+        },
+        {
+          "concepto": "Mano de obra de sellado y remates",
+          "descripcion": "Aplicación de sellado perimetral, remates y acabados finales.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 40,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1300,
+        "iva_porcentaje": 21,
+        "iva": 273,
+        "total": 1573
+      },
+      "sugerencias_catalogo": [
+        "Revisar en catálogo: 'instalacion_cerramiento_de_terraza_con_cortinas_de_cristal' (oficio=persianas, unidad=m2, precio=60-210€/m2). Aplicable a este proyecto.",
+        "Si el cerramiento es plegable (no deslizante), consultar: 'instalacion_cerramiento_de_terraza_con_sistema_plegable'."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación de perfilería de aluminio para cerramiento de terraza",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Término 'terral' requiere interpretación. Se asume cerramiento con ventanas de aluminio deslizantes. Precio pendiente de revisión según especificaciones técnicas (sistema, calidad, tratamiento)."
+        },
+        {
+          "concepto": "Suministro e instalación de vidrio templado para cerramiento",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Vidrio templado de seguridad. Precio pendiente según espesor (8mm, 10mm) y tratamientos adicionales."
+        },
+        {
+          "concepto": "Sellado perimetral y remates de obra",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Pequeño material y sellado. Precio pendiente de revisión según cantidad exacta de juntas y tipo de sellante."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cerramiento_de_terraza_con_sistema_plegable",
+      "instalacion_cerramiento_de_terraza_con_cortinas_de_cristal",
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin",
+      "construccion_de_piscina_de_obra"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4330,
+      "tokens_out": 2718
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "NO"
+  }
+}

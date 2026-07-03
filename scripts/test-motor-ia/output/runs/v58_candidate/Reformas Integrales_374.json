@@ -1,0 +1,332 @@
+{
+  "id": 374,
+  "oficio": "Reformas Integrales",
+  "texto": "Convertir garaje en habitación de invitados con baño, instalaciones y licencia incluida",
+  "http_status": 200,
+  "latency_ms": 28564,
+  "raw_response": {
+    "transcript": "Convertir garaje en habitación de invitados con baño, instalaciones y licencia incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Convertir garaje en habitación de invitados con baño, instalaciones y licencia incluida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de garaje a vivienda: requiere proyecto técnico y licencia municipal",
+          "Incluye múltiples oficios simultáneos (albanilería, fontanería, electricidad, acabados)",
+          "Presupuesto estimado: el instalador debe revisar precios de materiales y ajustar según proyecto técnico",
+          "Obra sujeta a normativa CTE (accesibilidad, ventilación, aislamiento térmico, seguridad)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral: ≥3 oficios simultáneos (albanilería, fontanería, electricidad, acabados, carpintería)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición, tabiquería, alicatado baño"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación agua fría/caliente, desagüe baño"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica completa, iluminación, enchufes, calefacción"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado baño, pavimento habitación"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura paredes y techos"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Puertas, marcos, armarios"
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 0,
+            "recomendado": 0,
+            "max": 0
+          },
+          "motivo": "Licencia municipal y trámites administrativos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición puerta garaje y tabiquería",
+          "descripcion": "Desmontaje puerta garaje abatible/seccional, demolición tabiques interiores, retirada escombros y pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 320,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tabiquería nueva y cerramientos",
+          "descripcion": "Construcción tabique separación baño-habitación, cierre puerta acceso, revestimiento interior con ladrillo/bloque, mortero, pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 40,
+          "total": 1000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Alicatado baño (paredes y suelo)",
+          "descripcion": "Alicatado completo baño: paredes hasta 2,10m, suelo antideslizante, juntas, lechada, pequeño material. Aprox. 12 m2",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 32,
+          "total": 384,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pavimento habitación (suelo flotante o laminado)",
+          "descripcion": "Colocación tarima flotante/laminado en habitación, nivelación, adhesivos, pequeño material. Aprox. 20 m2",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 32,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación fontanería baño",
+          "descripcion": "Red agua fría/caliente (tuberías PEX/cobre), desagüe baño (sifón, tubería PVC), conexión inodoro, lavabo, ducha/bañera, válvulas, pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 400,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación eléctrica completa",
+          "descripcion": "Cableado eléctrico (tubo PVC, cable 2.5/4mm²), cuadro distribución, interruptores, enchufes (mín. 4 en habitación, 3 en baño), iluminación LED, toma tierra, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 400,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación calefacción/climatización",
+          "descripcion": "Radiadores o bomba calor split (1 unidad), tuberías, válvulas termostáticas, termostato, pequeño material",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 480,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura paredes y techos",
+          "descripcion": "Preparación superficies, imprimación, pintura plástica 2 manos en habitación y baño (aprox. 80 m2 paredes+techos)",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 3,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Carpintería: puertas y marcos",
+          "descripcion": "Puerta acceso habitación (marco+hoja), puerta baño (marco+hoja), herrajes, instalación, pequeño material",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 180,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ventilación y aislamiento térmico",
+          "descripcion": "Instalación extractor baño, aislamiento térmico paredes (lana mineral), sellado grietas, pequeño material",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 360,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Licencia municipal y trámites administrativos",
+          "descripcion": "Solicitud licencia cambio de uso (garaje a vivienda), proyecto técnico simplificado, gestión ayuntamiento, inspecciones, documentación final",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de gestión administrativa y licencia municipal pendiente de confirmación (típicamente 800-2000€ según municipio)"
+        },
+        {
+          "concepto": "Materiales construcción y acabados",
+          "descripcion": "Ladrillos/bloques, mortero, cemento, arena, baldosas baño, pavimento habitación, pintura, tuberías, cable eléctrico, radiadores/split, puertas, marcos, herrajes, pequeño material",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de materiales estimado 4000-7000€ según calidades y especificaciones técnicas. Requiere desglose detallado por el instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 5704,
+        "iva_porcentaje": 21,
+        "iva": 1197.84,
+        "total": 6901.84
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: ¿baño con ducha o bañera? (afecta fontanería y alicatado)",
+        "Definir tipo calefacción: radiadores tradicionales vs. bomba calor split (afecta instalación y coste)",
+        "Verificar acceso a red de agua caliente sanitaria (ACS) desde caldera existente o instalar termo eléctrico",
+        "Comprobar capacidad eléctrica actual del cuadro general (reforma puede requerir aumento de potencia)",
+        "Solicitar proyecto técnico al ayuntamiento: cambio de uso garaje a vivienda requiere cumplimiento CTE (ventilación, aislamiento, accesibilidad)",
+        "Presupuesto de licencia municipal: varía según municipio (800-2000€ típicamente)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Licencia municipal y trámites administrativos",
+          "oficio": "gestoria_tramites",
+          "motivo": "Servicio administrativo no incluido en catálogo de oficios técnicos. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Materiales construcción y acabados (lote global)",
+          "oficio": "reforma_integral",
+          "motivo": "Presupuesto de materiales estimado. Requiere desglose detallado por el instalador según especificaciones técnicas y calidades elegidas."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_escalera_o_rampa_exterior",
+      "pintado_cancelas_y_portones_metalicos_exterior",
+      "instalacion_alumbrado_garaje",
+      "instalacion_pasarela_o_plataforma_metalica_de_acceso",
+      "instalacion_de_puerta_de_garaje_abatible_lateral"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3683,
+      "tokens_out": 4092
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 10,
+    "n_sugeridas": 2,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

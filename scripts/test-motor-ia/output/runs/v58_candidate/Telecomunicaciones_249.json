@@ -1,0 +1,207 @@
+{
+  "id": 249,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar sistema de megafonía en local de 150 metros cuadrados, 6 altavoces de techo",
+  "http_status": 200,
+  "latency_ms": 16425,
+  "raw_response": {
+    "transcript": "Instalar sistema de megafonía en local de 150 metros cuadrados, 6 altavoces de techo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de megafonía en local de 150 metros cuadrados, 6 altavoces de techo",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Local de 150 m² con 6 altavoces: verificar si es local de pública concurrencia (puede requerir sistema de evacuación EN 60849)",
+          "Presupuesto sin incluir equipos de fuente (micrófono, reproductor, streaming): confirmar con cliente"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema de megafonía: cableado estructurado, amplificador, altavoces, fuente de programa"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Amplificador multizona para megafonía",
+          "descripcion": "Amplificador de potencia 100-200W, entrada micrófono y línea, salida 6 zonas independientes, transformador de línea 70V/100V",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar marca, potencia y precio"
+        },
+        {
+          "concepto": "Altavoces empotrados de techo 6W/8W 70V",
+          "descripcion": "6 altavoces de techo redondos, 6-8W, 70V, rejilla blanca, transformador integrado, para empotrar en falso techo",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar modelo, potencia y precio unitario"
+        },
+        {
+          "concepto": "Cable de altavoz 2x1.5mm² para megafonía",
+          "descripcion": "Cable de cobre 2x1.5mm² para conexión amplificador-altavoces, aproximadamente 150-200 metros lineales según distribución en local",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 180,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar metraje exacto y precio/metro"
+        },
+        {
+          "concepto": "Canaleta o tubo de paso para cableado",
+          "descripcion": "Canaleta de PVC o tubo corrugado para protección y ocultamiento de cableado de altavoces, aproximadamente 150-180 metros",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 170,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar tipo, metraje y precio/metro"
+        },
+        {
+          "concepto": "Fuente de programa (micrófono y/o reproductor)",
+          "descripcion": "Micrófono de mano inalámbrico o reproductor multimedia/streaming según necesidad del cliente",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar tipo de fuente (micrófono, reproductor, streaming) y precio"
+        },
+        {
+          "concepto": "Instalación sistema megafonía: montaje, conexionado y pruebas",
+          "descripcion": "Mano de obra: instalación amplificador, empotrado de 6 altavoces en techo, tendido y conexionado de cable, instalación canaleta, conexión fuente, pruebas de funcionamiento y calibración de niveles por zona",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (conectores, bridas, tacos, tornilería)",
+          "descripcion": "Conectores XLR, bornes de conexión, bridas de sujeción, tacos de fijación, tornilería, cinta aislante, pasta térmica",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe estimar importe de pequeño material"
+        }
+      ],
+      "calculos": {
+        "subtotal": 400,
+        "iva_porcentaje": 21,
+        "iva": 84,
+        "total": 484
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el local es de pública concurrencia: si es así, puede ser obligatorio incluir sistema de evacuación EN 60849 (partida adicional contra_incendios)",
+        "Confirmar con cliente si necesita micrófono inalámbrico, reproductor multimedia o conexión a streaming",
+        "Considerar ecualizador si la acústica del local es compleja o hay problemas de reverberación",
+        "Incluir botonera de control de volumen por zona si se requiere regulación independiente"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Amplificador multizona para megafonía",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de megafonía, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Altavoces empotrados de techo 6W/8W 70V",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico, cantidad 6 unidades, precio unitario pendiente"
+        },
+        {
+          "concepto": "Cable de altavoz 2x1.5mm² para megafonía",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material, metraje estimado 180ml, precio/metro pendiente"
+        },
+        {
+          "concepto": "Canaleta o tubo de paso para cableado",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material, metraje estimado 170ml, precio/metro pendiente"
+        },
+        {
+          "concepto": "Fuente de programa (micrófono y/o reproductor)",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material, tipo y precio pendiente de confirmación con cliente"
+        },
+        {
+          "concepto": "Pequeño material (conectores, bridas, tacos, tornilería)",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material, importe estimado pendiente"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_megafonia_y_hilo_musical",
+      "instalacion_de_sistema_de_rociadores_sprinklers",
+      "instalacion_sistema_hilo_musical_multizona",
+      "instalacion_de_sistema_de_sonido_home_cinema",
+      "instalacion_pantalla_de_proyeccion_motorizada"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4038,
+      "tokens_out": 2355
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

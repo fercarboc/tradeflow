@@ -1,0 +1,185 @@
+{
+  "id": 33,
+  "oficio": "Electricidad",
+  "texto": "Poner focos LED empotrables en el techo de baño y cocina, total 8 focos",
+  "http_status": 200,
+  "latency_ms": 15217,
+  "raw_response": {
+    "transcript": "Poner focos LED empotrables en el techo de baño y cocina, total 8 focos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner focos LED empotrables en el techo de baño y cocina, total 8 focos",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume instalación en falso techo de pladur existente. Si el techo es de obra, se requiere revisión de dificultad.",
+          "Precio de focos LED no incluido — instalador debe revisar y completar precio unitario de material."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Instalación de focos empotrables en falso techo de pladur — apertura, refuerzo y fijación de aros."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica de focos LED — cableado, circuitos y pruebas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Aros empotrables recortables para pladur (8 ud)",
+          "descripcion": "Aro empotrable recortable de aluminio/plástico para focos LED en falso techo de pladur, diámetro estándar 75-90 mm, cantidad 8 unidades.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario del aro empotrable pendiente de revisión del instalador."
+        },
+        {
+          "concepto": "Focos LED empotrables (8 ud)",
+          "descripcion": "Foco LED empotrable para baño y cocina, potencia 5-10W, temperatura color 4000K (neutro), IP44 mínimo, cantidad 8 unidades.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario del foco LED pendiente de revisión del instalador (varía según marca, potencia, IP)."
+        },
+        {
+          "concepto": "Cableado eléctrico y conexión focos LED",
+          "descripcion": "Cable eléctrico H07V-U 1.5 mm² para circuito de focos LED, conexiones en regleta/conector, pequeño material (tuercas, aislante), cantidad para 8 focos.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cableado y conexiones pendiente de revisión (depende de longitud de recorrido y complejidad)."
+        },
+        {
+          "concepto": "Apertura de agujeros y refuerzo en pladur para aros",
+          "descripcion": "Marcado de posición, corte de agujeros en placa de pladur con sierra de corona, refuerzo perimetral si es necesario, pequeño material (cinta, pasta juntas), para 8 focos.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 35,
+          "total": 52.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de aros empotrables y fijación",
+          "descripcion": "Colocación de aros empotrables en agujeros, fijación a estructura de pladur, ajuste de posición y nivelación, para 8 focos.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 35,
+          "total": 35,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica e instalación de focos LED",
+          "descripcion": "Conexión de cableado a focos LED, prueba de funcionamiento, ajuste de intensidad si es regulable, para 8 focos.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 162.5,
+        "iva_porcentaje": 21,
+        "iva": 34.125,
+        "total": 196.625
+      },
+      "sugerencias_catalogo": [
+        "Verificar si los focos LED incluyen transformador/driver integrado o si requiere fuente externa.",
+        "Confirmar si el circuito de focos es independiente o se conecta a circuito existente de iluminación.",
+        "Si el techo no es de pladur sino de obra, la dificultad de apertura aumenta significativamente — revisar presupuesto."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Aros empotrables recortables para pladur",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Material estándar en instalación de focos empotrables, no tiene precio en catálogo base."
+        },
+        {
+          "concepto": "Focos LED empotrables",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico del cliente, precio variable según especificaciones técnicas."
+        },
+        {
+          "concepto": "Cableado eléctrico y conexión focos LED",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Material de instalación eléctrica, precio depende de longitud y complejidad del circuito."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "falso_techo_pladur_con_iluminacion_empotrada",
+      "instalacion_de_techo_o_cubierta_de_madera_interior",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "instalacion_barra_y_riel_para_cortinas_de_tela",
+      "instalacion_difusores_y_rejillas_climatizacion"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3845,
+      "tokens_out": 2027
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "NO"
+  }
+}

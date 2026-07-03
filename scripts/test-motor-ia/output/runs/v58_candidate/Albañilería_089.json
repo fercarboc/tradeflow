@@ -1,0 +1,171 @@
+{
+  "id": 89,
+  "oficio": "Albañilería",
+  "texto": "Derribar pared de carga con colocación de viga de acero, proyecto técnico incluido",
+  "http_status": 200,
+  "latency_ms": 17995,
+  "raw_response": {
+    "transcript": "Derribar pared de carga con colocación de viga de acero, proyecto técnico incluido",
+    "quote": {
+      "resumen": {
+        "texto_original": "Derribar pared de carga con colocación de viga de acero, proyecto técnico incluido",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "OBRA ESTRUCTURAL CRÍTICA: Demolición de muro de carga requiere proyecto técnico de cálculo estructural (incluido en presupuesto)",
+          "Apuntalamiento obligatorio del forjado superior antes de iniciar demolición",
+          "Viga de acero debe ser dimensionada por ingeniero según luces y cargas reales",
+          "Precio final muy variable según: luz del vano, cargas transmitidas, tipo de anclaje, accesibilidad",
+          "Se recomienda solicitud de licencia municipal y supervisión técnica durante ejecución"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición de muro de carga, apuntalamiento, recibido de viga"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico de cálculo estructural para demolición de muro de carga",
+          "descripcion": "Proyecto técnico de ingeniería para dimensionado de viga de acero, cálculo de apeos, anclajes y verificación estructural. Incluye planos de ejecución y detalles constructivos.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de proyecto técnico a definir por profesional. Rango típico: 800-2500€ según complejidad"
+        },
+        {
+          "concepto": "Apuntalamiento y apeo del forjado superior",
+          "descripcion": "Colocación de puntuales metálicos, sopandas, durmientes y tablones de base para apeo temporal del forjado durante demolición. Incluye verificación de puntos de apoyo y pequeño material.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según proyecto. Rango: 600-2000€ según luz y cargas"
+        },
+        {
+          "concepto": "Suministro de viga de acero laminado",
+          "descripcion": "Viga de acero laminado (IPE, HEB u otro perfil según proyecto técnico). Incluye transporte a obra y descarga.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según perfil y longitud. Rango: 800-4000€ (acero + transporte)"
+        },
+        {
+          "concepto": "Demolición gradual del muro de carga",
+          "descripcion": "Demolición manual y/o mecanizada del muro de carga en fases controladas. Incluye protección de zona contigua, aspiración de polvo, contenedor de escombros y pequeño material.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según volumen y accesibilidad. Rango: 1000-5000€"
+        },
+        {
+          "concepto": "Colocación, anclaje y recibido de viga de acero",
+          "descripcion": "Posicionamiento de viga sobre placas de asiento, anclaje a pilares o muros existentes, recibido con mortero de cemento, nivelación y acabado. Incluye pequeño material y herramientas.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según complejidad de anclaje. Rango: 800-2500€"
+        },
+        {
+          "concepto": "Retirada de escombros y limpieza final",
+          "descripcion": "Carga, transporte y gestión de escombros de demolición. Limpieza de polvo y restos en zona de obra.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según volumen escombros. Rango: 400-1200€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Consultar con ingeniero de estructuras para dimensionado exacto de viga",
+        "Solicitar licencia municipal antes de iniciar obra",
+        "Verificar que no hay instalaciones (electricidad, fontanería, climatización) en el muro antes de demoler",
+        "Considerar andamio interior si altura > 3m",
+        "Presupuesto estimado TOTAL (referencia): 4000-15000€ según complejidad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico de cálculo estructural",
+          "oficio": "albanileria",
+          "motivo": "Partida obligatoria para obra estructural, no está en catálogo base"
+        },
+        {
+          "concepto": "Apuntalamiento y apeo de forjado",
+          "oficio": "albanileria",
+          "motivo": "Partida obligatoria para demolición de muro de carga, requiere dimensionado específico"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "demolicion_muro_de_carga_con_viga",
+      "recalce_y_apeo_de_estructura_para_reforma",
+      "desmontaje_tabique_pladur_existente",
+      "demolicion_tabique_interior",
+      "pintado_de_medianeras_o_paredes_ciegas"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3721,
+      "tokens_out": 2265
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 6,
+    "n_catalogo": 0,
+    "n_sugeridas": 6,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

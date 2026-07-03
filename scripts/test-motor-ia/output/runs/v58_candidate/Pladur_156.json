@@ -1,0 +1,233 @@
+{
+  "id": 156,
+  "oficio": "Pladur",
+  "texto": "Construir vestidor con pladur en dormitorio, zona de 3x2 metros con puerta y distribución interior",
+  "http_status": 200,
+  "latency_ms": 17502,
+  "raw_response": {
+    "transcript": "Construir vestidor con pladur en dormitorio, zona de 3x2 metros con puerta y distribución interior",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir vestidor con pladur en dormitorio, zona de 3x2 metros con puerta y distribución interior",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Distribución interior no especificada: se asume tabiquería simple sin elementos especiales",
+          "Puerta: se incluye marco y hoja estándar de madera",
+          "Acabado: pintura lisa estándar (no lacado premium)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Construcción de tabiquería y estructura pladur para vestidor interior"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de puerta y marco de madera"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Acabado de pintura en superficies de pladur"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura y montaje tabiquería pladur",
+          "descripcion": "Perfiles metálicos (canal y montantes galvanizados), tornillería, pequeño material y montaje estructura para vestidor 3x2m",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material estructura pladur: instalador debe confirmar precio de perfiles, tornillería y accesorios"
+        },
+        {
+          "concepto": "Placas de yeso laminado 15mm",
+          "descripcion": "Placa de yeso estándar 15mm para revestimiento tabiquería vestidor (ambas caras)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Placas de yeso: instalador debe confirmar precio unitario y cantidad exacta según distribución"
+        },
+        {
+          "concepto": "Cinta de juntas, pasta y accesorios acabado pladur",
+          "descripcion": "Cinta de papel, pasta de juntas, ángulos metálicos, lija y pequeño material para acabado de juntas",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales acabado: instalador debe confirmar cantidad y precio según calidad de acabado"
+        },
+        {
+          "concepto": "Mano de obra montaje estructura y colocación placas pladur",
+          "descripcion": "Montaje de perfiles, colocación de placas de yeso, tratamiento de juntas y acabado liso en vestidor 3x2m (6m²)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 35,
+          "total": 420,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Marco y puerta de madera estándar",
+          "descripcion": "Marco de madera para puerta de paso (80x210cm) y hoja de puerta maciza o hueca estándar con herrajes básicos",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Puerta y marco: instalador debe confirmar tipo (maciza/hueca), acabado y precio"
+        },
+        {
+          "concepto": "Instalación marco y puerta",
+          "descripcion": "Colocación de marco en tabique pladur, ajuste de hoja, instalación de herrajes y cierre",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura acabado pladur (2 manos)",
+          "descripcion": "Imprimación y dos manos de pintura acrílica mate/satinada en superficies de pladur del vestidor (6m² aprox.)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pintura: instalador debe confirmar tipo, marca y precio de pintura acrílica"
+        },
+        {
+          "concepto": "Mano de obra pintura acabado",
+          "descripcion": "Preparación de superficies, imprimación y dos manos de pintura en pladur del vestidor",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 32,
+          "total": 128,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 683,
+        "iva_porcentaje": 21,
+        "iva": 143.43,
+        "total": 826.43
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si el vestidor requiere iluminación empotrada (coordinar con electricista)",
+        "Verificar si la distribución interior incluye estantes o elementos de fijación especiales",
+        "Considerar si se necesita aislamiento acústico entre dormitorio y vestidor",
+        "Definir acabado de puerta: lacado, barnizado o pintura estándar"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estructura y montaje tabiquería pladur",
+          "oficio": "pladur_escayola",
+          "motivo": "Material estructura específico para vestidor"
+        },
+        {
+          "concepto": "Placas de yeso laminado 15mm",
+          "oficio": "pladur_escayola",
+          "motivo": "Material de revestimiento pladur"
+        },
+        {
+          "concepto": "Cinta de juntas, pasta y accesorios acabado pladur",
+          "oficio": "pladur_escayola",
+          "motivo": "Materiales de acabado pladur"
+        },
+        {
+          "concepto": "Marco y puerta de madera estándar",
+          "oficio": "carpinteria",
+          "motivo": "Puerta de acceso al vestidor"
+        },
+        {
+          "concepto": "Pintura acabado pladur (2 manos)",
+          "oficio": "pintura",
+          "motivo": "Material de pintura acrílica para acabado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "estructura_pladur_para_zona_expositiva_o_showroom",
+      "tabique_pladur_para_ducha_o_plato_de_ducha",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "tabique_pladur_zona_exterior_cubierta_sotillo",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3914,
+      "tokens_out": 2419
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

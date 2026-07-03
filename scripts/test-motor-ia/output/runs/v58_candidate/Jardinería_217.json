@@ -1,0 +1,224 @@
+{
+  "id": 217,
+  "oficio": "Jardinería",
+  "texto": "Instalar iluminación de jardín con farolas solares y focos de bajo consumo empotrados en suelo",
+  "http_status": 200,
+  "latency_ms": 18157,
+  "raw_response": {
+    "transcript": "Instalar iluminación de jardín con farolas solares y focos de bajo consumo empotrados en suelo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar iluminación de jardín con farolas solares y focos de bajo consumo empotrados en suelo",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye componentes solares (farolas) y eléctricos (focos empotrados). Verificar si los focos empotrados son solares o requieren conexión a red eléctrica.",
+          "Se recomienda especificar cantidad de farolas y focos para ajustar presupuesto final."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de farolas solares (componente fotovoltaico y almacenamiento integrado)"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de focos de bajo consumo empotrados en suelo (cableado, conexiones, pruebas)"
+        },
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 30
+          },
+          "motivo": "Preparación del terreno, excavación y restitución de jardín para instalación de focos empotrados"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Farolas solares LED",
+          "descripcion": "Suministro e instalación de farolas solares LED con panel fotovoltaico integrado, batería de almacenamiento y sensor crepuscular. Incluye fijación a base de hormigón o anclaje al terreno.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de farola solar a definir por instalador según modelo, potencia y marca. Rango típico: 80-400€/unidad."
+        },
+        {
+          "concepto": "Instalación farolas solares",
+          "descripcion": "Mano de obra para instalación de farolas solares: replanteo, excavación de cimentación, hormigonado de base, fijación de farola, nivelación y pruebas de funcionamiento.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Focos LED de bajo consumo empotrados en suelo",
+          "descripcion": "Suministro de focos LED de bajo consumo (3-12W) empotrados en suelo, resistentes a pisadas (IP67), con óptica ajustable. Incluye carcasa de aluminio anodizado y cristal templado.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de foco empotrado a definir por instalador según cantidad, potencia y modelo. Rango típico: 25-80€/unidad."
+        },
+        {
+          "concepto": "Excavación y preparación de zanjas para focos empotrados",
+          "descripcion": "Excavación de zanjas en terreno para paso de cableado y alojamiento de focos empotrados. Incluye retirada de tierra y restitución posterior.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 25,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de focos empotrados en suelo",
+          "descripcion": "Mano de obra para instalación de focos LED empotrados: colocación en cajas de empotrar, conexión eléctrica, pruebas de funcionamiento y ajuste de óptica.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y protecciones eléctricas",
+          "descripcion": "Suministro e instalación de cable RV-K 2x1.5mm² (o según cálculo), tubería corrugada de protección, cajas de derivación estancas IP67 y protecciones magnetotérmicas para circuito de focos empotrados.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "metro",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros de cableado y tipo de protecciones a definir según longitud de recorrido y número de focos. Rango típico: 2-8€/metro de cableado + accesorios."
+        },
+        {
+          "concepto": "Conexión a cuadro eléctrico y pruebas finales",
+          "descripcion": "Mano de obra para conexión del circuito de focos empotrados al cuadro eléctrico principal, instalación de interruptor/regulador si aplica, pruebas de funcionamiento, iluminación y seguridad eléctrica.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Restitución de terreno y acabados",
+          "descripcion": "Relleno de zanjas, compactación de tierra, siembra de césped o restitución de jardín según estado original. Incluye limpieza de obra.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 430,
+        "iva_porcentaje": 21,
+        "iva": 90.3,
+        "total": 520.3
+      },
+      "sugerencias_catalogo": [
+        "Especificar cantidad exacta de farolas solares (unidades) para ajustar presupuesto.",
+        "Especificar cantidad exacta de focos empotrados (unidades) para ajustar presupuesto.",
+        "Indicar longitud total de cableado necesario (metros) para cálculo preciso de materiales.",
+        "Confirmar si los focos empotrados son solares o requieren conexión a red eléctrica (afecta a partidas de cableado).",
+        "Considerar si se requiere regulador/dimmer para control de intensidad de focos.",
+        "Verificar disponibilidad de punto de conexión eléctrica cercano al jardín para focos empotrados."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Farolas solares LED",
+          "oficio": "energia_solar",
+          "motivo": "Componente solar específico para iluminación de jardín. Precio a definir por instalador."
+        },
+        {
+          "concepto": "Focos LED de bajo consumo empotrados en suelo",
+          "oficio": "electricidad",
+          "motivo": "Componente eléctrico específico para iluminación empotrada. Precio a definir por instalador."
+        },
+        {
+          "concepto": "Cableado y protecciones eléctricas",
+          "oficio": "electricidad",
+          "motivo": "Materiales de instalación eléctrica. Cantidad y especificaciones a definir según proyecto."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_baterias_de_almacenamiento_solar",
+      "instalacion_sistema_fotovoltaico_autoconsumo_vivienda",
+      "instalacion_fotovoltaica_autoconsumo",
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4102,
+      "tokens_out": 2607
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 5,
+    "n_sugeridas": 3,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "id": 295,
+  "oficio": "Impermeabilización",
+  "texto": "Sellar todas las juntas de azulejos de terraza descubierta con sellante elástico de poliuretano",
+  "http_status": 200,
+  "latency_ms": 12180,
+  "raw_response": {
+    "transcript": "Sellar todas las juntas de azulejos de terraza descubierta con sellante elástico de poliuretano",
+    "quote": {
+      "resumen": {
+        "texto_original": "Sellar todas las juntas de azulejos de terraza descubierta con sellante elástico de poliuretano",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de sellado de juntas en terraza expuesta a intemperie — requiere material de alta durabilidad",
+          "Se recomienda limpieza previa y preparación de juntas antes del sellado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Sellado de juntas con función impermeabilizante en terraza expuesta — clasificado como impermeabilización (no pintura ni albañilería)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de juntas",
+          "descripcion": "Limpieza profunda de juntas de azulejos, retirada de material suelto, polvo y restos de mortero antiguo",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellante elástico de poliuretano para juntas",
+          "descripcion": "Sellante elástico de poliuretano de alta durabilidad para juntas de azulejos en terraza descubierta, resistente a UV y movimientos térmicos",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico — instalador debe indicar marca, volumen total (cartuchos/kg) y precio unitario según superficie real de juntas"
+        },
+        {
+          "concepto": "Aplicación de sellante en juntas",
+          "descripcion": "Aplicación profesional de sellante elástico de poliuretano en todas las juntas de azulejos con pistola de calafateo, alisado y limpieza de excedentes",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Fondo de junta elástico (si necesario)",
+          "descripcion": "Aplicación de fondo de junta elastómero en juntas profundas o anchas para correcta aplicación del sellante y evitar puentes de aire",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar — cantidad y precio según profundidad real de juntas; puede no ser necesario si juntas son superficiales"
+        },
+        {
+          "concepto": "Pequeño material y EPI",
+          "descripcion": "Pistolas de calafateo, trapos, disolvente de limpieza, guantes, mascarilla, protección ocular",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles y EPI — instalador debe presupuestar según necesidades reales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 225,
+        "iva_porcentaje": 21,
+        "iva": 47.25,
+        "total": 272.25
+      },
+      "sugerencias_catalogo": [
+        "Confirmar superficie total de juntas (m lineales) para ajustar cantidad de sellante y horas de aplicación",
+        "Especificar ancho y profundidad de juntas — afecta a rendimiento y cantidad de material",
+        "Indicar si hay juntas muy deterioradas que requieran reparación previa con mortero",
+        "Considerar limpieza con chorro de agua a presión si juntas tienen musgo o suciedad acumulada (añadir 1-2 horas)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sellante elástico de poliuretano para juntas",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material específico de terraza — requiere especificación de marca, volumen y precio por instalador"
+        },
+        {
+          "concepto": "Fondo de junta elástico",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material auxiliar — cantidad variable según profundidad de juntas"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_peto_o_murete_de_cubierta_plana",
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "impermeabilizacion_terraza_con_pintura_poliuretano",
+      "impermeabilizacion_cubierta_plana_con_membrana_liquida_poliuretano",
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3967,
+      "tokens_out": 1624
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

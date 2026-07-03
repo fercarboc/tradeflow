@@ -1,0 +1,193 @@
+{
+  "id": 128,
+  "oficio": "tejados_cubiertas",
+  "texto": "Instalar velux o lucernario en tejado inclinado para dar luz a buhardilla, 78x118cm",
+  "latency_ms": 16606,
+  "raw_response": {
+    "transcript": "Instalar velux o lucernario en tejado inclinado para dar luz a buhardilla, 78x118cm",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar velux o lucernario en tejado inclinado para dar luz a buhardilla, 78x118cm",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medidas específicas 78x118cm proporcionadas: verificar disponibilidad de modelo estándar Velux o similar",
+          "Impermeabilización específica del fabricante es OBLIGATORIA para evitar goteras",
+          "Trabajo en altura: requiere EPI (arnés, línea de vida) y medidas de seguridad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de ventana de techo (Velux/lucernario) en tejado inclinado"
+        },
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Impermeabilización específica de la perforación en cubierta inclinada (obligatoria)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Ventana de techo Velux o similar 78x118cm",
+          "descripcion": "Suministro de lucernario/Velux modelo estándar 78x118cm con vidrio laminado integrado, marco de instalación específico y herrajes de apertura",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca (Velux, Fakro, etc.) y modelo específico. Instalador debe confirmar disponibilidad y precio de modelo 78x118cm"
+        },
+        {
+          "concepto": "Impermeabilización específica modelo lucernario",
+          "descripcion": "Collar de impermeabilización específico del fabricante (EPDM o sistema equivalente) para sellado hermético de la perforación en cubierta inclinada. Incluye pequeño material (tornillos, selladores, cintas)",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio varía según sistema de impermeabilización del fabricante. OBLIGATORIO para evitar goteras"
+        },
+        {
+          "concepto": "Desmontaje de tejas y preparación de abertura",
+          "descripcion": "Desmontaje cuidadoso de tejas en zona de instalación (aprox. 1,2m²), retirada de estructura existente si aplica, preparación de pares de madera para recibir marco de lucernario",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de marco y lucernario",
+          "descripcion": "Colocación del marco de instalación específico del modelo en los pares de madera, fijación de lucernario/Velux, nivelación y ajuste de apertura. Incluye verificación de estanqueidad inicial",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado e impermeabilización de perforación",
+          "descripcion": "Aplicación del collar de impermeabilización específico del fabricante, sellado de juntas con silicona/poliuretano, colocación de cintas de estanqueidad, verificación de drenaje de agua",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recolocación de tejas y remates",
+          "descripcion": "Recolocación de tejas desmontadas, colocación de tejas de remate en bordes de lucernario, ajuste de canaletas si aplica, limpieza de zona de trabajo",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y medidas de seguridad en altura",
+          "descripcion": "Suministro y uso de arnés de seguridad, línea de vida, andamio o escalera de seguridad, protecciones perimetrales. Cumplimiento normativa RD 1627/1997",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de altura, accesibilidad y duración. Instalador debe presupuestar según condiciones reales de seguridad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 435,
+        "iva_porcentaje": 21,
+        "iva": 91.35,
+        "total": 526.35
+      },
+      "sugerencias_catalogo": [
+        "Confirmar disponibilidad de modelo Velux o Fakro en medida 78x118cm (puede ser medida estándar o requerir encargo)",
+        "Especificar tipo de apertura: manual, motorizada, con sensor lluvia",
+        "Considerar persiana interior o estor blackout si se requiere control de luz/privacidad (partida adicional oficio persianas)",
+        "Verificar resistencia de estructura de madera de pares antes de instalación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Ventana de techo Velux o similar 78x118cm",
+          "oficio": "cristaleria",
+          "motivo": "Material específico de marca/modelo, precio variable según proveedor"
+        },
+        {
+          "concepto": "Impermeabilización específica modelo lucernario",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Sistema de sellado específico del fabricante, precio variable"
+        },
+        {
+          "concepto": "EPI y medidas de seguridad en altura",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Servicio de seguridad, precio depende de condiciones de acceso y altura"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_lucernario_apertura_tipo_velux_o_similar",
+      "instalacion_de_lucernarios_en_cubierta_inclinada",
+      "instalacion_de_paneles_solares_en_tejado_con_gancho_hook",
+      "instalacion_persiana_o_estor_en_ventana_de_techo",
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4046,
+      "tokens_out": 2235
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "oficio_detectado": "tejados_cubiertas"
+  }
+}

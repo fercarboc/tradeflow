@@ -1,0 +1,201 @@
+{
+  "id": 154,
+  "oficio": "Pladur",
+  "texto": "Tabique separador de oficina open space con pladur, longitud 8 metros y altura hasta falso techo",
+  "http_status": 200,
+  "latency_ms": 18733,
+  "raw_response": {
+    "transcript": "Tabique separador de oficina open space con pladur, longitud 8 metros y altura hasta falso techo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tabique separador de oficina open space con pladur, longitud 8 metros y altura hasta falso techo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Altura hasta falso techo no especificada numéricamente. Se asume altura estándar 2.5-3m. Revisar altura real en obra.",
+          "Especificación acústica no indicada. Se incluye lana mineral básica. Si requiere aislamiento acústico certificado, revisar con cliente."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Tabique divisorio con pladur en oficina. Oficio especializado en sistemas de placas de yeso laminado."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm para tabique divisorio",
+          "descripcion": "Suministro de placa de yeso laminado de 15mm de espesor, ambas caras del tabique. Longitud 8m, altura estimada 2.5-3m (hasta falso techo). Cantidad: 2 caras × 8m × 2.75m = 44m² aproximados.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 44,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador debe confirmar precio de placa de yeso 15mm en su proveedor."
+        },
+        {
+          "concepto": "Perfilería metálica (canales y montantes) para tabique",
+          "descripcion": "Suministro de perfiles de acero galvanizado: canales 70mm (superior e inferior) y montantes 70mm cada 60cm. Longitud total 8m. Incluye arriostramientos horizontales cada 2m para estabilidad.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 48,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador debe confirmar precio de perfilería metálica (canal + montante) por metro lineal."
+        },
+        {
+          "concepto": "Lana mineral acústica para aislamiento",
+          "descripcion": "Suministro de lana mineral de 40mm de espesor para aislamiento acústico entre montantes. Área: 8m × 2.75m = 22m² aproximados.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 22,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador debe confirmar precio de lana mineral 40mm. Si requiere aislamiento acústico certificado superior, revisar especificación."
+        },
+        {
+          "concepto": "Tornillería, cinta de juntas y pasta de juntas",
+          "descripcion": "Suministro de tornillos autorroscantes 25mm (fijación placa a perfilería), cinta de papel para juntas (aproximadamente 80ml) y pasta de juntas para acabado de juntas entre placas.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Precio alzado por pequeño material (tornillería, cinta, pasta). Instalador ajusta según proveedor."
+        },
+        {
+          "concepto": "Ángulos metálicos para esquinas y remates",
+          "descripcion": "Suministro de ángulos metálicos galvanizados para protección de aristas en esquinas del tabique. Longitud total estimada: 2 × 2.75m = 5.5ml.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 5.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador confirma precio de ángulo metálico por metro lineal."
+        },
+        {
+          "concepto": "Montaje de estructura metálica y colocación de placas",
+          "descripcion": "Mano de obra: instalación de perfilería metálica (canales, montantes, arriostramientos), colocación de lana mineral, fijación de placas de yeso laminado con tornillos autorroscantes. Incluye nivelación y aplomado. Superficie total: 44m².",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 44,
+          "precio_unitario": 35,
+          "total": 1540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento de juntas y acabado de placas",
+          "descripcion": "Mano de obra: aplicación de cinta de juntas, pasadas de pasta de juntas (mínimo 3 pasadas), lijado y preparación para pintura. Incluye sellado perimetral con silicona. Superficie: 44m².",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 44,
+          "precio_unitario": 12,
+          "total": 528,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": "Tarifa de mano de obra para acabado de juntas: 12€/m² (incluido en rango 25-65€/m² de pladur especializado)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 2068,
+        "iva_porcentaje": 21,
+        "iva": 434.28,
+        "total": 2502.28
+      },
+      "sugerencias_catalogo": [
+        "Confirmar altura exacta del falso techo en obra. Si supera 3.5m, puede requerir montantes reforzados o cálculo técnico adicional.",
+        "Especificar si se requiere aislamiento acústico certificado (Rw ≥ 30dB). En caso afirmativo, considerar doble placa o lana mineral de mayor densidad.",
+        "Definir si el tabique llega completamente a techo o es parcial (con cristal superior). Esto afecta a la estructura y coste.",
+        "Considerar si se requiere puerta de paso o acceso en el tabique. Si es así, añadir marco de puerta y carpintería."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Material estándar en tabiques pladur. Precio pendiente de revisión del instalador."
+        },
+        {
+          "concepto": "Perfilería metálica (canales y montantes)",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Material estándar. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Lana mineral acústica 40mm",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Material de aislamiento. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Tornillería, cinta y pasta de juntas",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Pequeño material. Precio alzado pendiente de revisión."
+        },
+        {
+          "concepto": "Ángulos metálicos para esquinas",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Material de remate. Precio pendiente de revisión."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "tabique_pladur_separacion_zona_oficina",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "instalacion_tabique_o_division_de_vidrio_en_oficina",
+      "falso_techo_pladur_con_lucernario_o_claraboya_artificial"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4031,
+      "tokens_out": 2560
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

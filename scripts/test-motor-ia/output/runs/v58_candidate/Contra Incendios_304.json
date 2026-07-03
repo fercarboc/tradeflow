@@ -1,0 +1,178 @@
+{
+  "id": 304,
+  "oficio": "Contra Incendios",
+  "texto": "Revisar y recargar extintores de empresa, 10 extintores de polvo y 2 de CO2, con certificado",
+  "http_status": 200,
+  "latency_ms": 13397,
+  "raw_response": {
+    "transcript": "Revisar y recargar extintores de empresa, 10 extintores de polvo y 2 de CO2, con certificado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y recargar extintores de empresa, 10 extintores de polvo y 2 de CO2, con certificado",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de contra_incendios: requiere empresa mantenedora AUTORIZADA y certificación oficial",
+          "Extintores CO2: verificar pesaje y presión específicamente",
+          "Certificado de revisión obligatorio para cumplir normativa CTE DB SI y REBT"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Revisión y recarga de extintores portatiles con certificación. Sistema de protección contra incendios."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión visual y funcional extintores polvo ABC",
+          "descripcion": "Revisión de peso, estado físico, precintos, válvulas y mecanismos de 10 extintores de polvo ABC. Comprobación de fecha última revisión y estado general.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 55,
+          "total": 550,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recarga extintores polvo ABC",
+          "descripcion": "Recarga de polvo ABC en 10 extintores según estado y pérdida de presión detectada. Incluye pequeño material (juntas, válvulas si necesario).",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de recarga de polvo ABC según cantidad y tipo de extintor. Instalador debe indicar precio por unidad."
+        },
+        {
+          "concepto": "Revisión visual y funcional extintores CO2",
+          "descripcion": "Revisión de peso, estado físico, precintos, válvulas y mecanismos de 2 extintores de CO2. Comprobación específica de presión mediante pesaje. Verificación de fecha última revisión.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 55,
+          "total": 110,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recarga extintores CO2",
+          "descripcion": "Recarga de CO2 en 2 extintores según estado y pérdida de presión detectada mediante pesaje. Incluye pequeño material y verificación de válvulas.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de recarga de CO2 según cantidad. Instalador debe indicar precio por unidad (generalmente superior a polvo)."
+        },
+        {
+          "concepto": "Etiquetado y certificación de revisión",
+          "descripcion": "Colocación de etiquetas de revisión con fecha, empresa y firma en los 12 extintores. Generación de certificado de revisión y actualización de libro de mantenimiento según normativa CTE DB SI y REBT.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Certificado oficial y documentación. Incluir en presupuesto como servicio administrativo de la empresa mantenedora autorizada."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Juntas, válvulas, tuercas, arandelas, etiquetas y otros consumibles necesarios para la revisión y recarga de los 12 extintores.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado de pequeño material. Instalador debe indicar cantidad y precio según necesidades reales."
+        }
+      ],
+      "calculos": {
+        "subtotal": 660,
+        "iva_porcentaje": 21,
+        "iva": 138.6,
+        "total": 798.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar que la empresa es MANTENEDORA AUTORIZADA según normativa de protección contra incendios",
+        "Solicitar certificado oficial de revisión al finalizar el trabajo",
+        "Comprobar si algún extintor requiere RETIMBRADO (cada 5 años desde último retimbrado) — esto implicaría coste adicional",
+        "Documentar en libro de mantenimiento de la empresa según CTE DB SI"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Recarga extintores polvo ABC",
+          "oficio": "contra_incendios",
+          "motivo": "Material consumible, precio variable según tipo y cantidad de polvo"
+        },
+        {
+          "concepto": "Recarga extintores CO2",
+          "oficio": "contra_incendios",
+          "motivo": "Material consumible, precio variable según cantidad de CO2"
+        },
+        {
+          "concepto": "Etiquetado y certificación de revisión",
+          "oficio": "contra_incendios",
+          "motivo": "Servicio administrativo y documental obligatorio"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "contra_incendios",
+          "motivo": "Juntas, válvulas y accesorios varios"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "revision_y_recarga_de_extintores_portatiles",
+      "revision_y_recarga_de_extintores",
+      "instalacion_de_extintores_portatiles",
+      "revision_instalacion_electrica_vivienda",
+      "revision_y_recarga_de_botellas_de_gas_o_instalacion_de_gas"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3806,
+      "tokens_out": 1937
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

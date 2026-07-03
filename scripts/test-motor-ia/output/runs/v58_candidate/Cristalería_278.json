@@ -1,0 +1,168 @@
+{
+  "id": 278,
+  "oficio": "Cristalería",
+  "texto": "Fabricar mesa de centro con tapa de cristal templado de 10mm sobre estructura de hierro existente",
+  "http_status": 200,
+  "latency_ms": 16328,
+  "raw_response": {
+    "transcript": "Fabricar mesa de centro con tapa de cristal templado de 10mm sobre estructura de hierro existente",
+    "quote": {
+      "resumen": {
+        "texto_original": "Fabricar mesa de centro con tapa de cristal templado de 10mm sobre estructura de hierro existente",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medidas exactas de la tapa de cristal no especificadas — se requiere patrón o plano antes de encargar templado",
+          "Verificar estado y capacidad de carga de estructura metálica existente",
+          "Plazo de fabricación del vidrio templado: 5-10 días laborales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Fabricación e instalación de vidrio templado de seguridad en mesa"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Preparación y adaptación de estructura metálica existente para recibir tapa de cristal"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio templado 10mm para tapa de mesa",
+          "descripcion": "Suministro de vidrio templado de seguridad, espesor 10mm, medidas según patrón/plano a confirmar. Incluye marcado CE según EN 12150, corte y templado en fábrica. NO se corta en obra.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas (largo×ancho) y forma. Instalador debe medir y cotizar con proveedor de vidrio templado."
+        },
+        {
+          "concepto": "Cantos pulidos y biselados para seguridad",
+          "descripcion": "Pulido y biselado de cantos del vidrio templado para evitar aristas cortantes. Incluido en fabricación del vidrio templado.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido en precio del vidrio templado — no se factura por separado"
+        },
+        {
+          "concepto": "Herraje de apoyo y fijación para tapa de cristal",
+          "descripcion": "Suministro de herraje de acero inoxidable o aluminio anodizado para apoyo y fijación de tapa de vidrio sobre estructura metálica. Incluye taloneras de silicona para amortiguación y aislamiento.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según tipo de herraje (escuadras, soportes, taloneras). Instalador cotiza según medidas y carga."
+        },
+        {
+          "concepto": "Preparación y adaptación de estructura metálica",
+          "descripcion": "Limpieza, esmerilado y preparación de puntos de apoyo en estructura metálica existente. Tratamiento antioxido si es necesario. Verificación de capacidad de carga.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de tapa de cristal templado",
+          "descripcion": "Colocación y fijación de tapa de vidrio templado sobre estructura metálica con herraje de apoyo. Ajuste de nivelación. Prueba de estabilidad y seguridad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Silicona neutra, tornillería inoxidable, arandelas, masilla, trapos, disolvente y otros consumibles de instalación.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 20-40€. Instalador ajusta según necesidad real."
+        }
+      ],
+      "calculos": {
+        "subtotal": 255,
+        "iva_porcentaje": 21,
+        "iva": 53.55,
+        "total": 308.55
+      },
+      "sugerencias_catalogo": [
+        "Solicitar medidas exactas de la mesa (largo × ancho × forma) para cotizar vidrio templado con proveedor especializado",
+        "Confirmar espesor 10mm es adecuado para carga esperada (mesas de centro típicamente 8-10mm)",
+        "Verificar si estructura metálica requiere refuerzo o tratamiento antioxido adicional",
+        "Plazo: vidrio templado 5-10 días + instalación 1 día"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_vidrio_en_mesa_o_mueble",
+      "fabricacion_e_instalacion_estructura_metalica_escalera",
+      "instalacion_de_pavimento_o_suelo_de_vidrio_o_cristal",
+      "instalacion_vidrio_de_seguridad_templado",
+      "reparacion_y_soldadura_de_estructura_metalica"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3911,
+      "tokens_out": 2110
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

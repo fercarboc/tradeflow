@@ -1,0 +1,157 @@
+{
+  "id": 265,
+  "oficio": "Cristalería",
+  "texto": "Cambiar vidrio de escaparate roto, monolítico de 8mm, 2 metros de ancho por 2.5 de alto",
+  "http_status": 200,
+  "latency_ms": 17374,
+  "raw_response": {
+    "transcript": "Cambiar vidrio de escaparate roto, monolítico de 8mm, 2 metros de ancho por 2.5 de alto",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambiar vidrio de escaparate roto, monolítico de 8mm, 2 metros de ancho por 2.5 de alto",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Vidrio monolítico de 8mm en escaparate: verificar si cumple CTE DB-SUA (seguridad). Considerar vidrio templado o laminado según normativa local y riesgo de rotura.",
+          "Superficie: 5 m² — trabajo de envergadura, requiere medios de elevación y seguridad en fachada."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Cambio de luna en escaparate comercial — cristalería especializada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de vidrio roto con medidas de seguridad",
+          "descripcion": "Desmontaje y retirada segura de vidrio monolítico roto de 8mm (5 m²). Incluye protección de zona, gestión de residuos de vidrio y pequeño material.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 5,
+          "precio_unitario": 15,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro vidrio monolítico 8mm templado o laminado",
+          "descripcion": "Luna de vidrio monolítico de 8mm, medidas 2.0 m × 2.5 m (5 m²). Recomendación: vidrio templado o laminado según normativa CTE DB-SUA para escaparates. Precio unitario a definir por instalador según proveedor y tipo final elegido.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vidrio templado/laminado 8mm variable según proveedor y espesor final. Instalador debe cotizar con distribuidor."
+        },
+        {
+          "concepto": "Instalación y fijación de vidrio en marco/perfilería",
+          "descripcion": "Colocación de luna nueva en marco existente. Incluye alineación, nivelación, fijación con silicona estructural neutra y/o herrajes, y sellado perimetral. Prueba de estanqueidad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 5,
+          "precio_unitario": 35,
+          "total": 175,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Silicona neutra estructural y pequeño material",
+          "descripcion": "Silicona neutra de fijación (cartucho 310 ml), cinta carrocero, desengrasan te, espátula y accesorios de aplicación. Cantidad estimada para 5 m² de perímetro.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de silicona y accesorios a cotizar. Estimado 40–80 € según marca y cantidad."
+        },
+        {
+          "concepto": "Medios auxiliares: plataforma elevadora o andamio",
+          "descripcion": "Alquiler y montaje de plataforma elevadora o andamio para acceso seguro a escaparate de 2.5 m de altura. Incluye montaje, desmontaje y seguridad en obra.",
+          "oficio": "cristaleria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de alquiler de plataforma/andamio variable. Instalador debe cotizar con proveedor local (estimado 150–300 € jornada)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 250,
+        "iva_porcentaje": 21,
+        "iva": 52.5,
+        "total": 302.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar con cliente si vidrio monolítico 8mm cumple normativa CTE DB-SUA para escaparates comerciales. Si no, proponer vidrio templado (mínimo 6 mm) o laminado de seguridad.",
+        "Confirmar si marco/perfilería existente está en buen estado. Si hay corrosión o deformación, incluir reparación de marco como partida adicional.",
+        "Considerar si escaparate requiere iluminación interior o vinilo gráfico corporativo (partidas adicionales opcionales)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro vidrio monolítico 8mm templado o laminado",
+          "oficio": "cristaleria",
+          "motivo": "Material específico — precio variable según proveedor y especificación final (templado vs. laminado)."
+        },
+        {
+          "concepto": "Silicona neutra estructural y pequeño material",
+          "oficio": "cristaleria",
+          "motivo": "Material consumible — precio a cotizar."
+        },
+        {
+          "concepto": "Medios auxiliares: plataforma elevadora o andamio",
+          "oficio": "cristaleria",
+          "motivo": "Servicio auxiliar — coste variable según disponibilidad local y duración."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_vidrio_doble_o_triple_aislante_en_ventana_existente",
+      "sellado_y_rejuntado_de_vidrios_con_silicona",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "cambio_luna_ventana_rota",
+      "instalacion_de_escaparate_o_fachada_comercial_en_vidrio"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3895,
+      "tokens_out": 2197
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "id": 71,
+  "oficio": "Pintura",
+  "texto": "Aplicar tratamiento antigraffiti en la fachada del local, 20 metros cuadrados de pared",
+  "http_status": 200,
+  "latency_ms": 11467,
+  "raw_response": {
+    "transcript": "Aplicar tratamiento antigraffiti en la fachada del local, 20 metros cuadrados de pared",
+    "quote": {
+      "resumen": {
+        "texto_original": "Aplicar tratamiento antigraffiti en la fachada del local, 20 metros cuadrados de pared",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Confirmar tipo de antigraffiti: sacrificial (se retira con el graffiti) o permanente (permite limpieza sin retirar recubrimiento)",
+          "Verificar estado actual de la fachada: ¿hay graffiti existente que limpiar previamente?",
+          "Confirmar necesidad de andamio o plataforma de trabajo según altura y accesibilidad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Tratamiento antigraffiti en fachada exterior de local"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza previa de fachada",
+          "descripcion": "Limpieza y preparación de superficie antes de aplicar tratamiento antigraffiti. Incluye eliminación de suciedad, polvo y contaminantes superficiales.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 5,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recubrimiento antigraffiti (sacrificial o permanente)",
+          "descripcion": "Aplicación de pintura antigraffiti profesional en 2 manos. Tipo sacrificial (se retira con el graffiti) o permanente (permite limpieza sin retirar recubrimiento). Incluye mano de obra de aplicación con rodillo o pistola.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 12,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Producto antigraffiti (pintura o recubrimiento)",
+          "descripcion": "Suministro de pintura antigraffiti profesional (sacrificial o permanente). Rendimiento aproximado 5-8 m2/litro. Cantidad estimada: 3-4 litros para 20 m2 en 2 manos.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del producto antigraffiti a confirmar por instalador según marca y tipo (sacrificial/permanente)"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "descripcion": "Alquiler y montaje de andamio o plataforma de trabajo para acceso seguro a la fachada durante la aplicación del tratamiento.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de andamio/plataforma depende de altura, duración y disponibilidad local. A confirmar por instalador."
+        },
+        {
+          "concepto": "Pequeño material y EPI",
+          "descripcion": "Rodillos, brochas, cintas de protección, guantes, mascarillas, gafas de protección y otros consumibles necesarios para la aplicación.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado de pequeño material y EPI a confirmar por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 340,
+        "iva_porcentaje": 21,
+        "iva": 71.4,
+        "total": 411.4
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente si hay graffiti existente que requiera limpieza especial previa (hidrolimpiadora de agua caliente)",
+        "Especificar tipo de antigraffiti: sacrificial (más económico, requiere reaplicación tras cada limpieza) vs permanente (más caro, permite limpieza sin retirar recubrimiento)",
+        "Considerar segunda mano si la fachada es muy porosa o tiene textura irregular"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Producto antigraffiti",
+          "oficio": "fachadas",
+          "motivo": "Material específico cuyo precio varía según marca y tipo. Instalador debe introducir precio real."
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "oficio": "fachadas",
+          "motivo": "Coste variable según altura, duración y disponibilidad local. Instalador debe confirmar."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "aplicacion_pintura_antigraffiti_en_fachada",
+      "aplicacion_hidrofugo_incoloro_fachada",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "tratamiento_pintura_grafitis_eliminacion",
+      "apertura_hueco_en_muro_para_puerta_o_ventana"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3763,
+      "tokens_out": 1627
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "id": 300,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar canalones de hormigón de edificio antiguo con pintura bituminosa, 40 metros lineales",
+  "http_status": 200,
+  "latency_ms": 17405,
+  "raw_response": {
+    "transcript": "Impermeabilizar canalones de hormigón de edificio antiguo con pintura bituminosa, 40 metros lineales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar canalones de hormigón de edificio antiguo con pintura bituminosa, 40 metros lineales",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en altura en edificio antiguo: verificar acceso seguro, andamios o plataformas elevadas",
+          "Canalones de hormigón antiguo: inspeccionar estado previo (grietas, desprendimientos, eflorescencias)",
+          "Pintura bituminosa: requiere ventilación adecuada durante aplicación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Canalones son elementos de cubierta. Aunque se use pintura bituminosa, el sistema es de tejados_cubiertas (no pintura general ni impermeabilizacion aislada)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación canalones hormigón",
+          "descripcion": "Limpieza mecánica de canalones, retirada de suciedad, musgo, restos vegetales y material suelto. Cepillado y lijado superficial para mejorar adherencia",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 40,
+          "precio_unitario": 8,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación de grietas y fisuras en canalones",
+          "descripcion": "Sellado de grietas y fisuras con mortero de reparación o masilla elástica. Incluye preparación, aplicación y alisado",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de reparación (mortero/masilla): instalador debe confirmar cantidad y tipo según estado real de grietas"
+        },
+        {
+          "concepto": "Imprimación bituminosa en canalones",
+          "descripcion": "Aplicación de imprimación bituminosa para mejorar adherencia de pintura bituminosa final. Una mano completa",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Imprimación bituminosa: instalador debe especificar producto y rendimiento (típicamente 0.5-1 kg/ml según espesor)"
+        },
+        {
+          "concepto": "Pintura bituminosa en canalones (2 manos)",
+          "descripcion": "Aplicación de pintura bituminosa de calidad en dos manos para impermeabilización completa de canalones. Incluye brocha, rodillo y pequeño material",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pintura bituminosa: instalador debe especificar producto, rendimiento (típicamente 1.5-2 kg/ml para 2 manos) y marca"
+        },
+        {
+          "concepto": "Mano de obra aplicación pintura bituminosa",
+          "descripcion": "Aplicación de imprimación y dos manos de pintura bituminosa en canalones. Incluye preparación de herramientas, aplicación uniforme y limpieza final",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 40,
+          "precio_unitario": 12,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Medios auxiliares: acceso en altura y protección",
+          "descripcion": "Alquiler de andamio tubular, plataforma elevada o escalera de seguridad para acceso a canalones en edificio antiguo. Incluye montaje, desmontaje y protecciones de seguridad (barandillas, redes)",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Medios auxiliares: instalador debe confirmar tipo de acceso (andamio, plataforma, escalera) y duración según complejidad del edificio"
+        }
+      ],
+      "calculos": {
+        "subtotal": 800,
+        "iva_porcentaje": 21,
+        "iva": 168,
+        "total": 968
+      },
+      "sugerencias_catalogo": [
+        "Consultar en catálogo: 'impermeabilizacion_terraza_con_pintura_poliuretano' — aunque es poliuretano, la estructura de partidas (limpieza, imprimación, pintura, refuerzos) es similar",
+        "Consultar en catálogo: 'pintado_e_impermeabilizacion_de_sotanos_exteriores_trasdos' — referencia para tratamientos bituminosos en hormigón"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Reparación de grietas y fisuras en canalones",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material específico según estado real de canalones antiguos"
+        },
+        {
+          "concepto": "Imprimación bituminosa en canalones",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Producto bituminoso específico, no en catálogo general"
+        },
+        {
+          "concepto": "Pintura bituminosa en canalones (2 manos)",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material bituminoso específico para impermeabilización, requiere especificación de producto"
+        },
+        {
+          "concepto": "Medios auxiliares: acceso en altura y protección",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Servicio de acceso en altura en edificio antiguo, variable según tipo de estructura"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_foso_de_ascensor",
+      "pintado_e_impermeabilizacion_de_sotanos_exteriores_trasdos",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "impermeabilizacion_terraza_con_pintura_poliuretano",
+      "pintura_de_depositos_agua_potable_interior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3722,
+      "tokens_out": 2373
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "NO"
+  }
+}

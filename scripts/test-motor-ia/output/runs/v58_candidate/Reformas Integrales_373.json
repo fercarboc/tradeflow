@@ -1,0 +1,265 @@
+{
+  "id": 373,
+  "oficio": "Reformas Integrales",
+  "texto": "Reformar chalet de 200 metros cuadrados de forma integral, distribución, acabados y eficiencia energética",
+  "http_status": 200,
+  "latency_ms": 27063,
+  "raw_response": {
+    "transcript": "Reformar chalet de 200 metros cuadrados de forma integral, distribución, acabados y eficiencia energética",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reformar chalet de 200 metros cuadrados de forma integral, distribución, acabados y eficiencia energética",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "GRAN OBRA DETECTADA: Reforma integral de chalet completo (200 m²). Se aplica MODO CAPÍTULOS (máximo 4 partidas agrupadas).",
+          "Alcance: distribución + acabados + eficiencia energética = múltiples oficios simultáneos (albanilería, electricidad, fontanería, climatización, energía solar, carpintería, pintura, suelos).",
+          "REQUIERE REVISIÓN: Precios estimados orientativos. El instalador debe desglosar por fases y ajustar según proyecto técnico.",
+          "Recomendación: Solicitar planos, mediciones exactas y especificaciones de materiales antes de presupuesto final."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral de chalet: ≥3 oficios simultáneos (albanilería, electricidad, fontanería, climatización, energía solar, carpintería, pintura, suelos). Incluye distribución, acabados y eficiencia energética."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demoliciones selectivas, replanteamiento de distribución, muros, tabiquería."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica completa, cuadro general, circuitos, iluminación, enchufes, domótica."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Red de agua fría/caliente, desagües, sanitarios, grifería, termo o caldera."
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Sistema de climatización (calefacción, refrigeración, ventilación), conductos, radiadores o splits."
+        },
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Eficiencia energética: paneles solares fotovoltaicos, aerotermia, o sistema solar térmico para ACS."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Puertas, ventanas, armarios empotrados, revestimientos interiores."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura interior y exterior, preparación de paramentos."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado de baños y cocina, suelos cerámicos/porcelánico."
+        },
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Tarima flotante, parquet o suelos laminados en zonas de estar."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 30,
+            "max": 40
+          },
+          "motivo": "Gestión y retirada de escombros y residuos de demolición."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición y obra civil",
+          "descripcion": "Demoliciones selectivas de tabiquería, replanteamiento de distribución, muros no estructurales, retirada de pavimentos y revestimientos antiguos, preparación de paramentos, pequeño material de obra.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 12000,
+          "total": 12000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación para chalet 200 m² con demoliciones y replanteamiento. Requiere medición exacta de muros a derribar, escombros y complejidad estructural. Rango orientativo: 10000-15000€ según alcance."
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (electricidad, fontanería, climatización, energía solar)",
+          "descripcion": "Instalación eléctrica completa (cuadro general, circuitos, iluminación, enchufes, domótica), red de agua fría/caliente (tuberías PEX/cobre), desagües, sanitarios, grifería, termo/caldera, sistema de climatización (calefacción/refrigeración, conductos o radiadores), paneles solares fotovoltaicos o aerotermia para eficiencia energética, pequeño material.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 18000,
+          "total": 18000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación para instalaciones completas en chalet 200 m². Incluye electricidad, fontanería, climatización y energía solar. Rango orientativo: 15000-25000€ según tecnología elegida (splits vs. radiadores, fotovoltaica vs. aerotermia, etc.). Requiere especificación de potencias, marcas y sistemas."
+        },
+        {
+          "concepto": "CAP.3 – Acabados (pintura, suelos, carpintería, pladur, alicatados)",
+          "descripcion": "Pintura interior y exterior, suelos (tarima flotante en zonas de estar, alicatado en baños/cocina), carpintería (puertas, ventanas, armarios empotrados), pladur/escayola en techos y divisiones, alicatado de baños y cocina con impermeabilización en zonas húmedas, rodapiés, pequeño material.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 16000,
+          "total": 16000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación para acabados en chalet 200 m². Incluye pintura (aprox. 400 m² paredes+techos), suelos (aprox. 150 m² tarima + 50 m² alicatado), carpintería (puertas, ventanas, armarios), pladur. Rango orientativo: 14000-20000€ según calidad de materiales y acabados. Requiere desglose por m² de cada tipo de suelo y especificación de carpintería."
+        },
+        {
+          "concepto": "CAP.4 – Gestión de residuos, permisos y coordinación",
+          "descripcion": "Retirada y gestión de escombros y residuos de demolición, licencia de obras si aplica, coordinación de oficios, seguridad en obra, pequeño material auxiliar.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 3000,
+          "total": 3000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación para gestión de residuos y trámites en reforma de chalet 200 m². Incluye retirada de escombros, licencia de obras, coordinación. Rango orientativo: 2000-4000€ según volumen de residuos y complejidad administrativa."
+        }
+      ],
+      "calculos": {
+        "subtotal": 49000,
+        "iva_porcentaje": 21,
+        "iva": 10290,
+        "total": 59290
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: planos de distribución actual y deseada, especificación de sistemas de climatización (splits, radiadores, suelo radiante), tipo de energía solar (fotovoltaica, aerotermia, solar térmico), materiales de acabado (marcas, colores, calidades), presupuesto de materiales por separado.",
+        "Recomendación: Desglosar cada capítulo en partidas técnicas específicas una vez confirmado el proyecto. Ejemplo: Cap.2 puede dividirse en 'Instalación eléctrica', 'Red fontanería', 'Climatización', 'Paneles solares' con precios unitarios diferenciados.",
+        "Eficiencia energética: Considerar certificación energética (CE3X o similar) y posibles subvenciones (PREE, fondos autonómicos) para mejora de envolvente térmica.",
+        "Plazo estimado: 8-12 semanas según complejidad y disponibilidad de oficios."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "CAP.1 – Demolición y obra civil",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida agrupada de demoliciones y obra civil para gran obra (chalet 200 m²). Requiere desglose posterior según proyecto."
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (electricidad, fontanería, climatización, energía solar)",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Partida agrupada de instalaciones completas. Requiere especificación de sistemas y potencias."
+        },
+        {
+          "concepto": "CAP.3 – Acabados (pintura, suelos, carpintería, pladur, alicatados)",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Partida agrupada de acabados. Requiere desglose por m² de cada tipo de suelo y especificación de carpintería."
+        },
+        {
+          "concepto": "CAP.4 – Gestión de residuos, permisos y coordinación",
+          "oficio": "gestion_residuos",
+          "origen": "sugerida_ia",
+          "motivo": "Partida agrupada de gestión y trámites. Requiere confirmación de volumen de escombros y necesidad de licencia."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_vivienda_adaptada_a_personas_mayores",
+      "alicatado_y_solado_de_bano_completo",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "reforma_integral_atic_o_penthouse"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4201,
+      "tokens_out": 3987
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

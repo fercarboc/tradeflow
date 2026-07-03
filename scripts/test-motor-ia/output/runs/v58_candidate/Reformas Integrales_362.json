@@ -1,0 +1,410 @@
+{
+  "id": 362,
+  "oficio": "Reformas Integrales",
+  "texto": "Reformar cocina completa con nueva distribución, encimera de cuarzo, electrodomésticos y fontanería",
+  "http_status": 200,
+  "latency_ms": 26975,
+  "raw_response": {
+    "transcript": "Reformar cocina completa con nueva distribución, encimera de cuarzo, electrodomésticos y fontanería",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reformar cocina completa con nueva distribución, encimera de cuarzo, electrodomésticos y fontanería",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de cocina: requiere coordinación entre fontanería, electricidad e instalador gas (si aplica)",
+          "Encimera de cuarzo: precio material pendiente de revisión (proveedor/medidas)",
+          "Electrodomésticos: especificar marcas/modelos para presupuesto exacto",
+          "Nueva distribución: puede implicar rozas, reposición de tuberías y cableado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reforma cocina completa: múltiples oficios simultáneos (demolición, fontanería, electricidad, albañilería, carpintería, acabados)"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación fontanería cocina: fregadero, lavavajillas, tomas agua"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación eléctrica cocina: circuitos vitrocerámica, horno, lavavajillas, iluminación, enchufes"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Demolición, rozas, reposición, alicatado frente cocina"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 32,
+            "max": 35
+          },
+          "motivo": "Solado nuevo cocina (baldosas, porcelánico o similar)"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Muebles cocina, encimera, instalación"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición cocina existente",
+          "descripcion": "Desmontaje y retirada de muebles, electrodomésticos antiguos, encimera, alicatado y solado existente. Gestión de residuos incluida.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 320,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rozas y reposición para nueva distribución",
+          "descripcion": "Apertura de rozas en paredes y suelo para tuberías, cableado eléctrico y conductos según nueva distribución. Reposición con mortero.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 40,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación fontanería cocina completa",
+          "descripcion": "Tuberías multicapa, llaves paso frío/caliente, toma fregadero, toma lavavajillas, desagüe completo con sifón, latiguillos, pequeño material. Prueba de presión final.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 350,
+          "total": 350,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales fontanería (tuberías, racores, válvulas)",
+          "descripcion": "Tubo multicapa, llaves paso, racores, sifón, latiguillos, pequeño material fontanería.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material pendiente: depende de longitud real de tuberías y calidad de componentes"
+        },
+        {
+          "concepto": "Instalación eléctrica cocina según REBT",
+          "descripcion": "Circuito vitrocerámica (6mm²), circuito horno (4mm²), circuito lavavajillas (2,5mm²), circuito frigorífico (2,5mm²), circuito iluminación, enchufes cocina, pequeño material. Cumplimiento ITC-24.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 280,
+          "total": 280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales eléctricos (cable, enchufes, interruptores, pequeño material)",
+          "descripcion": "Cable 6mm², 4mm², 2,5mm², enchufes, interruptores, canaletas, pequeño material eléctrico.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material pendiente: depende de longitud de cableado y cantidad de puntos"
+        },
+        {
+          "concepto": "Alicatado frente cocina",
+          "descripcion": "Alicatado de pared frente cocina (entre encimera y muebles altos). Preparación, adhesivo, rejuntado, acabado.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 4,
+          "precio_unitario": 32,
+          "total": 128,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales alicatado (baldosas, adhesivo, lechada)",
+          "descripcion": "Baldosas/porcelánico frente cocina, adhesivo, lechada, pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material pendiente: depende de tipo y calidad de baldosa elegida"
+        },
+        {
+          "concepto": "Solado nuevo cocina",
+          "descripcion": "Preparación base, colocación de baldosas/porcelánico, rejuntado y acabado. Incluye pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 32,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales solado (baldosas, adhesivo, lechada)",
+          "descripcion": "Baldosas/porcelánico suelo cocina, adhesivo, lechada, pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material pendiente: depende de tipo y calidad de baldosa elegida"
+        },
+        {
+          "concepto": "Muebles cocina y encimera de cuarzo",
+          "descripcion": "Suministro e instalación de muebles cocina (base y altos) con nueva distribución. Encimera de cuarzo con medidas personalizadas. Tirador incluido.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 450,
+          "total": 450,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Muebles cocina (suministro)",
+          "descripcion": "Muebles base y altos según nueva distribución, herrajes, puertas, cajones.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material pendiente: depende de medidas, calidad y acabado de muebles"
+        },
+        {
+          "concepto": "Encimera de cuarzo (suministro)",
+          "descripcion": "Encimera de cuarzo con medidas personalizadas, cortes para fregadero y electrodomésticos, acabado y protección.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material pendiente: depende de medidas exactas y proveedor de cuarzo"
+        },
+        {
+          "concepto": "Electrodomésticos (suministro)",
+          "descripcion": "Vitrocerámica, horno, lavavajillas, frigorífico, campana extractora (según especificación del cliente).",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material pendiente: depende de marcas y modelos elegidos por cliente"
+        },
+        {
+          "concepto": "Instalación electrodomésticos",
+          "descripcion": "Conexión vitrocerámica, horno, lavavajillas, frigorífico, campana extractora. Pruebas de funcionamiento.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 200,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Campana extractora o extractor",
+          "descripcion": "Instalación de campana extractora o extractor de aire hacia exterior. Conducto, rejilla, pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Campana extractora (suministro)",
+          "descripcion": "Campana extractora o extractor de aire, conducto, rejilla, pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material pendiente: depende de tipo y potencia de campana"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3428,
+        "iva_porcentaje": 21,
+        "iva": 719.88,
+        "total": 4147.88
+      },
+      "sugerencias_catalogo": [
+        "Verificar si cliente requiere instalación de gas (vitrocerámica o cocina gas): en caso afirmativo, añadir partida 'Instalación gas cocina' con oficio mecanica_especializada",
+        "Confirmar dimensiones exactas de cocina para calcular longitudes de tuberías, cableado y cantidad de baldosas",
+        "Solicitar especificación de electrodomésticos (marcas, modelos) para presupuesto exacto",
+        "Solicitar tipo y color de baldosas/porcelánico para frente y solado",
+        "Solicitar especificación de encimera de cuarzo (color, acabado, proveedor) para presupuesto exacto",
+        "Considerar si la nueva distribución requiere desplazamiento de tomas de agua/gas/electricidad (puede aumentar rozas y mano de obra)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Materiales fontanería (tuberías, racores, válvulas)",
+          "oficio": "fontaneria",
+          "motivo": "Material específico de fontanería cocina, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Materiales eléctricos (cable, enchufes, interruptores, pequeño material)",
+          "oficio": "electricidad",
+          "motivo": "Material específico de electricidad cocina, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Materiales alicatado (baldosas, adhesivo, lechada)",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material específico de alicatado, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Materiales solado (baldosas, adhesivo, lechada)",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material específico de solado, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Muebles cocina (suministro)",
+          "oficio": "carpinteria",
+          "motivo": "Suministro de muebles cocina, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Encimera de cuarzo (suministro)",
+          "oficio": "carpinteria",
+          "motivo": "Suministro de encimera de cuarzo, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Electrodomésticos (suministro)",
+          "oficio": "reforma_integral",
+          "motivo": "Suministro de electrodomésticos, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Campana extractora (suministro)",
+          "oficio": "electricidad",
+          "motivo": "Suministro de campana extractora, precio pendiente de revisión"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_cocina_completa",
+      "instalacion_electrica_cocina_completa",
+      "instalacion_fontaneria_cocina_completa",
+      "instalacion_cocina_completa_fontaneria",
+      "recalificacion_instalacion_fontaneria_comunidad"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3664,
+      "tokens_out": 4759
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 17,
+    "n_catalogo": 9,
+    "n_sugeridas": 8,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

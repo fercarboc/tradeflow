@@ -1,0 +1,214 @@
+{
+  "id": 286,
+  "oficio": "Impermeabilización",
+  "texto": "Aplicar pintura impermeabilizante en pared medianera con problemas de humedad por capilaridad",
+  "http_status": 200,
+  "latency_ms": 24362,
+  "raw_response": {
+    "transcript": "Aplicar pintura impermeabilizante en pared medianera con problemas de humedad por capilaridad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Aplicar pintura impermeabilizante en pared medianera con problemas de humedad por capilaridad",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "ALERTA CRÍTICA: Humedad por capilaridad requiere diagnóstico previo y posible tratamiento de inyecciones antes de pintar. La pintura impermeabilizante SOLA no resuelve capilaridad activa.",
+          "Se recomienda: (1) Diagnóstico de origen humedad, (2) Inyecciones de resina hidrofóbica si es necesario, (3) Saneado de mortero deteriorado, (4) ENTONCES pintura impermeabilizante.",
+          "Pared medianera: verificar propiedad y permisos antes de intervenir."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Pintura impermeabilizante en pared con humedad por capilaridad → impermeabilizacion (no pintura, no albanileria). Aunque sea pintura, el SISTEMA es impermeabilización de humedades."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Diagnóstico, inyecciones de resina hidrofóbica y saneado de mortero deteriorado por capilaridad → albanileria."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico de origen humedad por capilaridad",
+          "descripcion": "Inspección técnica, medición de humedad relativa, identificación de origen capilar, evaluación de espesor muro y estado mortero. Informe previo obligatorio antes de tratamiento.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Diagnóstico técnico previo obligatorio. Instalador debe estimar coste según complejidad (1-2 jornadas típicamente)."
+        },
+        {
+          "concepto": "Inyecciones de resina hidrofóbica en hilada",
+          "descripcion": "Inyecciones de resina hidrofóbica en hiladas horizontales cada 12-15 cm para cortar capilaridad. Incluye perforación, inyección a presión controlada, sellado de orificios. Profundidad según espesor muro.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml de perímetro a inyectar no especificada. Rango típico: 25-130€/ml según espesor muro y complejidad. Instalador debe medir perímetro y estimar."
+        },
+        {
+          "concepto": "Resina hidrofóbica (material)",
+          "descripcion": "Resina hidrofóbica de inyección, cantidad según ml de hilada a tratar. Típicamente 0.5-1 litro por metro lineal según espesor.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en litros pendiente de cálculo (ml hilada × 0.5-1 L/ml). Precio material: 15-40€/litro típicamente."
+        },
+        {
+          "concepto": "Saneado de mortero deteriorado por humedad",
+          "descripcion": "Eliminación de mortero degradado, eflorescencias y sales en zona afectada por capilaridad. Reposición con mortero hidrofugo de características mejoradas.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie a sanear no especificada. Instalador debe medir m2 afectados. Tarifa: 40€/m2 (albanileria)."
+        },
+        {
+          "concepto": "Mortero hidrofugo de reposición",
+          "descripcion": "Mortero hidrofugo (cal + cemento + aditivos hidrofugantes) para reposición de juntas y rejuntado tras saneado. Sacos de 25 kg.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "saco",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en sacos según m2 saneados (típicamente 1-2 sacos/10m2). Precio: 8-15€/saco."
+        },
+        {
+          "concepto": "Pintura impermeabilizante en pared medianera",
+          "descripcion": "Aplicación de pintura impermeabilizante (acrílica, siloxano o epoxi según diagnóstico) en paredes y zócalo. Incluye imprimación fijadora, 2 manos de pintura impermeabilizante, rodillo y pequeño material. SOLO DESPUÉS de inyecciones y saneado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie a pintar no especificada. Instalador debe medir m2 de pared medianera afectada. Tarifa: 45€/m2 (impermeabilizacion)."
+        },
+        {
+          "concepto": "Pintura impermeabilizante (material)",
+          "descripcion": "Pintura impermeabilizante (acrílica, siloxano o epoxi), imprimación fijadora, pequeño material (cinta, protecciones). Rendimiento típico: 6-8 m2/litro.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en litros según m2 a pintar (m2 ÷ 7 litros aprox.). Precio: 12-25€/litro típicamente."
+        },
+        {
+          "concepto": "Aireación y ventilación provisional durante tratamiento",
+          "descripcion": "Ventiladores portátiles y aireación forzada durante inyecciones, saneado y curado de mortero hidrofugo. Tiempo de curación típico: 7-14 días antes de pintar.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Duración del tratamiento completo no especificada. Típicamente 2-3 jornadas de aireación. Coste: 30-50€/jornada."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "BÚSQUEDA RECOMENDADA: [reparacion_de_humedades_por_capilaridad_en_muro] — incluye diagnóstico, inyecciones, saneado y pintura impermeabilizante como secuencia completa.",
+        "BÚSQUEDA RECOMENDADA: [pintura_antihumedad_paredes_con_filtraciones] — para la fase final de pintura impermeabilizante.",
+        "BÚSQUEDA RECOMENDADA: [pintado_de_medianera_o_pared_ciega_exterior] — si la medianera es exterior y requiere andamio."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diagnóstico de origen humedad por capilaridad",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio técnico previo obligatorio no encontrado en catálogo estándar."
+        },
+        {
+          "concepto": "Inyecciones de resina hidrofóbica en hilada",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "motivo": "Técnica específica de tratamiento de capilaridad. Requiere medición de perímetro y estimación de profundidad."
+        },
+        {
+          "concepto": "Aireación y ventilación provisional durante tratamiento",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio auxiliar crítico para curado de mortero hidrofugo y resina. Duración según alcance del tratamiento."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_antihumedad_paredes_con_filtraciones",
+      "reparacion_de_humedades_por_capilaridad_en_muro",
+      "pintado_de_medianeras_o_paredes_ciegas",
+      "pintado_de_foso_de_ascensor",
+      "pintura_de_medianera_o_pared_ciega_exterior"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3726,
+      "tokens_out": 3439
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

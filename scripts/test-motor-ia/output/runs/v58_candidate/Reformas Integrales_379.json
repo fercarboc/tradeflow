@@ -1,0 +1,423 @@
+{
+  "id": 379,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma integral de farmacia con nueva distribución de mostrador, almacén y zona de espera",
+  "http_status": 200,
+  "latency_ms": 41686,
+  "raw_response": {
+    "transcript": "Reforma integral de farmacia con nueva distribución de mostrador, almacén y zona de espera",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma integral de farmacia con nueva distribución de mostrador, almacén y zona de espera",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de local comercial (farmacia) — requiere coordinación de múltiples oficios",
+          "Incluye redistribución estructural: demoliciones selectivas, nueva distribución espacial, instalaciones",
+          "Se recomienda solicitar planos/croquis de la nueva distribución antes de cerrar presupuesto",
+          "Posible necesidad de licencia municipal de obra menor o reforma interior — verificar con cliente",
+          "Instalaciones especiales en farmacia: zona de almacén con requisitos de temperatura/humedad, zona de atención al público con normativa de accesibilidad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral de local comercial con ≥3 oficios simultáneos (demolición, carpintería, electricidad, pintura, posible fontanería)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demoliciones selectivas, reposición de paredes, rozas para instalaciones"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Construcción de mostrador, divisiones, puertas de almacén, muebles de zona de espera"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación eléctrica completa según REBT, circuitos para mostrador, almacén, iluminación zona espera"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura de paredes, techos y acabados finales"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 45
+          },
+          "motivo": "Solado de zona de espera, mostrador y almacén (pavimento higiénico recomendado en farmacia)"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Gestión y retirada de escombros y residuos de demolición"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición selectiva de tabiques, mostrador antiguo y elementos no estructurales",
+          "descripcion": "Desmontaje y demolición de tabiques interiores, mostrador existente, estanterías y elementos de distribución anterior. Incluye apuntalamiento temporal si es necesario.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 320,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de jornadas estimada — ajustar según complejidad real y acceso a elementos a demoler"
+        },
+        {
+          "concepto": "Retirada y gestión de escombros y residuos de demolición",
+          "descripcion": "Carga, transporte y gestión de residuos de demolición (escombros, madera, metal) a gestor autorizado. Incluye limpieza final de obra.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "m3",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen estimado de escombros — cliente debe confirmar cantidad real. Precio a negociar con gestor autorizado."
+        },
+        {
+          "concepto": "Construcción de nuevo mostrador con estructura de madera y revestimiento",
+          "descripcion": "Fabricación e instalación de mostrador lineal con estructura de madera, revestimiento en melamina o similar, encimera de trabajo (material a definir), y puertas/cajones de almacenaje integrados. Incluye tornillería y pequeño material.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 4,
+          "precio_unitario": 180,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario estimado por metro lineal — ajustar según complejidad del diseño, número de puertas/cajones y materiales elegidos"
+        },
+        {
+          "concepto": "Suministro de materiales para mostrador (estructura, revestimiento, encimera)",
+          "descripcion": "Materiales para construcción de mostrador: madera estructural, melamina, tornillería inox, encimera de trabajo (precio a definir según material: laminado, granito, cuarzo, etc.), puertas y cajones.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales pendiente — cliente debe especificar tipo de encimera, acabados y accesorios deseados"
+        },
+        {
+          "concepto": "Construcción de tabiques divisorios para almacén y zona de espera",
+          "descripcion": "Levantamiento de tabiques de ladrillo o bloques para crear zona de almacén separada y delimitación de zona de espera. Incluye rozas para instalaciones, reposición de paredes y pequeño material.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 40,
+          "total": 1000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie estimada — cliente debe proporcionar planos con nuevas divisiones para cuantificar con precisión"
+        },
+        {
+          "concepto": "Suministro de materiales para tabiques (ladrillo, mortero, pequeño material)",
+          "descripcion": "Ladrillo cerámico, mortero de cemento, malla de refuerzo, tornillería y pequeño material para construcción de tabiques divisorios.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales a confirmar según tipo de ladrillo y mortero especificado"
+        },
+        {
+          "concepto": "Instalación eléctrica completa: cuadro, cableado, circuitos y mecanismos",
+          "descripcion": "Instalación eléctrica según REBT: nuevo cuadro eléctrico, cableado completo en bandejas/tuberías, circuitos independientes para mostrador (cajas registradoras, iluminación), almacén (iluminación, enchufes), zona espera (iluminación, climatización si aplica), toma tierra, boletin electrico. Incluye rozas en paredes y reposición.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 50,
+          "total": 2000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas estimadas — ajustar según complejidad de la instalación, número de circuitos y longitud de cableado"
+        },
+        {
+          "concepto": "Suministro de materiales eléctricos (cuadro, cable, mecanismos, tuberías)",
+          "descripcion": "Cuadro eléctrico nuevo, cable de cobre (secciones según circuito), mecanismos (enchufes, interruptores, pulsadores), tuberías corrugadas, bandejas, cajas de registro, pequeño material y tornillería.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales eléctricos a definir — cliente debe confirmar potencia contratada, número de circuitos y tipo de mecanismos deseados"
+        },
+        {
+          "concepto": "Solado de zona de espera, mostrador y almacén",
+          "descripcion": "Colocación de baldosa cerámica o porcelánico (higiénico recomendado en farmacia) en zona de espera, alrededor de mostrador y almacén. Incluye mortero cola C2 flexible, lechada epoxi (recomendada para higiene), perfiles aluminio esquinas, junta silicona encuentros, crucetas y pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 32,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie estimada — cliente debe proporcionar planos con dimensiones exactas de zonas a solado"
+        },
+        {
+          "concepto": "Suministro de baldosa, mortero, lechada y accesorios para solado",
+          "descripcion": "Baldosa cerámica o porcelánico (higiénico), mortero cola C2 flexible, lechada epoxi, perfiles aluminio, junta silicona, crucetas, rodapié y pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales a definir — cliente debe elegir tipo y calidad de baldosa, y confirmar si desea lechada epoxi"
+        },
+        {
+          "concepto": "Pintura de paredes, techos y acabados",
+          "descripcion": "Preparación de superficies (limpieza, reparación de grietas), imprimación y pintura de paredes y techos en zona de espera, mostrador y almacén. Pintura acrílica de calidad (recomendada en farmacia por higiene). Incluye pequeño material.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 32,
+          "total": 6400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie estimada (paredes + techos) — ajustar según altura de locales y superficie real a pintar"
+        },
+        {
+          "concepto": "Suministro de pintura y materiales de acabado",
+          "descripcion": "Pintura acrílica de calidad (2 manos), imprimación, masilla, lija, cinta de carrocero, trapos y pequeño material.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pintura a confirmar — cliente debe especificar color y acabado deseado"
+        },
+        {
+          "concepto": "Instalación de puertas de almacén y accesos",
+          "descripcion": "Suministro e instalación de puertas de almacén (marco, hoja, bisagras, cerradura, tirador). Incluye ajuste y pequeño material.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 150,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de puertas estimadas — cliente debe confirmar número de accesos y tipo de puerta (madera, PVC, aluminio)"
+        },
+        {
+          "concepto": "Suministro de puertas, marcos y herrajes",
+          "descripcion": "Puertas (marco, hoja, bisagras, cerradura, tirador), herrajes y pequeño material.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de puertas a definir — cliente debe especificar tipo, material y acabado deseado"
+        },
+        {
+          "concepto": "Iluminación LED en zona de espera y mostrador",
+          "descripcion": "Instalación de luminarias LED empotradas o de superficie en zona de espera (mínimo 300 lux según normativa comercial) y mostrador (mínimo 500 lux para lectura de etiquetas). Incluye cableado, cajas de registro y pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 12,
+          "precio_unitario": 50,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de luminarias estimada — ajustar según superficie y niveles de iluminación requeridos"
+        },
+        {
+          "concepto": "Suministro de luminarias LED y accesorios",
+          "descripcion": "Luminarias LED (empotradas o superficie), transformadores, cableado, cajas de registro, pequeño material y tornillería.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de luminarias a definir — cliente debe especificar tipo (empotradas/superficie), potencia y color de luz"
+        },
+        {
+          "concepto": "Pequeño material y consumibles de obra",
+          "descripcion": "Tornillería, clavos, adhesivos, cintas, trapos, escobas, bolsas de residuos y otros consumibles necesarios durante la ejecución de la obra.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de pequeño material — cliente puede aceptar o ajustar según necesidades reales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 13580,
+        "iva_porcentaje": 21,
+        "iva": 2851.8,
+        "total": 16431.8
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente planos o croquis de la nueva distribución (mostrador, almacén, zona espera) para cuantificar con precisión superficies y longitudes",
+        "Confirmar si la farmacia requiere instalación de climatización en almacén (temperatura/humedad controlada para medicamentos) — si es así, añadir partida de climatización",
+        "Verificar si es necesaria licencia municipal de obra menor o reforma interior — gestión a cargo del cliente o incluir en presupuesto",
+        "Recomendar lechada epoxi en solado por higiene y resistencia a manchas en farmacia",
+        "Confirmar potencia eléctrica contratada y si es suficiente para nueva distribución (cajas registradoras, iluminación LED, posible climatización)",
+        "Considerar instalación de espejos en zona de espera para mejorar percepción de espacio",
+        "Evaluar necesidad de señalización de seguridad y accesibilidad (PMR) según normativa local"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Retirada y gestión de escombros",
+          "oficio": "gestion_residuos",
+          "motivo": "Servicio de gestión de residuos de demolición — precio a negociar con gestor autorizado"
+        },
+        {
+          "concepto": "Suministro de materiales para mostrador",
+          "oficio": "carpinteria",
+          "motivo": "Materiales específicos (encimera, revestimiento) — precio pendiente de especificación del cliente"
+        },
+        {
+          "concepto": "Suministro de materiales para tabiques",
+          "oficio": "albanileria",
+          "motivo": "Materiales de construcción — precio a confirmar según tipo de ladrillo y mortero"
+        },
+        {
+          "concepto": "Suministro de materiales eléctricos",
+          "oficio": "electricidad",
+          "motivo": "Cuadro, cable, mecanismos — precio a definir según potencia y número de circuitos"
+        },
+        {
+          "concepto": "Suministro de baldosa y accesorios para solado",
+          "oficio": "suelos_alicatados",
+          "motivo": "Materiales de solado — precio a definir según tipo y calidad de baldosa"
+        },
+        {
+          "concepto": "Suministro de pintura",
+          "oficio": "pintura",
+          "motivo": "Pintura acrílica de calidad — precio a confirmar según color y acabado"
+        },
+        {
+          "concepto": "Suministro de puertas y herrajes",
+          "oficio": "carpinteria",
+          "motivo": "Puertas de almacén — precio a definir según tipo y material"
+        },
+        {
+          "concepto": "Suministro de luminarias LED",
+          "oficio": "electricidad",
+          "motivo": "Luminarias y accesorios — precio a definir según tipo y potencia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_cocina_completa",
+      "alicatado_y_solado_completo_cocina",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "instalacion_electrica_reforma_integral_vivienda",
+      "tabique_pladur_para_ducha_o_plato_de_ducha"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4005,
+      "tokens_out": 6151
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 17,
+    "n_catalogo": 8,
+    "n_sugeridas": 9,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "id": 355,
+  "oficio": "Mantenimiento General",
+  "texto": "Pintar marquesina y elementos metálicos exteriores de local comercial con imprimación y esmalte",
+  "http_status": 200,
+  "latency_ms": 11525,
+  "raw_response": {
+    "transcript": "Pintar marquesina y elementos metálicos exteriores de local comercial con imprimación y esmalte",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar marquesina y elementos metálicos exteriores de local comercial con imprimación y esmalte",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura de elementos metálicos exteriores con esmalte anticorrosión e imprimación"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación y limpieza de marquesina y elementos metálicos",
+          "descripcion": "Lija mecánica, desengrasante y limpieza de superficies metálicas exteriores para eliminar óxido, suciedad y restos de pintura anterior",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 32,
+          "total": 96,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación anticorrosión para metal",
+          "descripcion": "Imprimación antioxido de calidad industrial, apta para exterior, aplicación con pincel y rodillo",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de imprimación anticorrosión a definir por instalador según marca y especificaciones técnicas"
+        },
+        {
+          "concepto": "Aplicación de imprimación anticorrosión",
+          "descripcion": "Aplicación de imprimación en dos manos sobre marquesina y elementos metálicos exteriores con pincel y rodillo",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 32,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Esmalte anticorrosión exterior para metal",
+          "descripcion": "Esmalte de calidad industrial sin plomo, apto para exterior, resistente a intemperie y rayos UV",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de esmalte anticorrosión a definir por instalador según marca y especificaciones técnicas"
+        },
+        {
+          "concepto": "Aplicación de esmalte anticorrosión (dos manos)",
+          "descripcion": "Aplicación de esmalte en dos manos sobre marquesina y elementos metálicos con pincel y rodillo, incluyendo remates y detalles",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 32,
+          "total": 128,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles (cinta carrocero, plástico protección, disolvente, trapos)",
+          "descripcion": "Cinta carrocero, plástico de protección, disolvente de limpieza, trapos y otros consumibles necesarios para la ejecución del trabajo",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe de pequeño material a definir por instalador según cantidad y especificaciones"
+        }
+      ],
+      "calculos": {
+        "subtotal": 304,
+        "iva_porcentaje": 21,
+        "iva": 63.84,
+        "total": 367.84
+      },
+      "sugerencias_catalogo": [
+        "Referencia: [pintado_cancelas_y_portones_metalicos_exterior] — rango de precio 25-200€/ud según tamaño. Aplicable si la marquesina se considera como unidad única.",
+        "Considerar si hay óxido importante: incluir convertidor de óxido como partida adicional si es necesario."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación anticorrosión para metal",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para exterior, requiere especificación de marca y litros exactos"
+        },
+        {
+          "concepto": "Esmalte anticorrosión exterior para metal",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para exterior, requiere especificación de marca y litros exactos"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "origen": "sugerida_ia",
+          "motivo": "Importe variable según cantidad de material consumible necesario"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_mobiliario_urbano_y_elementos_parque",
+      "pintado_locales_comerciales_y_tiendas",
+      "pintado_cancelas_y_portones_metalicos_exterior",
+      "pintura_de_valla_o_cerca_madera_exterior",
+      "instalacion_sistema_de_climatizacion_en_local_comercial"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3661,
+      "tokens_out": 1661
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "NO"
+  }
+}

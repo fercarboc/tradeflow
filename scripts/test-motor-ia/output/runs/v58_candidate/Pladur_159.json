@@ -1,0 +1,191 @@
+{
+  "id": 159,
+  "oficio": "Pladur",
+  "texto": "Hacer trasdosado perimetral en local frío para mejorar el aislamiento térmico",
+  "http_status": 200,
+  "latency_ms": 18110,
+  "raw_response": {
+    "transcript": "Hacer trasdosado perimetral en local frío para mejorar el aislamiento térmico",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer trasdosado perimetral en local frío para mejorar el aislamiento térmico",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume trasdosado con estructura y aislante (opción más eficiente para mejora térmica en local frío)",
+          "Superficie total no especificada: se requiere medición en obra para cantidad exacta",
+          "Zona climática no indicada: se recomienda verificar CTE DB-HE para espesor aislante mínimo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Trasdosado con estructura metálica, aislante y placa de yeso laminado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm",
+          "descripcion": "Suministro de placa de yeso laminado 15mm para trasdosado perimetral",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador según proveedor y cantidad total de m2"
+        },
+        {
+          "concepto": "Perfil metálico canal y montante 70mm",
+          "descripcion": "Suministro de perfiles metálicos (canal y montante) para estructura de trasdosado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar según cantidad lineal total y proveedor"
+        },
+        {
+          "concepto": "Lana mineral o lana de roca alta densidad 80mm",
+          "descripcion": "Suministro de aislante térmico (lana mineral o lana de roca) espesor 80mm para mejora energética en local frío",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar según densidad, marca y cantidad total de m2"
+        },
+        {
+          "concepto": "Barrera de vapor",
+          "descripcion": "Suministro e instalación de barrera de vapor para zona fría (obligatoria en trasdosado con aislante en local frío)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar según tipo de barrera (polietileno, velo, etc.)"
+        },
+        {
+          "concepto": "Tornillería, cinta de juntas y pasta de juntas",
+          "descripcion": "Suministro de tornillería, cinta de papel para juntas y pasta de juntas para acabado de trasdosado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material a confirmar según cantidad total de m2"
+        },
+        {
+          "concepto": "Montaje de estructura y colocación de aislante",
+          "descripcion": "Mano de obra: instalación de perfiles metálicos, colocación de lana mineral, barrera de vapor y fijación de estructura",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 35,
+          "total": 35,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa recomendada 35€/m2; cantidad total de m2 a confirmar en medición de obra"
+        },
+        {
+          "concepto": "Colocación de placa de yeso y acabado de juntas",
+          "descripcion": "Mano de obra: fijación de placas de yeso laminado, colocación de cinta de juntas, aplicación de pasta de juntas y lijado de acabado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 35,
+          "total": 35,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa recomendada 35€/m2; cantidad total de m2 a confirmar en medición de obra"
+        },
+        {
+          "concepto": "Sellado perimetral con silicona",
+          "descripcion": "Sellado de juntas perimetrales con silicona para evitar puentes térmicos y filtraciones de aire",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material y mano de obra a confirmar según perímetro total del local"
+        }
+      ],
+      "calculos": {
+        "subtotal": 70,
+        "iva_porcentaje": 21,
+        "iva": 14.7,
+        "total": 84.7
+      },
+      "sugerencias_catalogo": [
+        "Confirmar superficie total del trasdosado perimetral (m2) para calcular cantidades exactas de materiales",
+        "Verificar zona climática según CTE DB-HE para determinar espesor mínimo de aislante requerido",
+        "Considerar si el local requiere ventilación mecánica (VMC) tras mejorar el aislamiento térmico",
+        "Evaluar si es necesario proyecto técnico o certificado energético antes/después de la mejora"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Barrera de vapor",
+          "oficio": "pladur_escayola",
+          "motivo": "Elemento obligatorio en trasdosado con aislante en zona fría según Base Maestra"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "trasdosado_pladur_para_mejora_energetica_fachada",
+      "reforma_integral_planta_baja_o_local_para_vivienda",
+      "reforma_de_vivienda_para_eficiencia_energetica",
+      "trasdosado_directo_pladur_sobre_pared_existente",
+      "trasdosado_con_estructura_pladur_y_aislante"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4046,
+      "tokens_out": 2510
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

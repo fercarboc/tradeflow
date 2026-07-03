@@ -1,0 +1,167 @@
+{
+  "id": 394,
+  "oficio": "Persianas",
+  "texto": "Toldo corredero para patio de vecinos, estructura aluminio y tela acrílica, 4x3 metros",
+  "http_status": 200,
+  "latency_ms": 18962,
+  "raw_response": {
+    "transcript": "Toldo corredero para patio de vecinos, estructura aluminio y tela acrílica, 4x3 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Toldo corredero para patio de vecinos, estructura aluminio y tela acrílica, 4x3 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Toldo corredero de gran formato (12 m²) en zona común: verificar licencia municipal y normativa de comunidad de vecinos",
+          "Estructura aluminio en patio compartido: confirmar anclajes y carga estructural con comunidad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de toldo corredero con estructura aluminio y tela acrílica"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Toldo corredero estructura aluminio 4x3m",
+          "descripcion": "Suministro de toldo corredero con estructura aluminio anodizado, sistema de guías laterales, rodillos de desplazamiento y tela acrílica tratada UV de alta resistencia. Medidas: 4 metros de ancho x 3 metros de vuelo.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de toldo corredero 4x3m: instalador debe confirmar precio según marca, calidad de tela acrílica y sistema de guías"
+        },
+        {
+          "concepto": "Tela acrílica para toldo corredero",
+          "descripcion": "Tela acrílica de alta resistencia UV y repelente al agua, color a elegir, para toldo corredero 4x3 metros. Incluye tratamiento anti-moho y anti-decoloración.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tela acrílica por m²: varía según calidad, marca y tratamientos especiales"
+        },
+        {
+          "concepto": "Fijación y anclajes estructura toldo",
+          "descripcion": "Suministro e instalación de anclajes, ménsulas de fijación a pared/estructura, tornillería de acero inoxidable y pequeño material para fijación segura de toldo corredero en patio de vecinos.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Anclajes y fijación: depende de tipo de soporte (pared, estructura, hormigón) y número de puntos de anclaje necesarios"
+        },
+        {
+          "concepto": "Instalación toldo corredero 4x3m",
+          "descripcion": "Mano de obra de instalación: montaje de estructura aluminio, colocación de guías laterales, instalación de rodillos y sistema de desplazamiento, fijación de tela acrílica, ajuste y pruebas de funcionamiento.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sensor de viento para toldo corredero",
+          "descripcion": "Suministro e instalación de sensor de viento automático para recogida de toldo en caso de ráfagas. Incluye célula fotoeléctrica y pequeño material de conexión.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sensor de viento: precio varía según marca y tipo de célula fotoeléctrica (recomendado para zona común)"
+        },
+        {
+          "concepto": "Pruebas y ajustes finales toldo",
+          "descripcion": "Pruebas de funcionamiento del sistema de desplazamiento, verificación de anclajes, ajuste de tensión de tela y comprobación de seguridad ante viento.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 450,
+        "iva_porcentaje": 21,
+        "iva": 94.5,
+        "total": 544.5
+      },
+      "sugerencias_catalogo": [
+        "Consultar con comunidad de vecinos sobre normativa de instalación en zona común y necesidad de licencia municipal",
+        "Considerar motor eléctrico si toldo es de uso frecuente (mejora comodidad en zona común)",
+        "Verificar orientación solar del patio para optimizar protección térmica",
+        "Toldo corredero permite flexibilidad: se recoge completamente cuando no se usa"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Toldo corredero estructura aluminio 4x3m",
+          "oficio": "persianas",
+          "razon": "Toldo corredero no está explícitamente en Base Maestra; se asimila a instalación_toldo_terraza_bar_o_restaurante pero adaptado a patio de vecinos"
+        },
+        {
+          "concepto": "Sensor de viento para toldo corredero",
+          "oficio": "persianas",
+          "razon": "Sensor de viento recomendado para zona común; no está en partidas_obligatorias pero es accesorio estándar de seguridad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_faldones_o_cenefas_para_toldo",
+      "instalacion_toldo_para_escenario_o_cubierta_de_eventos",
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "instalacion_estor_enrollable_interior",
+      "instalacion_toldo_terraza_bar_o_restaurante"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3922,
+      "tokens_out": 2344
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

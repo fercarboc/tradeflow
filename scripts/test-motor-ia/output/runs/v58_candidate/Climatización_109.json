@@ -1,0 +1,162 @@
+{
+  "id": 109,
+  "oficio": "Climatización",
+  "texto": "Mantenimiento anual de caldera de gas, limpieza quemador, revisión electrodos y gases de combustión",
+  "http_status": 200,
+  "latency_ms": 10770,
+  "raw_response": {
+    "transcript": "Mantenimiento anual de caldera de gas, limpieza quemador, revisión electrodos y gases de combustión",
+    "quote": {
+      "resumen": {
+        "texto_original": "Mantenimiento anual de caldera de gas, limpieza quemador, revisión electrodos y gases de combustión",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Técnico de gas certificado obligatorio para esta intervención",
+          "Emitir certificado de mantenimiento al finalizar",
+          "Revisar si el cliente tiene contrato de mantenimiento anual con aseguradora"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Mantenimiento anual de caldera de gas - trabajo especializado en sistemas de calefacción"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión y limpieza quemador caldera gas",
+          "descripcion": "Desmontaje, limpieza y revisión del quemador, cámara de combustión y electrodos de ionización",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 85,
+          "total": 85,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza intercambiador caldera",
+          "descripcion": "Limpieza del intercambiador de calor y circuito de agua caliente",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Análisis de gases de combustión",
+          "descripcion": "Medición y análisis de gases de combustión (CO, CO2, O2, temperatura humos) con equipo analizador",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación presión vaso expansión y válvulas seguridad",
+          "descripcion": "Comprobación de presión del vaso de expansión, válvulas de seguridad y purgado del circuito si es necesario",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación evacuación humos y conductos",
+          "descripcion": "Inspección visual de conductos de evacuación de humos, chimenea y tiro natural",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles mantenimiento",
+          "descripcion": "Juntas, filtros pequeños, lubricantes, deshollinador y material fungible necesario para el mantenimiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material fungible a confirmar por instalador según necesidades reales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 280,
+        "iva_porcentaje": 21,
+        "iva": 58.8,
+        "total": 338.8
+      },
+      "sugerencias_catalogo": [
+        "Si la caldera requiere cambio de filtro de agua o antiincrustante, añadir partida de material específico",
+        "Si se detecta pérdida de presión o fuga, presupuestar reparación por separado",
+        "Considerar contrato de mantenimiento anual si el cliente no lo tiene (obligatorio para garantía y seguros)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pequeño material y consumibles mantenimiento",
+          "oficio": "climatizacion",
+          "motivo": "Material fungible variable según estado de la caldera"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_y_limpieza_de_caldera_de_gas",
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_anual_caldera",
+      "mantenimiento_de_sistema_de_climatizacion_split",
+      "mantenimiento_anual_split_o_aire_acondicionado"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3768,
+      "tokens_out": 1496
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 5,
+    "n_sugeridas": 1,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

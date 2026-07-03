@@ -1,0 +1,183 @@
+{
+  "id": 268,
+  "oficio": "Cristalería",
+  "texto": "Instalar puerta de vidrio templado sin marco con herrajes de acero inoxidable para despacho",
+  "http_status": 200,
+  "latency_ms": 20719,
+  "raw_response": {
+    "transcript": "Instalar puerta de vidrio templado sin marco con herrajes de acero inoxidable para despacho",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar puerta de vidrio templado sin marco con herrajes de acero inoxidable para despacho",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medidas exactas de la puerta no especificadas — instalador debe medir antes de encargar vidrio templado",
+          "Espesor de vidrio no indicado — se recomienda mínimo 8mm, 10mm recomendado para puertas frameless",
+          "Tipo de cierre/cerradura no especificado — revisar si requiere cerradura, cierre magnético o automático"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de puerta de vidrio templado frameless — oficio cristalería según Base Maestra [instalacion_puerta_de_cristal_templado_frameless]"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio templado frameless 10mm",
+          "descripcion": "Suministro de vidrio templado espesor 10mm (recomendado para puertas frameless), medidas exactas según toma de medidas en obra, con marcado CE según EN 12150",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas (ancho×alto) y espesor. Instalador debe medir y cotizar con proveedor de vidrio templado. Rango orientativo: 200-500€ según tamaño."
+        },
+        {
+          "concepto": "Herrajes bisagras y cierre inoxidable AISI 316",
+          "descripcion": "Suministro de herrajes completos: bisagras de acero inoxidable AISI 316 (2-3 unidades según altura), cierre automático o magnético, fijación suelo y techo/lateral, cantoneras de refuerzo si aplica",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo de cierre (magnético, automático, manual) y acabado. Rango orientativo: 150-400€ juego completo herrajes inoxidable."
+        },
+        {
+          "concepto": "Tira antichoque borde inferior",
+          "descripcion": "Suministro e instalación de tira antichoque/protección borde inferior puerta vidrio, material elastómero o goma, color a elegir",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de longitud (ancho puerta) y material. Rango orientativo: 20-60€."
+        },
+        {
+          "concepto": "Silicona neutra y pequeño material",
+          "descripcion": "Suministro de silicona neutra para sellado perimetral encuentros vidrio-herraje, pequeño material (tornillería inoxidable, tacos, etc.)",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 30-50€ (silicona + tornillería inoxidable)."
+        },
+        {
+          "concepto": "Mano de obra instalación puerta vidrio templado frameless",
+          "descripcion": "Instalación completa: fijación herrajes a vidrio y estructura (suelo/techo/lateral), sellado perimetral con silicona, colocación tira antichoque, pruebas de funcionamiento y ajuste de cierre",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Toma de medidas y asesoramiento técnico",
+          "descripcion": "Visita a obra para toma de medidas exactas, verificación de planeidad de paredes/suelo/techo, asesoramiento sobre espesor vidrio y tipo herrajes, coordinación con proveedor vidrio templado",
+          "oficio": "cristaleria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 50-100€ (servicio técnico previo). Puede incluirse en mano de obra o facturarse por separado."
+        }
+      ],
+      "calculos": {
+        "subtotal": 135,
+        "iva_porcentaje": 21,
+        "iva": 28.35,
+        "total": 163.35
+      },
+      "sugerencias_catalogo": [
+        "Consultar con proveedor de vidrio templado certificado EN 12150 — plazo de fabricación típico 5-10 días",
+        "Verificar en obra: planeidad de suelo/techo/paredes (tolerancia máx. ±5mm en 2m) — si hay desviaciones, puede requerir ajustes en herrajes o refuerzos",
+        "Confirmar tipo de cierre: magnético (más económico, ~150€), automático (más caro, ~300-400€), o manual con cerradura (variable según modelo)",
+        "Espesor vidrio: 8mm mínimo legal, 10mm recomendado para puertas frameless de más de 1m de ancho",
+        "Herrajes AISI 316 (marino) recomendado si ambiente húmedo; AISI 304 suficiente para interior estándar"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio templado frameless 10mm",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico — precio depende de medidas exactas, requiere cotización con proveedor vidrio templado"
+        },
+        {
+          "concepto": "Herrajes bisagras y cierre inoxidable AISI 316",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico — precio variable según tipo cierre (magnético/automático) y acabado"
+        },
+        {
+          "concepto": "Tira antichoque borde inferior",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Material complementario — precio depende de longitud y material"
+        },
+        {
+          "concepto": "Toma de medidas y asesoramiento técnico",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio previo obligatorio — precio a definir según política de empresa"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_de_marcos_de_puertas_en_pared_de_pladur",
+      "instalacion_puerta_de_cristal_templado_frameless",
+      "instalacion_mampara_de_ducha_fija",
+      "instalacion_de_puertas_de_vidrio_templado_corredera_en_armario"
+    ],
+    "kb_score": 3.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3974,
+      "tokens_out": 2642
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

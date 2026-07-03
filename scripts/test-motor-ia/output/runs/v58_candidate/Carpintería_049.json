@@ -1,0 +1,203 @@
+{
+  "id": 49,
+  "oficio": "Carpintería",
+  "texto": "Fabricación de cocina a medida en madera de melamina blanca con tiradores de aluminio, 6 metros lineales",
+  "http_status": 200,
+  "latency_ms": 19394,
+  "raw_response": {
+    "transcript": "Fabricación de cocina a medida en madera de melamina blanca con tiradores de aluminio, 6 metros lineales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Fabricación de cocina a medida en madera de melamina blanca con tiradores de aluminio, 6 metros lineales",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto en precio alzado (PA). El instalador debe confirmar medidas exactas, huecos para electrodomésticos y acabados finales antes de cerrar precio.",
+          "Se recomienda coordinar con fontanero y electricista para conexiones de agua, gas y electricidad.",
+          "Encimera NO incluida en este presupuesto. Solicitar presupuesto separado si se requiere."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Fabricación e instalación de mueble cocina a medida en melamina con herrajes y acabados."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Módulos base y cuerpo de cocina a medida",
+          "descripcion": "Fabricación de estructura en tablero de melamina blanca de 18mm, módulos base para 6 metros lineales, incluyendo laterales, fondo y divisiones internas según diseño.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado variable según diseño exacto, huecos para electrodomésticos y acabados. El instalador debe cotizar según plano de cocina aprobado."
+        },
+        {
+          "concepto": "Puertas y frentes de cajones",
+          "descripcion": "Fabricación de puertas y frentes de cajones en melamina blanca, incluyendo cantos de borde, para 6 metros lineales de cocina.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según número de puertas y cajones. Incluir en cotización final."
+        },
+        {
+          "concepto": "Herrajes: bisagras, guías de cajones y tiradores de aluminio",
+          "descripcion": "Suministro e instalación de bisagras de calidad para puertas, guías telescópicas de cierre suave para cajones, y tiradores de aluminio en todas las puertas y cajones (6 metros lineales).",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según cantidad de bisagras, guías y tiradores. Cotizar según número exacto de puertas y cajones."
+        },
+        {
+          "concepto": "Zócalo y cornisa",
+          "descripcion": "Fabricación e instalación de zócalo inferior (altura estándar 10cm) y cornisa superior en melamina blanca para 6 metros lineales.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado. Incluir en presupuesto final según diseño."
+        },
+        {
+          "concepto": "Mano de obra: fabricación en taller",
+          "descripcion": "Fabricación en taller de todos los módulos, puertas, cajones, zócalo y cornisa. Incluye cortes, cantos, taladros y preparación para montaje.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 45,
+          "total": 1800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: montaje e instalación en obra",
+          "descripcion": "Montaje de módulos en cocina, fijación a pared, instalación de puertas, cajones, herrajes y tiradores. Ajustes y pruebas de funcionamiento.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 24,
+          "precio_unitario": 45,
+          "total": 1080,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Tornillos, tacos, escuadras, cola de carpintero, lijas, cinta de borde y otros consumibles necesarios para la fabricación e instalación.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según cantidad de material consumible estimado."
+        }
+      ],
+      "calculos": {
+        "subtotal": 2880,
+        "iva_porcentaje": 21,
+        "iva": 604.8,
+        "total": 3484.8
+      },
+      "sugerencias_catalogo": [
+        "Solicitar presupuesto separado para ENCIMERA (granito, cuarzo, laminado, etc.) si se requiere.",
+        "Coordinar con FONTANERÍA para conexión de agua y desagüe (fregadero).",
+        "Coordinar con ELECTRICIDAD para conexión de electrodomésticos (horno, placa, campana, etc.).",
+        "Considerar iluminación LED bajo módulos superiores (partida adicional de electricidad).",
+        "Confirmar HUECOS exactos para electrodomésticos (horno, lavavajillas, frigorífico, etc.) antes de fabricar."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Módulos base y cuerpo de cocina a medida",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida de material con precio alzado. Requiere cotización específica según diseño y medidas exactas."
+        },
+        {
+          "concepto": "Puertas y frentes de cajones",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida de material con precio alzado. Requiere cotización según número de puertas y cajones."
+        },
+        {
+          "concepto": "Herrajes: bisagras, guías de cajones y tiradores de aluminio",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida de material con precio alzado. Requiere cotización según cantidad de herrajes."
+        },
+        {
+          "concepto": "Zócalo y cornisa",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida de material con precio alzado. Requiere cotización según diseño."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida de material con precio alzado. Requiere estimación de consumibles."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "fabricacion_e_instalacion_mueble_cocina_a_medida",
+      "fabricacion_e_instalacion_de_cajonera_o_modulo_bajo_a_medida",
+      "fabricacion_e_instalacion_de_mueble_salon_o_libreria",
+      "fabricacion_de_estanterias_y_baldas_a_medida",
+      "fabricacion_e_instalacion_de_espejo_con_marco_de_madera"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3995,
+      "tokens_out": 2671
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

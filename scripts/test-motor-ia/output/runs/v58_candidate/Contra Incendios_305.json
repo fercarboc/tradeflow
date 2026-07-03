@@ -1,0 +1,274 @@
+{
+  "id": 305,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar sistema de extinción de gas FM200 en sala de servidores de empresa de 15 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 25258,
+  "raw_response": {
+    "transcript": "Instalar sistema de extinción de gas FM200 en sala de servidores de empresa de 15 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de extinción de gas FM200 en sala de servidores de empresa de 15 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "PROYECTO TÉCNICO OBLIGATORIO: Sistema de extinción por gas requiere proyecto técnico previo según normativa",
+          "FM200 (HFC-227ea) es agente extintor seguro para ocupación humana pero requiere señalización de peligro",
+          "Cálculo de concentración de diseño según volumen sala (15 m²) debe validarse en proyecto técnico",
+          "Prueba de estanqueidad de sala CRÍTICA para eficacia del sistema",
+          "Enclavamiento con climatización y aberturas OBLIGATORIO"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 55,
+            "max": 70
+          },
+          "motivo": "Sistema de extinción por gas FM200 es instalación de protección contra incendios especializada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico sistema extinción gas FM200",
+          "descripcion": "Proyecto técnico obligatorio para sistema de extinción por gas FM200 en sala de servidores. Incluye cálculo de concentración de diseño, volumen sala, estanqueidad, enclavamientos y procedimientos de seguridad",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de proyecto técnico debe ser presupuestado por profesional según complejidad y normativa aplicable"
+        },
+        {
+          "concepto": "Depósito agente extintor FM200 (HFC-227ea)",
+          "descripcion": "Suministro e instalación de depósito de agente extintor FM200 (HFC-227ea) dimensionado para sala de 15 m² según cálculo de concentración de diseño. Incluye válvula de descarga, manómetro y accesorios",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de capacidad del depósito (kg de FM200) según volumen sala y concentración de diseño"
+        },
+        {
+          "concepto": "Boquillas de descarga sistema FM200",
+          "descripcion": "Suministro e instalación de boquillas de descarga para distribución uniforme del agente FM200 en sala de servidores. Cantidad y posicionamiento según proyecto técnico",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de boquillas debe determinarse en proyecto técnico según distribución sala"
+        },
+        {
+          "concepto": "Panel de control con retardo de descarga",
+          "descripcion": "Suministro e instalación de panel de control automático con retardo de descarga programable. Incluye lógica de activación y seguridad",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio panel de control según funcionalidades y certificaciones requeridas"
+        },
+        {
+          "concepto": "Pulsadores de aborto y descarga manual",
+          "descripcion": "Suministro e instalación de pulsadores de aborto (cancelación) y descarga manual. Ubicación estratégica en sala de servidores",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de pulsadores según especificación técnica"
+        },
+        {
+          "concepto": "Señalización zona peligro descarga gas FM200",
+          "descripcion": "Señalización obligatoria de peligro por descarga de gas FM200. Carteles de advertencia, símbolos de peligro y procedimientos de evacuación en accesos a sala",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio juego señalización según número de accesos y normativa aplicable"
+        },
+        {
+          "concepto": "Sistema de detección previo (doble zona)",
+          "descripcion": "Suministro e instalación de detectores de humo/temperatura en doble zona para activación segura del sistema. Incluye cableado y conexión a panel de control",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio detectores según tipo (humo/temperatura) y certificación"
+        },
+        {
+          "concepto": "Prueba de estanqueidad sala (Door Fan Test)",
+          "descripcion": "Prueba de estanqueidad de sala de servidores mediante Door Fan Test. CRÍTICA para eficacia del sistema de extinción. Incluye medición de caudales de infiltración y reporte técnico",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio prueba estanqueidad según complejidad sala y equipamiento necesario"
+        },
+        {
+          "concepto": "Enclavamiento climatización y aberturas",
+          "descripcion": "Instalación de enclavamientos automáticos para cierre de compuertas de climatización y aberturas de ventilación al activarse sistema de extinción. Incluye válvulas solenoide y cableado",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de enclavamientos según número de compuertas/aberturas a controlar"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Pequeño material: tuercas, tornillos, bridas, cinta teflón, pasta selladora, conectores, etc. Necesario para instalación completa del sistema",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado según alcance final de instalación"
+        },
+        {
+          "concepto": "Mano de obra instalación sistema extinción FM200",
+          "descripcion": "Mano de obra para instalación completa del sistema: montaje depósito, boquillas, panel de control, detectores, enclavamientos, cableado, pruebas funcionales y puesta en marcha",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 55,
+          "total": 880,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en marcha",
+          "descripcion": "Pruebas funcionales del sistema completo: activación detectores, funcionamiento panel de control, descarga simulada (sin agente), enclavamientos, alarmas y documentación de conformidad",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pruebas según complejidad y certificaciones requeridas"
+        }
+      ],
+      "calculos": {
+        "subtotal": 880,
+        "iva_porcentaje": 21,
+        "iva": 184.8,
+        "total": 1064.8
+      },
+      "sugerencias_catalogo": [
+        "Consultar con empresa especializada en sistemas de extinción por gas certificada según UNE-EN 12094",
+        "Validar que el instalador dispone de licencia para sistemas de extinción automática",
+        "Solicitar certificado de conformidad CE del sistema FM200 utilizado",
+        "Incluir en presupuesto final: mantenimiento anual, recarga de agente tras descarga, inspecciones periódicas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico sistema extinción gas FM200",
+          "oficio": "contra_incendios",
+          "motivo": "Servicio especializado obligatorio no incluido en catálogo base"
+        },
+        {
+          "concepto": "Depósito agente extintor FM200 (HFC-227ea)",
+          "oficio": "contra_incendios",
+          "motivo": "Material específico cuyo precio depende de capacidad calculada en proyecto"
+        },
+        {
+          "concepto": "Boquillas de descarga sistema FM200",
+          "oficio": "contra_incendios",
+          "motivo": "Componente específico cuya cantidad depende de proyecto técnico"
+        },
+        {
+          "concepto": "Panel de control con retardo de descarga",
+          "oficio": "contra_incendios",
+          "motivo": "Equipo de control especializado para sistemas de extinción por gas"
+        },
+        {
+          "concepto": "Prueba de estanqueidad sala (Door Fan Test)",
+          "oficio": "contra_incendios",
+          "motivo": "Servicio especializado crítico para validación de eficacia del sistema"
+        },
+        {
+          "concepto": "Enclavamiento climatización y aberturas",
+          "oficio": "contra_incendios",
+          "motivo": "Sistema de seguridad integrado específico para salas de servidores con extinción por gas"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_extincion_por_gas_CO2_o_FM200",
+      "instalacion_de_sistema_audiovisual_en_sala_de_reuniones",
+      "instalacion_de_sistema_de_sonido_home_cinema",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_sistema_climatizacion_para_server_room"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 4224,
+      "tokens_out": 3695
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 1,
+    "n_sugeridas": 11,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

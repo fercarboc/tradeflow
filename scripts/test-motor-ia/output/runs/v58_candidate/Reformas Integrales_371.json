@@ -1,0 +1,235 @@
+{
+  "id": 371,
+  "oficio": "Reformas Integrales",
+  "texto": "Ampliar vivienda con construcción de nueva planta sobre garaje existente, 40 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 26346,
+  "raw_response": {
+    "transcript": "Ampliar vivienda con construcción de nueva planta sobre garaje existente, 40 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Ampliar vivienda con construcción de nueva planta sobre garaje existente, 40 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "OBRA MAYOR: Ampliación estructural con nueva planta. Requiere proyecto técnico y licencia de obras mayor obligatoria.",
+          "ESTUDIO ESTRUCTURAL: Verificar capacidad portante del garaje existente para soportar nueva planta.",
+          "CÁLCULO DE CARGA: Forjado nuevo debe dimensionarse según normativa CTE.",
+          "PERMISOS: Licencia municipal, proyecto visado, inspección técnica durante ejecución.",
+          "PRESUPUESTO ESTIMADO: Rango 40.000-90.000€ según acabados y complejidad estructural."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Ampliación estructural con nueva planta: obra civil + estructura + instalaciones + acabados simultáneos. Clasificada como GRAN OBRA (ampliación con nueva planta)."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra civil: forjado, muros, estructura."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica nueva planta."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación fontanería nueva planta (si aplica)."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Acabados: pintura interior."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 45
+          },
+          "motivo": "Pavimentos y alicatado nueva planta."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Gestión de residuos de construcción."
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 70
+          },
+          "motivo": "Tramitación de licencias y permisos municipales."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cap.1 – Obra civil, estructura y cimentación",
+          "descripcion": "Estudio geotécnico, proyecto técnico estructural, verificación capacidad portante garaje existente, demolición parcial si necesaria, forjado nuevo (40 m²), muros de carga/cerramiento, escalera de acceso, andamiaje, apuntalamiento temporal, pequeño material.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto alzado. Instalador debe estimar según: cálculo estructural, tipo forjado (hormigón in situ vs prefabricado), altura, accesibilidad. Rango estimado: 18.000-35.000€ (incluye proyecto técnico, licencia, obra civil, andamiaje)."
+        },
+        {
+          "concepto": "Cap.2 – Instalaciones (electricidad, fontanería, climatización)",
+          "descripcion": "Cuadro eléctrico secundario o ampliación cuadro principal, cableado completo nueva planta (40 m²), mecanismos (enchufes, interruptores, luminarias), toma tierra, boletín eléctrico. Red fontanería ACS/agua fría si aplica. Instalación climatización (split o radiadores si calefacción). Pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto alzado. Instalador debe estimar según: número de circuitos, tipo climatización, necesidad fontanería. Rango estimado: 6.000-15.000€ (electricidad 3.000-8.000€ + fontanería 2.000-5.000€ + clima 1.000-4.000€)."
+        },
+        {
+          "concepto": "Cap.3 – Acabados (pintura, suelos, carpintería, pladur)",
+          "descripcion": "Pladur/escayola en techos y paredes si necesario, pintura interior (40 m²), pavimento (baldosa, parquet o laminado según especificación), carpintería interior (puertas, marcos), zócalos, pequeño material.",
+          "oficio": "pintura",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto alzado. Instalador debe estimar según: tipo pavimento (baldosa 20-40€/m², parquet 30-60€/m², laminado 15-30€/m²), pintura (8-15€/m²), pladur (12-20€/m²), carpintería (puertas 200-500€/ud). Rango estimado: 8.000-20.000€."
+        },
+        {
+          "concepto": "Cap.4 – Gestión de residuos, permisos y tramitación",
+          "descripcion": "Gestión y transporte residuos construcción, licencia de obras mayor, proyecto técnico visado, inspección técnica durante ejecución, coordinación con administración local, pequeño material.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto alzado. Instalador debe estimar según: volumen residuos (aprox. 40 m² × 0,5 m altura = 20 m³ = 30-40 toneladas), gestión (500-2.000€), licencia y tramitación (1.000-3.000€). Rango estimado: 2.000-6.000€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar presupuesto detallado de proyecto técnico estructural (obligatorio para obra mayor).",
+        "Verificar con técnico municipal requisitos específicos de licencia en el municipio.",
+        "Considerar si la nueva planta será vivienda, oficina, trastero u otro uso (afecta a instalaciones y normativa).",
+        "Evaluar acceso a la nueva planta: escalera interior vs. escalera exterior.",
+        "Presupuestar estudio geotécnico si no existe (recomendado para verificar cimentación garaje).",
+        "Incluir partida de coordinación y seguridad en obra (obligatorio en obras mayores)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico estructural y estudio geotécnico",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "motivo": "Obra mayor con nueva planta: proyecto técnico obligatorio. No encontrado en catálogo base."
+        },
+        {
+          "concepto": "Licencia de obras mayor y tramitación municipal",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "motivo": "Ampliación estructural requiere licencia mayor. Gestión administrativa obligatoria."
+        },
+        {
+          "concepto": "Forjado nuevo 40 m² (hormigón in situ o prefabricado)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Elemento estructural principal. Precio depende de tipo forjado y cálculo estructural."
+        },
+        {
+          "concepto": "Andamiaje y apuntalamiento temporal",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "motivo": "Obra mayor requiere sistemas de seguridad y apoyo temporal."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "ampliacion_y_redistribucion_de_espacios_en_vivienda",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda",
+      "instalacion_electrica_reforma_integral_vivienda",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "impermeabilizacion_techos_de_semisotano_o_losa_de_planta_baja"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v58",
+      "stop_reason": "end_turn",
+      "tokens_in": 3973,
+      "tokens_out": 3503
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}
