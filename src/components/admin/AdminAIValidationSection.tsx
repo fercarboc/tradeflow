@@ -913,6 +913,11 @@ function ComparadorScreen({ runs }: { runs: BenchmarkRun[] }) {
         <p className="text-sm text-gray-500 mt-0.5">Compara KPIs entre dos ejecuciones de benchmark</p>
       </div>
 
+      <div className="flex items-start gap-2 px-3 py-2 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-700">
+        <AlertTriangle size={12} className="mt-0.5 flex-shrink-0" />
+        <span>Los casos con <code className="font-mono bg-amber-100 px-0.5 rounded">stop_reason=max_tokens</code> se consideran truncados en el agregado, aunque classify.ts pueda mostrarlos como VACIO en el detalle individual.</span>
+      </div>
+
       {/* Selección de runs */}
       <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
@@ -1177,6 +1182,12 @@ function CasosScreen({ runs }: { runs: BenchmarkRun[] }) {
             </button>
           )}
         </div>
+      </div>
+
+      {/* Nota metodológica */}
+      <div className="flex items-start gap-2 px-3 py-2 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-700">
+        <AlertTriangle size={12} className="mt-0.5 flex-shrink-0" />
+        <span>Los casos con <code className="font-mono bg-amber-100 px-0.5 rounded">stop_reason=max_tokens</code> se consideran truncados en el agregado, aunque classify.ts pueda mostrarlos como VACIO en el detalle individual.</span>
       </div>
 
       {/* Stats rápidas del run seleccionado */}
