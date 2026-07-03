@@ -874,18 +874,23 @@ function ComparadorScreen({ runs }: { runs: BenchmarkRun[] }) {
   }, [runAId, runBId]);
 
   // Semáforo automático
+  // VACIO y TRUNCADO se comparan combinados porque su split depende de
+  // la versión de classify.ts en el momento de la ejecución: max_tokens+0partidas
+  // puede quedar como TRUNCADO (runner antiguo) o VACIO (classify.ts actual).
   function calcSemaforo(): Semaforo {
     if (!runA || !runB) return null;
-    const okDelta   = (runB.ok_rate ?? 0) - (runA.ok_rate ?? 0);
-    const newVacio  = runB.queries_vacio > runA.queries_vacio;
-    const newPinv   = runB.queries_precio_inv > runA.queries_precio_inv;
-    if (newVacio || okDelta < -1) return 'rojo';
-    if (newPinv || okDelta < 0)   return 'amarillo';
+    const okDelta    = (runB.ok_rate ?? 0) - (runA.ok_rate ?? 0);
+    const badA       = (runA.queries_vacio ?? 0) + (runA.queries_truncado ?? 0);
+    const badB       = (runB.queries_vacio ?? 0) + (runB.queries_truncado ?? 0);
+    const moreBad    = badB > badA;
+    const newPinv    = (runB.queries_precio_inv ?? 0) > (runA.queries_precio_inv ?? 0);
+    if (moreBad || okDelta < -1) return 'rojo';
+    if (newPinv || okDelta < 0)  return 'amarillo';
     return 'verde';
   }
   const semaforo = calcSemaforo();
 
-  const KPI_ROWS: { label: string; keyA: keyof BenchmarkRun; pct?: boolean; lower?: boolean }[] = [
+  const KPI_ROWS: { label: string; keyA: keyof BenchmarkRun; pct?: boolean; lower?: boolean; note?: string }[] = [
     { label: 'OK rate (%)',        keyA: 'ok_rate',          pct: true  },
     { label: 'Coincide oficio (%)',keyA: 'coin_rate',        pct: true  },
     { label: 'VACIO',              keyA: 'queries_vacio',    lower: true },
@@ -896,6 +901,10 @@ function ComparadorScreen({ runs }: { runs: BenchmarkRun[] }) {
     { label: 'Lat. P95 (ms)',      keyA: 'lat_p95_ms',       lower: true },
     { label: 'Tokens media',       keyA: 'tok_mean',         lower: true },
   ];
+
+  // VACIO+TRUNCADO combinados (para semáforo y visualización)
+  const badA = runA ? (runA.queries_vacio ?? 0) + (runA.queries_truncado ?? 0) : null;
+  const badB = runB ? (runB.queries_vacio ?? 0) + (runB.queries_truncado ?? 0) : null;
 
   return (
     <div className="space-y-6">
@@ -973,6 +982,12 @@ function ComparadorScreen({ runs }: { runs: BenchmarkRun[] }) {
                   </tr>
                 );
               })}
+              {/* Fila combinada VACIO+TRUNCADO — señal del semáforo */}
+              <tr className="border-t-2 border-gray-200 bg-gray-50/50">
+                <td className="py-2 text-gray-500 text-xs italic">VACIO+TRUNC (señal semáforo)</td>
+                <td className="py-2 text-right pr-4 text-gray-400 tabular-nums text-xs">{badA ?? '—'}</td>
+                <DeltaCell a={badA} b={badB} lowerIsBetter fmt={v => String(v.toFixed(0))} />
+              </tr>
             </tbody>
           </table>
         )}
