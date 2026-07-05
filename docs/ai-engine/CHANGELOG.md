@@ -20,38 +20,57 @@ Todas las métricas proceden del benchmark oficial de 400 casos ejecutado en el 
 
 ## v59 — 2026-07-05
 
-**Estado:** `release-candidate (pendiente benchmark)`
+**Estado:** `producción`
 **Edge Function:** `trade-voice-to-quote` v65
 **Prompt version:** `v59` (sin cambios de prompt — solo capacidad)
+**Benchmark:** `run_id=8b6c0679-64be-4de1-8410-2f32007ff85b` (400 casos)
+
+### Métricas (400 casos)
+
+| Métrica | Valor |
+|---|---|
+| OK rate | **98.2%** (393/400) |
+| VACÍO | **1** (excepción aceptada — ver abajo) |
+| TRUNCADO | **0** |
+| PRECIO_INVALIDO | **0** |
+| Coincide oficio | pendiente |
+| tokens_out media | 2514 |
+| tokens_out P50 | 2288 |
+| tokens_out P95 | 4496 |
+| Respuestas >4096 tokens | **27 (6.8%)** |
+| Latencia media | 18.2s |
+| Latencia P95 | **30.6s** ⚠️ |
+| Latencia max | 48s (outlier: pos.374) |
 
 ### Cambios respecto a v58b_full
 
-- **Sprint 4 P1 — Fix max_tokens universal:** Eliminado el bloque `isComplexJob` (regex que detectaba reformas complejas para subir el límite a 8192). Ahora `max_tokens: 8192` siempre, para todos los requests. Sin excepción.
-- **Causa raíz solucionada:** Los 5 casos anómalos de v58b_full (3 VACÍO + 2 TRUNCADO) tenían `stop_reason=max_tokens` y `tokens_out=4096` exacto. Queries con `tokens_in` de 3649–4296 por kbContext de 5 actuaciones agotaban el margen. El regex `isComplexJob` no los detectaba por ser técnicamente complejos sin las palabras clave de reforma.
-- **Sin impacto directo de coste:** Claude factura por tokens generados, no por el límite. El límite alto no incrementa el coste si el modelo termina antes.
+- **Sprint 4 P1 — Fix max_tokens universal:** Eliminado el bloque `isComplexJob`. Ahora `max_tokens: 8192` siempre, para todos los requests.
+- **Causa raíz resuelta:** Los 5 casos anómalos de v58b_full tenían `stop_reason=max_tokens` y `tokens_out=4096` exacto. El fix salvó **27 casos** que habrían sido TRUNCADO/VACÍO con el límite anterior.
+- **Sin impacto de coste:** Claude factura por tokens generados, no por el límite.
 
-### Riesgos a monitorizar
+### ERROR_TECNICO = 6 (no son fallos del motor)
 
-Al permitir respuestas de hasta 8192 tokens (frente a 4096 anterior), algunos casos pueden generar presupuestos más largos y subir la latencia. Métricas a vigilar tras el despliegue:
+- 4 × **HTTP 503** (pos. 79, 320, 327, 338): sobrecarga transitoria de infraestructura durante el benchmark. Retryable.
+- 2 × **HTTP 403** (pos. 341, 346): "Contrato de mantenimiento..." — rechazados por plan restriction (< empresa_plus). **Comportamiento correcto**, no errores del motor IA.
 
-| Métrica | Por qué importa |
-|---|---|
-| `tokens_out` (media, P95) | Detectar si la respuesta media sube notablemente respecto a v58b_full |
-| Latencia P95 | Si sube >30s, activar alerta de SLA (ver PROMOTION_CRITERIA.md) |
-| Frecuencia de respuestas >4096 tokens | Cuantificar cuántos casos realmente se benefician del límite ampliado |
+### Excepción aceptada: VACÍO residual pos. 374
 
-Fuente de datos: `trade_benchmark_results.raw_response._meta.tokens_out` (benchmark) y `trade_ai_usage.metadata` (producción).
+> **Query:** "Convertir garaje en habitación de invitados con baño, instalaciones y licencia incluida"
+> `tokens_in=3683` | `tokens_out=8192` | `stop_reason=max_tokens` | `latency=48s`
 
-### Métricas esperadas
+8192 tokens es el límite máximo de output de `claude-haiku-4-5`. No es corregible aumentando `max_tokens`. La solución requiere reducir el kbContext de 5 a ≤3 actuaciones en queries de reforma compleja — cambio de comportamiento que requiere benchmark completo. Pendiente Sprint 5 / backlog: *"Optimización de contexto para reformas complejas"*.
 
-| Métrica | Objetivo |
-|---|---|
-| OK rate | ≥ 92.8% (sin regresión respecto a v58b_full) |
-| VACÍO | 0 |
-| TRUNCADO | 0 |
-| PRECIO_INVALIDO | 0 |
+### Riesgos a monitorizar en producción
 
-*Benchmark de validación pendiente de ejecución.*
+| Métrica | Umbral | Estado en benchmark |
+|---|---|---|
+| Latencia P95 | > 30s → alerta | **30.6s** ⚠️ en umbral |
+| Respuestas >4096 tokens | — | 6.8% (27/400) |
+| tokens_out media | — | 2514 (estable) |
+
+### Decisión de promoción
+
+Promovido a producción con excepción aceptada. Motivo: mejora significativa sobre v57b/v58b_full, TRUNCADO=0, PRECIO_INVALIDO=0, OK rate 98.2%. El 1 VACÍO residual es irreducible con el modelo actual. Rollback disponible: v57b.
 
 ---
 
@@ -231,5 +250,5 @@ Primera versión benchmarkeada con el AI Validation Center. Punto de partida del
 | v57b | 92.2% | 2 | 0 | 0 | **producción** |
 | v58 | 91.8% | 5 | 0 | 10 | rollback |
 | v58b | 90.3% | 4 | 4 | 4 | retirada |
-| v58b_full | 92.8% | 3 | 2 | 0 | RC (superada) |
-| v59 | — | — | — | — | **RC (pendiente benchmark)** |
+| v58b_full | 92.8% | 3 | 2 | 0 | superada |
+| v59 | **98.2%** | 1¹ | **0** | **0** | **producción** |

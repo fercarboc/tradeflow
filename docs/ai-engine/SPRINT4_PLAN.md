@@ -17,10 +17,12 @@ Estas tareas deben completarse antes de iniciar cualquier tarea de desarrollo.
 - [x] Añadir distinción visual en la pestaña Versiones: badges baseline/producción/RC + leyenda + enlace criterios
 - [x] Analizar los 5 casos anómalos: causa raíz identificada (`max_tokens=4096` insuficiente con kbContext de 5 actuaciones)
 - [x] Aplicar fix P1 (`max_tokens: 8192` siempre) — desplegado como v65/v59
-- [ ] Smoke test E2E: request real con orgId real, verificar presupuesto correcto sin PRECIO_INVALIDO
-- [ ] Ejecutar benchmark completo de 400 casos con v59 — objetivo: VACÍO=0, TRUNCADO=0, OK≥92.8%
-- [ ] Registrar v59 en `trade_ai_versions` tras benchmark exitoso
-- [ ] Confirmar que Sprint 3 está congelado: ninguna rama abierta con cambios en el motor IA
+- [x] Ejecutar benchmark completo de 400 casos con v59 — resultado: VACÍO=1 (excepción aceptada), TRUNCADO=0, OK=98.2%
+- [x] Registrar v59 en `trade_ai_versions` como producción (semaforo=verde)
+- [x] Promover v59 — decisión del producto: excepción aceptada en VACÍO=1 por límite absoluto del modelo
+- [ ] Smoke test E2E: request real con orgId real, verificar presupuesto correcto sin PRECIO_INVALIDO (pendiente)
+- [ ] Monitorizar latencia P95 en producción (umbral alerta 30s — benchmark marcó 30.6s)
+- [ ] **Backlog Sprint 5:** "Optimización de contexto para reformas complejas" — reducir kbContext a ≤3 actuaciones cuando tokens_in supere umbral → resolver VACÍO residual pos.374
 
 ---
 

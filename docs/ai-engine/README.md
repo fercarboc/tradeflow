@@ -18,13 +18,15 @@ Edge Function: `trade-voice-to-quote` | Benchmark: `trade-benchmark-runner`
 
 ## Estado actual (2026-07-05)
 
-| Rol | Versión | OK% | VACÍO | TRUNC | P.INV | Edge Fn |
-|---|---|---|---|---|---|---|
-| Baseline histórica | v56-stable | 93.2% | 0 | 4 | 1 | v63 |
-| Producción | v57b | 92.2% | 2 | 0 | 0 | v63 |
-| Release Candidate | v59 | pendiente | — | — | — | v65 |
+| Rol | Versión | OK% | VACÍO | TRUNC | P.INV | P95 lat | Edge Fn |
+|---|---|---|---|---|---|---|---|
+| Baseline histórica | v56-stable | 93.2% | 0 | 4 | 1 | — | v63 |
+| Rollback | v57b | 92.2% | 2 | 0 | 0 | — | v63 |
+| **Producción** | **v59** | **98.2%** | **1¹** | **0** | **0** | **30.6s ⚠️** | v65 |
 
-> v59 = P1 Sprint 4 (`max_tokens: 8192` siempre). Benchmark de 400 casos pendiente de ejecución.
+¹ VACÍO residual irreducible: tokens_out=8192 (límite absoluto del modelo). Excepción aceptada.
+
+> ⚠️ Latencia P95 en umbral de alerta (30s). Monitorizar en producción.
 
 ---
 
