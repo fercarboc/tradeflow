@@ -9,10 +9,11 @@ Edge Function: `trade-voice-to-quote` | Benchmark: `trade-benchmark-runner`
 
 | Documento | Descripción |
 |---|---|
-| [CHANGELOG.md](CHANGELOG.md) | Historial de versiones con métricas de benchmark |
+| [RELEASE_NOTES_v59.md](RELEASE_NOTES_v59.md) | Release Notes de producción — v59 (2026-07-05) |
+| [CHANGELOG.md](CHANGELOG.md) | Historial técnico de versiones con métricas de benchmark |
 | [PROMOTION_CRITERIA.md](PROMOTION_CRITERIA.md) | Criterios de promoción RC → Producción y criterios de rollback |
 | [SPRINT3_CLOSURE.md](SPRINT3_CLOSURE.md) | Cierre oficial de Sprint 3 — entregables y decisiones |
-| [SPRINT4_PLAN.md](SPRINT4_PLAN.md) | Plan operativo de Sprint 4 con checklist pre-sprint |
+| [SPRINT4_PLAN.md](SPRINT4_PLAN.md) | Plan operativo de Sprint 4 — P1 completado, Sprint cerrado |
 
 ---
 
