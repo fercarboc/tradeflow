@@ -9,13 +9,13 @@
 ## Mejoras
 
 - `max_tokens` aumentado a 8192 de forma universal — elimina el condicional `isComplexJob` que cubría solo un subconjunto de casos complejos.
-- Eliminados todos los TRUNCADO: de 2 en v58b_full a 0.
-- OK rate: 92.8% → **98.2%** (+5.4 pp).
-- **27 presupuestos recuperados** que antes se truncaban o quedaban vacíos por falta de margen de salida.
+- TRUNCADO eliminado: de 2 en v58b_full a **0**.
+- VACÍO reducido: de 2 en v57b y 3 en v58b_full a **1** (excepción aceptada).
+- 27 respuestas que antes se truncaban ahora completan (`end_turn`) — se convierten en SOLO_SUGERIDAS (presupuesto generado, precios pendientes de revisión del instalador).
 
 ## Correcciones
 
-- PRECIO_INVALIDO permanece en 0 (fix heredado de Sprint 3).
+- PRECIO_INVALIDO permanece en **0** (fix heredado de Sprint 3).
 - Trazabilidad de versión en cada respuesta mediante `_meta.prompt_version`.
 
 ## Limitaciones conocidas
@@ -28,14 +28,19 @@
 
 | Métrica | v57b (anterior) | v59 |
 |---|---|---|
-| OK rate | 92.2% | **98.2%** |
+| OK rate (OK_CATALOGO + OK_MIXTO) | 92.2% | **92.5%** |
+| SOLO_SUGERIDAS | — | 23 (5.8%) |
 | TRUNCADO | 0 | **0** |
-| VACÍO | 2 | 1¹ |
+| VACÍO | 2 | **1**¹ |
 | PRECIO_INVALIDO | 0 | **0** |
 | Latencia P95 | — | 30.6s |
 | Respuestas >4096 tokens | — | 27 (6.8%) |
 
 ¹ Excepción aceptada — límite absoluto del modelo, no corregible con el modelo actual.
+
+## Nota sobre SOLO_SUGERIDAS
+
+Las 27 respuestas que antes se truncaban ahora completan correctamente. Al ser queries complejas de reforma sin match exacto en catálogo, Claude genera partidas con `origen=sugerida_ia` (requieren que el instalador revise precios). Esto es preferible a un presupuesto truncado o vacío: el instalador recibe la estructura de trabajo y solo tiene que completar precios.
 
 ## Rollback
 

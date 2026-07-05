@@ -54,9 +54,10 @@ do {
         $categories = $resp.batch_results | Group-Object categoria
         foreach ($g in $categories) {
             switch ($g.Name) {
+                # OK = solo OK_CATALOGO + OK_MIXTO (igual que el dashboard)
+                # SOLO_SUGERIDAS NO cuenta como OK
                 "OK_CATALOGO"    { $totalOk     += $g.Count }
                 "OK_MIXTO"       { $totalOk     += $g.Count }
-                "SOLO_SUGERIDAS" { $totalOk     += $g.Count }
                 "VACIO"          { $totalVacio  += $g.Count }
                 "TRUNCADO"       { $totalTrunc  += $g.Count }
                 "PRECIO_INVALIDO"{ $totalPrecio += $g.Count }

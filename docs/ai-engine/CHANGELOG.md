@@ -29,11 +29,11 @@ Todas las métricas proceden del benchmark oficial de 400 casos ejecutado en el 
 
 | Métrica | Valor |
 |---|---|
-| OK rate | **98.2%** (393/400) |
+| OK rate (OK_CATALOGO + OK_MIXTO) | **92.5%** (370/400) |
+| SOLO_SUGERIDAS | 23 (5.8%) |
 | VACÍO | **1** (excepción aceptada — ver abajo) |
 | TRUNCADO | **0** |
 | PRECIO_INVALIDO | **0** |
-| Coincide oficio | pendiente |
 | tokens_out media | 2514 |
 | tokens_out P50 | 2288 |
 | tokens_out P95 | 4496 |
@@ -45,8 +45,9 @@ Todas las métricas proceden del benchmark oficial de 400 casos ejecutado en el 
 ### Cambios respecto a v58b_full
 
 - **Sprint 4 P1 — Fix max_tokens universal:** Eliminado el bloque `isComplexJob`. Ahora `max_tokens: 8192` siempre, para todos los requests.
-- **Causa raíz resuelta:** Los 5 casos anómalos de v58b_full tenían `stop_reason=max_tokens` y `tokens_out=4096` exacto. El fix salvó **27 casos** que habrían sido TRUNCADO/VACÍO con el límite anterior.
+- **Causa raíz resuelta:** Los 5 casos anómalos de v58b_full tenían `stop_reason=max_tokens` y `tokens_out=4096` exacto. El fix permitió que 27 respuestas completaran (`end_turn`) en lugar de truncarse — la mayoría de esos casos caen en SOLO_SUGERIDAS (queries complejas sin match en catálogo), no en OK_MIXTO.
 - **Sin impacto de coste:** Claude factura por tokens generados, no por el límite.
+- **Corrección de métrica:** Un error en el script de benchmark contabilizaba SOLO_SUGERIDAS como OK, inflando la cifra a 98.2%. El OK rate correcto (solo OK_CATALOGO + OK_MIXTO) es **92.5%**.
 
 ### ERROR_TECNICO = 6 (no son fallos del motor)
 
@@ -70,7 +71,7 @@ Todas las métricas proceden del benchmark oficial de 400 casos ejecutado en el 
 
 ### Decisión de promoción
 
-Promovido a producción con excepción aceptada. Motivo: mejora significativa sobre v57b/v58b_full, TRUNCADO=0, PRECIO_INVALIDO=0, OK rate 98.2%. El 1 VACÍO residual es irreducible con el modelo actual. Rollback disponible: v57b.
+Promovido a producción con excepción aceptada. Motivo: TRUNCADO=0 (mantenido), VACIO=1 (−1 vs v57b, −2 vs v58b_full), PRECIO_INVALIDO=0, OK rate 92.5% (+0.3pp vs v57b). El 1 VACÍO residual es irreducible con el modelo actual. Rollback disponible: v57b.
 
 ---
 
@@ -251,4 +252,4 @@ Primera versión benchmarkeada con el AI Validation Center. Punto de partida del
 | v58 | 91.8% | 5 | 0 | 10 | rollback |
 | v58b | 90.3% | 4 | 4 | 4 | retirada |
 | v58b_full | 92.8% | 3 | 2 | 0 | superada |
-| v59 | **98.2%** | 1¹ | **0** | **0** | **producción** |
+| v59 | **92.5%** | 1¹ | **0** | **0** | **producción** |
