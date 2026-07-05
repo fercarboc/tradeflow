@@ -173,6 +173,7 @@ interface Partida {
   concepto?: string;
   descripcion?: string;
   tipo_partida?: string;
+  origen?: string;
   requiere_revision?: boolean;
   precio_unitario?: number;
   cantidad?: number;
@@ -264,6 +265,10 @@ async function enrichWithCatalogPrices(
       partida.precio_origen = match.fuente;
       partida.catalog_codigo = match.codigo;
       recalculated = true;
+    } else if (partida.origen === 'catalogo' && (partida.precio_unitario ?? 0) <= 0) {
+      // v58b: partida marcada como catálogo por la IA sin precio válido → reclasificar
+      partida.origen = 'sugerida_ia';
+      partida.requiere_revision = true;
     }
   }
 
@@ -570,11 +575,6 @@ Deno.serve(async (req: Request) => {
       webSearchUsed = webContext.length > 0;
     }
 
-    // Detectar complejidad para ajustar max_tokens (M3)
-    const isComplexJob =
-      /reforma|rehabil|convert|construir|ampliar|chalet|farmacia|restaurante|local.*vivienda|edificio.*completo|piso.*completo|actualiz|moderniz|adaptar.*vivienda|accesib/i.test(transcript)
-      || (transcript.match(/[,;]/g) ?? []).length > 4;
-
     // ── Generar presupuesto con IA ───────────────────────────────────────────
     const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -585,7 +585,7 @@ Deno.serve(async (req: Request) => {
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
-        max_tokens: isComplexJob ? 8192 : 4096,
+        max_tokens: 8192,
         temperature: 0,
         system: AI_SYSTEM_PROMPT + kbContext + webContext,
         messages: [{ role: 'user', content: `El profesional dice: "${transcript}"` }],
@@ -649,6 +649,17 @@ Deno.serve(async (req: Request) => {
 
     applyOficioRules(transcript, quote);
 
+    // v58b: reclasificar partidas 'catalogo' con precio ≤ 0 antes del enriquecimiento
+    // Aplica a TODOS los requests (incluyendo benchmarks con orgId=null)
+    if (Array.isArray(quote.partidas)) {
+      for (const p of (quote.partidas as Partida[])) {
+        if (p.origen === 'catalogo' && (p.precio_unitario ?? 0) <= 0) {
+          p.origen = 'sugerida_ia';
+          p.requiere_revision = true;
+        }
+      }
+    }
+
     // ── Enriquecer precios con catálogo del instalador ────────────────────────
     // INTENCIÓN (IA) → PARTIDAS (IA genera) → ARTÍCULOS (catálogo precio) → PRESUPUESTO
     if (orgId && quote.partidas) {
@@ -682,7 +693,7 @@ Deno.serve(async (req: Request) => {
         kb_score: kbScore,
         web_search_used: webSearchUsed,
         _meta: {
-          prompt_version: 'v57b',
+          prompt_version: 'v58b',
           stop_reason: claudeData.stop_reason ?? 'end_turn',
           tokens_in:  claudeData.usage?.input_tokens  ?? 0,
           tokens_out: claudeData.usage?.output_tokens ?? 0,

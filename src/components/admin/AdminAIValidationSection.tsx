@@ -1,10 +1,10 @@
-import { useState, useEffect, useCallback, type ElementType } from 'react';
+import { useState, useEffect, useCallback, useRef, Fragment, type ElementType } from 'react';
 import {
   Activity, Brain, CheckCircle, XCircle, AlertTriangle, Clock,
   RefreshCw, ChevronRight, Plus, BarChart2, Layers,
   TrendingUp, TrendingDown, Minus, AlertCircle, Database,
   GitBranch, Cpu, Zap, Eye, Edit2, X, GitCompare, List,
-  Filter, ChevronDown, ChevronUp,
+  Filter, ChevronDown, ChevronUp, Play, Pause, PlayCircle,
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
@@ -13,7 +13,7 @@ import { supabase } from '../../lib/supabase';
 type Semaforo = 'verde' | 'amarillo' | 'rojo' | null;
 type RunEstado = 'pending' | 'running' | 'paused' | 'completed' | 'failed' | 'cancelled';
 type BenchmarkTipo = 'oficial' | 'proveedor' | 'cliente' | 'interno';
-type SubScreen = 'dashboard' | 'benchmarks' | 'versiones' | 'ejecuciones' | 'comparador' | 'casos';
+type SubScreen = 'dashboard' | 'benchmarks' | 'versiones' | 'ejecuciones' | 'comparador' | 'casos' | 'ejecutar';
 
 interface BenchmarkResult {
   id: string;
@@ -70,6 +70,7 @@ interface AiVersion {
   rolled_back_at: string | null;
   es_produccion: boolean;
   es_baseline: boolean;
+  es_release_candidate: boolean;
   benchmark_run_id: string | null;
   semaforo: Semaforo;
   notas: string | null;
@@ -417,7 +418,7 @@ function BenchmarkModal({
           <div>
             <label className="block text-xs font-medium text-gray-600 mb-1">Tipo</label>
             <select
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={form.tipo}
               onChange={e => setForm(f => ({ ...f, tipo: e.target.value as BenchmarkTipo }))}
             >
@@ -618,9 +619,35 @@ function VersionesScreen({
 
   return (
     <div className="space-y-5">
-      <div>
-        <h2 className="text-lg font-semibold text-gray-800">Versiones del motor IA</h2>
-        <p className="text-sm text-gray-500 mt-0.5">Historial completo de versiones con resultados de benchmark</p>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h2 className="text-lg font-semibold text-gray-800">Versiones del motor IA</h2>
+          <p className="text-sm text-gray-500 mt-0.5">Historial completo de versiones con resultados de benchmark</p>
+        </div>
+        <a
+          href="https://github.com/trabflow/trabflow/blob/main/docs/ai-engine/PROMOTION_CRITERIA.md"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs text-blue-600 hover:underline flex-shrink-0 mt-1"
+        >
+          Criterios de promoción →
+        </a>
+      </div>
+
+      {/* Leyenda de roles */}
+      <div className="flex flex-wrap gap-3 text-xs">
+        <span className="flex items-center gap-1.5 text-gray-500">
+          <span className="w-2.5 h-2.5 rounded-full bg-blue-400 inline-block" />
+          <span className="font-medium text-blue-700">producción</span> — versión activa en producción
+        </span>
+        <span className="flex items-center gap-1.5 text-gray-500">
+          <span className="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block" />
+          <span className="font-medium text-amber-700">release candidate</span> — validado, pendiente de criterios de promoción
+        </span>
+        <span className="flex items-center gap-1.5 text-gray-500">
+          <span className="w-2.5 h-2.5 rounded-full bg-purple-400 inline-block" />
+          <span className="font-medium text-purple-700">baseline</span> — referencia histórica fija
+        </span>
       </div>
 
       <div className="space-y-2">
@@ -628,7 +655,7 @@ function VersionesScreen({
           const run = v.run;
           const isExpanded = expandedId === v.id;
           return (
-            <div key={v.id} className={`bg-white rounded-xl border shadow-sm overflow-hidden transition-all ${v.es_produccion ? 'border-blue-300' : v.es_baseline ? 'border-purple-200' : 'border-gray-200'}`}>
+            <div key={v.id} className={`bg-white rounded-xl border shadow-sm overflow-hidden transition-all ${v.es_produccion ? 'border-blue-300' : v.es_release_candidate ? 'border-amber-300' : v.es_baseline ? 'border-purple-200' : 'border-gray-200'}`}>
               {/* Header row */}
               <div className="flex items-center gap-3 px-5 py-3.5">
                 {/* Semáforo dot */}
@@ -639,9 +666,10 @@ function VersionesScreen({
 
                 {/* Badges */}
                 <div className="flex items-center gap-1.5 flex-wrap">
-                  {v.es_produccion && <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-medium">producción</span>}
-                  {v.es_baseline   && <span className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full font-medium">baseline</span>}
-                  {v.rolled_back_at && <span className="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full">rollback</span>}
+                  {v.es_produccion        && <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-medium">producción</span>}
+                  {v.es_release_candidate && <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-medium">release candidate</span>}
+                  {v.es_baseline          && <span className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full font-medium">baseline</span>}
+                  {v.rolled_back_at       && <span className="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full">rollback</span>}
                 </div>
 
                 {/* KPIs inline */}
@@ -854,6 +882,7 @@ function ComparadorScreen({ runs }: { runs: BenchmarkRun[] }) {
       function agg(rows: { oficio_esperado: string; categoria: string; coincide_oficio: boolean }[]): OficioStat[] {
         const map = new Map<string, OficioStat>();
         for (const r of rows) {
+          if (!r.oficio_esperado) continue; // runs sin oficio_esperado (datos previos a la columna)
           const s = map.get(r.oficio_esperado) ?? { oficio: r.oficio_esperado, total: 0, ok: 0, vacio: 0, truncado: 0, precio_inv: 0, solo_sug: 0, coincide: 0 };
           s.total++;
           if (['OK_CATALOGO','OK_MIXTO'].includes(r.categoria)) s.ok++;
@@ -924,7 +953,7 @@ function ComparadorScreen({ runs }: { runs: BenchmarkRun[] }) {
           <div>
             <label className="block text-xs font-medium text-gray-500 mb-1.5">Referencia (A)</label>
             <select
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={runAId}
               onChange={e => setRunAId(e.target.value)}
             >
@@ -936,7 +965,7 @@ function ComparadorScreen({ runs }: { runs: BenchmarkRun[] }) {
           <div>
             <label className="block text-xs font-medium text-gray-500 mb-1.5">Candidato (B)</label>
             <select
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={runBId}
               onChange={e => setRunBId(e.target.value)}
             >
@@ -1022,6 +1051,13 @@ function ComparadorScreen({ runs }: { runs: BenchmarkRun[] }) {
                   </tr>
                 </thead>
                 <tbody>
+                  {oficios.a.length === 0 && (
+                    <tr>
+                      <td colSpan={8} className="px-4 py-6 text-center text-xs text-gray-400">
+                        El run de referencia (A) no tiene datos por oficio — solo disponible para ejecuciones posteriores al Sprint 3.
+                      </td>
+                    </tr>
+                  )}
                   {oficios.a.map((sa, i) => {
                     const sb = oficios.b.find(x => x.oficio === sa.oficio);
                     if (!sb) return null;
@@ -1047,7 +1083,9 @@ function ComparadorScreen({ runs }: { runs: BenchmarkRun[] }) {
             </div>
           ) : (
             <div className="py-8 text-center text-sm text-gray-400">
-              {loadingOf ? 'Cargando desglose…' : 'Selecciona dos ejecuciones distintas para ver el desglose por oficio'}
+              {loadingOf
+                ? 'Cargando desglose…'
+                : 'Selecciona dos ejecuciones distintas para ver el desglose por oficio'}
             </div>
           )}
         </div>
@@ -1133,7 +1171,7 @@ function CasosScreen({ runs }: { runs: BenchmarkRun[] }) {
         <div className="flex-1 min-w-48">
           <label className="block text-xs font-medium text-gray-500 mb-1.5">Ejecución</label>
           <select
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={selectedRunId}
             onChange={e => { setSelectedRunId(e.target.value); setFilterCat(''); setFilterCoinc(''); setFilterOficio(''); }}
           >
@@ -1149,7 +1187,7 @@ function CasosScreen({ runs }: { runs: BenchmarkRun[] }) {
             <Filter size={12} />
           </div>
           <select
-            className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-blue-400"
+            className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs text-gray-900 bg-white focus:outline-none focus:ring-1 focus:ring-blue-400"
             value={filterCat}
             onChange={e => { setFilterCat(e.target.value); setPage(0); }}
           >
@@ -1157,7 +1195,7 @@ function CasosScreen({ runs }: { runs: BenchmarkRun[] }) {
             {CATEGORIAS.map(c => <option key={c} value={c}>{c}</option>)}
           </select>
           <select
-            className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-blue-400"
+            className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs text-gray-900 bg-white focus:outline-none focus:ring-1 focus:ring-blue-400"
             value={filterCoinc}
             onChange={e => { setFilterCoinc(e.target.value); setPage(0); }}
           >
@@ -1166,7 +1204,7 @@ function CasosScreen({ runs }: { runs: BenchmarkRun[] }) {
             <option value="no">No coincide</option>
           </select>
           <select
-            className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-blue-400"
+            className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs text-gray-900 bg-white focus:outline-none focus:ring-1 focus:ring-blue-400"
             value={filterOficio}
             onChange={e => { setFilterOficio(e.target.value); setPage(0); }}
           >
@@ -1243,9 +1281,8 @@ function CasosScreen({ runs }: { runs: BenchmarkRun[] }) {
                 </thead>
                 <tbody>
                   {paginated.map((r, i) => (
-                    <>
+                    <Fragment key={r.id}>
                       <tr
-                        key={r.id}
                         className={`border-t border-gray-50 cursor-pointer hover:bg-blue-50/30 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'}`}
                         onClick={() => setExpandedId(expandedId === r.id ? null : r.id)}
                       >
@@ -1269,7 +1306,7 @@ function CasosScreen({ runs }: { runs: BenchmarkRun[] }) {
                         </td>
                       </tr>
                       {expandedId === r.id && (
-                        <tr key={`${r.id}-detail`} className="border-t border-blue-100 bg-blue-50/20">
+                        <tr className="border-t border-blue-100 bg-blue-50/20">
                           <td colSpan={10} className="px-5 py-3">
                             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
                               <div><span className="text-gray-400">Stop reason</span><br /><span className="font-mono text-gray-700">{r.stop_reason ?? '—'}</span></div>
@@ -1288,7 +1325,7 @@ function CasosScreen({ runs }: { runs: BenchmarkRun[] }) {
                           </td>
                         </tr>
                       )}
-                    </>
+                    </Fragment>
                   ))}
                 </tbody>
               </table>
@@ -1315,6 +1352,369 @@ function CasosScreen({ runs }: { runs: BenchmarkRun[] }) {
           </>
         )}
       </div>
+    </div>
+  );
+}
+
+// ─── Screen: Ejecutar ────────────────────────────────────────────────────────
+
+const EDGE_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/trade-benchmark-runner`;
+
+interface EjecutarScreenProps {
+  benchmarks: Benchmark[];
+  runs: BenchmarkRun[];
+  toast: ToastFn;
+  onRefresh: () => void;
+}
+
+interface RunProgress {
+  total: number;
+  executed: number;
+  ok: number;
+  vacio: number;
+  truncado: number;
+  precio_inv: number;
+  lat_mean: number;
+  errors: number;
+}
+
+function EjecutarScreen({ benchmarks, runs, toast, onRefresh }: EjecutarScreenProps) {
+  const officialBm = benchmarks.find(b => b.es_baseline) ?? benchmarks[0];
+
+  const [benchmarkId, setBenchmarkId]   = useState(officialBm?.id ?? '');
+  const [versionTag, setVersionTag]     = useState('');
+  const [descripcion, setDescripcion]   = useState('');
+  const [batchSize, setBatchSize]       = useState(5);
+  const [runPhase, setRunPhase]         = useState<'idle' | 'running' | 'paused' | 'completed'>('idle');
+  const [activeRunId, setActiveRunId]   = useState<string | null>(null);
+  const [progress, setProgress]         = useState<RunProgress>({
+    total: 400, executed: 0, ok: 0, vacio: 0, truncado: 0, precio_inv: 0, lat_mean: 0, errors: 0,
+  });
+  const [batchNum, setBatchNum]         = useState(0);
+  const [activeBmId, setActiveBmId]     = useState('');
+
+  const abortRef = useRef(false);
+
+  const incompletedRuns = runs.filter(r => r.estado === 'running' || r.estado === 'paused');
+
+  async function fetchRunStats(runId: string, execPos: number) {
+    const { data } = await supabase
+      .from('trade_benchmark_runs')
+      .select('queries_ok,queries_vacio,queries_truncado,queries_precio_inv,queries_error,lat_mean_ms,total_queries')
+      .eq('id', runId)
+      .single();
+    if (data) {
+      setProgress({
+        total:      data.total_queries,
+        executed:   execPos,
+        ok:         data.queries_ok,
+        vacio:      data.queries_vacio,
+        truncado:   data.queries_truncado,
+        precio_inv: data.queries_precio_inv,
+        lat_mean:   data.lat_mean_ms ?? 0,
+        errors:     data.queries_error,
+      });
+    }
+  }
+
+  async function runLoop(runId: string, bmId: string, startPos: number, bSize: number) {
+    abortRef.current = false;
+    const { data: sessionData } = await supabase.auth.getSession();
+    const token = sessionData?.session?.access_token ?? '';
+    let batchStart = startPos;
+
+    while (!abortRef.current) {
+      try {
+        const res = await fetch(EDGE_URL, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ run_id: runId, benchmark_id: bmId, batch_start: batchStart, batch_size: bSize }),
+        });
+        if (!res.ok) {
+          const errText = await res.text();
+          toast('error', `Error en batch ${batchStart}: ${errText.slice(0, 120)}`);
+          abortRef.current = true;
+          break;
+        }
+        const data = await res.json() as { is_complete: boolean; executed: number; next_batch_start: number };
+        const execPos = data.next_batch_start - 1;
+        await fetchRunStats(runId, execPos);
+        setBatchNum(n => n + 1);
+
+        if (data.is_complete) {
+          setRunPhase('completed');
+          toast('success', `Benchmark completado ✓`);
+          onRefresh();
+          return;
+        }
+        batchStart = data.next_batch_start;
+      } catch (e) {
+        toast('error', 'Error inesperado: ' + (e as Error).message);
+        abortRef.current = true;
+        break;
+      }
+    }
+
+    if (abortRef.current) {
+      await supabase.from('trade_benchmark_runs').update({ estado: 'paused' }).eq('id', runId);
+      setRunPhase('paused');
+    }
+  }
+
+  async function handleStart() {
+    if (!versionTag.trim()) { toast('error', 'Indica una versión (ej: v59)'); return; }
+    if (!benchmarkId)       { toast('error', 'Selecciona un benchmark'); return; }
+    const totalQ = benchmarks.find(b => b.id === benchmarkId)?.total_queries ?? 400;
+    const { data: runData, error } = await supabase
+      .from('trade_benchmark_runs')
+      .insert({ benchmark_id: benchmarkId, version_tag: versionTag.trim(), descripcion: descripcion.trim() || null, estado: 'pending', total_queries: totalQ })
+      .select()
+      .single();
+    if (error || !runData) { toast('error', 'Error creando run: ' + error?.message); return; }
+    setActiveRunId(runData.id);
+    setActiveBmId(benchmarkId);
+    setProgress({ total: totalQ, executed: 0, ok: 0, vacio: 0, truncado: 0, precio_inv: 0, lat_mean: 0, errors: 0 });
+    setBatchNum(0);
+    setRunPhase('running');
+    await runLoop(runData.id, benchmarkId, 1, batchSize);
+  }
+
+  async function handleResume(run: BenchmarkRun) {
+    const { data: last } = await supabase
+      .from('trade_benchmark_results')
+      .select('posicion')
+      .eq('run_id', run.id)
+      .order('posicion', { ascending: false })
+      .limit(1)
+      .single();
+    const nextStart = last ? (last as { posicion: number }).posicion + 1 : 1;
+    setActiveRunId(run.id);
+    setBatchNum(0);
+    setProgress({
+      total: run.total_queries, executed: nextStart - 1,
+      ok: run.queries_ok, vacio: run.queries_vacio, truncado: run.queries_truncado,
+      precio_inv: run.queries_precio_inv, lat_mean: run.lat_mean_ms ?? 0, errors: run.queries_error,
+    });
+    setRunPhase('running');
+    await runLoop(run.id, run.benchmark_id, nextStart, batchSize);
+  }
+
+  function handlePause() { abortRef.current = true; }
+
+  async function handleResumeInPlace() {
+    if (!activeRunId || !activeBmId) return;
+    const { data: last } = await supabase
+      .from('trade_benchmark_results')
+      .select('posicion')
+      .eq('run_id', activeRunId)
+      .order('posicion', { ascending: false })
+      .limit(1)
+      .single();
+    const nextStart = last ? (last as { posicion: number }).posicion + 1 : 1;
+    setRunPhase('running');
+    await runLoop(activeRunId, activeBmId, nextStart, batchSize);
+  }
+
+  const pctDone = progress.total > 0 ? Math.round((progress.executed / progress.total) * 100) : 0;
+  const activeBm = benchmarks.find(b => b.id === benchmarkId);
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-lg font-semibold text-gray-800">Ejecutar Benchmark</h2>
+        <p className="text-sm text-gray-500 mt-0.5">Lanza el motor IA sobre el conjunto de queries y guarda los resultados en BD</p>
+      </div>
+
+      {/* Formulario — solo visible en idle/paused/completed */}
+      {(runPhase === 'idle' || runPhase === 'paused' || runPhase === 'completed') && (
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5 space-y-4">
+          <h3 className="text-sm font-semibold text-gray-700">Nueva ejecución</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-medium text-gray-500 mb-1.5">Benchmark</label>
+              <select
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={benchmarkId}
+                onChange={e => setBenchmarkId(e.target.value)}
+              >
+                {benchmarks.map(b => (
+                  <option key={b.id} value={b.id}>{b.nombre} ({b.total_queries} queries)</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-500 mb-1.5">Versión <span className="text-red-400">*</span></label>
+              <input
+                type="text"
+                placeholder="ej: v59"
+                value={versionTag}
+                onChange={e => setVersionTag(e.target.value)}
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-500 mb-1.5">Descripción (opcional)</label>
+              <input
+                type="text"
+                placeholder="Notas sobre esta ejecución"
+                value={descripcion}
+                onChange={e => setDescripcion(e.target.value)}
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-500 mb-1.5">Queries por batch</label>
+              <select
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={batchSize}
+                onChange={e => setBatchSize(Number(e.target.value))}
+              >
+                {[1, 2, 3, 5, 10, 20].map(n => <option key={n} value={n}>{n} queries/batch</option>)}
+              </select>
+            </div>
+          </div>
+          <button
+            onClick={handleStart}
+            className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-xl transition-colors"
+          >
+            <Play size={14} />
+            Iniciar benchmark ({activeBm?.total_queries ?? '?'} queries, batches de {batchSize})
+          </button>
+        </div>
+      )}
+
+      {/* Panel de progreso — visible durante running/paused/completed */}
+      {runPhase !== 'idle' && (
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5 space-y-5">
+          {/* Header estado */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              {runPhase === 'running' && <RefreshCw size={14} className="animate-spin text-blue-500" />}
+              {runPhase === 'paused'  && <Pause size={14} className="text-yellow-500" />}
+              {runPhase === 'completed' && <CheckCircle size={14} className="text-green-500" />}
+              <span className="text-sm font-semibold text-gray-700">
+                {runPhase === 'running'   && `Ejecutando… batch ${batchNum}`}
+                {runPhase === 'paused'    && 'Pausado'}
+                {runPhase === 'completed' && 'Completado ✓'}
+              </span>
+              {activeRunId && (
+                <span className="text-xs text-gray-400 font-mono">{activeRunId.slice(0, 8)}…</span>
+              )}
+            </div>
+            {runPhase === 'running' && (
+              <button
+                onClick={handlePause}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-yellow-700 bg-yellow-50 border border-yellow-200 rounded-lg hover:bg-yellow-100 transition-colors"
+              >
+                <Pause size={12} />
+                Pausar
+              </button>
+            )}
+            {runPhase === 'paused' && activeRunId && (
+              <button
+                onClick={handleResumeInPlace}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors"
+              >
+                <PlayCircle size={12} />
+                Continuar
+              </button>
+            )}
+          </div>
+
+          {/* Barra de progreso */}
+          <div>
+            <div className="flex justify-between text-xs text-gray-500 mb-1.5">
+              <span>{progress.executed} / {progress.total} queries</span>
+              <span>{pctDone}%</span>
+            </div>
+            <div className="w-full bg-gray-100 rounded-full h-3">
+              <div
+                className={`h-3 rounded-full transition-all duration-500 ${runPhase === 'completed' ? 'bg-green-500' : runPhase === 'paused' ? 'bg-yellow-400' : 'bg-blue-500'}`}
+                style={{ width: `${pctDone}%` }}
+              />
+            </div>
+          </div>
+
+          {/* KPI grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="bg-green-50 rounded-xl p-3 text-center">
+              <div className="text-2xl font-bold text-green-700">{progress.ok}</div>
+              <div className="text-xs text-green-600 font-medium mt-0.5">OK</div>
+              <div className="text-xs text-gray-400">{progress.total > 0 ? ((progress.ok / progress.total) * 100).toFixed(1) : 0}%</div>
+            </div>
+            <div className="bg-red-50 rounded-xl p-3 text-center">
+              <div className="text-2xl font-bold text-red-600">{progress.vacio}</div>
+              <div className="text-xs text-red-500 font-medium mt-0.5">VACÍO</div>
+            </div>
+            <div className="bg-orange-50 rounded-xl p-3 text-center">
+              <div className="text-2xl font-bold text-orange-600">{progress.truncado}</div>
+              <div className="text-xs text-orange-500 font-medium mt-0.5">TRUNCADO</div>
+            </div>
+            <div className="bg-red-50 rounded-xl p-3 text-center">
+              <div className="text-2xl font-bold text-red-800">{progress.precio_inv}</div>
+              <div className="text-xs text-red-700 font-medium mt-0.5">PRECIO_INV</div>
+            </div>
+            <div className="bg-gray-50 rounded-xl p-3 text-center">
+              <div className="text-2xl font-bold text-gray-700">{progress.total - progress.executed}</div>
+              <div className="text-xs text-gray-500 font-medium mt-0.5">Pendientes</div>
+            </div>
+            <div className="bg-blue-50 rounded-xl p-3 text-center">
+              <div className="text-2xl font-bold text-blue-700">{progress.executed}</div>
+              <div className="text-xs text-blue-500 font-medium mt-0.5">Ejecutadas</div>
+            </div>
+            <div className="bg-gray-50 rounded-xl p-3 text-center">
+              <div className="text-2xl font-bold text-gray-700">{progress.lat_mean}</div>
+              <div className="text-xs text-gray-500 font-medium mt-0.5">Lat. media (ms)</div>
+            </div>
+            <div className="bg-gray-50 rounded-xl p-3 text-center">
+              <div className="text-2xl font-bold text-gray-700">{progress.errors}</div>
+              <div className="text-xs text-gray-500 font-medium mt-0.5">Errores</div>
+            </div>
+          </div>
+
+          {runPhase === 'completed' && (
+            <div className="flex justify-end">
+              <button
+                onClick={() => { setRunPhase('idle'); setActiveRunId(null); setVersionTag(''); setDescripcion(''); }}
+                className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors"
+              >
+                <Plus size={13} />
+                Nueva ejecución
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Runs incompletos — resumibles */}
+      {runPhase === 'idle' && incompletedRuns.length > 0 && (
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
+          <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+            <PlayCircle size={14} className="text-yellow-500" />
+            Ejecuciones pausadas / en progreso
+          </h3>
+          <div className="space-y-2">
+            {incompletedRuns.map(r => (
+              <div key={r.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                <div className="flex items-center gap-3">
+                  <span className="text-sm font-medium text-gray-800">{r.version_tag}</span>
+                  <span className={`text-xs px-1.5 py-0.5 rounded font-medium ${r.estado === 'paused' ? 'bg-yellow-100 text-yellow-700' : 'bg-blue-100 text-blue-700'}`}>
+                    {r.estado}
+                  </span>
+                  <span className="text-xs text-gray-400">{r.queries_ok + r.queries_vacio + r.queries_truncado + r.queries_precio_inv + r.queries_error}/{r.total_queries}</span>
+                </div>
+                <button
+                  onClick={() => handleResume(r)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-600 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors"
+                >
+                  <Play size={11} />
+                  Continuar
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -1363,6 +1763,7 @@ export default function AdminAIValidationSection({ toast }: Props) {
     { id: 'dashboard',   label: 'Dashboard',    Icon: BarChart2    },
     { id: 'comparador',  label: 'Comparador',   Icon: GitCompare   },
     { id: 'casos',       label: 'Casos',        Icon: List         },
+    { id: 'ejecutar',    label: 'Ejecutar',     Icon: Play         },
     { id: 'benchmarks',  label: 'Benchmarks',   Icon: Layers       },
     { id: 'versiones',   label: 'Versiones',    Icon: GitBranch    },
     { id: 'ejecuciones', label: 'Ejecuciones',  Icon: Activity     },
@@ -1420,6 +1821,7 @@ export default function AdminAIValidationSection({ toast }: Props) {
             {screen === 'dashboard'   && <DashboardScreen   versions={versions} runs={runs} />}
             {screen === 'comparador'  && <ComparadorScreen  runs={runs} />}
             {screen === 'casos'       && <CasosScreen       runs={runs} />}
+            {screen === 'ejecutar'    && <EjecutarScreen    benchmarks={benchmarks} runs={runs} toast={toast} onRefresh={loadData} />}
             {screen === 'benchmarks'  && <BenchmarksScreen  benchmarks={benchmarks} onRefresh={loadData} toast={toast} />}
             {screen === 'versiones'   && <VersionesScreen   versions={versions} onRefresh={loadData} toast={toast} />}
             {screen === 'ejecuciones' && <EjecucionesScreen runs={runs} />}
