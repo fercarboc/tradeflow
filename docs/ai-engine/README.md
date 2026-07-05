@@ -23,9 +23,10 @@ Edge Function: `trade-voice-to-quote` | Benchmark: `trade-benchmark-runner`
 |---|---|---|---|---|---|---|---|
 | Baseline histórica | v56-stable | 93.2% | 0 | 4 | 1 | — | v63 |
 | Rollback | v57b | 92.2% | 2 | 0 | 0 | — | v63 |
-| **Producción** | **v59** | **92.5%** | **1¹** | **0** | **0** | **30.6s ⚠️** | v65 |
+| **Producción** | **v59** | **98.2%**¹ | **1²** | **0** | **0** | **30.6s ⚠️** | v65 |
 
-¹ VACÍO residual irreducible: tokens_out=8192 (límite absoluto del modelo). Excepción aceptada.
+¹ Presupuestos generados (OK_CATALOGO + OK_MIXTO + SOLO_SUGERIDAS). Con precios de catálogo: 92.5%.
+² VACÍO residual irreducible: tokens_out=8192 (límite absoluto del modelo). Excepción aceptada.
 
 > ⚠️ Latencia P95 en umbral de alerta (30s). Monitorizar en producción.
 

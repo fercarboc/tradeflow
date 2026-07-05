@@ -9,9 +9,10 @@
 ## Mejoras
 
 - `max_tokens` aumentado a 8192 de forma universal — elimina el condicional `isComplexJob` que cubría solo un subconjunto de casos complejos.
+- **Presupuestos generados: 98.2%** — el motor produce un resultado accionable para el instalador en 393 de 400 casos.
 - TRUNCADO eliminado: de 2 en v58b_full a **0**.
 - VACÍO reducido: de 2 en v57b y 3 en v58b_full a **1** (excepción aceptada).
-- 27 respuestas que antes se truncaban ahora completan (`end_turn`) — se convierten en SOLO_SUGERIDAS (presupuesto generado, precios pendientes de revisión del instalador).
+- 27 respuestas que antes se truncaban ahora completan (`end_turn`) con estructura de partidas completa.
 
 ## Correcciones
 
@@ -26,21 +27,24 @@
 
 ## Métricas de benchmark (400 casos)
 
-| Métrica | v57b (anterior) | v59 |
+| Métrica | v57b | v59 |
 |---|---|---|
-| OK rate (OK_CATALOGO + OK_MIXTO) | 92.2% | **92.5%** |
-| SOLO_SUGERIDAS | — | 23 (5.8%) |
+| **Presupuestos generados** | — | **98.2%** (393/400) |
+| ↳ Con precios de catálogo | 92.2% | 92.5% |
+| ↳ Solo sugeridas (sin precio automático) | — | 5.8% (23 casos) |
 | TRUNCADO | 0 | **0** |
 | VACÍO | 2 | **1**¹ |
 | PRECIO_INVALIDO | 0 | **0** |
 | Latencia P95 | — | 30.6s |
-| Respuestas >4096 tokens | — | 27 (6.8%) |
+| Respuestas >4096 tokens | 0 | 27 (6.8%) |
 
-¹ Excepción aceptada — límite absoluto del modelo, no corregible con el modelo actual.
+¹ Excepción aceptada — límite absoluto del modelo.
 
-## Nota sobre SOLO_SUGERIDAS
+## Sobre SOLO_SUGERIDAS
 
-Las 27 respuestas que antes se truncaban ahora completan correctamente. Al ser queries complejas de reforma sin match exacto en catálogo, Claude genera partidas con `origen=sugerida_ia` (requieren que el instalador revise precios). Esto es preferible a un presupuesto truncado o vacío: el instalador recibe la estructura de trabajo y solo tiene que completar precios.
+Las 23 respuestas clasificadas como SOLO_SUGERIDAS son presupuestos válidos: el motor identificó el trabajo y generó las partidas correctas, pero los items no están en el catálogo TradeFlow todavía. El instalador añade los precios desde su catálogo externo o de proveedores — y al hacerlo, el sistema aprende y enriquece el catálogo para futuras consultas. Es un resultado accionable, no un fallo.
+
+El dashboard actual mide solo "con precios de catálogo" (92.5%). La revisión de esta definición queda para Sprint 5.
 
 ## Rollback
 

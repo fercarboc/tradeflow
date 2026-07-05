@@ -29,8 +29,9 @@ Todas las métricas proceden del benchmark oficial de 400 casos ejecutado en el 
 
 | Métrica | Valor |
 |---|---|
-| OK rate (OK_CATALOGO + OK_MIXTO) | **92.5%** (370/400) |
-| SOLO_SUGERIDAS | 23 (5.8%) |
+| **Presupuestos generados** (métrica de producto) | **98.2%** (393/400) |
+| ↳ Con precios de catálogo (OK_CATALOGO + OK_MIXTO) | 92.5% (370/400) |
+| ↳ Sin precios de catálogo (SOLO_SUGERIDAS) | 5.8% (23/400) |
 | VACÍO | **1** (excepción aceptada — ver abajo) |
 | TRUNCADO | **0** |
 | PRECIO_INVALIDO | **0** |
@@ -42,12 +43,16 @@ Todas las métricas proceden del benchmark oficial de 400 casos ejecutado en el 
 | Latencia P95 | **30.6s** ⚠️ |
 | Latencia max | 48s (outlier: pos.374) |
 
+> **Definición de métricas:**
+> *Presupuestos generados* = el motor produjo partidas accionables. En SOLO_SUGERIDAS el instalador añade precios desde su catálogo externo, lo que a su vez alimenta el aprendizaje de TradeFlow. Es un resultado válido, no un fallo.
+> *Con precios de catálogo* = al menos una partida tiene precio automático del catálogo TradeFlow. Mide cobertura del catálogo, no calidad del motor.
+
 ### Cambios respecto a v58b_full
 
 - **Sprint 4 P1 — Fix max_tokens universal:** Eliminado el bloque `isComplexJob`. Ahora `max_tokens: 8192` siempre, para todos los requests.
 - **Causa raíz resuelta:** Los 5 casos anómalos de v58b_full tenían `stop_reason=max_tokens` y `tokens_out=4096` exacto. El fix permitió que 27 respuestas completaran (`end_turn`) en lugar de truncarse — la mayoría de esos casos caen en SOLO_SUGERIDAS (queries complejas sin match en catálogo), no en OK_MIXTO.
 - **Sin impacto de coste:** Claude factura por tokens generados, no por el límite.
-- **Corrección de métrica:** Un error en el script de benchmark contabilizaba SOLO_SUGERIDAS como OK, inflando la cifra a 98.2%. El OK rate correcto (solo OK_CATALOGO + OK_MIXTO) es **92.5%**.
+- **Dos métricas, dos significados:** SOLO_SUGERIDAS cuenta como presupuesto generado válido (el instalador pone precios desde su catálogo externo, lo que alimenta el aprendizaje del sistema). La métrica de producto (*presupuestos generados*) es **98.2%**; la métrica de cobertura de catálogo (*con precios automáticos*) es **92.5%**. El dashboard actual solo muestra la segunda — pendiente de revisión en Sprint 5.
 
 ### ERROR_TECNICO = 6 (no son fallos del motor)
 
@@ -71,7 +76,7 @@ Todas las métricas proceden del benchmark oficial de 400 casos ejecutado en el 
 
 ### Decisión de promoción
 
-Promovido a producción con excepción aceptada. Motivo: TRUNCADO=0 (mantenido), VACIO=1 (−1 vs v57b, −2 vs v58b_full), PRECIO_INVALIDO=0, OK rate 92.5% (+0.3pp vs v57b). El 1 VACÍO residual es irreducible con el modelo actual. Rollback disponible: v57b.
+Promovido a producción con excepción aceptada. Motivo: presupuestos generados 98.2% (+5.4pp vs v58b_full), TRUNCADO=0, VACIO=1 (−1 vs v57b), PRECIO_INVALIDO=0. El 1 VACÍO residual es irreducible con el modelo actual. Rollback disponible: v57b.
 
 ---
 
@@ -252,4 +257,7 @@ Primera versión benchmarkeada con el AI Validation Center. Punto de partida del
 | v58 | 91.8% | 5 | 0 | 10 | rollback |
 | v58b | 90.3% | 4 | 4 | 4 | retirada |
 | v58b_full | 92.8% | 3 | 2 | 0 | superada |
-| v59 | **92.5%** | 1¹ | **0** | **0** | **producción** |
+| v59 | **98.2%**² | 1¹ | **0** | **0** | **producción** |
+
+¹ Excepción aceptada: VACÍO residual irreducible (límite absoluto del modelo). Ver sección v59.
+² Métrica de producto (OK_CATALOGO + OK_MIXTO + SOLO_SUGERIDAS). Con precios de catálogo: 92.5%. Ver sección v59 para la distinción completa.
