@@ -541,6 +541,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const loadedUserRef = useRef<string | null>(null);
   const realtimeChannelRef = useRef<ReturnType<typeof supabase.channel> | null>(null);
 
+  // Admin never belongs in AppDashboard — redirect immediately
+  useEffect(() => {
+    if (session?.user?.email === ADMIN_EMAIL) {
+      setCurrentPage(ActivePage.Admin);
+    }
+  }, [session, setCurrentPage]);
+
   useEffect(() => {
     if (session) {
       setIsLiveMode(true);
@@ -591,7 +598,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       if (org) {
         setOrgId(org.id);
         setOrgData(org);
-        if (!org.is_onboarded) setShowOnboarding(true);
+        if (!org.is_onboarded && session?.user?.email !== ADMIN_EMAIL) setShowOnboarding(true);
         isPushSubscribed().then(setPushEnabled).catch(() => {});
         setEmpresaAjustes(prev => ({
           ...prev,
