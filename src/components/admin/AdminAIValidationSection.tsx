@@ -201,7 +201,7 @@ function DashboardScreen({ versions, runs }: { versions: AiVersion[]; runs: Benc
               <div className="grid grid-cols-3 gap-3 text-center">
                 <div className="bg-green-50 rounded-lg p-2">
                   <div className="text-lg font-bold text-green-700">{lastRun?.ok_rate?.toFixed(1) ?? '—'}%</div>
-                  <div className="text-xs text-gray-500">OK rate</div>
+                  <div className="text-xs text-gray-500">Generados</div>
                 </div>
                 <div className="bg-gray-50 rounded-lg p-2">
                   <div className="text-lg font-bold text-gray-700">{lastRun?.queries_vacio ?? '—'}</div>
@@ -237,7 +237,7 @@ function DashboardScreen({ versions, runs }: { versions: AiVersion[]; runs: Benc
               <div className="grid grid-cols-3 gap-3 text-center">
                 <div className="bg-purple-50 rounded-lg p-2">
                   <div className="text-lg font-bold text-purple-700">{baselineRun?.ok_rate?.toFixed(1) ?? '—'}%</div>
-                  <div className="text-xs text-gray-500">OK rate</div>
+                  <div className="text-xs text-gray-500">Generados</div>
                 </div>
                 <div className="bg-gray-50 rounded-lg p-2">
                   <div className="text-lg font-bold text-gray-700">{baselineRun?.queries_vacio ?? '—'}</div>
@@ -262,7 +262,7 @@ function DashboardScreen({ versions, runs }: { versions: AiVersion[]; runs: Benc
             KPIs — {lastRun.version_tag} · {fmtDate(lastRun.completado_at)}
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
-            <KpiCard label="OK rate"     value={`${lastRun.ok_rate?.toFixed(1) ?? '—'}%`}  icon={CheckCircle} color="green" />
+            <KpiCard label="Generados"   value={`${lastRun.ok_rate?.toFixed(1) ?? '—'}%`}  icon={CheckCircle} color="green" />
             <KpiCard label="Coincide of." value={`${lastRun.coin_rate?.toFixed(1) ?? '—'}%`} icon={Brain}       color="blue"  />
             <KpiCard label="VACIO"       value={lastRun.queries_vacio}    icon={XCircle}       color={lastRun.queries_vacio > 0 ? 'red' : 'green'} />
             <KpiCard label="TRUNCADO"    value={lastRun.queries_truncado} icon={AlertTriangle}  color={lastRun.queries_truncado > 4 ? 'red' : 'yellow'} />
@@ -289,7 +289,7 @@ function DashboardScreen({ versions, runs }: { versions: AiVersion[]; runs: Benc
               <tr className="bg-gray-50 text-xs text-gray-500 uppercase tracking-wide">
                 <th className="text-left px-4 py-2.5">Versión</th>
                 <th className="text-center px-3 py-2.5">Estado</th>
-                <th className="text-right px-3 py-2.5">OK%</th>
+                <th className="text-right px-3 py-2.5">Gen%</th>
                 <th className="text-right px-3 py-2.5">Coinc.%</th>
                 <th className="text-right px-3 py-2.5">VACIO</th>
                 <th className="text-right px-3 py-2.5">TRUNC.</th>
@@ -724,7 +724,7 @@ function VersionesScreen({
                   {run && (
                     <div className="grid grid-cols-4 sm:grid-cols-8 gap-2 pt-1">
                       {[
-                        { l: 'OK%',    v: `${run.ok_rate?.toFixed(1)}%`  },
+                        { l: 'Gen%',   v: `${run.ok_rate?.toFixed(1)}%`  },
                         { l: 'Coinc%', v: `${run.coin_rate?.toFixed(1)}%` },
                         { l: 'VACIO',  v: run.queries_vacio   },
                         { l: 'TRUNC',  v: run.queries_truncado },
