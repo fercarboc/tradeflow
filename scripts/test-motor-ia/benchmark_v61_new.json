@@ -1,0 +1,4159 @@
+[
+  {
+    "id": 401,
+    "oficio": "Fontanería",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Desde hace unos días el agua del grifo de la cocina sale a presión muy baja"
+  },
+  {
+    "id": 402,
+    "oficio": "Fontanería",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Hay una mancha húmeda en el techo del baño pero no hay ningún cuarto arriba"
+  },
+  {
+    "id": 403,
+    "oficio": "Fontanería",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Me corre agua por la pared del baño cuando mi vecino de arriba se ducha"
+  },
+  {
+    "id": 404,
+    "oficio": "Fontanería",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Creo que tengo una fuga pero no encuentro de dónde viene, la factura del agua se ha disparado"
+  },
+  {
+    "id": 405,
+    "oficio": "Fontanería",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El grifo del baño lleva semanas con ese pitido desesperante cuando abres el agua"
+  },
+  {
+    "id": 406,
+    "oficio": "Fontanería",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El váter no para de hacer ruido toda la noche, como si estuviera llenándose sin parar"
+  },
+  {
+    "id": 407,
+    "oficio": "Fontanería",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Me tarda dos minutos en salir el agua caliente, no aguanto más duchándome en frío"
+  },
+  {
+    "id": 408,
+    "oficio": "Fontanería",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Lo del termo ya me tiene harto, cada dos por tres nos quedamos sin agua caliente en casa"
+  },
+  {
+    "id": 409,
+    "oficio": "Fontanería",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11"
+    ],
+    "texto": "Hola buenos días mira que... eeeh tengo un problema con la caldera, bueno más que la caldera es el agua caliente que no sale bien... a ver sí, es que a veces sale y a veces no, y ayer directamente nada"
+  },
+  {
+    "id": 410,
+    "oficio": "Fontanería",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11"
+    ],
+    "texto": "Sí mira, necesito que alguien venga a mirar lo del baño porque hay agua en el suelo cuando no ha llovido ni nada, y llevamos así desde la semana pasada más o menos"
+  },
+  {
+    "id": 411,
+    "oficio": "Fontanería",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11"
+    ],
+    "texto": "Eeeh sí, es que tenemos una fuga creo, en la cocina, debajo del fregadero, hay agua y ya lo he secado tres veces hoy"
+  },
+  {
+    "id": 412,
+    "oficio": "Fontanería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Reforma completa de baño de 5m²: demolición de alicatado, alicatado nuevo hasta techo, inodoro suspendido, lavabo empotrado con mueble, plato de ducha antideslizante 80x80, mampara abatible y grifería termostática"
+  },
+  {
+    "id": 413,
+    "oficio": "Fontanería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación de calefacción central de gas natural en vivienda de dos plantas: caldera de condensación 28kW, 12 radiadores de aluminio con válvulas termostáticas, tubería multicapa y termostato programable"
+  },
+  {
+    "id": 414,
+    "oficio": "Fontanería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06"
+    ],
+    "texto": "Sustitución completa de red de saneamiento horizontal en planta baja de edificio de 4 viviendas: tuberías PVC DN110 y DN160, sifones individuales, bote sifónico y conexión a red municipal"
+  },
+  {
+    "id": 415,
+    "oficio": "Fontanería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M08"
+    ],
+    "texto": "Instalación de sistema de ACS centralizado para comunidad de 8 vecinos: interacumulador de 500L, bomba de recirculación, válvulas de corte sectoriales y contador divisionario"
+  },
+  {
+    "id": 416,
+    "oficio": "Fontanería",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El grifpo del lavbo me gotea porla noche y tengo miedo de que sea una fuga gordo"
+  },
+  {
+    "id": 417,
+    "oficio": "Fontanería",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Tengo la cisterna del vater que pierde agua todo el rato y he intentdo areglarla pero no puedo"
+  },
+  {
+    "id": 418,
+    "oficio": "Fontanería",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El thermos ese electrico ya no calienta nada ya lleva 3 dias sin funconar quiero cambiarlo"
+  },
+  {
+    "id": 419,
+    "oficio": "Fontanería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03",
+      "M02"
+    ],
+    "texto": "Instalación de descalcificador residencial de resinas de intercambio iónico, capacidad 25L, con programación volumétrica, bypass manual y tubo de rebose a desagüe"
+  },
+  {
+    "id": 420,
+    "oficio": "Fontanería",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04"
+    ],
+    "texto": "Cambio de pressure reducing valve en la entrada del piso, la water pressure está demasiado alta y me está dañando los appliances"
+  },
+  {
+    "id": 421,
+    "oficio": "Electricidad",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Desde ayer me salta el diferencial cada vez que pongo la lavadora con el lavavajillas a la vez"
+  },
+  {
+    "id": 422,
+    "oficio": "Electricidad",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El fusible de la habitación de los niños se va con bastante frecuencia sin motivo aparente"
+  },
+  {
+    "id": 423,
+    "oficio": "Electricidad",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Se me va la luz de toda la casa cuando hace mucho frío, creo que es el cuadro"
+  },
+  {
+    "id": 424,
+    "oficio": "Electricidad",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Hay un enchufe en el salón que a veces funciona y a veces no, y hace un chispazo raro"
+  },
+  {
+    "id": 425,
+    "oficio": "Electricidad",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Desde ayer salta la luz y no sé por qué, ya he vuelto a subir el automático pero vuelve a bajar"
+  },
+  {
+    "id": 426,
+    "oficio": "Electricidad",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Los enchufes de la cocina no van desde que cambié el microondas por uno más potente"
+  },
+  {
+    "id": 427,
+    "oficio": "Electricidad",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Necesito poner enchufes donde no hay ninguno en la habitación de los niños, que solo tiene uno"
+  },
+  {
+    "id": 428,
+    "oficio": "Electricidad",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "La luz del baño parpadea todo el rato y ya cambié la bombilla pero sigue igual"
+  },
+  {
+    "id": 429,
+    "oficio": "Electricidad",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M09"
+    ],
+    "texto": "Hola mira que... tengo un problema con la luz, es que se va el diferencial... ¿el diferencial es ese que hay en la cajita del pasillo verdad? Pues ese, que se baja solo cuando pongo el horno"
+  },
+  {
+    "id": 430,
+    "oficio": "Electricidad",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11"
+    ],
+    "texto": "Sí mira necesito un electricista porque hay enchufes que no funcionan... algunos sí otros no... y la caja esa de la entrada pues la tengo subida pero no funciona bien"
+  },
+  {
+    "id": 431,
+    "oficio": "Electricidad",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M12"
+    ],
+    "texto": "Eeeh sí, es que he comprado una casa antigua y necesito que alguien revise toda la instalación eléctrica porque tampoco hay toma de tierra y no sé cómo está"
+  },
+  {
+    "id": 432,
+    "oficio": "Electricidad",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Renovación completa de instalación eléctrica en vivienda de 90m²: cuadro con ICP 40A, diferencial 40A/30mA, 8 magnetotérmicos, cableado nuevo 2,5mm² fuerza y 1,5mm² iluminación, toma de tierra y cajas de registro"
+  },
+  {
+    "id": 433,
+    "oficio": "Electricidad",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación de 5 wallbox de 22kW trifásico para flota de vehículos eléctricos en parking de empresa: cableado desde cuadro general, protecciones individuales y sistema de gestión de carga con RFID"
+  },
+  {
+    "id": 434,
+    "oficio": "Electricidad",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M08"
+    ],
+    "texto": "Instalación de iluminación LED en local comercial de 200m²: 40 downlights 18W, 8 proyectores de carril para escaparate, emergencias homologadas y cuadro con programador horario"
+  },
+  {
+    "id": 435,
+    "oficio": "Electricidad",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06"
+    ],
+    "texto": "Instalación de sistema fotovoltaico de autoconsumo en nave de 500m²: 20 paneles 450Wp, inversor 9kW, protecciones DC/AC, cuadro de protección y monitorización con datalogger"
+  },
+  {
+    "id": 436,
+    "oficio": "Electricidad",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El difierencial se ba abajo cada bes que conecto el areo acondiconado nuevo que me han puesto"
+  },
+  {
+    "id": 437,
+    "oficio": "Electricidad",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Nececito poner enchufes en el garaje, ahora mismo no hay ninguno y necesito tener luz y corriente"
+  },
+  {
+    "id": 438,
+    "oficio": "Electricidad",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Tengo enchufes quemados en el salon, creo que fue por un pico de tensoin de la tormenata de ayer"
+  },
+  {
+    "id": 439,
+    "oficio": "Electricidad",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03",
+      "M15"
+    ],
+    "texto": "Certificación eléctrica de industria alimentaria: inspección de instalación, comprobación de equipotencialidad, protecciones en zonas húmedas IP65 y emisión de boletín para Industria"
+  },
+  {
+    "id": 440,
+    "oficio": "Electricidad",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04"
+    ],
+    "texto": "Necesito instalar un EV charger en el garaje, modo 3, con un smart meter y load balancing para no superar el límite del contrato"
+  },
+  {
+    "id": 441,
+    "oficio": "Carpintería",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La puerta de entrada cierra pero hace ruido al abrir y estamos en una comunidad que se queja"
+  },
+  {
+    "id": 442,
+    "oficio": "Carpintería",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El armario empotrado del dormitorio tiene las puertas correderas que no van bien, siempre se salen"
+  },
+  {
+    "id": 443,
+    "oficio": "Carpintería",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Me chirría la puerta del baño cada vez que la abro, los vecinos ya se están quejando"
+  },
+  {
+    "id": 444,
+    "oficio": "Carpintería",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La ventana de madera del salón ya no cierra bien, creo que ha hinchado por la humedad del invierno"
+  },
+  {
+    "id": 445,
+    "oficio": "Carpintería",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "La puerta de entrada está fatal, la madera está toda podrida por debajo y ya ni cierra bien"
+  },
+  {
+    "id": 446,
+    "oficio": "Carpintería",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Necesito cambiar las puertas del piso, todas son de los años 80 y están horribles"
+  },
+  {
+    "id": 447,
+    "oficio": "Carpintería",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero hacerme un armario a medida en la habitación, que aproveche todo el hueco hasta el techo"
+  },
+  {
+    "id": 448,
+    "oficio": "Carpintería",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Los rodapiés del salón se han soltado todos, supongo que habrá que pegarlos o ponerlos de nuevo"
+  },
+  {
+    "id": 449,
+    "oficio": "Carpintería",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M09"
+    ],
+    "texto": "Hola, mira, es para una puerta... la puerta de entrada a mi casa que lleva tiempo que no cierra bien... vamos que cierra pero cuando hace viento se abre sola... no sé si es el marco o la puerta en sí"
+  },
+  {
+    "id": 450,
+    "oficio": "Carpintería",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11"
+    ],
+    "texto": "Sí mira es que tengo las puertas del armario, las correderas esas, que una se ha salido del raíl y ya no sé cómo meterla, y la otra también está floja"
+  },
+  {
+    "id": 451,
+    "oficio": "Carpintería",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M07"
+    ],
+    "texto": "Eh sí, necesito que me presupuesten cambiar las puertas interiores del piso, son cinco puertas, están bien pero son muy viejas y queremos renovar"
+  },
+  {
+    "id": 452,
+    "oficio": "Carpintería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Fabricación e instalación de armario a medida en dormitorio de 3,5m de longitud y 2,4m de altura: melamina blanca mate, puertas correderas con cristal esmerilado, doble barra, cajones y estantes regulables"
+  },
+  {
+    "id": 453,
+    "oficio": "Carpintería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Sustitución de 6 puertas interiores de paso: marcos de roble lacado en blanco, puertas macizas con moldura, herrajes de acero satinado y tapajuntas, incluyendo demolición de marcos antiguos"
+  },
+  {
+    "id": 454,
+    "oficio": "Carpintería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M08"
+    ],
+    "texto": "Instalación de tarima de madera maciza de roble de 22mm en salón-comedor de 35m²: lijado del soporte, lámina antivapor, tarima flotante con junta perimetral y rodapié de madera maciza a juego"
+  },
+  {
+    "id": 455,
+    "oficio": "Carpintería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Fabricación de escalera de madera de pino tratado para acceso a desván: 12 peldaños de 30cm huella y 20cm contrahuella, barandilla con pasamanos de roble y balaustres torneados"
+  },
+  {
+    "id": 456,
+    "oficio": "Carpintería",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Necesito un amario emportado en el pasillo, que aproveche toda la altura y con puertas de espeho"
+  },
+  {
+    "id": 457,
+    "oficio": "Carpintería",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "La puerta prinscipal esta toda picada de la madera y ya no sela puede pintar mas, creo que habra que cambiarla"
+  },
+  {
+    "id": 458,
+    "oficio": "Carpintería",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Los suelos de parquet del salon estan muy rayados y feos, se pueden pulir o hay que cambiarlos"
+  },
+  {
+    "id": 459,
+    "oficio": "Carpintería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03"
+    ],
+    "texto": "Restauración de carpintería exterior de madera en fachada de edificio histórico: decapado, tratamiento fungicida, masillado de grietas, lijado fino y aplicación de lasur con pigmentación original"
+  },
+  {
+    "id": 460,
+    "oficio": "Carpintería",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04"
+    ],
+    "texto": "Quiero un built-in wardrobe en el master bedroom con sliding doors, interior con hanging rail, pull-out drawers y adjustable shelving, todo en white lacquer finish"
+  },
+  {
+    "id": 461,
+    "oficio": "Pintura",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Tengo manchas en la pared del salón que no sé si son humedad o es otra cosa"
+  },
+  {
+    "id": 462,
+    "oficio": "Pintura",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Las paredes de la habitación tienen un color que quiero cambiar pero no sé si habrá que picar o con pintar vale"
+  },
+  {
+    "id": 463,
+    "oficio": "Pintura",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Me está saliendo una cosa verde en la esquina del baño, ¿es moho eso?"
+  },
+  {
+    "id": 464,
+    "oficio": "Pintura",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Hay una mancha en el techo que no sé de qué es, y cuando pinto encima vuelve a salir al poco tiempo"
+  },
+  {
+    "id": 465,
+    "oficio": "Pintura",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Las paredes de toda la casa están asquerosas, las pintaron antes de que yo llegara y está todo lleno de manchas"
+  },
+  {
+    "id": 466,
+    "oficio": "Pintura",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El piso que me acabo de comprar huele a humedad y tiene las paredes muy oscuras, hay que pintarlo todo"
+  },
+  {
+    "id": 467,
+    "oficio": "Pintura",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero dar un lavado de cara a la fachada del chalet, que lleva muchos años sin pintarse"
+  },
+  {
+    "id": 468,
+    "oficio": "Pintura",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Los techos del salón son muy altos y están ennegrecidos de la chimenea, ¿qué hay que hacer?"
+  },
+  {
+    "id": 469,
+    "oficio": "Pintura",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M07"
+    ],
+    "texto": "Hola mira que es para pintar el piso, que nos lo acabamos de comprar y está... bueno pues que hay que pintarlo todo, todo el piso, salón, habitaciones, cocina... los techos también"
+  },
+  {
+    "id": 470,
+    "oficio": "Pintura",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M08"
+    ],
+    "texto": "Sí mira, tengo una mancha de humedad en la pared del dormitorio, ya la repararon pero ahora hay que pintar la zona afectada, como un metro cuadrado más o menos, igual que el resto"
+  },
+  {
+    "id": 471,
+    "oficio": "Pintura",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M07"
+    ],
+    "texto": "Eeeh sí buenas es que quiero pintar la fachada del local comercial, no sé exactamente cuántos metros es pero es bastante grande, tiene letras también y eso habría que quitarlo antes"
+  },
+  {
+    "id": 472,
+    "oficio": "Pintura",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Pintura completa de vivienda de 90m²: preparación con masillado y lijado, imprimación selladora, dos manos de plástica lavable en paredes y techos, protección de suelos, 5 habitaciones, 2 baños, cocina y salón"
+  },
+  {
+    "id": 473,
+    "oficio": "Pintura",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06"
+    ],
+    "texto": "Tratamiento de humedades en fachada de edificio de 5 plantas: limpieza a presión, saneado de zonas dañadas, puente de unión, revestimiento impermeabilizante elástico y pintura de acabado con pintura mineral"
+  },
+  {
+    "id": 474,
+    "oficio": "Pintura",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M08"
+    ],
+    "texto": "Pintado de nave industrial de 800m²: limpieza, imprimación epoxi en suelo, pintura de señalización vial, pintura de paredes con plástica blanca de alta resistencia y marcado de zonas de paso"
+  },
+  {
+    "id": 475,
+    "oficio": "Pintura",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M05",
+      "M07"
+    ],
+    "texto": "Aplicación de microcemento en paredes y suelo de baño de 8m²: 3 capas de microcemento fino en color Gris Cemento, sellado con dos capas de barniz poliuretano satinado resistente al agua"
+  },
+  {
+    "id": 476,
+    "oficio": "Pintura",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero pintrar el salon y no se si hace falta enparedar o se puede dar la pintua encima directamente"
+  },
+  {
+    "id": 477,
+    "oficio": "Pintura",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Tengo gotelé en todas las paredes y lo odio, se puede qitarlo y dejar la pared lisa o es muy caro"
+  },
+  {
+    "id": 478,
+    "oficio": "Pintura",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "La facha del local esta muy sucia y con desconchones, hay que pintarla y quizas poenr algo en las grietas"
+  },
+  {
+    "id": 479,
+    "oficio": "Pintura",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03"
+    ],
+    "texto": "Pintura ignífuga en estructura metálica de nave industrial de 400m²: chorreado de arena, imprimación anticorrosiva epoxi, dos capas de pintura intumescente RF-90 y capa de acabado"
+  },
+  {
+    "id": 480,
+    "oficio": "Pintura",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04",
+      "M05"
+    ],
+    "texto": "Necesito un faux finish en el feature wall del living room, tipo venetian plaster o algo similar, quiero un look premium con textura"
+  },
+  {
+    "id": 481,
+    "oficio": "Albañilería",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Tengo grietas en la pared del salón, no sé si son estructurales o de asentamiento"
+  },
+  {
+    "id": 482,
+    "oficio": "Albañilería",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Se me ha caído un trozo de enfoscado del techo del garaje, no sé qué tan grave es"
+  },
+  {
+    "id": 483,
+    "oficio": "Albañilería",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Hay un bultito raro en el suelo del patio, que creo que es el solado que se está levantando"
+  },
+  {
+    "id": 484,
+    "oficio": "Albañilería",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La pared del baño hace un sonido hueco cuando la golpeo, ¿eso es malo o solo estético?"
+  },
+  {
+    "id": 485,
+    "oficio": "Albañilería",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Necesito hacer una habitación más pequeña porque tenemos un bebé, quiero poner una pared en el dormitorio grande"
+  },
+  {
+    "id": 486,
+    "oficio": "Albañilería",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El sótano está todo húmedo y con paredes que se desmoronan, necesito arreglarlo antes del invierno"
+  },
+  {
+    "id": 487,
+    "oficio": "Albañilería",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero tirar la pared que separa la cocina del salón para hacer el espacio más grande"
+  },
+  {
+    "id": 488,
+    "oficio": "Albañilería",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Los peldaños de la escalera exterior están todos agrietados y el hierro ya se ve por fuera"
+  },
+  {
+    "id": 489,
+    "oficio": "Albañilería",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M09"
+    ],
+    "texto": "Sí hola, mira, es que quiero en el piso... pues unir dos habitaciones pequeñas tirando la pared del medio, no sé si es posible o si eso es una pared de carga"
+  },
+  {
+    "id": 490,
+    "oficio": "Albañilería",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11"
+    ],
+    "texto": "Hola mira tengo el garaje con el suelo muy deteriorado, hay grietas y partes que se están levantando y quería que alguien me dijera qué hay que hacer"
+  },
+  {
+    "id": 491,
+    "oficio": "Albañilería",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11"
+    ],
+    "texto": "Eeeh sí mira, tengo una terraza y la pared del fondo tiene partes que se están desprendiendo, hay trozos hinchados y uno ya se cayó"
+  },
+  {
+    "id": 492,
+    "oficio": "Albañilería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Demolición de tabique en piso de 90m², apertura de 3 metros en pared de carga con viga metálica HEB-200, apeo provisional y reconstrucción de paramentos y solería de paso"
+  },
+  {
+    "id": 493,
+    "oficio": "Albañilería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06"
+    ],
+    "texto": "Construcción de cuarto de baño nuevo en vivienda: apertura de hueco en forjado para desagüe, tabiquería de pladur hidrofugado, alicatado, fontanería, electricidad, solado y falso techo"
+  },
+  {
+    "id": 494,
+    "oficio": "Albañilería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06"
+    ],
+    "texto": "Reparación de fachada de edificio de 4 plantas: andamiaje, picado de zonas con riesgo, saneado de grietas con resinas epoxi, enfoscado de mortero de cal hidráulica y pintado de acabado"
+  },
+  {
+    "id": 495,
+    "oficio": "Albañilería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M08"
+    ],
+    "texto": "Solado de terraza de 80m² con baldosa porcelánica antideslizante 60x60: demolición de solado, capa de mortero de nivelación, colocación con junta elástica de 5mm y rejuntado"
+  },
+  {
+    "id": 496,
+    "oficio": "Albañilería",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero tirar un tabiqe para unir la cocina y el salon, creo que no es de carga pero no estoy seguro"
+  },
+  {
+    "id": 497,
+    "oficio": "Albañilería",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Tengo grietas en las paredes de casa y no se si es porque el vecino de abajo ha echo obras recientemente"
+  },
+  {
+    "id": 498,
+    "oficio": "Albañilería",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Me estan salendo humedades en el sotano y la pared ya tiene como un polvo blanco que creo que es salitre"
+  },
+  {
+    "id": 499,
+    "oficio": "Albañilería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03"
+    ],
+    "texto": "Impermeabilización de muro de sótano enterrado: excavación perimetral, lámina asfáltica autoprotegida, mortero drenante, geotextil, relleno con grava y tubo drenante de PVC"
+  },
+  {
+    "id": 500,
+    "oficio": "Albañilería",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04",
+      "M05"
+    ],
+    "texto": "Necesito un feature wall en el living con exposed brick effect, usando real brick slips y pointing con mortero de color, rough rustic finish"
+  },
+  {
+    "id": 501,
+    "oficio": "Climatización",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El aire acondicionado enfría pero hace un ruido que antes no hacía, como un traqueteo"
+  },
+  {
+    "id": 502,
+    "oficio": "Climatización",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El split del salón pone modo frío bien pero cuando pongo calor no calienta nada"
+  },
+  {
+    "id": 503,
+    "oficio": "Climatización",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El aire me deja la habitación fría pero hay una parte del techo donde no llega para nada"
+  },
+  {
+    "id": 504,
+    "oficio": "Climatización",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El aparato del aire acondicionado hace gotear agua por la pared interior, justo debajo"
+  },
+  {
+    "id": 505,
+    "oficio": "Climatización",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El arete ese de la habitación no enfría nada, ya lo he puesto en modo auto y nada de nada"
+  },
+  {
+    "id": 506,
+    "oficio": "Climatización",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Se me ha roto el mando a distancia del aire y no sé cómo encenderlo sin él"
+  },
+  {
+    "id": 507,
+    "oficio": "Climatización",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10"
+    ],
+    "texto": "En verano el piso se pone como un horno y quiero instalar aire acondicionado por primera vez"
+  },
+  {
+    "id": 508,
+    "oficio": "Climatización",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El climatizador de la oficina hace un ruido horrible, como si tuviera algo metido dentro"
+  },
+  {
+    "id": 509,
+    "oficio": "Climatización",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M09"
+    ],
+    "texto": "Hola, sí, mira es que tengo el aire del salón que funciona pero hace un olor raro, como a humedad, sobre todo cuando arranca"
+  },
+  {
+    "id": 510,
+    "oficio": "Climatización",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11"
+    ],
+    "texto": "Mira es que en casa tenemos un split de pared y ha dejado de funcionar completamente, lleva como una semana apagado del todo, ya le cambié las pilas al mando y nada"
+  },
+  {
+    "id": 511,
+    "oficio": "Climatización",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M07"
+    ],
+    "texto": "Sí, es que quiero poner aire en los tres dormitorios del piso, ahora mismo no hay ninguno y en verano es imposible dormir, qué opciones hay y cuánto costaría"
+  },
+  {
+    "id": 512,
+    "oficio": "Climatización",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación de sistema multi-split 2x1 en vivienda de 80m²: unidad exterior 5kW en cubierta, dos unidades interiores de 2,5kW con control WiFi, tuberías de cobre, cableado y drenaje de condensados"
+  },
+  {
+    "id": 513,
+    "oficio": "Climatización",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M08"
+    ],
+    "texto": "Instalación de ventilación mecánica de doble flujo con recuperador de calor en vivienda de 120m²: unidad central eficiencia >90%, conductos de chapa, bocas en baños/cocina y dormitorios"
+  },
+  {
+    "id": 514,
+    "oficio": "Climatización",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Mantenimiento anual de climatización en local de 400m²: 4 unidades de conductos de 10kW, limpieza de filtros y baterías, revisión del circuito frigorífico con medición de presiones y ajuste de caudales"
+  },
+  {
+    "id": 515,
+    "oficio": "Climatización",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación de sistema VRV de 3 tubos en edificio de oficinas de 800m²: unidad exterior 40kW, 12 unidades cassette de 4 vías con control individual y sistema de gestión centralizada BMS"
+  },
+  {
+    "id": 516,
+    "oficio": "Climatización",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El ayre acondicionado me echa un olor malissimo cuando lo enciendo, lleva sin usarse todo el inbierno"
+  },
+  {
+    "id": 517,
+    "oficio": "Climatización",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Se me ha roto el ayre y es agosto, necesito que vengan urgente, estoy con 40 grados en casa"
+  },
+  {
+    "id": 518,
+    "oficio": "Climatización",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10",
+      "M12"
+    ],
+    "texto": "Quiero poner ayre en el local, es de unos 60 metros, y no se si con uno basta o necesito mas"
+  },
+  {
+    "id": 519,
+    "oficio": "Climatización",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03"
+    ],
+    "texto": "Instalación de climatización de precisión en sala de servidores de 20m²: dos unidades redundantes N+1, control de temperatura y humedad, alarmas remotas y caudal de renovación reglamentario"
+  },
+  {
+    "id": 520,
+    "oficio": "Climatización",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04"
+    ],
+    "texto": "I need a ductless mini-split system, SEER rating of at least 18, with smart home integration, for a room of about 25 square meters"
+  },
+  {
+    "id": 521,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Después de la última lluvia me ha entrado agua pero no encuentro el sitio exacto de la gotera"
+  },
+  {
+    "id": 522,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Los vecinos de arriba dicen que les entra agua y apuntan a mi terraza como origen de la filtración"
+  },
+  {
+    "id": 523,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Las tejas del tejado de la cochera se han movido con el viento, no sé si falta alguna"
+  },
+  {
+    "id": 524,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El tejado del garaje suena diferente con la lluvia que antes, hace como un tamborileo nuevo"
+  },
+  {
+    "id": 525,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Cada vez que llueve me entra agua por el techo del dormitorio y ya tengo la mancha hecha en la pared"
+  },
+  {
+    "id": 526,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El tejado del chalet tiene ya muchos años y se ven tejas rotas, hay que revisarlo antes del invierno"
+  },
+  {
+    "id": 527,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero cambiar el tejado del garaje que es de uralita porque sé que puede ser peligrosa"
+  },
+  {
+    "id": 528,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "En la comunidad tenemos problemas con la cubierta del edificio, cada invierno hay goteras en el último piso"
+  },
+  {
+    "id": 529,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M09"
+    ],
+    "texto": "Hola mira que tengo el tejado del chalet que tiene muchos años y cuando llueve fuerte hay un sitio donde me entra agua, en el dormitorio de arriba, quería que alguien lo viera"
+  },
+  {
+    "id": 530,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M12"
+    ],
+    "texto": "Sí, mira, es para el tejado de una casa de pueblo que hemos heredado, el tejado está en mal estado, hay tejas rotas, hay partes hundidas, necesitamos saber qué hay que hacer y cuánto costaría"
+  },
+  {
+    "id": 531,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11"
+    ],
+    "texto": "Eeeh sí, es para el tejado del garaje, que es de fibrocemento y queremos quitarlo porque es amianto y tenemos niños, qué recomendarían para sustituirlo"
+  },
+  {
+    "id": 532,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06"
+    ],
+    "texto": "Reparación de cubierta inclinada de teja cerámica curva: desmontaje de tejas, impermeabilización del tablero con lámina bituminosa autoprotegida, rastreles de madera tratada y recolocación de teja con complemento de piezas nuevas"
+  },
+  {
+    "id": 533,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Rehabilitación de cubierta plana no transitable de edificio de viviendas: retirada de grava, demolición de lámina existente, formación de pendientes con mortero aligerado, doble lámina de betún modificado y acabado de grava nueva"
+  },
+  {
+    "id": 534,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M08"
+    ],
+    "texto": "Retirada y gestión de residuos de cubierta de fibrocemento con amianto en nave de 300m² según RD 396/2006: empresa autorizada, plan de trabajo, EPIs, transporte y vertido en gestor autorizado"
+  },
+  {
+    "id": 535,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación de cubierta de panel sándwich de acero lacado con lana de roca 100mm en nave de 400m²: desmontaje de cubierta anterior, correas metálicas, fijación de panel y babetas perimetrales"
+  },
+  {
+    "id": 536,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Se me mete agua por el tejado cuando llueve mucho, creo que es por las tejas pero no se donde exactamente"
+  },
+  {
+    "id": 537,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "La caballete del tejado esta toda movida y cuando ay mucho viento creo que alguna teja cae abajo"
+  },
+  {
+    "id": 538,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10",
+      "M14"
+    ],
+    "texto": "Quiero poner paneles solares en el tejado pero primero creo que habra que arreglar alguna cosita del propio tejado"
+  },
+  {
+    "id": 539,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03",
+      "M15"
+    ],
+    "texto": "Inspección técnica de cubierta: peritaje con informe fotográfico, medición de espesores de lámina impermeabilizante, prueba de estanqueidad por inundación e informe técnico con propuesta de reparación"
+  },
+  {
+    "id": 540,
+    "oficio": "Tejados/Cubiertas",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04"
+    ],
+    "texto": "Need to replace the flat roof membrane on a 200m² commercial building, looking for a TPO or EPDM solution with a 20-year warranty and insulation upgrade"
+  },
+  {
+    "id": 541,
+    "oficio": "Pladur",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El pladur del baño se ha mojado y hace como un bultito, ¿hay que cambiarlo todo?"
+  },
+  {
+    "id": 542,
+    "oficio": "Pladur",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Hay una grieta en el falso techo del salón, no sé si es por la placa o por la estructura metálica"
+  },
+  {
+    "id": 543,
+    "oficio": "Pladur",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Se me ha hundido una parte del techo de escayola, ¿eso es peligroso o solo estético?"
+  },
+  {
+    "id": 544,
+    "oficio": "Pladur",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Las paredes de pladur de la oficina suenan mucho, se oye todo de una sala a otra sin problema"
+  },
+  {
+    "id": 545,
+    "oficio": "Pladur",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero dividir el salón en dos con una pared y que no se pasen demasiado los ruidos"
+  },
+  {
+    "id": 546,
+    "oficio": "Pladur",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El garaje lo quiero convertir en habitación habitable, con techo y paredes bien aisladas"
+  },
+  {
+    "id": 547,
+    "oficio": "Pladur",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Necesito un falso techo en el salón para esconder los cables y tuberías que hay vistos"
+  },
+  {
+    "id": 548,
+    "oficio": "Pladur",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Las paredes de pladur de la cocina tienen manchas de humedad por detrás de los muebles"
+  },
+  {
+    "id": 549,
+    "oficio": "Pladur",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M12"
+    ],
+    "texto": "Hola, mira, quiero hacer una habitación más en el piso, en el salón que es grande, poner una pared de pladur que se hace rápido, y necesito saber cuánto costaría y si hace falta permiso"
+  },
+  {
+    "id": 550,
+    "oficio": "Pladur",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11"
+    ],
+    "texto": "Sí mira, tenemos una oficina que queremos dividir en dos despachos con una pared en el centro, que sea lo más insonorizada posible porque son reuniones"
+  },
+  {
+    "id": 551,
+    "oficio": "Pladur",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M07"
+    ],
+    "texto": "Eeeh sí, buenos días, quería presupuesto para falso techo en toda la planta baja de un local, son como 80 metros cuadrados, y además quería meter iluminación empotrada en el falso techo"
+  },
+  {
+    "id": 552,
+    "oficio": "Pladur",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Construcción de partición interior con doble placa de yeso en cada lado, lana de roca 70mm, montantes cada 40cm, para aislamiento acústico entre dormitorios, superficie 15m²"
+  },
+  {
+    "id": 553,
+    "oficio": "Pladur",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Falso techo continuo de pladur en planta de oficinas de 200m²: perfilería galvanizada nivelada con láser, placa de yeso 15mm, masillado listo para pintar, con huecos para luminarias y detectores"
+  },
+  {
+    "id": 554,
+    "oficio": "Pladur",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M08"
+    ],
+    "texto": "Trasdosado de fachada norte con pladur hidrofugado: perfil omega 70mm con lana de roca 60mm, doble placa hydro en baños y cocinas, masillado y acabado, en vivienda de 100m²"
+  },
+  {
+    "id": 555,
+    "oficio": "Pladur",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M14"
+    ],
+    "texto": "Conversión de local de 80m² en oficina de coworking: 4 despachos de 12m², sala de reuniones de 20m², zona común, falso techo con placa acústica y trasdosado de fachada con aislamiento"
+  },
+  {
+    "id": 556,
+    "oficio": "Pladur",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero hacer una abitacion mas en el salon con una pared de plasdur pero que aguante bien los cuadros"
+  },
+  {
+    "id": 557,
+    "oficio": "Pladur",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El falso techo del dormitorio se ha hundido un poco en una esquina, ay que cambiarlo todo o solo esa parte"
+  },
+  {
+    "id": 558,
+    "oficio": "Pladur",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Tengo una pared de pladur en el bano que tiene manchas verdes de humedad, como se arregla"
+  },
+  {
+    "id": 559,
+    "oficio": "Pladur",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03"
+    ],
+    "texto": "Construcción de cabina de insonorización para estudio de grabación de 12m²: tabiques multicapa con triple placa, cámara de aire con lana de roca, doble marco flotante, masa-muelle y puerta acústica sellada"
+  },
+  {
+    "id": 560,
+    "oficio": "Pladur",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04"
+    ],
+    "texto": "I need a stud partition wall for a home studio setup, with high soundproofing, ideally achieving at least 45dB of sound reduction between rooms"
+  },
+  {
+    "id": 561,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Las baldosas del baño suenan huecas cuando las piso, ¿hay que cambiarlas todas?"
+  },
+  {
+    "id": 562,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El suelo de tarima del salón tiene una mancha oscura, creo que es por una fuga que tuvimos"
+  },
+  {
+    "id": 563,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Se me están levantando las baldosas del baño en una esquina y hay una rota"
+  },
+  {
+    "id": 564,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El parquet cruje mucho en el pasillo, hace un ruido horrible cada vez que andas por ahí"
+  },
+  {
+    "id": 565,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El suelo del baño está fatal, hay baldosas rotas y otras flojísimas que se mueven al pisarlas"
+  },
+  {
+    "id": 566,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero cambiar el suelo de toda la casa, ahora tiene moqueta y quiero algo más moderno y fácil de limpiar"
+  },
+  {
+    "id": 567,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Necesito alicatar el baño que está sin azulejos porque lo acabo de reformar"
+  },
+  {
+    "id": 568,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Las juntas del baño están todas negras de hongos y no hay manera de limpiarlas aunque use lejía"
+  },
+  {
+    "id": 569,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11"
+    ],
+    "texto": "Hola sí, mira, es que el suelo del baño está muy mal, hay varias baldosas rotas y otras que cuando las pisas se mueven, y además las juntas están todas negras, ¿hay que cambiarlo todo o se puede arreglar?"
+  },
+  {
+    "id": 570,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M09"
+    ],
+    "texto": "Sí mira, es que en el salón tenemos tarima flotante de hace unos 15 años y está ya muy desgastada en las zonas de paso, ¿se puede lijar y barnizar o hay que cambiarla?"
+  },
+  {
+    "id": 571,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M12"
+    ],
+    "texto": "Eeeh sí buenas, es para alicatar la cocina, que ahora mismo no tiene azulejos solo pintura en la pared, y quería ponerle azulejos por detrás de los muebles y encimera, no sé cuántos metros son"
+  },
+  {
+    "id": 572,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Alicatado completo de baño de 7m²: demolición de alicatado antiguo, repaso de paredes, colocación de porcelán 60x60 blanco brillo hasta techo, rodapié a juego, rejuntado y sellado perimetral con silicona"
+  },
+  {
+    "id": 573,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación de suelo radiante eléctrico con porcelán en cocina de 15m²: nivelación del soporte, cable calefactor con termostato programable, mortero autonivelante y porcelán antideslizante 60x120"
+  },
+  {
+    "id": 574,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M05",
+      "M08"
+    ],
+    "texto": "Pulido y abrillantado de suelo de mármol en vivienda de 200m²: esmerilado con diamante grano 400, pulido con grano 800 y 3000, cristalización con polvo de mármol y cera de mantenimiento"
+  },
+  {
+    "id": 575,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M05",
+      "M07"
+    ],
+    "texto": "Instalación de microcemento continuo en suelo de apartamento de 60m²: 2 manos de base, 3 manos de acabado fino color árido, 2 manos de sellador poliuretano satinado resistente a abrasión"
+  },
+  {
+    "id": 576,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Las balosas del bano estan flojas y cuando las piso hacen ruido como si se fueran a romper, ay q cambiarlas"
+  },
+  {
+    "id": 577,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El parquet del salon cruge muchismo cuando andas y queremos ver si se puede arreglar sin cambiarlo entero"
+  },
+  {
+    "id": 578,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10",
+      "M04"
+    ],
+    "texto": "Quiero poner suelo de banhera en la cocina, ese de azulejo grande de 60x60 que queda muy bonito"
+  },
+  {
+    "id": 579,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03",
+      "M15"
+    ],
+    "texto": "Inspección técnica de revestimiento cerámico en fachada de 8 plantas: prueba de adherencia por percusión, inspección termográfica, informe con mapa de zonas afectadas y propuesta de intervención"
+  },
+  {
+    "id": 580,
+    "oficio": "Suelos y Alicatados",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04"
+    ],
+    "texto": "Looking for large format porcelain tiles installation, 120x60, for a 40m² living room, with underfloor heating mat, all-in-one quote including materials and labour"
+  },
+  {
+    "id": 581,
+    "oficio": "Cerrajería",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La cerradura de casa ataca a veces, cuesta mucho girar la llave y tengo miedo de que se quede dentro"
+  },
+  {
+    "id": 582,
+    "oficio": "Cerrajería",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La puerta de la calle no abre bien desde fuera aunque meta la llave correcta"
+  },
+  {
+    "id": 583,
+    "oficio": "Cerrajería",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Me han roto el buzón y la parte de la cerradura tiene algo movido"
+  },
+  {
+    "id": 584,
+    "oficio": "Cerrajería",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El bombín de la puerta parece que está flojo, la llave gira más de lo que debería girar"
+  },
+  {
+    "id": 585,
+    "oficio": "Cerrajería",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Me he quedado fuera de casa con las llaves dentro, necesito a alguien urgente"
+  },
+  {
+    "id": 586,
+    "oficio": "Cerrajería",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero cambiar la cerradura de casa porque le he dado las llaves a alguien y ya no confío"
+  },
+  {
+    "id": 587,
+    "oficio": "Cerrajería",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Necesito una cerradura más segura para la puerta de entrada, la que tengo es muy vieja"
+  },
+  {
+    "id": 588,
+    "oficio": "Cerrajería",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El garaje tiene un pestillo que ya no funciona bien, cada vez cuesta más cerrar la puerta"
+  },
+  {
+    "id": 589,
+    "oficio": "Cerrajería",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11"
+    ],
+    "texto": "Hola buenos días, mira, es que me he quedado sin poder entrar en casa, las llaves las tengo dentro y necesito que alguien venga lo antes posible porque estoy en la puerta con los niños"
+  },
+  {
+    "id": 590,
+    "oficio": "Cerrajería",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M12"
+    ],
+    "texto": "Sí mira, es que quiero poner una puerta blindada o al menos una cerradura más segura, me han robado a una vecina y quiero estar más tranquilo"
+  },
+  {
+    "id": 591,
+    "oficio": "Cerrajería",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11"
+    ],
+    "texto": "Hola, es para la reja del local que la hemos roto al abrir con el camión de reparto y está doblada y ya no baja bien, necesitamos arreglarla urgente"
+  },
+  {
+    "id": 592,
+    "oficio": "Cerrajería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06"
+    ],
+    "texto": "Sustitución de puerta de entrada: retirada de puerta y marco existente, puerta blindada RC3, cerradura de 5 puntos con cilindro antibumping, marco con premarco, burlete perimetral y mirilla gran angular"
+  },
+  {
+    "id": 593,
+    "oficio": "Cerrajería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación de control de acceso en oficina de 200m²: lectora RFID en puerta principal, 2 lectoras en zonas restringidas, central con software de gestión, apertura remota desde app y registro de eventos"
+  },
+  {
+    "id": 594,
+    "oficio": "Cerrajería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06"
+    ],
+    "texto": "Reparación de puerta automática corredera en acceso comercial: diagnóstico de avería en motor, sustitución de célula fotoeléctrica, revisión de guías y rodamientos, ajuste de velocidades y prueba de seguridad"
+  },
+  {
+    "id": 595,
+    "oficio": "Cerrajería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación de caja fuerte empotrada en pared de 30cm: apertura de nicho, caja de acero de 50L con cierre electrónico de doble combinación, anclaje con 4 pernos de expansión y reposición de acabado"
+  },
+  {
+    "id": 596,
+    "oficio": "Cerrajería",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Me he olvidado las llaves dentro y no tengo copia, necesito que vengan a abrirme la perta lo antes posible"
+  },
+  {
+    "id": 597,
+    "oficio": "Cerrajería",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "La cerradura de la puerta principal va muy dura y a veces no abre, creo que le falta aceite o algo"
+  },
+  {
+    "id": 598,
+    "oficio": "Cerrajería",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10",
+      "M04"
+    ],
+    "texto": "Quiero poner una cerradura de esas que se abre con el movil o con huella dactilar en la puerta entrada"
+  },
+  {
+    "id": 599,
+    "oficio": "Cerrajería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03",
+      "M15"
+    ],
+    "texto": "Inspección de seguridad física: evaluación de perímetro, análisis de vulnerabilidades en accesos, clasificación de puertas según UNE-EN 1303 y propuesta de mejora con presupuesto"
+  },
+  {
+    "id": 600,
+    "oficio": "Cerrajería",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04"
+    ],
+    "texto": "I need a smart lock installation on my front door, compatible with HomeKit, with a deadbolt mechanism, including a keypad and fingerprint reader"
+  },
+  {
+    "id": 601,
+    "oficio": "Jardinería",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El jardín tiene zonas donde el césped no crece bien, quedan parches amarillos sin saber por qué"
+  },
+  {
+    "id": 602,
+    "oficio": "Jardinería",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El árbol del jardín tiene ramas que llegan hasta la casa del vecino y me está reclamando"
+  },
+  {
+    "id": 603,
+    "oficio": "Jardinería",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Las plantas del jardín se están poniendo amarillas, no sé si es la tierra o que les falta agua"
+  },
+  {
+    "id": 604,
+    "oficio": "Jardinería",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El jardín siempre está seco aunque lo riegue, el sistema de riego no creo que llegue a todos los rincones"
+  },
+  {
+    "id": 605,
+    "oficio": "Jardinería",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El jardín está hecho un desastre después del invierno, hay que arreglarlo todo de cero"
+  },
+  {
+    "id": 606,
+    "oficio": "Jardinería",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El seto del jardín está enorme y ya no lo podemos cortar solos, hay que llamar a alguien"
+  },
+  {
+    "id": 607,
+    "oficio": "Jardinería",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero poner un sistema de riego automático en el jardín porque no estoy en casa para regarlo"
+  },
+  {
+    "id": 608,
+    "oficio": "Jardinería",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El árbol de la entrada ya es muy grande y las raíces están levantando las baldosas del camino"
+  },
+  {
+    "id": 609,
+    "oficio": "Jardinería",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M12"
+    ],
+    "texto": "Hola, mira, es que tengo un jardín en la parcela y está muy descuidado, tiene césped pero lleno de malas hierbas y hay zonas secas, quería que alguien lo pusiera en condiciones"
+  },
+  {
+    "id": 610,
+    "oficio": "Jardinería",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M12"
+    ],
+    "texto": "Sí, es que quiero hacer un jardín en una zona que ahora es tierra, son como 80 metros, poner césped, plantas, quizás un caminito de piedra, no tengo muy claro qué quiero"
+  },
+  {
+    "id": 611,
+    "oficio": "Jardinería",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M09"
+    ],
+    "texto": "Eeeh sí mira, es para lo del riego que tengo un jardín con riego pero hace tiempo que no funciona bien, no sé si es avería o hay que reprogramarlo, porque hay partes que se riegan y otras no"
+  },
+  {
+    "id": 612,
+    "oficio": "Jardinería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Diseño e instalación de jardín en parcela de 200m²: zona de césped de 120m² sembrada, zona de gravilla con aromáticas, camino de piedra natural de 2m de ancho y sistema de riego por goteo con programador"
+  },
+  {
+    "id": 613,
+    "oficio": "Jardinería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06"
+    ],
+    "texto": "Tala de árbol de 15 metros con riesgo de caída sobre edificio: tala por secciones con escalada, trituradora de ramas, extracción de tocón, retirada de residuos e informe técnico previo"
+  },
+  {
+    "id": 614,
+    "oficio": "Jardinería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación de riego automatizado en jardín de 500m²: 3 sectores con electroválvulas, aspersores emergentes para césped, goteros para arbustos, central con programación por app y sonda de lluvia"
+  },
+  {
+    "id": 615,
+    "oficio": "Jardinería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Poda selectiva de 40 metros lineales de ciprés a 3m de altura, 20m de boj en formas geométricas, 6 árboles ornamentales con levantamiento de copa y retirada de restos con camión"
+  },
+  {
+    "id": 616,
+    "oficio": "Jardinería",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El jardin esta todo lleno de malas hierbas y el cesped esta amarillo, quiero que lo limpien y lo arreglen todo"
+  },
+  {
+    "id": 617,
+    "oficio": "Jardinería",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Tengo un arbol que esta muy mal y me da miedo de que se caga con el viento, habra que cortarlo"
+  },
+  {
+    "id": 618,
+    "oficio": "Jardinería",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10",
+      "M04"
+    ],
+    "texto": "Quiero poner iluminasion en el jardin, de esas luzecitas en el suelo y quizas algo en los arboles"
+  },
+  {
+    "id": 619,
+    "oficio": "Jardinería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03"
+    ],
+    "texto": "Proyecto de jardín sostenible: plantas autóctonas de bajo consumo hídrico, depósito de agua de lluvia de 5000L con bomba conectada al riego, compostera y sistema de mulching"
+  },
+  {
+    "id": 620,
+    "oficio": "Jardinería",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04",
+      "M06"
+    ],
+    "texto": "I want a complete garden makeover: artificial grass on 60m², a small water feature, LED path lighting, and a drip irrigation system for the plant borders"
+  },
+  {
+    "id": 621,
+    "oficio": "Energía Solar",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Los paneles solares que tengo instalados parece que producen menos de lo que deberían producir"
+  },
+  {
+    "id": 622,
+    "oficio": "Energía Solar",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El inversor solar hace un pitido intermitente y no sé lo que significa ese código de error"
+  },
+  {
+    "id": 623,
+    "oficio": "Energía Solar",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La factura de la luz no ha bajado nada desde que instalé los paneles solares hace seis meses"
+  },
+  {
+    "id": 624,
+    "oficio": "Energía Solar",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El monitor de los paneles marca un error pero no entiendo qué significa el código que aparece"
+  },
+  {
+    "id": 625,
+    "oficio": "Energía Solar",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero quitarme la factura de la luz de una vez y no sé si los paneles solares son la solución"
+  },
+  {
+    "id": 626,
+    "oficio": "Energía Solar",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Me han hablado de los paneles solares pero no sé si en mi piso del cuarto piso se puede poner"
+  },
+  {
+    "id": 627,
+    "oficio": "Energía Solar",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero instalar paneles solares en el tejado del chalet para ahorrar en la factura de electricidad"
+  },
+  {
+    "id": 628,
+    "oficio": "Energía Solar",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Tengo una pequeña empresa con factura eléctrica muy alta, quiero estudiar si los paneles me compensan"
+  },
+  {
+    "id": 629,
+    "oficio": "Energía Solar",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M09"
+    ],
+    "texto": "Hola, sí, mira es que hace un año me instalaron paneles solares y el primer verano fue bien pero este año producen mucho menos, el inversor enciende pero la producción está muy baja"
+  },
+  {
+    "id": 630,
+    "oficio": "Energía Solar",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M12"
+    ],
+    "texto": "Sí mira, quiero informarme sobre los paneles solares, es para vivienda unifamiliar con tejado a dos aguas orientado al sur más o menos, quería saber cuántos necesitaría y cuánto costaría"
+  },
+  {
+    "id": 631,
+    "oficio": "Energía Solar",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M15"
+    ],
+    "texto": "Eeeh sí mira, es para lo de las subvenciones de los paneles solares, que he visto que hay ayudas y no sé cómo funciona, si me pueden ayudar a tramitarlo junto con la propia instalación"
+  },
+  {
+    "id": 632,
+    "oficio": "Energía Solar",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación fotovoltaica de autoconsumo en vivienda unifamiliar: 10 paneles monocristalinos 450Wp sur, inversor híbrido 5kW, batería de litio 10kWh, monitorización, legalización y tramitación de compensación"
+  },
+  {
+    "id": 633,
+    "oficio": "Energía Solar",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación de solar térmica para ACS en edificio de 12 viviendas: 6 captadores planos, interacumulador de 1500L, grupo hidráulico, centralita diferencial y sistema anti-legionela"
+  },
+  {
+    "id": 634,
+    "oficio": "Energía Solar",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Ampliación de instalación fotovoltaica existente de 3kWp: añadir 4 paneles de 450Wp, inversor adicional de 2kW, optimizadores individuales, actualización de protecciones DC y recableado"
+  },
+  {
+    "id": 635,
+    "oficio": "Energía Solar",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Sistema solar aislado de red para instalación agropecuaria: 20 paneles 450Wp, banco de baterías 48V/400Ah, inversor cargador 10kW, grupo electrógeno de apoyo y cuadro de protecciones"
+  },
+  {
+    "id": 636,
+    "oficio": "Energía Solar",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10",
+      "M12"
+    ],
+    "texto": "Quiero poner paneles solares pero no se cuantos necesito ni si mi tejado aguanta el peso de los paneles"
+  },
+  {
+    "id": 637,
+    "oficio": "Energía Solar",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Los paneles solares que tenia instalados se han visto afectados por el granizo y uno esta roto, como lo arreglo"
+  },
+  {
+    "id": 638,
+    "oficio": "Energía Solar",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10",
+      "M12"
+    ],
+    "texto": "Quiero saber si me interesa poner baterias con los paneles solares que ya tengo o no compensa economicamente"
+  },
+  {
+    "id": 639,
+    "oficio": "Energía Solar",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03",
+      "M15"
+    ],
+    "texto": "Auditoría energética de vivienda unifamiliar: calificación energética según CTE, análisis de envolvente térmica, informe de mejoras con estimación de ahorro y ROI incluyendo fotovoltaica"
+  },
+  {
+    "id": 640,
+    "oficio": "Energía Solar",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04",
+      "M06"
+    ],
+    "texto": "I want a full solar system with battery storage for off-grid capability, enough to power a 150m² house with AC, induction cooker and EV charging, full quote including installation"
+  },
+  {
+    "id": 641,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La señal de internet en algunas habitaciones del piso es muy mala aunque tengo el router en el salón"
+  },
+  {
+    "id": 642,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La televisión de la habitación tiene imagen con interferencias aunque el canal está bien en el salón"
+  },
+  {
+    "id": 643,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El interfono del portal no suena cuando llaman desde abajo y tampoco consigo abrir la puerta"
+  },
+  {
+    "id": 644,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Desde que el vecino puso no sé qué aparato, mi wifi va mucho peor que antes"
+  },
+  {
+    "id": 645,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El wifi en el segundo piso no llega nada, cuando subo las escaleras se corta todo completamente"
+  },
+  {
+    "id": 646,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "La antena de la comunidad está rota desde la última tormenta y nadie en el bloque ve la tele"
+  },
+  {
+    "id": 647,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero poner puntos de wifi por toda la casa para tener buena señal en todos los rincones"
+  },
+  {
+    "id": 648,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El videoportero del bloque no funciona bien, se oye muy mal y la imagen sale oscura"
+  },
+  {
+    "id": 649,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M09"
+    ],
+    "texto": "Hola mira, es que en casa el wifi va muy mal, en el salón va bien porque tengo el router ahí pero en los dormitorios sobre todo el del fondo del pasillo casi no hay señal y se corta continuamente"
+  },
+  {
+    "id": 650,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M07"
+    ],
+    "texto": "Sí mira, es que en la comunidad tenemos la antena colectiva que no funciona bien desde el año pasado, hay pisos que tienen señal mal o no tienen algunos canales, qué habría que hacer"
+  },
+  {
+    "id": 651,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M12"
+    ],
+    "texto": "Eeeh sí, buenos días, es que acabo de comprar un local y quiero montar una oficina, necesito poner conexiones de red por toda la planta, puntos de red en las mesas y wifi corporativo"
+  },
+  {
+    "id": 652,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación de red de datos en oficina de 150m²: 20 tomas RJ45 Cat6A, rack de 12U con switch PoE de 24 puertos, patch panel, 2 puntos de acceso WiFi 6 con controladora y certificación de canal"
+  },
+  {
+    "id": 653,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación de sistema CCTV en local comercial: 8 cámaras IP domo 4MP antivandálico, NVR de 16 canales con disco 4TB, visualización remota desde app y monitor 24\" en zona de caja"
+  },
+  {
+    "id": 654,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación de ICT en edificio de 12 viviendas: armario de telecomunicaciones, amplificador TDT, distribución por planta con repartidores, cableado coaxial hasta cada vivienda según RITI/RITS"
+  },
+  {
+    "id": 655,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Sistema de megafonía en nave industrial de 2000m²: amplificador de 240W, 20 altavoces de techo 20W, música ambiental, sistema de evacuación de emergencia y micrófono de llamada"
+  },
+  {
+    "id": 656,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "La tele no coje ninguna cadena, creo que se ha movido la antena en el tejado con el viento de ayer"
+  },
+  {
+    "id": 657,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10",
+      "M04"
+    ],
+    "texto": "Quiero poner camras de seguridad en casa, de esas que se controlan desde el movil, cuanto cuesta"
+  },
+  {
+    "id": 658,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El telefono del portal no funciona, no oigo cuando llaman desde abajo y tampoco puedo abrirles la puerta"
+  },
+  {
+    "id": 659,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03",
+      "M15"
+    ],
+    "texto": "Proyecto de infraestructura de telecomunicaciones en edificio de uso mixto de 6 plantas: diseño de ICT, distribución de TV y datos por fibra óptica hasta cada unidad, proyecto técnico firmado"
+  },
+  {
+    "id": 660,
+    "oficio": "Telecomunicaciones",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04"
+    ],
+    "texto": "I need a full structured cabling installation for a new office, Cat6A throughout, with a 24-port managed PoE switch, WiFi 6 APs, and a patch panel, about 15 workstations"
+  },
+  {
+    "id": 661,
+    "oficio": "Cristalería",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La ventana del salón tiene una raja pequeña, ¿hay que cambiar todo el cristal o solo esa parte?"
+  },
+  {
+    "id": 662,
+    "oficio": "Cristalería",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El cristal de la mampara del baño tiene manchas blancas que no se van con ningún producto de limpieza"
+  },
+  {
+    "id": 663,
+    "oficio": "Cristalería",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Hay condensación entre los dos cristales de la ventana de doble acristalamiento, se ve empañada"
+  },
+  {
+    "id": 664,
+    "oficio": "Cristalería",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La claraboya del baño está empañada por dentro y no hay manera de limpiarla desde dentro"
+  },
+  {
+    "id": 665,
+    "oficio": "Cristalería",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Se me ha roto el espejo del baño al caer, hay que cambiarlo urgente antes de que se haga daño alguien"
+  },
+  {
+    "id": 666,
+    "oficio": "Cristalería",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Las ventanas viejas de la casa dejan pasar mucho frío en invierno, hay que hacer algo"
+  },
+  {
+    "id": 667,
+    "oficio": "Cristalería",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero poner una mampara de ducha nueva en el baño principal, la que tenemos ya está muy vieja"
+  },
+  {
+    "id": 668,
+    "oficio": "Cristalería",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El escaparate del local tiene una grieta y de momento lo tenemos tapado, necesitamos arreglarlo urgente"
+  },
+  {
+    "id": 669,
+    "oficio": "Cristalería",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11"
+    ],
+    "texto": "Hola mira, es que se me ha roto un cristal de una ventana del salón, no sé cómo ha sido, y quería que alguien viniera a cambiarlo cuanto antes porque da al exterior"
+  },
+  {
+    "id": 670,
+    "oficio": "Cristalería",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M12"
+    ],
+    "texto": "Sí, mira, es que tengo las ventanas que son de un solo cristal y en invierno se pone todo empañado y hace mucho frío, ¿hay alguna forma de mejorarlas sin cambiarlas del todo?"
+  },
+  {
+    "id": 671,
+    "oficio": "Cristalería",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M12"
+    ],
+    "texto": "Eeeh sí, buenos días, es para poner una mampara en la bañera, ahora mismo no tenemos nada, y quería que me dijeran qué opciones hay, si fija, si corredera, y cuánto más o menos costaría"
+  },
+  {
+    "id": 672,
+    "oficio": "Cristalería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Sustitución de acristalamiento en 8 ventanas: retirada de cristal simple, doble acristalamiento bajo emisivo 4-12-4 con marco de aluminio RPT, sellado perimetral con silicona y adaptación de tapajuntas"
+  },
+  {
+    "id": 673,
+    "oficio": "Cristalería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación de vidrio de privacidad en zona de conferencias: cristal laminado opaco en 3 paños de 2x2m, cristal templado 10mm con fijación Dorma y puertas correderas de vidrio con tirador de acero"
+  },
+  {
+    "id": 674,
+    "oficio": "Cristalería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Sustitución de escaparate en local comercial: desmontaje del existente, cristal templado 10mm en 3 paños de 1,5x2,5m con perfilería Schüco, puerta de cristal con electroimán y cierrapuertas"
+  },
+  {
+    "id": 675,
+    "oficio": "Cristalería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Cubierta de cristal en patio interior de 20m²: estructura de acero galvanizado, vidrio de seguridad laminar 6+6mm con protección solar, sellado perimetral y canalete de recogida de agua"
+  },
+  {
+    "id": 676,
+    "oficio": "Cristalería",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Se ha roto un cristal de una ventana, necesito que lo cambien hoy porque la ventana da a la calle"
+  },
+  {
+    "id": 677,
+    "oficio": "Cristalería",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Las mampras del bano estan muy feas y hay una que ya tiene la goma rota y chorrea agua al suelo"
+  },
+  {
+    "id": 678,
+    "oficio": "Cristalería",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10",
+      "M05"
+    ],
+    "texto": "Quiero un espejo grande en el recibidor, de esos que van del suelo al techo, con marco de aluminio negro"
+  },
+  {
+    "id": 679,
+    "oficio": "Cristalería",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03",
+      "M15"
+    ],
+    "texto": "Estudio de eficiencia energética de acristalamiento en edificio de oficinas: análisis de transmitancia térmica, cámara termográfica, informe de pérdidas y propuesta de sustitución por vidrio de control solar"
+  },
+  {
+    "id": 680,
+    "oficio": "Cristalería",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04"
+    ],
+    "texto": "I need a frameless glass shower enclosure, hinged door, 8mm tempered glass, chrome fittings, for a 90x90cm space, custom cut if needed"
+  },
+  {
+    "id": 681,
+    "oficio": "Impermeabilización",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Tengo humedad en el muro del sótano pero no llueve dentro, solo hay una mancha en la pared"
+  },
+  {
+    "id": 682,
+    "oficio": "Impermeabilización",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La terraza del piso de arriba filtra y me pone el techo húmedo cuando llueve con intensidad"
+  },
+  {
+    "id": 683,
+    "oficio": "Impermeabilización",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El garaje en planta baja se moja con lluvias fuertes, no sé si entra por la puerta o por la pared"
+  },
+  {
+    "id": 684,
+    "oficio": "Impermeabilización",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Hay humedad en el suelo del baño pero no sé si viene de arriba o de una fuga de fontanería"
+  },
+  {
+    "id": 685,
+    "oficio": "Impermeabilización",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Cada vez que llueve se me moja el techo del salón y ya hay manchas de humedad bastante grandes"
+  },
+  {
+    "id": 686,
+    "oficio": "Impermeabilización",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "La terraza está llena de grietas y cuando llueve cae agua al techo del vecino de abajo"
+  },
+  {
+    "id": 687,
+    "oficio": "Impermeabilización",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero impermeabilizar la terraza del piso porque tengo goteras hacia los vecinos de abajo"
+  },
+  {
+    "id": 688,
+    "oficio": "Impermeabilización",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El muro del jardín absorbe el agua y parece que se está deshaciendo por dentro con la humedad"
+  },
+  {
+    "id": 689,
+    "oficio": "Impermeabilización",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M09"
+    ],
+    "texto": "Hola mira, es que tengo un problema con la terraza, cuando llueve fuerte el vecino de abajo me llama porque le entra agua por el techo, las juntas están todas abiertas y hay alguna grieta"
+  },
+  {
+    "id": 690,
+    "oficio": "Impermeabilización",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11"
+    ],
+    "texto": "Sí mira, es que el sótano de la casa se moja cuando llueve mucho, hay agua que entra por las paredes como si sudaran y en una esquina se acumula en el suelo"
+  },
+  {
+    "id": 691,
+    "oficio": "Impermeabilización",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M09"
+    ],
+    "texto": "Eeeh sí, es para la piscina, que tiene fisuras en el vaso y pierde agua, en una semana pierde como 3 centímetros, necesito que alguien lo mire y me diga cómo se arregla"
+  },
+  {
+    "id": 692,
+    "oficio": "Impermeabilización",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Impermeabilización de terraza de 40m²: demolición de solado, formación de pendientes con mortero aligerado, doble lámina betún modificado APP, banda de refuerzo en juntas y solado cerámico antideslizante"
+  },
+  {
+    "id": 693,
+    "oficio": "Impermeabilización",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06"
+    ],
+    "texto": "Impermeabilización de muro de sótano por el interior: mortero cementoso de dos componentes, pintura epoxi transpirable, rodapié de polisulfuro, drenaje perimetral con canaleta y sumidero"
+  },
+  {
+    "id": 694,
+    "oficio": "Impermeabilización",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Impermeabilización de cubierta plana de 300m²: levantamiento de lámina existente, regularización, formación de pendientes, membrana de EPDM de 1,5mm con junta vulcanizada y remate perimetral"
+  },
+  {
+    "id": 695,
+    "oficio": "Impermeabilización",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06"
+    ],
+    "texto": "Rehabilitación de piscina: vaciado, saneado de fisuras con resina epoxi, microcemento de piscinas en 3 capas, impermeabilizante elastomérico, revisión de juntas perimetrales y sistema de filtrado"
+  },
+  {
+    "id": 696,
+    "oficio": "Impermeabilización",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Tengo goterass en el techo del salon, lleva un tiempo y ya la mancha es bastante grande, necesito arreglarlo"
+  },
+  {
+    "id": 697,
+    "oficio": "Impermeabilización",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "La teraza esta con las juntas abiertas y cuando llueve se moja todo, creo que ay que impermeabilizarla"
+  },
+  {
+    "id": 698,
+    "oficio": "Impermeabilización",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El muro del soto esta sudando mucho y hay como una costra blanca en las paredes de salite"
+  },
+  {
+    "id": 699,
+    "oficio": "Impermeabilización",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03",
+      "M15"
+    ],
+    "texto": "Estudio técnico de patologías de humedad: inspección visual y endoscópica, toma de muestras para análisis de sales, informe con diagnóstico diferencial (capilaridad, condensación, filtración) y propuesta"
+  },
+  {
+    "id": 700,
+    "oficio": "Impermeabilización",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04"
+    ],
+    "texto": "Need to waterproof a 30m² flat roof terrace that's leaking into the apartment below, looking for a liquid applied membrane or torch-on solution with a 10-year guarantee"
+  },
+  {
+    "id": 701,
+    "oficio": "Contra Incendios",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Me ha saltado la alarma de incendios sin que haya fuego ni humo visible, ¿por qué puede ser?"
+  },
+  {
+    "id": 702,
+    "oficio": "Contra Incendios",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El extintor rojo de la oficina tiene la aguja en zona roja, ¿está descargado o es normal?"
+  },
+  {
+    "id": 703,
+    "oficio": "Contra Incendios",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09",
+      "M12"
+    ],
+    "texto": "No sé si mi local necesita rociadores o con extintores es suficiente para la normativa"
+  },
+  {
+    "id": 704,
+    "oficio": "Contra Incendios",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La central de alarmas de incendios pita a veces sin motivo y no sé cómo silenciarla bien"
+  },
+  {
+    "id": 705,
+    "oficio": "Contra Incendios",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Necesito que vengan a revisar los extintores del local porque caducan y no sé cuándo exactamente"
+  },
+  {
+    "id": 706,
+    "oficio": "Contra Incendios",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "En la inspección del local me han dicho que no tengo la instalación de incendios en regla"
+  },
+  {
+    "id": 707,
+    "oficio": "Contra Incendios",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10",
+      "M12"
+    ],
+    "texto": "Quiero montar una cafetería y me dicen que necesito un sistema contra incendios pero no sé cuál"
+  },
+  {
+    "id": 708,
+    "oficio": "Contra Incendios",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Los detectores de humo del almacén ya no funcionan bien, algunos están apagados y otros pitan solos"
+  },
+  {
+    "id": 709,
+    "oficio": "Contra Incendios",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M12"
+    ],
+    "texto": "Hola mira, es que tengo un local comercial y me han dicho que necesito la instalación de contraincendios para poder abrir, no tengo nada ahora mismo, solo un extintor que creo que no es suficiente"
+  },
+  {
+    "id": 710,
+    "oficio": "Contra Incendios",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M07"
+    ],
+    "texto": "Sí, mira, tenemos un almacén de logística de unos 500 metros y queremos revisar toda la instalación de incendios porque hace mucho que no se revisa y también queremos añadir más detectores"
+  },
+  {
+    "id": 711,
+    "oficio": "Contra Incendios",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M06"
+    ],
+    "texto": "Eeeh sí buenos días, es que tenemos un restaurante y la última inspección nos ha dado incidencias en incendios: el extintor de la cocina es incorrecto y falta señalización, queremos arreglarlo"
+  },
+  {
+    "id": 712,
+    "oficio": "Contra Incendios",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación de detección de incendios en oficina de 500m²: central analógica, 30 detectores ópticos, 5 pulsadores, 3 sirenas con luz estroboscópica, módulos de control de puertas cortafuego y conexión a CRA"
+  },
+  {
+    "id": 713,
+    "oficio": "Contra Incendios",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación de rociadores tipo ESFR en almacén de 2000m²: diseño hidráulico según CEPREVEN, tubería acero negro DN50/80/100, 120 rociadores colgantes K14 y central de válvulas con alarma de flujo"
+  },
+  {
+    "id": 714,
+    "oficio": "Contra Incendios",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M15"
+    ],
+    "texto": "Mantenimiento anual de PCI en edificio de oficinas: revisión de extintores ABC y CO2, prueba de detectores, pulsadores, verificación de alumbrado de emergencia y certificado de mantenimiento"
+  },
+  {
+    "id": 715,
+    "oficio": "Contra Incendios",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M08"
+    ],
+    "texto": "Extinción por agente limpio FM-200 en sala de CPD de 20m²: cálculo según NFPA 2001, recipientes, boquillas de descarga, panel de control con doble detección y señalización óptico-acústica"
+  },
+  {
+    "id": 716,
+    "oficio": "Contra Incendios",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Los extintores del almacen caducan este mes y necesito que los revisen o cambien los que haga falta"
+  },
+  {
+    "id": 717,
+    "oficio": "Contra Incendios",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Me han dicho que necesito poner señalizacion de emergencias en el local, que no tengo nada, cuanto cuesta"
+  },
+  {
+    "id": 718,
+    "oficio": "Contra Incendios",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10",
+      "M09"
+    ],
+    "texto": "La alarma de incendios del local pita ella sola de vez en cuando y no sabemos por que, como se arregla"
+  },
+  {
+    "id": 719,
+    "oficio": "Contra Incendios",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03",
+      "M15"
+    ],
+    "texto": "Proyecto de PCI para nave industrial de 1500m²: memoria técnica según RSCIEI, planos, dimensionado de BIEs y rociadores, plan de autoprotección y proyecto firmado para licencia de actividad"
+  },
+  {
+    "id": 720,
+    "oficio": "Contra Incendios",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04",
+      "M14"
+    ],
+    "texto": "Need a complete fire safety compliance package for a 300m² restaurant: detection system, suppression in kitchen hood, emergency lighting, fire extinguishers and a maintenance contract"
+  },
+  {
+    "id": 721,
+    "oficio": "Fachadas",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La fachada del edificio tiene una mancha que parece humedad pero el piso de esa planta no tiene goteras"
+  },
+  {
+    "id": 722,
+    "oficio": "Fachadas",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Se han caído unos azulejos de la fachada en la primera planta y hay un hueco visible"
+  },
+  {
+    "id": 723,
+    "oficio": "Fachadas",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La fachada está agrietada en varios sitios, no sé si son grietas estructurales o solo de la pintura"
+  },
+  {
+    "id": 724,
+    "oficio": "Fachadas",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El enfoscado de la fachada hace un sonido hueco en una zona, como que está separado del muro"
+  },
+  {
+    "id": 725,
+    "oficio": "Fachadas",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "La fachada del edificio está muy sucia de polución y los vecinos quieren limpiarla este año"
+  },
+  {
+    "id": 726,
+    "oficio": "Fachadas",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El edificio tiene manchas negras de humedad en la fachada y hay que hacer algo antes del invierno"
+  },
+  {
+    "id": 727,
+    "oficio": "Fachadas",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero poner aislamiento por el exterior en la fachada para ahorrar en calefacción"
+  },
+  {
+    "id": 728,
+    "oficio": "Fachadas",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "La fachada del local comercial está muy deteriorada y necesitamos renovarla para la imagen del negocio"
+  },
+  {
+    "id": 729,
+    "oficio": "Fachadas",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M14"
+    ],
+    "texto": "Hola mira, en la comunidad de vecinos tenemos la fachada en bastante mal estado, hay zonas donde el enfoscado está separado, hay grietas y en general está muy sucia, queríamos un presupuesto"
+  },
+  {
+    "id": 730,
+    "oficio": "Fachadas",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11"
+    ],
+    "texto": "Sí, es que tengo un local en planta baja y la fachada está bastante deteriorada, hay desconchones, grietas y el rótulo antiguo que ya no sirve, quería renovarla completamente"
+  },
+  {
+    "id": 731,
+    "oficio": "Fachadas",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11"
+    ],
+    "texto": "Eeeh sí mira, es que en la comunidad se nos han caído azulejos de la fachada y hay más zonas que suenan huecas, necesitamos que alguien lo mire cuanto antes porque da a la calle peatonal"
+  },
+  {
+    "id": 732,
+    "oficio": "Fachadas",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Rehabilitación de fachada de edificio de 6 plantas: andamiaje tubular perimetral, picado de revocos deteriorados, tratamiento de grietas con resinas epoxi, enfoscado de mortero de cal hidrófugo y pintura mineral"
+  },
+  {
+    "id": 733,
+    "oficio": "Fachadas",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación de SATE en fachada de 400m²: limpieza de soporte, adhesivo cementoso, placa EPS 10cm, malla de fibra de vidrio, capa de regularización y revoco mineral con pintura de siloxanos"
+  },
+  {
+    "id": 734,
+    "oficio": "Fachadas",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06"
+    ],
+    "texto": "Reparación urgente de desprendimiento cerámico en fachada de comunidad: andamiaje de emergencia, inspección percutiva, retirada de piezas con riesgo, rejuntado de grietas y reposición de piezas a juego"
+  },
+  {
+    "id": 735,
+    "oficio": "Fachadas",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M05",
+      "M07"
+    ],
+    "texto": "Limpieza y tratamiento de fachada de piedra natural en edificio histórico de 5 plantas: agua a baja presión, tratamiento biocida, consolidante pétreo en zonas deterioradas, sellado de juntas con mortero de cal"
+  },
+  {
+    "id": 736,
+    "oficio": "Fachadas",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "La fachada del edifisio está muy sucia y con algunas zonas dañadas, la comunidad quiere limpiarla y arreglarla"
+  },
+  {
+    "id": 737,
+    "oficio": "Fachadas",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Se estan cayendo trozos del revoco de la fachada y puede caer algo a la calle, hay que arreglarlo urgente"
+  },
+  {
+    "id": 738,
+    "oficio": "Fachadas",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Queremos poner aislamiente por fuera de la fachada para no pasar tanto frio en inbierno"
+  },
+  {
+    "id": 739,
+    "oficio": "Fachadas",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03",
+      "M15"
+    ],
+    "texto": "ITE de fachadas: inspección visual y manual de fachadas, cubiertas y elementos salientes, informe técnico con calificación del estado de conservación y prescripciones de subsanación"
+  },
+  {
+    "id": 740,
+    "oficio": "Fachadas",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04"
+    ],
+    "texto": "Need an external wall insulation system on a 200m² facade with a rendered finish, to improve thermal performance to at least U=0.3 W/m²K"
+  },
+  {
+    "id": 741,
+    "oficio": "Mantenimiento General",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Desde hace un tiempo el ascensor hace un ruido diferente al arrancar, ¿es peligroso?"
+  },
+  {
+    "id": 742,
+    "oficio": "Mantenimiento General",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El parking del garaje tiene manchas de aceite en el suelo, no sé de cuántos coches son"
+  },
+  {
+    "id": 743,
+    "oficio": "Mantenimiento General",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "El local lleva tiempo cerrado y hay un olor raro cuando abrimos, ¿de qué puede ser?"
+  },
+  {
+    "id": 744,
+    "oficio": "Mantenimiento General",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La caldera del bloque a veces se para sola y luego vuelve a arrancar sin tocar nada"
+  },
+  {
+    "id": 745,
+    "oficio": "Mantenimiento General",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El edificio necesita un repaso general, hay cosas que llevan mucho tiempo sin hacerse"
+  },
+  {
+    "id": 746,
+    "oficio": "Mantenimiento General",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El taller está muy sucio y con muchas cosas estropeadas, necesitamos una puesta a punto completa"
+  },
+  {
+    "id": 747,
+    "oficio": "Mantenimiento General",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10",
+      "M15"
+    ],
+    "texto": "Quiero un contrato de mantenimiento para el local, que alguien se encargue de todo"
+  },
+  {
+    "id": 748,
+    "oficio": "Mantenimiento General",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "La comunidad de vecinos quiere hacer mantenimiento preventivo de todo el edificio antes del invierno"
+  },
+  {
+    "id": 749,
+    "oficio": "Mantenimiento General",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M06"
+    ],
+    "texto": "Hola mira, es que tengo un local y hay varias cosas que necesito arreglar: la persiana no sube bien, hay una gotera en el baño, un enchufe que no funciona y la puerta trasera que no cierra bien"
+  },
+  {
+    "id": 750,
+    "oficio": "Mantenimiento General",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M15"
+    ],
+    "texto": "Sí mira, soy el administrador de una comunidad y necesitamos presupuesto de mantenimiento preventivo anual para el edificio: zonas comunes, portal, escaleras, cubierta e instalaciones"
+  },
+  {
+    "id": 751,
+    "oficio": "Mantenimiento General",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M06"
+    ],
+    "texto": "Eeeh sí, es que tengo una vivienda de alquiler y el inquilino me ha dicho que hay varias cosas que no funcionan: una persiana rota, el grifo gotea, una baldosa suelta en el baño y la bombilla del pasillo"
+  },
+  {
+    "id": 752,
+    "oficio": "Mantenimiento General",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M15"
+    ],
+    "texto": "Contrato de mantenimiento integral de edificio de 20 viviendas: revisión mensual de instalaciones de zonas comunes, mantenimiento de ascensor, limpieza de cubiertas y bajantes semestral y atención de incidencias 24h"
+  },
+  {
+    "id": 753,
+    "oficio": "Mantenimiento General",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M15"
+    ],
+    "texto": "Plan de mantenimiento preventivo de nave industrial de 2000m²: revisión trimestral de eléctrica BT, semestral de climatización (4 roof-top), mantenimiento de puerta seccional, plan de contingencia y libro de mantenimiento"
+  },
+  {
+    "id": 754,
+    "oficio": "Mantenimiento General",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M14"
+    ],
+    "texto": "Rehabilitación integral de local de 100m² para cambio de uso a restaurante: demolición, solado nuevo, eléctrica con monofásico 25A, fontanería para barra y cocina, ventilación mecánica y acabados"
+  },
+  {
+    "id": 755,
+    "oficio": "Mantenimiento General",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Mantenimiento de comunidad de 30 vecinos: revisión anual de cuadro eléctrico, grupo de presión, limpieza de bajantes y arquetas, revisión de antena colectiva y extintores, informe de estado"
+  },
+  {
+    "id": 756,
+    "oficio": "Mantenimiento General",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10",
+      "M06"
+    ],
+    "texto": "Necesito que alguien me venga a arreglar varias cosas en casa, un grifo que gotea, un enchufe que no va y la persiana que no sube"
+  },
+  {
+    "id": 757,
+    "oficio": "Mantenimiento General",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "El local lleva varios meses cerrado y hay varias averias, quiero que lo dejen todo en condiciones antes de alquilarlo"
+  },
+  {
+    "id": 758,
+    "oficio": "Mantenimiento General",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10",
+      "M15"
+    ],
+    "texto": "Soy administrador de fincas y necesito un servicio de mantenimiento rapido para emergencias en mis edificios"
+  },
+  {
+    "id": 759,
+    "oficio": "Mantenimiento General",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03",
+      "M15"
+    ],
+    "texto": "Auditoría de mantenimiento en hotel de 80 habitaciones: revisión de cumplimiento normativo de instalaciones eléctricas, fontanería, climatización, PCI y ascensores, informe de deficiencias y plan de regularización"
+  },
+  {
+    "id": 760,
+    "oficio": "Mantenimiento General",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04",
+      "M15"
+    ],
+    "texto": "I need a full property maintenance contract for a 10-unit apartment building: plumbing, electrical, HVAC, painting and general repairs, with 24/7 emergency response"
+  },
+  {
+    "id": 761,
+    "oficio": "Reformas Integrales",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09",
+      "M12"
+    ],
+    "texto": "Tengo un piso viejo que quiero reformar pero no sé por dónde empezar ni cuánto puede costar"
+  },
+  {
+    "id": 762,
+    "oficio": "Reformas Integrales",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09",
+      "M12"
+    ],
+    "texto": "El local que he alquilado necesita reforma pero no sé si necesita licencia de obras o no"
+  },
+  {
+    "id": 763,
+    "oficio": "Reformas Integrales",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "Tengo un chalet con muchas cosas que arreglar, no sé si es mejor reformar por partes o todo a la vez"
+  },
+  {
+    "id": 764,
+    "oficio": "Reformas Integrales",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09",
+      "M12"
+    ],
+    "texto": "Hemos comprado un piso de los años 70 y no sé qué hay que cambiar primero ni cuánto sale"
+  },
+  {
+    "id": 765,
+    "oficio": "Reformas Integrales",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero reformar el baño del todo, que está muy anticuado y con todo roto y viejo"
+  },
+  {
+    "id": 766,
+    "oficio": "Reformas Integrales",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "La cocina está fatal, los muebles son viejos y todo está desgastado, quiero cambiarla entera"
+  },
+  {
+    "id": 767,
+    "oficio": "Reformas Integrales",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10",
+      "M14"
+    ],
+    "texto": "Quiero hacer una reforma completa del piso que me acabo de comprar antes de entrar a vivir"
+  },
+  {
+    "id": 768,
+    "oficio": "Reformas Integrales",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10",
+      "M14"
+    ],
+    "texto": "Tenemos un local que queremos convertir en oficina moderna, necesita reforma completa de distribución y acabados"
+  },
+  {
+    "id": 769,
+    "oficio": "Reformas Integrales",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M12"
+    ],
+    "texto": "Hola mira, es que nos hemos comprado un piso de segunda mano y está bastante antiguo, la cocina, los baños, la electricidad, todo necesita renovarse, quería un presupuesto orientativo"
+  },
+  {
+    "id": 770,
+    "oficio": "Reformas Integrales",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M12"
+    ],
+    "texto": "Sí mira, quiero reformar el baño principal, sé que quiero ducha en vez de bañera, suelo nuevo y que se vea moderno, más o menos cuánto costaría"
+  },
+  {
+    "id": 771,
+    "oficio": "Reformas Integrales",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M14"
+    ],
+    "texto": "Eeeh sí buenos días, es que tenemos un bajo comercial que queremos convertir en restaurante, necesita reforma completa de distribución, cocina industrial, baños y zona de sala, son unos 120 metros"
+  },
+  {
+    "id": 772,
+    "oficio": "Reformas Integrales",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M14"
+    ],
+    "texto": "Reforma integral de piso de 90m² de los años 70: demolición de distribución, baños y cocina, nueva tabiquería, instalación eléctrica y fontanería completa, alicatado y solado, cocina amueblada y 2 baños"
+  },
+  {
+    "id": 773,
+    "oficio": "Reformas Integrales",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M14"
+    ],
+    "texto": "Reforma de local para clínica dental de 80m²: 4 gabinetes, sala de espera, recepción, esterilización, circuitos eléctricos independientes por gabinete, fontanería, ventilación y climatización"
+  },
+  {
+    "id": 774,
+    "oficio": "Reformas Integrales",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Reforma de baño principal de 8m²: demolición, bañera por plato de ducha extraplano 90x90, sanitarios suspendidos, mueble con lavabo y espejo retroiluminado, alicatado hasta techo en gran formato"
+  },
+  {
+    "id": 775,
+    "oficio": "Reformas Integrales",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Reforma de cocina de 15m²: demolición de cocina existente, muebles a medida con frentes lacados, encimera de Silestone 3cm, fregadero integrado, lavavajillas, vitrocerámica, horno, campana y fontanería"
+  },
+  {
+    "id": 776,
+    "oficio": "Reformas Integrales",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10",
+      "M12"
+    ],
+    "texto": "Quiero reformar el bano pero no tengo mucho presupuesto, solo lo basico: ducha nueva, inodoro nuevo y pintar"
+  },
+  {
+    "id": 777,
+    "oficio": "Reformas Integrales",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10",
+      "M12"
+    ],
+    "texto": "El piso que me he comprado necesita reforma, los banos, la cocina y hay que pintar todo, cuanto puede costar"
+  },
+  {
+    "id": 778,
+    "oficio": "Reformas Integrales",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10",
+      "M14"
+    ],
+    "texto": "Queremos reordenar la distribuccion del piso, tirando un tabique y haciendo un bano mas en lo que ahora es trastero"
+  },
+  {
+    "id": 779,
+    "oficio": "Reformas Integrales",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03",
+      "M15"
+    ],
+    "texto": "Dirección de obra de reforma integral de edificio para rehabilitación energética: coordinación de industriales, seguimiento de certificaciones, control de calidad, actas y certificado de eficiencia energética final"
+  },
+  {
+    "id": 780,
+    "oficio": "Reformas Integrales",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04",
+      "M14"
+    ],
+    "texto": "Full apartment renovation, 80m², open plan living, 2 bathrooms, new kitchen with island, underfloor heating throughout, smart home system and high-end finishes, turnkey quote"
+  },
+  {
+    "id": 781,
+    "oficio": "Persianas",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La persiana eléctrica del salón funciona a veces sí y a veces no, sin motivo aparente"
+  },
+  {
+    "id": 782,
+    "oficio": "Persianas",
+    "nivel": "N4",
+    "ling": "L3",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La persiana manual de la habitación cada vez cuesta más bajarla y se queda a medias"
+  },
+  {
+    "id": 783,
+    "oficio": "Persianas",
+    "nivel": "N4",
+    "ling": "L4",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La persiana hace un ruido que no hacía antes al enrollarse, como si algo raspara"
+  },
+  {
+    "id": 784,
+    "oficio": "Persianas",
+    "nivel": "N4",
+    "ling": "L5",
+    "mec": [
+      "M09"
+    ],
+    "texto": "La lama de la persiana se ha doblado y ahora no cierra del todo aunque la bajes completamente"
+  },
+  {
+    "id": 785,
+    "oficio": "Persianas",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "La persiana eléctrica de la habitación lleva semanas sin funcionar y ya está el verano encima"
+  },
+  {
+    "id": 786,
+    "oficio": "Persianas",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10",
+      "M04"
+    ],
+    "texto": "Quiero motorizar las persianas manuales del piso para abrirlas desde el móvil"
+  },
+  {
+    "id": 787,
+    "oficio": "Persianas",
+    "nivel": "N5",
+    "ling": "L3",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Necesito cambiar todas las persianas del piso por unas nuevas, las actuales están muy deterioradas"
+  },
+  {
+    "id": 788,
+    "oficio": "Persianas",
+    "nivel": "N5",
+    "ling": "L4",
+    "mec": [
+      "M10"
+    ],
+    "texto": "La caja de la persiana del salón tiene una grieta y entra frío por ahí en invierno"
+  },
+  {
+    "id": 789,
+    "oficio": "Persianas",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M09"
+    ],
+    "texto": "Hola mira, es que la persiana de la habitación ya no funciona bien, la bajo y a mitad de camino se para sola y no hay manera de bajarla del todo, ya le he dado al botoncito y nada"
+  },
+  {
+    "id": 790,
+    "oficio": "Persianas",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M07"
+    ],
+    "texto": "Sí mira, tengo las persianas de toda la casa que ya están muy viejas, hay una que no sube, otra que chirría mucho y en general todas están mal, quería cambiarlas todas por unas nuevas"
+  },
+  {
+    "id": 791,
+    "oficio": "Persianas",
+    "nivel": "N6",
+    "ling": "L7",
+    "mec": [
+      "M11",
+      "M12"
+    ],
+    "texto": "Eeeh sí, es que quiero poner persianas motorizadas en el piso, son cinco ventanas, ahora son manuales y quería controlarlas desde el móvil, qué opciones hay y cuánto costaría"
+  },
+  {
+    "id": 792,
+    "oficio": "Persianas",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Sustitución de 6 persianas de aluminio: retirada de persianas y cajones, persianas de aluminio rellenas con espuma 60mm, guías de 70mm, motorización con motor 40Nm, receptor de radio y mando a distancia"
+  },
+  {
+    "id": 793,
+    "oficio": "Persianas",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Sistema domótico para control de 8 persianas motorizadas: central KNX, 8 actuadores de persiana, programación de horarios por zona, integración con sensor de viento y lluvia y app de control"
+  },
+  {
+    "id": 794,
+    "oficio": "Persianas",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M08"
+    ],
+    "texto": "Instalación de celosías de aluminio orientables en terraza de 15m²: estructura lacada en gris antracita, 5 lamas horizontales de 200mm orientables manualmente, soporte de suelo y techo con anclaje a forjado"
+  },
+  {
+    "id": 795,
+    "oficio": "Persianas",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M06",
+      "M07"
+    ],
+    "texto": "Instalación de toldos correderos en terraza de comunidad de 40m²: estructura de aluminio anodizado, lona acrílica UV, guías laterales, motor 100Nm con seguridad ante viento y control desde app"
+  },
+  {
+    "id": 796,
+    "oficio": "Persianas",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10",
+      "M09"
+    ],
+    "texto": "La persiana elctrica no funciona, el motor hace un runido pero no sube ni baja, se puede arreglar o hay que cambiarla"
+  },
+  {
+    "id": 797,
+    "oficio": "Persianas",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Quiero poner estores o persinas en las ventanas nuevas que me han puesto de aluminio, que son bastante grandes"
+  },
+  {
+    "id": 798,
+    "oficio": "Persianas",
+    "nivel": "N5",
+    "ling": "L5",
+    "mec": [
+      "M10"
+    ],
+    "texto": "Se ha roto la guia de la persiana de la habitacion y ahora se sale del carril cuando la subo"
+  },
+  {
+    "id": 799,
+    "oficio": "Persianas",
+    "nivel": "N3",
+    "ling": "L1",
+    "mec": [
+      "M03",
+      "M15"
+    ],
+    "texto": "Estudio de eficiencia energética de protección solar en edificio de oficinas: análisis de factor solar de persianas existentes, medición de transmitancia y propuesta de mejora con estimación de ahorro en climatización"
+  },
+  {
+    "id": 800,
+    "oficio": "Persianas",
+    "nivel": "N3",
+    "ling": "L8",
+    "mec": [
+      "M04"
+    ],
+    "texto": "I need motorized roller blinds for 6 windows, with blackout fabric, smart home integration with Google Home, and battery-powered motors to avoid drilling"
+  }
+]

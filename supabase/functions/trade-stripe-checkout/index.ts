@@ -4,6 +4,17 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 const STRIPE_SECRET_KEY    = Deno.env.get('STRIPE_TRABFLOW_SECRET_KEY') ?? '';
 const SUPABASE_URL         = Deno.env.get('SUPABASE_URL') ?? '';
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
+const TRIAL_DAYS           = parseInt(Deno.env.get('STRIPE_TRIAL_DAYS') ?? '0', 10);
+
+function decodeJwtSub(token: string): string | null {
+  try {
+    const payload = token.split('.')[1];
+    const decoded = JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/')));
+    return decoded.sub ?? null;
+  } catch {
+    return null;
+  }
+}
 
 const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
 function cors(req: Request): Record<string, string> {
@@ -29,7 +40,8 @@ Deno.serve(async (req: Request) => {
   const requestId = crypto.randomUUID();
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors(req) });
 
-  if (!req.headers.get('Authorization')) {
+  const authHeader = req.headers.get('Authorization') ?? '';
+  if (!authHeader) {
     return new Response('Unauthorized', { status: 401, headers: cors(req) });
   }
 
@@ -48,7 +60,26 @@ Deno.serve(async (req: Request) => {
     });
   }
 
+  const userId = decodeJwtSub(authHeader.replace('Bearer ', ''));
+  if (!userId) {
+    return new Response(JSON.stringify({ error: 'Token inválido' }), {
+      status: 401, headers: { ...cors(req), 'Content-Type': 'application/json' },
+    });
+  }
+
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
+
+  // Verify the caller belongs to the requested org (owner or member)
+  const [ownerRes, memberRes] = await Promise.all([
+    supabase.from('trade_organizations').select('id').eq('id', org_id).eq('owner_id', userId).maybeSingle(),
+    supabase.from('trade_org_members').select('role').eq('org_id', org_id).eq('user_id', userId).maybeSingle(),
+  ]);
+  if (!ownerRes.data && !memberRes.data) {
+    console.warn(`[checkout] Acceso denegado — user ${userId} intentó checkout para org ${org_id}`);
+    return new Response(JSON.stringify({ error: 'No autorizado para esta organización' }), {
+      status: 403, headers: { ...cors(req), 'Content-Type': 'application/json' },
+    });
+  }
 
   const [orgRes, subRes] = await Promise.all([
     supabase.from('trade_organizations').select('nombre, email').eq('id', org_id).single(),
@@ -248,6 +279,9 @@ Deno.serve(async (req: Request) => {
   sp.set('customer_update[name]',                   'auto');
   sp.set('tax_id_collection[enabled]',              'true');
   sp.set('allow_promotion_codes',                   'true');
+  if (TRIAL_DAYS > 0) {
+    sp.set('subscription_data[trial_period_days]', String(TRIAL_DAYS));
+  }
 
   const sr      = await stripe('/checkout/sessions', 'POST', sp);
   const session = await sr.json() as { url?: string; error?: { message: string } };

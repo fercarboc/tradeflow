@@ -11,6 +11,7 @@ Edge Function: `trade-voice-to-quote` | Benchmark: `trade-benchmark-runner`
 |---|---|
 | [RELEASE_NOTES_v59.md](RELEASE_NOTES_v59.md) | Release Notes de producción — v59 (2026-07-05) |
 | [CHANGELOG.md](CHANGELOG.md) | Historial técnico de versiones con métricas de benchmark |
+| [BENCHMARK_SYSTEM_DESIGN.md](BENCHMARK_SYSTEM_DESIGN.md) | Sistema oficial de validación IA — metodología, taxonomía, métricas (BM-2026-001) |
 | [PROMOTION_CRITERIA.md](PROMOTION_CRITERIA.md) | Criterios de promoción RC → Producción y criterios de rollback |
 | [SPRINT3_CLOSURE.md](SPRINT3_CLOSURE.md) | Cierre oficial de Sprint 3 — entregables y decisiones |
 | [SPRINT4_PLAN.md](SPRINT4_PLAN.md) | Plan operativo de Sprint 4 — P1 completado, Sprint cerrado |

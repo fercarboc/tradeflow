@@ -147,23 +147,29 @@ Deno.serve(async (req: Request) => {
       const sub = event.data.object as {
         id: string;
         customer: string;
+        status: string;
         metadata?: Record<string, string>;
         current_period_start: number;
         current_period_end: number;
+        trial_end?: number | null;
       };
       const plan = sub.metadata?.plan;
 
-      console.log('[webhook] customer.subscription.created — sub_id:', sub.id, 'customer:', sub.customer, 'plan:', plan);
+      console.log('[webhook] customer.subscription.created — sub_id:', sub.id, 'customer:', sub.customer, 'plan:', plan, 'status:', sub.status);
 
       if (plan) {
-        const { error: updateErr } = await supabase.from('trade_subscriptions').update({
+        const status = sub.status === 'trialing' ? 'trialing' : 'active';
+        const updates: Record<string, unknown> = {
           plan,
-          status:                 'active',
+          status,
           stripe_subscription_id: sub.id,
           current_period_start:   new Date(sub.current_period_start * 1000).toISOString(),
           current_period_end:     new Date(sub.current_period_end   * 1000).toISOString(),
           updated_at:             new Date().toISOString(),
-        }).eq('stripe_customer_id', sub.customer);
+        };
+        if (sub.trial_end) updates.trial_end = new Date(sub.trial_end * 1000).toISOString();
+
+        const { error: updateErr } = await supabase.from('trade_subscriptions').update(updates).eq('stripe_customer_id', sub.customer);
 
         if (updateErr) console.error('[webhook] Error en subscription.created update:', updateErr);
 
@@ -202,6 +208,7 @@ Deno.serve(async (req: Request) => {
       };
 
       if (sub.status === 'active')   updates.status = 'active';
+      if (sub.status === 'trialing') updates.status = 'trialing';
       if (sub.status === 'canceled') updates.status = 'cancelled';
       if (sub.status === 'past_due') updates.status = 'expired';
       if (plan) updates.plan = plan;
@@ -253,20 +260,29 @@ Deno.serve(async (req: Request) => {
 
         if (subErr) console.error('[webhook] Error actualizando subscription en invoice.paid:', subErr);
 
-        const { error: invErr } = await supabase.from('trade_platform_invoices').insert({
-          org_id:            sub.org_id,
-          period_start:      new Date(inv.period_start * 1000).toISOString().split('T')[0],
-          period_end:        new Date(inv.period_end   * 1000).toISOString().split('T')[0],
-          amount_cents:      inv.amount_paid,
-          status:            'paid',
-          stripe_invoice_id: inv.id,
-          invoice_url:       inv.hosted_invoice_url ?? null,
-          invoice_pdf_url:   inv.invoice_pdf ?? null,
-          plan:              plan ?? null,
-          paid_at:           new Date().toISOString(),
-        });
+        const { data: existingInv } = await supabase
+          .from('trade_platform_invoices')
+          .select('id')
+          .eq('stripe_invoice_id', inv.id)
+          .maybeSingle();
 
-        if (invErr) console.error('[webhook] Error insertando trade_platform_invoices:', invErr);
+        if (existingInv) {
+          console.log('[webhook] invoice.paid ya procesado (idempotente) — invoice_id:', inv.id);
+        } else {
+          const { error: invErr } = await supabase.from('trade_platform_invoices').insert({
+            org_id:            sub.org_id,
+            period_start:      new Date(inv.period_start * 1000).toISOString().split('T')[0],
+            period_end:        new Date(inv.period_end   * 1000).toISOString().split('T')[0],
+            amount_cents:      inv.amount_paid,
+            status:            'paid',
+            stripe_invoice_id: inv.id,
+            invoice_url:       inv.hosted_invoice_url ?? null,
+            invoice_pdf_url:   inv.invoice_pdf ?? null,
+            plan:              plan ?? null,
+            paid_at:           new Date().toISOString(),
+          });
+          if (invErr) console.error('[webhook] Error insertando trade_platform_invoices:', invErr);
+        }
         console.log('[webhook] invoice.paid procesado OK — org:', sub.org_id);
       } else {
         console.warn('[webhook] invoice.paid: no se encontró trade_subscriptions para customer:', inv.customer);
@@ -292,6 +308,22 @@ Deno.serve(async (req: Request) => {
         updated_at: new Date().toISOString(),
       }).eq('stripe_customer_id', customerId);
       console.log('[webhook] invoice.payment_failed — customer:', customerId);
+    }
+
+    // ── customer.subscription.trial_will_end ─────────────────────────────────
+    if (event.type === 'customer.subscription.trial_will_end') {
+      const sub = event.data.object as {
+        id: string;
+        customer: string;
+        trial_end?: number | null;
+      };
+      const trialEndDate = sub.trial_end ? new Date(sub.trial_end * 1000).toISOString() : null;
+      console.log('[webhook] trial_will_end — customer:', sub.customer, 'trial_end:', trialEndDate);
+      // Marcar en BD para que el frontend pueda mostrar banner de "tu trial termina pronto"
+      await supabase.from('trade_subscriptions').update({
+        status:     'trial_ending',
+        updated_at: new Date().toISOString(),
+      }).eq('stripe_customer_id', sub.customer);
     }
 
   } catch (e: unknown) {

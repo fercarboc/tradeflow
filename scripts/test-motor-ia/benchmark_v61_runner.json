@@ -1,0 +1,4002 @@
+[
+  {
+    "id": 1,
+    "oficio": "Fontanería",
+    "texto": "Quiero poner un grifo nuevo en la cocina y cambiar el sifón del fregadero"
+  },
+  {
+    "id": 2,
+    "oficio": "Fontanería",
+    "texto": "Cambio de bañera por plato de ducha en baño principal de 90x90 con mamparas"
+  },
+  {
+    "id": 3,
+    "oficio": "Fontanería",
+    "texto": "Reparación de fuga en tubería de agua caliente bajo el lavabo del baño"
+  },
+  {
+    "id": 4,
+    "oficio": "Fontanería",
+    "texto": "Instalación de termo eléctrico de 80 litros con conexiones de agua y desagüe"
+  },
+  {
+    "id": 5,
+    "oficio": "Fontanería",
+    "texto": "Sustitución de calentador de gas de paso de 11 litros por uno nuevo de 14 litros, incluyendo mano de obra y materiales"
+  },
+  {
+    "id": 6,
+    "oficio": "Fontanería",
+    "texto": "Cambio de grifo de ducha termostático y revoque de azulejos afectados por humedad"
+  },
+  {
+    "id": 7,
+    "oficio": "Fontanería",
+    "texto": "Instalación completa de baño nuevo con lavabo empotrado, inodoro suspendido, ducha y griferías cromadas de buena calidad"
+  },
+  {
+    "id": 8,
+    "oficio": "Fontanería",
+    "texto": "Reparación de caldera de gas averiada, revisión completa y puesta a punto, cambio de juntas"
+  },
+  {
+    "id": 9,
+    "oficio": "Fontanería",
+    "texto": "Cambio de tuberías de plomo por multicapa en toda la instalación del piso de 80 metros cuadrados, incluye apertura y cierre de rozas"
+  },
+  {
+    "id": 10,
+    "oficio": "Fontanería",
+    "texto": "Instalación de sistema de osmosis inversa de 5 etapas bajo el fregadero de la cocina con grifo independiente"
+  },
+  {
+    "id": 11,
+    "oficio": "Fontanería",
+    "texto": "Grifo de cocina averiado no cierra bien y gotea constantemente, necesito cambio urgente"
+  },
+  {
+    "id": 12,
+    "oficio": "Fontanería",
+    "texto": "Problema con la presión del agua en el cuarto de baño, instalación de grupo de presión con calderín de 24 litros"
+  },
+  {
+    "id": 13,
+    "oficio": "Fontanería",
+    "texto": "Instalación de radiadores de agua caliente en 4 habitaciones con tubería de cobre y válvulas termostáticas"
+  },
+  {
+    "id": 14,
+    "oficio": "Fontanería",
+    "texto": "Vaciado y limpieza de fosa séptica con camión de bombeo, capacidad de 3000 litros"
+  },
+  {
+    "id": 15,
+    "oficio": "Fontanería",
+    "texto": "Cambio de inodoro y lavabo en baño de servicio, incluida fontanería y sellado"
+  },
+  {
+    "id": 16,
+    "oficio": "Fontanería",
+    "texto": "Instalación de calefacción por suelo radiante en cocina y salón, aproximadamente 40 metros cuadrados"
+  },
+  {
+    "id": 17,
+    "oficio": "Fontanería",
+    "texto": "Reparación urgente de rotura de tubería en la pared del baño principal, hay agua saliendo y hay que actuar hoy"
+  },
+  {
+    "id": 18,
+    "oficio": "Fontanería",
+    "texto": "Montaje de cocina nueva con conexiones de agua fría y caliente, desagüe fregadero y lavavajillas"
+  },
+  {
+    "id": 19,
+    "oficio": "Fontanería",
+    "texto": "Revisión anual de caldera de condensación y cambio de filtros, emisión de certificado oficial"
+  },
+  {
+    "id": 20,
+    "oficio": "Fontanería",
+    "texto": "Instalación de grifo de jardín exterior con toma de agua y llave de corte independiente"
+  },
+  {
+    "id": 21,
+    "oficio": "Electricidad",
+    "texto": "Cambio de cuadro eléctrico antiguo por uno nuevo con ICP y diferenciales homologados"
+  },
+  {
+    "id": 22,
+    "oficio": "Electricidad",
+    "texto": "Instalación de enchufe en terraza con protección IP exterior y toma de tierra"
+  },
+  {
+    "id": 23,
+    "oficio": "Electricidad",
+    "texto": "Cambio de toda la instalación eléctrica del piso de 80 metros cuadrados, cableado nuevo y cajas de registro"
+  },
+  {
+    "id": 24,
+    "oficio": "Electricidad",
+    "texto": "Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje"
+  },
+  {
+    "id": 25,
+    "oficio": "Electricidad",
+    "texto": "Poner 4 enchufes nuevos en el salón y uno en la cocina para microondas independiente"
+  },
+  {
+    "id": 26,
+    "oficio": "Electricidad",
+    "texto": "Instalación de sistema de iluminación LED en toda la vivienda, 12 puntos de luz con reguladores de intensidad"
+  },
+  {
+    "id": 27,
+    "oficio": "Electricidad",
+    "texto": "Avería en el cuadro eléctrico, se va el diferencial continuamente cuando arranco la lavadora"
+  },
+  {
+    "id": 28,
+    "oficio": "Electricidad",
+    "texto": "Instalación de domótica básica en vivienda, control de persianas, luces y calefacción desde móvil"
+  },
+  {
+    "id": 29,
+    "oficio": "Electricidad",
+    "texto": "Cambio de interruptor y dos enchufes en dormitorio principal, están quemados"
+  },
+  {
+    "id": 30,
+    "oficio": "Electricidad",
+    "texto": "Instalación de línea trifásica para cocina industrial de restaurante, potencia de 25kW"
+  },
+  {
+    "id": 31,
+    "oficio": "Electricidad",
+    "texto": "Revisar y reparar avería en instalación, hay un cable pelado en la pared del pasillo que da calambre"
+  },
+  {
+    "id": 32,
+    "oficio": "Electricidad",
+    "texto": "Instalación de sistema de alarma perimetral con detectores de movimiento y sirena exterior"
+  },
+  {
+    "id": 33,
+    "oficio": "Electricidad",
+    "texto": "Poner focos LED empotrables en el techo de baño y cocina, total 8 focos"
+  },
+  {
+    "id": 34,
+    "oficio": "Electricidad",
+    "texto": "Instalación de línea independiente para aire acondicionado de 5000 frigorías en el salón"
+  },
+  {
+    "id": 35,
+    "oficio": "Electricidad",
+    "texto": "Cambio de caja general de protección y contador, coordinación con la compañía eléctrica"
+  },
+  {
+    "id": 36,
+    "oficio": "Electricidad",
+    "texto": "Instalación de luminaria exterior de jardín con sensor de movimiento y célula fotoeléctrica"
+  },
+  {
+    "id": 37,
+    "oficio": "Electricidad",
+    "texto": "Ampliar potencia contratada de 3.45kW a 5.75kW, trámites y adaptación del cuadro"
+  },
+  {
+    "id": 38,
+    "oficio": "Electricidad",
+    "texto": "Poner enchufes y luz en trastero sin instalación eléctrica, superficie 8 metros cuadrados"
+  },
+  {
+    "id": 39,
+    "oficio": "Electricidad",
+    "texto": "Instalación de SAI para servidor de empresa, potencia 2kVA con autonomía de 30 minutos"
+  },
+  {
+    "id": 40,
+    "oficio": "Electricidad",
+    "texto": "Revisión y certificado de instalación eléctrica para local comercial que pide la aseguradora"
+  },
+  {
+    "id": 41,
+    "oficio": "Carpintería",
+    "texto": "Quiero una puerta corredera de madera maciza para separar el salón del pasillo"
+  },
+  {
+    "id": 42,
+    "oficio": "Carpintería",
+    "texto": "Cambio de puertas de interior en toda la vivienda, son 6 puertas de 80 centímetros con marcos"
+  },
+  {
+    "id": 43,
+    "oficio": "Carpintería",
+    "texto": "Armario empotrado a medida en el dormitorio, de suelo a techo, con puertas correderas y espejo"
+  },
+  {
+    "id": 44,
+    "oficio": "Carpintería",
+    "texto": "Reparación de puerta de entrada que no cierra bien, se ha combado con la humedad"
+  },
+  {
+    "id": 45,
+    "oficio": "Carpintería",
+    "texto": "Instalación de tarima flotante de madera maciza de roble en salón y dos dormitorios, 60 metros cuadrados"
+  },
+  {
+    "id": 46,
+    "oficio": "Carpintería",
+    "texto": "Fabricación e instalación de estantería de madera a medida para biblioteca, 3 metros de ancho y 2.5 de alto"
+  },
+  {
+    "id": 47,
+    "oficio": "Carpintería",
+    "texto": "Cambio de ventanas de madera antiguas por PVC con doble acristalamiento en toda la vivienda, 8 ventanas"
+  },
+  {
+    "id": 48,
+    "oficio": "Carpintería",
+    "texto": "Barnizado y restauración de parquet de madera de pino en salón, 30 metros cuadrados, lijado y barniz al agua"
+  },
+  {
+    "id": 49,
+    "oficio": "Carpintería",
+    "texto": "Fabricación de cocina a medida en madera de melamina blanca con tiradores de aluminio, 6 metros lineales"
+  },
+  {
+    "id": 50,
+    "oficio": "Carpintería",
+    "texto": "Instalación de tarima exterior de madera de ipe en terraza de 25 metros cuadrados con estructura"
+  },
+  {
+    "id": 51,
+    "oficio": "Carpintería",
+    "texto": "Reparación de escalera de madera, peldaños sueltos y barandilla que se mueve"
+  },
+  {
+    "id": 52,
+    "oficio": "Carpintería",
+    "texto": "Cambio de puerta de garaje basculante de madera por seccional de aluminio con motorización"
+  },
+  {
+    "id": 53,
+    "oficio": "Carpintería",
+    "texto": "Zócalos y molduras de madera en todo el piso, colocación de rodapié de 10 centímetros"
+  },
+  {
+    "id": 54,
+    "oficio": "Carpintería",
+    "texto": "Fabricación de mueble de baño a medida con lavabo integrado y cajonera de cierre suave"
+  },
+  {
+    "id": 55,
+    "oficio": "Carpintería",
+    "texto": "Instalación de suelo de parquet laminado de 12mm en dormitorio principal de 20 metros cuadrados"
+  },
+  {
+    "id": 56,
+    "oficio": "Carpintería",
+    "texto": "Montaje de pérgola de madera en terraza de 4x3 metros con vigas y postes de pino tratado"
+  },
+  {
+    "id": 57,
+    "oficio": "Carpintería",
+    "texto": "Cambio de marco de puerta exterior que está podrido por la lluvia, madera de iroko"
+  },
+  {
+    "id": 58,
+    "oficio": "Carpintería",
+    "texto": "Fabricación e instalación de tresillos y módulos de office en oficina, 5 puestos de trabajo"
+  },
+  {
+    "id": 59,
+    "oficio": "Carpintería",
+    "texto": "Restauración de persiana de madera antigua de finca, 3 hojas con bisagras nuevas"
+  },
+  {
+    "id": 60,
+    "oficio": "Carpintería",
+    "texto": "Montaje de estructura de madera para tejado de porche, vigas de pino y tablones"
+  },
+  {
+    "id": 61,
+    "oficio": "Pintura",
+    "texto": "Pintar el salón y el comedor, unos 40 metros cuadrados de superficie, dos manos de pintura blanca mate"
+  },
+  {
+    "id": 62,
+    "oficio": "Pintura",
+    "texto": "Pintar toda la vivienda interior, paredes y techos, superficie aproximada de 250 metros cuadrados"
+  },
+  {
+    "id": 63,
+    "oficio": "Pintura",
+    "texto": "Poner gotelé en el techo del salón y la cocina, reparar manchas de humedad antes de pintar"
+  },
+  {
+    "id": 64,
+    "oficio": "Pintura",
+    "texto": "Pintar la fachada exterior del edificio, 5 plantas, con pintura impermeabilizante"
+  },
+  {
+    "id": 65,
+    "oficio": "Pintura",
+    "texto": "Barnizado de puertas y ventanas de madera, son 6 puertas interiores y 4 ventanas exteriores"
+  },
+  {
+    "id": 66,
+    "oficio": "Pintura",
+    "texto": "Reparar humedades en techo de baño, aplicar antihumedad y pintar, superficie de 6 metros cuadrados"
+  },
+  {
+    "id": 67,
+    "oficio": "Pintura",
+    "texto": "Pintar local comercial de 80 metros cuadrados, paredes blancas y suelo epoxy gris"
+  },
+  {
+    "id": 68,
+    "oficio": "Pintura",
+    "texto": "Quitar papel pintado antiguo, enyesar y pintar las paredes del dormitorio principal"
+  },
+  {
+    "id": 69,
+    "oficio": "Pintura",
+    "texto": "Pintura decorativa con efecto estucoveneciano en el salón, pared de 4x3 metros"
+  },
+  {
+    "id": 70,
+    "oficio": "Pintura",
+    "texto": "Repintar portería del edificio, zona de buzones y escalera hasta el primer piso"
+  },
+  {
+    "id": 71,
+    "oficio": "Pintura",
+    "texto": "Aplicar tratamiento antigraffiti en la fachada del local, 20 metros cuadrados de pared"
+  },
+  {
+    "id": 72,
+    "oficio": "Pintura",
+    "texto": "Pintar vallas y rejas exteriores con imprimación antióxido y esmalte negro"
+  },
+  {
+    "id": 73,
+    "oficio": "Pintura",
+    "texto": "Reparar y pintar paredes de garaje comunitario, superficie 200 metros cuadrados con gotelé fino"
+  },
+  {
+    "id": 74,
+    "oficio": "Pintura",
+    "texto": "Microcement en pared del baño, sustituir azulejos antiguos por acabado continuo gris"
+  },
+  {
+    "id": 75,
+    "oficio": "Pintura",
+    "texto": "Pintar dormitorio infantil con motivos de colores y figuras de dibujos, superficies 30 metros cuadrados"
+  },
+  {
+    "id": 76,
+    "oficio": "Pintura",
+    "texto": "Lijar y lacar puertas de armario empotrado en blanco satinado, 6 puertas de 210x60"
+  },
+  {
+    "id": 77,
+    "oficio": "Pintura",
+    "texto": "Aplicar tratamiento hidrófugo en muros de piedra de fachada, 50 metros cuadrados"
+  },
+  {
+    "id": 78,
+    "oficio": "Pintura",
+    "texto": "Pintar piscina con pintura de clorocaucho, vaciado y dos manos, superficie 60 metros cuadrados"
+  },
+  {
+    "id": 79,
+    "oficio": "Pintura",
+    "texto": "Reparación de grietas en pared de salón con vendas y masilla, posterior pintado"
+  },
+  {
+    "id": 80,
+    "oficio": "Pintura",
+    "texto": "Pintar escalera de caracol de hierro, imprimación y dos manos de esmalte negro forja"
+  },
+  {
+    "id": 81,
+    "oficio": "Albañilería",
+    "texto": "Quiero tirar un tabique para unir la cocina con el salón, aproximadamente 3 metros de largo"
+  },
+  {
+    "id": 82,
+    "oficio": "Albañilería",
+    "texto": "Hacer una rozas en la pared para pasar tuberías nuevas de fontanería y tapar después"
+  },
+  {
+    "id": 83,
+    "oficio": "Albañilería",
+    "texto": "Reparar grieta grande en pared de fachada exterior, inyección de resina y rejuntado"
+  },
+  {
+    "id": 84,
+    "oficio": "Albañilería",
+    "texto": "Construir muro de carga en jardín de 10 metros de longitud y 2 metros de altura en bloque de hormigón"
+  },
+  {
+    "id": 85,
+    "oficio": "Albañilería",
+    "texto": "Alicatar el baño completo con azulejos nuevos, superficie 25 metros cuadrados de paredes y suelo"
+  },
+  {
+    "id": 86,
+    "oficio": "Albañilería",
+    "texto": "Levantar tabique de pladur para dividir habitación grande en dos, longitud 4 metros con puerta"
+  },
+  {
+    "id": 87,
+    "oficio": "Albañilería",
+    "texto": "Reparar escalera exterior de hormigón, peldaños desgastados, aplicar mortero y antideslizante"
+  },
+  {
+    "id": 88,
+    "oficio": "Albañilería",
+    "texto": "Hacer solera de hormigón en garaje de 25 metros cuadrados, preparación del terreno y mallazo"
+  },
+  {
+    "id": 89,
+    "oficio": "Albañilería",
+    "texto": "Derribar pared de carga con colocación de viga de acero, proyecto técnico incluido"
+  },
+  {
+    "id": 90,
+    "oficio": "Albañilería",
+    "texto": "Reparación de chimenea exterior, rejuntar ladrillo, impermeabilizar remate y revisar conducto"
+  },
+  {
+    "id": 91,
+    "oficio": "Albañilería",
+    "texto": "Construir barbacoa de obra en jardín con banco lateral y encimera de granito"
+  },
+  {
+    "id": 92,
+    "oficio": "Albañilería",
+    "texto": "Enfocar y enlucir paredes de piso antiguo, superficie total de 120 metros cuadrados"
+  },
+  {
+    "id": 93,
+    "oficio": "Albañilería",
+    "texto": "Cambiar piscina de skimmer a desbordante, reforma completa del vaso y sistema de filtración"
+  },
+  {
+    "id": 94,
+    "oficio": "Albañilería",
+    "texto": "Reparar filtraciones en sótano, impermeabilización interior con mortero cristalizante"
+  },
+  {
+    "id": 95,
+    "oficio": "Albañilería",
+    "texto": "Reforma de cocina, quitar azulejos viejos, alicatar de nuevo y cambiar encimera de granito"
+  },
+  {
+    "id": 96,
+    "oficio": "Albañilería",
+    "texto": "Construir cerramiento de terral en la terraza de 15 metros cuadrados con ventanas de aluminio"
+  },
+  {
+    "id": 97,
+    "oficio": "Albañilería",
+    "texto": "Tabique de ladrillo visto para separar salón comedor, longitud 3 metros sin revestir"
+  },
+  {
+    "id": 98,
+    "oficio": "Albañilería",
+    "texto": "Reconstruir escalera interior de madera por una de hormigón, 12 peldaños con barandilla"
+  },
+  {
+    "id": 99,
+    "oficio": "Albañilería",
+    "texto": "Reparar balcón con baldosas sueltas, inyección de resina y sellado de juntas perimetrales"
+  },
+  {
+    "id": 100,
+    "oficio": "Albañilería",
+    "texto": "Construir rampa de acceso para silla de ruedas en entrada de vivienda, longitud 3 metros"
+  },
+  {
+    "id": 101,
+    "oficio": "Climatización",
+    "texto": "Instalar aire acondicionado split de 3000 frigorías en el dormitorio principal"
+  },
+  {
+    "id": 102,
+    "oficio": "Climatización",
+    "texto": "Cambio de caldera de gasoil por aerotermia para calefacción y agua caliente en chalet"
+  },
+  {
+    "id": 103,
+    "oficio": "Climatización",
+    "texto": "Instalación de sistema de climatización centralizado para oficina de 200 metros cuadrados, 4 zonas"
+  },
+  {
+    "id": 104,
+    "oficio": "Climatización",
+    "texto": "Reparar aire acondicionado que no enfría, revisar gas y compresor de la unidad exterior"
+  },
+  {
+    "id": 105,
+    "oficio": "Climatización",
+    "texto": "Instalar recuperador de calor de doble flujo en vivienda de obra nueva, ventilación mecánica controlada"
+  },
+  {
+    "id": 106,
+    "oficio": "Climatización",
+    "texto": "Instalación de suelo radiante con bomba de calor en planta baja de 90 metros cuadrados"
+  },
+  {
+    "id": 107,
+    "oficio": "Climatización",
+    "texto": "Cambio de caldera de gas por otra de condensación de alta eficiencia, 24kW"
+  },
+  {
+    "id": 108,
+    "oficio": "Climatización",
+    "texto": "Instalar 3 splits inverter en salón y dormitorios, conexión con sistema existente y red eléctrica"
+  },
+  {
+    "id": 109,
+    "oficio": "Climatización",
+    "texto": "Mantenimiento anual de caldera de gas, limpieza quemador, revisión electrodos y gases de combustión"
+  },
+  {
+    "id": 110,
+    "oficio": "Climatización",
+    "texto": "Sistema de ventilación para cocina de restaurante con extractor industrial y conducto al exterior"
+  },
+  {
+    "id": 111,
+    "oficio": "Climatización",
+    "texto": "Instalar bomba de calor aire-agua para sustitución de calefacción eléctrica por radiadores de agua"
+  },
+  {
+    "id": 112,
+    "oficio": "Climatización",
+    "texto": "Revisar y limpiar conductos de ventilación de edificio de oficinas, 4 plantas con 20 difusores"
+  },
+  {
+    "id": 113,
+    "oficio": "Climatización",
+    "texto": "Instalar climatizador evaporativo en nave industrial de 500 metros cuadrados"
+  },
+  {
+    "id": 114,
+    "oficio": "Climatización",
+    "texto": "Reparación urgente de caldera sin calefacción en invierno, diagnóstico y sustitución de piezas"
+  },
+  {
+    "id": 115,
+    "oficio": "Climatización",
+    "texto": "Instalación de fan coil en dormitorio para frío y calor, conexión a circuito de agua existente"
+  },
+  {
+    "id": 116,
+    "oficio": "Climatización",
+    "texto": "Legalización de instalación de gas natural en vivienda, revisión y emisión de certificado"
+  },
+  {
+    "id": 117,
+    "oficio": "Climatización",
+    "texto": "Instalar termostato inteligente WiFi compatible con caldera existente de gas"
+  },
+  {
+    "id": 118,
+    "oficio": "Climatización",
+    "texto": "Carga de gas refrigerante R32 en unidad split que ha perdido gas por vibración"
+  },
+  {
+    "id": 119,
+    "oficio": "Climatización",
+    "texto": "Instalar 5 unidades de cassette en local comercial con unidad exterior de 14kW"
+  },
+  {
+    "id": 120,
+    "oficio": "Climatización",
+    "texto": "Convertir calefacción por gas a pellets, instalación de caldera de biomasa de 25kW"
+  },
+  {
+    "id": 121,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Reparar tejado de teja árabe, hay goteras en la zona del canalón y en un lucernario"
+  },
+  {
+    "id": 122,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Cambio completo de cubierta plana en piso ático, impermeabilización con lámina líquida"
+  },
+  {
+    "id": 123,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Instalar canalones nuevos de aluminio lacado en toda la vivienda, longitud total 30 metros"
+  },
+  {
+    "id": 124,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Revisión y limpieza de tejado de pizarra después de la tormenta, recolocar piezas sueltas"
+  },
+  {
+    "id": 125,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Impermeabilizar terraza plana de 25 metros cuadrados con lámina de EPDM adherida"
+  },
+  {
+    "id": 126,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Construir cubierta inclinada de panel sándwich para porche de 20 metros cuadrados"
+  },
+  {
+    "id": 127,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Cambio de teja árabe por teja plana de hormigón en tejado de chalet, 120 metros cuadrados"
+  },
+  {
+    "id": 128,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Instalar velux o lucernario en tejado inclinado para dar luz a buhardilla, 78x118cm"
+  },
+  {
+    "id": 129,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Reparar remates de zinc en cumbrera y limahoyas del tejado, hay filtraciones de agua"
+  },
+  {
+    "id": 130,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Limpieza de musgo y liquen en tejado de pizarra, tratamiento antimusgo e hidrofugado"
+  },
+  {
+    "id": 131,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Reforma de cubierta plana transitable con baldosas filtrantes sobre plots, 60 metros cuadrados"
+  },
+  {
+    "id": 132,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Instalar paneles solares térmicos en tejado inclinado para ACS, 2 colectores de 2.5 metros cuadrados"
+  },
+  {
+    "id": 133,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Impermeabilizar junta de dilatación en cubierta plana de edificio comunitario, 15 metros lineales"
+  },
+  {
+    "id": 134,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Reparar gotera en cubierta plana mediante proyección de poliurea, superficie afectada 10 metros cuadrados"
+  },
+  {
+    "id": 135,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Instalar sumideros sifónicos nuevos en terraza que se embasa de agua, problema de desagüe"
+  },
+  {
+    "id": 136,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Construir cubierta vegetal en azotea comunitaria, sistema de jardinera con riego automático"
+  },
+  {
+    "id": 137,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Revisar y rellenar juntas de cubierta de chapa grecada de nave industrial, 400 metros cuadrados"
+  },
+  {
+    "id": 138,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Cambio de canalón redondo de uralita por canalón cuadrado de PVC de 125mm"
+  },
+  {
+    "id": 139,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Instalar claraboya de apertura eléctrica en tejado plano para ventilación de escalera"
+  },
+  {
+    "id": 140,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Reparar teja con viento o rotura puntual tras temporal, recolocación y sellado con cemento blanco"
+  },
+  {
+    "id": 141,
+    "oficio": "Pladur",
+    "texto": "Hacer un tabique de pladur para dividir el salón en dos zonas, longitud 4 metros con puerta"
+  },
+  {
+    "id": 142,
+    "oficio": "Pladur",
+    "texto": "Trasdosado de pared exterior con pladur e insulación, para mejorar el aislamiento térmico y acústico"
+  },
+  {
+    "id": 143,
+    "oficio": "Pladur",
+    "texto": "Falso techo de pladur en salón de 30 metros cuadrados con iluminación LED integrada y registro"
+  },
+  {
+    "id": 144,
+    "oficio": "Pladur",
+    "texto": "Tabique de pladur entre cocina y salón con ventana fija de cristal de 60x60 centímetros"
+  },
+  {
+    "id": 145,
+    "oficio": "Pladur",
+    "texto": "Reparar agujero en tabique de pladur del pasillo, diámetro 20 centímetros, dejar listo para pintar"
+  },
+  {
+    "id": 146,
+    "oficio": "Pladur",
+    "texto": "Hacer nicho empotrado en la pared del salón para televisión, con iluminación indirecta"
+  },
+  {
+    "id": 147,
+    "oficio": "Pladur",
+    "texto": "Cerramiento de escalera interior con pladur cortafuego RF-60, superficie 15 metros cuadrados"
+  },
+  {
+    "id": 148,
+    "oficio": "Pladur",
+    "texto": "Falso techo de pladur en toda la vivienda con aislamiento acústico de lana mineral, 80 metros cuadrados"
+  },
+  {
+    "id": 149,
+    "oficio": "Pladur",
+    "texto": "Hacer armario de pladur empotrado bajo la escalera con puerta abatible y estantes internos"
+  },
+  {
+    "id": 150,
+    "oficio": "Pladur",
+    "texto": "Tabique curvo de pladur para zona de recepción de empresa, diseño específico con radio de 2 metros"
+  },
+  {
+    "id": 151,
+    "oficio": "Pladur",
+    "texto": "Instalar tablero de pladur hidrófugo verde en baño para sustituir tabique de ladrillo"
+  },
+  {
+    "id": 152,
+    "oficio": "Pladur",
+    "texto": "Renovar paredes de dormitorio con trasdosado de pladur y mejorar aislamiento acústico de vecinos"
+  },
+  {
+    "id": 153,
+    "oficio": "Pladur",
+    "texto": "Hacer caja de pladur para ocultar tuberías y bajante en baño, acabado listo para azulejos"
+  },
+  {
+    "id": 154,
+    "oficio": "Pladur",
+    "texto": "Tabique separador de oficina open space con pladur, longitud 8 metros y altura hasta falso techo"
+  },
+  {
+    "id": 155,
+    "oficio": "Pladur",
+    "texto": "Hacer capialzado de pladur para persiana empotrada en ventana del salón"
+  },
+  {
+    "id": 156,
+    "oficio": "Pladur",
+    "texto": "Construir vestidor con pladur en dormitorio, zona de 3x2 metros con puerta y distribución interior"
+  },
+  {
+    "id": 157,
+    "oficio": "Pladur",
+    "texto": "Instalar techo registrable de placas en local comercial de 100 metros cuadrados"
+  },
+  {
+    "id": 158,
+    "oficio": "Pladur",
+    "texto": "Reparar juntas y fisuras en falso techo de pladur con masilla y rejilla de fibra de vidrio"
+  },
+  {
+    "id": 159,
+    "oficio": "Pladur",
+    "texto": "Hacer trasdosado perimetral en local frío para mejorar el aislamiento térmico"
+  },
+  {
+    "id": 160,
+    "oficio": "Pladur",
+    "texto": "Tabique de doble placa de pladur con lana de roca para separar sala de reuniones en oficina"
+  },
+  {
+    "id": 161,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Alicatar suelo y paredes del baño completo con porcelánico 60x60 gris y rejuntado blanco"
+  },
+  {
+    "id": 162,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Poner suelo de parquet laminado en toda la vivienda excepto baño y cocina, 80 metros cuadrados"
+  },
+  {
+    "id": 163,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Cambiar azulejos de cocina, quitar los viejos y poner metro a metro de metro de azulejo blanco mate"
+  },
+  {
+    "id": 164,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Pulir y abrillantar suelo de terrazo antiguo en piso, 60 metros cuadrados con sellado final"
+  },
+  {
+    "id": 165,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Instalar suelo vinílico LVT en toda la oficina, 120 metros cuadrados de superficie"
+  },
+  {
+    "id": 166,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Poner microcemento en suelo de cocina y salón como suelo continuo, 50 metros cuadrados"
+  },
+  {
+    "id": 167,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Alicatar piscina con gresite azul, vaciado y colocación en paredes y fondo, 40 metros cuadrados"
+  },
+  {
+    "id": 168,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Reparar baldosas sueltas y rotas en terraza exterior, ajuste y rejuntado, 8 metros cuadrados"
+  },
+  {
+    "id": 169,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Colocar rodapié de porcelana de 10 centímetros en toda la vivienda, longitud total 60 metros"
+  },
+  {
+    "id": 170,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Instalar suelo radiante eléctrico en baño de 6 metros cuadrados con termostato programable"
+  },
+  {
+    "id": 171,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Poner suelo de resina epoxi en garaje de 30 metros cuadrados, acabado gris con destellos"
+  },
+  {
+    "id": 172,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Cambiar suelo de salón de parquet de madera por gres porcelánico de gran formato 80x80"
+  },
+  {
+    "id": 173,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Alicatar ducha de 90x90 con azulejo de metro de ancho y mampara abatible de 6mm"
+  },
+  {
+    "id": 174,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Poner suelo antideslizante en escalera exterior de 12 peldaños de piedra desgastada"
+  },
+  {
+    "id": 175,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Retirar moqueta antigua y preparar suelo para colocar tarima de madera de roble, 45 metros cuadrados"
+  },
+  {
+    "id": 176,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Instalar suelo de cemento pulido en loft industrial, 80 metros cuadrados con sellado protector"
+  },
+  {
+    "id": 177,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Alicatar fachada de local comercial con gres porcelánico exterior, 15 metros cuadrados de altura"
+  },
+  {
+    "id": 178,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Reparar baldosas rotas en portal del edificio, 3 metros cuadrados de mármol travertino"
+  },
+  {
+    "id": 179,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Poner pavimento de caucho negro en gimnasio de 40 metros cuadrados, espesor 15mm"
+  },
+  {
+    "id": 180,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Colocar suelo de baldosa hidráulica en pasillo de vivienda antigua, 8 metros cuadrados, patrón geométrico"
+  },
+  {
+    "id": 181,
+    "oficio": "Cerrajería",
+    "texto": "Cambio de bombín de la puerta de entrada por uno de alta seguridad con llaves de seguridad"
+  },
+  {
+    "id": 182,
+    "oficio": "Cerrajería",
+    "texto": "Instalación de puerta acorazada en acceso principal de la vivienda, blindaje nivel 4"
+  },
+  {
+    "id": 183,
+    "oficio": "Cerrajería",
+    "texto": "Apertura de urgencia de puerta de casa, me he quedado encerrado fuera sin llaves"
+  },
+  {
+    "id": 184,
+    "oficio": "Cerrajería",
+    "texto": "Hacer llave maestra para 6 puertas de apartamentos turísticos, sistema de cerrojo unificado"
+  },
+  {
+    "id": 185,
+    "oficio": "Cerrajería",
+    "texto": "Instalación de cerradura electrónica con código y huella dactilar en puerta de oficina"
+  },
+  {
+    "id": 186,
+    "oficio": "Cerrajería",
+    "texto": "Reparar cerradura de puerta de garaje que no cierra bien, llave forzada"
+  },
+  {
+    "id": 187,
+    "oficio": "Cerrajería",
+    "texto": "Instalar reja de seguridad en ventanas del bajo, 4 ventanas de diferentes medidas"
+  },
+  {
+    "id": 188,
+    "oficio": "Cerrajería",
+    "texto": "Cambio de cerradura antipunto multipoint en puerta de piso, por cerradura nueva de 3 puntos"
+  },
+  {
+    "id": 189,
+    "oficio": "Cerrajería",
+    "texto": "Instalación de sistema de control de acceso con tarjeta RFID para empresa, 2 puertas y 15 tarjetas"
+  },
+  {
+    "id": 190,
+    "oficio": "Cerrajería",
+    "texto": "Reparar caja fuerte que no abre, revisar mecanismo y cambiar código"
+  },
+  {
+    "id": 191,
+    "oficio": "Cerrajería",
+    "texto": "Instalar puerta corredera de cristal con cerradura para separar zona de trabajo"
+  },
+  {
+    "id": 192,
+    "oficio": "Cerrajería",
+    "texto": "Cambiar todas las cerraduras de piso de alquiler tras cambio de inquilinos, son 3 puertas"
+  },
+  {
+    "id": 193,
+    "oficio": "Cerrajería",
+    "texto": "Instalar cierra puertas neumático en puerta de entrada de edificio de apartamentos"
+  },
+  {
+    "id": 194,
+    "oficio": "Cerrajería",
+    "texto": "Reforzar puerta de madera antigua con plancha de acero y cerradura de seguridad adicional"
+  },
+  {
+    "id": 195,
+    "oficio": "Cerrajería",
+    "texto": "Instalación de portero automático con videoportero y apertura a distancia desde el móvil"
+  },
+  {
+    "id": 196,
+    "oficio": "Cerrajería",
+    "texto": "Corte de llaves urgente de cerradura especial, necesito 4 copias para los trabajadores"
+  },
+  {
+    "id": 197,
+    "oficio": "Cerrajería",
+    "texto": "Instalar caja fuerte empotrada en pared del dormitorio, resistente al fuego"
+  },
+  {
+    "id": 198,
+    "oficio": "Cerrajería",
+    "texto": "Cambio de candado de seguridad de trastero en parking comunitario"
+  },
+  {
+    "id": 199,
+    "oficio": "Cerrajería",
+    "texto": "Instalar barras antipánico en puertas de emergencia de local con aforo de 100 personas"
+  },
+  {
+    "id": 200,
+    "oficio": "Cerrajería",
+    "texto": "Reparar maneta de puerta interior que se ha caído, cambio de maneta y roseta"
+  },
+  {
+    "id": 201,
+    "oficio": "Jardinería",
+    "texto": "Poda de árboles frutales en jardín, 4 naranjos y 2 olivos, limpieza de restos incluida"
+  },
+  {
+    "id": 202,
+    "oficio": "Jardinería",
+    "texto": "Diseño y plantación de jardín en zona de 80 metros cuadrados de terreno, con plantas mediterráneas"
+  },
+  {
+    "id": 203,
+    "oficio": "Jardinería",
+    "texto": "Instalación de riego automático por goteo en jardín de 100 metros cuadrados con programador"
+  },
+  {
+    "id": 204,
+    "oficio": "Jardinería",
+    "texto": "Mantenimiento mensual de jardín, corte de césped, poda de setos y limpieza de hojas"
+  },
+  {
+    "id": 205,
+    "oficio": "Jardinería",
+    "texto": "Plantar seto de mirto o boj para cerrar el perímetro del jardín, longitud 25 metros"
+  },
+  {
+    "id": 206,
+    "oficio": "Jardinería",
+    "texto": "Siembra de césped natural en zona de 50 metros cuadrados, preparación del terreno y semilla"
+  },
+  {
+    "id": 207,
+    "oficio": "Jardinería",
+    "texto": "Talar árbol peligroso próximo a la vivienda, pino de 10 metros de altura, gestión de residuos"
+  },
+  {
+    "id": 208,
+    "oficio": "Jardinería",
+    "texto": "Instalar cesped artificial en terraza de 20 metros cuadrados con drenaje y relleno de arena"
+  },
+  {
+    "id": 209,
+    "oficio": "Jardinería",
+    "texto": "Diseño de jardín vertical con plantas trepadoras en fachada de 3x4 metros con estructura metálica"
+  },
+  {
+    "id": 210,
+    "oficio": "Jardinería",
+    "texto": "Tratamiento fitosanitario para árbol de palmera afectado por picudo rojo, inyección y seguimiento"
+  },
+  {
+    "id": 211,
+    "oficio": "Jardinería",
+    "texto": "Crear zona de huerto urbano en terraza, con cajas de madera, sustrato y plantas de temporada"
+  },
+  {
+    "id": 212,
+    "oficio": "Jardinería",
+    "texto": "Poda y formación de palmeras en finca, 6 palmeras de diferentes alturas con plataforma"
+  },
+  {
+    "id": 213,
+    "oficio": "Jardinería",
+    "texto": "Instalar pérgola metálica con lonas de sombra en terraza de 4x5 metros, montaje completo"
+  },
+  {
+    "id": 214,
+    "oficio": "Jardinería",
+    "texto": "Limpieza de jardín abandonado, desbroce y retirada de maleza en parcela de 500 metros cuadrados"
+  },
+  {
+    "id": 215,
+    "oficio": "Jardinería",
+    "texto": "Reparar sistema de riego automático que ha dejado de funcionar, cambio de electroválvulas"
+  },
+  {
+    "id": 216,
+    "oficio": "Jardinería",
+    "texto": "Renovar jardín con macizos de plantas de temporada y arbustos perennes, zona de 30 metros cuadrados"
+  },
+  {
+    "id": 217,
+    "oficio": "Jardinería",
+    "texto": "Instalar iluminación de jardín con farolas solares y focos de bajo consumo empotrados en suelo"
+  },
+  {
+    "id": 218,
+    "oficio": "Jardinería",
+    "texto": "Diseño y construcción de estanque ornamental con fuente y plantas acuáticas, 4 metros cuadrados"
+  },
+  {
+    "id": 219,
+    "oficio": "Jardinería",
+    "texto": "Abonar y escarificar césped en primavera, tratamiento de musgo y malas hierbas, 200 metros cuadrados"
+  },
+  {
+    "id": 220,
+    "oficio": "Jardinería",
+    "texto": "Plantar fila de árboles para crear pantalla visual entre vivienda y vecinos, 8 cipreses"
+  },
+  {
+    "id": 221,
+    "oficio": "Energía Solar",
+    "texto": "Instalar placas solares fotovoltaicas para autoconsumo en vivienda unifamiliar, potencia 5kW"
+  },
+  {
+    "id": 222,
+    "oficio": "Energía Solar",
+    "texto": "Presupuesto para instalación solar con baterías de litio para desconectarse de la red eléctrica"
+  },
+  {
+    "id": 223,
+    "oficio": "Energía Solar",
+    "texto": "Añadir 4 paneles solares a instalación existente y actualizar inversor para ampliar potencia"
+  },
+  {
+    "id": 224,
+    "oficio": "Energía Solar",
+    "texto": "Instalación de paneles solares térmicos para agua caliente sanitaria, 2 colectores y depósito de 200 litros"
+  },
+  {
+    "id": 225,
+    "oficio": "Energía Solar",
+    "texto": "Mantenimiento y limpieza de instalación solar fotovoltaica, revisión de conexiones y rendimiento"
+  },
+  {
+    "id": 226,
+    "oficio": "Energía Solar",
+    "texto": "Instalar sistema fotovoltaico en empresa con consumo de 2000 kWh al mes, estudio previo"
+  },
+  {
+    "id": 227,
+    "oficio": "Energía Solar",
+    "texto": "Reparar inversor de instalación solar que ha dejado de funcionar, diagnóstico y sustitución"
+  },
+  {
+    "id": 228,
+    "oficio": "Energía Solar",
+    "texto": "Instalación de placas solares en cubierta plana de edificio de apartamentos, 10 unidades en comunidad"
+  },
+  {
+    "id": 229,
+    "oficio": "Energía Solar",
+    "texto": "Instalar cargador de coche eléctrico alimentado por energía solar con gestión inteligente de carga"
+  },
+  {
+    "id": 230,
+    "oficio": "Energía Solar",
+    "texto": "Estudio de viabilidad y presupuesto para instalación fotovoltaica en nave industrial de 1000 metros cuadrados"
+  },
+  {
+    "id": 231,
+    "oficio": "Energía Solar",
+    "texto": "Instalar batería de acumulación de 10kWh para sistema fotovoltaico existente de 3kW"
+  },
+  {
+    "id": 232,
+    "oficio": "Energía Solar",
+    "texto": "Gestión de trámites de alta y conexión a red de instalación fotovoltaica de 8kW con compensación"
+  },
+  {
+    "id": 233,
+    "oficio": "Energía Solar",
+    "texto": "Instalación de seguidores solares para optimizar producción de paneles, sistema de 6kW"
+  },
+  {
+    "id": 234,
+    "oficio": "Energía Solar",
+    "texto": "Revisar y reparar instalación solar que produce menos de lo esperado, revisión de paneles y cableado"
+  },
+  {
+    "id": 235,
+    "oficio": "Energía Solar",
+    "texto": "Instalar sistema híbrido solar y aerotermia para vivienda eficiente, cálculo de ahorro energético"
+  },
+  {
+    "id": 236,
+    "oficio": "Energía Solar",
+    "texto": "Monitorizar producción de instalación fotovoltaica con aplicación y alertas de fallo"
+  },
+  {
+    "id": 237,
+    "oficio": "Energía Solar",
+    "texto": "Instalar farolas solares autónomas en camino de acceso a finca, 6 unidades con sensor de movimiento"
+  },
+  {
+    "id": 238,
+    "oficio": "Energía Solar",
+    "texto": "Instalación de panel solar flexible en autocaravana con regulador de carga y batería auxiliar"
+  },
+  {
+    "id": 239,
+    "oficio": "Energía Solar",
+    "texto": "Proyecto de comunidad energética solar en barrio, 20 viviendas participantes, gestoría incluida"
+  },
+  {
+    "id": 240,
+    "oficio": "Energía Solar",
+    "texto": "Legalizar instalación solar fotovoltaica existente que no tiene licencia, adaptación normativa"
+  },
+  {
+    "id": 241,
+    "oficio": "Telecomunicaciones",
+    "texto": "Instalar antena de TDT en tejado para dar señal a 4 televisores del piso con amplificador"
+  },
+  {
+    "id": 242,
+    "oficio": "Telecomunicaciones",
+    "texto": "Reparar antena colectiva del edificio, no llega señal a varios pisos, revisión y ajuste"
+  },
+  {
+    "id": 243,
+    "oficio": "Telecomunicaciones",
+    "texto": "Instalar punto de acceso WiFi adicional en zona muerta de empresa, cobertura de 200 metros cuadrados"
+  },
+  {
+    "id": 244,
+    "oficio": "Telecomunicaciones",
+    "texto": "Pasar cable de red ethernet categoría 6 por 5 despachos de oficina, instalación en canaleta"
+  },
+  {
+    "id": 245,
+    "oficio": "Telecomunicaciones",
+    "texto": "Instalar sistema de videovigilancia con 4 cámaras IP exterior e interior, grabación en NVR"
+  },
+  {
+    "id": 246,
+    "oficio": "Telecomunicaciones",
+    "texto": "Configurar y poner en marcha sistema CCTV existente que no graba bien, ajuste de cámaras"
+  },
+  {
+    "id": 247,
+    "oficio": "Telecomunicaciones",
+    "texto": "Instalar antena parabólica para recepción de señal de satélite con dos salidas"
+  },
+  {
+    "id": 248,
+    "oficio": "Telecomunicaciones",
+    "texto": "Poner rosetas de red RJ45 en 3 habitaciones y conectar al router del salón con cable"
+  },
+  {
+    "id": 249,
+    "oficio": "Telecomunicaciones",
+    "texto": "Instalar sistema de megafonía en local de 150 metros cuadrados, 6 altavoces de techo"
+  },
+  {
+    "id": 250,
+    "oficio": "Telecomunicaciones",
+    "texto": "Reparar intercomunicador del portal que no funciona, revisión de centralita y terminales"
+  },
+  {
+    "id": 251,
+    "oficio": "Telecomunicaciones",
+    "texto": "Instalar red de fibra óptica interna en empresa de 3 plantas, 20 puntos de trabajo"
+  },
+  {
+    "id": 252,
+    "oficio": "Telecomunicaciones",
+    "texto": "Montar rack de telecomunicaciones con patch panel, switch y gestión de cables"
+  },
+  {
+    "id": 253,
+    "oficio": "Telecomunicaciones",
+    "texto": "Ampliar red WiFi en hotel con sistema de puntos de acceso gestionados, 20 habitaciones"
+  },
+  {
+    "id": 254,
+    "oficio": "Telecomunicaciones",
+    "texto": "Instalar centralita telefónica IP para empresa de 10 extensiones con número de empresa"
+  },
+  {
+    "id": 255,
+    "oficio": "Telecomunicaciones",
+    "texto": "Pasar cable coaxial para televisión en todos los dormitorios, 4 tomas nuevas con amplificador"
+  },
+  {
+    "id": 256,
+    "oficio": "Telecomunicaciones",
+    "texto": "Instalar sistema de control de acceso remoto con cámara y apertura desde smartphone para portal"
+  },
+  {
+    "id": 257,
+    "oficio": "Telecomunicaciones",
+    "texto": "Configurar red separada para invitados en empresa con segmentación VLAN y cortafuegos"
+  },
+  {
+    "id": 258,
+    "oficio": "Telecomunicaciones",
+    "texto": "Instalar alarma de seguridad con sensores de movimiento y apertura, monitorización 24h"
+  },
+  {
+    "id": 259,
+    "oficio": "Telecomunicaciones",
+    "texto": "Poner antena de repetidor de móvil interior en local con mala cobertura, sistema pasivo"
+  },
+  {
+    "id": 260,
+    "oficio": "Telecomunicaciones",
+    "texto": "Revisión y actualización de instalación de telecomunicaciones en edificio de 20 años, ICT2"
+  },
+  {
+    "id": 261,
+    "oficio": "Cristalería",
+    "texto": "Cambio de luna de ventana rota, vidrio de seguridad de 4mm en ventana de 80x120 centímetros"
+  },
+  {
+    "id": 262,
+    "oficio": "Cristalería",
+    "texto": "Instalar mampara de baño de cristal templado de 8mm con perfil de aluminio, ducha de 90x90"
+  },
+  {
+    "id": 263,
+    "oficio": "Cristalería",
+    "texto": "Poner espejo grande en baño de 100x80 centímetros con biseles decorativos, sin marco"
+  },
+  {
+    "id": 264,
+    "oficio": "Cristalería",
+    "texto": "Instalar barandilla de cristal templado en terraza, longitud 6 metros con pasamanos de acero"
+  },
+  {
+    "id": 265,
+    "oficio": "Cristalería",
+    "texto": "Cambiar vidrio de escaparate roto, monolítico de 8mm, 2 metros de ancho por 2.5 de alto"
+  },
+  {
+    "id": 266,
+    "oficio": "Cristalería",
+    "texto": "Instalación de cerramiento de terraza con cristal deslizante, 4 hojas de aluminio y vidrio de 6mm"
+  },
+  {
+    "id": 267,
+    "oficio": "Cristalería",
+    "texto": "Poner cristal de doble acristalamiento en ventanas de madera antigua, cambio de vidrio simple por DVH"
+  },
+  {
+    "id": 268,
+    "oficio": "Cristalería",
+    "texto": "Instalar puerta de vidrio templado sin marco con herrajes de acero inoxidable para despacho"
+  },
+  {
+    "id": 269,
+    "oficio": "Cristalería",
+    "texto": "Colocar lamina de privacidad en cristal de oficina para zona de reuniones, vinilo traslúcido"
+  },
+  {
+    "id": 270,
+    "oficio": "Cristalería",
+    "texto": "Fabricar e instalar estantería de cristal en salón, 3 estantes de 120x30 centímetros con soportes cromados"
+  },
+  {
+    "id": 271,
+    "oficio": "Cristalería",
+    "texto": "Poner vidrio antirrobo en puerta de entrada, vidrio laminado de seguridad con butiral"
+  },
+  {
+    "id": 272,
+    "oficio": "Cristalería",
+    "texto": "Instalar techo de cristal en patio interior de vivienda, superficie 8 metros cuadrados con perfilería"
+  },
+  {
+    "id": 273,
+    "oficio": "Cristalería",
+    "texto": "Cambiar mampara de baño rota, sistema corredero de 2 hojas en bañera de 170 centímetros"
+  },
+  {
+    "id": 274,
+    "oficio": "Cristalería",
+    "texto": "Instalar vitrina de exposición con LED interior para joyería, 100x50x30 centímetros en cristal"
+  },
+  {
+    "id": 275,
+    "oficio": "Cristalería",
+    "texto": "Aplicar tratamiento antirreflejo en cristales de oficina para reducir deslumbramiento"
+  },
+  {
+    "id": 276,
+    "oficio": "Cristalería",
+    "texto": "Poner espejo de cuerpo entero con luz LED integrada en zona de vestidor, 180x60 centímetros"
+  },
+  {
+    "id": 277,
+    "oficio": "Cristalería",
+    "texto": "Instalar panel de vidrio lacado en blanco como salpicadero de cocina detrás de los fuegos"
+  },
+  {
+    "id": 278,
+    "oficio": "Cristalería",
+    "texto": "Fabricar mesa de centro con tapa de cristal templado de 10mm sobre estructura de hierro existente"
+  },
+  {
+    "id": 279,
+    "oficio": "Cristalería",
+    "texto": "Instalar ventana de proyección de vidrio translúcido para luz natural en tabique interior"
+  },
+  {
+    "id": 280,
+    "oficio": "Cristalería",
+    "texto": "Cambio de parabrisas de vehículo industrial de empresa, logotipo adhesivo incluido"
+  },
+  {
+    "id": 281,
+    "oficio": "Impermeabilización",
+    "texto": "Impermeabilizar terraza plana de piso con goteras en la planta de abajo, 20 metros cuadrados"
+  },
+  {
+    "id": 282,
+    "oficio": "Impermeabilización",
+    "texto": "Tratamiento impermeabilizante en fachada exterior de edificio antiguo con mortero flexible"
+  },
+  {
+    "id": 283,
+    "oficio": "Impermeabilización",
+    "texto": "Impermeabilizar sótano con humedades del terreno, sistema de drenaje interior y bomba de achique"
+  },
+  {
+    "id": 284,
+    "oficio": "Impermeabilización",
+    "texto": "Sellar grieta en muro de sótano por donde entra agua en época de lluvias, inyección de resina"
+  },
+  {
+    "id": 285,
+    "oficio": "Impermeabilización",
+    "texto": "Impermeabilizar cubierta plana de chalet con lámina de EPDM adherida, 80 metros cuadrados"
+  },
+  {
+    "id": 286,
+    "oficio": "Impermeabilización",
+    "texto": "Aplicar pintura impermeabilizante en pared medianera con problemas de humedad por capilaridad"
+  },
+  {
+    "id": 287,
+    "oficio": "Impermeabilización",
+    "texto": "Impermeabilizar balcón con baldosas flotadas que filtran agua al piso inferior, rejuntado y sellado"
+  },
+  {
+    "id": 288,
+    "oficio": "Impermeabilización",
+    "texto": "Instalar sistema de drenaje perimetral en jardín para evacuar aguas pluviales, longitud 20 metros"
+  },
+  {
+    "id": 289,
+    "oficio": "Impermeabilización",
+    "texto": "Impermeabilizar piscina de hormigón con sistema de lámina de polipropileno, 60 metros cuadrados"
+  },
+  {
+    "id": 290,
+    "oficio": "Impermeabilización",
+    "texto": "Tratar humedad en paredes de cocina y comedor de planta baja, saneado y electroósmosis"
+  },
+  {
+    "id": 291,
+    "oficio": "Impermeabilización",
+    "texto": "Impermeabilizar cubierta de nave industrial con poliurea proyectada, 500 metros cuadrados"
+  },
+  {
+    "id": 292,
+    "oficio": "Impermeabilización",
+    "texto": "Reparar filtración en junta de dilatación de cubierta comunitaria, 10 metros lineales con fijación mecánica"
+  },
+  {
+    "id": 293,
+    "oficio": "Impermeabilización",
+    "texto": "Aplicar hidrofugante en muro de piedra de fachada de edificio histórico, 40 metros cuadrados"
+  },
+  {
+    "id": 294,
+    "oficio": "Impermeabilización",
+    "texto": "Impermeabilizar depósito de agua de hormigón para riego, limpieza interior y revestimiento epoxy"
+  },
+  {
+    "id": 295,
+    "oficio": "Impermeabilización",
+    "texto": "Sellar todas las juntas de azulejos de terraza descubierta con sellante elástico de poliuretano"
+  },
+  {
+    "id": 296,
+    "oficio": "Impermeabilización",
+    "texto": "Impermeabilizar canal de hormigón en finca agrícola para almacenamiento de agua"
+  },
+  {
+    "id": 297,
+    "oficio": "Impermeabilización",
+    "texto": "Tratar filtraciones en muro de hormigón de garaje subterráneo con mortero cristalizante"
+  },
+  {
+    "id": 298,
+    "oficio": "Impermeabilización",
+    "texto": "Renovar impermeabilización de cubierta plana transitada con sistema de Büttner o similar"
+  },
+  {
+    "id": 299,
+    "oficio": "Impermeabilización",
+    "texto": "Reparar junta de encuentro entre cubierta y pared donde entra agua con mortero elástico"
+  },
+  {
+    "id": 300,
+    "oficio": "Impermeabilización",
+    "texto": "Impermeabilizar canalones de hormigón de edificio antiguo con pintura bituminosa, 40 metros lineales"
+  },
+  {
+    "id": 301,
+    "oficio": "Contra Incendios",
+    "texto": "Instalar sistema de detección de incendios en local comercial de 100 metros cuadrados con central y detectores"
+  },
+  {
+    "id": 302,
+    "oficio": "Contra Incendios",
+    "texto": "Suministro e instalación de extintores homologados en naves industriales, revisión anual incluida"
+  },
+  {
+    "id": 303,
+    "oficio": "Contra Incendios",
+    "texto": "Instalar rociadores automáticos sprinklers en zona de almacén de 200 metros cuadrados"
+  },
+  {
+    "id": 304,
+    "oficio": "Contra Incendios",
+    "texto": "Revisar y recargar extintores de empresa, 10 extintores de polvo y 2 de CO2, con certificado"
+  },
+  {
+    "id": 305,
+    "oficio": "Contra Incendios",
+    "texto": "Instalar sistema de extinción de gas FM200 en sala de servidores de empresa de 15 metros cuadrados"
+  },
+  {
+    "id": 306,
+    "oficio": "Contra Incendios",
+    "texto": "Señalización de emergencia y evacuación en edificio de oficinas de 5 plantas, luces de emergencia"
+  },
+  {
+    "id": 307,
+    "oficio": "Contra Incendios",
+    "texto": "Instalar bocas de incendio equipadas BIE en nave industrial, conectadas a red de agua"
+  },
+  {
+    "id": 308,
+    "oficio": "Contra Incendios",
+    "texto": "Plan de emergencia y simulacro de evacuación para empresa de 50 trabajadores, documentación legal"
+  },
+  {
+    "id": 309,
+    "oficio": "Contra Incendios",
+    "texto": "Mantenimiento anual de sistema de detección y alarma contra incendios de hotel de 30 habitaciones"
+  },
+  {
+    "id": 310,
+    "oficio": "Contra Incendios",
+    "texto": "Instalar puerta cortafuego RF90 en escalera comunitaria del edificio, con ferretería homologada"
+  },
+  {
+    "id": 311,
+    "oficio": "Contra Incendios",
+    "texto": "Revisión trimestral de sistema de rociadores en supermercado, inspección y test de funcionamiento"
+  },
+  {
+    "id": 312,
+    "oficio": "Contra Incendios",
+    "texto": "Legalizar instalación contra incendios en local que va a abrir como bar con cocina"
+  },
+  {
+    "id": 313,
+    "oficio": "Contra Incendios",
+    "texto": "Instalar detector de monóxido de carbono en garaje privado de vivienda con caldera de gas"
+  },
+  {
+    "id": 314,
+    "oficio": "Contra Incendios",
+    "texto": "Sustituir central de incendios obsoleta por nueva analógica con protocolo de comunicación"
+  },
+  {
+    "id": 315,
+    "oficio": "Contra Incendios",
+    "texto": "Instalar extractor de humos en cocina de restaurante con conducto al exterior y registro antiretorno"
+  },
+  {
+    "id": 316,
+    "oficio": "Contra Incendios",
+    "texto": "Revisión de instalación de gas en local de hostelería con informe técnico para licencia"
+  },
+  {
+    "id": 317,
+    "oficio": "Contra Incendios",
+    "texto": "Instalar manguera de primera intervención en hospital, punto de agua en cada planta"
+  },
+  {
+    "id": 318,
+    "oficio": "Contra Incendios",
+    "texto": "Diseño de plan de autoprotección para colegio con 500 alumnos, evacuación y emergencias"
+  },
+  {
+    "id": 319,
+    "oficio": "Contra Incendios",
+    "texto": "Actualizar señalización de evacuación en empresa tras reforma, nuevas rutas de salida"
+  },
+  {
+    "id": 320,
+    "oficio": "Contra Incendios",
+    "texto": "Instalar detección temprana de incendios en archivo de documentación, sistema de aspiración VESDA"
+  },
+  {
+    "id": 321,
+    "oficio": "Fachadas",
+    "texto": "Rehabilitar fachada de edificio con revestimiento de mortero monocapa y zócalo de piedra"
+  },
+  {
+    "id": 322,
+    "oficio": "Fachadas",
+    "texto": "Instalar sistema de aislamiento por el exterior SATE en edificio de 5 plantas para mejorar eficiencia"
+  },
+  {
+    "id": 323,
+    "oficio": "Fachadas",
+    "texto": "Limpiar fachada de ladrillo visto con producto químico y equipo de presión, sin dañar la piedra"
+  },
+  {
+    "id": 324,
+    "oficio": "Fachadas",
+    "texto": "Reparar y rejuntar fachada de ladrillo con mortero de cal, zona afectada 30 metros cuadrados"
+  },
+  {
+    "id": 325,
+    "oficio": "Fachadas",
+    "texto": "Instalar ventilación cruzada en fachada ventilada con paneles de composite de aluminio"
+  },
+  {
+    "id": 326,
+    "oficio": "Fachadas",
+    "texto": "Pintar fachada exterior de edificio con pintura siloxánica impermeabilizante, 4 plantas"
+  },
+  {
+    "id": 327,
+    "oficio": "Fachadas",
+    "texto": "Reparar desprendimientos de revestimiento en fachada de bloque de viviendas, andamio incluido"
+  },
+  {
+    "id": 328,
+    "oficio": "Fachadas",
+    "texto": "Instalar celosía decorativa de aluminio en fachada de local comercial, 4 metros de longitud"
+  },
+  {
+    "id": 329,
+    "oficio": "Fachadas",
+    "texto": "Reforma de fachada de chalet con piedra natural laminada, zona de 50 metros cuadrados"
+  },
+  {
+    "id": 330,
+    "oficio": "Fachadas",
+    "texto": "Revestir fachada con panel fenólico HPL en color antracita, estructura portante incluida"
+  },
+  {
+    "id": 331,
+    "oficio": "Fachadas",
+    "texto": "Reparar grietas estructurales en fachada con inyección de resina epoxy y grapas de acero"
+  },
+  {
+    "id": 332,
+    "oficio": "Fachadas",
+    "texto": "Limpiar grafitis de fachada con producto anti-graffiti y aplicar tratamiento protector"
+  },
+  {
+    "id": 333,
+    "oficio": "Fachadas",
+    "texto": "Colocar aplacado de gres porcelánico en fachada de local, zona de 20 metros cuadrados"
+  },
+  {
+    "id": 334,
+    "oficio": "Fachadas",
+    "texto": "Restaurar molduras y elementos decorativos de fachada de edificio histórico, mortero de cal"
+  },
+  {
+    "id": 335,
+    "oficio": "Fachadas",
+    "texto": "Instalar marquesina de cristal y aluminio en entrada de edificio de oficinas, 3 metros de vuelo"
+  },
+  {
+    "id": 336,
+    "oficio": "Fachadas",
+    "texto": "Reparar balcones de fachada, corrosión de barandillas y fisuras en losa, 6 balcones"
+  },
+  {
+    "id": 337,
+    "oficio": "Fachadas",
+    "texto": "Aplicar tratamiento hidrofugante en fachada de piedra granítica, 80 metros cuadrados"
+  },
+  {
+    "id": 338,
+    "oficio": "Fachadas",
+    "texto": "Instalar cártel luminoso en fachada de local comercial con iluminación LED interior"
+  },
+  {
+    "id": 339,
+    "oficio": "Fachadas",
+    "texto": "Reformar zona de acceso a edificio, nuevo zócalo de gres y pintura en el resto de la fachada"
+  },
+  {
+    "id": 340,
+    "oficio": "Fachadas",
+    "texto": "Auditoría energética de fachada para certificado de eficiencia, informe con recomendaciones"
+  },
+  {
+    "id": 341,
+    "oficio": "Mantenimiento General",
+    "texto": "Contrato de mantenimiento mensual de edificio de oficinas, electricidad, fontanería y carpintería"
+  },
+  {
+    "id": 342,
+    "oficio": "Mantenimiento General",
+    "texto": "Revisión general de vivienda antes de poner en alquiler, reparaciones menores y informe"
+  },
+  {
+    "id": 343,
+    "oficio": "Mantenimiento General",
+    "texto": "Cambio de bombillas fundidas en zonas comunes de edificio, 40 unidades de LED y fluorescentes"
+  },
+  {
+    "id": 344,
+    "oficio": "Mantenimiento General",
+    "texto": "Reparar varios desperfectos en piso de alquiler: grifo roto, persiana caída y bisagra de puerta"
+  },
+  {
+    "id": 345,
+    "oficio": "Mantenimiento General",
+    "texto": "Limpieza y mantenimiento de ascensor del edificio, revisión de cables y puertas"
+  },
+  {
+    "id": 346,
+    "oficio": "Mantenimiento General",
+    "texto": "Contrato anual de mantenimiento de comunidad de vecinos, incluye piscina, jardines y zonas comunes"
+  },
+  {
+    "id": 347,
+    "oficio": "Mantenimiento General",
+    "texto": "Reparar goteras en tejado de nave industrial, revisión de cubierta y sellado de juntas"
+  },
+  {
+    "id": 348,
+    "oficio": "Mantenimiento General",
+    "texto": "Mantenimiento preventivo de instalaciones de hotel, revisión de fontanería, electricidad y clima"
+  },
+  {
+    "id": 349,
+    "oficio": "Mantenimiento General",
+    "texto": "Cambiar cerradura de portal que está averiada y revisar timbre y portero automático"
+  },
+  {
+    "id": 350,
+    "oficio": "Mantenimiento General",
+    "texto": "Pintar zona de carga y descarga de almacén con líneas de seguridad y señalización de suelo"
+  },
+  {
+    "id": 351,
+    "oficio": "Mantenimiento General",
+    "texto": "Reparar suelo de parking comunitario, bacheo de baches y sellado de juntas de dilatación"
+  },
+  {
+    "id": 352,
+    "oficio": "Mantenimiento General",
+    "texto": "Instalar dispensadores de jabón y papel en aseos de empresa, mantenimiento de consumibles"
+  },
+  {
+    "id": 353,
+    "oficio": "Mantenimiento General",
+    "texto": "Reparar valla perimetral de parcela, postes sueltos y tela metálica deteriorada, 30 metros"
+  },
+  {
+    "id": 354,
+    "oficio": "Mantenimiento General",
+    "texto": "Revisión y mantenimiento de grupo electrógeno de emergencia, prueba de carga y cambio de aceite"
+  },
+  {
+    "id": 355,
+    "oficio": "Mantenimiento General",
+    "texto": "Pintar marquesina y elementos metálicos exteriores de local comercial con imprimación y esmalte"
+  },
+  {
+    "id": 356,
+    "oficio": "Mantenimiento General",
+    "texto": "Reparar escalera de comunidad, peldaño roto y barandilla floja, informe técnico incluido"
+  },
+  {
+    "id": 357,
+    "oficio": "Mantenimiento General",
+    "texto": "Instalar barras de seguridad en ventanas de bajo de edificio de alquiler, 4 ventanas"
+  },
+  {
+    "id": 358,
+    "oficio": "Mantenimiento General",
+    "texto": "Revisar y reparar sistema de ventilación de parking subterráneo, 3 extractores con sensores CO"
+  },
+  {
+    "id": 359,
+    "oficio": "Mantenimiento General",
+    "texto": "Cambio de luminarias de emergencia caducadas en escaleras y pasillos de edificio, 20 unidades"
+  },
+  {
+    "id": 360,
+    "oficio": "Mantenimiento General",
+    "texto": "Reparar sistema de riego automático de jardines comunitarios, válvulas y programador averiados"
+  },
+  {
+    "id": 361,
+    "oficio": "Reformas Integrales",
+    "texto": "Reforma completa de piso de 80 metros cuadrados, quitar tabiques, suelo nuevo y cocina actualizada"
+  },
+  {
+    "id": 362,
+    "oficio": "Reformas Integrales",
+    "texto": "Reformar cocina completa con nueva distribución, encimera de cuarzo, electrodomésticos y fontanería"
+  },
+  {
+    "id": 363,
+    "oficio": "Reformas Integrales",
+    "texto": "Reforma de baño completo con ducha a ras de suelo, doble lavabo, sanitarios suspendidos y suelo calefactado"
+  },
+  {
+    "id": 364,
+    "oficio": "Reformas Integrales",
+    "texto": "Convertir local comercial en vivienda de 60 metros cuadrados con licencia de cambio de uso"
+  },
+  {
+    "id": 365,
+    "oficio": "Reformas Integrales",
+    "texto": "Actualizar piso de los años 80, quitar gotelé, modernizar cocina y baño, pintura y suelo nuevo"
+  },
+  {
+    "id": 366,
+    "oficio": "Reformas Integrales",
+    "texto": "Reforma de ático dúplex de 100 metros cuadrados con escalera interior y terraza acristalada"
+  },
+  {
+    "id": 367,
+    "oficio": "Reformas Integrales",
+    "texto": "Adaptar vivienda para persona con movilidad reducida, baño accesible, rampa y pasamanos"
+  },
+  {
+    "id": 368,
+    "oficio": "Reformas Integrales",
+    "texto": "Reforma de local para abrir restaurante, cocina industrial, distribución de sala y servicios"
+  },
+  {
+    "id": 369,
+    "oficio": "Reformas Integrales",
+    "texto": "Rehabilitación de casa rural antigua de piedra, nueva instalación, aislamiento y acabados"
+  },
+  {
+    "id": 370,
+    "oficio": "Reformas Integrales",
+    "texto": "Reforma de oficina de 200 metros cuadrados con nueva distribución, iluminación y mobiliario"
+  },
+  {
+    "id": 371,
+    "oficio": "Reformas Integrales",
+    "texto": "Ampliar vivienda con construcción de nueva planta sobre garaje existente, 40 metros cuadrados"
+  },
+  {
+    "id": 372,
+    "oficio": "Reformas Integrales",
+    "texto": "Reforma de baño de minusválidos para adecuación a normativa, ducha nivel suelo y barra de apoyo"
+  },
+  {
+    "id": 373,
+    "oficio": "Reformas Integrales",
+    "texto": "Reformar chalet de 200 metros cuadrados de forma integral, distribución, acabados y eficiencia energética"
+  },
+  {
+    "id": 374,
+    "oficio": "Reformas Integrales",
+    "texto": "Convertir garaje en habitación de invitados con baño, instalaciones y licencia incluida"
+  },
+  {
+    "id": 375,
+    "oficio": "Reformas Integrales",
+    "texto": "Reforma de cocina semi-abierta al salón, derribo de tabique, nueva cocina en U con isla central"
+  },
+  {
+    "id": 376,
+    "oficio": "Reformas Integrales",
+    "texto": "Rehabilitación de edificio antiguo de 5 pisos con reforma de zonas comunes y fachada"
+  },
+  {
+    "id": 377,
+    "oficio": "Reformas Integrales",
+    "texto": "Reforma de piso de alquiler para revalorizar, suelo laminado, pintura, cocina y baño modernizados"
+  },
+  {
+    "id": 378,
+    "oficio": "Reformas Integrales",
+    "texto": "Construir ático nuevo en solar con cubierta inclinada y terraza de 30 metros cuadrados"
+  },
+  {
+    "id": 379,
+    "oficio": "Reformas Integrales",
+    "texto": "Reforma integral de farmacia con nueva distribución de mostrador, almacén y zona de espera"
+  },
+  {
+    "id": 380,
+    "oficio": "Reformas Integrales",
+    "texto": "Presupuesto para reforma de casita de campo abandonada, partida por partida con materiales incluidos"
+  },
+  {
+    "id": 381,
+    "oficio": "Persianas",
+    "texto": "Instalar persiana de aluminio de lamas orientables en ventana de salón de 150x120 centímetros"
+  },
+  {
+    "id": 382,
+    "oficio": "Persianas",
+    "texto": "Motorizar 6 persianas de PVC existentes con motores Somfy y mando a distancia central"
+  },
+  {
+    "id": 383,
+    "oficio": "Persianas",
+    "texto": "Cambio de cinta de persiana rota en dormitorio, enroscador estropeado, se queda arriba"
+  },
+  {
+    "id": 384,
+    "oficio": "Persianas",
+    "texto": "Instalar toldos para terraza de bar, 4 toldos de 3x2 metros motorizados con cofre embellecedor"
+  },
+  {
+    "id": 385,
+    "oficio": "Persianas",
+    "texto": "Instalar estores enrollables de tejido screen para sala con grandes ventanales, filtro solar 10%"
+  },
+  {
+    "id": 386,
+    "oficio": "Persianas",
+    "texto": "Cambio de cajón de persiana roto en reforma de ventana, pintado en blanco a juego"
+  },
+  {
+    "id": 387,
+    "oficio": "Persianas",
+    "texto": "Instalar celosía de aluminio orientable en fachada de vivienda para privacidad y sombreado"
+  },
+  {
+    "id": 388,
+    "oficio": "Persianas",
+    "texto": "Motorizar porticón de madera en terraza con motor solar y aplicación de smartphone"
+  },
+  {
+    "id": 389,
+    "oficio": "Persianas",
+    "texto": "Instalar persiana exterior de aluminio enrollable para local comercial, 3 metros de ancho"
+  },
+  {
+    "id": 390,
+    "oficio": "Persianas",
+    "texto": "Reparar persiana de lama que no sube bien, motor atascado, revisión y engrase de guías"
+  },
+  {
+    "id": 391,
+    "oficio": "Persianas",
+    "texto": "Instalar toldo vertical de lona en terraza de ático para sombra y privacidad lateral"
+  },
+  {
+    "id": 392,
+    "oficio": "Persianas",
+    "texto": "Cambiar todas las persianas de PVC de piso de 3 dormitorios por lamas de aluminio de mayor calidad"
+  },
+  {
+    "id": 393,
+    "oficio": "Persianas",
+    "texto": "Instalar persiana de seguridad enrollable con armadura de acero en local de bajo de edificio"
+  },
+  {
+    "id": 394,
+    "oficio": "Persianas",
+    "texto": "Toldo corredero para patio de vecinos, estructura aluminio y tela acrílica, 4x3 metros"
+  },
+  {
+    "id": 395,
+    "oficio": "Persianas",
+    "texto": "Conectar persianas motorizadas existentes a sistema domótico de la vivienda, programación horaria"
+  },
+  {
+    "id": 396,
+    "oficio": "Persianas",
+    "texto": "Instalar marquesina plegable de PVC transparente para proteger entrada de portal de la lluvia"
+  },
+  {
+    "id": 397,
+    "oficio": "Persianas",
+    "texto": "Reparar toldo de terraza que ha roto la tela con el viento, cambio de tejido y tensado de estructura"
+  },
+  {
+    "id": 398,
+    "oficio": "Persianas",
+    "texto": "Instalar persiana veneciana de aluminio en ventana de oficina, 120x90 centímetros, lama de 25mm"
+  },
+  {
+    "id": 399,
+    "oficio": "Persianas",
+    "texto": "Automatizar apertura y cierre de portón de garaje con sensor de presencia y mando inalámbrico"
+  },
+  {
+    "id": 400,
+    "oficio": "Persianas",
+    "texto": "Instalar toldos extensibles en fachada de hotel, 10 unidades de 2.5 metros con cofre y motor"
+  },
+  {
+    "id": 401,
+    "oficio": "Fontanería",
+    "texto": "Desde hace unos días el agua del grifo de la cocina sale a presión muy baja"
+  },
+  {
+    "id": 402,
+    "oficio": "Fontanería",
+    "texto": "Hay una mancha húmeda en el techo del baño pero no hay ningún cuarto arriba"
+  },
+  {
+    "id": 403,
+    "oficio": "Fontanería",
+    "texto": "Me corre agua por la pared del baño cuando mi vecino de arriba se ducha"
+  },
+  {
+    "id": 404,
+    "oficio": "Fontanería",
+    "texto": "Creo que tengo una fuga pero no encuentro de dónde viene, la factura del agua se ha disparado"
+  },
+  {
+    "id": 405,
+    "oficio": "Fontanería",
+    "texto": "El grifo del baño lleva semanas con ese pitido desesperante cuando abres el agua"
+  },
+  {
+    "id": 406,
+    "oficio": "Fontanería",
+    "texto": "El váter no para de hacer ruido toda la noche, como si estuviera llenándose sin parar"
+  },
+  {
+    "id": 407,
+    "oficio": "Fontanería",
+    "texto": "Me tarda dos minutos en salir el agua caliente, no aguanto más duchándome en frío"
+  },
+  {
+    "id": 408,
+    "oficio": "Fontanería",
+    "texto": "Lo del termo ya me tiene harto, cada dos por tres nos quedamos sin agua caliente en casa"
+  },
+  {
+    "id": 409,
+    "oficio": "Fontanería",
+    "texto": "Hola buenos días mira que... eeeh tengo un problema con la caldera, bueno más que la caldera es el agua caliente que no sale bien... a ver sí, es que a veces sale y a veces no, y ayer directamente nada"
+  },
+  {
+    "id": 410,
+    "oficio": "Fontanería",
+    "texto": "Sí mira, necesito que alguien venga a mirar lo del baño porque hay agua en el suelo cuando no ha llovido ni nada, y llevamos así desde la semana pasada más o menos"
+  },
+  {
+    "id": 411,
+    "oficio": "Fontanería",
+    "texto": "Eeeh sí, es que tenemos una fuga creo, en la cocina, debajo del fregadero, hay agua y ya lo he secado tres veces hoy"
+  },
+  {
+    "id": 412,
+    "oficio": "Fontanería",
+    "texto": "Reforma completa de baño de 5m²: demolición de alicatado, alicatado nuevo hasta techo, inodoro suspendido, lavabo empotrado con mueble, plato de ducha antideslizante 80x80, mampara abatible y grifería termostática"
+  },
+  {
+    "id": 413,
+    "oficio": "Fontanería",
+    "texto": "Instalación de calefacción central de gas natural en vivienda de dos plantas: caldera de condensación 28kW, 12 radiadores de aluminio con válvulas termostáticas, tubería multicapa y termostato programable"
+  },
+  {
+    "id": 414,
+    "oficio": "Fontanería",
+    "texto": "Sustitución completa de red de saneamiento horizontal en planta baja de edificio de 4 viviendas: tuberías PVC DN110 y DN160, sifones individuales, bote sifónico y conexión a red municipal"
+  },
+  {
+    "id": 415,
+    "oficio": "Fontanería",
+    "texto": "Instalación de sistema de ACS centralizado para comunidad de 8 vecinos: interacumulador de 500L, bomba de recirculación, válvulas de corte sectoriales y contador divisionario"
+  },
+  {
+    "id": 416,
+    "oficio": "Fontanería",
+    "texto": "El grifpo del lavbo me gotea porla noche y tengo miedo de que sea una fuga gordo"
+  },
+  {
+    "id": 417,
+    "oficio": "Fontanería",
+    "texto": "Tengo la cisterna del vater que pierde agua todo el rato y he intentdo areglarla pero no puedo"
+  },
+  {
+    "id": 418,
+    "oficio": "Fontanería",
+    "texto": "El thermos ese electrico ya no calienta nada ya lleva 3 dias sin funconar quiero cambiarlo"
+  },
+  {
+    "id": 419,
+    "oficio": "Fontanería",
+    "texto": "Instalación de descalcificador residencial de resinas de intercambio iónico, capacidad 25L, con programación volumétrica, bypass manual y tubo de rebose a desagüe"
+  },
+  {
+    "id": 420,
+    "oficio": "Fontanería",
+    "texto": "Cambio de pressure reducing valve en la entrada del piso, la water pressure está demasiado alta y me está dañando los appliances"
+  },
+  {
+    "id": 421,
+    "oficio": "Electricidad",
+    "texto": "Desde ayer me salta el diferencial cada vez que pongo la lavadora con el lavavajillas a la vez"
+  },
+  {
+    "id": 422,
+    "oficio": "Electricidad",
+    "texto": "El fusible de la habitación de los niños se va con bastante frecuencia sin motivo aparente"
+  },
+  {
+    "id": 423,
+    "oficio": "Electricidad",
+    "texto": "Se me va la luz de toda la casa cuando hace mucho frío, creo que es el cuadro"
+  },
+  {
+    "id": 424,
+    "oficio": "Electricidad",
+    "texto": "Hay un enchufe en el salón que a veces funciona y a veces no, y hace un chispazo raro"
+  },
+  {
+    "id": 425,
+    "oficio": "Electricidad",
+    "texto": "Desde ayer salta la luz y no sé por qué, ya he vuelto a subir el automático pero vuelve a bajar"
+  },
+  {
+    "id": 426,
+    "oficio": "Electricidad",
+    "texto": "Los enchufes de la cocina no van desde que cambié el microondas por uno más potente"
+  },
+  {
+    "id": 427,
+    "oficio": "Electricidad",
+    "texto": "Necesito poner enchufes donde no hay ninguno en la habitación de los niños, que solo tiene uno"
+  },
+  {
+    "id": 428,
+    "oficio": "Electricidad",
+    "texto": "La luz del baño parpadea todo el rato y ya cambié la bombilla pero sigue igual"
+  },
+  {
+    "id": 429,
+    "oficio": "Electricidad",
+    "texto": "Hola mira que... tengo un problema con la luz, es que se va el diferencial... ¿el diferencial es ese que hay en la cajita del pasillo verdad? Pues ese, que se baja solo cuando pongo el horno"
+  },
+  {
+    "id": 430,
+    "oficio": "Electricidad",
+    "texto": "Sí mira necesito un electricista porque hay enchufes que no funcionan... algunos sí otros no... y la caja esa de la entrada pues la tengo subida pero no funciona bien"
+  },
+  {
+    "id": 431,
+    "oficio": "Electricidad",
+    "texto": "Eeeh sí, es que he comprado una casa antigua y necesito que alguien revise toda la instalación eléctrica porque tampoco hay toma de tierra y no sé cómo está"
+  },
+  {
+    "id": 432,
+    "oficio": "Electricidad",
+    "texto": "Renovación completa de instalación eléctrica en vivienda de 90m²: cuadro con ICP 40A, diferencial 40A/30mA, 8 magnetotérmicos, cableado nuevo 2,5mm² fuerza y 1,5mm² iluminación, toma de tierra y cajas de registro"
+  },
+  {
+    "id": 433,
+    "oficio": "Electricidad",
+    "texto": "Instalación de 5 wallbox de 22kW trifásico para flota de vehículos eléctricos en parking de empresa: cableado desde cuadro general, protecciones individuales y sistema de gestión de carga con RFID"
+  },
+  {
+    "id": 434,
+    "oficio": "Electricidad",
+    "texto": "Instalación de iluminación LED en local comercial de 200m²: 40 downlights 18W, 8 proyectores de carril para escaparate, emergencias homologadas y cuadro con programador horario"
+  },
+  {
+    "id": 435,
+    "oficio": "Electricidad",
+    "texto": "Instalación de sistema fotovoltaico de autoconsumo en nave de 500m²: 20 paneles 450Wp, inversor 9kW, protecciones DC/AC, cuadro de protección y monitorización con datalogger"
+  },
+  {
+    "id": 436,
+    "oficio": "Electricidad",
+    "texto": "El difierencial se ba abajo cada bes que conecto el areo acondiconado nuevo que me han puesto"
+  },
+  {
+    "id": 437,
+    "oficio": "Electricidad",
+    "texto": "Nececito poner enchufes en el garaje, ahora mismo no hay ninguno y necesito tener luz y corriente"
+  },
+  {
+    "id": 438,
+    "oficio": "Electricidad",
+    "texto": "Tengo enchufes quemados en el salon, creo que fue por un pico de tensoin de la tormenata de ayer"
+  },
+  {
+    "id": 439,
+    "oficio": "Electricidad",
+    "texto": "Certificación eléctrica de industria alimentaria: inspección de instalación, comprobación de equipotencialidad, protecciones en zonas húmedas IP65 y emisión de boletín para Industria"
+  },
+  {
+    "id": 440,
+    "oficio": "Electricidad",
+    "texto": "Necesito instalar un EV charger en el garaje, modo 3, con un smart meter y load balancing para no superar el límite del contrato"
+  },
+  {
+    "id": 441,
+    "oficio": "Carpintería",
+    "texto": "La puerta de entrada cierra pero hace ruido al abrir y estamos en una comunidad que se queja"
+  },
+  {
+    "id": 442,
+    "oficio": "Carpintería",
+    "texto": "El armario empotrado del dormitorio tiene las puertas correderas que no van bien, siempre se salen"
+  },
+  {
+    "id": 443,
+    "oficio": "Carpintería",
+    "texto": "Me chirría la puerta del baño cada vez que la abro, los vecinos ya se están quejando"
+  },
+  {
+    "id": 444,
+    "oficio": "Carpintería",
+    "texto": "La ventana de madera del salón ya no cierra bien, creo que ha hinchado por la humedad del invierno"
+  },
+  {
+    "id": 445,
+    "oficio": "Carpintería",
+    "texto": "La puerta de entrada está fatal, la madera está toda podrida por debajo y ya ni cierra bien"
+  },
+  {
+    "id": 446,
+    "oficio": "Carpintería",
+    "texto": "Necesito cambiar las puertas del piso, todas son de los años 80 y están horribles"
+  },
+  {
+    "id": 447,
+    "oficio": "Carpintería",
+    "texto": "Quiero hacerme un armario a medida en la habitación, que aproveche todo el hueco hasta el techo"
+  },
+  {
+    "id": 448,
+    "oficio": "Carpintería",
+    "texto": "Los rodapiés del salón se han soltado todos, supongo que habrá que pegarlos o ponerlos de nuevo"
+  },
+  {
+    "id": 449,
+    "oficio": "Carpintería",
+    "texto": "Hola, mira, es para una puerta... la puerta de entrada a mi casa que lleva tiempo que no cierra bien... vamos que cierra pero cuando hace viento se abre sola... no sé si es el marco o la puerta en sí"
+  },
+  {
+    "id": 450,
+    "oficio": "Carpintería",
+    "texto": "Sí mira es que tengo las puertas del armario, las correderas esas, que una se ha salido del raíl y ya no sé cómo meterla, y la otra también está floja"
+  },
+  {
+    "id": 451,
+    "oficio": "Carpintería",
+    "texto": "Eh sí, necesito que me presupuesten cambiar las puertas interiores del piso, son cinco puertas, están bien pero son muy viejas y queremos renovar"
+  },
+  {
+    "id": 452,
+    "oficio": "Carpintería",
+    "texto": "Fabricación e instalación de armario a medida en dormitorio de 3,5m de longitud y 2,4m de altura: melamina blanca mate, puertas correderas con cristal esmerilado, doble barra, cajones y estantes regulables"
+  },
+  {
+    "id": 453,
+    "oficio": "Carpintería",
+    "texto": "Sustitución de 6 puertas interiores de paso: marcos de roble lacado en blanco, puertas macizas con moldura, herrajes de acero satinado y tapajuntas, incluyendo demolición de marcos antiguos"
+  },
+  {
+    "id": 454,
+    "oficio": "Carpintería",
+    "texto": "Instalación de tarima de madera maciza de roble de 22mm en salón-comedor de 35m²: lijado del soporte, lámina antivapor, tarima flotante con junta perimetral y rodapié de madera maciza a juego"
+  },
+  {
+    "id": 455,
+    "oficio": "Carpintería",
+    "texto": "Fabricación de escalera de madera de pino tratado para acceso a desván: 12 peldaños de 30cm huella y 20cm contrahuella, barandilla con pasamanos de roble y balaustres torneados"
+  },
+  {
+    "id": 456,
+    "oficio": "Carpintería",
+    "texto": "Necesito un amario emportado en el pasillo, que aproveche toda la altura y con puertas de espeho"
+  },
+  {
+    "id": 457,
+    "oficio": "Carpintería",
+    "texto": "La puerta prinscipal esta toda picada de la madera y ya no sela puede pintar mas, creo que habra que cambiarla"
+  },
+  {
+    "id": 458,
+    "oficio": "Carpintería",
+    "texto": "Los suelos de parquet del salon estan muy rayados y feos, se pueden pulir o hay que cambiarlos"
+  },
+  {
+    "id": 459,
+    "oficio": "Carpintería",
+    "texto": "Restauración de carpintería exterior de madera en fachada de edificio histórico: decapado, tratamiento fungicida, masillado de grietas, lijado fino y aplicación de lasur con pigmentación original"
+  },
+  {
+    "id": 460,
+    "oficio": "Carpintería",
+    "texto": "Quiero un built-in wardrobe en el master bedroom con sliding doors, interior con hanging rail, pull-out drawers y adjustable shelving, todo en white lacquer finish"
+  },
+  {
+    "id": 461,
+    "oficio": "Pintura",
+    "texto": "Tengo manchas en la pared del salón que no sé si son humedad o es otra cosa"
+  },
+  {
+    "id": 462,
+    "oficio": "Pintura",
+    "texto": "Las paredes de la habitación tienen un color que quiero cambiar pero no sé si habrá que picar o con pintar vale"
+  },
+  {
+    "id": 463,
+    "oficio": "Pintura",
+    "texto": "Me está saliendo una cosa verde en la esquina del baño, ¿es moho eso?"
+  },
+  {
+    "id": 464,
+    "oficio": "Pintura",
+    "texto": "Hay una mancha en el techo que no sé de qué es, y cuando pinto encima vuelve a salir al poco tiempo"
+  },
+  {
+    "id": 465,
+    "oficio": "Pintura",
+    "texto": "Las paredes de toda la casa están asquerosas, las pintaron antes de que yo llegara y está todo lleno de manchas"
+  },
+  {
+    "id": 466,
+    "oficio": "Pintura",
+    "texto": "El piso que me acabo de comprar huele a humedad y tiene las paredes muy oscuras, hay que pintarlo todo"
+  },
+  {
+    "id": 467,
+    "oficio": "Pintura",
+    "texto": "Quiero dar un lavado de cara a la fachada del chalet, que lleva muchos años sin pintarse"
+  },
+  {
+    "id": 468,
+    "oficio": "Pintura",
+    "texto": "Los techos del salón son muy altos y están ennegrecidos de la chimenea, ¿qué hay que hacer?"
+  },
+  {
+    "id": 469,
+    "oficio": "Pintura",
+    "texto": "Hola mira que es para pintar el piso, que nos lo acabamos de comprar y está... bueno pues que hay que pintarlo todo, todo el piso, salón, habitaciones, cocina... los techos también"
+  },
+  {
+    "id": 470,
+    "oficio": "Pintura",
+    "texto": "Sí mira, tengo una mancha de humedad en la pared del dormitorio, ya la repararon pero ahora hay que pintar la zona afectada, como un metro cuadrado más o menos, igual que el resto"
+  },
+  {
+    "id": 471,
+    "oficio": "Pintura",
+    "texto": "Eeeh sí buenas es que quiero pintar la fachada del local comercial, no sé exactamente cuántos metros es pero es bastante grande, tiene letras también y eso habría que quitarlo antes"
+  },
+  {
+    "id": 472,
+    "oficio": "Pintura",
+    "texto": "Pintura completa de vivienda de 90m²: preparación con masillado y lijado, imprimación selladora, dos manos de plástica lavable en paredes y techos, protección de suelos, 5 habitaciones, 2 baños, cocina y salón"
+  },
+  {
+    "id": 473,
+    "oficio": "Pintura",
+    "texto": "Tratamiento de humedades en fachada de edificio de 5 plantas: limpieza a presión, saneado de zonas dañadas, puente de unión, revestimiento impermeabilizante elástico y pintura de acabado con pintura mineral"
+  },
+  {
+    "id": 474,
+    "oficio": "Pintura",
+    "texto": "Pintado de nave industrial de 800m²: limpieza, imprimación epoxi en suelo, pintura de señalización vial, pintura de paredes con plástica blanca de alta resistencia y marcado de zonas de paso"
+  },
+  {
+    "id": 475,
+    "oficio": "Pintura",
+    "texto": "Aplicación de microcemento en paredes y suelo de baño de 8m²: 3 capas de microcemento fino en color Gris Cemento, sellado con dos capas de barniz poliuretano satinado resistente al agua"
+  },
+  {
+    "id": 476,
+    "oficio": "Pintura",
+    "texto": "Quiero pintrar el salon y no se si hace falta enparedar o se puede dar la pintua encima directamente"
+  },
+  {
+    "id": 477,
+    "oficio": "Pintura",
+    "texto": "Tengo gotelé en todas las paredes y lo odio, se puede qitarlo y dejar la pared lisa o es muy caro"
+  },
+  {
+    "id": 478,
+    "oficio": "Pintura",
+    "texto": "La facha del local esta muy sucia y con desconchones, hay que pintarla y quizas poenr algo en las grietas"
+  },
+  {
+    "id": 479,
+    "oficio": "Pintura",
+    "texto": "Pintura ignífuga en estructura metálica de nave industrial de 400m²: chorreado de arena, imprimación anticorrosiva epoxi, dos capas de pintura intumescente RF-90 y capa de acabado"
+  },
+  {
+    "id": 480,
+    "oficio": "Pintura",
+    "texto": "Necesito un faux finish en el feature wall del living room, tipo venetian plaster o algo similar, quiero un look premium con textura"
+  },
+  {
+    "id": 481,
+    "oficio": "Albañilería",
+    "texto": "Tengo grietas en la pared del salón, no sé si son estructurales o de asentamiento"
+  },
+  {
+    "id": 482,
+    "oficio": "Albañilería",
+    "texto": "Se me ha caído un trozo de enfoscado del techo del garaje, no sé qué tan grave es"
+  },
+  {
+    "id": 483,
+    "oficio": "Albañilería",
+    "texto": "Hay un bultito raro en el suelo del patio, que creo que es el solado que se está levantando"
+  },
+  {
+    "id": 484,
+    "oficio": "Albañilería",
+    "texto": "La pared del baño hace un sonido hueco cuando la golpeo, ¿eso es malo o solo estético?"
+  },
+  {
+    "id": 485,
+    "oficio": "Albañilería",
+    "texto": "Necesito hacer una habitación más pequeña porque tenemos un bebé, quiero poner una pared en el dormitorio grande"
+  },
+  {
+    "id": 486,
+    "oficio": "Albañilería",
+    "texto": "El sótano está todo húmedo y con paredes que se desmoronan, necesito arreglarlo antes del invierno"
+  },
+  {
+    "id": 487,
+    "oficio": "Albañilería",
+    "texto": "Quiero tirar la pared que separa la cocina del salón para hacer el espacio más grande"
+  },
+  {
+    "id": 488,
+    "oficio": "Albañilería",
+    "texto": "Los peldaños de la escalera exterior están todos agrietados y el hierro ya se ve por fuera"
+  },
+  {
+    "id": 489,
+    "oficio": "Albañilería",
+    "texto": "Sí hola, mira, es que quiero en el piso... pues unir dos habitaciones pequeñas tirando la pared del medio, no sé si es posible o si eso es una pared de carga"
+  },
+  {
+    "id": 490,
+    "oficio": "Albañilería",
+    "texto": "Hola mira tengo el garaje con el suelo muy deteriorado, hay grietas y partes que se están levantando y quería que alguien me dijera qué hay que hacer"
+  },
+  {
+    "id": 491,
+    "oficio": "Albañilería",
+    "texto": "Eeeh sí mira, tengo una terraza y la pared del fondo tiene partes que se están desprendiendo, hay trozos hinchados y uno ya se cayó"
+  },
+  {
+    "id": 492,
+    "oficio": "Albañilería",
+    "texto": "Demolición de tabique en piso de 90m², apertura de 3 metros en pared de carga con viga metálica HEB-200, apeo provisional y reconstrucción de paramentos y solería de paso"
+  },
+  {
+    "id": 493,
+    "oficio": "Albañilería",
+    "texto": "Construcción de cuarto de baño nuevo en vivienda: apertura de hueco en forjado para desagüe, tabiquería de pladur hidrofugado, alicatado, fontanería, electricidad, solado y falso techo"
+  },
+  {
+    "id": 494,
+    "oficio": "Albañilería",
+    "texto": "Reparación de fachada de edificio de 4 plantas: andamiaje, picado de zonas con riesgo, saneado de grietas con resinas epoxi, enfoscado de mortero de cal hidráulica y pintado de acabado"
+  },
+  {
+    "id": 495,
+    "oficio": "Albañilería",
+    "texto": "Solado de terraza de 80m² con baldosa porcelánica antideslizante 60x60: demolición de solado, capa de mortero de nivelación, colocación con junta elástica de 5mm y rejuntado"
+  },
+  {
+    "id": 496,
+    "oficio": "Albañilería",
+    "texto": "Quiero tirar un tabiqe para unir la cocina y el salon, creo que no es de carga pero no estoy seguro"
+  },
+  {
+    "id": 497,
+    "oficio": "Albañilería",
+    "texto": "Tengo grietas en las paredes de casa y no se si es porque el vecino de abajo ha echo obras recientemente"
+  },
+  {
+    "id": 498,
+    "oficio": "Albañilería",
+    "texto": "Me estan salendo humedades en el sotano y la pared ya tiene como un polvo blanco que creo que es salitre"
+  },
+  {
+    "id": 499,
+    "oficio": "Albañilería",
+    "texto": "Impermeabilización de muro de sótano enterrado: excavación perimetral, lámina asfáltica autoprotegida, mortero drenante, geotextil, relleno con grava y tubo drenante de PVC"
+  },
+  {
+    "id": 500,
+    "oficio": "Albañilería",
+    "texto": "Necesito un feature wall en el living con exposed brick effect, usando real brick slips y pointing con mortero de color, rough rustic finish"
+  },
+  {
+    "id": 501,
+    "oficio": "Climatización",
+    "texto": "El aire acondicionado enfría pero hace un ruido que antes no hacía, como un traqueteo"
+  },
+  {
+    "id": 502,
+    "oficio": "Climatización",
+    "texto": "El split del salón pone modo frío bien pero cuando pongo calor no calienta nada"
+  },
+  {
+    "id": 503,
+    "oficio": "Climatización",
+    "texto": "El aire me deja la habitación fría pero hay una parte del techo donde no llega para nada"
+  },
+  {
+    "id": 504,
+    "oficio": "Climatización",
+    "texto": "El aparato del aire acondicionado hace gotear agua por la pared interior, justo debajo"
+  },
+  {
+    "id": 505,
+    "oficio": "Climatización",
+    "texto": "El arete ese de la habitación no enfría nada, ya lo he puesto en modo auto y nada de nada"
+  },
+  {
+    "id": 506,
+    "oficio": "Climatización",
+    "texto": "Se me ha roto el mando a distancia del aire y no sé cómo encenderlo sin él"
+  },
+  {
+    "id": 507,
+    "oficio": "Climatización",
+    "texto": "En verano el piso se pone como un horno y quiero instalar aire acondicionado por primera vez"
+  },
+  {
+    "id": 508,
+    "oficio": "Climatización",
+    "texto": "El climatizador de la oficina hace un ruido horrible, como si tuviera algo metido dentro"
+  },
+  {
+    "id": 509,
+    "oficio": "Climatización",
+    "texto": "Hola, sí, mira es que tengo el aire del salón que funciona pero hace un olor raro, como a humedad, sobre todo cuando arranca"
+  },
+  {
+    "id": 510,
+    "oficio": "Climatización",
+    "texto": "Mira es que en casa tenemos un split de pared y ha dejado de funcionar completamente, lleva como una semana apagado del todo, ya le cambié las pilas al mando y nada"
+  },
+  {
+    "id": 511,
+    "oficio": "Climatización",
+    "texto": "Sí, es que quiero poner aire en los tres dormitorios del piso, ahora mismo no hay ninguno y en verano es imposible dormir, qué opciones hay y cuánto costaría"
+  },
+  {
+    "id": 512,
+    "oficio": "Climatización",
+    "texto": "Instalación de sistema multi-split 2x1 en vivienda de 80m²: unidad exterior 5kW en cubierta, dos unidades interiores de 2,5kW con control WiFi, tuberías de cobre, cableado y drenaje de condensados"
+  },
+  {
+    "id": 513,
+    "oficio": "Climatización",
+    "texto": "Instalación de ventilación mecánica de doble flujo con recuperador de calor en vivienda de 120m²: unidad central eficiencia >90%, conductos de chapa, bocas en baños/cocina y dormitorios"
+  },
+  {
+    "id": 514,
+    "oficio": "Climatización",
+    "texto": "Mantenimiento anual de climatización en local de 400m²: 4 unidades de conductos de 10kW, limpieza de filtros y baterías, revisión del circuito frigorífico con medición de presiones y ajuste de caudales"
+  },
+  {
+    "id": 515,
+    "oficio": "Climatización",
+    "texto": "Instalación de sistema VRV de 3 tubos en edificio de oficinas de 800m²: unidad exterior 40kW, 12 unidades cassette de 4 vías con control individual y sistema de gestión centralizada BMS"
+  },
+  {
+    "id": 516,
+    "oficio": "Climatización",
+    "texto": "El ayre acondicionado me echa un olor malissimo cuando lo enciendo, lleva sin usarse todo el inbierno"
+  },
+  {
+    "id": 517,
+    "oficio": "Climatización",
+    "texto": "Se me ha roto el ayre y es agosto, necesito que vengan urgente, estoy con 40 grados en casa"
+  },
+  {
+    "id": 518,
+    "oficio": "Climatización",
+    "texto": "Quiero poner ayre en el local, es de unos 60 metros, y no se si con uno basta o necesito mas"
+  },
+  {
+    "id": 519,
+    "oficio": "Climatización",
+    "texto": "Instalación de climatización de precisión en sala de servidores de 20m²: dos unidades redundantes N+1, control de temperatura y humedad, alarmas remotas y caudal de renovación reglamentario"
+  },
+  {
+    "id": 520,
+    "oficio": "Climatización",
+    "texto": "I need a ductless mini-split system, SEER rating of at least 18, with smart home integration, for a room of about 25 square meters"
+  },
+  {
+    "id": 521,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Después de la última lluvia me ha entrado agua pero no encuentro el sitio exacto de la gotera"
+  },
+  {
+    "id": 522,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Los vecinos de arriba dicen que les entra agua y apuntan a mi terraza como origen de la filtración"
+  },
+  {
+    "id": 523,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Las tejas del tejado de la cochera se han movido con el viento, no sé si falta alguna"
+  },
+  {
+    "id": 524,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "El tejado del garaje suena diferente con la lluvia que antes, hace como un tamborileo nuevo"
+  },
+  {
+    "id": 525,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Cada vez que llueve me entra agua por el techo del dormitorio y ya tengo la mancha hecha en la pared"
+  },
+  {
+    "id": 526,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "El tejado del chalet tiene ya muchos años y se ven tejas rotas, hay que revisarlo antes del invierno"
+  },
+  {
+    "id": 527,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Quiero cambiar el tejado del garaje que es de uralita porque sé que puede ser peligrosa"
+  },
+  {
+    "id": 528,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "En la comunidad tenemos problemas con la cubierta del edificio, cada invierno hay goteras en el último piso"
+  },
+  {
+    "id": 529,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Hola mira que tengo el tejado del chalet que tiene muchos años y cuando llueve fuerte hay un sitio donde me entra agua, en el dormitorio de arriba, quería que alguien lo viera"
+  },
+  {
+    "id": 530,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Sí, mira, es para el tejado de una casa de pueblo que hemos heredado, el tejado está en mal estado, hay tejas rotas, hay partes hundidas, necesitamos saber qué hay que hacer y cuánto costaría"
+  },
+  {
+    "id": 531,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Eeeh sí, es para el tejado del garaje, que es de fibrocemento y queremos quitarlo porque es amianto y tenemos niños, qué recomendarían para sustituirlo"
+  },
+  {
+    "id": 532,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Reparación de cubierta inclinada de teja cerámica curva: desmontaje de tejas, impermeabilización del tablero con lámina bituminosa autoprotegida, rastreles de madera tratada y recolocación de teja con complemento de piezas nuevas"
+  },
+  {
+    "id": 533,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Rehabilitación de cubierta plana no transitable de edificio de viviendas: retirada de grava, demolición de lámina existente, formación de pendientes con mortero aligerado, doble lámina de betún modificado y acabado de grava nueva"
+  },
+  {
+    "id": 534,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Retirada y gestión de residuos de cubierta de fibrocemento con amianto en nave de 300m² según RD 396/2006: empresa autorizada, plan de trabajo, EPIs, transporte y vertido en gestor autorizado"
+  },
+  {
+    "id": 535,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Instalación de cubierta de panel sándwich de acero lacado con lana de roca 100mm en nave de 400m²: desmontaje de cubierta anterior, correas metálicas, fijación de panel y babetas perimetrales"
+  },
+  {
+    "id": 536,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Se me mete agua por el tejado cuando llueve mucho, creo que es por las tejas pero no se donde exactamente"
+  },
+  {
+    "id": 537,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "La caballete del tejado esta toda movida y cuando ay mucho viento creo que alguna teja cae abajo"
+  },
+  {
+    "id": 538,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Quiero poner paneles solares en el tejado pero primero creo que habra que arreglar alguna cosita del propio tejado"
+  },
+  {
+    "id": 539,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Inspección técnica de cubierta: peritaje con informe fotográfico, medición de espesores de lámina impermeabilizante, prueba de estanqueidad por inundación e informe técnico con propuesta de reparación"
+  },
+  {
+    "id": 540,
+    "oficio": "Tejados/Cubiertas",
+    "texto": "Need to replace the flat roof membrane on a 200m² commercial building, looking for a TPO or EPDM solution with a 20-year warranty and insulation upgrade"
+  },
+  {
+    "id": 541,
+    "oficio": "Pladur",
+    "texto": "El pladur del baño se ha mojado y hace como un bultito, ¿hay que cambiarlo todo?"
+  },
+  {
+    "id": 542,
+    "oficio": "Pladur",
+    "texto": "Hay una grieta en el falso techo del salón, no sé si es por la placa o por la estructura metálica"
+  },
+  {
+    "id": 543,
+    "oficio": "Pladur",
+    "texto": "Se me ha hundido una parte del techo de escayola, ¿eso es peligroso o solo estético?"
+  },
+  {
+    "id": 544,
+    "oficio": "Pladur",
+    "texto": "Las paredes de pladur de la oficina suenan mucho, se oye todo de una sala a otra sin problema"
+  },
+  {
+    "id": 545,
+    "oficio": "Pladur",
+    "texto": "Quiero dividir el salón en dos con una pared y que no se pasen demasiado los ruidos"
+  },
+  {
+    "id": 546,
+    "oficio": "Pladur",
+    "texto": "El garaje lo quiero convertir en habitación habitable, con techo y paredes bien aisladas"
+  },
+  {
+    "id": 547,
+    "oficio": "Pladur",
+    "texto": "Necesito un falso techo en el salón para esconder los cables y tuberías que hay vistos"
+  },
+  {
+    "id": 548,
+    "oficio": "Pladur",
+    "texto": "Las paredes de pladur de la cocina tienen manchas de humedad por detrás de los muebles"
+  },
+  {
+    "id": 549,
+    "oficio": "Pladur",
+    "texto": "Hola, mira, quiero hacer una habitación más en el piso, en el salón que es grande, poner una pared de pladur que se hace rápido, y necesito saber cuánto costaría y si hace falta permiso"
+  },
+  {
+    "id": 550,
+    "oficio": "Pladur",
+    "texto": "Sí mira, tenemos una oficina que queremos dividir en dos despachos con una pared en el centro, que sea lo más insonorizada posible porque son reuniones"
+  },
+  {
+    "id": 551,
+    "oficio": "Pladur",
+    "texto": "Eeeh sí, buenos días, quería presupuesto para falso techo en toda la planta baja de un local, son como 80 metros cuadrados, y además quería meter iluminación empotrada en el falso techo"
+  },
+  {
+    "id": 552,
+    "oficio": "Pladur",
+    "texto": "Construcción de partición interior con doble placa de yeso en cada lado, lana de roca 70mm, montantes cada 40cm, para aislamiento acústico entre dormitorios, superficie 15m²"
+  },
+  {
+    "id": 553,
+    "oficio": "Pladur",
+    "texto": "Falso techo continuo de pladur en planta de oficinas de 200m²: perfilería galvanizada nivelada con láser, placa de yeso 15mm, masillado listo para pintar, con huecos para luminarias y detectores"
+  },
+  {
+    "id": 554,
+    "oficio": "Pladur",
+    "texto": "Trasdosado de fachada norte con pladur hidrofugado: perfil omega 70mm con lana de roca 60mm, doble placa hydro en baños y cocinas, masillado y acabado, en vivienda de 100m²"
+  },
+  {
+    "id": 555,
+    "oficio": "Pladur",
+    "texto": "Conversión de local de 80m² en oficina de coworking: 4 despachos de 12m², sala de reuniones de 20m², zona común, falso techo con placa acústica y trasdosado de fachada con aislamiento"
+  },
+  {
+    "id": 556,
+    "oficio": "Pladur",
+    "texto": "Quiero hacer una abitacion mas en el salon con una pared de plasdur pero que aguante bien los cuadros"
+  },
+  {
+    "id": 557,
+    "oficio": "Pladur",
+    "texto": "El falso techo del dormitorio se ha hundido un poco en una esquina, ay que cambiarlo todo o solo esa parte"
+  },
+  {
+    "id": 558,
+    "oficio": "Pladur",
+    "texto": "Tengo una pared de pladur en el bano que tiene manchas verdes de humedad, como se arregla"
+  },
+  {
+    "id": 559,
+    "oficio": "Pladur",
+    "texto": "Construcción de cabina de insonorización para estudio de grabación de 12m²: tabiques multicapa con triple placa, cámara de aire con lana de roca, doble marco flotante, masa-muelle y puerta acústica sellada"
+  },
+  {
+    "id": 560,
+    "oficio": "Pladur",
+    "texto": "I need a stud partition wall for a home studio setup, with high soundproofing, ideally achieving at least 45dB of sound reduction between rooms"
+  },
+  {
+    "id": 561,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Las baldosas del baño suenan huecas cuando las piso, ¿hay que cambiarlas todas?"
+  },
+  {
+    "id": 562,
+    "oficio": "Suelos y Alicatados",
+    "texto": "El suelo de tarima del salón tiene una mancha oscura, creo que es por una fuga que tuvimos"
+  },
+  {
+    "id": 563,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Se me están levantando las baldosas del baño en una esquina y hay una rota"
+  },
+  {
+    "id": 564,
+    "oficio": "Suelos y Alicatados",
+    "texto": "El parquet cruje mucho en el pasillo, hace un ruido horrible cada vez que andas por ahí"
+  },
+  {
+    "id": 565,
+    "oficio": "Suelos y Alicatados",
+    "texto": "El suelo del baño está fatal, hay baldosas rotas y otras flojísimas que se mueven al pisarlas"
+  },
+  {
+    "id": 566,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Quiero cambiar el suelo de toda la casa, ahora tiene moqueta y quiero algo más moderno y fácil de limpiar"
+  },
+  {
+    "id": 567,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Necesito alicatar el baño que está sin azulejos porque lo acabo de reformar"
+  },
+  {
+    "id": 568,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Las juntas del baño están todas negras de hongos y no hay manera de limpiarlas aunque use lejía"
+  },
+  {
+    "id": 569,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Hola sí, mira, es que el suelo del baño está muy mal, hay varias baldosas rotas y otras que cuando las pisas se mueven, y además las juntas están todas negras, ¿hay que cambiarlo todo o se puede arreglar?"
+  },
+  {
+    "id": 570,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Sí mira, es que en el salón tenemos tarima flotante de hace unos 15 años y está ya muy desgastada en las zonas de paso, ¿se puede lijar y barnizar o hay que cambiarla?"
+  },
+  {
+    "id": 571,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Eeeh sí buenas, es para alicatar la cocina, que ahora mismo no tiene azulejos solo pintura en la pared, y quería ponerle azulejos por detrás de los muebles y encimera, no sé cuántos metros son"
+  },
+  {
+    "id": 572,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Alicatado completo de baño de 7m²: demolición de alicatado antiguo, repaso de paredes, colocación de porcelán 60x60 blanco brillo hasta techo, rodapié a juego, rejuntado y sellado perimetral con silicona"
+  },
+  {
+    "id": 573,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Instalación de suelo radiante eléctrico con porcelán en cocina de 15m²: nivelación del soporte, cable calefactor con termostato programable, mortero autonivelante y porcelán antideslizante 60x120"
+  },
+  {
+    "id": 574,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Pulido y abrillantado de suelo de mármol en vivienda de 200m²: esmerilado con diamante grano 400, pulido con grano 800 y 3000, cristalización con polvo de mármol y cera de mantenimiento"
+  },
+  {
+    "id": 575,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Instalación de microcemento continuo en suelo de apartamento de 60m²: 2 manos de base, 3 manos de acabado fino color árido, 2 manos de sellador poliuretano satinado resistente a abrasión"
+  },
+  {
+    "id": 576,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Las balosas del bano estan flojas y cuando las piso hacen ruido como si se fueran a romper, ay q cambiarlas"
+  },
+  {
+    "id": 577,
+    "oficio": "Suelos y Alicatados",
+    "texto": "El parquet del salon cruge muchismo cuando andas y queremos ver si se puede arreglar sin cambiarlo entero"
+  },
+  {
+    "id": 578,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Quiero poner suelo de banhera en la cocina, ese de azulejo grande de 60x60 que queda muy bonito"
+  },
+  {
+    "id": 579,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Inspección técnica de revestimiento cerámico en fachada de 8 plantas: prueba de adherencia por percusión, inspección termográfica, informe con mapa de zonas afectadas y propuesta de intervención"
+  },
+  {
+    "id": 580,
+    "oficio": "Suelos y Alicatados",
+    "texto": "Looking for large format porcelain tiles installation, 120x60, for a 40m² living room, with underfloor heating mat, all-in-one quote including materials and labour"
+  },
+  {
+    "id": 581,
+    "oficio": "Cerrajería",
+    "texto": "La cerradura de casa ataca a veces, cuesta mucho girar la llave y tengo miedo de que se quede dentro"
+  },
+  {
+    "id": 582,
+    "oficio": "Cerrajería",
+    "texto": "La puerta de la calle no abre bien desde fuera aunque meta la llave correcta"
+  },
+  {
+    "id": 583,
+    "oficio": "Cerrajería",
+    "texto": "Me han roto el buzón y la parte de la cerradura tiene algo movido"
+  },
+  {
+    "id": 584,
+    "oficio": "Cerrajería",
+    "texto": "El bombín de la puerta parece que está flojo, la llave gira más de lo que debería girar"
+  },
+  {
+    "id": 585,
+    "oficio": "Cerrajería",
+    "texto": "Me he quedado fuera de casa con las llaves dentro, necesito a alguien urgente"
+  },
+  {
+    "id": 586,
+    "oficio": "Cerrajería",
+    "texto": "Quiero cambiar la cerradura de casa porque le he dado las llaves a alguien y ya no confío"
+  },
+  {
+    "id": 587,
+    "oficio": "Cerrajería",
+    "texto": "Necesito una cerradura más segura para la puerta de entrada, la que tengo es muy vieja"
+  },
+  {
+    "id": 588,
+    "oficio": "Cerrajería",
+    "texto": "El garaje tiene un pestillo que ya no funciona bien, cada vez cuesta más cerrar la puerta"
+  },
+  {
+    "id": 589,
+    "oficio": "Cerrajería",
+    "texto": "Hola buenos días, mira, es que me he quedado sin poder entrar en casa, las llaves las tengo dentro y necesito que alguien venga lo antes posible porque estoy en la puerta con los niños"
+  },
+  {
+    "id": 590,
+    "oficio": "Cerrajería",
+    "texto": "Sí mira, es que quiero poner una puerta blindada o al menos una cerradura más segura, me han robado a una vecina y quiero estar más tranquilo"
+  },
+  {
+    "id": 591,
+    "oficio": "Cerrajería",
+    "texto": "Hola, es para la reja del local que la hemos roto al abrir con el camión de reparto y está doblada y ya no baja bien, necesitamos arreglarla urgente"
+  },
+  {
+    "id": 592,
+    "oficio": "Cerrajería",
+    "texto": "Sustitución de puerta de entrada: retirada de puerta y marco existente, puerta blindada RC3, cerradura de 5 puntos con cilindro antibumping, marco con premarco, burlete perimetral y mirilla gran angular"
+  },
+  {
+    "id": 593,
+    "oficio": "Cerrajería",
+    "texto": "Instalación de control de acceso en oficina de 200m²: lectora RFID en puerta principal, 2 lectoras en zonas restringidas, central con software de gestión, apertura remota desde app y registro de eventos"
+  },
+  {
+    "id": 594,
+    "oficio": "Cerrajería",
+    "texto": "Reparación de puerta automática corredera en acceso comercial: diagnóstico de avería en motor, sustitución de célula fotoeléctrica, revisión de guías y rodamientos, ajuste de velocidades y prueba de seguridad"
+  },
+  {
+    "id": 595,
+    "oficio": "Cerrajería",
+    "texto": "Instalación de caja fuerte empotrada en pared de 30cm: apertura de nicho, caja de acero de 50L con cierre electrónico de doble combinación, anclaje con 4 pernos de expansión y reposición de acabado"
+  },
+  {
+    "id": 596,
+    "oficio": "Cerrajería",
+    "texto": "Me he olvidado las llaves dentro y no tengo copia, necesito que vengan a abrirme la perta lo antes posible"
+  },
+  {
+    "id": 597,
+    "oficio": "Cerrajería",
+    "texto": "La cerradura de la puerta principal va muy dura y a veces no abre, creo que le falta aceite o algo"
+  },
+  {
+    "id": 598,
+    "oficio": "Cerrajería",
+    "texto": "Quiero poner una cerradura de esas que se abre con el movil o con huella dactilar en la puerta entrada"
+  },
+  {
+    "id": 599,
+    "oficio": "Cerrajería",
+    "texto": "Inspección de seguridad física: evaluación de perímetro, análisis de vulnerabilidades en accesos, clasificación de puertas según UNE-EN 1303 y propuesta de mejora con presupuesto"
+  },
+  {
+    "id": 600,
+    "oficio": "Cerrajería",
+    "texto": "I need a smart lock installation on my front door, compatible with HomeKit, with a deadbolt mechanism, including a keypad and fingerprint reader"
+  },
+  {
+    "id": 601,
+    "oficio": "Jardinería",
+    "texto": "El jardín tiene zonas donde el césped no crece bien, quedan parches amarillos sin saber por qué"
+  },
+  {
+    "id": 602,
+    "oficio": "Jardinería",
+    "texto": "El árbol del jardín tiene ramas que llegan hasta la casa del vecino y me está reclamando"
+  },
+  {
+    "id": 603,
+    "oficio": "Jardinería",
+    "texto": "Las plantas del jardín se están poniendo amarillas, no sé si es la tierra o que les falta agua"
+  },
+  {
+    "id": 604,
+    "oficio": "Jardinería",
+    "texto": "El jardín siempre está seco aunque lo riegue, el sistema de riego no creo que llegue a todos los rincones"
+  },
+  {
+    "id": 605,
+    "oficio": "Jardinería",
+    "texto": "El jardín está hecho un desastre después del invierno, hay que arreglarlo todo de cero"
+  },
+  {
+    "id": 606,
+    "oficio": "Jardinería",
+    "texto": "El seto del jardín está enorme y ya no lo podemos cortar solos, hay que llamar a alguien"
+  },
+  {
+    "id": 607,
+    "oficio": "Jardinería",
+    "texto": "Quiero poner un sistema de riego automático en el jardín porque no estoy en casa para regarlo"
+  },
+  {
+    "id": 608,
+    "oficio": "Jardinería",
+    "texto": "El árbol de la entrada ya es muy grande y las raíces están levantando las baldosas del camino"
+  },
+  {
+    "id": 609,
+    "oficio": "Jardinería",
+    "texto": "Hola, mira, es que tengo un jardín en la parcela y está muy descuidado, tiene césped pero lleno de malas hierbas y hay zonas secas, quería que alguien lo pusiera en condiciones"
+  },
+  {
+    "id": 610,
+    "oficio": "Jardinería",
+    "texto": "Sí, es que quiero hacer un jardín en una zona que ahora es tierra, son como 80 metros, poner césped, plantas, quizás un caminito de piedra, no tengo muy claro qué quiero"
+  },
+  {
+    "id": 611,
+    "oficio": "Jardinería",
+    "texto": "Eeeh sí mira, es para lo del riego que tengo un jardín con riego pero hace tiempo que no funciona bien, no sé si es avería o hay que reprogramarlo, porque hay partes que se riegan y otras no"
+  },
+  {
+    "id": 612,
+    "oficio": "Jardinería",
+    "texto": "Diseño e instalación de jardín en parcela de 200m²: zona de césped de 120m² sembrada, zona de gravilla con aromáticas, camino de piedra natural de 2m de ancho y sistema de riego por goteo con programador"
+  },
+  {
+    "id": 613,
+    "oficio": "Jardinería",
+    "texto": "Tala de árbol de 15 metros con riesgo de caída sobre edificio: tala por secciones con escalada, trituradora de ramas, extracción de tocón, retirada de residuos e informe técnico previo"
+  },
+  {
+    "id": 614,
+    "oficio": "Jardinería",
+    "texto": "Instalación de riego automatizado en jardín de 500m²: 3 sectores con electroválvulas, aspersores emergentes para césped, goteros para arbustos, central con programación por app y sonda de lluvia"
+  },
+  {
+    "id": 615,
+    "oficio": "Jardinería",
+    "texto": "Poda selectiva de 40 metros lineales de ciprés a 3m de altura, 20m de boj en formas geométricas, 6 árboles ornamentales con levantamiento de copa y retirada de restos con camión"
+  },
+  {
+    "id": 616,
+    "oficio": "Jardinería",
+    "texto": "El jardin esta todo lleno de malas hierbas y el cesped esta amarillo, quiero que lo limpien y lo arreglen todo"
+  },
+  {
+    "id": 617,
+    "oficio": "Jardinería",
+    "texto": "Tengo un arbol que esta muy mal y me da miedo de que se caga con el viento, habra que cortarlo"
+  },
+  {
+    "id": 618,
+    "oficio": "Jardinería",
+    "texto": "Quiero poner iluminasion en el jardin, de esas luzecitas en el suelo y quizas algo en los arboles"
+  },
+  {
+    "id": 619,
+    "oficio": "Jardinería",
+    "texto": "Proyecto de jardín sostenible: plantas autóctonas de bajo consumo hídrico, depósito de agua de lluvia de 5000L con bomba conectada al riego, compostera y sistema de mulching"
+  },
+  {
+    "id": 620,
+    "oficio": "Jardinería",
+    "texto": "I want a complete garden makeover: artificial grass on 60m², a small water feature, LED path lighting, and a drip irrigation system for the plant borders"
+  },
+  {
+    "id": 621,
+    "oficio": "Energía Solar",
+    "texto": "Los paneles solares que tengo instalados parece que producen menos de lo que deberían producir"
+  },
+  {
+    "id": 622,
+    "oficio": "Energía Solar",
+    "texto": "El inversor solar hace un pitido intermitente y no sé lo que significa ese código de error"
+  },
+  {
+    "id": 623,
+    "oficio": "Energía Solar",
+    "texto": "La factura de la luz no ha bajado nada desde que instalé los paneles solares hace seis meses"
+  },
+  {
+    "id": 624,
+    "oficio": "Energía Solar",
+    "texto": "El monitor de los paneles marca un error pero no entiendo qué significa el código que aparece"
+  },
+  {
+    "id": 625,
+    "oficio": "Energía Solar",
+    "texto": "Quiero quitarme la factura de la luz de una vez y no sé si los paneles solares son la solución"
+  },
+  {
+    "id": 626,
+    "oficio": "Energía Solar",
+    "texto": "Me han hablado de los paneles solares pero no sé si en mi piso del cuarto piso se puede poner"
+  },
+  {
+    "id": 627,
+    "oficio": "Energía Solar",
+    "texto": "Quiero instalar paneles solares en el tejado del chalet para ahorrar en la factura de electricidad"
+  },
+  {
+    "id": 628,
+    "oficio": "Energía Solar",
+    "texto": "Tengo una pequeña empresa con factura eléctrica muy alta, quiero estudiar si los paneles me compensan"
+  },
+  {
+    "id": 629,
+    "oficio": "Energía Solar",
+    "texto": "Hola, sí, mira es que hace un año me instalaron paneles solares y el primer verano fue bien pero este año producen mucho menos, el inversor enciende pero la producción está muy baja"
+  },
+  {
+    "id": 630,
+    "oficio": "Energía Solar",
+    "texto": "Sí mira, quiero informarme sobre los paneles solares, es para vivienda unifamiliar con tejado a dos aguas orientado al sur más o menos, quería saber cuántos necesitaría y cuánto costaría"
+  },
+  {
+    "id": 631,
+    "oficio": "Energía Solar",
+    "texto": "Eeeh sí mira, es para lo de las subvenciones de los paneles solares, que he visto que hay ayudas y no sé cómo funciona, si me pueden ayudar a tramitarlo junto con la propia instalación"
+  },
+  {
+    "id": 632,
+    "oficio": "Energía Solar",
+    "texto": "Instalación fotovoltaica de autoconsumo en vivienda unifamiliar: 10 paneles monocristalinos 450Wp sur, inversor híbrido 5kW, batería de litio 10kWh, monitorización, legalización y tramitación de compensación"
+  },
+  {
+    "id": 633,
+    "oficio": "Energía Solar",
+    "texto": "Instalación de solar térmica para ACS en edificio de 12 viviendas: 6 captadores planos, interacumulador de 1500L, grupo hidráulico, centralita diferencial y sistema anti-legionela"
+  },
+  {
+    "id": 634,
+    "oficio": "Energía Solar",
+    "texto": "Ampliación de instalación fotovoltaica existente de 3kWp: añadir 4 paneles de 450Wp, inversor adicional de 2kW, optimizadores individuales, actualización de protecciones DC y recableado"
+  },
+  {
+    "id": 635,
+    "oficio": "Energía Solar",
+    "texto": "Sistema solar aislado de red para instalación agropecuaria: 20 paneles 450Wp, banco de baterías 48V/400Ah, inversor cargador 10kW, grupo electrógeno de apoyo y cuadro de protecciones"
+  },
+  {
+    "id": 636,
+    "oficio": "Energía Solar",
+    "texto": "Quiero poner paneles solares pero no se cuantos necesito ni si mi tejado aguanta el peso de los paneles"
+  },
+  {
+    "id": 637,
+    "oficio": "Energía Solar",
+    "texto": "Los paneles solares que tenia instalados se han visto afectados por el granizo y uno esta roto, como lo arreglo"
+  },
+  {
+    "id": 638,
+    "oficio": "Energía Solar",
+    "texto": "Quiero saber si me interesa poner baterias con los paneles solares que ya tengo o no compensa economicamente"
+  },
+  {
+    "id": 639,
+    "oficio": "Energía Solar",
+    "texto": "Auditoría energética de vivienda unifamiliar: calificación energética según CTE, análisis de envolvente térmica, informe de mejoras con estimación de ahorro y ROI incluyendo fotovoltaica"
+  },
+  {
+    "id": 640,
+    "oficio": "Energía Solar",
+    "texto": "I want a full solar system with battery storage for off-grid capability, enough to power a 150m² house with AC, induction cooker and EV charging, full quote including installation"
+  },
+  {
+    "id": 641,
+    "oficio": "Telecomunicaciones",
+    "texto": "La señal de internet en algunas habitaciones del piso es muy mala aunque tengo el router en el salón"
+  },
+  {
+    "id": 642,
+    "oficio": "Telecomunicaciones",
+    "texto": "La televisión de la habitación tiene imagen con interferencias aunque el canal está bien en el salón"
+  },
+  {
+    "id": 643,
+    "oficio": "Telecomunicaciones",
+    "texto": "El interfono del portal no suena cuando llaman desde abajo y tampoco consigo abrir la puerta"
+  },
+  {
+    "id": 644,
+    "oficio": "Telecomunicaciones",
+    "texto": "Desde que el vecino puso no sé qué aparato, mi wifi va mucho peor que antes"
+  },
+  {
+    "id": 645,
+    "oficio": "Telecomunicaciones",
+    "texto": "El wifi en el segundo piso no llega nada, cuando subo las escaleras se corta todo completamente"
+  },
+  {
+    "id": 646,
+    "oficio": "Telecomunicaciones",
+    "texto": "La antena de la comunidad está rota desde la última tormenta y nadie en el bloque ve la tele"
+  },
+  {
+    "id": 647,
+    "oficio": "Telecomunicaciones",
+    "texto": "Quiero poner puntos de wifi por toda la casa para tener buena señal en todos los rincones"
+  },
+  {
+    "id": 648,
+    "oficio": "Telecomunicaciones",
+    "texto": "El videoportero del bloque no funciona bien, se oye muy mal y la imagen sale oscura"
+  },
+  {
+    "id": 649,
+    "oficio": "Telecomunicaciones",
+    "texto": "Hola mira, es que en casa el wifi va muy mal, en el salón va bien porque tengo el router ahí pero en los dormitorios sobre todo el del fondo del pasillo casi no hay señal y se corta continuamente"
+  },
+  {
+    "id": 650,
+    "oficio": "Telecomunicaciones",
+    "texto": "Sí mira, es que en la comunidad tenemos la antena colectiva que no funciona bien desde el año pasado, hay pisos que tienen señal mal o no tienen algunos canales, qué habría que hacer"
+  },
+  {
+    "id": 651,
+    "oficio": "Telecomunicaciones",
+    "texto": "Eeeh sí, buenos días, es que acabo de comprar un local y quiero montar una oficina, necesito poner conexiones de red por toda la planta, puntos de red en las mesas y wifi corporativo"
+  },
+  {
+    "id": 652,
+    "oficio": "Telecomunicaciones",
+    "texto": "Instalación de red de datos en oficina de 150m²: 20 tomas RJ45 Cat6A, rack de 12U con switch PoE de 24 puertos, patch panel, 2 puntos de acceso WiFi 6 con controladora y certificación de canal"
+  },
+  {
+    "id": 653,
+    "oficio": "Telecomunicaciones",
+    "texto": "Instalación de sistema CCTV en local comercial: 8 cámaras IP domo 4MP antivandálico, NVR de 16 canales con disco 4TB, visualización remota desde app y monitor 24\" en zona de caja"
+  },
+  {
+    "id": 654,
+    "oficio": "Telecomunicaciones",
+    "texto": "Instalación de ICT en edificio de 12 viviendas: armario de telecomunicaciones, amplificador TDT, distribución por planta con repartidores, cableado coaxial hasta cada vivienda según RITI/RITS"
+  },
+  {
+    "id": 655,
+    "oficio": "Telecomunicaciones",
+    "texto": "Sistema de megafonía en nave industrial de 2000m²: amplificador de 240W, 20 altavoces de techo 20W, música ambiental, sistema de evacuación de emergencia y micrófono de llamada"
+  },
+  {
+    "id": 656,
+    "oficio": "Telecomunicaciones",
+    "texto": "La tele no coje ninguna cadena, creo que se ha movido la antena en el tejado con el viento de ayer"
+  },
+  {
+    "id": 657,
+    "oficio": "Telecomunicaciones",
+    "texto": "Quiero poner camras de seguridad en casa, de esas que se controlan desde el movil, cuanto cuesta"
+  },
+  {
+    "id": 658,
+    "oficio": "Telecomunicaciones",
+    "texto": "El telefono del portal no funciona, no oigo cuando llaman desde abajo y tampoco puedo abrirles la puerta"
+  },
+  {
+    "id": 659,
+    "oficio": "Telecomunicaciones",
+    "texto": "Proyecto de infraestructura de telecomunicaciones en edificio de uso mixto de 6 plantas: diseño de ICT, distribución de TV y datos por fibra óptica hasta cada unidad, proyecto técnico firmado"
+  },
+  {
+    "id": 660,
+    "oficio": "Telecomunicaciones",
+    "texto": "I need a full structured cabling installation for a new office, Cat6A throughout, with a 24-port managed PoE switch, WiFi 6 APs, and a patch panel, about 15 workstations"
+  },
+  {
+    "id": 661,
+    "oficio": "Cristalería",
+    "texto": "La ventana del salón tiene una raja pequeña, ¿hay que cambiar todo el cristal o solo esa parte?"
+  },
+  {
+    "id": 662,
+    "oficio": "Cristalería",
+    "texto": "El cristal de la mampara del baño tiene manchas blancas que no se van con ningún producto de limpieza"
+  },
+  {
+    "id": 663,
+    "oficio": "Cristalería",
+    "texto": "Hay condensación entre los dos cristales de la ventana de doble acristalamiento, se ve empañada"
+  },
+  {
+    "id": 664,
+    "oficio": "Cristalería",
+    "texto": "La claraboya del baño está empañada por dentro y no hay manera de limpiarla desde dentro"
+  },
+  {
+    "id": 665,
+    "oficio": "Cristalería",
+    "texto": "Se me ha roto el espejo del baño al caer, hay que cambiarlo urgente antes de que se haga daño alguien"
+  },
+  {
+    "id": 666,
+    "oficio": "Cristalería",
+    "texto": "Las ventanas viejas de la casa dejan pasar mucho frío en invierno, hay que hacer algo"
+  },
+  {
+    "id": 667,
+    "oficio": "Cristalería",
+    "texto": "Quiero poner una mampara de ducha nueva en el baño principal, la que tenemos ya está muy vieja"
+  },
+  {
+    "id": 668,
+    "oficio": "Cristalería",
+    "texto": "El escaparate del local tiene una grieta y de momento lo tenemos tapado, necesitamos arreglarlo urgente"
+  },
+  {
+    "id": 669,
+    "oficio": "Cristalería",
+    "texto": "Hola mira, es que se me ha roto un cristal de una ventana del salón, no sé cómo ha sido, y quería que alguien viniera a cambiarlo cuanto antes porque da al exterior"
+  },
+  {
+    "id": 670,
+    "oficio": "Cristalería",
+    "texto": "Sí, mira, es que tengo las ventanas que son de un solo cristal y en invierno se pone todo empañado y hace mucho frío, ¿hay alguna forma de mejorarlas sin cambiarlas del todo?"
+  },
+  {
+    "id": 671,
+    "oficio": "Cristalería",
+    "texto": "Eeeh sí, buenos días, es para poner una mampara en la bañera, ahora mismo no tenemos nada, y quería que me dijeran qué opciones hay, si fija, si corredera, y cuánto más o menos costaría"
+  },
+  {
+    "id": 672,
+    "oficio": "Cristalería",
+    "texto": "Sustitución de acristalamiento en 8 ventanas: retirada de cristal simple, doble acristalamiento bajo emisivo 4-12-4 con marco de aluminio RPT, sellado perimetral con silicona y adaptación de tapajuntas"
+  },
+  {
+    "id": 673,
+    "oficio": "Cristalería",
+    "texto": "Instalación de vidrio de privacidad en zona de conferencias: cristal laminado opaco en 3 paños de 2x2m, cristal templado 10mm con fijación Dorma y puertas correderas de vidrio con tirador de acero"
+  },
+  {
+    "id": 674,
+    "oficio": "Cristalería",
+    "texto": "Sustitución de escaparate en local comercial: desmontaje del existente, cristal templado 10mm en 3 paños de 1,5x2,5m con perfilería Schüco, puerta de cristal con electroimán y cierrapuertas"
+  },
+  {
+    "id": 675,
+    "oficio": "Cristalería",
+    "texto": "Cubierta de cristal en patio interior de 20m²: estructura de acero galvanizado, vidrio de seguridad laminar 6+6mm con protección solar, sellado perimetral y canalete de recogida de agua"
+  },
+  {
+    "id": 676,
+    "oficio": "Cristalería",
+    "texto": "Se ha roto un cristal de una ventana, necesito que lo cambien hoy porque la ventana da a la calle"
+  },
+  {
+    "id": 677,
+    "oficio": "Cristalería",
+    "texto": "Las mampras del bano estan muy feas y hay una que ya tiene la goma rota y chorrea agua al suelo"
+  },
+  {
+    "id": 678,
+    "oficio": "Cristalería",
+    "texto": "Quiero un espejo grande en el recibidor, de esos que van del suelo al techo, con marco de aluminio negro"
+  },
+  {
+    "id": 679,
+    "oficio": "Cristalería",
+    "texto": "Estudio de eficiencia energética de acristalamiento en edificio de oficinas: análisis de transmitancia térmica, cámara termográfica, informe de pérdidas y propuesta de sustitución por vidrio de control solar"
+  },
+  {
+    "id": 680,
+    "oficio": "Cristalería",
+    "texto": "I need a frameless glass shower enclosure, hinged door, 8mm tempered glass, chrome fittings, for a 90x90cm space, custom cut if needed"
+  },
+  {
+    "id": 681,
+    "oficio": "Impermeabilización",
+    "texto": "Tengo humedad en el muro del sótano pero no llueve dentro, solo hay una mancha en la pared"
+  },
+  {
+    "id": 682,
+    "oficio": "Impermeabilización",
+    "texto": "La terraza del piso de arriba filtra y me pone el techo húmedo cuando llueve con intensidad"
+  },
+  {
+    "id": 683,
+    "oficio": "Impermeabilización",
+    "texto": "El garaje en planta baja se moja con lluvias fuertes, no sé si entra por la puerta o por la pared"
+  },
+  {
+    "id": 684,
+    "oficio": "Impermeabilización",
+    "texto": "Hay humedad en el suelo del baño pero no sé si viene de arriba o de una fuga de fontanería"
+  },
+  {
+    "id": 685,
+    "oficio": "Impermeabilización",
+    "texto": "Cada vez que llueve se me moja el techo del salón y ya hay manchas de humedad bastante grandes"
+  },
+  {
+    "id": 686,
+    "oficio": "Impermeabilización",
+    "texto": "La terraza está llena de grietas y cuando llueve cae agua al techo del vecino de abajo"
+  },
+  {
+    "id": 687,
+    "oficio": "Impermeabilización",
+    "texto": "Quiero impermeabilizar la terraza del piso porque tengo goteras hacia los vecinos de abajo"
+  },
+  {
+    "id": 688,
+    "oficio": "Impermeabilización",
+    "texto": "El muro del jardín absorbe el agua y parece que se está deshaciendo por dentro con la humedad"
+  },
+  {
+    "id": 689,
+    "oficio": "Impermeabilización",
+    "texto": "Hola mira, es que tengo un problema con la terraza, cuando llueve fuerte el vecino de abajo me llama porque le entra agua por el techo, las juntas están todas abiertas y hay alguna grieta"
+  },
+  {
+    "id": 690,
+    "oficio": "Impermeabilización",
+    "texto": "Sí mira, es que el sótano de la casa se moja cuando llueve mucho, hay agua que entra por las paredes como si sudaran y en una esquina se acumula en el suelo"
+  },
+  {
+    "id": 691,
+    "oficio": "Impermeabilización",
+    "texto": "Eeeh sí, es para la piscina, que tiene fisuras en el vaso y pierde agua, en una semana pierde como 3 centímetros, necesito que alguien lo mire y me diga cómo se arregla"
+  },
+  {
+    "id": 692,
+    "oficio": "Impermeabilización",
+    "texto": "Impermeabilización de terraza de 40m²: demolición de solado, formación de pendientes con mortero aligerado, doble lámina betún modificado APP, banda de refuerzo en juntas y solado cerámico antideslizante"
+  },
+  {
+    "id": 693,
+    "oficio": "Impermeabilización",
+    "texto": "Impermeabilización de muro de sótano por el interior: mortero cementoso de dos componentes, pintura epoxi transpirable, rodapié de polisulfuro, drenaje perimetral con canaleta y sumidero"
+  },
+  {
+    "id": 694,
+    "oficio": "Impermeabilización",
+    "texto": "Impermeabilización de cubierta plana de 300m²: levantamiento de lámina existente, regularización, formación de pendientes, membrana de EPDM de 1,5mm con junta vulcanizada y remate perimetral"
+  },
+  {
+    "id": 695,
+    "oficio": "Impermeabilización",
+    "texto": "Rehabilitación de piscina: vaciado, saneado de fisuras con resina epoxi, microcemento de piscinas en 3 capas, impermeabilizante elastomérico, revisión de juntas perimetrales y sistema de filtrado"
+  },
+  {
+    "id": 696,
+    "oficio": "Impermeabilización",
+    "texto": "Tengo goterass en el techo del salon, lleva un tiempo y ya la mancha es bastante grande, necesito arreglarlo"
+  },
+  {
+    "id": 697,
+    "oficio": "Impermeabilización",
+    "texto": "La teraza esta con las juntas abiertas y cuando llueve se moja todo, creo que ay que impermeabilizarla"
+  },
+  {
+    "id": 698,
+    "oficio": "Impermeabilización",
+    "texto": "El muro del soto esta sudando mucho y hay como una costra blanca en las paredes de salite"
+  },
+  {
+    "id": 699,
+    "oficio": "Impermeabilización",
+    "texto": "Estudio técnico de patologías de humedad: inspección visual y endoscópica, toma de muestras para análisis de sales, informe con diagnóstico diferencial (capilaridad, condensación, filtración) y propuesta"
+  },
+  {
+    "id": 700,
+    "oficio": "Impermeabilización",
+    "texto": "Need to waterproof a 30m² flat roof terrace that's leaking into the apartment below, looking for a liquid applied membrane or torch-on solution with a 10-year guarantee"
+  },
+  {
+    "id": 701,
+    "oficio": "Contra Incendios",
+    "texto": "Me ha saltado la alarma de incendios sin que haya fuego ni humo visible, ¿por qué puede ser?"
+  },
+  {
+    "id": 702,
+    "oficio": "Contra Incendios",
+    "texto": "El extintor rojo de la oficina tiene la aguja en zona roja, ¿está descargado o es normal?"
+  },
+  {
+    "id": 703,
+    "oficio": "Contra Incendios",
+    "texto": "No sé si mi local necesita rociadores o con extintores es suficiente para la normativa"
+  },
+  {
+    "id": 704,
+    "oficio": "Contra Incendios",
+    "texto": "La central de alarmas de incendios pita a veces sin motivo y no sé cómo silenciarla bien"
+  },
+  {
+    "id": 705,
+    "oficio": "Contra Incendios",
+    "texto": "Necesito que vengan a revisar los extintores del local porque caducan y no sé cuándo exactamente"
+  },
+  {
+    "id": 706,
+    "oficio": "Contra Incendios",
+    "texto": "En la inspección del local me han dicho que no tengo la instalación de incendios en regla"
+  },
+  {
+    "id": 707,
+    "oficio": "Contra Incendios",
+    "texto": "Quiero montar una cafetería y me dicen que necesito un sistema contra incendios pero no sé cuál"
+  },
+  {
+    "id": 708,
+    "oficio": "Contra Incendios",
+    "texto": "Los detectores de humo del almacén ya no funcionan bien, algunos están apagados y otros pitan solos"
+  },
+  {
+    "id": 709,
+    "oficio": "Contra Incendios",
+    "texto": "Hola mira, es que tengo un local comercial y me han dicho que necesito la instalación de contraincendios para poder abrir, no tengo nada ahora mismo, solo un extintor que creo que no es suficiente"
+  },
+  {
+    "id": 710,
+    "oficio": "Contra Incendios",
+    "texto": "Sí, mira, tenemos un almacén de logística de unos 500 metros y queremos revisar toda la instalación de incendios porque hace mucho que no se revisa y también queremos añadir más detectores"
+  },
+  {
+    "id": 711,
+    "oficio": "Contra Incendios",
+    "texto": "Eeeh sí buenos días, es que tenemos un restaurante y la última inspección nos ha dado incidencias en incendios: el extintor de la cocina es incorrecto y falta señalización, queremos arreglarlo"
+  },
+  {
+    "id": 712,
+    "oficio": "Contra Incendios",
+    "texto": "Instalación de detección de incendios en oficina de 500m²: central analógica, 30 detectores ópticos, 5 pulsadores, 3 sirenas con luz estroboscópica, módulos de control de puertas cortafuego y conexión a CRA"
+  },
+  {
+    "id": 713,
+    "oficio": "Contra Incendios",
+    "texto": "Instalación de rociadores tipo ESFR en almacén de 2000m²: diseño hidráulico según CEPREVEN, tubería acero negro DN50/80/100, 120 rociadores colgantes K14 y central de válvulas con alarma de flujo"
+  },
+  {
+    "id": 714,
+    "oficio": "Contra Incendios",
+    "texto": "Mantenimiento anual de PCI en edificio de oficinas: revisión de extintores ABC y CO2, prueba de detectores, pulsadores, verificación de alumbrado de emergencia y certificado de mantenimiento"
+  },
+  {
+    "id": 715,
+    "oficio": "Contra Incendios",
+    "texto": "Extinción por agente limpio FM-200 en sala de CPD de 20m²: cálculo según NFPA 2001, recipientes, boquillas de descarga, panel de control con doble detección y señalización óptico-acústica"
+  },
+  {
+    "id": 716,
+    "oficio": "Contra Incendios",
+    "texto": "Los extintores del almacen caducan este mes y necesito que los revisen o cambien los que haga falta"
+  },
+  {
+    "id": 717,
+    "oficio": "Contra Incendios",
+    "texto": "Me han dicho que necesito poner señalizacion de emergencias en el local, que no tengo nada, cuanto cuesta"
+  },
+  {
+    "id": 718,
+    "oficio": "Contra Incendios",
+    "texto": "La alarma de incendios del local pita ella sola de vez en cuando y no sabemos por que, como se arregla"
+  },
+  {
+    "id": 719,
+    "oficio": "Contra Incendios",
+    "texto": "Proyecto de PCI para nave industrial de 1500m²: memoria técnica según RSCIEI, planos, dimensionado de BIEs y rociadores, plan de autoprotección y proyecto firmado para licencia de actividad"
+  },
+  {
+    "id": 720,
+    "oficio": "Contra Incendios",
+    "texto": "Need a complete fire safety compliance package for a 300m² restaurant: detection system, suppression in kitchen hood, emergency lighting, fire extinguishers and a maintenance contract"
+  },
+  {
+    "id": 721,
+    "oficio": "Fachadas",
+    "texto": "La fachada del edificio tiene una mancha que parece humedad pero el piso de esa planta no tiene goteras"
+  },
+  {
+    "id": 722,
+    "oficio": "Fachadas",
+    "texto": "Se han caído unos azulejos de la fachada en la primera planta y hay un hueco visible"
+  },
+  {
+    "id": 723,
+    "oficio": "Fachadas",
+    "texto": "La fachada está agrietada en varios sitios, no sé si son grietas estructurales o solo de la pintura"
+  },
+  {
+    "id": 724,
+    "oficio": "Fachadas",
+    "texto": "El enfoscado de la fachada hace un sonido hueco en una zona, como que está separado del muro"
+  },
+  {
+    "id": 725,
+    "oficio": "Fachadas",
+    "texto": "La fachada del edificio está muy sucia de polución y los vecinos quieren limpiarla este año"
+  },
+  {
+    "id": 726,
+    "oficio": "Fachadas",
+    "texto": "El edificio tiene manchas negras de humedad en la fachada y hay que hacer algo antes del invierno"
+  },
+  {
+    "id": 727,
+    "oficio": "Fachadas",
+    "texto": "Quiero poner aislamiento por el exterior en la fachada para ahorrar en calefacción"
+  },
+  {
+    "id": 728,
+    "oficio": "Fachadas",
+    "texto": "La fachada del local comercial está muy deteriorada y necesitamos renovarla para la imagen del negocio"
+  },
+  {
+    "id": 729,
+    "oficio": "Fachadas",
+    "texto": "Hola mira, en la comunidad de vecinos tenemos la fachada en bastante mal estado, hay zonas donde el enfoscado está separado, hay grietas y en general está muy sucia, queríamos un presupuesto"
+  },
+  {
+    "id": 730,
+    "oficio": "Fachadas",
+    "texto": "Sí, es que tengo un local en planta baja y la fachada está bastante deteriorada, hay desconchones, grietas y el rótulo antiguo que ya no sirve, quería renovarla completamente"
+  },
+  {
+    "id": 731,
+    "oficio": "Fachadas",
+    "texto": "Eeeh sí mira, es que en la comunidad se nos han caído azulejos de la fachada y hay más zonas que suenan huecas, necesitamos que alguien lo mire cuanto antes porque da a la calle peatonal"
+  },
+  {
+    "id": 732,
+    "oficio": "Fachadas",
+    "texto": "Rehabilitación de fachada de edificio de 6 plantas: andamiaje tubular perimetral, picado de revocos deteriorados, tratamiento de grietas con resinas epoxi, enfoscado de mortero de cal hidrófugo y pintura mineral"
+  },
+  {
+    "id": 733,
+    "oficio": "Fachadas",
+    "texto": "Instalación de SATE en fachada de 400m²: limpieza de soporte, adhesivo cementoso, placa EPS 10cm, malla de fibra de vidrio, capa de regularización y revoco mineral con pintura de siloxanos"
+  },
+  {
+    "id": 734,
+    "oficio": "Fachadas",
+    "texto": "Reparación urgente de desprendimiento cerámico en fachada de comunidad: andamiaje de emergencia, inspección percutiva, retirada de piezas con riesgo, rejuntado de grietas y reposición de piezas a juego"
+  },
+  {
+    "id": 735,
+    "oficio": "Fachadas",
+    "texto": "Limpieza y tratamiento de fachada de piedra natural en edificio histórico de 5 plantas: agua a baja presión, tratamiento biocida, consolidante pétreo en zonas deterioradas, sellado de juntas con mortero de cal"
+  },
+  {
+    "id": 736,
+    "oficio": "Fachadas",
+    "texto": "La fachada del edifisio está muy sucia y con algunas zonas dañadas, la comunidad quiere limpiarla y arreglarla"
+  },
+  {
+    "id": 737,
+    "oficio": "Fachadas",
+    "texto": "Se estan cayendo trozos del revoco de la fachada y puede caer algo a la calle, hay que arreglarlo urgente"
+  },
+  {
+    "id": 738,
+    "oficio": "Fachadas",
+    "texto": "Queremos poner aislamiente por fuera de la fachada para no pasar tanto frio en inbierno"
+  },
+  {
+    "id": 739,
+    "oficio": "Fachadas",
+    "texto": "ITE de fachadas: inspección visual y manual de fachadas, cubiertas y elementos salientes, informe técnico con calificación del estado de conservación y prescripciones de subsanación"
+  },
+  {
+    "id": 740,
+    "oficio": "Fachadas",
+    "texto": "Need an external wall insulation system on a 200m² facade with a rendered finish, to improve thermal performance to at least U=0.3 W/m²K"
+  },
+  {
+    "id": 741,
+    "oficio": "Mantenimiento General",
+    "texto": "Desde hace un tiempo el ascensor hace un ruido diferente al arrancar, ¿es peligroso?"
+  },
+  {
+    "id": 742,
+    "oficio": "Mantenimiento General",
+    "texto": "El parking del garaje tiene manchas de aceite en el suelo, no sé de cuántos coches son"
+  },
+  {
+    "id": 743,
+    "oficio": "Mantenimiento General",
+    "texto": "El local lleva tiempo cerrado y hay un olor raro cuando abrimos, ¿de qué puede ser?"
+  },
+  {
+    "id": 744,
+    "oficio": "Mantenimiento General",
+    "texto": "La caldera del bloque a veces se para sola y luego vuelve a arrancar sin tocar nada"
+  },
+  {
+    "id": 745,
+    "oficio": "Mantenimiento General",
+    "texto": "El edificio necesita un repaso general, hay cosas que llevan mucho tiempo sin hacerse"
+  },
+  {
+    "id": 746,
+    "oficio": "Mantenimiento General",
+    "texto": "El taller está muy sucio y con muchas cosas estropeadas, necesitamos una puesta a punto completa"
+  },
+  {
+    "id": 747,
+    "oficio": "Mantenimiento General",
+    "texto": "Quiero un contrato de mantenimiento para el local, que alguien se encargue de todo"
+  },
+  {
+    "id": 748,
+    "oficio": "Mantenimiento General",
+    "texto": "La comunidad de vecinos quiere hacer mantenimiento preventivo de todo el edificio antes del invierno"
+  },
+  {
+    "id": 749,
+    "oficio": "Mantenimiento General",
+    "texto": "Hola mira, es que tengo un local y hay varias cosas que necesito arreglar: la persiana no sube bien, hay una gotera en el baño, un enchufe que no funciona y la puerta trasera que no cierra bien"
+  },
+  {
+    "id": 750,
+    "oficio": "Mantenimiento General",
+    "texto": "Sí mira, soy el administrador de una comunidad y necesitamos presupuesto de mantenimiento preventivo anual para el edificio: zonas comunes, portal, escaleras, cubierta e instalaciones"
+  },
+  {
+    "id": 751,
+    "oficio": "Mantenimiento General",
+    "texto": "Eeeh sí, es que tengo una vivienda de alquiler y el inquilino me ha dicho que hay varias cosas que no funcionan: una persiana rota, el grifo gotea, una baldosa suelta en el baño y la bombilla del pasillo"
+  },
+  {
+    "id": 752,
+    "oficio": "Mantenimiento General",
+    "texto": "Contrato de mantenimiento integral de edificio de 20 viviendas: revisión mensual de instalaciones de zonas comunes, mantenimiento de ascensor, limpieza de cubiertas y bajantes semestral y atención de incidencias 24h"
+  },
+  {
+    "id": 753,
+    "oficio": "Mantenimiento General",
+    "texto": "Plan de mantenimiento preventivo de nave industrial de 2000m²: revisión trimestral de eléctrica BT, semestral de climatización (4 roof-top), mantenimiento de puerta seccional, plan de contingencia y libro de mantenimiento"
+  },
+  {
+    "id": 754,
+    "oficio": "Mantenimiento General",
+    "texto": "Rehabilitación integral de local de 100m² para cambio de uso a restaurante: demolición, solado nuevo, eléctrica con monofásico 25A, fontanería para barra y cocina, ventilación mecánica y acabados"
+  },
+  {
+    "id": 755,
+    "oficio": "Mantenimiento General",
+    "texto": "Mantenimiento de comunidad de 30 vecinos: revisión anual de cuadro eléctrico, grupo de presión, limpieza de bajantes y arquetas, revisión de antena colectiva y extintores, informe de estado"
+  },
+  {
+    "id": 756,
+    "oficio": "Mantenimiento General",
+    "texto": "Necesito que alguien me venga a arreglar varias cosas en casa, un grifo que gotea, un enchufe que no va y la persiana que no sube"
+  },
+  {
+    "id": 757,
+    "oficio": "Mantenimiento General",
+    "texto": "El local lleva varios meses cerrado y hay varias averias, quiero que lo dejen todo en condiciones antes de alquilarlo"
+  },
+  {
+    "id": 758,
+    "oficio": "Mantenimiento General",
+    "texto": "Soy administrador de fincas y necesito un servicio de mantenimiento rapido para emergencias en mis edificios"
+  },
+  {
+    "id": 759,
+    "oficio": "Mantenimiento General",
+    "texto": "Auditoría de mantenimiento en hotel de 80 habitaciones: revisión de cumplimiento normativo de instalaciones eléctricas, fontanería, climatización, PCI y ascensores, informe de deficiencias y plan de regularización"
+  },
+  {
+    "id": 760,
+    "oficio": "Mantenimiento General",
+    "texto": "I need a full property maintenance contract for a 10-unit apartment building: plumbing, electrical, HVAC, painting and general repairs, with 24/7 emergency response"
+  },
+  {
+    "id": 761,
+    "oficio": "Reformas Integrales",
+    "texto": "Tengo un piso viejo que quiero reformar pero no sé por dónde empezar ni cuánto puede costar"
+  },
+  {
+    "id": 762,
+    "oficio": "Reformas Integrales",
+    "texto": "El local que he alquilado necesita reforma pero no sé si necesita licencia de obras o no"
+  },
+  {
+    "id": 763,
+    "oficio": "Reformas Integrales",
+    "texto": "Tengo un chalet con muchas cosas que arreglar, no sé si es mejor reformar por partes o todo a la vez"
+  },
+  {
+    "id": 764,
+    "oficio": "Reformas Integrales",
+    "texto": "Hemos comprado un piso de los años 70 y no sé qué hay que cambiar primero ni cuánto sale"
+  },
+  {
+    "id": 765,
+    "oficio": "Reformas Integrales",
+    "texto": "Quiero reformar el baño del todo, que está muy anticuado y con todo roto y viejo"
+  },
+  {
+    "id": 766,
+    "oficio": "Reformas Integrales",
+    "texto": "La cocina está fatal, los muebles son viejos y todo está desgastado, quiero cambiarla entera"
+  },
+  {
+    "id": 767,
+    "oficio": "Reformas Integrales",
+    "texto": "Quiero hacer una reforma completa del piso que me acabo de comprar antes de entrar a vivir"
+  },
+  {
+    "id": 768,
+    "oficio": "Reformas Integrales",
+    "texto": "Tenemos un local que queremos convertir en oficina moderna, necesita reforma completa de distribución y acabados"
+  },
+  {
+    "id": 769,
+    "oficio": "Reformas Integrales",
+    "texto": "Hola mira, es que nos hemos comprado un piso de segunda mano y está bastante antiguo, la cocina, los baños, la electricidad, todo necesita renovarse, quería un presupuesto orientativo"
+  },
+  {
+    "id": 770,
+    "oficio": "Reformas Integrales",
+    "texto": "Sí mira, quiero reformar el baño principal, sé que quiero ducha en vez de bañera, suelo nuevo y que se vea moderno, más o menos cuánto costaría"
+  },
+  {
+    "id": 771,
+    "oficio": "Reformas Integrales",
+    "texto": "Eeeh sí buenos días, es que tenemos un bajo comercial que queremos convertir en restaurante, necesita reforma completa de distribución, cocina industrial, baños y zona de sala, son unos 120 metros"
+  },
+  {
+    "id": 772,
+    "oficio": "Reformas Integrales",
+    "texto": "Reforma integral de piso de 90m² de los años 70: demolición de distribución, baños y cocina, nueva tabiquería, instalación eléctrica y fontanería completa, alicatado y solado, cocina amueblada y 2 baños"
+  },
+  {
+    "id": 773,
+    "oficio": "Reformas Integrales",
+    "texto": "Reforma de local para clínica dental de 80m²: 4 gabinetes, sala de espera, recepción, esterilización, circuitos eléctricos independientes por gabinete, fontanería, ventilación y climatización"
+  },
+  {
+    "id": 774,
+    "oficio": "Reformas Integrales",
+    "texto": "Reforma de baño principal de 8m²: demolición, bañera por plato de ducha extraplano 90x90, sanitarios suspendidos, mueble con lavabo y espejo retroiluminado, alicatado hasta techo en gran formato"
+  },
+  {
+    "id": 775,
+    "oficio": "Reformas Integrales",
+    "texto": "Reforma de cocina de 15m²: demolición de cocina existente, muebles a medida con frentes lacados, encimera de Silestone 3cm, fregadero integrado, lavavajillas, vitrocerámica, horno, campana y fontanería"
+  },
+  {
+    "id": 776,
+    "oficio": "Reformas Integrales",
+    "texto": "Quiero reformar el bano pero no tengo mucho presupuesto, solo lo basico: ducha nueva, inodoro nuevo y pintar"
+  },
+  {
+    "id": 777,
+    "oficio": "Reformas Integrales",
+    "texto": "El piso que me he comprado necesita reforma, los banos, la cocina y hay que pintar todo, cuanto puede costar"
+  },
+  {
+    "id": 778,
+    "oficio": "Reformas Integrales",
+    "texto": "Queremos reordenar la distribuccion del piso, tirando un tabique y haciendo un bano mas en lo que ahora es trastero"
+  },
+  {
+    "id": 779,
+    "oficio": "Reformas Integrales",
+    "texto": "Dirección de obra de reforma integral de edificio para rehabilitación energética: coordinación de industriales, seguimiento de certificaciones, control de calidad, actas y certificado de eficiencia energética final"
+  },
+  {
+    "id": 780,
+    "oficio": "Reformas Integrales",
+    "texto": "Full apartment renovation, 80m², open plan living, 2 bathrooms, new kitchen with island, underfloor heating throughout, smart home system and high-end finishes, turnkey quote"
+  },
+  {
+    "id": 781,
+    "oficio": "Persianas",
+    "texto": "La persiana eléctrica del salón funciona a veces sí y a veces no, sin motivo aparente"
+  },
+  {
+    "id": 782,
+    "oficio": "Persianas",
+    "texto": "La persiana manual de la habitación cada vez cuesta más bajarla y se queda a medias"
+  },
+  {
+    "id": 783,
+    "oficio": "Persianas",
+    "texto": "La persiana hace un ruido que no hacía antes al enrollarse, como si algo raspara"
+  },
+  {
+    "id": 784,
+    "oficio": "Persianas",
+    "texto": "La lama de la persiana se ha doblado y ahora no cierra del todo aunque la bajes completamente"
+  },
+  {
+    "id": 785,
+    "oficio": "Persianas",
+    "texto": "La persiana eléctrica de la habitación lleva semanas sin funcionar y ya está el verano encima"
+  },
+  {
+    "id": 786,
+    "oficio": "Persianas",
+    "texto": "Quiero motorizar las persianas manuales del piso para abrirlas desde el móvil"
+  },
+  {
+    "id": 787,
+    "oficio": "Persianas",
+    "texto": "Necesito cambiar todas las persianas del piso por unas nuevas, las actuales están muy deterioradas"
+  },
+  {
+    "id": 788,
+    "oficio": "Persianas",
+    "texto": "La caja de la persiana del salón tiene una grieta y entra frío por ahí en invierno"
+  },
+  {
+    "id": 789,
+    "oficio": "Persianas",
+    "texto": "Hola mira, es que la persiana de la habitación ya no funciona bien, la bajo y a mitad de camino se para sola y no hay manera de bajarla del todo, ya le he dado al botoncito y nada"
+  },
+  {
+    "id": 790,
+    "oficio": "Persianas",
+    "texto": "Sí mira, tengo las persianas de toda la casa que ya están muy viejas, hay una que no sube, otra que chirría mucho y en general todas están mal, quería cambiarlas todas por unas nuevas"
+  },
+  {
+    "id": 791,
+    "oficio": "Persianas",
+    "texto": "Eeeh sí, es que quiero poner persianas motorizadas en el piso, son cinco ventanas, ahora son manuales y quería controlarlas desde el móvil, qué opciones hay y cuánto costaría"
+  },
+  {
+    "id": 792,
+    "oficio": "Persianas",
+    "texto": "Sustitución de 6 persianas de aluminio: retirada de persianas y cajones, persianas de aluminio rellenas con espuma 60mm, guías de 70mm, motorización con motor 40Nm, receptor de radio y mando a distancia"
+  },
+  {
+    "id": 793,
+    "oficio": "Persianas",
+    "texto": "Sistema domótico para control de 8 persianas motorizadas: central KNX, 8 actuadores de persiana, programación de horarios por zona, integración con sensor de viento y lluvia y app de control"
+  },
+  {
+    "id": 794,
+    "oficio": "Persianas",
+    "texto": "Instalación de celosías de aluminio orientables en terraza de 15m²: estructura lacada en gris antracita, 5 lamas horizontales de 200mm orientables manualmente, soporte de suelo y techo con anclaje a forjado"
+  },
+  {
+    "id": 795,
+    "oficio": "Persianas",
+    "texto": "Instalación de toldos correderos en terraza de comunidad de 40m²: estructura de aluminio anodizado, lona acrílica UV, guías laterales, motor 100Nm con seguridad ante viento y control desde app"
+  },
+  {
+    "id": 796,
+    "oficio": "Persianas",
+    "texto": "La persiana elctrica no funciona, el motor hace un runido pero no sube ni baja, se puede arreglar o hay que cambiarla"
+  },
+  {
+    "id": 797,
+    "oficio": "Persianas",
+    "texto": "Quiero poner estores o persinas en las ventanas nuevas que me han puesto de aluminio, que son bastante grandes"
+  },
+  {
+    "id": 798,
+    "oficio": "Persianas",
+    "texto": "Se ha roto la guia de la persiana de la habitacion y ahora se sale del carril cuando la subo"
+  },
+  {
+    "id": 799,
+    "oficio": "Persianas",
+    "texto": "Estudio de eficiencia energética de protección solar en edificio de oficinas: análisis de factor solar de persianas existentes, medición de transmitancia y propuesta de mejora con estimación de ahorro en climatización"
+  },
+  {
+    "id": 800,
+    "oficio": "Persianas",
+    "texto": "I need motorized roller blinds for 6 windows, with blackout fabric, smart home integration with Google Home, and battery-powered motors to avoid drilling"
+  }
+]
