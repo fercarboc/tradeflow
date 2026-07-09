@@ -171,6 +171,13 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
               transition={{ duration: 0.55 }}
               className="space-y-5 text-center lg:text-left pb-12 lg:pb-20 lg:pt-8"
             >
+              {/* tagline chip */}
+              <div className="flex justify-center lg:justify-start">
+                <span className="inline-block text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-[#00CFE8] border border-[#00CFE8]/30 bg-[#00CFE8]/8 rounded-full px-4 py-1.5">
+                  Presupuesto · Suministro · Ejecución — para gremios e instaladores
+                </span>
+              </div>
+
               {/* headline */}
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black uppercase leading-[1.0] tracking-tight">
                 <span className="text-white block">DICTAS.</span>

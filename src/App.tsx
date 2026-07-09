@@ -25,6 +25,7 @@ const AdminView = lazy(() => import('./components/AdminView'));
 const ScreenWorkerView = lazy(() => import('./components/ScreenWorkerView'));
 const DemoView = lazy(() => import('./components/demo/DemoView'));
 const AsistenteTecnicoPublicView = lazy(() => import('./components/AsistenteTecnicoPublicView'));
+const HerramientasView = lazy(() => import('./pages/HerramientasView'));
 import LoginView from './components/auth/LoginView';
 import AuthActivateView from './components/auth/AuthActivateView';
 import AuthCallbackView from './components/auth/AuthCallbackView';
@@ -106,6 +107,7 @@ const PAGE_PATHS: Partial<Record<ActivePage, string>> = {
   [ActivePage.Registro]:          '/registro',
   [ActivePage.Demo]:              '/demo',
   [ActivePage.AsisTecnico]:       '/asistente-tecnico',
+  [ActivePage.Herramientas]:      '/herramientas',
   [ActivePage.Admin]:             '/admin',
   [ActivePage.Worker]:            '/worker',
   [ActivePage.Login]:             '/login',
@@ -152,6 +154,7 @@ const PUBLIC_OR_AUTH_PAGES = new Set<ActivePage>([
   ActivePage.IADisclaimer,
   ActivePage.Demo,
   ActivePage.AsisTecnico,
+  ActivePage.Herramientas,
   ActivePage.PartnerDemo,
 ]);
 
@@ -397,6 +400,9 @@ export default function App() {
 
       case ActivePage.AsisTecnico:
         return <AsistenteTecnicoPublicView setCurrentPage={setCurrentPage} />;
+
+      case ActivePage.Herramientas:
+        return <HerramientasView go={setCurrentPage} />;
 
       // App autenticada
       case ActivePage.AppDashboard:

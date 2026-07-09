@@ -27,6 +27,9 @@ Demo = 'demo',
 // Asistente Técnico — página pública
 AsisTecnico = 'asis-tecnico',
 
+// Herramientas gratuitas — calculadoras de obra
+Herramientas = 'herramientas',
+
 // Internal
 Admin = 'admin',
 Worker = 'worker',

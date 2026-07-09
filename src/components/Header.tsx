@@ -22,6 +22,7 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
     { name: 'Inicio', page: ActivePage.Home },
     { name: 'Funciones', page: ActivePage.ComoFunciona },
     { name: 'Asistente IA', page: ActivePage.AsisTecnico },
+    { name: 'Herramientas', page: ActivePage.Herramientas },
     { name: 'Precios', page: ActivePage.Precios },
     { name: 'Contacto', page: ActivePage.Contacto },
   ];
