@@ -576,7 +576,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       let org = workerOrgId
         ? (await getOwnOrg() ?? await loadOrgById(workerOrgId))
         : await getOrCreateOrg();
-      if (!org) return;
+      if (!org) {
+        // Org creation failed (e.g. DB trigger error) — show wizard so user can configure
+        if (!workerOrgId && s.user.email !== ADMIN_EMAIL) setShowOnboarding(true);
+        return;
+      }
       loadOrgSubscription(org.id).then(sub => setSubscription(sub)).catch(() => {});
       void (async () => {
         const { data: invData } = await supabase.from('trade_platform_invoices').select('*').eq('org_id', org.id).order('created_at', { ascending: false });
@@ -2716,6 +2720,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         <PlanUpgradeModal
           orgId={orgId}
           subscription={subscription}
+          platformInvoices={platformInvoices}
           onClose={() => setShowUpgradeModal(false)}
           onUpgraded={() => {
             setShowUpgradeModal(false);
@@ -9270,7 +9275,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
                 {/* Acciones */}
                 <div className="flex gap-2 flex-wrap pt-1">
-                  {subscription.status === 'active' && subscription.stripe_customer_id && (
+                  {subscription.stripe_customer_id && (subscription.status === 'active' || subscription.status === 'trial') && (
                     <button
                       onClick={async () => {
                         setStripeLoading(true);

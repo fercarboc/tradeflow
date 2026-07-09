@@ -89,13 +89,16 @@ Deno.serve(async (req: Request) => {
         metadata?: Record<string, string>;
         customer?: string;
         subscription?: string;
+        payment_status?: string;
       };
       const orgId        = session.metadata?.org_id;
       const plan         = session.metadata?.plan;
       const billingCycle = session.metadata?.billing_cycle;
       const newSubId     = session.subscription;
+      // no_payment_required → trial (trial gratuito configurado con trial_period_days)
+      const isTrialCheckout = session.payment_status === 'no_payment_required';
 
-      console.log('[webhook] checkout.session.completed — org_id:', orgId, 'plan:', plan, 'sub_id:', newSubId);
+      console.log('[webhook] checkout.session.completed — org_id:', orgId, 'plan:', plan, 'sub_id:', newSubId, 'payment_status:', session.payment_status);
 
       if (orgId && plan) {
         // Cancelar cualquier suscripción anterior diferente a la nueva
@@ -116,7 +119,7 @@ Deno.serve(async (req: Request) => {
         const updates: Record<string, string> = {
           plan,
           billing_cycle: billingCycle ?? 'monthly',
-          status:        'active',
+          status:        isTrialCheckout ? 'trial' : 'active',
           updated_at:    new Date().toISOString(),
         };
         if (session.customer) updates.stripe_customer_id     = session.customer;
@@ -158,7 +161,9 @@ Deno.serve(async (req: Request) => {
       console.log('[webhook] customer.subscription.created — sub_id:', sub.id, 'customer:', sub.customer, 'plan:', plan, 'status:', sub.status);
 
       if (plan) {
-        const status = sub.status === 'trialing' ? 'trialing' : 'active';
+        // Stripe 'trialing' → DB 'trial' (compatible con CHECK constraint y frontend)
+        // trial_end se actualiza con la fecha real de Stripe para el countdown
+        const status = sub.status === 'trialing' ? 'trial' : 'active';
         const updates: Record<string, unknown> = {
           plan,
           status,
@@ -207,8 +212,9 @@ Deno.serve(async (req: Request) => {
         updated_at:             new Date().toISOString(),
       };
 
+      // Stripe 'trialing' → DB 'trial' (compatible con CHECK constraint y frontend)
       if (sub.status === 'active')   updates.status = 'active';
-      if (sub.status === 'trialing') updates.status = 'trialing';
+      if (sub.status === 'trialing') updates.status = 'trial';
       if (sub.status === 'canceled') updates.status = 'cancelled';
       if (sub.status === 'past_due') updates.status = 'expired';
       if (plan) updates.plan = plan;
@@ -241,6 +247,7 @@ Deno.serve(async (req: Request) => {
       };
 
       const plan = inv.lines?.data[0]?.plan?.metadata?.plan;
+      const isPaidInvoice = inv.amount_paid > 0;
 
       // maybeSingle evita error cuando no hay filas (vs .single() que devuelve error)
       const { data: sub } = await supabase
@@ -250,13 +257,18 @@ Deno.serve(async (req: Request) => {
         .maybeSingle();
 
       if (sub) {
-        const { error: subErr } = await supabase.from('trade_subscriptions').update({
-          status:                 'active',
+        // Para invoices de $0 (setup de trial), solo vinculamos el stripe_subscription_id.
+        // No tocamos status ni period dates: las gestiona customer.subscription.created con los datos reales.
+        const subUpdates: Record<string, unknown> = {
           stripe_subscription_id: inv.subscription,
-          current_period_start:   new Date(inv.period_start * 1000).toISOString(),
-          current_period_end:     new Date(inv.period_end   * 1000).toISOString(),
           updated_at:             new Date().toISOString(),
-        }).eq('id', sub.id);
+        };
+        if (isPaidInvoice) {
+          subUpdates.status               = 'active';
+          subUpdates.current_period_start = new Date(inv.period_start * 1000).toISOString();
+          subUpdates.current_period_end   = new Date(inv.period_end   * 1000).toISOString();
+        }
+        const { error: subErr } = await supabase.from('trade_subscriptions').update(subUpdates).eq('id', sub.id);
 
         if (subErr) console.error('[webhook] Error actualizando subscription en invoice.paid:', subErr);
 
@@ -318,12 +330,9 @@ Deno.serve(async (req: Request) => {
         trial_end?: number | null;
       };
       const trialEndDate = sub.trial_end ? new Date(sub.trial_end * 1000).toISOString() : null;
-      console.log('[webhook] trial_will_end — customer:', sub.customer, 'trial_end:', trialEndDate);
-      // Marcar en BD para que el frontend pueda mostrar banner de "tu trial termina pronto"
-      await supabase.from('trade_subscriptions').update({
-        status:     'trial_ending',
-        updated_at: new Date().toISOString(),
-      }).eq('stripe_customer_id', sub.customer);
+      // No cambiamos status: el frontend ya muestra el aviso basándose en trial_end - Date.now()
+      // Solo logueamos para visibilidad operacional
+      console.log('[webhook] trial_will_end — customer:', sub.customer, 'trial_end:', trialEndDate, '— el frontend mostrará aviso por fecha');
     }
 
   } catch (e: unknown) {

@@ -1,11 +1,24 @@
 import { useState } from 'react';
-import { X, Check, AlertTriangle, ChevronUp, ChevronDown, Users } from 'lucide-react';
-import { initiateStripeUpgrade, supabase } from '../lib/supabase';
+import { X, Check, AlertTriangle, ChevronUp, ChevronDown, Users, ExternalLink, FileText } from 'lucide-react';
+import { initiateStripeUpgrade, getStripePortalUrl } from '../lib/supabase';
 import type { TradeSubscription } from '../lib/supabase';
+
+interface PlatformInvoice {
+  id: string;
+  period_start: string;
+  period_end: string;
+  amount_cents: number;
+  status: string;
+  invoice_url: string | null;
+  invoice_pdf_url?: string | null;
+  plan?: string | null;
+  paid_at?: string | null;
+}
 
 interface Props {
   orgId: string;
   subscription: TradeSubscription | null;
+  platformInvoices?: PlatformInvoice[];
   onClose: () => void;
   onUpgraded?: (plan: string, billingCycle: string) => void;
 }
@@ -53,9 +66,12 @@ const colorMap = {
 
 type ModalView = 'plans' | 'confirm-downgrade' | 'success' | 'scheduled';
 
-export default function PlanUpgradeModal({ orgId, subscription, onClose, onUpgraded }: Props) {
+const PLAN_LABEL: Record<string, string> = { basico: 'Básico', profesional: 'Profesional', empresa: 'Empresa', empresa_plus: 'Empresa+' };
+
+export default function PlanUpgradeModal({ orgId, subscription, platformInvoices = [], onClose, onUpgraded }: Props) {
   const [cycle, setCycle] = useState<'monthly' | 'yearly'>('monthly');
   const [loading, setLoading] = useState<string | null>(null);
+  const [portalLoading, setPortalLoading] = useState(false);
   const [scheduledDate, setScheduledDate] = useState<string | null>(null);
   const [view, setView] = useState<ModalView>('plans');
   const [pendingPlan, setPendingPlan] = useState<PlanId | null>(null);
@@ -80,6 +96,13 @@ export default function PlanUpgradeModal({ orgId, subscription, onClose, onUpgra
   async function confirmDowngrade() {
     if (!pendingPlan) return;
     await executePlanChange(pendingPlan);
+  }
+
+  async function openPortal() {
+    setPortalLoading(true);
+    try { window.open(await getStripePortalUrl(orgId), '_blank', 'noopener'); }
+    catch { /* silent */ }
+    finally { setPortalLoading(false); }
   }
 
   async function executePlanChange(planId: PlanId) {
@@ -232,6 +255,49 @@ export default function PlanUpgradeModal({ orgId, subscription, onClose, onUpgra
         {/* ── Vista principal: 3 planes ── */}
         {view === 'plans' && (
           <>
+            {/* Resumen plan actual */}
+            {subscription && (() => {
+              const planLabel = PLAN_LABEL[subscription.plan] ?? subscription.plan;
+              const isTrialing = subscription.status === 'trial';
+              const trialEnd = subscription.trial_end ? new Date(subscription.trial_end) : null;
+              const daysLeft = trialEnd ? Math.max(0, Math.ceil((trialEnd.getTime() - Date.now()) / 86400000)) : null;
+              const nextDate = (subscription.current_period_end ?? subscription.trial_end)
+                ? new Date(subscription.current_period_end ?? subscription.trial_end!).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })
+                : null;
+              const canPortal = !!subscription.stripe_customer_id;
+
+              return (
+                <div className="mx-5 mt-4 bg-slate-800/60 border border-slate-700 rounded-xl p-3 flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="text-[9px] font-mono uppercase text-slate-500 mb-0.5">Tu plan actual</p>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-sm font-black text-white">{planLabel}</span>
+                      <span className={`text-[9px] font-bold uppercase px-2 py-0.5 rounded-full ${
+                        isTrialing ? 'bg-blue-500/20 text-blue-400' : 'bg-emerald-500/20 text-emerald-400'
+                      }`}>
+                        {isTrialing ? `Prueba${daysLeft !== null ? ` · ${daysLeft}d` : ''}` : 'Activo'}
+                      </span>
+                    </div>
+                    {nextDate && (
+                      <p className="text-[10px] text-slate-400 mt-0.5">
+                        {isTrialing ? `Fin de prueba: ${nextDate}` : `Próximo cobro: ${nextDate}`}
+                      </p>
+                    )}
+                  </div>
+                  {canPortal && (
+                    <button
+                      onClick={openPortal}
+                      disabled={portalLoading}
+                      className="shrink-0 flex items-center gap-1 text-[10px] font-semibold px-2.5 py-1.5 rounded-lg border border-slate-600 text-slate-300 hover:bg-slate-700 transition disabled:opacity-50 cursor-pointer"
+                    >
+                      <ExternalLink className="w-3 h-3" />
+                      {portalLoading ? 'Cargando…' : 'Gestionar'}
+                    </button>
+                  )}
+                </div>
+              );
+            })()}
+
             {/* Ciclo */}
             <div className="flex justify-center pt-4 pb-1">
               <div className="flex bg-slate-800 rounded-lg p-1 gap-1">
@@ -339,7 +405,42 @@ export default function PlanUpgradeModal({ orgId, subscription, onClose, onUpgra
               })}
             </div>
 
-            <p className="text-center text-xs text-slate-500 pb-4">
+            {/* Facturas recientes */}
+            {platformInvoices.length > 0 && (
+              <div className="mx-5 mb-1 border-t border-slate-800 pt-3">
+                <p className="text-[9px] font-mono uppercase text-slate-500 mb-2 flex items-center gap-1">
+                  <FileText className="w-3 h-3" />
+                  Últimas facturas
+                </p>
+                <div className="bg-slate-800/40 rounded-lg divide-y divide-slate-700/50">
+                  {platformInvoices.slice(0, 3).map(inv => {
+                    const date = new Date(inv.paid_at ?? inv.period_start).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+                    const amount = (inv.amount_cents / 100).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
+                    return (
+                      <div key={inv.id} className="flex items-center justify-between px-3 py-2 gap-2">
+                        <div className="min-w-0">
+                          <p className="text-[11px] font-semibold text-slate-300 truncate">
+                            {inv.plan ? `Plan ${PLAN_LABEL[inv.plan] ?? inv.plan}` : 'Suscripción'}
+                          </p>
+                          <p className="text-[10px] text-slate-500">{date}</p>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className="text-[11px] font-bold text-white">{amount}</span>
+                          {(inv.invoice_pdf_url || inv.invoice_url) && (
+                            <a href={inv.invoice_pdf_url ?? inv.invoice_url ?? '#'} target="_blank" rel="noopener noreferrer"
+                              className="text-[10px] font-semibold px-2 py-0.5 rounded border border-slate-600 text-blue-400 hover:bg-blue-500/10 transition">
+                              PDF
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            <p className="text-center text-xs text-slate-500 pb-4 pt-2">
               Pago seguro con Stripe · IVA no incluido · Cancela cuando quieras
             </p>
           </>
