@@ -106,6 +106,10 @@ export default function ScreenParteTrabajo({
   const [customLinePrice, setCustomLinePrice] = useState('');
   const [customLineCant, setCustomLineCant] = useState('1');
 
+  // Manual invoice form (when no materials and no linked quote)
+  const [manualConcepto, setManualConcepto] = useState('');
+  const [manualImporte, setManualImporte] = useState('');
+
   // Quote items (when job is linked to a quote)
   const [quotedItems, setQuotedItems] = useState<TradeQuoteItem[]>([]);
 
@@ -325,8 +329,7 @@ export default function ScreenParteTrabajo({
       await onComplete(job.id, notas, materiales, fin);
       if (isTecnico) { setPhase('done'); return; }
       const needsInvoice = !mantenimiento?.activo || !mantenimiento?.materialesIncluidos;
-      const hasContent = materiales.length > 0 || quotedItems.length > 0 || !!job.quote_id;
-      setPhase(needsInvoice && hasContent ? 'facturar' : 'done');
+      setPhase(needsInvoice ? 'facturar' : 'done');
     } catch {
       showToast('Error al completar el trabajo', 'error');
       setPhase('main');
@@ -432,6 +435,28 @@ export default function ScreenParteTrabajo({
     }
   }
 
+  // ── Generate invoice from manual concepto+importe ──────────────────────────
+  async function handleGenerarFacturaManual() {
+    const importe = parseFloat(manualImporte.replace(',', '.'));
+    if (!manualConcepto.trim() || !(importe > 0)) {
+      showToast('Indica el concepto y un importe mayor que 0', 'error');
+      return;
+    }
+    setPhase('generating');
+    try {
+      const inv = await createInvoiceFromJob(orgId, job.id, job.client_id, [
+        { descripcion: manualConcepto.trim(), cantidad: 1, precioBase: importe, tipo: 'mano_de_obra' },
+      ], { concepto: manualConcepto.trim() });
+      setNewInvoice(inv);
+      onInvoiceCreated?.(inv);
+      setPhase('done');
+      showToast('Borrador de factura creado — elige cómo se cobra', 'info');
+    } catch {
+      showToast('Error al generar la factura', 'error');
+      setPhase('facturar');
+    }
+  }
+
   // ── Derived ────────────────────────────────────────────────────────────────
   const materialesNormales = materiales.filter(m => !m.postCierre);
   const materialesPostCierre = materiales.filter(m => m.postCierre);
@@ -451,6 +476,11 @@ export default function ScreenParteTrabajo({
   const subtotalQuoted = quotedItems.reduce((s, i) => s + i.cantidad * i.precio_unitario, 0);
   const ivaQuoted = subtotalQuoted * 0.21;
   const totalQuoted = subtotalQuoted + ivaQuoted;
+
+  // Manual invoice mode: no materials and no quote
+  const showManualForm = materialesNormales.length === 0 && !showQuoteItems;
+  const manualImporteNum = parseFloat(manualImporte.replace(',', '.')) || 0;
+  const manualValid = manualConcepto.trim().length > 0 && manualImporteNum > 0;
 
   const clienteNombre = clienteInfo?.nombre ?? job.trade_clients?.nombre ?? '';
   const clienteTelefono = clienteInfo?.telefono ?? job.trade_clients?.telefono ?? '';
@@ -666,8 +696,48 @@ export default function ScreenParteTrabajo({
               </button>
             </div>
           )}
-          {phase === 'facturar' && materialesNormales.length === 0 && !showQuoteItems && (
-            <button onClick={onClose} className="w-full py-4 rounded-2xl text-sm font-bold text-gray-600 bg-gray-100 active:bg-gray-200 cursor-pointer">Cerrar sin facturar</button>
+          {phase === 'facturar' && showManualForm && (
+            <div className="space-y-3">
+              <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest text-center">¿Qué se cobra?</p>
+              <div className="space-y-2">
+                <input
+                  type="text"
+                  placeholder="Concepto * (ej: Revisión cuadro eléctrico y cambio automático)"
+                  value={manualConcepto}
+                  onChange={e => setManualConcepto(e.target.value)}
+                  className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                />
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    inputMode="decimal"
+                    min="0.01"
+                    step="0.01"
+                    placeholder="Importe sin IVA *"
+                    value={manualImporte}
+                    onChange={e => setManualImporte(e.target.value)}
+                    className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  />
+                  <span className="text-sm font-bold text-gray-500 shrink-0">€ + IVA</span>
+                </div>
+                {manualImporteNum > 0 && (
+                  <div className="bg-gray-50 border border-gray-100 rounded-xl px-4 py-2 flex justify-between text-xs text-gray-500">
+                    <span>Total con IVA 21%</span>
+                    <span className="font-bold text-gray-900">{fmtEur(manualImporteNum * 1.21)}</span>
+                  </div>
+                )}
+              </div>
+              <button
+                onClick={handleGenerarFacturaManual}
+                disabled={!manualValid}
+                className="w-full flex items-center justify-center gap-2 bg-blue-600 active:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-sm py-4 rounded-2xl cursor-pointer"
+                style={{ boxShadow: manualValid ? '0 4px 24px rgba(37,99,235,0.4)' : 'none' }}>
+                <FileText className="w-4 h-4" />Crear factura
+              </button>
+              <button onClick={onClose} className="w-full py-3 rounded-2xl text-sm font-semibold text-gray-500 bg-gray-100 active:bg-gray-200 cursor-pointer">
+                Cerrar sin facturar
+              </button>
+            </div>
           )}
           {phase === 'generating' && (
             <div className="w-full flex items-center justify-center gap-3 py-4 text-gray-600">
