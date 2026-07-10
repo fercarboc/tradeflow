@@ -8657,8 +8657,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         banco: empresaAjustes.banco || null,
         titular_cuenta: empresaAjustes.titularCuenta || null,
       }).eq('id', orgId);
-      if (error) showToast('Error al guardar: ' + error.message, 'error');
-      else showToast('Datos fiscales y bancarios guardados ✓', 'success');
+      if (error) { showToast('Error al guardar: ' + error.message, 'error'); return; }
+      setOrgData(prev => prev ? {
+        ...prev,
+        iban: empresaAjustes.iban || null,
+        banco: empresaAjustes.banco || null,
+        titular_cuenta: empresaAjustes.titularCuenta || null,
+      } as typeof prev : prev);
+      showToast('Datos fiscales y bancarios guardados ✓', 'success');
     };
 
     const handleAddWorker = async () => {

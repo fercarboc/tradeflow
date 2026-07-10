@@ -333,9 +333,11 @@ export default function OnboardingWizard({ onComplete, showToast }: Props) {
   }
 
   async function saveStep5() {
-    if (!orgId || !logoFile) return;
+    if (!logoFile) return;
+    if (!orgId) { showToast('Error: organización no cargada aún, espera un momento', 'error'); return; }
     const url = await uploadOrgLogo(orgId, logoFile);
     setLogoPreview(url);
+    setLogoFile(null);
     showToast('Logo guardado ✓', 'success');
   }
 
@@ -362,10 +364,13 @@ export default function OnboardingWizard({ onComplete, showToast }: Props) {
       if (step === 2) await saveStep2();
       if (step === 5 && logoFile) await saveStep5();
       if (step === 7) saveWorkCalendar(wizCalendar);
+      setStep(s => Math.min(s + 1, STEPS.length));
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      showToast('Error al guardar: ' + msg, 'error');
     } finally {
       setSaving(false);
     }
-    setStep(s => Math.min(s + 1, STEPS.length));
   }
 
   function handlePrev() { setStep(s => Math.max(s - 1, 1)); }
@@ -697,7 +702,7 @@ export default function OnboardingWizard({ onComplete, showToast }: Props) {
                   setLogoFile(f);
                   setLogoPreview(URL.createObjectURL(f));
                 }} />
-                <p className="text-xs text-slate-400 text-center">También puedes subir o cambiar el logo en <strong>Ajustes y Tarifas → Datos de empresa</strong>.</p>
+                <p className="text-xs text-slate-400 text-center">Puedes cambiar el logo en cualquier momento desde <strong>Ajustes → Datos de empresa</strong>. Si prefieres, puedes saltar este paso.</p>
               </>
             )}
 
