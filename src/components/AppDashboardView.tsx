@@ -597,7 +597,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       const data = await loadDashboard(org.id);
       // Always replace demo clients with real data (even if empty list)
       setClientes(data.clients.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono ?? '', email: c.email ?? '', direccion: c.direccion ?? '', obrasActivas: c.obras_activas, totalFacturado: c.total_facturado })));
-      setPresupuestos(data.quotes.map(q => ({ id: q.numero, dbId: q.id, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total })), total: q.total_neto, iva_pct: q.iva_pct, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '', kbActuaciones: q.kb_actuaciones ?? undefined })));
+      setPresupuestos(data.quotes.map(q => ({ id: q.numero, dbId: q.id, clientId: q.client_id ?? null, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total })), total: q.total_neto, iva_pct: q.iva_pct, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '', kbActuaciones: q.kb_actuaciones ?? undefined })));
       setFacturas(data.invoices.map(f => ({ id: f.id, numeroFactura: f.numero, nombreCliente: f.client_id ? (data.clients.find(c => c.id === f.client_id)?.nombre ?? '') : (f.concepto?.split('—')[1]?.trim() ?? ''), idPresupuesto: f.quote_id ?? '', importe: f.subtotal, fecha: f.fecha, fechaVencimiento: f.fecha_vencimiento ?? '', estado: f.estado as any, concepto: f.concepto ?? undefined, esMantenimineto: !!f.contract_id })));
       if (org) {
         setOrgId(org.id);
@@ -680,6 +680,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [isMobileMode, setIsMobileMode] = useState<boolean>(initialMobile);
   const [activeTab, setActiveTab] = useState<string>(rol === 'tecnico' ? 'planificacion' : 'dashboard');
   const [newJobTrigger, setNewJobTrigger] = useState(0);
+  const [prefillJobFromQuote, setPrefillJobFromQuote] = useState<import('../types').Presupuesto | null>(null);
 
   // Detectar si estamos en un dispositivo móvil real (PWA instalada o teléfono)
   const isNativeDevice = (() => {
@@ -3339,6 +3340,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               presupuestosPorId={Object.fromEntries(presupuestos.map(p => [p.id, { id: p.id, descripcion: p.descripcion, total: p.total, estado: p.estado, fecha: p.fecha }]))}
               showToast={showToast}
               triggerNew={newJobTrigger}
+              prefillJobFromQuote={prefillJobFromQuote ? { id: prefillJobFromQuote.id, dbId: prefillJobFromQuote.dbId, nombreCliente: prefillJobFromQuote.nombreCliente, descripcion: prefillJobFromQuote.descripcion, total: prefillJobFromQuote.total ?? 0, client_id: prefillJobFromQuote.clientId ?? null } : null}
+              onPrefillConsumed={() => setPrefillJobFromQuote(null)}
             />
           )}
           {mobileTab === 'mantenimiento' && orgId && (
@@ -3476,6 +3479,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               setMobileTab('facturas');
             }}
             onCrearTrabajo={() => {
+              setPrefillJobFromQuote(postConfirmQuote);
               setPostConfirmQuote(null);
               setMobileTab('trabajos');
               setNewJobTrigger(t => t + 1);
@@ -5508,7 +5512,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     isDarkMode={isDarkMode}
                     presupuestosAceptados={presupuestos
                       .filter(p => p.estado === 'Aceptado')
-                      .map(p => ({ id: p.id, nombreCliente: p.nombreCliente, descripcion: p.descripcion, total: p.total ?? 0 }))
+                      .map(p => ({ id: p.id, dbId: p.dbId, nombreCliente: p.nombreCliente, descripcion: p.descripcion, total: p.total ?? 0, client_id: p.clientId ?? null }))
                     }
                     onCreateJob={async (job) => {
                       if (!orgId) throw new Error('Sin organización');
@@ -5536,6 +5540,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     onViewRoute={() => setActiveTab('ruta_dia')}
                     showToast={showToast}
                     triggerNew={newJobTrigger}
+                    prefillJobFromQuote={prefillJobFromQuote ? { id: prefillJobFromQuote.id, dbId: prefillJobFromQuote.dbId, nombreCliente: prefillJobFromQuote.nombreCliente, descripcion: prefillJobFromQuote.descripcion, total: prefillJobFromQuote.total ?? 0, client_id: prefillJobFromQuote.clientId ?? null } : null}
+                    onPrefillConsumed={() => setPrefillJobFromQuote(null)}
                   />
                 )}
                 {activeTab === 'ruta_dia' && orgId && (

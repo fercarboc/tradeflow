@@ -12,7 +12,8 @@ import { geocodeAddress, addressChanged, type GeoStatus } from '../lib/geocoder'
 interface Worker { id: string; nombre: string; rol: string; activo: boolean; }
 interface Cliente { id: string; nombre: string; telefono: string; }
 export interface PresupuestoPendiente {
-  id: string;
+  id: string;       // visible number PRE-XXX
+  dbId?: string;    // UUID en BD (para quote_id en trabajos)
   nombreCliente: string;
   descripcion: string;
   total: number;
@@ -48,6 +49,9 @@ export interface ScreenPlanificacionProps {
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   /** Incrementar para abrir el modal de creación desde fuera. */
   triggerNew?: number;
+  /** Presupuesto aceptado desde el que crear el trabajo (pre-rellena el formulario). */
+  prefillJobFromQuote?: PresupuestoPendiente | null;
+  onPrefillConsumed?: () => void;
 }
 
 const ESTADO_CFG: Record<TradeJob['estado'], { label: string; cls: string; dot: string }> = {
@@ -1012,6 +1016,7 @@ export default function ScreenPlanificacion({
   presupuestosPorId = {},
   onCreateJob, onUpdateJob, onDeleteJob, onAssignWorker, onRemoveWorker,
   onOpenParte, onCreatePresupuesto, onViewRoute, showToast, triggerNew,
+  prefillJobFromQuote, onPrefillConsumed,
 }: ScreenPlanificacionProps) {
   const jobs  = isLiveMode ? propJobs : DEMO_JOBS;
   const today = new Date().toISOString().split('T')[0];
@@ -1115,8 +1120,23 @@ export default function ScreenPlanificacion({
   useEffect(() => {
     if (!triggerNew || triggerNew === triggerNewRef.current) return;
     triggerNewRef.current = triggerNew;
-    openCreate();
-  // openCreate reads state via closures; triggerNew is the only external dep
+    if (prefillJobFromQuote) {
+      setEditingJob(null);
+      setDraft({
+        ...EMPTY_DRAFT(),
+        fecha_inicio: selectedDate,
+        titulo: prefillJobFromQuote.descripcion.slice(0, 80) || `Trabajo — ${prefillJobFromQuote.nombreCliente}`,
+        client_id: prefillJobFromQuote.client_id ?? null,
+        quote_id: prefillJobFromQuote.dbId ?? null,
+        prioridad: 'normal',
+      });
+      setSelectedWorkerIds(new Set());
+      setShowModal(true);
+      onPrefillConsumed?.();
+    } else {
+      openCreate();
+    }
+  // openCreate reads state via closures; triggerNew + prefillJobFromQuote are the external deps
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [triggerNew]);
 
@@ -1528,6 +1548,7 @@ export default function ScreenPlanificacion({
                       fecha_inicio: selectedDate,
                       titulo: p.descripcion.slice(0, 80) || `Trabajo — ${p.nombreCliente}`,
                       client_id: p.client_id ?? null,
+                      quote_id: p.dbId ?? null,
                       prioridad: 'normal',
                     });
                     setSelectedWorkerIds(new Set());

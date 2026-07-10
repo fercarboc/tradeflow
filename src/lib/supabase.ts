@@ -672,13 +672,14 @@ export async function createInvoiceFromJob(
     concepto?: string;
     esSuplementaria?: boolean;
     contractId?: string | null;
+    quoteId?: string | null;
     metodoPago?: TradeInvoice['metodo_pago'];
     razonSocial?: string;
     nifCliente?: string;
     direccionCliente?: string;
   } = {},
 ): Promise<TradeInvoice> {
-  const { ivaPct = 21, concepto, esSuplementaria = false, contractId, metodoPago, razonSocial, nifCliente, direccionCliente } = opts;
+  const { ivaPct = 21, concepto, esSuplementaria = false, contractId, quoteId, metodoPago, razonSocial, nifCliente, direccionCliente } = opts;
 
   const serie: 'F' | 'M' = contractId ? 'M' : 'F';
   const tipo_factura = contractId ? (esSuplementaria ? 'contrato_extra' : 'contrato_cuota') : 'trabajo_puntual';
@@ -697,6 +698,7 @@ export async function createInvoiceFromJob(
       client_id: clientId ?? null,
       job_id: jobId || null,
       contract_id: contractId ?? null,
+      quote_id: quoteId ?? null,
       numero: tempNumero,
       fecha: today,
       estado: 'Borrador',

@@ -102,6 +102,7 @@ origen?: 'catalogo' | 'sugerida_ia' | 'proveedor';
 export interface Presupuesto {
 id: string;
 dbId?: string; // UUID real en BD; id es el número visible PRE-XXXX-XXX
+clientId?: string | null;
 nombreCliente: string;
 descripcion: string;
 partidas: PartidaPresupuesto[];

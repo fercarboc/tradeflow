@@ -6,7 +6,7 @@ import {
   Lock, PlusCircle, ReceiptText, StickyNote, Send,
 } from 'lucide-react';
 import { supabase, uploadJobPhoto, loadJobPhotos, createInvoiceFromJob, markInvoicePaid, emitirFactura, createFieldAction } from '../lib/supabase';
-import type { TradeJob, TradeJobPhoto, TradeInvoice, TradeFieldAction } from '../lib/supabase';
+import type { TradeJob, TradeJobPhoto, TradeInvoice, TradeFieldAction, TradeQuoteItem } from '../lib/supabase';
 import { useSession } from '../context/SessionContext';
 
 export interface MaterialItem {
@@ -105,6 +105,23 @@ export default function ScreenParteTrabajo({
   const [customLineDesc, setCustomLineDesc] = useState('');
   const [customLinePrice, setCustomLinePrice] = useState('');
   const [customLineCant, setCustomLineCant] = useState('1');
+
+  // Quote items (when job is linked to a quote)
+  const [quotedItems, setQuotedItems] = useState<TradeQuoteItem[]>([]);
+
+  useEffect(() => {
+    if (!job.quote_id || !isLiveMode) return;
+    supabase
+      .from('trade_quotes')
+      .select('*, trade_quote_items(*)')
+      .eq('id', job.quote_id)
+      .single()
+      .then(({ data }) => {
+        if (data?.trade_quote_items?.length) {
+          setQuotedItems(data.trade_quote_items as TradeQuoteItem[]);
+        }
+      });
+  }, [job.quote_id, isLiveMode]);
 
   // Field notes (tecnico)
   const [fieldNoteText, setFieldNoteText] = useState('');
@@ -308,7 +325,8 @@ export default function ScreenParteTrabajo({
       await onComplete(job.id, notas, materiales, fin);
       if (isTecnico) { setPhase('done'); return; }
       const needsInvoice = !mantenimiento?.activo || !mantenimiento?.materialesIncluidos;
-      setPhase(needsInvoice && materiales.length > 0 ? 'facturar' : 'done');
+      const hasContent = materiales.length > 0 || quotedItems.length > 0 || !!job.quote_id;
+      setPhase(needsInvoice && hasContent ? 'facturar' : 'done');
     } catch {
       showToast('Error al completar el trabajo', 'error');
       setPhase('main');
@@ -347,22 +365,32 @@ export default function ScreenParteTrabajo({
   async function handleGenerarFactura(materialesList: MaterialItem[], isSupp = false) {
     setPhase('generating');
     try {
+      // If no local materials but job is linked to a quote, use the quote's items
+      const useQuoteItems = !isSupp && materialesList.length === 0 && quotedItems.length > 0;
+      const effectiveMaterials = useQuoteItems
+        ? quotedItems.map(i => ({ id: i.id, codigo: '', descripcion: i.descripcion, precioBase: i.precio_unitario, cantidad: i.cantidad, tipo: i.tipo }))
+        : materialesList;
+
       const matDesc = materialesList.length > 0
         ? ' — ' + materialesList.map(m => `${m.descripcion}${m.cantidad > 1 ? ` ×${m.cantidad}` : ''}`).join(', ')
         : '';
       const concepto = isSupp
         ? `Material olvidado — ${job.titulo}${supplementReason ? ` (${supplementReason})` : ''}${matDesc}`
         : `${job.titulo}${matDesc}`;
-      const matsWithType = materialesList.map(m => ({
-        ...m,
+      const matsWithType = effectiveMaterials.map(m => ({
+        descripcion: m.descripcion,
+        cantidad: m.cantidad,
         precioBase: m.precioBase,
-        tipo: m.descripcion.toLowerCase().includes('mano') || m.descripcion.toLowerCase().includes('desplaz')
-          ? (m.descripcion.toLowerCase().includes('desplaz') ? 'desplazamiento' : 'mano_de_obra')
-          : 'material',
+        tipo: (m as { tipo?: string }).tipo ?? (
+          m.descripcion.toLowerCase().includes('mano') || m.descripcion.toLowerCase().includes('desplaz')
+            ? (m.descripcion.toLowerCase().includes('desplaz') ? 'desplazamiento' : 'mano_de_obra')
+            : 'material'
+        ),
       }));
       const inv = await createInvoiceFromJob(orgId, job.id, job.client_id, matsWithType, {
         concepto,
         esSuplementaria: isSupp,
+        quoteId: useQuoteItems ? (job.quote_id ?? null) : null,
       });
       setNewInvoice(inv);
       onInvoiceCreated?.(inv);
@@ -417,6 +445,12 @@ export default function ScreenParteTrabajo({
   const subtotalFact = (phase === 'facturar' || phase === 'generating') ? subtotalNormal : 0;
   const ivaFact = subtotalFact * 0.21;
   const totalFact = subtotalFact + ivaFact;
+
+  // Quote items for display when no local materials
+  const showQuoteItems = materialesNormales.length === 0 && quotedItems.length > 0;
+  const subtotalQuoted = quotedItems.reduce((s, i) => s + i.cantidad * i.precio_unitario, 0);
+  const ivaQuoted = subtotalQuoted * 0.21;
+  const totalQuoted = subtotalQuoted + ivaQuoted;
 
   const clienteNombre = clienteInfo?.nombre ?? job.trade_clients?.nombre ?? '';
   const clienteTelefono = clienteInfo?.telefono ?? job.trade_clients?.telefono ?? '';
@@ -560,6 +594,32 @@ export default function ScreenParteTrabajo({
             </div>
           )}
 
+          {/* Resumen partidas del presupuesto (cuando no hay materiales del parte) */}
+          {!isMantCovered && showQuoteItems && !newInvoice && (
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Partidas del presupuesto</p>
+                <span className="text-[9px] font-bold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Desde presupuesto</span>
+              </div>
+              <div className="bg-white border border-gray-100 shadow-sm rounded-2xl overflow-hidden">
+                {quotedItems.map((item, i) => (
+                  <div key={item.id} className={`flex items-center justify-between px-4 py-3 ${i < quotedItems.length - 1 ? 'border-b border-gray-100' : ''}`}>
+                    <div className="min-w-0 flex-1 pr-3">
+                      <p className="text-sm text-gray-900 truncate">{item.descripcion}</p>
+                      <p className="text-[10px] text-gray-400">{item.precio_unitario.toFixed(2)} € × {item.cantidad} · <span className="capitalize">{item.tipo === 'mano_de_obra' ? 'M. de obra' : 'Material'}</span></p>
+                    </div>
+                    <span className="text-sm font-bold text-gray-900 font-mono">{fmtEur(item.cantidad * item.precio_unitario)}</span>
+                  </div>
+                ))}
+                <div className="border-t border-gray-200 px-4 py-3 space-y-1">
+                  <div className="flex justify-between text-xs text-gray-400"><span>Subtotal</span><span className="font-mono">{fmtEur(subtotalQuoted)}</span></div>
+                  <div className="flex justify-between text-xs text-gray-400"><span>IVA 21%</span><span className="font-mono">{fmtEur(ivaQuoted)}</span></div>
+                  <div className="flex justify-between text-sm font-black text-gray-900 pt-1 border-t border-gray-200"><span>Total</span><span className="font-mono">{fmtEur(totalQuoted)}</span></div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Notas */}
           {notas && <div className="bg-white border border-gray-100 shadow-sm rounded-xl px-4 py-3">
             <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Notas</p>
@@ -594,7 +654,19 @@ export default function ScreenParteTrabajo({
               <FileText className="w-4 h-4" />Generar y registrar factura
             </button>
           )}
-          {phase === 'facturar' && materialesNormales.length === 0 && (
+          {phase === 'facturar' && materialesNormales.length === 0 && showQuoteItems && (
+            <div className="space-y-2.5">
+              <button onClick={() => handleGenerarFactura([])}
+                className="w-full flex items-center justify-center gap-2 bg-blue-600 active:bg-blue-700 text-white font-bold text-sm py-4 rounded-2xl cursor-pointer"
+                style={{ boxShadow: '0 4px 24px rgba(37,99,235,0.4)' }}>
+                <FileText className="w-4 h-4" />Facturar partidas del presupuesto
+              </button>
+              <button onClick={onClose} className="w-full py-3 rounded-2xl text-sm font-semibold text-gray-500 bg-gray-100 active:bg-gray-200 cursor-pointer">
+                Cerrar sin facturar
+              </button>
+            </div>
+          )}
+          {phase === 'facturar' && materialesNormales.length === 0 && !showQuoteItems && (
             <button onClick={onClose} className="w-full py-4 rounded-2xl text-sm font-bold text-gray-600 bg-gray-100 active:bg-gray-200 cursor-pointer">Cerrar sin facturar</button>
           )}
           {phase === 'generating' && (
