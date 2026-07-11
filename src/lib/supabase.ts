@@ -3841,6 +3841,91 @@ export async function deleteContract(id: string): Promise<void> {
 }
 
 
+// ── Firma de cliente en parte de trabajo ────────────────────────────────────
+
+export interface TradeJobReview {
+  id: string;
+  org_id: string;
+  job_id: string;
+  token: string;
+  job_titulo?: string | null;
+  cliente_nombre?: string | null;
+  rating?: number | null;
+  comentario?: string | null;
+  respondido_at?: string | null;
+  created_at: string;
+}
+
+export async function uploadJobSignature(jobId: string, orgId: string, dataUrl: string): Promise<string> {
+  const res = await fetch(dataUrl);
+  const blob = await res.blob();
+  const path = `${orgId}/signatures/${jobId}.png`;
+  const { error } = await supabase.storage
+    .from('trade-job-photos')
+    .upload(path, blob, { contentType: 'image/png', upsert: true });
+  if (error) throw error;
+  const { data: { publicUrl } } = supabase.storage.from('trade-job-photos').getPublicUrl(path);
+  return publicUrl;
+}
+
+export async function saveJobSignature(jobId: string, firmaUrl: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_jobs')
+    .update({ firma_cliente_url: firmaUrl })
+    .eq('id', jobId);
+  if (error) throw error;
+}
+
+export async function createJobReviewToken(
+  orgId: string,
+  jobId: string,
+  jobTitulo: string,
+  clienteNombre: string,
+): Promise<string> {
+  const { data, error } = await supabase
+    .from('trade_job_reviews')
+    .insert({ org_id: orgId, job_id: jobId, job_titulo: jobTitulo, cliente_nombre: clienteNombre })
+    .select('token')
+    .single();
+  if (error) throw error;
+  return (data as { token: string }).token;
+}
+
+export async function getJobReviewInfo(token: string): Promise<{
+  job_titulo: string;
+  org_nombre: string;
+  org_logo_url: string | null;
+  cliente_nombre: string | null;
+  respondido: boolean;
+} | null> {
+  const { data, error } = await supabase.rpc('get_job_review_info', { p_token: token });
+  if (error) throw error;
+  if (!data || (data as unknown[]).length === 0) return null;
+  return (data as unknown[])[0] as {
+    job_titulo: string; org_nombre: string; org_logo_url: string | null;
+    cliente_nombre: string | null; respondido: boolean;
+  };
+}
+
+export async function submitJobReview(token: string, rating: number, comentario?: string): Promise<void> {
+  const { error } = await supabase.rpc('submit_job_review', {
+    p_token: token,
+    p_rating: rating,
+    p_comentario: comentario ?? null,
+  });
+  if (error) throw error;
+}
+
+export async function loadJobReviews(orgId: string): Promise<TradeJobReview[]> {
+  const { data, error } = await supabase
+    .from('trade_job_reviews')
+    .select('*')
+    .eq('org_id', orgId)
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as TradeJobReview[];
+}
+
 // ── Domain modules ──────────────────────────────────────────────────────────
 export * from './api/chatbot';
 export * from './api/ai-feedback';

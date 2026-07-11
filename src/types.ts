@@ -49,6 +49,9 @@ InvoiceView = 'invoice-view',
 
 // Demo interactiva para socios / partners
 PartnerDemo = 'partner-demo',
+
+// Encuesta de satisfacción post-trabajo (pública)
+Valorar = 'valorar',
 }
 
 export type TradeType =

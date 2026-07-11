@@ -34,6 +34,7 @@ import UpdatePasswordView from './components/auth/UpdatePasswordView';
 import QuoteAcceptView from './components/QuoteAcceptView';
 import InvoicePublicView from './components/InvoicePublicView';
 const PartnerDemoView = lazy(() => import('./components/partner-demo/PartnerDemoView'));
+const ReviewView = lazy(() => import('./pages/ReviewView'));
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -156,6 +157,7 @@ const PUBLIC_OR_AUTH_PAGES = new Set<ActivePage>([
   ActivePage.AsisTecnico,
   ActivePage.Herramientas,
   ActivePage.PartnerDemo,
+  ActivePage.Valorar,
 ]);
 
 function isPWAMode(): boolean {
@@ -189,6 +191,7 @@ function detectAuthRoute(): ActivePage | null {
   if (path === '/login') return ActivePage.Login;
   if (path.startsWith('/p/')) return ActivePage.QuoteAccept;
   if (path.startsWith('/factura/')) return ActivePage.InvoiceView;
+  if (path.startsWith('/valorar/')) return ActivePage.Valorar;
 
   return null;
 }
@@ -440,6 +443,9 @@ export default function App() {
 
       case ActivePage.PartnerDemo:
         return <PartnerDemoView setCurrentPage={setCurrentPage} />;
+
+      case ActivePage.Valorar:
+        return <ReviewView />;
 
       default:
         return <LandingPage setCurrentPage={setCurrentPage} />;

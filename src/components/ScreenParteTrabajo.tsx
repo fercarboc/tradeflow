@@ -3,11 +3,12 @@ import {
   X, Camera, CheckCircle, Plus, Minus, Search, MapPin, User,
   Clock, Trash2, Loader2, Mic, Square, Wrench,
   MessageSquare, Mail, FileText, ChevronRight, AlertCircle,
-  Lock, PlusCircle, ReceiptText, StickyNote, Send,
+  Lock, PlusCircle, ReceiptText, StickyNote, Send, Star, PenLine,
 } from 'lucide-react';
-import { supabase, uploadJobPhoto, loadJobPhotos, createInvoiceFromJob, markInvoicePaid, emitirFactura, createFieldAction } from '../lib/supabase';
+import { supabase, uploadJobPhoto, loadJobPhotos, createInvoiceFromJob, markInvoicePaid, emitirFactura, createFieldAction, uploadJobSignature, saveJobSignature, createJobReviewToken } from '../lib/supabase';
 import type { TradeJob, TradeJobPhoto, TradeInvoice, TradeFieldAction, TradeQuoteItem } from '../lib/supabase';
 import { useSession } from '../context/SessionContext';
+import SignaturePad from './SignaturePad';
 
 export interface MaterialItem {
   id: string;
@@ -55,6 +56,8 @@ export interface ScreenParteTrabajoProps {
 type Phase =
   | 'main'          // editing / viewing / supplementing
   | 'completing'    // saving completion
+  | 'firma'         // cliente firma el parte
+  | 'guardando_firma' // subiendo firma
   | 'facturar'      // post-completion, choosing to invoice
   | 'generating'    // creating invoice
   | 'done';         // all done
@@ -109,6 +112,11 @@ export default function ScreenParteTrabajo({
   // Manual invoice form (when no materials and no linked quote)
   const [manualConcepto, setManualConcepto] = useState('');
   const [manualImporte, setManualImporte] = useState('');
+
+  // Firma del cliente
+  const [signatureDataUrl, setSignatureDataUrl] = useState<string | null>(null);
+  const [savedFirmaUrl, setSavedFirmaUrl] = useState<string | null>(job.firma_cliente_url ?? null);
+  const [reviewToken, setReviewToken] = useState<string | null>(null);
 
   // Quote items (when job is linked to a quote)
   const [quotedItems, setQuotedItems] = useState<TradeQuoteItem[]>([]);
@@ -328,8 +336,7 @@ export default function ScreenParteTrabajo({
     try {
       await onComplete(job.id, notas, materiales, fin);
       if (isTecnico) { setPhase('done'); return; }
-      const needsInvoice = !mantenimiento?.activo || !mantenimiento?.materialesIncluidos;
-      setPhase(needsInvoice ? 'facturar' : 'done');
+      setPhase('firma');
     } catch {
       showToast('Error al completar el trabajo', 'error');
       setPhase('main');
@@ -435,6 +442,30 @@ export default function ScreenParteTrabajo({
     }
   }
 
+  // ── Firma del cliente ─────────────────────────────────────────────────────
+  function goToFacturar() {
+    const needsInvoice = !mantenimiento?.activo || !mantenimiento?.materialesIncluidos;
+    setPhase(needsInvoice ? 'facturar' : 'done');
+  }
+
+  async function handleFirmarYContinuar() {
+    if (!signatureDataUrl) { showToast('Añade la firma antes de continuar', 'error'); return; }
+    setPhase('guardando_firma');
+    try {
+      const url = await uploadJobSignature(job.id, orgId, signatureDataUrl);
+      await saveJobSignature(job.id, url);
+      setSavedFirmaUrl(url);
+      showToast('Firma guardada ✓', 'success');
+    } catch {
+      showToast('Error al guardar la firma — puedes continuar sin ella', 'info');
+    }
+    goToFacturar();
+  }
+
+  function handleSaltarFirma() {
+    goToFacturar();
+  }
+
   // ── Generate invoice from manual concepto+importe ──────────────────────────
   async function handleGenerarFacturaManual() {
     const importe = parseFloat(manualImporte.replace(',', '.'));
@@ -489,13 +520,165 @@ export default function ScreenParteTrabajo({
   const invoiceToSend = newInvoice ?? existingInvoices[existingInvoices.length - 1];
   const waText = encodeURIComponent(
     invoiceToSend
-      ? `Hola ${clienteNombre}, adjunto factura ${invoiceToSend.numero} por ${fmtEur(invoiceToSend.total)}.`
-      : `Hola ${clienteNombre}, el trabajo "${job.titulo}" ha quedado completado.`,
+      ? `Hola ${clienteNombre}, te adjunto la factura ${invoiceToSend.numero} por ${fmtEur(invoiceToSend.total)} del trabajo "${job.titulo}". Gracias.`
+      : `Hola ${clienteNombre}, el trabajo "${job.titulo}" ha quedado completado. Gracias por confiar en nosotros.`,
   );
   const waUrl = clienteTelefono ? `https://wa.me/${clienteTelefono.replace(/\D/g, '')}?text=${waText}` : null;
   const mailUrl = clienteEmail && invoiceToSend
-    ? `mailto:${clienteEmail}?subject=${encodeURIComponent(`Factura ${invoiceToSend.numero}`)}&body=${encodeURIComponent(`Hola ${clienteNombre},\n\nAdjunto factura ${invoiceToSend.numero} por importe de ${fmtEur(invoiceToSend.total)}.\n\nGracias.`)}`
+    ? `mailto:${clienteEmail}?subject=${encodeURIComponent(`Factura ${invoiceToSend.numero}`)}&body=${encodeURIComponent(`Hola ${clienteNombre},\n\nAdjunto factura ${invoiceToSend.numero} por importe de ${fmtEur(invoiceToSend.total)} del trabajo "${job.titulo}".\n\nGracias.`)}`
     : null;
+
+  const buildReviewWaUrl = (token: string) => {
+    if (!clienteTelefono) return null;
+    const base = window.location.origin;
+    const link = `${base}/valorar/${token}`;
+    const msg = encodeURIComponent(
+      `Hola ${clienteNombre}, ¿quedaste satisfecho con el trabajo "${job.titulo}"?\n\nValóranos en 30 segundos — te lo agradeceríamos mucho:\n${link}`,
+    );
+    return `https://wa.me/${clienteTelefono.replace(/\D/g, '')}?text=${msg}`;
+  };
+
+  async function handlePedirValoracion() {
+    if (!isLiveMode) { showToast('Solo disponible en modo real', 'info'); return; }
+    try {
+      let token = reviewToken;
+      if (!token) {
+        token = await createJobReviewToken(orgId, job.id, job.titulo, clienteNombre);
+        setReviewToken(token);
+      }
+      const url = buildReviewWaUrl(token);
+      if (url) { window.open(url, '_blank'); }
+      else { showToast('No hay teléfono del cliente para enviar la encuesta', 'error'); }
+    } catch {
+      showToast('Error al crear el enlace de valoración', 'error');
+    }
+  }
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // FASE FIRMA
+  // ══════════════════════════════════════════════════════════════════════════
+  if (phase === 'firma' || phase === 'guardando_firma') {
+    const totalResumen = showQuoteItems ? totalQuoted : subtotalNormal > 0 ? totalFact : manualImporteNum > 0 ? manualImporteNum * 1.21 : null;
+    return (
+      <div className="fixed inset-0 z-50 bg-gray-50 flex flex-col overflow-hidden">
+        <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-gray-200 shrink-0">
+          <div className="flex-1 min-w-0 pr-3">
+            <div className="flex items-center gap-2 mb-0.5">
+              <PenLine className="w-4 h-4 text-blue-600" />
+              <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">Parte de trabajo · Firma</p>
+            </div>
+            <h2 className="text-base font-black text-gray-900 truncate">{job.titulo}</h2>
+          </div>
+          <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 active:bg-gray-200 text-gray-500 shrink-0 cursor-pointer">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto overscroll-contain px-5 py-5 space-y-4">
+          {/* Resumen del trabajo */}
+          <div className="bg-white border border-gray-100 shadow-sm rounded-2xl overflow-hidden">
+            <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
+              <div className="min-w-0">
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">Trabajo realizado</p>
+                <p className="text-sm font-black text-gray-900 leading-snug">{job.titulo}</p>
+              </div>
+              <div className="flex items-center gap-1.5 shrink-0">
+                <CheckCircle className="w-4 h-4 text-emerald-600" />
+                <span className="text-[10px] font-bold text-emerald-600 uppercase">Completado · {horaFin}</span>
+              </div>
+            </div>
+            {clienteNombre && (
+              <div className="px-4 py-2.5 border-b border-gray-100 flex items-center gap-2">
+                <User className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                <span className="text-xs text-gray-700">{clienteNombre}</span>
+              </div>
+            )}
+            {notas && (
+              <div className="px-4 py-2.5 border-b border-gray-100">
+                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-1">Notas</p>
+                <p className="text-xs text-gray-700 leading-relaxed">{notas}</p>
+              </div>
+            )}
+            {/* Materiales o partidas */}
+            {materialesNormales.length > 0 && (
+              <div className="px-4 py-2.5 border-b border-gray-100">
+                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-1.5">Materiales</p>
+                {materialesNormales.map((m, i) => (
+                  <div key={i} className="flex justify-between text-xs text-gray-700 py-0.5">
+                    <span className="truncate pr-3">{m.descripcion} × {m.cantidad}</span>
+                    <span className="font-mono shrink-0">{fmtEur(m.precioBase * m.cantidad)}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {showQuoteItems && (
+              <div className="px-4 py-2.5 border-b border-gray-100">
+                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-1.5">Partidas</p>
+                {quotedItems.map((item, i) => (
+                  <div key={i} className="flex justify-between text-xs text-gray-700 py-0.5">
+                    <span className="truncate pr-3">{item.descripcion} × {item.cantidad}</span>
+                    <span className="font-mono shrink-0">{fmtEur(item.cantidad * item.precio_unitario)}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {photos.length > 0 && (
+              <div className="px-4 py-2.5 border-b border-gray-100">
+                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-1.5">{photos.length} foto{photos.length !== 1 ? 's' : ''}</p>
+                <div className="flex gap-2 overflow-x-auto">
+                  {photos.slice(0, 4).map(p => (
+                    <img key={p.id} src={p.photo_url} alt="" className="w-14 h-14 rounded-lg object-cover shrink-0" />
+                  ))}
+                </div>
+              </div>
+            )}
+            {totalResumen !== null && (
+              <div className="px-4 py-3 flex justify-between items-center">
+                <span className="text-xs font-bold text-gray-500">Total (IVA incl.)</span>
+                <span className="text-lg font-black text-gray-900 font-mono">{fmtEur(totalResumen)}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Firma */}
+          <div className="space-y-2">
+            <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+              Conformidad del cliente — firma aquí
+            </p>
+            <SignaturePad
+              onDataUrl={setSignatureDataUrl}
+              height={200}
+            />
+          </div>
+          <div className="h-2" />
+        </div>
+
+        <div className="px-5 py-4 border-t border-gray-200 shrink-0 bg-gray-50 space-y-2.5">
+          {phase === 'guardando_firma' ? (
+            <div className="w-full flex items-center justify-center gap-3 py-4 text-gray-600">
+              <Loader2 className="w-5 h-5 animate-spin text-blue-600" />
+              <span className="text-sm font-semibold">Guardando firma…</span>
+            </div>
+          ) : (
+            <>
+              <button
+                onClick={handleFirmarYContinuar}
+                disabled={!signatureDataUrl}
+                className="w-full flex items-center justify-center gap-2 bg-blue-600 active:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-sm py-4 rounded-2xl cursor-pointer"
+                style={{ boxShadow: signatureDataUrl ? '0 4px 24px rgba(37,99,235,0.4)' : 'none' }}>
+                <CheckCircle className="w-4 h-4" />Firmar y continuar
+              </button>
+              <button
+                onClick={handleSaltarFirma}
+                className="w-full py-3 rounded-2xl text-sm font-semibold text-gray-500 bg-gray-100 active:bg-gray-200 cursor-pointer">
+                Saltar firma
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   // ══════════════════════════════════════════════════════════════════════════
   // POST-COMPLETION PANEL — TÉCNICO (no billing)
@@ -656,6 +839,14 @@ export default function ScreenParteTrabajo({
             <p className="text-sm text-gray-600 leading-relaxed">{notas}</p>
           </div>}
 
+          {/* Firma guardada */}
+          {phase === 'done' && savedFirmaUrl && (
+            <div className="bg-white border border-gray-100 shadow-sm rounded-2xl p-3">
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Firma del cliente</p>
+              <img src={savedFirmaUrl} alt="Firma" className="w-full max-h-24 object-contain rounded-xl border border-gray-100 bg-gray-50" />
+            </div>
+          )}
+
           {/* Envío */}
           {phase === 'done' && (waUrl || mailUrl) && (
             <div className="space-y-2">
@@ -671,6 +862,18 @@ export default function ScreenParteTrabajo({
                   <Mail className="w-4 h-4" />Email
                 </a>}
               </div>
+            </div>
+          )}
+
+          {/* Pedir valoración */}
+          {phase === 'done' && clienteTelefono && (
+            <div className="space-y-2">
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Encuesta de satisfacción</p>
+              <button
+                onClick={handlePedirValoracion}
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl font-bold text-sm text-amber-700 bg-amber-50 border border-amber-200 active:bg-amber-100 cursor-pointer">
+                <Star className="w-4 h-4 fill-amber-400 text-amber-400" />Pedir valoración por WhatsApp
+              </button>
             </div>
           )}
           <div className="h-4" />
