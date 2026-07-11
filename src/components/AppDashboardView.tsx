@@ -100,6 +100,7 @@ import ScreenMantenimiento from './ScreenMantenimiento';
 import ScreenFacturas from './ScreenFacturas';
 import ScreenContratos from './ScreenContratos';
 import ScreenSubcontratas from './ScreenSubcontratas';
+import ScreenValoraciones from './ScreenValoraciones';
 import ScreenAsistenteTecnico from './ScreenAsistenteTecnico';
 import { resolveTemplate, buildTemplateVars, DEFAULT_TEMPLATES, VARIABLE_GROUPS } from '../lib/templateEngine';
 import {
@@ -699,7 +700,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }, [initialMobile]);
 
   // Tabs de navegación móvil
-  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo' | 'mantenimiento' | 'contratos' | 'ruta' | 'asistente'>(rol === 'tecnico' ? 'trabajos' : 'inicio');
+  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo' | 'mantenimiento' | 'contratos' | 'ruta' | 'asistente' | 'valoraciones'>(rol === 'tecnico' ? 'trabajos' : 'inicio');
   // Fix timing: session carga async, rol llega tarde — forzar tab correcto cuando cambia
   useEffect(() => {
     if (rol === 'tecnico') {
@@ -3362,6 +3363,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               plan={subscription?.plan ?? orgData?.plan ?? 'basico'}
             />
           )}
+          {mobileTab === 'valoraciones' && orgId && (
+            <ScreenValoraciones showToast={showToast} />
+          )}
         </div>
 
         {/* BOTTOM TAB BAR */}
@@ -3823,6 +3827,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <div>
               <p className="text-sm font-bold text-gray-900 leading-tight">Contratos</p>
               <p className="text-xs text-gray-400 mt-0.5">Mantenimiento activo</p>
+            </div>
+          </button>
+
+          {/* Valoraciones */}
+          <button
+            onClick={() => setMobileTab('valoraciones')}
+            className="border-2 border-rose-200 rounded-2xl p-4 flex flex-col gap-3 bg-white active:scale-95 transition-transform text-left"
+          >
+            <div className="w-10 h-10 bg-rose-50 rounded-xl flex items-center justify-center">
+              <Star className="w-5 h-5 text-rose-500" />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-gray-900 leading-tight">Valoraciones</p>
+              <p className="text-xs text-gray-400 mt-0.5">Opiniones de clientes</p>
             </div>
           </button>
 
@@ -5281,6 +5299,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('catalog.manage') && orgId && SidebarBtn({ id: 'suppliers', icon: <Truck className="w-4 h-4" />, label: 'Proveedores' })}
             {can('catalog.manage') && orgId && SidebarBtn({ id: 'pedidos_material', icon: <ShoppingCart className="w-4 h-4" />, label: 'Pedidos Material' })}
             {SidebarBtn({ id: 'asistente', icon: <BookOpen className="w-4 h-4" />, label: 'Asistente Técnico' })}
+            {can('jobs.view') && SidebarBtn({ id: 'valoraciones', icon: <Star className="w-4 h-4" />, label: 'Valoraciones' })}
             {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
 
@@ -5372,6 +5391,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'suppliers' && 'Catálogos de Proveedores'}
                 {activeTab === 'pedidos_material' && 'Pedidos de Material'}
                 {activeTab === 'asistente' && 'Asistente Técnico de Normativa'}
+                {activeTab === 'valoraciones' && 'Valoraciones de Clientes'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
               </h2>
@@ -5616,6 +5636,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     session={session ?? null}
                     showToast={showToast}
                   />
+                )}
+                {activeTab === 'valoraciones' && orgId && (
+                  <ScreenValoraciones showToast={showToast} />
                 )}
                 {activeTab === 'settings' && ScreenSettings()}
                 {activeTab === 'preview' && ScreenPreview()}
