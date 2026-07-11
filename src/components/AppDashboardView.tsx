@@ -600,7 +600,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       // Always replace demo clients with real data (even if empty list)
       setClientes(data.clients.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono ?? '', email: c.email ?? '', direccion: c.direccion ?? '', obrasActivas: c.obras_activas, totalFacturado: c.total_facturado })));
       setPresupuestos(data.quotes.map(q => ({ id: q.numero, dbId: q.id, clientId: q.client_id ?? null, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total })), total: q.total_neto, iva_pct: q.iva_pct, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '', kbActuaciones: q.kb_actuaciones ?? undefined })));
-      setFacturas(data.invoices.map(f => ({ id: f.id, numeroFactura: f.numero, nombreCliente: f.client_id ? (data.clients.find(c => c.id === f.client_id)?.nombre ?? '') : (f.concepto?.split('—')[1]?.trim() ?? ''), idPresupuesto: f.quote_id ?? '', importe: f.subtotal, fecha: f.fecha, fechaVencimiento: f.fecha_vencimiento ?? '', estado: f.estado as any, concepto: f.concepto ?? undefined, esMantenimineto: !!f.contract_id })));
+      setFacturas(data.invoices.map(f => ({ id: f.id, numeroFactura: f.numero, nombreCliente: f.client_id ? (data.clients.find(c => c.id === f.client_id)?.nombre ?? '') : (f.concepto?.split('—')[1]?.trim() ?? ''), idPresupuesto: f.quote_id ?? '', job_id: f.job_id ?? null, importe: f.subtotal, fecha: f.fecha, fechaVencimiento: f.fecha_vencimiento ?? '', estado: f.estado as any, concepto: f.concepto ?? undefined, esMantenimineto: !!f.contract_id })));
       if (org) {
         setOrgId(org.id);
         setOrgData(org);
@@ -3904,6 +3904,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest font-mono block">{filtered.length} presupuesto{filtered.length !== 1 ? 's' : ''}</span>
 
         {filtered.map(p => {
+          const jobForP = jobs.find(j => j.quote_id === p.dbId && j.parte_token);
           const borderColor =
             p.estado === 'Facturado' ? 'border-l-indigo-400' :
             p.estado === 'Aceptado'  ? 'border-l-emerald-400' :
@@ -3950,7 +3951,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
               {/* Botones envío rápido */}
               {p.estado !== 'Borrador' && (
-                <div className="grid grid-cols-3 gap-1.5 pt-1" onClick={e => e.stopPropagation()}>
+                <div className={`grid gap-1.5 pt-1`}
+                  style={{ gridTemplateColumns: jobForP?.parte_token ? 'repeat(4,1fr)' : 'repeat(3,1fr)' }}
+                  onClick={e => e.stopPropagation()}>
                   <a
                     href={`https://wa.me/${(p.telefonoCliente ?? '').replace(/\D/g, '')}?text=${encodeURIComponent(`Hola ${p.nombreCliente ?? ''}, adjunto tu presupuesto TradeFlow:\n${p.descripcion ?? ''}\nTotal: ${(p.total * 1.21).toFixed(0)}€`)}`}
                     target="_blank" rel="noreferrer"
@@ -3966,7 +3969,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <Mail className="w-3.5 h-3.5" />
                     <span className="text-[9px] font-bold">Email</span>
                   </a>
-                  {p.estado !== 'Aceptado' && p.estado !== 'Facturado' && (
+                  {p.estado !== 'Aceptado' && p.estado !== 'Facturado' ? (
                     <button
                       onClick={async (e) => {
                         e.stopPropagation();
@@ -3983,6 +3986,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     >
                       <Globe className="w-3.5 h-3.5" />
                       <span className="text-[9px] font-bold">Enlace</span>
+                    </button>
+                  ) : (
+                    <div />
+                  )}
+                  {jobForP?.parte_token && (
+                    <button
+                      onClick={(e) => { e.stopPropagation(); window.open(`/parte/${jobForP.parte_token}`, '_blank'); }}
+                      className="flex flex-col items-center gap-0.5 bg-emerald-50 border border-emerald-200 rounded-xl py-2 text-emerald-700 active:bg-emerald-100 cursor-pointer"
+                    >
+                      <Eye className="w-3.5 h-3.5" />
+                      <span className="text-[9px] font-bold">Parte</span>
                     </button>
                   )}
                 </div>
@@ -4405,6 +4419,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest font-mono block">{sorted.length} factura{sorted.length !== 1 ? 's' : ''}</span>
 
         {sorted.map(f => {
+          const parteToken = f.job_id ? (jobs.find(j => j.id === f.job_id)?.parte_token ?? null) : null;
           const borderColor =
             f.estado === 'Vencida'   ? 'border-l-red-400' :
             f.estado === 'Pendiente' ? 'border-l-amber-400' :
@@ -4433,7 +4448,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </div>
               </div>
 
-              <div className={`pt-2 border-t border-gray-100 ${f.estado !== 'Pagada' && f.estado !== 'Devuelta' ? 'grid grid-cols-3 gap-2' : 'flex justify-between items-center'}`}>
+              <div className={`pt-2 border-t border-gray-100 ${f.estado !== 'Pagada' && f.estado !== 'Devuelta' ? 'grid gap-2' : 'flex justify-between items-center'}`}
+                style={f.estado !== 'Pagada' && f.estado !== 'Devuelta' ? { gridTemplateColumns: parteToken ? 'repeat(4,1fr)' : 'repeat(3,1fr)' } : undefined}>
                 {f.estado !== 'Pagada' && f.estado !== 'Devuelta' ? (
                   <>
                     <button
@@ -4454,16 +4470,34 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     >
                       <FileText className="w-3.5 h-3.5" />PDF
                     </button>
+                    {parteToken && (
+                      <button
+                        onClick={() => window.open(`/parte/${parteToken}`, '_blank')}
+                        className="bg-emerald-50 text-emerald-700 font-bold p-2.5 rounded-xl flex items-center justify-center gap-1 text-[9.5px] uppercase cursor-pointer active:bg-emerald-100 border border-emerald-200"
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                      </button>
+                    )}
                   </>
                 ) : f.estado === 'Devuelta' ? (
                   <>
                     <span className="text-[9.5px] font-mono text-orange-500 uppercase flex items-center gap-1">↩ Devuelta</span>
+                    <div className="flex gap-1.5">
                     <button
                       onClick={() => handleRemindInvoice(f)}
                       className="bg-gray-100 text-gray-600 font-bold p-2 rounded-xl text-[9px] uppercase cursor-pointer active:bg-gray-200"
                     >
                       💬 WA
                     </button>
+                    {parteToken && (
+                      <button
+                        onClick={() => window.open(`/parte/${parteToken}`, '_blank')}
+                        className="bg-emerald-50 text-emerald-700 font-bold p-2 rounded-xl flex items-center justify-center gap-1 text-[9px] uppercase cursor-pointer active:bg-emerald-100 border border-emerald-200"
+                      >
+                        <Eye className="w-3 h-3" />
+                      </button>
+                    )}
+                    </div>
                   </>
                 ) : (
                   <>
@@ -4490,6 +4524,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       >
                         <FileText className="w-3 h-3" />PDF
                       </button>
+                      {parteToken && (
+                        <button
+                          onClick={() => window.open(`/parte/${parteToken}`, '_blank')}
+                          className="bg-emerald-50 text-emerald-700 font-bold p-2 rounded-xl flex items-center justify-center gap-1 text-[9px] uppercase cursor-pointer active:bg-emerald-100 border border-emerald-200"
+                        >
+                          <Eye className="w-3 h-3" />
+                        </button>
+                      )}
                     </div>
                   </>
                 )}

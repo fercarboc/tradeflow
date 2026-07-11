@@ -126,6 +126,7 @@ id: string;
 numeroFactura: string;
 nombreCliente: string;
 idPresupuesto: string;
+job_id?: string | null;
 importe: number;
 fecha: string;
 fechaVencimiento: string;
