@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle, Loader2, AlertCircle, Clock, User, FileText } from 'lucide-react';
+import { CheckCircle, Loader2, AlertCircle, Clock, User, FileText, Download } from 'lucide-react';
 import { getParteInfo } from '../lib/supabase';
 import type { ParteInfo } from '../lib/supabase';
+import { printParte } from '../lib/printParte';
 
 type PageState = 'loading' | 'ready' | 'error';
 
@@ -124,6 +125,15 @@ export default function ParteView() {
             </div>
           )}
         </div>
+
+        {/* Botón descargar PDF */}
+        <button
+          onClick={() => printParte(info)}
+          className="w-full flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white font-bold py-3.5 rounded-2xl text-sm active:scale-95 transition-all cursor-pointer"
+        >
+          <Download className="w-4 h-4" />
+          Descargar PDF
+        </button>
 
         <p className="text-center text-[10px] text-gray-300">
           Powered by <span className="font-bold">TRABFLOW</span>
