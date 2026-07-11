@@ -2017,11 +2017,9 @@ async function compressImage(file: File, maxPx = 1280, quality = 0.80): Promise<
 export async function uploadJobPhoto(
   jobId: string,
   file: File,
-  _workerIdUnused: string,
+  workerId: string | null | undefined,
   orgId: string,
 ): Promise<TradeJobPhoto> {
-  const { data: { user } } = await supabase.auth.getUser();
-  const authUid = user?.id ?? '';
   const compressed = await compressImage(file);
   const path = `${orgId}/${jobId}/${Date.now()}.jpg`;
   const { error: upErr } = await supabase.storage
@@ -2031,7 +2029,7 @@ export async function uploadJobPhoto(
   const { data: { publicUrl } } = supabase.storage.from('trade-job-photos').getPublicUrl(path);
   const { data, error } = await supabase
     .from('trade_job_photos')
-    .insert({ job_id: jobId, org_id: orgId, uploaded_by_worker_id: authUid, photo_url: publicUrl })
+    .insert({ job_id: jobId, org_id: orgId, uploaded_by_worker_id: workerId || null, photo_url: publicUrl })
     .select()
     .single();
   if (error) throw error;

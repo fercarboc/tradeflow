@@ -315,7 +315,7 @@ export default function ScreenParteTrabajo({
     if (!file || !isLiveMode) return;
     setUploading(true);
     try {
-      const photo = await uploadJobPhoto(job.id, file, 'installer', orgId);
+      const photo = await uploadJobPhoto(job.id, file, workerProfile?.id ?? null, orgId);
       setPhotos(prev => [...prev, photo]);
       showToast('Foto añadida', 'success');
     } catch { showToast('Error al subir foto', 'error'); }
