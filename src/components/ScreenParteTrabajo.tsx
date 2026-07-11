@@ -5,7 +5,7 @@ import {
   MessageSquare, Mail, FileText, ChevronRight, AlertCircle,
   Lock, PlusCircle, ReceiptText, StickyNote, Send, Star, PenLine,
 } from 'lucide-react';
-import { supabase, uploadJobPhoto, loadJobPhotos, createInvoiceFromJob, markInvoicePaid, emitirFactura, createFieldAction, uploadJobSignature, saveJobSignature, createJobReviewToken } from '../lib/supabase';
+import { supabase, uploadJobPhoto, deleteJobPhoto, loadJobPhotos, createInvoiceFromJob, markInvoicePaid, emitirFactura, createFieldAction, uploadJobSignature, saveJobSignature, createJobReviewToken } from '../lib/supabase';
 import type { TradeJob, TradeJobPhoto, TradeInvoice, TradeFieldAction, TradeQuoteItem } from '../lib/supabase';
 import { useSession } from '../context/SessionContext';
 import SignaturePad from './SignaturePad';
@@ -324,7 +324,7 @@ export default function ScreenParteTrabajo({
 
   async function deletePhoto(photo: TradeJobPhoto) {
     if (!isLiveMode || isReadonly) return;
-    try { await supabase.from('trade_job_photos').delete().eq('id', photo.id); setPhotos(prev => prev.filter(p => p.id !== photo.id)); }
+    try { await deleteJobPhoto(photo); setPhotos(prev => prev.filter(p => p.id !== photo.id)); }
     catch { showToast('Error al eliminar foto', 'error'); }
   }
 

@@ -32,8 +32,8 @@ export default function SignaturePad({ onDataUrl, height = 180, className = '' }
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
     return {
-      x: (('clientX' in e ? e.clientX : e.clientX) - rect.left) * scaleX,
-      y: (('clientY' in e ? e.clientY : e.clientY) - rect.top) * scaleY,
+      x: (e.clientX - rect.left) * scaleX,
+      y: (e.clientY - rect.top) * scaleY,
     };
   };
 

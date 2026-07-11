@@ -2038,6 +2038,17 @@ export async function uploadJobPhoto(
   return data as TradeJobPhoto;
 }
 
+export async function deleteJobPhoto(photo: TradeJobPhoto): Promise<void> {
+  const marker = '/trade-job-photos/';
+  const idx = photo.photo_url.indexOf(marker);
+  if (idx !== -1) {
+    const storagePath = photo.photo_url.slice(idx + marker.length);
+    await supabase.storage.from('trade-job-photos').remove([storagePath]);
+  }
+  const { error } = await supabase.from('trade_job_photos').delete().eq('id', photo.id);
+  if (error) throw error;
+}
+
 export async function workerCreateJob(
   orgId: string,
   workerId: string,
