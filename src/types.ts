@@ -52,6 +52,9 @@ PartnerDemo = 'partner-demo',
 
 // Encuesta de satisfacción post-trabajo (pública)
 Valorar = 'valorar',
+
+// Parte de trabajo firmado (público)
+Parte = 'parte',
 }
 
 export type TradeType =

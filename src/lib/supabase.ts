@@ -1794,6 +1794,8 @@ export interface TradeJob {
   fecha_estimada_material?: string | null;
   rescheduled_from?: string | null;
   priority_insert?: boolean | null;
+  firma_cliente_url?: string | null;
+  parte_token?: string | null;
   created_at: string;
   updated_at: string;
   trade_clients?: { nombre: string; telefono?: string | null } | null;
@@ -3922,6 +3924,23 @@ export async function loadJobReviews(orgId: string): Promise<TradeJobReview[]> {
     .order('created_at', { ascending: false });
   if (error) throw error;
   return (data ?? []) as TradeJobReview[];
+}
+
+export interface ParteInfo {
+  job_titulo: string;
+  job_notas: string | null;
+  job_fecha: string | null;
+  job_hora_fin: string | null;
+  cliente_nombre: string | null;
+  org_nombre: string;
+  org_logo_url: string | null;
+  firma_url: string | null;
+}
+
+export async function getParteInfo(token: string): Promise<ParteInfo | null> {
+  const { data, error } = await supabase.rpc('get_parte_info', { p_token: token });
+  if (error || !data?.length) return null;
+  return (data as unknown[])[0] as ParteInfo;
 }
 
 // ── Domain modules ──────────────────────────────────────────────────────────

@@ -518,10 +518,11 @@ export default function ScreenParteTrabajo({
   const clienteEmail = clienteInfo?.email ?? '';
 
   const invoiceToSend = newInvoice ?? existingInvoices[existingInvoices.length - 1];
+  const parteLink = job.parte_token ? `${window.location.origin}/parte/${job.parte_token}` : null;
   const waText = encodeURIComponent(
     invoiceToSend
-      ? `Hola ${clienteNombre}, te adjunto la factura ${invoiceToSend.numero} por ${fmtEur(invoiceToSend.total)} del trabajo "${job.titulo}". Gracias.`
-      : `Hola ${clienteNombre}, el trabajo "${job.titulo}" ha quedado completado. Gracias por confiar en nosotros.`,
+      ? `Hola ${clienteNombre}, el trabajo "${job.titulo}" ha quedado completado.${parteLink ? `\n\nVer parte firmado: ${parteLink}` : ''}\n\nFactura ${invoiceToSend.numero}: ${fmtEur(invoiceToSend.total)}. Gracias.`
+      : `Hola ${clienteNombre}, el trabajo "${job.titulo}" ha quedado completado.${parteLink ? `\n\nVer parte firmado: ${parteLink}` : ''}\n\nGracias por confiar en nosotros.`,
   );
   const waUrl = clienteTelefono ? `https://wa.me/${clienteTelefono.replace(/\D/g, '')}?text=${waText}` : null;
   const mailUrl = clienteEmail && invoiceToSend
@@ -879,13 +880,37 @@ export default function ScreenParteTrabajo({
           <div className="h-4" />
         </div>
 
-        <div className="px-5 py-4 border-t border-gray-200 shrink-0 bg-gray-50">
+        <div className="px-5 py-4 border-t border-gray-200 shrink-0 bg-gray-50 space-y-2.5">
           {phase === 'facturar' && materialesNormales.length > 0 && (
-            <button onClick={() => handleGenerarFactura(materialesNormales)}
-              className="w-full flex items-center justify-center gap-2 bg-blue-600 active:bg-blue-700 text-white font-bold text-sm py-4 rounded-2xl cursor-pointer"
-              style={{ boxShadow: '0 4px 24px rgba(37,99,235,0.4)' }}>
-              <FileText className="w-4 h-4" />Generar y registrar factura
-            </button>
+            <div className="space-y-2.5">
+              {/* Añadir material extra antes de facturar */}
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                <input
+                  value={materialSearch}
+                  onChange={e => { setMaterialSearch(e.target.value); setShowMaterialPicker(true); }}
+                  onFocus={() => setShowMaterialPicker(true)}
+                  placeholder="Añadir material al parte…"
+                  className="w-full bg-white border border-gray-200 rounded-xl pl-8 pr-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-400"
+                />
+              </div>
+              {showMaterialPicker && filteredTarifas.length > 0 && (
+                <div className="bg-white border border-gray-200 rounded-xl overflow-hidden max-h-36 overflow-y-auto">
+                  {filteredTarifas.map((t, i) => (
+                    <button key={t.id} onClick={() => addMaterial(t, false)}
+                      className={`w-full flex items-center justify-between px-4 py-2.5 text-left active:bg-gray-50 cursor-pointer ${i < filteredTarifas.length - 1 ? 'border-b border-gray-100' : ''}`}>
+                      <p className="text-sm font-semibold text-gray-900 truncate pr-2">{t.descripcion}</p>
+                      <span className="text-sm font-bold text-blue-600 shrink-0">{t.precioBase.toFixed(0)} €</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+              <button onClick={() => handleGenerarFactura(materialesNormales)}
+                className="w-full flex items-center justify-center gap-2 bg-blue-600 active:bg-blue-700 text-white font-bold text-sm py-4 rounded-2xl cursor-pointer"
+                style={{ boxShadow: '0 4px 24px rgba(37,99,235,0.4)' }}>
+                <FileText className="w-4 h-4" />Generar y registrar factura
+              </button>
+            </div>
           )}
           {phase === 'facturar' && materialesNormales.length === 0 && showQuoteItems && (
             <div className="space-y-2.5">
@@ -1271,7 +1296,7 @@ export default function ScreenParteTrabajo({
                     placeholder="Descripción (mano de obra, desplazamiento…)"
                     value={customLineDesc}
                     onChange={e => setCustomLineDesc(e.target.value)}
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    className="w-full bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500"
                   />
                   <div className="flex gap-2">
                     <input
@@ -1281,7 +1306,7 @@ export default function ScreenParteTrabajo({
                       placeholder="Precio unit. (€)"
                       value={customLinePrice}
                       onChange={e => setCustomLinePrice(e.target.value)}
-                      className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                      className="flex-1 bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500"
                     />
                     <input
                       type="number"
@@ -1289,7 +1314,7 @@ export default function ScreenParteTrabajo({
                       placeholder="Cant."
                       value={customLineCant}
                       onChange={e => setCustomLineCant(e.target.value)}
-                      className="w-20 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                      className="w-20 bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500"
                     />
                   </div>
                   <div className="flex gap-2">

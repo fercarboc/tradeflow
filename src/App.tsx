@@ -35,6 +35,7 @@ import QuoteAcceptView from './components/QuoteAcceptView';
 import InvoicePublicView from './components/InvoicePublicView';
 const PartnerDemoView = lazy(() => import('./components/partner-demo/PartnerDemoView'));
 const ReviewView = lazy(() => import('./pages/ReviewView'));
+const ParteView = lazy(() => import('./pages/ParteView'));
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -158,6 +159,7 @@ const PUBLIC_OR_AUTH_PAGES = new Set<ActivePage>([
   ActivePage.Herramientas,
   ActivePage.PartnerDemo,
   ActivePage.Valorar,
+  ActivePage.Parte,
 ]);
 
 function isPWAMode(): boolean {
@@ -192,6 +194,7 @@ function detectAuthRoute(): ActivePage | null {
   if (path.startsWith('/p/')) return ActivePage.QuoteAccept;
   if (path.startsWith('/factura/')) return ActivePage.InvoiceView;
   if (path.startsWith('/valorar/')) return ActivePage.Valorar;
+  if (path.startsWith('/parte/')) return ActivePage.Parte;
 
   return null;
 }
@@ -446,6 +449,9 @@ export default function App() {
 
       case ActivePage.Valorar:
         return <ReviewView />;
+
+      case ActivePage.Parte:
+        return <ParteView />;
 
       default:
         return <LandingPage setCurrentPage={setCurrentPage} />;
