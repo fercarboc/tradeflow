@@ -74,6 +74,7 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
   const [selectedInv, setSelectedInv] = useState<InvoiceWithClient | null>(null);
+  const [selectedParteToken, setSelectedParteToken] = useState<string | null>(null);
   const [invLines, setInvLines] = useState<TradeInvoiceLine[]>([]);
   const [loadingLines, setLoadingLines] = useState(false);
   const [emitting, setEmitting] = useState<string | null>(null);
@@ -136,6 +137,7 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
 
   async function openDetail(inv: InvoiceWithClient) {
     setSelectedInv(inv);
+    setSelectedParteToken(null);
     setLoadingLines(true);
     try {
       const lines = await loadInvoiceLines(inv.id);
@@ -144,6 +146,14 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
       setInvLines([]);
     } finally {
       setLoadingLines(false);
+    }
+    if (inv.job_id) {
+      supabase
+        .from('trade_jobs')
+        .select('parte_token')
+        .eq('id', inv.job_id)
+        .maybeSingle()
+        .then(({ data }) => { if (data?.parte_token) setSelectedParteToken(data.parte_token as string); });
     }
   }
 
@@ -754,6 +764,15 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
               </div>
               {/* Fila secundaria: PDF + Word + WhatsApp + Rectificadora */}
               <div className="flex flex-wrap gap-2">
+                {selectedParteToken && (
+                  <button
+                    onClick={() => window.open(`/parte/${selectedParteToken}`, '_blank')}
+                    className="flex-1 py-2 rounded-xl border border-emerald-200 text-emerald-700 bg-emerald-50 hover:bg-emerald-100 text-xs font-semibold cursor-pointer transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                    Ver Parte
+                  </button>
+                )}
                 {selectedInv.estado !== 'Borrador' && (
                   <button
                     onClick={() => handlePrintInvoice(selectedInv, invLines)}

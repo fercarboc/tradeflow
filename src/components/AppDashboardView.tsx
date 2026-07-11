@@ -71,6 +71,7 @@ import {
   Bell,
   Home,
   MapPin,
+  Eye,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
@@ -6781,10 +6782,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     if (!selectedQuoteForPreview) return null;
     const isMaintenanceQuote = /mantenimiento|limpieza.*recurrente|recurrente|contrato/i.test(selectedQuoteForPreview.descripcion);
     const canAccessMaintenance = subscription?.plan === 'empresa_plus' || subscription?.plan === 'empresa';
+    const jobForQuote = jobs.find(j => j.quote_id === selectedQuoteForPreview.dbId && j.parte_token);
     return (
       <div className="space-y-6">
         <div className="bg-white border border-slate-200 p-4 rounded-xl flex justify-between items-center flex-wrap gap-3">
           <div className="flex gap-2 flex-wrap">
+            {jobForQuote?.parte_token && (
+              <button
+                onClick={() => window.open(`/parte/${jobForQuote.parte_token}`, '_blank')}
+                className="flex items-center gap-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer"
+              >
+                <Eye className="w-3.5 h-3.5" />
+                Ver Parte
+              </button>
+            )}
             <button onClick={() => triggerWhatsAppShare(selectedQuoteForPreview)} className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer flex items-center gap-1.5">
               💬 WhatsApp
             </button>

@@ -58,6 +58,7 @@ type Phase =
   | 'completing'    // saving completion
   | 'firma'         // cliente firma el parte
   | 'guardando_firma' // subiendo firma
+  | 'confirmar_mant' // aviso mantenimiento: ¿facturar material extra?
   | 'facturar'      // post-completion, choosing to invoice
   | 'generating'    // creating invoice
   | 'done';         // all done
@@ -444,8 +445,11 @@ export default function ScreenParteTrabajo({
 
   // ── Firma del cliente ─────────────────────────────────────────────────────
   function goToFacturar() {
-    const needsInvoice = !mantenimiento?.activo || !mantenimiento?.materialesIncluidos;
-    setPhase(needsInvoice ? 'facturar' : 'done');
+    if (mantenimiento?.activo) {
+      setPhase('confirmar_mant');
+    } else {
+      setPhase('facturar');
+    }
   }
 
   async function handleFirmarYContinuar() {
@@ -556,10 +560,62 @@ export default function ScreenParteTrabajo({
   }
 
   // ══════════════════════════════════════════════════════════════════════════
+  // FASE CONFIRMAR MANTENIMIENTO
+  // ══════════════════════════════════════════════════════════════════════════
+  if (phase === 'confirmar_mant') {
+    const contratNombre = mantenimiento?.nombre ?? 'contrato de mantenimiento';
+    const materialesYaIncluidos = mantenimiento?.materialesIncluidos ?? false;
+    return (
+      <div className="fixed inset-0 z-50 bg-gray-900/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-4">
+        <div className="bg-white rounded-3xl w-full max-w-sm p-6 space-y-5 shadow-2xl">
+          <div className="flex items-start gap-3">
+            <div className="w-11 h-11 rounded-2xl bg-amber-50 flex items-center justify-center shrink-0">
+              <Wrench className="w-5 h-5 text-amber-500" />
+            </div>
+            <div>
+              <p className="text-base font-black text-gray-900 leading-tight">Trabajo de mantenimiento</p>
+              <p className="text-xs text-gray-500 mt-1">
+                Este trabajo pertenece al <span className="font-semibold">{contratNombre}</span>.
+                {materialesYaIncluidos
+                  ? ' Los materiales están incluidos en el contrato.'
+                  : ' Los materiales no están incluidos en el contrato.'}
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-amber-50 border border-amber-200 rounded-2xl px-4 py-3">
+            <p className="text-xs text-amber-800 font-semibold">
+              ¿Hay material adicional fuera del contrato que necesite facturarse por separado?
+            </p>
+            <p className="text-[10px] text-amber-600 mt-1">
+              Recuerda: solo se factura el material — la mano de obra está cubierta por el contrato.
+            </p>
+          </div>
+
+          <div className="space-y-2.5">
+            <button
+              onClick={() => setPhase('facturar')}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-2xl text-sm active:scale-95 transition-all cursor-pointer"
+            >
+              Sí, facturar material adicional
+            </button>
+            <button
+              onClick={() => setPhase('done')}
+              className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3.5 rounded-2xl text-sm active:scale-95 transition-all cursor-pointer"
+            >
+              No, cerrar trabajo sin facturar
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ══════════════════════════════════════════════════════════════════════════
   // FASE FIRMA
   // ══════════════════════════════════════════════════════════════════════════
   if (phase === 'firma' || phase === 'guardando_firma') {
-    const totalResumen = showQuoteItems ? totalQuoted : subtotalNormal > 0 ? totalFact : manualImporteNum > 0 ? manualImporteNum * 1.21 : null;
+    const totalResumen = showQuoteItems ? totalQuoted : subtotalNormal > 0 ? subtotalNormal * 1.21 : manualImporteNum > 0 ? manualImporteNum * 1.21 : null;
     return (
       <div className="fixed inset-0 z-50 bg-gray-50 flex flex-col overflow-hidden">
         <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-gray-200 shrink-0">
