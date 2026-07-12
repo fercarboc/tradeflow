@@ -935,7 +935,8 @@ function CSVImportModal({ onDone, onClose }: { onDone: () => void; onClose: () =
       };
 
       const { error } = await supabase.from('admin_corp_entities')
-        .upsert(payload as Parameters<typeof supabase.from>[0], { onConflict: 'external_key', ignoreDuplicates: false });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .upsert(payload as any, { onConflict: 'external_key', ignoreDuplicates: false });
 
       if (error) skipped++; else imported++;
     }
