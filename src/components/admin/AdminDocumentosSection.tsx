@@ -1114,7 +1114,7 @@ export default function AdminDocumentosSection({ toast }: { toast: (msg: string,
               {urgentes.length > 0 && <span className="ml-2 text-yellow-400 font-bold">· {urgentes.length} acción{urgentes.length > 1 ? 'es' : ''} pendiente{urgentes.length > 1 ? 's' : ''}</span>}
             </p>
           </div>
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex gap-2 flex-wrap items-center">
             <button onClick={() => setView('entidades')}
               className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg transition-colors ${view === 'entidades' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'}`}>
               <Building2 className="w-3.5 h-3.5" /> CRM
@@ -1123,6 +1123,11 @@ export default function AdminDocumentosSection({ toast }: { toast: (msg: string,
             <button onClick={() => setView('documentos')}
               className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg transition-colors ${view === 'documentos' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'}`}>
               <FileText className="w-3.5 h-3.5" /> Documentos
+            </button>
+            <div className="w-px h-5 bg-slate-700 mx-0.5" />
+            <button onClick={() => { setView('entidades'); setShowImport(true); }}
+              className="flex items-center gap-1.5 text-xs font-bold text-emerald-300 bg-emerald-900/40 hover:bg-emerald-800/60 border border-emerald-700 px-3 py-1.5 rounded-lg transition-colors">
+              <Upload className="w-3.5 h-3.5" /> Importar CSV empresas
             </button>
             <button onClick={loadAll} className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition-colors" title="Recargar">
               <RefreshCw className="w-3.5 h-3.5" />
