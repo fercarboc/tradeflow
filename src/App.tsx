@@ -136,6 +136,9 @@ const AUTH_FLOW_PAGES = new Set<ActivePage>([
   ActivePage.AuthCallback,
   ActivePage.UpdatePassword,
   ActivePage.QuoteAccept,
+  ActivePage.Parte,       // public viewer — don't override when user has session
+  ActivePage.InvoiceView, // public viewer — idem
+  ActivePage.Valorar,     // public viewer — idem
 ]);
 
 // Pages where null-session must NOT redirect to Home/AppDashboard
