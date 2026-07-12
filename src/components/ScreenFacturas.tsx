@@ -2,13 +2,13 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   FileText, RefreshCw, CheckCircle2, Clock, AlertTriangle, X, MessageSquare,
   Download, Eye, Search, RotateCcw, FileDown, ArrowUpDown, CalendarRange,
-  Banknote, CreditCard, Building2, Smartphone,
+  Banknote, CreditCard, Building2, Smartphone, Camera,
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import {
   loadAllInvoices, emitirFactura, markInvoicePaid,
   loadInvoiceLines, anularPago, crearFacturaRectificadora, markInvoicePendiente,
-  TradeInvoice, TradeInvoiceLine,
+  TradeInvoice, TradeInvoiceLine, loadJobPhotos, TradeJobPhoto,
 } from '../lib/supabase';
 import { printTradeInvoice } from '../lib/printTradeInvoice';
 import { downloadAsWordDocx } from '../lib/exportWord';
@@ -75,6 +75,8 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
   const [dateTo, setDateTo] = useState('');
   const [selectedInv, setSelectedInv] = useState<InvoiceWithClient | null>(null);
   const [selectedParteToken, setSelectedParteToken] = useState<string | null>(null);
+  const [selectedJobFirma, setSelectedJobFirma] = useState<string | null>(null);
+  const [selectedJobPhotos, setSelectedJobPhotos] = useState<TradeJobPhoto[]>([]);
   const [invLines, setInvLines] = useState<TradeInvoiceLine[]>([]);
   const [loadingLines, setLoadingLines] = useState(false);
   const [emitting, setEmitting] = useState<string | null>(null);
@@ -138,6 +140,8 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
   async function openDetail(inv: InvoiceWithClient) {
     setSelectedInv(inv);
     setSelectedParteToken(null);
+    setSelectedJobFirma(null);
+    setSelectedJobPhotos([]);
     setLoadingLines(true);
     try {
       const lines = await loadInvoiceLines(inv.id);
@@ -148,12 +152,16 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
       setLoadingLines(false);
     }
     if (inv.job_id) {
+      loadJobPhotos(inv.job_id).then(photos => setSelectedJobPhotos(photos));
       supabase
         .from('trade_jobs')
-        .select('parte_token')
+        .select('parte_token, firma_cliente_url')
         .eq('id', inv.job_id)
         .maybeSingle()
-        .then(({ data }) => { if (data?.parte_token) setSelectedParteToken(data.parte_token as string); });
+        .then(({ data }) => {
+          if (data?.parte_token) setSelectedParteToken(data.parte_token as string);
+          if (data?.firma_cliente_url) setSelectedJobFirma(data.firma_cliente_url as string);
+        });
     }
   }
 
@@ -283,9 +291,10 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
   function handleWhatsApp(inv: InvoiceWithClient) {
     const telefono = inv.trade_clients?.telefono?.replace(/\D/g, '');
     if (!telefono) { showToast('El cliente no tiene teléfono registrado', 'error'); return; }
-    const enlace = inv.view_token ? `\n\nPuede ver y descargar la factura aquí:\nhttps://www.trabflow.com/factura/${inv.view_token}` : '';
+    const enlace = inv.view_token ? `\n\nVer factura:\nhttps://www.trabflow.com/factura/${inv.view_token}` : '';
+    const parteLink = selectedParteToken ? `\n\nVer parte de trabajo firmado:\nhttps://www.trabflow.com/parte/${selectedParteToken}` : '';
     const texto = encodeURIComponent(
-      `Hola, le enviamos la factura ${inv.numero} por importe de ${fmt(inv.total ?? 0)}.${enlace}\n\n¿Podría confirmar la recepción? Muchas gracias.`
+      `Hola, le enviamos la factura ${inv.numero} por importe de ${fmt(inv.total ?? 0)}.${enlace}${parteLink}\n\n¿Podría confirmar la recepción? Muchas gracias.`
     );
     window.open(`https://wa.me/${telefono}?text=${texto}`, '_blank');
   }
@@ -711,6 +720,42 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
                   {selectedInv.razon_social_cliente && <p className="text-slate-700 font-medium">{selectedInv.razon_social_cliente}</p>}
                   {selectedInv.nif_cliente && <p className="text-slate-500">NIF: {selectedInv.nif_cliente}</p>}
                   {selectedInv.direccion_cliente && <p className="text-slate-500">{selectedInv.direccion_cliente}</p>}
+                </div>
+              )}
+
+              {/* Parte de trabajo vinculado */}
+              {selectedParteToken && (selectedJobFirma || selectedJobPhotos.length > 0) && (
+                <div className="space-y-2">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Parte de trabajo</p>
+                  {selectedJobFirma && (
+                    <div className="bg-slate-50 rounded-xl p-3">
+                      <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-2">Firma del cliente</p>
+                      <img src={selectedJobFirma} alt="Firma del cliente" className="max-h-20 object-contain" />
+                      <div className="flex items-center gap-1 mt-2">
+                        <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                        <span className="text-[10px] font-bold text-emerald-600">Trabajo aceptado y firmado</span>
+                      </div>
+                    </div>
+                  )}
+                  {selectedJobPhotos.length > 0 && (
+                    <div className="bg-slate-50 rounded-xl p-3">
+                      <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                        <Camera className="w-3 h-3" />
+                        {selectedJobPhotos.length} foto{selectedJobPhotos.length !== 1 ? 's' : ''} del trabajo
+                      </p>
+                      <div className="grid grid-cols-3 gap-1.5">
+                        {selectedJobPhotos.map(photo => (
+                          <img
+                            key={photo.id}
+                            src={photo.url}
+                            alt=""
+                            className="w-full aspect-square object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+                            onClick={() => window.open(photo.url, '_blank')}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
