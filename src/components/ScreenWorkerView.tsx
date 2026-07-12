@@ -4,7 +4,9 @@ import {
   LogOut, RefreshCw, AlertTriangle, Phone, ChevronDown, ChevronUp, X, Check,
   Plus, Camera, Loader2, CalendarDays, Edit2, Route, Users, Trash2,
   ChevronLeft, ChevronRight, List, Bell, BellOff, Wrench, AlertCircle, FileText,
+  Eye, FileCheck, MessageSquare,
 } from 'lucide-react';
+import ScreenParteTrabajo from './ScreenParteTrabajo';
 import {
   supabase, loadWorkerJobs, workerSetJobStatus,
   loadJobPhotos, uploadJobPhoto, workerCreateJob, loadOrgClients,
@@ -538,6 +540,8 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
   const [loading, setLoading]         = useState(true);
   const [expandedId, setExpandedId]   = useState<string | null>(null);
   const [completeModal, setCompleteModal] = useState<TradeJob | null>(null);
+  const [parteJob, setParteJob]           = useState<TradeJob | null>(null);
+  const [showPartesHoy, setShowPartesHoy] = useState(false);
   const [editModal, setEditModal]     = useState<TradeJob | null>(null);
   const [assigningJobId, setAssigningJobId] = useState<string | null>(null);
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
@@ -867,6 +871,18 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
               {activeJobs.length} pendiente{activeJobs.length > 1 ? 's' : ''}
             </span>
           )}
+          {(() => {
+            const partesHoy = jobs.filter(j => j.parte_token && j.fecha_inicio === today);
+            if (partesHoy.length === 0) return null;
+            return (
+              <button
+                onClick={() => setShowPartesHoy(true)}
+                className="flex items-center gap-1 text-[9px] font-bold bg-cyan-700 hover:bg-cyan-600 text-white px-2 py-0.5 rounded-full cursor-pointer transition-colors"
+              >
+                <FileCheck className="w-2.5 h-2.5" /> {partesHoy.length} parte{partesHoy.length !== 1 ? 's' : ''}
+              </button>
+            );
+          })()}
           <button onClick={reload} className="p-1.5 text-slate-400 hover:text-white transition-colors cursor-pointer">
             <RefreshCw className="w-3.5 h-3.5" />
           </button>
@@ -1175,6 +1191,29 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
                               </div>
                             )}
 
+                            {isDone && job.parte_token && (
+                              <div className="flex gap-2 flex-wrap">
+                                <button
+                                  onClick={() => window.open(`/parte/${job.parte_token}`, '_blank')}
+                                  className="flex items-center gap-1.5 text-[10px] font-bold text-cyan-400 hover:text-cyan-300 border border-cyan-800 px-3 py-2 rounded-lg cursor-pointer transition-colors"
+                                >
+                                  <Eye className="w-3 h-3" /> Ver parte
+                                </button>
+                                {job.trade_clients?.telefono && (
+                                  <button
+                                    onClick={() => {
+                                      const tel = job.trade_clients!.telefono!.replace(/\D/g, '');
+                                      const msg = encodeURIComponent(`Hola ${job.trade_clients?.nombre ?? ''}, le enviamos el parte de trabajo firmado: ${job.titulo}.\n\nPuede verlo aquí:\nhttps://www.trabflow.com/parte/${job.parte_token}`);
+                                      window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
+                                    }}
+                                    className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-400 hover:text-emerald-300 border border-emerald-800 px-3 py-2 rounded-lg cursor-pointer transition-colors"
+                                  >
+                                    <MessageSquare className="w-3 h-3" /> Enviar parte
+                                  </button>
+                                )}
+                              </div>
+                            )}
+
                             {!isDone && (
                               <div className="flex items-center justify-between">
                                 <button
@@ -1209,7 +1248,7 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
                                   </button>
                                 )}
                                 {(job.estado === 'planificado' || job.estado === 'en_curso') && (
-                                  <button onClick={() => { setCompleteModal(job); setCloseNotes(''); }}
+                                  <button onClick={() => setParteJob(job)}
                                     className="flex-1 flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold uppercase py-2.5 rounded-lg cursor-pointer transition-colors">
                                     <CheckCircle className="w-3 h-3" /> Completar
                                   </button>
@@ -1414,26 +1453,73 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
       )}
 
       {/* Complete modal */}
-      {completeModal && (
-        <div className="fixed inset-0 bg-black/70 z-50 flex items-end justify-center">
-          <div className="bg-slate-900 border border-slate-700 rounded-t-2xl w-full max-w-md p-5 shadow-2xl">
+      {parteJob && (
+        <ScreenParteTrabajo
+          key={parteJob.id}
+          job={parteJob}
+          orgId={workerProfile.org_id}
+          tarifas={[]}
+          isLiveMode={true}
+          mode="edit"
+          mantenimiento={null}
+          existingInvoices={[]}
+          onComplete={async (jobId, notas, _materiales, horaFin) => {
+            await workerSetJobStatus(jobId, workerProfile.id, 'completado', notas);
+            const now = new Date().toISOString();
+            const u = (prev: TradeJob[]) => prev.map(j =>
+              j.id === jobId ? { ...j, estado: 'completado' as const, notas_cierre: notas, completado_at: now, hora_fin: horaFin ?? j.hora_fin } : j
+            );
+            setJobs(u); setAllJobs(u);
+          }}
+          onClose={() => { setParteJob(null); reload(); }}
+          showToast={(msg, type) => showToast(msg, type)}
+        />
+      )}
+
+      {showPartesHoy && (
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-end justify-center" onClick={() => setShowPartesHoy(false)}>
+          <div className="bg-slate-900 border border-slate-700 rounded-t-2xl w-full max-w-md p-5 shadow-2xl" onClick={e => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-bold text-sm text-white">Cerrar trabajo</h3>
-              <button onClick={() => setCompleteModal(null)} className="text-slate-400 hover:text-white cursor-pointer"><X className="w-4 h-4" /></button>
+              <h3 className="font-bold text-sm text-white flex items-center gap-2">
+                <FileCheck className="w-4 h-4 text-cyan-400" />
+                Partes firmados hoy
+              </h3>
+              <button onClick={() => setShowPartesHoy(false)} className="text-slate-400 hover:text-white cursor-pointer"><X className="w-4 h-4" /></button>
             </div>
-            <p className="text-xs text-slate-400 mb-3">{completeModal.titulo}</p>
-            <div className="mb-4">
-              <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1.5">Notas de cierre (opcional)</label>
-              <textarea rows={3} value={closeNotes} onChange={e => setCloseNotes(e.target.value)}
-                placeholder="Ej: Instalado correctamente, cliente conforme..."
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 resize-none" />
-            </div>
-            <div className="flex gap-3">
-              <button onClick={() => setCompleteModal(null)} className="flex-1 py-3 border border-slate-700 rounded-xl text-xs font-bold text-slate-400 cursor-pointer hover:border-slate-500">Cancelar</button>
-              <button onClick={handleComplete} disabled={saving} className="flex-1 py-3 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 rounded-xl text-xs font-bold text-white cursor-pointer flex items-center justify-center gap-1.5">
-                {saving ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <><Check className="w-3.5 h-3.5" /> Confirmar</>}
-              </button>
-            </div>
+            {jobs.filter(j => j.parte_token && j.fecha_inicio === today).length === 0 ? (
+              <p className="text-xs text-slate-400 text-center py-4">Sin partes firmados hoy</p>
+            ) : (
+              <div className="space-y-2 max-h-72 overflow-y-auto">
+                {jobs.filter(j => j.parte_token && j.fecha_inicio === today).map(j => (
+                  <div key={j.id} className="bg-slate-800 rounded-xl p-3 flex items-center justify-between gap-2">
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs font-bold text-white truncate">{j.titulo}</p>
+                      {j.trade_clients?.nombre && <p className="text-[10px] text-slate-400">{j.trade_clients.nombre}</p>}
+                    </div>
+                    <div className="flex gap-2 shrink-0">
+                      <button
+                        onClick={() => window.open(`/parte/${j.parte_token}`, '_blank')}
+                        className="p-2 bg-cyan-700 hover:bg-cyan-600 text-white rounded-lg cursor-pointer transition-colors"
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                      </button>
+                      {j.trade_clients?.telefono && (
+                        <button
+                          onClick={() => {
+                            const tel = j.trade_clients!.telefono!.replace(/\D/g, '');
+                            const msg = encodeURIComponent(`Hola ${j.trade_clients?.nombre ?? ''}, parte de trabajo firmado: ${j.titulo}.\nhttps://www.trabflow.com/parte/${j.parte_token}`);
+                            window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
+                          }}
+                          className="p-2 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg cursor-pointer transition-colors"
+                        >
+                          <MessageSquare className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}

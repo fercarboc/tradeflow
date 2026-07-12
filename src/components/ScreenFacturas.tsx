@@ -747,10 +747,10 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
                         {selectedJobPhotos.map(photo => (
                           <img
                             key={photo.id}
-                            src={photo.url}
+                            src={photo.photo_url}
                             alt=""
                             className="w-full aspect-square object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
-                            onClick={() => window.open(photo.url, '_blank')}
+                            onClick={() => window.open(photo.photo_url, '_blank')}
                           />
                         ))}
                       </div>
