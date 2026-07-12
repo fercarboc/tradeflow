@@ -15,7 +15,10 @@ import { supabase } from '../../lib/supabase';
 
 interface CorpDocument {
   id: string; categoria: string; nombre: string;
-  descripcion?: string; version: string; file_url?: string;
+  descripcion?: string; version: string;
+  // trade_documents usa storage_path; file_url es para compatibilidad (URLs directas)
+  storage_path?: string; bucket?: string; mime_type?: string; size?: number;
+  file_url?: string;
   estado: 'vigente' | 'borrador' | 'obsoleto';
   tags: string[]; created_at: string; updated_at: string;
 }
@@ -153,6 +156,35 @@ function normalizePrioridad(v: string): CorpEntity['prioridad'] {
 
 // ── Doc Modal ──────────────────────────────────────────────────────────────
 
+// ── Open Doc Button (signed URL or direct URL) ─────────────────────────────
+
+function OpenDocButton({ doc, className }: { doc: CorpDocument; className?: string }) {
+  const [loading, setLoading] = useState(false);
+
+  const handleOpen = async () => {
+    // Direct URL (no bucket involved)
+    if (doc.file_url && !doc.storage_path) { window.open(doc.file_url, '_blank'); return; }
+    if (!doc.storage_path) return;
+    // Direct URL stored in storage_path field (starts with http)
+    if (doc.storage_path.startsWith('http')) { window.open(doc.storage_path, '_blank'); return; }
+    // Generate signed URL from Supabase Storage
+    setLoading(true);
+    const bucket = doc.bucket ?? 'corporate-documents';
+    const { data, error } = await supabase.storage.from(bucket).createSignedUrl(doc.storage_path, 3600);
+    setLoading(false);
+    if (error || !data?.signedUrl) return;
+    window.open(data.signedUrl, '_blank');
+  };
+
+  return (
+    <button onClick={handleOpen} disabled={loading}
+      className={`p-1.5 text-slate-400 hover:text-blue-400 hover:bg-slate-700 rounded-lg transition-colors disabled:opacity-50 ${className ?? ''}`}
+      title="Abrir documento">
+      {loading ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <ExternalLink className="w-3.5 h-3.5" />}
+    </button>
+  );
+}
+
 function DocModal({ doc, entities, onSave, onClose }: {
   doc: Partial<CorpDocument> | null;
   entities: CorpEntity[];
@@ -171,7 +203,7 @@ function DocModal({ doc, entities, onSave, onClose }: {
 
   useEffect(() => {
     if (doc?.id) {
-      supabase.from('admin_corp_doc_entities').select('entity_id').eq('doc_id', doc.id)
+      supabase.from('trade_document_entities').select('entity_id').eq('document_id', doc.id)
         .then(({ data }) => setLinkedIds((data ?? []).map(r => r.entity_id)));
     }
   }, [doc?.id]);
@@ -185,23 +217,25 @@ function DocModal({ doc, entities, onSave, onClose }: {
   const handleSave = async () => {
     if (!form.nombre.trim()) return;
     setSaving(true);
+    const rawUrl = (form.file_url ?? form.storage_path ?? '').trim();
     const payload = {
       categoria: form.categoria, nombre: form.nombre.trim(),
       descripcion: form.descripcion?.trim() || null,
-      version: form.version || 'v1.0', file_url: form.file_url?.trim() || null,
+      version: form.version || 'v1.0',
+      storage_path: rawUrl || null,
       estado: form.estado, tags: form.tags,
     };
     let docId = doc?.id;
     if (isNew) {
-      const { data } = await supabase.from('admin_corp_documents').insert(payload).select('id').single();
+      const { data } = await supabase.from('trade_documents').insert(payload).select('id').single();
       docId = data?.id;
     } else {
-      await supabase.from('admin_corp_documents').update(payload).eq('id', docId!);
+      await supabase.from('trade_documents').update(payload).eq('id', docId!);
     }
     if (docId) {
-      await supabase.from('admin_corp_doc_entities').delete().eq('doc_id', docId);
+      await supabase.from('trade_document_entities').delete().eq('document_id', docId);
       if (linkedIds.length > 0)
-        await supabase.from('admin_corp_doc_entities').insert(linkedIds.map(eid => ({ doc_id: docId, entity_id: eid })));
+        await supabase.from('trade_document_entities').insert(linkedIds.map(eid => ({ document_id: docId, entity_id: eid })));
     }
     setSaving(false); onSave();
   };
@@ -541,8 +575,8 @@ function EntityDetailPanel({ entity, docs, onEdit, onClose, toast }: {
   }, [entity.id]);
 
   const loadLinkedDocs = useCallback(async () => {
-    const { data } = await supabase.from('admin_corp_doc_entities').select('doc_id').eq('entity_id', entity.id);
-    setLinkedDocs((data ?? []).map(r => r.doc_id));
+    const { data } = await supabase.from('trade_document_entities').select('document_id').eq('entity_id', entity.id);
+    setLinkedDocs((data ?? []).map(r => r.document_id));
   }, [entity.id]);
 
   useEffect(() => { loadInteractions(); loadLinkedDocs(); }, [loadInteractions, loadLinkedDocs]);
@@ -858,10 +892,8 @@ function EntityDetailPanel({ entity, docs, onEdit, onClose, toast }: {
                       </div>
                       <p className="text-xs font-medium text-white truncate">{doc.nombre}</p>
                     </div>
-                    {doc.file_url && (
-                      <a href={doc.file_url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-blue-400">
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
+                    {(doc.storage_path || doc.file_url) && (
+                      <OpenDocButton doc={doc} />
                     )}
                   </div>
                 );
@@ -1051,7 +1083,7 @@ export default function AdminDocumentosSection({ toast }: { toast: (msg: string,
   const loadAll = useCallback(async () => {
     setLoading(true);
     const [docsRes, entitiesRes] = await Promise.all([
-      supabase.from('admin_corp_documents').select('*').order('categoria').order('nombre'),
+      supabase.from('trade_documents').select('*').order('categoria').order('nombre'),
       supabase.from('admin_corp_entities').select('*').order('prioridad').order('nombre'),
     ]);
     setDocs(docsRes.data ?? []);
@@ -1088,7 +1120,7 @@ export default function AdminDocumentosSection({ toast }: { toast: (msg: string,
   );
 
   const handleDeleteDoc = async (id: string) => {
-    await supabase.from('admin_corp_documents').delete().eq('id', id);
+    await supabase.from('trade_documents').delete().eq('id', id);
     toast('Documento eliminado', 'success');
     setDeleteDocId(null); loadAll();
   };
@@ -1326,11 +1358,7 @@ export default function AdminDocumentosSection({ toast }: { toast: (msg: string,
                           )}
                         </div>
                         <div className="flex items-center gap-1 shrink-0">
-                          {doc.file_url && (
-                            <a href={doc.file_url} target="_blank" rel="noopener noreferrer" className="p-1.5 text-slate-400 hover:text-blue-400 hover:bg-slate-700 rounded-lg transition-colors">
-                              <ExternalLink className="w-3.5 h-3.5" />
-                            </a>
-                          )}
+                          {(doc.storage_path || doc.file_url) && <OpenDocButton doc={doc} />}
                           <button onClick={() => setEditDoc(doc)} className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors">
                             <Edit2 className="w-3.5 h-3.5" />
                           </button>
