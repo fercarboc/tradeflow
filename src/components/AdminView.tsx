@@ -37,9 +37,10 @@ import {
   Inbox, Filter, LogOut, Download, WifiOff, Globe, ThumbsUp, ThumbsDown,
   X, StickyNote, Activity, Repeat, BarChart2, PackageOpen,
   Zap, Bell, BellOff, PlayCircle, Send, HelpCircle, Eye, EyeOff as EyeOffIcon,
-  Brain, ChevronRight, BookOpen, ExternalLink, Truck,
+  Brain, ChevronRight, BookOpen, ExternalLink, Truck, FolderOpen,
 } from 'lucide-react';
 import AdminSuppliersSection from './admin/AdminSuppliersSection';
+import AdminDocumentosSection from './admin/AdminDocumentosSection';
 import AdminAIValidationSection from './admin/AdminAIValidationSection';
 import {
   adminLoadActuaciones, adminToggleActuacionActivo,
@@ -810,7 +811,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [detailOrg, setDetailOrg]     = useState<AdminOrgRow | null>(null);
 
   // Sección activa
-  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs' | 'ai_feedback' | 'ia_normativa' | 'docs' | 'suppliers' | 'base_maestra' | 'ai_validation'>('dashboard');
+  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs' | 'ai_feedback' | 'ia_normativa' | 'docs' | 'suppliers' | 'base_maestra' | 'ai_validation' | 'corp_docs'>('dashboard');
 
   // Necesidades instaladores (chatbot)
   const [needs, setNeeds]               = useState<InstallerNeed[]>([]);
@@ -1377,6 +1378,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     { id: 'ia_normativa'  as const, label: 'IA Normativa',     Icon: BookOpen },
     { id: 'docs'          as const, label: 'Documentación',    Icon: ExternalLink },
     { id: 'suppliers'     as const, label: 'Proveedores',       Icon: Truck },
+    { id: 'corp_docs'     as const, label: 'CRM / Documentos',  Icon: FolderOpen },
     { id: 'ai_validation' as const, label: 'AI Validation',    Icon: Activity },
   ];
 
@@ -3551,6 +3553,13 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
         ════════════════════════════════════════════════════════ */}
         {section === 'suppliers' && (
           <AdminSuppliersSection toast={toast} />
+        )}
+
+        {/* ════════════════════════════════════════════════════════
+            SECCIÓN: CRM / SISTEMA DOCUMENTAL CORPORATIVO
+        ════════════════════════════════════════════════════════ */}
+        {section === 'corp_docs' && (
+          <AdminDocumentosSection toast={(msg, type) => toast(type === 'error' ? 'error' : 'success', msg)} />
         )}
 
         {/* ════════════════════════════════════════════════════════
