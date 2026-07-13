@@ -758,7 +758,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [crmClientInvoices, setCrmClientInvoices] = useState<Record<string, { numero: string; fecha: string; total: number; estado: string; concepto?: string | null }[]>>({});
   // CRM desktop side panel
   const [crmPanelClientId, setCrmPanelClientId] = useState<string | null>(null);
-  const [crmPanelTab, setCrmPanelTab] = useState<'facturas' | 'presupuestos' | 'trabajos'>('facturas');
+  const [crmPanelTab, setCrmPanelTab] = useState<'facturas' | 'presupuestos' | 'trabajos' | 'partes'>('facturas');
 
   // Mobile filters
   const [presupuestoFilter, setPresupuestoFilter] = useState<'all' | 'month'>('month');
@@ -5507,6 +5507,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('catalog.manage') && SidebarBtn({ id: 'catalog', icon: <Package className="w-4 h-4" />, label: 'Catálogo' })}
             {can('jobs.view') && SidebarBtn({ id: 'planificacion', icon: <Calendar className="w-4 h-4" />, label: 'Planificación' })}
             {can('jobs.view') && SidebarBtn({ id: 'ruta_dia', icon: <Navigation className="w-4 h-4" />, label: 'Ruta del Día' })}
+            {can('jobs.view') && SidebarBtn({ id: 'partes', icon: <FileCheck className="w-4 h-4" />, label: 'Partes Firmados' })}
             {can('ingresos.view') && SidebarBtn({ id: 'ingresos', icon: <BarChart2 className="w-4 h-4" />, label: 'Ingresos/Gastos' })}
             {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? ctxPlan) || subscription?.status === 'trial') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
@@ -5607,6 +5608,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'suppliers' && 'Catálogos de Proveedores'}
                 {activeTab === 'pedidos_material' && 'Pedidos de Material'}
                 {activeTab === 'asistente' && 'Asistente Técnico de Normativa'}
+                {activeTab === 'partes' && 'Partes de Trabajo Firmados'}
                 {activeTab === 'valoraciones' && 'Valoraciones de Clientes'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
@@ -5735,6 +5737,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'ai_scan' && ScreenAIScan()}
                 {activeTab === 'crm' && ScreenCRM()}
                 {activeTab === 'invoices' && <ScreenFacturas showToast={showToast} isLiveMode={isLiveMode} />}
+                {activeTab === 'partes' && ScreenPartesPC()}
                 {activeTab === 'catalog' && ScreenCatalog()}
                 {activeTab === 'planificacion' && (
                   <ScreenPlanificacion
@@ -7451,6 +7454,115 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }
 
   // ================= DESKTOP: CRM SCREEN =================
+  function ScreenPartesPC() {
+    const now = new Date();
+    const todayISO = now.toISOString().split('T')[0];
+    const yesterdayISO = new Date(now.getTime() - 86400000).toISOString().split('T')[0];
+    const sevenDaysAgoISO = new Date(now.getTime() - 7 * 86400000).toISOString().split('T')[0];
+
+    const filteredPartes = jobs.filter(j => {
+      if (!j.parte_token) return false;
+      if (partesDayFilter === 'hoy') return j.fecha_inicio === todayISO;
+      if (partesDayFilter === 'ayer') return j.fecha_inicio === yesterdayISO;
+      if (partesDayFilter === '7d') return (j.fecha_inicio ?? '') >= sevenDaysAgoISO;
+      return true;
+    }).sort((a, b) => (b.fecha_inicio ?? '').localeCompare(a.fecha_inicio ?? ''));
+
+    const DAY_FILTERS: { key: 'hoy' | 'ayer' | '7d' | 'todos'; label: string }[] = [
+      { key: 'hoy', label: 'Hoy' },
+      { key: 'ayer', label: 'Ayer' },
+      { key: '7d', label: '7 días' },
+      { key: 'todos', label: 'Todos' },
+    ];
+
+    return (
+      <div className="space-y-4">
+        {/* Filtros + contador */}
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex gap-1.5">
+            {DAY_FILTERS.map(f => (
+              <button key={f.key} onClick={() => setPartesDayFilter(f.key)}
+                className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase border cursor-pointer transition-colors ${
+                  partesDayFilter === f.key ? 'bg-cyan-600 text-white border-cyan-600' : 'bg-white text-slate-500 border-slate-200 hover:border-cyan-400'
+                }`}>
+                {f.label}
+              </button>
+            ))}
+          </div>
+          <span className="ml-auto text-xs text-slate-400 font-mono">
+            {filteredPartes.length} parte{filteredPartes.length !== 1 ? 's' : ''} firmado{filteredPartes.length !== 1 ? 's' : ''}
+          </span>
+        </div>
+
+        {/* Tabla / lista */}
+        {filteredPartes.length === 0 ? (
+          <div className="bg-white border border-slate-200 rounded-2xl p-14 text-center">
+            <FileCheck className="w-10 h-10 text-slate-200 mx-auto mb-3" />
+            <p className="text-sm text-slate-400 font-medium">Sin partes firmados en este período</p>
+            <p className="text-xs text-slate-300 mt-1">Selecciona otro rango de fechas</p>
+          </div>
+        ) : (
+          <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-100">
+                  <th className="text-left px-4 py-2.5 font-bold text-slate-400 uppercase tracking-wider text-[9px]">Fecha</th>
+                  <th className="text-left px-4 py-2.5 font-bold text-slate-400 uppercase tracking-wider text-[9px]">Trabajo</th>
+                  <th className="text-left px-4 py-2.5 font-bold text-slate-400 uppercase tracking-wider text-[9px]">Cliente</th>
+                  <th className="text-left px-4 py-2.5 font-bold text-slate-400 uppercase tracking-wider text-[9px] hidden lg:table-cell">Localidad</th>
+                  <th className="text-center px-4 py-2.5 font-bold text-slate-400 uppercase tracking-wider text-[9px] w-36">Acciones</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {filteredPartes.map(j => {
+                  const telefono = j.trade_clients?.telefono?.replace(/\D/g, '') ?? '';
+                  const dateLabel = j.fecha_inicio
+                    ? new Date(j.fecha_inicio + 'T12:00:00').toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })
+                    : '—';
+                  return (
+                    <tr key={j.id} className="hover:bg-slate-50 transition-colors">
+                      <td className="px-4 py-3 text-slate-500 whitespace-nowrap font-mono text-[10px]">{dateLabel}</td>
+                      <td className="px-4 py-3 font-medium text-slate-800 max-w-[200px] truncate">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[9px] bg-cyan-50 text-cyan-700 border border-cyan-200 font-bold uppercase px-1.5 py-0.5 rounded-full shrink-0">Firmado</span>
+                          {j.titulo}
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-slate-600 max-w-[140px] truncate">{j.trade_clients?.nombre ?? '—'}</td>
+                      <td className="px-4 py-3 text-slate-400 hidden lg:table-cell">{j.localidad ?? '—'}</td>
+                      <td className="px-4 py-3 text-center">
+                        <div className="flex items-center justify-center gap-1.5">
+                          <button
+                            onClick={() => window.open(`/parte/${j.parte_token}`, '_blank')}
+                            className="flex items-center gap-1 text-[10px] font-bold px-2.5 py-1 rounded-lg border border-cyan-200 text-cyan-700 bg-cyan-50 hover:bg-cyan-100 cursor-pointer transition-colors"
+                          >
+                            <Eye className="w-3 h-3" /> Ver parte
+                          </button>
+                          {telefono && (
+                            <button
+                              onClick={() => {
+                                const msg = encodeURIComponent(`Hola ${j.trade_clients?.nombre ?? ''}, le adjunto el parte de trabajo firmado: ${window.location.origin}/parte/${j.parte_token}`);
+                                window.open(`https://wa.me/${telefono}?text=${msg}`, '_blank');
+                              }}
+                              className="flex items-center gap-1 text-[10px] font-bold px-2.5 py-1 rounded-lg border border-green-200 text-green-700 bg-green-50 hover:bg-green-100 cursor-pointer transition-colors"
+                              title="Enviar por WhatsApp"
+                            >
+                              <MessageSquare className="w-3 h-3" /> WA
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   function ScreenCRM() {
     const avatarColors = ['bg-blue-500', 'bg-emerald-500', 'bg-violet-500', 'bg-amber-500', 'bg-rose-500', 'bg-indigo-500', 'bg-teal-500', 'bg-orange-500'];
     const getAvatarColor = (name: string) => avatarColors[name.charCodeAt(0) % avatarColors.length];
@@ -7642,19 +7754,25 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
               {/* Tabs */}
               <div className="flex border-b border-slate-100 shrink-0">
-                {(['facturas', 'presupuestos', 'trabajos'] as const).map(tab => (
-                  <button
-                    key={tab}
-                    onClick={() => setCrmPanelTab(tab)}
-                    className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider cursor-pointer transition-colors ${
-                      crmPanelTab === tab
-                        ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50/50'
-                        : 'text-slate-400 hover:text-slate-600'
-                    }`}
-                  >
-                    {tab}
-                  </button>
-                ))}
+                {(['facturas', 'presupuestos', 'trabajos', 'partes'] as const).map(tab => {
+                  const partesCount = tab === 'partes' ? panelJobs.filter(j => j.parte_token).length : 0;
+                  return (
+                    <button
+                      key={tab}
+                      onClick={() => setCrmPanelTab(tab)}
+                      className={`flex-1 py-3 text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-colors relative ${
+                        crmPanelTab === tab
+                          ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50/50'
+                          : 'text-slate-400 hover:text-slate-600'
+                      }`}
+                    >
+                      {tab === 'partes' ? 'Partes' : tab}
+                      {tab === 'partes' && partesCount > 0 && (
+                        <span className="ml-1 text-[8px] font-black bg-cyan-100 text-cyan-700 px-1 py-0.5 rounded-full">{partesCount}</span>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
 
               {/* Content */}
@@ -7776,6 +7894,60 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     )}
                   </div>
                 )}
+
+                {/* ── Partes firmados ── */}
+                {crmPanelTab === 'partes' && (() => {
+                  const clientPartes = panelJobs.filter(j => j.parte_token)
+                    .sort((a, b) => (b.fecha_inicio ?? '').localeCompare(a.fecha_inicio ?? ''));
+                  return (
+                    <div className="divide-y divide-slate-100">
+                      {clientPartes.length === 0 ? (
+                        <div className="py-10 text-center">
+                          <FileCheck className="w-8 h-8 text-slate-200 mx-auto mb-2" />
+                          <p className="text-sm text-slate-400">Sin partes firmados todavía</p>
+                        </div>
+                      ) : clientPartes.map(j => {
+                        const dateLabel = j.fecha_inicio
+                          ? new Date(j.fecha_inicio + 'T12:00:00').toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })
+                          : '—';
+                        const telefono = j.trade_clients?.telefono?.replace(/\D/g, '') ?? '';
+                        return (
+                          <div key={j.id} className="px-5 py-3.5 hover:bg-slate-50">
+                            <div className="flex items-start gap-3">
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-0.5">
+                                  <span className="text-[9px] bg-cyan-50 text-cyan-700 border border-cyan-200 font-bold uppercase px-1.5 py-0.5 rounded-full">Firmado</span>
+                                  <span className="text-[10px] text-slate-400 font-mono">{dateLabel}</span>
+                                </div>
+                                <p className="text-sm font-semibold text-slate-800 truncate">{j.titulo}</p>
+                                {j.localidad && <p className="text-xs text-slate-400 mt-0.5">📍 {j.localidad}</p>}
+                              </div>
+                              <div className="flex items-center gap-1.5 shrink-0">
+                                <button
+                                  onClick={() => window.open(`/parte/${j.parte_token}`, '_blank')}
+                                  className="flex items-center gap-1 bg-cyan-50 hover:bg-cyan-100 border border-cyan-200 text-cyan-700 text-[10px] font-bold px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+                                >
+                                  <Eye className="w-3 h-3" /> Ver
+                                </button>
+                                {telefono && (
+                                  <button
+                                    onClick={() => {
+                                      const msg = encodeURIComponent(`Hola, le adjunto el parte de trabajo firmado: ${window.location.origin}/parte/${j.parte_token}`);
+                                      window.open(`https://wa.me/${telefono}?text=${msg}`, '_blank');
+                                    }}
+                                    className="flex items-center gap-1 bg-green-50 hover:bg-green-100 border border-green-200 text-green-700 text-[10px] font-bold px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+                                  >
+                                    <MessageSquare className="w-3 h-3" />
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
               </div>
             </div>
           </>

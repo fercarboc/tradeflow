@@ -548,6 +548,7 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
                     <td className="px-4 py-2.5 font-mono font-bold text-slate-600 text-[10px] whitespace-nowrap">
                       {isBorrador ? <span className="text-slate-400 italic">Sin número</span> : inv.numero}
                       {inv.serie && <span className={`ml-1.5 text-[9px] font-bold px-1.5 py-0.5 rounded ${inv.serie === 'M' ? 'bg-purple-100 text-purple-600' : 'bg-blue-100 text-blue-600'}`}>{inv.serie}-</span>}
+                      {inv.job_id && <span className="ml-1.5 text-[9px] font-bold px-1.5 py-0.5 rounded bg-cyan-50 text-cyan-600 border border-cyan-200">Parte</span>}
                     </td>
                     <td className="px-4 py-2.5 font-medium text-slate-800 truncate max-w-[120px] text-[11px]">
                       {inv.trade_clients?.nombre ?? '—'}
@@ -724,9 +725,17 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
               )}
 
               {/* Parte de trabajo vinculado */}
-              {selectedParteToken && (selectedJobFirma || selectedJobPhotos.length > 0) && (
+              {selectedParteToken && (
                 <div className="space-y-2">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Parte de trabajo</p>
+                  <div className="flex items-center justify-between">
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Parte de trabajo</p>
+                    <button
+                      onClick={() => window.open(`/parte/${selectedParteToken}`, '_blank')}
+                      className="flex items-center gap-1 text-[10px] font-bold text-cyan-700 bg-cyan-50 hover:bg-cyan-100 border border-cyan-200 px-2.5 py-1 rounded-lg transition-colors"
+                    >
+                      <Eye className="w-3 h-3" /> Ver parte completo
+                    </button>
+                  </div>
                   {selectedJobFirma && (
                     <div className="bg-slate-50 rounded-xl p-3">
                       <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-2">Firma del cliente</p>
@@ -735,6 +744,12 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
                         <CheckCircle2 className="w-3 h-3 text-emerald-500" />
                         <span className="text-[10px] font-bold text-emerald-600">Trabajo aceptado y firmado</span>
                       </div>
+                    </div>
+                  )}
+                  {!selectedJobFirma && (
+                    <div className="bg-cyan-50 border border-cyan-200 rounded-xl px-4 py-3 flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-cyan-600 shrink-0" />
+                      <span className="text-xs font-semibold text-cyan-700">Parte generado — haz clic en "Ver parte completo" para ver firma y detalles</span>
                     </div>
                   )}
                   {selectedJobPhotos.length > 0 && (
@@ -809,15 +824,6 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
               </div>
               {/* Fila secundaria: PDF + Word + WhatsApp + Rectificadora */}
               <div className="flex flex-wrap gap-2">
-                {selectedParteToken && (
-                  <button
-                    onClick={() => window.open(`/parte/${selectedParteToken}`, '_blank')}
-                    className="flex-1 py-2 rounded-xl border border-emerald-200 text-emerald-700 bg-emerald-50 hover:bg-emerald-100 text-xs font-semibold cursor-pointer transition-colors flex items-center justify-center gap-1.5"
-                  >
-                    <Eye className="w-3.5 h-3.5" />
-                    Ver Parte
-                  </button>
-                )}
                 {selectedInv.estado !== 'Borrador' && (
                   <button
                     onClick={() => handlePrintInvoice(selectedInv, invLines)}
