@@ -18,7 +18,8 @@
     "e2e:report": "playwright show-report",
     "test:motor-ia": "tsx scripts/test-motor-ia/run-tests.ts",
     "test:motor-ia:resume": "tsx scripts/test-motor-ia/run-tests.ts -- --resume",
-    "import-docs": "tsx scripts/import-corp-docs.ts"
+    "import-docs": "tsx scripts/import-corp-docs.ts",
+    "sync-docs": "tsx scripts/sync-docs.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.1",
