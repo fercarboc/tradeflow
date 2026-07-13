@@ -5,11 +5,12 @@ import {
   FolderOpen, Link2, Calendar, AlertCircle, CheckCircle,
   Clock, Archive, Tag, Briefcase, TrendingUp, Landmark,
   Handshake, UserCheck, Target, RefreshCw, ArrowLeft,
-  MessageSquare, MapPin, Hash, Upload, Eye,
+  MessageSquare, MapPin, Hash, Upload, Eye, Paperclip,
   FileCheck, Coffee, Video, Send, StickyNote, Zap,
   ChevronDown,
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
+import EmailModal from './EmailModal';
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -45,6 +46,12 @@ interface CorpInteraction {
   tipo: 'email' | 'llamada' | 'reunion' | 'whatsapp' | 'documento_enviado' | 'nota' | 'otro';
   fecha: string; asunto: string; cuerpo?: string; resultado?: string;
   created_at: string;
+}
+
+interface EntityEmail {
+  id: string; entity_id: string; template_nombre?: string;
+  to_email: string; cc?: string; subject: string;
+  sent_at: string; status: string; attachment_paths?: string[];
 }
 
 // ── Constantes ─────────────────────────────────────────────────────────────
@@ -542,17 +549,20 @@ function EntityModal({ entity, onSave, onClose }: {
 
 // ── Entity Detail Panel ────────────────────────────────────────────────────
 
-function EntityDetailPanel({ entity, docs, onEdit, onClose, toast }: {
+function EntityDetailPanel({ entity, docs, onEdit, onEmail, onClose, toast }: {
   entity: CorpEntity;
   docs: CorpDocument[];
   onEdit: () => void;
+  onEmail: () => void;
   onClose: () => void;
   toast: (msg: string, type?: 'success' | 'error') => void;
 }) {
-  const [tab, setTab] = useState<'datos' | 'interacciones' | 'documentos'>('interacciones');
+  const [tab, setTab] = useState<'datos' | 'interacciones' | 'documentos' | 'emails'>('interacciones');
   const [interactions, setInteractions] = useState<CorpInteraction[]>([]);
   const [linkedDocs, setLinkedDocs] = useState<string[]>([]);
   const [loadingInter, setLoadingInter] = useState(true);
+  const [emailHistory, setEmailHistory] = useState<EntityEmail[]>([]);
+  const [loadingEmails, setLoadingEmails] = useState(false);
 
   // Add interaction form
   const [addOpen, setAddOpen] = useState(false);
@@ -579,7 +589,16 @@ function EntityDetailPanel({ entity, docs, onEdit, onClose, toast }: {
     setLinkedDocs((data ?? []).map(r => r.document_id));
   }, [entity.id]);
 
+  const loadEmails = useCallback(async () => {
+    setLoadingEmails(true);
+    const { data } = await supabase.from('entity_email_history')
+      .select('*').eq('entity_id', entity.id).order('sent_at', { ascending: false });
+    setEmailHistory(data ?? []);
+    setLoadingEmails(false);
+  }, [entity.id]);
+
   useEffect(() => { loadInteractions(); loadLinkedDocs(); }, [loadInteractions, loadLinkedDocs]);
+  useEffect(() => { if (tab === 'emails') loadEmails(); }, [tab, loadEmails]);
 
   const handleAddInteraction = async () => {
     if (!newInter.asunto?.trim()) return;
@@ -659,6 +678,10 @@ function EntityDetailPanel({ entity, docs, onEdit, onClose, toast }: {
               <Phone className="w-3 h-3" /> {entity.contacto_tel || entity.telefono_general}
             </a>
           )}
+          <button onClick={onEmail}
+            className="ml-auto flex items-center gap-1.5 text-xs font-bold text-blue-300 bg-blue-900/40 hover:bg-blue-800/60 border border-blue-700 px-3 py-1 rounded-lg transition-colors">
+            <Send className="w-3 h-3" /> Enviar email
+          </button>
         </div>
 
         {/* Alerta acción pendiente */}
@@ -673,11 +696,11 @@ function EntityDetailPanel({ entity, docs, onEdit, onClose, toast }: {
         )}
 
         {/* Tabs */}
-        <div className="flex gap-0 border-b border-slate-700 px-5 mt-3">
-          {(['interacciones', 'datos', 'documentos'] as const).map(t => (
+        <div className="flex gap-0 border-b border-slate-700 px-5 mt-3 overflow-x-auto">
+          {(['interacciones', 'datos', 'documentos', 'emails'] as const).map(t => (
             <button key={t} onClick={() => setTab(t)}
-              className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-colors capitalize ${tab === t ? 'border-blue-500 text-blue-400' : 'border-transparent text-slate-500 hover:text-slate-300'}`}>
-              {t === 'interacciones' ? `Historial (${interactions.length})` : t === 'documentos' ? `Docs (${entityLinkedDocs.length})` : 'Datos'}
+              className={`px-3 py-2.5 text-xs font-bold border-b-2 transition-colors whitespace-nowrap ${tab === t ? 'border-blue-500 text-blue-400' : 'border-transparent text-slate-500 hover:text-slate-300'}`}>
+              {t === 'interacciones' ? `Historial (${interactions.length})` : t === 'documentos' ? `Docs (${entityLinkedDocs.length})` : t === 'emails' ? `Emails (${emailHistory.length})` : 'Datos'}
             </button>
           ))}
         </div>
@@ -900,6 +923,50 @@ function EntityDetailPanel({ entity, docs, onEdit, onClose, toast }: {
               })}
             </div>
           )}
+
+          {/* ─ TAB EMAILS ─ */}
+          {tab === 'emails' && (
+            <div className="p-5 space-y-3">
+              <div className="flex items-center justify-between mb-1">
+                <p className="text-xs text-slate-500">Emails enviados a esta entidad</p>
+                <button onClick={onEmail}
+                  className="flex items-center gap-1.5 text-xs font-bold text-blue-300 bg-blue-900/40 hover:bg-blue-800/60 border border-blue-700 px-3 py-1 rounded-lg transition-colors">
+                  <Send className="w-3 h-3" /> Nuevo email
+                </button>
+              </div>
+              {loadingEmails ? (
+                <div className="text-center py-8 text-slate-600 text-xs">Cargando...</div>
+              ) : emailHistory.length === 0 ? (
+                <div className="text-center py-10 text-slate-600">
+                  <Mail className="w-8 h-8 mx-auto mb-2 opacity-30" />
+                  <p className="text-xs">Sin emails enviados</p>
+                  <button onClick={onEmail}
+                    className="mt-3 text-blue-400 text-xs font-bold hover:text-blue-300">
+                    Enviar el primero
+                  </button>
+                </div>
+              ) : emailHistory.map(email => (
+                <div key={email.id} className="bg-slate-800/60 border border-slate-700 rounded-xl p-3.5 space-y-1.5">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-semibold text-white truncate">{email.subject}</p>
+                      <p className="text-[10px] text-slate-400 truncate">Para: {email.to_email}{email.cc ? ` · CC: ${email.cc}` : ''}</p>
+                    </div>
+                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded border shrink-0 ${email.status === 'sent' ? 'text-emerald-400 bg-emerald-900/30 border-emerald-700' : 'text-red-400 bg-red-900/30 border-red-700'}`}>
+                      {email.status === 'sent' ? '✓ Enviado' : '✗ Error'}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3 text-[10px] text-slate-500">
+                    {email.template_nombre && <span className="flex items-center gap-1"><Hash className="w-2.5 h-2.5" />{email.template_nombre}</span>}
+                    {email.attachment_paths && email.attachment_paths.length > 0 && (
+                      <span className="flex items-center gap-1"><Paperclip className="w-2.5 h-2.5" />{email.attachment_paths.length} adjunto{email.attachment_paths.length > 1 ? 's' : ''}</span>
+                    )}
+                    <span className="ml-auto">{new Date(email.sent_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -1079,6 +1146,7 @@ export default function AdminDocumentosSection({ toast }: { toast: (msg: string,
   const [detailEntity, setDetailEntity]   = useState<CorpEntity | null>(null);
   const [deleteEntityId, setDeleteEntityId] = useState<string | null>(null);
   const [showImport, setShowImport]       = useState(false);
+  const [emailEntity, setEmailEntity]     = useState<CorpEntity | null>(null);
 
   const loadAll = useCallback(async () => {
     setLoading(true);
@@ -1281,6 +1349,9 @@ export default function AdminDocumentosSection({ toast }: { toast: (msg: string,
                           </div>
                         </div>
                         <div className="flex items-center gap-1 shrink-0" onClick={e => e.stopPropagation()}>
+                          <button onClick={() => setEmailEntity(entity)} className="p-1.5 text-slate-400 hover:text-blue-400 hover:bg-slate-700 rounded-lg transition-colors" title="Enviar email">
+                            <Mail className="w-3.5 h-3.5" />
+                          </button>
                           <button onClick={() => setEditEntity(entity)} className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors">
                             <Edit2 className="w-3.5 h-3.5" />
                           </button>
@@ -1382,6 +1453,7 @@ export default function AdminDocumentosSection({ toast }: { toast: (msg: string,
           entity={detailEntity}
           docs={docs}
           onEdit={() => { setEditEntity(detailEntity); setDetailEntity(null); }}
+          onEmail={() => { setDetailEntity(null); setEmailEntity(detailEntity); }}
           onClose={() => setDetailEntity(null)}
           toast={toast}
         />
@@ -1424,6 +1496,14 @@ export default function AdminDocumentosSection({ toast }: { toast: (msg: string,
             </div>
           </div>
         </div>
+      )}
+      {emailEntity && (
+        <EmailModal
+          entity={emailEntity}
+          onClose={() => setEmailEntity(null)}
+          onSent={() => { setEmailEntity(null); loadAll(); }}
+          toast={toast}
+        />
       )}
     </>
   );
