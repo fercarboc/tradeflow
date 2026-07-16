@@ -94,20 +94,66 @@ export async function downloadAsWordDocx(opts: DocExportOpts, filename: string):
     ],
   });
 
-  const dataRows = opts.partidas.map((p, i) =>
-    new TableRow({
-      children: [
-        tdCell(p.descripcion, AlignmentType.LEFT, i, false),
-        tdCell(String(p.cantidad), AlignmentType.CENTER, i, false),
-        tdCell(`${p.precioUnitario.toFixed(2)} €`, AlignmentType.RIGHT, i, false),
-        tdCell(`${p.total.toFixed(2)} €`, AlignmentType.RIGHT, i, true),
-      ],
-    })
-  );
+  // Group items by familia — emit section headers + subtotals when multiple groups exist
+  type DocGroup = { label: string; items: PartidaPresupuesto[] };
+  const groupMap = new Map<string, DocGroup>();
+  opts.partidas.forEach(p => {
+    const key = p.tipo === 'mano_de_obra' ? '__labor__' : (p.familia ?? '__none__');
+    if (!groupMap.has(key)) {
+      const label = key === '__labor__' ? 'Mano de obra' : key === '__none__' ? 'Materiales' : p.familia!;
+      groupMap.set(key, { label, items: [] });
+    }
+    groupMap.get(key)!.items.push(p);
+  });
+  const sortedDocGroups = [...groupMap.entries()].sort(([ka], [kb]) => {
+    if (ka === '__labor__') return 1;
+    if (kb === '__labor__') return -1;
+    if (ka === '__none__') return 1;
+    if (kb === '__none__') return -1;
+    return 0;
+  });
+  const showDocGroups = sortedDocGroups.length > 1;
+
+  const allDocRows: TableRow[] = [headerRow];
+  sortedDocGroups.forEach(([, group], gIdx) => {
+    const sNum = String(gIdx + 1).padStart(2, '0');
+    if (showDocGroups) {
+      allDocRows.push(new TableRow({
+        children: [
+          new TableCell({ width: { size: 48, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.SOLID, color: accent, fill: accent }, children: [new Paragraph({ children: [new TextRun({ text: `${sNum}  ${group.label.toUpperCase()}`, bold: true, size: 17, color: C_WHITE })] })], margins: { top: 80, bottom: 80, left: 100, right: 60 }, borders: NO_BORDER }),
+          new TableCell({ width: { size: 10, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.SOLID, color: accent, fill: accent }, children: [new Paragraph({ children: [] })], margins: { top: 80, bottom: 80, left: 0, right: 0 }, borders: NO_BORDER }),
+          new TableCell({ width: { size: 20, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.SOLID, color: accent, fill: accent }, children: [new Paragraph({ children: [] })], margins: { top: 80, bottom: 80, left: 0, right: 0 }, borders: NO_BORDER }),
+          new TableCell({ width: { size: 22, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.SOLID, color: accent, fill: accent }, children: [new Paragraph({ children: [] })], margins: { top: 80, bottom: 80, left: 0, right: 80 }, borders: NO_BORDER }),
+        ],
+      }));
+    }
+    group.items.forEach((p, itemIdx) => {
+      const desc = showDocGroups ? `${gIdx + 1}.${itemIdx + 1}  ${p.descripcion}` : p.descripcion;
+      allDocRows.push(new TableRow({
+        children: [
+          tdCell(desc, AlignmentType.LEFT, itemIdx, false),
+          tdCell(String(p.cantidad), AlignmentType.CENTER, itemIdx, false),
+          tdCell(`${p.precioUnitario.toFixed(2)} €`, AlignmentType.RIGHT, itemIdx, false),
+          tdCell(`${p.total.toFixed(2)} €`, AlignmentType.RIGHT, itemIdx, true),
+        ],
+      }));
+    });
+    if (showDocGroups) {
+      const subtotal = group.items.reduce((s, p) => s + p.total, 0);
+      allDocRows.push(new TableRow({
+        children: [
+          new TableCell({ width: { size: 48, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.SOLID, color: 'F1F5F9', fill: 'F1F5F9' }, children: [new Paragraph({ children: [] })], margins: { top: 50, bottom: 50, left: 80, right: 80 }, borders: { ...NO_BORDER, top: { style: BorderStyle.SINGLE, size: 4, color: 'E2E8F0' } } }),
+          new TableCell({ width: { size: 10, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.SOLID, color: 'F1F5F9', fill: 'F1F5F9' }, children: [new Paragraph({ children: [] })], margins: { top: 50, bottom: 50, left: 0, right: 0 }, borders: { ...NO_BORDER, top: { style: BorderStyle.SINGLE, size: 4, color: 'E2E8F0' } } }),
+          new TableCell({ width: { size: 20, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.SOLID, color: 'F1F5F9', fill: 'F1F5F9' }, children: [new Paragraph({ children: [new TextRun({ text: `Subtotal ${sNum}:`, bold: true, size: 16, color: C_MUTED, allCaps: true })], alignment: AlignmentType.RIGHT })], margins: { top: 50, bottom: 50, left: 80, right: 40 }, borders: { ...NO_BORDER, top: { style: BorderStyle.SINGLE, size: 4, color: 'E2E8F0' } } }),
+          new TableCell({ width: { size: 22, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.SOLID, color: 'F1F5F9', fill: 'F1F5F9' }, children: [new Paragraph({ children: [new TextRun({ text: `${subtotal.toFixed(2)} €`, bold: true, size: 16, color: accent })], alignment: AlignmentType.RIGHT })], margins: { top: 50, bottom: 50, left: 40, right: 80 }, borders: { ...NO_BORDER, top: { style: BorderStyle.SINGLE, size: 4, color: 'E2E8F0' } } }),
+        ],
+      }));
+    }
+  });
 
   const itemsTable = new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
-    rows: [headerRow, ...dataRows],
+    rows: allDocRows,
     borders: NO_BORDER,
   });
 

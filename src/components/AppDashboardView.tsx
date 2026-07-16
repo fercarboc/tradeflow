@@ -3446,11 +3446,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               setShowPresupuestoIncremental(false);
               const partidasMobile = q.partidas.map(p => {
                 if (p.supplier_key && p.precioUnitario > 0) {
-                  return { descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: p.precioUnitario, total: p.precioUnitario * p.cantidad, supplier_key: p.supplier_key, supplier_name: p.supplier_name, supplier_ref: p.supplier_ref };
+                  return { descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: p.precioUnitario, total: p.precioUnitario * p.cantidad, supplier_key: p.supplier_key, supplier_name: p.supplier_name, supplier_ref: p.supplier_ref, familia: p.familia };
                 }
                 const match = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
                 const pu = match ? match.variant.precio_venta * (1 + empresaAjustes.margenMateriales / 100) : p.precioUnitario;
-                return { descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: pu, total: pu * p.cantidad };
+                return { descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: pu, total: pu * p.cantidad, familia: p.familia };
               });
               setWizardQuote({
                 id: '',
@@ -5877,11 +5877,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               setShowPresupuestoIncremental(false);
               const partidasDesktop = q.partidas.map(p => {
                 if (p.supplier_key && p.precioUnitario > 0) {
-                  return { descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: p.precioUnitario, total: p.precioUnitario * p.cantidad, supplier_key: p.supplier_key, supplier_name: p.supplier_name, supplier_ref: p.supplier_ref };
+                  return { descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: p.precioUnitario, total: p.precioUnitario * p.cantidad, supplier_key: p.supplier_key, supplier_name: p.supplier_name, supplier_ref: p.supplier_ref, familia: p.familia };
                 }
                 const match = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
                 const pu = match ? match.variant.precio_venta * (1 + empresaAjustes.margenMateriales / 100) : p.precioUnitario;
-                return { descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: pu, total: pu * p.cantidad };
+                return { descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: pu, total: pu * p.cantidad, familia: p.familia };
               });
               const quoteBase = {
                 id: '',

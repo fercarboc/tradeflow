@@ -98,6 +98,7 @@ aviso?: string;
 supplier_key?: string;
 supplier_name?: string;
 supplier_ref?: string;
+familia?: string;
 precioCoste?: number;
 catalog_variant_id?: string;
 dbItemId?: string;
