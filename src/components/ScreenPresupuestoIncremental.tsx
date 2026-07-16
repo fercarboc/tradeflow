@@ -194,6 +194,7 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
   const [savingManualPrice, setSavingManualPrice] = useState(false);
   const [savePrefDialog, setSavePrefDialog] = useState<{ opt: CompareRow; partidaIdx: number } | null>(null);
   const [savingPref, setSavingPref]         = useState(false);
+  const [expandedItems, setExpandedItems]   = useState<Set<number>>(new Set());
 
   const handleOpenCompare = async (idx: number, descripcion: string) => {
     if (compareIdx === idx) { setCompareIdx(null); return; }
@@ -1272,6 +1273,8 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
         {/* ── FASE: RESULTADO ── */}
         {phase === 'resultado' && (() => {
           const total = partidas.reduce((s, p) => s + (p.precioUnitario > 0 ? p.precioUnitario * p.cantidad : 0), 0);
+          const catalogCount = partidas.filter(p => p.supplier_key && p.supplier_key !== 'propio').length;
+          const iaCount = partidas.filter(p => p.tipo === 'material' && (!p.supplier_key || p.supplier_key === 'propio')).length;
           return (
           <div className="px-5 py-4 space-y-4 pb-36">
             {/* Cabecera con total */}
@@ -1281,7 +1284,21 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
                 <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">Presupuesto listo</span>
               </div>
               <p className="text-xl font-black text-white mb-1">{categoria}</p>
-              <p className="text-sm text-white/40 mb-4">{partidas.length} partidas generadas por IA</p>
+              <div className="flex items-center justify-center gap-2 flex-wrap mb-2">
+                {catalogCount > 0 && (
+                  <span className="text-[9px] bg-emerald-500/15 text-emerald-400 font-black px-2.5 py-1 rounded-full">
+                    ✓ {catalogCount} de catálogo
+                  </span>
+                )}
+                {iaCount > 0 && (
+                  <span className="text-[9px] bg-orange-500/15 text-orange-400 font-black px-2.5 py-1 rounded-full">
+                    ⚡ {iaCount} estimación{iaCount > 1 ? 'es' : ''} IA
+                  </span>
+                )}
+              </div>
+              {iaCount > 0 && (
+                <p className="text-[10px] text-orange-400/60 mb-3">Revisa los precios en naranja antes de enviar</p>
+              )}
               {total > 0 && (
                 <div className="bg-black/30 rounded-xl px-4 py-3 inline-block">
                   <p className="text-[10px] text-white/40 mb-0.5">Precio estimado</p>
@@ -1304,24 +1321,47 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
                       </div>
                       <div className="flex items-center gap-2 mt-1 flex-wrap">
                         <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${
-                          p.tipo === 'mano_de_obra' ? 'bg-blue-500/15 text-blue-400' : 'bg-emerald-500/15 text-emerald-400'
+                          p.tipo === 'mano_de_obra'
+                            ? 'bg-blue-500/15 text-blue-400'
+                            : p.supplier_key && p.supplier_key !== 'propio'
+                              ? 'bg-emerald-500/15 text-emerald-400'
+                              : 'bg-orange-500/15 text-orange-400'
                         }`}>
-                          {p.tipo === 'mano_de_obra' ? 'Mano de obra' : 'Material'}
+                          {p.tipo === 'mano_de_obra'
+                            ? 'Mano de obra'
+                            : p.supplier_key && p.supplier_key !== 'propio'
+                              ? `✓ Catálogo · ${p.supplier_name}`
+                              : '⚡ Estimación IA'}
                         </span>
-                        {p.supplier_key && p.supplier_key !== 'propio' && p.supplier_key !== 'obramat' && (
-                          <span className="text-[9px] text-white/40">{p.supplier_name}</span>
-                        )}
                         {p.supplier_key && p.supplier_key !== 'propio' && (
                           <span className="text-[9px] bg-amber-500/15 text-amber-400 px-1 rounded font-bold">DEMO</span>
                         )}
                       </div>
-                      {p.motivo && p.tipo === 'material' && (
-                        <p className="text-[9px] text-sky-400/60 mt-0.5 leading-tight">{p.motivo}</p>
+                      {(p.motivo || p.supplier_ref) && p.tipo === 'material' && (
+                        <button
+                          onClick={() => setExpandedItems(prev => {
+                            const next = new Set(prev);
+                            next.has(i) ? next.delete(i) : next.add(i);
+                            return next;
+                          })}
+                          className="text-[9px] text-white/25 hover:text-white/50 cursor-pointer mt-0.5 transition-colors"
+                        >
+                          {expandedItems.has(i) ? '▲ Ocultar' : '▼ Ver detalle'}
+                        </button>
+                      )}
+                      {expandedItems.has(i) && (p.motivo || p.supplier_ref) && (
+                        <div className="mt-1 bg-white/3 rounded-lg px-2.5 py-1.5 border border-white/5">
+                          {p.motivo && <p className="text-[9px] text-sky-400/70 leading-tight">{p.motivo}</p>}
+                          {p.supplier_ref && <p className="text-[9px] text-white/30 mt-0.5 font-mono">Ref: {p.supplier_ref}</p>}
+                        </div>
                       )}
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
                       {p.precioUnitario > 0 && (
-                        <span className="text-sm font-black text-amber-400">
+                        <span className={`text-sm font-black ${
+                          p.tipo === 'material' && (!p.supplier_key || p.supplier_key === 'propio')
+                            ? 'text-orange-400' : 'text-amber-400'
+                        }`}>
                           {(p.precioUnitario * p.cantidad).toFixed(0)} €
                         </span>
                       )}
@@ -1471,21 +1511,39 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
       )}
 
       {/* Footer: confirmar (resultado) */}
-      {phase === 'resultado' && (
-        <div className="absolute bottom-0 left-0 right-0 px-5 pb-8 pt-4 bg-gradient-to-t from-[#080C10] via-[#080C10]/90 to-transparent space-y-2">
-          <button
-            onClick={() => onConfirm({ descripcion: categoria, partidas })}
-            className="w-full bg-amber-500 hover:bg-amber-400 text-white font-black py-5 rounded-2xl flex items-center justify-center gap-2.5 text-base cursor-pointer transition-colors"
-            style={{ boxShadow: '0 8px 32px rgba(245,158,11,0.5)' }}
-          >
-            <CheckCircle className="w-5 h-5" />
-            Continuar — Enviar o cobrar
-          </button>
-          <p className="text-center text-xs text-white/25">
-            Podrás editar precios, enviar por WhatsApp o crear trabajos
-          </p>
-        </div>
-      )}
+      {phase === 'resultado' && (() => {
+        const neto = partidas.reduce((s, p) => s + (p.precioUnitario > 0 ? p.precioUnitario * p.cantidad : 0), 0);
+        const totalConIva = neto * 1.21;
+        return (
+          <div className="absolute bottom-0 left-0 right-0 px-5 pb-8 pt-4 bg-gradient-to-t from-[#080C10] via-[#080C10]/90 to-transparent space-y-2">
+            {neto > 0 && (
+              <div className="flex items-center justify-between bg-white/4 border border-white/8 rounded-xl px-4 py-2.5">
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <span className="text-[10px] text-white/50 font-medium">{partidas.length} partidas</span>
+                  <span className="text-[10px] text-white/25">·</span>
+                  <span className="text-[10px] text-white/40">{neto.toLocaleString('es-ES', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} € neto</span>
+                  <span className="text-[10px] text-white/25">+</span>
+                  <span className="text-[10px] text-white/40">IVA 21%</span>
+                </div>
+                <span className="text-sm font-black text-amber-400 font-mono shrink-0">
+                  {totalConIva.toLocaleString('es-ES', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} €
+                </span>
+              </div>
+            )}
+            <button
+              onClick={() => onConfirm({ descripcion: categoria, partidas })}
+              className="w-full bg-amber-500 hover:bg-amber-400 text-white font-black py-5 rounded-2xl flex items-center justify-center gap-2.5 text-base cursor-pointer transition-colors"
+              style={{ boxShadow: '0 8px 32px rgba(245,158,11,0.5)' }}
+            >
+              <CheckCircle className="w-5 h-5" />
+              Continuar — Enviar o cobrar
+            </button>
+            <p className="text-center text-xs text-white/25">
+              Podrás editar precios, enviar por WhatsApp o crear trabajos
+            </p>
+          </div>
+        );
+      })()}
     </div>
   );
 }
