@@ -28,6 +28,7 @@ interface PartidaItem {
   supplier_name?: string;
   supplier_ref?: string;
   motivo?: string;
+  familia?: string;
 }
 
 interface MudanzaDetalles {
@@ -226,6 +227,7 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
       supplier_name: opt.supplier_name,
       supplier_ref: opt.ref_proveedor ?? undefined,
       motivo: opt.motivo ?? undefined,
+      familia: opt.familia ?? undefined,
     }));
     setCompareIdx(null);
     setCompareResults([]);
@@ -458,6 +460,7 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
             precioUnitario: top.precio_venta,
             total: (p.cantidad ?? 1) * top.precio_venta,
             motivo: top.motivo ?? undefined,
+            familia: top.familia ?? undefined,
           };
         } catch {
           return p;
@@ -1307,166 +1310,219 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
               )}
             </div>
 
-            {/* Lista de partidas */}
-            <div className="bg-[#111827] border border-white/6 rounded-2xl overflow-hidden">
-              {partidas.map((p, i) => (
-                <div key={i}>
-                  <div className={`px-4 py-3.5 flex items-center justify-between gap-3 ${(i < partidas.length - 1 && compareIdx !== i) ? 'border-b border-white/5' : ''} ${compareIdx === i ? 'bg-white/5' : ''}`}>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-1.5">
-                        <p className="text-sm text-white font-medium leading-tight">{p.descripcion}</p>
-                        {p.supplier_key === 'obramat' && (
-                          <img src="/articuloobramat.png" alt="OBRAMAT" className="h-4 shrink-0 opacity-90" title={`OBRAMAT${p.supplier_ref ? ` · ${p.supplier_ref}` : ''}`} />
-                        )}
-                      </div>
-                      <div className="flex items-center gap-2 mt-1 flex-wrap">
-                        <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${
-                          p.tipo === 'mano_de_obra'
-                            ? 'bg-blue-500/15 text-blue-400'
-                            : p.supplier_key && p.supplier_key !== 'propio'
-                              ? 'bg-emerald-500/15 text-emerald-400'
-                              : 'bg-orange-500/15 text-orange-400'
-                        }`}>
-                          {p.tipo === 'mano_de_obra'
-                            ? 'Mano de obra'
-                            : p.supplier_key && p.supplier_key !== 'propio'
-                              ? `✓ Catálogo · ${p.supplier_name}`
-                              : '⚡ Estimación IA'}
-                        </span>
-                        {p.supplier_key && p.supplier_key !== 'propio' && (
-                          <span className="text-[9px] bg-amber-500/15 text-amber-400 px-1 rounded font-bold">DEMO</span>
-                        )}
-                      </div>
-                      {(p.motivo || p.supplier_ref) && p.tipo === 'material' && (
-                        <button
-                          onClick={() => setExpandedItems(prev => {
-                            const next = new Set(prev);
-                            next.has(i) ? next.delete(i) : next.add(i);
-                            return next;
-                          })}
-                          className="text-[9px] text-white/25 hover:text-white/50 cursor-pointer mt-0.5 transition-colors"
-                        >
-                          {expandedItems.has(i) ? '▲ Ocultar' : '▼ Ver detalle'}
-                        </button>
-                      )}
-                      {expandedItems.has(i) && (p.motivo || p.supplier_ref) && (
-                        <div className="mt-1 bg-white/3 rounded-lg px-2.5 py-1.5 border border-white/5">
-                          {p.motivo && <p className="text-[9px] text-sky-400/70 leading-tight">{p.motivo}</p>}
-                          {p.supplier_ref && <p className="text-[9px] text-white/30 mt-0.5 font-mono">Ref: {p.supplier_ref}</p>}
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-2 shrink-0">
-                      {p.precioUnitario > 0 && (
-                        <span className={`text-sm font-black ${
-                          p.tipo === 'material' && (!p.supplier_key || p.supplier_key === 'propio')
-                            ? 'text-orange-400' : 'text-amber-400'
-                        }`}>
-                          {(p.precioUnitario * p.cantidad).toFixed(0)} €
-                        </span>
-                      )}
-                      <p className="text-xs text-white/30 font-mono">{p.cantidad} {p.unidad}</p>
-                      {p.tipo === 'material' && orgId && (
-                        <button
-                          onClick={() => handleOpenCompare(i, p.descripcion)}
-                          title="Cambiar proveedor"
-                          className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors cursor-pointer ${compareIdx === i ? 'bg-amber-500/20 text-amber-400' : 'bg-white/5 text-white/30 hover:text-amber-400 hover:bg-amber-500/10'}`}
-                        >
-                          <ArrowUpDown className="h-3.5 w-3.5" />
-                        </button>
-                      )}
-                    </div>
-                  </div>
+            {/* Lista de partidas — agrupadas por familia */}
+            {(() => {
+              type PGroup = { label: string; items: Array<{ p: PartidaItem; i: number }> };
+              const groupMap = new Map<string, PGroup>();
+              partidas.forEach((p, i) => {
+                const key = p.tipo === 'mano_de_obra' ? '__labor__' : (p.familia ?? '__materials__');
+                if (!groupMap.has(key)) {
+                  const label = key === '__labor__' ? 'Mano de obra' : key === '__materials__' ? 'Materiales' : p.familia!;
+                  groupMap.set(key, { label, items: [] });
+                }
+                groupMap.get(key)!.items.push({ p, i });
+              });
+              const sorted = [...groupMap.entries()].sort(([ka], [kb]) => {
+                if (ka === '__labor__') return 1;
+                if (kb === '__labor__') return -1;
+                if (ka === '__materials__') return 1;
+                if (kb === '__materials__') return -1;
+                return 0;
+              });
+              const showGroups = sorted.length > 1;
 
-                  {/* Panel comparador inline */}
-                  {compareIdx === i && (
-                    <div className="border-b border-white/5">
-                      <div className="flex items-center justify-between px-4 py-2 bg-amber-500/10 border-b border-amber-500/15">
-                        <span className="text-[10px] font-bold text-amber-400 flex items-center gap-1.5">
-                          <ArrowUpDown className="h-3 w-3" /> Cambiar proveedor
-                        </span>
-                        <button onClick={() => setCompareIdx(null)} className="text-white/30 hover:text-white cursor-pointer">
-                          <X className="h-3.5 w-3.5" />
-                        </button>
-                      </div>
-
-                      {compareLoading && (
-                        <div className="flex items-center justify-center gap-2 py-5 text-white/40 text-sm">
-                          <Loader2 className="h-4 w-4 animate-spin" /> Buscando en catálogos…
-                        </div>
-                      )}
-
-                      {!compareLoading && compareResults.length === 0 && (
-                        <div className="px-4 py-4 space-y-3">
-                          <p className="text-center text-sm text-white/30">Sin alternativas en los catálogos activos</p>
-                          <p className="text-[11px] text-white/35 text-center">
-                            Introduce el precio — se guardará en tu catálogo para futuras búsquedas de la IA
-                          </p>
-                          <div className="flex gap-2 items-center">
-                            <div className="relative flex-1">
-                              <input
-                                type="number"
-                                min={0}
-                                step={0.01}
-                                placeholder="Precio unitario…"
-                                value={manualPrice[i] ?? ''}
-                                onChange={e => setManualPrice(prev => ({ ...prev, [i]: e.target.value }))}
-                                className="w-full bg-white/8 border border-white/15 rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/25 focus:outline-none focus:border-amber-400/60 pr-10"
-                              />
-                              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 text-xs font-bold">€</span>
+              return (
+                <div className="space-y-3">
+                  {sorted.map(([, group], groupIdx) => {
+                    const sNum = String(groupIdx + 1).padStart(2, '0');
+                    const subtotal = group.items.reduce((s, { p }) => s + (p.precioUnitario > 0 ? p.precioUnitario * p.cantidad : 0), 0);
+                    return (
+                      <div key={group.label} className="bg-[#111827] border border-white/6 rounded-2xl overflow-hidden">
+                        {showGroups && (
+                          <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/6 bg-white/3">
+                            <div className="flex items-center gap-2">
+                              <span className="text-[10px] font-black text-amber-400/60">{sNum}</span>
+                              <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">{group.label}</span>
                             </div>
-                            <button
-                              onClick={() => handleUseManualPrice(i, p)}
-                              disabled={!manualPrice[i] || savingManualPrice}
-                              className="flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 disabled:opacity-40 text-black text-xs font-bold px-3.5 py-2.5 rounded-xl transition-colors cursor-pointer shrink-0"
-                            >
-                              {savingManualPrice
-                                ? <RefreshCw className="h-3.5 w-3.5 animate-spin" />
-                                : <Check className="h-3.5 w-3.5" />
-                              }
-                              Usar
-                            </button>
-                          </div>
-                        </div>
-                      )}
-
-                      {!compareLoading && compareResults.map((opt, oi) => (
-                        <button
-                          key={oi}
-                          onClick={() => handleSelectCompare(i, opt)}
-                          className={`w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-white/5 transition-colors cursor-pointer ${oi < compareResults.length - 1 ? 'border-b border-white/5' : ''}`}
-                        >
-                          <div className="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center bg-white/5">
-                            {opt.catalog_key === 'obramat'
-                              ? <img src="/logoobramat.png" alt="OB" className="h-5 object-contain" />
-                              : <Package className="h-4 w-4 text-white/30" />
-                            }
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm text-white/80 truncate">{opt.descripcion}</p>
-                            <p className="text-xs text-white/30">
-                              {opt.supplier_name}
-                              {opt.catalog_key !== 'propio' && <span className="ml-1 text-[9px] bg-amber-500/15 text-amber-400 px-1 rounded font-bold">DEMO</span>}
-                              {opt.ref_proveedor ? ` · ${opt.ref_proveedor}` : ''}
-                            </p>
-                            {opt.motivo && (
-                              <p className="text-[9px] text-sky-400/70 mt-0.5 truncate">{opt.motivo}</p>
+                            {subtotal > 0 && (
+                              <span className="text-[10px] text-white/30 font-mono">{subtotal.toLocaleString('es-ES', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} €</span>
                             )}
                           </div>
-                          <div className="shrink-0 text-right">
-                            <p className="text-sm font-black text-white">{opt.precio_venta.toFixed(2)} €</p>
-                            <p className="text-[10px] text-white/30 font-mono">{opt.unidad}</p>
+                        )}
+
+                        {group.items.map(({ p, i }, itemIdx) => (
+                          <div key={i}>
+                            <div className={`px-4 py-3.5 flex items-center justify-between gap-3 ${(itemIdx < group.items.length - 1 && compareIdx !== i) ? 'border-b border-white/5' : ''} ${compareIdx === i ? 'bg-white/5' : ''}`}>
+                              <div className="min-w-0 flex-1">
+                                <div className="flex items-center gap-1.5">
+                                  {showGroups && (
+                                    <span className="text-[9px] text-white/20 font-mono shrink-0">{groupIdx + 1}.{itemIdx + 1}</span>
+                                  )}
+                                  <p className="text-sm text-white font-medium leading-tight">{p.descripcion}</p>
+                                  {p.supplier_key === 'obramat' && (
+                                    <img src="/articuloobramat.png" alt="OBRAMAT" className="h-4 shrink-0 opacity-90" title={`OBRAMAT${p.supplier_ref ? ` · ${p.supplier_ref}` : ''}`} />
+                                  )}
+                                </div>
+                                <div className="flex items-center gap-2 mt-1 flex-wrap">
+                                  <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${
+                                    p.tipo === 'mano_de_obra'
+                                      ? 'bg-blue-500/15 text-blue-400'
+                                      : p.supplier_key && p.supplier_key !== 'propio'
+                                        ? 'bg-emerald-500/15 text-emerald-400'
+                                        : 'bg-orange-500/15 text-orange-400'
+                                  }`}>
+                                    {p.tipo === 'mano_de_obra'
+                                      ? 'Mano de obra'
+                                      : p.supplier_key && p.supplier_key !== 'propio'
+                                        ? `✓ Catálogo · ${p.supplier_name}`
+                                        : '⚡ Estimación IA'}
+                                  </span>
+                                  {p.supplier_key && p.supplier_key !== 'propio' && (
+                                    <span className="text-[9px] bg-amber-500/15 text-amber-400 px-1 rounded font-bold">DEMO</span>
+                                  )}
+                                </div>
+                                {(p.motivo || p.supplier_ref) && p.tipo === 'material' && (
+                                  <button
+                                    onClick={() => setExpandedItems(prev => {
+                                      const next = new Set(prev);
+                                      next.has(i) ? next.delete(i) : next.add(i);
+                                      return next;
+                                    })}
+                                    className="text-[9px] text-white/25 hover:text-white/50 cursor-pointer mt-0.5 transition-colors"
+                                  >
+                                    {expandedItems.has(i) ? '▲ Ocultar' : '▼ Ver detalle'}
+                                  </button>
+                                )}
+                                {expandedItems.has(i) && (p.motivo || p.supplier_ref) && (
+                                  <div className="mt-1 bg-white/3 rounded-lg px-2.5 py-1.5 border border-white/5">
+                                    {p.motivo && <p className="text-[9px] text-sky-400/70 leading-tight">{p.motivo}</p>}
+                                    {p.supplier_ref && <p className="text-[9px] text-white/30 mt-0.5 font-mono">Ref: {p.supplier_ref}</p>}
+                                  </div>
+                                )}
+                              </div>
+                              <div className="flex items-center gap-2 shrink-0">
+                                {p.precioUnitario > 0 && (
+                                  <span className={`text-sm font-black ${
+                                    p.tipo === 'material' && (!p.supplier_key || p.supplier_key === 'propio')
+                                      ? 'text-orange-400' : 'text-amber-400'
+                                  }`}>
+                                    {(p.precioUnitario * p.cantidad).toFixed(0)} €
+                                  </span>
+                                )}
+                                <p className="text-xs text-white/30 font-mono">{p.cantidad} {p.unidad}</p>
+                                {p.tipo === 'material' && orgId && (
+                                  <button
+                                    onClick={() => handleOpenCompare(i, p.descripcion)}
+                                    title="Cambiar proveedor"
+                                    className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors cursor-pointer ${compareIdx === i ? 'bg-amber-500/20 text-amber-400' : 'bg-white/5 text-white/30 hover:text-amber-400 hover:bg-amber-500/10'}`}
+                                  >
+                                    <ArrowUpDown className="h-3.5 w-3.5" />
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Panel comparador inline */}
+                            {compareIdx === i && (
+                              <div className="border-b border-white/5">
+                                <div className="flex items-center justify-between px-4 py-2 bg-amber-500/10 border-b border-amber-500/15">
+                                  <span className="text-[10px] font-bold text-amber-400 flex items-center gap-1.5">
+                                    <ArrowUpDown className="h-3 w-3" /> Cambiar proveedor
+                                  </span>
+                                  <button onClick={() => setCompareIdx(null)} className="text-white/30 hover:text-white cursor-pointer">
+                                    <X className="h-3.5 w-3.5" />
+                                  </button>
+                                </div>
+
+                                {compareLoading && (
+                                  <div className="flex items-center justify-center gap-2 py-5 text-white/40 text-sm">
+                                    <Loader2 className="h-4 w-4 animate-spin" /> Buscando en catálogos…
+                                  </div>
+                                )}
+
+                                {!compareLoading && compareResults.length === 0 && (
+                                  <div className="px-4 py-4 space-y-3">
+                                    <p className="text-center text-sm text-white/30">Sin alternativas en los catálogos activos</p>
+                                    <p className="text-[11px] text-white/35 text-center">
+                                      Introduce el precio — se guardará en tu catálogo para futuras búsquedas de la IA
+                                    </p>
+                                    <div className="flex gap-2 items-center">
+                                      <div className="relative flex-1">
+                                        <input
+                                          type="number"
+                                          min={0}
+                                          step={0.01}
+                                          placeholder="Precio unitario…"
+                                          value={manualPrice[i] ?? ''}
+                                          onChange={e => setManualPrice(prev => ({ ...prev, [i]: e.target.value }))}
+                                          className="w-full bg-white/8 border border-white/15 rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/25 focus:outline-none focus:border-amber-400/60 pr-10"
+                                        />
+                                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 text-xs font-bold">€</span>
+                                      </div>
+                                      <button
+                                        onClick={() => handleUseManualPrice(i, p)}
+                                        disabled={!manualPrice[i] || savingManualPrice}
+                                        className="flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 disabled:opacity-40 text-black text-xs font-bold px-3.5 py-2.5 rounded-xl transition-colors cursor-pointer shrink-0"
+                                      >
+                                        {savingManualPrice
+                                          ? <RefreshCw className="h-3.5 w-3.5 animate-spin" />
+                                          : <Check className="h-3.5 w-3.5" />
+                                        }
+                                        Usar
+                                      </button>
+                                    </div>
+                                  </div>
+                                )}
+
+                                {!compareLoading && compareResults.map((opt, oi) => (
+                                  <button
+                                    key={oi}
+                                    onClick={() => handleSelectCompare(i, opt)}
+                                    className={`w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-white/5 transition-colors cursor-pointer ${oi < compareResults.length - 1 ? 'border-b border-white/5' : ''}`}
+                                  >
+                                    <div className="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center bg-white/5">
+                                      {opt.catalog_key === 'obramat'
+                                        ? <img src="/logoobramat.png" alt="OB" className="h-5 object-contain" />
+                                        : <Package className="h-4 w-4 text-white/30" />
+                                      }
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-sm text-white/80 truncate">{opt.descripcion}</p>
+                                      <p className="text-xs text-white/30">
+                                        {opt.supplier_name}
+                                        {opt.catalog_key !== 'propio' && <span className="ml-1 text-[9px] bg-amber-500/15 text-amber-400 px-1 rounded font-bold">DEMO</span>}
+                                        {opt.ref_proveedor ? ` · ${opt.ref_proveedor}` : ''}
+                                      </p>
+                                      {opt.motivo && (
+                                        <p className="text-[9px] text-sky-400/70 mt-0.5 truncate">{opt.motivo}</p>
+                                      )}
+                                    </div>
+                                    <div className="shrink-0 text-right">
+                                      <p className="text-sm font-black text-white">{opt.precio_venta.toFixed(2)} €</p>
+                                      <p className="text-[10px] text-white/30 font-mono">{opt.unidad}</p>
+                                    </div>
+                                    {p.supplier_key === opt.catalog_key && p.precioUnitario === opt.precio_venta && (
+                                      <Check className="h-4 w-4 text-amber-400 shrink-0" />
+                                    )}
+                                  </button>
+                                ))}
+                              </div>
+                            )}
                           </div>
-                          {p.supplier_key === opt.catalog_key && p.precioUnitario === opt.precio_venta && (
-                            <Check className="h-4 w-4 text-amber-400 shrink-0" />
-                          )}
-                        </button>
-                      ))}
-                    </div>
-                  )}
+                        ))}
+
+                        {showGroups && subtotal > 0 && (
+                          <div className="flex justify-between px-4 py-2 border-t border-white/5 bg-white/2">
+                            <span className="text-[9px] text-white/20 uppercase tracking-widest">Subtotal {sNum}</span>
+                            <span className="text-[10px] text-white/35 font-mono font-semibold">{subtotal.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</span>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
-              ))}
-            </div>
+              );
+            })()}
 
             <button
               onClick={() => setPhase('acumulando')}
