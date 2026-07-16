@@ -659,6 +659,23 @@ export async function convertToInvoice(quote: TradeQuote, orgId: string): Promis
   if (error) throw error;
 
   await supabase.from('trade_quotes').update({ estado: 'Facturado' }).eq('id', quote.id);
+
+  // Insert quote items as invoice lines
+  const quoteItems = (quote as unknown as Record<string, unknown>).trade_quote_items as Array<Record<string, unknown>> | undefined;
+  if (quoteItems && quoteItems.length > 0) {
+    await supabase.from('trade_invoice_lines').insert(
+      quoteItems.map((item, i) => ({
+        factura_id: inv!.id,
+        descripcion: item.descripcion as string,
+        cantidad: (item.cantidad as number) ?? 1,
+        precio_unitario: (item.precio_unitario as number) ?? 0,
+        subtotal: (item.total as number) ?? 0,
+        tipo: (item.tipo as string) ?? 'material',
+        orden: i,
+      }))
+    );
+  }
+
   return inv as TradeInvoice;
 }
 
