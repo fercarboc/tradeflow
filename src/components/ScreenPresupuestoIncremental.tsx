@@ -27,6 +27,7 @@ interface PartidaItem {
   supplier_key?: string;
   supplier_name?: string;
   supplier_ref?: string;
+  motivo?: string;
 }
 
 interface MudanzaDetalles {
@@ -182,14 +183,17 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
   interface CompareRow {
     catalog_key: string; supplier_name: string; product_id: string;
     ref_proveedor: string | null; descripcion: string;
+    marca: string | null; familia: string | null;
     precio_coste: number; margen_pct: number; precio_venta: number;
-    unidad: string; score: number;
+    unidad: string; score: number; motivo: string | null;
   }
-  const [compareIdx, setCompareIdx]       = useState<number | null>(null);
+  const [compareIdx, setCompareIdx]         = useState<number | null>(null);
   const [compareResults, setCompareResults] = useState<CompareRow[]>([]);
   const [compareLoading, setCompareLoading] = useState(false);
-  const [manualPrice, setManualPrice]     = useState<Record<number, string>>({});
+  const [manualPrice, setManualPrice]       = useState<Record<number, string>>({});
   const [savingManualPrice, setSavingManualPrice] = useState(false);
+  const [savePrefDialog, setSavePrefDialog] = useState<{ opt: CompareRow; partidaIdx: number } | null>(null);
+  const [savingPref, setSavingPref]         = useState(false);
 
   const handleOpenCompare = async (idx: number, descripcion: string) => {
     if (compareIdx === idx) { setCompareIdx(null); return; }
@@ -212,7 +216,7 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
     }
   };
 
-  const handleSelectCompare = (idx: number, opt: CompareRow) => {
+  const applyToPartida = (idx: number, opt: CompareRow) => {
     setPartidas(prev => prev.map((p, i) => i !== idx ? p : {
       ...p,
       precioUnitario: opt.precio_venta,
@@ -220,9 +224,81 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
       supplier_key: opt.catalog_key,
       supplier_name: opt.supplier_name,
       supplier_ref: opt.ref_proveedor ?? undefined,
+      motivo: opt.motivo ?? undefined,
     }));
     setCompareIdx(null);
     setCompareResults([]);
+  };
+
+  const handleSelectCompare = (idx: number, opt: CompareRow) => {
+    const isAlreadyPreferred = opt.motivo === `Tu proveedor preferido para ${opt.familia}`;
+    const shouldAsk = !!(opt.familia && opt.catalog_key !== 'propio' && !isAlreadyPreferred);
+    if (shouldAsk) {
+      setSavePrefDialog({ opt, partidaIdx: idx });
+    } else {
+      applyToPartida(idx, opt);
+    }
+  };
+
+  const handleSelectConfirm = async (mode: 'presupuesto' | 'preferencia') => {
+    if (!savePrefDialog) return;
+    const { opt, partidaIdx } = savePrefDialog;
+    applyToPartida(partidaIdx, opt);
+    setSavePrefDialog(null);
+
+    if (mode === 'preferencia' && opt.familia && orgId) {
+      setSavingPref(true);
+      try {
+        const { data: catRow } = await supabase
+          .from('trade_supplier_catalogs')
+          .select('id')
+          .eq('supplier_key', opt.catalog_key)
+          .maybeSingle();
+        if (!catRow?.id) return;
+
+        const { data: current } = await supabase
+          .from('trade_org_suppliers')
+          .select('catalog_id, preferido_categorias')
+          .eq('org_id', orgId)
+          .maybeSingle();
+
+        // Añadir familia al proveedor elegido
+        const { data: thisRow } = await supabase
+          .from('trade_org_suppliers')
+          .select('preferido_categorias')
+          .eq('org_id', orgId)
+          .eq('catalog_id', catRow.id)
+          .maybeSingle();
+
+        const newCats = [...new Set([...(thisRow?.preferido_categorias ?? []), opt.familia])];
+
+        // Quitar esa familia de otros proveedores
+        const { data: others } = await supabase
+          .from('trade_org_suppliers')
+          .select('catalog_id, preferido_categorias')
+          .eq('org_id', orgId)
+          .neq('catalog_id', catRow.id);
+
+        await Promise.all([
+          supabase.from('trade_org_suppliers').upsert(
+            { org_id: orgId, catalog_id: catRow.id, enabled: true, preferido_categorias: newCats },
+            { onConflict: 'org_id,catalog_id' }
+          ),
+          ...(others ?? [])
+            .filter(s => (s.preferido_categorias ?? []).includes(opt.familia!))
+            .map(s => supabase.from('trade_org_suppliers').upsert(
+              { org_id: orgId, catalog_id: s.catalog_id, preferido_categorias: (s.preferido_categorias ?? []).filter((c: string) => c !== opt.familia) },
+              { onConflict: 'org_id,catalog_id' }
+            )),
+        ]);
+        void current; // suppress unused warning
+        showToast(`${opt.supplier_name} guardado como preferido para ${opt.familia}`, 'success');
+      } catch {
+        showToast('No se pudo guardar la preferencia', 'error');
+      } finally {
+        setSavingPref(false);
+      }
+    }
   };
 
   const handleUseManualPrice = async (idx: number, p: PartidaItem) => {
@@ -360,14 +436,45 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
     }));
   }
 
+  async function autoSelectProviders(items: PartidaItem[]): Promise<PartidaItem[]> {
+    if (!orgId) return items;
+    const results = await Promise.all(
+      items.map(async (p): Promise<PartidaItem> => {
+        if (p.tipo !== 'material' || p.supplier_key) return p;
+        try {
+          const { data } = await supabase.rpc('search_supplier_products', {
+            material_text: p.descripcion,
+            p_org_id: orgId,
+            limit_per_catalog: 1,
+          });
+          const top = (data as CompareRow[])?.[0];
+          if (!top) return p;
+          return {
+            ...p,
+            supplier_key:  top.catalog_key,
+            supplier_name: top.supplier_name,
+            supplier_ref:  top.ref_proveedor ?? undefined,
+            precioUnitario: top.precio_venta,
+            total: (p.cantidad ?? 1) * top.precio_venta,
+            motivo: top.motivo ?? undefined,
+          };
+        } catch {
+          return p;
+        }
+      })
+    );
+    return results;
+  }
+
   async function addPartidasFromMudanzaDetalles() {
     setProcessing(true);
     try {
       const texto = buildMudanzaTexto(mudanza, categoria);
       const nuevas = await callAI(texto);
-      setPartidas(nuevas);
+      const conProv = await autoSelectProviders(nuevas);
+      setPartidas(conProv);
       setPhase('acumulando');
-      showToast(`${nuevas.length} partidas base generadas`, 'success');
+      showToast(`${conProv.length} partidas base generadas`, 'success');
     } catch {
       showToast('Error al procesar. Inténtalo de nuevo.', 'error');
     } finally {
@@ -380,9 +487,10 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
     try {
       const texto = buildRedInformaticaTexto(red, categoria);
       const nuevas = await callAI(texto);
-      setPartidas(nuevas);
+      const conProv = await autoSelectProviders(nuevas);
+      setPartidas(conProv);
       setPhase('acumulando');
-      showToast(`${nuevas.length} partidas base generadas`, 'success');
+      showToast(`${conProv.length} partidas base generadas`, 'success');
     } catch {
       showToast('Error al procesar. Inténtalo de nuevo.', 'error');
     } finally {
@@ -395,9 +503,10 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
     try {
       const texto = buildClimatizacionTexto(clima, categoria);
       const nuevas = await callAI(texto);
-      setPartidas(nuevas);
+      const conProv = await autoSelectProviders(nuevas);
+      setPartidas(conProv);
       setPhase('acumulando');
-      showToast(`${nuevas.length} partidas base generadas`, 'success');
+      showToast(`${conProv.length} partidas base generadas`, 'success');
     } catch {
       showToast('Error al procesar. Inténtalo de nuevo.', 'error');
     } finally {
@@ -411,9 +520,10 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
     setProcessing(true);
     try {
       const nuevas = await callAI(texto);
-      setPartidas(prev => [...prev, ...nuevas]);
+      const conProv = await autoSelectProviders(nuevas);
+      setPartidas(prev => [...prev, ...conProv]);
       setTextInput('');
-      showToast(`${nuevas.length} partida${nuevas.length === 1 ? '' : 's'} añadida${nuevas.length === 1 ? '' : 's'}`, 'success');
+      showToast(`${conProv.length} partida${conProv.length === 1 ? '' : 's'} añadida${conProv.length === 1 ? '' : 's'}`, 'success');
     } catch {
       showToast('Error al procesar. Inténtalo de nuevo.', 'error');
     } finally {
@@ -445,8 +555,55 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
   const allSteps = (['categoria', isMudanza ? 'mudanza_detalles' : isRed ? 'red_detalles' : isClima ? 'clima_detalles' : null, 'acumulando', 'resultado'] as (Phase | null)[]).filter(Boolean) as Phase[];
   const currentStepIdx = allSteps.indexOf(phase);
 
+  const hasGlobalSupplier = partidas.some(p => p.supplier_key && p.supplier_key !== 'propio');
+
   return (
     <div className="fixed inset-0 bg-[#080C10] z-[60] flex flex-col">
+
+      {/* Diálogo: guardar preferencia de proveedor */}
+      {savePrefDialog && (
+        <div
+          className="fixed inset-0 z-[70] flex items-end justify-center bg-black/70"
+          onClick={() => handleSelectConfirm('presupuesto')}
+        >
+          <div
+            className="w-full max-w-sm bg-[#111827] border border-white/10 rounded-t-2xl p-5 pb-8 space-y-4"
+            onClick={e => e.stopPropagation()}
+          >
+            <div>
+              <p className="text-xs font-bold text-white/40 uppercase tracking-widest mb-1">Proveedor seleccionado</p>
+              <p className="text-base font-black text-white">{savePrefDialog.opt.supplier_name}</p>
+              {savePrefDialog.opt.familia && (
+                <p className="text-xs text-white/40 mt-0.5">
+                  Material de categoría: <span className="text-sky-400 font-semibold">{savePrefDialog.opt.familia}</span>
+                </p>
+              )}
+            </div>
+            <p className="text-sm text-white/60">
+              ¿Quieres guardar <strong className="text-white">{savePrefDialog.opt.supplier_name}</strong> como proveedor preferido para{' '}
+              <strong className="text-sky-400">{savePrefDialog.opt.familia ?? 'esta categoría'}</strong> en futuros presupuestos?
+            </p>
+            <div className="space-y-2">
+              <button
+                onClick={() => handleSelectConfirm('preferencia')}
+                disabled={savingPref}
+                className="w-full bg-sky-600 hover:bg-sky-500 disabled:opacity-50 text-white font-bold py-3.5 rounded-xl text-sm cursor-pointer transition-colors flex items-center justify-center gap-2"
+              >
+                {savingPref
+                  ? <><RefreshCw className="w-4 h-4 animate-spin" /> Guardando…</>
+                  : <>★ Guardar como preferido para {savePrefDialog.opt.familia ?? 'esta categoría'}</>
+                }
+              </button>
+              <button
+                onClick={() => handleSelectConfirm('presupuesto')}
+                className="w-full bg-white/8 hover:bg-white/12 text-white/70 font-semibold py-3 rounded-xl text-sm cursor-pointer transition-colors"
+              >
+                Solo para este presupuesto
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Header */}
       <div className="flex items-center justify-between px-4 pt-5 pb-4 shrink-0">
@@ -485,6 +642,16 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
           ))}
         </div>
       </div>
+
+      {/* Banner MODO DEMO */}
+      {hasGlobalSupplier && (phase === 'acumulando' || phase === 'resultado') && (
+        <div className="mx-4 mb-1 flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 rounded-xl px-3 py-2 shrink-0">
+          <span className="text-amber-400 text-[10px] font-black uppercase tracking-wider shrink-0">DEMO</span>
+          <p className="text-[10px] text-amber-300/70 leading-tight">
+            Precios ficticios para validación. No representa integración comercial real con el proveedor.
+          </p>
+        </div>
+      )}
 
       <div className="flex-1 overflow-y-auto overscroll-contain">
 
@@ -1013,15 +1180,23 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
                   {partidas.map((p, i) => (
                     <div key={i} className={`px-4 py-2.5 flex items-center justify-between gap-3 ${i < partidas.length - 1 ? 'border-b border-white/5' : ''}`}>
                       <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-1.5">
+                        <div className="flex items-center gap-1.5 flex-wrap">
                           <p className="text-xs text-white/80 truncate">{p.descripcion}</p>
                           {p.supplier_key === 'obramat' && (
                             <img src="/articuloobramat.png" alt="OBRAMAT" className="h-3.5 shrink-0 opacity-70" />
                           )}
+                          {p.supplier_key && p.supplier_key !== 'propio' && (
+                            <span className="text-[9px] bg-amber-500/15 text-amber-400/80 px-1 rounded font-bold shrink-0">DEMO</span>
+                          )}
                         </div>
-                        <span className={`text-[9px] font-semibold ${p.tipo === 'mano_de_obra' ? 'text-blue-400' : 'text-emerald-400'}`}>
-                          {p.tipo === 'mano_de_obra' ? 'Mano de obra' : 'Material'}
-                        </span>
+                        <div className="flex items-center gap-1.5">
+                          <span className={`text-[9px] font-semibold ${p.tipo === 'mano_de_obra' ? 'text-blue-400' : 'text-emerald-400'}`}>
+                            {p.tipo === 'mano_de_obra' ? 'Mano de obra' : 'Material'}
+                          </span>
+                          {p.motivo && p.tipo === 'material' && (
+                            <span className="text-[9px] text-sky-400/50 truncate max-w-[140px]">{p.motivo}</span>
+                          )}
+                        </div>
                       </div>
                       <p className="text-xs text-white/30 shrink-0 font-mono">{p.cantidad} {p.unidad}</p>
                     </div>
@@ -1127,16 +1302,22 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
                           <img src="/articuloobramat.png" alt="OBRAMAT" className="h-4 shrink-0 opacity-90" title={`OBRAMAT${p.supplier_ref ? ` · ${p.supplier_ref}` : ''}`} />
                         )}
                       </div>
-                      <div className="flex items-center gap-2 mt-1">
+                      <div className="flex items-center gap-2 mt-1 flex-wrap">
                         <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${
                           p.tipo === 'mano_de_obra' ? 'bg-blue-500/15 text-blue-400' : 'bg-emerald-500/15 text-emerald-400'
                         }`}>
                           {p.tipo === 'mano_de_obra' ? 'Mano de obra' : 'Material'}
                         </span>
-                        {p.supplier_key && p.supplier_key !== 'obramat' && (
-                          <span className="text-[9px] text-white/30">{p.supplier_name}</span>
+                        {p.supplier_key && p.supplier_key !== 'propio' && p.supplier_key !== 'obramat' && (
+                          <span className="text-[9px] text-white/40">{p.supplier_name}</span>
+                        )}
+                        {p.supplier_key && p.supplier_key !== 'propio' && (
+                          <span className="text-[9px] bg-amber-500/15 text-amber-400 px-1 rounded font-bold">DEMO</span>
                         )}
                       </div>
+                      {p.motivo && p.tipo === 'material' && (
+                        <p className="text-[9px] text-sky-400/60 mt-0.5 leading-tight">{p.motivo}</p>
+                      )}
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
                       {p.precioUnitario > 0 && (
@@ -1224,8 +1405,13 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
                           <div className="flex-1 min-w-0">
                             <p className="text-sm text-white/80 truncate">{opt.descripcion}</p>
                             <p className="text-xs text-white/30">
-                              {opt.supplier_name}{opt.ref_proveedor ? ` · ${opt.ref_proveedor}` : ''}
+                              {opt.supplier_name}
+                              {opt.catalog_key !== 'propio' && <span className="ml-1 text-[9px] bg-amber-500/15 text-amber-400 px-1 rounded font-bold">DEMO</span>}
+                              {opt.ref_proveedor ? ` · ${opt.ref_proveedor}` : ''}
                             </p>
+                            {opt.motivo && (
+                              <p className="text-[9px] text-sky-400/70 mt-0.5 truncate">{opt.motivo}</p>
+                            )}
                           </div>
                           <div className="shrink-0 text-right">
                             <p className="text-sm font-black text-white">{opt.precio_venta.toFixed(2)} €</p>

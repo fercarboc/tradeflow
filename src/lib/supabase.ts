@@ -3865,6 +3865,7 @@ export interface TradeJobReview {
   comentario?: string | null;
   respondido_at?: string | null;
   created_at: string;
+  trade_jobs?: { parte_token?: string | null; trade_clients?: { telefono?: string | null } | null } | null;
 }
 
 export async function uploadJobSignature(jobId: string, orgId: string, dataUrl: string): Promise<string> {
@@ -3930,7 +3931,7 @@ export async function submitJobReview(token: string, rating: number, comentario?
 export async function loadJobReviews(orgId: string): Promise<TradeJobReview[]> {
   const { data, error } = await supabase
     .from('trade_job_reviews')
-    .select('*')
+    .select('*, trade_jobs(parte_token, trade_clients(telefono))')
     .eq('org_id', orgId)
     .order('created_at', { ascending: false });
   if (error) throw error;
@@ -3946,6 +3947,7 @@ export interface ParteInfo {
   org_nombre: string;
   org_logo_url: string | null;
   firma_url: string | null;
+  fotos: { photo_url: string; caption?: string | null }[];
 }
 
 export async function getParteInfo(token: string): Promise<ParteInfo | null> {

@@ -76,7 +76,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken } from '../lib/supabase';
 import type { TradeSubcontractor, TradeSubcontrata, ActiveSupplierCatalog } from '../lib/supabase';
 import { printTradeInvoice } from '../lib/printTradeInvoice';
 import { geocodeAddress } from '../lib/geocoder';
@@ -759,13 +759,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // CRM desktop side panel
   const [crmPanelClientId, setCrmPanelClientId] = useState<string | null>(null);
   const [crmPanelTab, setCrmPanelTab] = useState<'facturas' | 'presupuestos' | 'trabajos' | 'partes'>('facturas');
+  const [crmPanelJobReviews, setCrmPanelJobReviews] = useState<Record<string, string>>({});
 
   // Mobile filters
   const [presupuestoFilter, setPresupuestoFilter] = useState<'all' | 'month'>('month');
   const [presupuestoClientFilter, setPresupuestoClientFilter] = useState('');
   const [facturaFilter, setFacturaFilter] = useState<'all' | 'month'>('month');
   const [facturaClientFilter, setFacturaClientFilter] = useState('');
-  const [partesDayFilter, setPartesDayFilter] = useState<'hoy' | 'ayer' | '7d' | 'todos'>('hoy');
+  const [partesDayFilter, setPartesDayFilter] = useState<'hoy' | 'ayer' | '7d' | 'todos'>('todos');
 
   // Pay method bottom sheet
   const [payMethodInvoiceId, setPayMethodInvoiceId] = useState<string | null>(null);
@@ -7759,7 +7760,22 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   return (
                     <button
                       key={tab}
-                      onClick={() => setCrmPanelTab(tab)}
+                      onClick={() => {
+                        setCrmPanelTab(tab);
+                        if (tab === 'partes' && crmPanelClientId && orgId && isLiveMode) {
+                          const clientJobIds = panelJobs.filter(j => j.parte_token).map(j => j.id);
+                          if (clientJobIds.length > 0) {
+                            supabase.from('trade_job_reviews').select('job_id, token').in('job_id', clientJobIds)
+                              .then(({ data }) => {
+                                if (data) {
+                                  const map: Record<string, string> = {};
+                                  (data as { job_id: string; token: string }[]).forEach(r => { map[r.job_id] = r.token; });
+                                  setCrmPanelJobReviews(map);
+                                }
+                              });
+                          }
+                        }
+                      }}
                       className={`flex-1 py-3 text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-colors relative ${
                         crmPanelTab === tab
                           ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50/50'
@@ -7932,12 +7948,33 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                                 {telefono && (
                                   <button
                                     onClick={() => {
-                                      const msg = encodeURIComponent(`Hola, le adjunto el parte de trabajo firmado: ${window.location.origin}/parte/${j.parte_token}`);
+                                      const msg = encodeURIComponent(`Hola ${panelClient?.nombre ?? ''}, le enviamos el parte de trabajo firmado: ${j.titulo}.\n\nPuede verlo aquí:\n${window.location.origin}/parte/${j.parte_token}`);
                                       window.open(`https://wa.me/${telefono}?text=${msg}`, '_blank');
                                     }}
                                     className="flex items-center gap-1 bg-green-50 hover:bg-green-100 border border-green-200 text-green-700 text-[10px] font-bold px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+                                    title="Enviar parte por WhatsApp"
                                   >
                                     <MessageSquare className="w-3 h-3" />
+                                  </button>
+                                )}
+                                {telefono && (
+                                  <button
+                                    onClick={async () => {
+                                      let token = crmPanelJobReviews[j.id];
+                                      if (!token && orgId) {
+                                        try {
+                                          token = await createJobReviewToken(orgId, j.id, j.titulo, panelClient?.nombre ?? '');
+                                          setCrmPanelJobReviews(prev => ({ ...prev, [j.id]: token }));
+                                        } catch { return; }
+                                      }
+                                      if (!token) return;
+                                      const msg = encodeURIComponent(`Hola ${panelClient?.nombre ?? ''}, ¿puede valorar el trabajo "${j.titulo}"?\n\nAcceda aquí: ${window.location.origin}/valorar/${token}`);
+                                      window.open(`https://wa.me/${telefono}?text=${msg}`, '_blank');
+                                    }}
+                                    className="flex items-center gap-1 bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-700 text-[10px] font-bold px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+                                    title="Pedir valoración por WhatsApp"
+                                  >
+                                    <StarIcon className="w-3 h-3" />
                                   </button>
                                 )}
                               </div>

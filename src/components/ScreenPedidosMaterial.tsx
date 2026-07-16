@@ -750,10 +750,18 @@ function FromQuoteSection({
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   onQuotesRefresh: () => void;
 }) {
+  type PendingItem = QuoteWithPendingMaterial['pendingItems'][number];
+  type MultiGroup = { catalogId: string | null; supplierName: string; items: PendingItem[] };
+
   const [expandedQuote, setExpandedQuote] = useState<string | null>(null);
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
   const [catalogId, setCatalogId] = useState(catalogs[0]?.id ?? '');
   const [creating, setCreating] = useState(false);
+  const [multiPreview, setMultiPreview] = useState<{
+    quoteId: string;
+    groups: MultiGroup[];
+    unassignedCatalogId: string;
+  } | null>(null);
 
   useEffect(() => {
     if (!catalogId && catalogs.length > 0) setCatalogId(catalogs[0].id);
@@ -772,21 +780,49 @@ function FromQuoteSection({
     setSelectedItems(new Set());
   };
 
+  const buildGroups = (items: PendingItem[]): MultiGroup[] => {
+    const groupMap = new Map<string, MultiGroup>();
+    for (const item of items) {
+      const key = item.supplier_key ?? '__none__';
+      if (!groupMap.has(key)) {
+        const cat = catalogs.find(c => c.supplier_key === item.supplier_key);
+        groupMap.set(key, {
+          catalogId: cat?.id ?? null,
+          supplierName: item.supplier_name ?? cat?.supplier_name ?? 'Sin proveedor asignado',
+          items: [],
+        });
+      }
+      groupMap.get(key)!.items.push(item);
+    }
+    return [...groupMap.values()];
+  };
+
   const handleCreateOrder = async (quote: QuoteWithPendingMaterial) => {
-    if (!catalogId) { showToast('Selecciona un proveedor', 'error'); return; }
     const items = quote.pendingItems.filter(i => selectedItems.has(i.id));
     if (!items.length) { showToast('Selecciona al menos un artículo', 'error'); return; }
+
+    const groups = buildGroups(items);
+
+    if (groups.length > 1) {
+      setMultiPreview({ quoteId: quote.id, groups, unassignedCatalogId: catalogId });
+      return;
+    }
+
+    const group = groups[0];
+    const catId = group.catalogId ?? catalogId;
+    if (!catId) { showToast('Selecciona un proveedor', 'error'); return; }
+
     setCreating(true);
     try {
-      const lines = items.map(i => ({
+      const lines = group.items.map(i => ({
         descripcion: i.descripcion,
         referencia: null,
         cantidad: i.cantidad,
         unidad: 'ud',
         precio_unitario: i.precio_unitario > 0 ? i.precio_unitario : null,
       }));
-      const order = await createSupplierOrder(orgId, catalogId, lines, {});
-      await markQuoteItemsOrdered(items.map(i => i.id));
+      const order = await createSupplierOrder(orgId, catId, lines, { quoteId: quote.id });
+      await markQuoteItemsOrdered(group.items.map(i => i.id));
       showToast('Pedido creado ✓', 'success');
       onOrderCreated(order);
       setExpandedQuote(null);
@@ -797,18 +833,141 @@ function FromQuoteSection({
     } finally { setCreating(false); }
   };
 
+  const handleConfirmMultiOrder = async () => {
+    if (!multiPreview) return;
+    setCreating(true);
+    try {
+      let firstOrder: SupplierOrder | null = null;
+      const allItemIds: string[] = [];
+      for (const group of multiPreview.groups) {
+        const catId = group.catalogId ?? multiPreview.unassignedCatalogId;
+        if (!catId) continue;
+        const lines = group.items.map(i => ({
+          descripcion: i.descripcion,
+          referencia: null,
+          cantidad: i.cantidad,
+          unidad: 'ud',
+          precio_unitario: i.precio_unitario > 0 ? i.precio_unitario : null,
+        }));
+        const order = await createSupplierOrder(orgId, catId, lines, { quoteId: multiPreview.quoteId });
+        if (!firstOrder) firstOrder = order;
+        allItemIds.push(...group.items.map(i => i.id));
+      }
+      if (allItemIds.length) await markQuoteItemsOrdered(allItemIds);
+      showToast(`${multiPreview.groups.length} pedidos creados ✓`, 'success');
+      if (firstOrder) onOrderCreated(firstOrder);
+      setMultiPreview(null);
+      setExpandedQuote(null);
+      setSelectedItems(new Set());
+      onQuotesRefresh();
+    } catch (e: unknown) {
+      showToast((e as Error).message ?? 'Error', 'error');
+    } finally { setCreating(false); }
+  };
+
   if (acceptedQuotes.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-10 text-slate-400 gap-2">
-        <FileText className="w-10 h-10 opacity-30" />
-        <p className="text-sm font-semibold">No hay presupuestos aceptados con material pendiente</p>
-        <p className="text-xs text-center max-w-xs">Cuando un cliente acepte un presupuesto, podrás crear pedidos de material directamente desde aquí.</p>
-      </div>
+      <>
+        {multiPreview && (
+          <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 p-4">
+            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm">
+              <div className="px-5 pt-5 pb-4 border-b border-slate-100">
+                <h3 className="font-black text-slate-900 text-base">Pedido multi-proveedor</h3>
+                <p className="text-sm text-slate-500 mt-1">Se crearán {multiPreview.groups.length} pedidos separados, uno por proveedor.</p>
+              </div>
+              <div className="px-5 py-4 space-y-2 max-h-72 overflow-y-auto">
+                {multiPreview.groups.map((group, i) => (
+                  <div key={i} className="bg-slate-50 rounded-xl px-3 py-2.5">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Package className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+                      <span className="text-sm font-bold text-slate-800 truncate">{group.supplierName}</span>
+                      {!group.catalogId && <span className="text-[10px] text-amber-600 font-semibold shrink-0">(sin asignar)</span>}
+                      <span className="ml-auto text-xs text-slate-400 shrink-0">{group.items.length} art.</span>
+                    </div>
+                    {group.items.slice(0, 3).map(it => (
+                      <p key={it.id} className="text-xs text-slate-500 truncate pl-5">• {it.descripcion} × {it.cantidad}</p>
+                    ))}
+                    {group.items.length > 3 && <p className="text-xs text-slate-400 pl-5">... y {group.items.length - 3} más</p>}
+                  </div>
+                ))}
+                {multiPreview.groups.some(g => !g.catalogId) && catalogs.length > 0 && (
+                  <div>
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 block">Proveedor para artículos sin asignar</label>
+                    <select
+                      value={multiPreview.unassignedCatalogId}
+                      onChange={e => setMultiPreview(p => p ? { ...p, unassignedCatalogId: e.target.value } : p)}
+                      className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-blue-400"
+                    >
+                      {catalogs.map(c => <option key={c.id} value={c.id}>{c.supplier_name}</option>)}
+                    </select>
+                  </div>
+                )}
+              </div>
+              <div className="px-5 pb-5 pt-2 flex gap-2">
+                <button onClick={() => setMultiPreview(null)} disabled={creating} className="flex-1 border border-slate-200 text-slate-700 font-bold py-3 rounded-2xl text-sm">Cancelar</button>
+                <button onClick={handleConfirmMultiOrder} disabled={creating} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-black py-3 rounded-2xl text-sm disabled:opacity-50">
+                  {creating ? 'Creando...' : `Crear ${multiPreview.groups.length} pedidos`}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+        <div className="flex flex-col items-center justify-center py-10 text-slate-400 gap-2">
+          <FileText className="w-10 h-10 opacity-30" />
+          <p className="text-sm font-semibold">No hay presupuestos aceptados con material pendiente</p>
+          <p className="text-xs text-center max-w-xs">Cuando un cliente acepte un presupuesto, podrás crear pedidos de material directamente desde aquí.</p>
+        </div>
+      </>
     );
   }
 
   return (
-    <div className="space-y-2">
+    <>
+      {multiPreview && (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm">
+            <div className="px-5 pt-5 pb-4 border-b border-slate-100">
+              <h3 className="font-black text-slate-900 text-base">Pedido multi-proveedor</h3>
+              <p className="text-sm text-slate-500 mt-1">Se crearán {multiPreview.groups.length} pedidos separados, uno por proveedor.</p>
+            </div>
+            <div className="px-5 py-4 space-y-2 max-h-72 overflow-y-auto">
+              {multiPreview.groups.map((group, i) => (
+                <div key={i} className="bg-slate-50 rounded-xl px-3 py-2.5">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Package className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+                    <span className="text-sm font-bold text-slate-800 truncate">{group.supplierName}</span>
+                    {!group.catalogId && <span className="text-[10px] text-amber-600 font-semibold shrink-0">(sin asignar)</span>}
+                    <span className="ml-auto text-xs text-slate-400 shrink-0">{group.items.length} art.</span>
+                  </div>
+                  {group.items.slice(0, 3).map(it => (
+                    <p key={it.id} className="text-xs text-slate-500 truncate pl-5">• {it.descripcion} × {it.cantidad}</p>
+                  ))}
+                  {group.items.length > 3 && <p className="text-xs text-slate-400 pl-5">... y {group.items.length - 3} más</p>}
+                </div>
+              ))}
+              {multiPreview.groups.some(g => !g.catalogId) && catalogs.length > 0 && (
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 block">Proveedor para artículos sin asignar</label>
+                  <select
+                    value={multiPreview.unassignedCatalogId}
+                    onChange={e => setMultiPreview(p => p ? { ...p, unassignedCatalogId: e.target.value } : p)}
+                    className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-blue-400"
+                  >
+                    {catalogs.map(c => <option key={c.id} value={c.id}>{c.supplier_name}</option>)}
+                  </select>
+                </div>
+              )}
+            </div>
+            <div className="px-5 pb-5 pt-2 flex gap-2">
+              <button onClick={() => setMultiPreview(null)} disabled={creating} className="flex-1 border border-slate-200 text-slate-700 font-bold py-3 rounded-2xl text-sm">Cancelar</button>
+              <button onClick={handleConfirmMultiOrder} disabled={creating} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-black py-3 rounded-2xl text-sm disabled:opacity-50">
+                {creating ? 'Creando...' : `Crear ${multiPreview.groups.length} pedidos`}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="space-y-2">
       {acceptedQuotes.map(quote => {
         const isExpanded = expandedQuote === quote.id;
         const allSelected = quote.pendingItems.every(i => selectedItems.has(i.id));
@@ -869,33 +1028,47 @@ function FromQuoteSection({
                   ))}
                 </div>
 
-                {catalogs.length > 0 && (
-                  <div>
-                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 block">Proveedor del pedido</label>
-                    <select
-                      value={catalogId}
-                      onChange={e => setCatalogId(e.target.value)}
-                      className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm font-semibold text-slate-800 focus:outline-none focus:border-blue-400"
-                    >
-                      {catalogs.map(c => <option key={c.id} value={c.id}>{c.supplier_name}</option>)}
-                    </select>
-                  </div>
-                )}
-
-                <button
-                  onClick={() => handleCreateOrder(quote)}
-                  disabled={creating || selectedItems.size === 0 || !catalogId}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-3 rounded-2xl text-sm transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
-                >
-                  <ShoppingCart className="w-4 h-4" />
-                  {creating ? 'Creando pedido...' : `Crear pedido (${selectedItems.size} artículo${selectedItems.size !== 1 ? 's' : ''})`}
-                </button>
+                {(() => {
+                  const sel = quote.pendingItems.filter(i => selectedItems.has(i.id));
+                  const distinctSuppliers = new Set(sel.map(i => i.supplier_key ?? '__none__')).size;
+                  const hasUnassigned = sel.some(i => !i.supplier_key);
+                  const showCatalogPicker = catalogs.length > 0 && (distinctSuppliers <= 1 || hasUnassigned);
+                  return (
+                    <>
+                      {showCatalogPicker && (
+                        <div>
+                          <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 block">
+                            {distinctSuppliers > 1 ? 'Proveedor para artículos sin asignar' : 'Proveedor del pedido'}
+                          </label>
+                          <select
+                            value={catalogId}
+                            onChange={e => setCatalogId(e.target.value)}
+                            className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm font-semibold text-slate-800 focus:outline-none focus:border-blue-400"
+                          >
+                            {catalogs.map(c => <option key={c.id} value={c.id}>{c.supplier_name}</option>)}
+                          </select>
+                        </div>
+                      )}
+                      <button
+                        onClick={() => handleCreateOrder(quote)}
+                        disabled={creating || selectedItems.size === 0}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-3 rounded-2xl text-sm transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                      >
+                        <ShoppingCart className="w-4 h-4" />
+                        {creating ? 'Creando...' : distinctSuppliers > 1
+                          ? `Revisar y crear ${distinctSuppliers} pedidos (${selectedItems.size} art.)`
+                          : `Crear pedido (${selectedItems.size} artículo${selectedItems.size !== 1 ? 's' : ''})`}
+                      </button>
+                    </>
+                  );
+                })()}
               </div>
             )}
           </div>
         );
       })}
-    </div>
+      </div>
+    </>
   );
 }
 

@@ -50,8 +50,10 @@ interface CorpInteraction {
 
 interface EntityEmail {
   id: string; entity_id: string; template_nombre?: string;
-  to_email: string; cc?: string; subject: string;
-  sent_at: string; status: string; attachment_paths?: string[];
+  to_email: string; cc_email?: string | null; subject: string;
+  sent_at: string; status: string;
+  attachments?: { storage_path: string; nombre?: string }[] | null;
+  error_message?: string | null;
 }
 
 // ── Constantes ─────────────────────────────────────────────────────────────
@@ -929,10 +931,16 @@ function EntityDetailPanel({ entity, docs, onEdit, onEmail, onClose, toast }: {
             <div className="p-5 space-y-3">
               <div className="flex items-center justify-between mb-1">
                 <p className="text-xs text-slate-500">Emails enviados a esta entidad</p>
-                <button onClick={onEmail}
-                  className="flex items-center gap-1.5 text-xs font-bold text-blue-300 bg-blue-900/40 hover:bg-blue-800/60 border border-blue-700 px-3 py-1 rounded-lg transition-colors">
-                  <Send className="w-3 h-3" /> Nuevo email
-                </button>
+                <div className="flex items-center gap-1.5">
+                  <button onClick={loadEmails}
+                    className="flex items-center gap-1 text-[10px] font-bold text-slate-400 hover:text-slate-200 border border-slate-700 hover:border-slate-600 px-2 py-1 rounded-lg transition-colors">
+                    <RefreshCw className="w-3 h-3" />
+                  </button>
+                  <button onClick={onEmail}
+                    className="flex items-center gap-1.5 text-xs font-bold text-blue-300 bg-blue-900/40 hover:bg-blue-800/60 border border-blue-700 px-3 py-1 rounded-lg transition-colors">
+                    <Send className="w-3 h-3" /> Nuevo email
+                  </button>
+                </div>
               </div>
               {loadingEmails ? (
                 <div className="text-center py-8 text-slate-600 text-xs">Cargando...</div>
@@ -950,7 +958,7 @@ function EntityDetailPanel({ entity, docs, onEdit, onEmail, onClose, toast }: {
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-semibold text-white truncate">{email.subject}</p>
-                      <p className="text-[10px] text-slate-400 truncate">Para: {email.to_email}{email.cc ? ` · CC: ${email.cc}` : ''}</p>
+                      <p className="text-[10px] text-slate-400 truncate">Para: {email.to_email}{email.cc_email ? ` · CC: ${email.cc_email}` : ''}</p>
                     </div>
                     <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded border shrink-0 ${email.status === 'sent' ? 'text-emerald-400 bg-emerald-900/30 border-emerald-700' : 'text-red-400 bg-red-900/30 border-red-700'}`}>
                       {email.status === 'sent' ? '✓ Enviado' : '✗ Error'}
@@ -958,8 +966,11 @@ function EntityDetailPanel({ entity, docs, onEdit, onEmail, onClose, toast }: {
                   </div>
                   <div className="flex items-center gap-3 text-[10px] text-slate-500">
                     {email.template_nombre && <span className="flex items-center gap-1"><Hash className="w-2.5 h-2.5" />{email.template_nombre}</span>}
-                    {email.attachment_paths && email.attachment_paths.length > 0 && (
-                      <span className="flex items-center gap-1"><Paperclip className="w-2.5 h-2.5" />{email.attachment_paths.length} adjunto{email.attachment_paths.length > 1 ? 's' : ''}</span>
+                    {email.attachments && email.attachments.length > 0 && (
+                      <span className="flex items-center gap-1"><Paperclip className="w-2.5 h-2.5" />{email.attachments.length} adjunto{email.attachments.length > 1 ? 's' : ''}</span>
+                    )}
+                    {email.status === 'error' && email.error_message && (
+                      <span className="text-red-400 truncate max-w-[180px]" title={email.error_message}>{email.error_message.slice(0, 40)}…</span>
                     )}
                     <span className="ml-auto">{new Date(email.sent_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
                   </div>

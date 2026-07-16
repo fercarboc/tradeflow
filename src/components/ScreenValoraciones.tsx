@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Star, Clock, MessageSquare, TrendingUp, Loader2, RefreshCw } from 'lucide-react';
+import { Star, Clock, MessageSquare, TrendingUp, Loader2, RefreshCw, RotateCcw } from 'lucide-react';
 import { loadJobReviews } from '../lib/supabase';
 import type { TradeJobReview } from '../lib/supabase';
 import { useSession } from '../context/SessionContext';
@@ -162,9 +162,25 @@ export default function ScreenValoraciones({ showToast }: Props) {
                 {r.rating != null ? (
                   <Stars value={r.rating} size="sm" />
                 ) : (
-                  <div className="flex items-center gap-1 text-[10px] font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded-lg whitespace-nowrap">
-                    <Clock className="w-3 h-3" />
-                    Pendiente
+                  <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-1 text-[10px] font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded-lg whitespace-nowrap">
+                      <Clock className="w-3 h-3" />
+                      Pendiente
+                    </div>
+                    {r.trade_jobs?.trade_clients?.telefono && (
+                      <button
+                        onClick={() => {
+                          const phone = (r.trade_jobs?.trade_clients?.telefono ?? '').replace(/\D/g, '');
+                          const url = `${window.location.origin}/valorar/${r.token}`;
+                          const msg = encodeURIComponent(`Hola ${r.cliente_nombre ?? ''}, ¿puede valorar el trabajo "${r.job_titulo ?? ''}"?\n\nAcceda aquí: ${url}`);
+                          window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+                        }}
+                        className="flex items-center gap-1 text-[10px] font-bold text-green-600 bg-green-50 hover:bg-green-100 border border-green-200 px-2 py-1 rounded-lg whitespace-nowrap cursor-pointer transition-colors"
+                        title="Re-enviar petición de valoración por WhatsApp"
+                      >
+                        <RotateCcw className="w-3 h-3" /> WA
+                      </button>
+                    )}
                   </div>
                 )}
               </div>

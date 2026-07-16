@@ -100,6 +100,28 @@ export default function ParteView() {
             </div>
           )}
 
+          {/* Fotos del trabajo */}
+          {info.fotos && info.fotos.length > 0 && (
+            <div className="px-5 py-3 border-b border-gray-100">
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Fotos del trabajo ({info.fotos.length})</p>
+              <div className="grid grid-cols-2 gap-2">
+                {info.fotos.map((f, i) => (
+                  <div key={i} className="rounded-xl overflow-hidden bg-gray-100">
+                    <img
+                      src={f.photo_url}
+                      alt={f.caption ?? `Foto ${i + 1}`}
+                      className="w-full h-32 object-cover"
+                      loading="lazy"
+                    />
+                    {f.caption && (
+                      <p className="text-[10px] text-gray-500 px-2 py-1 truncate">{f.caption}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Firma del cliente */}
           {info.firma_url ? (
             <div className="px-5 py-4">
