@@ -91,7 +91,7 @@ PROCESO (en orden):
 2. Genera el plan de trabajo COMPLETO (todas las fases: desmontaje + suministro + instalación + pruebas si aplica).
 3. Por cada parte del plan: si está en el catálogo proporcionado → usa esa partida. Si NO → crea partida con origen: "sugerida_ia".
 4. AGRUPA: NUNCA una partida por unidad. Si son 3 splits → UNA partida "Instalación 3 unidades split" cantidad=3. Si son 10 enchufes → UNA partida cantidad=10.
-5. MANO DE OBRA → precio_unitario = tarifa de la tabla de tarifas. MATERIALES → precio_unitario=0, requiere_revision=true, origen="sugerida_ia".
+5. MANO DE OBRA → UNA sola partida de tipo mano_de_obra por oficio, con la SUMA TOTAL de horas de ese oficio. Concepto: "Mano de obra [oficio]" (ej: "Mano de obra fontanería", "Mano de obra albañilería"). precio_unitario = tarifa de la tabla. NUNCA generes partidas de mano de obra separadas por tarea individual (no "Instalación grifería" + "Instalación mampara": consolídalas en "Mano de obra fontanería" con horas sumadas). Si hay varios oficios → una partida de mano de obra por cada oficio distinto. MATERIALES → precio_unitario=0, requiere_revision=true, origen="sugerida_ia".
 6. Para SUSTITUCIÓN ("cambiar X por Y"): genera desmontaje + suministro(precio=0) + instalación. Agrupados.
 7. Para REFORMA: múltiples oficios, cada uno con sus partidas agrupadas. LÍMITE: 12 partidas totales.
 8. calculos.subtotal = suma de todos los totales. iva = subtotal×0.21. total = subtotal+iva.

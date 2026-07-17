@@ -8005,13 +8005,29 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     const totalConIVA = opts.total + totalIVA;
     const esFactura = opts.tipo === 'factura';
     const accentColor = esFactura ? '#7c3aed' : '#2563eb';
-    const rows = opts.partidas.map((p, i) => `
-      <tr style="background:${i % 2 === 0 ? '#fff' : '#f8fafc'}">
-        <td style="padding:9px 8px;font-size:11.5px;color:#334155;border-bottom:1px solid #f1f5f9">${p.descripcion}</td>
-        <td style="padding:9px 8px;font-size:11px;text-align:center;color:#64748b;border-bottom:1px solid #f1f5f9">${p.cantidad}</td>
-        <td style="padding:9px 8px;font-size:11px;text-align:right;color:#475569;border-bottom:1px solid #f1f5f9">${p.precioUnitario.toFixed(2)}€</td>
-        <td style="padding:9px 8px;font-size:11.5px;text-align:right;font-weight:700;color:#0f172a;border-bottom:1px solid #f1f5f9">${p.total.toFixed(2)}€</td>
-      </tr>`).join('');
+    // Group partidas by familia (mano_de_obra always last as its own section)
+    const _pGroups: { key: string; label: string; items: typeof opts.partidas }[] = [];
+    opts.partidas.forEach((p) => {
+      const isLabor = p.tipo === 'mano_de_obra';
+      const key = isLabor ? '___labor___' : (p.familia?.trim() || '___other___');
+      const label = isLabor ? 'Mano de obra' : (p.familia?.trim() || 'Partidas');
+      let g = _pGroups.find(x => x.key === key);
+      if (!g) { g = { key, label, items: [] }; _pGroups.push(g); }
+      g.items.push(p);
+    });
+    _pGroups.sort((a, b) => a.key === '___labor___' ? 1 : b.key === '___labor___' ? -1 : 0);
+    const _showSec = _pGroups.length > 1;
+    let rows = '';
+    _pGroups.forEach(({ label, items }, gi) => {
+      const sn = String(gi + 1).padStart(2, '0');
+      const sTotal = items.reduce((s, x) => s + x.total, 0);
+      if (_showSec) rows += `<tr><td colspan="4" style="background:${accentColor};color:#fff;font-weight:800;font-size:9.5px;text-transform:uppercase;letter-spacing:1.2px;padding:8px 10px">${sn} — ${label}</td></tr>`;
+      items.forEach((p, j) => {
+        const pre = _showSec ? `${gi + 1}.${j + 1} ` : '';
+        rows += `<tr style="background:${j % 2 === 0 ? '#fff' : '#f8fafc'}"><td style="padding:9px 8px;font-size:11.5px;color:#334155;border-bottom:1px solid #f1f5f9">${pre}${p.descripcion}</td><td style="padding:9px 8px;font-size:11px;text-align:center;color:#64748b;border-bottom:1px solid #f1f5f9">${p.cantidad}</td><td style="padding:9px 8px;font-size:11px;text-align:right;color:#475569;border-bottom:1px solid #f1f5f9">${p.precioUnitario.toFixed(2)}€</td><td style="padding:9px 8px;font-size:11.5px;text-align:right;font-weight:700;color:#0f172a;border-bottom:1px solid #f1f5f9">${p.total.toFixed(2)}€</td></tr>`;
+      });
+      if (_showSec) rows += `<tr style="background:#f0f4f8"><td colspan="3" style="padding:6px 8px;font-size:10px;text-align:right;color:#64748b;font-weight:600;border-bottom:2px solid #e2e8f0">Subtotal ${sn}:</td><td style="padding:6px 8px;font-size:11px;text-align:right;font-weight:800;color:${accentColor};border-bottom:2px solid #e2e8f0">${sTotal.toFixed(2)}€</td></tr>`;
+    });
 
     const logoHtml = opts.logoUrl
       ? `<img src="${opts.logoUrl}" alt="Logo" style="max-height:64px;max-width:200px;object-fit:contain;display:block;margin-bottom:8px" />`
