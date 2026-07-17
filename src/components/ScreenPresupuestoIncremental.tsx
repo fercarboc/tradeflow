@@ -424,6 +424,7 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
     const raw = (data?.quote?.partidas ?? []) as Array<{
       concepto: string; cantidad: number; unidad: string;
       tipo_partida?: string; precio_unitario?: number; total?: number;
+      oficio?: string; familia?: string;
       supplier_key?: string; supplier_name?: string; supplier_ref?: string;
     }>;
     return raw.map(p => ({
@@ -433,6 +434,7 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
       tipo: (p.tipo_partida === 'mano_obra' ? 'mano_de_obra' : 'material') as 'material' | 'mano_de_obra',
       precioUnitario: p.precio_unitario ?? 0,
       total: p.total ?? 0,
+      familia: p.familia ?? p.oficio ?? undefined,
       supplier_key: p.supplier_key,
       supplier_name: p.supplier_name,
       supplier_ref: p.supplier_ref,

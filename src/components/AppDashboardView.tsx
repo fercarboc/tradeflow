@@ -599,7 +599,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       const data = await loadDashboard(org.id);
       // Always replace demo clients with real data (even if empty list)
       setClientes(data.clients.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono ?? '', email: c.email ?? '', direccion: c.direccion ?? '', obrasActivas: c.obras_activas, totalFacturado: c.total_facturado })));
-      setPresupuestos(data.quotes.map(q => ({ id: q.numero, dbId: q.id, clientId: q.client_id ?? null, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total })), total: q.total_neto, iva_pct: q.iva_pct, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '', kbActuaciones: q.kb_actuaciones ?? undefined })));
+      setPresupuestos(data.quotes.map(q => ({ id: q.numero, dbId: q.id, clientId: q.client_id ?? null, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total, familia: i.familia ?? undefined })), total: q.total_neto, iva_pct: q.iva_pct, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '', kbActuaciones: q.kb_actuaciones ?? undefined })));
       setFacturas(data.invoices.map(f => ({ id: f.id, numeroFactura: f.numero, nombreCliente: f.client_id ? (data.clients.find(c => c.id === f.client_id)?.nombre ?? '') : (f.concepto?.split('—')[1]?.trim() ?? ''), idPresupuesto: f.quote_id ?? '', job_id: f.job_id ?? null, importe: f.subtotal, fecha: f.fecha, fechaVencimiento: f.fecha_vencimiento ?? '', estado: f.estado as any, concepto: f.concepto ?? undefined, esMantenimineto: !!f.contract_id })));
       if (org) {
         setOrgId(org.id);
@@ -1676,6 +1676,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               supplier_name: p.supplier_name ?? null,
               supplier_ref: p.supplier_ref ?? null,
               catalog_variant_id: p.catalog_variant_id ?? null,
+              familia: p.familia ?? null,
             })),
             kbActuacionesSaved.length > 0 ? kbActuacionesSaved : undefined,
           );
@@ -2245,6 +2246,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       supplier_name: p.supplier_name ?? null,
       supplier_ref: p.supplier_ref ?? null,
       catalog_variant_id: p.catalog_variant_id ?? null,
+      familia: p.familia ?? null,
     }));
 
     if (isLiveMode && orgId) {
@@ -8005,12 +8007,26 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     const totalConIVA = opts.total + totalIVA;
     const esFactura = opts.tipo === 'factura';
     const accentColor = esFactura ? '#7c3aed' : '#2563eb';
-    // Group partidas by familia (mano_de_obra always last as its own section)
+    // Group partidas by familia/oficio (mano_de_obra always last as its own section)
+    const _OFICIO_LABELS: Record<string, string> = {
+      fontaneria: 'Fontanería', electricidad: 'Electricidad', albanileria: 'Albañilería',
+      climatizacion: 'Climatización', pintura: 'Pintura', carpinteria: 'Carpintería',
+      cerrajeria: 'Cerrajería', suelos_alicatados: 'Suelos y alicatados',
+      suelos_tarimas: 'Suelos y tarimas', pladur_escayola: 'Pladur y escayola',
+      telecomunicaciones: 'Telecomunicaciones', impermeabilizacion: 'Impermeabilización',
+      tejados_cubiertas: 'Tejados y cubiertas', reforma_integral: 'Reforma integral',
+      fachadas: 'Fachadas', mantenimiento_general: 'Mantenimiento', energia_solar: 'Energía solar',
+      cristaleria: 'Cristalería', instalador_cctv: 'CCTV y seguridad', informatica: 'Informática',
+      contra_incendios: 'Contra incendios', persianas: 'Persianas', multiservicio: 'Multiservicio',
+      jardineria: 'Jardinería', limpieza: 'Limpieza', mecanica: 'Mecánica',
+      gestion_residuos: 'Gestión de residuos', cocina_amueblada: 'Cocina',
+    };
     const _pGroups: { key: string; label: string; items: typeof opts.partidas }[] = [];
     opts.partidas.forEach((p) => {
       const isLabor = p.tipo === 'mano_de_obra';
-      const key = isLabor ? '___labor___' : (p.familia?.trim() || '___other___');
-      const label = isLabor ? 'Mano de obra' : (p.familia?.trim() || 'Partidas');
+      const rawKey = p.familia?.trim() || '';
+      const key = isLabor ? '___labor___' : (rawKey || '___other___');
+      const label = isLabor ? 'Mano de obra' : (_OFICIO_LABELS[rawKey] ?? (rawKey || 'Partidas'));
       let g = _pGroups.find(x => x.key === key);
       if (!g) { g = { key, label, items: [] }; _pGroups.push(g); }
       g.items.push(p);

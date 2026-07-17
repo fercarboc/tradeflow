@@ -91,6 +91,7 @@ export interface TradeQuoteItem {
   precio_material?: number | null;
   catalog_variant_id?: string | null;
   material_order_placed?: boolean;
+  familia?: string | null;
   created_at: string;
 }
 
@@ -586,7 +587,7 @@ export async function saveQuote(
   orgId: string,
   clientId: string,
   descripcion: string,
-  items: Pick<TradeQuoteItem, 'descripcion' | 'tipo' | 'cantidad' | 'precio_unitario' | 'precio_material' | 'supplier_key' | 'supplier_name' | 'supplier_ref' | 'catalog_variant_id'>[],
+  items: Pick<TradeQuoteItem, 'descripcion' | 'tipo' | 'cantidad' | 'precio_unitario' | 'precio_material' | 'supplier_key' | 'supplier_name' | 'supplier_ref' | 'catalog_variant_id' | 'familia'>[],
   kbActuaciones?: string[],
 ): Promise<TradeQuote> {
   const { count } = await supabase
@@ -1436,7 +1437,7 @@ export async function updateQuote(
   quoteId: string,
   clientId: string,
   descripcion: string,
-  items: Pick<TradeQuoteItem, 'descripcion' | 'tipo' | 'cantidad' | 'precio_unitario' | 'precio_material' | 'supplier_key' | 'supplier_name' | 'supplier_ref' | 'catalog_variant_id'>[],
+  items: Pick<TradeQuoteItem, 'descripcion' | 'tipo' | 'cantidad' | 'precio_unitario' | 'precio_material' | 'supplier_key' | 'supplier_name' | 'supplier_ref' | 'catalog_variant_id' | 'familia'>[],
 ): Promise<TradeQuote> {
   const totalNeto = items.reduce((s, i) => s + i.cantidad * i.precio_unitario, 0);
   const { data: quote, error: qErr } = await supabase
