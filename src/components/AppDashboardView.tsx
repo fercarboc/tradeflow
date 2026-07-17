@@ -2152,7 +2152,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setCompareLoading(true);
     try {
       const { data, error } = await supabase.rpc('search_supplier_products', {
-        p_query: descripcion,
+        material_text: descripcion,
         p_org_id: orgId,
         limit_per_catalog: 5,
       });
