@@ -86,6 +86,7 @@ import type { Session } from '@supabase/supabase-js';
 import { usePermissions } from '../hooks/usePermissions';
 import { useSession } from '../context/SessionContext';
 import { downloadAsWordDocx } from '../lib/exportWord';
+import { detectSugerencias, type SugCategory, type SugOption } from '../lib/suggestionsTemplates';
 import CatalogImportModal from './CatalogImportModal';
 import GlobalCatalogModal from './GlobalCatalogModal';
 import { generateExportWorkbook, generateTemplateWorkbook, downloadWorkbook } from '../lib/catalogExcel';
@@ -743,6 +744,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // Colapsar detalle partidas en el preview móvil
   const [itemsCollapsedMobile, setItemsCollapsedMobile] = useState<boolean>(true);
+
+  // Wizard de Sugerencias
+  const [sugOpen, setSugOpen] = useState(false);
+  const [sugMissing, setSugMissing] = useState<SugCategory[]>([]);
+  const [sugRoomLabel, setSugRoomLabel] = useState('');
+  const [sugSelections, setSugSelections] = useState<Record<string, string>>({});     // catId → optionId
+  const [sugQuantities, setSugQuantities] = useState<Record<string, number>>({});     // optionId → qty (for multi)
+  const [sugMultiOn, setSugMultiOn] = useState<Record<string, boolean>>({});          // optionId → enabled (for multi)
+  const [sugTarget, setSugTarget] = useState<'desktop' | 'mobile'>('desktop');
 
   // WhatsApp Simulation State
   const [showWhatsAppModal, setShowWhatsAppModal] = useState<boolean>(false);
@@ -2188,6 +2198,81 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     }
   };
 
+  const handleOpenSugerencias = (srcPartidas?: PartidaPresupuesto[], srcTitulo?: string, target: 'desktop' | 'mobile' = 'desktop') => {
+    setSugTarget(target);
+    const ctx = detectSugerencias(
+      srcPartidas ?? editingQuote.partidas,
+      srcTitulo ?? editingQuote.descripcion ?? ''
+    );
+    if (!ctx) { showToast('No se detectó el tipo de trabajo. Añade más partidas primero.', 'error'); return; }
+    setSugRoomLabel(ctx.template.label + ' ' + ctx.template.icon);
+    setSugMissing(ctx.missing);
+    const initQty: Record<string, number> = {};
+    const initOn: Record<string, boolean> = {};
+    ctx.missing.forEach(cat => {
+      if (cat.multi) {
+        cat.options.forEach(opt => {
+          initQty[opt.id] = opt.cantidad ?? 1;
+          initOn[opt.id] = false;
+        });
+      }
+    });
+    setSugQuantities(initQty);
+    setSugMultiOn(initOn);
+    setSugSelections({});
+    setSugOpen(true);
+  };
+
+  const handleApplySugerencias = () => {
+    const newPartidas: PartidaPresupuesto[] = [];
+    sugMissing.forEach(cat => {
+      if (cat.multi) {
+        cat.options.forEach(opt => {
+          if (sugMultiOn[opt.id]) {
+            const qty = sugQuantities[opt.id] ?? 1;
+            newPartidas.push({
+              descripcion: opt.descripcion,
+              tipo: opt.tipo,
+              cantidad: qty,
+              precioUnitario: opt.precio,
+              precioCoste: opt.precioCoste,
+              total: opt.precio * qty,
+              familia: opt.familia,
+            });
+          }
+        });
+      } else {
+        const selId = sugSelections[cat.id];
+        if (!selId) return;
+        const opt = cat.options.find(o => o.id === selId);
+        if (!opt) return;
+        newPartidas.push({
+          descripcion: opt.descripcion,
+          tipo: opt.tipo,
+          cantidad: 1,
+          precioUnitario: opt.precio,
+          precioCoste: opt.precioCoste,
+          total: opt.precio,
+          familia: opt.familia,
+        });
+      }
+    });
+    if (newPartidas.length === 0) { setSugOpen(false); return; }
+    if (sugTarget === 'mobile') {
+      setWizardQuote(prev => {
+        const partidas = [...(prev.partidas ?? []), ...newPartidas];
+        return { ...prev, partidas, total: partidas.reduce((s, p) => s + p.total, 0) };
+      });
+    } else {
+      setEditingQuote(prev => {
+        const partidas = [...(prev.partidas ?? []), ...newPartidas];
+        return { ...prev, partidas, total: partidas.reduce((s, p) => s + p.total, 0) };
+      });
+    }
+    setSugOpen(false);
+    showToast(`${newPartidas.length} partida${newPartidas.length > 1 ? 's' : ''} añadida${newPartidas.length > 1 ? 's' : ''} al presupuesto`);
+  };
+
   const handleUpdateWizardItem = (idx: number, updates: Partial<PartidaPresupuesto>) => {
     setWizardQuote(prev => {
       const partidas = (prev.partidas || []).map((item, i) => {
@@ -2286,6 +2371,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setActiveTab('preview');
     showToast(isEditing ? 'Presupuesto actualizado' : 'Presupuesto guardado');
     if (!isEditing) { setShowConfetti(true); setTimeout(() => setShowConfetti(false), 3000); }
+    // Auto-generar PDF
+    setTimeout(() => printQuote(saved), 600);
   };
 
   const convertQuoteToInvoice = (presupuesto: Presupuesto) => {
@@ -2939,6 +3026,94 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         </div>
       )}
 
+      {/* ================= MODAL WIZARD SUGERENCIAS ================= */}
+      {sugOpen && (
+        <div className="fixed inset-0 z-[400] bg-black/60 flex items-end sm:items-center justify-center p-0 sm:p-4" onClick={() => setSugOpen(false)}>
+          <div
+            className="bg-white w-full sm:max-w-lg rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col max-h-[90dvh] overflow-hidden"
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="px-5 pt-5 pb-3 border-b border-slate-100 flex items-center justify-between shrink-0">
+              <div>
+                <p className="text-[10px] font-bold text-blue-500 uppercase tracking-widest">Completar presupuesto</p>
+                <h3 className="text-sm font-black text-slate-900 mt-0.5">{sugRoomLabel} — ¿Qué falta?</h3>
+              </div>
+              <button onClick={() => setSugOpen(false)} className="text-slate-400 hover:text-slate-600 cursor-pointer p-1"><X className="w-4 h-4" /></button>
+            </div>
+
+            {/* Body scrollable */}
+            <div className="overflow-y-auto flex-1 px-4 py-3 space-y-4">
+              {sugMissing.map(cat => (
+                <div key={cat.id} className="rounded-2xl border border-slate-100 bg-slate-50 overflow-hidden">
+                  <div className="px-4 py-2.5 bg-white border-b border-slate-100 flex items-center gap-2">
+                    <span className="text-base">{cat.icon}</span>
+                    <span className="text-xs font-bold text-slate-800">{cat.label}</span>
+                    {cat.optional && <span className="text-[9px] text-slate-400 ml-1">(opcional)</span>}
+                    {sugSelections[cat.id] && !cat.multi && (
+                      <span className="ml-auto text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">✓ Seleccionado</span>
+                    )}
+                  </div>
+                  {cat.multi ? (
+                    <div className="p-3 space-y-2">
+                      {cat.options.map(opt => (
+                        <div key={opt.id} className="flex items-center gap-3">
+                          <button
+                            onClick={() => setSugMultiOn(prev => ({ ...prev, [opt.id]: !prev[opt.id] }))}
+                            className={`shrink-0 w-5 h-5 rounded-md border-2 flex items-center justify-center cursor-pointer transition-colors ${sugMultiOn[opt.id] ? 'bg-blue-500 border-blue-500' : 'border-slate-300 bg-white'}`}
+                          >
+                            {sugMultiOn[opt.id] && <Check className="w-3 h-3 text-white" />}
+                          </button>
+                          <span className="text-[11px] text-slate-700 flex-1">{opt.label}</span>
+                          {sugMultiOn[opt.id] && (
+                            <div className="flex items-center gap-1 shrink-0">
+                              <button onClick={() => setSugQuantities(prev => ({ ...prev, [opt.id]: Math.max(1, (prev[opt.id] ?? 1) - 1) }))} className="w-5 h-5 rounded bg-slate-200 text-slate-700 text-xs font-bold flex items-center justify-center cursor-pointer">−</button>
+                              <span className="text-xs font-mono font-bold w-5 text-center">{sugQuantities[opt.id] ?? 1}</span>
+                              <button onClick={() => setSugQuantities(prev => ({ ...prev, [opt.id]: (prev[opt.id] ?? 1) + 1 }))} className="w-5 h-5 rounded bg-slate-200 text-slate-700 text-xs font-bold flex items-center justify-center cursor-pointer">+</button>
+                            </div>
+                          )}
+                          <span className="text-[10px] font-mono text-slate-500 shrink-0">{opt.precio}€/{opt.unidad}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="p-3 grid grid-cols-1 gap-1.5">
+                      {cat.options.map(opt => (
+                        <button
+                          key={opt.id}
+                          onClick={() => setSugSelections(prev => ({ ...prev, [cat.id]: prev[cat.id] === opt.id ? '' : opt.id }))}
+                          className={`text-left flex items-center justify-between gap-2 px-3 py-2 rounded-xl border transition-all cursor-pointer ${sugSelections[cat.id] === opt.id ? 'bg-blue-600 border-blue-600 text-white' : 'bg-white border-slate-200 hover:border-blue-300 text-slate-800'}`}
+                        >
+                          <span className="text-[11px] font-medium">{opt.label}</span>
+                          <span className={`text-[10px] font-mono font-bold shrink-0 ${sugSelections[cat.id] === opt.id ? 'text-blue-100' : 'text-slate-500'}`}>{opt.precio}€/{opt.unidad}</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Footer */}
+            <div className="px-4 py-4 border-t border-slate-100 shrink-0">
+              {(() => {
+                const selCount = Object.values(sugSelections).filter(Boolean).length
+                  + Object.values(sugMultiOn).filter(Boolean).length;
+                return (
+                  <button
+                    onClick={handleApplySugerencias}
+                    disabled={selCount === 0}
+                    className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white font-bold py-3.5 rounded-2xl text-xs uppercase tracking-wider cursor-pointer transition-colors"
+                  >
+                    {selCount === 0 ? 'Selecciona al menos un elemento' : `Añadir ${selCount} partida${selCount > 1 ? 's' : ''} al presupuesto ➔`}
+                  </button>
+                );
+              })()}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ================= MODAL SIMULACIÓN ENVÍO DE WHATSAPP ================= */}
       <AnimatePresence>
         {showWhatsAppModal && targetQuoteForWhatsApp && (
@@ -2975,6 +3150,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       </p>
                     )}
 
+                    <button
+                      onClick={() => { if (targetQuoteForWhatsApp) printQuote(targetQuoteForWhatsApp); }}
+                      className="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-2.5 rounded-2xl text-xs uppercase tracking-wider text-center block cursor-pointer mb-2"
+                    >
+                      📄 Descargar PDF primero
+                    </button>
                     <button
                       onClick={handleSendWhatsAppNow}
                       className="w-full bg-[#25d366] hover:bg-[#128c7e] text-white font-bold py-3.5 rounded-2xl text-xs uppercase tracking-wider text-center block cursor-pointer shadow-sm"
@@ -5327,12 +5508,26 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 })}
               </div>
 
-              <button
-                onClick={handleAddManualItem}
-                className="w-full bg-gray-100 text-gray-700 font-bold p-3 rounded-xl border border-gray-200 text-[10px] uppercase tracking-wider text-center cursor-pointer"
-              >
-                + Añadir Partida Manual
-              </button>
+              <div className="flex gap-2">
+                {(wizardQuote.partidas ?? []).length > 0 && (
+                  <button
+                    onClick={() => handleOpenSugerencias(
+                      wizardQuote.partidas as PartidaPresupuesto[],
+                      wizardQuote.descripcion ?? '',
+                      'mobile'
+                    )}
+                    className="flex-1 bg-amber-50 text-amber-700 font-bold p-3 rounded-xl border border-amber-200 text-[10px] uppercase tracking-wider text-center cursor-pointer"
+                  >
+                    💡 Completar
+                  </button>
+                )}
+                <button
+                  onClick={handleAddManualItem}
+                  className="flex-1 bg-gray-100 text-gray-700 font-bold p-3 rounded-xl border border-gray-200 text-[10px] uppercase tracking-wider text-center cursor-pointer"
+                >
+                  + Añadir Partida
+                </button>
+              </div>
             </div>
           )}
 
@@ -6820,6 +7015,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <span className="text-[9px] text-slate-400 uppercase tracking-wider block font-mono">Total Neto</span>
             <div className="text-xl font-bold font-mono text-slate-900">{(editingQuote.total ?? 0).toFixed(2)}€</div>
           </div>
+          {editingQuote.partidas.length > 0 && (
+            <button
+              onClick={() => handleOpenSugerencias()}
+              className="flex items-center gap-1.5 text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200 px-4 py-3 rounded-xl font-bold uppercase tracking-wider text-[10px] cursor-pointer transition-colors"
+              title="Detectar elementos que faltan en el presupuesto"
+            >
+              💡 Completar
+            </button>
+          )}
           <button
             onClick={saveCurrentQuote}
             className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold uppercase tracking-wider text-[10px] cursor-pointer shadow-md"
