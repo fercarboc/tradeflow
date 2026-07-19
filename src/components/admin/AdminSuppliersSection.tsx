@@ -37,17 +37,21 @@ interface SupplierConfig {
 }
 
 const SUPPLIER_META: Record<string, { tipo: SupplierTipo; descripcion: string; acuerdo: AcuerdoEstado; color: string }> = {
-  propio:   { tipo: 'propio',     descripcion: 'Tus tarifas negociadas. CSV con precios de compra propios.',                        acuerdo: 'activo',       color: '#4A6741' },
-  obramat:  { tipo: 'nacional',   descripcion: 'Distribución nacional materiales construcción e instalaciones.',                    acuerdo: 'negociando',   color: '#E87722' },
-  saltoki:  { tipo: 'nacional',   descripcion: 'Distribuidor fontanería, calefacción y climatización.',                             acuerdo: 'sin_acuerdo',  color: '#1A5A96' },
-  sonepar:  { tipo: 'nacional',   descripcion: 'Distribución eléctrica e industrial.',                                              acuerdo: 'sin_acuerdo',  color: '#6366f1' },
-  novelec:  { tipo: 'nacional',   descripcion: 'Material eléctrico y automatización.',                                              acuerdo: 'sin_acuerdo',  color: '#f59e0b' },
-  rexel:    { tipo: 'nacional',   descripcion: 'Distribución eléctrica global.',                                                    acuerdo: 'sin_acuerdo',  color: '#ef4444' },
-  vaillant: { tipo: 'fabricante', descripcion: 'Calefacción, ACS y climatización.',                                                 acuerdo: 'sin_acuerdo',  color: '#10b981' },
-  junkers:  { tipo: 'fabricante', descripcion: 'Calderas, calentadores y ACS.',                                                     acuerdo: 'sin_acuerdo',  color: '#ec4899' },
-  ariston:  { tipo: 'fabricante', descripcion: 'Calentadores y acumuladores ACS.',                                                  acuerdo: 'sin_acuerdo',  color: '#14b8a6' },
-  baxi:     { tipo: 'fabricante', descripcion: 'Calderas y calentadores residenciales.',                                            acuerdo: 'sin_acuerdo',  color: '#8b5cf6' },
-  ferroli:  { tipo: 'fabricante', descripcion: 'Calefacción, climatización y ACS.',                                                 acuerdo: 'sin_acuerdo',  color: '#f97316' },
+  propio:        { tipo: 'propio',     descripcion: 'Tus tarifas negociadas. CSV con precios de compra propios.',                 acuerdo: 'activo',      color: '#4A6741' },
+  obramat:       { tipo: 'nacional',   descripcion: 'Distribución nacional materiales construcción e instalaciones.',             acuerdo: 'negociando',  color: '#E87722' },
+  saltoki:       { tipo: 'nacional',   descripcion: 'Distribuidor fontanería, calefacción y climatización.',                      acuerdo: 'activo',      color: '#1A5A96' },
+  sonepar:       { tipo: 'nacional',   descripcion: 'Distribución eléctrica e industrial.',                                       acuerdo: 'activo',      color: '#6366f1' },
+  novelec:       { tipo: 'nacional',   descripcion: 'Material eléctrico y automatización.',                                       acuerdo: 'activo',      color: '#f59e0b' },
+  rexel:         { tipo: 'nacional',   descripcion: 'Distribución eléctrica global. Marcas ABB, Top Cable.',                      acuerdo: 'activo',      color: '#ef4444' },
+  wurth:         { tipo: 'nacional',   descripcion: 'Suministro industrial multi-oficio: tornillería, EPIs, herramienta, química.',acuerdo: 'activo',      color: '#e11d48' },
+  bricomart:     { tipo: 'nacional',   descripcion: 'Materiales construcción profesional: cemento, estructura, herramienta.',      acuerdo: 'activo',      color: '#0ea5e9' },
+  daikin:        { tipo: 'fabricante', descripcion: 'Splits, multi-split, aerotermia y VRV. Líder climatización.',                acuerdo: 'activo',      color: '#0284c7' },
+  saunier_duval: { tipo: 'fabricante', descripcion: 'Calderas de condensación, aerotermia y solar térmica.',                      acuerdo: 'activo',      color: '#16a34a' },
+  vaillant:      { tipo: 'fabricante', descripcion: 'Calefacción ecoTEC, bomba de calor arotherm y ACS.',                         acuerdo: 'activo',      color: '#10b981' },
+  junkers:       { tipo: 'fabricante', descripcion: 'Calderas Cerapur, calentadores HydroCompact y ACS.',                         acuerdo: 'activo',      color: '#ec4899' },
+  ariston:       { tipo: 'fabricante', descripcion: 'Calderas Genus, termoacumuladores Velis y aerotermia Nimbus.',                acuerdo: 'activo',      color: '#14b8a6' },
+  baxi:          { tipo: 'fabricante', descripcion: 'Calderas Duo-tec, calentadores y aerotermia Aurea.',                          acuerdo: 'activo',      color: '#8b5cf6' },
+  ferroli:       { tipo: 'fabricante', descripcion: 'Calefacción, climatización y ACS.',                                           acuerdo: 'sin_acuerdo', color: '#f97316' },
 };
 
 const ACUERDO_CFG: Record<AcuerdoEstado, { label: string; cls: string }> = {
@@ -167,11 +171,14 @@ export default function AdminSuppliersSection({ toast }: Props) {
 
       const { data: counts } = await supabase
         .from('trade_supplier_products')
-        .select('catalog_id');
+        .select('catalog_id, updated_at');
 
       const countMap = new Map<string, number>();
-      for (const row of (counts ?? []) as Array<{ catalog_id: string }>) {
+      const lastSyncMap = new Map<string, string>();
+      for (const row of (counts ?? []) as Array<{ catalog_id: string; updated_at: string }>) {
         countMap.set(row.catalog_id, (countMap.get(row.catalog_id) ?? 0) + 1);
+        const prev = lastSyncMap.get(row.catalog_id);
+        if (!prev || row.updated_at > prev) lastSyncMap.set(row.catalog_id, row.updated_at);
       }
 
       const mapped: SupplierConfig[] = (catalogs ?? []).map((c: Record<string, unknown>) => {
@@ -189,7 +196,7 @@ export default function AdminSuppliersSection({ toast }: Props) {
           margen_pct: Number(c.margen_pct_default),
           prioridad: c.prioridad as number,
           productos: prods,
-          ultima_sync: prods > 0 ? (c.created_at as string)?.slice(0, 10) : undefined,
+          ultima_sync: lastSyncMap.get(c.id as string)?.slice(0, 10) ?? undefined,
           sync_estado: prods > 0 ? 'ok' : 'nunca',
           descripcion: meta.descripcion,
           acuerdo: (c.acuerdo_estado as AcuerdoEstado) || meta.acuerdo,
