@@ -2046,9 +2046,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   interface CompareRow {
     catalog_key: string; supplier_name: string; product_id: string;
-    ref_proveedor: string | null; descripcion: string;
+    ref_proveedor: string | null; descripcion: string; marca: string; familia: string;
     precio_coste: number; margen_pct: number; precio_venta: number;
-    unidad: string; score: number;
+    unidad: string; score: number; es_preferido: boolean; catalog_id: string | null;
   }
   const [compareIdx, setCompareIdx] = useState<number | null>(null);
   const [compareResults, setCompareResults] = useState<CompareRow[]>([]);
@@ -2158,7 +2158,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         limit_per_catalog: 5,
       });
       if (error) throw error;
-      setCompareResults((data as CompareRow[]) ?? []);
+      const rows = ((data as CompareRow[]) ?? []).sort((a, b) =>
+        (b.es_preferido ? 1 : 0) - (a.es_preferido ? 1 : 0) || b.score - a.score
+      );
+      setCompareResults(rows);
     } catch {
       setCompareResults([]);
     } finally {
@@ -2166,7 +2169,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     }
   };
 
-  const handleSelectCompare = (idx: number, opt: CompareRow) => {
+  const handleSelectCompare = async (idx: number, opt: CompareRow) => {
     handleUpdateItem(idx, {
       precioUnitario: opt.precio_venta,
       supplier_key: opt.catalog_key,
@@ -2176,6 +2179,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     });
     setCompareIdx(null);
     setCompareResults([]);
+    if (orgId && opt.catalog_id && opt.familia) {
+      Promise.resolve(supabase.rpc('record_supplier_choice', {
+        p_org_id: orgId,
+        p_catalog_id: opt.catalog_id,
+        p_familia: opt.familia,
+      })).catch(() => {});
+    }
   };
 
   const handleUpdateWizardItem = (idx: number, updates: Partial<PartidaPresupuesto>) => {
@@ -5285,12 +5295,22 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                                     });
                                     setCompareIdx(null);
                                     setCompareResults([]);
+                                    if (orgId && opt.catalog_id && opt.familia) {
+                                      Promise.resolve(supabase.rpc('record_supplier_choice', {
+                                        p_org_id: orgId,
+                                        p_catalog_id: opt.catalog_id,
+                                        p_familia: opt.familia,
+                                      })).catch(() => {});
+                                    }
                                   }}
-                                  className="w-full text-left bg-blue-50 active:bg-blue-100 border border-blue-200 rounded-xl px-3 py-2 text-[10px] cursor-pointer"
+                                  className={`w-full text-left active:bg-blue-100 border rounded-xl px-3 py-2 text-[10px] cursor-pointer ${opt.es_preferido ? 'bg-amber-50 border-amber-300' : 'bg-blue-50 border-blue-200'}`}
                                 >
                                   <div className="flex justify-between items-center gap-2">
                                     <div className="min-w-0">
-                                      <span className="font-bold text-blue-800 block truncate">{opt.supplier_name}</span>
+                                      <div className="flex items-center gap-1.5">
+                                        <span className="font-bold text-blue-800 block truncate">{opt.supplier_name}</span>
+                                        {opt.es_preferido && <span className="text-[8px] font-bold text-amber-600">★</span>}
+                                      </div>
                                       <span className="text-blue-600 block truncate">{opt.descripcion}</span>
                                     </div>
                                     <span className="font-black text-blue-900 whitespace-nowrap shrink-0">{opt.precio_venta.toFixed(2)}€/{opt.unidad}</span>
@@ -6760,7 +6780,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <button
                       key={oi}
                       onClick={() => handleSelectCompare(idx, opt)}
-                      className={`w-full flex items-center gap-3 px-3 py-2.5 text-left hover:bg-blue-50 transition-colors cursor-pointer ${oi < compareResults.length - 1 ? 'border-b border-slate-100' : ''} ${item.supplier_key === opt.catalog_key && item.supplier_ref === opt.ref_proveedor ? 'bg-blue-50' : ''}`}
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 text-left hover:bg-blue-50 transition-colors cursor-pointer ${oi < compareResults.length - 1 ? 'border-b border-slate-100' : ''} ${item.supplier_key === opt.catalog_key && item.supplier_ref === opt.ref_proveedor ? 'bg-blue-50' : ''} ${opt.es_preferido ? 'bg-amber-50' : ''}`}
                     >
                       <div className="shrink-0 w-6 h-6 rounded-md bg-slate-100 flex items-center justify-center">
                         {opt.catalog_key === 'obramat'
@@ -6769,7 +6789,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                         }
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[11px] text-slate-700 font-medium truncate">{opt.descripcion}</p>
+                        <div className="flex items-center gap-1.5">
+                          <p className="text-[11px] text-slate-700 font-medium truncate">{opt.descripcion}</p>
+                          {opt.es_preferido && (
+                            <span className="shrink-0 text-[8px] font-bold text-amber-600 bg-amber-100 px-1 py-0.5 rounded uppercase tracking-wider">★ Preferido</span>
+                          )}
+                        </div>
                         <p className="text-[9px] text-slate-400 truncate">
                           {opt.supplier_name}{opt.ref_proveedor ? ` · ${opt.ref_proveedor}` : ''} · {opt.unidad}
                         </p>
