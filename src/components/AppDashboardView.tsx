@@ -7344,9 +7344,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             // Si el token es pending pero el presupuesto ya tiene estado final → usar el estado real
             const quoteEstado = selectedQuoteForPreview.estado;
             const tokenPending = quoteTokenStatus.status === 'pending';
+            // Si el token está pending pero el presupuesto ya fue aceptado manualmente → mostrar aceptado
             const resolvedAccepted = quoteTokenStatus.status === 'accepted' || (tokenPending && quoteEstado === 'Aceptado');
-            const resolvedRejected = quoteTokenStatus.status === 'rejected' || (tokenPending && quoteEstado === 'Rechazado');
-            const resolvedPending = tokenPending && quoteEstado !== 'Aceptado' && quoteEstado !== 'Rechazado';
+            const resolvedRejected = quoteTokenStatus.status === 'rejected';
+            const resolvedPending = tokenPending && quoteEstado !== 'Aceptado';
             return (
               <div className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-[10px] font-bold uppercase tracking-wide ${
                 resolvedAccepted
