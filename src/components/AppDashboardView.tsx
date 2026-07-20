@@ -7340,35 +7340,45 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             )}
           </div>
           {/* Estado de aceptación del cliente */}
-          {quoteTokenStatus && (
-            <div className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-[10px] font-bold uppercase tracking-wide ${
-              quoteTokenStatus.status === 'accepted'
-                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                : quoteTokenStatus.status === 'rejected'
-                ? 'bg-red-50 text-red-600 border border-red-200'
-                : 'bg-amber-50 text-amber-600 border border-amber-200'
-            }`}>
-              {quoteTokenStatus.status === 'accepted' && '✅ Cliente aceptó'}
-              {quoteTokenStatus.status === 'rejected' && '❌ Cliente rechazó'}
-              {quoteTokenStatus.status === 'pending' && '⏳ Pendiente respuesta'}
-              {quoteTokenStatus.accepted_at && (
-                <span className="font-normal normal-case ml-1">
-                  — {new Date(quoteTokenStatus.accepted_at).toLocaleDateString('es-ES')}
-                </span>
-              )}
-              <button
-                onClick={() => {
-                  supabase.from('trade_quote_tokens').select('status, accepted_at')
-                    .eq('quote_numero', selectedQuoteForPreview.id)
-                    .order('created_at', { ascending: false }).limit(1).maybeSingle()
-                    .then(({ data }) => setQuoteTokenStatus(data ?? null));
-                }}
-                className="ml-1 underline font-normal normal-case cursor-pointer hover:no-underline"
-              >
-                Actualizar
-              </button>
-            </div>
-          )}
+          {quoteTokenStatus && (() => {
+            // Si el token es pending pero el presupuesto ya tiene estado final → usar el estado real
+            const quoteEstado = selectedQuoteForPreview.estado;
+            const tokenPending = quoteTokenStatus.status === 'pending';
+            const resolvedAccepted = quoteTokenStatus.status === 'accepted' || (tokenPending && quoteEstado === 'Aceptado');
+            const resolvedRejected = quoteTokenStatus.status === 'rejected' || (tokenPending && quoteEstado === 'Rechazado');
+            const resolvedPending = tokenPending && quoteEstado !== 'Aceptado' && quoteEstado !== 'Rechazado';
+            return (
+              <div className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-[10px] font-bold uppercase tracking-wide ${
+                resolvedAccepted
+                  ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                  : resolvedRejected
+                  ? 'bg-red-50 text-red-600 border border-red-200'
+                  : 'bg-amber-50 text-amber-600 border border-amber-200'
+              }`}>
+                {resolvedAccepted && '✅ Aceptado'}
+                {resolvedRejected && '❌ Rechazado'}
+                {resolvedPending && '⏳ Pendiente respuesta'}
+                {quoteTokenStatus.accepted_at && (
+                  <span className="font-normal normal-case ml-1">
+                    — {new Date(quoteTokenStatus.accepted_at).toLocaleDateString('es-ES')}
+                  </span>
+                )}
+                {resolvedPending && (
+                  <button
+                    onClick={() => {
+                      supabase.from('trade_quote_tokens').select('status, accepted_at')
+                        .eq('quote_numero', selectedQuoteForPreview.id)
+                        .order('created_at', { ascending: false }).limit(1).maybeSingle()
+                        .then(({ data }) => setQuoteTokenStatus(data ?? null));
+                    }}
+                    className="ml-1 underline font-normal normal-case cursor-pointer hover:no-underline"
+                  >
+                    Actualizar
+                  </button>
+                )}
+              </div>
+            );
+          })()}
           {isMaintenanceQuote && (
             <button
               onClick={() => {
