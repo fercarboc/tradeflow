@@ -3980,3 +3980,4 @@ export * from './api/ai-feedback';
 export * from './api/subcontratas';
 export * from './api/mayoristas';
 export * from './api/pedidos';
+export * from './api/marketplace';
