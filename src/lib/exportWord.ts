@@ -252,6 +252,349 @@ export async function downloadAsWordDocx(opts: DocExportOpts, filename: string):
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// PEDIDO DE MATERIAL DOCX
+// ═══════════════════════════════════════════════════════════════════════════════
+
+export interface PedidoDocxLinea {
+  descripcion: string;
+  referencia?: string | null;
+  cantidad: number;
+  unidad: string;
+  precio_unitario?: number | null;
+}
+
+export interface PedidoDocxOpts {
+  pedidoRef: string;
+  fecha: string;
+  supplierName: string;
+  supplierEmail?: string;
+  quoteNumero?: string;
+  quoteDescripcion?: string;
+  clienteNombre?: string;
+  clienteTelefono?: string;
+  notas?: string;
+  lineas: PedidoDocxLinea[];
+  empresa: {
+    nombre?: string;
+    nif?: string;
+    telefono?: string;
+    email?: string;
+    direccion?: string;
+  };
+}
+
+export async function downloadPedidoAsWordDocx(opts: PedidoDocxOpts): Promise<void> {
+  const BLUE        = '1D4ED8';
+  const LIGHT_BLUE  = 'DBEAFE';
+  const SLATE       = '475569';
+  const BORDER_CLR  = 'CBD5E1';
+
+  const thin   = { style: BorderStyle.SINGLE, size: 4,  color: BORDER_CLR } as const;
+  const none   = { style: BorderStyle.NONE,   size: 0,  color: 'FFFFFF'   } as const;
+  const full   = { top: thin, bottom: thin, left: thin, right: thin       } as const;
+  const noBord = { top: none, bottom: none, left: none, right: none       } as const;
+  const sp     = (pt: number) => ({ spacing: { after: pt * 20 } }) as const;
+
+  const total = opts.lineas.reduce(
+    (s, l) => s + l.cantidad * (l.precio_unitario ?? 0),
+    0,
+  );
+
+  const doc = new Document({
+    sections: [{
+      properties: {
+        page: {
+          margin: { top: 1152, bottom: 1152, left: 1296, right: 1296 },
+        },
+      },
+      children: [
+        // ── Cabecera instalador ──────────────────────────────────────────────
+        new Paragraph({
+          children: [new TextRun({ text: opts.empresa.nombre ?? 'Mi Empresa', bold: true, size: 28, color: BLUE })],
+          ...sp(2),
+        }),
+        new Paragraph({
+          children: [
+            ...(opts.empresa.nif ? [
+              new TextRun({ text: `NIF: ${opts.empresa.nif}`, size: 18, color: SLATE }),
+              new TextRun({ text: '   ·   ', size: 18, color: SLATE }),
+            ] : []),
+            ...(opts.empresa.telefono ? [
+              new TextRun({ text: `Tel: ${opts.empresa.telefono}`, size: 18, color: SLATE }),
+              new TextRun({ text: '   ·   ', size: 18, color: SLATE }),
+            ] : []),
+            ...(opts.empresa.email ? [
+              new TextRun({ text: opts.empresa.email, size: 18, color: SLATE }),
+            ] : []),
+          ],
+          ...sp(2),
+        }),
+        ...(opts.empresa.direccion
+          ? [new Paragraph({ children: [new TextRun({ text: opts.empresa.direccion, size: 18, color: SLATE })], ...sp(4) })]
+          : [new Paragraph({ ...sp(4) })]),
+
+        // ── Separador ────────────────────────────────────────────────────────
+        new Paragraph({
+          border: { bottom: { style: BorderStyle.SINGLE, size: 8, color: BLUE } },
+          children: [],
+          ...sp(8),
+        }),
+
+        // ── Título + referencia ──────────────────────────────────────────────
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          rows: [
+            new TableRow({
+              children: [
+                new TableCell({
+                  width: { size: 60, type: WidthType.PERCENTAGE },
+                  borders: noBord,
+                  children: [
+                    new Paragraph({
+                      children: [new TextRun({ text: 'PEDIDO DE MATERIAL', bold: true, size: 36, color: BLUE })],
+                    }),
+                  ],
+                }),
+                new TableCell({
+                  width: { size: 40, type: WidthType.PERCENTAGE },
+                  borders: noBord,
+                  children: [
+                    new Paragraph({
+                      alignment: AlignmentType.RIGHT,
+                      children: [new TextRun({ text: opts.pedidoRef, bold: true, size: 20, color: SLATE })],
+                    }),
+                    new Paragraph({
+                      alignment: AlignmentType.RIGHT,
+                      children: [new TextRun({ text: `Fecha: ${opts.fecha}`, size: 18, color: SLATE })],
+                    }),
+                  ],
+                }),
+              ],
+            }),
+          ],
+        }),
+
+        new Paragraph({ ...sp(6) }),
+
+        // ── Proveedor | Datos del pedido ─────────────────────────────────────
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          rows: [
+            new TableRow({
+              children: [
+                new TableCell({
+                  width: { size: 50, type: WidthType.PERCENTAGE },
+                  shading: { type: ShadingType.CLEAR, fill: LIGHT_BLUE },
+                  borders: full,
+                  margins: { top: 100, bottom: 100, left: 120, right: 120 },
+                  children: [
+                    new Paragraph({ children: [new TextRun({ text: 'PROVEEDOR', bold: true, size: 16, color: BLUE })], ...sp(2) }),
+                    new Paragraph({ children: [new TextRun({ text: opts.supplierName, bold: true, size: 24 })], ...sp(2) }),
+                    ...(opts.supplierEmail
+                      ? [new Paragraph({ children: [new TextRun({ text: opts.supplierEmail, size: 18, color: SLATE })] })]
+                      : []),
+                  ],
+                }),
+                new TableCell({
+                  width: { size: 50, type: WidthType.PERCENTAGE },
+                  borders: full,
+                  margins: { top: 100, bottom: 100, left: 120, right: 120 },
+                  children: [
+                    new Paragraph({ children: [new TextRun({ text: 'DATOS DEL PEDIDO', bold: true, size: 16, color: BLUE })], ...sp(2) }),
+                    ...(opts.quoteNumero
+                      ? [new Paragraph({
+                          children: [
+                            new TextRun({ text: 'Presupuesto: ', bold: true, size: 18 }),
+                            new TextRun({ text: opts.quoteNumero + (opts.quoteDescripcion ? ` — ${opts.quoteDescripcion}` : ''), size: 18, color: SLATE }),
+                          ],
+                        })]
+                      : []),
+                    ...(opts.clienteNombre
+                      ? [new Paragraph({
+                          children: [
+                            new TextRun({ text: 'Cliente: ', bold: true, size: 18 }),
+                            new TextRun({ text: opts.clienteNombre + (opts.clienteTelefono ? ` · ${opts.clienteTelefono}` : ''), size: 18 }),
+                          ],
+                        })]
+                      : []),
+                    new Paragraph({
+                      children: [
+                        new TextRun({ text: 'Entrega: ', bold: true, size: 18 }),
+                        new TextRun({ text: 'entre 5 y 12 días hábiles', size: 18 }),
+                      ],
+                    }),
+                  ],
+                }),
+              ],
+            }),
+          ],
+        }),
+
+        new Paragraph({ ...sp(8) }),
+
+        // ── Tabla de artículos ───────────────────────────────────────────────
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          rows: [
+            // Cabecera
+            new TableRow({
+              tableHeader: true,
+              children: [
+                pedidoThCell('ARTÍCULO / REFERENCIA', BLUE, 48),
+                pedidoThCell('CANT.', BLUE, 12),
+                pedidoThCell('UD.', BLUE, 10),
+                pedidoThCell('€ / UD', BLUE, 15),
+                pedidoThCell('TOTAL', BLUE, 15),
+              ],
+            }),
+            // Filas de artículos
+            ...opts.lineas.map((l, i) => {
+              const rowFill   = i % 2 === 0 ? 'FFFFFF' : 'F8FAFC';
+              const rowTotal  = l.cantidad * (l.precio_unitario ?? 0);
+              const descText  = l.referencia
+                ? `${l.descripcion} (Ref: ${l.referencia})`
+                : l.descripcion;
+              return new TableRow({
+                children: [
+                  pedidoTdCell(descText, AlignmentType.LEFT, rowFill, thin, none),
+                  pedidoTdCell(String(l.cantidad), AlignmentType.CENTER, rowFill, thin, none),
+                  pedidoTdCell(l.unidad, AlignmentType.CENTER, rowFill, thin, none),
+                  pedidoTdCell(
+                    l.precio_unitario != null ? `${Number(l.precio_unitario).toFixed(2)} €` : '—',
+                    AlignmentType.RIGHT, rowFill, thin, none,
+                  ),
+                  pedidoTdCell(
+                    l.precio_unitario != null ? `${rowTotal.toFixed(2)} €` : '—',
+                    AlignmentType.RIGHT, rowFill, none, thin,
+                  ),
+                ],
+              });
+            }),
+            // Fila total
+            new TableRow({
+              children: [
+                new TableCell({
+                  columnSpan: 4,
+                  shading: { type: ShadingType.CLEAR, fill: 'F1F5F9' },
+                  borders: { top: thin, bottom: thin, left: thin, right: none },
+                  margins: { top: 80, bottom: 80, left: 120, right: 80 },
+                  children: [
+                    new Paragraph({
+                      alignment: AlignmentType.RIGHT,
+                      children: [new TextRun({ text: 'TOTAL NETO (sin IVA)', bold: true, size: 20, color: SLATE })],
+                    }),
+                  ],
+                }),
+                new TableCell({
+                  shading: { type: ShadingType.CLEAR, fill: LIGHT_BLUE },
+                  borders: { top: thin, bottom: thin, left: none, right: thin },
+                  margins: { top: 80, bottom: 80, left: 60, right: 80 },
+                  children: [
+                    new Paragraph({
+                      alignment: AlignmentType.RIGHT,
+                      children: [new TextRun({ text: `${total.toFixed(2)} €`, bold: true, size: 22, color: BLUE })],
+                    }),
+                  ],
+                }),
+              ],
+            }),
+          ],
+        }),
+
+        new Paragraph({ ...sp(10) }),
+
+        // ── Condiciones ──────────────────────────────────────────────────────
+        new Paragraph({
+          border: { top: { style: BorderStyle.SINGLE, size: 4, color: BORDER_CLR } },
+          children: [new TextRun({ text: 'CONDICIONES Y OBSERVACIONES', bold: true, size: 18, color: SLATE })],
+          ...sp(4),
+        }),
+        new Paragraph({
+          children: [new TextRun({ text: '• Entrega estimada: entre 5 y 12 días hábiles desde la confirmación del pedido.', size: 18 })],
+          ...sp(2),
+        }),
+        ...(opts.notas
+          ? [new Paragraph({ children: [new TextRun({ text: `• ${opts.notas}`, size: 18 })], ...sp(2) })]
+          : []),
+
+        new Paragraph({ ...sp(16) }),
+
+        // ── Firma ────────────────────────────────────────────────────────────
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          rows: [
+            new TableRow({
+              children: [
+                new TableCell({
+                  width: { size: 50, type: WidthType.PERCENTAGE },
+                  borders: noBord,
+                  children: [
+                    new Paragraph({ children: [new TextRun({ text: 'Firmado por el solicitante:', size: 18, color: SLATE })], ...sp(20) }),
+                    new Paragraph({
+                      border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: SLATE } },
+                      children: [new TextRun({ text: ' ', size: 24 })],
+                    }),
+                    new Paragraph({ children: [new TextRun({ text: opts.empresa.nombre ?? '', size: 18, color: SLATE })] }),
+                  ],
+                }),
+                new TableCell({
+                  width: { size: 50, type: WidthType.PERCENTAGE },
+                  borders: noBord,
+                  children: [
+                    new Paragraph({
+                      alignment: AlignmentType.RIGHT,
+                      children: [
+                        new TextRun({ text: 'Lugar y fecha: ____________________________,  ____/____/________', size: 18, color: SLATE }),
+                      ],
+                    }),
+                  ],
+                }),
+              ],
+            }),
+          ],
+        }),
+      ],
+    }],
+  });
+
+  const filename = `pedido-${opts.supplierName.replace(/\s+/g, '-').toLowerCase()}-${opts.fecha}.docx`;
+  const blob = await Packer.toBlob(doc);
+  saveBlob(blob, filename);
+}
+
+function pedidoThCell(text: string, color: string, pct: number): TableCell {
+  return new TableCell({
+    width: { size: pct, type: WidthType.PERCENTAGE },
+    shading: { type: ShadingType.CLEAR, fill: color },
+    borders: { top: { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' }, bottom: { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' }, left: { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' }, right: { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' } },
+    margins: { top: 80, bottom: 80, left: 80, right: 80 },
+    children: [
+      new Paragraph({
+        alignment: text === 'ARTÍCULO / REFERENCIA' ? AlignmentType.LEFT : AlignmentType.CENTER,
+        children: [new TextRun({ text, bold: true, size: 18, color: 'FFFFFF' })],
+      }),
+    ],
+  });
+}
+
+function pedidoTdCell(
+  text: string,
+  alignment: typeof AlignmentType[keyof typeof AlignmentType],
+  fill: string,
+  borderLeft: { style: typeof BorderStyle[keyof typeof BorderStyle]; size: number; color: string },
+  borderRight: { style: typeof BorderStyle[keyof typeof BorderStyle]; size: number; color: string },
+): TableCell {
+  const borderBottom = { style: BorderStyle.SINGLE, size: 4, color: 'CBD5E1' } as const;
+  const borderNone   = { style: BorderStyle.NONE,   size: 0, color: 'FFFFFF' } as const;
+  return new TableCell({
+    shading: { type: ShadingType.CLEAR, fill },
+    borders: { top: borderNone, bottom: borderBottom, left: borderLeft, right: borderRight },
+    margins: { top: 60, bottom: 60, left: 80, right: 80 },
+    children: [new Paragraph({ alignment, children: [new TextRun({ text, size: 20 })] })],
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // CONTRACT DOCX — complete with all 14 clauses + annexes
 // ═══════════════════════════════════════════════════════════════════════════════
 

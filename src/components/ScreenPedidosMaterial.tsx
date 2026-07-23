@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   ShoppingCart, Plus, Trash2, Send, ChevronDown, ChevronUp,
   CheckCircle, Package, Truck, FileText, X, AlertCircle, Download,
 } from 'lucide-react';
-import { Document, Packer, Paragraph, Table, TableRow, TableCell, TextRun, AlignmentType, WidthType, BorderStyle, ShadingType, convertInchesToTwip } from 'docx';
+import { downloadPedidoAsWordDocx } from '../lib/exportWord';
+import { ArticleSearchInput } from './ui/ArticleSearchInput';
 import {
   loadSupplierOrders, loadSupplierCatalogs, createSupplierOrder,
   updateSupplierOrderEstado, deleteSupplierOrder, loadCatalogProducts,
@@ -30,85 +31,6 @@ const ESTADO_COLOR: Record<SupplierOrder['estado'], string> = {
   recibido: 'bg-emerald-100 text-emerald-700',
   cancelado: 'bg-red-100 text-red-600',
 };
-
-function ArticleSearchInput({
-  value, onChange, onProductSelect, catalogProducts, disabled,
-}: {
-  value: string;
-  onChange: (val: string) => void;
-  onProductSelect: (descripcion: string, unidad: string, precio: number | null) => void;
-  catalogProducts: TradeCatalogProduct[];
-  disabled?: boolean;
-}) {
-  const [open, setOpen] = useState(false);
-  const wrapRef = useRef<HTMLDivElement>(null);
-
-  const filtered = useMemo(() => {
-    if (!value.trim() || value.length < 2) return [];
-    const q = value.toLowerCase();
-    return catalogProducts
-      .filter(p =>
-        p.nombre_generico.toLowerCase().includes(q) ||
-        p.familia.toLowerCase().includes(q) ||
-        (p.subfamilia?.toLowerCase().includes(q) ?? false),
-      )
-      .slice(0, 8);
-  }, [value, catalogProducts]);
-
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);
-    }
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, []);
-
-  const handleSelect = (product: TradeCatalogProduct) => {
-    const preferred = product.trade_catalog_variants?.find(v => v.is_preferred && v.activo)
-      ?? product.trade_catalog_variants?.find(v => v.activo);
-    onProductSelect(product.nombre_generico, product.unidad, preferred?.precio_material ?? null);
-    setOpen(false);
-  };
-
-  return (
-    <div ref={wrapRef} className="relative w-full">
-      <input
-        disabled={disabled}
-        value={value}
-        onChange={e => { onChange(e.target.value); setOpen(true); }}
-        onFocus={() => { if (value.length >= 2) setOpen(true); }}
-        placeholder="Descripción del material"
-        className="text-sm text-slate-800 bg-transparent focus:outline-none w-full disabled:text-slate-500"
-      />
-      {open && filtered.length > 0 && (
-        <div className="absolute left-0 top-full mt-1 w-72 bg-white border border-slate-200 rounded-xl shadow-xl z-50 max-h-52 overflow-y-auto">
-          {filtered.map(p => {
-            const pref = p.trade_catalog_variants?.find(v => v.is_preferred && v.activo)
-              ?? p.trade_catalog_variants?.find(v => v.activo);
-            return (
-              <button
-                key={p.id}
-                type="button"
-                onMouseDown={e => { e.preventDefault(); handleSelect(p); }}
-                className="w-full text-left px-3 py-2 hover:bg-slate-50 flex flex-col gap-0.5 border-b border-slate-50 last:border-0"
-              >
-                <span className="text-sm font-semibold text-slate-800 truncate">{p.nombre_generico}</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] text-slate-400 truncate">{p.familia}{p.subfamilia ? ` · ${p.subfamilia}` : ''}</span>
-                  {pref && (
-                    <span className="text-[10px] font-bold text-blue-600 shrink-0">
-                      {pref.precio_material.toFixed(2)} € / {p.unidad}
-                    </span>
-                  )}
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      )}
-    </div>
-  );
-}
 
 function OrderLineRow({
   line, onDelete, onChange, onProductSelect, editable, catalogProducts,
@@ -331,206 +253,32 @@ function NewOrderModal({
   );
 }
 
-async function downloadOrderDocx(order: SupplierOrder, orgData?: TradeOrganization | null) {
-  const supplier = order.trade_supplier_catalogs?.supplier_name ?? 'Proveedor';
-  const supplierEmail = order.trade_supplier_catalogs?.contact_email ?? '';
-  const fecha = new Date(order.created_at).toLocaleDateString('es-ES');
-  const lines = order.trade_supplier_order_lines ?? [];
-  const quoteNumero = order.trade_quotes?.numero ?? '';
-  const quoteDescripcion = order.trade_quotes?.descripcion ?? '';
-  const clienteNombre = order.trade_quotes?.trade_clients?.nombre ?? '';
-  const clienteTelefono = order.trade_quotes?.trade_clients?.telefono ?? '';
-  const pedidoRef = `PED-${order.id.slice(0, 8).toUpperCase()}`;
-  const total = lines.reduce((s, l) => s + l.cantidad * (l.precio_unitario ?? 0), 0);
-
-  const BLUE = '1D4ED8';
-  const LIGHT_BLUE = 'DBEAFE';
-  const SLATE = '475569';
-  const BORDER_COLOR = 'CBD5E1';
-
-  const thinBorder = { style: BorderStyle.SINGLE, size: 4, color: BORDER_COLOR };
-  const noBorder = { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' };
-  const fullBorders = { top: thinBorder, bottom: thinBorder, left: thinBorder, right: thinBorder };
-  const noBorders = { top: noBorder, bottom: noBorder, left: noBorder, right: noBorder };
-  const sp = (pt: number) => ({ spacing: { after: pt * 20 } });
-
-  const doc = new Document({
-    sections: [{
-      properties: {
-        page: {
-          margin: {
-            top: convertInchesToTwip(0.8),
-            bottom: convertInchesToTwip(0.8),
-            left: convertInchesToTwip(0.9),
-            right: convertInchesToTwip(0.9),
-          },
-        },
-      },
-      children: [
-        // Cabecera instalador
-        new Paragraph({ children: [new TextRun({ text: orgData?.nombre ?? 'Mi Empresa', bold: true, size: 28, color: BLUE })], ...sp(2) }),
-        new Paragraph({
-          children: [
-            ...(orgData?.nif ? [new TextRun({ text: `NIF: ${orgData.nif}`, size: 18, color: SLATE }), new TextRun({ text: '   ·   ', size: 18, color: SLATE })] : []),
-            ...(orgData?.telefono ? [new TextRun({ text: `Tel: ${orgData.telefono}`, size: 18, color: SLATE }), new TextRun({ text: '   ·   ', size: 18, color: SLATE })] : []),
-            ...(orgData?.email ? [new TextRun({ text: orgData.email, size: 18, color: SLATE })] : []),
-          ],
-          ...sp(2),
-        }),
-        ...(orgData?.direccion ? [new Paragraph({ children: [new TextRun({ text: orgData.direccion, size: 18, color: SLATE })], ...sp(4) })] : [new Paragraph({ ...sp(4) })]),
-
-        // Línea separadora
-        new Paragraph({ border: { bottom: { style: BorderStyle.SINGLE, size: 8, color: BLUE } }, children: [new TextRun({ text: '' })], ...sp(8) }),
-
-        // Título + referencia
-        new Table({
-          width: { size: 100, type: WidthType.PERCENTAGE },
-          rows: [
-            new TableRow({
-              children: [
-                new TableCell({
-                  width: { size: 60, type: WidthType.PERCENTAGE },
-                  borders: noBorders,
-                  children: [new Paragraph({ children: [new TextRun({ text: 'PEDIDO DE MATERIAL', bold: true, size: 36, color: BLUE })] })],
-                }),
-                new TableCell({
-                  width: { size: 40, type: WidthType.PERCENTAGE },
-                  borders: noBorders,
-                  children: [
-                    new Paragraph({ alignment: AlignmentType.RIGHT, children: [new TextRun({ text: pedidoRef, bold: true, size: 20, color: SLATE })] }),
-                    new Paragraph({ alignment: AlignmentType.RIGHT, children: [new TextRun({ text: `Fecha: ${fecha}`, size: 18, color: SLATE })] }),
-                  ],
-                }),
-              ],
-            }),
-          ],
-        }),
-
-        new Paragraph({ ...sp(6) }),
-
-        // Proveedor | Datos del pedido
-        new Table({
-          width: { size: 100, type: WidthType.PERCENTAGE },
-          rows: [
-            new TableRow({
-              children: [
-                new TableCell({
-                  width: { size: 50, type: WidthType.PERCENTAGE },
-                  shading: { type: ShadingType.CLEAR, fill: LIGHT_BLUE },
-                  borders: fullBorders,
-                  margins: { top: 100, bottom: 100, left: 120, right: 120 },
-                  children: [
-                    new Paragraph({ children: [new TextRun({ text: 'PROVEEDOR', bold: true, size: 16, color: BLUE })], ...sp(2) }),
-                    new Paragraph({ children: [new TextRun({ text: supplier, bold: true, size: 24 })], ...sp(2) }),
-                    ...(supplierEmail ? [new Paragraph({ children: [new TextRun({ text: supplierEmail, size: 18, color: SLATE })] })] : []),
-                  ],
-                }),
-                new TableCell({
-                  width: { size: 50, type: WidthType.PERCENTAGE },
-                  borders: fullBorders,
-                  margins: { top: 100, bottom: 100, left: 120, right: 120 },
-                  children: [
-                    new Paragraph({ children: [new TextRun({ text: 'DATOS DEL PEDIDO', bold: true, size: 16, color: BLUE })], ...sp(2) }),
-                    ...(quoteNumero ? [new Paragraph({ children: [new TextRun({ text: `Presupuesto: `, bold: true, size: 18 }), new TextRun({ text: quoteNumero + (quoteDescripcion ? ` — ${quoteDescripcion}` : ''), size: 18, color: SLATE })] })] : []),
-                    ...(clienteNombre ? [new Paragraph({ children: [new TextRun({ text: `Cliente: `, bold: true, size: 18 }), new TextRun({ text: clienteNombre + (clienteTelefono ? ` · ${clienteTelefono}` : ''), size: 18 })] })] : []),
-                    new Paragraph({ children: [new TextRun({ text: 'Entrega: ', bold: true, size: 18 }), new TextRun({ text: 'entre 5 y 12 días hábiles', size: 18 })] }),
-                  ],
-                }),
-              ],
-            }),
-          ],
-        }),
-
-        new Paragraph({ ...sp(8) }),
-
-        // Tabla de artículos
-        new Table({
-          width: { size: 100, type: WidthType.PERCENTAGE },
-          rows: [
-            // Cabecera
-            new TableRow({
-              tableHeader: true,
-              children: [
-                new TableCell({ width: { size: 48, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.CLEAR, fill: BLUE }, borders: noBorders, margins: { top: 80, bottom: 80, left: 120, right: 80 }, children: [new Paragraph({ children: [new TextRun({ text: 'ARTÍCULO / REFERENCIA', bold: true, size: 18, color: 'FFFFFF' })] })] }),
-                new TableCell({ width: { size: 12, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.CLEAR, fill: BLUE }, borders: noBorders, margins: { top: 80, bottom: 80, left: 60, right: 60 }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: 'CANT.', bold: true, size: 18, color: 'FFFFFF' })] })] }),
-                new TableCell({ width: { size: 10, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.CLEAR, fill: BLUE }, borders: noBorders, margins: { top: 80, bottom: 80, left: 60, right: 60 }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: 'UD.', bold: true, size: 18, color: 'FFFFFF' })] })] }),
-                new TableCell({ width: { size: 15, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.CLEAR, fill: BLUE }, borders: noBorders, margins: { top: 80, bottom: 80, left: 60, right: 80 }, children: [new Paragraph({ alignment: AlignmentType.RIGHT, children: [new TextRun({ text: '€ / UD', bold: true, size: 18, color: 'FFFFFF' })] })] }),
-                new TableCell({ width: { size: 15, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.CLEAR, fill: BLUE }, borders: noBorders, margins: { top: 80, bottom: 80, left: 60, right: 80 }, children: [new Paragraph({ alignment: AlignmentType.RIGHT, children: [new TextRun({ text: 'TOTAL', bold: true, size: 18, color: 'FFFFFF' })] })] }),
-              ],
-            }),
-            // Filas de artículos
-            ...lines.map((l, i) => {
-              const rowFill = i % 2 === 0 ? 'FFFFFF' : 'F8FAFC';
-              const rowTotal = l.cantidad * (l.precio_unitario ?? 0);
-              const descText = l.referencia ? `${l.descripcion} (Ref: ${l.referencia})` : l.descripcion;
-              return new TableRow({
-                children: [
-                  new TableCell({ shading: { type: ShadingType.CLEAR, fill: rowFill }, borders: { top: noBorder, bottom: thinBorder, left: thinBorder, right: noBorder }, margins: { top: 60, bottom: 60, left: 120, right: 80 }, children: [new Paragraph({ children: [new TextRun({ text: descText, size: 20 })] })] }),
-                  new TableCell({ shading: { type: ShadingType.CLEAR, fill: rowFill }, borders: { top: noBorder, bottom: thinBorder, left: noBorder, right: noBorder }, margins: { top: 60, bottom: 60, left: 60, right: 60 }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: String(l.cantidad), size: 20 })] })] }),
-                  new TableCell({ shading: { type: ShadingType.CLEAR, fill: rowFill }, borders: { top: noBorder, bottom: thinBorder, left: noBorder, right: noBorder }, margins: { top: 60, bottom: 60, left: 60, right: 60 }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: l.unidad, size: 20 })] })] }),
-                  new TableCell({ shading: { type: ShadingType.CLEAR, fill: rowFill }, borders: { top: noBorder, bottom: thinBorder, left: noBorder, right: noBorder }, margins: { top: 60, bottom: 60, left: 60, right: 80 }, children: [new Paragraph({ alignment: AlignmentType.RIGHT, children: [new TextRun({ text: l.precio_unitario != null ? `${Number(l.precio_unitario).toFixed(2)} €` : '—', size: 20 })] })] }),
-                  new TableCell({ shading: { type: ShadingType.CLEAR, fill: rowFill }, borders: { top: noBorder, bottom: thinBorder, left: noBorder, right: thinBorder }, margins: { top: 60, bottom: 60, left: 60, right: 80 }, children: [new Paragraph({ alignment: AlignmentType.RIGHT, children: [new TextRun({ text: l.precio_unitario != null ? `${rowTotal.toFixed(2)} €` : '—', size: 20 })] })] }),
-                ],
-              });
-            }),
-            // Fila total
-            new TableRow({
-              children: [
-                new TableCell({ columnSpan: 4, shading: { type: ShadingType.CLEAR, fill: 'F1F5F9' }, borders: { top: thinBorder, bottom: thinBorder, left: thinBorder, right: noBorder }, margins: { top: 80, bottom: 80, left: 120, right: 80 }, children: [new Paragraph({ alignment: AlignmentType.RIGHT, children: [new TextRun({ text: 'TOTAL NETO (sin IVA)', bold: true, size: 20, color: SLATE })] })] }),
-                new TableCell({ shading: { type: ShadingType.CLEAR, fill: LIGHT_BLUE }, borders: { top: thinBorder, bottom: thinBorder, left: noBorder, right: thinBorder }, margins: { top: 80, bottom: 80, left: 60, right: 80 }, children: [new Paragraph({ alignment: AlignmentType.RIGHT, children: [new TextRun({ text: `${total.toFixed(2)} €`, bold: true, size: 22, color: BLUE })] })] }),
-              ],
-            }),
-          ],
-        }),
-
-        new Paragraph({ ...sp(10) }),
-
-        // Condiciones
-        new Paragraph({ border: { top: { style: BorderStyle.SINGLE, size: 4, color: BORDER_COLOR } }, children: [new TextRun({ text: 'CONDICIONES Y OBSERVACIONES', bold: true, size: 18, color: SLATE })], ...sp(4) }),
-        new Paragraph({ children: [new TextRun({ text: '• Entrega estimada: entre 5 y 12 días hábiles desde la confirmación del pedido.', size: 18 })], ...sp(2) }),
-        ...(order.notas ? [new Paragraph({ children: [new TextRun({ text: `• ${order.notas}`, size: 18 })], ...sp(2) })] : []),
-
-        new Paragraph({ ...sp(16) }),
-
-        // Firma
-        new Table({
-          width: { size: 100, type: WidthType.PERCENTAGE },
-          rows: [
-            new TableRow({
-              children: [
-                new TableCell({
-                  width: { size: 50, type: WidthType.PERCENTAGE },
-                  borders: noBorders,
-                  children: [
-                    new Paragraph({ children: [new TextRun({ text: 'Firmado por el solicitante:', size: 18, color: SLATE })], ...sp(20) }),
-                    new Paragraph({ border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: SLATE } }, children: [new TextRun({ text: ' ', size: 24 })] }),
-                    new Paragraph({ children: [new TextRun({ text: orgData?.nombre ?? '', size: 18, color: SLATE })] }),
-                  ],
-                }),
-                new TableCell({
-                  width: { size: 50, type: WidthType.PERCENTAGE },
-                  borders: noBorders,
-                  children: [
-                    new Paragraph({ alignment: AlignmentType.RIGHT, children: [new TextRun({ text: 'Lugar y fecha: ____________________________,  ____/____/________', size: 18, color: SLATE })] }),
-                  ],
-                }),
-              ],
-            }),
-          ],
-        }),
-      ],
-    }],
+function buildPedidoDocx(order: SupplierOrder, orgData?: TradeOrganization | null) {
+  return downloadPedidoAsWordDocx({
+    pedidoRef:         `PED-${order.id.slice(0, 8).toUpperCase()}`,
+    fecha:             new Date(order.created_at).toISOString().split('T')[0],
+    supplierName:      order.trade_supplier_catalogs?.supplier_name ?? 'Proveedor',
+    supplierEmail:     order.trade_supplier_catalogs?.contact_email ?? undefined,
+    quoteNumero:       order.trade_quotes?.numero,
+    quoteDescripcion:  order.trade_quotes?.descripcion ?? undefined,
+    clienteNombre:     order.trade_quotes?.trade_clients?.nombre,
+    clienteTelefono:   order.trade_quotes?.trade_clients?.telefono ?? undefined,
+    notas:             order.notas ?? undefined,
+    lineas:            (order.trade_supplier_order_lines ?? []).map(l => ({
+      descripcion:    l.descripcion,
+      referencia:     l.referencia,
+      cantidad:       l.cantidad,
+      unidad:         l.unidad,
+      precio_unitario: l.precio_unitario,
+    })),
+    empresa: {
+      nombre:   orgData?.nombre,
+      nif:      orgData?.nif,
+      telefono: orgData?.telefono,
+      email:    orgData?.email,
+      direccion: orgData?.direccion,
+    },
   });
-
-  const blob = await Packer.toBlob(doc);
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `pedido-${supplier.replace(/\s+/g, '-').toLowerCase()}-${new Date(order.created_at).toISOString().split('T')[0]}.docx`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
 }
 
 function OrderCard({
@@ -682,7 +430,7 @@ function OrderCard({
 
           <div className="flex flex-wrap gap-2 pt-1">
             <button
-              onClick={() => downloadOrderDocx(order, orgData)}
+              onClick={() => buildPedidoDocx(order, orgData)}
               className="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3 py-2 rounded-xl transition-colors"
             >
               <Download className="w-3.5 h-3.5" /> Descargar DOCX
