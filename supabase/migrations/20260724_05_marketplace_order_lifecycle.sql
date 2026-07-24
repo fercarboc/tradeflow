@@ -14,9 +14,9 @@ ALTER TABLE public.trade_marketplace_orders
   ADD COLUMN IF NOT EXISTS tracking_ref     text,
   ADD COLUMN IF NOT EXISTS tracking_url     text,
   ADD COLUMN IF NOT EXISTS notas_proveedor  text,
-  ADD COLUMN IF NOT EXISTS cancelled_reason text,
+  -- cancelled_reason: columna canónica ya existe en Sprint 1B. NO duplicar.
   ADD COLUMN IF NOT EXISTS cancelled_at     timestamptz,
-  ADD COLUMN IF NOT EXISTS entregado_at     timestamptz,
+  -- delivered_at / entregado_at: columna canónica ya existe en Sprint 1B como delivered_at. NO duplicar.
   ADD COLUMN IF NOT EXISTS delivery_address text,
   ADD COLUMN IF NOT EXISTS preparing_at     timestamptz;
 
@@ -81,7 +81,7 @@ CREATE POLICY "order_events_supplier_read" ON public.trade_marketplace_order_eve
     EXISTS (
       SELECT 1 FROM public.trade_marketplace_orders o
       JOIN public.trade_marketplace_actor_members am ON am.actor_id = o.actor_id
-      WHERE o.id = order_id AND am.user_id = auth.uid() AND am.estado = 'active'
+      WHERE o.id = order_id AND am.user_id = auth.uid() AND am.activo = true
     )
   );
 
@@ -118,7 +118,7 @@ CREATE POLICY "stock_res_supplier_manage" ON public.trade_marketplace_stock_rese
     EXISTS (
       SELECT 1 FROM public.trade_marketplace_orders o
       JOIN public.trade_marketplace_actor_members am ON am.actor_id = o.actor_id
-      WHERE o.id = order_id AND am.user_id = auth.uid() AND am.estado = 'active'
+      WHERE o.id = order_id AND am.user_id = auth.uid() AND am.activo = true
     )
   );
 
@@ -175,7 +175,7 @@ SECURITY DEFINER SET search_path = public
 AS $$
   SELECT EXISTS (
     SELECT 1 FROM public.trade_marketplace_actor_members
-    WHERE actor_id = p_actor_id AND user_id = auth.uid() AND estado = 'active'
+    WHERE actor_id = p_actor_id AND user_id = auth.uid() AND activo = true
   );
 $$;
 
@@ -337,7 +337,7 @@ BEGIN
     FROM public.trade_supplier_orders so
     JOIN public.trade_marketplace_actors a ON a.supplier_catalog_id = so.catalog_id
     JOIN public.trade_marketplace_actor_members am ON am.actor_id = a.id
-    WHERE so.id = p_order_id AND am.user_id = auth.uid() AND am.estado = 'active'
+    WHERE so.id = p_order_id AND am.user_id = auth.uid() AND am.activo = true
     LIMIT 1;
 
     IF v_actor_id IS NULL THEN
@@ -401,7 +401,7 @@ BEGIN
     FROM public.trade_supplier_orders so
     JOIN public.trade_marketplace_actors a ON a.supplier_catalog_id = so.catalog_id
     JOIN public.trade_marketplace_actor_members am ON am.actor_id = a.id
-    WHERE so.id = p_order_id AND am.user_id = auth.uid() AND am.estado = 'active'
+    WHERE so.id = p_order_id AND am.user_id = auth.uid() AND am.activo = true
     LIMIT 1;
 
     IF v_actor_id IS NULL THEN
@@ -479,7 +479,7 @@ BEGIN
   END IF;
 
   UPDATE public.trade_marketplace_orders SET
-    estado = 'delivered', entregado_at = now(), completed_at = now(),
+    estado = 'delivered', delivered_at = now(), completed_at = now(),
     updated_at = now()
   WHERE id = p_order_id;
 
@@ -543,7 +543,7 @@ BEGIN
   END IF;
 
   UPDATE public.trade_marketplace_orders SET
-    estado = 'cancelled', cancelled_reason = p_reason,
+    estado = 'cancelled', cancel_reason = p_reason,
     cancelled_at = now(), updated_at = now()
   WHERE id = p_order_id;
 
@@ -614,12 +614,12 @@ BEGIN
       'tracking_ref',     v_order.tracking_ref,
       'tracking_url',     v_order.tracking_url,
       'delivery_address', v_order.delivery_address,
-      'cancelled_reason', v_order.cancelled_reason,
+      'cancel_reason',    v_order.cancel_reason,
       'created_at',       v_order.created_at,
       'confirmed_at',     v_order.confirmed_at,
       'preparing_at',     v_order.preparing_at,
       'shipped_at',       v_order.shipped_at,
-      'entregado_at',     v_order.entregado_at,
+      'delivered_at',     v_order.delivered_at,
       'cancelled_at',     v_order.cancelled_at,
       'completed_at',     v_order.completed_at
     ),
@@ -695,7 +695,7 @@ RETURNS TABLE (
   confirmed_at    timestamptz,
   preparing_at    timestamptz,
   shipped_at      timestamptz,
-  entregado_at    timestamptz,
+  delivered_at    timestamptz,
   cancelled_at    timestamptz,
   total_count     bigint
 )
@@ -711,7 +711,7 @@ AS $$
     o.tracking_ref, o.tracking_url, o.notas_proveedor,
     c.source_ref,
     o.created_at, o.confirmed_at, o.preparing_at,
-    o.shipped_at, o.entregado_at, o.cancelled_at,
+    o.shipped_at, o.delivered_at, o.cancelled_at,
     COUNT(*) OVER () AS total_count
   FROM public.trade_marketplace_orders o
   JOIN public.trade_marketplace_actors a ON a.id = o.actor_id

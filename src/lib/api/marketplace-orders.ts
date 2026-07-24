@@ -23,7 +23,7 @@ export interface ActiveOrder {
   confirmed_at:     string | null;
   preparing_at:     string | null;
   shipped_at:       string | null;
-  entregado_at:     string | null;
+  delivered_at:     string | null;
   cancelled_at:     string | null;
   total_count:      number;
 }
@@ -69,12 +69,12 @@ export interface OrderFullDetail {
     tracking_ref:     string | null;
     tracking_url:     string | null;
     delivery_address: string | null;
-    cancelled_reason: string | null;
+    cancel_reason:    string | null;
     created_at:       string;
     confirmed_at:     string | null;
     preparing_at:     string | null;
     shipped_at:       string | null;
-    entregado_at:     string | null;
+    delivered_at:     string | null;
     cancelled_at:     string | null;
     completed_at:     string | null;
   };

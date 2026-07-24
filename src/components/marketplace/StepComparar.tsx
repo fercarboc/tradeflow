@@ -16,7 +16,7 @@ const STRATEGY_LABELS: Record<Strategy, string> = {
   balance:    'Equilibrado',
   precio:     'Precio más bajo',
   velocidad:  'Entrega más rápida',
-  consolidar: 'Menos proveedores',
+  consolidar: 'Un solo proveedor',
 };
 
 export default function StepComparar({ cart, onCartChanged, onNext }: Props) {
