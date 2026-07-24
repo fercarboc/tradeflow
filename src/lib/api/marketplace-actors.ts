@@ -89,12 +89,12 @@ export interface MarketplaceActorMember {
   actor?: Pick<MarketplaceActor, 'id' | 'nombre' | 'slug' | 'actor_type' | 'logo_url' | 'estado' | 'verificado'>;
 }
 
+// token_hash no se expone al cliente. Usar v_marketplace_invitations_safe o los campos de abajo.
 export interface MarketplaceInvitation {
   id: string;
   actor_id: string;
   role_id: string;
   email: string;
-  token: string;
   estado: MarketplaceInvitationEstado;
   expires_at: string;
   invited_by?: string | null;
@@ -214,27 +214,26 @@ export async function deactivateMember(memberId: string): Promise<void> {
 
 // ── Invitaciones ──────────────────────────────────────────────────────────────
 
+// Devuelve el token bruto (mostrar una sola vez al invitante; nunca se almacena en BD).
+// La inserción real ocurre en la RPC SECURITY DEFINER que almacena solo el SHA-256.
 export async function createMarketplaceInvitation(params: {
   actorId: string;
   roleId: string;
   email: string;
-}): Promise<MarketplaceInvitation> {
-  const { data, error } = await db
-    .from('trade_marketplace_invitations')
-    .insert({
-      actor_id: params.actorId,
-      role_id:  params.roleId,
-      email:    params.email.toLowerCase().trim(),
-    })
-    .select()
-    .single();
+}): Promise<{ rawToken: string }> {
+  const { data, error } = await db.rpc('create_marketplace_invitation', {
+    p_actor_id: params.actorId,
+    p_role_id:  params.roleId,
+    p_email:    params.email.toLowerCase().trim(),
+  });
   if (error) throw error;
-  return data as MarketplaceInvitation;
+  return { rawToken: data as string };
 }
 
 export async function loadActorInvitations(actorId: string): Promise<MarketplaceInvitation[]> {
   const { data, error } = await db
-    .from('trade_marketplace_invitations')
+    // v_marketplace_invitations_safe excluye token_hash
+    .from('v_marketplace_invitations_safe')
     .select(`
       *,
       role:trade_marketplace_roles(id, nombre, priority)
