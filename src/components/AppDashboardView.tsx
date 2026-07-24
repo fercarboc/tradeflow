@@ -76,7 +76,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote, getOrgActiveOrders } from '../lib/supabase';
 import type { TradeSubcontractor, TradeSubcontrata, ActiveSupplierCatalog } from '../lib/supabase';
 import { printTradeInvoice } from '../lib/printTradeInvoice';
 import { geocodeAddress } from '../lib/geocoder';
@@ -607,6 +607,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         setOrgData(org);
         if (!org.is_onboarded && session?.user?.email !== ADMIN_EMAIL) setShowOnboarding(true);
         isPushSubscribed().then(setPushEnabled).catch(() => {});
+        // Cargar pedidos marketplace pendientes para badge
+        getOrgActiveOrders({ orgId: org.id, limit: 1 })
+          .then(({ totalCount }) => setMktPendingCount(totalCount))
+          .catch(() => setMktPendingCount(0));
         setEmpresaAjustes(prev => ({
           ...prev,
           nombre:        org.nombre,
@@ -2004,6 +2008,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [pedirMaterialQuote, setPedirMaterialQuote] = useState<TradeQuote | null>(null);
   const [pedirMaterialLoading, setPedirMaterialLoading] = useState(false);
   const [mktCartLoading, setMktCartLoading] = useState(false);
+  const [mktPendingCount, setMktPendingCount] = useState(0);
   const [postConfirmQuote, setPostConfirmQuote] = useState<Presupuesto | null>(null);
   const [editingQuoteId, setEditingQuoteId] = useState<string | null>(null); // null = crear nuevo, string = editar existente
   // Subcontratas vinculadas al presupuesto en preview
@@ -5906,6 +5911,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     >
                       <ShoppingCart className={`w-3.5 h-3.5 ${pedirMaterialLoading ? 'animate-spin' : ''}`} />
                       <span>{pedirMaterialLoading ? 'Cargando...' : 'Pedir material'}</span>
+                    </button>
+                  )}
+                  {isLiveMode && mktPendingCount > 0 && (
+                    <button
+                      onClick={() => setCurrentPage(ActivePage.SeguimientoMaterial)}
+                      className="relative bg-slate-700 hover:bg-slate-600 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Truck className="w-3.5 h-3.5" />
+                      <span>Mis pedidos</span>
+                      <span className="absolute -top-1.5 -right-1.5 h-4 w-4 rounded-full bg-amber-500 text-[9px] font-black text-white flex items-center justify-center tabular-nums">
+                        {mktPendingCount > 9 ? '9+' : mktPendingCount}
+                      </span>
                     </button>
                   )}
                   {isLiveMode && selectedQuoteForPreview.dbId && (

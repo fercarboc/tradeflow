@@ -37,7 +37,8 @@ const PartnerDemoView = lazy(() => import('./components/partner-demo/PartnerDemo
 const ReviewView = lazy(() => import('./pages/ReviewView'));
 const ParteView = lazy(() => import('./pages/ParteView'));
 const PortalProveedorView = lazy(() => import('./components/portal/PortalProveedorView'));
-const MarketplaceComprarView = lazy(() => import('./components/marketplace/MarketplaceComprarView'));
+const MarketplaceComprarView      = lazy(() => import('./components/marketplace/MarketplaceComprarView'));
+const ScreenSeguimientoMaterial   = lazy(() => import('./components/marketplace/ScreenSeguimientoMaterial'));
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -121,7 +122,8 @@ const PAGE_PATHS: Partial<Record<ActivePage, string>> = {
   [ActivePage.UpdatePassword]:    '/update-password',
   [ActivePage.PartnerDemo]:       '/demo-socios',
   [ActivePage.PortalProveedor]:   '/proveedor',
-  [ActivePage.MarketplaceComprar]: '/marketplace/comprar',
+  [ActivePage.MarketplaceComprar]:  '/marketplace/comprar',
+  [ActivePage.SeguimientoMaterial]: '/marketplace/seguimiento',
 };
 
 function pageToPath(page: ActivePage): string {
@@ -466,6 +468,9 @@ export default function App() {
       case ActivePage.MarketplaceComprar:
         return <MarketplaceComprarView setCurrentPage={setCurrentPage} session={session} />;
 
+      case ActivePage.SeguimientoMaterial:
+        return <ScreenSeguimientoMaterial setCurrentPage={setCurrentPage} session={session} />;
+
       default:
         return <LandingPage setCurrentPage={setCurrentPage} />;
     }
@@ -480,7 +485,8 @@ export default function App() {
     currentPage === ActivePage.Admin ||
     currentPage === ActivePage.Worker ||
     currentPage === ActivePage.PortalProveedor ||
-    currentPage === ActivePage.MarketplaceComprar;
+    currentPage === ActivePage.MarketplaceComprar ||
+    currentPage === ActivePage.SeguimientoMaterial;
 
   const isAuthView =
     currentPage === ActivePage.Login ||

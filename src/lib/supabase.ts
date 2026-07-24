@@ -3984,3 +3984,4 @@ export * from './api/marketplace';
 export * from './api/marketplace-actors';
 export * from './api/marketplace-portal';
 export * from './api/marketplace-checkout';
+export * from './api/marketplace-orders';

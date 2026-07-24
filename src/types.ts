@@ -61,6 +61,9 @@ PortalProveedor = 'portal-proveedor',
 
 // Compra de materiales vía Marketplace
 MarketplaceComprar = 'marketplace-comprar',
+
+// Seguimiento de pedidos de material (instalador)
+SeguimientoMaterial = 'seguimiento-material',
 }
 
 export type TradeType =

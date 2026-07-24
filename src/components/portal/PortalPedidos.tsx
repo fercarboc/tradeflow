@@ -5,6 +5,9 @@ import {
   getSupplierOrdersUnified, confirmSupplierOrder, shipSupplierOrder,
   ORDER_ESTADO_LABELS, ORDER_TIMELINE, getOrderTimelineStep,
 } from '../../lib/api/marketplace-portal';
+import {
+  prepareOrderFromPortal, shipMarketplaceOrderWithTracking,
+} from '../../lib/api/marketplace-orders';
 
 interface Props {
   actorId:    string;
@@ -29,6 +32,10 @@ export default function PortalPedidos({ actorId, membership }: Props) {
   const [error,      setError]     = useState<string | null>(null);
   const [expanded,   setExpanded]  = useState<string | null>(null);
   const [busy,       setBusy]      = useState<string | null>(null);
+  // Estado del modal de envío (tracking)
+  const [shipModal,  setShipModal]  = useState<string | null>(null);
+  const [trackingRef, setTrackingRef] = useState('');
+  const [trackingUrl, setTrackingUrl] = useState('');
 
   const LIMIT = 15;
 
@@ -51,7 +58,7 @@ export default function PortalPedidos({ actorId, membership }: Props) {
 
   useEffect(() => { load(estadoFlt, pageIdx); }, [load, estadoFlt, pageIdx]);
 
-  const canManage = membership.permissions.includes('orders:manage');
+  const canManage  = membership.permissions.includes('orders:manage');
   const canFulfill = membership.permissions.includes('orders:fulfillment');
   const totalPages = Math.ceil(page.totalCount / LIMIT);
 
@@ -62,7 +69,26 @@ export default function PortalPedidos({ actorId, membership }: Props) {
       await confirmSupplierOrder(order.id, order.source);
       await load(estadoFlt, pageIdx);
     } catch (e) {
-      alert(e instanceof Error ? e.message : 'Error al confirmar');
+      setError(e instanceof Error ? e.message : 'Error al confirmar');
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  const handlePrepare = async (order: PortalOrder) => {
+    if (!canFulfill || busy) return;
+    setBusy(order.id);
+    try {
+      if (order.source === 'marketplace') {
+        await prepareOrderFromPortal(order.id);
+      } else {
+        // Legacy orders skip directly to ship — no separate preparation step
+        await load(estadoFlt, pageIdx);
+        return;
+      }
+      await load(estadoFlt, pageIdx);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Error al iniciar preparación');
     } finally {
       setBusy(null);
     }
@@ -71,22 +97,39 @@ export default function PortalPedidos({ actorId, membership }: Props) {
   const handleShip = async (order: PortalOrder) => {
     if (!canFulfill || busy) return;
     setBusy(order.id);
+    setShipModal(null);
     try {
-      await shipSupplierOrder(order.id, order.source);
+      if (order.source === 'marketplace') {
+        await shipMarketplaceOrderWithTracking({
+          orderId:    order.id,
+          trackingRef: trackingRef || undefined,
+          trackingUrl: trackingUrl || undefined,
+        });
+      } else {
+        await shipSupplierOrder(order.id, order.source, trackingRef || undefined);
+      }
       await load(estadoFlt, pageIdx);
     } catch (e) {
-      alert(e instanceof Error ? e.message : 'Error al marcar enviado');
+      setError(e instanceof Error ? e.message : 'Error al marcar enviado');
     } finally {
       setBusy(null);
+      setTrackingRef('');
+      setTrackingUrl('');
     }
+  };
+
+  const openShipModal = (order: PortalOrder) => {
+    setShipModal(order.id);
+    setTrackingRef('');
+    setTrackingUrl('');
   };
 
   return (
     <div className="flex flex-col h-full bg-slate-50 dark:bg-slate-950">
       {/* Toolbar */}
-      <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-4 flex items-center gap-3">
+      <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-4 flex items-center gap-3 flex-wrap">
         <h1 className="text-base font-semibold text-slate-900 dark:text-slate-100">Pedidos</h1>
-        <div className="flex gap-2 ml-auto">
+        <div className="flex gap-1.5 ml-auto flex-wrap">
           {ESTADO_OPTS.map((opt) => (
             <button
               key={opt.value}
@@ -101,19 +144,21 @@ export default function PortalPedidos({ actorId, membership }: Props) {
             </button>
           ))}
         </div>
-        <span className="text-xs text-slate-400 tabular-nums ml-2">
+        <span className="text-xs text-slate-400 tabular-nums">
           {page.totalCount} pedido{page.totalCount !== 1 ? 's' : ''}
         </span>
       </div>
+
+      {error && (
+        <div className="mx-4 mt-2 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/10 px-4 py-2">
+          <p className="text-sm text-red-500">{error}</p>
+        </div>
+      )}
 
       {/* List */}
       <div className="flex-1 overflow-y-auto px-6 py-4 space-y-3">
         {loading ? (
           <OrdersSkeleton />
-        ) : error ? (
-          <div className="flex h-40 items-center justify-center">
-            <p className="text-sm text-red-500">{error}</p>
-          </div>
         ) : page.items.length === 0 ? (
           <div className="flex flex-col h-40 items-center justify-center gap-2">
             <p className="text-sm text-slate-400">No hay pedidos en este estado.</p>
@@ -129,7 +174,8 @@ export default function PortalPedidos({ actorId, membership }: Props) {
               canFulfill={canFulfill}
               onToggle={() => setExpanded((prev) => prev === order.id ? null : order.id)}
               onConfirm={() => handleConfirm(order)}
-              onShip={() => handleShip(order)}
+              onPrepare={() => handlePrepare(order)}
+              onShip={() => openShipModal(order)}
             />
           ))
         )}
@@ -155,19 +201,71 @@ export default function PortalPedidos({ actorId, membership }: Props) {
           </button>
         </div>
       )}
+
+      {/* Modal de envío con tracking */}
+      {shipModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="w-full max-w-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 shadow-2xl">
+            <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100 mb-4">Marcar como enviado</h2>
+            <div className="space-y-3">
+              <div>
+                <label className="text-xs text-slate-500 block mb-1">Referencia de tracking (opcional)</label>
+                <input
+                  type="text"
+                  value={trackingRef}
+                  onChange={(e) => setTrackingRef(e.target.value)}
+                  placeholder="Ej: ES123456789"
+                  className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-slate-500 block mb-1">URL de tracking (opcional)</label>
+                <input
+                  type="url"
+                  value={trackingUrl}
+                  onChange={(e) => setTrackingUrl(e.target.value)}
+                  placeholder="https://seguimiento.correos.es/..."
+                  className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                />
+              </div>
+            </div>
+            <div className="flex gap-2 mt-5">
+              <button
+                onClick={() => setShipModal(null)}
+                className="flex-1 rounded-lg border border-slate-200 dark:border-slate-700 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={() => {
+                  const order = page.items.find((o) => o.id === shipModal);
+                  if (order) handleShip(order);
+                }}
+                disabled={!!busy}
+                className="flex-1 rounded-lg bg-blue-600 py-2 text-sm font-semibold text-white hover:bg-blue-500 disabled:opacity-50 transition-colors"
+              >
+                {busy ? 'Enviando...' : 'Confirmar envío'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
+// ─── OrderCard ────────────────────────────────────────────────────────────────
+
 interface OrderCardProps {
-  order:       PortalOrder;
-  expanded:    boolean;
-  busy:        boolean;
-  canManage:   boolean;
-  canFulfill:  boolean;
-  onToggle:    () => void;
-  onConfirm:   () => void;
-  onShip:      () => void;
+  order:      PortalOrder;
+  expanded:   boolean;
+  busy:       boolean;
+  canManage:  boolean;
+  canFulfill: boolean;
+  onToggle:   () => void;
+  onConfirm:  () => void;
+  onPrepare:  () => void;
+  onShip:     () => void;
 }
 
 const ESTADO_BADGE: Record<string, string> = {
@@ -180,10 +278,9 @@ const ESTADO_BADGE: Record<string, string> = {
   cancelled: 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-400',
 };
 
-function OrderCard({ order, expanded, busy, canManage, canFulfill, onToggle, onConfirm, onShip }: OrderCardProps) {
+function OrderCard({ order, expanded, busy, canManage, canFulfill, onToggle, onConfirm, onPrepare, onShip }: OrderCardProps) {
   const timelineStep = getOrderTimelineStep(order.estado);
-  const fmt = (v: number) =>
-    new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(v);
+  const fmt = (v: number) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(v);
   const fmtDate = (d: string | null) => d
     ? new Date(d).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
     : null;
@@ -192,16 +289,11 @@ function OrderCard({ order, expanded, busy, canManage, canFulfill, onToggle, onC
     <div className={`rounded-xl border bg-white dark:bg-slate-900 transition-all ${
       order.estado === 'pending' ? 'border-amber-300 dark:border-amber-700' : 'border-slate-200 dark:border-slate-800'
     }`}>
-      {/* Card header */}
-      <div
-        className="flex items-start gap-3 px-5 py-4 cursor-pointer"
-        onClick={onToggle}
-      >
+      {/* Header */}
+      <div className="flex items-start gap-3 px-5 py-4 cursor-pointer" onClick={onToggle}>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="font-mono text-sm font-semibold text-slate-800 dark:text-slate-200">
-              {order.numero}
-            </span>
+            <span className="font-mono text-sm font-semibold text-slate-800 dark:text-slate-200">{order.numero}</span>
             <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${ESTADO_BADGE[order.estado] ?? ESTADO_BADGE.pending}`}>
               {ORDER_ESTADO_LABELS[order.estado] ?? order.estado}
             </span>
@@ -211,23 +303,15 @@ function OrderCard({ order, expanded, busy, canManage, canFulfill, onToggle, onC
               </span>
             )}
           </div>
-          <p className="text-sm text-slate-600 dark:text-slate-400 mt-0.5 truncate">
-            {order.org_nombre}
-          </p>
-          <p className="text-xs text-slate-400 mt-0.5">
-            {fmtDate(order.created_at)}
-          </p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mt-0.5 truncate">{order.org_nombre}</p>
+          <p className="text-xs text-slate-400 mt-0.5">{fmtDate(order.created_at)}</p>
         </div>
         <div className="text-right shrink-0">
-          <p className="text-lg font-bold text-slate-900 dark:text-slate-100 tabular-nums">
-            {fmt(order.total)}
-          </p>
+          <p className="text-lg font-bold text-slate-900 dark:text-slate-100 tabular-nums">{fmt(order.total)}</p>
           <p className="text-xs text-slate-400">{order.items_count} línea{order.items_count !== 1 ? 's' : ''}</p>
         </div>
-        <svg
-          className={`h-4 w-4 text-slate-400 mt-1 transition-transform ${expanded ? 'rotate-180' : ''}`}
-          fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"
-        >
+        <svg className={`h-4 w-4 text-slate-400 mt-1 transition-transform ${expanded ? 'rotate-180' : ''}`}
+          fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
         </svg>
       </div>
@@ -237,20 +321,16 @@ function OrderCard({ order, expanded, busy, canManage, canFulfill, onToggle, onC
         <div className="px-5 pb-3">
           <div className="flex items-center gap-0">
             {ORDER_TIMELINE.map((step, idx) => {
-              const isActive  = idx === timelineStep;
-              const isPast    = idx < timelineStep;
-              const isFirst   = idx === 0;
-              const isLast    = idx === ORDER_TIMELINE.length - 1;
+              const isActive = idx === timelineStep;
+              const isPast   = idx < timelineStep;
               return (
                 <React.Fragment key={step.estado}>
-                  {!isFirst && (
+                  {idx > 0 && (
                     <div className={`h-0.5 flex-1 transition-colors ${isPast ? 'bg-teal-500' : 'bg-slate-200 dark:bg-slate-700'}`} />
                   )}
                   <div className="flex flex-col items-center gap-1">
                     <div className={`h-2.5 w-2.5 rounded-full border-2 transition-colors ${
-                      isActive
-                        ? 'border-teal-500 bg-teal-500'
-                        : isPast
+                      isActive || isPast
                         ? 'border-teal-500 bg-teal-500'
                         : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900'
                     }`} />
@@ -267,7 +347,7 @@ function OrderCard({ order, expanded, busy, canManage, canFulfill, onToggle, onC
         </div>
       )}
 
-      {/* Expanded detail */}
+      {/* Expanded */}
       {expanded && (
         <div className="border-t border-slate-100 dark:border-slate-800 px-5 py-4">
           {order.notas && (
@@ -295,7 +375,7 @@ function OrderCard({ order, expanded, busy, canManage, canFulfill, onToggle, onC
             )}
           </div>
 
-          {/* Actions */}
+          {/* Actions — ciclo completo */}
           <div className="flex gap-2">
             {order.estado === 'pending' && canManage && (
               <button
@@ -306,7 +386,16 @@ function OrderCard({ order, expanded, busy, canManage, canFulfill, onToggle, onC
                 {busy ? 'Confirmando...' : 'Confirmar pedido'}
               </button>
             )}
-            {order.estado === 'confirmed' && canFulfill && (
+            {order.estado === 'confirmed' && canFulfill && order.source === 'marketplace' && (
+              <button
+                onClick={(e) => { e.stopPropagation(); onPrepare(); }}
+                disabled={busy}
+                className="flex-1 rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-500 disabled:opacity-50 transition-colors"
+              >
+                {busy ? 'Actualizando...' : 'Iniciar preparación'}
+              </button>
+            )}
+            {(order.estado === 'confirmed' || order.estado === 'preparing') && canFulfill && (
               <button
                 onClick={(e) => { e.stopPropagation(); onShip(); }}
                 disabled={busy}
