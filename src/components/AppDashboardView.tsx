@@ -76,7 +76,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote } from '../lib/supabase';
 import type { TradeSubcontractor, TradeSubcontrata, ActiveSupplierCatalog } from '../lib/supabase';
 import { printTradeInvoice } from '../lib/printTradeInvoice';
 import { geocodeAddress } from '../lib/geocoder';
@@ -2003,6 +2003,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [selectedQuoteForPreview, setSelectedQuoteForPreview] = useState<Presupuesto | null>(null);
   const [pedirMaterialQuote, setPedirMaterialQuote] = useState<TradeQuote | null>(null);
   const [pedirMaterialLoading, setPedirMaterialLoading] = useState(false);
+  const [mktCartLoading, setMktCartLoading] = useState(false);
   const [postConfirmQuote, setPostConfirmQuote] = useState<Presupuesto | null>(null);
   const [editingQuoteId, setEditingQuoteId] = useState<string | null>(null); // null = crear nuevo, string = editar existente
   // Subcontratas vinculadas al presupuesto en preview
@@ -5905,6 +5906,32 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     >
                       <ShoppingCart className={`w-3.5 h-3.5 ${pedirMaterialLoading ? 'animate-spin' : ''}`} />
                       <span>{pedirMaterialLoading ? 'Cargando...' : 'Pedir material'}</span>
+                    </button>
+                  )}
+                  {isLiveMode && selectedQuoteForPreview.dbId && (
+                    <button
+                      disabled={mktCartLoading}
+                      onClick={async () => {
+                        setMktCartLoading(true);
+                        try {
+                          const cartId = await createCartFromQuote(selectedQuoteForPreview.dbId!);
+                          sessionStorage.setItem('mkt_cart_id', cartId);
+                          setCurrentPage(ActivePage.MarketplaceComprar);
+                        } catch (e: unknown) {
+                          const msg = e instanceof Error ? e.message : String(e);
+                          if (msg.includes('NO_MATERIALS')) {
+                            showToast('Todo el material de este presupuesto ya fue pedido', 'info');
+                          } else {
+                            showToast('Error al preparar el carrito', 'error');
+                          }
+                        } finally {
+                          setMktCartLoading(false);
+                        }
+                      }}
+                      className="bg-teal-600 hover:bg-teal-700 disabled:opacity-60 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Package className={`w-3.5 h-3.5 ${mktCartLoading ? 'animate-spin' : ''}`} />
+                      <span>{mktCartLoading ? 'Preparando...' : 'Marketplace'}</span>
                     </button>
                   )}
                   {selectedQuoteForPreview.estado !== 'Facturado' ? (

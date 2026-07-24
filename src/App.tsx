@@ -37,6 +37,7 @@ const PartnerDemoView = lazy(() => import('./components/partner-demo/PartnerDemo
 const ReviewView = lazy(() => import('./pages/ReviewView'));
 const ParteView = lazy(() => import('./pages/ParteView'));
 const PortalProveedorView = lazy(() => import('./components/portal/PortalProveedorView'));
+const MarketplaceComprarView = lazy(() => import('./components/marketplace/MarketplaceComprarView'));
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -120,6 +121,7 @@ const PAGE_PATHS: Partial<Record<ActivePage, string>> = {
   [ActivePage.UpdatePassword]:    '/update-password',
   [ActivePage.PartnerDemo]:       '/demo-socios',
   [ActivePage.PortalProveedor]:   '/proveedor',
+  [ActivePage.MarketplaceComprar]: '/marketplace/comprar',
 };
 
 function pageToPath(page: ActivePage): string {
@@ -461,6 +463,9 @@ export default function App() {
       case ActivePage.PortalProveedor:
         return <PortalProveedorView setCurrentPage={setCurrentPage} session={session} />;
 
+      case ActivePage.MarketplaceComprar:
+        return <MarketplaceComprarView setCurrentPage={setCurrentPage} session={session} />;
+
       default:
         return <LandingPage setCurrentPage={setCurrentPage} />;
     }
@@ -474,7 +479,8 @@ export default function App() {
     currentPage === ActivePage.Registro ||
     currentPage === ActivePage.Admin ||
     currentPage === ActivePage.Worker ||
-    currentPage === ActivePage.PortalProveedor;
+    currentPage === ActivePage.PortalProveedor ||
+    currentPage === ActivePage.MarketplaceComprar;
 
   const isAuthView =
     currentPage === ActivePage.Login ||

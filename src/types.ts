@@ -58,6 +58,9 @@ Parte = 'parte',
 
 // Portal del Proveedor — Marketplace
 PortalProveedor = 'portal-proveedor',
+
+// Compra de materiales vía Marketplace
+MarketplaceComprar = 'marketplace-comprar',
 }
 
 export type TradeType =
