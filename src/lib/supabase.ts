@@ -3982,3 +3982,4 @@ export * from './api/mayoristas';
 export * from './api/pedidos';
 export * from './api/marketplace';
 export * from './api/marketplace-actors';
+export * from './api/marketplace-portal';

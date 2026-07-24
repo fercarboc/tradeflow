@@ -55,6 +55,9 @@ Valorar = 'valorar',
 
 // Parte de trabajo firmado (público)
 Parte = 'parte',
+
+// Portal del Proveedor — Marketplace
+PortalProveedor = 'portal-proveedor',
 }
 
 export type TradeType =

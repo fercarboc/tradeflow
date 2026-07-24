@@ -36,6 +36,7 @@ import InvoicePublicView from './components/InvoicePublicView';
 const PartnerDemoView = lazy(() => import('./components/partner-demo/PartnerDemoView'));
 const ReviewView = lazy(() => import('./pages/ReviewView'));
 const ParteView = lazy(() => import('./pages/ParteView'));
+const PortalProveedorView = lazy(() => import('./components/portal/PortalProveedorView'));
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -118,6 +119,7 @@ const PAGE_PATHS: Partial<Record<ActivePage, string>> = {
   [ActivePage.AuthResetPassword]: '/auth/reset-password',
   [ActivePage.UpdatePassword]:    '/update-password',
   [ActivePage.PartnerDemo]:       '/demo-socios',
+  [ActivePage.PortalProveedor]:   '/proveedor',
 };
 
 function pageToPath(page: ActivePage): string {
@@ -456,6 +458,9 @@ export default function App() {
       case ActivePage.Parte:
         return <ParteView />;
 
+      case ActivePage.PortalProveedor:
+        return <PortalProveedorView setCurrentPage={setCurrentPage} session={session} />;
+
       default:
         return <LandingPage setCurrentPage={setCurrentPage} />;
     }
@@ -468,7 +473,8 @@ export default function App() {
     currentPage === ActivePage.Demo ||
     currentPage === ActivePage.Registro ||
     currentPage === ActivePage.Admin ||
-    currentPage === ActivePage.Worker;
+    currentPage === ActivePage.Worker ||
+    currentPage === ActivePage.PortalProveedor;
 
   const isAuthView =
     currentPage === ActivePage.Login ||
