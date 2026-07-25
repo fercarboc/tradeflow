@@ -142,6 +142,15 @@ async function loadInstallerWorkspaces(userId: string): Promise<InstallerWorkspa
 
 async function loadSupplierWorkspaces(): Promise<SupplierWorkspace[]> {
   const memberships: MarketplaceMyMembership[] = await getMyMarketplaceMemberships();
+  console.log('[PZ_ROUTING] loadSupplierWorkspaces RPC result', {
+    count: memberships.length,
+    actors: memberships.map(m => ({
+      id: m.actor_id,
+      nombre: m.actor_nombre,
+      activo: m.activo,
+      estado: m.actor_estado,
+    })),
+  });
   return memberships
     .filter(m => m.activo && m.actor_estado === 'active')
     .map(m => ({

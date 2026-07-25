@@ -300,18 +300,35 @@ export default function App() {
     if (resolved) setPendingWorkspaces(null);
   }, [setCurrentPage]);
 
+  // Contador de generación para cancelar llamadas concurrentes a resolveAndRoute.
+  const routingGenerationRef = useRef(0);
+
   // Resolución centralizada de workspace tras autenticación.
   // Debe llamarse siempre que se tenga sesión válida y no se esté en un flujo auth (UpdatePassword, etc).
   const resolveAndRoute = useCallback(async (s: Session) => {
+    const gen = ++routingGenerationRef.current;
     setWorkspaceResolving(true);
+    console.log('[PZ_ROUTING] resolveAndRoute start', { userId: s.user.id, email: s.user.email, gen });
 
     try {
       const resolved = await resolveWorkspaces(s.user.id);
+
+      // Llamada obsoleta: otra resolveAndRoute empezó después de esta
+      if (gen !== routingGenerationRef.current) {
+        console.log('[PZ_ROUTING] resolveAndRoute stale, abortando', { gen });
+        return;
+      }
+
       const { installers, suppliers } = resolved;
+      console.log('[PZ_ROUTING] resolved', {
+        installers: installers.map(i => ({ id: i.id, name: i.name })),
+        suppliers: suppliers.map(sp => ({ id: sp.id, name: sp.name, activo: sp.activo, estado: sp.actorEstado })),
+      });
 
       // Remembered workspace: validar contra membresías reales
       const remembered = getRememberedWorkspace();
       if (remembered && isRememberedWorkspaceValid(remembered, resolved)) {
+        console.log('[PZ_ROUTING] remembered valid, aplicando', remembered);
         applyWorkspace(remembered.type, remembered.id, resolved);
         return;
       }
@@ -319,36 +336,38 @@ export default function App() {
       if (remembered) clearRememberedWorkspace();
 
       if (installers.length === 0 && suppliers.length === 0) {
-        // Sin espacio asignado: podría ser onboarding ERP (primera vez como instalador)
-        // o cuenta sin espacio válido. Solo mostramos onboarding si corresponde al contexto ERP.
+        console.log('[PZ_ROUTING] sin workspace → AppDashboard (onboarding ERP)');
         setCurrentPage(ActivePage.AppDashboard);
         return;
       }
 
       if (installers.length === 1 && suppliers.length === 0) {
+        console.log('[PZ_ROUTING] solo instalador → AppDashboard');
         setCurrentPage(ActivePage.AppDashboard);
         return;
       }
 
       if (installers.length === 0 && suppliers.length === 1) {
+        console.log('[PZ_ROUTING] solo proveedor → PortalProveedor');
         setCurrentPage(ActivePage.PortalProveedor);
         return;
       }
 
-      // Múltiples espacios o combinación → selector
+      console.log('[PZ_ROUTING] múltiples workspaces → WorkspaceSelector');
       setPendingWorkspaces(resolved);
       setCurrentPage(ActivePage.WorkspaceSelector);
 
     } catch (err) {
-      // Fallback seguro: ERP (nunca creamos org automáticamente)
-      console.error('[workspaceResolver] Error al resolver workspace:', err);
+      console.error('[PZ_ROUTING] error en resolveAndRoute', err);
       setCurrentPage(ActivePage.AppDashboard);
     } finally {
-      setWorkspaceResolving(false);
+      if (gen === routingGenerationRef.current) {
+        setWorkspaceResolving(false);
+      }
     }
   }, [applyWorkspace, setCurrentPage]);
 
-  const routeSession = useCallback(async (s: Session | null) => {
+  const routeSession = useCallback(async (s: Session | null, event?: string) => {
     setSession(s);
 
     if (!s) {
@@ -358,10 +377,13 @@ export default function App() {
     }
 
     if (AUTH_FLOW_PAGES.has(currentPageRef.current)) {
+      console.log('[PZ_ROUTING] routeSession skip: auth flow page', { page: currentPageRef.current, event });
       return;
     }
 
     setLoginOnMount(false);
+
+    console.log('[PZ_ROUTING] routeSession', { userId: s.user.id, email: s.user.email, page: currentPageRef.current, event });
 
     if (s.user.email === ADMIN_EMAIL) {
       setCurrentPage(ActivePage.Admin);
@@ -395,16 +417,17 @@ export default function App() {
   }, [resolveAndRoute, setCurrentPage]);
 
   useEffect(() => {
+    // getSession() solo actualiza sessionChecked; el routing real lo hace onAuthStateChange(INITIAL_SESSION)
+    // para evitar la doble llamada a resolveAndRoute que causaba condición de carrera.
     supabase.auth.getSession().then(({ data }) => {
-      setSessionChecked(true);
-      if (data.session) {
-        routeSession(data.session);
-      }
+      if (!data.session) setSessionChecked(true);
     });
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, s) => {
+      console.log('[PZ_ROUTING] onAuthStateChange', { event, userId: s?.user?.id, email: s?.user?.email });
+
       if (event === 'INITIAL_SESSION') setSessionChecked(true);
 
       if (event === 'PASSWORD_RECOVERY') {
@@ -413,11 +436,18 @@ export default function App() {
         return;
       }
 
+      // TOKEN_REFRESHED y USER_UPDATED: solo actualizar sesión, nunca re-rutear
+      if (event === 'TOKEN_REFRESHED' || event === 'USER_UPDATED') {
+        setSession(s);
+        return;
+      }
+
       if (s) {
-        routeSession(s);
+        routeSession(s, event);
       } else {
         setSession(null);
         setWorkerProfile(null);
+        clearRememberedWorkspace();
 
         if (!PUBLIC_OR_AUTH_PAGES.has(currentPageRef.current)) {
           setCurrentPage(pwa ? ActivePage.AppDashboard : ActivePage.Home);
