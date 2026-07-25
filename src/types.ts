@@ -64,6 +64,12 @@ MarketplaceComprar = 'marketplace-comprar',
 
 // Seguimiento de pedidos de material (instalador)
 SeguimientoMaterial = 'seguimiento-material',
+
+// Selector de espacio de trabajo (usuario con múltiples membresías)
+WorkspaceSelector = 'workspace-selector',
+
+// Cuenta sin espacio asignado (sin org ni actor activo)
+NoWorkspace = 'no-workspace',
 }
 
 export type TradeType =

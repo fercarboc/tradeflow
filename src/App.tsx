@@ -9,7 +9,13 @@ import { supabase, loadWorkerByEmail } from './lib/supabase';
 import { SessionProvider } from './context/SessionContext';
 import type { WorkerProfile } from './lib/supabase';
 import type { Session } from '@supabase/supabase-js';
-import { getMyMarketplaceMemberships } from './lib/api/marketplace-actors';
+import {
+  resolveWorkspaces,
+  getRememberedWorkspace,
+  isRememberedWorkspaceValid,
+  clearRememberedWorkspace,
+} from './lib/workspaceResolver';
+import type { ResolvedWorkspaces } from './lib/workspaceResolver';
 import { ADMIN_EMAIL } from './lib/constants';
 import Header from './components/Header';
 import HomeView from './components/HomeView';
@@ -40,6 +46,7 @@ const ParteView = lazy(() => import('./pages/ParteView'));
 const PortalProveedorView = lazy(() => import('./components/portal/PortalProveedorView'));
 const MarketplaceComprarView      = lazy(() => import('./components/marketplace/MarketplaceComprarView'));
 const ScreenSeguimientoMaterial   = lazy(() => import('./components/marketplace/ScreenSeguimientoMaterial'));
+const WorkspaceSelectorView       = lazy(() => import('./components/workspace/WorkspaceSelectorView'));
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -122,9 +129,11 @@ const PAGE_PATHS: Partial<Record<ActivePage, string>> = {
   [ActivePage.AuthResetPassword]: '/auth/reset-password',
   [ActivePage.UpdatePassword]:    '/update-password',
   [ActivePage.PartnerDemo]:       '/demo-socios',
-  [ActivePage.PortalProveedor]:   '/proveedor',
+  [ActivePage.PortalProveedor]:     '/proveedor',
   [ActivePage.MarketplaceComprar]:  '/marketplace/comprar',
   [ActivePage.SeguimientoMaterial]: '/marketplace/seguimiento',
+  [ActivePage.WorkspaceSelector]:   '/workspace',
+  [ActivePage.NoWorkspace]:         '/sin-espacio',
 };
 
 function pageToPath(page: ActivePage): string {
@@ -245,6 +254,10 @@ export default function App() {
   const [session, setSession] = useState<Session | null>(null);
   const [sessionChecked, setSessionChecked] = useState(false);
   const [workerProfile, setWorkerProfile] = useState<WorkerProfile | null>(null);
+  // true mientras se resuelve el workspace — bloquea el render para evitar flash del onboarding
+  const [workspaceResolving, setWorkspaceResolving] = useState(false);
+  // workspaces resueltos para el selector (solo cuando hay >1 opción)
+  const [pendingWorkspaces, setPendingWorkspaces] = useState<ResolvedWorkspaces | null>(null);
 
   const setCurrentPage = useCallback((page: ActivePage) => {
     _setCurrentPage(page);
@@ -277,11 +290,70 @@ export default function App() {
   const currentPageRef = useRef(currentPage);
   currentPageRef.current = currentPage;
 
+  // Aplica un workspace ya decidido sin pasar por el selector
+  const applyWorkspace = useCallback((type: string, id: string, resolved?: ResolvedWorkspaces) => {
+    if (type === 'marketplace_actor') {
+      setCurrentPage(ActivePage.PortalProveedor);
+    } else {
+      setCurrentPage(ActivePage.AppDashboard);
+    }
+    if (resolved) setPendingWorkspaces(null);
+  }, [setCurrentPage]);
+
+  // Resolución centralizada de workspace tras autenticación.
+  // Debe llamarse siempre que se tenga sesión válida y no se esté en un flujo auth (UpdatePassword, etc).
+  const resolveAndRoute = useCallback(async (s: Session) => {
+    setWorkspaceResolving(true);
+
+    try {
+      const resolved = await resolveWorkspaces(s.user.id);
+      const { installers, suppliers } = resolved;
+
+      // Remembered workspace: validar contra membresías reales
+      const remembered = getRememberedWorkspace();
+      if (remembered && isRememberedWorkspaceValid(remembered, resolved)) {
+        applyWorkspace(remembered.type, remembered.id, resolved);
+        return;
+      }
+      // Si el remembered era inválido (membresía retirada, actor suspendido), limpiarlo
+      if (remembered) clearRememberedWorkspace();
+
+      if (installers.length === 0 && suppliers.length === 0) {
+        // Sin espacio asignado: podría ser onboarding ERP (primera vez como instalador)
+        // o cuenta sin espacio válido. Solo mostramos onboarding si corresponde al contexto ERP.
+        setCurrentPage(ActivePage.AppDashboard);
+        return;
+      }
+
+      if (installers.length === 1 && suppliers.length === 0) {
+        setCurrentPage(ActivePage.AppDashboard);
+        return;
+      }
+
+      if (installers.length === 0 && suppliers.length === 1) {
+        setCurrentPage(ActivePage.PortalProveedor);
+        return;
+      }
+
+      // Múltiples espacios o combinación → selector
+      setPendingWorkspaces(resolved);
+      setCurrentPage(ActivePage.WorkspaceSelector);
+
+    } catch (err) {
+      // Fallback seguro: ERP (nunca creamos org automáticamente)
+      console.error('[workspaceResolver] Error al resolver workspace:', err);
+      setCurrentPage(ActivePage.AppDashboard);
+    } finally {
+      setWorkspaceResolving(false);
+    }
+  }, [applyWorkspace, setCurrentPage]);
+
   const routeSession = useCallback(async (s: Session | null) => {
     setSession(s);
 
     if (!s) {
       setWorkerProfile(null);
+      clearRememberedWorkspace();
       return;
     }
 
@@ -298,47 +370,29 @@ export default function App() {
 
     try {
       const wp = await loadWorkerByEmail(s.user.email ?? '');
-
       if (wp) {
         setWorkerProfile(wp);
-
-        if (wp.rol === 'admin') {
-          setCurrentPage(ActivePage.AppDashboard);
-        } else {
-          setCurrentPage(ActivePage.Worker);
-        }
-
+        setCurrentPage(wp.rol === 'admin' ? ActivePage.AppDashboard : ActivePage.Worker);
         return;
       }
     } catch {
       // Usuario normal, no es worker
     }
 
-    // Detectar si el usuario pertenece solo al Marketplace (supplier sin org ERP propia)
-    try {
-      const [memberships, { count: orgCount }] = await Promise.all([
-        getMyMarketplaceMemberships(),
-        supabase
-          .from('trade_organizations')
-          .select('id', { count: 'exact', head: true })
-          .eq('owner_id', s.user.id),
-      ]);
+    await resolveAndRoute(s);
+  }, [resolveAndRoute, setCurrentPage]);
 
-      const hasSupplierRole = memberships.some(
-        (m) => m.actor_type === 'supplier' && m.activo,
-      );
-
-      if (hasSupplierRole && (!orgCount || orgCount === 0)) {
-        // Usuario proveedor sin organización instaladora → Portal Proveedor
-        setCurrentPage(ActivePage.PortalProveedor);
-        return;
+  // Callback para UpdatePasswordView: tras establecer contraseña vía invite,
+  // obtiene la sesión actual y resuelve el workspace directamente.
+  const handlePostPasswordUpdate = useCallback(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) {
+        resolveAndRoute(data.session);
+      } else {
+        setCurrentPage(ActivePage.Login);
       }
-    } catch {
-      // Ignora: no bloquea el flujo normal
-    }
-
-    setCurrentPage(ActivePage.AppDashboard);
-  }, []);
+    });
+  }, [resolveAndRoute, setCurrentPage]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -394,7 +448,12 @@ export default function App() {
         return <AuthResetPasswordView setCurrentPage={setCurrentPage} />;
 
       case ActivePage.UpdatePassword:
-        return <UpdatePasswordView setCurrentPage={setCurrentPage} />;
+        return (
+          <UpdatePasswordView
+            setCurrentPage={setCurrentPage}
+            onAuthComplete={handlePostPasswordUpdate}
+          />
+        );
 
       // Páginas públicas
       case ActivePage.Home:
@@ -495,6 +554,36 @@ export default function App() {
       case ActivePage.SeguimientoMaterial:
         return <ScreenSeguimientoMaterial setCurrentPage={setCurrentPage} session={session} />;
 
+      case ActivePage.WorkspaceSelector:
+        return (
+          <WorkspaceSelectorView
+            workspaces={pendingWorkspaces ?? { installers: [], suppliers: [] }}
+            onSelect={(type, id) => applyWorkspace(type, id)}
+            setCurrentPage={setCurrentPage}
+          />
+        );
+
+      case ActivePage.NoWorkspace:
+        return (
+          <div className="min-h-screen bg-[#020B16] flex items-center justify-center px-4">
+            <div className="w-full max-w-md text-center">
+              <img src="/tradeflow.png" alt="TrabFlow" className="h-10 mx-auto mb-8" />
+              <div className="bg-[#0d1f38] rounded-2xl border border-white/10 p-10 shadow-2xl">
+                <p className="text-white/60 text-sm mb-6">
+                  Tu cuenta no tiene ningún espacio de trabajo activo. Contacta con el administrador
+                  de tu organización o crea una cuenta de instalador.
+                </p>
+                <button
+                  onClick={() => { supabase.auth.signOut(); setCurrentPage(ActivePage.Login); }}
+                  className="px-5 py-2.5 bg-white/10 hover:bg-white/15 text-white rounded-xl text-sm font-medium transition"
+                >
+                  Cerrar sesión
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+
       default:
         return <LandingPage setCurrentPage={setCurrentPage} />;
     }
@@ -510,7 +599,9 @@ export default function App() {
     currentPage === ActivePage.Worker ||
     currentPage === ActivePage.PortalProveedor ||
     currentPage === ActivePage.MarketplaceComprar ||
-    currentPage === ActivePage.SeguimientoMaterial;
+    currentPage === ActivePage.SeguimientoMaterial ||
+    currentPage === ActivePage.WorkspaceSelector ||
+    currentPage === ActivePage.NoWorkspace;
 
   const isAuthView =
     currentPage === ActivePage.Login ||
@@ -519,6 +610,15 @@ export default function App() {
     currentPage === ActivePage.AuthResetPassword ||
     currentPage === ActivePage.UpdatePassword ||
     currentPage === ActivePage.QuoteAccept;
+
+  // Spinner neutral mientras se resuelve el workspace — evita flash del onboarding ERP
+  if (workspaceResolving) {
+    return (
+      <ErrorBoundary>
+        <AppLoadingSpinner />
+      </ErrorBoundary>
+    );
+  }
 
   return (
     <ErrorBoundary>

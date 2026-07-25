@@ -4,11 +4,12 @@ import { ActivePage } from '../../types';
 
 interface UpdatePasswordViewProps {
   setCurrentPage: (page: ActivePage) => void;
+  onAuthComplete?: () => void;
 }
 
 type ScreenState = 'loading' | 'form' | 'success' | 'no-session';
 
-export default function UpdatePasswordView({ setCurrentPage }: UpdatePasswordViewProps) {
+export default function UpdatePasswordView({ setCurrentPage, onAuthComplete }: UpdatePasswordViewProps) {
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [screen, setScreen] = useState<ScreenState>('loading');
@@ -58,7 +59,13 @@ export default function UpdatePasswordView({ setCurrentPage }: UpdatePasswordVie
     }
 
     setScreen('success');
-    setTimeout(() => setCurrentPage(ActivePage.AppDashboard), 2000);
+    setTimeout(() => {
+      if (onAuthComplete) {
+        onAuthComplete();
+      } else {
+        setCurrentPage(ActivePage.AppDashboard);
+      }
+    }, 2000);
   };
 
   const strengthLevel = getStrengthLevel(password);
