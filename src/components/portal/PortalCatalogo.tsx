@@ -116,8 +116,8 @@ export default function PortalCatalogo({ actorId, membership }: Props) {
                   <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Descripción</th>
                   <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide hidden md:table-cell">Precio</th>
                   <th className="text-center px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide hidden lg:table-cell">Stock</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Producto Universal</th>
-                  <th className="text-center px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Estado IA</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Catálogo TrabFlow</th>
+                  <th className="text-center px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Estado</th>
                   <th className="px-4 py-3" />
                 </tr>
               </thead>
@@ -378,7 +378,7 @@ function MatchingDrawer({ offering, canMatch, onClose, onMatched }: MatchingDraw
       {canMatch && (
         <div className="px-5 pt-4">
           <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">
-            {offering.match_state === 'matched' ? 'Cambiar vinculación' : 'Buscar Producto Universal'}
+            {offering.match_state === 'matched' ? 'Cambiar vinculación' : 'Buscar en catálogo TrabFlow'}
           </p>
           <div className="relative">
             <svg className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400"

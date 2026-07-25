@@ -9,6 +9,7 @@ import { supabase, loadWorkerByEmail } from './lib/supabase';
 import { SessionProvider } from './context/SessionContext';
 import type { WorkerProfile } from './lib/supabase';
 import type { Session } from '@supabase/supabase-js';
+import { getMyMarketplaceMemberships } from './lib/api/marketplace-actors';
 import { ADMIN_EMAIL } from './lib/constants';
 import Header from './components/Header';
 import HomeView from './components/HomeView';
@@ -311,6 +312,29 @@ export default function App() {
       }
     } catch {
       // Usuario normal, no es worker
+    }
+
+    // Detectar si el usuario pertenece solo al Marketplace (supplier sin org ERP propia)
+    try {
+      const [memberships, { count: orgCount }] = await Promise.all([
+        getMyMarketplaceMemberships(),
+        supabase
+          .from('trade_organizations')
+          .select('id', { count: 'exact', head: true })
+          .eq('owner_id', s.user.id),
+      ]);
+
+      const hasSupplierRole = memberships.some(
+        (m) => m.actor_type === 'supplier' && m.activo,
+      );
+
+      if (hasSupplierRole && (!orgCount || orgCount === 0)) {
+        // Usuario proveedor sin organización instaladora → Portal Proveedor
+        setCurrentPage(ActivePage.PortalProveedor);
+        return;
+      }
+    } catch {
+      // Ignora: no bloquea el flujo normal
     }
 
     setCurrentPage(ActivePage.AppDashboard);

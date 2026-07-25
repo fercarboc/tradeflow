@@ -25,7 +25,17 @@ const VAPID_PRIVATE  = Deno.env.get('VAPID_PRIVATE_KEY')         ?? '';
 const BATCH_SIZE     = 50; // eventos por ejecución
 const MAX_RETRIES    = 3;
 
-webpush.setVapidDetails(VAPID_SUBJECT, VAPID_PUBLIC, VAPID_PRIVATE);
+let vapidReady = false;
+try {
+  if (VAPID_PUBLIC && VAPID_PRIVATE) {
+    webpush.setVapidDetails(VAPID_SUBJECT, VAPID_PUBLIC, VAPID_PRIVATE);
+    vapidReady = true;
+  } else {
+    console.warn('[outbox] VAPID keys not configured — push notifications disabled');
+  }
+} catch (e) {
+  console.error('[outbox] VAPID init failed:', e);
+}
 
 const db = createClient(SUPABASE_URL, SERVICE_KEY, {
   auth: { persistSession: false },
@@ -67,7 +77,7 @@ async function sendPushToActor(actorId: string, title: string, body: string, url
     .from('trade_marketplace_actor_members')
     .select('user_id')
     .eq('actor_id', actorId)
-    .eq('estado', 'active');
+    .eq('activo', true);
 
   if (!members?.length) return 0;
 
@@ -82,6 +92,10 @@ async function sendPushToActor(actorId: string, title: string, body: string, url
 }
 
 async function sendPushBatch(subs: PushSub[], title: string, body: string, url: string): Promise<number> {
+  if (!vapidReady) {
+    console.warn('[outbox] Skipping push (VAPID not initialized)');
+    return 0;
+  }
   const payload = JSON.stringify({ title, body, url });
   const results = await Promise.allSettled(
     subs.map((s) => webpush.sendNotification(s.subscription, payload))

@@ -121,10 +121,9 @@ BEGIN
     SELECT 1 FROM pg_extension WHERE extname = 'pg_net'
   ) THEN
     -- Eliminar job previo si existe (idempotente)
-    PERFORM cron.unschedule('mkt-outbox-consumer')
-    WHERE EXISTS (
-      SELECT 1 FROM cron.job WHERE jobname = 'mkt-outbox-consumer'
-    );
+    IF EXISTS (SELECT 1 FROM cron.job WHERE jobname = 'mkt-outbox-consumer') THEN
+      PERFORM cron.unschedule('mkt-outbox-consumer');
+    END IF;
 
     -- Programar el consumidor cada 2 minutos
     -- NOTA: Sustituir TU_PROJECT_REF y TU_SERVICE_ROLE_KEY antes de ejecutar

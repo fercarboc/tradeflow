@@ -483,6 +483,77 @@ END;
 $$;
 
 -- ─────────────────────────────────────────────────────────────────────────────
+-- 10b. HELPER FUNCTIONS (adelantadas — las políticas RLS las necesitan)
+-- ─────────────────────────────────────────────────────────────────────────────
+
+CREATE OR REPLACE FUNCTION public._mkt_actor_ids_for_user(p_type text DEFAULT NULL)
+RETURNS uuid[]
+LANGUAGE sql
+STABLE
+SECURITY DEFINER SET search_path = public
+AS $$
+  SELECT ARRAY(
+    SELECT m.actor_id
+    FROM public.trade_marketplace_actor_members m
+    JOIN public.trade_marketplace_actors a ON a.id = m.actor_id
+    WHERE m.user_id = auth.uid()
+      AND m.activo  = true
+      AND (p_type IS NULL OR a.actor_type = p_type)
+  );
+$$;
+
+CREATE OR REPLACE FUNCTION public._mkt_has_permission(p_actor_id uuid, p_permission text)
+RETURNS boolean
+LANGUAGE sql
+STABLE
+SECURITY DEFINER SET search_path = public
+AS $$
+  SELECT EXISTS (
+    SELECT 1
+    FROM public.trade_marketplace_actor_members m
+    JOIN public.trade_marketplace_roles r ON r.id = m.role_id
+    WHERE m.actor_id = p_actor_id
+      AND m.user_id  = auth.uid()
+      AND m.activo   = true
+      AND r.permissions @> jsonb_build_array(p_permission)
+  );
+$$;
+
+CREATE OR REPLACE FUNCTION public._mkt_is_platform_admin()
+RETURNS boolean
+LANGUAGE sql
+STABLE
+SECURITY DEFINER SET search_path = public
+AS $$
+  SELECT EXISTS (
+    SELECT 1
+    FROM public.trade_marketplace_actor_members m
+    JOIN public.trade_marketplace_actors a ON a.id = m.actor_id
+    JOIN public.trade_marketplace_roles r ON r.id = m.role_id
+    WHERE m.user_id    = auth.uid()
+      AND m.activo     = true
+      AND a.actor_type = 'platform'
+      AND a.estado     = 'active'
+      AND r.nombre     IN ('platform_super_admin', 'admin')
+  );
+$$;
+
+CREATE OR REPLACE FUNCTION public._mkt_caller_role_priority(p_actor_id uuid)
+RETURNS integer
+LANGUAGE sql
+STABLE
+SECURITY DEFINER SET search_path = public
+AS $$
+  SELECT r.priority
+  FROM public.trade_marketplace_actor_members m
+  JOIN public.trade_marketplace_roles r ON r.id = m.role_id
+  WHERE m.actor_id = p_actor_id
+    AND m.user_id  = auth.uid()
+    AND m.activo   = true
+  LIMIT 1;
+$$;
+
+-- ─────────────────────────────────────────────────────────────────────────────
 -- 11. ROW LEVEL SECURITY
 -- ─────────────────────────────────────────────────────────────────────────────
 ALTER TABLE public.trade_marketplace_actor_types                   ENABLE ROW LEVEL SECURITY;
@@ -614,17 +685,19 @@ CREATE POLICY "audit_select_platform" ON public.trade_marketplace_audit_log
 
 -- 12.1 IDs de actores donde el usuario actual es miembro activo
 CREATE OR REPLACE FUNCTION public._mkt_actor_ids_for_user(p_type text DEFAULT NULL)
-RETURNS SETOF uuid
+RETURNS uuid[]
 LANGUAGE sql
 STABLE
 SECURITY DEFINER SET search_path = public
 AS $$
-  SELECT m.actor_id
-  FROM public.trade_marketplace_actor_members m
-  JOIN public.trade_marketplace_actors a ON a.id = m.actor_id
-  WHERE m.user_id = auth.uid()
-    AND m.activo  = true
-    AND (p_type IS NULL OR a.actor_type = p_type);
+  SELECT ARRAY(
+    SELECT m.actor_id
+    FROM public.trade_marketplace_actor_members m
+    JOIN public.trade_marketplace_actors a ON a.id = m.actor_id
+    WHERE m.user_id = auth.uid()
+      AND m.activo  = true
+      AND (p_type IS NULL OR a.actor_type = p_type)
+  );
 $$;
 
 -- 12.2 Verificación de permiso para actor concreto

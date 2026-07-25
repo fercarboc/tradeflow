@@ -24,6 +24,13 @@ export default function PortalProveedorView({ setCurrentPage, session }: Props) 
   );
 }
 
+const ACTOR_ESTADO_LABELS: Record<string, string> = {
+  active:    'Activo',
+  pending:   'Pendiente',
+  suspended: 'Suspendido',
+  banned:    'Suspendido',
+};
+
 function PortalShell({ setCurrentPage, session }: Props) {
   const {
     memberships, activeActorId, activeMembership,
@@ -40,7 +47,7 @@ function PortalShell({ setCurrentPage, session }: Props) {
     return (
       <div className="flex h-screen items-center justify-center bg-slate-950">
         <div className="flex flex-col items-center gap-3">
-          <svg className="h-8 w-8 animate-spin text-teal-400" viewBox="0 0 24 24" fill="none">
+          <svg className="h-8 w-8 motion-safe:animate-spin text-teal-400" viewBox="0 0 24 24" fill="none">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
@@ -99,7 +106,7 @@ function PortalShell({ setCurrentPage, session }: Props) {
   const navItems: { tab: PortalTab; label: string; icon: React.ReactNode }[] = [
     {
       tab: 'dashboard',
-      label: 'Dashboard',
+      label: 'Inicio',
       icon: (
         <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round"
@@ -174,8 +181,23 @@ function PortalShell({ setCurrentPage, session }: Props) {
 
   return (
     <div className="flex h-screen bg-slate-950 overflow-hidden">
-      {/* ── Sidebar ── */}
-      <aside className="flex w-56 shrink-0 flex-col bg-slate-900 border-r border-slate-800">
+      {/* ── Mobile top bar ── */}
+      <div className="sm:hidden fixed top-0 left-0 right-0 z-30 flex items-center gap-2 bg-slate-900 border-b border-slate-800 px-4 h-14">
+        <button
+          onClick={() => setCurrentPage(ActivePage.AppDashboard)}
+          className="text-slate-400 hover:text-teal-400 motion-safe:transition-colors"
+          aria-label="Volver a TrabFlow"
+        >
+          <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <p className="flex-1 text-sm font-semibold text-slate-100 truncate">{activeMembership.actor_nombre}</p>
+        <span className="text-xs font-bold text-teal-400 tracking-wide uppercase">Portal</span>
+      </div>
+
+      {/* ── Sidebar — visible solo en desktop ── */}
+      <aside className="hidden sm:flex w-56 shrink-0 flex-col bg-slate-900 border-r border-slate-800">
         {/* Logo + volver */}
         <div className="flex items-center gap-2 px-4 py-4 border-b border-slate-800">
           <button
@@ -211,7 +233,7 @@ function PortalShell({ setCurrentPage, session }: Props) {
           </p>
           <div className="flex items-center gap-1.5 mt-1">
             <span className={`inline-block h-1.5 w-1.5 rounded-full ${estadoBadgeColor[activeMembership.actor_estado] ?? 'bg-slate-500'}`} />
-            <span className="text-xs text-slate-400 capitalize">{activeMembership.actor_estado}</span>
+            <span className="text-xs text-slate-400">{ACTOR_ESTADO_LABELS[activeMembership.actor_estado] ?? activeMembership.actor_estado}</span>
             {activeMembership.actor_verificado && (
               <svg className="h-3 w-3 text-teal-400 ml-1" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
@@ -271,11 +293,39 @@ function PortalShell({ setCurrentPage, session }: Props) {
       </aside>
 
       {/* ── Main content ── */}
-      <main className="flex-1 overflow-y-auto bg-slate-50 dark:bg-slate-950">
+      <main className="flex-1 overflow-y-auto bg-slate-50 dark:bg-slate-950 pt-14 sm:pt-0 pb-16 sm:pb-0">
         <Suspense fallback={<PortalLoading />}>
           {renderScreen()}
         </Suspense>
       </main>
+
+      {/* ── Mobile bottom nav ── */}
+      <nav
+        className="sm:hidden fixed bottom-0 left-0 right-0 z-30 flex bg-slate-900 border-t border-slate-800"
+        aria-label="Navegación principal"
+      >
+        {navItems.map(({ tab, label, icon }) => {
+          const isActive = activeTab === tab;
+          return (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              aria-current={isActive ? 'page' : undefined}
+              className={`flex-1 flex flex-col items-center gap-1 py-2.5 text-[10px] font-medium motion-safe:transition-colors relative ${
+                isActive ? 'text-teal-400' : 'text-slate-500 hover:text-slate-300'
+              }`}
+            >
+              <span className={isActive ? 'text-teal-400' : ''}>{icon}</span>
+              {label}
+              {tab === 'pedidos' && unreadCount > 0 && (
+                <span className="absolute top-1.5 right-1/2 -mr-4 flex h-3.5 min-w-[0.875rem] items-center justify-center rounded-full bg-red-500 px-0.5 text-[8px] font-bold text-white">
+                  {unreadCount > 9 ? '9+' : unreadCount}
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </nav>
     </div>
   );
 }
@@ -283,7 +333,7 @@ function PortalShell({ setCurrentPage, session }: Props) {
 function PortalLoading() {
   return (
     <div className="flex h-full min-h-64 items-center justify-center">
-      <svg className="h-6 w-6 animate-spin text-teal-500" viewBox="0 0 24 24" fill="none">
+      <svg className="h-6 w-6 motion-safe:animate-spin text-teal-500" viewBox="0 0 24 24" fill="none">
         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
       </svg>

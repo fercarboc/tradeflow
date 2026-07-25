@@ -12,6 +12,14 @@ interface Props {
   setActiveTab: (tab: PortalTab) => void;
 }
 
+const INSIGHT_TAB: Record<string, PortalTab> = {
+  cobertura_baja:         'catalogo',
+  precio_superior:        'catalogo',
+  precio_competitivo:     'catalogo',
+  referencias_duplicadas: 'catalogo',
+  tiempo_respuesta_lento: 'pedidos',
+};
+
 export default function PortalDashboard({ actorId, membership, setActiveTab }: Props) {
   const [stats,    setStats]    = useState<PortalDashboardStats | null>(null);
   const [actions,  setActions]  = useState<PortalActionItem[]>([]);
@@ -110,7 +118,7 @@ export default function PortalDashboard({ actorId, membership, setActiveTab }: P
       {/* Header */}
       <div>
         <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">
-          Buenos días, {membership.actor_nombre}
+          {(() => { const h = new Date().getHours(); return h < 12 ? 'Buenos días' : h < 20 ? 'Buenas tardes' : 'Buenas noches'; })()}, {membership.actor_nombre}
         </h1>
         <p className="text-sm text-slate-500 mt-0.5">
           Portal del Proveedor · {new Date().toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' })}
@@ -202,14 +210,22 @@ export default function PortalDashboard({ actorId, membership, setActiveTab }: P
                   <p className="text-sm font-medium text-slate-900 dark:text-slate-100">{ins.titulo}</p>
                   <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{ins.descripcion}</p>
                 </div>
-                {ins.valor !== null && (
-                  <div className="shrink-0 text-right">
-                    <p className="text-lg font-bold text-teal-500 tabular-nums leading-none">
-                      {ins.valor}
-                    </p>
-                    <p className="text-xs text-slate-400">{ins.unidad}</p>
-                  </div>
-                )}
+                <div className="shrink-0 flex flex-col items-end gap-2">
+                  {ins.valor !== null && (
+                    <div className="text-right">
+                      <p className="text-lg font-bold text-teal-500 tabular-nums leading-none">
+                        {ins.valor}
+                      </p>
+                      <p className="text-xs text-slate-400">{ins.unidad}</p>
+                    </div>
+                  )}
+                  <button
+                    onClick={() => setActiveTab(INSIGHT_TAB[ins.insight_type] ?? 'catalogo')}
+                    className="text-xs font-medium text-teal-600 hover:text-teal-500 dark:text-teal-400 dark:hover:text-teal-300 motion-safe:transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 rounded"
+                  >
+                    {ins.accion} →
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -222,10 +238,16 @@ export default function PortalDashboard({ actorId, membership, setActiveTab }: P
           <svg className="mx-auto h-8 w-8 text-emerald-500 mb-2" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <p className="font-medium text-emerald-700 dark:text-emerald-300">Todo en orden</p>
+          <p className="font-medium text-emerald-700 dark:text-emerald-300">Todo al día</p>
           <p className="text-sm text-emerald-600 dark:text-emerald-400 mt-1">
-            No tienes acciones pendientes ni alertas activas.
+            Sin alertas ni acciones pendientes. Revisa tus pedidos activos si quieres gestionar alguno.
           </p>
+          <button
+            onClick={() => setActiveTab('pedidos')}
+            className="mt-3 text-xs font-medium text-emerald-700 dark:text-emerald-300 underline underline-offset-2 hover:text-emerald-600 dark:hover:text-emerald-200 motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded"
+          >
+            Ver pedidos →
+          </button>
         </div>
       )}
     </div>
