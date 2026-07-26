@@ -207,7 +207,10 @@ interface Props {
 
 export default function OnboardingWizard({ onComplete, showToast }: Props) {
   const { org } = useSession();
-  const orgId = org?.id ?? '';
+  // Para usuarios nuevos (sin org aún), saveStep1 creará la org y almacenará el id aquí.
+  // Para usuarios existentes (org skeleton), se usa org?.id directamente.
+  const [localOrgId, setLocalOrgId] = useState<string | null>(null);
+  const orgId = localOrgId ?? org?.id ?? '';
   const orgAny = org as unknown as Record<string, unknown>;
 
   const [step, setStep] = useState(1);
@@ -264,21 +267,61 @@ export default function OnboardingWizard({ onComplete, showToast }: Props) {
   // ── Save helpers ───────────────────────────────────────────────────────────
 
   async function saveStep1() {
-    if (!orgId) return;
-    const { error } = await supabase.from('trade_organizations').update({
+    const orgData = {
       nombre:         empresa.nombre,
-      nif:            empresa.nif,
-      direccion:      empresa.direccion,
-      localidad:      empresa.localidad,
-      cp:             empresa.cp,
-      provincia:      empresa.provincia,
-      telefono_movil: empresa.telefono_movil,
-      telefono:       empresa.telefono_movil,
-      email:          empresa.email,
+      nif:            empresa.nif || null,
+      direccion:      empresa.direccion || null,
+      localidad:      empresa.localidad || null,
+      cp:             empresa.cp || null,
+      provincia:      empresa.provincia || null,
+      telefono_movil: empresa.telefono_movil || null,
+      telefono:       empresa.telefono_movil || null,
+      email:          empresa.email || null,
       iban:           empresa.iban || null,
       banco:          empresa.banco || null,
       titular_cuenta: empresa.titular_cuenta || null,
-    }).eq('id', orgId);
+    };
+
+    if (!orgId) {
+      // Usuario nuevo: crear org con datos reales (nunca auto-creación silenciosa)
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const betaTrialEnd = '2026-12-31T23:59:59.000Z';
+      const { data: newOrg, error: createError } = await supabase
+        .from('trade_organizations')
+        .insert({
+          owner_id: user.id,
+          ...orgData,
+          nombre: orgData.nombre || user.email?.split('@')[0] || 'Mi empresa',
+          oficio: 'Otros',
+          plan: 'empresa_plus',
+          is_onboarded: false,
+          force_password_change: false,
+        })
+        .select()
+        .single();
+      if (createError || !newOrg) {
+        console.error('[saveStep1] Error creando org:', createError?.message);
+        showToast('Error al crear la empresa. Inténtalo de nuevo.', 'error');
+        return;
+      }
+      setLocalOrgId(newOrg.id);
+      await Promise.all([
+        supabase.from('trade_subscriptions').insert({
+          org_id: newOrg.id,
+          plan: 'empresa_plus',
+          billing_cycle: 'monthly',
+          status: 'trial',
+          trial_start: new Date().toISOString(),
+          trial_end: betaTrialEnd,
+        }),
+        supabase.rpc('seed_org_catalog', { new_org_id: newOrg.id }),
+      ]);
+      return;
+    }
+
+    // Org existente: actualizar con datos del formulario
+    const { error } = await supabase.from('trade_organizations').update(orgData).eq('id', orgId);
     if (error) console.error('[saveStep1]', error.message);
     const stored = JSON.parse(localStorage.getItem('tf_biz_config') ?? '{}');
     localStorage.setItem('tf_biz_config', JSON.stringify({
