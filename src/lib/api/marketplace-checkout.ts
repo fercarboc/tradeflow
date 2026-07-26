@@ -154,7 +154,11 @@ export const AI_TIPO_COLORS: Record<CartItemIATipo, string> = {
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
 function rpcError(context: string, error: unknown): never {
-  const msg = error instanceof Error ? error.message : String(error);
+  const msg = error instanceof Error
+    ? error.message
+    : (typeof error === 'object' && error !== null && 'message' in error)
+      ? String((error as { message: unknown }).message)
+      : String(error);
   throw new Error(`[${context}] ${msg}`);
 }
 

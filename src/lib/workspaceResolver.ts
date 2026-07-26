@@ -106,11 +106,11 @@ async function loadInstallerWorkspaces(userId: string): Promise<InstallerWorkspa
   // Miembro activo de otra org (no owner)
   const { data: memberRows } = await supabase
     .from('trade_org_members')
-    .select('org_id, role')
+    .select('org_id, rol')
     .eq('user_id', userId)
     .eq('activo', true);
 
-  const extraOrgIds = ((memberRows ?? []) as { org_id: string; role: string }[])
+  const extraOrgIds = ((memberRows ?? []) as { org_id: string; rol: string }[])
     .map(m => m.org_id)
     .filter(id => !seen.has(id));
 
@@ -123,13 +123,13 @@ async function loadInstallerWorkspaces(userId: string): Promise<InstallerWorkspa
     for (const org of (extraOrgs ?? []) as { id: string; nombre: string; is_onboarded: boolean }[]) {
       if (!seen.has(org.id)) {
         seen.add(org.id);
-        const row = ((memberRows ?? []) as { org_id: string; role: string }[])
+        const row = ((memberRows ?? []) as { org_id: string; rol: string }[])
           .find(m => m.org_id === org.id);
         result.push({
           type: 'installer_org',
           id: org.id,
           name: org.nombre,
-          role: row?.role ?? 'member',
+          role: row?.rol ?? 'member',
           isOnboarded: !!org.is_onboarded,
         });
       }
