@@ -223,6 +223,9 @@ function extractQuoteToken(): string {
   return parts[2] ?? '';
 }
 
+const PZ_COMMIT = 'e8a9d58';
+console.log('[PZ_BUILD]', { commit: PZ_COMMIT, ts: new Date().toISOString() });
+
 export default function App() {
   const pwa = isPWAMode();
   const [checkoutSuccess] = useState(() => detectAndClearCheckoutSuccess());
