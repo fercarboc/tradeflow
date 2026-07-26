@@ -1,5 +1,4 @@
 import { supabase } from './supabase';
-import { getMyMarketplaceMemberships } from './api/marketplace-actors';
 import type { MarketplaceMyMembership } from './api/marketplace-actors';
 
 // ── Tipos ─────────────────────────────────────────────────────────────────────
@@ -141,16 +140,26 @@ async function loadInstallerWorkspaces(userId: string): Promise<InstallerWorkspa
 }
 
 async function loadSupplierWorkspaces(): Promise<SupplierWorkspace[]> {
-  const memberships: MarketplaceMyMembership[] = await getMyMarketplaceMemberships();
+  // Usa el cliente principal (lib/supabase.ts) para garantizar que la sesión en memoria
+  // es la misma que recibió el evento SIGNED_IN. Un segundo cliente (lib/client.ts) tiene
+  // su propio estado de sesión y puede estar sin auth en el momento de este callback.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, error } = await (supabase as any).rpc('get_my_marketplace_memberships');
   console.log('[PZ_ROUTING] loadSupplierWorkspaces RPC result', {
-    count: memberships.length,
-    actors: memberships.map(m => ({
+    count: (data ?? []).length,
+    error: error?.message ?? null,
+    actors: ((data ?? []) as MarketplaceMyMembership[]).map(m => ({
       id: m.actor_id,
       nombre: m.actor_nombre,
       activo: m.activo,
       estado: m.actor_estado,
     })),
   });
+  if (error) {
+    console.error('[PZ_ROUTING] loadSupplierWorkspaces RPC error', error);
+    return [];
+  }
+  const memberships = (data ?? []) as MarketplaceMyMembership[];
   return memberships
     .filter(m => m.activo && m.actor_estado === 'active')
     .map(m => ({

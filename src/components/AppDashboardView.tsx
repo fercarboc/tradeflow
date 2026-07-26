@@ -574,11 +574,31 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   const loadLiveData = async (s: Session) => {
     try {
-      // Workers with admin role: they belong to an existing org (workerOrgId), never create a new one.
-      // Regular installers: getOrCreateOrg may create one if it doesn't exist yet.
-      let org = workerOrgId
-        ? (await getOwnOrg() ?? await loadOrgById(workerOrgId))
-        : await getOrCreateOrg();
+      let org: Awaited<ReturnType<typeof getOwnOrg>>;
+
+      if (workerOrgId) {
+        // Técnico/admin invitado a otra org — nunca crea org propia
+        org = await getOwnOrg() ?? await loadOrgById(workerOrgId);
+      } else {
+        const existingOrg = await getOwnOrg();
+        if (existingOrg) {
+          org = existingOrg;
+        } else {
+          // Sin org propia. Antes de crear una, verificar que el usuario no es supplier-only.
+          // Si tiene membresía marketplace activa, fue enrutado aquí por error → redirigir.
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const { data: mktData } = await (supabase as any).rpc('get_my_marketplace_memberships');
+          const hasMktMembership = ((mktData ?? []) as { activo: boolean; actor_estado: string }[])
+            .some(m => m.activo && m.actor_estado === 'active');
+          if (hasMktMembership) {
+            console.log('[PZ_ROUTING] AppDashboard defense: membresía marketplace detectada sin org instaladora → PortalProveedor');
+            setCurrentPage(ActivePage.PortalProveedor);
+            return;
+          }
+          org = await getOrCreateOrg();
+        }
+      }
+
       if (!org) {
         // Org creation failed (e.g. DB trigger error) — show wizard so user can configure
         if (!workerOrgId && s.user.email !== ADMIN_EMAIL) setShowOnboarding(true);
