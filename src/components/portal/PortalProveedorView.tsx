@@ -14,12 +14,21 @@ const PortalConfiguracion = lazy(() => import('./PortalConfiguracion'));
 interface Props {
   setCurrentPage: (page: ActivePage) => void;
   session: Session | null;
+  totalWorkspaces?: number;
+  onChangeWorkspace?: () => void;
+  onSignOut?: () => void;
 }
 
-export default function PortalProveedorView({ setCurrentPage, session }: Props) {
+export default function PortalProveedorView({ setCurrentPage, session, totalWorkspaces = 1, onChangeWorkspace, onSignOut }: Props) {
   return (
     <PortalProvider>
-      <PortalShell setCurrentPage={setCurrentPage} session={session} />
+      <PortalShell
+        setCurrentPage={setCurrentPage}
+        session={session}
+        totalWorkspaces={totalWorkspaces}
+        onChangeWorkspace={onChangeWorkspace}
+        onSignOut={onSignOut}
+      />
     </PortalProvider>
   );
 }
@@ -31,7 +40,7 @@ const ACTOR_ESTADO_LABELS: Record<string, string> = {
   banned:    'Suspendido',
 };
 
-function PortalShell({ setCurrentPage, session }: Props) {
+function PortalShell({ setCurrentPage, session, totalWorkspaces = 1, onChangeWorkspace, onSignOut }: Props) {
   const {
     memberships, activeActorId, activeMembership,
     activeTab, unreadCount, loading, error,
@@ -97,7 +106,7 @@ function PortalShell({ setCurrentPage, session }: Props) {
         <PortalActorSelector
           memberships={memberships}
           onSelect={setActiveActorId}
-          onBack={() => setCurrentPage(ActivePage.AppDashboard)}
+          onBack={totalWorkspaces > 1 ? (onChangeWorkspace ?? (() => {})) : (onSignOut ?? (() => {}))}
         />
       </Suspense>
     );
@@ -184,9 +193,9 @@ function PortalShell({ setCurrentPage, session }: Props) {
       {/* ── Mobile top bar ── */}
       <div className="sm:hidden fixed top-0 left-0 right-0 z-30 flex items-center gap-2 bg-slate-900 border-b border-slate-800 px-4 h-14">
         <button
-          onClick={() => setCurrentPage(ActivePage.AppDashboard)}
+          onClick={totalWorkspaces > 1 ? onChangeWorkspace : onSignOut}
           className="text-slate-400 hover:text-teal-400 motion-safe:transition-colors"
-          aria-label="Volver a TrabFlow"
+          aria-label={totalWorkspaces > 1 ? 'Cambiar de espacio' : 'Cerrar sesión'}
         >
           <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -277,17 +286,29 @@ function PortalShell({ setCurrentPage, session }: Props) {
           })}
         </nav>
 
-        {/* Notificaciones + salida */}
+        {/* Acciones de sesión */}
         <div className="border-t border-slate-800 px-3 py-3 space-y-0.5">
+          {totalWorkspaces > 1 && (
+            <button
+              onClick={onChangeWorkspace}
+              className="w-full flex items-center gap-2.5 rounded-md px-3 py-2 text-xs text-slate-500 hover:bg-slate-800 hover:text-slate-300 transition-colors"
+            >
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round"
+                  d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+              </svg>
+              Cambiar de espacio
+            </button>
+          )}
           <button
-            onClick={() => setCurrentPage(ActivePage.AppDashboard)}
-            className="w-full flex items-center gap-2.5 rounded-md px-3 py-2 text-xs text-slate-500 hover:bg-slate-800 hover:text-slate-300 transition-colors"
+            onClick={onSignOut}
+            className="w-full flex items-center gap-2.5 rounded-md px-3 py-2 text-xs text-slate-500 hover:bg-slate-800 hover:text-red-400 transition-colors"
           >
             <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round"
                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
             </svg>
-            Salir del portal
+            Cerrar sesión
           </button>
         </div>
       </aside>

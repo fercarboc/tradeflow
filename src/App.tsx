@@ -261,6 +261,10 @@ export default function App() {
   const [workspaceResolving, setWorkspaceResolving] = useState(false);
   // workspaces resueltos para el selector (solo cuando hay >1 opción)
   const [pendingWorkspaces, setPendingWorkspaces] = useState<ResolvedWorkspaces | null>(null);
+  // workspaces del usuario activo — para que el portal sepa si existen otros espacios
+  const [resolvedWorkspaces, setResolvedWorkspaces] = useState<ResolvedWorkspaces | null>(null);
+  // evita que un evento auth tardío relance resolveAndRoute durante el signOut
+  const signingOutRef = useRef(false);
 
   const setCurrentPage = useCallback((page: ActivePage) => {
     _setCurrentPage(page);
@@ -309,12 +313,17 @@ export default function App() {
   // Resolución centralizada de workspace tras autenticación.
   // Debe llamarse siempre que se tenga sesión válida y no se esté en un flujo auth (UpdatePassword, etc).
   const resolveAndRoute = useCallback(async (s: Session) => {
+    if (signingOutRef.current) {
+      console.log('[PZ_ROUTING] resolveAndRoute abortado: signOut en curso');
+      return;
+    }
     const gen = ++routingGenerationRef.current;
     setWorkspaceResolving(true);
     console.log('[PZ_ROUTING] resolveAndRoute start', { userId: s.user.id, email: s.user.email, gen });
 
     try {
       const resolved = await resolveWorkspaces(s.user.id);
+      setResolvedWorkspaces(resolved);
 
       // Llamada obsoleta: otra resolveAndRoute empezó después de esta
       if (gen !== routingGenerationRef.current) {
@@ -446,18 +455,18 @@ export default function App() {
       }
 
       if (s) {
+        signingOutRef.current = false;
         routeSession(s, event);
       } else {
+        // SIGNED_OUT: limpiar todo el estado de sesión
+        signingOutRef.current = false;
         setSession(null);
         setWorkerProfile(null);
+        setResolvedWorkspaces(null);
         clearRememberedWorkspace();
 
         if (!PUBLIC_OR_AUTH_PAGES.has(currentPageRef.current)) {
-          setCurrentPage(pwa ? ActivePage.AppDashboard : ActivePage.Home);
-
-          if (pwa) {
-            setLoginOnMount(true);
-          }
+          setCurrentPage(ActivePage.Login);
         }
       }
     });
@@ -579,7 +588,26 @@ export default function App() {
         return <ParteView />;
 
       case ActivePage.PortalProveedor:
-        return <PortalProveedorView setCurrentPage={setCurrentPage} session={session} />;
+        return (
+          <PortalProveedorView
+            setCurrentPage={setCurrentPage}
+            session={session}
+            totalWorkspaces={
+              (resolvedWorkspaces?.installers ?? []).length +
+              (resolvedWorkspaces?.suppliers  ?? []).length
+            }
+            onChangeWorkspace={() => {
+              if (resolvedWorkspaces) {
+                setPendingWorkspaces(resolvedWorkspaces);
+                setCurrentPage(ActivePage.WorkspaceSelector);
+              }
+            }}
+            onSignOut={() => {
+              signingOutRef.current = true;
+              supabase.auth.signOut();
+            }}
+          />
+        );
 
       case ActivePage.MarketplaceComprar:
         return <MarketplaceComprarView setCurrentPage={setCurrentPage} session={session} />;
