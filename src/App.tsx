@@ -331,7 +331,11 @@ export default function App() {
       return;
     }
     const gen = ++routingGenerationRef.current;
-    setWorkspaceResolving(true);
+    // Si el usuario ya está en una página de app válida, no desmontar AppDashboardView
+    // con el spinner de carga — la resolución es transparente y preserva el estado interno.
+    if (!PRESERVED_APP_PAGES.has(currentPageRef.current)) {
+      setWorkspaceResolving(true);
+    }
     console.log('[PZ_ROUTING] resolveAndRoute start', { userId: s.user.id, email: s.user.email, gen });
 
     try {

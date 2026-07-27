@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import {
   ShoppingCart, Plus, Trash2, Send, ChevronDown, ChevronUp,
   CheckCircle, Package, Truck, FileText, X, AlertCircle, Download,
+  Store,
 } from 'lucide-react';
 import { downloadPedidoAsWordDocx } from '../lib/exportWord';
 import { ArticleSearchInput } from './ui/ArticleSearchInput';
@@ -11,6 +12,9 @@ import {
   loadAcceptedQuotesWithPendingMaterial, markQuoteItemsOrdered,
 } from '../lib/supabase';
 import type { SupplierOrder, SupplierOrderLine, TradeQuote, TradeCatalogProduct, QuoteWithPendingMaterial, TradeOrganization } from '../lib/supabase';
+import { getOrgActiveOrders, getOrgOrderHistory, LIFECYCLE_ESTADO_COLORS } from '../lib/api/marketplace-orders';
+import type { ActiveOrder, OrderHistoryRow as MktHistoryRow, OrderLifecycleEstado } from '../lib/api/marketplace-orders';
+import { INSTALLER_ESTADO_LABELS } from './marketplace/shared/OrderStatusBadge';
 
 interface Props {
   orgId: string;
@@ -820,11 +824,45 @@ function FromQuoteSection({
   );
 }
 
+type MktRow = (ActiveOrder | MktHistoryRow) & { _source: 'mkt' };
+
+function MktOrderCard({ order }: { order: MktRow }) {
+  const estado = order.estado as OrderLifecycleEstado;
+  const label  = INSTALLER_ESTADO_LABELS[estado] ?? order.estado;
+  const colors = LIFECYCLE_ESTADO_COLORS[estado] ?? 'bg-slate-100 text-slate-600';
+  const date   = new Date(order.created_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
+
+  return (
+    <div className="bg-white rounded-2xl border border-teal-100 overflow-hidden">
+      <div className="flex items-center gap-3 px-4 py-3.5">
+        <div className="w-9 h-9 bg-teal-50 rounded-xl flex items-center justify-center shrink-0">
+          <Store className="w-4 h-4 text-teal-600" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            <span className="font-black text-slate-900 text-sm">{order.numero}</span>
+            <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-bold ${colors}`}>{label}</span>
+          </div>
+          <div className="flex items-center gap-2 mt-0.5 text-xs text-slate-500">
+            <span className="font-medium">{order.actor_nombre}</span>
+            {order.source_ref && <><span className="text-slate-300">·</span><span>{order.source_ref}</span></>}
+            <span className="text-slate-300">·</span>
+            <span>{order.items_count} art.</span>
+            {order.total > 0 && <><span className="text-slate-300">·</span><span className="font-semibold text-slate-700 tabular-nums">{order.total.toFixed(2)} €</span></>}
+          </div>
+          <div className="text-[10px] text-slate-400 mt-0.5">{date}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ScreenPedidosMaterial({ orgId, showToast, initialQuote, onClose, orgData }: Props) {
   const [orders, setOrders] = useState<SupplierOrder[]>([]);
   const [catalogs, setCatalogs] = useState<{ id: string; supplier_name: string; supplier_key: string; contact_email?: string | null }[]>([]);
   const [catalogProducts, setCatalogProducts] = useState<TradeCatalogProduct[]>([]);
   const [acceptedQuotes, setAcceptedQuotes] = useState<QuoteWithPendingMaterial[]>([]);
+  const [mktOrders, setMktOrders] = useState<MktRow[]>([]);
   const [activeTab, setActiveTab] = useState<'pedidos' | 'presupuestos'>('pedidos');
   const [loading, setLoading] = useState(true);
   const [showNew, setShowNew] = useState(!!initialQuote);
@@ -832,16 +870,23 @@ export default function ScreenPedidosMaterial({ orgId, showToast, initialQuote, 
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const [ords, cats, prods, quotes] = await Promise.all([
+      const [ords, cats, prods, quotes, mktA, mktH] = await Promise.all([
         loadSupplierOrders(orgId),
         loadSupplierCatalogs(orgId),
         loadCatalogProducts(orgId),
         loadAcceptedQuotesWithPendingMaterial(orgId),
+        getOrgActiveOrders({ orgId }).catch(() => ({ items: [] })),
+        getOrgOrderHistory({ orgId }).catch(() => ({ items: [] })),
       ]);
       setOrders(ords);
       setCatalogs(cats);
       setCatalogProducts(prods);
       setAcceptedQuotes(quotes);
+      const unified: MktRow[] = [
+        ...mktA.items.map(o => ({ ...o, _source: 'mkt' as const })),
+        ...mktH.items.map(o => ({ ...o, _source: 'mkt' as const })),
+      ].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+      setMktOrders(unified);
     } catch (e: unknown) {
       showToast((e as Error).message ?? 'Error cargando pedidos', 'error');
     } finally { setLoading(false); }
@@ -910,9 +955,9 @@ export default function ScreenPedidosMaterial({ orgId, showToast, initialQuote, 
       {/* KPI strip */}
       <div className="grid grid-cols-3 gap-3">
         {[
+          { label: 'Marketplace', val: mktOrders.length, icon: <Store className="w-4 h-4 text-teal-500" />, bg: 'bg-teal-50' },
           { label: 'Activos', val: active.length, icon: <Package className="w-4 h-4 text-blue-500" />, bg: 'bg-blue-50' },
-          { label: 'Enviados', val: orders.filter(o => o.estado === 'enviado').length, icon: <Send className="w-4 h-4 text-amber-500" />, bg: 'bg-amber-50' },
-          { label: 'Recibidos', val: orders.filter(o => o.estado === 'recibido').length, icon: <CheckCircle className="w-4 h-4 text-emerald-500" />, bg: 'bg-emerald-50' },
+          { label: 'Recibidos', val: orders.filter(o => o.estado === 'recibido').length + mktOrders.filter(o => o.estado === 'delivered').length, icon: <CheckCircle className="w-4 h-4 text-emerald-500" />, bg: 'bg-emerald-50' },
         ].map(k => (
           <div key={k.label} className={`${k.bg} rounded-2xl px-3 py-3 flex flex-col gap-1`}>
             <div className="flex items-center gap-1.5">{k.icon}<span className="text-xs font-bold text-slate-500">{k.label}</span></div>
@@ -925,7 +970,7 @@ export default function ScreenPedidosMaterial({ orgId, showToast, initialQuote, 
         <div className="flex items-center justify-center py-16 text-slate-400">
           <div className="animate-spin rounded-full h-7 w-7 border-2 border-blue-200 border-t-blue-500" />
         </div>
-      ) : orders.length === 0 ? (
+      ) : (orders.length === 0 && mktOrders.length === 0) ? (
         <div className="flex flex-col items-center justify-center py-16 text-slate-400 gap-3">
           <Truck className="w-12 h-12 opacity-30" />
           <p className="text-sm font-semibold">Aún no tienes pedidos de material</p>
@@ -939,6 +984,17 @@ export default function ScreenPedidosMaterial({ orgId, showToast, initialQuote, 
         </div>
       ) : (
         <>
+          {mktOrders.length > 0 && (
+            <section className="space-y-2">
+              <h3 className="text-xs font-black text-teal-500 uppercase tracking-widest flex items-center gap-1.5">
+                <Store className="w-3 h-3" /> Marketplace
+              </h3>
+              {mktOrders.map(order => (
+                <MktOrderCard key={order.id} order={order} />
+              ))}
+            </section>
+          )}
+
           {active.length > 0 && (
             <section className="space-y-2">
               <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest">En curso</h3>
