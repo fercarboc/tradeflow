@@ -1,4 +1,4 @@
-import { supabase } from '../client';
+import { supabase } from '../supabase';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = supabase as any;

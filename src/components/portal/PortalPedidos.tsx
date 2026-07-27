@@ -70,7 +70,12 @@ export default function PortalPedidos({ actorId, membership }: Props) {
       });
       setPage(result);
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Error al cargar pedidos');
+      const msg = e instanceof Error
+        ? e.message
+        : (typeof e === 'object' && e !== null && 'message' in e)
+          ? String((e as { message: unknown }).message)
+          : 'Error al cargar pedidos';
+      setError(msg);
     } finally {
       setLoading(false);
     }
