@@ -4,6 +4,21 @@ import { getUnreadNotificationCount } from '../../lib/api/marketplace-portal';
 
 export type PortalTab = 'dashboard' | 'catalogo' | 'pedidos' | 'equipo' | 'config';
 
+const VALID_TABS: PortalTab[] = ['dashboard', 'catalogo', 'pedidos', 'equipo', 'config'];
+const LS_TAB    = 'trabflow_portal_tab';
+const LS_ACTOR  = 'trabflow_portal_actor';
+
+function readStoredTab(): PortalTab {
+  try {
+    const v = localStorage.getItem(LS_TAB);
+    return VALID_TABS.includes(v as PortalTab) ? (v as PortalTab) : 'dashboard';
+  } catch { return 'dashboard'; }
+}
+
+function readStoredActor(): string | null {
+  try { return localStorage.getItem(LS_ACTOR) ?? null; } catch { return null; }
+}
+
 interface PortalState {
   memberships:       MarketplaceMyMembership[];
   activeActorId:     string | null;
@@ -32,11 +47,21 @@ interface Props {
 
 export function PortalProvider({ children }: Props) {
   const [memberships, setMemberships] = useState<MarketplaceMyMembership[]>([]);
-  const [activeActorId, setActiveActorId] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<PortalTab>('dashboard');
+  const [activeActorId, setActiveActorIdState] = useState<string | null>(readStoredActor);
+  const [activeTab, setActiveTabState] = useState<PortalTab>(readStoredTab);
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const setActiveTab = useCallback((tab: PortalTab) => {
+    setActiveTabState(tab);
+    try { localStorage.setItem(LS_TAB, tab); } catch {}
+  }, []);
+
+  const setActiveActorId = useCallback((id: string) => {
+    setActiveActorIdState(id);
+    try { localStorage.setItem(LS_ACTOR, id); } catch {}
+  }, []);
 
   const reloadMemberships = useCallback(async () => {
     setLoading(true);
@@ -45,15 +70,26 @@ export function PortalProvider({ children }: Props) {
       const data = await getMyMarketplaceMemberships();
       const suppliers = data.filter((m) => m.actor_type === 'supplier' && m.activo);
       setMemberships(suppliers);
-      if (activeActorId === null && suppliers.length === 1) {
-        setActiveActorId(suppliers[0].actor_id);
-      }
+      setActiveActorIdState((prev) => {
+        const stored = readStoredActor();
+        const validStored = stored && suppliers.some((s) => s.actor_id === stored);
+        if (validStored) {
+          try { localStorage.setItem(LS_ACTOR, stored!); } catch {}
+          return stored;
+        }
+        if (prev && suppliers.some((s) => s.actor_id === prev)) return prev;
+        if (suppliers.length === 1) {
+          try { localStorage.setItem(LS_ACTOR, suppliers[0].actor_id); } catch {}
+          return suppliers[0].actor_id;
+        }
+        return prev;
+      });
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Error cargando membresías');
     } finally {
       setLoading(false);
     }
-  }, [activeActorId]);
+  }, []);
 
   const refreshUnread = useCallback(async () => {
     if (!activeActorId) return;
