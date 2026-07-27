@@ -181,6 +181,15 @@ const PUBLIC_OR_AUTH_PAGES = new Set<ActivePage>([
   ActivePage.Parte,
 ]);
 
+// Páginas de app donde el routing post-auth no debe redirigir si el usuario ya estaba ahí
+// (restaura la vista correcta tras recarga de tab en Edge/Chrome)
+const PRESERVED_APP_PAGES = new Set<ActivePage>([
+  ActivePage.SeguimientoMaterial,
+  ActivePage.MarketplaceComprar,
+  ActivePage.PortalProveedor,
+  ActivePage.AppDashboard,
+]);
+
 function isPWAMode(): boolean {
   if (typeof window === 'undefined') return false;
 
@@ -241,7 +250,11 @@ export default function App() {
   const [currentPage, _setCurrentPage] = useState<ActivePage>(
     // Si vuelve de Stripe checkout, ir directo al dashboard (evita flash de Home)
     checkoutSuccess ? ActivePage.AppDashboard :
-    (initialAuthRoute ?? (pwa ? ActivePage.AppDashboard : ActivePage.Home)),
+    // Si hay ruta auth-flow específica (activate, callback, reset-pass…) respetarla
+    (initialAuthRoute
+      // Si la URL es una página de app conocida (seguimiento, comprar, proveedor…) restaurarla
+      ?? pathToPage(window.location.pathname)
+      ?? (pwa ? ActivePage.AppDashboard : ActivePage.Home)),
   );
 
   const [preselectedTrade, setPreselectedTrade] =
@@ -354,14 +367,24 @@ export default function App() {
       }
 
       if (installers.length === 1 && suppliers.length === 0) {
-        console.log('[PZ_ROUTING] solo instalador → AppDashboard');
-        setCurrentPage(ActivePage.AppDashboard);
+        // Si el usuario ya está en una página de app instalador (seguimiento, comprar, dashboard),
+        // no redirigir — preservar su vista tras recarga de tab
+        if (PRESERVED_APP_PAGES.has(currentPageRef.current)) {
+          console.log('[PZ_ROUTING] solo instalador, preservando página actual', currentPageRef.current);
+        } else {
+          console.log('[PZ_ROUTING] solo instalador → AppDashboard');
+          setCurrentPage(ActivePage.AppDashboard);
+        }
         return;
       }
 
       if (installers.length === 0 && suppliers.length === 1) {
-        console.log('[PZ_ROUTING] solo proveedor → PortalProveedor');
-        setCurrentPage(ActivePage.PortalProveedor);
+        if (PRESERVED_APP_PAGES.has(currentPageRef.current)) {
+          console.log('[PZ_ROUTING] solo proveedor, preservando página actual', currentPageRef.current);
+        } else {
+          console.log('[PZ_ROUTING] solo proveedor → PortalProveedor');
+          setCurrentPage(ActivePage.PortalProveedor);
+        }
         return;
       }
 

@@ -163,6 +163,34 @@
 
 ---
 
+### BUG-010
+
+**Fecha:** 2026-07-27
+**Paso:** Paso 12 (Portal Proveedor → tab "Completados" muestra 0 pedidos)
+**Usuario:** contacto@inmostay.com
+**Descripción:** Tras completar el ciclo completo de MKT-000001 (instalador confirmó recepción), el pedido aparecía en el tab "Todos" con badge "Entregado" y `completed_at` correcto, pero el tab "Completados" mostraba 0 pedidos. La RPC `get_supplier_orders_unified` pasaba `mo.estado` directamente como `r_estado`. En BD, el estado final tras confirmar recepción es `'delivered'` (instalador recibe = pedido entregado). El tab "Completados" en `PortalPedidos.tsx` filtra por `estado = 'completed'`. Mismatch: 'delivered' ≠ 'completed'.
+**Causa raíz:** La rama marketplace de `get_supplier_orders_unified` no mapeaba 'delivered' → 'completed', a diferencia de la rama legacy que sí mapea 'recibido' → 'completed'.
+**Severidad:** ALTA
+**Estado:** RESUELTO
+**Solución:** Migración SQL: añadido `CASE mo.estado WHEN 'delivered' THEN 'completed' ELSE mo.estado END AS r_estado` en la rama marketplace. El campo `original_estado` conserva el valor real ('delivered') para trazabilidad.
+**Commit:** DB-only (migración: `fix_supplier_orders_map_delivered_to_completed`)
+
+---
+
+### BUG-011
+
+**Fecha:** 2026-07-27
+**Paso:** Todos (panel instalador en Edge pierde la vista al volver de otra pestaña)
+**Usuario:** legal@inmostay.com
+**Descripción:** Al abandonar el panel del instalador (p.ej. pasar a VS Code o al portal del proveedor) y volver a la pestaña de Edge, el panel se reiniciaba en el Dashboard en lugar de conservar la vista anterior (p.ej. Seguimiento de Material). El Portal Proveedor ya tenía fix (localStorage en PortalContext), pero el instalador no tenía nada equivalente.
+**Causa raíz:** Dos problemas combinados: (1) El estado inicial de `currentPage` en `App.tsx` no usaba `pathToPage(window.location.pathname)` — la URL `/marketplace/seguimiento` no estaba en `detectAuthRoute()` y el estado inicial caía a `Home`. (2) `resolveAndRoute` siempre llamaba `setCurrentPage(AppDashboard)` para usuarios con un solo workspace instalador, sobrescribiendo la URL correcta.
+**Severidad:** ALTA
+**Estado:** RESUELTO
+**Solución:** (1) Estado inicial de `currentPage` ahora usa `pathToPage(window.location.pathname)` como fallback entre `initialAuthRoute` y `Home`/`AppDashboard`. (2) `resolveAndRoute` comprueba `PRESERVED_APP_PAGES` (SeguimientoMaterial, MarketplaceComprar, PortalProveedor, AppDashboard): si el usuario ya está en una de esas páginas, no redirige. Constante definida a nivel de módulo para evitar closure stale.
+**Commit:** (pendiente deploy)
+
+---
+
 ### BUG-009
 
 **Fecha:** 2026-07-27

@@ -68,27 +68,27 @@
 
 *Registrar aquí las mejoras UX encontradas durante la ejecución del piloto.*
 
-### UX-004
+### UX-004 — Inconsistencia "Entregado" (badge) vs "Completados" (tab filtro) en Portal Proveedor
 
-**Paso:**
-**Descripción:**
-**Prioridad:**
-**Impacto:**
-**Esfuerzo:**
-**Propuesta:**
-**Estado:** Abierto
+**Paso:** Paso 13 (después de confirmar recepción desde instalador)
+**Descripción:** En el portal del proveedor, el badge del pedido completado dice "Entregado" pero el tab de filtro correspondiente dice "Completados". El instalador ve "Recibido". Las tres etiquetas para el mismo estado final son confusas.
+**Prioridad:** BAJA
+**Impacto:** Bajo — el flujo funciona, es solo confusión terminológica
+**Esfuerzo:** Bajo — alinear etiqueta del badge con el tab ("Completado") en OrderStatusBadge
+**Propuesta:** Unificar: proveedor ve "Completado" (tab y badge), instalador ve "Recibido". El tab de filtro ya usa "Completados" — solo hay que hacer que el badge use la misma etiqueta.
+**Estado:** Abierto — backlog post-piloto
 
 ---
 
-### UX-005
+### UX-005 — Panel instalador pierde la vista al volver de otra pestaña
 
-**Paso:**
-**Descripción:**
-**Prioridad:**
-**Impacto:**
-**Esfuerzo:**
-**Propuesta:**
-**Estado:** Abierto
+**Paso:** Todos (afecta a cualquier vista del instalador: Seguimiento, Marketplace, etc.)
+**Descripción:** Al abandonar la pestaña Edge del instalador y volver (browser tab discard / cambio de foco), la app se reiniciaba en el Dashboard inicial en lugar de conservar la vista donde estaba el usuario (p.ej. Seguimiento de Material con MKT-000002 visible).
+**Prioridad:** ALTA
+**Impacto:** Medio — el usuario tiene que navegar de nuevo hasta donde estaba
+**Esfuerzo:** Bajo — dos líneas en App.tsx
+**Propuesta aplicada:** (1) El estado inicial de `currentPage` usa `pathToPage(window.location.pathname)` para detectar páginas de app en la URL de recarga. (2) `resolveAndRoute` preserva la página actual si ya es una página de app válida (SeguimientoMaterial, MarketplaceComprar, PortalProveedor, AppDashboard).
+**Estado:** ✅ Resuelto — commit pendiente deploy
 
 ---
 
@@ -99,5 +99,5 @@
 | UX-001 | Botón "Salir del portal" ambiguo | CRÍTICA | ✅ Resuelto |
 | UX-002 | Aviso "productos sin vincular" confuso para usuario nuevo | ALTA | Pendiente |
 | UX-003 | "Cuenta sin verificar" como primer aviso — impresión negativa | ALTA | Pendiente |
-| UX-004 | | | |
-| UX-005 | | | |
+| UX-004 | Badge "Entregado" vs tab "Completados" — inconsistencia terminológica | BAJA | Pendiente |
+| UX-005 | Panel instalador pierde vista al volver de otra pestaña | ALTA | ✅ Resuelto |
