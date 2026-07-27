@@ -48,7 +48,7 @@
 - Cambiar a: "Vincula tus productos al catálogo para aparecer en las búsquedas del Motor IA"
 - Añadir tooltip o enlace "¿Qué es esto?"
 - Ofrecer "Hacer esto después" sin culpa
-**Estado:** Abierto — pendiente de sprint
+**Estado:** ✅ Resuelto — migración `fix_action_center_ux_texts` (2026-07-27)
 
 ---
 
@@ -60,7 +60,7 @@
 **Impacto:** Medio — primera impresión negativa
 **Esfuerzo:** Bajo — aclarar que el proveedor ya puede operar y recibir pedidos
 **Propuesta:** Cambiar el texto a: "Para aparecer en el catálogo público, completa la verificación. Los instaladores que ya te conozcan pueden seguir haciendo pedidos." y reducir la urgencia visual del aviso.
-**Estado:** Abierto — pendiente de sprint
+**Estado:** ✅ Resuelto — migración `fix_action_center_ux_texts` (2026-07-27)
 
 ---
 
@@ -76,7 +76,7 @@
 **Impacto:** Bajo — el flujo funciona, es solo confusión terminológica
 **Esfuerzo:** Bajo — alinear etiqueta del badge con el tab ("Completado") en OrderStatusBadge
 **Propuesta:** Unificar: proveedor ve "Completado" (tab y badge), instalador ve "Recibido". El tab de filtro ya usa "Completados" — solo hay que hacer que el badge use la misma etiqueta.
-**Estado:** Abierto — backlog post-piloto
+**Estado:** ✅ Resuelto — la migración `fix_supplier_orders_map_delivered_to_completed` ya devuelve `completed` desde BD; badge y tab coinciden sin cambio en frontend
 
 ---
 
@@ -88,7 +88,7 @@
 **Impacto:** Medio — el usuario tiene que navegar de nuevo hasta donde estaba
 **Esfuerzo:** Bajo — dos líneas en App.tsx
 **Propuesta aplicada:** (1) El estado inicial de `currentPage` usa `pathToPage(window.location.pathname)` para detectar páginas de app en la URL de recarga. (2) `resolveAndRoute` preserva la página actual si ya es una página de app válida (SeguimientoMaterial, MarketplaceComprar, PortalProveedor, AppDashboard).
-**Estado:** ✅ Resuelto — commit pendiente deploy
+**Estado:** ✅ Resuelto — commit 415f23b
 
 ---
 
@@ -97,7 +97,7 @@
 | ID | Descripción | Prioridad | Estado |
 |----|-------------|-----------|--------|
 | UX-001 | Botón "Salir del portal" ambiguo | CRÍTICA | ✅ Resuelto |
-| UX-002 | Aviso "productos sin vincular" confuso para usuario nuevo | ALTA | Pendiente |
-| UX-003 | "Cuenta sin verificar" como primer aviso — impresión negativa | ALTA | Pendiente |
-| UX-004 | Badge "Entregado" vs tab "Completados" — inconsistencia terminológica | BAJA | Pendiente |
+| UX-002 | Aviso "productos sin vincular" confuso para usuario nuevo | ALTA | ✅ Resuelto |
+| UX-003 | "Cuenta sin verificar" como primer aviso — impresión negativa | ALTA | ✅ Resuelto |
+| UX-004 | Badge "Entregado" vs tab "Completados" — inconsistencia terminológica | BAJA | ✅ Resuelto |
 | UX-005 | Panel instalador pierde vista al volver de otra pestaña | ALTA | ✅ Resuelto |
