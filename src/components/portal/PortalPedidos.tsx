@@ -122,7 +122,12 @@ export default function PortalPedidos({ actorId, membership }: Props) {
         confirmed: (prev.confirmed ?? 0) + 1,
       }));
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Error al confirmar');
+      const msg = e instanceof Error
+        ? e.message
+        : (typeof e === 'object' && e !== null && 'message' in e)
+          ? String((e as { message: unknown }).message)
+          : 'Error al confirmar';
+      setError(msg);
       setConfirmModal(null);
     } finally {
       setConfirmLoading(false);
