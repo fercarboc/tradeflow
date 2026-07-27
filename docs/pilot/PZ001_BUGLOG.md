@@ -134,3 +134,17 @@
 **Commit:** d2774de
 
 ---
+
+### BUG-007
+
+**Fecha:** 2026-07-27
+**Paso:** Paso 11 (Portal Proveedor → pestaña Pedidos — carga de lista)
+**Usuario:** contacto@inmostay.com
+**Descripción:** Tras el fix de BUG-006 (que ahora muestra el error real), la pestaña Pedidos mostraba: `column reference "id" is ambiguous`. La lista de pedidos no cargaba; el badge "2" en el sidebar era correcto pero la lista aparecía vacía.
+**Causa raíz:** La función SQL `get_supplier_orders_unified` usaba `SELECT ao.*` en el RETURN QUERY final. PostgreSQL no podía resolver la columna `id` porque tanto el CTE `all_orders` como las variables de retorno del `RETURNS TABLE(id uuid, ...)` tienen una columna `id` en el mismo scope.
+**Severidad:** BLOQUEANTE
+**Estado:** RESUELTO
+**Solución:** Reescritura de la función con alias explícitos `r_*` en el CTE interno y SELECT explícito de todas las columnas en el RETURN QUERY. El RETURNS TABLE conserva los nombres originales — ningún cambio en el frontend.
+**Commit:** DB-only (migración: `fix_get_supplier_orders_unified_ambiguous_id`)
+
+---
