@@ -148,3 +148,31 @@
 **Commit:** DB-only (migración: `fix_get_supplier_orders_unified_ambiguous_id`)
 
 ---
+
+### BUG-008
+
+**Fecha:** 2026-07-27
+**Paso:** Paso 11 (Portal Proveedor → Pedidos → "Confirmar pedido")
+**Usuario:** contacto@inmostay.com
+**Descripción:** Al pulsar "Confirmar pedido" en cualquier pedido del Portal Proveedor, la acción fallaba con error de función ambigua. El botón aparecía correctamente (el usuario tiene `orders:manage`) pero la confirmación no se ejecutaba.
+**Causa raíz:** Existían dos versiones de `confirm_supplier_order` en BD con firmas solapadas: (uuid, text) y (uuid, text, text DEFAULT NULL). Al llamar con 2 parámetros, PostgreSQL no podía resolver cuál usar → ERROR: function is not unique. La versión de 2 params era la obsoleta; la de 3 params es la versión moderna con `_mkt_supplier_member_check`.
+**Severidad:** BLOQUEANTE
+**Estado:** RESUELTO
+**Solución:** `DROP FUNCTION confirm_supplier_order(uuid, text)` — eliminada la versión obsoleta de 2 params. La versión de 3 params (con p_notas opcional) queda como única.
+**Commit:** DB-only (migración: `fix_catalog_and_confirm_ambiguous_id`)
+
+---
+
+### BUG-009
+
+**Fecha:** 2026-07-27
+**Paso:** Paso 11 (Portal Proveedor → Catálogo)
+**Usuario:** contacto@inmostay.com
+**Descripción:** La pestaña Catálogo del Portal Proveedor mostraba "Error al cargar el catálogo". 178 productos existían en BD pero no cargaban.
+**Causa raíz:** Mismo patrón que BUG-007: la función `get_supplier_offerings_paged` usaba `SELECT f.*` en el RETURN QUERY de un `RETURNS TABLE(id uuid, ...)`, causando `column reference "id" is ambiguous` en PostgreSQL.
+**Severidad:** ALTA
+**Estado:** RESUELTO
+**Solución:** Reescritura de `get_supplier_offerings_paged` con alias explícitos `f_*` en el CTE interno y SELECT explícito de todas las columnas. RETURNS TABLE conserva los nombres originales — ningún cambio en el frontend.
+**Commit:** DB-only (migración: `fix_catalog_and_confirm_ambiguous_id`)
+
+---
