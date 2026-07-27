@@ -707,7 +707,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // Simulador Config
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
   const [isMobileMode, setIsMobileMode] = useState<boolean>(initialMobile);
-  const [activeTab, setActiveTab] = useState<string>(rol === 'tecnico' ? 'planificacion' : 'dashboard');
+  const [activeTab, setActiveTab] = useState<string>(() => {
+    try {
+      const stored = localStorage.getItem('trabflow_app_tab');
+      if (stored) return stored;
+    } catch {}
+    return rol === 'tecnico' ? 'planificacion' : 'dashboard';
+  });
+  useEffect(() => {
+    try { localStorage.setItem('trabflow_app_tab', activeTab); } catch {}
+  }, [activeTab]);
   const [newJobTrigger, setNewJobTrigger] = useState(0);
   const [prefillJobFromQuote, setPrefillJobFromQuote] = useState<import('../types').Presupuesto | null>(null);
 

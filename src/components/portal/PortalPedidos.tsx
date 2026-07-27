@@ -3,7 +3,9 @@ import { MarketplaceMyMembership } from '../../lib/api/marketplace-actors';
 import {
   PortalOrder, PortalOrderPage,
   getSupplierOrdersUnified, confirmSupplierOrder, shipSupplierOrder,
+  getSupplierNotifications, markNotificationsRead,
 } from '../../lib/api/marketplace-portal';
+import { usePortal } from './PortalContext';
 import {
   OrderLifecycleEstado,
   prepareOrderFromPortal, shipMarketplaceOrderWithTracking,
@@ -58,6 +60,19 @@ export default function PortalPedidos({ actorId, membership }: Props) {
   const canManage  = membership.permissions.includes('orders:manage');
   const canFulfill = membership.permissions.includes('orders:fulfillment');
   const totalPages = Math.ceil(page.totalCount / LIMIT);
+
+  const { refreshUnread } = usePortal();
+
+  // Marcar notificaciones como leídas al abrir la tab de Pedidos
+  useEffect(() => {
+    getSupplierNotifications(actorId, { limit: 50, unreadOnly: true })
+      .then((notifs) => {
+        if (notifs.length === 0) return;
+        return markNotificationsRead(actorId, notifs.map((n) => n.id))
+          .then(() => refreshUnread());
+      })
+      .catch(() => {});
+  }, [actorId, refreshUnread]);
 
   const load = useCallback(async (estado: string, p: number) => {
     setLoading(true);

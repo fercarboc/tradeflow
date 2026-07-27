@@ -99,7 +99,11 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
 
   const volver = () => {
     sessionStorage.removeItem(CART_KEY);
-    setCurrentPage(ActivePage.AppDashboard);
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      setCurrentPage(ActivePage.AppDashboard);
+    }
   };
 
   // ─── Carga ──────────────────────────────────────────────────────────────────
