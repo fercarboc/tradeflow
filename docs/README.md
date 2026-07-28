@@ -1,14 +1,30 @@
 # TrabFlow — Documentación del Proyecto
 
 **Última actualización:** Julio 2026  
-**Estado:** Normativo. Esta documentación es la referencia oficial antes de comenzar Sprint 2.
+**Estado:** RC-1 en curso. Consultar EXECUTION_BOARD antes de cualquier acción.
 
 ---
 
-## Documento de referencia principal
+## ⚡ Antes de comenzar cualquier desarrollo
 
-> **Antes de cualquier sesión de trabajo, consultar:**
-> **[EXECUTION_BOARD.md](EXECUTION_BOARD.md)** — Estado actual, tarea activa, cola de ejecución, reglas.
+```
+  README  →  EXECUTION_BOARD  →  MASTER ROADMAP  →  resto
+```
+
+**[EXECUTION_BOARD.md](EXECUTION_BOARD.md)** es el único documento que indica dónde está el proyecto hoy, cuál es la tarea activa y qué está bloqueado. Nadie debe empezar a desarrollar sin haberlo consultado primero.
+
+> Cualquier desarrollador que se incorpore al proyecto debe poder determinar la siguiente tarea en menos de 5 minutos leyendo el EXECUTION_BOARD.
+
+---
+
+## Jerarquía documental
+
+| Tipo | Documentos | Frecuencia de cambio |
+|------|-----------|---------------------|
+| **Control** | EXECUTION_BOARD, BACKLOG_FUTURO, CHANGELOG | Cada sesión |
+| **Estratégicos** | Constitución, Visión 2030, Business Model, GTM, Competitive Moat, Arquitectura, Master Roadmap | Rara vez |
+| **Técnicos** | ADR, Supabase Guide, Motor IA docs, Marketplace docs | Por sprint |
+| **Ejecución** | PZ Reports, RC Reports, Sprint Reports | Por piloto/sprint |
 
 ---
 
@@ -101,11 +117,12 @@
 
 ---
 
-### Gobierno del proyecto
+### Gobierno del proyecto (leer primero)
 
 | Documento | Descripción |
 |---|---|
 | [EXECUTION_BOARD.md](EXECUTION_BOARD.md) | **ÚNICO PUNTO DE CONTROL** — Estado actual, tarea activa, cola, dependencias, reglas |
+| [BACKLOG_FUTURO.md](BACKLOG_FUTURO.md) | Ideas aparcadas — no planificadas, no implementar hasta autorización |
 
 ### RC-1 — Commercial Readiness
 

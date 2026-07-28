@@ -451,6 +451,16 @@ REGLA-11  La service_role key no se escribe en migraciones, repositorio,
 
 REGLA-12  Ningún commit de código sin pasar por el flujo:
           verificar tarea activa → implementar → actualizar board → commit.
+
+REGLA-13  Toda idea nueva detectada durante una tarea se registra en
+          docs/BACKLOG_FUTURO.md y NO se implementa.
+          La tarea activa no se interrumpe por ninguna idea nueva,
+          por muy buena que parezca.
+
+REGLA-14  El orden de lectura del proyecto es:
+          README → EXECUTION_BOARD → MASTER_ROADMAP → resto.
+          Ningún desarrollador debe empezar por el MASTER_ROADMAP
+          sin haber leído primero el EXECUTION_BOARD.
 ```
 
 ---
@@ -473,7 +483,11 @@ Protocolo a seguir al iniciar cualquier sesión de trabajo.
   4. Confirmar que la tarea sigue siendo válida
      (¿ha cambiado algo que la desbloquee o la bloquee?)
      ↓
-  5. Ejecutar la tarea activa
+  5. Ejecutar únicamente la tarea activa
+     Si durante la ejecución surge una idea nueva:
+       → NO implementar
+       → Registrar en docs/BACKLOG_FUTURO.md
+       → Continuar con la tarea activa
      ↓
   6. Al terminar la tarea:
      a. Marcar como completada en § 3 (tabla de RC1-Alpha)
