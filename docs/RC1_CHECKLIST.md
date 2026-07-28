@@ -82,7 +82,7 @@ Cada sección tiene una estimación de prioridad:
 
 ## BLOQUE 3 — Analytics y Métricas
 
-☐ 🔴 **Analytics básico instalado** — Vercel Analytics, Posthog, o Plausible (mínimo pageviews y eventos)  
+☑ 🔴 **Analytics básico instalado** — Vercel Analytics instalado y condicionado a consent *(RC1-C04-A ✅)*  
 ☐ 🔴 **Funnel de conversión** — registro → primer presupuesto → activación → conversión a pago  
 ☐ 🟠 **Eventos clave trackeados** — registro, primer presupuesto, aceptación de presupuesto, primer pedido marketplace, conversión  
 ☐ 🟠 **Dashboard de métricas de negocio** — MAU, DAU, presupuestos/día, ARR  

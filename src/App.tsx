@@ -9,6 +9,7 @@ import { supabase, loadWorkerByEmail } from './lib/supabase';
 import { SessionProvider } from './context/SessionContext';
 import { CookieConsentProvider } from './context/CookieConsentContext';
 import CookieBanner from './components/CookieBanner';
+import AnalyticsManager from './components/AnalyticsManager';
 import type { WorkerProfile } from './lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import {
@@ -735,6 +736,7 @@ export default function App() {
         )}
       </div>
       <CookieBanner />
+      <AnalyticsManager />
     </SessionProvider>
     </CookieConsentProvider>
     </ErrorBoundary>
