@@ -53,7 +53,7 @@ export default function LegalViews({
               {page === ActivePage.Privacidad && 'Política de Privacidad'}
               {page === ActivePage.Cookies && 'Política de Cookies'}
               {page === ActivePage.Terminos && 'Términos y Condiciones'}
-              {page === ActivePage.Beta && 'Acuerdo Beta Privada'}
+              {page === ActivePage.Beta && 'Condiciones del Programa Piloto'}
               {page === ActivePage.IADisclaimer && 'Disclaimer IA'}
             </h1>
 
@@ -154,7 +154,7 @@ export default function LegalViews({
               </h2>
 
               <ul className="list-disc space-y-1.5 pl-5">
-                <li>Gestionar cuentas y acceso a la beta.</li>
+                <li>Gestionar cuentas y acceso a la plataforma.</li>
                 <li>Gestionar presupuestos y clientes.</li>
                 <li>Enviar comunicaciones relacionadas con el servicio.</li>
                 <li>Mejorar funcionalidades y experiencia de usuario.</li>
@@ -280,21 +280,26 @@ export default function LegalViews({
           <div className="space-y-6 text-sm leading-relaxed text-white/55">
             <section className="space-y-3">
               <h2 className="text-md font-bold uppercase tracking-wider text-white">
-                Beta Privada
+                Programa Piloto Controlado
               </h2>
 
               <p>
-                TrabFlow AI se encuentra actualmente en fase beta privada.
+                TrabFlow es una plataforma operativa desplegada mediante un
+                programa piloto controlado. Los usuarios participantes en el
+                programa tienen acceso completo a todas las funcionalidades
+                durante el período de piloto.
               </p>
 
               <p>
-                Las funcionalidades pueden modificarse, interrumpirse o
-                eliminarse sin previo aviso.
+                La plataforma evoluciona de forma continua. Algunas
+                funcionalidades pueden modificarse o ampliarse durante el
+                período de despliegue como parte del proceso de mejora.
               </p>
 
               <p>
-                El usuario acepta utilizar la plataforma bajo su propia
-                responsabilidad durante esta fase.
+                El usuario acepta utilizar la plataforma de acuerdo con los
+                Términos y Condiciones vigentes y comprende que TrabFlow se
+                encuentra en fase de expansión controlada.
               </p>
             </section>
           </div>

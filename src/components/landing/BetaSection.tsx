@@ -34,9 +34,9 @@ export default function BetaSection() {
               <CalendarCheck className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h3 className="text-xl font-black text-white mb-1">Únete a la beta privada</h3>
+              <h3 className="text-xl font-black text-white mb-1">Solicita tu acceso anticipado</h3>
               <p className="text-white/65 text-sm leading-relaxed max-w-xs">
-                Sé de los primeros en probar TradeFlow AI y ayúdanos a construir la mejor herramienta para instaladores.
+                Sé de los primeros instaladores en usar TrabFlow y accede a todas las funcionalidades sin coste durante tu período de prueba.
               </p>
             </div>
           </div>

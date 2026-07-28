@@ -62,7 +62,7 @@ Cada sección tiene una estimación de prioridad:
 
 ### Narrativa
 
-☐ 🔴 **Eliminar "beta privada"** de todas las páginas públicas (o renombrar a "piloto controlado")  
+☑ 🔴 **Eliminar "beta privada"** de todas las páginas públicas — reemplazado por "programa piloto" *(RC1-C04-B ✅)*  
 ☐ 🟠 **Fecha "Mayo de 2026"** actualizada en páginas legales  
 ☐ 🟡 **`/ia-disclaimer`** integrado en los Términos o eliminado como página independiente  
 

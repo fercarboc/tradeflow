@@ -22,13 +22,13 @@ ESTADO GENERAL
   ░░░░░░░░░░░░░░░░░░░░  Pilotos externos: 0 / 4
 
 ÚLTIMA ACCIÓN
-  2026-07-28  RC1-C04-A completada — Vercel Analytics + arquitectura analítica
-              src/components/AnalyticsManager.tsx (nuevo)
-              docs/ANALYTICS_ARCHITECTURE.md (nuevo, 4 capas, ~50 eventos)
-              docs/CHANGELOG.md (nuevo)
+  2026-07-28  RC1-C04-B completada — Lenguaje comercial + eliminación terminología "beta"
+              docs/PRODUCT_LANGUAGE.md (nuevo — guía de lenguaje para 6 audiencias)
+              9 archivos fuente corregidos (25 referencias eliminadas)
+              EXECUTION_BOARD.md · CHANGELOG.md · RC1_CHECKLIST.md actualizados
 
 PRÓXIMA ACCIÓN
-  RC1-C04-B — Reescribir página /beta
+  RC1-C05 — Actualizar fecha "Mayo de 2026" en todas las páginas legales
 ```
 
 ---
@@ -96,7 +96,7 @@ DESBLOQUEA:    RC1-Beta (demo comercial) y PZ-001B (piloto instalador real)
 | RC1-C02 | Verificar y corregir domicilio social | Bajo | ✅ COMPLETADA |
 | RC1-C03 | Implementar banner de cookies (consentimiento básico) | Bajo-Medio | ✅ COMPLETADA |
 | RC1-C04-A | Activar Vercel Analytics o Posthog | Bajo | ✅ COMPLETADA |
-| RC1-C04-B | Reescribir página /beta → eliminar narrativa "beta privada" | Bajo | ⬜ ACTIVA |
+| RC1-C04-B | Reescribir página /beta → eliminar narrativa "beta privada" | Bajo | ✅ COMPLETADA |
 | RC1-C05 | Actualizar fecha "Mayo 2026" en todas las páginas legales | Bajo | ⬜ Pendiente |
 | RC1-C06 | Limpiar /public (renombrar ChatGPT Image *.png y presupuesto pruebas.pdf) | Bajo | ⬜ Pendiente |
 
@@ -105,15 +105,38 @@ DESBLOQUEA:    RC1-Beta (demo comercial) y PZ-001B (piloto instalador real)
 ## 4. TAREA ACTIVA
 
 ```
-CÓDIGO:      RC1-C04-B
-NOMBRE:      Reescribir página /beta — eliminar narrativa "beta privada"
-ARCHIVO:     src/components/LegalViews.tsx (sección Beta)
-             o src/pages/BetaPage.tsx si existe como página separada
-CAMBIO:      Eliminar texto "beta privada", "acceso limitado", y similares.
-             Reemplazar por narrativa de early access / programa piloto.
+CÓDIGO:      RC1-C05
+NOMBRE:      Actualizar fecha "Mayo de 2026" en todas las páginas legales
+ARCHIVOS:    src/components/LegalViews.tsx (campo "Última actualización")
+CAMBIO:      "Mayo de 2026" → "Julio de 2026" en Aviso Legal, Privacidad,
+             Cookies, Términos, Condiciones del Programa Piloto, Disclaimer IA
 BLOQUEA:     —
-SIGUIENTE:   RC1-C05 — Actualizar fechas legales
+SIGUIENTE:   RC1-C06 — Limpiar /public
 ESTADO:      ⬜ PENDIENTE
+```
+
+---
+
+### ✅ RC1-C04-B — COMPLETADA (2026-07-28)
+
+```
+CÓDIGO:      RC1-C04-B
+NOMBRE:      Consolidación lenguaje comercial — eliminar narrativa "beta privada"
+ARCHIVOS:    docs/PRODUCT_LANGUAGE.md (nuevo — guía de lenguaje para 6 audiencias)
+             src/components/Footer.tsx (3 correcciones)
+             src/components/landing/HeroSection.tsx (2 correcciones)
+             src/components/landing/BetaSection.tsx (2 correcciones — incl. fix typo TradeFlow→TrabFlow)
+             src/components/RegistroView.tsx (8 correcciones — incl. eliminar badge 🚧 "En pruebas")
+             src/components/OnboardingWizard.tsx (4 correcciones)
+             src/components/LegalViews.tsx (3 correcciones — reescritura sección /beta)
+             src/components/HomeView.tsx (1 corrección)
+             src/components/ComoFuncionaView.tsx (1 corrección)
+             src/components/partner-demo/DemoFinal.tsx (1 corrección)
+VALIDACIÓN:  grep sin resultados para: "beta privada", "beta tester", "Versión Beta",
+             "En pruebas", "Acuerdo beta", "durante la Beta", "periodo Beta",
+             "Gratis en beta", "puede tener errores", "Ayúdanos a construir"
+COMMIT:      [ver historial git]
+FECHA:       2026-07-28
 ```
 
 ---

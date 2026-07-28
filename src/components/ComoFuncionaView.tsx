@@ -367,7 +367,7 @@ export default function ComoFuncionaView({ setCurrentPage, setPreselectedTrade }
                       <div className="bg-slate-50 border-b border-slate-100 px-4 py-2.5 flex justify-between items-center">
                         <div>
                           <span className="font-bold text-slate-700 text-[10px] uppercase tracking-wide block">AUTÓNOMO EMISOR</span>
-                          <span className="text-slate-400 text-[9px] font-mono">Presupuesto #BETA-{activeTab.substring(0,3).toUpperCase()}</span>
+                          <span className="text-slate-400 text-[9px] font-mono">Presupuesto #PRES-{activeTab.substring(0,3).toUpperCase()}</span>
                         </div>
                         <span className="bg-blue-100 text-blue-700 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase">Borrador IA</span>
                       </div>

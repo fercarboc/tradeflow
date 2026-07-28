@@ -114,7 +114,7 @@ export default function Footer({ setCurrentPage }: FooterProps) {
             </div>
 
             <div className="inline-flex rounded-full border border-[#00CFE8]/25 bg-[#00CFE8]/10 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-[#00CFE8]">
-              Beta privada · Funcionalidades sujetas a cambios
+              Despliegue controlado · Programa piloto activo
             </div>
 
             <div className="flex gap-2.5 pt-1">
@@ -181,7 +181,7 @@ export default function Footer({ setCurrentPage }: FooterProps) {
                 { label: 'Política de privacidad', page: ActivePage.Privacidad },
                 { label: 'Política de cookies', page: ActivePage.Cookies },
                 { label: 'Aviso legal', page: ActivePage.AvisoLegal },
-                { label: 'Acuerdo beta', page: ActivePage.Beta },
+                { label: 'Condiciones del piloto', page: ActivePage.Beta },
                 { label: 'Disclaimer de IA', page: ActivePage.IADisclaimer },
               ].map((item) => (
                 <li key={item.label}>
@@ -293,7 +293,7 @@ export default function Footer({ setCurrentPage }: FooterProps) {
               Aviso legal
             </button>
             <button onClick={() => handleNavigate(ActivePage.Beta)} className="hover:text-white/60 transition-colors cursor-pointer">
-              Acuerdo beta
+              Condiciones del piloto
             </button>
             <button onClick={() => handleNavigate(ActivePage.IADisclaimer)} className="hover:text-white/60 transition-colors cursor-pointer">
               Disclaimer IA

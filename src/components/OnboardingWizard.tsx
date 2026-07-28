@@ -675,16 +675,16 @@ export default function OnboardingWizard({ onComplete, showToast }: Props) {
               <>
                 <div>
                   <h2 className="text-xl font-black text-slate-900">Tu plan actual</h2>
-                  <p className="text-sm text-slate-500 mt-1">Durante la Beta puedes explorar todos los planes y funcionalidades sin coste.</p>
+                  <p className="text-sm text-slate-500 mt-1">Durante tu período de prueba puedes explorar todos los planes y funcionalidades sin coste.</p>
                 </div>
                 <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-6 text-white space-y-3">
                   <div className="flex items-center gap-2.5">
                     <Star className="w-5 h-5 text-yellow-300" />
-                    <span className="font-black text-lg">Periodo Beta — Acceso gratuito completo</span>
+                    <span className="font-black text-lg">Período de prueba — Acceso gratuito completo</span>
                   </div>
                   <p className="text-blue-100 text-sm leading-relaxed">
                     Estás en el periodo de prueba. Puedes subir y bajar de plan libremente para explorar todas las funcionalidades.
-                    <strong className="text-white"> No se realizará ningún cargo</strong> hasta que finalice el periodo Beta.
+                    <strong className="text-white"> No se realizará ningún cargo</strong> hasta que finalice tu período de prueba.
                   </p>
                 </div>
                 <div className="space-y-3">
@@ -706,7 +706,7 @@ export default function OnboardingWizard({ onComplete, showToast }: Props) {
                 </div>
                 <div className="flex items-start gap-2 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-xl p-3">
                   <Info className="w-4 h-4 shrink-0 mt-0.5" />
-                  <span>Cuando finalice la Beta: <strong>Ajustes y Tarifas → Plan</strong> → selecciona y contrata el plan deseado. La app se actualiza automáticamente.</span>
+                  <span>Cuando finalice tu período de prueba: <strong>Ajustes y Tarifas → Plan</strong> → selecciona y contrata el plan deseado. La app se actualiza automáticamente.</span>
                 </div>
               </>
             )}

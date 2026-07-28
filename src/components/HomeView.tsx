@@ -731,7 +731,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
               <Users className="h-5 w-5 text-[#00CFE8]" />
               <div>
                 <div className="text-sm font-black text-[#020B16]">+120 instaladores</div>
-                <div className="text-[10px] text-slate-400 uppercase tracking-wider">Beta activa</div>
+                <div className="text-[10px] text-slate-400 uppercase tracking-wider">Programa piloto</div>
               </div>
             </div>
             <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3.5">

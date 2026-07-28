@@ -43,7 +43,7 @@ export default function DemoFinal({ setCurrentPage }: Props) {
           {/* Stats row */}
           <div className="flex justify-center gap-8 mb-12 pb-12 border-b border-white/8">
             {[
-              { val: '3 meses', label: 'Gratis en beta' },
+              { val: '3 meses', label: 'Período de prueba gratuito' },
               { val: '0 €', label: 'Sin tarjeta de crédito' },
               { val: '< 5 min', label: 'Para empezar' },
             ].map(({ val, label }) => (

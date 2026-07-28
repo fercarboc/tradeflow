@@ -8,6 +8,20 @@
 
 **Período:** Julio 2026
 
+### RC1-C04-B — Consolidación lenguaje comercial (2026-07-28)
+
+- Creado `docs/PRODUCT_LANGUAGE.md` — guía oficial de lenguaje para 6 audiencias (instaladores, distribuidores, asociaciones, fabricantes, inversores, programa piloto)
+- Eliminadas 25 referencias a "beta privada", "beta tester", "versión beta", "en pruebas", "puede tener errores" y similares en 9 archivos fuente
+- `src/components/Footer.tsx`: badge "Beta privada" → "Despliegue controlado · Programa piloto activo"; "Acuerdo beta" → "Condiciones del piloto"
+- `src/components/landing/HeroSection.tsx`: "Beta abierta — Únete gratis hoy" → "Acceso anticipado — Empieza gratis hoy" (desktop + móvil)
+- `src/components/landing/BetaSection.tsx`: "Únete a la beta privada" → "Solicita tu acceso anticipado"; fix typo "TradeFlow" → "TrabFlow"
+- `src/components/RegistroView.tsx`: eliminado badge 🚧 "Versión Beta — En pruebas"; card "puede tener errores" → "Actualizaciones semanales"; "Beta tester" → "usuario piloto"; precios "Gratis en Beta" → "3 meses gratuitos"
+- `src/components/OnboardingWizard.tsx`: "durante la Beta" → "durante tu período de prueba" (4 lugares)
+- `src/components/LegalViews.tsx`: página /beta reescrita — "Beta Privada" → "Programa Piloto Controlado"; "acceso a la beta" → "acceso a la plataforma"; "Acuerdo Beta Privada" → "Condiciones del Programa Piloto"
+- `src/components/HomeView.tsx`: "Beta activa" → "Programa piloto" (social proof badge)
+- `src/components/ComoFuncionaView.tsx`: "BETA-" → "PRES-" en número de presupuesto demo
+- `src/components/partner-demo/DemoFinal.tsx`: "Gratis en beta" → "Período de prueba gratuito"
+
 ### RC1-C04-A — Vercel Analytics con consent gate (2026-07-28)
 
 - Instalado `@vercel/analytics@2.0.1`

@@ -111,7 +111,7 @@ export default function HeroSection({ setCurrentPage }: HeroSectionProps) {
           <div className="pr-4 xl:pr-6">
             <div className="inline-flex items-center gap-2 bg-[#1A5A96]/8 text-[#1A5A96] text-xs font-bold px-3 py-1.5 rounded-full mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#1A5A96] animate-pulse" />
-              Beta abierta — Únete gratis hoy
+              Acceso anticipado — Empieza gratis hoy
             </div>
 
             <h1 className="text-4xl xl:text-5xl font-black text-[#1C2535] leading-[1.05] mb-4 tracking-tight">
@@ -198,7 +198,7 @@ export default function HeroSection({ setCurrentPage }: HeroSectionProps) {
           <div>
             <div className="inline-flex items-center gap-2 bg-[#1A5A96]/8 text-[#1A5A96] text-xs font-bold px-3 py-1.5 rounded-full mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#1A5A96] animate-pulse" />
-              Beta abierta — Únete gratis hoy
+              Acceso anticipado — Empieza gratis hoy
             </div>
             <h1 className="text-3xl sm:text-4xl font-black text-[#1C2535] leading-[1.1] mb-4">
               La app que necesita{' '}

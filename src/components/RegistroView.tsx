@@ -318,14 +318,14 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
       {step === 2 && (
         <div className="w-full max-w-3xl">
 
-          {/* Header BETA */}
+          {/* Header plan */}
           <div className="text-center mb-5">
             <div className="inline-flex items-center gap-2 bg-[#00CFE8]/15 border border-[#00CFE8]/40 rounded-2xl px-4 py-2 text-xs font-black text-[#00CFE8] mb-3 uppercase tracking-widest">
-              <span>🚧</span>
-              Versión Beta — En pruebas
+              <span>✅</span>
+              3 meses de acceso gratuito completo
             </div>
             <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">Elige tu plan</h1>
-            <p className="text-white/40 mt-1.5 text-sm">Todos los planes son <span className="text-[#FFC400] font-black">completamente gratis</span> durante la Beta.</p>
+            <p className="text-white/40 mt-1.5 text-sm">Todos los planes son <span className="text-[#FFC400] font-black">completamente gratis</span> durante tu período de prueba.</p>
           </div>
 
           {/* Aviso Beta — 2 columnas */}
@@ -336,17 +336,17 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
               <div>
                 <p className="text-[#00CFE8] font-black text-[11px] uppercase tracking-wider mb-1">Acceso 100% gratuito</p>
                 <p className="text-white/50 text-[11px] leading-relaxed">
-                  No se pide tarjeta de crédito. No se cobra nada. Puedes acceder incluso al <strong className="text-white/75">Plan Empresa+</strong> sin ningún coste durante la Beta.
+                  No se pide tarjeta de crédito. No se cobra nada. Puedes acceder incluso al <strong className="text-white/75">Plan Empresa+</strong> sin ningún coste durante tu período de prueba.
                 </p>
               </div>
             </div>
-            {/* Puede tener errores */}
-            <div className="bg-amber-500/8 border border-amber-500/25 rounded-2xl p-4 flex gap-3 items-start">
-              <span className="text-xl shrink-0 mt-0.5">⚠️</span>
+            {/* Actualizaciones semanales */}
+            <div className="bg-[#00CFE8]/8 border border-[#00CFE8]/25 rounded-2xl p-4 flex gap-3 items-start">
+              <span className="text-xl shrink-0 mt-0.5">🚀</span>
               <div>
-                <p className="text-amber-400 font-black text-[11px] uppercase tracking-wider mb-1">Versión en pruebas</p>
+                <p className="text-[#00CFE8] font-black text-[11px] uppercase tracking-wider mb-1">Actualizaciones semanales</p>
                 <p className="text-white/50 text-[11px] leading-relaxed">
-                  La app puede tener errores o cambios inesperados. Tu <strong className="text-white/75">feedback es muy valioso</strong> para mejorarla. Gracias por ser Beta tester.
+                  TrabFlow mejora cada semana con nuevas funcionalidades. Tu experiencia como <strong className="text-white/75">usuario piloto</strong> nos ayuda a priorizar lo que más importa.
                 </p>
               </div>
             </div>
@@ -376,7 +376,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
                   )}
                   {isTop && !selected && (
                     <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-[#FFC400] text-[#020B16] text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider whitespace-nowrap">
-                      ⭐ Gratis en Beta
+                      ✅ 3 meses gratis
                     </span>
                   )}
                   {selected && (
@@ -393,7 +393,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
                   </div>
                   <div className="mb-2">
                     <span className="bg-[#00CFE8]/20 text-[#00CFE8] text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">
-                      🎁 Gratis durante Beta
+                      ✅ 3 meses gratuitos
                     </span>
                   </div>
                   <p className="text-[11px] text-white/40 mb-3 leading-relaxed">{plan.desc}</p>
@@ -414,7 +414,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
           <div className="flex items-center justify-center gap-2 text-[11px] text-white/30 mb-6 text-center">
             <span>📞</span>
             <span>
-              ¿Termina tu acceso? <strong className="text-white/50">Llámanos y te lo reactivamos gratis</strong> mientras sigamos en Beta. Sin tarjeta. Sin compromiso.
+              ¿Termina tu período de prueba? <strong className="text-white/50">Llámanos y te lo ampliamos</strong> si tu proyecto piloto sigue activo. Sin tarjeta. Sin compromiso.
             </span>
           </div>
 
@@ -461,7 +461,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
             ) : (
               <>
                 <div className="inline-flex items-center gap-2 bg-[#00CFE8]/15 border border-[#00CFE8]/35 rounded-xl px-3 py-1.5 text-[10px] font-black text-[#00CFE8] mb-3 uppercase tracking-widest">
-                  🎁 Beta — Sin tarjeta de crédito
+                  ✅ Sin tarjeta · 3 meses gratis
                 </div>
                 <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">Crea tu cuenta</h1>
                 <p className="text-white/40 mt-2 text-sm">Acceso inmediato y gratuito. No se cobra nada.</p>
