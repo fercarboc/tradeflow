@@ -22,11 +22,12 @@ ESTADO GENERAL
   ░░░░░░░░░░░░░░░░░░░░  Pilotos externos: 0 / 4
 
 ÚLTIMA ACCIÓN
-  2026-07-28  RC1-C01 completada — NIF provisional B11792515 publicado
-              src/components/LegalViews.tsx (línea 78)
+  2026-07-28  RC1-C02 completada — domicilio provisional publicado
+              C/ Las Varas 69, Castillo Pedroso, Cantabria
+              src/components/LegalViews.tsx (línea 82)
 
 PRÓXIMA ACCIÓN
-  RC1-C02 — Verificar y corregir domicilio social en Aviso Legal
+  RC1-C03 — Implementar banner de consentimiento de cookies
 ```
 
 ---
@@ -91,8 +92,8 @@ DESBLOQUEA:    RC1-Beta (demo comercial) y PZ-001B (piloto instalador real)
 | Código | Tarea | Esfuerzo | Estado |
 |--------|-------|---------|--------|
 | RC1-C01 | Publicar NIF real en Aviso Legal | Bajo | ✅ COMPLETADA |
-| RC1-C02 | Verificar y corregir domicilio social | Bajo | ⬜ ACTIVA |
-| RC1-C03 | Implementar banner de cookies (consentimiento básico) | Bajo-Medio | ⬜ Pendiente |
+| RC1-C02 | Verificar y corregir domicilio social | Bajo | ✅ COMPLETADA |
+| RC1-C03 | Implementar banner de cookies (consentimiento básico) | Bajo-Medio | ⬜ ACTIVA |
 | RC1-C04-A | Activar Vercel Analytics o Posthog | Bajo | ⬜ Pendiente |
 | RC1-C04-B | Reescribir página /beta → eliminar narrativa "beta privada" | Bajo | ⬜ Pendiente |
 | RC1-C05 | Actualizar fecha "Mayo 2026" en todas las páginas legales | Bajo | ⬜ Pendiente |
@@ -103,18 +104,33 @@ DESBLOQUEA:    RC1-Beta (demo comercial) y PZ-001B (piloto instalador real)
 ## 4. TAREA ACTIVA
 
 ```
-CÓDIGO:      RC1-C02
-NOMBRE:      Verificar y corregir domicilio social en Aviso Legal
-ARCHIVO:     src/components/LegalViews.tsx  (líneas 81-82)
-CAMBIO:      Verificar si "Paseo de la Castellana 124, Madrid, España" es
-             el domicilio social registrado en el Registro Mercantil.
-             Corregir si no coincide.
-BLOQUEA:     Cualquier reunión con empresa que revise documentación legal.
-SIGUIENTE:   RC1-C03 — Banner de consentimiento de cookies
-ESTADO:      ⬜ PENDIENTE (requiere confirmación de Fernando)
+CÓDIGO:      RC1-C03
+NOMBRE:      Implementar banner de consentimiento de cookies
+ARCHIVO:     src/components/ (componente nuevo o existente)
+CAMBIO:      Banner RGPD compliant: aceptar / rechazar / configurar.
+             Sin analytics activos antes de consentimiento.
+BLOQUEA:     Activación de Vercel Analytics (RC1-C04-A).
+SIGUIENTE:   RC1-C04-A — Activar Vercel Analytics
+ESTADO:      ⬜ PENDIENTE
 ```
 
-> **Nota operativa:** Fernando debe confirmar si "Paseo de la Castellana 124, Madrid" es el domicilio registrado en el Registro Mercantil (BLQ-002). Sin confirmación, la tarea no puede cerrarse.
+---
+
+### ✅ RC1-C02 — COMPLETADA (2026-07-28)
+
+```
+CÓDIGO:      RC1-C02
+NOMBRE:      Verificar y corregir domicilio social en Aviso Legal
+ARCHIVO:     src/components/LegalViews.tsx  (líneas 82-84)
+CAMBIO:      "Paseo de la Castellana 124, Madrid, España"
+             → C/ Las Varas, 69, 39699 Castillo Pedroso,
+               Corvera de Toranzo, Cantabria, España
+NOTA:        Domicilio provisional. Reemplazar por domicilio registral
+             definitivo cuando la sociedad esté inscrita en el
+             Registro Mercantil.
+COMMIT:      [ver historial git]
+FECHA:       2026-07-28
+```
 
 ---
 
@@ -259,7 +275,7 @@ Situaciones externas o internas que impiden avanzar en la cola de ejecución.
 | ID | Bloqueador | Estado | Acción necesaria | Responsable |
 |----|-----------|--------|-----------------|-------------|
 | BLQ-001 | NIF de TrabFlow Technologies S.L. | ✅ Resuelto | NIF provisional B11792515 publicado. Reemplazar con NIF real cuando esté disponible. | Fernando |
-| BLQ-002 | Domicilio social real de la sociedad | ⚠️ Pendiente verificación | Verificar si "Paseo de la Castellana 124, Madrid" es el domicilio registrado en el RM | Fernando |
+| BLQ-002 | Domicilio social real de la sociedad | ✅ Resuelto | Domicilio provisional: C/ Las Varas 69, Castillo Pedroso, Cantabria. Reemplazar con domicilio registral definitivo al inscribir en RM. | Fernando |
 | BLQ-003 | Sin datos de analytics anteriores | Aceptado | Analytics empieza desde 0 con Vercel Analytics en RC1-C04-A | Dev |
 | BLQ-004 | supabase.gen.ts desactualizado (67 `as any`) | Deuda técnica | Regenerar antes de Sprint 2, no bloquea RC-1 | Dev |
 | BLQ-005 | Sin staging separado de producción | Deuda infraestructura | Crear Supabase branch antes de Sprint 2, no bloquea RC-1 | Dev |

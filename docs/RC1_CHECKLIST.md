@@ -25,8 +25,8 @@ Cada sección tiene una estimación de prioridad:
 
 ### Identidad legal
 
-☐ 🔴 **NIF de TrabFlow Technologies S.L.** publicado en el Aviso Legal  
-☐ 🔴 **Domicilio social real** verificado y publicado (actualmente "Paseo de la Castellana 124, Madrid" — ¿es correcto?)  
+☑ 🔴 **NIF de TrabFlow Technologies S.L.** publicado en el Aviso Legal — provisional B11792515 *(RC1-C01 ✅)*  
+☑ 🔴 **Domicilio social real** verificado y publicado — provisional C/ Las Varas 69, Castillo Pedroso, Cantabria *(RC1-C02 ✅)*  
 ☐ 🟠 **Nombre del representante legal** publicado en el Aviso Legal  
 ☐ 🟠 **Email de contacto legal** funcionando y con respuesta real (soporte@trabflow.com)  
 ☐ 🟡 **Número de registro mercantil** publicado  

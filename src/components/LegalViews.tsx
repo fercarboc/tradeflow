@@ -79,8 +79,9 @@ export default function LegalViews({
                   <strong>NIF:</strong> B11792515
                 </li>
                 <li>
-                  <strong>Domicilio:</strong> Paseo de la Castellana 124,
-                  Madrid, España
+                  {/* Domicilio provisional — reemplazar por domicilio registral definitivo cuando la sociedad esté inscrita */}
+                  <strong>Domicilio:</strong> C/ Las Varas, 69, 39699 Castillo
+                  Pedroso, Corvera de Toranzo, Cantabria, España
                 </li>
                 <li>
                   <strong>Email:</strong> soporte@trabflow.com
