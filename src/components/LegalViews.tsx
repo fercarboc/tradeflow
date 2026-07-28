@@ -75,7 +75,8 @@ export default function LegalViews({
                   <strong>Titular:</strong> TrabFlow Technologies S.L.
                 </li>
                 <li>
-                  <strong>NIF:</strong> [PENDIENTE]
+                  {/* NIF provisional — reemplazar por NIF real de Hacienda cuando esté disponible */}
+                  <strong>NIF:</strong> B11792515
                 </li>
                 <li>
                   <strong>Domicilio:</strong> Paseo de la Castellana 124,

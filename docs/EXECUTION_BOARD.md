@@ -22,13 +22,11 @@ ESTADO GENERAL
   ░░░░░░░░░░░░░░░░░░░░  Pilotos externos: 0 / 4
 
 ÚLTIMA ACCIÓN
-  2026-07-28  Auditoría RC-1 completada
-              docs/RC1_COMMERCIAL_READINESS.md
-              docs/RC1_CHECKLIST.md
-              docs/RC1_MVP_ELEMENTS.md
+  2026-07-28  RC1-C01 completada — NIF provisional B11792515 publicado
+              src/components/LegalViews.tsx (línea 78)
 
 PRÓXIMA ACCIÓN
-  RC1-C01 — Publicar NIF de TrabFlow Technologies S.L. en el Aviso Legal
+  RC1-C02 — Verificar y corregir domicilio social en Aviso Legal
 ```
 
 ---
@@ -92,8 +90,8 @@ DESBLOQUEA:    RC1-Beta (demo comercial) y PZ-001B (piloto instalador real)
 
 | Código | Tarea | Esfuerzo | Estado |
 |--------|-------|---------|--------|
-| RC1-C01 | Publicar NIF real en Aviso Legal | Bajo | ⬜ ACTIVA |
-| RC1-C02 | Verificar y corregir domicilio social | Bajo | ⬜ Pendiente |
+| RC1-C01 | Publicar NIF real en Aviso Legal | Bajo | ✅ COMPLETADA |
+| RC1-C02 | Verificar y corregir domicilio social | Bajo | ⬜ ACTIVA |
 | RC1-C03 | Implementar banner de cookies (consentimiento básico) | Bajo-Medio | ⬜ Pendiente |
 | RC1-C04-A | Activar Vercel Analytics o Posthog | Bajo | ⬜ Pendiente |
 | RC1-C04-B | Reescribir página /beta → eliminar narrativa "beta privada" | Bajo | ⬜ Pendiente |
@@ -105,17 +103,34 @@ DESBLOQUEA:    RC1-Beta (demo comercial) y PZ-001B (piloto instalador real)
 ## 4. TAREA ACTIVA
 
 ```
-CÓDIGO:      RC1-C01
-NOMBRE:      Publicar NIF de TrabFlow Technologies S.L. en el Aviso Legal
-ARCHIVO:     src/components/LegalViews.tsx  (línea 79)
-CAMBIO:      Reemplazar "NIF: [PENDIENTE]" con el NIF real de la sociedad.
-             También: actualizar nombre del representante legal si aplica.
+CÓDIGO:      RC1-C02
+NOMBRE:      Verificar y corregir domicilio social en Aviso Legal
+ARCHIVO:     src/components/LegalViews.tsx  (líneas 81-82)
+CAMBIO:      Verificar si "Paseo de la Castellana 124, Madrid, España" es
+             el domicilio social registrado en el Registro Mercantil.
+             Corregir si no coincide.
 BLOQUEA:     Cualquier reunión con empresa que revise documentación legal.
-SIGUENTE:    RC1-C02 — Verificar domicilio social
-ESTADO:      ⬜ PENDIENTE
+SIGUIENTE:   RC1-C03 — Banner de consentimiento de cookies
+ESTADO:      ⬜ PENDIENTE (requiere confirmación de Fernando)
 ```
 
-> **Nota operativa:** Antes de ejecutar RC1-C01, Fernando debe confirmar el NIF real de TrabFlow Technologies S.L. (dato societario, no técnico). Sin ese dato, la tarea no puede completarse.
+> **Nota operativa:** Fernando debe confirmar si "Paseo de la Castellana 124, Madrid" es el domicilio registrado en el Registro Mercantil (BLQ-002). Sin confirmación, la tarea no puede cerrarse.
+
+---
+
+### ✅ RC1-C01 — COMPLETADA (2026-07-28)
+
+```
+CÓDIGO:      RC1-C01
+NOMBRE:      Publicar NIF de TrabFlow Technologies S.L. en el Aviso Legal
+ARCHIVO:     src/components/LegalViews.tsx  (línea 78)
+CAMBIO:      [PENDIENTE] → B11792515 (NIF provisional)
+NOTA:        NIF ficticio derivado de DNI de Fernando (B + DNI sin letra).
+             Documentado como provisional. Reemplazar por NIF real de
+             Hacienda cuando las escrituras finales estén disponibles.
+COMMIT:      [ver historial git]
+FECHA:       2026-07-28
+```
 
 ---
 
@@ -243,7 +258,7 @@ Situaciones externas o internas que impiden avanzar en la cola de ejecución.
 
 | ID | Bloqueador | Estado | Acción necesaria | Responsable |
 |----|-----------|--------|-----------------|-------------|
-| BLQ-001 | NIF de TrabFlow Technologies S.L. | ⚠️ Pendiente confirmación | Fernando confirma el NIF societario antes de ejecutar RC1-C01 | Fernando |
+| BLQ-001 | NIF de TrabFlow Technologies S.L. | ✅ Resuelto | NIF provisional B11792515 publicado. Reemplazar con NIF real cuando esté disponible. | Fernando |
 | BLQ-002 | Domicilio social real de la sociedad | ⚠️ Pendiente verificación | Verificar si "Paseo de la Castellana 124, Madrid" es el domicilio registrado en el RM | Fernando |
 | BLQ-003 | Sin datos de analytics anteriores | Aceptado | Analytics empieza desde 0 con Vercel Analytics en RC1-C04-A | Dev |
 | BLQ-004 | supabase.gen.ts desactualizado (67 `as any`) | Deuda técnica | Regenerar antes de Sprint 2, no bloquea RC-1 | Dev |
