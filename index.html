@@ -36,6 +36,21 @@
     <style>
       html, body { background-color: #0f172a; margin: 0; padding: 0; }
     </style>
+
+    <!-- Consent Mode v2 — estado por defecto: denegado hasta consentimiento explícito -->
+    <!-- Compatible con Google Analytics, Meta Pixel, Microsoft Clarity -->
+    <!-- Se actualiza desde CookieConsentContext.tsx tras decisión del usuario -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>

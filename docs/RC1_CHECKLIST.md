@@ -43,9 +43,9 @@ Cada sección tiene una estimación de prioridad:
 
 ### Política de Cookies
 
-☐ 🔴 **Banner de cookies** con consentimiento real (aceptar / rechazar / personalizar)  
+☑ 🔴 **Banner de cookies** con consentimiento real (aceptar / rechazar / personalizar) *(RC1-C03 ✅)*  
+☑ 🟠 **Gestión de preferencias** de cookies (técnicas, analíticas, marketing) *(RC1-C03 ✅)*  
 ☐ 🔴 **Tabla de cookies específicas** (nombre, proveedor, duración, finalidad) en la Política de Cookies  
-☐ 🟠 **Gestión de preferencias** de cookies (al menos técnicas vs. analíticas)  
 ☐ 🟠 **Fecha de actualización** al día  
 
 ### Términos del Servicio

@@ -22,12 +22,13 @@ ESTADO GENERAL
   ░░░░░░░░░░░░░░░░░░░░  Pilotos externos: 0 / 4
 
 ÚLTIMA ACCIÓN
-  2026-07-28  RC1-C02 completada — domicilio provisional publicado
-              C/ Las Varas 69, Castillo Pedroso, Cantabria
-              src/components/LegalViews.tsx (línea 82)
+  2026-07-28  RC1-C03 completada — sistema de consentimiento de cookies
+              src/context/CookieConsentContext.tsx (nuevo)
+              src/components/CookieBanner.tsx (nuevo)
+              index.html — Consent Mode v2 por defecto
 
 PRÓXIMA ACCIÓN
-  RC1-C03 — Implementar banner de consentimiento de cookies
+  RC1-C04-A — Activar Vercel Analytics
 ```
 
 ---
@@ -93,8 +94,8 @@ DESBLOQUEA:    RC1-Beta (demo comercial) y PZ-001B (piloto instalador real)
 |--------|-------|---------|--------|
 | RC1-C01 | Publicar NIF real en Aviso Legal | Bajo | ✅ COMPLETADA |
 | RC1-C02 | Verificar y corregir domicilio social | Bajo | ✅ COMPLETADA |
-| RC1-C03 | Implementar banner de cookies (consentimiento básico) | Bajo-Medio | ⬜ ACTIVA |
-| RC1-C04-A | Activar Vercel Analytics o Posthog | Bajo | ⬜ Pendiente |
+| RC1-C03 | Implementar banner de cookies (consentimiento básico) | Bajo-Medio | ✅ COMPLETADA |
+| RC1-C04-A | Activar Vercel Analytics o Posthog | Bajo | ⬜ ACTIVA |
 | RC1-C04-B | Reescribir página /beta → eliminar narrativa "beta privada" | Bajo | ⬜ Pendiente |
 | RC1-C05 | Actualizar fecha "Mayo 2026" en todas las páginas legales | Bajo | ⬜ Pendiente |
 | RC1-C06 | Limpiar /public (renombrar ChatGPT Image *.png y presupuesto pruebas.pdf) | Bajo | ⬜ Pendiente |
@@ -104,14 +105,35 @@ DESBLOQUEA:    RC1-Beta (demo comercial) y PZ-001B (piloto instalador real)
 ## 4. TAREA ACTIVA
 
 ```
-CÓDIGO:      RC1-C03
-NOMBRE:      Implementar banner de consentimiento de cookies
-ARCHIVO:     src/components/ (componente nuevo o existente)
-CAMBIO:      Banner RGPD compliant: aceptar / rechazar / configurar.
-             Sin analytics activos antes de consentimiento.
-BLOQUEA:     Activación de Vercel Analytics (RC1-C04-A).
-SIGUIENTE:   RC1-C04-A — Activar Vercel Analytics
+CÓDIGO:      RC1-C04-A
+NOMBRE:      Activar Vercel Analytics
+ARCHIVO:     src/main.tsx o index.html
+CAMBIO:      Inyectar script Vercel Analytics.
+             Solo activo si consent.analytics === true.
+             Integrar con Consent Mode v2 (ya preparado en index.html).
+BLOQUEA:     — (RC1-C04-B es independiente)
+SIGUIENTE:   RC1-C04-B — Reescribir /beta
 ESTADO:      ⬜ PENDIENTE
+```
+
+---
+
+### ✅ RC1-C03 — COMPLETADA (2026-07-28)
+
+```
+CÓDIGO:      RC1-C03
+NOMBRE:      Implementar sistema de consentimiento de cookies
+ARCHIVOS:    src/context/CookieConsentContext.tsx (nuevo)
+             src/components/CookieBanner.tsx (nuevo)
+             src/App.tsx (CookieConsentProvider + CookieBanner)
+             src/components/Footer.tsx (enlace "Configurar preferencias")
+             index.html (Consent Mode v2 por defecto — denegado)
+CATEGORÍAS:  Esenciales (siempre on) / Analíticas / Marketing
+STORAGE:     localStorage clave 'trabflow_cookie_consent' (versión 1)
+COMPATIBLE:  RGPD, LSSI, Consent Mode v2, Google Analytics (futuro),
+             Microsoft Clarity (futuro), Meta Pixel (futuro)
+COMMIT:      [ver historial git]
+FECHA:       2026-07-28
 ```
 
 ---

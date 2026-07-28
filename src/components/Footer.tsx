@@ -4,6 +4,7 @@
  */
 
 import { ActivePage } from '../types';
+import { useCookieConsent } from '../context/CookieConsentContext';
 import {
   Phone,
   Mail,
@@ -36,6 +37,8 @@ interface FooterProps {
 }
 
 export default function Footer({ setCurrentPage }: FooterProps) {
+  const { openPreferences } = useCookieConsent();
+
   const handleNavigate = (page: ActivePage) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -282,6 +285,9 @@ export default function Footer({ setCurrentPage }: FooterProps) {
             </button>
             <button onClick={() => handleNavigate(ActivePage.Cookies)} className="hover:text-white/60 transition-colors cursor-pointer">
               Política de cookies
+            </button>
+            <button onClick={openPreferences} className="hover:text-white/60 transition-colors cursor-pointer">
+              Configurar preferencias
             </button>
             <button onClick={() => handleNavigate(ActivePage.AvisoLegal)} className="hover:text-white/60 transition-colors cursor-pointer">
               Aviso legal

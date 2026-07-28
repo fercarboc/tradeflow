@@ -7,6 +7,8 @@ import React, { useState, useEffect, useCallback, useRef, lazy, Suspense } from 
 import { ActivePage, TradeType } from './types';
 import { supabase, loadWorkerByEmail } from './lib/supabase';
 import { SessionProvider } from './context/SessionContext';
+import { CookieConsentProvider } from './context/CookieConsentContext';
+import CookieBanner from './components/CookieBanner';
 import type { WorkerProfile } from './lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import {
@@ -710,6 +712,7 @@ export default function App() {
 
   return (
     <ErrorBoundary>
+      <CookieConsentProvider>
       <SessionProvider user={session?.user ?? null} sessionChecked={sessionChecked}>
       <div className="min-h-screen flex flex-col bg-[#020B16]">
         {!isAppView && !isAuthView && (
@@ -731,7 +734,9 @@ export default function App() {
           <Footer setCurrentPage={setCurrentPage} />
         )}
       </div>
+      <CookieBanner />
     </SessionProvider>
+    </CookieConsentProvider>
     </ErrorBoundary>
   );
 }
