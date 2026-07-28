@@ -94,6 +94,28 @@
 
 ---
 
+### RC-1 — Commercial Readiness
+
+| Documento | Descripción |
+|---|---|
+| [RC1_COMMERCIAL_READINESS.md](RC1_COMMERCIAL_READINESS.md) | Auditoría comercial completa: qué está listo, qué falta, qué eliminar — 15 secciones |
+| [RC1_CHECKLIST.md](RC1_CHECKLIST.md) | Checklist comercial ejecutable — 14 bloques, ~100 ítems priorizados |
+| [RC1_MVP_ELEMENTS.md](RC1_MVP_ELEMENTS.md) | Elementos con aspecto MVP + plan priorizado por impacto comercial (CRÍTICO/ALTO/MEDIO/BAJO) |
+
+---
+
+### Pilot Zero
+
+| Documento | Descripción |
+|---|---|
+| [pilot/PZ001A_COMPLETED.md](pilot/PZ001A_COMPLETED.md) | Cierre oficial PZ-001A — flujo validado, bugs, UX, tiempos, plan PZ-001B/C/D/E |
+| [pilot/PZ001_REPORT.md](pilot/PZ001_REPORT.md) | Métricas reales del piloto — 2 pedidos completados, tiempos observados |
+| [pilot/PZ001_BUGLOG.md](pilot/PZ001_BUGLOG.md) | 11 bugs encontrados y resueltos durante PZ-001A |
+| [pilot/PZ001_UX.md](pilot/PZ001_UX.md) | 5 mejoras UX identificadas y resueltas durante PZ-001A |
+| [pilot/PZ001_EXECUTION.md](pilot/PZ001_EXECUTION.md) | Checklist de ejecución de 20 pasos |
+
+---
+
 ## Estado del producto (julio 2026)
 
 ```
@@ -101,9 +123,10 @@
 ✅ Motor IA v59 — 98.2% OK rate — 400 casos benchmark
 ✅ Marketplace Phase 2 completa (checkout, seguimiento, portal proveedor)
 ✅ Design System v1 y Product Language v1
-🔧 Consolidación UX para piloto comercial (activa)
-🔧 Sprint 4 Motor IA — observabilidad, regression diff
-📋 Sprint 2 Marketplace — Realtime, registro auto, email (pendiente)
+✅ PZ-001A completado — 2 ciclos de pedido E2E validados
+🔧 RC-1 Commercial Readiness — activo
+📋 PZ-001B — primer piloto con instalador externo real (pendiente RC1-Alpha)
+📋 Sprint 2 Marketplace — Realtime, registro auto, email (pendiente post RC-1)
 📋 Modelo de comisión Stripe Connect (2027)
 ```
 
