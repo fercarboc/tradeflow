@@ -5,6 +5,13 @@
 
 ---
 
+## Documento de referencia principal
+
+> **Antes de cualquier sesión de trabajo, consultar:**
+> **[EXECUTION_BOARD.md](EXECUTION_BOARD.md)** — Estado actual, tarea activa, cola de ejecución, reglas.
+
+---
+
 ## Índice general
 
 ### Documentación normativa técnica (julio 2026)
@@ -93,6 +100,12 @@
 | [analisis-subcontratas.md](analisis-subcontratas.md) | Módulo de subcontratas (jun 2026) |
 
 ---
+
+### Gobierno del proyecto
+
+| Documento | Descripción |
+|---|---|
+| [EXECUTION_BOARD.md](EXECUTION_BOARD.md) | **ÚNICO PUNTO DE CONTROL** — Estado actual, tarea activa, cola, dependencias, reglas |
 
 ### RC-1 — Commercial Readiness
 
