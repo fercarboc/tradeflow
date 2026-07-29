@@ -8,6 +8,24 @@
 
 **Período:** Julio 2026
 
+### RC1-C04-C — Auditoría documental + sincronización documentación viva (2026-07-29)
+
+- Auditoría completa de 50+ documentos estratégicos del proyecto — 22 hallazgos clasificados CRÍTICO/ALTO/MEDIO/BAJO
+- `docs/EXECUTION_BOARD.md`: 3 métricas actualizadas (❌→✅ NIF, cookies, analytics); ficha RC1-C04-C añadida; tabla RC1-Alpha actualizada
+- `docs/RC1_CHECKLIST.md`: resumen ejecutivo corregido — Legal y Cumplimiento 5 completados (era ~0); Analytics 1 completado (era 0); totales CRÍTICOS actualizados
+- `docs/00_MASTER_ROADMAP.md`: "beta testers" → "usuarios piloto"; hito "Beta" → "Programa Piloto"; "Fase 2 ACTIVA" con nota RC-1; "Prioridades actuales" con referencia a RC-1
+- `docs/TRADEFLOW_OS.md`: título TRADEFLOW→TRABFLOW; versión 1.0→1.1; 15 instancias "beta tester(s)" → "usuario(s) piloto"; "Beta cerrada" → "Piloto controlado"; dashboard CEO "BETA" → "PILOTOS"
+- `docs/02_IMPLEMENTATION_MASTER_PLAN.md`: nota en Fase 2 indicando que está siendo gestionada como RC-1 Commercial Readiness
+- `docs/README.md`: nueva fila PRODUCT_LANGUAGE.md en tabla Design System; regla de uso actualizada; estado del producto actualizado
+- `docs/01_TRABFLOW_CONSTITUTION.md`: §7.4 referencia dual PRODUCT_LANGUAGE_v1 (UI/UX) + PRODUCT_LANGUAGE.md (comercial)
+- `docs/design-system/PRODUCT_LANGUAGE_v1.md`: sección "Alcance de este documento" añadida al final con referencia al nuevo PRODUCT_LANGUAGE.md
+- `docs/RC1_COMMERCIAL_READINESS.md`: header snapshot histórico con ítems resueltos (RC1-C01 a RC1-C04-B)
+- `docs/RC1_MVP_ELEMENTS.md`: header snapshot histórico; ítems NIF, domicilio y narrativa beta marcados como ✅ RESUELTO
+- `docs/PILOT_ZERO_PLAN.md`: Estado: Activo → COMPLETADO
+- `docs/07_GO_TO_MARKET.md`: "beta testers" → "usuarios piloto"
+- `docs/marketplace/TRABFLOW_MARKETPLACE_MASTER_PLAN.md`: "Beta privada" → "Programa piloto controlado" en timeline 2026
+- `docs/marketplace/MARKETPLACE_RESOURCE_SCENARIOS.md`: "Beta privada" → "Piloto controlado" en tabla de fases
+
 ### RC1-C04-B — Consolidación lenguaje comercial (2026-07-28)
 
 - Creado `docs/PRODUCT_LANGUAGE.md` — guía oficial de lenguaje para 6 audiencias (instaladores, distribuidores, asociaciones, fabricantes, inversores, programa piloto)

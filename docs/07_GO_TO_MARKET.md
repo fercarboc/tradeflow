@@ -154,7 +154,7 @@ Un acuerdo con CONAIF o APIEM puede dar acceso directo a miles de instaladores. 
 1. **Preparación (2 meses antes):**
    - Dossier de 5 páginas: problema, solución, casos reales, propuesta económica.
    - Demo en vivo de 20 minutos preparada y testada.
-   - 3 testimonios de beta testers con métricas reales (tiempo ahorrado, presupuestos generados).
+   - 3 testimonios de usuarios piloto con métricas reales (tiempo ahorrado, presupuestos generados).
 
 2. **Reunión:**
    - Objetivo: que la directiva vea el producto funcionar.

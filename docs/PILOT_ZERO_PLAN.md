@@ -1,7 +1,7 @@
 # PILOT_ZERO_PLAN — Plan de Ejecución
 
 **Versión:** 1.0 — Julio 2026  
-**Estado:** Activo  
+**Estado:** COMPLETADO — ver [docs/pilot/PZ001A_COMPLETED.md](pilot/PZ001A_COMPLETED.md)  
 **Objetivo:** Ejecutar el primer ciclo real completo entre un instalador y un proveedor usando el entorno Vercel desplegado.
 
 ---

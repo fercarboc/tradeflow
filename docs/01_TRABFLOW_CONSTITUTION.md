@@ -356,7 +356,8 @@ Si un término requiere conocimiento técnico previo para entenderse, se sustitu
 | `completed` | Completado |
 | `cancelled` | Cancelado |
 
-**Referencia completa:** `docs/design-system/PRODUCT_LANGUAGE_v1.md`
+**Referencia UI/UX:** `docs/design-system/PRODUCT_LANGUAGE_v1.md` (estados de pedido, botones, mensajes de interfaz)  
+**Referencia comercial:** `docs/PRODUCT_LANGUAGE.md` (julio 2026 — términos aprobados/prohibidos, mensajes para 6 audiencias)
 
 ---
 

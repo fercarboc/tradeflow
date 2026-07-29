@@ -107,9 +107,11 @@ Sin el checkout integrado y el portal del proveedor, el Marketplace es unidirecc
 
 ## Fase 2 — Consolidación UX para piloto comercial
 
-**Estado: ACTIVA**  
+> **⚠️ Nota (julio 2026):** Esta fase está siendo ejecutada bajo el marco ampliado **RC-1 Commercial Readiness**, que incluye el alcance original de Consolidación UX más cumplimiento legal, analytics, y narrativa comercial. Para el estado actual de cada tarea, ver [EXECUTION_BOARD.md](EXECUTION_BOARD.md).
+
+**Estado: ACTIVA — gestionada como RC-1 Commercial Readiness**  
 **Período:** Julio–Agosto 2026  
-**Objetivo:** Hacer el Marketplace presentable a proveedores y distribuidores reales.
+**Objetivo:** Hacer el producto presentable y legalmente sólido antes del primer piloto externo.
 
 ### Por qué antes que Sprint 2
 

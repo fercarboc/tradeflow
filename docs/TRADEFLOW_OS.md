@@ -1,6 +1,6 @@
-# TRADEFLOW OPERATING SYSTEM (OS)
+# TRABFLOW OPERATING SYSTEM (OS)
 ## El manual de funcionamiento de la empresa
-### Versión 1.0 — Junio 2026
+### Versión 1.1 — Julio 2026
 
 ---
 
@@ -37,7 +37,7 @@
 
 La mayoría de los fundadores de startups técnicas toman decisiones reactivas. Un cliente pide una feature. La añaden. Un competidor lanza algo. Lo copian. Un inversor pregunta algo. Improvisan la respuesta.
 
-Esto es normal al principio. Pero a partir del momento en que TrabFlow tiene beta testers, reuniones con asociaciones, e inversores potenciales, la improvisación se convierte en el mayor riesgo del negocio.
+Esto es normal al principio. Pero a partir del momento en que TrabFlow tiene usuarios piloto, reuniones con asociaciones, e inversores potenciales, la improvisación se convierte en el mayor riesgo del negocio.
 
 **Este documento existe para que Fernando no tenga que improvisar.**
 
@@ -154,7 +154,7 @@ El instalador usa el móvil en obra. El jefe usa el ordenador en la oficina. Tod
 
 ### Principio 4: No añadir features, añadir valor
 Una feature nueva que complica el producto es peor que no añadirla. Cada nueva funcionalidad aumenta la carga cognitiva del usuario. Solo entra si:
-1. La piden 3 o más usuarios de la beta con las mismas palabras.
+1. La piden 3 o más usuarios piloto con las mismas palabras.
 2. No puede cubrirse con algo que ya existe.
 3. No complica los flujos existentes.
 
@@ -278,9 +278,9 @@ Recomienda TrabFlow a otros instaladores en su gremio.
 
 **Cómo convencer:** La demo en vivo. Si el instalador ve a alguien hablar y tener un presupuesto en 30 segundos, lo quiere. No hay argumento más poderoso que eso.
 
-**Precio:** 29-49€/mes (validar en la beta qué precio soporta el mercado).
+**Precio:** 29-49€/mes (validar en el piloto qué precio soporta el mercado).
 
-**Objetivo 2026:** 20 beta → 100 de pago.
+**Objetivo 2026:** 20 pilotos activos → 100 de pago.
 
 ## Canal 2 — Asociaciones (octubre 2026)
 
@@ -295,7 +295,7 @@ Recomienda TrabFlow a otros instaladores en su gremio.
 **Cómo preparar la reunión:**
 1. Dossier de 5 páginas con el problema del instalador y cómo lo resuelve TrabFlow.
 2. Demo en vivo de 20 minutos (presupuesto por voz + cliente acepta).
-3. 3 testimonios de beta testers.
+3. 3 testimonios de usuarios piloto.
 4. Propuesta de acuerdo: % de comisión o fee fijo por instalador referido.
 
 **Objetivo:** 1 acuerdo firmado con una asociación antes de fin de 2026.
@@ -389,7 +389,7 @@ Recomienda TrabFlow a otros instaladores en su gremio.
 
 Cada semana, el 80% del tiempo técnico va a producto (lo que el cliente ve). El 20% va a deuda técnica (lo que el cliente no ve pero que evita que el producto explote).
 
-Si hay un bug crítico reportado por un beta tester, se para todo lo demás.
+Si hay un bug crítico reportado por un usuario piloto, se para todo lo demás.
 
 ---
 
@@ -405,7 +405,7 @@ Si hay un bug crítico reportado por un beta tester, se para todo lo demás.
 Julio 2026
 ├── Técnico: B1, B2, B9 (críticos), onboarding mejorado
 ├── Producto: Vídeo demo 90s, actualizar landing
-└── Empresa: Seleccionar los 20 beta testers, pitch deck
+└── Empresa: Seleccionar los 20 usuarios piloto, pitch deck
 
 Agosto 2026
 ├── Técnico: B5, B8, QA manual
@@ -413,7 +413,7 @@ Agosto 2026
 └── Empresa: Vídeo demo 3-4 minutos, one-pager inversores
 
 Septiembre 2026
-├── Beta cerrada: 20 instaladores, 20 entrevistas
+├── Piloto controlado: 20 instaladores, 20 entrevistas
 └── Objetivo: 20 aprendizajes documentados
 
 Octubre 2026
@@ -538,7 +538,7 @@ PROTEGER EL CALENDARIO (10 min)
 **Bien:** "Reducir el wizard de registro de 7 pasos a 3, para que el instalador llegue al dashboard en < 60 segundos"
 
 **Mal:** "Arreglar bugs"
-**Bien:** "Corregir el bug de pantalla en blanco al hacer logout desde iOS Safari (reportado por 2 beta testers)"
+**Bien:** "Corregir el bug de pantalla en blanco al hacer logout desde iOS Safari (reportado por 2 usuarios piloto)"
 
 **Mal:** "Trabajar en la landing"
 **Bien:** "Añadir el vídeo de 90 segundos en el hero de la landing y publicarlo antes del jueves"
@@ -548,7 +548,7 @@ PROTEGER EL CALENDARIO (10 min)
 El viernes por la tarde, antes de cerrar:
 
 1. ¿Están los 3 trabajos completados? Si no, ¿por qué?
-2. ¿Hay algún beta tester esperando respuesta a un bug? Si sí → resolver antes de cerrar.
+2. ¿Hay algún usuario piloto esperando respuesta a un bug? Si sí → resolver antes de cerrar.
 3. ¿Hay alguna reunión la semana que viene que requiera preparación? Si sí → dedicar tiempo el lunes.
 
 ---
@@ -559,7 +559,7 @@ El viernes por la tarde, antes de cerrar:
 
 ## Fase A (ahora) — Los únicos 5 KPIs que importan
 
-### KPI 1: Instaladores activos en beta
+### KPI 1: Usuarios piloto activos
 **Definición:** Instaladores que han usado la app al menos 3 veces en los últimos 7 días.
 **Objetivo septiembre 2026:** 20.
 **Cómo medirlo:** Supabase Analytics o query directa a `trade_quotes.created_at` por usuario.
@@ -582,7 +582,7 @@ El viernes por la tarde, antes de cerrar:
 ### KPI 5: NPS (Net Promoter Score)
 **Definición:** "¿Recomendarías TrabFlow a otro instalador? (0-10)"
 **Objetivo:** > 40.
-**Cómo medirlo:** Email o WhatsApp mensual a los beta testers. Fórmula: % promotores (9-10) − % detractores (0-6).
+**Cómo medirlo:** Email o WhatsApp mensual a los usuarios piloto. Fórmula: % promotores (9-10) − % detractores (0-6).
 
 ## Fase B (post-PMF) — KPIs adicionales
 
@@ -619,9 +619,9 @@ El viernes por la tarde, antes de cerrar:
 ║  ├─ Dossier CONAIF listo      [░░░░░░░░░░] X%             ║
 ║  └─ Dossier distribuidores    [░░░░░░░░░░] X%             ║
 ║                                                           ║
-║  BETA                                                     ║
-║  ├─ Beta testers selec.       X / 20                      ║
-║  ├─ Beta testers activos      X / 20                      ║
+║  PILOTOS                                                  ║
+║  ├─ Usuarios piloto selec.    X / 20                      ║
+║  ├─ Usuarios piloto activos   X / 20                      ║
 ║  ├─ Entrevistas realizadas    X / 20                      ║
 ║  └─ Aprendizajes doc.         X / 20                      ║
 ║                                                           ║
@@ -722,7 +722,7 @@ El viernes por la tarde, antes de cerrar:
 4. **El producto** — Screenshots de los módulos clave
 5. **La tecnología** — IA diferenciadora (voz, foto, RAG normativa)
 6. **El modelo de negocio** — SaaS 29-99€/mes por empresa
-7. **Tracción** — Beta testers, NPS, presupuestos creados, asociaciones
+7. **Tracción** — Usuarios piloto activos, NPS, presupuestos creados, asociaciones
 8. **Estrategia comercial** — Canal asociaciones + canal distribuidores
 9. **Competencia** — Por qué TrabFlow gana (nadie tiene IA para instaladores en España)
 10. **El equipo** — El fundador y la visión
@@ -761,7 +761,7 @@ Una crisis es cualquier evento que puede hacer perder clientes, dañar la reputa
 **Definición:** La app no funciona para el 20%+ de los usuarios o un flujo de pago está caído.
 
 **Respuesta (T+0 a T+4 horas):**
-1. Comunicar inmediatamente a los beta testers afectados (WhatsApp directo).
+1. Comunicar inmediatamente a los usuarios piloto afectados (WhatsApp directo).
 2. Identificar y revertir el último deploy si es posible.
 3. Si no es reversible, aislar el módulo afectado.
 4. No publicar en redes hasta tener solución.
@@ -788,15 +788,15 @@ Una crisis es cualquier evento que puede hacer perder clientes, dañar la reputa
 
 **Respuesta:**
 1. Analizar con calma. ¿Es lo mismo o parece lo mismo?
-2. Preguntar a los beta testers si les importa.
+2. Preguntar a los usuarios piloto si les importa.
 3. Si les importa → añadir a la lista de evaluación de features.
 4. Si no les importa → ignorar y seguir el plan.
 
 **Regla:** La mayoría de los "competidores" que lanzan features similares no tienen la misma profundidad. Ejecutar el plan es mejor que reaccionar al ruido.
 
-### Tipo 4: Un beta tester clave cancela
+### Tipo 4: Un usuario piloto clave cancela
 
-**Definición:** Uno de los 20 beta testers abandona TrabFlow.
+**Definición:** Uno de los 20 usuarios piloto abandona TrabFlow.
 
 **Respuesta (T+0 a T+48 horas):**
 1. Llamar (no email, no WhatsApp) para entender el motivo real.
@@ -813,7 +813,7 @@ Una crisis es cualquier evento que puede hacer perder clientes, dañar la reputa
 
 # 14. GLOSARIO TRABFLOW
 
-**Beta cerrada:** Fase con 20 instaladores seleccionados. Sin registro público. Objetivo: aprender, no crecer.
+**Piloto controlado:** Fase con 20 instaladores seleccionados. Sin registro público. Objetivo: aprender, no crecer.
 
 **PMF (Product-Market Fit):** El punto en que el mercado "jala" el producto. Definido para TrabFlow como: 100 clientes de pago, NPS > 40, churn < 5%, 1 acuerdo con asociación.
 
@@ -855,16 +855,16 @@ Una crisis es cualquier evento que puede hacer perder clientes, dañar la reputa
 2. **El calendario comercial manda sobre la arquitectura técnica.**
 3. **Clase E no se hace.** Nunca. Aunque parezca lógico.
 4. **No más de 3 trabajos por semana.** Si se hacen más, hay un problema de priorización.
-5. **Los beta testers son el equipo de producto.** Sus palabras literales son la spec.
+5. **Los usuarios piloto son el equipo de producto.** Sus palabras literales son la spec.
 6. **No hablar con inversores sin tracción.**
 7. **No dar más del 20% en la primera ronda.**
-8. **Un bug crítico para un beta tester es prioridad absoluta en las próximas 24 horas.**
+8. **Un bug crítico para un usuario piloto es prioridad absoluta en las próximas 24 horas.**
 9. **La demo siempre es en vivo.** Nunca en grabación en reuniones presenciales.
 10. **El stack técnico no cambia durante la fase A. Cero debate.**
 
 ---
 
-*TrabFlow Operating System — Versión 1.0*
-*Redactado: 25 de junio de 2026*
+*TrabFlow Operating System — Versión 1.1*
+*Redactado: 25 de junio de 2026 · Actualizado: julio 2026*
 *Próxima revisión: cuando se alcance el PMF (100 clientes, 25K MRR, primera ronda)*
 *Propietario: Fernando — Founder & CEO, TrabFlow Technologies SL*

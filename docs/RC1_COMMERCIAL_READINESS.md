@@ -6,6 +6,11 @@
 **Base:** PZ-001A completado · Motor IA v59 · Marketplace Phase 2  
 **Objetivo:** Identificar qué separa al producto actual de ser presentable a OBRAMAT, SALTOKI, SONEPAR, APIEM, fondos de inversión e instaladores reales.
 
+> **⚠️ SNAPSHOT HISTÓRICO — Estado del audit a 2026-07-28**  
+> Este documento refleja el estado del producto en la fecha de la auditoría.  
+> Los siguientes ítems han sido resueltos desde entonces: **RC1-C01** (NIF), **RC1-C02** (domicilio), **RC1-C03** (cookies), **RC1-C04-A** (analytics), **RC1-C04-B** (narrativa beta).  
+> Para el estado actualizado de cada ítem, consultar [RC1_CHECKLIST.md](RC1_CHECKLIST.md) y [EXECUTION_BOARD.md](EXECUTION_BOARD.md).
+
 ---
 
 ## 1. Estado General del Producto

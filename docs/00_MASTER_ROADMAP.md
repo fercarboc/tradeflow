@@ -21,7 +21,7 @@ Dar a cada instalador español las herramientas que solo tienen las grandes empr
 
 | Objetivo | Indicador | Estado |
 |---|---|---|
-| 20 beta testers activos | Usuarios registrados y usando app ≥ 2 veces/semana | En proceso |
+| 20 usuarios piloto activos | Usuarios registrados y usando app ≥ 2 veces/semana | En proceso |
 | 1 acuerdo con asociación gremial (CONAIF / FENIE / APIEM) | Contrato firmado | Pendiente |
 | 1 piloto con distribuidor material (OBRAMAT / SALTOKI / SONEPAR) | Catálogo integrado + 1 pedido real | Pendiente (demo preparada) |
 | Motor IA en producción con 98%+ de presupuestos generados correctamente | OK rate benchmark 400 casos | **Completado: 98.2% (v59)** |
@@ -136,10 +136,12 @@ Dar a cada instalador español las herramientas que solo tienen las grandes empr
 
 ---
 
-### Fase 2 — Consolidación UX para piloto comercial (ACTIVA)
+### Fase 2 — Consolidación UX para piloto comercial (ACTIVA — gestionada como RC-1 Commercial Readiness)
+
+> **Nota (julio 2026):** Esta fase está siendo ejecutada bajo el marco **RC-1 Commercial Readiness**, que amplía su alcance a cumplimiento legal, analytics y narrativa comercial. Estado actual en [EXECUTION_BOARD.md](EXECUTION_BOARD.md).
 
 **Período:** Jul–Ago 2026  
-**Objetivo:** Hacer el Marketplace presentable a distribuidores reales. No se añaden funcionalidades.
+**Objetivo:** Hacer el producto presentable y legalmente sólido antes del primer piloto externo. No se añaden funcionalidades.
 
 **Ámbito:**
 1. Revisión visual completa de todas las pantallas del Marketplace
@@ -265,10 +267,13 @@ Stripe
 
 ## Prioridades actuales (julio 2026)
 
-1. **Consolidación UX** — sin esto no hay piloto comercial posible
-2. **Motor IA Sprint 4 (P2–P6)** — sin observabilidad, no se puede optimizar con seguridad
-3. **Piloto OBRAMAT** — primer cliente B2B validado
-4. **Staging + CI/CD** — prerequisito para Sprint 2 seguro
+> Las prioridades se gestionan bajo **RC-1 Commercial Readiness**. Ver [EXECUTION_BOARD.md](EXECUTION_BOARD.md) para el estado actual de cada tarea.
+
+1. **RC1-Alpha** — bloqueantes legales, analytics, narrativa comercial ← ACTIVO
+2. **Consolidación UX** — sin esto no hay piloto comercial posible
+3. **Motor IA Sprint 4 (P2–P6)** — sin observabilidad, no se puede optimizar con seguridad
+4. **Piloto OBRAMAT** — primer cliente B2B validado
+5. **Staging + CI/CD** — prerequisito para Sprint 2 seguro
 
 ---
 
@@ -277,7 +282,7 @@ Stripe
 ### MVP (alcanzado en jun 2026)
 Un instalador puede crear un presupuesto por voz, enviarlo al cliente, que el cliente lo acepte por link, generar la factura, y gestionar sus contratos de mantenimiento. Todo sin salir de TrabFlow.
 
-### Beta (jul 2026 — en progreso)
+### Programa Piloto / Despliegue controlado (jul 2026 — en progreso)
 El instalador puede además pedir material directamente desde el presupuesto a través del Marketplace, con seguimiento en tiempo real. El proveedor gestiona sus pedidos desde su portal.
 
 ### Lanzamiento (objetivo: oct 2026)

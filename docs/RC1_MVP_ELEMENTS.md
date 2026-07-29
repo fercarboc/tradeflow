@@ -4,6 +4,11 @@
 **Fecha:** 2026-07-28  
 **Propósito:** Identificar qué hace que el producto "todavía parezca una beta" y priorizarlo por impacto comercial.
 
+> **⚠️ SNAPSHOT HISTÓRICO — Estado del audit a 2026-07-28**  
+> Este documento refleja los problemas identificados en la auditoría inicial.  
+> Los ítems marcados con ✅ RESUELTO han sido corregidos en las tareas RC1-C01 a RC1-C04-B.  
+> Para el estado actualizado, consultar [RC1_CHECKLIST.md](RC1_CHECKLIST.md) y [EXECUTION_BOARD.md](EXECUTION_BOARD.md).
+
 ---
 
 ## FASE 4 — Elementos con Aspecto de MVP
@@ -16,12 +21,12 @@ Todo aquello que, al verlo, un observador externo piensa: *"Esto todavía no est
 
 | Elemento | Dónde | Problema |
 |----------|-------|---------|
-| `NIF: [PENDIENTE]` | Aviso Legal | Texto de placeholder visible al público. Absolutamente crítico. |
-| `"Última actualización: Mayo de 2026"` | Todas las páginas legales | Desactualizado en julio 2026. |
-| `"TrabFlow AI se encuentra actualmente en fase beta privada"` | Página `/beta` | Contradice ser un producto comercial. |
+| `NIF: [PENDIENTE]` | Aviso Legal | Texto de placeholder visible al público. Absolutamente crítico. **✅ RESUELTO RC1-C01** |
+| `"Última actualización: Mayo de 2026"` | Todas las páginas legales | Desactualizado en julio 2026. *(RC1-C05 programado)* |
+| `"TrabFlow AI se encuentra actualmente en fase beta privada"` | Página `/beta` | Contradice ser un producto comercial. **✅ RESUELTO RC1-C04-B** |
 | `"El servicio se proporciona AS IS"` | Términos | Lenguaje demasiado técnico/descuidado para un SaaS comercial español. |
 | `soporte@trabflow.com como único contacto legal` | Aviso Legal | Un email de soporte no es un contacto legal. Necesita `legal@trabflow.com`. |
-| Domicilio "Paseo de la Castellana 124, Madrid" | Aviso Legal | Si no es el domicilio real, es un dato incorrecto en un documento legal. |
+| Domicilio "Paseo de la Castellana 124, Madrid" | Aviso Legal | Si no es el domicilio real, es un dato incorrecto en un documento legal. **✅ RESUELTO RC1-C02** |
 | "Presupuesto pruebas.pdf" | public/ | Asset de prueba visible en producción. |
 | "ChatGPT Image *.png" | public/ | Nombres de archivo revelan proceso de desarrollo. |
 | Precios sin contexto de ROI | PreciosView | "49€/mes" sin argumento de retorno es demasiado abstracto. |

@@ -22,9 +22,8 @@ ESTADO GENERAL
   ░░░░░░░░░░░░░░░░░░░░  Pilotos externos: 0 / 4
 
 ÚLTIMA ACCIÓN
-  2026-07-28  RC1-C04-B completada — Lenguaje comercial + eliminación terminología "beta"
-              docs/PRODUCT_LANGUAGE.md (nuevo — guía de lenguaje para 6 audiencias)
-              9 archivos fuente corregidos (25 referencias eliminadas)
+  2026-07-29  RC1-C04-C completada — Auditoría documental + sincronización documentación viva
+              14 archivos de documentación actualizados (métricas, terminología, referencias)
               EXECUTION_BOARD.md · CHANGELOG.md · RC1_CHECKLIST.md actualizados
 
 PRÓXIMA ACCIÓN
@@ -97,6 +96,7 @@ DESBLOQUEA:    RC1-Beta (demo comercial) y PZ-001B (piloto instalador real)
 | RC1-C03 | Implementar banner de cookies (consentimiento básico) | Bajo-Medio | ✅ COMPLETADA |
 | RC1-C04-A | Activar Vercel Analytics o Posthog | Bajo | ✅ COMPLETADA |
 | RC1-C04-B | Reescribir página /beta → eliminar narrativa "beta privada" | Bajo | ✅ COMPLETADA |
+| RC1-C04-C | Auditoría documental + sincronización documentación viva | Bajo | ✅ COMPLETADA |
 | RC1-C05 | Actualizar fecha "Mayo 2026" en todas las páginas legales | Bajo | ⬜ Pendiente |
 | RC1-C06 | Limpiar /public (renombrar ChatGPT Image *.png y presupuesto pruebas.pdf) | Bajo | ⬜ Pendiente |
 
@@ -113,6 +113,34 @@ CAMBIO:      "Mayo de 2026" → "Julio de 2026" en Aviso Legal, Privacidad,
 BLOQUEA:     —
 SIGUIENTE:   RC1-C06 — Limpiar /public
 ESTADO:      ⬜ PENDIENTE
+```
+
+---
+
+### ✅ RC1-C04-C — COMPLETADA (2026-07-29)
+
+```
+CÓDIGO:      RC1-C04-C
+NOMBRE:      Auditoría documental + sincronización de documentación viva
+ARCHIVOS:    docs/EXECUTION_BOARD.md (métricas actualizadas + ficha RC1-C04-C)
+             docs/RC1_CHECKLIST.md (resumen ejecutivo corregido)
+             docs/00_MASTER_ROADMAP.md (beta testers→usuarios piloto + hito + RC-1)
+             docs/TRADEFLOW_OS.md (15 instancias beta tester→usuario piloto · v1.1)
+             docs/02_IMPLEMENTATION_MASTER_PLAN.md (nota Fase 2 absorbida por RC-1)
+             docs/README.md (referencias PRODUCT_LANGUAGE actualizadas)
+             docs/01_TRABFLOW_CONSTITUTION.md (referencia PRODUCT_LANGUAGE actualizada)
+             docs/design-system/PRODUCT_LANGUAGE_v1.md (nota complementaria añadida)
+             docs/RC1_COMMERCIAL_READINESS.md (header snapshot histórico)
+             docs/RC1_MVP_ELEMENTS.md (ítems resueltos marcados · header snapshot)
+             docs/PILOT_ZERO_PLAN.md (Estado: Activo → COMPLETADO)
+             docs/07_GO_TO_MARKET.md (beta testers → usuarios piloto)
+             docs/marketplace/TRABFLOW_MARKETPLACE_MASTER_PLAN.md (beta privada → piloto)
+             docs/marketplace/MARKETPLACE_RESOURCE_SCENARIOS.md (beta privada → piloto)
+VALIDACIÓN:  grep "beta tester" docs/*.md → sin resultados en documentos normativos
+             métricas § 10 con ✅ en NIF, cookies, analytics
+             PRODUCT_LANGUAGE.md referenciado en README, Constitution, PRODUCT_LANGUAGE_v1
+COMMIT:      [ver historial git]
+FECHA:       2026-07-29
 ```
 
 ---
@@ -492,9 +520,9 @@ Tabla viva. Se actualiza al cerrar cada fase o tarea relevante.
 | Clientes de pago | No validado (dato pendiente) | — |
 | MRR | No validado | — |
 | MAU | Sin analytics — 0 datos | — |
-| Analytics instalado | ❌ No — tarea RC1-C04-A | — |
-| NIF en Aviso Legal | ❌ [PENDIENTE] — tarea RC1-C01 | — |
-| Banner de cookies | ❌ No — tarea RC1-C03 | — |
+| Analytics instalado | ✅ Vercel Analytics — consent gate activo (RC1-C04-A) | Jul 2026 |
+| NIF en Aviso Legal | ✅ B11792515 provisional publicado (RC1-C01) | Jul 2026 |
+| Banner de cookies | ✅ RGPD · 3 categorías · consent gate (RC1-C03) | Jul 2026 |
 | Producción | Vercel (trabflow.com) | — |
 | Base de datos | Supabase (dqqjaujnulutinskmqsu) | — |
 | Motor IA | Anthropic Claude Haiku 4.5 | — |

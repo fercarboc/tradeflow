@@ -247,9 +247,9 @@ Cada sección tiene una estimación de prioridad:
 
 | Bloque | Total ítems | Completados | Pendientes críticos |
 |--------|-------------|-------------|---------------------|
-| Legal y Cumplimiento | 17 | ~0 | NIF, cookies, beta |
+| Legal y Cumplimiento | 17 | 5 | Tabla cookies específica, retención datos, transferencias internacionales |
 | Dominio y Marca | 7 | 1 | Email profesional, SPF/DKIM |
-| Analytics | 7 | 0 | Analytics básico, funnel |
+| Analytics | 7 | 1 | Funnel conversión, eventos clave, dashboard métricas |
 | Monitorización | 8 | 0 | Error monitoring, uptime |
 | Soporte | 6 | 0 | FAQ, canal de soporte |
 | Onboarding | 12 | ~2 | Tutorial in-app, onboarding proveedor |
@@ -262,8 +262,10 @@ Cada sección tiene una estimación de prioridad:
 | Seguridad | 8 | 3 | 2FA, auditoría |
 | Financiero | 8 | 3 | IVA correcto, cancelación |
 
-**Items 🔴 CRÍTICOS totales: 11**  
-**Items 🟠 ALTOS totales: ~30**  
+**Items 🔴 CRÍTICOS resueltos: 5** *(NIF, domicilio, cookies, analytics, beta narrativa)*  
+**Items 🔴 CRÍTICOS pendientes: 6** *(tabla cookies, retención datos, transferencias, tutorial in-app, onboarding proveedor, vídeo 60s)*  
+**Items 🟠 ALTOS resueltos: 1** *(gestión preferencias cookies)*  
+**Items 🟠 ALTOS pendientes: ~29**  
 **Items 🟡 MEDIOS totales: ~25**  
 **Items 🟢 BAJOS totales: ~15**
 

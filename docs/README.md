@@ -61,7 +61,8 @@
 | Documento | Descripción |
 |---|---|
 | [design-system/DESIGN_SYSTEM_v1.md](design-system/DESIGN_SYSTEM_v1.md) | Paleta, tipografía, espaciado, componentes, dark mode, accesibilidad |
-| [design-system/PRODUCT_LANGUAGE_v1.md](design-system/PRODUCT_LANGUAGE_v1.md) | Terminología oficial — qué decir y qué no decir en la interfaz |
+| [design-system/PRODUCT_LANGUAGE_v1.md](design-system/PRODUCT_LANGUAGE_v1.md) | Terminología UI/UX — estados de pedido, botones, mensajes de interfaz |
+| [PRODUCT_LANGUAGE.md](PRODUCT_LANGUAGE.md) | **Referencia principal** — Lenguaje comercial, términos aprobados/prohibidos, mensajes por audiencia (julio 2026) |
 
 ---
 
@@ -152,7 +153,7 @@
 ✅ ERP completo en producción
 ✅ Motor IA v59 — 98.2% OK rate — 400 casos benchmark
 ✅ Marketplace Phase 2 completa (checkout, seguimiento, portal proveedor)
-✅ Design System v1 y Product Language v1
+✅ Design System v1 · Product Language v1 (UI/UX) · Product Language v2 (comercial, julio 2026)
 ✅ PZ-001A completado — 2 ciclos de pedido E2E validados
 🔧 RC-1 Commercial Readiness — activo
 📋 PZ-001B — primer piloto con instalador externo real (pendiente RC1-Alpha)
@@ -168,7 +169,7 @@
 
 2. **Los ADR son inmutables.** Una decisión documentada en un ADR no se revierte sin escribir un nuevo ADR que la reemplace.
 
-3. **El Design System y el Product Language son obligatorios** en toda pantalla nueva. No copiar clases de Tailwind manualmente si existe un token. No inventar términos si están definidos en PRODUCT_LANGUAGE_v1.md.
+3. **El Design System y el Product Language son obligatorios** en toda pantalla nueva. No copiar clases de Tailwind manualmente si existe un token. No inventar términos si están definidos en `PRODUCT_LANGUAGE_v1.md` (terminología UI/UX) o en `PRODUCT_LANGUAGE.md` (comunicación comercial y pública).
 
 4. **La Constitución (01) rige la arquitectura.** Cualquier excepción a sus reglas requiere un ADR.
 
