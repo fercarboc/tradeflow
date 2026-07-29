@@ -171,7 +171,7 @@ BEGIN
         END AS ia_explicacion,
         COUNT(*) OVER() AS total_count
       FROM public.trade_marketplace_supplier_offerings o
-      LEFT JOIN public.trade_universal_products up ON up.id = o.universal_product_id
+      LEFT JOIN public.trade_marketplace_universal_products up ON up.id = o.universal_product_id
       WHERE o.supplier_catalog_id = $1
         AND ($2 IS NULL
              OR o.supplier_ref          ILIKE '%%' || $2 || '%%'
