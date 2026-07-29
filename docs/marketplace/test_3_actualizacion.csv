@@ -1,0 +1,11 @@
+supplier_ref;descripcion_comercial;precio_coste;precio_venta;unidad;stock_disponible;stock_cantidad;plazo_entrega_dias
+TST-CSV-001;Cemento Portland CEM I 42.5R 25kg;5,10;7,90;saco;SI;320;2
+TST-CSV-002;Arena de río lavada 25kg;1,35;2,30;saco;NO;0;3
+TST-CSV-003;Grava machacada 6-12mm 25kg;1,55;2,70;saco;SI;600;1
+TST-CSV-004;Bloque hormigón 40x20x20cm;0,98;1,75;ud;SI;2000;2
+TST-CSV-005;Ladrillo perforado 25x12x7cm;0,20;0,38;ud;SI;8500;1
+TST-CSV-006;Mortero cola C2 25kg;8,90;14,20;saco;SI;250;3
+TST-CSV-007;Placa yeso laminado 120x260cm 12,5mm;6,20;9,80;ud;NO;0;5
+TST-CSV-008;Perfil montante 70mm 3m;2,30;4,00;ud;SI;900;2
+TST-CSV-009;Perfil canal 70mm 3m;2,05;3,60;ud;SI;900;2
+TST-CSV-010;Tornillo drywall 3,5x25mm (caja 200ud);1,95;3,40;caja;SI;400;1

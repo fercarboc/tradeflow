@@ -1,0 +1,13 @@
+supplier_ref;descripcion_comercial;precio_coste;precio_venta;unidad;stock_disponible;stock_cantidad;plazo_entrega_dias
+TST-CSV-ERR-001;Producto valido para ver que pasa con el resto;10,00;15,00;ud;SI;100;2
+;Fila sin supplier_ref debe ser rechazada;5,00;8,00;ud;SI;50;3
+TST-CSV-ERR-002;;Descripcion vacia debe ser rechazada;3,00;ud;SI;50;3
+TST-CSV-ERR-003;Precio invalido formato texto;PRECIO_TEXTO;PRECIO_TEXTO;ud;SI;50;3
+TST-CSV-ERR-004;Stock con valor invalido;8,00;12,00;ud;MAYBE;abc;5
+TST-CSV-ERR-005;Fila duplicada primera ocurrencia;6,00;9,00;cj;SI;200;2
+TST-CSV-ERR-005;Fila duplicada segunda ocurrencia mismo ref;7,00;11,00;cj;SI;150;3
+TST-CSV-ERR-006;Unidad desconocida tipo especial;4,50;7,00;palé;NO;0;7
+TST-CSV-ERR-007;Otro producto valido sin problemas;12,00;18,00;kg;SI;300;1
+TST-CSV-ERR-008;Producto con stock cero sin stock;9,50;14,00;ud;NO;0;10
+;Sin referencia ni descripcion valida;;;ud;SI;10;2
+TST-CSV-ERR-009;Producto final valido completo;25,00;38,00;m2;SI;500;3

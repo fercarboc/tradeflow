@@ -2,10 +2,14 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { MarketplaceMyMembership } from '../../lib/api/marketplace-actors';
 import {
   PortalOffering, PortalOfferingIAEstado, MatchCandidate,
+  CatalogImport,
   getSupplierOfferingsPaged, updateSupplierOffering,
   matchOfferingToUP, unmatchOffering, getOfferingMatchCandidates,
+  getCatalogImports,
   IA_ESTADO_LABELS, IA_ESTADO_COLORS,
+  IMPORT_ESTADO_LABELS, IMPORT_ESTADO_COLORS,
 } from '../../lib/api/marketplace-portal';
+import PortalImportacion from './PortalImportacion';
 
 interface Props {
   actorId:    string;
@@ -21,14 +25,17 @@ const MATCH_STATE_OPTIONS = [
 ];
 
 export default function PortalCatalogo({ actorId, membership }: Props) {
-  const [items,       setItems]       = useState<PortalOffering[]>([]);
-  const [totalCount,  setTotalCount]  = useState(0);
-  const [loading,     setLoading]     = useState(true);
-  const [search,      setSearch]      = useState('');
-  const [matchFilter, setMatchFilter] = useState('');
-  const [page,        setPage]        = useState(0);
-  const [selectedOff, setSelectedOff] = useState<PortalOffering | null>(null);
-  const [error,       setError]       = useState<string | null>(null);
+  const [items,         setItems]         = useState<PortalOffering[]>([]);
+  const [totalCount,    setTotalCount]    = useState(0);
+  const [loading,       setLoading]       = useState(true);
+  const [search,        setSearch]        = useState('');
+  const [matchFilter,   setMatchFilter]   = useState('');
+  const [page,          setPage]          = useState(0);
+  const [selectedOff,   setSelectedOff]   = useState<PortalOffering | null>(null);
+  const [error,         setError]         = useState<string | null>(null);
+  const [showImport,    setShowImport]    = useState(false);
+  const [recentImports, setRecentImports] = useState<CatalogImport[]>([]);
+  const [historialOpen, setHistorialOpen] = useState(false);
 
   const LIMIT = 20;
 
@@ -61,7 +68,32 @@ export default function PortalCatalogo({ actorId, membership }: Props) {
 
   const totalPages = Math.ceil(totalCount / LIMIT);
 
+  const loadRecentImports = useCallback(async () => {
+    try {
+      const list = await getCatalogImports(actorId, 5);
+      setRecentImports(list);
+    } catch { /* silencioso */ }
+  }, [actorId]);
+
+  useEffect(() => { loadRecentImports(); }, [loadRecentImports]);
+
+  const handleImportComplete = () => {
+    setShowImport(false);
+    loadRecentImports();
+    load(search, matchFilter, page);
+  };
+
   return (
+    <>
+    {showImport && (
+      <PortalImportacion
+        actorId={actorId}
+        membership={membership}
+        onClose={() => setShowImport(false)}
+        onComplete={handleImportComplete}
+      />
+    )}
+
     <div className="flex h-full bg-slate-50 dark:bg-slate-950">
       {/* Table panel */}
       <div className={`flex flex-col flex-1 min-w-0 transition-all ${selectedOff ? 'lg:mr-[420px]' : ''}`}>
@@ -90,10 +122,56 @@ export default function PortalCatalogo({ actorId, membership }: Props) {
                 <option key={o.value} value={o.value}>{o.label}</option>
               ))}
             </select>
-            <span className="ml-auto text-xs text-slate-400 tabular-nums">
+            <span className="text-xs text-slate-400 tabular-nums whitespace-nowrap">
               {totalCount} producto{totalCount !== 1 ? 's' : ''}
             </span>
+            {canWrite && (
+              <button
+                onClick={() => setShowImport(true)}
+                className="ml-auto flex items-center gap-1.5 rounded-lg bg-teal-600 px-3 py-2 text-sm font-medium text-white hover:bg-teal-500 transition-colors shrink-0"
+              >
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                </svg>
+                Importar
+              </button>
+            )}
           </div>
+
+          {/* Historial de importaciones */}
+          {recentImports.length > 0 && (
+            <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+              <button
+                onClick={() => setHistorialOpen(o => !o)}
+                className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+              >
+                <svg className={`h-3.5 w-3.5 transition-transform ${historialOpen ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+                Importaciones recientes ({recentImports.length})
+              </button>
+              {historialOpen && (
+                <div className="mt-2 flex flex-col gap-1.5">
+                  {recentImports.map(imp => (
+                    <div key={imp.id} className="flex items-center gap-3 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-medium text-slate-700 dark:text-slate-300 truncate">{imp.nombre_archivo}</p>
+                        <p className="text-xs text-slate-400 tabular-nums">
+                          {imp.filas_ok.toLocaleString('es-ES')} ok
+                          {imp.filas_error > 0 && <span className="text-red-400 ml-1">· {imp.filas_error} err</span>}
+                          {' · '}
+                          {new Date(imp.created_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                        </p>
+                      </div>
+                      <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${IMPORT_ESTADO_COLORS[imp.estado]}`}>
+                        {IMPORT_ESTADO_LABELS[imp.estado]}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Table */}
@@ -175,6 +253,7 @@ export default function PortalCatalogo({ actorId, membership }: Props) {
         />
       )}
     </div>
+    </>
   );
 }
 

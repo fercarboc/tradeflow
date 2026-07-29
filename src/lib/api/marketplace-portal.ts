@@ -484,3 +484,170 @@ export const ORDER_TIMELINE: { estado: string; label: string }[] = [
 export function getOrderTimelineStep(estado: string): number {
   return ORDER_TIMELINE.findIndex((s) => s.estado === estado);
 }
+
+// ── Importación de catálogo ───────────────────────────────────────────────────
+
+export type CatalogImportEstado =
+  | 'procesando_importacion'
+  | 'pendiente_finalizacion'
+  | 'matching_pendiente'
+  | 'matching_procesando'
+  | 'completado'
+  | 'error'
+  | 'cancelado';
+
+export interface CatalogImport {
+  id:                string;
+  actor_id:          string;
+  nombre_archivo:    string;
+  archivo_hash:      string;
+  chunk_size:        number;
+  mapping_config:    Record<string, string>;
+  parser_version:    string;
+  estado:            CatalogImportEstado;
+  modo:              string;
+  total_filas:       number;
+  chunks_esperados:  number;
+  chunks_recibidos:  number;
+  filas_ok:          number;
+  filas_error:       number;
+  filas_duplicadas:  number;
+  started_at:        string;
+  completed_at:      string | null;
+  created_at:        string;
+  updated_at:        string;
+}
+
+export interface ImportItemRow {
+  supplier_ref:          string;
+  descripcion_comercial: string;
+  precio_coste?:         number | null;
+  precio_venta?:         number | null;
+  unidad?:               string;
+  stock_disponible?:     boolean;
+  stock_cantidad?:       number | null;
+  plazo_entrega_dias?:   number | null;
+  fila_original:         number;
+}
+
+export interface ChunkResult {
+  ok:               number;
+  errores:          number;
+  cached:           boolean;
+  nuevo_estado?:    string;
+  chunks_recibidos?: number;
+  chunks_esperados?: number;
+}
+
+export const IMPORT_ESTADO_LABELS: Record<CatalogImportEstado, string> = {
+  procesando_importacion: 'Importando',
+  pendiente_finalizacion: 'Pendiente de finalizar',
+  matching_pendiente:     'Esperando análisis IA',
+  matching_procesando:    'Analizando con IA',
+  completado:             'Completado',
+  error:                  'Error',
+  cancelado:              'Cancelado',
+};
+
+export const IMPORT_ESTADO_COLORS: Record<CatalogImportEstado, string> = {
+  procesando_importacion: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
+  pendiente_finalizacion: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
+  matching_pendiente:     'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300',
+  matching_procesando:    'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300',
+  completado:             'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
+  error:                  'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300',
+  cancelado:              'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300',
+};
+
+export async function createCatalogImport(params: {
+  actorId:         string;
+  nombreArchivo:   string;
+  archivoHash:     string;
+  totalFilas:      number;
+  chunkSize:       number;
+  chunksEsperados: number;
+  mappingConfig:   Record<string, string>;
+  parserVersion?:  string;
+}): Promise<string> {
+  const { data, error } = await db.rpc('create_catalog_import', {
+    p_actor_id:         params.actorId,
+    p_nombre_archivo:   params.nombreArchivo,
+    p_archivo_hash:     params.archivoHash,
+    p_total_filas:      params.totalFilas,
+    p_chunk_size:       params.chunkSize,
+    p_chunks_esperados: params.chunksEsperados,
+    p_mapping_config:   params.mappingConfig,
+    p_parser_version:   params.parserVersion ?? '1',
+  });
+  if (error) throw error;
+  return data as string;
+}
+
+export async function upsertCatalogChunk(params: {
+  actorId:    string;
+  importId:   string;
+  chunkIndex: number;
+  chunkHash:  string;
+  archivoHash: string;
+  items:      ImportItemRow[];
+}): Promise<ChunkResult> {
+  const { data, error } = await db.rpc('upsert_catalog_offerings_chunk', {
+    p_actor_id:    params.actorId,
+    p_import_id:   params.importId,
+    p_chunk_index: params.chunkIndex,
+    p_chunk_hash:  params.chunkHash,
+    p_archivo_hash: params.archivoHash,
+    p_items:       params.items,
+  });
+  if (error) throw error;
+  return data as ChunkResult;
+}
+
+export async function finalizeCatalogImport(importId: string, actorId: string): Promise<void> {
+  const { error } = await db.rpc('finalize_catalog_import', {
+    p_import_id: importId,
+    p_actor_id:  actorId,
+  });
+  if (error) throw error;
+}
+
+export async function failCatalogImport(importId: string, actorId: string, motivo: string): Promise<void> {
+  const { error } = await db.rpc('fail_catalog_import', {
+    p_import_id: importId,
+    p_actor_id:  actorId,
+    p_motivo:    motivo,
+  });
+  if (error) throw error;
+}
+
+export async function cancelCatalogImport(importId: string, actorId: string): Promise<void> {
+  const { error } = await db.rpc('cancel_catalog_import', {
+    p_import_id: importId,
+    p_actor_id:  actorId,
+  });
+  if (error) throw error;
+}
+
+export async function getCatalogImports(
+  actorId: string,
+  limit = 10,
+): Promise<CatalogImport[]> {
+  const { data, error } = await db
+    .from('trade_catalog_imports')
+    .select('*')
+    .eq('actor_id', actorId)
+    .order('created_at', { ascending: false })
+    .limit(limit);
+  if (error) throw error;
+  return (data ?? []) as CatalogImport[];
+}
+
+export async function getCatalogImport(importId: string): Promise<CatalogImport | null> {
+  const { data, error } = await db
+    .from('trade_catalog_imports')
+    .select('*')
+    .eq('id', importId)
+    .maybeSingle();
+  if (error) throw error;
+  return data as CatalogImport | null;
+}

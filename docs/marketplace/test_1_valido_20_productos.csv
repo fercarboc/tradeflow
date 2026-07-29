@@ -1,0 +1,21 @@
+supplier_ref;descripcion_comercial;precio_coste;precio_venta;unidad;stock_disponible;stock_cantidad;plazo_entrega_dias
+TST-CSV-001;Cemento Portland CEM I 42.5R 25kg;4,85;7,20;saco;SI;500;1
+TST-CSV-002;Arena de río lavada 25kg;1,20;2,10;saco;SI;1000;1
+TST-CSV-003;Grava machacada 6-12mm 25kg;1,45;2,50;saco;SI;800;2
+TST-CSV-004;Bloque hormigón 40x20x20cm;0,92;1,65;ud;SI;2500;1
+TST-CSV-005;Ladrillo perforado 25x12x7cm;0,18;0,35;ud;SI;10000;1
+TST-CSV-006;Mortero cola C2 25kg;8,40;13,50;saco;SI;300;2
+TST-CSV-007;Placa yeso laminado 120x260cm 12,5mm;5,80;9,20;ud;SI;450;3
+TST-CSV-008;Perfil montante 70mm 3m;2,15;3,80;ud;SI;1200;2
+TST-CSV-009;Perfil canal 70mm 3m;1,90;3,40;ud;SI;1200;2
+TST-CSV-010;Tornillo drywall 3,5x25mm (caja 200ud);1,80;3,20;caja;SI;600;1
+TST-CSV-011;Lana de roca 40mm espesor (m2);4,20;7,50;m2;SI;800;4
+TST-CSV-012;Malla electrosoldada 15x15cm 5mm (2x3m);18,50;28,00;ud;SI;150;3
+TST-CSV-013;Tubería PVC DN110 SN4 6m;12,80;19,90;ud;SI;80;5
+TST-CSV-014;Codo PVC DN110 87.5°;2,40;4,20;ud;SI;200;3
+TST-CSV-015;Junta elástica DN110;0,65;1,20;ud;SI;500;3
+TST-CSV-016;Cable eléctrico H07V-K 2.5mm2 (100m);38,50;58,00;rollo;SI;40;5
+TST-CSV-017;Canaleta PVC 20x12mm 2m;1,85;3,10;ud;SI;350;3
+TST-CSV-018;Caja mecanismo empotrar 65mm;0,42;0,85;ud;SI;1000;2
+TST-CSV-019;Interruptor simple 10A Simon 82;3,20;5,90;ud;SI;200;4
+TST-CSV-020;Base enchufe 16A Simon 82;3,80;6,80;ud;SI;200;4
