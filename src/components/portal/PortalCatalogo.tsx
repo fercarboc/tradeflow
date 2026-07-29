@@ -1,51 +1,274 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { MarketplaceMyMembership } from '../../lib/api/marketplace-actors';
 import {
-  PortalOffering, PortalOfferingIAEstado, MatchCandidate,
-  CatalogImport,
-  getSupplierOfferingsPaged, updateSupplierOffering,
-  matchOfferingToUP, unmatchOffering, getOfferingMatchCandidates,
-  getCatalogImports,
+  PortalOffering, PortalOfferingIAEstado, CatalogImport, CatalogQualityStats,
+  getSupplierOfferingsPaged, getCatalogQualityStats, getCatalogImports,
   IA_ESTADO_LABELS, IA_ESTADO_COLORS,
   IMPORT_ESTADO_LABELS, IMPORT_ESTADO_COLORS,
 } from '../../lib/api/marketplace-portal';
 import PortalImportacion from './PortalImportacion';
+import PortalProductoSlideOver from './PortalProductoSlideOver';
 
 interface Props {
   actorId:    string;
   membership: MarketplaceMyMembership;
 }
 
-const MATCH_STATE_OPTIONS = [
-  { value: '',              label: 'Todos' },
-  { value: 'matched',       label: 'Vinculados' },
-  { value: 'suggested',     label: 'Sugeridos' },
-  { value: 'pending_review',label: 'Por revisar' },
-  { value: 'unmatched',     label: 'Sin vincular' },
+type SortKey = 'updated_at' | 'supplier_ref' | 'descripcion_comercial' | 'precio_venta';
+type SlideTab = 'datos' | 'imagen' | 'estado' | 'ia' | 'historial';
+
+const SORT_OPTIONS: { value: SortKey; dir: 'asc' | 'desc'; label: string }[] = [
+  { value: 'updated_at',          dir: 'desc', label: 'Más reciente' },
+  { value: 'supplier_ref',        dir: 'asc',  label: 'Referencia A-Z' },
+  { value: 'descripcion_comercial', dir: 'asc', label: 'Descripción A-Z' },
+  { value: 'precio_venta',        dir: 'asc',  label: 'Precio ↑' },
+  { value: 'precio_venta',        dir: 'desc', label: 'Precio ↓' },
 ];
+
+const FMT_EUR  = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
+
+// ── Panel de calidad del catálogo ─────────────────────────────────────────────
+
+interface QualityPanelProps {
+  stats: CatalogQualityStats;
+  onFilterActiva?: (v: boolean | undefined) => void;
+  onFilterStock?:  (v: boolean | undefined) => void;
+}
+
+function QualityPanel({ stats, onFilterActiva, onFilterStock }: QualityPanelProps) {
+  if (stats.total === 0) return null;
+  const pct = stats.cobertura_pct;
+
+  return (
+    <div className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 px-6 py-3">
+      <div className="flex items-center gap-4 flex-wrap">
+        <div className="flex items-center gap-2 min-w-[160px]">
+          <div className="flex-1">
+            <div className="flex items-center justify-between mb-0.5">
+              <span className="text-xs font-medium text-slate-500">Cobertura IA</span>
+              <span className="text-xs font-bold tabular-nums text-slate-700 dark:text-slate-300">{pct}%</span>
+            </div>
+            <div className="h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+              <div
+                className={`h-full rounded-full transition-all ${
+                  pct >= 80 ? 'bg-emerald-500' : pct >= 50 ? 'bg-amber-500' : 'bg-red-500'
+                }`}
+                style={{ width: `${pct}%` }}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="h-4 w-px bg-slate-200 dark:bg-slate-700 hidden sm:block" />
+
+        <div className="flex items-center gap-2 flex-wrap text-xs">
+          <Chip color="emerald" label={`${stats.matched} vinculados`} />
+          {stats.sin_imagen > 0 && (
+            <Chip color="amber"  label={`${stats.sin_imagen} sin imagen`} />
+          )}
+          {stats.sin_stock > 0 && (
+            <Chip
+              color="orange"
+              label={`${stats.sin_stock} sin stock`}
+              onClick={() => onFilterStock?.(false)}
+              clickable
+            />
+          )}
+          {stats.inactivos > 0 && (
+            <Chip
+              color="slate"
+              label={`${stats.inactivos} inactivos`}
+              onClick={() => onFilterActiva?.(false)}
+              clickable
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Chip({ color, label, onClick, clickable }: {
+  color:     'emerald' | 'amber' | 'orange' | 'slate' | 'red';
+  label:     string;
+  onClick?:  () => void;
+  clickable?: boolean;
+}) {
+  const colors = {
+    emerald: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
+    amber:   'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
+    orange:  'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+    slate:   'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300',
+    red:     'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
+  };
+  return (
+    <span
+      onClick={clickable ? onClick : undefined}
+      className={`rounded-full px-2.5 py-0.5 font-medium ${colors[color]} ${clickable ? 'cursor-pointer hover:opacity-75 transition-opacity' : ''}`}
+    >
+      {label}
+    </span>
+  );
+}
+
+// ── Fila de la tabla ──────────────────────────────────────────────────────────
+
+interface OfferingRowProps {
+  item:       PortalOffering;
+  selected:   boolean;
+  canMatch:   boolean;
+  onOpen:     (tab?: SlideTab) => void;
+}
+
+function OfferingRow({ item, selected, canMatch, onOpen }: OfferingRowProps) {
+  return (
+    <tr
+      onClick={() => onOpen('datos')}
+      className={`cursor-pointer transition-colors ${
+        selected
+          ? 'bg-teal-50 dark:bg-teal-900/10'
+          : 'bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+      }`}
+    >
+      {/* Imagen mini */}
+      <td className="pl-4 pr-2 py-2.5 w-10">
+        {item.image_url ? (
+          <img
+            src={item.image_url}
+            alt=""
+            className="h-8 w-8 rounded-md object-cover border border-slate-200 dark:border-slate-700"
+          />
+        ) : (
+          <div className="h-8 w-8 rounded-md border border-dashed border-slate-200 dark:border-slate-700 flex items-center justify-center">
+            <svg className="h-3.5 w-3.5 text-slate-300" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+            </svg>
+          </div>
+        )}
+      </td>
+
+      {/* Ref + descripción */}
+      <td className="px-2 py-2.5 max-w-0 w-full">
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span className="font-mono text-xs text-slate-400 shrink-0">{item.supplier_ref ?? '—'}</span>
+          {!item.activa && (
+            <span className="rounded-full bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 text-xs text-slate-500 dark:text-slate-400">
+              Inactivo
+            </span>
+          )}
+        </div>
+        <p className="text-sm text-slate-800 dark:text-slate-200 truncate leading-snug">
+          {item.descripcion_comercial ?? '—'}
+        </p>
+        {item.up_familia && (
+          <p className="text-xs text-slate-400 truncate">{item.up_familia}</p>
+        )}
+      </td>
+
+      {/* Precio */}
+      <td className="px-2 py-2.5 text-right hidden md:table-cell w-28 shrink-0">
+        <p className="text-sm tabular-nums text-slate-700 dark:text-slate-300">
+          {item.precio_venta != null ? FMT_EUR.format(item.precio_venta) : '—'}
+        </p>
+        <p className="text-xs tabular-nums text-slate-400">{item.unidad}</p>
+      </td>
+
+      {/* Stock */}
+      <td className="px-2 py-2.5 text-center hidden lg:table-cell w-24 shrink-0">
+        <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
+          item.stock_disponible
+            ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
+            : 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300'
+        }`}>
+          {item.stock_disponible ? 'Con stock' : 'Sin stock'}
+        </span>
+      </td>
+
+      {/* Estado IA */}
+      <td className="px-2 py-2.5 hidden lg:table-cell w-28 shrink-0">
+        <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${IA_ESTADO_COLORS[item.ia_estado as PortalOfferingIAEstado] ?? ''}`}>
+          {IA_ESTADO_LABELS[item.ia_estado as PortalOfferingIAEstado] ?? item.ia_estado}
+        </span>
+        {item.match_confidence != null && (
+          <p className="text-xs text-slate-400 mt-0.5 tabular-nums">{Math.round(item.match_confidence * 100)}%</p>
+        )}
+      </td>
+
+      {/* Acción IA */}
+      <td className="pr-4 pl-2 py-2.5 w-10 shrink-0">
+        {canMatch && (
+          <button
+            onClick={e => { e.stopPropagation(); onOpen('ia'); }}
+            title="Motor IA"
+            className={`rounded-md p-1.5 transition-colors ${
+              selected
+                ? 'bg-teal-100 text-teal-600 dark:bg-teal-900/30 dark:text-teal-400'
+                : 'text-slate-300 hover:bg-slate-100 hover:text-teal-600 dark:hover:bg-slate-800'
+            }`}
+          >
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+            </svg>
+          </button>
+        )}
+      </td>
+    </tr>
+  );
+}
+
+function TableSkeleton() {
+  return (
+    <div className="animate-pulse p-4 space-y-3">
+      {Array.from({ length: 8 }).map((_, i) => (
+        <div key={i} className="h-14 rounded bg-slate-100 dark:bg-slate-800" />
+      ))}
+    </div>
+  );
+}
+
+// ── PortalCatalogo ────────────────────────────────────────────────────────────
 
 export default function PortalCatalogo({ actorId, membership }: Props) {
   const [items,         setItems]         = useState<PortalOffering[]>([]);
   const [totalCount,    setTotalCount]    = useState(0);
   const [loading,       setLoading]       = useState(true);
-  const [search,        setSearch]        = useState('');
-  const [matchFilter,   setMatchFilter]   = useState('');
-  const [page,          setPage]          = useState(0);
-  const [selectedOff,   setSelectedOff]   = useState<PortalOffering | null>(null);
   const [error,         setError]         = useState<string | null>(null);
-  const [showImport,    setShowImport]    = useState(false);
+  const [quality,       setQuality]       = useState<CatalogQualityStats | null>(null);
   const [recentImports, setRecentImports] = useState<CatalogImport[]>([]);
   const [historialOpen, setHistorialOpen] = useState(false);
+  const [showImport,    setShowImport]    = useState(false);
 
-  const LIMIT = 20;
+  // Filters & sort
+  const [search,      setSearch]      = useState('');
+  const [matchFilter, setMatchFilter] = useState('');
+  const [activaFilter, setActivaFilter] = useState<boolean | undefined>(undefined);
+  const [stockFilter,  setStockFilter]  = useState<boolean | undefined>(undefined);
+  const [sortIdx,     setSortIdx]     = useState(0);
+  const [page,        setPage]        = useState(0);
 
-  const load = useCallback(async (q: string, mf: string, p: number) => {
+  // SlideOver
+  const [selectedOff, setSelectedOff] = useState<PortalOffering | null>(null);
+  const [slideTab,    setSlideTab]    = useState<SlideTab>('datos');
+
+  const LIMIT  = 20;
+  const sort   = SORT_OPTIONS[sortIdx];
+  const canWrite = membership.permissions.includes('offerings:write');
+  const canMatch = membership.permissions.includes('offerings:match');
+  const totalPages = Math.ceil(totalCount / LIMIT);
+
+  const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const load = useCallback(async (q: string, mf: string, activa: boolean | undefined, stock: boolean | undefined, sBy: SortKey, sDir: 'asc' | 'desc', p: number) => {
     setLoading(true);
     setError(null);
     try {
       const result = await getSupplierOfferingsPaged(actorId, {
-        search:     q || undefined,
-        matchState: mf || undefined,
+        search:     q     || undefined,
+        matchState: mf    || undefined,
+        activa,
+        stock,
+        sortBy:     sBy,
+        sortDir:    sDir,
         limit:      LIMIT,
         offset:     p * LIMIT,
       });
@@ -58,30 +281,46 @@ export default function PortalCatalogo({ actorId, membership }: Props) {
     }
   }, [actorId]);
 
-  useEffect(() => { load(search, matchFilter, page); }, [load, search, matchFilter, page]);
+  useEffect(() => {
+    load(search, matchFilter, activaFilter, stockFilter, sort.value, sort.dir, page);
+  }, [load, search, matchFilter, activaFilter, stockFilter, sort.value, sort.dir, page]);
 
-  const handleSearchChange = (v: string) => { setSearch(v); setPage(0); };
-  const handleFilterChange = (v: string) => { setMatchFilter(v); setPage(0); };
-
-  const canWrite = membership.permissions.includes('offerings:write');
-  const canMatch = membership.permissions.includes('offerings:match');
-
-  const totalPages = Math.ceil(totalCount / LIMIT);
-
-  const loadRecentImports = useCallback(async () => {
-    try {
-      const list = await getCatalogImports(actorId, 5);
-      setRecentImports(list);
-    } catch { /* silencioso */ }
+  const loadQuality = useCallback(async () => {
+    getCatalogQualityStats(actorId).then(setQuality).catch(() => {});
   }, [actorId]);
 
-  useEffect(() => { loadRecentImports(); }, [loadRecentImports]);
+  const loadRecentImports = useCallback(async () => {
+    getCatalogImports(actorId, 5).then(setRecentImports).catch(() => {});
+  }, [actorId]);
+
+  useEffect(() => { loadQuality(); loadRecentImports(); }, [loadQuality, loadRecentImports]);
+
+  const handleSearchChange = (v: string) => {
+    if (searchTimer.current) clearTimeout(searchTimer.current);
+    searchTimer.current = setTimeout(() => { setSearch(v); setPage(0); }, 300);
+  };
 
   const handleImportComplete = () => {
     setShowImport(false);
     loadRecentImports();
-    load(search, matchFilter, page);
+    loadQuality();
+    load(search, matchFilter, activaFilter, stockFilter, sort.value, sort.dir, 0);
+    setPage(0);
   };
+
+  const openSlide = (item: PortalOffering, tab: SlideTab = 'datos') => {
+    setSelectedOff(item);
+    setSlideTab(tab);
+  };
+
+  const handleSlideUpdated = (patch: Partial<PortalOffering>) => {
+    setItems(prev => prev.map(it => it.id === selectedOff?.id ? { ...it, ...patch } : it));
+    if (selectedOff) setSelectedOff(prev => prev ? { ...prev, ...patch } : prev);
+    // Refresh quality stats silently
+    loadQuality();
+  };
+
+  const hasActiveFilters = !!search || !!matchFilter || activaFilter !== undefined || stockFilter !== undefined;
 
   return (
     <>
@@ -95,36 +334,40 @@ export default function PortalCatalogo({ actorId, membership }: Props) {
     )}
 
     <div className="flex h-full bg-slate-50 dark:bg-slate-950">
-      {/* Table panel */}
-      <div className={`flex flex-col flex-1 min-w-0 transition-all ${selectedOff ? 'lg:mr-[420px]' : ''}`}>
+      <div className={`flex flex-col flex-1 min-w-0 transition-all ${selectedOff ? 'lg:mr-[440px]' : ''}`}>
+
         {/* Toolbar */}
-        <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-4">
-          <div className="flex items-center gap-3">
+        <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-3">
+          {/* Row 1: Search + Sort + Importar */}
+          <div className="flex items-center gap-2">
             <div className="relative flex-1 max-w-xs">
-              <svg className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400"
+              <svg className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none"
                 fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
               </svg>
               <input
                 type="text"
-                placeholder="Buscar por ref, descripción..."
-                value={search}
-                onChange={(e) => handleSearchChange(e.target.value)}
+                placeholder="Buscar ref, descripción..."
+                defaultValue={search}
+                onChange={e => handleSearchChange(e.target.value)}
                 className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-9 pr-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
               />
             </div>
+
             <select
-              value={matchFilter}
-              onChange={(e) => handleFilterChange(e.target.value)}
-              className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
+              value={sortIdx}
+              onChange={e => { setSortIdx(Number(e.target.value)); setPage(0); }}
+              className="hidden sm:block rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
             >
-              {MATCH_STATE_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value}>{o.label}</option>
+              {SORT_OPTIONS.map((o, i) => (
+                <option key={i} value={i}>{o.label}</option>
               ))}
             </select>
-            <span className="text-xs text-slate-400 tabular-nums whitespace-nowrap">
+
+            <span className="hidden sm:block text-xs text-slate-400 tabular-nums whitespace-nowrap">
               {totalCount} producto{totalCount !== 1 ? 's' : ''}
             </span>
+
             {canWrite && (
               <button
                 onClick={() => setShowImport(true)}
@@ -138,9 +381,85 @@ export default function PortalCatalogo({ actorId, membership }: Props) {
             )}
           </div>
 
-          {/* Historial de importaciones */}
+          {/* Row 2: Filters */}
+          <div className="flex items-center gap-2 mt-2 flex-wrap">
+            {/* Match state */}
+            <select
+              value={matchFilter}
+              onChange={e => { setMatchFilter(e.target.value); setPage(0); }}
+              className={`rounded-md border px-2.5 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-teal-500 ${
+                matchFilter
+                  ? 'border-teal-500 text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-900/20'
+                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+              }`}
+            >
+              <option value="">IA: Todos</option>
+              <option value="matched">IA: Vinculados</option>
+              <option value="suggested">IA: Sugeridos</option>
+              <option value="pending_review">IA: Por revisar</option>
+              <option value="unmatched">IA: Sin vincular</option>
+            </select>
+
+            {/* Activa filter */}
+            <select
+              value={activaFilter === undefined ? '' : activaFilter ? 'true' : 'false'}
+              onChange={e => {
+                setActivaFilter(e.target.value === '' ? undefined : e.target.value === 'true');
+                setPage(0);
+              }}
+              className={`rounded-md border px-2.5 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-teal-500 ${
+                activaFilter !== undefined
+                  ? 'border-teal-500 text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-900/20'
+                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+              }`}
+            >
+              <option value="">Estado: Todos</option>
+              <option value="true">Activos</option>
+              <option value="false">Inactivos</option>
+            </select>
+
+            {/* Stock filter */}
+            <select
+              value={stockFilter === undefined ? '' : stockFilter ? 'true' : 'false'}
+              onChange={e => {
+                setStockFilter(e.target.value === '' ? undefined : e.target.value === 'true');
+                setPage(0);
+              }}
+              className={`rounded-md border px-2.5 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-teal-500 ${
+                stockFilter !== undefined
+                  ? 'border-teal-500 text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-900/20'
+                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+              }`}
+            >
+              <option value="">Stock: Todos</option>
+              <option value="true">Con stock</option>
+              <option value="false">Sin stock</option>
+            </select>
+
+            {/* Clear filters */}
+            {hasActiveFilters && (
+              <button
+                onClick={() => {
+                  setSearch('');
+                  setMatchFilter('');
+                  setActivaFilter(undefined);
+                  setStockFilter(undefined);
+                  setPage(0);
+                }}
+                className="rounded-md px-2.5 py-1.5 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition-colors"
+              >
+                Limpiar filtros
+              </button>
+            )}
+
+            <span className="sm:hidden text-xs text-slate-400 tabular-nums ml-auto">
+              {totalCount} prod.
+            </span>
+          </div>
+
+          {/* Importaciones recientes */}
           {recentImports.length > 0 && (
-            <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+            <div className="mt-2 pt-2 border-t border-slate-100 dark:border-slate-800">
               <button
                 onClick={() => setHistorialOpen(o => !o)}
                 className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
@@ -174,6 +493,15 @@ export default function PortalCatalogo({ actorId, membership }: Props) {
           )}
         </div>
 
+        {/* Quality panel */}
+        {quality && quality.total > 0 && (
+          <QualityPanel
+            stats={quality}
+            onFilterActiva={v => { setActivaFilter(v); setPage(0); }}
+            onFilterStock={v => { setStockFilter(v); setPage(0); }}
+          />
+        )}
+
         {/* Table */}
         <div className="flex-1 overflow-auto">
           {loading ? (
@@ -184,31 +512,38 @@ export default function PortalCatalogo({ actorId, membership }: Props) {
             </div>
           ) : items.length === 0 ? (
             <div className="flex flex-col h-40 items-center justify-center gap-2">
-              <p className="text-sm text-slate-400">No se encontraron productos.</p>
+              <p className="text-sm text-slate-400">
+                {hasActiveFilters ? 'Sin productos con estos filtros.' : 'El catálogo está vacío.'}
+              </p>
+              {hasActiveFilters && (
+                <button
+                  onClick={() => { setSearch(''); setMatchFilter(''); setActivaFilter(undefined); setStockFilter(undefined); setPage(0); }}
+                  className="text-xs text-teal-600 hover:underline"
+                >
+                  Limpiar filtros
+                </button>
+              )}
             </div>
           ) : (
             <table className="w-full text-sm border-collapse">
-              <thead className="sticky top-0 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+              <thead className="sticky top-0 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
                 <tr>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Ref</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Descripción</th>
-                  <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide hidden md:table-cell">Precio</th>
-                  <th className="text-center px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide hidden lg:table-cell">Stock</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Catálogo TrabFlow</th>
-                  <th className="text-center px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Estado</th>
-                  <th className="px-4 py-3" />
+                  <th className="pl-4 pr-2 py-2.5 w-10" />
+                  <th className="px-2 py-2.5 text-left text-xs font-semibold text-slate-400 uppercase tracking-wide">Producto</th>
+                  <th className="px-2 py-2.5 text-right text-xs font-semibold text-slate-400 uppercase tracking-wide hidden md:table-cell">Precio</th>
+                  <th className="px-2 py-2.5 text-center text-xs font-semibold text-slate-400 uppercase tracking-wide hidden lg:table-cell">Stock</th>
+                  <th className="px-2 py-2.5 text-left text-xs font-semibold text-slate-400 uppercase tracking-wide hidden lg:table-cell">Motor IA</th>
+                  <th className="pr-4 pl-2 py-2.5 w-10" />
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                {items.map((item) => (
+                {items.map(item => (
                   <OfferingRow
                     key={item.id}
                     item={item}
                     selected={selectedOff?.id === item.id}
-                    canWrite={canWrite}
                     canMatch={canMatch}
-                    onSelect={() => setSelectedOff(prev => prev?.id === item.id ? null : item)}
-                    onUpdated={() => load(search, matchFilter, page)}
+                    onOpen={(tab) => openSlide(item, tab)}
                   />
                 ))}
               </tbody>
@@ -220,7 +555,7 @@ export default function PortalCatalogo({ actorId, membership }: Props) {
         {totalPages > 1 && (
           <div className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-3 flex items-center justify-between">
             <button
-              onClick={() => setPage((p) => Math.max(0, p - 1))}
+              onClick={() => setPage(p => Math.max(0, p - 1))}
               disabled={page === 0}
               className="rounded-md border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:border-teal-500 hover:text-teal-500 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             >
@@ -230,7 +565,7 @@ export default function PortalCatalogo({ actorId, membership }: Props) {
               {page + 1} / {totalPages}
             </span>
             <button
-              onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+              onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
               disabled={page >= totalPages - 1}
               className="rounded-md border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:border-teal-500 hover:text-teal-500 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             >
@@ -240,321 +575,19 @@ export default function PortalCatalogo({ actorId, membership }: Props) {
         )}
       </div>
 
-      {/* Matching drawer */}
+      {/* SlideOver */}
       {selectedOff && (
-        <MatchingDrawer
+        <PortalProductoSlideOver
+          actorId={actorId}
           offering={selectedOff}
+          canWrite={canWrite}
           canMatch={canMatch}
+          initialTab={slideTab}
           onClose={() => setSelectedOff(null)}
-          onMatched={() => {
-            setSelectedOff(null);
-            load(search, matchFilter, page);
-          }}
+          onUpdated={handleSlideUpdated}
         />
       )}
     </div>
     </>
-  );
-}
-
-interface OfferingRowProps {
-  item:       PortalOffering;
-  selected:   boolean;
-  canWrite:   boolean;
-  canMatch:   boolean;
-  onSelect:   () => void;
-  onUpdated:  () => void;
-}
-
-function OfferingRow({ item, selected, canWrite, canMatch, onSelect, onUpdated }: OfferingRowProps) {
-  const [busy, setBusy] = useState(false);
-
-  const toggleStock = async () => {
-    if (!canWrite || busy) return;
-    setBusy(true);
-    try {
-      await updateSupplierOffering(item.id, { stock_disponible: !item.stock_disponible });
-      onUpdated();
-    } finally {
-      setBusy(false);
-    }
-  };
-
-  return (
-    <tr
-      className={`transition-colors ${selected ? 'bg-teal-50 dark:bg-teal-900/10' : 'bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}
-    >
-      <td className="px-4 py-3">
-        <span className="font-mono text-xs text-slate-500">{item.supplier_ref ?? '—'}</span>
-      </td>
-      <td className="px-4 py-3 max-w-xs">
-        <p className="text-sm text-slate-800 dark:text-slate-200 truncate">
-          {item.descripcion_comercial ?? '—'}
-        </p>
-        {item.up_familia && (
-          <p className="text-xs text-slate-400 truncate">{item.up_familia}</p>
-        )}
-      </td>
-      <td className="px-4 py-3 text-right hidden md:table-cell">
-        <span className="text-sm tabular-nums text-slate-700 dark:text-slate-300">
-          {item.precio_coste != null
-            ? new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(item.precio_coste)
-            : '—'}
-        </span>
-      </td>
-      <td className="px-4 py-3 text-center hidden lg:table-cell">
-        <button
-          onClick={toggleStock}
-          disabled={!canWrite || busy}
-          title={item.stock_disponible ? 'Con stock — clic para quitar' : 'Sin stock — clic para marcar'}
-          className={`rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors ${
-            item.stock_disponible
-              ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 hover:bg-emerald-200'
-              : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300 hover:bg-red-200'
-          } ${(!canWrite || busy) ? 'cursor-default' : 'cursor-pointer'}`}
-        >
-          {item.stock_disponible ? 'Con stock' : 'Sin stock'}
-        </button>
-      </td>
-      <td className="px-4 py-3 max-w-[160px]">
-        <p className="text-xs text-slate-700 dark:text-slate-300 truncate">
-          {item.up_nombre_canonico ?? <span className="text-slate-400">Sin vincular</span>}
-        </p>
-        {item.match_confidence != null && (
-          <p className="text-xs text-slate-400">{Math.round(item.match_confidence * 100)}% confianza</p>
-        )}
-      </td>
-      <td className="px-4 py-3 text-center">
-        <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${IA_ESTADO_COLORS[item.ia_estado as PortalOfferingIAEstado] ?? ''}`}>
-          {IA_ESTADO_LABELS[item.ia_estado as PortalOfferingIAEstado] ?? item.ia_estado}
-        </span>
-      </td>
-      <td className="px-4 py-3">
-        {canMatch && (
-          <button
-            onClick={onSelect}
-            title="Vincular / ver detalles"
-            className={`rounded-md p-1.5 transition-colors ${
-              selected
-                ? 'bg-teal-100 text-teal-600 dark:bg-teal-900/30 dark:text-teal-400'
-                : 'text-slate-400 hover:bg-slate-100 hover:text-teal-600 dark:hover:bg-slate-800'
-            }`}
-          >
-            <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-            </svg>
-          </button>
-        )}
-      </td>
-    </tr>
-  );
-}
-
-interface MatchingDrawerProps {
-  offering:  PortalOffering;
-  canMatch:  boolean;
-  onClose:   () => void;
-  onMatched: () => void;
-}
-
-function MatchingDrawer({ offering, canMatch, onClose, onMatched }: MatchingDrawerProps) {
-  const [candidates, setCandidates] = useState<MatchCandidate[]>([]);
-  const [query,      setQuery]      = useState('');
-  const [loading,    setLoading]    = useState(true);
-  const [matching,   setMatching]   = useState<string | null>(null);
-  const [unmatching, setUnmatching] = useState(false);
-  const queryTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const loadCandidates = useCallback(async (q: string) => {
-    setLoading(true);
-    try {
-      const res = await getOfferingMatchCandidates(offering.id, q || undefined, 8);
-      setCandidates(res);
-    } finally {
-      setLoading(false);
-    }
-  }, [offering.id]);
-
-  useEffect(() => { loadCandidates(''); }, [loadCandidates]);
-
-  const handleQueryChange = (v: string) => {
-    setQuery(v);
-    if (queryTimer.current) clearTimeout(queryTimer.current);
-    queryTimer.current = setTimeout(() => loadCandidates(v), 300);
-  };
-
-  const handleMatch = async (upId: string) => {
-    if (!canMatch || matching) return;
-    setMatching(upId);
-    try {
-      await matchOfferingToUP(offering.id, upId, 'supplier');
-      onMatched();
-    } catch (e) {
-      alert(e instanceof Error ? e.message : 'Error al vincular');
-    } finally {
-      setMatching(null);
-    }
-  };
-
-  const handleUnmatch = async () => {
-    if (!canMatch || unmatching) return;
-    setUnmatching(true);
-    try {
-      await unmatchOffering(offering.id);
-      onMatched();
-    } catch (e) {
-      alert(e instanceof Error ? e.message : 'Error al desvincular');
-    } finally {
-      setUnmatching(false);
-    }
-  };
-
-  return (
-    <div className="fixed inset-y-0 right-0 z-40 w-full max-w-[420px] flex flex-col bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 shadow-2xl">
-      {/* Header */}
-      <div className="flex items-start gap-3 border-b border-slate-200 dark:border-slate-800 px-5 py-4">
-        <div className="flex-1 min-w-0">
-          <p className="text-xs text-slate-400 mb-0.5">Vinculación</p>
-          <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">
-            {offering.supplier_ref && <span className="font-mono text-slate-500 mr-1.5">{offering.supplier_ref}</span>}
-            {offering.descripcion_comercial ?? 'Producto sin descripción'}
-          </p>
-          <p className="text-xs text-slate-400 mt-0.5">
-            {IA_ESTADO_LABELS[offering.ia_estado as PortalOfferingIAEstado]} · {offering.ia_explicacion}
-          </p>
-        </div>
-        <button onClick={onClose} className="shrink-0 rounded-md p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-
-      {/* Vinculación actual */}
-      {offering.match_state === 'matched' && offering.up_nombre_canonico && (
-        <div className="mx-5 mt-4 flex items-start gap-3 rounded-lg border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/10 p-3">
-          <svg className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-          </svg>
-          <div className="flex-1 min-w-0">
-            <p className="text-xs font-medium text-emerald-700 dark:text-emerald-300">Vinculado a</p>
-            <p className="text-sm text-slate-900 dark:text-slate-100 truncate">{offering.up_nombre_canonico}</p>
-            {offering.up_familia && <p className="text-xs text-slate-500">{offering.up_familia}</p>}
-          </div>
-          {canMatch && (
-            <button
-              onClick={handleUnmatch}
-              disabled={unmatching}
-              className="shrink-0 text-xs text-red-500 hover:text-red-400 transition-colors"
-            >
-              {unmatching ? '...' : 'Desvincular'}
-            </button>
-          )}
-        </div>
-      )}
-
-      {/* Buscador */}
-      {canMatch && (
-        <div className="px-5 pt-4">
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">
-            {offering.match_state === 'matched' ? 'Cambiar vinculación' : 'Buscar en catálogo TrabFlow'}
-          </p>
-          <div className="relative">
-            <svg className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400"
-              fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
-            </svg>
-            <input
-              type="text"
-              placeholder="Nombre, EAN, familia..."
-              value={query}
-              onChange={(e) => handleQueryChange(e.target.value)}
-              className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-9 pr-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Candidatos */}
-      <div className="flex-1 overflow-y-auto px-5 py-3 space-y-2">
-        {loading ? (
-          <div className="flex justify-center py-8">
-            <svg className="h-5 w-5 animate-spin text-teal-500" viewBox="0 0 24 24" fill="none">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-            </svg>
-          </div>
-        ) : candidates.length === 0 ? (
-          <div className="text-center py-8">
-            <p className="text-sm text-slate-400">
-              {query ? 'Sin resultados para esa búsqueda.' : 'Sin candidatos automáticos.'}
-            </p>
-            <p className="text-xs text-slate-400 mt-1">Prueba con el nombre, EAN o familia del producto.</p>
-          </div>
-        ) : (
-          candidates.map((c) => (
-            <div
-              key={c.up_id}
-              className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-3"
-            >
-              <div className="flex items-start justify-between gap-2 mb-2">
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-slate-900 dark:text-slate-100 leading-tight">
-                    {c.nombre_canonico}
-                  </p>
-                  {c.familia && <p className="text-xs text-slate-400">{c.familia}</p>}
-                  {c.marca && <p className="text-xs text-slate-500">{c.marca}</p>}
-                </div>
-                <div className="text-right shrink-0">
-                  <span className={`text-sm font-bold tabular-nums ${c.score >= 80 ? 'text-emerald-600' : c.score >= 50 ? 'text-amber-600' : 'text-slate-500'}`}>
-                    {c.score}%
-                  </span>
-                  <p className="text-xs text-slate-400 leading-none">similitud</p>
-                </div>
-              </div>
-
-              <p className="text-xs text-slate-500 mb-2 leading-relaxed">{c.explicacion}</p>
-
-              <div className="flex flex-wrap gap-1 mb-3">
-                {c.match_ean     && <span className="rounded bg-emerald-100 dark:bg-emerald-900/30 px-1.5 py-0.5 text-xs text-emerald-700 dark:text-emerald-300">EAN</span>}
-                {c.match_mpn     && <span className="rounded bg-emerald-100 dark:bg-emerald-900/30 px-1.5 py-0.5 text-xs text-emerald-700 dark:text-emerald-300">MPN</span>}
-                {c.match_marca   && <span className="rounded bg-blue-100 dark:bg-blue-900/30 px-1.5 py-0.5 text-xs text-blue-700 dark:text-blue-300">Marca</span>}
-                {c.match_familia && <span className="rounded bg-blue-100 dark:bg-blue-900/30 px-1.5 py-0.5 text-xs text-blue-700 dark:text-blue-300">Familia</span>}
-                {c.match_descripcion && <span className="rounded bg-slate-100 dark:bg-slate-700 px-1.5 py-0.5 text-xs text-slate-600 dark:text-slate-300">Descripción</span>}
-                {c.ofertas_count > 0 && (
-                  <span className="rounded bg-slate-100 dark:bg-slate-700 px-1.5 py-0.5 text-xs text-slate-500">
-                    {c.ofertas_count} proveedor{c.ofertas_count > 1 ? 'es' : ''}
-                  </span>
-                )}
-              </div>
-
-              {canMatch && (
-                <button
-                  onClick={() => handleMatch(c.up_id)}
-                  disabled={!!matching}
-                  className={`w-full rounded-md py-1.5 text-xs font-semibold transition-colors ${
-                    matching === c.up_id
-                      ? 'bg-teal-500 text-white cursor-wait'
-                      : 'bg-teal-600 text-white hover:bg-teal-500 disabled:opacity-50'
-                  }`}
-                >
-                  {matching === c.up_id ? 'Vinculando...' : 'Vincular'}
-                </button>
-              )}
-            </div>
-          ))
-        )}
-      </div>
-    </div>
-  );
-}
-
-function TableSkeleton() {
-  return (
-    <div className="animate-pulse p-4 space-y-3">
-      {Array.from({ length: 8 }).map((_, i) => (
-        <div key={i} className="h-12 rounded bg-slate-200 dark:bg-slate-800" />
-      ))}
-    </div>
   );
 }

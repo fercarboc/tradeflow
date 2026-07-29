@@ -85,8 +85,27 @@ export interface PortalOffering {
   ia_estado:             PortalOfferingIAEstado;
   ia_explicacion:        string;
   activa:                boolean;
+  image_url:             string | null;
   created_at:            string;
+  updated_at:            string;
   total_count:           number;
+}
+
+export interface OfferingEvent {
+  id:            string;
+  tipo:          'importado' | 'editado' | 'precio' | 'stock' | 'imagen' | 'estado' | 'ia_vinculado' | 'ia_desvinculado';
+  datos_antes:   Record<string, unknown> | null;
+  datos_despues: Record<string, unknown> | null;
+  created_at:    string;
+}
+
+export interface CatalogQualityStats {
+  total:        number;
+  matched:      number;
+  sin_imagen:   number;
+  sin_stock:    number;
+  inactivos:    number;
+  cobertura_pct: number;
 }
 
 export interface PortalOfferingPage {
@@ -228,16 +247,24 @@ export async function getSupplierOfferingsPaged(
   opts?: {
     search?:     string;
     matchState?: string;
+    activa?:     boolean;
+    stock?:      boolean;
+    sortBy?:     string;
+    sortDir?:    'asc' | 'desc';
     limit?:      number;
     offset?:     number;
   },
 ): Promise<PortalOfferingPage> {
   const { data, error } = await db.rpc('get_supplier_offerings_paged', {
-    p_actor_id:   actorId,
-    p_search:     opts?.search     ?? null,
+    p_actor_id:    actorId,
+    p_search:      opts?.search     ?? null,
     p_match_state: opts?.matchState ?? null,
-    p_limit:      opts?.limit      ?? 20,
-    p_offset:     opts?.offset     ?? 0,
+    p_activa:      opts?.activa     ?? null,
+    p_stock:       opts?.stock      ?? null,
+    p_sort_by:     opts?.sortBy     ?? 'updated_at',
+    p_sort_dir:    opts?.sortDir    ?? 'desc',
+    p_limit:       opts?.limit      ?? 20,
+    p_offset:      opts?.offset     ?? 0,
   });
   if (error) throw error;
   const rows = (data ?? []) as PortalOffering[];
@@ -250,24 +277,104 @@ export async function getSupplierOfferingsPaged(
 export async function updateSupplierOffering(
   offeringId: string,
   updates: {
-    precio_coste?:         number;
-    precio_venta?:         number;
-    stock_disponible?:     boolean;
-    stock_cantidad?:       number;
+    precio_coste?:          number | null;
+    precio_venta?:          number | null;
+    stock_disponible?:      boolean;
+    stock_cantidad?:        number | null;
     descripcion_comercial?: string;
-    plazo_entrega_dias?:   number;
-    activa?:               boolean;
+    plazo_entrega_dias?:    number;
+    activa?:                boolean;
+    unidad?:                string;
   },
+  actorId?: string,
 ): Promise<void> {
   const { error } = await db.rpc('update_supplier_offering', {
-    p_offering_id:          offeringId,
-    p_precio_coste:         updates.precio_coste         ?? null,
-    p_precio_venta:         updates.precio_venta         ?? null,
-    p_stock_disponible:     updates.stock_disponible     ?? null,
-    p_stock_cantidad:       updates.stock_cantidad        ?? null,
+    p_offering_id:           offeringId,
+    p_precio_coste:          updates.precio_coste          ?? null,
+    p_precio_venta:          updates.precio_venta          ?? null,
+    p_stock_disponible:      updates.stock_disponible      ?? null,
+    p_stock_cantidad:        updates.stock_cantidad         ?? null,
     p_descripcion_comercial: updates.descripcion_comercial ?? null,
-    p_plazo_entrega_dias:   updates.plazo_entrega_dias   ?? null,
-    p_activa:               updates.activa               ?? null,
+    p_plazo_entrega_dias:    updates.plazo_entrega_dias    ?? null,
+    p_activa:                updates.activa                ?? null,
+    p_unidad:                updates.unidad                ?? null,
+    p_actor_id:              actorId                       ?? null,
+  });
+  if (error) throw error;
+}
+
+export async function updateOfferingImage(
+  actorId:    string,
+  offeringId: string,
+  imageUrl:   string | null,
+): Promise<void> {
+  const { error } = await db.rpc('update_offering_image', {
+    p_actor_id:    actorId,
+    p_offering_id: offeringId,
+    p_image_url:   imageUrl,
+  });
+  if (error) throw error;
+}
+
+export async function uploadOfferingImage(
+  actorId:    string,
+  offeringId: string,
+  file:       File,
+): Promise<string> {
+  const path = `${actorId}/${offeringId}`;
+  const { error } = await supabase.storage
+    .from('marketplace-offerings')
+    .upload(path, file, { upsert: true, contentType: file.type });
+  if (error) throw error;
+  const { data } = supabase.storage.from('marketplace-offerings').getPublicUrl(path);
+  return data.publicUrl;
+}
+
+export async function deleteOfferingImageFile(
+  actorId:    string,
+  offeringId: string,
+): Promise<void> {
+  await supabase.storage
+    .from('marketplace-offerings')
+    .remove([`${actorId}/${offeringId}`]);
+}
+
+export async function getOfferingEvents(
+  actorId:    string,
+  offeringId: string,
+  limit = 30,
+): Promise<OfferingEvent[]> {
+  const { data, error } = await db.rpc('get_offering_events', {
+    p_actor_id:    actorId,
+    p_offering_id: offeringId,
+    p_limit:       limit,
+  });
+  if (error) throw error;
+  return (data ?? []) as OfferingEvent[];
+}
+
+export async function getCatalogQualityStats(
+  actorId: string,
+): Promise<CatalogQualityStats> {
+  const { data, error } = await db.rpc('get_catalog_quality_stats', {
+    p_actor_id: actorId,
+  });
+  if (error) throw error;
+  return (data ?? { total: 0, matched: 0, sin_imagen: 0, sin_stock: 0, inactivos: 0, cobertura_pct: 0 }) as CatalogQualityStats;
+}
+
+export async function recordOfferingEvent(params: {
+  actorId:      string;
+  offeringId:   string;
+  tipo:         'ia_vinculado' | 'ia_desvinculado';
+  datosDespues: Record<string, unknown>;
+}): Promise<void> {
+  const { error } = await db.rpc('record_offering_event', {
+    p_actor_id:      params.actorId,
+    p_offering_id:   params.offeringId,
+    p_tipo:          params.tipo,
+    p_datos_antes:   null,
+    p_datos_despues: params.datosDespues,
   });
   if (error) throw error;
 }
