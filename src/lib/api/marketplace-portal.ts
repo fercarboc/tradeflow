@@ -157,6 +157,71 @@ export interface PortalOrderPage {
   totalCount: number;
 }
 
+// ── Detalle de pedido (SlideOver MVP-4) ───────────────────────────────────────
+
+export interface PortalOrderItem {
+  id:              string;
+  referencia:      string | null;
+  descripcion:     string;
+  unidad:          string;
+  cantidad:        number;
+  precio_unitario: number | null;
+  precio_total:    number | null;
+}
+
+export interface PortalOrderEvent {
+  id:          string;
+  tipo:        string;
+  from_estado: string | null;
+  to_estado:   string | null;
+  actor_type:  string;
+  notas:       string | null;
+  created_at:  string;
+}
+
+export interface PortalOrderDetailOrder {
+  id:               string;
+  numero:           string;
+  estado:           PortalOrderEstado;
+  actor_id:         string;
+  actor_nombre:     string;
+  actor_verificado: boolean;
+  org_id:           string;
+  subtotal:         number;
+  coste_envio:      number;
+  total:            number;
+  notas:            string | null;
+  notas_proveedor:  string | null;
+  tracking_ref:     string | null;
+  tracking_url:     string | null;
+  delivery_address: string | null;
+  cancel_reason:    string | null;
+  created_at:       string;
+  confirmed_at:     string | null;
+  preparing_at:     string | null;
+  shipped_at:       string | null;
+  delivered_at:     string | null;
+  cancelled_at:     string | null;
+  completed_at:     string | null;
+}
+
+export interface PortalOrderDetail {
+  order:           PortalOrderDetailOrder;
+  items:           PortalOrderItem[];
+  events:          PortalOrderEvent[];
+  supplier_config: {
+    horario_entrega:       Record<string, unknown> | null;
+    mensaje_instaladores:  string | null;
+    permite_recogida:      boolean;
+  } | null;
+}
+
+export interface SupplierOrderAlerts {
+  pending_count:  number;
+  pending_urgent: number;
+  atrasados:      number;
+}
+
 // ── Health Score ──────────────────────────────────────────────────────────────
 
 export interface SupplierHealthScore {
@@ -472,6 +537,82 @@ export async function shipSupplierOrder(
     p_tracking: tracking ?? null,
   });
   if (error) throw error;
+}
+
+// ── API — Pedidos MVP-4 ───────────────────────────────────────────────────────
+
+export async function getSupplierOrderDetail(
+  actorId: string,
+  orderId: string,
+): Promise<PortalOrderDetail> {
+  const { data, error } = await db.rpc('get_supplier_order_detail', {
+    p_actor_id: actorId,
+    p_order_id: orderId,
+  });
+  if (error) throw error;
+  return data as PortalOrderDetail;
+}
+
+export async function getSupplierOrderAlerts(
+  actorId: string,
+): Promise<SupplierOrderAlerts> {
+  const { data, error } = await db.rpc('get_supplier_order_alerts', {
+    p_actor_id: actorId,
+  });
+  if (error) throw error;
+  return (data ?? { pending_count: 0, pending_urgent: 0, atrasados: 0 }) as SupplierOrderAlerts;
+}
+
+export async function cancelSupplierOrder(
+  orderId:  string,
+  actorId:  string,
+  reason?:  string,
+): Promise<void> {
+  const { error } = await db.rpc('cancel_supplier_order', {
+    p_order_id: orderId,
+    p_actor_id: actorId,
+    p_reason:   reason ?? null,
+  });
+  if (error) throw error;
+}
+
+export async function markSupplierOrderIncident(
+  orderId:     string,
+  actorId:     string,
+  description: string,
+): Promise<void> {
+  const { error } = await db.rpc('mark_supplier_order_incident', {
+    p_order_id:    orderId,
+    p_actor_id:    actorId,
+    p_description: description,
+  });
+  if (error) throw error;
+}
+
+export async function bulkConfirmSupplierOrders(
+  actorId:  string,
+  orderIds: string[],
+): Promise<number> {
+  const { data, error } = await db.rpc('bulk_confirm_supplier_orders', {
+    p_actor_id:  actorId,
+    p_order_ids: orderIds,
+  });
+  if (error) throw error;
+  return (data as number) ?? 0;
+}
+
+export async function bulkShipSupplierOrders(
+  actorId:  string,
+  orderIds: string[],
+  tracking?: string,
+): Promise<number> {
+  const { data, error } = await db.rpc('bulk_ship_supplier_orders', {
+    p_actor_id:  actorId,
+    p_order_ids: orderIds,
+    p_tracking:  tracking ?? null,
+  });
+  if (error) throw error;
+  return (data as number) ?? 0;
 }
 
 // ── API — Health Score ────────────────────────────────────────────────────────

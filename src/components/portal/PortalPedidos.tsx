@@ -1,61 +1,62 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { MarketplaceMyMembership } from '../../lib/api/marketplace-actors';
 import {
-  PortalOrder, PortalOrderPage,
-  getSupplierOrdersUnified, confirmSupplierOrder, shipSupplierOrder,
+  PortalOrder, PortalOrderPage, SupplierOrderAlerts,
+  getSupplierOrdersUnified, getSupplierOrderAlerts,
+  bulkConfirmSupplierOrders, bulkShipSupplierOrders,
   getSupplierNotifications, markNotificationsRead,
 } from '../../lib/api/marketplace-portal';
 import { usePortal } from './PortalContext';
-import {
-  OrderLifecycleEstado,
-  prepareOrderFromPortal, shipMarketplaceOrderWithTracking,
-} from '../../lib/api/marketplace-orders';
-import ConfirmModal from '../marketplace/shared/ConfirmModal';
 import OrderStatusBadge from '../marketplace/shared/OrderStatusBadge';
-import OrderTimeline from '../marketplace/shared/OrderTimeline';
+import { OrderLifecycleEstado } from '../../lib/api/marketplace-orders';
+import PortalPedidoSlideOver from './PortalPedidoSlideOver';
 
 interface Props {
   actorId:    string;
   membership: MarketplaceMyMembership;
 }
 
-const LIMIT = 15;
+const LIMIT = 20;
 
 const ESTADO_OPTS = [
-  { value: '',          label: 'Todos'      },
-  { value: 'pending',   label: 'Pendientes' },
+  { value: '',          label: 'Todos'       },
+  { value: 'pending',   label: 'Pendientes'  },
   { value: 'confirmed', label: 'Confirmados' },
-  { value: 'preparing', label: 'Preparando' },
-  { value: 'shipped',   label: 'Enviados'   },
+  { value: 'preparing', label: 'Preparando'  },
+  { value: 'shipped',   label: 'Enviados'    },
   { value: 'completed', label: 'Completados' },
-  { value: 'cancelled', label: 'Cancelados' },
+  { value: 'cancelled', label: 'Cancelados'  },
 ];
 
 const fmt = (v: number) =>
   new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(v);
 
+const fmtDate = (d: string) =>
+  new Date(d).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+// Client-side alert derivation
+const isAtrasado  = (o: PortalOrder) =>
+  ['confirmed','preparing'].includes(o.estado) &&
+  new Date(o.created_at).getTime() < Date.now() - 72 * 3_600_000;
+
+const isUrgentPending = (o: PortalOrder) =>
+  o.estado === 'pending' &&
+  new Date(o.created_at).getTime() < Date.now() - 4 * 3_600_000;
+
+// ── Main component ────────────────────────────────────────────────────────────
+
 export default function PortalPedidos({ actorId, membership }: Props) {
-  const [page,        setPage]        = useState<PortalOrderPage>({ items: [], totalCount: 0 });
-  const [loading,     setLoading]     = useState(true);
-  const [estadoFlt,   setEstadoFlt]   = useState('');
-  const [pageIdx,     setPageIdx]     = useState(0);
-  const [error,       setError]       = useState<string | null>(null);
-  const [expanded,    setExpanded]    = useState<string | null>(null);
-  const [busy,        setBusy]        = useState<string | null>(null);
-  const [search,      setSearch]      = useState('');
-  const [sortOldFirst, setSortOldFirst] = useState(true);
-  const [stateCounts, setStateCounts] = useState<Record<string, number>>({});
-
-  // Modal confirmar
-  const [confirmModal,   setConfirmModal]   = useState<PortalOrder | null>(null);
-  const [confirmLoading, setConfirmLoading] = useState(false);
-
-  // Modal envío
-  const [shipModal,   setShipModal]   = useState<PortalOrder | null>(null);
-  const [shipRef,     setShipRef]     = useState('');
-  const [shipUrl,     setShipUrl]     = useState('');
-  const [shipUrlErr,  setShipUrlErr]  = useState('');
-  const [shipLoading, setShipLoading] = useState(false);
+  const [page,       setPage]       = useState<PortalOrderPage>({ items: [], totalCount: 0 });
+  const [loading,    setLoading]    = useState(true);
+  const [estadoFlt,  setEstadoFlt]  = useState('');
+  const [search,     setSearch]     = useState('');
+  const [sortNew,    setSortNew]    = useState(true);
+  const [pageIdx,    setPageIdx]    = useState(0);
+  const [error,      setError]      = useState<string | null>(null);
+  const [selected,   setSelected]   = useState<Set<string>>(new Set());
+  const [slideOrder, setSlideOrder] = useState<PortalOrder | null>(null);
+  const [alerts,     setAlerts]     = useState<SupplierOrderAlerts | null>(null);
+  const [bulkBusy,   setBulkBusy]   = useState(false);
 
   const canManage  = membership.permissions.includes('orders:manage');
   const canFulfill = membership.permissions.includes('orders:fulfillment');
@@ -63,34 +64,36 @@ export default function PortalPedidos({ actorId, membership }: Props) {
 
   const { refreshUnread } = usePortal();
 
-  // Marcar notificaciones como leídas al abrir la tab de Pedidos
+  // Marcar notificaciones leídas al entrar
   useEffect(() => {
     getSupplierNotifications(actorId, { limit: 50, unreadOnly: true })
       .then((notifs) => {
-        if (notifs.length === 0) return;
-        return markNotificationsRead(actorId, notifs.map((n) => n.id))
-          .then(() => refreshUnread());
+        if (!notifs.length) return;
+        return markNotificationsRead(actorId, notifs.map((n) => n.id)).then(() => refreshUnread());
       })
       .catch(() => {});
   }, [actorId, refreshUnread]);
 
+  // Alertas del servidor
+  useEffect(() => {
+    getSupplierOrderAlerts(actorId)
+      .then(setAlerts)
+      .catch(() => {});
+  }, [actorId]);
+
   const load = useCallback(async (estado: string, p: number) => {
     setLoading(true);
     setError(null);
+    setSelected(new Set());
     try {
       const result = await getSupplierOrdersUnified(actorId, {
-        estado:  estado || undefined,
-        limit:   LIMIT,
-        offset:  p * LIMIT,
+        estado: estado || undefined,
+        limit:  LIMIT,
+        offset: p * LIMIT,
       });
       setPage(result);
     } catch (e) {
-      const msg = e instanceof Error
-        ? e.message
-        : (typeof e === 'object' && e !== null && 'message' in e)
-          ? String((e as { message: unknown }).message)
-          : 'Error al cargar pedidos';
-      setError(msg);
+      setError(e instanceof Error ? e.message : 'Error al cargar pedidos');
     } finally {
       setLoading(false);
     }
@@ -98,236 +101,198 @@ export default function PortalPedidos({ actorId, membership }: Props) {
 
   useEffect(() => { load(estadoFlt, pageIdx); }, [load, estadoFlt, pageIdx]);
 
-  // Contadores por estado activo
-  useEffect(() => {
-    ['pending', 'confirmed', 'preparing'].forEach(async (estado) => {
-      try {
-        const r = await getSupplierOrdersUnified(actorId, { estado, limit: 1, offset: 0 });
-        setStateCounts((prev) => ({ ...prev, [estado]: r.totalCount }));
-      } catch { /* silencioso */ }
-    });
-  }, [actorId]);
-
   const filteredItems = useMemo(() => {
     let items = [...page.items];
     if (search.trim()) {
-      const q = search.trim().toLowerCase();
+      const q = search.toLowerCase();
       items = items.filter(
         (o) => o.numero.toLowerCase().includes(q) || o.org_nombre.toLowerCase().includes(q),
       );
     }
-    if (sortOldFirst) {
-      items = items.sort(
-        (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
-      );
-    }
+    items.sort((a, b) => {
+      const ta = new Date(a.created_at).getTime();
+      const tb = new Date(b.created_at).getTime();
+      return sortNew ? tb - ta : ta - tb;
+    });
     return items;
-  }, [page.items, search, sortOldFirst]);
+  }, [page.items, search, sortNew]);
 
-  const handleConfirmSubmit = async () => {
-    if (!confirmModal || !canManage || confirmLoading) return;
-    setConfirmLoading(true);
+  // Multi-select helpers
+  const allIds    = filteredItems.map((o) => o.id);
+  const allChecked = allIds.length > 0 && allIds.every((id) => selected.has(id));
+  const someChecked = allIds.some((id) => selected.has(id)) && !allChecked;
+
+  const toggleAll = () => {
+    if (allChecked) {
+      setSelected((s) => { const n = new Set(s); allIds.forEach((id) => n.delete(id)); return n; });
+    } else {
+      setSelected((s) => { const n = new Set(s); allIds.forEach((id) => n.add(id)); return n; });
+    }
+  };
+
+  const toggleOne = (id: string) => {
+    setSelected((s) => { const n = new Set(s); n.has(id) ? n.delete(id) : n.add(id); return n; });
+  };
+
+  // Bulk actions
+  const selectedArr  = Array.from(selected);
+  const selectedItems = filteredItems.filter((o) => selected.has(o.id));
+  const hasPending    = selectedItems.some((o) => o.estado === 'pending');
+  const hasShippable  = selectedItems.some((o) => ['confirmed','preparing'].includes(o.estado));
+
+  const doBulkConfirm = async () => {
+    if (!hasPending || bulkBusy || !canManage) return;
+    setBulkBusy(true);
     try {
-      await confirmSupplierOrder(confirmModal.id, confirmModal.source);
-      setConfirmModal(null);
+      const pendingIds = selectedItems.filter((o) => o.estado === 'pending').map((o) => o.id);
+      await bulkConfirmSupplierOrders(actorId, pendingIds);
       await load(estadoFlt, pageIdx);
-      setStateCounts((prev) => ({
-        ...prev,
-        pending:   Math.max(0, (prev.pending   ?? 0) - 1),
-        confirmed: (prev.confirmed ?? 0) + 1,
-      }));
-    } catch (e) {
-      const msg = e instanceof Error
-        ? e.message
-        : (typeof e === 'object' && e !== null && 'message' in e)
-          ? String((e as { message: unknown }).message)
-          : 'Error al confirmar';
-      setError(msg);
-      setConfirmModal(null);
-    } finally {
-      setConfirmLoading(false);
-    }
+      getSupplierOrderAlerts(actorId).then(setAlerts).catch(() => {});
+    } catch (e) { setError(e instanceof Error ? e.message : 'Error en confirmación masiva'); }
+    finally { setBulkBusy(false); }
   };
 
-  const handlePrepare = async (order: PortalOrder) => {
-    if (!canFulfill || busy) return;
-    setBusy(order.id);
+  const doBulkShip = async () => {
+    if (!hasShippable || bulkBusy || !canFulfill) return;
+    setBulkBusy(true);
     try {
-      if (order.source === 'marketplace') {
-        await prepareOrderFromPortal(order.id);
-        await load(estadoFlt, pageIdx);
-        setStateCounts((prev) => ({
-          ...prev,
-          confirmed: Math.max(0, (prev.confirmed ?? 0) - 1),
-          preparing: (prev.preparing ?? 0) + 1,
-        }));
-      }
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Error al iniciar preparación');
-    } finally {
-      setBusy(null);
-    }
-  };
-
-  const handleShipSubmit = async () => {
-    if (!shipModal || !canFulfill || shipLoading) return;
-    if (shipUrl) {
-      try { new URL(shipUrl); }
-      catch { setShipUrlErr('La URL no es válida (ej: https://...)'); return; }
-    }
-    setShipLoading(true);
-    try {
-      if (shipModal.source === 'marketplace') {
-        await shipMarketplaceOrderWithTracking({
-          orderId:     shipModal.id,
-          trackingRef: shipRef || undefined,
-          trackingUrl: shipUrl || undefined,
-        });
-      } else {
-        await shipSupplierOrder(shipModal.id, shipModal.source, shipRef || undefined);
-      }
-      setShipModal(null);
+      const shipIds = selectedItems
+        .filter((o) => ['confirmed','preparing'].includes(o.estado))
+        .map((o) => o.id);
+      await bulkShipSupplierOrders(actorId, shipIds);
       await load(estadoFlt, pageIdx);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Error al marcar enviado');
-      setShipModal(null);
-    } finally {
-      setShipLoading(false);
-      setShipRef('');
-      setShipUrl('');
-      setShipUrlErr('');
-    }
+    } catch (e) { setError(e instanceof Error ? e.message : 'Error en envío masivo'); }
+    finally { setBulkBusy(false); }
   };
 
-  const openShipModal = (order: PortalOrder) => {
-    setShipModal(order);
-    setShipRef('');
-    setShipUrl('');
-    setShipUrlErr('');
+  const exportSelectedCSV = () => {
+    const rows = selectedItems.map((o) =>
+      [o.numero, `"${o.org_nombre}"`, o.estado, o.items_count, o.total.toFixed(2), o.created_at].join(';'),
+    );
+    const csv = ['Numero;Instalador;Estado;Lineas;Total;Fecha', ...rows].join('\n');
+    const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = 'pedidos-seleccionados.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleSlideUpdated = () => {
+    load(estadoFlt, pageIdx);
+    getSupplierOrderAlerts(actorId).then(setAlerts).catch(() => {});
   };
 
   return (
     <div className="flex flex-col h-full bg-slate-50 dark:bg-slate-950">
-      {/* Cabecera: búsqueda + orden */}
-      <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-        <div className="px-6 py-4 flex items-center gap-3 flex-wrap">
+
+      {/* ── Panel de alertas ─────────────────────────────────────────────── */}
+      {alerts && (alerts.pending_urgent > 0 || alerts.atrasados > 0) && (
+        <AlertsPanel alerts={alerts} onFilterPending={() => { setEstadoFlt('pending'); setPageIdx(0); }} />
+      )}
+
+      {/* ── Cabecera ─────────────────────────────────────────────────────── */}
+      <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shrink-0">
+        <div className="px-6 py-3 flex items-center gap-3 flex-wrap">
           <h1 className="text-base font-semibold text-slate-900 dark:text-slate-100 shrink-0">Pedidos</h1>
-          <div className="flex-1 min-w-[160px]">
-            <div className="relative">
-              <svg
-                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400"
-                fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z" />
-              </svg>
-              <input
-                type="search"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Buscar por número u organización..."
-                aria-label="Buscar pedidos"
-                className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-9 pr-3 py-1.5 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
-              />
-            </div>
+          {/* Búsqueda */}
+          <div className="flex-1 min-w-[180px] max-w-xs relative">
+            <svg className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z" />
+            </svg>
+            <input
+              type="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Número u organización..."
+              aria-label="Buscar pedidos"
+              className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-9 pr-3 py-1.5 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
           </div>
+          {/* Orden */}
           <button
-            onClick={() => setSortOldFirst((v) => !v)}
-            aria-label={sortOldFirst ? 'Ordenar más recientes primero' : 'Ordenar más antiguos primero'}
-            className="shrink-0 flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-400 hover:border-teal-500 hover:text-teal-500 motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
+            onClick={() => setSortNew((v) => !v)}
+            className="shrink-0 flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-400 hover:border-teal-500 hover:text-teal-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
+            aria-label={sortNew ? 'Ordenar más antiguos primero' : 'Ordenar más recientes primero'}
           >
             <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h13M3 8h9M3 12h5m11-1v8m0 0l-3-3m3 3l3-3" />
             </svg>
-            {sortOldFirst ? 'Más antiguos' : 'Más recientes'}
+            {sortNew ? 'Recientes' : 'Antiguos'}
           </button>
+          {/* Total */}
+          <span className="ml-auto text-xs text-slate-400 tabular-nums shrink-0" role="status" aria-live="polite">
+            {page.totalCount} pedido{page.totalCount !== 1 ? 's' : ''}
+          </span>
         </div>
 
         {/* Filtros por estado */}
-        <div
-          className="px-6 pb-3 flex items-center gap-1.5 flex-wrap"
-          role="group"
-          aria-label="Filtrar por estado"
-        >
+        <div className="px-6 pb-3 flex items-center gap-1.5 flex-wrap" role="group" aria-label="Filtrar por estado">
           {ESTADO_OPTS.map((opt) => {
-            const count = stateCounts[opt.value];
             const active = estadoFlt === opt.value;
             return (
               <button
                 key={opt.value}
                 onClick={() => { setEstadoFlt(opt.value); setPageIdx(0); setSearch(''); }}
                 aria-pressed={active}
-                className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 ${
+                className={`rounded-full px-3 py-1 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 ${
                   active
                     ? 'bg-teal-600 text-white'
                     : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
                 }`}
               >
                 {opt.label}
-                {opt.value && count !== undefined && count > 0 && (
-                  <span className={`tabular-nums font-semibold ${active ? 'text-white/80' : 'text-teal-600 dark:text-teal-400'}`}>
-                    {count}
-                  </span>
-                )}
               </button>
             );
           })}
-          <span
-            className="ml-auto text-xs text-slate-400 tabular-nums shrink-0"
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            {page.totalCount} pedido{page.totalCount !== 1 ? 's' : ''}
-          </span>
         </div>
       </div>
 
+      {/* Error */}
       {error && (
-        <div
-          role="alert"
-          aria-live="assertive"
-          className="mx-4 mt-2 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/10 px-4 py-2"
-        >
-          <p className="text-sm text-red-500">{error}</p>
+        <div className="mx-4 mt-2 shrink-0" role="alert">
+          <p className="rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/10 px-4 py-2 text-sm text-red-500">{error}</p>
         </div>
       )}
 
-      {/* Lista */}
-      <div className="flex-1 overflow-y-auto px-6 py-4 space-y-3">
+      {/* ── Tabla ────────────────────────────────────────────────────────── */}
+      <div className="flex-1 overflow-auto min-h-0">
         {loading ? (
-          <OrdersSkeleton />
+          <TableSkeleton />
         ) : filteredItems.length === 0 ? (
-          <div className="flex flex-col h-40 items-center justify-center gap-2">
-            <p className="text-sm text-slate-400">
-              {search.trim() ? 'Sin resultados para tu búsqueda.' : 'No hay pedidos en este estado.'}
-            </p>
-          </div>
+          <EmptyState search={search} />
         ) : (
-          filteredItems.map((order) => (
-            <OrderCard
-              key={order.id}
-              order={order}
-              expanded={expanded === order.id}
-              busy={busy === order.id}
-              canManage={canManage}
-              canFulfill={canFulfill}
-              onToggle={() => setExpanded((prev) => (prev === order.id ? null : order.id))}
-              onConfirm={() => setConfirmModal(order)}
-              onPrepare={() => handlePrepare(order)}
-              onShip={() => openShipModal(order)}
+          <table className="w-full text-sm">
+            <TableHead
+              allChecked={allChecked}
+              someChecked={someChecked}
+              onToggleAll={toggleAll}
             />
-          ))
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800 bg-white dark:bg-slate-900">
+              {filteredItems.map((order) => (
+                <OrderRow
+                  key={order.id}
+                  order={order}
+                  selected={selected.has(order.id)}
+                  onToggle={() => toggleOne(order.id)}
+                  onOpen={() => setSlideOrder(order)}
+                  canManage={canManage}
+                  canFulfill={canFulfill}
+                />
+              ))}
+            </tbody>
+          </table>
         )}
       </div>
 
-      {/* Paginación */}
+      {/* ── Paginación ───────────────────────────────────────────────────── */}
       {totalPages > 1 && (
-        <div className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-3 flex items-center justify-between">
+        <div className="shrink-0 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-3 flex items-center justify-between gap-4">
           <button
             onClick={() => setPageIdx((p) => Math.max(0, p - 1))}
             disabled={pageIdx === 0}
-            className="rounded-md border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:border-teal-500 hover:text-teal-500 disabled:opacity-40 disabled:cursor-not-allowed motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
+            className="rounded-md border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:border-teal-500 hover:text-teal-500 disabled:opacity-40 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
           >
             ← Anterior
           </button>
@@ -335,236 +300,286 @@ export default function PortalPedidos({ actorId, membership }: Props) {
           <button
             onClick={() => setPageIdx((p) => Math.min(totalPages - 1, p + 1))}
             disabled={pageIdx >= totalPages - 1}
-            className="rounded-md border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:border-teal-500 hover:text-teal-500 disabled:opacity-40 disabled:cursor-not-allowed motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
+            className="rounded-md border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:border-teal-500 hover:text-teal-500 disabled:opacity-40 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
           >
             Siguiente →
           </button>
         </div>
       )}
 
-      {/* Modal: confirmar pedido */}
-      <ConfirmModal
-        open={!!confirmModal}
-        title="Confirmar pedido"
-        description={
-          confirmModal
-            ? `Pedido ${confirmModal.numero} de ${confirmModal.org_nombre} · ${fmt(confirmModal.total)}`
-            : ''
-        }
-        confirmLabel="Confirmar pedido"
-        confirmClassName="bg-teal-600 hover:bg-teal-500 text-white"
-        loading={confirmLoading}
-        onConfirm={handleConfirmSubmit}
-        onClose={() => setConfirmModal(null)}
-      />
+      {/* ── Barra de acciones masivas ────────────────────────────────────── */}
+      {selected.size > 0 && (
+        <BulkActionBar
+          count={selected.size}
+          hasPending={hasPending}
+          hasShippable={hasShippable}
+          canManage={canManage}
+          canFulfill={canFulfill}
+          loading={bulkBusy}
+          onConfirm={doBulkConfirm}
+          onShip={doBulkShip}
+          onExport={exportSelectedCSV}
+          onClear={() => setSelected(new Set())}
+        />
+      )}
 
-      {/* Modal: marcar como enviado */}
-      <ConfirmModal
-        open={!!shipModal}
-        title="Marcar como enviado"
-        description={shipModal ? `${shipModal.numero} · ${shipModal.org_nombre}` : ''}
-        confirmLabel="Confirmar envío"
-        confirmClassName="bg-blue-600 hover:bg-blue-500 text-white"
-        loading={shipLoading}
-        onConfirm={handleShipSubmit}
-        onClose={() => { if (!shipLoading) { setShipModal(null); setShipUrlErr(''); } }}
-      >
-        <div className="space-y-3">
-          <div>
-            <label htmlFor="ship-ref" className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
-              Referencia de tracking <span className="font-normal text-slate-400">(opcional)</span>
-            </label>
-            <input
-              id="ship-ref"
-              type="text"
-              value={shipRef}
-              onChange={(e) => setShipRef(e.target.value)}
-              placeholder="Ej: ES123456789"
-              className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
-            />
-          </div>
-          <div>
-            <label htmlFor="ship-url" className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
-              URL de seguimiento <span className="font-normal text-slate-400">(opcional)</span>
-            </label>
-            <input
-              id="ship-url"
-              type="url"
-              value={shipUrl}
-              onChange={(e) => { setShipUrl(e.target.value); setShipUrlErr(''); }}
-              placeholder="https://seguimiento.correos.es/..."
-              aria-invalid={!!shipUrlErr}
-              aria-describedby={shipUrlErr ? 'ship-url-error' : undefined}
-              className={`w-full rounded-lg border px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 bg-white dark:bg-slate-800 ${
-                shipUrlErr ? 'border-red-400 dark:border-red-600' : 'border-slate-200 dark:border-slate-700'
-              }`}
-            />
-            {shipUrlErr && (
-              <p id="ship-url-error" className="mt-1 text-xs text-red-500" role="alert">{shipUrlErr}</p>
-            )}
-          </div>
-        </div>
-      </ConfirmModal>
+      {/* ── SlideOver de detalle ─────────────────────────────────────────── */}
+      {slideOrder && (
+        <PortalPedidoSlideOver
+          key={slideOrder.id}
+          actorId={actorId}
+          order={slideOrder}
+          canManage={canManage}
+          canFulfill={canFulfill}
+          onClose={() => setSlideOrder(null)}
+          onUpdated={handleSlideUpdated}
+        />
+      )}
     </div>
   );
 }
 
-// ─── OrderCard ────────────────────────────────────────────────────────────────
+// ── AlertsPanel ───────────────────────────────────────────────────────────────
 
-interface OrderCardProps {
+interface AlertsPanelProps {
+  alerts:          SupplierOrderAlerts;
+  onFilterPending: () => void;
+}
+
+function AlertsPanel({ alerts, onFilterPending }: AlertsPanelProps) {
+  return (
+    <div className="px-6 py-2 border-b border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/10 shrink-0 flex items-center gap-3 flex-wrap">
+      {alerts.pending_urgent > 0 && (
+        <button
+          onClick={onFilterPending}
+          className="flex items-center gap-1.5 rounded-full bg-amber-100 dark:bg-amber-900/30 px-3 py-1 text-xs font-semibold text-amber-800 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-amber-500" aria-hidden="true" />
+          {alerts.pending_urgent} pendiente{alerts.pending_urgent !== 1 ? 's' : ''} sin responder (+4h)
+        </button>
+      )}
+      {alerts.atrasados > 0 && (
+        <span className="flex items-center gap-1.5 rounded-full bg-red-100 dark:bg-red-900/30 px-3 py-1 text-xs font-semibold text-red-700 dark:text-red-300">
+          <span className="h-1.5 w-1.5 rounded-full bg-red-500" aria-hidden="true" />
+          {alerts.atrasados} pedido{alerts.atrasados !== 1 ? 's' : ''} atrasado{alerts.atrasados !== 1 ? 's' : ''} (+72h)
+        </span>
+      )}
+    </div>
+  );
+}
+
+// ── TableHead ─────────────────────────────────────────────────────────────────
+
+interface TableHeadProps {
+  allChecked:   boolean;
+  someChecked:  boolean;
+  onToggleAll:  () => void;
+}
+
+function TableHead({ allChecked, someChecked, onToggleAll }: TableHeadProps) {
+  return (
+    <thead className="sticky top-0 z-10 bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+      <tr>
+        <th className="w-10 pl-4 pr-2 py-3">
+          <input
+            type="checkbox"
+            checked={allChecked}
+            ref={(el) => { if (el) el.indeterminate = someChecked; }}
+            onChange={onToggleAll}
+            aria-label="Seleccionar todos"
+            className="rounded border-slate-300 dark:border-slate-600 text-teal-600 focus:ring-teal-500"
+          />
+        </th>
+        <th className="w-6 px-1 py-3" aria-label="Prioridad" />
+        <th className="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wide">Número</th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wide">Instalador</th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wide">Estado</th>
+        <th className="px-4 py-3 text-right text-xs font-medium text-slate-400 uppercase tracking-wide">Importe</th>
+        <th className="px-4 py-3 text-right text-xs font-medium text-slate-400 uppercase tracking-wide hidden lg:table-cell">Líneas</th>
+        <th className="px-4 py-3 text-right text-xs font-medium text-slate-400 uppercase tracking-wide hidden xl:table-cell">Fecha</th>
+        <th className="px-4 py-3" aria-label="Acción" />
+      </tr>
+    </thead>
+  );
+}
+
+// ── OrderRow ──────────────────────────────────────────────────────────────────
+
+interface OrderRowProps {
   order:      PortalOrder;
-  expanded:   boolean;
-  busy:       boolean;
+  selected:   boolean;
+  onToggle:   () => void;
+  onOpen:     () => void;
   canManage:  boolean;
   canFulfill: boolean;
-  onToggle:   () => void;
-  onConfirm:  () => void;
-  onPrepare:  () => void;
-  onShip:     () => void;
 }
 
-function OrderCard({
-  order, expanded, busy, canManage, canFulfill,
-  onToggle, onConfirm, onPrepare, onShip,
-}: OrderCardProps) {
-  const fmtDate = (d: string | null) =>
-    d ? new Date(d).toLocaleDateString('es-ES', {
-      day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit',
-    }) : null;
+function OrderRow({ order, selected, onToggle, onOpen, canManage, canFulfill }: OrderRowProps) {
+  const atrasado = isAtrasado(order);
+  const urgent   = isUrgentPending(order);
+  const dotColor = urgent  ? 'bg-amber-400'
+                 : atrasado ? 'bg-red-400'
+                 : 'bg-transparent';
 
-  const estado = order.estado as OrderLifecycleEstado;
+  const ctaLabel = order.estado === 'pending'
+    ? (canManage  ? 'Confirmar' : null)
+    : (order.estado === 'confirmed' || order.estado === 'preparing')
+    ? (canFulfill ? 'Enviado'   : null)
+    : null;
 
-  const hasPendingCTA  = order.estado === 'pending' && canManage;
-  const hasPrepareCTA  = order.estado === 'confirmed' && canFulfill && order.source === 'marketplace';
-  const hasShipCTA     = (order.estado === 'confirmed' || order.estado === 'preparing') && canFulfill;
-  const hasCTA         = hasPendingCTA || hasPrepareCTA || hasShipCTA;
+  const ctaClass = order.estado === 'pending'
+    ? 'bg-teal-600 hover:bg-teal-500 text-white'
+    : 'bg-blue-600 hover:bg-blue-500 text-white';
 
   return (
-    <div className={`rounded-xl border bg-white dark:bg-slate-900 ${
-      order.estado === 'pending'
-        ? 'border-amber-300 dark:border-amber-700'
-        : 'border-slate-200 dark:border-slate-800'
-    }`}>
-      {/* Cabecera — click abre/cierra el detalle */}
-      <button
-        className="w-full flex items-start gap-3 px-5 py-4 text-left hover:bg-slate-50 dark:hover:bg-slate-800/30 motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-teal-500 rounded-t-xl"
-        onClick={onToggle}
-        aria-expanded={expanded}
-        aria-label={`Pedido ${order.numero} de ${order.org_nombre}`}
-      >
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="font-mono text-sm font-semibold text-slate-800 dark:text-slate-200">{order.numero}</span>
-            <OrderStatusBadge estado={estado} size="sm" />
-            {order.source === 'marketplace' && (
-              <span className="rounded-full bg-teal-900/30 px-2 py-0.5 text-xs font-medium text-teal-400">
-                Marketplace
-              </span>
-            )}
-          </div>
-          <p className="text-sm text-slate-600 dark:text-slate-400 mt-0.5 truncate">{order.org_nombre}</p>
-          <p className="text-xs text-slate-400 mt-0.5">{fmtDate(order.created_at)}</p>
-        </div>
-        <div className="text-right shrink-0">
-          <p className="text-lg font-bold text-slate-900 dark:text-slate-100 tabular-nums">
-            {fmt(order.total)}
-          </p>
-          <p className="text-xs text-slate-400">{order.items_count} línea{order.items_count !== 1 ? 's' : ''}</p>
-        </div>
-        <svg
-          className={`h-4 w-4 text-slate-400 mt-1 shrink-0 motion-safe:transition-transform ${expanded ? 'rotate-180' : ''}`}
-          fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
+    <tr
+      className={`group hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors cursor-pointer ${
+        selected ? 'bg-teal-50/50 dark:bg-teal-900/10' : ''
+      }`}
+      onClick={onOpen}
+    >
+      {/* Checkbox */}
+      <td className="pl-4 pr-2 py-3" onClick={(e) => e.stopPropagation()}>
+        <input
+          type="checkbox"
+          checked={selected}
+          onChange={onToggle}
+          aria-label={`Seleccionar pedido ${order.numero}`}
+          className="rounded border-slate-300 dark:border-slate-600 text-teal-600 focus:ring-teal-500"
+        />
+      </td>
+      {/* Prioridad dot */}
+      <td className="px-1 py-3">
+        <span className={`block h-2 w-2 rounded-full ${dotColor}`} aria-hidden="true" />
+      </td>
+      {/* Número */}
+      <td className="px-4 py-3">
+        <span className="font-mono text-sm font-semibold text-slate-800 dark:text-slate-200">{order.numero}</span>
+        {order.source === 'marketplace' && (
+          <span className="ml-1.5 rounded-full bg-teal-100 dark:bg-teal-900/30 px-1.5 py-0.5 text-[10px] font-medium text-teal-700 dark:text-teal-300 align-middle">MKT</span>
+        )}
+      </td>
+      {/* Instalador */}
+      <td className="px-4 py-3">
+        <p className="text-sm text-slate-700 dark:text-slate-300 max-w-[180px] truncate" title={order.org_nombre}>{order.org_nombre}</p>
+      </td>
+      {/* Estado */}
+      <td className="px-4 py-3">
+        <OrderStatusBadge estado={order.estado as OrderLifecycleEstado} size="sm" />
+      </td>
+      {/* Importe */}
+      <td className="px-4 py-3 text-right">
+        <span className="text-sm font-semibold tabular-nums text-slate-800 dark:text-slate-200">{fmt(order.total)}</span>
+      </td>
+      {/* Líneas */}
+      <td className="px-4 py-3 text-right hidden lg:table-cell">
+        <span className="text-xs text-slate-400 tabular-nums">{order.items_count}</span>
+      </td>
+      {/* Fecha */}
+      <td className="px-4 py-3 text-right hidden xl:table-cell">
+        <span className="text-xs text-slate-400 whitespace-nowrap">{fmtDate(order.created_at)}</span>
+      </td>
+      {/* CTA */}
+      <td className="px-4 py-3 text-right" onClick={(e) => e.stopPropagation()}>
+        {ctaLabel ? (
+          <button
+            onClick={onOpen}
+            className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 ${ctaClass}`}
+          >
+            {ctaLabel}
+          </button>
+        ) : (
+          <button
+            onClick={onOpen}
+            className="rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-xs text-slate-500 dark:text-slate-400 hover:border-teal-500 hover:text-teal-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
+          >
+            Ver
+          </button>
+        )}
+      </td>
+    </tr>
+  );
+}
 
-      {/* Timeline */}
-      <div className="px-5 pb-2">
-        <OrderTimeline estado={estado} installerView={false} />
+// ── BulkActionBar ─────────────────────────────────────────────────────────────
+
+interface BulkActionBarProps {
+  count:       number;
+  hasPending:  boolean;
+  hasShippable: boolean;
+  canManage:   boolean;
+  canFulfill:  boolean;
+  loading:     boolean;
+  onConfirm:   () => void;
+  onShip:      () => void;
+  onExport:    () => void;
+  onClear:     () => void;
+}
+
+function BulkActionBar({
+  count, hasPending, hasShippable, canManage, canFulfill,
+  loading, onConfirm, onShip, onExport, onClear,
+}: BulkActionBarProps) {
+  return (
+    <div className="shrink-0 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-3 flex items-center gap-3 flex-wrap shadow-lg">
+      <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 shrink-0">
+        {count} seleccionado{count !== 1 ? 's' : ''}
+      </span>
+      <div className="flex items-center gap-2 flex-wrap">
+        {canManage && hasPending && (
+          <BulkBtn label="Confirmar" loading={loading} className="bg-teal-600 hover:bg-teal-500 text-white" onClick={onConfirm} />
+        )}
+        {canFulfill && hasShippable && (
+          <BulkBtn label="Marcar enviado" loading={loading} className="bg-blue-600 hover:bg-blue-500 text-white" onClick={onShip} />
+        )}
+        <BulkBtn label="Exportar CSV" loading={false} className="border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-teal-500 hover:text-teal-500" onClick={onExport} />
       </div>
-
-      {/* CTAs — visibles sin expandir */}
-      {hasCTA && (
-        <div className="px-5 pb-4 flex gap-2 flex-wrap" aria-label="Acciones disponibles">
-          {hasPendingCTA && (
-            <button
-              onClick={(e) => { e.stopPropagation(); onConfirm(); }}
-              disabled={busy}
-              className="flex items-center gap-1.5 rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-500 disabled:opacity-50 motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
-            >
-              {busy
-                ? <span className="h-4 w-4 motion-safe:animate-spin rounded-full border-2 border-white border-t-transparent" aria-hidden="true" />
-                : <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-              }
-              {busy ? 'Confirmando...' : 'Confirmar pedido'}
-            </button>
-          )}
-          {hasPrepareCTA && (
-            <button
-              onClick={(e) => { e.stopPropagation(); onPrepare(); }}
-              disabled={busy}
-              className="flex items-center gap-1.5 rounded-lg border border-violet-300 dark:border-violet-700 bg-violet-50 dark:bg-violet-900/20 px-4 py-2 text-sm font-medium text-violet-700 dark:text-violet-300 hover:bg-violet-100 dark:hover:bg-violet-900/40 disabled:opacity-50 motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
-            >
-              {busy ? 'Actualizando...' : 'Iniciar preparación'}
-            </button>
-          )}
-          {hasShipCTA && (
-            <button
-              onClick={(e) => { e.stopPropagation(); onShip(); }}
-              disabled={busy}
-              className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-500 disabled:opacity-50 motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-            >
-              {busy
-                ? <span className="h-4 w-4 motion-safe:animate-spin rounded-full border-2 border-white border-t-transparent" aria-hidden="true" />
-                : <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
-              }
-              {busy ? 'Actualizando...' : 'Marcar como enviado'}
-            </button>
-          )}
-        </div>
-      )}
-
-      {/* Detalle expandido */}
-      {expanded && (
-        <div className="border-t border-slate-100 dark:border-slate-800 px-5 py-4">
-          {order.notas && (
-            <p className="text-xs text-slate-500 italic mb-3">"{order.notas}"</p>
-          )}
-          <div className="grid grid-cols-3 gap-3 text-xs">
-            {order.confirmed_at && (
-              <div>
-                <p className="text-slate-400">Confirmado</p>
-                <p className="text-slate-700 dark:text-slate-300">{fmtDate(order.confirmed_at)}</p>
-              </div>
-            )}
-            {order.shipped_at && (
-              <div>
-                <p className="text-slate-400">Enviado</p>
-                <p className="text-slate-700 dark:text-slate-300">{fmtDate(order.shipped_at)}</p>
-              </div>
-            )}
-            {order.completed_at && (
-              <div>
-                <p className="text-slate-400">Completado</p>
-                <p className="text-slate-700 dark:text-slate-300">{fmtDate(order.completed_at)}</p>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      <button
+        onClick={onClear}
+        className="ml-auto text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 rounded"
+      >
+        Cancelar selección
+      </button>
     </div>
   );
 }
 
-// ─── Skeleton ─────────────────────────────────────────────────────────────────
-
-function OrdersSkeleton() {
+interface BulkBtnProps { label: string; loading: boolean; className: string; onClick: () => void; }
+function BulkBtn({ label, loading, className, onClick }: BulkBtnProps) {
   return (
-    <div className="motion-safe:animate-pulse space-y-3" aria-busy="true" aria-label="Cargando pedidos">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <div key={i} className="h-32 rounded-xl bg-slate-200 dark:bg-slate-800" />
+    <button
+      onClick={onClick}
+      disabled={loading}
+      className={`rounded-lg px-3 py-1.5 text-xs font-semibold disabled:opacity-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 ${className}`}
+    >
+      {loading ? 'Procesando...' : label}
+    </button>
+  );
+}
+
+// ── Helpers de estado ─────────────────────────────────────────────────────────
+
+function EmptyState({ search }: { search: string }) {
+  return (
+    <div className="flex h-48 items-center justify-center bg-white dark:bg-slate-900">
+      <p className="text-sm text-slate-400">
+        {search.trim() ? 'Sin resultados para tu búsqueda.' : 'No hay pedidos en este estado.'}
+      </p>
+    </div>
+  );
+}
+
+function TableSkeleton() {
+  return (
+    <div className="bg-white dark:bg-slate-900 animate-pulse" aria-busy="true" aria-label="Cargando pedidos">
+      {Array.from({ length: 8 }).map((_, i) => (
+        <div key={i} className="flex items-center gap-4 px-6 py-4 border-b border-slate-100 dark:border-slate-800">
+          <div className="h-4 w-4 rounded bg-slate-200 dark:bg-slate-800 shrink-0" />
+          <div className="h-4 w-28 rounded bg-slate-200 dark:bg-slate-800" />
+          <div className="h-4 w-36 rounded bg-slate-200 dark:bg-slate-800" />
+          <div className="h-5 w-20 rounded-full bg-slate-200 dark:bg-slate-800 ml-auto" />
+          <div className="h-4 w-16 rounded bg-slate-200 dark:bg-slate-800" />
+        </div>
       ))}
     </div>
   );
