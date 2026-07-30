@@ -607,6 +607,47 @@ export function getOrderTimelineStep(estado: string): number {
   return ORDER_TIMELINE.findIndex((s) => s.estado === estado);
 }
 
+// ── API — Dashboard MVP-3 ─────────────────────────────────────────────────────
+
+export interface ActivityFeedItem {
+  id:           string;
+  event_source: 'offering' | 'import';
+  tipo:         string;
+  titulo:       string;
+  descripcion:  string;
+  count_items:  number;
+  ref_id:       string | null;
+  created_at:   string;
+}
+
+export interface PortalIAStats {
+  linked:         number;
+  pending:        number;
+  avg_confidence: number | null;
+  to_review:      number;
+  with_issues:    number;
+}
+
+export async function getSupplierActivityFeed(
+  actorId: string,
+  limit = 15,
+): Promise<ActivityFeedItem[]> {
+  const { data, error } = await db.rpc('get_supplier_activity_feed', {
+    p_actor_id: actorId,
+    p_limit:    limit,
+  });
+  if (error) throw error;
+  return (data ?? []) as ActivityFeedItem[];
+}
+
+export async function getSupplierIAStats(actorId: string): Promise<PortalIAStats> {
+  const { data, error } = await db.rpc('get_supplier_ia_stats', {
+    p_actor_id: actorId,
+  });
+  if (error) throw error;
+  return (data ?? { linked: 0, pending: 0, avg_confidence: null, to_review: 0, with_issues: 0 }) as PortalIAStats;
+}
+
 // ── Importación de catálogo ───────────────────────────────────────────────────
 
 export type CatalogImportEstado =
