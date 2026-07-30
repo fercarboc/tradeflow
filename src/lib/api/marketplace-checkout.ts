@@ -49,6 +49,7 @@ export interface CartItem {
   up_familia: string | null;
   up_match_confidence: number | null;
   up_match_method: string | null;
+  image_url: string | null;
   selected_offering_id: string | null;
   selected_actor_id: string | null;
   selected_actor_nombre: string | null;

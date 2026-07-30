@@ -148,6 +148,7 @@ export interface MarketplaceOfferingSearchResult {
   mejor_supplier_key?: string | null;
   mejor_offering_id?: string | null;
   score: number;
+  image_url?: string | null;
 }
 
 // El cliente Supabase sin tipos estrictos de tablas nuevas (pre-type-generation).

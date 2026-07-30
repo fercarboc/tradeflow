@@ -218,6 +218,21 @@ function MaterialLine({
           )}
         </button>
 
+        {/* Thumbnail */}
+        {item.image_url ? (
+          <img
+            src={item.image_url}
+            alt=""
+            className="h-9 w-9 shrink-0 rounded-md object-cover border border-slate-200 dark:border-slate-700 hidden sm:block"
+          />
+        ) : (
+          <div className="h-9 w-9 shrink-0 rounded-md border border-dashed border-slate-200 dark:border-slate-700 hidden sm:flex items-center justify-center bg-slate-50 dark:bg-slate-800">
+            <svg className="h-3.5 w-3.5 text-slate-300" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+            </svg>
+          </div>
+        )}
+
         {/* Descripción + proveedor */}
         <div className="flex-1 min-w-0">
           <div className="flex items-start gap-2">

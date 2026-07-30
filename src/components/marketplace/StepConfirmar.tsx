@@ -184,12 +184,29 @@ function OrderPreviewCard({ summary, items }: OrderPreviewCardProps) {
               {items.map((item) => (
                 <tr key={item.id}>
                   <td className="px-5 py-2.5">
-                    <p className="text-slate-800 dark:text-slate-200 leading-snug">
-                      {item.descripcion_original}
-                    </p>
-                    {item.up_nombre_canonico && (
-                      <p className="text-xs text-slate-400 truncate">{item.up_nombre_canonico}</p>
-                    )}
+                    <div className="flex items-center gap-2.5">
+                      {item.image_url ? (
+                        <img
+                          src={item.image_url}
+                          alt=""
+                          className="h-8 w-8 shrink-0 rounded-md object-cover border border-slate-200 dark:border-slate-700 hidden sm:block"
+                        />
+                      ) : (
+                        <div className="h-8 w-8 shrink-0 rounded-md border border-dashed border-slate-200 dark:border-slate-700 hidden sm:flex items-center justify-center bg-slate-50 dark:bg-slate-800">
+                          <svg className="h-3 w-3 text-slate-300" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" aria-hidden="true">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+                          </svg>
+                        </div>
+                      )}
+                      <div className="min-w-0">
+                        <p className="text-slate-800 dark:text-slate-200 leading-snug">
+                          {item.descripcion_original}
+                        </p>
+                        {item.up_nombre_canonico && (
+                          <p className="text-xs text-slate-400 truncate">{item.up_nombre_canonico}</p>
+                        )}
+                      </div>
+                    </div>
                   </td>
                   <td className="px-3 py-2.5 text-right tabular-nums text-slate-600 dark:text-slate-400 whitespace-nowrap">
                     {item.cantidad} {item.unidad}

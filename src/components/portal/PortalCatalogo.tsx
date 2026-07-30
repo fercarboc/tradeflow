@@ -874,6 +874,7 @@ export default function PortalCatalogo({ actorId, membership }: Props) {
       {/* SlideOver */}
       {selectedOff && (
         <PortalProductoSlideOver
+          key={selectedOff.id}
           actorId={actorId}
           offering={selectedOff}
           canWrite={canWrite}
