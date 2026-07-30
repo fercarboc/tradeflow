@@ -363,6 +363,21 @@ export async function getCatalogQualityStats(
   return (data ?? { total: 0, matched: 0, sin_imagen: 0, sin_stock: 0, inactivos: 0, cobertura_pct: 0 }) as CatalogQualityStats;
 }
 
+export async function bulkUpdateOfferings(
+  actorId: string,
+  ids: string[],
+  updates: { activa?: boolean; stock_disponible?: boolean },
+): Promise<number> {
+  const { data, error } = await db.rpc('bulk_update_offerings', {
+    p_actor_id:         actorId,
+    p_ids:              ids,
+    p_activa:           updates.activa           ?? null,
+    p_stock_disponible: updates.stock_disponible ?? null,
+  });
+  if (error) throw error;
+  return (data as { updated: number })?.updated ?? 0;
+}
+
 export async function recordOfferingEvent(params: {
   actorId:      string;
   offeringId:   string;

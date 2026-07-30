@@ -116,78 +116,84 @@ function SlideOverDatos({ offering, actorId, canWrite, onUpdated }: DatosProps) 
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">
-            Precio coste (€)
-          </label>
-          <input
-            type="number"
-            step="0.01"
-            min="0"
-            value={form.precio_coste}
-            onChange={e => handleChange('precio_coste', e.target.value)}
-            disabled={!canWrite}
-            className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm tabular-nums text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-60"
-          />
-        </div>
-        <div>
-          <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">
-            Precio venta (€)
-          </label>
-          <input
-            type="number"
-            step="0.01"
-            min="0"
-            value={form.precio_venta}
-            onChange={e => handleChange('precio_venta', e.target.value)}
-            disabled={!canWrite}
-            className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm tabular-nums text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-60"
-          />
+      <div>
+        <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-3">Precios</p>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">
+              Coste (€)
+            </label>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              value={form.precio_coste}
+              onChange={e => handleChange('precio_coste', e.target.value)}
+              disabled={!canWrite}
+              className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm tabular-nums text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-60"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">
+              Venta (€)
+            </label>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              value={form.precio_venta}
+              onChange={e => handleChange('precio_venta', e.target.value)}
+              disabled={!canWrite}
+              className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm tabular-nums text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-60"
+            />
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
-        <div>
-          <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">
-            Unidad
-          </label>
-          <input
-            type="text"
-            value={form.unidad}
-            onChange={e => handleChange('unidad', e.target.value)}
-            disabled={!canWrite}
-            placeholder="ud, m2, kg..."
-            className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-60"
-          />
-        </div>
-        <div>
-          <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">
-            Stock (uds)
-          </label>
-          <input
-            type="number"
-            min="0"
-            step="1"
-            value={form.stock_cantidad}
-            onChange={e => handleChange('stock_cantidad', e.target.value)}
-            disabled={!canWrite}
-            className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm tabular-nums text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-60"
-          />
-        </div>
-        <div>
-          <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">
-            Plazo (días)
-          </label>
-          <input
-            type="number"
-            min="1"
-            step="1"
-            value={form.plazo_entrega_dias}
-            onChange={e => handleChange('plazo_entrega_dias', e.target.value)}
-            disabled={!canWrite}
-            className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm tabular-nums text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-60"
-          />
+      <div>
+        <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-3">Logística</p>
+        <div className="grid grid-cols-3 gap-4">
+          <div>
+            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">
+              Unidad
+            </label>
+            <input
+              type="text"
+              value={form.unidad}
+              onChange={e => handleChange('unidad', e.target.value)}
+              disabled={!canWrite}
+              placeholder="ud, m2, kg..."
+              className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-60"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">
+              Stock (uds)
+            </label>
+            <input
+              type="number"
+              min="0"
+              step="1"
+              value={form.stock_cantidad}
+              onChange={e => handleChange('stock_cantidad', e.target.value)}
+              disabled={!canWrite}
+              className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm tabular-nums text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-60"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">
+              Plazo (días)
+            </label>
+            <input
+              type="number"
+              min="1"
+              step="1"
+              value={form.plazo_entrega_dias}
+              onChange={e => handleChange('plazo_entrega_dias', e.target.value)}
+              disabled={!canWrite}
+              className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm tabular-nums text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:opacity-60"
+            />
+          </div>
         </div>
       </div>
 
@@ -705,11 +711,6 @@ function SlideOverHistorial({ actorId, offering }: HistorialProps) {
     getOfferingEvents(actorId, offering.id).then(setEvents).catch(() => {}).finally(() => setLoading(false));
   }, [actorId, offering.id]);
 
-  // Synthetic "importado" entry derived from metadata
-  const importedAt = (offering as unknown as Record<string, unknown>)?.metadata
-    ? (((offering as unknown as Record<string, unknown>).metadata as Record<string, unknown>)?.imported_at as string | undefined)
-    : undefined;
-
   if (loading) {
     return (
       <div className="flex justify-center py-12">
@@ -721,77 +722,67 @@ function SlideOverHistorial({ actorId, offering }: HistorialProps) {
     );
   }
 
-  const allEvents = [...events];
-
   return (
     <div>
-      {allEvents.length === 0 && !importedAt ? (
-        <div className="text-center py-12">
-          <p className="text-sm text-slate-400">No hay cambios registrados.</p>
-          <p className="text-xs text-slate-400 mt-1">Los cambios futuros aparecerán aquí.</p>
-        </div>
-      ) : (
-        <div className="relative">
-          <div className="absolute left-4 top-0 bottom-0 w-px bg-slate-100 dark:bg-slate-800" />
-          <ul className="space-y-4">
-            {allEvents.map(ev => (
-              <li key={ev.id} className="relative pl-10">
-                <div className="absolute left-2 top-0 flex h-5 w-5 items-center justify-center rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs">
-                  {TIPO_ICONS[ev.tipo] ?? '•'}
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-slate-800 dark:text-slate-200">
-                    {TIPO_LABELS[ev.tipo] ?? ev.tipo}
-                  </p>
-                  {ev.datos_despues && Object.keys(ev.datos_despues).length > 0 && (
-                    <div className="mt-1 text-xs text-slate-500 space-y-0.5">
-                      {Object.entries(ev.datos_despues).map(([k, v]) => {
-                        const antes = ev.datos_antes?.[k];
-                        if (k === 'image_url') return null;
-                        const fmt = (val: unknown) => {
-                          if (val == null) return '—';
-                          if (typeof val === 'boolean') return val ? 'Sí' : 'No';
-                          if (k === 'precio_coste' || k === 'precio_venta') return FMT_EUR.format(Number(val));
-                          return String(val);
-                        };
-                        return (
-                          <p key={k}>
-                            <span className="text-slate-400">{k.replace(/_/g, ' ')}: </span>
-                            {antes !== undefined && antes !== v ? (
-                              <><span className="line-through text-red-400">{fmt(antes)}</span> → <span className="text-emerald-600 dark:text-emerald-400">{fmt(v)}</span></>
-                            ) : (
-                              <span>{fmt(v)}</span>
-                            )}
-                          </p>
-                        );
-                      })}
-                    </div>
-                  )}
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    {FMT_DATE.format(new Date(ev.created_at))}
-                  </p>
-                </div>
-              </li>
-            ))}
+      <div className="relative">
+        <div className="absolute left-4 top-0 bottom-0 w-px bg-slate-100 dark:bg-slate-800" />
+        <ul className="space-y-4">
+          {events.map(ev => (
+            <li key={ev.id} className="relative pl-10">
+              <div className="absolute left-2 top-0 flex h-5 w-5 items-center justify-center rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs">
+                {TIPO_ICONS[ev.tipo] ?? '•'}
+              </div>
+              <div>
+                <p className="text-sm font-medium text-slate-800 dark:text-slate-200">
+                  {TIPO_LABELS[ev.tipo] ?? ev.tipo}
+                </p>
+                {ev.datos_despues && Object.keys(ev.datos_despues).length > 0 && (
+                  <div className="mt-1 text-xs text-slate-500 space-y-0.5">
+                    {Object.entries(ev.datos_despues).map(([k, v]) => {
+                      const antes = ev.datos_antes?.[k];
+                      if (k === 'image_url') return null;
+                      const fmt = (val: unknown) => {
+                        if (val == null) return '—';
+                        if (typeof val === 'boolean') return val ? 'Sí' : 'No';
+                        if (k === 'precio_coste' || k === 'precio_venta') return FMT_EUR.format(Number(val));
+                        return String(val);
+                      };
+                      return (
+                        <p key={k}>
+                          <span className="text-slate-400">{k.replace(/_/g, ' ')}: </span>
+                          {antes !== undefined && antes !== v ? (
+                            <><span className="line-through text-red-400">{fmt(antes)}</span> → <span className="text-emerald-600 dark:text-emerald-400">{fmt(v)}</span></>
+                          ) : (
+                            <span>{fmt(v)}</span>
+                          )}
+                        </p>
+                      );
+                    })}
+                  </div>
+                )}
+                <p className="text-xs text-slate-400 mt-0.5">
+                  {FMT_DATE.format(new Date(ev.created_at))}
+                </p>
+              </div>
+            </li>
+          ))}
 
-            {importedAt && (
-              <li className="relative pl-10">
-                <div className="absolute left-2 top-0 flex h-5 w-5 items-center justify-center rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs">
-                  {TIPO_ICONS['importado']}
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-slate-800 dark:text-slate-200">
-                    Importado desde CSV
-                  </p>
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    {FMT_DATE.format(new Date(importedAt))}
-                  </p>
-                </div>
-              </li>
-            )}
-          </ul>
-        </div>
-      )}
+          {/* Entrada sintética: creación del producto */}
+          <li className="relative pl-10">
+            <div className="absolute left-2 top-0 flex h-5 w-5 items-center justify-center rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs">
+              {TIPO_ICONS['importado']}
+            </div>
+            <div>
+              <p className="text-sm font-medium text-slate-800 dark:text-slate-200">
+                Añadido al catálogo
+              </p>
+              <p className="text-xs text-slate-400 mt-0.5">
+                {FMT_DATE.format(new Date(offering.created_at))}
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }
