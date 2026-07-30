@@ -1,6 +1,7 @@
 -- Fix: get_supplier_activity_feed lanzaba 42702 "column reference id is ambiguous"
 -- porque el OUT parameter "id" del RETURNS TABLE colisionaba con trade_marketplace_actors.id
 -- en la cláusula WHERE sin cualificar. Se añade alias de tabla "a".
+-- Fix 2: MAX(uuid) no existe en PostgreSQL; sustituido por ARRAY_AGG ordenado.
 
 CREATE OR REPLACE FUNCTION public.get_supplier_activity_feed(p_actor_id uuid, p_limit integer DEFAULT 20)
 RETURNS TABLE(id text, event_source text, tipo text, titulo text, descripcion text, count_items integer, ref_id uuid, created_at timestamp with time zone)
@@ -23,7 +24,7 @@ BEGIN
       date_trunc('minute', oe.created_at)               AS bucket,
       COUNT(*)::integer                                  AS cnt,
       MAX(oe.created_at)                                 AS ts,
-      MAX(oe.offering_id)                                AS ref_id,
+      (ARRAY_AGG(oe.offering_id ORDER BY oe.created_at DESC))[1] AS ref_id,
       MAX(o.descripcion_comercial)                       AS desc_val,
       MAX((oe.datos_despues->>'activa')::text)           AS activa_val,
       MAX((oe.datos_despues->>'stock_disponible')::text) AS stock_val
