@@ -955,3 +955,365 @@ export async function getCatalogImport(importId: string): Promise<CatalogImport 
   if (error) throw error;
   return data as CatalogImport | null;
 }
+
+// ── MVP-5: Gestión de equipo ──────────────────────────────────────────────────
+
+export type TeamInvitationEstado = 'pending' | 'accepted' | 'expired' | 'cancelled';
+
+export interface TeamMember {
+  id:               string;
+  actor_id:         string;
+  user_id:          string;
+  email:            string;
+  nombre:           string;
+  role_id:          string;
+  role_nombre:      string;
+  role_priority:    number;
+  activo:           boolean;
+  accepted_at:      string | null;
+  last_accessed_at: string | null;
+  created_at:       string;
+}
+
+export interface TeamMemberPage {
+  items:       TeamMember[];
+  totalCount:  number;
+}
+
+export interface TeamInvitation {
+  id:               string;
+  actor_id:         string;
+  role_id:          string;
+  role_nombre:      string;
+  role_priority:    number;
+  email:            string;
+  estado:           TeamInvitationEstado;
+  expires_at:       string;
+  invited_by:       string | null;
+  invited_by_email: string | null;
+  created_at:       string;
+}
+
+export interface TeamRole {
+  id:          string;
+  nombre:      string;
+  descripcion: string | null;
+  permissions: string[];
+  priority:    number;
+}
+
+export interface AuditLogEntry {
+  id:          string;
+  user_id:     string | null;
+  user_email:  string | null;
+  user_nombre: string;
+  event_type:  string;
+  event_data:  Record<string, unknown>;
+  created_at:  string;
+}
+
+export interface AuditLogPage {
+  items:      AuditLogEntry[];
+  totalCount: number;
+}
+
+// ── API — Equipo MVP-5 ────────────────────────────────────────────────────────
+
+export async function getSupplierTeam(
+  actorId: string,
+  opts?: { search?: string; activo?: boolean; limit?: number; offset?: number },
+): Promise<TeamMemberPage> {
+  const { data, error } = await db.rpc('get_supplier_team', {
+    p_actor_id: actorId,
+    p_search:   opts?.search ?? null,
+    p_activo:   opts?.activo ?? null,
+    p_limit:    opts?.limit  ?? 25,
+    p_offset:   opts?.offset ?? 0,
+  });
+  if (error) throw error;
+  const res = data as { items: TeamMember[]; total_count: number };
+  return { items: res.items ?? [], totalCount: res.total_count ?? 0 };
+}
+
+export async function getSupplierInvitations(actorId: string): Promise<TeamInvitation[]> {
+  const { data, error } = await db.rpc('get_supplier_invitations', { p_actor_id: actorId });
+  if (error) throw error;
+  return (data ?? []) as TeamInvitation[];
+}
+
+export async function revokeSupplierInvitation(actorId: string, invitationId: string): Promise<void> {
+  const { error } = await db.rpc('revoke_supplier_invitation', {
+    p_actor_id:      actorId,
+    p_invitation_id: invitationId,
+  });
+  if (error) throw error;
+}
+
+export async function resendSupplierInvitation(
+  actorId:      string,
+  invitationId: string,
+): Promise<{ rawToken: string }> {
+  const { data, error } = await db.rpc('resend_supplier_invitation', {
+    p_actor_id:      actorId,
+    p_invitation_id: invitationId,
+  });
+  if (error) throw error;
+  return { rawToken: data as string };
+}
+
+export async function createSupplierInvitation(
+  actorId: string,
+  email:   string,
+  roleId:  string,
+): Promise<{ rawToken: string }> {
+  const { data, error } = await db.rpc('create_marketplace_invitation', {
+    p_actor_id: actorId,
+    p_role_id:  roleId,
+    p_email:    email.toLowerCase().trim(),
+  });
+  if (error) throw error;
+  return { rawToken: data as string };
+}
+
+export async function deactivateTeamMember(actorId: string, memberId: string): Promise<void> {
+  const { error } = await db.rpc('deactivate_team_member', {
+    p_actor_id:  actorId,
+    p_member_id: memberId,
+  });
+  if (error) throw error;
+}
+
+export async function reactivateTeamMember(actorId: string, memberId: string): Promise<void> {
+  const { error } = await db.rpc('reactivate_team_member', {
+    p_actor_id:  actorId,
+    p_member_id: memberId,
+  });
+  if (error) throw error;
+}
+
+export async function updateTeamMemberRole(
+  actorId:  string,
+  memberId: string,
+  roleId:   string,
+): Promise<void> {
+  const { error } = await db.rpc('update_team_member_role', {
+    p_actor_id:  actorId,
+    p_member_id: memberId,
+    p_role_id:   roleId,
+  });
+  if (error) throw error;
+}
+
+export async function getSupplierAuditLog(
+  actorId: string,
+  opts?: { limit?: number; offset?: number },
+): Promise<AuditLogPage> {
+  const { data, error } = await db.rpc('get_supplier_audit_log', {
+    p_actor_id: actorId,
+    p_limit:    opts?.limit  ?? 50,
+    p_offset:   opts?.offset ?? 0,
+  });
+  if (error) throw error;
+  const res = data as { items: AuditLogEntry[]; total_count: number };
+  return { items: res.items ?? [], totalCount: res.total_count ?? 0 };
+}
+
+export async function getSupplierRoles(actorId: string): Promise<TeamRole[]> {
+  const { data, error } = await db.rpc('get_supplier_roles', { p_actor_id: actorId });
+  if (error) throw error;
+  return (data ?? []) as TeamRole[];
+}
+
+// ── MVP-6: Reporting ──────────────────────────────────────────────────────────
+
+export interface ReportingKPI {
+  valor:  number | null;
+  prev:   number | null;
+  fuente: 'marketplace+legacy' | 'solo_marketplace';
+}
+
+export interface ReportingKPIs {
+  ventas:            ReportingKPI;
+  num_pedidos:       ReportingKPI;
+  ticket_medio:      ReportingKPI;
+  prod_vendidos:     ReportingKPI;
+  unidades_vendidas: ReportingKPI;
+  cancelados:        ReportingKPI;
+  incidencias:       ReportingKPI;
+  avg_confirm_h:     ReportingKPI;
+  avg_ship_h:        ReportingKPI;
+}
+
+export interface ReportingKPIsResult {
+  periodo: {
+    desde:      string;
+    hasta:      string;
+    prev_desde: string;
+    prev_hasta: string;
+  };
+  kpis: ReportingKPIs;
+}
+
+export async function getSupplierReportingKPIs(
+  actorId:  string,
+  dateFrom: Date,
+  dateTo:   Date,
+): Promise<ReportingKPIsResult> {
+  const { data, error } = await db.rpc('get_supplier_reporting_kpis', {
+    p_actor_id:  actorId,
+    p_date_from: dateFrom.toISOString(),
+    p_date_to:   dateTo.toISOString(),
+  });
+  if (error) throw error;
+  return data as ReportingKPIsResult;
+}
+
+// ── MVP-6.2: Ventas ───────────────────────────────────────────────────────────
+
+export interface SalesByDay {
+  fecha:       string;
+  ventas:      number;
+  num_pedidos: number;
+}
+
+export interface SalesByEstado {
+  estado: string;
+  count:  number;
+  total:  number;
+}
+
+export interface SalesByOrg {
+  org_nombre: string;
+  count:      number;
+  total:      number;
+}
+
+export interface OrderAtrasado {
+  order_id:    string;
+  numero:      string;
+  estado:      string;
+  total:       number;
+  created_at:  string;
+  horas_espera: number;
+}
+
+export interface SalesReportData {
+  by_day:    SalesByDay[];
+  by_estado: SalesByEstado[];
+  by_org:    SalesByOrg[];
+  atrasados: OrderAtrasado[];
+}
+
+export async function getSupplierReportingSales(
+  actorId:  string,
+  dateFrom: Date,
+  dateTo:   Date,
+): Promise<SalesReportData> {
+  const { data, error } = await db.rpc('get_supplier_reporting_sales', {
+    p_actor_id:  actorId,
+    p_date_from: dateFrom.toISOString(),
+    p_date_to:   dateTo.toISOString(),
+  });
+  if (error) throw error;
+  return data as SalesReportData;
+}
+
+// ── MVP-6.3: Catálogo ─────────────────────────────────────────────────────────
+
+export interface CatalogTopProduct {
+  offering_id:  string;
+  descripcion:  string;
+  ref:          string | null;
+  total_ventas: number;
+  num_pedidos:  number;
+  unidades:     number;
+}
+
+export interface CatalogTopByUnits {
+  offering_id:  string;
+  descripcion:  string;
+  ref:          string | null;
+  unidades:     number;
+  total_ventas: number;
+}
+
+export interface CatalogCalidad {
+  total_activas: number;
+  sin_ventas:    number;
+  sin_stock:     number;
+  sin_imagen:    number;
+  inactivos:     number;
+}
+
+export interface CatalogIA {
+  distribucion:   Record<string, number>;
+  avg_confidence: number | null;
+  pending_review: number;
+}
+
+export interface CatalogReportData {
+  top_por_ventas:   CatalogTopProduct[];
+  top_por_unidades: CatalogTopByUnits[];
+  calidad:          CatalogCalidad;
+  ia:               CatalogIA;
+}
+
+export async function getSupplierReportingCatalog(
+  actorId:  string,
+  dateFrom: Date,
+  dateTo:   Date,
+): Promise<CatalogReportData> {
+  const { data, error } = await db.rpc('get_supplier_reporting_catalog', {
+    p_actor_id:  actorId,
+    p_date_from: dateFrom.toISOString(),
+    p_date_to:   dateTo.toISOString(),
+  });
+  if (error) throw error;
+  return data as CatalogReportData;
+}
+
+// ── MVP-6.4: Operativo ────────────────────────────────────────────────────────
+
+export interface OperationalTiempos {
+  avg_confirm_h:     number | null;
+  avg_preparing_h:   number | null;
+  avg_ship_h:        number | null;
+  avg_total_cycle_h: number | null;
+}
+
+export interface OperationalSLA {
+  total_orders:      number;
+  confirmed_orders:  number;
+  shipped_orders:    number;
+  pct_confirmed_24h: number | null;
+  pct_shipped_48h:   number | null;
+}
+
+export interface OperationalIncidentDay {
+  fecha: string;
+  count: number;
+}
+
+export interface OperationalReportData {
+  tiempos:         OperationalTiempos;
+  sla:             OperationalSLA;
+  atrasados_count: number;
+  incidencias: {
+    total:  number;
+    by_day: OperationalIncidentDay[];
+  };
+}
+
+export async function getSupplierReportingOperational(
+  actorId:  string,
+  dateFrom: Date,
+  dateTo:   Date,
+): Promise<OperationalReportData> {
+  const { data, error } = await db.rpc('get_supplier_reporting_operational', {
+    p_actor_id:  actorId,
+    p_date_from: dateFrom.toISOString(),
+    p_date_to:   dateTo.toISOString(),
+  });
+  if (error) throw error;
+  return data as OperationalReportData;
+}
