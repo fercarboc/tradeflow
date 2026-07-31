@@ -4,13 +4,14 @@ import { ActivePage } from '../../types';
 import { PortalProvider, usePortal, PortalTab } from './PortalContext';
 import { MarketplaceMyMembership } from '../../lib/api/marketplace-actors';
 
-const PortalActorSelector = lazy(() => import('./PortalActorSelector'));
-const PortalDashboard     = lazy(() => import('./PortalDashboard'));
-const PortalCatalogo      = lazy(() => import('./PortalCatalogo'));
-const PortalPedidos       = lazy(() => import('./PortalPedidos'));
-const PortalEquipo        = lazy(() => import('./PortalEquipo'));
-const PortalInformes      = lazy(() => import('./PortalInformes'));
-const PortalConfiguracion = lazy(() => import('./PortalConfiguracion'));
+const PortalActorSelector  = lazy(() => import('./PortalActorSelector'));
+const PortalDashboard      = lazy(() => import('./PortalDashboard'));
+const PortalCatalogo       = lazy(() => import('./PortalCatalogo'));
+const PortalPedidos        = lazy(() => import('./PortalPedidos'));
+const PortalEquipo         = lazy(() => import('./PortalEquipo'));
+const PortalInformes       = lazy(() => import('./PortalInformes'));
+const PortalIntegraciones  = lazy(() => import('./PortalIntegraciones'));
+const PortalConfiguracion  = lazy(() => import('./PortalConfiguracion'));
 
 interface Props {
   setCurrentPage: (page: ActivePage) => void;
@@ -167,6 +168,16 @@ function PortalShell({ setCurrentPage, session, totalWorkspaces = 1, onChangeWor
       ),
     },
     {
+      tab: 'integraciones',
+      label: 'API',
+      icon: (
+        <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round"
+            d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
+        </svg>
+      ),
+    },
+    {
       tab: 'config',
       label: 'Configuración',
       icon: (
@@ -186,8 +197,9 @@ function PortalShell({ setCurrentPage, session, totalWorkspaces = 1, onChangeWor
       case 'catalogo':   return <PortalCatalogo     {...props} />;
       case 'pedidos':    return <PortalPedidos       {...props} />;
       case 'equipo':     return <PortalEquipo        {...props} />;
-      case 'informes':   return <PortalInformes      {...props} />;
-      case 'config':     return <PortalConfiguracion {...props} />;
+      case 'informes':        return <PortalInformes       {...props} />;
+      case 'integraciones':   return <PortalIntegraciones  actorId={activeActorId} />;
+      case 'config':          return <PortalConfiguracion  {...props} />;
       default:           return null;
     }
   };

@@ -1317,3 +1317,96 @@ export async function getSupplierReportingOperational(
   if (error) throw error;
   return data as OperationalReportData;
 }
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// MVP-7 — Credenciales API e historial de sincronizaciones
+// ═══════════════════════════════════════════════════════════════════════════════
+
+export interface ApiCredential {
+  id:           string;
+  nombre:       string;
+  key_prefix:   string;
+  scopes:       string[];
+  activa:       boolean;
+  expires_at:   string;
+  grace_until:  string | null;
+  last_used_at: string | null;
+  last_ip:      string | null;
+  revoked_at:   string | null;
+  created_at:   string;
+}
+
+export interface ApiCredentialCreated {
+  credential_id: string;
+  raw_key:       string;
+  key_prefix:    string;
+}
+
+export interface ApiSyncLogEntry {
+  id:                 string;
+  endpoint:           string;
+  idempotency_key:    string | null;
+  source_system:      string | null;
+  ip:                 string | null;
+  started_at:         string;
+  finished_at:        string | null;
+  status:             'processing' | 'completed' | 'failed' | 'duplicate';
+  rows_received:      number | null;
+  rows_inserted:      number | null;
+  rows_updated:       number | null;
+  rows_rejected:      number | null;
+  error_detail:       string | null;
+  credential_nombre:  string;
+  credential_prefix:  string;
+}
+
+export async function getApiCredentials(actorId: string): Promise<ApiCredential[]> {
+  const { data, error } = await db.rpc('get_api_credentials', { p_actor_id: actorId });
+  if (error) throw error;
+  return (data ?? []) as ApiCredential[];
+}
+
+export async function createApiCredential(
+  actorId:   string,
+  nombre:    string,
+  scopes:    string[],
+  expiresAt: Date,
+): Promise<ApiCredentialCreated> {
+  const { data, error } = await db.rpc('create_api_credential', {
+    p_actor_id:   actorId,
+    p_nombre:     nombre,
+    p_scopes:     scopes,
+    p_expires_at: expiresAt.toISOString(),
+  });
+  if (error) throw error;
+  return data as ApiCredentialCreated;
+}
+
+export async function revokeApiCredential(credentialId: string, actorId: string): Promise<void> {
+  const { error } = await db.rpc('revoke_api_credential', {
+    p_credential_id: credentialId,
+    p_actor_id:      actorId,
+  });
+  if (error) throw error;
+}
+
+export async function rotateApiCredential(
+  credentialId: string,
+  actorId:      string,
+): Promise<ApiCredentialCreated & { old_credential_id: string; grace_until: string }> {
+  const { data, error } = await db.rpc('rotate_api_credential', {
+    p_credential_id: credentialId,
+    p_actor_id:      actorId,
+  });
+  if (error) throw error;
+  return data as ApiCredentialCreated & { old_credential_id: string; grace_until: string };
+}
+
+export async function getApiSyncLog(actorId: string, limit = 50): Promise<ApiSyncLogEntry[]> {
+  const { data, error } = await db.rpc('get_supplier_api_sync_log', {
+    p_actor_id: actorId,
+    p_limit:    limit,
+  });
+  if (error) throw error;
+  return (data ?? []) as ApiSyncLogEntry[];
+}
