@@ -9,6 +9,7 @@ const PortalDashboard     = lazy(() => import('./PortalDashboard'));
 const PortalCatalogo      = lazy(() => import('./PortalCatalogo'));
 const PortalPedidos       = lazy(() => import('./PortalPedidos'));
 const PortalEquipo        = lazy(() => import('./PortalEquipo'));
+const PortalInformes      = lazy(() => import('./PortalInformes'));
 const PortalConfiguracion = lazy(() => import('./PortalConfiguracion'));
 
 interface Props {
@@ -157,6 +158,15 @@ function PortalShell({ setCurrentPage, session, totalWorkspaces = 1, onChangeWor
       ),
     },
     {
+      tab: 'informes',
+      label: 'Informes',
+      icon: (
+        <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      ),
+    },
+    {
       tab: 'config',
       label: 'Configuración',
       icon: (
@@ -175,7 +185,8 @@ function PortalShell({ setCurrentPage, session, totalWorkspaces = 1, onChangeWor
       case 'dashboard':  return <PortalDashboard    {...props} setActiveTab={setActiveTab} />;
       case 'catalogo':   return <PortalCatalogo     {...props} />;
       case 'pedidos':    return <PortalPedidos       {...props} />;
-      case 'equipo':     return <PortalEquipo        {...props} onReload={reloadMemberships} />;
+      case 'equipo':     return <PortalEquipo        {...props} />;
+      case 'informes':   return <PortalInformes      {...props} />;
       case 'config':     return <PortalConfiguracion {...props} />;
       default:           return null;
     }

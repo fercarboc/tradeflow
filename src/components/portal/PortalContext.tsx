@@ -2,9 +2,9 @@ import React, { createContext, useContext, useEffect, useState, useCallback } fr
 import { getMyMarketplaceMemberships, MarketplaceMyMembership } from '../../lib/api/marketplace-actors';
 import { getUnreadNotificationCount } from '../../lib/api/marketplace-portal';
 
-export type PortalTab = 'dashboard' | 'catalogo' | 'pedidos' | 'equipo' | 'config';
+export type PortalTab = 'dashboard' | 'catalogo' | 'pedidos' | 'equipo' | 'informes' | 'config';
 
-const VALID_TABS: PortalTab[] = ['dashboard', 'catalogo', 'pedidos', 'equipo', 'config'];
+const VALID_TABS: PortalTab[] = ['dashboard', 'catalogo', 'pedidos', 'equipo', 'informes', 'config'];
 const LS_TAB    = 'trabflow_portal_tab';
 const LS_ACTOR  = 'trabflow_portal_actor';
 
