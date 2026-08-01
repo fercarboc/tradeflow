@@ -4,6 +4,57 @@
 
 ---
 
+## MKT-FASE1-PILOT-001 — Puente gc → UP → Marketplace (fontanería)
+
+**Fecha:** 2026-08-01  
+**Supabase:** dqqjaujnulutinskmqsu (eu-central-1)  
+**Tipo:** Migración de datos + DDL
+
+### Descripción
+
+Primera migración del puente entre `trade_global_catalog` y `trade_marketplace_universal_products`. Procesa 40 registros de fontanería clasificados manualmente: 19 partidas no comerciales (sin acción), 15 variantes en 11 UPs padre genéricos, 5 UPs directos, 1 UPDATE a UP preexistente.
+
+### DDL aplicado
+
+- **`MKT_FASE1_PILOT_001_DDL.sql`** — Columna `global_catalog_id uuid REFERENCES trade_global_catalog(id) ON DELETE SET NULL` en `trade_marketplace_universal_product_variants`. Índice UNIQUE parcial `uq_variant_global_catalog_id WHERE global_catalog_id IS NOT NULL`.
+- **`MKT_FASE1_PILOT_001_VARIANT_IDENTIFIERS_FIX.sql`** — Reemplaza constraints `UNIQUE NULLS NOT DISTINCT` en `ean` y `gtin` por índices únicos parciales `WHERE ean IS NOT NULL` / `WHERE gtin IS NOT NULL`. Permite múltiples variantes sin EAN/GTIN sin generar identificadores ficticios.
+
+### DML aplicado
+
+- **`MKT_FASE1_PILOT_001_v4.sql`** — 10 pre-validaciones (0-A a 0-K), 12 post-validaciones (7-A a 7-L), transacción única. `origen = 'global_catalog'`, batch identificado por `especificaciones->>'_batch' = 'MKT_FASE1_PILOT_001'`.
+
+### Conteos antes → después
+
+| Tabla | Antes | Después | Delta |
+|---|---|---|---|
+| `trade_marketplace_universal_products` | 6 | 22 | +16 |
+| `trade_marketplace_universal_product_variants` | 0 | 15 | +15 |
+| `trade_marketplace_categories` | 25 | 26 | +1 |
+
+### Incidencias y correcciones
+
+| Incidencia | Causa | Corrección |
+|---|---|---|
+| `chk_up_origen` rechazó `'pilot_fontaneria_2026_08_01'` | El CHECK solo admite valores de procedencia funcional (`global_catalog`, `supplier_import`, etc.) | `origen = 'global_catalog'`; batch en `especificaciones` jsonb; pre-validación 0-K añadida |
+| `uq_variant_ean UNIQUE NULLS NOT DISTINCT` bloqueó 2ª variante sin EAN | PG 15+ `NULLS NOT DISTINCT` trata todos los NULL como iguales | Constraints eliminados; reemplazados por índices únicos parciales `WHERE IS NOT NULL` |
+
+### Cobertura gc final
+
+- Directos (gc → UP): 6/6
+- Variantes (gc → variant): 15/15
+- NC excluidos: 19/19 sin relación marketplace
+- Total: 40/40 registros procesados
+
+### Verificación de integridad
+
+7/7 checks OK: sin gc_id duplicados, sin category_id nulos, sin variantes huérfanas, sin duplicados lógicos, sin NC con relación marketplace, sin registros ajenos modificados.
+
+### Rollback disponible
+
+`docs/marketplace/sql/MKT_FASE1_PILOT_001_ROLLBACK_v4.sql` — válido mientras no se carguen UPs adicionales del mismo origen.
+
+---
+
 ## RC1-Alpha — Commercial Readiness, Bloque 1
 
 **Período:** Julio 2026

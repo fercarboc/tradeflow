@@ -11,25 +11,27 @@
 ## 1. ESTADO ACTUAL
 
 ```
-FECHA          2026-07-31
+FECHA          2026-08-01
 
 FASE ACTIVA    RC1-Beta — Commercial Readiness Bloque 2
                Demo ejecutable + onboarding proveedor + catálogo funcional
+               + MKT-FASE1-PILOT-001 completado (puente gc → UP → Marketplace)
 
 ESTADO GENERAL
   ██████████████████░░  Producto ERP:             95% completado
   ████████████████░░░░  Portal Proveedor:         90% completado (MVP 1-7)
   ████████░░░░░░░░░░░░  Commercial Readiness RC1:  40% completado
   ██░░░░░░░░░░░░░░░░░░  Pilotos externos:          0 / 4 (PZ-001A interno ✔)
+  ██░░░░░░░░░░░░░░░░░░  Catálogo Marketplace:      16 / ∞ UPs (fontanería 21/21 gc cubierto)
 
 ÚLTIMA ACCIÓN
-  2026-07-31  MVP-7 completado — Supplier API v1
-              8 archivos: migraciones SQL, Edge Function, componente, docs
-              Commit aaf06a5 · Auto-deploy Vercel ✔
+  2026-08-01  MKT-FASE1-PILOT-001 completado — Puente gc → UP → Marketplace (fontanería)
+              Scripts DDL + DML v4 + DRY RUN + VARIANT_IDENTIFIERS_FIX aplicados en producción
+              Supabase dqqjaujnulutinskmqsu · 16 UPs + 15 variantes + 1 categoría
 
 SIGUIENTE ACCIÓN
-  RC1-Beta — comenzar desde el ítem de mayor impacto:
-  Guión de demo + datos de demo coherentes (Bloque 7 del checklist)
+  MKT-FASE1-PILOT-002 — Validación funcional puente Motor IA → UP → variante → Marketplace
+  (Ver cola de ejecución §5)
 ```
 
 ---
@@ -85,6 +87,24 @@ Primer piloto operativo completo del Marketplace de extremo a extremo. Actores: 
 | RC1-C06 | Limpiar /public (imágenes ChatGPT, PDFs de prueba) | — | ⏸ Diferida deliberadamente |
 
 RC1-C05 y RC1-C06 diferidas por decisión del fundador (2026-07-29): "pueden hacerse en una hora cuando el producto esté terminado". No bloquean ningún piloto comercial.
+
+---
+
+**✔ MKT-FASE1-PILOT-001 — Puente gc → UP → Marketplace (fontanería)**
+`2026-08-01`
+
+| Ítem | Detalle |
+|------|---------|
+| Proyecto Supabase | dqqjaujnulutinskmqsu (eu-central-1) |
+| DDL | `global_catalog_id uuid FK` en variants + índice UNIQUE parcial |
+| Incidencia 1 | `chk_up_origen` → `origen = 'global_catalog'`; batch por `especificaciones->>'_batch'` |
+| Incidencia 2 | `NULLS NOT DISTINCT` en EAN/GTIN → reemplazados por índices parciales `WHERE IS NOT NULL` |
+| UPs creados | 16 (11 padre genéricos + 5 directos) |
+| Variantes creadas | 15 |
+| Categoría creada | `font-acs` — Equipos de agua caliente sanitaria |
+| Cobertura gc | 21/21 CUBIERTO |
+| Integridad | 7/7 checks OK |
+| Rollback disponible | Sí — `MKT_FASE1_PILOT_001_ROLLBACK_v4.sql` |
 
 ---
 
@@ -268,8 +288,12 @@ El orden es fijo. No se modifica sin actualizar este documento y registrar la ra
   ✔ Auditoría RC-1      Análisis completo — COMPLETADO
   ✔ RC1-Alpha           Bloqueantes legales + analytics + sin "beta" — COMPLETADO
   ✔ Portal Proveedor    MVP-1 a MVP-7 — COMPLETADO
+  ✔ MKT-FASE1-PILOT-001 Puente gc → UP → Marketplace fontanería — COMPLETADO 2026-08-01
 
-  ▶ RC1-Beta            Demo ejecutable + catálogo + onboarding proveedor ← ACTIVO AHORA
+  ▶ MKT-FASE1-PILOT-002 Validación funcional Motor IA → UP → variante → Marketplace ← SIGUIENTE
+    │
+    ▼
+  RC1-Beta              Demo ejecutable + catálogo + onboarding proveedor
     │
     ▼
     PZ-001B             Primer instalador externo real

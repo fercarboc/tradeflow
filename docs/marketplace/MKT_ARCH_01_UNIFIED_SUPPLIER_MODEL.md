@@ -210,17 +210,33 @@ La clasificación final es responsabilidad de una persona (admin o responsable d
 3. Establecer el mapa familia → categoría con precisión real
 4. Validar el matching con las 213 offerings existentes de OBRAMAT Demo
 
-**Resultado esperado del piloto (estimación, no garantía):**
+**Resultado estimado original vs resultado real (MKT-FASE1-PILOT-001, 2026-08-01):**
 
-| Clasificación | Estimación (de 101 gc fontanería) |
-|--------------|----------------------------------|
-| Producto universal | ~60–70 |
-| Variante | ~15–20 |
-| Partida no comercial | ~10–15 |
-| Duplicado | ~5–10 |
-| Requiere revisión | ~5 |
+| Clasificación | Estimación original | Resultado real (40 registros analizados) |
+|--------------|--------------------|-----------------------------------------|
+| Producto universal | ~60–70 | 6 (15%) |
+| Variante | ~15–20 | 15 (37.5%) |
+| Partida no comercial | ~10–15 | 19 (47.5%) |
+| Duplicado | ~5–10 | 0 |
+| Requiere revisión | ~5 | 0 (todos resueltos por decisión humana) |
 
-Los números reales del piloto definirán el ratio aplicable al resto del catálogo.
+**Conclusión del piloto:** el catálogo de fontanería tiene un ratio de partidas no comerciales significativamente mayor al estimado (~47% vs ~10–15%). El catálogo productizable real es más reducido por oficio. Los 40 registros del piloto cubrieron 21 gc_ids como productos/variantes del Marketplace.
+
+### 4.4 Estado Fase 1 — MKT-FASE1-PILOT-001
+
+**Estado:** ✅ COMPLETADO — 2026-08-01
+
+| Métrica | Valor |
+|---|---|
+| UPs creados | 16 (11 genéricos padre + 5 directos) |
+| Variantes creadas | 15 |
+| Categoría nueva | 1 (font-acs) |
+| UP actualizado | 1 (PZ-FON-001 Grifo monomando lavabo) |
+| Cobertura gc (producto) | 21 / 21 (100%) |
+| DDL nuevo | `global_catalog_id uuid FK` en `trade_marketplace_universal_product_variants` |
+| Constraints corregidos | `uq_variant_ean` y `uq_variant_gtin` → `NULLS DISTINCT` (índices parciales `WHERE columna IS NOT NULL`) |
+
+**Próximo paso:** MKT-FASE1-PILOT-002 — Validación funcional del puente Motor IA → UP → variante → Marketplace.
 
 ---
 

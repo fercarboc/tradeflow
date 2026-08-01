@@ -1,10 +1,10 @@
 # MKT Fase 1 — Guía de Clasificación y Lote Piloto
 
-**Versión:** 2.0 (decisiones humanas aplicadas)
+**Versión:** 3.0 (migración aplicada en producción)
 **Fecha:** 2026-08-01
 **Referencia:** MKT-ARCH-01 v2.0 · Fase 1 Fundación
 **Fuente de datos:** `trade_global_catalog` WHERE oficio = 'Fontanería' (101 registros reales)
-**Estado:** APROBADO — SQL listo para revisión en `docs/marketplace/sql/MKT_FASE1_PILOT_001.sql`
+**Estado:** ✅ COMPLETADO — Migración aplicada en producción 2026-08-01
 
 ---
 
@@ -289,11 +289,42 @@ Si se aprueban: 5 UPs padre ACS adicionales + 13 variantes adicionales.
 
 ## SQL de referencia
 
-- Migración: `docs/marketplace/sql/MKT_FASE1_PILOT_001.sql`
-- Rollback: `docs/marketplace/sql/MKT_FASE1_PILOT_001_ROLLBACK.sql`
+### DDL
+
+- DDL: `docs/marketplace/sql/MKT_FASE1_PILOT_001_DDL.sql`
+- DDL rollback: `docs/marketplace/sql/MKT_FASE1_PILOT_001_DDL_ROLLBACK.sql`
+- Fix constraints EAN/GTIN: `docs/marketplace/sql/MKT_FASE1_PILOT_001_VARIANT_IDENTIFIERS_FIX.sql`
+- Fix rollback: `docs/marketplace/sql/MKT_FASE1_PILOT_001_VARIANT_IDENTIFIERS_FIX_ROLLBACK.sql`
+
+### DML
+
+- Migración v4: `docs/marketplace/sql/MKT_FASE1_PILOT_001_v4.sql`
+- Rollback v4: `docs/marketplace/sql/MKT_FASE1_PILOT_001_ROLLBACK_v4.sql`
+- DRY RUN v3: `docs/marketplace/sql/MKT_FASE1_PILOT_001_DRY_RUN_v3.sql`
 
 ---
 
-*Versión 2.0 — Decisiones humanas aplicadas 2026-08-01*
-*Basado en 101 registros reales de trade_global_catalog — sin modificación de datos*
-*Siguiente paso: revisión del SQL antes de ejecutar*
+## Registro de ejecución
+
+| Campo | Valor |
+|---|---|
+| Fecha ejecución | 2026-08-01 |
+| Proyecto Supabase | dqqjaujnulutinskmqsu (eu-central-1) |
+| UPs antes | 6 |
+| UPs después | 22 (+16) |
+| Variantes antes | 0 |
+| Variantes después | 15 |
+| Categorías antes | 25 |
+| Categorías después | 26 (+1 font-acs) |
+| DDL aplicado | `global_catalog_id uuid FK trade_global_catalog` + índice UNIQUE parcial en variants |
+| Incidencia 1 | `chk_up_origen` no admitía `'pilot_fontaneria_2026_08_01'` → origen corregido a `'global_catalog'`; batch identificado por `especificaciones->>'_batch'='MKT_FASE1_PILOT_001'` |
+| Incidencia 2 | `uq_variant_ean` / `uq_variant_gtin` con `NULLS NOT DISTINCT` impedían múltiples variantes sin EAN/GTIN → reemplazados por índices únicos parciales `WHERE columna IS NOT NULL` |
+| Integridad final | 7/7 checks OK (sin duplicados, sin huérfanos, sin NC con relación marketplace, sin ajenos modificados) |
+| Cobertura gc | 21/21 CUBIERTO (6 directos + 15 variantes) |
+| Rollback disponible | `MKT_FASE1_PILOT_001_ROLLBACK_v4.sql` — válido mientras no se carguen UPs ajenos al lote |
+
+---
+
+*Versión 3.0 — Migración aplicada en producción 2026-08-01*
+*Basado en 101 registros reales de trade_global_catalog — sin modificación de datos fuera del lote*
+*Siguiente paso: MKT-FASE1-PILOT-002 — Validación funcional Motor IA → UP → variante → Marketplace*
