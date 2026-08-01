@@ -10067,6 +10067,7 @@ export type Database = {
           created_at: string
           descripcion: string
           editable: boolean
+          global_catalog_id: string | null
           id: string
           marca: string | null
           material_order_placed: boolean | null
@@ -10085,6 +10086,8 @@ export type Database = {
           supplier_ref: string | null
           tipo: string
           total: number | null
+          universal_product_id: string | null
+          universal_variant_id: string | null
         }
         Insert: {
           cantidad?: number
@@ -10094,6 +10097,7 @@ export type Database = {
           created_at?: string
           descripcion: string
           editable?: boolean
+          global_catalog_id?: string | null
           id?: string
           marca?: string | null
           material_order_placed?: boolean | null
@@ -10112,6 +10116,8 @@ export type Database = {
           supplier_ref?: string | null
           tipo?: string
           total?: number | null
+          universal_product_id?: string | null
+          universal_variant_id?: string | null
         }
         Update: {
           cantidad?: number
@@ -10121,6 +10127,7 @@ export type Database = {
           created_at?: string
           descripcion?: string
           editable?: boolean
+          global_catalog_id?: string | null
           id?: string
           marca?: string | null
           material_order_placed?: boolean | null
@@ -10139,6 +10146,8 @@ export type Database = {
           supplier_ref?: string | null
           tipo?: string
           total?: number | null
+          universal_product_id?: string | null
+          universal_variant_id?: string | null
         }
         Relationships: [
           {
@@ -10156,10 +10165,31 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "trade_quote_items_global_catalog_id_fkey"
+            columns: ["global_catalog_id"]
+            isOneToOne: false
+            referencedRelation: "trade_global_catalog"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "trade_quote_items_quote_id_fkey"
             columns: ["quote_id"]
             isOneToOne: false
             referencedRelation: "trade_quotes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "trade_quote_items_universal_product_id_fkey"
+            columns: ["universal_product_id"]
+            isOneToOne: false
+            referencedRelation: "trade_marketplace_universal_products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "trade_quote_items_universal_variant_id_fkey"
+            columns: ["universal_variant_id"]
+            isOneToOne: false
+            referencedRelation: "trade_marketplace_universal_product_variants"
             referencedColumns: ["id"]
           },
         ]

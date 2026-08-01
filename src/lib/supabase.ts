@@ -92,6 +92,9 @@ export interface TradeQuoteItem {
   catalog_variant_id?: string | null;
   material_order_placed?: boolean;
   familia?: string | null;
+  global_catalog_id?: string | null;
+  universal_product_id?: string | null;
+  universal_variant_id?: string | null;
   created_at: string;
 }
 
@@ -587,7 +590,7 @@ export async function saveQuote(
   orgId: string,
   clientId: string,
   descripcion: string,
-  items: Pick<TradeQuoteItem, 'descripcion' | 'tipo' | 'cantidad' | 'precio_unitario' | 'precio_material' | 'supplier_key' | 'supplier_name' | 'supplier_ref' | 'catalog_variant_id' | 'familia'>[],
+  items: Pick<TradeQuoteItem, 'descripcion' | 'tipo' | 'cantidad' | 'precio_unitario' | 'precio_material' | 'supplier_key' | 'supplier_name' | 'supplier_ref' | 'catalog_variant_id' | 'familia' | 'global_catalog_id' | 'universal_product_id' | 'universal_variant_id'>[],
   kbActuaciones?: string[],
 ): Promise<TradeQuote> {
   const { count } = await supabase
