@@ -180,6 +180,10 @@ interface Partida {
   total?: number;
   precio_origen?: string;
   catalog_codigo?: string;
+  // IDs estructurados Marketplace (C-002)
+  global_catalog_id?: string;
+  universal_product_id?: string;
+  universal_variant_id?: string;
   // Motor de Catálogos de Proveedores
   supplier_key?: string;
   supplier_name?: string;
@@ -194,6 +198,52 @@ interface Calculos {
   iva_porcentaje: number;
   iva: number;
   total: number;
+}
+
+// ── Resolución batch de IDs del Marketplace (C-002) ──────────────────────────
+// Máximo 2 queries adicionales por presupuesto, independientemente del número de líneas.
+// Query 1: UP directos por global_catalog_id.
+// Query 2: variantes activas para los gc_ids sin UP directo.
+// No filtra por validation_state — esa validación pertenece a create_cart_from_quote.
+async function resolveMarketplaceIds(
+  supabase: ReturnType<typeof createClient>,
+  gcIds: string[],
+): Promise<Map<string, { universal_product_id: string; universal_variant_id: string | null }>> {
+  const result = new Map<string, { universal_product_id: string; universal_variant_id: string | null }>();
+  if (gcIds.length === 0) return result;
+
+  // Query 1: UP directos
+  const { data: directUPs } = await supabase
+    .from('trade_marketplace_universal_products')
+    .select('id, global_catalog_id')
+    .in('global_catalog_id', gcIds);
+
+  const resolvedGcIds = new Set<string>();
+  for (const up of (directUPs ?? []) as Array<{ id: string; global_catalog_id: string }>) {
+    result.set(up.global_catalog_id, { universal_product_id: up.id, universal_variant_id: null });
+    resolvedGcIds.add(up.global_catalog_id);
+  }
+
+  // Query 2: variantes activas para gc_ids sin UP directo
+  const remainingGcIds = gcIds.filter(id => !resolvedGcIds.has(id));
+  if (remainingGcIds.length > 0) {
+    const { data: variants } = await supabase
+      .from('trade_marketplace_universal_product_variants')
+      .select('id, global_catalog_id, universal_product_id')
+      .in('global_catalog_id', remainingGcIds)
+      .eq('activa', true);
+
+    for (const v of (variants ?? []) as Array<{ id: string; global_catalog_id: string; universal_product_id: string }>) {
+      if (!result.has(v.global_catalog_id)) {
+        result.set(v.global_catalog_id, {
+          universal_product_id: v.universal_product_id,
+          universal_variant_id: v.id,
+        });
+      }
+    }
+  }
+
+  return result;
 }
 
 async function enrichWithCatalogPrices(
@@ -213,7 +263,7 @@ async function enrichWithCatalogPrices(
       .eq('activo', true),
     supabase
       .from('trade_global_catalog')
-      .select('descripcion, precio_referencia, unidad, codigo, oficio')
+      .select('id, descripcion, precio_referencia, unidad, codigo, oficio')
       .eq('activo', true)
       .gt('precio_referencia', 0),  // solo items con precio de referencia real
   ]);
@@ -254,9 +304,9 @@ async function enrichWithCatalogPrices(
       : null;
 
     const match = instaladorMatch
-      ? { descripcion: instaladorMatch.descripcion, precio: Number(instaladorMatch.precio_base), codigo: String(instaladorMatch.codigo), fuente: 'tarifa_instalador' }
+      ? { descripcion: instaladorMatch.descripcion, precio: Number(instaladorMatch.precio_base), codigo: String(instaladorMatch.codigo), fuente: 'tarifa_instalador', gcId: null as string | null }
       : globalMatch
-      ? { descripcion: globalMatch.descripcion, precio: Number(globalMatch.precio_referencia), codigo: String(globalMatch.codigo), fuente: 'catalogo_global' }
+      ? { descripcion: globalMatch.descripcion, precio: Number(globalMatch.precio_referencia), codigo: String(globalMatch.codigo), fuente: 'catalogo_global', gcId: String(globalMatch.id) }
       : null;
 
     if (match && match.precio > 0) {
@@ -264,11 +314,39 @@ async function enrichWithCatalogPrices(
       partida.total = (partida.cantidad ?? 1) * match.precio;
       partida.precio_origen = match.fuente;
       partida.catalog_codigo = match.codigo;
+      if (match.gcId) partida.global_catalog_id = match.gcId;
       recalculated = true;
     } else if (partida.origen === 'catalogo' && (partida.precio_unitario ?? 0) <= 0) {
       // v58b: partida marcada como catálogo por la IA sin precio válido → reclasificar
       partida.origen = 'sugerida_ia';
       partida.requiere_revision = true;
+    }
+  }
+
+  // ── Resolución batch de IDs del Marketplace (C-002) ────────────────────────
+  // Máximo 2 queries independientemente del número de líneas (anti N+1).
+  const gcIdsInPresupuesto = [...new Set(
+    partidas.map(p => p.global_catalog_id).filter((id): id is string => !!id),
+  )];
+
+  if (gcIdsInPresupuesto.length > 0) {
+    const mappings = await resolveMarketplaceIds(supabase, gcIdsInPresupuesto);
+    for (const partida of partidas) {
+      if (partida.global_catalog_id) {
+        const mapping = mappings.get(partida.global_catalog_id);
+        if (mapping) {
+          partida.universal_product_id = mapping.universal_product_id;
+          if (mapping.universal_variant_id) {
+            partida.universal_variant_id = mapping.universal_variant_id;
+          }
+          const method = mapping.universal_variant_id ? 'structured_variant' : 'structured_direct_product';
+          console.log(`[mkt][${partida.catalog_codigo ?? '?'}] ${method} up=${mapping.universal_product_id.slice(0, 8)}`);
+        } else {
+          console.log(`[mkt][${partida.catalog_codigo ?? '?'}] global_catalog_without_marketplace_mapping`);
+        }
+      } else if (partida.catalog_codigo) {
+        console.log(`[mkt][${partida.catalog_codigo}] catalog_text_match_only`);
+      }
     }
   }
 
