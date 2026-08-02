@@ -11,27 +11,28 @@
 ## 1. ESTADO ACTUAL
 
 ```
-FECHA          2026-08-01
+FECHA          2026-08-02
 
-FASE ACTIVA    RC1-Beta — Commercial Readiness Bloque 2
-               Demo ejecutable + onboarding proveedor + catálogo funcional
-               + MKT-FASE1-PILOT-001 completado (puente gc → UP → Marketplace)
+FASE ACTIVA    MKT-FASE1-PILOT-002 — Validación funcional puente Motor IA → UP → Marketplace
+               ETAPAs 1–4 completadas · Pendiente autorización ETAPA 5 (C-005 offerings)
 
 ESTADO GENERAL
   ██████████████████░░  Producto ERP:             95% completado
   ████████████████░░░░  Portal Proveedor:         90% completado (MVP 1-7)
   ████████░░░░░░░░░░░░  Commercial Readiness RC1:  40% completado
   ██░░░░░░░░░░░░░░░░░░  Pilotos externos:          0 / 4 (PZ-001A interno ✔)
-  ██░░░░░░░░░░░░░░░░░░  Catálogo Marketplace:      16 / ∞ UPs (fontanería 21/21 gc cubierto)
+  ████░░░░░░░░░░░░░░░░  Catálogo Marketplace:      16 / ∞ UPs validated (21/21 gc cubierto)
 
 ÚLTIMA ACCIÓN
-  2026-08-01  MKT-FASE1-PILOT-001 completado — Puente gc → UP → Marketplace (fontanería)
-              Scripts DDL + DML v4 + DRY RUN + VARIANT_IDENTIFIERS_FIX aplicados en producción
-              Supabase dqqjaujnulutinskmqsu · 16 UPs + 15 variantes + 1 categoría
+  2026-08-02  MKT-FASE1-PILOT-002 ETAPA 4 completada — C-004 promoción draft → validated
+              16 UPs del lote MKT_FASE1_PILOT_001 promovidos a validated
+              Dry run corregido 100% OK (§DR-11g sub-checks explícitos)
+              Level 0 en create_cart_from_quote operativo para los 16 UPs
+              Commits: 2ae619c (ETAPA 1) · d445651 (ETAPA 2) · e279bd5 (ETAPA 3) · [ETAPA 4 pendiente commit]
 
 SIGUIENTE ACCIÓN
-  MKT-FASE1-PILOT-002 — Validación funcional puente Motor IA → UP → variante → Marketplace
-  (Ver cola de ejecución §5)
+  MKT-FASE1-PILOT-002 ETAPA 5 — C-005: crear 5 offerings OBRAMAT Demo (Portal/API)
+  Requiere autorización explícita. Ver MKT_FASE1_PILOT_002_OFFERINGS_FIXTURE.md
 ```
 
 ---
@@ -87,6 +88,20 @@ Primer piloto operativo completo del Marketplace de extremo a extremo. Actores: 
 | RC1-C06 | Limpiar /public (imágenes ChatGPT, PDFs de prueba) | — | ⏸ Diferida deliberadamente |
 
 RC1-C05 y RC1-C06 diferidas por decisión del fundador (2026-07-29): "pueden hacerse en una hora cuando el producto esté terminado". No bloquean ningún piloto comercial.
+
+---
+
+**✔ MKT-FASE1-PILOT-002 — ETAPAs 1–4 (puente Motor IA → UP → Marketplace)**
+`2026-08-01 / 2026-08-02`
+
+| Ítem | Detalle |
+|------|---------|
+| ETAPA 1 — C-001 DDL | 3 columnas en `trade_quote_items` (gc/up/variant_id) + 3 índices parciales. Commit `2ae619c` |
+| ETAPA 2 — C-002 Motor IA | `resolveMarketplaceIds` batch (max 2 queries anti-N+1). 14/14 tests. Deploy v70. Commit `d445651` |
+| ETAPA 3 — C-003 Level 0 | `create_cart_from_quote` con 4 sub-niveles deterministas (0-A/B/C). 10/10 tests SQL. Commit `e279bd5` |
+| ETAPA 4 — C-004 Promoción | 16 UPs draft → validated. Dry run 100% OK (§DR-11g corregido). 7/7 postvalidaciones. |
+| Rollback disponible | C-003: `C003_ROLLBACK_create_cart_from_quote_pre_level0.sql`. C-004: UPDATE validated→draft (condicionado). |
+| Siguiente | ETAPA 5 — C-005: 5 offerings OBRAMAT Demo (pendiente autorización) |
 
 ---
 

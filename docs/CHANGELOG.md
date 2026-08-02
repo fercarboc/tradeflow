@@ -4,6 +4,54 @@
 
 ---
 
+## MKT-FASE1-PILOT-002 — ETAPAs 1–4 — Validación funcional puente Motor IA → Marketplace
+
+**Período:** 2026-08-01 / 2026-08-02  
+**Supabase:** dqqjaujnulutinskmqsu (eu-central-1)  
+**Estado:** ETAPAs 1–4 completadas · ETAPA 5 pendiente autorización
+
+### C-001 — DDL trade_quote_items (ETAPA 1) · commit `2ae619c`
+
+- Añadidas 3 columnas `uuid NULLABLE ON DELETE SET NULL` a `trade_quote_items`: `global_catalog_id`, `universal_product_id`, `universal_variant_id`
+- 3 índices parciales `WHERE IS NOT NULL` para rendimiento en filtros FK
+- Tipos TypeScript actualizados en `src/supabase.gen.ts` y `src/lib/supabase.ts` (`TradeQuoteItem`, `saveQuote` Pick type)
+
+### C-002 — Motor IA batch resolution (ETAPA 2) · commit `d445651`
+
+- `resolveMarketplaceIds` en `trade-voice-to-quote`: máximo 2 queries adicionales por presupuesto (anti-N+1)
+- Reglas A (UP directo, conf=1.0), B (variante activa), C (sin mapping, sin excepción)
+- 4 métodos de log estructurado sin PII
+- 14/14 tests vitest: 9 escenarios A–G + 5 benchmarks (BENCH-1 a BENCH-5)
+- Benchmark BENCH-4: 20 gc_ids + 10ms latencia simulada → ~20ms (2 roundtrips vs ~400ms con N+1)
+- Deploy: `trade-voice-to-quote` v70 (producción)
+
+### C-003 — Level 0 create_cart_from_quote (ETAPA 3) · commit `e279bd5`
+
+- `create_cart_from_quote` ampliada con Level 0 antes de levels legacy (1-3 intactos)
+- Level 0-A: `universal_variant_id` → variante activa + UP validated (conf=1.0)
+- Level 0-B: `universal_product_id` → UP validated (conf=1.0)
+- Level 0-C-1: `global_catalog_id` → UP directo validated (conf=1.0)
+- Level 0-C-2: `global_catalog_id` → variante → UP validated (conf=1.0)
+- Métodos especiales: `product_not_validated`, `structured_id_invalid`, `no_match`
+- 10/10 tests SQL PASS · rollback disponible: `C003_ROLLBACK_create_cart_from_quote_pre_level0.sql`
+
+### C-004 — Promoción 16 UPs draft → validated (ETAPA 4) · 2026-08-02
+
+- Dry run §DR-1 a §DR-11g ejecutado y 100% OK
+- Corrección §DR-11g: umbral `≥21` reemplazado por 6 sub-checks explícitos (5+15+20 lote + 1 PZ-FON-001 + 21 piloto completo + 0 solapamientos)
+- UPDATE promovió exactamente 16 UPs del lote `MKT_FASE1_PILOT_001` de `draft` a `validated`
+- Postvalidaciones 7/7 OK: 16 validated, 0 draft, 6 preexistentes intactos, 15 variantes activas, 0 modificaciones externas
+- Level 0 en `create_cart_from_quote` resuelve correctamente los 16 UPs (16/16 por Level 0-B; 5/16 también por Level 0-C directo)
+- 0 offerings matched dependientes antes de la promoción
+
+### Incidencias
+
+| Incidencia | Causa | Corrección |
+|---|---|---|
+| §DR-11g — REVISAR (cobertura 20 vs umbral ≥21) | Umbral estimado en el script era off-by-one; arquitectura lote correcta (5 directos + 15 variantes = 20 únicos) | §DR-11g reemplazado por 6 sub-checks exactos; script `MKT_FASE1_PILOT_002_VALIDATE_BATCH_UPS.sql` actualizado a v2.1 |
+
+---
+
 ## MKT-FASE1-PILOT-001 — Puente gc → UP → Marketplace (fontanería)
 
 **Fecha:** 2026-08-01  
