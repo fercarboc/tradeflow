@@ -4,11 +4,49 @@
 
 ---
 
-## MKT-FASE1-PILOT-002 — ETAPAs 1–6 — Validación funcional puente Motor IA → Marketplace
+## MKT-FASE1-PILOT-002 — ETAPAs 1–7 + E2E — Validación funcional puente Motor IA → Marketplace
 
 **Período:** 2026-08-01 / 2026-08-02  
 **Supabase:** dqqjaujnulutinskmqsu (eu-central-1)  
-**Estado:** ETAPAs 1–6 completadas · DETENIDO para revisión humana (ETAPA 7 no autorizada)
+**Estado:** ✅ COMPLETADO — 7 ETAPAs · 8/8 tests SQL · E2E PASS · MKT-000004 delivered
+
+### C-007 — Matching humano + E2E (ETAPA 7) · 2026-08-02
+
+#### FASE 7.1 — Revisión humana de 5 offerings
+
+| supplier_ref | offering_id | UP vinculado | confidence | Resultado |
+|---|---|---|---|---|
+| DEMO-FON-COC-001 | `8c1d6a96` | `145d1eaa` (Grifo monomando cocina) | 0.95 | ✅ Aprobado |
+| DEMO-FON-CU15-001 | `8074998c` | `e1b76491` (Tubo cobre 15mm) | 0.95 | ⚠️ Rechazado → D-2 → Aprobado |
+| DEMO-FON-VSEG-001 | `d096d75a` | `6056ea3d` + `3154a350` (Válvula 3/4" 3bar) | 0.97 | ✅ Aprobado |
+| DEMO-FON-PDR-001 | `a7ceb134` | `54777b80` + `5b05a4c5` (Plato ducha 80×80) | 0.97 | ✅ Aprobado |
+| DEMO-FON-C15-001 | `8282bef1` | `74d6d138` + `744865cb` (Codo 90° 15mm) | 0.95 | ✅ Aprobado |
+
+D-1: `match_method='admin'` (CHECK constraint). Contexto en audit_log event_data.  
+D-2: CU15-001 actualizada via Supplier API v1 a unidad `ml`, precio/metro (coste=1.83, venta=2.97, stock=144). import_id: `6737462f`.
+
+#### FASE 7.2 — Binding atómico
+
+- 5/5 offerings bindeadas con `match_state='matched'`, `match_method='admin'`
+- PL/pgSQL con guards: id exacto + supplier_ref + match_state=pending_review + UP IS NULL + actor OBRAMAT
+- Pre-verificación: variante activa + UP validated. RAISE EXCEPTION → rollback si falla.
+- 5 eventos audit_log `match_review_approved` con review_type='human_reviewed'
+
+#### FASE 7.3 — Tests funcionales SQL (8/8 PASS)
+
+- TEST-01 a 05: Level 0-A (structured_variant) y 0-B (structured_product). 5/5 offerings resueltas.
+- TEST-06: UP sin offering → selected_offering_id=NULL ("Sin proveedor disponible") ✅
+- TEST-07: Regresión PZ-001A — 16 cart items intactos, confidence=0.900, 0 contaminación ETAPA 7 ✅
+- TEST-08: Multi-proveedor — algoritmo determinista (stock→conf→precio→plazo) ✅
+
+#### FASE 7.4 — E2E Real (MKT-000004)
+
+- **Presupuesto:** PRE-2026-084 (`ece04ef8`) — 3 partidas: grifo cocina + válvula + codo 5 ud
+- **Carrito:** `9c245ffd` — Level 0-B (grifo) + Level 0-A (válvula + codo) · 3 cart_items · 0 "Sin proveedor"
+- **Checkout:** `checkout_cart` → pedido único MKT-000004 (`540d5f5e`) · subtotal=58.25 · envío=8.50 · total=66.75
+- **Portal Proveedor:** pending→confirmed (21:24:47) → preparing (21:24:57) → shipped (21:25:07) · tracking=MKT-PILOT-002-TRACK
+- **Recepción:** delivered (21:25:34) · completed_at=21:25:34 · 5 eventos historial
+- **Integridad post-E2E:** 10/10 checks PASS · 197 pending_review intactas · PZ-001A intacto · 0 duplicados
 
 ### C-001 — DDL trade_quote_items (ETAPA 1) · commit `2ae619c`
 

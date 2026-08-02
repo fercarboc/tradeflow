@@ -13,28 +13,27 @@
 ```
 FECHA          2026-08-02
 
-FASE ACTIVA    MKT-FASE1-PILOT-002 — Validación funcional puente Motor IA → UP → Marketplace
-               ETAPAs 1–6 completadas · Pendiente revisión humana (ETAPA 7 no autorizada)
+FASE ACTIVA    RC1-Beta — Demo ejecutable + catálogo + onboarding proveedor
 
 ESTADO GENERAL
   ██████████████████░░  Producto ERP:             95% completado
   ████████████████░░░░  Portal Proveedor:         90% completado (MVP 1-7)
   ████████░░░░░░░░░░░░  Commercial Readiness RC1:  40% completado
-  ██░░░░░░░░░░░░░░░░░░  Pilotos externos:          0 / 4 (PZ-001A interno ✔)
-  ████░░░░░░░░░░░░░░░░  Catálogo Marketplace:      16 / ∞ UPs validated · 5 offerings OBRAMAT Demo pending_review
+  ██░░░░░░░░░░░░░░░░░░  Pilotos externos:          0 / 4 (PZ-001A+PILOT-002 internos ✔)
+  ██████░░░░░░░░░░░░░░  Catálogo Marketplace:      22 UPs validated · 5 DEMO-FON matched · 197 pending_review
 
 ÚLTIMA ACCIÓN
-  2026-08-02  MKT-FASE1-PILOT-002 ETAPA 6 completada — C-006: 5 offerings OBRAMAT Demo cargadas
-              Método: Supplier API v1 (Bearer auth, endpoint /catalog/upsert)
-              Bug fix: api_sync_catalog_offerings — gen_random_bytes → gen_random_uuid() (search_path fix)
-              5/5 offerings: DEMO-FON-C15-001, DEMO-FON-COC-001, DEMO-FON-CU15-001, DEMO-FON-PDR-001, DEMO-FON-VSEG-001
-              Todos en match_state=pending_review, universal_product_id=NULL (matching no ejecutado)
-              import_id: 67c8103d-1b4c-4541-b6f0-0ef713eac358 · filas_ok=5 · filas_error=0
-              Postvalidaciones 7/7 OK
+  2026-08-02  MKT-FASE1-PILOT-002 COMPLETADO — ETAPAs 1–7 · E2E PASS
+              Pedido MKT-000004 (PRE-2026-084): grifo cocina + válvula 3/4" + codo 15mm
+              Ciclo completo: Motor IA → Level 0 → offerings → carrito → checkout → confirmed →
+              preparing → shipped (MKT-PILOT-002-TRACK) → delivered
+              quote_id: ece04ef8 · cart_id: 9c245ffd · order_id: 540d5f5e
+              Integridad: 10/10 checks PASS · 197 pending_review intactas · PZ-001A intacto
+              Doc: docs/marketplace/MKT_FASE1_PILOT_002_COMPLETED.md
 
 SIGUIENTE ACCIÓN
-  ETAPA 7 — Revisar match_state offerings OBRAMAT Demo y vincular a UPs validated
-  Requiere autorización explícita. DETENIDO para revisión humana.
+  RC1-Beta B01 — Guión de demo estandarizado (15 min)
+  Prerrequisito para PZ-001B (primer instalador externo real)
 ```
 
 ---
@@ -93,7 +92,7 @@ RC1-C05 y RC1-C06 diferidas por decisión del fundador (2026-07-29): "pueden hac
 
 ---
 
-**✔ MKT-FASE1-PILOT-002 — ETAPAs 1–6 (puente Motor IA → UP → Marketplace)**
+**✔ MKT-FASE1-PILOT-002 — ETAPAs 1–7 + E2E (puente Motor IA → UP → Marketplace)**
 `2026-08-01 / 2026-08-02`
 
 | Ítem | Detalle |
@@ -103,11 +102,14 @@ RC1-C05 y RC1-C06 diferidas por decisión del fundador (2026-07-29): "pueden hac
 | ETAPA 3 — C-003 Level 0 | `create_cart_from_quote` con 4 sub-niveles deterministas (0-A/B/C). 10/10 tests SQL. Commit `e279bd5` |
 | ETAPA 4 — C-004 Promoción | 16 UPs draft → validated. Dry run 100% OK (§DR-11g corregido). 7/7 postvalidaciones. Commit `e8b1cb9` |
 | ETAPA 5 — C-005 Validación | 27/27 tests PASS sin offerings. Level 0 paths verificados. Doc: `MKT_FASE1_PILOT_002_STAGE5_RESULTS.md`. Commit `e8b1cb9` |
-| ETAPA 6 — C-006 Offerings | 5 offerings OBRAMAT Demo cargadas via Supplier API v1. Bug fix `gen_random_bytes`. 7/7 postvalidaciones. |
+| ETAPA 6 — C-006 Offerings | 5 offerings OBRAMAT Demo cargadas via Supplier API v1. Bug fix `gen_random_bytes`. 7/7 postvalidaciones. Commit `f977e4d` |
+| ETAPA 7 — FASE 7.1 | Revisión humana: 4 aprovadas, 1 rechazada (CU15-001 unidad). D-2: update via API. 5/5 aprobadas. |
+| ETAPA 7 — FASE 7.2 | Binding atómico PL/pgSQL: 5/5 offerings matched · match_method=admin · 5 audit events |
+| ETAPA 7 — FASE 7.3 | 8/8 tests funcionales SQL PASS · 0 regresiones PZ-001A · algoritmo multi-proveedor validado |
+| ETAPA 7 — FASE 7.4 | E2E real completo: PRE-2026-084 → MKT-000004 → delivered · 10/10 checks integridad PASS |
 | Bug fix | `api_sync_catalog_offerings`: `gen_random_bytes(8)` → `replace(gen_random_uuid()::text,'-','')`. Migración: `20260802_01_fix_api_sync_catalog_gen_random_bytes.sql` |
-| Estado offerings | 5 offerings en `match_state=pending_review`. Matching NO ejecutado. Pendiente revisión humana. |
-| Rollback disponible | C-003: `C003_ROLLBACK_create_cart_from_quote_pre_level0.sql`. C-004: UPDATE validated→draft (condicionado). |
-| Siguiente | ETAPA 7 — Matching offerings → UPs validated. Requiere autorización. |
+| Rollback disponible | C-003: `C003_ROLLBACK_create_cart_from_quote_pre_level0.sql`. C-004: UPDATE validated→draft (condicionado). ETAPA 7: UPDATE pending_review + eliminar audit_log. |
+| Doc completa | `docs/marketplace/MKT_FASE1_PILOT_002_COMPLETED.md` |
 
 ---
 
@@ -311,10 +313,10 @@ El orden es fijo. No se modifica sin actualizar este documento y registrar la ra
   ✔ Portal Proveedor    MVP-1 a MVP-7 — COMPLETADO
   ✔ MKT-FASE1-PILOT-001 Puente gc → UP → Marketplace fontanería — COMPLETADO 2026-08-01
 
-  ▶ MKT-FASE1-PILOT-002 Validación funcional Motor IA → UP → variante → Marketplace ← SIGUIENTE
+  ✔ MKT-FASE1-PILOT-002 Validación funcional Motor IA → UP → variante → Marketplace — COMPLETADO 2026-08-02
     │
     ▼
-  RC1-Beta              Demo ejecutable + catálogo + onboarding proveedor
+  ▶ RC1-Beta            Demo ejecutable + catálogo + onboarding proveedor ← SIGUIENTE
     │
     ▼
     PZ-001B             Primer instalador externo real
