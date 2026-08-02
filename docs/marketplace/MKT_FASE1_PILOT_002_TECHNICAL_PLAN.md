@@ -1,8 +1,8 @@
 # MKT-FASE1-PILOT-002 — Plan Técnico de Corrección del Puente Estructurado
 
-**Versión:** 2.1 (actualizado 2026-08-02)  
+**Versión:** 2.2 (actualizado 2026-08-02)  
 **Fecha:** 2026-08-01 / última actualización: 2026-08-02  
-**Estado:** EN EJECUCIÓN — ETAPAs 1–4 completadas · ETAPA 5 pendiente autorización  
+**Estado:** COMPLETADO — ETAPAs 1–5 completadas · ETAPA 6 (C-005 offerings) pendiente autorización  
 **Supabase:** dqqjaujnulutinskmqsu (eu-central-1)
 
 > Análisis base: `MKT_FASE1_PILOT_002_ANALYSIS.md`  
@@ -314,6 +314,25 @@ V-1: 16 UPs validated · V-2: 0 draft del lote · V-3: 6 preexistentes intactos 
 | Level 0-B resuelve | 16/16 UPs | ✅ |
 | Level 0-C directo resuelve | 5/16 UPs (con gc directo) | ✅ |
 | Rollback disponible | Sí — condiciones: 0 offerings matched + mismo _batch | ✅ |
+
+### Resultado ETAPA 5 — Validación sin offerings (2026-08-02)
+
+**Resultados completos:** `docs/marketplace/MKT_FASE1_PILOT_002_STAGE5_RESULTS.md`
+
+| Test | Descripción | Veredicto |
+|---|---|---|
+| TEST 3 | Level 0-A variante sin offering | ✅ PASS |
+| TEST 4 | Level 0-B producto sin offering | ✅ PASS |
+| TEST 5 | Legacy fallback sin IDs estructurados | ✅ PASS |
+| TEST 6 | Mano_de_obra excluida del loop | ✅ PASS |
+| TEST 7 | Regresión PZ-001A | ✅ PASS |
+| TEST 8 | UP draft → product_not_validated | ✅ PASS |
+| TEST 9 | IDs incoherentes → structured_id_invalid | ✅ PASS |
+| TEST 10 | gc sin UP → no_match sin invención | ✅ PASS |
+| TEST 11 | Batch 20 gc_ids → exactamente 2 queries | ✅ PASS |
+| **TOTAL** | **27/27 sub-checks** | **✅ 100% PASS** |
+
+**Integridad post-tests:** 22 UPs · 213 offerings · 0 residual test data · 16 cart items PZ-001A intactos
 
 ---
 

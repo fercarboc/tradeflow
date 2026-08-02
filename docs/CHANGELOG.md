@@ -8,7 +8,7 @@
 
 **Período:** 2026-08-01 / 2026-08-02  
 **Supabase:** dqqjaujnulutinskmqsu (eu-central-1)  
-**Estado:** ETAPAs 1–4 completadas · ETAPA 5 pendiente autorización
+**Estado:** ETAPAs 1–5 completadas · ETAPA 6 (C-005 offerings) pendiente autorización
 
 ### C-001 — DDL trade_quote_items (ETAPA 1) · commit `2ae619c`
 
@@ -34,6 +34,13 @@
 - Level 0-C-2: `global_catalog_id` → variante → UP validated (conf=1.0)
 - Métodos especiales: `product_not_validated`, `structured_id_invalid`, `no_match`
 - 10/10 tests SQL PASS · rollback disponible: `C003_ROLLBACK_create_cart_from_quote_pre_level0.sql`
+
+### C-005 — Validación sin offerings ETAPA 5 (ETAPA 5) · 2026-08-02
+
+- Tests 3–11 ejecutados sobre producción (SQL simulation, 0 offerings cargadas para el lote)
+- 27/27 sub-checks PASS: Level 0-A/B (variante y UP sin offering), legacy fallback intacto, mano_de_obra excluida, regresión PZ-001A sin degradación, UP draft → product_not_validated, IDs incoherentes → structured_id_invalid, gc sin UP → no_match sin invención, batch 20 líneas → 2 queries confirmado
+- Integridad post-tests: 22 UPs · 213 offerings · 0 residual · 16 cart items PZ-001A intactos
+- Resultados completos: `docs/marketplace/MKT_FASE1_PILOT_002_STAGE5_RESULTS.md`
 
 ### C-004 — Promoción 16 UPs draft → validated (ETAPA 4) · 2026-08-02
 
