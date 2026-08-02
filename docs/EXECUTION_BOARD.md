@@ -14,25 +14,27 @@
 FECHA          2026-08-02
 
 FASE ACTIVA    MKT-FASE1-PILOT-002 — Validación funcional puente Motor IA → UP → Marketplace
-               ETAPAs 1–4 completadas · Pendiente autorización ETAPA 5 (C-005 offerings)
+               ETAPAs 1–6 completadas · Pendiente revisión humana (ETAPA 7 no autorizada)
 
 ESTADO GENERAL
   ██████████████████░░  Producto ERP:             95% completado
   ████████████████░░░░  Portal Proveedor:         90% completado (MVP 1-7)
   ████████░░░░░░░░░░░░  Commercial Readiness RC1:  40% completado
   ██░░░░░░░░░░░░░░░░░░  Pilotos externos:          0 / 4 (PZ-001A interno ✔)
-  ████░░░░░░░░░░░░░░░░  Catálogo Marketplace:      16 / ∞ UPs validated (21/21 gc cubierto)
+  ████░░░░░░░░░░░░░░░░  Catálogo Marketplace:      16 / ∞ UPs validated · 5 offerings OBRAMAT Demo pending_review
 
 ÚLTIMA ACCIÓN
-  2026-08-02  MKT-FASE1-PILOT-002 ETAPA 4 completada — C-004 promoción draft → validated
-              16 UPs del lote MKT_FASE1_PILOT_001 promovidos a validated
-              Dry run corregido 100% OK (§DR-11g sub-checks explícitos)
-              Level 0 en create_cart_from_quote operativo para los 16 UPs
-              Commits: 2ae619c (ETAPA 1) · d445651 (ETAPA 2) · e279bd5 (ETAPA 3) · [ETAPA 4 pendiente commit]
+  2026-08-02  MKT-FASE1-PILOT-002 ETAPA 6 completada — C-006: 5 offerings OBRAMAT Demo cargadas
+              Método: Supplier API v1 (Bearer auth, endpoint /catalog/upsert)
+              Bug fix: api_sync_catalog_offerings — gen_random_bytes → gen_random_uuid() (search_path fix)
+              5/5 offerings: DEMO-FON-C15-001, DEMO-FON-COC-001, DEMO-FON-CU15-001, DEMO-FON-PDR-001, DEMO-FON-VSEG-001
+              Todos en match_state=pending_review, universal_product_id=NULL (matching no ejecutado)
+              import_id: 67c8103d-1b4c-4541-b6f0-0ef713eac358 · filas_ok=5 · filas_error=0
+              Postvalidaciones 7/7 OK
 
 SIGUIENTE ACCIÓN
-  MKT-FASE1-PILOT-002 ETAPA 5 — C-005: crear 5 offerings OBRAMAT Demo (Portal/API)
-  Requiere autorización explícita. Ver MKT_FASE1_PILOT_002_OFFERINGS_FIXTURE.md
+  ETAPA 7 — Revisar match_state offerings OBRAMAT Demo y vincular a UPs validated
+  Requiere autorización explícita. DETENIDO para revisión humana.
 ```
 
 ---
@@ -91,7 +93,7 @@ RC1-C05 y RC1-C06 diferidas por decisión del fundador (2026-07-29): "pueden hac
 
 ---
 
-**✔ MKT-FASE1-PILOT-002 — ETAPAs 1–4 (puente Motor IA → UP → Marketplace)**
+**✔ MKT-FASE1-PILOT-002 — ETAPAs 1–6 (puente Motor IA → UP → Marketplace)**
 `2026-08-01 / 2026-08-02`
 
 | Ítem | Detalle |
@@ -99,9 +101,13 @@ RC1-C05 y RC1-C06 diferidas por decisión del fundador (2026-07-29): "pueden hac
 | ETAPA 1 — C-001 DDL | 3 columnas en `trade_quote_items` (gc/up/variant_id) + 3 índices parciales. Commit `2ae619c` |
 | ETAPA 2 — C-002 Motor IA | `resolveMarketplaceIds` batch (max 2 queries anti-N+1). 14/14 tests. Deploy v70. Commit `d445651` |
 | ETAPA 3 — C-003 Level 0 | `create_cart_from_quote` con 4 sub-niveles deterministas (0-A/B/C). 10/10 tests SQL. Commit `e279bd5` |
-| ETAPA 4 — C-004 Promoción | 16 UPs draft → validated. Dry run 100% OK (§DR-11g corregido). 7/7 postvalidaciones. |
+| ETAPA 4 — C-004 Promoción | 16 UPs draft → validated. Dry run 100% OK (§DR-11g corregido). 7/7 postvalidaciones. Commit `e8b1cb9` |
+| ETAPA 5 — C-005 Validación | 27/27 tests PASS sin offerings. Level 0 paths verificados. Doc: `MKT_FASE1_PILOT_002_STAGE5_RESULTS.md`. Commit `e8b1cb9` |
+| ETAPA 6 — C-006 Offerings | 5 offerings OBRAMAT Demo cargadas via Supplier API v1. Bug fix `gen_random_bytes`. 7/7 postvalidaciones. |
+| Bug fix | `api_sync_catalog_offerings`: `gen_random_bytes(8)` → `replace(gen_random_uuid()::text,'-','')`. Migración: `20260802_01_fix_api_sync_catalog_gen_random_bytes.sql` |
+| Estado offerings | 5 offerings en `match_state=pending_review`. Matching NO ejecutado. Pendiente revisión humana. |
 | Rollback disponible | C-003: `C003_ROLLBACK_create_cart_from_quote_pre_level0.sql`. C-004: UPDATE validated→draft (condicionado). |
-| Siguiente | ETAPA 5 — C-005: 5 offerings OBRAMAT Demo (pendiente autorización) |
+| Siguiente | ETAPA 7 — Matching offerings → UPs validated. Requiere autorización. |
 
 ---
 

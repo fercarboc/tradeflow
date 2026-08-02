@@ -4,11 +4,11 @@
 
 ---
 
-## MKT-FASE1-PILOT-002 — ETAPAs 1–4 — Validación funcional puente Motor IA → Marketplace
+## MKT-FASE1-PILOT-002 — ETAPAs 1–6 — Validación funcional puente Motor IA → Marketplace
 
 **Período:** 2026-08-01 / 2026-08-02  
 **Supabase:** dqqjaujnulutinskmqsu (eu-central-1)  
-**Estado:** ETAPAs 1–5 completadas · ETAPA 6 (C-005 offerings) pendiente autorización
+**Estado:** ETAPAs 1–6 completadas · DETENIDO para revisión humana (ETAPA 7 no autorizada)
 
 ### C-001 — DDL trade_quote_items (ETAPA 1) · commit `2ae619c`
 
@@ -35,6 +35,24 @@
 - Métodos especiales: `product_not_validated`, `structured_id_invalid`, `no_match`
 - 10/10 tests SQL PASS · rollback disponible: `C003_ROLLBACK_create_cart_from_quote_pre_level0.sql`
 
+### C-006 — Carga 5 offerings OBRAMAT Demo (ETAPA 6) · 2026-08-02
+
+- 5 offerings cargadas via Supplier API v1 (endpoint `POST /catalog/upsert`, Bearer auth `tsf_v1_*`)
+- Actor: OBRAMAT Demo (`85e73234-c74e-44e7-865a-1aca8312f9a5`), catálogo `obramat-demo`
+- Todos en `match_state='pending_review'`, `universal_product_id=NULL` (matching no ejecutado)
+- `import_id: 67c8103d-1b4c-4541-b6f0-0ef713eac358` · `filas_ok=5` · `filas_error=0`
+- Bug fix: `api_sync_catalog_offerings` — `encode(gen_random_bytes(8),'hex')` → `replace(gen_random_uuid()::text,'-','')` (schema `extensions` inaccesible con `SET search_path TO 'public'`)
+- Migración local: `supabase/migrations/20260802_01_fix_api_sync_catalog_gen_random_bytes.sql`
+- Postvalidaciones 7/7 OK: 5 nuevas offerings, 5 refs únicas, 0 duplicados, 0 sync errors, 213 offerings previas intactas
+
+| supplier_ref | offering_id | descripcion_comercial | precio_coste | precio_venta | unidad | stock | estado |
+|---|---|---|---|---|---|---|---|
+| DEMO-FON-C15-001 | `8282bef1` | Codo 90° cobre soldadura capilar 15mm | 0.95 | 1.65 | ud | 120 | pending_review |
+| DEMO-FON-COC-001 | `8c1d6a96` | Grifo monomando cocina cano alto giratorio cromado | 45.00 | 68.00 | ud | 12 | pending_review |
+| DEMO-FON-CU15-001 | `8074998c` | Tubo cobre rigido 15mm barra 3m | 5.50 | 8.90 | barra | 48 | pending_review |
+| DEMO-FON-PDR-001 | `a7ceb134` | Plato de ducha resina 80x80cm blanco mate | 85.00 | 135.00 | ud | 6 | pending_review |
+| DEMO-FON-VSEG-001 | `d096d75a` | Valvula de seguridad 3/4 pulgada 3 bar laton | 8.50 | 13.90 | ud | 25 | pending_review |
+
 ### C-005 — Validación sin offerings ETAPA 5 (ETAPA 5) · 2026-08-02
 
 - Tests 3–11 ejecutados sobre producción (SQL simulation, 0 offerings cargadas para el lote)
@@ -56,6 +74,7 @@
 | Incidencia | Causa | Corrección |
 |---|---|---|
 | §DR-11g — REVISAR (cobertura 20 vs umbral ≥21) | Umbral estimado en el script era off-by-one; arquitectura lote correcta (5 directos + 15 variantes = 20 únicos) | §DR-11g reemplazado por 6 sub-checks exactos; script `MKT_FASE1_PILOT_002_VALIDATE_BATCH_UPS.sql` actualizado a v2.1 |
+| ETAPA 6 — 500 INTERNAL_ERROR en Supplier API v1 | `api_sync_catalog_offerings` con `SET search_path TO 'public'` no puede acceder a `gen_random_bytes` (schema `extensions`). Error detectado al llamar `POST /catalog/upsert`. | Reemplazado `encode(gen_random_bytes(8),'hex')` por `replace(gen_random_uuid()::text,'-','')`. Fix en producción via MCP + migración local `20260802_01`. |
 
 ---
 

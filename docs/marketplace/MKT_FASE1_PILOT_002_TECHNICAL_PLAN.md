@@ -1,8 +1,8 @@
 # MKT-FASE1-PILOT-002 — Plan Técnico de Corrección del Puente Estructurado
 
-**Versión:** 2.2 (actualizado 2026-08-02)  
+**Versión:** 2.3 (actualizado 2026-08-02)  
 **Fecha:** 2026-08-01 / última actualización: 2026-08-02  
-**Estado:** COMPLETADO — ETAPAs 1–5 completadas · ETAPA 6 (C-005 offerings) pendiente autorización  
+**Estado:** COMPLETADO — ETAPAs 1–6 completadas · DETENIDO para revisión humana (ETAPA 7 pendiente autorización)  
 **Supabase:** dqqjaujnulutinskmqsu (eu-central-1)
 
 > Análisis base: `MKT_FASE1_PILOT_002_ANALYSIS.md`  
