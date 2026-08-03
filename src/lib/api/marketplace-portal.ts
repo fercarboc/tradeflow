@@ -488,7 +488,11 @@ export async function getOfferingMatchCandidates(
     p_limit:       limit,
   });
   if (error) throw error;
-  return (data ?? []) as MatchCandidate[];
+  // RPC returns first column as "id"; MatchCandidate uses "up_id"
+  return ((data ?? []) as Array<Record<string, unknown>>).map(row => ({
+    ...row,
+    up_id: row['id'],
+  })) as MatchCandidate[];
 }
 
 // ── API — Pedidos ─────────────────────────────────────────────────────────────
