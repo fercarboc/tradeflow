@@ -204,7 +204,11 @@ export default function AdminSuppliersSection({ toast }: Props) {
       });
       setInviteToken(rawToken);
     } catch (e: unknown) {
-      setInviteError(e instanceof Error ? e.message : String(e));
+      const msg =
+        e instanceof Error ? e.message :
+        (typeof e === 'object' && e !== null && 'message' in e) ? String((e as { message: unknown }).message) :
+        JSON.stringify(e);
+      setInviteError(msg);
     } finally {
       setInviting(false);
     }
