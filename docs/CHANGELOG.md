@@ -4,6 +4,53 @@
 
 ---
 
+## PRE-RC1 — PASOS 0–3 — Preparación para Marketplace RC1
+
+**Período:** 2026-08-03  
+**Supabase:** dqqjaujnulutinskmqsu (eu-central-1)  
+**Estado:** PASOS 0–2 COMPLETADOS · PASO 3 completado · Pendiente: matching admin STN
+
+### PASO 0 — Limpieza código muerto · 2026-08-03 · commit 6a187e7
+
+- `StepMateriales.tsx` eliminado (372 líneas — 0 importadores externos)
+- `StepComparar.tsx` eliminado (375 líneas — 0 importadores externos)
+- Build TypeScript `src/` sin errores tras la eliminación
+
+### PASO 1 — Migraciones SQL · 2026-08-03
+
+**B05 — Constraints de carrito ampliados:**
+- `chk_cart_source`: añadidos `'free'` y `'reorder'` → desbloquea `create_cart()` para compra libre
+- `chk_cart_estado`: añadido `'saved'` → habilita guardar carritos sin checkout
+
+**B01 — Overload 3-param eliminado:**
+- `DROP FUNCTION ship_supplier_order(uuid, text, text)` — overload bugado (no guardaba `tracking_ref`)
+- Solo permanece el overload de 5 params (correcto: guarda tracking, tracking_url, notas, outbox)
+
+### PASO 2 — Segundo proveedor demo · 2026-08-03
+
+**Proveedor creado:** Suministros Técnicos Norte S.L. (STN)
+
+| Recurso | ID |
+|---|---|
+| Catálogo | `1aec572f-d22c-4556-9fbf-315ec7b3ba02` |
+| Actor | `aeca7bac-f559-4e01-8ba4-7fd1b7aae9b9` |
+| Invitación | `28945f54-0668-4d61-b11d-d773640f6f11` |
+| API credential | `98b40e78-4334-476b-9ae9-bdcaf081212b` |
+| Import (12 offerings) | `d82b640d-b3e2-4946-9901-6b4fd28f4948` |
+
+**Import:** 12 offerings de fontanería importadas vía Supplier API v1, todas `pending_review`  
+**Estado catálogo:** 21 matched + 209 pending_review (197 OBRAMAT + 12 STN)  
+**Pendiente:** matching admin de las 12 offerings STN en el panel
+
+### PASO 3 — Fixes TypeScript · 2026-08-03
+
+- `bulkShipSupplierOrders`: reemplazado `shipSupplierOrder` (3-param) por `shipMarketplaceOrderWithTracking`
+- `PortalPedidoSlideOver.doShip`: ahora pasa `notas` a `shipMarketplaceOrderWithTracking`
+- `CartSourceType`: añadidos `'free'` y `'reorder'`
+- `CartEstado`: añadido `'saved'`; `'reviewing'` y `'checkout'` marcados como deprecated
+
+---
+
 ## MKT-FASE1-PILOT-002 — ETAPAs 1–7 + E2E — Validación funcional puente Motor IA → Marketplace
 
 **Período:** 2026-08-01 / 2026-08-02  

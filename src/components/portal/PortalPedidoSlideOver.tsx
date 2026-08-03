@@ -230,6 +230,7 @@ function TabResumen({ detail, order, actorId, canManage, canFulfill, onReload, o
   const [trackRef,    setTrackRef]    = useState('');
   const [trackUrl,    setTrackUrl]    = useState('');
   const [trackUrlErr, setTrackUrlErr] = useState('');
+  const [shipNotas,   setShipNotas]   = useState('');
   const [showCancel,  setShowCancel]  = useState(false);
   const [cancelReason, setCancelReason] = useState('');
   const [showIncident,  setShowIncident]  = useState(false);
@@ -271,6 +272,7 @@ function TabResumen({ detail, order, actorId, canManage, canFulfill, onReload, o
           orderId:     order.id,
           trackingRef: trackRef || undefined,
           trackingUrl: trackUrl || undefined,
+          notas:       shipNotas || undefined,
         });
       } else {
         await shipSupplierOrder(order.id, order.source, trackRef || undefined);
@@ -278,6 +280,7 @@ function TabResumen({ detail, order, actorId, canManage, canFulfill, onReload, o
       setShowShip(false);
       setTrackRef('');
       setTrackUrl('');
+      setShipNotas('');
       onReload();
     } catch (e) { onError(e instanceof Error ? e.message : 'Error al enviar'); }
     finally { setBusy(false); }
@@ -411,7 +414,7 @@ function TabResumen({ detail, order, actorId, canManage, canFulfill, onReload, o
             <InlineForm
               title="Datos de envío (opcionales)"
               onSubmit={doShip}
-              onCancel={() => { setShowShip(false); setTrackRef(''); setTrackUrl(''); setTrackUrlErr(''); }}
+              onCancel={() => { setShowShip(false); setTrackRef(''); setTrackUrl(''); setTrackUrlErr(''); setShipNotas(''); }}
               submitLabel="Confirmar envío"
               submitClass="bg-blue-600 hover:bg-blue-500 text-white"
               loading={busy}
@@ -431,6 +434,14 @@ function TabResumen({ detail, order, actorId, canManage, canFulfill, onReload, o
                   placeholder="https://seguimiento.transportista.es/..."
                   aria-invalid={!!trackUrlErr}
                   className={`${inputCls} ${trackUrlErr ? 'border-red-400 dark:border-red-600' : ''}`}
+                />
+              </FormField>
+              <FormField id="ship-notas" label="Nota al instalador (opcional)">
+                <textarea
+                  id="ship-notas" rows={2} value={shipNotas}
+                  onChange={(e) => setShipNotas(e.target.value)}
+                  placeholder="Ej: Entrega en conserjería, preguntar por Juan"
+                  className={`${inputCls} resize-none`}
                 />
               </FormField>
             </InlineForm>

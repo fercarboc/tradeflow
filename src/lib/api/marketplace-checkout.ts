@@ -2,8 +2,8 @@ import { supabase } from '../supabase';
 
 // ─── Tipos ────────────────────────────────────────────────────────────────────
 
-export type CartEstado = 'active' | 'reviewing' | 'checkout' | 'ordered' | 'cancelled';
-export type CartSourceType = 'quote' | 'job' | 'field_action' | 'maintenance_incident' | 'manual';
+export type CartEstado = 'active' | 'reviewing' | 'checkout' | 'ordered' | 'cancelled' | 'saved';
+export type CartSourceType = 'quote' | 'job' | 'field_action' | 'maintenance_incident' | 'manual' | 'free' | 'reorder';
 export type CartItemIATipo = 'consumible' | 'equivalente' | 'faltante' | 'optimizacion';
 export type AIAnalysisAccion = 'add_item' | 'select_provider' | 'review_price' | 'group_orders';
 
@@ -128,6 +128,7 @@ export const CART_ESTADO_LABELS: Record<CartEstado, string> = {
   checkout:  'Confirmando',
   ordered:   'Pedido realizado',
   cancelled: 'Cancelado',
+  saved:     'Guardado',
 };
 
 export const SOURCE_TYPE_LABELS: Record<CartSourceType, string> = {
@@ -136,6 +137,8 @@ export const SOURCE_TYPE_LABELS: Record<CartSourceType, string> = {
   field_action:         'Actuación',
   maintenance_incident: 'Incidencia mantenimiento',
   manual:               'Pedido manual',
+  free:                 'Compra libre',
+  reorder:              'Repetición de pedido',
 };
 
 export const AI_TIPO_LABELS: Record<CartItemIATipo, string> = {
