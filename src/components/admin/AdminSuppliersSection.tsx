@@ -131,6 +131,10 @@ export default function AdminSuppliersSection({ toast }: Props) {
   const [inviteCopied, setInviteCopied] = useState(false);
   const [inviteError, setInviteError] = useState<string | null>(null);
 
+  // Portal tab: verificación de actor
+  const [actorVerificado, setActorVerificado] = useState<boolean | null>(null);
+  const [verifying, setVerifying] = useState(false);
+
   // Edit: catálogo
   const [editMargen, setEditMargen] = useState('');
 
@@ -171,12 +175,21 @@ export default function AdminSuppliersSection({ toast }: Props) {
     loadCatalogs();
   }, []);
 
-  // Cargar roles cuando se abre el tab Portal para un actor concreto
+  // Cargar roles y estado de verificación cuando se abre el tab Portal
   useEffect(() => {
     if (rightTab !== 'portal' || !selected?.marketplace_actor_id) return;
     setPortalRoles([]);
     setInviteToken(null);
     setInviteError(null);
+    setActorVerificado(null);
+
+    // Cargar estado verificado del actor
+    supabase
+      .from('trade_marketplace_actors')
+      .select('verificado')
+      .eq('id', selected.marketplace_actor_id)
+      .single()
+      .then(({ data }) => setActorVerificado(data?.verificado ?? false));
     supabase
       .from('trade_marketplace_roles')
       .select('id, nombre')
@@ -219,6 +232,38 @@ export default function AdminSuppliersSection({ toast }: Props) {
     navigator.clipboard.writeText(`${window.location.origin}/aceptar-invitacion?token=${inviteToken}`);
     setInviteCopied(true);
     setTimeout(() => setInviteCopied(false), 2500);
+  }
+
+  async function handleVerifyActor() {
+    if (!selected?.marketplace_actor_id) return;
+    setVerifying(true);
+    const { error } = await supabase
+      .from('trade_marketplace_actors')
+      .update({ verificado: true, verificado_at: new Date().toISOString() })
+      .eq('id', selected.marketplace_actor_id);
+    setVerifying(false);
+    if (!error) {
+      setActorVerificado(true);
+      toast('success', `${selected.marketplace_actor_nombre ?? selected.nombre} verificado ✓`);
+    } else {
+      toast('error', error.message);
+    }
+  }
+
+  async function handleUnverifyActor() {
+    if (!selected?.marketplace_actor_id) return;
+    setVerifying(true);
+    const { error } = await supabase
+      .from('trade_marketplace_actors')
+      .update({ verificado: false, verificado_at: null })
+      .eq('id', selected.marketplace_actor_id);
+    setVerifying(false);
+    if (!error) {
+      setActorVerificado(false);
+      toast('success', 'Verificación retirada');
+    } else {
+      toast('error', error.message);
+    }
   }
 
   async function loadCatalogs() {
@@ -897,6 +942,40 @@ export default function AdminSuppliersSection({ toast }: Props) {
                       <p className="text-[10px] text-purple-300 font-semibold uppercase tracking-wider mb-0.5">Actor del Marketplace</p>
                       <p className="text-xs text-white font-medium">{selected.marketplace_actor_nombre ?? selected.nombre}</p>
                       <p className="text-[10px] text-slate-500 font-mono mt-0.5">{selected.marketplace_actor_id}</p>
+
+                      {/* Estado verificado */}
+                      <div className="mt-2.5 flex items-center justify-between">
+                        {actorVerificado === null ? (
+                          <span className="text-[10px] text-slate-500">Cargando…</span>
+                        ) : actorVerificado ? (
+                          <span className="text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
+                            <CheckCircle className="h-3 w-3" />Verificado
+                          </span>
+                        ) : (
+                          <span className="text-[10px] text-amber-400 font-semibold flex items-center gap-1">
+                            <AlertTriangle className="h-3 w-3" />Sin verificar
+                          </span>
+                        )}
+                        {actorVerificado === false && (
+                          <button
+                            onClick={handleVerifyActor}
+                            disabled={verifying}
+                            className="flex items-center gap-1 bg-emerald-700 hover:bg-emerald-600 disabled:opacity-50 text-white text-[10px] font-bold px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer"
+                          >
+                            {verifying ? <RefreshCw className="h-3 w-3 animate-spin" /> : <CheckCircle className="h-3 w-3" />}
+                            Verificar proveedor
+                          </button>
+                        )}
+                        {actorVerificado === true && (
+                          <button
+                            onClick={handleUnverifyActor}
+                            disabled={verifying}
+                            className="text-[10px] text-slate-500 hover:text-red-400 transition-colors cursor-pointer disabled:opacity-50"
+                          >
+                            Retirar verificación
+                          </button>
+                        )}
+                      </div>
                     </div>
 
                     <div>
