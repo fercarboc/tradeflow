@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { Session } from '@supabase/supabase-js';
 import { supabase } from '../../lib/supabase';
 import { ActivePage } from '../../types';
@@ -87,6 +87,7 @@ export default function MarketplaceInvitationAcceptView({ setCurrentPage, sessio
   const [preview, setPreview]     = useState<InvitationPreview | null>(null);
   const [errorMsg, setErrorMsg]   = useState<string>('');
   const [formMode, setFormMode]   = useState<FormMode>('new');
+  const previewRef = useRef<InvitationPreview | null>(null);
 
   // Form fields
   const [name, setName]         = useState('');
@@ -100,6 +101,25 @@ export default function MarketplaceInvitationAcceptView({ setCurrentPage, sessio
 
   const rawToken = new URLSearchParams(window.location.search).get('token') ?? '';
 
+  // ── Helper: resolver estado según sesión ──────────────────────────────────
+
+  const resolveWithSession = useCallback((sess: Session | null, inv: InvitationPreview) => {
+    if (sess) {
+      const sessionEmail = sess.user.email?.toLowerCase().trim() ?? '';
+      const invEmail     = (inv.email ?? '').toLowerCase().trim();
+      if (sessionEmail === invEmail) {
+        setViewState('authenticated');
+      } else {
+        setErrorMsg(
+          `Tu cuenta activa (${sess.user.email}) no coincide con el email de la invitación (${inv.email}). Cierra sesión e intenta de nuevo.`,
+        );
+        setViewState('error');
+      }
+    } else {
+      setViewState('unauthenticated');
+    }
+  }, []);
+
   // ── Paso 1: preview (sin auth) ─────────────────────────────────────────────
 
   useEffect(() => {
@@ -108,31 +128,47 @@ export default function MarketplaceInvitationAcceptView({ setCurrentPage, sessio
       return;
     }
 
+    let authSub: (() => void) | null = null;
+
     previewMarketplaceInvitation(rawToken)
-      .then((inv) => {
+      .then(async (inv) => {
         setPreview(inv);
+        previewRef.current = inv;
+
         switch (inv.estado) {
-          case 'expired':         setViewState('expired');         break;
-          case 'revoked':         setViewState('revoked');         break;
+          case 'expired':          setViewState('expired');          break;
+          case 'revoked':          setViewState('revoked');          break;
           case 'already_accepted': setViewState('already_accepted'); break;
-          case 'invalid_token':   setViewState('invalid_token');   break;
-          case 'valid':
-            // Determinar si el usuario ya tiene sesión con el email correcto
-            if (session) {
-              const sessionEmail = session.user.email?.toLowerCase().trim() ?? '';
-              const invEmail     = (inv.email ?? '').toLowerCase().trim();
-              if (sessionEmail === invEmail) {
-                setViewState('authenticated');
-              } else {
-                setErrorMsg(
-                  `Tu cuenta activa (${session.user.email}) no coincide con el email de la invitación (${inv.email}). Cierra sesión y usa el enlace desde la cuenta correcta.`,
-                );
-                setViewState('error');
-              }
+          case 'invalid_token':    setViewState('invalid_token');    break;
+          case 'valid': {
+            // getSession() da el estado real en este momento (evita stale prop)
+            const { data: { session: curr } } = await supabase.auth.getSession();
+            if (curr) {
+              resolveWithSession(curr, inv);
             } else {
-              setViewState('unauthenticated');
+              // Sin sesión ahora. Puede que el PKCE code exchange esté en curso
+              // (usuario llegó del enlace de confirmación de email).
+              // Esperamos SIGNED_IN hasta 4s; si no llega, mostramos formulario.
+              let resolved = false;
+              const { data: { subscription } } = supabase.auth.onAuthStateChange((event, newSess) => {
+                if (resolved) return;
+                if (event === 'SIGNED_IN' && newSess) {
+                  resolved = true;
+                  subscription.unsubscribe();
+                  resolveWithSession(newSess, inv);
+                }
+              });
+              authSub = () => subscription.unsubscribe();
+              setTimeout(() => {
+                if (!resolved) {
+                  resolved = true;
+                  subscription.unsubscribe();
+                  setViewState('unauthenticated');
+                }
+              }, 4000);
             }
             break;
+          }
           default:
             setViewState('error');
             setErrorMsg('Estado de invitación desconocido.');
@@ -142,6 +178,8 @@ export default function MarketplaceInvitationAcceptView({ setCurrentPage, sessio
         setViewState('error');
         setErrorMsg(err?.message ?? 'Error desconocido al verificar la invitación.');
       });
+
+    return () => { authSub?.(); };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rawToken]);
 
@@ -173,7 +211,10 @@ export default function MarketplaceInvitationAcceptView({ setCurrentPage, sessio
       const { data, error } = await supabase.auth.signUp({
         email:    preview!.email!,
         password,
-        options:  { data: { full_name: name.trim() } },
+        options:  {
+          data:            { full_name: name.trim() },
+          emailRedirectTo: window.location.href, // vuelve a /aceptar-invitacion?token=xxx
+        },
       });
       if (error) throw error;
 
