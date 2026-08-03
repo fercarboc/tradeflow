@@ -70,6 +70,9 @@ WorkspaceSelector = 'workspace-selector',
 
 // Cuenta sin espacio asignado (sin org ni actor activo)
 NoWorkspace = 'no-workspace',
+
+// Aceptar invitación de portal proveedor (ruta pública)
+MarketplaceInvitationAccept = 'marketplace-invitation-accept',
 }
 
 export type TradeType =

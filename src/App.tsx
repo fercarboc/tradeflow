@@ -49,7 +49,8 @@ const ParteView = lazy(() => import('./pages/ParteView'));
 const PortalProveedorView = lazy(() => import('./components/portal/PortalProveedorView'));
 const MarketplaceComprarView      = lazy(() => import('./components/marketplace/MarketplaceComprarView'));
 const ScreenSeguimientoMaterial   = lazy(() => import('./components/marketplace/ScreenSeguimientoMaterial'));
-const WorkspaceSelectorView       = lazy(() => import('./components/workspace/WorkspaceSelectorView'));
+const WorkspaceSelectorView              = lazy(() => import('./components/workspace/WorkspaceSelectorView'));
+const MarketplaceInvitationAcceptView    = lazy(() => import('./components/auth/MarketplaceInvitationAcceptView'));
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -136,7 +137,8 @@ const PAGE_PATHS: Partial<Record<ActivePage, string>> = {
   [ActivePage.MarketplaceComprar]:  '/marketplace/comprar',
   [ActivePage.SeguimientoMaterial]: '/marketplace/seguimiento',
   [ActivePage.WorkspaceSelector]:   '/workspace',
-  [ActivePage.NoWorkspace]:         '/sin-espacio',
+  [ActivePage.NoWorkspace]:                '/sin-espacio',
+  [ActivePage.MarketplaceInvitationAccept]: '/aceptar-invitacion',
 };
 
 function pageToPath(page: ActivePage): string {
@@ -155,9 +157,10 @@ const AUTH_FLOW_PAGES = new Set<ActivePage>([
   ActivePage.AuthCallback,
   ActivePage.UpdatePassword,
   ActivePage.QuoteAccept,
-  ActivePage.Parte,       // public viewer — don't override when user has session
-  ActivePage.InvoiceView, // public viewer — idem
-  ActivePage.Valorar,     // public viewer — idem
+  ActivePage.Parte,                       // public viewer — don't override when user has session
+  ActivePage.InvoiceView,                 // public viewer — idem
+  ActivePage.Valorar,                     // public viewer — idem
+  ActivePage.MarketplaceInvitationAccept, // must stay on this page even if user has session
 ]);
 
 // Pages where null-session must NOT redirect to Home/AppDashboard
@@ -182,6 +185,7 @@ const PUBLIC_OR_AUTH_PAGES = new Set<ActivePage>([
   ActivePage.PartnerDemo,
   ActivePage.Valorar,
   ActivePage.Parte,
+  ActivePage.MarketplaceInvitationAccept,
 ]);
 
 // Páginas de app donde el routing post-auth no debe redirigir si el usuario ya estaba ahí
@@ -226,6 +230,7 @@ function detectAuthRoute(): ActivePage | null {
   if (path.startsWith('/factura/')) return ActivePage.InvoiceView;
   if (path.startsWith('/valorar/')) return ActivePage.Valorar;
   if (path.startsWith('/parte/')) return ActivePage.Parte;
+  if (path === '/aceptar-invitacion') return ActivePage.MarketplaceInvitationAccept;
 
   return null;
 }
@@ -653,6 +658,9 @@ export default function App() {
             setCurrentPage={setCurrentPage}
           />
         );
+
+      case ActivePage.MarketplaceInvitationAccept:
+        return <MarketplaceInvitationAcceptView setCurrentPage={setCurrentPage} session={session} />;
 
       case ActivePage.NoWorkspace:
         return (

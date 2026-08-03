@@ -4,6 +4,51 @@
 
 ---
 
+## PRE-RC1 — PASOS 0–8 — Onboarding de proveedores: fix completo
+
+**Período:** 2026-08-03  
+**Supabase:** dqqjaujnulutinskmqsu (eu-central-1)  
+**Estado:** O-1 a O-8 COMPLETADOS · 0 errores TypeScript en src/
+
+### O-Bug — Fix RPCs gen_random_bytes + RPC preview · 2026-08-03 · migración 20260803_01
+
+- `create_marketplace_invitation`: corregido `gen_random_bytes` → `extensions.gen_random_bytes(32)`
+- `resend_supplier_invitation`: mismo fix
+- Nueva función `preview_marketplace_invitation(p_token text)` — SECURITY DEFINER sin auth; devuelve estado + datos públicos de la invitación
+
+### O-2 — Revocación invitación defectuosa STN · 2026-08-03
+
+- Invitación `28945f54-0668-4d61-b11d-d773640f6f11` → `estado='revoked'`
+- Motivo: `manual_insert_without_recoverable_raw_token` — no se podía recuperar el rawToken para el enlace
+
+### O-3 — Ruta /aceptar-invitacion · 2026-08-03
+
+- `ActivePage.MarketplaceInvitationAccept` añadido a `src/types.ts`
+- `PAGE_PATHS`, `detectAuthRoute()`, `AUTH_FLOW_PAGES`, `PUBLIC_OR_AUTH_PAGES` actualizados en `App.tsx`
+- `previewMarketplaceInvitation` + `InvitationPreview` añadidos a `src/lib/api/marketplace-actors.ts`
+
+### O-4/O-5/O-6 — Componente MarketplaceInvitationAcceptView · 2026-08-03
+
+- Nuevo: `src/components/auth/MarketplaceInvitationAcceptView.tsx`
+- 11 estados: validating, unauthenticated, authenticated, accepting, accepted, email_pending, expired, revoked, already_accepted, invalid_token, error
+- Flujo nuevo usuario: signup con email bloqueado + password → `supabase.auth.signUp` → accept
+- Flujo usuario existente: login con email bloqueado → `signInWithPassword` → accept
+- Manejo email_pending: confirmación de email requerida por Supabase → muestra aviso + switch a modo login
+- Seguridad: email bloqueado al de la invitación, rawToken nunca almacenado
+
+### O-7 — Texto UI invitaciones · 2026-08-03
+
+- `PortalEquipo.tsx`: "Copiar enlace" → "Copiar enlace de invitación" en InvitationRow
+
+### O-8 — Tab Portal en AdminSuppliersSection · 2026-08-03
+
+- `AdminSuppliersSection.tsx`: nuevo tab "🏪 Portal" para proveedores con actor de marketplace vinculado
+- Carga roles dinámicamente desde `trade_marketplace_roles`
+- Genera enlace de invitación mediante `create_marketplace_invitation` RPC
+- Fernando (platform_super_admin) puede crear invitaciones para cualquier proveedor desde el admin
+
+---
+
 ## PRE-RC1 — PASOS 0–3 — Preparación para Marketplace RC1
 
 **Período:** 2026-08-03  

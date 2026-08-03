@@ -301,6 +301,30 @@ export function isPlatformAdmin(memberships: MarketplaceMyMembership[]): boolean
   );
 }
 
+// ── RPC sin auth: preview de invitación ──────────────────────────────────────
+
+export type InvitationPreviewEstado =
+  | 'valid'
+  | 'expired'
+  | 'revoked'
+  | 'already_accepted'
+  | 'invalid_token';
+
+export interface InvitationPreview {
+  estado: InvitationPreviewEstado;
+  actor_id?: string;
+  actor_nombre?: string;
+  role_nombre?: string;
+  email?: string;
+  expires_at?: string;
+}
+
+export async function previewMarketplaceInvitation(token: string): Promise<InvitationPreview> {
+  const { data, error } = await db.rpc('preview_marketplace_invitation', { p_token: token });
+  if (error) throw error;
+  return data as InvitationPreview;
+}
+
 // ── Audit log ─────────────────────────────────────────────────────────────────
 
 export async function loadActorAuditLog(

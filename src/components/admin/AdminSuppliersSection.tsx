@@ -4,9 +4,10 @@ import {
   ChevronRight, AlertTriangle, Truck, Building2, User, Plus,
   Download, Eye, Trash2, ToggleLeft, ToggleRight,
   FileSpreadsheet, Zap, Search, X, Mail, Globe, Phone, MapPin,
-  Hash, Send, ExternalLink,
+  Hash, Send, ExternalLink, UserPlus, Copy,
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
+import { createMarketplaceInvitation } from '../../lib/api/marketplace-actors';
 
 type SupplierTipo = 'nacional' | 'fabricante' | 'propio' | 'custom';
 type AcuerdoEstado = 'activo' | 'negociando' | 'sin_acuerdo';
@@ -34,6 +35,8 @@ interface SupplierConfig {
   tax_id?: string;
   categoria?: string;
   is_custom?: boolean;
+  marketplace_actor_id?: string | null;
+  marketplace_actor_nombre?: string | null;
 }
 
 const SUPPLIER_META: Record<string, { tipo: SupplierTipo; descripcion: string; acuerdo: AcuerdoEstado; color: string }> = {
@@ -117,7 +120,16 @@ export default function AdminSuppliersSection({ toast }: Props) {
   const fileRef = useRef<HTMLInputElement>(null);
 
   // Tabs detail panel
-  const [rightTab, setRightTab] = useState<'catalogo' | 'empresa' | 'acuerdo'>('catalogo');
+  const [rightTab, setRightTab] = useState<'catalogo' | 'empresa' | 'acuerdo' | 'portal'>('catalogo');
+
+  // Portal tab: invite
+  const [portalRoles, setPortalRoles] = useState<Array<{ id: string; nombre: string }>>([]);
+  const [inviteEmail, setInviteEmail] = useState('');
+  const [inviteRoleId, setInviteRoleId] = useState('');
+  const [inviting, setInviting] = useState(false);
+  const [inviteToken, setInviteToken] = useState<string | null>(null);
+  const [inviteCopied, setInviteCopied] = useState(false);
+  const [inviteError, setInviteError] = useState<string | null>(null);
 
   // Edit: catálogo
   const [editMargen, setEditMargen] = useState('');
@@ -159,6 +171,52 @@ export default function AdminSuppliersSection({ toast }: Props) {
     loadCatalogs();
   }, []);
 
+  // Cargar roles cuando se abre el tab Portal para un actor concreto
+  useEffect(() => {
+    if (rightTab !== 'portal' || !selected?.marketplace_actor_id) return;
+    setPortalRoles([]);
+    setInviteToken(null);
+    setInviteError(null);
+    supabase
+      .from('trade_marketplace_roles')
+      .select('id, nombre')
+      .in('actor_type', ['supplier', 'any'])
+      .neq('nombre', 'platform_super_admin')
+      .order('priority')
+      .then(({ data }) => {
+        const roles = (data ?? []) as Array<{ id: string; nombre: string }>;
+        setPortalRoles(roles);
+        if (roles.length > 0 && !inviteRoleId) setInviteRoleId(roles[0].id);
+      });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rightTab, selected?.marketplace_actor_id]);
+
+  async function handlePortalInvite() {
+    if (!selected?.marketplace_actor_id || !inviteEmail.trim() || !inviteRoleId) return;
+    setInviting(true);
+    setInviteError(null);
+    setInviteToken(null);
+    try {
+      const { rawToken } = await createMarketplaceInvitation({
+        actorId: selected.marketplace_actor_id,
+        roleId:  inviteRoleId,
+        email:   inviteEmail.trim(),
+      });
+      setInviteToken(rawToken);
+    } catch (e: unknown) {
+      setInviteError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setInviting(false);
+    }
+  }
+
+  function handlePortalCopy() {
+    if (!inviteToken) return;
+    navigator.clipboard.writeText(`${window.location.origin}/aceptar-invitacion?token=${inviteToken}`);
+    setInviteCopied(true);
+    setTimeout(() => setInviteCopied(false), 2500);
+  }
+
   async function loadCatalogs() {
     setLoading(true);
     try {
@@ -181,6 +239,16 @@ export default function AdminSuppliersSection({ toast }: Props) {
         if (!prev || row.updated_at > prev) lastSyncMap.set(row.catalog_id, row.updated_at);
       }
 
+      // Cargar actores de marketplace vinculados a catálogos
+      const { data: actors } = await supabase
+        .from('trade_marketplace_actors')
+        .select('id, nombre, supplier_catalog_id')
+        .not('supplier_catalog_id', 'is', null);
+      const actorByCatalog = new Map<string, { id: string; nombre: string }>();
+      for (const a of (actors ?? []) as Array<{ id: string; nombre: string; supplier_catalog_id: string }>) {
+        if (a.supplier_catalog_id) actorByCatalog.set(a.supplier_catalog_id, { id: a.id, nombre: a.nombre });
+      }
+
       const mapped: SupplierConfig[] = (catalogs ?? []).map((c: Record<string, unknown>) => {
         const key = c.supplier_key as string;
         const meta = SUPPLIER_META[key] ?? {
@@ -188,6 +256,7 @@ export default function AdminSuppliersSection({ toast }: Props) {
           acuerdo: 'sin_acuerdo' as AcuerdoEstado, color: '#64748b',
         };
         const prods = countMap.get(c.id as string) ?? 0;
+        const actor = actorByCatalog.get(c.id as string);
         return {
           id: c.id as string,
           nombre: c.supplier_name as string,
@@ -210,6 +279,8 @@ export default function AdminSuppliersSection({ toast }: Props) {
           tax_id: (c.tax_id as string) ?? '',
           categoria: (c.categoria as string) ?? '',
           is_custom: (c.is_custom as boolean) ?? false,
+          marketplace_actor_id:     actor?.id ?? null,
+          marketplace_actor_nombre: actor?.nombre ?? null,
         } satisfies SupplierConfig;
       });
 
@@ -619,7 +690,7 @@ export default function AdminSuppliersSection({ toast }: Props) {
                 </button>
               </div>
 
-              {/* Tabs: Catálogo / Empresa / Acuerdo */}
+              {/* Tabs: Catálogo / Empresa / Acuerdo / Portal */}
               <div className="flex border-b border-slate-700">
                 {(['catalogo', 'empresa', 'acuerdo'] as const).map(tab => (
                   <button
@@ -632,6 +703,16 @@ export default function AdminSuppliersSection({ toast }: Props) {
                     {tab === 'catalogo' ? '📦 Catálogo' : tab === 'empresa' ? '🏢 Empresa' : '🤝 Acuerdo'}
                   </button>
                 ))}
+                {selected?.marketplace_actor_id && (
+                  <button
+                    onClick={() => setRightTab('portal')}
+                    className={`flex-1 py-2 text-[11px] font-semibold transition-colors cursor-pointer ${
+                      rightTab === 'portal' ? 'bg-slate-700/60 text-white border-b-2 border-purple-500' : 'text-slate-500 hover:text-slate-300'
+                    }`}
+                  >
+                    🏪 Portal
+                  </button>
+                )}
               </div>
 
               <div className="p-4 space-y-4">
@@ -803,6 +884,87 @@ export default function AdminSuppliersSection({ toast }: Props) {
                       {savingAcuerdo ? <><RefreshCw className="h-3.5 w-3.5 animate-spin" />Guardando…</> : 'Guardar acuerdo'}
                     </button>
                   </>
+                )}
+
+                {/* ── TAB PORTAL ── */}
+                {rightTab === 'portal' && selected?.marketplace_actor_id && (
+                  <div className="space-y-4">
+                    <div className="bg-purple-900/20 border border-purple-700/40 rounded-lg px-3 py-2.5">
+                      <p className="text-[10px] text-purple-300 font-semibold uppercase tracking-wider mb-0.5">Actor del Marketplace</p>
+                      <p className="text-xs text-white font-medium">{selected.marketplace_actor_nombre ?? selected.nombre}</p>
+                      <p className="text-[10px] text-slate-500 font-mono mt-0.5">{selected.marketplace_actor_id}</p>
+                    </div>
+
+                    <div>
+                      <p className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mb-2 flex items-center gap-1.5">
+                        <UserPlus className="h-3 w-3" />Crear enlace de invitación
+                      </p>
+
+                      {!inviteToken ? (
+                        <div className="space-y-2.5">
+                          <div>
+                            <label className="block text-[10px] text-slate-400 mb-1">Email del invitado</label>
+                            <input
+                              type="email"
+                              placeholder="proveedor@empresa.com"
+                              value={inviteEmail}
+                              onChange={e => setInviteEmail(e.target.value)}
+                              className="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-purple-500"
+                            />
+                          </div>
+
+                          {portalRoles.length > 0 && (
+                            <div>
+                              <label className="block text-[10px] text-slate-400 mb-1">Rol</label>
+                              <select
+                                value={inviteRoleId}
+                                onChange={e => setInviteRoleId(e.target.value)}
+                                className="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500"
+                              >
+                                {portalRoles.map(r => (
+                                  <option key={r.id} value={r.id}>{r.nombre}</option>
+                                ))}
+                              </select>
+                            </div>
+                          )}
+
+                          {inviteError && (
+                            <p className="text-red-400 text-[11px] bg-red-900/20 rounded-lg px-3 py-2">{inviteError}</p>
+                          )}
+
+                          <button
+                            onClick={handlePortalInvite}
+                            disabled={inviting || !inviteEmail.trim() || !inviteRoleId}
+                            className="w-full flex items-center justify-center gap-2 bg-purple-700 hover:bg-purple-600 disabled:opacity-40 text-white text-xs font-bold py-2.5 rounded-lg transition-colors cursor-pointer"
+                          >
+                            {inviting ? <><RefreshCw className="h-3.5 w-3.5 animate-spin" />Generando…</> : <><UserPlus className="h-3.5 w-3.5" />Generar enlace de invitación</>}
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="space-y-3">
+                          <div className="bg-emerald-900/20 border border-emerald-700/40 rounded-lg p-3">
+                            <p className="text-[10px] text-emerald-400 font-semibold mb-1.5">¡Enlace generado! Válido 7 días, un solo uso.</p>
+                            <code className="block text-[10px] font-mono text-slate-300 break-all leading-relaxed mb-2">
+                              {`${window.location.origin}/aceptar-invitacion?token=${inviteToken}`}
+                            </code>
+                            <button
+                              onClick={handlePortalCopy}
+                              className="flex items-center gap-1.5 bg-emerald-800 hover:bg-emerald-700 text-emerald-200 text-[10px] font-bold px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
+                            >
+                              <Copy className="h-3 w-3" />
+                              {inviteCopied ? '¡Copiado!' : 'Copiar enlace de invitación'}
+                            </button>
+                          </div>
+                          <button
+                            onClick={() => { setInviteToken(null); setInviteEmail(''); setInviteCopied(false); }}
+                            className="w-full text-[10px] text-slate-500 hover:text-slate-300 transition-colors cursor-pointer py-1"
+                          >
+                            Crear otra invitación
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 )}
               </div>
             </div>

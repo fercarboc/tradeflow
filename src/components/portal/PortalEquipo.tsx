@@ -458,7 +458,7 @@ function InvitationRow({ inv, canInvite, onRevoke, onResend }: InvitationRowProp
               className="inline-flex items-center gap-1 rounded px-2 py-1 text-xs font-medium text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-900/20 transition-colors"
             >
               <IconCopy />
-              {copied ? '¡Copiado!' : 'Copiar enlace'}
+              {copied ? '¡Copiado!' : 'Copiar enlace de invitación'}
             </button>
           )}
           {canResend && !rawToken && (
