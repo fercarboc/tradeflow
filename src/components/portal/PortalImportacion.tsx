@@ -63,6 +63,8 @@ interface ParsedFile {
   hash:     string;
   nombre:   string;
   isXLSX:   boolean;
+  encoding?:  'utf-8' | 'windows-1252';
+  fffdCount?: number;
 }
 
 type ColumnMapping = Record<string, string>;
@@ -144,7 +146,31 @@ function parseCSV(text: string): { headers: string[]; rows: string[][] } {
   return { headers, rows };
 }
 
-async function parseFileContent(file: File): Promise<{ headers: string[]; rows: string[][] }> {
+// A0: Intenta UTF-8 estricto; si falla, usa Windows-1252. Detecta U+FFFD residuales.
+async function decodeCSVFile(file: File): Promise<{
+  text:              string;
+  encoding:          'utf-8' | 'windows-1252';
+  fffdCount:         number;
+  needsConfirmation: boolean;
+}> {
+  const buf   = await file.arrayBuffer();
+  const bytes = new Uint8Array(buf);
+  try {
+    const text      = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+    const fffdCount = (text.match(/�/g) ?? []).length;
+    return { text, encoding: 'utf-8', fffdCount, needsConfirmation: fffdCount > 0 };
+  } catch {
+    // Bytes inválidos en UTF-8 → el archivo es Windows-1252/Latin-1
+    const text      = new TextDecoder('windows-1252').decode(bytes);
+    const fffdCount = (text.match(/�/g) ?? []).length;
+    return { text, encoding: 'windows-1252', fffdCount, needsConfirmation: true };
+  }
+}
+
+async function parseFileContent(file: File): Promise<{
+  headers: string[]; rows: string[][];
+  encoding?: 'utf-8' | 'windows-1252'; fffdCount?: number; needsConfirmation?: boolean;
+}> {
   const isXLSX = /\.(xlsx|xls)$/i.test(file.name);
   if (isXLSX) {
     const buf  = await file.arrayBuffer();
@@ -155,8 +181,8 @@ async function parseFileContent(file: File): Promise<{ headers: string[]; rows: 
     const rows    = data.slice(1).map((r: string[]) => r.map(String));
     return { headers, rows };
   }
-  const text = await file.text();
-  return parseCSV(text);
+  const { text, encoding, fffdCount, needsConfirmation } = await decodeCSVFile(file);
+  return { ...parseCSV(text), encoding, fffdCount, needsConfirmation };
 }
 
 function getColValue(row: string[], headers: string[], col: string): string {
@@ -210,6 +236,8 @@ function validateAllRows(
     const rowErrors: string[] = [];
     if (!item.supplier_ref)          rowErrors.push('Referencia vacía');
     if (!item.descripcion_comercial) rowErrors.push('Descripción vacía');
+    if (item.supplier_ref?.includes('�'))          rowErrors.push('Referencia con carácter de reemplazo (codificación inválida)');
+    if (item.descripcion_comercial?.includes('�')) rowErrors.push('Descripción con carácter de reemplazo (codificación inválida)');
 
     if (rowErrors.length > 0) {
       rowErrors.forEach(motivo => errors.push({ fila: idx + 2, campo: motivo.split(' ')[0], motivo }));
@@ -240,6 +268,9 @@ function WizardStep1({ pendingImports, onFileParsed, onClose }: Step1Props) {
   const [loading,  setLoading]    = useState(false);
   const [error,    setError]      = useState<string | null>(null);
   const inputRef                  = useRef<HTMLInputElement>(null);
+  const [encodingPending, setEncodingPending] = useState<{
+    pf: ParsedFile; match: CatalogImport | null;
+  } | null>(null);
 
   const processFile = useCallback(async (file: File) => {
     setLoading(true);
@@ -257,11 +288,21 @@ function WizardStep1({ pendingImports, onFileParsed, onClose }: Step1Props) {
       if (parsed.headers.length === 0) { setError('El archivo está vacío o no tiene cabecera.'); return; }
       if (parsed.rows.length === 0)    { setError('El archivo no contiene filas de datos.'); return; }
 
-      const pf: ParsedFile = { headers: parsed.headers, rows: parsed.rows, hash, nombre: file.name, isXLSX };
+      const pf: ParsedFile = {
+        headers: parsed.headers, rows: parsed.rows, hash, nombre: file.name, isXLSX,
+        encoding: parsed.encoding, fffdCount: parsed.fffdCount,
+      };
 
       const match = pendingImports.find(imp =>
         imp.estado === 'procesando_importacion' && imp.archivo_hash === hash,
       );
+
+      // A0: Si hay problema de codificación, pedir confirmación antes de continuar
+      if (!isXLSX && parsed.needsConfirmation) {
+        setEncodingPending({ pf, match: match ?? null });
+        return;
+      }
+
       onFileParsed(pf, match ?? null);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Error al leer el archivo.');
@@ -309,44 +350,98 @@ function WizardStep1({ pendingImports, onFileParsed, onClose }: Step1Props) {
         </div>
       )}
 
-      <div
-        onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
-        onDragLeave={() => setDragging(false)}
-        onDrop={onDrop}
-        onClick={() => inputRef.current?.click()}
-        className={`relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed px-8 py-14 cursor-pointer transition-colors ${
-          dragging
-            ? 'border-teal-400 bg-teal-50 dark:bg-teal-900/10'
-            : 'border-slate-200 dark:border-slate-700 hover:border-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'
-        }`}
-      >
-        {loading ? (
-          <>
-            <svg className="h-8 w-8 animate-spin text-teal-500 mb-3" viewBox="0 0 24 24" fill="none">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+      {encodingPending ? (
+        <div className="rounded-xl border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/30 p-5 space-y-4">
+          <div className="flex items-start gap-3">
+            <svg className="h-5 w-5 text-amber-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
             </svg>
-            <p className="text-sm text-slate-500">Procesando archivo…</p>
-          </>
-        ) : (
-          <>
-            <svg className="h-10 w-10 text-slate-300 dark:text-slate-600 mb-3" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-            </svg>
-            <p className="text-sm font-medium text-slate-700 dark:text-slate-200">
-              Arrastra aquí tu archivo o <span className="text-teal-500">haz clic para seleccionar</span>
-            </p>
-            <p className="text-xs text-slate-400 mt-1">CSV, XLSX o XLS. Sin límite de filas.</p>
-          </>
-        )}
-        <input
-          ref={inputRef}
-          type="file"
-          accept=".csv,.xlsx,.xls"
-          className="hidden"
-          onChange={(e) => { const f = e.target.files?.[0]; if (f) processFile(f); e.target.value = ''; }}
-        />
-      </div>
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-amber-800 dark:text-amber-200">
+                Codificación no estándar detectada
+              </p>
+              <p className="text-sm text-amber-700 dark:text-amber-300 mt-1">
+                <span className="font-medium">{encodingPending.pf.nombre}</span> usa{' '}
+                <code className="font-mono text-xs bg-amber-100 dark:bg-amber-900/40 px-1 rounded">
+                  {encodingPending.pf.encoding === 'windows-1252' ? 'Windows-1252 (Latin-1)' : 'UTF-8 con U+FFFD'}
+                </code>.{' '}
+                {encodingPending.pf.encoding === 'windows-1252' ? (
+                  <>
+                    TrabFlow ha convertido el archivo a UTF-8 automáticamente.
+                    {(encodingPending.pf.fffdCount ?? 0) > 0 && (
+                      <> <span className="font-medium">{encodingPending.pf.fffdCount} caracteres</span> no tienen equivalente y aparecerán como ▒.</>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    El archivo contiene <span className="font-medium">{encodingPending.pf.fffdCount} caracteres de reemplazo</span>. Puede haber datos corruptos.
+                  </>
+                )}
+              </p>
+              <p className="text-xs text-amber-600 dark:text-amber-400 mt-2">
+                {encodingPending.pf.rows.length.toLocaleString('es-ES')} filas detectadas · Revisa la vista previa en el paso siguiente antes de confirmar.
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-3 justify-end pt-1">
+            <button
+              onClick={() => setEncodingPending(null)}
+              className="rounded-lg border border-amber-300 dark:border-amber-600 px-4 py-2 text-sm text-amber-700 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/30 transition-colors"
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={() => {
+                const { pf, match } = encodingPending;
+                setEncodingPending(null);
+                onFileParsed(pf, match);
+              }}
+              className="rounded-lg bg-amber-500 hover:bg-amber-600 px-4 py-2 text-sm font-medium text-white transition-colors"
+            >
+              Continuar con conversión →
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div
+          onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+          onDragLeave={() => setDragging(false)}
+          onDrop={onDrop}
+          onClick={() => inputRef.current?.click()}
+          className={`relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed px-8 py-14 cursor-pointer transition-colors ${
+            dragging
+              ? 'border-teal-400 bg-teal-50 dark:bg-teal-900/10'
+              : 'border-slate-200 dark:border-slate-700 hover:border-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+          }`}
+        >
+          {loading ? (
+            <>
+              <svg className="h-8 w-8 animate-spin text-teal-500 mb-3" viewBox="0 0 24 24" fill="none">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+              <p className="text-sm text-slate-500">Procesando archivo…</p>
+            </>
+          ) : (
+            <>
+              <svg className="h-10 w-10 text-slate-300 dark:text-slate-600 mb-3" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+              </svg>
+              <p className="text-sm font-medium text-slate-700 dark:text-slate-200">
+                Arrastra aquí tu archivo o <span className="text-teal-500">haz clic para seleccionar</span>
+              </p>
+              <p className="text-xs text-slate-400 mt-1">CSV, XLSX o XLS. Sin límite de filas.</p>
+            </>
+          )}
+          <input
+            ref={inputRef}
+            type="file"
+            accept=".csv,.xlsx,.xls"
+            className="hidden"
+            onChange={(e) => { const f = e.target.files?.[0]; if (f) processFile(f); e.target.value = ''; }}
+          />
+        </div>
+      )}
 
       {error && (
         <div className="rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/10 px-4 py-3">
