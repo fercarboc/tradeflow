@@ -142,6 +142,7 @@ const PAGE_PATHS: Partial<Record<ActivePage, string>> = {
   [ActivePage.NoWorkspace]:                '/sin-espacio',
   [ActivePage.MarketplaceInvitationAccept]: '/aceptar-invitacion',
   [ActivePage.Marketplace]:                 '/app/marketplace',
+  [ActivePage.MarketplacePublico]:          '/marketplace',
 };
 
 function pageToPath(page: ActivePage): string {
@@ -189,6 +190,7 @@ const PUBLIC_OR_AUTH_PAGES = new Set<ActivePage>([
   ActivePage.Valorar,
   ActivePage.Parte,
   ActivePage.MarketplaceInvitationAccept,
+  ActivePage.MarketplacePublico,
 ]);
 
 // Páginas de app donde el routing post-auth no debe redirigir si el usuario ya estaba ahí
@@ -235,6 +237,7 @@ function detectAuthRoute(): ActivePage | null {
   if (path.startsWith('/valorar/')) return ActivePage.Valorar;
   if (path.startsWith('/parte/')) return ActivePage.Parte;
   if (path === '/aceptar-invitacion') return ActivePage.MarketplaceInvitationAccept;
+  if (path === '/marketplace') return ActivePage.MarketplacePublico;
 
   return null;
 }
@@ -388,8 +391,16 @@ export default function App() {
         if (PRESERVED_APP_PAGES.has(currentPageRef.current)) {
           console.log('[PZ_ROUTING] solo instalador, preservando página actual', currentPageRef.current);
         } else {
-          console.log('[PZ_ROUTING] solo instalador → AppDashboard');
-          setCurrentPage(ActivePage.AppDashboard);
+          // returnUrl: si el usuario vino del Marketplace público, redirigir al Marketplace profesional
+          const mkReturn = sessionStorage.getItem('mk_return');
+          if (mkReturn) {
+            sessionStorage.removeItem('mk_return');
+            console.log('[PZ_ROUTING] solo instalador + mk_return → Marketplace');
+            setCurrentPage(ActivePage.Marketplace);
+          } else {
+            console.log('[PZ_ROUTING] solo instalador → AppDashboard');
+            setCurrentPage(ActivePage.AppDashboard);
+          }
         }
         return;
       }
@@ -667,7 +678,10 @@ export default function App() {
         return <MarketplaceInvitationAcceptView setCurrentPage={setCurrentPage} session={session} />;
 
       case ActivePage.Marketplace:
-        return <ScreenMarketplace setCurrentPage={setCurrentPage} />;
+        return <ScreenMarketplace setCurrentPage={setCurrentPage} mode="professional" />;
+
+      case ActivePage.MarketplacePublico:
+        return <ScreenMarketplace setCurrentPage={setCurrentPage} mode="public" />;
 
       case ActivePage.NoWorkspace:
         return (
@@ -707,6 +721,7 @@ export default function App() {
     currentPage === ActivePage.MarketplaceComprar ||
     currentPage === ActivePage.SeguimientoMaterial ||
     currentPage === ActivePage.Marketplace ||
+    currentPage === ActivePage.MarketplacePublico ||
     currentPage === ActivePage.WorkspaceSelector ||
     currentPage === ActivePage.NoWorkspace;
 

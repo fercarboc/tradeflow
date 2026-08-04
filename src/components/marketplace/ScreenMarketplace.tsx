@@ -36,9 +36,10 @@ function useToast() {
 
 interface Props {
   setCurrentPage: (p: ActivePage) => void;
+  mode?: 'public' | 'professional';
 }
 
-export default function ScreenMarketplace({ setCurrentPage }: Props) {
+export default function ScreenMarketplace({ setCurrentPage, mode = 'professional' }: Props) {
   const { state, actions } = useMarketplaceCart();
 
   // ── Filtros ────────────────────────────────────────────────────────────────
@@ -137,6 +138,12 @@ export default function ScreenMarketplace({ setCurrentPage }: Props) {
   const cartCount  = cartItems.length;
   const totalCount = catalog?.total ?? 0;
 
+  // En modo público: el botón de checkout lleva al login con returnUrl
+  const handleGuestCheckout = mode === 'public' ? () => {
+    sessionStorage.setItem('mk_return', '1');
+    setCurrentPage(ActivePage.Login);
+  } : undefined;
+
   return (
     <div className="min-h-screen bg-[#020B16] flex flex-col">
       {/* Header */}
@@ -180,6 +187,7 @@ export default function ScreenMarketplace({ setCurrentPage }: Props) {
           items={cartItems}
           onUpdateQty={actions.updateQuantity}
           onRemove={actions.removeItem}
+          onCheckout={handleGuestCheckout}
         />
       </div>
 
@@ -197,6 +205,7 @@ export default function ScreenMarketplace({ setCurrentPage }: Props) {
         onClose={() => setMobileCartOpen(false)}
         onUpdateQty={actions.updateQuantity}
         onRemove={actions.removeItem}
+        onCheckout={handleGuestCheckout}
       />
 
       {/* Toast */}

@@ -3616,7 +3616,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presupuestos' })}
                 {MobileTabButton({ tab: 'facturas',     icon: <Receipt  className="w-5 h-5" />, label: 'Facturas' })}
                 {MobileTabButton({ tab: 'trabajos',     icon: <Briefcase className="w-5 h-5" />, label: 'Trabajos' })}
-                {MobileTabButton({ tab: 'clientes',     icon: <Users    className="w-5 h-5" />, label: 'Clientes' })}
+                {can('catalog.manage')
+                  ? (
+                    <button
+                      onClick={() => setCurrentPage(ActivePage.Marketplace)}
+                      className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold text-[#1C2535]/45 transition-colors"
+                    >
+                      <Store className="w-5 h-5" />
+                      <span>Marketplace</span>
+                    </button>
+                  )
+                  : MobileTabButton({ tab: 'clientes', icon: <Users className="w-5 h-5" />, label: 'Clientes' })}
               </>
             )}
           </div>
@@ -5763,10 +5773,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('jobs.view') && orgId && SidebarBtn({ id: 'subcontratas', icon: <Layers className="w-4 h-4" />, label: 'Externalizados' })}
             {can('catalog.manage') && orgId && SidebarBtn({ id: 'suppliers', icon: <Truck className="w-4 h-4" />, label: 'Proveedores' })}
             {can('catalog.manage') && orgId && SidebarBtn({ id: 'pedidos_material', icon: <ShoppingCart className="w-4 h-4" />, label: 'Pedidos Material' })}
-            {can('catalog.manage') && orgId && (
+            {can('catalog.manage') && (
               <button
+                data-testid="nav-marketplace"
                 onClick={() => setCurrentPage(ActivePage.Marketplace)}
-                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[11px] font-semibold transition-all cursor-pointer text-slate-455 hover:text-white hover:bg-slate-800/40"
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[11px] font-semibold transition-all cursor-pointer relative ${
+                  false
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/10'
+                    : 'text-slate-455 hover:text-white hover:bg-slate-800/40'
+                }`}
               >
                 <Store className="w-4 h-4" />
                 <span>Marketplace</span>

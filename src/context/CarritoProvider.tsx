@@ -48,6 +48,25 @@ export function useCartContext(): CartContextValue {
 
 // ─── Provider ─────────────────────────────────────────────────────────────────
 
+const GUEST_CART_KEY = 'trabflow:marketplace:guest-cart';
+
+function readGuestCart(): CartState | null {
+  try {
+    const raw = localStorage.getItem(GUEST_CART_KEY);
+    return raw ? (JSON.parse(raw) as CartState) : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeGuestCart(s: CartState) {
+  try { localStorage.setItem(GUEST_CART_KEY, JSON.stringify(s)); } catch { /* lleno */ }
+}
+
+function clearGuestCart() {
+  try { localStorage.removeItem(GUEST_CART_KEY); } catch { /* noop */ }
+}
+
 export function CarritoProvider({ children }: { children: ReactNode }) {
   const { org } = useSession();
   const orgId = org?.id ?? null;
@@ -55,23 +74,54 @@ export function CarritoProvider({ children }: { children: ReactNode }) {
   const [state, setState]       = useState<CartState>(CART_STATE_DEFAULT);
   const [isLoading, setLoading] = useState(false);
 
-  const prevOrgRef  = useRef<string | null>(null);
+  // undefined = "aún no inicializado" — distinto de null (guest) o string (org)
+  const prevOrgRef  = useRef<string | null | undefined>(undefined);
   const hydratedRef = useRef(false);
 
   // ── Hidratación + persistencia ────────────────────────────────────────────
   // Un único efecto combinado para evitar la carrera hidratación vs persistencia.
   useEffect(() => {
     if (!orgId) {
-      prevOrgRef.current  = null;
-      hydratedRef.current = false;
+      // Sin sesión: cargar/persistir guest cart
+      if (prevOrgRef.current !== orgId) {
+        // Cambio a null (primer render o sign-out)
+        prevOrgRef.current  = orgId;
+        hydratedRef.current = false;
+        const guest = readGuestCart();
+        setState(guest ?? CART_STATE_DEFAULT);
+        hydratedRef.current = true;
+        return;
+      }
+      // orgId sigue siendo null y el estado cambió: persistir guest cart
+      if (hydratedRef.current) {
+        writeGuestCart(state);
+      }
       return;
     }
 
     if (orgId !== prevOrgRef.current) {
+      // Cambio de org (o primer login desde guest)
+      const wasGuest = prevOrgRef.current === null;
       prevOrgRef.current  = orgId;
       hydratedRef.current = false;
       const saved = loadCartState(orgId);
-      setState(saved ?? CART_STATE_DEFAULT);
+      const base  = saved ?? CART_STATE_DEFAULT;
+
+      if (wasGuest) {
+        // Fusionar guest cart → org cart (sin duplicar por offeringId)
+        const guest = readGuestCart();
+        if (guest && guest.items.length > 0) {
+          clearGuestCart();
+          const extraItems = guest.items.filter(
+            gi => !base.items.some(oi => oi.offeringId === gi.offeringId),
+          );
+          setState({ ...base, items: [...base.items, ...extraItems] });
+        } else {
+          setState(base);
+        }
+      } else {
+        setState(base);
+      }
       hydratedRef.current = true;
       return;
     }

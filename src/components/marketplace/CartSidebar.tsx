@@ -9,6 +9,7 @@ interface Props {
   onClose:     () => void;       // mobile close
   onUpdateQty: (cartItemId: string, qty: number) => void;
   onRemove:    (cartItemId: string) => void;
+  onCheckout?: () => void;       // undefined = disabled (RC1-C pending)
 }
 
 function EmptyCart() {
@@ -22,16 +23,16 @@ function EmptyCart() {
 }
 
 // Sidebar desktop (always visible lg+)
-export function CartSidebarDesktop({ items, onUpdateQty, onRemove }: Omit<Props, 'isOpen' | 'onClose'>) {
+export function CartSidebarDesktop({ items, onUpdateQty, onRemove, onCheckout }: Omit<Props, 'isOpen' | 'onClose'>) {
   return (
     <aside className="w-72 shrink-0 border-l border-white/8 hidden lg:flex flex-col bg-[#0a1020]">
-      <CartContent items={items} onUpdateQty={onUpdateQty} onRemove={onRemove} />
+      <CartContent items={items} onUpdateQty={onUpdateQty} onRemove={onRemove} onCheckout={onCheckout} />
     </aside>
   );
 }
 
 // Drawer móvil
-export default function CartSidebar({ items, isOpen, onClose, onUpdateQty, onRemove }: Props) {
+export default function CartSidebar({ items, isOpen, onClose, onUpdateQty, onRemove, onCheckout }: Props) {
   return (
     <>
       {/* Backdrop */}
@@ -63,16 +64,17 @@ export default function CartSidebar({ items, isOpen, onClose, onUpdateQty, onRem
           </button>
         </div>
 
-        <CartContent items={items} onUpdateQty={onUpdateQty} onRemove={onRemove} />
+        <CartContent items={items} onUpdateQty={onUpdateQty} onRemove={onRemove} onCheckout={onCheckout} />
       </div>
     </>
   );
 }
 
-function CartContent({ items, onUpdateQty, onRemove }: {
+function CartContent({ items, onUpdateQty, onRemove, onCheckout }: {
   items: LocalCartItem[];
   onUpdateQty: (id: string, qty: number) => void;
   onRemove: (id: string) => void;
+  onCheckout?: () => void;
 }) {
   return (
     <>
@@ -106,18 +108,29 @@ function CartContent({ items, onUpdateQty, onRemove }: {
         <div className="px-4 pb-4 pt-2 border-t border-white/8 space-y-3">
           <CartSummary items={items} />
 
-          <button
-            disabled
-            title="Checkout disponible en RC1-C"
-            className="w-full flex items-center justify-center gap-2 bg-white/10 text-white/40 font-bold text-sm py-3 rounded-xl cursor-not-allowed select-none"
-          >
-            <Lock className="w-3.5 h-3.5" />
-            Continuar al pago
-          </button>
-
-          <p className="text-white/20 text-[10px] text-center">
-            Checkout disponible en RC1-C
-          </p>
+          {onCheckout ? (
+            <button
+              onClick={onCheckout}
+              className="w-full flex items-center justify-center gap-2 bg-[#00CFE8] hover:bg-[#00b8cf] text-[#020B16] font-bold text-sm py-3 rounded-xl transition-colors"
+            >
+              <Lock className="w-3.5 h-3.5" />
+              Identificarte para continuar
+            </button>
+          ) : (
+            <>
+              <button
+                disabled
+                title="Checkout disponible en RC1-C"
+                className="w-full flex items-center justify-center gap-2 bg-white/10 text-white/40 font-bold text-sm py-3 rounded-xl cursor-not-allowed select-none"
+              >
+                <Lock className="w-3.5 h-3.5" />
+                Continuar al pago
+              </button>
+              <p className="text-white/20 text-[10px] text-center">
+                Checkout disponible próximamente
+              </p>
+            </>
+          )}
         </div>
       )}
     </>

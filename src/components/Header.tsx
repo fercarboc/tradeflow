@@ -21,6 +21,7 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
   const navItems = [
     { name: 'Inicio', page: ActivePage.Home },
     { name: 'Funciones', page: ActivePage.ComoFunciona },
+    { name: 'Marketplace', page: ActivePage.MarketplacePublico },
     { name: 'Asistente IA', page: ActivePage.AsisTecnico },
     { name: 'Herramientas', page: ActivePage.Herramientas },
     { name: 'Precios', page: ActivePage.Precios },

@@ -4,6 +4,87 @@
 
 ---
 
+## RC1-B.1 — Marketplace en Navegación Privada y Web Pública
+
+**Período:** 2026-08-04  
+**Build:** ✓ TypeScript limpio · Vite build exitoso  
+**Estado:** IMPLEMENTADO ✓  
+**Doc:** `docs/marketplace/RC1_B1_MARKETPLACE_ENTRYPOINTS.md`
+
+### Entrada A — Panel instalador (privado, `/app/marketplace`, mode=professional)
+
+- **Sidebar desktop:** botón "Marketplace" ahora visible para todos con `catalog.manage` (sin condición `orgId`); estilo coherente con `SidebarBtn`; `data-testid="nav-marketplace"`
+- **Mobile bottom bar:** botón "Marketplace" reemplaza "Clientes" para usuarios con `catalog.manage`
+- Ambos navegan a `ActivePage.Marketplace` (ruta `/app/marketplace`)
+
+### Entrada B — Web pública (anónima, `/marketplace`, mode=public)
+
+- Nuevo `ActivePage.MarketplacePublico` → ruta `/marketplace`
+- Enlace "Marketplace" añadido a `Header.tsx` (entre Funciones y Asistente IA) y `Navbar.tsx` (LandingPage)
+- Accesible sin login: incluido en `PUBLIC_OR_AUTH_PAGES`; detectado en `detectAuthRoute()`
+
+### Carrito de visitante (guest cart)
+
+- `CarritoProvider`: cuando `orgId=null`, persiste en `localStorage['trabflow:marketplace:guest-cart']`
+- Al hacer login (orgId null→valor): fusión automática guest cart + org cart (sin duplicar por `offeringId`)
+- Al cerrar sesión (orgId valor→null): recupera el guest cart guardado
+
+### Checkout dual
+
+- Modo público: botón carrito "Identificarte para continuar" (activo, azul) → guarda `sessionStorage['mk_return']` → login
+- Modo profesional: botón "Continuar al pago" (deshabilitado, RC1-C pending)
+- Post-login con `mk_return`: `routeSession()` detecta la clave y redirige a `ActivePage.Marketplace` en lugar de `AppDashboard`
+
+### Archivos modificados
+
+`src/types.ts` · `src/App.tsx` · `src/components/Header.tsx` · `src/components/landing/Navbar.tsx` · `src/components/marketplace/ScreenMarketplace.tsx` · `src/components/marketplace/CartSidebar.tsx` · `src/context/CarritoProvider.tsx` · `src/components/AppDashboardView.tsx`
+
+---
+
+## PRE-RC1 — Expansión Catálogo Demo Multioficio (Etapa 1: L0–L3)
+
+**Período:** 2026-08-04  
+**Supabase:** dqqjaujnulutinskmqsu (eu-central-1)  
+**Estado:** ETAPA 1 COMPLETADA ✓ — Etapa 2 (offerings) bloqueada hasta aprobación humana  
+**Batch:** `PRE_RC1_MULTITRADE_001`
+
+### L0 — Snapshot pre-ejecución · 2026-08-04
+
+- Auditoría completa: 22 UPs validated, 3 actores, 17 catálogos, 230 offerings
+- Confirmación de ausencia de conflictos: 4 supplier_keys, 4 slugs, 9 categorías, 14 nombres canónicos
+- Decisión de identidad: `org_id=NULL` para catálogos de plataforma — confirmada por precedente OBRAMAT/STN
+- Doc: `docs/marketplace/PRE_RC1_DEMO_L0_SNAPSHOT.md`
+
+### L1 — 4 catálogos + 4 actores demo · 2026-08-04
+
+- `ElectroSuministros Cantábrico S.L.` — actor `fba14bb4`, catálogo `498a2e63`, oficio electricidad
+- `Revestimientos y Obra Norte S.L.` — actor `ce5c781d`, catálogo `6ea37e62`, oficio albanileria
+- `Pinturas Profesionales del Norte S.L.` — actor `d8f0bf84`, catálogo `5c72b86b`, oficio pintura
+- `Carpintería y Cerramientos Norte S.L.` — actor `0464ae2d`, catálogo `9907af28`, oficio carpinteria
+- Todos: `estado='active'`, `verificado=FALSE`, `org_id=NULL`, metadata `_demo=true, _demo_dataset='PRE_RC1_MULTITRADE_001'`
+- Doc: `docs/marketplace/PRE_RC1_DEMO_L1_IDENTITY_RESULTS.md`
+
+### L2 — Categoría Revestimientos · 2026-08-04
+
+- `Revestimientos` (slug `alba-revestimientos`, oficio `albanileria`) — id `eb5da908`
+- Total categorías: 27 (+1)
+- Doc: `docs/marketplace/PRE_RC1_DEMO_L2_CATEGORIES_RESULTS.md`
+
+### L3 — 14 UPs draft + 7 variantes · 2026-08-04
+
+- Albañilería (5): Membrana impermeabilizante, Cemento cola C2, Junta de alicatado, Baldosa porcelánica 60×60, Azulejo rectificado pared
+- Pintura (2): Pintura plástica anti-humedad, Imprimación selladora
+- Electricidad (4): Luminaria baño LED IP44, Extractor baño temporizado, Cable H07V-K 1,5mm², Enchufe schuko IP44
+- Carpintería (3): Puerta de paso ciega, Mueble bajo lavabo 60cm, Espejo con luz LED
+- 7 variantes: Membrana (2), Baldosa (2), Cable (3 colores normativos)
+- Todas `validation_state='draft'` — invisibles en Marketplace hasta aprobación
+- Etiqueta `_batch='PRE_RC1_MULTITRADE_001'` en todas las UPs y variantes para rollback selectivo
+- Doc: `docs/marketplace/PRE_RC1_DEMO_L3_UP_RESULTS.md`
+
+**STOP — L4+ bloqueado. Aprobación requerida en `docs/marketplace/PRE_RC1_DEMO_UP_REVIEW_MATRIX.md`.**
+
+---
+
 ## PRE-RC1 — PASOS 0–8 — Onboarding de proveedores: fix completo
 
 **Período:** 2026-08-03  
