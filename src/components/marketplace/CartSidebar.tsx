@@ -1,31 +1,33 @@
-import { ShoppingCart, X, Lock } from 'lucide-react';
+import { ShoppingCart, X, Lock, Tag } from 'lucide-react';
 import type { LocalCartItem } from '../../lib/marketplace/cart-storage';
 import CartItemRow from './CartItemRow';
 import CartSummary from './CartSummary';
 
 interface Props {
   items:       LocalCartItem[];
-  isOpen:      boolean;          // mobile drawer
-  onClose:     () => void;       // mobile close
+  isOpen:      boolean;
+  onClose:     () => void;
   onUpdateQty: (cartItemId: string, qty: number) => void;
   onRemove:    (cartItemId: string) => void;
-  onCheckout?: () => void;       // undefined = disabled (RC1-C pending)
+  onCheckout?: () => void;  // undefined = disabled (RC1-C)
 }
 
 function EmptyCart() {
   return (
-    <div className="flex flex-col items-center justify-center flex-1 py-10 px-4 text-center">
-      <ShoppingCart className="w-10 h-10 text-white/15 mb-3" />
-      <p className="text-white/35 text-sm font-medium">Tu carrito está vacío</p>
-      <p className="text-white/20 text-xs mt-1">Añade productos del catálogo</p>
+    <div className="flex flex-col items-center justify-center flex-1 py-12 px-4 text-center">
+      <div className="w-14 h-14 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-center mb-4">
+        <ShoppingCart className="w-7 h-7 text-gray-300" />
+      </div>
+      <p className="text-gray-600 text-sm font-semibold">Tu carrito está vacío</p>
+      <p className="text-gray-400 text-xs mt-1">Añade productos del catálogo</p>
     </div>
   );
 }
 
-// Sidebar desktop (always visible lg+)
+// Desktop always-visible sidebar
 export function CartSidebarDesktop({ items, onUpdateQty, onRemove, onCheckout }: Omit<Props, 'isOpen' | 'onClose'>) {
   return (
-    <aside className="w-72 shrink-0 border-l border-white/8 hidden lg:flex flex-col bg-[#0a1020]">
+    <aside className="w-72 shrink-0 border-l border-gray-200 hidden lg:flex flex-col bg-white">
       <CartContent items={items} onUpdateQty={onUpdateQty} onRemove={onRemove} onCheckout={onCheckout} />
     </aside>
   );
@@ -35,32 +37,25 @@ export function CartSidebarDesktop({ items, onUpdateQty, onRemove, onCheckout }:
 export default function CartSidebar({ items, isOpen, onClose, onUpdateQty, onRemove, onCheckout }: Props) {
   return (
     <>
-      {/* Backdrop */}
       {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/60 z-40 lg:hidden"
-          onClick={onClose}
-          aria-hidden
-        />
+        <div className="fixed inset-0 bg-black/40 z-40 lg:hidden" onClick={onClose} aria-hidden />
       )}
 
-      {/* Panel lateral móvil */}
       <div
-        className={`fixed right-0 top-0 h-full w-80 bg-[#0a1020] border-l border-white/8 z-50 flex flex-col transform transition-transform duration-300 lg:hidden ${
+        className={`fixed right-0 top-0 h-full w-80 bg-white border-l border-gray-200 shadow-xl z-50 flex flex-col transform transition-transform duration-300 lg:hidden ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
         role="dialog"
         aria-modal="true"
         aria-label="Carrito de compra"
       >
-        {/* Header con close */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-white/8">
-          <h2 className="text-white font-semibold text-sm flex items-center gap-2">
-            <ShoppingCart className="w-4 h-4 text-[#00CFE8]" />
+        <div className="flex items-center justify-between px-4 py-4 border-b border-gray-100">
+          <h2 className="text-gray-900 font-bold text-sm flex items-center gap-2">
+            <ShoppingCart className="w-4 h-4 text-[#1A5A96]" />
             Carrito
           </h2>
-          <button onClick={onClose} className="text-white/30 hover:text-white/70 transition-colors">
-            <X className="w-4.5 h-4.5" />
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
+            <X className="w-5 h-5" />
           </button>
         </div>
 
@@ -71,23 +66,25 @@ export default function CartSidebar({ items, isOpen, onClose, onUpdateQty, onRem
 }
 
 function CartContent({ items, onUpdateQty, onRemove, onCheckout }: {
-  items: LocalCartItem[];
+  items:       LocalCartItem[];
   onUpdateQty: (id: string, qty: number) => void;
-  onRemove: (id: string) => void;
+  onRemove:    (id: string) => void;
   onCheckout?: () => void;
 }) {
   return (
     <>
-      {/* Header */}
-      <div className="px-4 py-3 border-b border-white/8 hidden lg:flex items-center gap-2">
-        <ShoppingCart className="w-4 h-4 text-[#00CFE8]" />
-        <span className="text-white font-semibold text-sm">Carrito</span>
+      {/* Header desktop */}
+      <div className="px-4 py-4 border-b border-gray-100 hidden lg:flex items-center gap-2">
+        <ShoppingCart className="w-4 h-4 text-[#1A5A96]" />
+        <span className="text-gray-900 font-bold text-sm">Carrito</span>
         {items.length > 0 && (
-          <span className="ml-auto text-xs text-white/40 tabular-nums">{items.length} línea{items.length !== 1 ? 's' : ''}</span>
+          <span className="ml-auto text-xs text-gray-400 tabular-nums">
+            {items.length} línea{items.length !== 1 ? 's' : ''}
+          </span>
         )}
       </div>
 
-      {/* Lista de ítems */}
+      {/* Lista */}
       {items.length === 0 ? (
         <EmptyCart />
       ) : (
@@ -103,15 +100,27 @@ function CartContent({ items, onUpdateQty, onRemove, onCheckout }: {
         </ul>
       )}
 
-      {/* Footer: resumen + botón */}
+      {/* Footer */}
       {items.length > 0 && (
-        <div className="px-4 pb-4 pt-2 border-t border-white/8 space-y-3">
+        <div className="px-4 pb-4 pt-3 border-t border-gray-100 space-y-4">
           <CartSummary items={items} />
+
+          {/* Código descuento — visual slot */}
+          <div className="flex items-center gap-2 border border-dashed border-gray-200 rounded-xl px-3 py-2">
+            <Tag className="w-3.5 h-3.5 text-gray-300 shrink-0" />
+            <input
+              type="text"
+              placeholder="Código de descuento"
+              disabled
+              className="flex-1 text-xs text-gray-400 bg-transparent placeholder:text-gray-300 focus:outline-none cursor-not-allowed"
+            />
+            <span className="text-[10px] text-gray-300 font-semibold shrink-0">PRONTO</span>
+          </div>
 
           {onCheckout ? (
             <button
               onClick={onCheckout}
-              className="w-full flex items-center justify-center gap-2 bg-[#00CFE8] hover:bg-[#00b8cf] text-[#020B16] font-bold text-sm py-3 rounded-xl transition-colors"
+              className="w-full flex items-center justify-center gap-2 bg-[#1A5A96] hover:bg-[#154d82] text-white font-bold text-sm py-3 rounded-xl transition-colors"
             >
               <Lock className="w-3.5 h-3.5" />
               Identificarte para continuar
@@ -120,13 +129,12 @@ function CartContent({ items, onUpdateQty, onRemove, onCheckout }: {
             <>
               <button
                 disabled
-                title="Checkout disponible en RC1-C"
-                className="w-full flex items-center justify-center gap-2 bg-white/10 text-white/40 font-bold text-sm py-3 rounded-xl cursor-not-allowed select-none"
+                className="w-full flex items-center justify-center gap-2 bg-gray-100 text-gray-400 font-bold text-sm py-3 rounded-xl cursor-not-allowed select-none"
               >
                 <Lock className="w-3.5 h-3.5" />
-                Continuar al pago
+                Ir al checkout
               </button>
-              <p className="text-white/20 text-[10px] text-center">
+              <p className="text-gray-300 text-[10px] text-center">
                 Checkout disponible próximamente
               </p>
             </>

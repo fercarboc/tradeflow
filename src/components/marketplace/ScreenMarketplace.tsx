@@ -9,11 +9,11 @@ import {
 import type { MarketplaceCatalogItem, CatalogPage } from '../../lib/api/marketplace-catalog';
 import type { LocalCartItem } from '../../lib/marketplace/cart-storage';
 
-import MarketplaceHeader          from './MarketplaceHeader';
-import MarketplaceSearchBar       from './MarketplaceSearchBar';
-import MarketplaceFilters         from './MarketplaceFilters';
-import type { SortBy }            from './MarketplaceFilters';
-import MarketplaceGrid            from './MarketplaceGrid';
+import MarketplaceHome             from './MarketplaceHome';
+import MarketplaceHeader           from './MarketplaceHeader';
+import MarketplaceFilters          from './MarketplaceFilters';
+import type { SortBy }             from './MarketplaceFilters';
+import MarketplaceGrid             from './MarketplaceGrid';
 import MarketplaceProductSlideOver from './MarketplaceProductSlideOver';
 import CartSidebar                 from './CartSidebar';
 import { CartSidebarDesktop }      from './CartSidebar';
@@ -42,8 +42,12 @@ interface Props {
 export default function ScreenMarketplace({ setCurrentPage, mode = 'professional' }: Props) {
   const { state, actions } = useMarketplaceCart();
 
+  // ── Vista interna (home ↔ catalog) ────────────────────────────────────────
+  const [view, setView] = useState<'home' | 'catalog'>('home');
+
   // ── Filtros ────────────────────────────────────────────────────────────────
   const [query,     setQuery]     = useState('');
+  const [oficio,    setOficio]    = useState<string | null>(null);
   const [familia,   setFamilia]   = useState<string | null>(null);
   const [onlyStock, setOnlyStock] = useState(false);
   const [sortBy,    setSortBy]    = useState<SortBy>('nombre');
@@ -51,14 +55,13 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
 
   // ── Datos ──────────────────────────────────────────────────────────────────
   const [catalog, setCatalog] = useState<CatalogPage | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error,   setError]   = useState<string | null>(null);
 
   // ── UI ─────────────────────────────────────────────────────────────────────
-  const [slideOverItem, setSlideOverItem] = useState<MarketplaceCatalogItem | null>(null);
+  const [slideOverItem, setSlideOverItem]   = useState<MarketplaceCatalogItem | null>(null);
   const [mobileCartOpen, setMobileCartOpen] = useState(false);
   const { toast, show: showToast } = useToast();
-
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // ── Cargar familias una sola vez ───────────────────────────────────────────
@@ -66,14 +69,22 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
     getMarketplaceFamilias().then(setFamilias).catch(() => {});
   }, []);
 
-  // ── Cargar catálogo con debounce en búsqueda ───────────────────────────────
+  // ── Navegar al catálogo con oficio opcional ────────────────────────────────
+  const goToCatalog = useCallback((newOficio?: string | null) => {
+    if (newOficio !== undefined) setOficio(newOficio);
+    setView('catalog');
+  }, []);
+
+  // ── Cargar catálogo (sólo cuando estamos en vista catalog) ─────────────────
   const loadCatalog = useCallback(async () => {
+    if (view !== 'catalog') return;
     setLoading(true);
     setError(null);
     try {
       const page = await getMarketplaceCatalog({
         query:     query.trim() || undefined,
         familia:   familia ?? undefined,
+        oficio:    oficio ?? undefined,
         onlyStock,
         sortBy,
         limit:     48,
@@ -85,14 +96,15 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
     } finally {
       setLoading(false);
     }
-  }, [query, familia, onlyStock, sortBy]);
+  }, [view, query, oficio, familia, onlyStock, sortBy]);
 
   useEffect(() => {
+    if (view !== 'catalog') return;
     if (debounceRef.current) clearTimeout(debounceRef.current);
     const delay = query.trim() ? 350 : 0;
     debounceRef.current = setTimeout(loadCatalog, delay);
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
-  }, [loadCatalog]);
+  }, [loadCatalog, view]);
 
   // ── Añadir la mejor offering de una tarjeta ────────────────────────────────
   const handleAddBest = useCallback((item: MarketplaceCatalogItem) => {
@@ -138,58 +150,75 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
   const cartCount  = cartItems.length;
   const totalCount = catalog?.total ?? 0;
 
-  // En modo público: el botón de checkout lleva al login con returnUrl
   const handleGuestCheckout = mode === 'public' ? () => {
     sessionStorage.setItem('mk_return', '1');
     setCurrentPage(ActivePage.Login);
   } : undefined;
 
+  // ── Cambio de query: auto-navega a catálogo ────────────────────────────────
+  const handleQueryChange = (q: string) => {
+    setQuery(q);
+    if (q.trim() && view === 'home') setView('catalog');
+  };
+
   return (
-    <div className="min-h-screen bg-[#020B16] flex flex-col">
-      {/* Header */}
+    <div className="h-screen bg-gray-50 flex flex-col overflow-hidden">
+      {/* Header sticky */}
       <MarketplaceHeader
+        mode={mode}
+        view={view}
         setCurrentPage={setCurrentPage}
+        onGoToHome={() => setView('home')}
         cartCount={cartCount}
         onOpenCart={() => setMobileCartOpen(true)}
+        query={query}
+        onQueryChange={handleQueryChange}
+        onSearch={() => setView('catalog')}
       />
 
-      {/* SearchBar */}
-      <MarketplaceSearchBar query={query} onChange={setQuery} />
+      {view === 'home' ? (
+        /* ── Home ── */
+        <main className="flex-1 overflow-y-auto">
+          <MarketplaceHome onGoToCatalog={goToCatalog} />
+        </main>
+      ) : (
+        /* ── Catalog ── */
+        <div className="flex flex-1 min-h-0 overflow-hidden">
+          {/* Filtros */}
+          <MarketplaceFilters
+            familias={familias}
+            familia={familia}
+            onFamilia={f => { setFamilia(f); }}
+            oficio={oficio}
+            onOficio={o => { setOficio(o); }}
+            onlyStock={onlyStock}
+            onOnlyStock={setOnlyStock}
+            sortBy={sortBy}
+            onSortBy={setSortBy}
+            totalResults={totalCount}
+            loading={loading}
+          />
 
-      {/* Body: filtros | grid | carrito */}
-      <div className="flex flex-1 min-h-0 overflow-hidden">
-        {/* Filtros — desktop sidebar izquierdo */}
-        <MarketplaceFilters
-          familias={familias}
-          familia={familia}
-          onFamilia={setFamilia}
-          onlyStock={onlyStock}
-          onOnlyStock={setOnlyStock}
-          sortBy={sortBy}
-          onSortBy={setSortBy}
-          totalResults={totalCount}
-          loading={loading}
-        />
+          {/* Grid */}
+          <MarketplaceGrid
+            items={catalog?.items ?? []}
+            loading={loading}
+            error={error}
+            query={query}
+            onClearQuery={() => setQuery('')}
+            onAddBest={handleAddBest}
+            onViewOptions={setSlideOverItem}
+          />
 
-        {/* Grid central */}
-        <MarketplaceGrid
-          items={catalog?.items ?? []}
-          loading={loading}
-          error={error}
-          query={query}
-          onClearQuery={() => setQuery('')}
-          onAddBest={handleAddBest}
-          onViewOptions={setSlideOverItem}
-        />
-
-        {/* Carrito — desktop sidebar derecho */}
-        <CartSidebarDesktop
-          items={cartItems}
-          onUpdateQty={actions.updateQuantity}
-          onRemove={actions.removeItem}
-          onCheckout={handleGuestCheckout}
-        />
-      </div>
+          {/* Carrito desktop */}
+          <CartSidebarDesktop
+            items={cartItems}
+            onUpdateQty={actions.updateQuantity}
+            onRemove={actions.removeItem}
+            onCheckout={handleGuestCheckout}
+          />
+        </div>
+      )}
 
       {/* SlideOver de opciones */}
       <MarketplaceProductSlideOver
@@ -211,19 +240,19 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
       {/* Toast */}
       {toast && (
         <div
-          className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-3 rounded-2xl shadow-2xl text-sm font-medium transition-all ${
+          className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-3 rounded-2xl shadow-xl text-sm font-medium transition-all ${
             toast.type === 'success'
-              ? 'bg-emerald-900/90 text-emerald-200 border border-emerald-700/50'
+              ? 'bg-white text-emerald-700 border border-emerald-200 shadow-emerald-100'
               : toast.type === 'error'
-              ? 'bg-red-900/90 text-red-200 border border-red-700/50'
-              : 'bg-slate-800/90 text-slate-200 border border-slate-600/50'
+              ? 'bg-white text-red-600 border border-red-200 shadow-red-100'
+              : 'bg-white text-gray-700 border border-gray-200'
           }`}
           role="status"
           aria-live="polite"
         >
-          {toast.type === 'success' && <CheckCircle2 className="w-4 h-4 shrink-0" />}
-          {toast.type === 'error'   && <AlertTriangle className="w-4 h-4 shrink-0" />}
-          {toast.type === 'info'    && <Info className="w-4 h-4 shrink-0" />}
+          {toast.type === 'success' && <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-500" />}
+          {toast.type === 'error'   && <AlertTriangle className="w-4 h-4 shrink-0 text-red-500" />}
+          {toast.type === 'info'    && <Info className="w-4 h-4 shrink-0 text-blue-500" />}
           {toast.message}
         </div>
       )}
