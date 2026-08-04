@@ -73,6 +73,9 @@ NoWorkspace = 'no-workspace',
 
 // Aceptar invitación de portal proveedor (ruta pública)
 MarketplaceInvitationAccept = 'marketplace-invitation-accept',
+
+// Marketplace — catálogo navegable del instalador
+Marketplace = 'marketplace',
 }
 
 export type TradeType =

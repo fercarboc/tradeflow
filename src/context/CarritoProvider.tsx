@@ -1,21 +1,20 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useSession } from './SessionContext';
-import { getCartDetail } from '../lib/api/marketplace-checkout';
 import {
   CART_STATE_DEFAULT,
   clearCartStorage,
   loadCartState,
   saveCartState,
 } from '../lib/marketplace/cart-storage';
-import type { CartState, DeliveryMethod } from '../lib/marketplace/cart-storage';
+import type { CartState, DeliveryMethod, LocalCartItem, LineaOrigen } from '../lib/marketplace/cart-storage';
 import {
   dispatchCartInvalidate,
   dispatchCartUpdate,
   onCartInvalidate,
 } from '../lib/marketplace/cart-events';
 
-export type { CartState, DeliveryMethod };
+export type { CartState, DeliveryMethod, LocalCartItem, LineaOrigen };
 
 // ─── Tipos del contexto ───────────────────────────────────────────────────────
 
@@ -25,6 +24,10 @@ export interface CartActions {
   setDeliveryMethod: (method: DeliveryMethod, addressId?: string) => void;
   hydrateFromDb:     (cartId: string) => Promise<void>;
   clearCart:         (reason?: 'ordered' | 'cancelled' | 'manual') => void;
+  // RC1-B — gestión de ítems local
+  addItem:           (item: Omit<LocalCartItem, 'cartItemId'>) => void;
+  updateQuantity:    (cartItemId: string, qty: number) => void;
+  removeItem:        (cartItemId: string) => void;
 }
 
 export interface CartContextValue {
@@ -52,13 +55,11 @@ export function CarritoProvider({ children }: { children: ReactNode }) {
   const [state, setState]       = useState<CartState>(CART_STATE_DEFAULT);
   const [isLoading, setLoading] = useState(false);
 
-  // Refs para coordinar hidratación vs. persistencia sin re-renders adicionales
-  const prevOrgRef   = useRef<string | null>(null);
-  const hydratedRef  = useRef(false);
+  const prevOrgRef  = useRef<string | null>(null);
+  const hydratedRef = useRef(false);
 
   // ── Hidratación + persistencia ────────────────────────────────────────────
-  // Único efecto que mezcla orgId y state como deps para evitar la condición
-  // de carrera entre hidratación (carga storage) y persistencia (guarda storage).
+  // Un único efecto combinado para evitar la carrera hidratación vs persistencia.
   useEffect(() => {
     if (!orgId) {
       prevOrgRef.current  = null;
@@ -67,7 +68,6 @@ export function CarritoProvider({ children }: { children: ReactNode }) {
     }
 
     if (orgId !== prevOrgRef.current) {
-      // Org nueva → hidratar desde storage, no persistir en este ciclo
       prevOrgRef.current  = orgId;
       hydratedRef.current = false;
       const saved = loadCartState(orgId);
@@ -76,7 +76,6 @@ export function CarritoProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    // Misma org, estado cambió → persistir
     if (hydratedRef.current) {
       saveCartState(orgId, state);
       dispatchCartUpdate({ orgId, cartId: state.cartId, itemCount: state.items.length });
@@ -90,11 +89,11 @@ export function CarritoProvider({ children }: { children: ReactNode }) {
       if (oid !== orgId) return;
       clearCartStorage(orgId);
       setState(CART_STATE_DEFAULT);
-      hydratedRef.current = true; // permitir persistencia tras reset
+      hydratedRef.current = true;
     });
   }, [orgId]);
 
-  // ── Acciones ──────────────────────────────────────────────────────────────
+  // ── Acciones básicas ──────────────────────────────────────────────────────
 
   const setCartId = useCallback((cartId: string) => {
     setState(prev => ({ ...prev, cartId }));
@@ -115,16 +114,11 @@ export function CarritoProvider({ children }: { children: ReactNode }) {
     }));
   }, []);
 
+  // RC1-C: sincronizará con BD. En RC1-B sólo actualiza cartId.
   const hydrateFromDb = useCallback(async (cartId: string) => {
     setLoading(true);
     try {
-      const detail = await getCartDetail(cartId);
-      setState(prev => ({
-        ...prev,
-        cartId,
-        sourceType: detail.cart.source_type,
-        items:      detail.items,
-      }));
+      setState(prev => ({ ...prev, cartId }));
     } finally {
       setLoading(false);
     }
@@ -139,12 +133,63 @@ export function CarritoProvider({ children }: { children: ReactNode }) {
     hydratedRef.current = true;
   }, [orgId]);
 
+  // ── Gestión de ítems (RC1-B) ──────────────────────────────────────────────
+
+  const addItem = useCallback((item: Omit<LocalCartItem, 'cartItemId'>) => {
+    setState(prev => {
+      // Misma offering → incrementar cantidad
+      const idx = prev.items.findIndex(i => i.offeringId === item.offeringId);
+      if (idx >= 0) {
+        return {
+          ...prev,
+          items: prev.items.map((it, i) =>
+            i === idx ? { ...it, cantidad: it.cantidad + item.cantidad } : it,
+          ),
+        };
+      }
+      // Nueva línea
+      return {
+        ...prev,
+        items: [
+          ...prev.items,
+          { ...item, cartItemId: crypto.randomUUID() },
+        ],
+      };
+    });
+  }, []);
+
+  const updateQuantity = useCallback((cartItemId: string, qty: number) => {
+    const safeQty = Math.max(1, Math.round(qty));
+    setState(prev => ({
+      ...prev,
+      items: prev.items.map(it =>
+        it.cartItemId === cartItemId ? { ...it, cantidad: safeQty } : it,
+      ),
+    }));
+  }, []);
+
+  const removeItem = useCallback((cartItemId: string) => {
+    setState(prev => ({
+      ...prev,
+      items: prev.items.filter(it => it.cartItemId !== cartItemId),
+    }));
+  }, []);
+
   // ── Valor del contexto ────────────────────────────────────────────────────
 
   const value: CartContextValue = {
     state,
     isLoading,
-    actions: { setCartId, selectSupplier, setDeliveryMethod, hydrateFromDb, clearCart },
+    actions: {
+      setCartId,
+      selectSupplier,
+      setDeliveryMethod,
+      hydrateFromDb,
+      clearCart,
+      addItem,
+      updateQuantity,
+      removeItem,
+    },
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

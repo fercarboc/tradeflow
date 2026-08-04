@@ -72,6 +72,7 @@ import {
   Home,
   MapPin,
   Eye,
+  Store,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
@@ -5762,6 +5763,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('jobs.view') && orgId && SidebarBtn({ id: 'subcontratas', icon: <Layers className="w-4 h-4" />, label: 'Externalizados' })}
             {can('catalog.manage') && orgId && SidebarBtn({ id: 'suppliers', icon: <Truck className="w-4 h-4" />, label: 'Proveedores' })}
             {can('catalog.manage') && orgId && SidebarBtn({ id: 'pedidos_material', icon: <ShoppingCart className="w-4 h-4" />, label: 'Pedidos Material' })}
+            {can('catalog.manage') && orgId && (
+              <button
+                onClick={() => setCurrentPage(ActivePage.Marketplace)}
+                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[11px] font-semibold transition-all cursor-pointer text-slate-455 hover:text-white hover:bg-slate-800/40"
+              >
+                <Store className="w-4 h-4" />
+                <span>Marketplace</span>
+              </button>
+            )}
             {SidebarBtn({ id: 'asistente', icon: <BookOpen className="w-4 h-4" />, label: 'Asistente Técnico' })}
             {can('jobs.view') && SidebarBtn({ id: 'valoraciones', icon: <Star className="w-4 h-4" />, label: 'Valoraciones' })}
             {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}

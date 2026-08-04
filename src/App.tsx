@@ -8,6 +8,7 @@ import { ActivePage, TradeType } from './types';
 import { supabase, loadWorkerByEmail } from './lib/supabase';
 import { SessionProvider } from './context/SessionContext';
 import { CookieConsentProvider } from './context/CookieConsentContext';
+import { CarritoProvider } from './context/CarritoProvider';
 import CookieBanner from './components/CookieBanner';
 import AnalyticsManager from './components/AnalyticsManager';
 import type { WorkerProfile } from './lib/supabase';
@@ -51,6 +52,7 @@ const MarketplaceComprarView      = lazy(() => import('./components/marketplace/
 const ScreenSeguimientoMaterial   = lazy(() => import('./components/marketplace/ScreenSeguimientoMaterial'));
 const WorkspaceSelectorView              = lazy(() => import('./components/workspace/WorkspaceSelectorView'));
 const MarketplaceInvitationAcceptView    = lazy(() => import('./components/auth/MarketplaceInvitationAcceptView'));
+const ScreenMarketplace                  = lazy(() => import('./components/marketplace/ScreenMarketplace'));
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -139,6 +141,7 @@ const PAGE_PATHS: Partial<Record<ActivePage, string>> = {
   [ActivePage.WorkspaceSelector]:   '/workspace',
   [ActivePage.NoWorkspace]:                '/sin-espacio',
   [ActivePage.MarketplaceInvitationAccept]: '/aceptar-invitacion',
+  [ActivePage.Marketplace]:                 '/app/marketplace',
 };
 
 function pageToPath(page: ActivePage): string {
@@ -195,6 +198,7 @@ const PRESERVED_APP_PAGES = new Set<ActivePage>([
   ActivePage.MarketplaceComprar,
   ActivePage.PortalProveedor,
   ActivePage.AppDashboard,
+  ActivePage.Marketplace,
 ]);
 
 function isPWAMode(): boolean {
@@ -662,6 +666,9 @@ export default function App() {
       case ActivePage.MarketplaceInvitationAccept:
         return <MarketplaceInvitationAcceptView setCurrentPage={setCurrentPage} session={session} />;
 
+      case ActivePage.Marketplace:
+        return <ScreenMarketplace setCurrentPage={setCurrentPage} />;
+
       case ActivePage.NoWorkspace:
         return (
           <div className="min-h-screen bg-[#020B16] flex items-center justify-center px-4">
@@ -699,6 +706,7 @@ export default function App() {
     currentPage === ActivePage.PortalProveedor ||
     currentPage === ActivePage.MarketplaceComprar ||
     currentPage === ActivePage.SeguimientoMaterial ||
+    currentPage === ActivePage.Marketplace ||
     currentPage === ActivePage.WorkspaceSelector ||
     currentPage === ActivePage.NoWorkspace;
 
@@ -723,6 +731,7 @@ export default function App() {
     <ErrorBoundary>
       <CookieConsentProvider>
       <SessionProvider user={session?.user ?? null} sessionChecked={sessionChecked}>
+      <CarritoProvider>
       <div className="min-h-screen flex flex-col bg-[#020B16]">
         {!isAppView && !isAuthView && (
           <Header
@@ -745,6 +754,7 @@ export default function App() {
       </div>
       <CookieBanner />
       <AnalyticsManager />
+      </CarritoProvider>
     </SessionProvider>
     </CookieConsentProvider>
     </ErrorBoundary>
