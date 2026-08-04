@@ -19,7 +19,7 @@ export default function MarketplaceHeader({
   query, onQueryChange, onSearch,
 }: Props) {
   const handleBack = () => {
-    if (view === 'catalog') {
+    if (view === 'catalog' && mode === 'public') {
       onGoToHome();
     } else if (mode === 'public') {
       setCurrentPage(ActivePage.Home);
@@ -28,7 +28,7 @@ export default function MarketplaceHeader({
     }
   };
 
-  const backLabel = view === 'catalog'
+  const backLabel = (view === 'catalog' && mode === 'public')
     ? 'Inicio'
     : mode === 'public' ? 'Volver a la web' : 'Panel';
 

@@ -43,7 +43,8 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
   const { state, actions } = useMarketplaceCart();
 
   // ── Vista interna (home ↔ catalog) ────────────────────────────────────────
-  const [view, setView] = useState<'home' | 'catalog'>('home');
+  // Instalador: entra directamente al catálogo. Público: empieza en home.
+  const [view, setView] = useState<'home' | 'catalog'>(mode === 'professional' ? 'catalog' : 'home');
 
   // ── Filtros ────────────────────────────────────────────────────────────────
   const [query,     setQuery]     = useState('');
