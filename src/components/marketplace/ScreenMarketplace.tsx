@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { CheckCircle2, AlertTriangle, Info } from 'lucide-react';
 import { ActivePage } from '../../types';
+import { useSession } from '../../context/SessionContext';
 import { useMarketplaceCart } from '../../hooks/useMarketplaceCart';
 import {
   getMarketplaceCatalog,
@@ -9,7 +10,7 @@ import {
 import type { MarketplaceCatalogItem, CatalogPage } from '../../lib/api/marketplace-catalog';
 import type { LocalCartItem } from '../../lib/marketplace/cart-storage';
 
-import MarketplaceHome             from './MarketplaceHome';
+import MarketplaceBanner           from './MarketplaceBanner';
 import MarketplaceHeader           from './MarketplaceHeader';
 import MarketplaceFilters          from './MarketplaceFilters';
 import type { SortBy }             from './MarketplaceFilters';
@@ -40,10 +41,8 @@ interface Props {
 }
 
 export default function ScreenMarketplace({ setCurrentPage, mode = 'professional' }: Props) {
+  const { org }    = useSession();
   const { state, actions } = useMarketplaceCart();
-
-  // ── Vista: todos ven primero la home con publicidad ────────────────────────
-  const [view, setView] = useState<'home' | 'catalog'>('home');
 
   // ── Filtros RPC ────────────────────────────────────────────────────────────
   const [query,     setQuery]     = useState('');
@@ -60,7 +59,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
 
   // ── Datos ──────────────────────────────────────────────────────────────────
   const [catalog, setCatalog] = useState<CatalogPage | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error,   setError]   = useState<string | null>(null);
 
   // ── UI ─────────────────────────────────────────────────────────────────────
@@ -74,15 +73,8 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
     getMarketplaceFamilias().then(setFamilias).catch(() => {});
   }, []);
 
-  // ── Navegar al catálogo con oficio opcional ────────────────────────────────
-  const goToCatalog = useCallback((newOficio?: string | null) => {
-    if (newOficio !== undefined) setOficio(newOficio);
-    setView('catalog');
-  }, []);
-
   // ── Cargar catálogo ────────────────────────────────────────────────────────
   const loadCatalog = useCallback(async () => {
-    if (view !== 'catalog') return;
     setLoading(true);
     setError(null);
     try {
@@ -92,7 +84,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         oficio:    oficio ?? undefined,
         onlyStock,
         sortBy,
-        limit:     96,  // más items para que el filtro cliente-side tenga más muestra
+        limit:     96,
         offset:    0,
       });
       setCatalog(page);
@@ -101,17 +93,16 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
     } finally {
       setLoading(false);
     }
-  }, [view, query, oficio, familia, onlyStock, sortBy]);
+  }, [query, oficio, familia, onlyStock, sortBy]);
 
   useEffect(() => {
-    if (view !== 'catalog') return;
     if (debounceRef.current) clearTimeout(debounceRef.current);
     const delay = query.trim() ? 350 : 0;
     debounceRef.current = setTimeout(loadCatalog, delay);
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
-  }, [loadCatalog, view]);
+  }, [loadCatalog]);
 
-  // ── Filtrado cliente-side: mayoristas + rango de precio ───────────────────
+  // ── Filtrado cliente-side: mayoristas + rango precio ──────────────────────
   const filteredItems = useMemo((): MarketplaceCatalogItem[] => {
     let items = catalog?.items ?? [];
 
@@ -136,6 +127,11 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
 
     return items;
   }, [catalog, selectedActores, minPrice, maxPrice]);
+
+  // ── Banner: seleccionar categoría aplica filtro ────────────────────────────
+  const handleBannerCategory = useCallback((newOficio: string | null) => {
+    setOficio(newOficio);
+  }, []);
 
   // ── Añadir la mejor offering ───────────────────────────────────────────────
   const handleAddBest = useCallback((item: MarketplaceCatalogItem) => {
@@ -176,88 +172,86 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
     showToast(`${item.nombre} añadido al carrito`, 'success');
   }, [actions, showToast]);
 
-  const cartItems  = state.items;
-  const cartCount  = cartItems.length;
-  const totalCount = filteredItems.length;
+  const cartItems = state.items;
+  const cartCount = cartItems.length;
 
   const handleGuestCheckout = mode === 'public' ? () => {
     sessionStorage.setItem('mk_return', '1');
     setCurrentPage(ActivePage.Login);
   } : undefined;
 
-  const handleQueryChange = (q: string) => {
-    setQuery(q);
-    if (q.trim() && view === 'home') setView('catalog');
-  };
-
   return (
     <div className="h-screen bg-gray-50 flex flex-col overflow-hidden">
-      {/* Header sticky */}
+      {/* Header */}
       <MarketplaceHeader
         mode={mode}
-        view={view}
         setCurrentPage={setCurrentPage}
-        onGoToHome={() => setView('home')}
         cartCount={cartCount}
         onOpenCart={() => setMobileCartOpen(true)}
         query={query}
-        onQueryChange={handleQueryChange}
-        onSearch={() => setView('catalog')}
+        onQueryChange={setQuery}
+        orgName={org?.nombre}
       />
 
-      {view === 'home' ? (
-        /* ── Home — todos ven la publicidad al entrar ── */
-        <main className="flex-1 overflow-y-auto">
-          <MarketplaceHome onGoToCatalog={goToCatalog} />
-        </main>
-      ) : (
-        /* ── Catálogo — layout 3 columnas ── */
-        <div className="flex flex-1 min-h-0 overflow-hidden">
-          <MarketplaceFilters
-            familias={familias}
-            familia={familia}
-            onFamilia={setFamilia}
-            oficio={oficio}
-            onOficio={setOficio}
-            selectedActores={selectedActores}
-            onActores={setSelectedActores}
-            onlyStock={onlyStock}
-            onOnlyStock={setOnlyStock}
-            sortBy={sortBy}
-            onSortBy={setSortBy}
-            minPrice={minPrice}
-            maxPrice={maxPrice}
-            onMinPrice={setMinPrice}
-            onMaxPrice={setMaxPrice}
-            totalResults={totalCount}
-            loading={loading}
-          />
+      {/* Layout 3 columnas */}
+      <div className="flex flex-1 min-h-0 overflow-hidden">
+        {/* Filtros (izquierda) */}
+        <MarketplaceFilters
+          familias={familias}
+          familia={familia}
+          onFamilia={setFamilia}
+          oficio={oficio}
+          onOficio={setOficio}
+          selectedActores={selectedActores}
+          onActores={setSelectedActores}
+          onlyStock={onlyStock}
+          onOnlyStock={setOnlyStock}
+          sortBy={sortBy}
+          onSortBy={setSortBy}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
+          onMinPrice={setMinPrice}
+          onMaxPrice={setMaxPrice}
+          totalResults={filteredItems.length}
+          loading={loading}
+        />
 
-          <MarketplaceGrid
-            items={filteredItems}
-            loading={loading}
-            error={error}
-            query={query}
-            onClearQuery={() => setQuery('')}
-            onAddBest={handleAddBest}
-            onViewOptions={setSlideOverItem}
-          />
+        {/* Centro: banner + productos (scrollable) */}
+        <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
+          {/* Banner publicitario — siempre visible al entrar */}
+          <MarketplaceBanner onCategory={handleBannerCategory} />
 
-          <CartSidebarDesktop
-            items={cartItems}
-            onUpdateQty={actions.updateQuantity}
-            onRemove={actions.removeItem}
-            onCheckout={handleGuestCheckout}
-          />
+          {/* Grid de productos — scrollable */}
+          <div className="flex-1 overflow-y-auto">
+            <MarketplaceGrid
+              items={filteredItems}
+              loading={loading}
+              error={error}
+              query={query}
+              onClearQuery={() => setQuery('')}
+              onAddBest={handleAddBest}
+              onViewOptions={setSlideOverItem}
+            />
+          </div>
         </div>
-      )}
 
+        {/* Carrito (derecha) */}
+        <CartSidebarDesktop
+          items={cartItems}
+          onUpdateQty={actions.updateQuantity}
+          onRemove={actions.removeItem}
+          onCheckout={handleGuestCheckout}
+        />
+      </div>
+
+      {/* SlideOver opciones */}
       <MarketplaceProductSlideOver
         item={slideOverItem}
         onClose={() => setSlideOverItem(null)}
         onAdd={handleAddFromSlideOver}
       />
 
+      {/* Carrito drawer móvil */}
       <CartSidebar
         items={cartItems}
         isOpen={mobileCartOpen}
