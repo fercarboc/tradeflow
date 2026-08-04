@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { CheckCircle2, AlertTriangle, Info } from 'lucide-react';
 import { ActivePage } from '../../types';
 import { useMarketplaceCart } from '../../hooks/useMarketplaceCart';
@@ -42,17 +42,21 @@ interface Props {
 export default function ScreenMarketplace({ setCurrentPage, mode = 'professional' }: Props) {
   const { state, actions } = useMarketplaceCart();
 
-  // ── Vista interna (home ↔ catalog) ────────────────────────────────────────
-  // Instalador: entra directamente al catálogo. Público: empieza en home.
-  const [view, setView] = useState<'home' | 'catalog'>(mode === 'professional' ? 'catalog' : 'home');
+  // ── Vista: todos ven primero la home con publicidad ────────────────────────
+  const [view, setView] = useState<'home' | 'catalog'>('home');
 
-  // ── Filtros ────────────────────────────────────────────────────────────────
+  // ── Filtros RPC ────────────────────────────────────────────────────────────
   const [query,     setQuery]     = useState('');
   const [oficio,    setOficio]    = useState<string | null>(null);
   const [familia,   setFamilia]   = useState<string | null>(null);
   const [onlyStock, setOnlyStock] = useState(false);
   const [sortBy,    setSortBy]    = useState<SortBy>('nombre');
   const [familias,  setFamilias]  = useState<string[]>([]);
+
+  // ── Filtros cliente-side ───────────────────────────────────────────────────
+  const [selectedActores, setSelectedActores] = useState<string[]>([]);
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
 
   // ── Datos ──────────────────────────────────────────────────────────────────
   const [catalog, setCatalog] = useState<CatalogPage | null>(null);
@@ -76,7 +80,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
     setView('catalog');
   }, []);
 
-  // ── Cargar catálogo (sólo cuando estamos en vista catalog) ─────────────────
+  // ── Cargar catálogo ────────────────────────────────────────────────────────
   const loadCatalog = useCallback(async () => {
     if (view !== 'catalog') return;
     setLoading(true);
@@ -88,7 +92,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         oficio:    oficio ?? undefined,
         onlyStock,
         sortBy,
-        limit:     48,
+        limit:     96,  // más items para que el filtro cliente-side tenga más muestra
         offset:    0,
       });
       setCatalog(page);
@@ -107,7 +111,33 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
   }, [loadCatalog, view]);
 
-  // ── Añadir la mejor offering de una tarjeta ────────────────────────────────
+  // ── Filtrado cliente-side: mayoristas + rango de precio ───────────────────
+  const filteredItems = useMemo((): MarketplaceCatalogItem[] => {
+    let items = catalog?.items ?? [];
+
+    if (selectedActores.length > 0) {
+      items = items.filter(it =>
+        it.actor_nombres.some(n =>
+          selectedActores.some(a => n.toLowerCase().includes(a.toLowerCase())),
+        ),
+      );
+    }
+
+    const mn = minPrice !== '' ? parseFloat(minPrice) : null;
+    const mx = maxPrice !== '' ? parseFloat(maxPrice) : null;
+    if (mn !== null || mx !== null) {
+      items = items.filter(it => {
+        const p = it.precio_min ?? 0;
+        if (mn !== null && p < mn) return false;
+        if (mx !== null && p > mx) return false;
+        return true;
+      });
+    }
+
+    return items;
+  }, [catalog, selectedActores, minPrice, maxPrice]);
+
+  // ── Añadir la mejor offering ───────────────────────────────────────────────
   const handleAddBest = useCallback((item: MarketplaceCatalogItem) => {
     if (!item.best_offering_id || !item.best_actor_id) {
       showToast('No hay offering disponible para añadir', 'error');
@@ -133,15 +163,14 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
     };
 
     actions.addItem(cartItem);
-
-    if (!item.best_stock) {
-      showToast(`${item.nombre_canonico} añadido (sin stock confirmado)`, 'info');
-    } else {
-      showToast(`${item.nombre_canonico} añadido al carrito`, 'success');
-    }
+    showToast(
+      item.best_stock
+        ? `${item.nombre_canonico} añadido al carrito`
+        : `${item.nombre_canonico} añadido (sin stock confirmado)`,
+      item.best_stock ? 'success' : 'info',
+    );
   }, [actions, showToast]);
 
-  // ── Añadir desde el SlideOver ──────────────────────────────────────────────
   const handleAddFromSlideOver = useCallback((item: Omit<LocalCartItem, 'cartItemId'>) => {
     actions.addItem(item);
     showToast(`${item.nombre} añadido al carrito`, 'success');
@@ -149,14 +178,13 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
 
   const cartItems  = state.items;
   const cartCount  = cartItems.length;
-  const totalCount = catalog?.total ?? 0;
+  const totalCount = filteredItems.length;
 
   const handleGuestCheckout = mode === 'public' ? () => {
     sessionStorage.setItem('mk_return', '1');
     setCurrentPage(ActivePage.Login);
   } : undefined;
 
-  // ── Cambio de query: auto-navega a catálogo ────────────────────────────────
   const handleQueryChange = (q: string) => {
     setQuery(q);
     if (q.trim() && view === 'home') setView('catalog');
@@ -178,31 +206,35 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
       />
 
       {view === 'home' ? (
-        /* ── Home ── */
+        /* ── Home — todos ven la publicidad al entrar ── */
         <main className="flex-1 overflow-y-auto">
           <MarketplaceHome onGoToCatalog={goToCatalog} />
         </main>
       ) : (
-        /* ── Catalog ── */
+        /* ── Catálogo — layout 3 columnas ── */
         <div className="flex flex-1 min-h-0 overflow-hidden">
-          {/* Filtros */}
           <MarketplaceFilters
             familias={familias}
             familia={familia}
-            onFamilia={f => { setFamilia(f); }}
+            onFamilia={setFamilia}
             oficio={oficio}
-            onOficio={o => { setOficio(o); }}
+            onOficio={setOficio}
+            selectedActores={selectedActores}
+            onActores={setSelectedActores}
             onlyStock={onlyStock}
             onOnlyStock={setOnlyStock}
             sortBy={sortBy}
             onSortBy={setSortBy}
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+            onMinPrice={setMinPrice}
+            onMaxPrice={setMaxPrice}
             totalResults={totalCount}
             loading={loading}
           />
 
-          {/* Grid */}
           <MarketplaceGrid
-            items={catalog?.items ?? []}
+            items={filteredItems}
             loading={loading}
             error={error}
             query={query}
@@ -211,7 +243,6 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
             onViewOptions={setSlideOverItem}
           />
 
-          {/* Carrito desktop */}
           <CartSidebarDesktop
             items={cartItems}
             onUpdateQty={actions.updateQuantity}
@@ -221,14 +252,12 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         </div>
       )}
 
-      {/* SlideOver de opciones */}
       <MarketplaceProductSlideOver
         item={slideOverItem}
         onClose={() => setSlideOverItem(null)}
         onAdd={handleAddFromSlideOver}
       />
 
-      {/* Carrito drawer móvil */}
       <CartSidebar
         items={cartItems}
         isOpen={mobileCartOpen}
@@ -241,19 +270,19 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
       {/* Toast */}
       {toast && (
         <div
-          className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-3 rounded-2xl shadow-xl text-sm font-medium transition-all ${
+          className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2.5 rounded-xl shadow-lg text-xs font-medium transition-all ${
             toast.type === 'success'
-              ? 'bg-white text-emerald-700 border border-emerald-200 shadow-emerald-100'
+              ? 'bg-white text-emerald-700 border border-emerald-200'
               : toast.type === 'error'
-              ? 'bg-white text-red-600 border border-red-200 shadow-red-100'
+              ? 'bg-white text-red-600 border border-red-200'
               : 'bg-white text-gray-700 border border-gray-200'
           }`}
           role="status"
           aria-live="polite"
         >
-          {toast.type === 'success' && <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-500" />}
-          {toast.type === 'error'   && <AlertTriangle className="w-4 h-4 shrink-0 text-red-500" />}
-          {toast.type === 'info'    && <Info className="w-4 h-4 shrink-0 text-blue-500" />}
+          {toast.type === 'success' && <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-emerald-500" />}
+          {toast.type === 'error'   && <AlertTriangle className="w-3.5 h-3.5 shrink-0 text-red-500" />}
+          {toast.type === 'info'    && <Info className="w-3.5 h-3.5 shrink-0 text-blue-500" />}
           {toast.message}
         </div>
       )}
