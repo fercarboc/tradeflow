@@ -281,6 +281,126 @@ export async function getCartOrderStatus(cartId: string): Promise<CartOrderStatu
   return (data ?? []) as CartOrderStatus[];
 }
 
+// ─── RC1-C.3 — Checkout Multiproveedor ────────────────────────────────────────
+
+export type DeliveryMethod = 'entrega_obra' | 'entrega_almacen' | 'recogida_proveedor' | 'por_coordinar';
+export type PaymentMethod  = 'cuenta_proveedor' | 'transferencia' | 'pago_recoger' | 'online' | 'domiciliacion';
+
+export const DELIVERY_METHOD_LABELS: Record<DeliveryMethod, string> = {
+  entrega_obra:       'Entrega en obra',
+  entrega_almacen:    'Entrega en almacén/oficina',
+  recogida_proveedor: 'Recogida en tienda/almacén',
+  por_coordinar:      'Pendiente de coordinar',
+};
+
+export const PAYMENT_METHOD_LABELS: Record<PaymentMethod, string> = {
+  cuenta_proveedor: 'Cuenta con proveedor',
+  transferencia:    'Transferencia bancaria',
+  pago_recoger:     'Pago al recoger',
+  online:           'Pago online',
+  domiciliacion:    'Domiciliación/crédito',
+};
+
+export interface DeliveryAddress {
+  calle:           string;
+  cp:              string;
+  ciudad:          string;
+  provincia?:      string;
+  pais?:           string;
+  nombre_contacto: string;
+  telefono_contacto: string;
+  franja_horaria?: string;
+  instrucciones?:  string;
+}
+
+export interface PickupPoint {
+  id:        string;
+  nombre:    string;
+  direccion: DeliveryAddress;
+  telefono:  string | null;
+  orden:     number;
+}
+
+export interface SupplierCheckoutConfig {
+  actor_id:                string;
+  actor_nombre:            string;
+  actor_verificado:        boolean;
+  permite_entrega:         boolean;
+  permite_recogida:        boolean;
+  permite_coordinar:       boolean;
+  payment_methods_allowed: PaymentMethod[];
+  portes_gratis_desde:     number | null;
+  coste_portes:            number | null;
+  plazo_entrega_dias:      number;
+  plazo_confirmacion_h:    number;
+  mensaje_instaladores:    string | null;
+  pickup_points:           PickupPoint[];
+}
+
+export interface DeliveryOptionPerProvider {
+  delivery_method:   DeliveryMethod;
+  delivery_address?: DeliveryAddress;
+  pickup_point_id?:  string | null;
+  payment_method:    PaymentMethod;
+  notas?:            string;
+}
+
+export interface BuyerSnapshot {
+  nombre:   string;
+  empresa:  string;
+  nif:      string;
+  email:    string;
+  telefono: string;
+}
+
+export interface OrderByIdRow {
+  order_id:         string;
+  numero:           string;
+  actor_nombre:     string;
+  actor_verificado: boolean;
+  estado:           string;
+  total:            number;
+  items_count:      number;
+  delivery_method:  DeliveryMethod | null;
+  delivery_address: DeliveryAddress | null;
+  pickup_point_id:  string | null;
+  payment_method:   PaymentMethod | null;
+  created_at:       string;
+  confirmed_at:     string | null;
+  shipped_at:       string | null;
+  completed_at:     string | null;
+}
+
+export async function getSupplierCheckoutConfigs(actorIds: string[]): Promise<SupplierCheckoutConfig[]> {
+  const { data, error } = await (supabase as any).rpc('get_supplier_checkout_config', {
+    p_actor_ids: actorIds,
+  });
+  if (error) rpcError('getSupplierCheckoutConfigs', error);
+  return (data ?? []) as SupplierCheckoutConfig[];
+}
+
+export async function checkoutCartV2(params: {
+  cartId:        string;
+  deliveryData:  Record<string, DeliveryOptionPerProvider>;
+  buyerSnapshot: BuyerSnapshot;
+  checkoutKey:   string;
+}): Promise<string[]> {
+  const { data, error } = await (supabase as any).rpc('checkout_cart_v2', {
+    p_cart_id:        params.cartId,
+    p_delivery_data:  params.deliveryData,
+    p_buyer_snapshot: params.buyerSnapshot,
+    p_checkout_key:   params.checkoutKey,
+  });
+  if (error) rpcError('checkoutCartV2', error);
+  return (data ?? []) as string[];
+}
+
+export async function getOrdersByIds(orderIds: string[]): Promise<OrderByIdRow[]> {
+  const { data, error } = await (supabase as any).rpc('get_orders_by_ids', { p_order_ids: orderIds });
+  if (error) rpcError('getOrdersByIds', error);
+  return (data ?? []) as OrderByIdRow[];
+}
+
 export async function listOrgCarts(params: {
   orgId: string;
   estado?: CartEstado;
@@ -295,4 +415,121 @@ export async function listOrgCarts(params: {
   });
   if (error) rpcError('listOrgCarts', error);
   return (data ?? []) as OrgCartRow[];
+}
+
+// ─── RC1-C.3A — Sprint Guest-1: Tipos para checkout de invitados ──────────────
+// Feature flag: VITE_GUEST_CHECKOUT_ENABLED — activar en Sprint Guest-2
+// Edge Function checkout-guest y token management también en Sprint Guest-2.
+
+export type PrecioTipo =
+  | 'pvd'
+  | 'pvp'
+  | 'promo_publica'
+  | 'promo_profesional'
+  | 'condicion_particular';
+
+export type BuyerMode = 'public' | 'professional';
+
+export interface EffectivePriceResult {
+  precio_neto:        number;
+  precio_con_iva:     number;
+  tax_rate:           number;
+  currency:           string;
+  precio_tipo:        PrecioTipo;
+  regla_aplicada:     string;
+  promotion_id:       string | null;
+  condition_id:       string | null;
+  condition_price_id: string | null;
+  resolution_version: number;
+  valid_until:        string | null;
+}
+
+export interface OfferingPromo {
+  id:              string;
+  offering_id:     string;
+  audience:        'public' | 'professional' | 'both';
+  precio_promo_neto: number;
+  descuento_pct:   number | null;
+  etiqueta:        string | null;
+  valid_from:      string;
+  valid_until:     string;
+  activa:          boolean;
+}
+
+export interface GuestBuyer {
+  email:    string;
+  nombre:   string;
+  empresa?: string;
+  telefono?: string;
+  nif?:     string;
+}
+
+export interface GuestCartItem {
+  offering_id:     string;
+  cantidad:        number;
+  precio_neto:     number;
+  precio_con_iva:  number;
+  tax_rate:        number;
+  currency:        string;
+  precio_tipo:     PrecioTipo;
+  promotion_id:    string | null;
+}
+
+export interface GuestDeliveryOption {
+  actor_id:        string;
+  delivery_method: DeliveryMethod;
+  delivery_address?: DeliveryAddress;
+  pickup_point_id?: string | null;
+  notas?:          string;
+}
+
+// Sprint Guest-2: payload para Edge Function checkout-guest
+export interface GuestCheckoutPayload {
+  buyer:         GuestBuyer;
+  items:         GuestCartItem[];
+  delivery:      GuestDeliveryOption[];
+  checkout_key:  string;
+  turnstile_token: string;
+}
+
+// Sprint Guest-2: respuesta de Edge Function checkout-guest
+export interface GuestCheckoutResult {
+  guest_customer_id: string;
+  order_ids:         string[];
+  session_token:     string;
+  token_prefix:      string;
+  expires_at:        string;
+}
+
+// Sprint Guest-2: resultado de seguimiento de pedido invitado
+export interface GuestOrderTrackingResult {
+  order_id:        string;
+  numero:          string;
+  actor_nombre:    string;
+  estado:          string;
+  total:           number;
+  items_count:     number;
+  created_at:      string;
+  confirmed_at:    string | null;
+  shipped_at:      string | null;
+  completed_at:    string | null;
+}
+
+// Sprint Guest-2: función para resolver precio efectivo vía RPC
+export async function resolveEffectivePrice(params: {
+  offeringId: string;
+  buyerMode:  BuyerMode;
+  orgId?:     string;
+  quantity?:  number;
+}): Promise<EffectivePriceResult> {
+  const { data, error } = await (supabase as any).rpc('resolve_effective_offering_price', {
+    p_offering_id: params.offeringId,
+    p_buyer_mode:  params.buyerMode,
+    p_org_id:      params.orgId ?? null,
+    p_quantity:    params.quantity ?? 1,
+  });
+  if (error) rpcError('resolveEffectivePrice', error);
+  const rows = data as EffectivePriceResult[];
+  if (!rows || rows.length === 0) throw new Error('[resolveEffectivePrice] Sin resultado');
+  return rows[0];
 }
