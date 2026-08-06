@@ -78,43 +78,102 @@ function StrategyBar({ strategy, loading, disabled, result, onStrategyChange, on
   );
 }
 
-// ─── Indicador de calidad (reemplaza "score X pts") ───────────────────────────
+// ─── Indicador de calidad derivado de los datos de la alternativa ─────────────
 
-function QualityLabel({ score }: { score: number }) {
-  if (score >= 75) {
-    return (
-      <span className="flex items-center gap-1 text-[10px] text-emerald-600 font-medium">
-        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
-        Recomendado
-      </span>
-    );
+function deriveRankingLabel(
+  alt: ProviderAlternative,
+  idx: number,
+  all: ProviderAlternative[],
+): { label: string; colorClass: string } {
+  if (!alt.stock_ok) {
+    return { label: 'Sin stock', colorClass: 'text-amber-600' };
   }
-  if (score >= 50) {
-    return (
-      <span className="flex items-center gap-1 text-[10px] text-amber-600 font-medium">
-        <span className="h-1.5 w-1.5 rounded-full bg-amber-400" aria-hidden="true" />
-        Bueno
-      </span>
-    );
+  if (idx === 0) {
+    // Primera posición: explicar por qué
+    if (all.some(a => !a.stock_ok)) {
+      return { label: 'Stock confirmado', colorClass: 'text-emerald-600' };
+    }
+    if (alt.precio_coste != null && all.some(a => a.precio_coste != null && a.precio_coste > alt.precio_coste!)) {
+      return { label: 'Mejor precio', colorClass: 'text-[#1A5A96]' };
+    }
+    if (all.some(a => a.delivery_days > alt.delivery_days)) {
+      return { label: 'Entrega más rápida', colorClass: 'text-amber-600' };
+    }
+    return { label: 'Recomendado', colorClass: 'text-emerald-600' };
   }
+  // Otras posiciones: indicador contextual
+  if (alt.delivery_days === Math.min(...all.map(a => a.delivery_days)) && all.some(a => a.delivery_days > alt.delivery_days)) {
+    return { label: 'Más rápido', colorClass: 'text-amber-600' };
+  }
+  return { label: '', colorClass: '' };
+}
+
+function QualityLabel({ alt, idx, all }: { alt: ProviderAlternative; idx: number; all: ProviderAlternative[] }) {
+  const { label, colorClass } = deriveRankingLabel(alt, idx, all);
+  if (!label) return null;
   return (
-    <span className="flex items-center gap-1 text-[10px] text-slate-400">
-      <span className="h-1.5 w-1.5 rounded-full bg-slate-300" aria-hidden="true" />
-      Disponible
+    <span className={`flex items-center gap-1 text-[10px] font-medium ${colorClass}`}>
+      <span className="h-1.5 w-1.5 rounded-full bg-current" aria-hidden="true" />
+      {label}
     </span>
+  );
+}
+
+// ─── Confirm de sustitución de proveedor ──────────────────────────────────────
+
+interface ConfirmSubstProps {
+  currentName: string;
+  newName:     string;
+  onConfirm:   () => void;
+  onCancel:    () => void;
+}
+
+function ConfirmSubstModal({ currentName, newName, onConfirm, onCancel }: ConfirmSubstProps) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/40" onClick={onCancel} aria-hidden />
+      <div className="relative bg-white dark:bg-slate-900 rounded-2xl shadow-xl w-full max-w-sm p-5 space-y-4 border border-slate-200 dark:border-slate-700">
+        <div>
+          <h3 className="font-bold text-slate-900 dark:text-slate-100 text-sm">Cambiar proveedor</h3>
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Se sustituirá{' '}
+            <span className="font-semibold text-slate-900 dark:text-slate-100">{currentName}</span>{' '}
+            por{' '}
+            <span className="font-semibold text-teal-600">{newName}</span>.{' '}
+            La cantidad se conserva.
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={onConfirm}
+            className="flex-1 rounded-xl bg-teal-600 px-4 py-2.5 text-sm font-bold text-white hover:bg-teal-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
+          >
+            Confirmar
+          </button>
+          <button
+            onClick={onCancel}
+            className="flex-1 rounded-xl bg-slate-100 dark:bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 
 // ─── Fila de alternativa de proveedor ─────────────────────────────────────────
 
 interface AlternativeRowProps {
-  alt: ProviderAlternative;
+  alt:      ProviderAlternative;
+  allAlts:  ProviderAlternative[];
+  idx:      number;
   selected: boolean;
   selecting: boolean;
   onSelect: () => void;
 }
 
-function AlternativeRow({ alt, selected, selecting, onSelect }: AlternativeRowProps) {
+function AlternativeRow({ alt, allAlts, idx, selected, selecting, onSelect }: AlternativeRowProps) {
   return (
     <button
       onClick={selecting ? undefined : onSelect}
@@ -135,9 +194,8 @@ function AlternativeRow({ alt, selected, selecting, onSelect }: AlternativeRowPr
             </svg>
           )}
         </div>
-        <div className="flex items-center gap-2">
-          <QualityLabel score={alt.score} />
-          <span className="text-[10px] text-slate-300 dark:text-slate-600">·</span>
+        <div className="flex items-center gap-2 flex-wrap">
+          <QualityLabel alt={alt} idx={idx} all={allAlts} />
           <span className={`text-[10px] ${alt.stock_ok ? 'text-emerald-600' : 'text-slate-400'}`}>
             {alt.stock_ok ? 'En stock' : 'Sin stock'}
           </span>
@@ -169,23 +227,24 @@ function AlternativeRow({ alt, selected, selecting, onSelect }: AlternativeRowPr
 // ─── Línea de material ────────────────────────────────────────────────────────
 
 interface MaterialLineProps {
-  item: CartItem;
-  expanded: boolean;
-  toggling: boolean;
-  selecting: boolean;
-  editing: boolean;
-  editQty: string;
-  onToggle: () => void;
+  item:          CartItem;
+  isFromQuote:   boolean;
+  expanded:      boolean;
+  toggling:      boolean;
+  selecting:     boolean;
+  editing:       boolean;
+  editQty:       string;
+  onToggle:      () => void;
   onToggleExpand: () => void;
-  onEditStart: () => void;
-  onEditChange: (v: string) => void;
-  onEditSave: () => void;
-  onEditCancel: () => void;
-  onSelectAlt: (alt: ProviderAlternative) => void;
+  onEditStart:   () => void;
+  onEditChange:  (v: string) => void;
+  onEditSave:    () => void;
+  onEditCancel:  () => void;
+  onSelectAlt:   (alt: ProviderAlternative) => void;
 }
 
 function MaterialLine({
-  item, expanded, toggling, selecting, editing, editQty,
+  item, isFromQuote, expanded, toggling, selecting, editing, editQty,
   onToggle, onToggleExpand, onEditStart, onEditChange, onEditSave, onEditCancel, onSelectAlt,
 }: MaterialLineProps) {
   const hasAlts    = item.provider_alternatives.length > 0;
@@ -235,10 +294,15 @@ function MaterialLine({
 
         {/* Descripción + proveedor */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-start gap-2">
-            <p className="text-sm font-medium text-slate-800 dark:text-slate-200 leading-snug flex-1">
+          <div className="flex items-start gap-2 flex-wrap">
+            <p className="text-sm font-medium text-slate-800 dark:text-slate-200 leading-snug flex-1 min-w-0">
               {item.descripcion_original}
             </p>
+            {isFromQuote && item.source_item_type === 'quote_item' && (
+              <span className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-[#1A5A96]/10 text-[#1A5A96] border border-[#1A5A96]/20">
+                Del presupuesto
+              </span>
+            )}
             {item.ia_añadido && item.ia_tipo && (
               <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium ${AI_TIPO_COLORS[item.ia_tipo]}`}>
                 {AI_TIPO_LABELS[item.ia_tipo]}
@@ -324,10 +388,12 @@ function MaterialLine({
           role="listbox"
           aria-label="Proveedores disponibles"
         >
-          {item.provider_alternatives.map((alt) => (
+          {item.provider_alternatives.map((alt, idx) => (
             <AlternativeRow
               key={alt.offering_id}
               alt={alt}
+              allAlts={item.provider_alternatives}
+              idx={idx}
               selected={item.selected_offering_id === alt.offering_id}
               selecting={selecting}
               onSelect={() => onSelectAlt(alt)}
@@ -423,7 +489,13 @@ export default function StepRevisar({ cart, onCartChanged, onNext }: Props) {
   const [editQty,      setEditQty]      = useState('');
   const [summary,      setSummary]      = useState<CartProviderSummary[]>([]);
   const [proceeding,   setProceeding]   = useState(false);
+  // Confirmación antes de sustituir proveedor (Fase 6 RC1-C.2)
+  const [confirmSubst, setConfirmSubst] = useState<{
+    item: CartItem; alt: ProviderAlternative; currentName: string;
+  } | null>(null);
   const didAutoSelect = useRef(false);
+
+  const isFromQuote = cart.cart.source_type === 'quote';
 
   const activeItems  = cart.items.filter((i) => i.activo);
   const withProvider = activeItems.filter((i) => i.selected_offering_id !== null);
@@ -513,6 +585,18 @@ export default function StepRevisar({ cart, onCartChanged, onNext }: Props) {
     }
   };
 
+  // Solicitar confirmación antes de sustituir si el ítem ya tiene proveedor asignado
+  const requestSelectOffering = (item: CartItem, alt: ProviderAlternative) => {
+    if (
+      item.selected_actor_nombre &&
+      item.selected_offering_id !== alt.offering_id
+    ) {
+      setConfirmSubst({ item, alt, currentName: item.selected_actor_nombre });
+    } else {
+      void selectOffering(item, alt);
+    }
+  };
+
   const acceptSuggestion = async (idx: number, sug: AIAnalysisSuggestion) => {
     if (sug.accion !== 'add_item') {
       setDismissed((prev) => new Set([...prev, idx]));
@@ -580,6 +664,7 @@ export default function StepRevisar({ cart, onCartChanged, onNext }: Props) {
               <div key={item.id} role="listitem">
                 <MaterialLine
                   item={item}
+                  isFromQuote={isFromQuote}
                   expanded={expandedId === item.id}
                   toggling={togglingId === item.id}
                   selecting={selectingId === item.id}
@@ -591,7 +676,7 @@ export default function StepRevisar({ cart, onCartChanged, onNext }: Props) {
                   onEditChange={setEditQty}
                   onEditSave={() => saveQty(item)}
                   onEditCancel={() => setEditingId(null)}
-                  onSelectAlt={(alt) => selectOffering(item, alt)}
+                  onSelectAlt={(alt) => requestSelectOffering(item, alt)}
                 />
               </div>
             ))}
@@ -681,6 +766,20 @@ export default function StepRevisar({ cart, onCartChanged, onNext }: Props) {
           </button>
         </div>
       </div>
+
+      {/* Modal confirm sustitución de proveedor */}
+      {confirmSubst && (
+        <ConfirmSubstModal
+          currentName={confirmSubst.currentName}
+          newName={confirmSubst.alt.actor_nombre}
+          onConfirm={async () => {
+            const { item, alt } = confirmSubst;
+            setConfirmSubst(null);
+            await selectOffering(item, alt);
+          }}
+          onCancel={() => setConfirmSubst(null)}
+        />
+      )}
     </div>
   );
 }

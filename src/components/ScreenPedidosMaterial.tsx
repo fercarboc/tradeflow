@@ -1,3 +1,4 @@
+// @deprecated RC1-C.1.a — sustituido por ScreenSeguimientoMaterial. Pendiente de eliminar.
 import React, { useEffect, useState, useCallback } from 'react';
 import {
   ShoppingCart, Plus, Trash2, Send, ChevronDown, ChevronUp,

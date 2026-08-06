@@ -80,6 +80,7 @@ import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '.
 import { supabase, loadDashboard, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote, getOrgActiveOrders } from '../lib/supabase';
 import type { TradeSubcontractor, TradeSubcontrata, ActiveSupplierCatalog } from '../lib/supabase';
 import { printTradeInvoice } from '../lib/printTradeInvoice';
+import { savePurchaseContext } from '../lib/marketplace/purchase-context';
 import { geocodeAddress } from '../lib/geocoder';
 import type { GeoLocation } from '../lib/routeOptimizer';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription, TemplateType } from '../lib/supabase';
@@ -115,7 +116,7 @@ import PlanUpgradeModal from './PlanUpgradeModal';
 import OnboardingWizard from './OnboardingWizard';
 import ChatbotWidget from './ChatbotWidget';
 import ScreenProveedoresCliente from './ScreenProveedoresCliente';
-import ScreenPedidosMaterial from './ScreenPedidosMaterial';
+import ScreenSeguimientoMaterial from './marketplace/ScreenSeguimientoMaterial';
 import ScreenPostConfirm from './ScreenPostConfirm';
 import type { TradeOrganization, TradeQuote } from '../lib/supabase';
 
@@ -2037,8 +2038,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   } | null>(null);
   const [savedActuacion, setSavedActuacion] = useState<boolean>(false);
   const [selectedQuoteForPreview, setSelectedQuoteForPreview] = useState<Presupuesto | null>(null);
-  const [pedirMaterialQuote, setPedirMaterialQuote] = useState<TradeQuote | null>(null);
-  const [pedirMaterialLoading, setPedirMaterialLoading] = useState(false);
   const [mktCartLoading, setMktCartLoading] = useState(false);
   const [mktPendingCount, setMktPendingCount] = useState(0);
   const [postConfirmQuote, setPostConfirmQuote] = useState<Presupuesto | null>(null);
@@ -3725,23 +3724,38 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               setMobileTab('trabajos');
               setNewJobTrigger(t => t + 1);
             }}
-            onPedirMaterial={async () => {
-              if (postConfirmQuote.dbId) {
-                const { data } = await supabase
-                  .from('trade_quotes')
-                  .select('*, trade_quote_items(*)')
-                  .eq('id', postConfirmQuote.dbId)
-                  .single();
-                if (data) {
-                  const quote = data as TradeQuote;
-                  const pendientes = (quote.trade_quote_items ?? []).filter(
-                    i => i.tipo === 'material' && !i.material_order_placed,
-                  );
-                  if (pendientes.length > 0) setPedirMaterialQuote(quote);
-                  else showToast('Todo el material de este presupuesto ya fue pedido', 'info');
-                }
-              }
+            onComprarMateriales={async () => {
+              const q = postConfirmQuote;
               setPostConfirmQuote(null);
+              if (!q?.dbId) return;
+              setMktCartLoading(true);
+              try {
+                const cartId = await createCartFromQuote(q.dbId);
+                savePurchaseContext({
+                  source:       'quote',
+                  cartId,
+                  quoteId:      q.dbId ?? null,
+                  quoteRef:     q.id ?? null,
+                  customerName: q.nombreCliente ?? null,
+                  projectName:  q.descripcion ?? null,
+                  orgId:        orgId ?? null,
+                  lineCount:    q.partidas?.filter(
+                    (p: PartidaPresupuesto) => p.tipo === 'material',
+                  ).length,
+                  createdAt: new Date().toISOString(),
+                });
+                sessionStorage.setItem('mkt_cart_id', cartId);
+                setCurrentPage(ActivePage.MarketplaceComprar);
+              } catch (e: unknown) {
+                const msg = e instanceof Error ? e.message : String(e);
+                if (msg.includes('NO_MATERIALS')) {
+                  showToast('Este presupuesto no tiene líneas de material', 'info');
+                } else {
+                  showToast('Error al preparar el carrito', 'error');
+                }
+              } finally {
+                setMktCartLoading(false);
+              }
             }}
             onVerPresupuesto={() => {
               const q = postConfirmQuote;
@@ -3762,19 +3776,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               setWizardActive(true);
             }}
           />
-        )}
-
-        {/* Pedir material overlay (mobile) */}
-        {pedirMaterialQuote && orgId && (
-          <div className="fixed inset-0 z-50 overflow-y-auto bg-white">
-            <ScreenPedidosMaterial
-              orgId={orgId}
-              showToast={showToast}
-              initialQuote={pedirMaterialQuote}
-              onClose={() => setPedirMaterialQuote(null)}
-              orgData={orgData}
-            />
-          </div>
         )}
 
         {/* Mantenimiento Wizard overlay (mobile) */}
@@ -5760,6 +5761,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           <nav className="flex-grow p-4 space-y-1 overflow-y-auto min-h-0 scrollbar-hide">
             {!isTecnico && SidebarBtn({ id: 'dashboard', icon: <TrendingUp className="w-4 h-4" />, label: 'Panel Control' })}
             {can('quotes.create') && SidebarBtn({ id: 'quotes', icon: <FileText className="w-4 h-4" />, label: 'Presupuestos' })}
+            {can('catalog.manage') && (
+              <button
+                data-testid="nav-marketplace"
+                onClick={() => setCurrentPage(ActivePage.Marketplace)}
+                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[11px] font-semibold transition-all cursor-pointer text-slate-400 hover:text-white hover:bg-slate-800/40"
+              >
+                <Store className="w-4 h-4" />
+                <span>Marketplace</span>
+              </button>
+            )}
+            {can('catalog.manage') && orgId && SidebarBtn({ id: 'pedidos_material', icon: <ShoppingCart className="w-4 h-4" />, label: 'Mis pedidos' })}
             {can('clients.manage') && SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes CRM' })}
             {can('invoices.manage') && SidebarBtn({ id: 'invoices', icon: <Receipt className="w-4 h-4" />, label: 'Facturas' })}
             {can('catalog.manage') && SidebarBtn({ id: 'catalog', icon: <Package className="w-4 h-4" />, label: 'Catálogo' })}
@@ -5772,21 +5784,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? ctxPlan) || subscription?.status === 'trial') && SidebarBtn({ id: 'contratos', icon: <FileText className="w-4 h-4" />, label: 'Contratos' })}
             {can('jobs.view') && orgId && SidebarBtn({ id: 'subcontratas', icon: <Layers className="w-4 h-4" />, label: 'Externalizados' })}
             {can('catalog.manage') && orgId && SidebarBtn({ id: 'suppliers', icon: <Truck className="w-4 h-4" />, label: 'Proveedores' })}
-            {can('catalog.manage') && orgId && SidebarBtn({ id: 'pedidos_material', icon: <ShoppingCart className="w-4 h-4" />, label: 'Pedidos Material' })}
-            {can('catalog.manage') && (
-              <button
-                data-testid="nav-marketplace"
-                onClick={() => setCurrentPage(ActivePage.Marketplace)}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[11px] font-semibold transition-all cursor-pointer relative ${
-                  false
-                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/10'
-                    : 'text-slate-455 hover:text-white hover:bg-slate-800/40'
-                }`}
-              >
-                <Store className="w-4 h-4" />
-                <span>Marketplace</span>
-              </button>
-            )}
             {SidebarBtn({ id: 'asistente', icon: <BookOpen className="w-4 h-4" />, label: 'Asistente Técnico' })}
             {can('jobs.view') && SidebarBtn({ id: 'valoraciones', icon: <Star className="w-4 h-4" />, label: 'Valoraciones' })}
             {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
@@ -5878,7 +5875,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
                 {activeTab === 'subcontratas' && 'Trabajos Externalizados'}
                 {activeTab === 'suppliers' && 'Catálogos de Proveedores'}
-                {activeTab === 'pedidos_material' && 'Pedidos de Material'}
+                {activeTab === 'pedidos_material' && 'Pedidos'}
                 {activeTab === 'asistente' && 'Asistente Técnico de Normativa'}
                 {activeTab === 'partes' && 'Partes de Trabajo Firmados'}
                 {activeTab === 'valoraciones' && 'Valoraciones de Clientes'}
@@ -5942,56 +5939,24 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   </button>
                   {isLiveMode && selectedQuoteForPreview.dbId && (
                     <button
-                      disabled={pedirMaterialLoading}
-                      onClick={async () => {
-                        setPedirMaterialLoading(true);
-                        try {
-                          const { data } = await supabase
-                            .from('trade_quotes')
-                            .select('*, trade_quote_items(*)')
-                            .eq('id', selectedQuoteForPreview.dbId)
-                            .single();
-                          if (data) {
-                            const quote = data as TradeQuote;
-                            const pendientes = (quote.trade_quote_items ?? []).filter(
-                              i => i.tipo === 'material' && !i.material_order_placed,
-                            );
-                            if (pendientes.length === 0) {
-                              showToast('Todo el material de este presupuesto ya fue pedido', 'info');
-                            } else {
-                              setPedirMaterialQuote(quote);
-                              setActiveTab('pedidos_material');
-                            }
-                          }
-                        } finally {
-                          setPedirMaterialLoading(false);
-                        }
-                      }}
-                      className="bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl flex items-center gap-1.5 cursor-pointer"
-                    >
-                      <ShoppingCart className={`w-3.5 h-3.5 ${pedirMaterialLoading ? 'animate-spin' : ''}`} />
-                      <span>{pedirMaterialLoading ? 'Cargando...' : 'Pedir material'}</span>
-                    </button>
-                  )}
-                  {isLiveMode && mktPendingCount > 0 && (
-                    <button
-                      onClick={() => setCurrentPage(ActivePage.SeguimientoMaterial)}
-                      className="relative bg-slate-700 hover:bg-slate-600 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl flex items-center gap-1.5 cursor-pointer"
-                    >
-                      <Truck className="w-3.5 h-3.5" />
-                      <span>Mis pedidos</span>
-                      <span className="absolute -top-1.5 -right-1.5 h-4 w-4 rounded-full bg-amber-500 text-[9px] font-black text-white flex items-center justify-center tabular-nums">
-                        {mktPendingCount > 9 ? '9+' : mktPendingCount}
-                      </span>
-                    </button>
-                  )}
-                  {isLiveMode && selectedQuoteForPreview.dbId && (
-                    <button
                       disabled={mktCartLoading}
                       onClick={async () => {
                         setMktCartLoading(true);
                         try {
                           const cartId = await createCartFromQuote(selectedQuoteForPreview.dbId!);
+                          savePurchaseContext({
+                            source:       'quote',
+                            cartId,
+                            quoteId:      selectedQuoteForPreview.dbId ?? null,
+                            quoteRef:     selectedQuoteForPreview.id ?? null,
+                            customerName: selectedQuoteForPreview.nombreCliente ?? null,
+                            projectName:  selectedQuoteForPreview.descripcion ?? null,
+                            orgId:        orgId ?? null,
+                            lineCount:    selectedQuoteForPreview.partidas?.filter(
+                              (p: PartidaPresupuesto) => p.tipo === 'material',
+                            ).length,
+                            createdAt:    new Date().toISOString(),
+                          });
                           sessionStorage.setItem('mkt_cart_id', cartId);
                           setCurrentPage(ActivePage.MarketplaceComprar);
                         } catch (e: unknown) {
@@ -6005,10 +5970,22 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                           setMktCartLoading(false);
                         }
                       }}
-                      className="bg-teal-600 hover:bg-teal-700 disabled:opacity-60 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl flex items-center gap-1.5 cursor-pointer"
+                      className="bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl flex items-center gap-1.5 cursor-pointer"
                     >
-                      <Package className={`w-3.5 h-3.5 ${mktCartLoading ? 'animate-spin' : ''}`} />
-                      <span>{mktCartLoading ? 'Preparando...' : 'Marketplace'}</span>
+                      <ShoppingCart className={`w-3.5 h-3.5 ${mktCartLoading ? 'animate-spin' : ''}`} />
+                      <span>{mktCartLoading ? 'Preparando...' : 'Comprar materiales'}</span>
+                    </button>
+                  )}
+                  {isLiveMode && mktPendingCount > 0 && (
+                    <button
+                      onClick={() => setCurrentPage(ActivePage.SeguimientoMaterial)}
+                      className="relative bg-slate-700 hover:bg-slate-600 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Truck className="w-3.5 h-3.5" />
+                      <span>Seguimiento</span>
+                      <span className="absolute -top-1.5 -right-1.5 h-4 w-4 rounded-full bg-amber-500 text-[9px] font-black text-white flex items-center justify-center tabular-nums">
+                        {mktPendingCount > 9 ? '9+' : mktPendingCount}
+                      </span>
                     </button>
                   )}
                   {selectedQuoteForPreview.estado !== 'Facturado' ? (
@@ -6149,13 +6126,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'suppliers' && orgId && (
                   <ScreenProveedoresCliente orgId={orgId} showToast={showToast} />
                 )}
-                {activeTab === 'pedidos_material' && orgId && (
-                  <ScreenPedidosMaterial
-                    orgId={orgId}
-                    showToast={showToast}
-                    initialQuote={pedirMaterialQuote}
-                    onClose={() => setPedirMaterialQuote(null)}
-                    orgData={orgData}
+                {activeTab === 'pedidos_material' && (
+                  <ScreenSeguimientoMaterial
+                    setCurrentPage={setCurrentPage}
+                    session={session ?? null}
                   />
                 )}
                 {activeTab === 'asistente' && (

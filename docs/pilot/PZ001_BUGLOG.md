@@ -187,7 +187,7 @@
 **Severidad:** ALTA
 **Estado:** RESUELTO
 **Solución:** (1) Estado inicial de `currentPage` ahora usa `pathToPage(window.location.pathname)` como fallback entre `initialAuthRoute` y `Home`/`AppDashboard`. (2) `resolveAndRoute` comprueba `PRESERVED_APP_PAGES` (SeguimientoMaterial, MarketplaceComprar, PortalProveedor, AppDashboard): si el usuario ya está en una de esas páginas, no redirige. Constante definida a nivel de módulo para evitar closure stale.
-**Commit:** (pendiente deploy)
+**Commit:** 415f23b
 
 ---
 

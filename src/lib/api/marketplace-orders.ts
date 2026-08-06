@@ -19,6 +19,8 @@ export interface ActiveOrder {
   tracking_url:     string | null;
   notas_proveedor:  string | null;
   source_ref:       string | null;
+  cliente_nombre:   string | null;
+  obra_nombre:      string | null;
   created_at:       string;
   confirmed_at:     string | null;
   preparing_at:     string | null;
@@ -35,10 +37,12 @@ export interface OrderHistoryRow {
   actor_nombre: string;
   total:        number;
   items_count:  number;
-  source_ref:   string | null;
-  created_at:   string;
-  completed_at: string | null;
-  total_count:  number;
+  source_ref:     string | null;
+  cliente_nombre: string | null;
+  obra_nombre:    string | null;
+  created_at:     string;
+  completed_at:   string | null;
+  total_count:    number;
 }
 
 export interface OrderEvent {

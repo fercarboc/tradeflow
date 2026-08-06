@@ -1,3 +1,4 @@
+// @deprecated RC1-C.1.a — flujo legacy de pedidos de papel eliminado. Pendiente de borrar cuando ScreenPedidosMaterial sea eliminado.
 import { supabase } from '../client';
 
 // ── Pedidos de material a proveedores ─────────────────────────────────────────

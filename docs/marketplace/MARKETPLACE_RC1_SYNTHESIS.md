@@ -211,13 +211,41 @@ RC1 añade sobre lo que ya existe. No reemplaza nada que funcione.
 
 ---
 
-## 10. Estado PRE-RC1 (2026-08-03)
+## 10. Estado PRE-RC1 (2026-08-04)
 
 | Paso | Descripción | Estado |
 |---|---|---|
 | PASO 0 | Limpieza código muerto | ✅ COMPLETO |
 | PASO 1 | Migraciones SQL | ✅ COMPLETO |
 | PASO 2 | Segundo proveedor STN | ✅ COMPLETO (matching pendiente: admin) |
-| PASO 3 | Fixes TypeScript | ⏳ EN EJECUCIÓN |
+| PASO 3 | Fixes TypeScript | ✅ COMPLETO |
 
-**RC1 puede iniciar tras completar PASO 3 y el matching admin de las 12 offerings STN.**
+**RC1 puede iniciar.** Expansión catálogo demo multioficio en paralelo (no bloquea RC1-A ni RC1-B).
+
+---
+
+## 11. Estado Expansión Catálogo Demo Multioficio — PRE_RC1_MULTITRADE_001 (2026-08-04)
+
+| Etapa | Descripción | Estado |
+|---|---|---|
+| Análisis (D1-D10) | 6 documentos de análisis | ✅ COMPLETO |
+| L0 | Snapshot pre-ejecución | ✅ COMPLETO |
+| L1 | 4 catálogos + 4 actores demo | ✅ COMPLETO |
+| L2 | Categoría Revestimientos | ✅ COMPLETO |
+| L3 | 14 UPs draft + 7 variantes | ✅ COMPLETO |
+| Revisión humana | Matriz PRE_RC1_DEMO_UP_REVIEW_MATRIX.md | ⏳ PENDIENTE |
+| L4+ | 23 offerings multiproveedor | ⏳ BLOQUEADO |
+
+**Resultados L0–L3:**
+- 36 UPs totales (22 validated + 14 draft)
+- 27 categorías (+1)
+- 7 actores activos (+4 demo)
+- 22 variantes (+7)
+- 0 offerings creadas (correcto — STOP activo)
+
+**Documentos de resultados:**
+- `docs/marketplace/PRE_RC1_DEMO_L0_SNAPSHOT.md`
+- `docs/marketplace/PRE_RC1_DEMO_L1_IDENTITY_RESULTS.md`
+- `docs/marketplace/PRE_RC1_DEMO_L2_CATEGORIES_RESULTS.md`
+- `docs/marketplace/PRE_RC1_DEMO_L3_UP_RESULTS.md`
+- `docs/marketplace/PRE_RC1_DEMO_UP_REVIEW_MATRIX.md`

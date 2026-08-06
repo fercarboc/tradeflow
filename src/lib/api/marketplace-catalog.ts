@@ -5,6 +5,14 @@ const db = supabase as any;
 
 // ─── Tipos ────────────────────────────────────────────────────────────────────
 
+// Top-3 offerings por UP para la tarjeta multiproveedor (RC1-C.2).
+export interface TopOfferingMini {
+  actor_nombre:    string;
+  precio_coste:    number | null;
+  stock_disponible: boolean;
+  plazo_dias:      number;
+}
+
 // Un producto universal navegable con resumen de sus offerings disponibles.
 // Devuelto por get_marketplace_catalog_paged (RC1-B).
 export interface MarketplaceCatalogItem {
@@ -31,6 +39,7 @@ export interface MarketplaceCatalogItem {
   best_plazo:        number | null;
   best_supplier_ref: string | null;
   best_unidad:       string | null;
+  top_offerings:     TopOfferingMini[] | null;  // RC1-C.2: top 3 para mini-tabla
   total_count:       number;
 }
 
@@ -48,6 +57,7 @@ export interface OfferingDetail {
   stock_cantidad:   number | null;
   plazo_dias:       number;
   image_url:        string | null;
+  ranking_reason:   string | null;  // RC1-C.2: in_stock | best_price | fast_delivery | deterministic_tiebreak
 }
 
 export interface CatalogFilters {

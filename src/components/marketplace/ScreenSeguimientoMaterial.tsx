@@ -95,8 +95,18 @@ function ActiveOrderCard({
               </svg>
             )}
           </p>
-          {order.source_ref && (
-            <p className="text-xs text-slate-400 mt-0.5">Desde: {order.source_ref}</p>
+          {(order.cliente_nombre || order.obra_nombre || order.source_ref) && (
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-0.5">
+              {order.cliente_nombre && (
+                <p className="text-xs text-slate-400">{order.cliente_nombre}</p>
+              )}
+              {order.obra_nombre && (
+                <p className="text-xs text-slate-400 truncate max-w-[200px]">· {order.obra_nombre}</p>
+              )}
+              {order.source_ref && (
+                <p className="text-xs text-slate-300">· {order.source_ref}</p>
+              )}
+            </div>
           )}
         </div>
 
@@ -352,8 +362,18 @@ function HistoryCard({ order }: { order: OrderHistoryRow }) {
           <OrderStatusBadge estado={order.estado} installerView />
         </div>
         <p className="text-sm text-slate-500 mt-0.5 truncate">{order.actor_nombre}</p>
-        {order.source_ref && (
-          <p className="text-xs text-slate-400">{order.source_ref}</p>
+        {(order.cliente_nombre || order.obra_nombre || order.source_ref) && (
+          <div className="flex flex-wrap items-center gap-x-1.5 mt-0.5">
+            {order.cliente_nombre && (
+              <span className="text-xs text-slate-400">{order.cliente_nombre}</span>
+            )}
+            {order.obra_nombre && (
+              <span className="text-xs text-slate-400 truncate max-w-[160px]">· {order.obra_nombre}</span>
+            )}
+            {order.source_ref && (
+              <span className="text-xs text-slate-300">· {order.source_ref}</span>
+            )}
+          </div>
         )}
       </div>
       <div className="text-right shrink-0">

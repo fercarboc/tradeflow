@@ -7,7 +7,7 @@ interface Props {
   onWhatsApp: () => void;
   onCobrar: () => void;
   onCrearTrabajo: () => void;
-  onPedirMaterial: () => void;
+  onComprarMateriales: () => void;
   onVerPresupuesto: () => void;
   onEditar: () => void;
   onClose: () => void;
@@ -23,7 +23,7 @@ interface ActionBtn {
 }
 
 export default function ScreenPostConfirm({
-  quote, onWhatsApp, onCobrar, onCrearTrabajo, onPedirMaterial, onVerPresupuesto, onEditar, onClose,
+  quote, onWhatsApp, onCobrar, onCrearTrabajo, onComprarMateriales, onVerPresupuesto, onEditar, onClose,
 }: Props) {
   const totalConIva = ((quote.total ?? 0) * 1.21).toFixed(2);
 
@@ -54,11 +54,11 @@ export default function ScreenPostConfirm({
     },
     {
       icon: <ShoppingCart className="w-6 h-6" />,
-      label: 'Pedir material',
-      sublabel: 'Solicita materiales al proveedor',
-      onClick: onPedirMaterial,
-      className: 'bg-amber-500 hover:bg-amber-400 text-white',
-      shadow: '0 8px 24px rgba(245,158,11,0.45)',
+      label: 'Comprar materiales',
+      sublabel: 'Busca y compara en el marketplace',
+      onClick: onComprarMateriales,
+      className: 'bg-emerald-600 hover:bg-emerald-500 text-white',
+      shadow: '0 8px 24px rgba(5,150,105,0.45)',
     },
     {
       icon: <Pencil className="w-6 h-6" />,

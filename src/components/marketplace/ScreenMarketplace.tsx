@@ -7,7 +7,7 @@ import {
   getMarketplaceCatalog,
   getMarketplaceFamilias,
 } from '../../lib/api/marketplace-catalog';
-import type { MarketplaceCatalogItem, CatalogPage } from '../../lib/api/marketplace-catalog';
+import type { MarketplaceCatalogItem, CatalogPage, OfferingDetail } from '../../lib/api/marketplace-catalog';
 import type { LocalCartItem } from '../../lib/marketplace/cart-storage';
 
 import MarketplaceBanner           from './MarketplaceBanner';
@@ -172,8 +172,39 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
     showToast(`${item.nombre} añadido al carrito`, 'success');
   }, [actions, showToast]);
 
+  // Sustituir proveedor desde el SlideOver (elimina el anterior, añade el nuevo con misma qty)
+  const handleSubstitute = useCallback((offering: OfferingDetail, qty: number) => {
+    if (!slideOverItem) return;
+    const existing = state.items.find(i => i.universalProductId === slideOverItem.up_id);
+    if (existing) actions.removeItem(existing.cartItemId);
+    actions.addItem({
+      universalProductId: slideOverItem.up_id,
+      offeringId:         offering.offering_id,
+      supplierActorId:    offering.actor_id,
+      supplierName:       offering.actor_nombre,
+      supplierRef:        offering.supplier_ref,
+      nombre:             slideOverItem.nombre_canonico,
+      imagen:             offering.image_url ?? slideOverItem.image_url,
+      cantidad:           qty,
+      unidadTecnica:      slideOverItem.unidad,
+      unidadComercial:    offering.unidad,
+      precioUnitario:     offering.precio_coste ?? 0,
+      stockDisponible:    offering.stock_disponible,
+      plazoEntregaDias:   offering.plazo_dias,
+      sourceType:         'free',
+      lineaOrigen:        'manual',
+    });
+    showToast(`Proveedor cambiado a ${offering.actor_nombre}`, 'success');
+  }, [slideOverItem, state.items, actions, showToast]);
+
   const cartItems = state.items;
   const cartCount = cartItems.length;
+
+  // Offering actual del producto abierto en el SlideOver (para marcar "Seleccionado")
+  const currentSlideOverCartItem = useMemo(() => {
+    if (!slideOverItem) return null;
+    return cartItems.find(i => i.universalProductId === slideOverItem.up_id) ?? null;
+  }, [slideOverItem, cartItems]);
 
   const handleGuestCheckout = mode === 'public' ? () => {
     sessionStorage.setItem('mk_return', '1');
@@ -244,11 +275,15 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         />
       </div>
 
-      {/* SlideOver opciones */}
+      {/* SlideOver opciones — con marcado "Seleccionado" y sustitución */}
       <MarketplaceProductSlideOver
         item={slideOverItem}
         onClose={() => setSlideOverItem(null)}
         onAdd={handleAddFromSlideOver}
+        currentOfferingId={currentSlideOverCartItem?.offeringId ?? null}
+        currentProviderName={currentSlideOverCartItem?.supplierName ?? null}
+        currentQty={currentSlideOverCartItem?.cantidad ?? 1}
+        onSubstitute={currentSlideOverCartItem ? handleSubstitute : undefined}
       />
 
       {/* Carrito drawer móvil */}
