@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { CheckCircle2, AlertTriangle, Info, ShoppingBag, User, MapPin, Package } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, Info, ShoppingBag, User, MapPin, Package, AlertCircle, Search } from 'lucide-react';
 import { ActivePage } from '../../types';
 import { useSession } from '../../context/SessionContext';
 import { useMarketplaceCart } from '../../hooks/useMarketplaceCart';
@@ -9,6 +9,8 @@ import {
 } from '../../lib/api/marketplace-catalog';
 import type { MarketplaceCatalogItem, CatalogPage, OfferingDetail } from '../../lib/api/marketplace-catalog';
 import type { LocalCartItem } from '../../lib/marketplace/cart-storage';
+import type { CartItem } from '../../lib/api/marketplace-checkout';
+import { getCartDetail } from '../../lib/api/marketplace-checkout';
 import {
   loadPurchaseContext,
   clearPurchaseContext,
@@ -40,8 +42,9 @@ function useToast() {
 
 // ─── Banner contextual presupuesto ────────────────────────────────────────────
 
-function PurchaseContextBanner({ ctx, onClear }: {
+function PurchaseContextBanner({ ctx, unresolvedCount, onClear }: {
   ctx: MarketplacePurchaseContext;
+  unresolvedCount: number;
   onClear: () => void;
 }) {
   return (
@@ -68,12 +71,48 @@ function PurchaseContextBanner({ ctx, onClear }: {
           {ctx.lineCount} línea{ctx.lineCount !== 1 ? 's' : ''} de material
         </span>
       )}
+      {unresolvedCount > 0 && (
+        <span className="flex items-center gap-1 text-amber-600">
+          <AlertCircle className="w-3 h-3" />
+          {unresolvedCount} sin proveedor
+        </span>
+      )}
       <button
         onClick={onClear}
         className="ml-auto text-blue-400 hover:text-blue-600 text-[10px] underline shrink-0"
       >
         Limpiar contexto
       </button>
+    </div>
+  );
+}
+
+// ─── Líneas sin proveedor ─────────────────────────────────────────────────────
+
+function UnresolvedLinesPanel({ items, onSearch }: {
+  items: CartItem[];
+  onSearch: (q: string) => void;
+}) {
+  if (items.length === 0) return null;
+  return (
+    <div className="border-b border-amber-100 bg-amber-50 px-4 py-3">
+      <p className="text-xs font-semibold text-amber-700 mb-2 flex items-center gap-1.5">
+        <AlertCircle className="w-3.5 h-3.5" />
+        {items.length} material{items.length !== 1 ? 'es' : ''} sin proveedor disponible — búscalos en el catálogo
+      </p>
+      <div className="flex flex-wrap gap-2">
+        {items.map(item => (
+          <button
+            key={item.id}
+            onClick={() => onSearch(item.up_nombre_canonico ?? item.descripcion_original)}
+            className="inline-flex items-center gap-1.5 bg-white border border-amber-200 hover:border-amber-400 text-amber-800 text-[10px] font-medium px-2.5 py-1 rounded-lg transition-colors"
+          >
+            <Search className="w-3 h-3" />
+            {item.up_nombre_canonico ?? item.descripcion_original}
+            <span className="text-amber-500">· {item.cantidad} {item.unidad}</span>
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
@@ -90,21 +129,65 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
   const { state, actions } = useMarketplaceCart();
 
   // ── Contexto de compra (llega desde presupuesto) ───────────────────────────
-  const [purchaseCtx, setPurchaseCtx] = useState<MarketplacePurchaseContext | null>(null);
+  const [purchaseCtx, setPurchaseCtx]       = useState<MarketplacePurchaseContext | null>(null);
+  const [unresolvedItems, setUnresolvedItems] = useState<CartItem[]>([]);
+  const hydratedRef = useRef(false);
 
   useEffect(() => {
     const ctx = loadPurchaseContext();
-    if (ctx) {
-      setPurchaseCtx(ctx);
-      setMobileCartOpen(true);
-    }
+    if (!ctx) return;
+
+    setPurchaseCtx(ctx);
+    setMobileCartOpen(true);
+
+    // Evitar hidratación doble en StrictMode
+    if (hydratedRef.current) return;
+    hydratedRef.current = true;
+
+    const cartId = sessionStorage.getItem('mkt_cart_id') ?? ctx.cartId;
+    if (!cartId) return;
+
+    // Hidratar carrito local desde el server cart
+    getCartDetail(cartId).then(detail => {
+      const resolved: LocalCartItem[] = detail.items
+        .filter(item => item.activo && item.selected_offering_id)
+        .map(item => ({
+          cartItemId:         item.id,
+          universalProductId: item.universal_product_id ?? '',
+          offeringId:         item.selected_offering_id!,
+          supplierActorId:    item.selected_actor_id ?? '',
+          supplierName:       item.selected_actor_nombre ?? '',
+          supplierRef:        null,
+          nombre:             item.up_nombre_canonico ?? item.descripcion_original,
+          imagen:             item.image_url,
+          cantidad:           item.cantidad,
+          unidadTecnica:      item.unidad,
+          unidadComercial:    item.unidad,
+          precioUnitario:     item.precio_unitario_final ?? 0,
+          stockDisponible:    true,
+          plazoEntregaDias:   0,
+          sourceType:         'quote' as const,
+          quoteItemId:        item.source_item_id,
+          lineaOrigen:        'quote' as const,
+        }));
+
+      const unresolved = detail.items.filter(item => item.activo && !item.selected_offering_id);
+
+      actions.replaceWithServerCart(resolved, cartId);
+      setUnresolvedItems(unresolved);
+    }).catch(() => {
+      // Si el carrito no existe o expiró, continuar sin hidratación
+    });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleClearCtx = useCallback(() => {
     clearPurchaseContext();
     setPurchaseCtx(null);
-  }, []);
+    setUnresolvedItems([]);
+    sessionStorage.removeItem('mkt_cart_id');
+    actions.clearCart('manual');
+  }, [actions]);
 
   // ── Filtros RPC ────────────────────────────────────────────────────────────
   const [query,     setQuery]     = useState('');
@@ -164,7 +247,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
   }, [loadCatalog]);
 
-  // ── Filtrado cliente-side: mayoristas + rango precio ──────────────────────
+  // ── Filtrado cliente-side ──────────────────────────────────────────────────
   const filteredItems = useMemo((): MarketplaceCatalogItem[] => {
     let items = catalog?.items ?? [];
 
@@ -234,7 +317,6 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
     showToast(`${item.nombre} añadido al carrito`, 'success');
   }, [actions, showToast]);
 
-  // Sustituir proveedor desde el SlideOver (elimina el anterior, añade el nuevo con misma qty)
   const handleSubstitute = useCallback((offering: OfferingDetail, qty: number) => {
     if (!slideOverItem) return;
     const existing = state.items.find(i => i.universalProductId === slideOverItem.up_id);
@@ -262,13 +344,12 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
   const cartItems = state.items;
   const cartCount = cartItems.length;
 
-  // Offering actual del producto abierto en el SlideOver (para marcar "Seleccionado")
   const currentSlideOverCartItem = useMemo(() => {
     if (!slideOverItem) return null;
     return cartItems.find(i => i.universalProductId === slideOverItem.up_id) ?? null;
   }, [slideOverItem, cartItems]);
 
-  // ── Checkout handler — público → login, profesional → wizard checkout ──────
+  // ── Checkout handler ───────────────────────────────────────────────────────
   const handleCheckout = mode === 'public'
     ? () => {
         sessionStorage.setItem('mk_return', '1');
@@ -289,9 +370,21 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         orgName={org?.nombre}
       />
 
-      {/* Banner contextual presupuesto — solo visible si llega desde un presupuesto */}
+      {/* Banner contextual presupuesto */}
       {purchaseCtx && (
-        <PurchaseContextBanner ctx={purchaseCtx} onClear={handleClearCtx} />
+        <PurchaseContextBanner
+          ctx={purchaseCtx}
+          unresolvedCount={unresolvedItems.length}
+          onClear={handleClearCtx}
+        />
+      )}
+
+      {/* Líneas sin proveedor */}
+      {unresolvedItems.length > 0 && (
+        <UnresolvedLinesPanel
+          items={unresolvedItems}
+          onSearch={setQuery}
+        />
       )}
 
       {/* Layout 3 columnas */}
@@ -317,12 +410,10 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
           loading={loading}
         />
 
-        {/* Centro: banner + productos (scrollable) */}
+        {/* Centro: banner + productos */}
         <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
-          {/* Banner publicitario — siempre visible al entrar */}
-          <MarketplaceBanner onCategory={handleBannerCategory} />
+          {!purchaseCtx && <MarketplaceBanner onCategory={handleBannerCategory} />}
 
-          {/* Grid de productos — scrollable */}
           <div className="flex-1 overflow-y-auto">
             <MarketplaceGrid
               items={filteredItems}
@@ -345,7 +436,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         />
       </div>
 
-      {/* SlideOver opciones — con marcado "Seleccionado" y sustitución */}
+      {/* SlideOver opciones */}
       <MarketplaceProductSlideOver
         item={slideOverItem}
         onClose={() => setSlideOverItem(null)}

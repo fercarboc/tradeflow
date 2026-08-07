@@ -19,11 +19,12 @@ export type { CartState, DeliveryMethod, LocalCartItem, LineaOrigen };
 // ─── Tipos del contexto ───────────────────────────────────────────────────────
 
 export interface CartActions {
-  setCartId:         (cartId: string) => void;
-  selectSupplier:    (upId: string, offeringId: string) => void;
-  setDeliveryMethod: (method: DeliveryMethod, addressId?: string) => void;
-  hydrateFromDb:     (cartId: string) => Promise<void>;
-  clearCart:         (reason?: 'ordered' | 'cancelled' | 'manual') => void;
+  setCartId:              (cartId: string) => void;
+  selectSupplier:         (upId: string, offeringId: string) => void;
+  setDeliveryMethod:      (method: DeliveryMethod, addressId?: string) => void;
+  hydrateFromDb:          (cartId: string) => Promise<void>;
+  replaceWithServerCart:  (items: LocalCartItem[], cartId: string) => void;
+  clearCart:              (reason?: 'ordered' | 'cancelled' | 'manual') => void;
   // RC1-B — gestión de ítems local
   addItem:           (item: Omit<LocalCartItem, 'cartItemId'>) => void;
   updateQuantity:    (cartItemId: string, qty: number) => void;
@@ -174,6 +175,11 @@ export function CarritoProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  // RC1-C.1.c: reemplaza el carrito local con ítems cargados del server cart
+  const replaceWithServerCart = useCallback((items: LocalCartItem[], cartId: string) => {
+    setState(prev => ({ ...prev, cartId, items, sourceType: 'quote' as const }));
+  }, []);
+
   const clearCart = useCallback((reason: 'ordered' | 'cancelled' | 'manual' = 'manual') => {
     if (orgId) {
       clearCartStorage(orgId);
@@ -235,6 +241,7 @@ export function CarritoProvider({ children }: { children: ReactNode }) {
       selectSupplier,
       setDeliveryMethod,
       hydrateFromDb,
+      replaceWithServerCart,
       clearCart,
       addItem,
       updateQuantity,
