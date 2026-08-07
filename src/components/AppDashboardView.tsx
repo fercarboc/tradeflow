@@ -3730,9 +3730,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               const q = postConfirmQuote;
               setPostConfirmQuote(null);
               if (!q?.dbId) return;
+              console.log('[RC1-C1D] CTA postConfirmQuote comprarMateriales', { quoteId: q.dbId, quoteRef: q.id });
               setMktCartLoading(true);
               try {
                 const cartId = await createCartFromQuote(q.dbId);
+                console.log('[RC1-C1D] createCartFromQuote OK', { cartId, quoteRef: q.id });
                 savePurchaseContext({
                   source:       'quote',
                   cartId,
@@ -5943,9 +5945,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <button
                       disabled={mktCartLoading}
                       onClick={async () => {
+                        console.log('[RC1-C1D] CTA ficha presupuesto comprarMateriales', { quoteId: selectedQuoteForPreview.dbId, quoteRef: selectedQuoteForPreview.id });
                         setMktCartLoading(true);
                         try {
                           const cartId = await createCartFromQuote(selectedQuoteForPreview.dbId!);
+                          console.log('[RC1-C1D] createCartFromQuote OK', { cartId, quoteRef: selectedQuoteForPreview.id });
                           savePurchaseContext({
                             source:       'quote',
                             cartId,

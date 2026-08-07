@@ -10,6 +10,7 @@ interface Props {
   onUpdateQty: (cartItemId: string, qty: number) => void;
   onRemove:    (cartItemId: string) => void;
   onCheckout?: () => void;  // undefined = disabled (RC1-C)
+  quoteRef?:   string | null;  // ref del presupuesto de origen (RC1-C1D)
 }
 
 function EmptyCart() {
@@ -25,16 +26,16 @@ function EmptyCart() {
 }
 
 // Desktop always-visible sidebar
-export function CartSidebarDesktop({ items, onUpdateQty, onRemove, onCheckout }: Omit<Props, 'isOpen' | 'onClose'>) {
+export function CartSidebarDesktop({ items, onUpdateQty, onRemove, onCheckout, quoteRef }: Omit<Props, 'isOpen' | 'onClose'>) {
   return (
     <aside className="w-72 shrink-0 border-l border-gray-200 hidden lg:flex flex-col bg-white">
-      <CartContent items={items} onUpdateQty={onUpdateQty} onRemove={onRemove} onCheckout={onCheckout} />
+      <CartContent items={items} onUpdateQty={onUpdateQty} onRemove={onRemove} onCheckout={onCheckout} quoteRef={quoteRef} />
     </aside>
   );
 }
 
 // Drawer móvil
-export default function CartSidebar({ items, isOpen, onClose, onUpdateQty, onRemove, onCheckout }: Props) {
+export default function CartSidebar({ items, isOpen, onClose, onUpdateQty, onRemove, onCheckout, quoteRef }: Props) {
   return (
     <>
       {isOpen && (
@@ -59,24 +60,31 @@ export default function CartSidebar({ items, isOpen, onClose, onUpdateQty, onRem
           </button>
         </div>
 
-        <CartContent items={items} onUpdateQty={onUpdateQty} onRemove={onRemove} onCheckout={onCheckout} />
+        <CartContent items={items} onUpdateQty={onUpdateQty} onRemove={onRemove} onCheckout={onCheckout} quoteRef={quoteRef} />
       </div>
     </>
   );
 }
 
-function CartContent({ items, onUpdateQty, onRemove, onCheckout }: {
+function CartContent({ items, onUpdateQty, onRemove, onCheckout, quoteRef }: {
   items:       LocalCartItem[];
   onUpdateQty: (id: string, qty: number) => void;
   onRemove:    (id: string) => void;
   onCheckout?: () => void;
+  quoteRef?:   string | null;
 }) {
+  const quoteItems = items.filter(i => i.sourceType === 'quote').length;
   return (
     <>
       {/* Header desktop */}
       <div className="px-4 py-4 border-b border-gray-100 hidden lg:flex items-center gap-2">
         <ShoppingCart className="w-4 h-4 text-[#1A5A96]" />
         <span className="text-gray-900 font-bold text-sm">Carrito</span>
+        {quoteRef && quoteItems > 0 && (
+          <span className="ml-1 px-1.5 py-0.5 rounded-md bg-[#1A5A96]/10 text-[#1A5A96] text-[10px] font-semibold">
+            {quoteRef}
+          </span>
+        )}
         {items.length > 0 && (
           <span className="ml-auto text-xs text-gray-400 tabular-nums">
             {items.length} línea{items.length !== 1 ? 's' : ''}

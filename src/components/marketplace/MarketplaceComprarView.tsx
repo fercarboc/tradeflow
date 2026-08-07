@@ -160,6 +160,7 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
 
   useEffect(() => {
     const ctx = loadPurchaseContext();
+    console.log('[RC1-C1D] MarketplaceComprarView mount', { hasFreshCtx: !!ctx, cartId: ctx?.cartId });
     setContext(ctx ?? null);
 
     const fromSession = sessionStorage.getItem(CART_KEY);
@@ -169,10 +170,11 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
       setCartId(resolvedId);
       if (!fromSession && resolvedId) sessionStorage.setItem(CART_KEY, resolvedId);
     } else {
-      setError('No se encontró ningún pedido. Vuelve al presupuesto y pulsa "Comprar materiales".');
-      setLoading(false);
+      // Sin contexto fresco ni cartId en sesión — redirigir al catálogo en lugar de error estático
+      console.log('[RC1-C1D] MarketplaceComprarView: sin contexto fresco, redirigiendo a Marketplace');
+      setCurrentPage(ActivePage.Marketplace);
     }
-  }, []);
+  }, [setCurrentPage]);
 
   const loadCart = useCallback(async (id: string) => {
     setLoading(true);

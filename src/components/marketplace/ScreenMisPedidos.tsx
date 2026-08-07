@@ -179,7 +179,7 @@ function DetailPanel({ orderId, onClose, onDeliver, onCancel }: DetailPanelProps
 
   const order  = detail?.order;
   const items  = detail?.items ?? [];
-  const estado = order?.estado;
+  const estado = order?.estado as OrderLifecycleEstado | undefined;
 
   return (
     <>
@@ -306,7 +306,7 @@ function DetailPanel({ orderId, onClose, onDeliver, onCancel }: DetailPanelProps
             {/* Seguimiento */}
             <section className="px-5 py-4 border-b border-gray-100">
               <h3 className="text-[11px] uppercase tracking-wider text-gray-400 font-semibold mb-3">Seguimiento</h3>
-              <Timeline estado={estado} />
+              {estado && <Timeline estado={estado} />}
               <dl className="mt-3 space-y-1 text-xs text-gray-500">
                 {order.confirmed_at  && <div className="flex gap-2"><dt className="w-28 shrink-0">Confirmado</dt><dd>{fmtDateTime(order.confirmed_at)}</dd></div>}
                 {order.preparing_at  && <div className="flex gap-2"><dt className="w-28 shrink-0">En preparación</dt><dd>{fmtDateTime(order.preparing_at)}</dd></div>}

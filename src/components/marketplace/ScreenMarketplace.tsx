@@ -129,13 +129,16 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
   const { state, actions } = useMarketplaceCart();
 
   // ── Contexto de compra (llega desde presupuesto) ───────────────────────────
-  const [purchaseCtx, setPurchaseCtx]       = useState<MarketplacePurchaseContext | null>(null);
-  const [unresolvedItems, setUnresolvedItems] = useState<CartItem[]>([]);
+  const [purchaseCtx, setPurchaseCtx]           = useState<MarketplacePurchaseContext | null>(null);
+  const [unresolvedItems, setUnresolvedItems]   = useState<CartItem[]>([]);
+  const [isHydrating, setIsHydrating]           = useState(false);
+  const [pendingMerge, setPendingMerge]         = useState<{ resolved: LocalCartItem[]; cartId: string; unresolved: CartItem[] } | null>(null);
   const hydratedRef = useRef(false);
 
   useEffect(() => {
     const ctx = loadPurchaseContext();
     if (!ctx) return;
+    console.log('[RC1-C1D] ScreenMarketplace: contexto fresco detectado', { cartId: ctx.cartId, quoteRef: ctx.quoteRef });
 
     setPurchaseCtx(ctx);
     setMobileCartOpen(true);
@@ -147,6 +150,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
     const cartId = sessionStorage.getItem('mkt_cart_id') ?? ctx.cartId;
     if (!cartId) return;
 
+    setIsHydrating(true);
     // Hidratar carrito local desde el server cart
     getCartDetail(cartId).then(detail => {
       const resolved: LocalCartItem[] = detail.items
@@ -172,14 +176,58 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         }));
 
       const unresolved = detail.items.filter(item => item.activo && !item.selected_offering_id);
+      console.log('[RC1-C1D] ScreenMarketplace: hidratación completada', { resolved: resolved.length, unresolved: unresolved.length });
 
-      actions.replaceWithServerCart(resolved, cartId);
-      setUnresolvedItems(unresolved);
+      setIsHydrating(false);
+
+      // Si ya hay items en el carrito local, preguntar si reemplazar o fusionar
+      // (se lee directamente desde el ref para evitar stale closure)
+      setPendingMerge(prev => {
+        if (prev) return prev; // ya hay un diálogo pendiente
+        return { resolved, cartId, unresolved };
+      });
     }).catch(() => {
-      // Si el carrito no existe o expiró, continuar sin hidratación
+      setIsHydrating(false);
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Cuando llega el pendingMerge, comprobar si hay items pre-existentes
+  useEffect(() => {
+    if (!pendingMerge) return;
+    const { resolved, cartId, unresolved } = pendingMerge;
+    const existingCount = state.items.filter(i => i.sourceType !== 'quote').length;
+    if (existingCount > 0) {
+      // Mostrar diálogo de merge — lo resolvemos vía showMergeDialog
+      setMergeDialogData({ resolved, cartId, unresolved, existingCount });
+    } else {
+      actions.replaceWithServerCart(resolved, cartId);
+      setUnresolvedItems(unresolved);
+    }
+    setPendingMerge(null);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pendingMerge]);
+
+  // Estado del diálogo merge/replace
+  type MergeDialogData = { resolved: LocalCartItem[]; cartId: string; unresolved: CartItem[]; existingCount: number };
+  const [mergeDialogData, setMergeDialogData] = useState<MergeDialogData | null>(null);
+
+  const handleMergeReplace = useCallback(() => {
+    if (!mergeDialogData) return;
+    actions.replaceWithServerCart(mergeDialogData.resolved, mergeDialogData.cartId);
+    setUnresolvedItems(mergeDialogData.unresolved);
+    setMergeDialogData(null);
+  }, [mergeDialogData, actions]);
+
+  const handleMergeKeep = useCallback(() => {
+    if (!mergeDialogData) return;
+    // Fusionar: añadir los items del presupuesto que no estén ya en el carrito
+    const existingOfferingIds = new Set(state.items.map(i => i.offeringId));
+    const toAdd = mergeDialogData.resolved.filter(i => !existingOfferingIds.has(i.offeringId));
+    toAdd.forEach(item => actions.addItem(item));
+    setUnresolvedItems(mergeDialogData.unresolved);
+    setMergeDialogData(null);
+  }, [mergeDialogData, actions, state.items]);
 
   const handleClearCtx = useCallback(() => {
     clearPurchaseContext();
@@ -433,6 +481,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
           onUpdateQty={actions.updateQuantity}
           onRemove={actions.removeItem}
           onCheckout={handleCheckout}
+          quoteRef={purchaseCtx?.quoteRef}
         />
       </div>
 
@@ -455,7 +504,51 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         onUpdateQty={actions.updateQuantity}
         onRemove={actions.removeItem}
         onCheckout={handleCheckout}
+        quoteRef={purchaseCtx?.quoteRef}
       />
+
+      {/* Overlay de hidratación del presupuesto */}
+      {isHydrating && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm">
+          <div className="flex flex-col items-center gap-3 text-center">
+            <div className="w-8 h-8 border-2 border-[#1A5A96] border-t-transparent rounded-full animate-spin" />
+            <p className="text-sm font-medium text-gray-700">Preparando materiales del presupuesto…</p>
+          </div>
+        </div>
+      )}
+
+      {/* Modal merge/replace — cuando hay carrito pre-existente y llega un presupuesto */}
+      {mergeDialogData && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
+            <h3 className="text-base font-bold text-gray-900 mb-2">Tienes artículos en el carrito</h3>
+            <p className="text-sm text-gray-600 mb-5">
+              Tienes {mergeDialogData.existingCount} artículo{mergeDialogData.existingCount !== 1 ? 's' : ''} de una compra anterior.
+              ¿Qué quieres hacer con el carrito del presupuesto?
+            </p>
+            <div className="flex flex-col gap-2">
+              <button
+                onClick={handleMergeReplace}
+                className="w-full py-2.5 rounded-xl bg-[#1A5A96] text-white text-sm font-semibold hover:bg-[#1A5A96]/90 transition-colors"
+              >
+                Usar sólo los materiales del presupuesto
+              </button>
+              <button
+                onClick={handleMergeKeep}
+                className="w-full py-2.5 rounded-xl bg-gray-100 text-gray-700 text-sm font-medium hover:bg-gray-200 transition-colors"
+              >
+                Añadir al carrito existente
+              </button>
+              <button
+                onClick={() => setMergeDialogData(null)}
+                className="w-full py-2 text-xs text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Toast */}
       {toast && (

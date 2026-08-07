@@ -15,6 +15,14 @@ export interface MarketplacePurchaseContext {
 
 const SESSION_KEY = 'mkt_purchase_ctx';
 const LOCAL_KEY   = 'mkt_purchase_ctx_bak';
+// Tiempo máximo de vida del contexto: 6 horas.
+// Después de ese tiempo se considera obsoleto y no se usa para abrir el wizard automáticamente.
+const MAX_AGE_MS  = 6 * 60 * 60 * 1000;
+
+export function isContextFresh(ctx: MarketplacePurchaseContext): boolean {
+  if (!ctx.createdAt) return false;
+  return (Date.now() - new Date(ctx.createdAt).getTime()) < MAX_AGE_MS;
+}
 
 export function savePurchaseContext(ctx: MarketplacePurchaseContext): void {
   const json = JSON.stringify(ctx);
@@ -28,6 +36,11 @@ export function loadPurchaseContext(): MarketplacePurchaseContext | null {
     if (!raw) return null;
     const ctx = JSON.parse(raw) as MarketplacePurchaseContext;
     if (!ctx.cartId) return null;
+    if (!isContextFresh(ctx)) {
+      // Contexto expirado — limpiarlo para evitar que el wizard cargue con datos obsoletos
+      clearPurchaseContext();
+      return null;
+    }
     return ctx;
   } catch {
     return null;

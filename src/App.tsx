@@ -13,6 +13,7 @@ import CookieBanner from './components/CookieBanner';
 import AnalyticsManager from './components/AnalyticsManager';
 import type { WorkerProfile } from './lib/supabase';
 import type { Session } from '@supabase/supabase-js';
+import { loadPurchaseContext } from './lib/marketplace/purchase-context';
 import {
   resolveWorkspaces,
   getRememberedWorkspace,
@@ -194,10 +195,12 @@ const PUBLIC_OR_AUTH_PAGES = new Set<ActivePage>([
 ]);
 
 // Páginas de app donde el routing post-auth no debe redirigir si el usuario ya estaba ahí
-// (restaura la vista correcta tras recarga de tab en Edge/Chrome)
+// (restaura la vista correcta tras recarga de tab en Edge/Chrome).
+// IMPORTANTE: MarketplaceComprar se excluye deliberadamente — si el usuario llega al wizard
+// por historial del navegador sin un contexto de compra fresco, MarketplaceComprarView
+// detectará el contexto caducado y redirigirá al catálogo (ActivePage.Marketplace).
 const PRESERVED_APP_PAGES = new Set<ActivePage>([
   ActivePage.SeguimientoMaterial,
-  ActivePage.MarketplaceComprar,
   ActivePage.PortalProveedor,
   ActivePage.AppDashboard,
   ActivePage.Marketplace,
@@ -262,15 +265,20 @@ export default function App() {
 
   const initialAuthRoute = detectAuthRoute();
 
-  const [currentPage, _setCurrentPage] = useState<ActivePage>(
-    // Si vuelve de Stripe checkout, ir directo al dashboard (evita flash de Home)
-    checkoutSuccess ? ActivePage.AppDashboard :
-    // Si hay ruta auth-flow específica (activate, callback, reset-pass…) respetarla
-    (initialAuthRoute
-      // Si la URL es una página de app conocida (seguimiento, comprar, proveedor…) restaurarla
-      ?? pathToPage(window.location.pathname)
-      ?? (pwa ? ActivePage.AppDashboard : ActivePage.Home)),
-  );
+  const [currentPage, _setCurrentPage] = useState<ActivePage>(() => {
+    if (checkoutSuccess) return ActivePage.AppDashboard;
+    if (initialAuthRoute) return initialAuthRoute;
+    const fromUrl = pathToPage(window.location.pathname);
+    // [RC1-C1D] Si la URL del historial del navegador es /marketplace/comprar pero NO hay
+    // un contexto de compra fresco, redirigir al catálogo en lugar de abrir el wizard.
+    if (fromUrl === ActivePage.MarketplaceComprar) {
+      const ctx = loadPurchaseContext();
+      const hasFreshCtx = ctx !== null;
+      console.log('[RC1-C1D] init: URL=/marketplace/comprar', { hasFreshCtx, ctx });
+      return hasFreshCtx ? ActivePage.MarketplaceComprar : ActivePage.AppDashboard;
+    }
+    return fromUrl ?? (pwa ? ActivePage.AppDashboard : ActivePage.Home);
+  });
 
   const [preselectedTrade, setPreselectedTrade] =
     useState<TradeType>('Fontanería');
@@ -295,6 +303,7 @@ export default function App() {
   const signingOutRef = useRef(false);
 
   const setCurrentPage = useCallback((page: ActivePage) => {
+    console.log('[RC1-C1D] setCurrentPage', { to: page, path: pageToPath(page) });
     _setCurrentPage(page);
     const path = pageToPath(page);
     if (window.location.pathname !== path) {
