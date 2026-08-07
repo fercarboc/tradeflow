@@ -35,7 +35,7 @@ const STEPS: { id: WizardStep; label: string }[] = [
 function backLabel(step: WizardStep): string {
   if (step === 'confirmar') return 'Entrega';
   if (step === 'entrega')   return 'Revisar';
-  return 'Presupuesto';
+  return 'Catálogo';
 }
 
 interface Props {
@@ -239,6 +239,7 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
     else if (step === 'entrega') setStep('revisar');
   };
 
+  const volverAlCatalogo    = () => setCurrentPage(ActivePage.Marketplace);
   const volverAlPresupuesto = () => setCurrentPage(ActivePage.AppDashboard);
 
   // ─── Carga ──────────────────────────────────────────────────────────────────
@@ -326,12 +327,12 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <ContextBanner context={context} cart={cart} onVolver={volverAlPresupuesto} />
+      <ContextBanner context={context} cart={cart} onVolver={volverAlCatalogo} />
 
       <header className="border-b border-gray-200 bg-white px-4 py-3 shrink-0">
         <div className="mx-auto max-w-4xl flex items-center gap-4">
           <button
-            onClick={step === 'revisar' ? volverAlPresupuesto : handleBack}
+            onClick={step === 'revisar' ? volverAlCatalogo : handleBack}
             className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A5A96] rounded"
           >
             <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">

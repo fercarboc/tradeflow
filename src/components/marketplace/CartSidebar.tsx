@@ -122,22 +122,16 @@ function CartContent({ items, onUpdateQty, onRemove, onCheckout }: {
               onClick={onCheckout}
               className="w-full flex items-center justify-center gap-2 bg-[#1A5A96] hover:bg-[#154d82] text-white font-bold text-sm py-3 rounded-xl transition-colors"
             >
-              <Lock className="w-3.5 h-3.5" />
-              Identificarte para continuar
+              Ir al checkout
             </button>
           ) : (
-            <>
-              <button
-                disabled
-                className="w-full flex items-center justify-center gap-2 bg-gray-100 text-gray-400 font-bold text-sm py-3 rounded-xl cursor-not-allowed select-none"
-              >
-                <Lock className="w-3.5 h-3.5" />
-                Ir al checkout
-              </button>
-              <p className="text-gray-300 text-[10px] text-center">
-                Checkout disponible próximamente
-              </p>
-            </>
+            <button
+              disabled
+              className="w-full flex items-center justify-center gap-2 bg-gray-100 text-gray-400 font-bold text-sm py-3 rounded-xl cursor-not-allowed select-none"
+            >
+              <Lock className="w-3.5 h-3.5" />
+              Ir al checkout
+            </button>
           )}
         </div>
       )}

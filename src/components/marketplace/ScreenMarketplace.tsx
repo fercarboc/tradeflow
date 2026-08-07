@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { CheckCircle2, AlertTriangle, Info } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, Info, ShoppingBag, User, MapPin, Package } from 'lucide-react';
 import { ActivePage } from '../../types';
 import { useSession } from '../../context/SessionContext';
 import { useMarketplaceCart } from '../../hooks/useMarketplaceCart';
@@ -9,6 +9,11 @@ import {
 } from '../../lib/api/marketplace-catalog';
 import type { MarketplaceCatalogItem, CatalogPage, OfferingDetail } from '../../lib/api/marketplace-catalog';
 import type { LocalCartItem } from '../../lib/marketplace/cart-storage';
+import {
+  loadPurchaseContext,
+  clearPurchaseContext,
+} from '../../lib/marketplace/purchase-context';
+import type { MarketplacePurchaseContext } from '../../lib/marketplace/purchase-context';
 
 import MarketplaceBanner           from './MarketplaceBanner';
 import MarketplaceHeader           from './MarketplaceHeader';
@@ -33,6 +38,46 @@ function useToast() {
   return { toast, show };
 }
 
+// ─── Banner contextual presupuesto ────────────────────────────────────────────
+
+function PurchaseContextBanner({ ctx, onClear }: {
+  ctx: MarketplacePurchaseContext;
+  onClear: () => void;
+}) {
+  return (
+    <div className="bg-blue-50 border-b border-blue-100 px-4 py-2.5 flex items-center gap-3 text-xs text-blue-800 flex-wrap">
+      <ShoppingBag className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+      {ctx.quoteRef && (
+        <span className="font-semibold">{ctx.quoteRef}</span>
+      )}
+      {ctx.customerName && (
+        <span className="flex items-center gap-1 text-blue-700">
+          <User className="w-3 h-3" />
+          {ctx.customerName}
+        </span>
+      )}
+      {ctx.projectName && (
+        <span className="flex items-center gap-1 text-blue-700">
+          <MapPin className="w-3 h-3" />
+          {ctx.projectName}
+        </span>
+      )}
+      {ctx.lineCount != null && ctx.lineCount > 0 && (
+        <span className="flex items-center gap-1 text-blue-600">
+          <Package className="w-3 h-3" />
+          {ctx.lineCount} línea{ctx.lineCount !== 1 ? 's' : ''} de material
+        </span>
+      )}
+      <button
+        onClick={onClear}
+        className="ml-auto text-blue-400 hover:text-blue-600 text-[10px] underline shrink-0"
+      >
+        Limpiar contexto
+      </button>
+    </div>
+  );
+}
+
 // ─── Pantalla principal ────────────────────────────────────────────────────────
 
 interface Props {
@@ -43,6 +88,23 @@ interface Props {
 export default function ScreenMarketplace({ setCurrentPage, mode = 'professional' }: Props) {
   const { org }    = useSession();
   const { state, actions } = useMarketplaceCart();
+
+  // ── Contexto de compra (llega desde presupuesto) ───────────────────────────
+  const [purchaseCtx, setPurchaseCtx] = useState<MarketplacePurchaseContext | null>(null);
+
+  useEffect(() => {
+    const ctx = loadPurchaseContext();
+    if (ctx) {
+      setPurchaseCtx(ctx);
+      setMobileCartOpen(true);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleClearCtx = useCallback(() => {
+    clearPurchaseContext();
+    setPurchaseCtx(null);
+  }, []);
 
   // ── Filtros RPC ────────────────────────────────────────────────────────────
   const [query,     setQuery]     = useState('');
@@ -206,10 +268,13 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
     return cartItems.find(i => i.universalProductId === slideOverItem.up_id) ?? null;
   }, [slideOverItem, cartItems]);
 
-  const handleGuestCheckout = mode === 'public' ? () => {
-    sessionStorage.setItem('mk_return', '1');
-    setCurrentPage(ActivePage.Login);
-  } : undefined;
+  // ── Checkout handler — público → login, profesional → wizard checkout ──────
+  const handleCheckout = mode === 'public'
+    ? () => {
+        sessionStorage.setItem('mk_return', '1');
+        setCurrentPage(ActivePage.Login);
+      }
+    : () => setCurrentPage(ActivePage.MarketplaceComprar);
 
   return (
     <div className="h-screen bg-gray-50 flex flex-col overflow-hidden">
@@ -223,6 +288,11 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         onQueryChange={setQuery}
         orgName={org?.nombre}
       />
+
+      {/* Banner contextual presupuesto — solo visible si llega desde un presupuesto */}
+      {purchaseCtx && (
+        <PurchaseContextBanner ctx={purchaseCtx} onClear={handleClearCtx} />
+      )}
 
       {/* Layout 3 columnas */}
       <div className="flex flex-1 min-h-0 overflow-hidden">
@@ -271,7 +341,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
           items={cartItems}
           onUpdateQty={actions.updateQuantity}
           onRemove={actions.removeItem}
-          onCheckout={handleGuestCheckout}
+          onCheckout={handleCheckout}
         />
       </div>
 
@@ -293,7 +363,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         onClose={() => setMobileCartOpen(false)}
         onUpdateQty={actions.updateQuantity}
         onRemove={actions.removeItem}
-        onCheckout={handleGuestCheckout}
+        onCheckout={handleCheckout}
       />
 
       {/* Toast */}

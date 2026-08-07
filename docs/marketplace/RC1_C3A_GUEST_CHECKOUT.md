@@ -1,17 +1,22 @@
 # RC1-C.3A — Checkout Público como Invitado
 ## Documento de Análisis, Plan y Resultados
 
-**Estado:** SPRINT GUEST-1 COMPLETADO — DDL ejecutado y validado en producción  
-**Fecha:** 2026-08-06  
+**Estado:** SPRINT GUEST-1 COMPLETADO — Sprint Guest-2 BLOQUEADO (pendiente Consolidación UX)  
+**Fecha:** 2026-08-07  
 **Autor:** TrabFlow Engineering  
-**Versión:** 1.0
+**Versión:** 1.1
 
 > **Sprint Guest-1 ejecutado:** 8 correcciones (C1–C8) aplicadas antes del DDL.
 > Migraciones 04–11 aplicadas y validadas. 20/20 tests superados.
 > Ver resultados completos en `RC1_C3A_GUEST_SPRINT1_RESULTS.md`.
 >
+> **RC1-C.1.b completado (2026-08-07):** Navegación consolidada. El botón "Ir al checkout"
+> del CartSidebar ya funciona en modo profesional (navega a `/marketplace/comprar`).
+> Ver `RC1_C1B_NAVIGATION_CONSOLIDATION_RESULTS.md`.
+>
 > **Sprint Guest-2 pendiente (bloqueado):** Edge Function `checkout-guest`, wizard UI,
 > Cloudflare Turnstile, Resend email, seguimiento público, feature flag activado.
+> BLOQUEADO hasta cierre de Consolidación UX para pilotos comerciales.
 
 ### Correcciones aplicadas (C1–C8)
 | # | Corrección | Resumen |

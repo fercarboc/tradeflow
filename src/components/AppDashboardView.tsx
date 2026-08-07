@@ -3745,7 +3745,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   createdAt: new Date().toISOString(),
                 });
                 sessionStorage.setItem('mkt_cart_id', cartId);
-                setCurrentPage(ActivePage.MarketplaceComprar);
+                setCurrentPage(ActivePage.Marketplace);
               } catch (e: unknown) {
                 const msg = e instanceof Error ? e.message : String(e);
                 if (msg.includes('NO_MATERIALS')) {
@@ -5875,7 +5875,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
                 {activeTab === 'subcontratas' && 'Trabajos Externalizados'}
                 {activeTab === 'suppliers' && 'Catálogos de Proveedores'}
-                {activeTab === 'pedidos_material' && 'Pedidos'}
+                {activeTab === 'pedidos_material' && 'Mis pedidos'}
                 {activeTab === 'asistente' && 'Asistente Técnico de Normativa'}
                 {activeTab === 'partes' && 'Partes de Trabajo Firmados'}
                 {activeTab === 'valoraciones' && 'Valoraciones de Clientes'}
@@ -5958,7 +5958,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                             createdAt:    new Date().toISOString(),
                           });
                           sessionStorage.setItem('mkt_cart_id', cartId);
-                          setCurrentPage(ActivePage.MarketplaceComprar);
+                          setCurrentPage(ActivePage.Marketplace);
                         } catch (e: unknown) {
                           const msg = e instanceof Error ? e.message : String(e);
                           if (msg.includes('NO_MATERIALS')) {
