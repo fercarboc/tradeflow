@@ -4,6 +4,45 @@
 
 ---
 
+## RC1-C.4B Sprint B — Fontanería Saltos Quiroga: 3 UPs + 20 offerings
+
+**Período:** 2026-08-08  
+**Estado:** COMPLETADO ✓  
+**Commits:** ver git log RC1-C.4B Sprint B FSQ
+
+### Ejecutado en BD
+
+**Auditoría catálogo Saltoki (170 refs → 20 offerings):**
+- 38 referencias descartadas (electricidad, construcción, splits marca real)
+- 6 duplicados internos detectados y excluidos
+- 126 referencias válidas analizadas → 20 seleccionadas por amplitud perceptual
+- 17 UPs existentes reutilizados; 3 UPs nuevos creados
+
+**3 UPs nuevos creados:**
+- `Válvula antirretorno latón` (Válvulas / Antirretorno)
+- `Sifón botella lavabo` (Saneamiento / Sifones)
+- `Bote sifónico PVC` (Saneamiento / Sifones)
+
+**20 offerings en catálogo `47fb567e` (Fontanería Saltos Quiroga S.L.):**
+
+| Grupo | Offerings | Descripción |
+|-------|-----------|------------|
+| A — Primer proveedor | 5 | FSQ en UPs con 0 offerings previas (bañera, exterior, plato extraplano, multicapa ml, desagüe) |
+| B — Competencia | 7 | FSQ vs STN/ObrasMat (ACS, válvulas, grifería cocina premium, cabezal) |
+| C — Variante | 5 | Extensión de UPs multi-proveedor (lavabo, mampara, plato, sifón ducha) |
+| D — Inauguración | 3 | FSQ crea 3 categorías nuevas (antirretorno, sifón botella, bote sifónico) |
+
+Precios: coste × 1.08 = profesional_neto; coste × 1.35 = público_neto. IVA 21%, EUR.  
+Normalización tubería: SAL-TUB-101 → 72€/rollo 50m = 1.44€/ml (metadata: unidad_original, metros_por_rollo, precio_por_rollo).
+
+**Estado ecosistema:**
+- Offerings matched: 105 → **125** (+20 FSQ)
+- Cobertura catálogo: 15.6% → **18.6%** (125 / 672)
+- FSQ: actor activo, 0 → 20 offerings
+- UPs validated totales: ~88
+
+---
+
 ## RC1-C.4B Sprint A+B — Sistemas Térmicos del Norte: 35 UPs + 35 offerings
 
 **Período:** 2026-08-08  

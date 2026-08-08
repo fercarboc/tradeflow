@@ -1,8 +1,8 @@
 # RC1-C.4B Sprint B — Auditoría Fontanería Saltos Quiroga S.L.
 
-**Versión:** 1.0  
+**Versión:** 1.1  
 **Fecha:** 2026-08-08  
-**Estado:** STOP PARCIAL — entrega para validación  
+**Estado:** COMPLETADO ✓ — 3 UPs + 20 offerings ejecutados  
 **Actor:** Fontanería Saltos Quiroga S.L. (slug: `fontaneria-saltos-quiroga`, catálogo: `47fb567e-8ce9-4ee1-b5ec-a7aae3a05162`)
 
 ---
@@ -296,17 +296,37 @@ Con 20 offerings FSQ, el Marketplace pasa de 9 proveedores activos (solo STN con
 
 ---
 
-## 9. STOP — Decisiones que requieren aprobación
+## 9. Decisiones aprobadas y ejecutadas
 
-Antes de ejecutar ningún INSERT en BD, se requiere aprobación de:
-
-| Decisión | Opciones | Impacto si no se aprueba |
-|---------|---------|--------------------------|
-| D1 — ¿Crear 3 UPs nuevos en fase inicial? (Válvula antirretorno, Sifón botella lavabo, Bote sifónico) | Aprobar / diferir a fase ampliada | Sin D1, fase inicial = 17 offerings (solo reutilización) |
-| D2 — ¿Convertir precios de tubería a €/ml? | Sí (recomendado) / mantener €/rollo | Sin D2, el comparador de precios de tuberías no funciona |
-| D3 — ¿Incluir termo 50L FSQ aunque sea 55% más barato que STN? | Sí (diferenciación de gama) / ajustar precio FSQ al alza | Sin D3, el comparador muestra una diferencia que puede parecer error de datos |
-| D4 — ¿Diferir splits Climatización (SAL-CLI-001..006) a Sprint C? | Sí (recomendado) / incluir en FSQ ahora | Sin D4, FSQ pierde especialización como distribuidora de fontanería |
+| Decisión | Resolución | Ejecutado |
+|---------|---------|-----------|
+| D1 — Crear 3 UPs nuevos | ✅ Aprobado | Válvula antirretorno latón, Sifón botella lavabo, Bote sifónico PVC |
+| D2 — Convertir tubería a €/ml | ✅ Aprobado | SAL-TUB-101: 72€/rollo → 1.44€/ml; metadata rollo+conversión |
+| D3 — Gamas distintas en mismo UP | ✅ Aprobado | básica/estándar/profesional/premium en metadata.gama |
+| D4 — Diferir splits CLI a Sprint C | ✅ Aprobado | SAL-CLI-001..006 excluidos de Sprint B |
 
 ---
 
-*Documento generado automáticamente a partir de la auditoría de BD. Estado: pendiente de aprobación. No ejecutar SQL hasta confirmación explícita.*
+## 10. Resultados de ejecución
+
+**Fecha ejecución:** 2026-08-08  
+**Commit:** ver git log RC1-C.4B Sprint B FSQ
+
+| Métrica | Resultado |
+|---------|-----------|
+| UPs reutilizados | 17 |
+| UPs nuevos creados | 3 |
+| Total offerings creadas | 20 |
+| Catálogo destino | `47fb567e-8ce9-4ee1-b5ec-a7aae3a05162` |
+| Offerings matched antes | 105 |
+| Offerings matched después | **125** |
+| Cobertura antes | 15.6% |
+| Cobertura después | **18.6%** (125/672) |
+
+**Distribución de las 20 offerings:**
+- Grupo A (5): FSQ primer proveedor en UPs vacíos → SAL-GRF-105/114, SAL-SAN-115, SAL-TUB-101, SAL-SNM-110
+- Grupo B (7): competencia vs STN/ObrasMat → SAL-ACS-005/001/008, SAL-VAL-101/109, SAL-GRF-102, SAL-CAL-109
+- Grupo C (5): variante en UPs multi-proveedor → SAL-GRF-101, SAL-SAN-107/103/102, SAL-SNM-109
+- Grupo D (3): FSQ inaugura nuevas categorías → SAL-VAL-104, SAL-FON-009, SAL-SNM-101
+
+*Pendiente Sprint C: ampliar FSQ con splits (SAL-CLI), calderas (diferir), y ramas de fontanería menor.*

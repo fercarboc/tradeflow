@@ -35,16 +35,19 @@ Cada proveedor demo tiene una identidad coherente y diferenciada. La plataforma 
 | Campo | Valor |
 |-------|-------|
 | **Nombre legal** | Fontanería Saltos Quiroga S.L. |
-| **Slug** | `fontaneria-saltos-quiroga` *(nuevo)* |
+| **Slug** | `fontaneria-saltos-quiroga` |
+| **Actor ID** | `ff426e57-...` |
 | **Catálogo fuente** | `47fb567e` — supplier_key=`saltoki`, 170 referencias |
-| **Estado** | ❌ Actor no creado — pendiente aprobación |
+| **Estado** | ✅ Activo — 20 offerings matched |
 | **Especialidad** | Fontanería industrial y doméstica, climatización, ACS |
 | **Posicionamiento demo** | Especialista en instalaciones sanitarias y térmicas. Catálogo técnico profundo, asesoramiento especializado. |
 | **Tagline** | *"Especialistas en agua y calor desde el norte"* |
-| **Familias de producto** | Fontanería 32, ACS 20, Electricidad 18, Grifería 15, Calefacción 15, Tuberías 15, Sanitarios 15, Válvulas 13, Saneamiento 10, Climatización 9 |
-| **Diferenciación vs Obras y Materiales** | Especialización en fontanería premium; donde Obras y Materiales es generalista, Fontanería Saltos es técnico |
-| **Diferenciación vs STN** | STN = grifería premium de diseño; Fontanería Saltos = distribución técnica de fontanería general |
-| **Acción pendiente** | Crear actor + UPDATE supplier_name en catálogo + crear mínimo 10 offerings matched |
+| **Familias cubiertas** | Grifería (bañera, lavadero, cocina, lavabo), Sanitarios (plato extraplano, plato resina, lavabo, mampara), ACS (calentador gas, termo 50L, válvula seguridad), Válvulas (esfera, termostática, antirretorno), Control (cabezal termostático), Tubería (multicapa ml), Saneamiento (sifón ducha, bote sifónico, sifón botella, desagüe lavadora) |
+| **UPs reutilizados** | 17 de los 60 existentes |
+| **UPs nuevos (inaugurados FSQ)** | Válvula antirretorno latón, Sifón botella lavabo, Bote sifónico PVC |
+| **Diferenciación vs Obras y Materiales** | Especialización en fontanería técnica; donde ObrasMat es generalista, FSQ es el técnico de instalación |
+| **Diferenciación vs STN** | STN = ACS y calefacción; FSQ = fontanería sanitaria general (grifería, sanitarios, desagüe) |
+| **Acción pendiente** | Sprint C: añadir climatización (SAL-CLI diferidos), calderas FSQ, grifería menor |
 
 ---
 
@@ -171,7 +174,7 @@ Cada proveedor demo tiene una identidad coherente y diferenciada. La plataforma 
 | # | Nombre demo | Slug | Fuente legacy | Prods legacy | Matched hoy | Estado |
 |---|------------|------|--------------|-------------|------------|--------|
 | 1 | Obras y Materiales S.L. | obramat-demo | obramat | 178 | 36 | ✅ |
-| 2 | Fontanería Saltos Quiroga S.L. | fontaneria-saltos-quiroga | saltoki | 170 | 0 | ❌ crear |
+| 2 | Fontanería Saltos Quiroga S.L. | fontaneria-saltos-quiroga | saltoki | 170 | 20 | ✅ activo |
 | 3 | ElectroDistribución Cantábrica S.L. | electrodistribucion-cantabrica | sonepar | 76 | 0 | ❌ crear |
 | 4 | Revestimientos y Obra Norte S.L. | revestimientos-obra-norte | — | 0 | 5 | ✅ (escaso) |
 | 5 | Pinturas Profesionales del Norte S.L. | pinturas-profesionales-norte | — | 0 | 2 | ✅ (escaso) |
@@ -182,7 +185,7 @@ Cada proveedor demo tiene una identidad coherente y diferenciada. La plataforma 
 | — | TrabFlow | trabflow-platform | — | 0 | 0 | ℹ️ plataforma |
 
 **Total actores demo (incluyendo complementarios):** 9 actores + 1 plataforma  
-**Total offerings matched (hoy):** 105 (tras Sprint B STN)  
+**Total offerings matched (hoy):** 125 (tras Sprint B STN + FSQ)  
 **Objetivo demo completo:** ≥20 offerings matched por proveedor principal (7 × 20 = 140 mínimo)
 
-*Actualizado 2026-08-08: STN activo con 35 offerings. Pendiente: Fontanería Saltos Quiroga (actor creado, 0 offerings) y ElectroDistribución Cantábrica (actor creado, 0 offerings).*
+*Actualizado 2026-08-08: STN activo con 35 offerings. FSQ activo con 20 offerings. Pendiente: ElectroDistribución Cantábrica (actor creado, 0 offerings).*

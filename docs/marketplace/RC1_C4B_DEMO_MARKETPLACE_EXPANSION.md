@@ -232,13 +232,14 @@ Este modelo muestra la competencia de precios sin triplicar los UPs.
 
 ```
 ✅ 35 offerings Sistemas Térmicos del Norte (ACS, caldera, bomba de calor, split, radiadores, control) — COMPLETADO 2026-08-08
-⏳ 20 offerings Fontanería Saltos Quiroga (fontanería, grifería, ACS) — actor creado, pendiente offerings
+✅ 20 offerings Fontanería Saltos Quiroga (fontanería, grifería, ACS) — COMPLETADO 2026-08-08
 ⏳ 15 offerings ElectroDistribución Cantábrica (mecanismos, cables, protecciones) — actor creado, pendiente offerings
 ⏳ 10 offerings adicionales en Revestimientos, Pinturas, Carpintería
 ```
 
-**Cobertura tras Sprint B parcial (STN):** ~15.6%  
-**Cobertura tras Sprint B completo:** ~28%
+**Cobertura tras Sprint B STN:** ~15.6%  
+**Cobertura tras Sprint B FSQ:** ~18.6% (125 offerings ✅)  
+**Cobertura tras Sprint B completo:** ~21%
 
 ### Sprint C — Ampliar y añadir competencia (1 semana, datos y validación)
 

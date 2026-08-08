@@ -220,9 +220,45 @@ Estado del ecosistema tras Sprint A+B:
   Sistemas Térmicos: 0 → 35 offerings matched, 35 UPs nuevos
 
 Pendiente (Sprint B continuación):
-  · 20 offerings Fontanería Saltos Quiroga (saltoki, 170 prods — actor creado sin offerings)
+  · ✅ 20 offerings Fontanería Saltos Quiroga → COMPLETADO (ver Paso 3.9)
   · 15 offerings ElectroDistribución Cantábrica (sonepar, 76 prods — actor creado sin offerings)
   · +10-15 offerings Revestimientos, Pinturas, Carpintería (ampliar actores escasos)
+```
+
+### Paso 3.9 — RC1-C.4B Sprint B: Fontanería Saltos Quiroga ✅ COMPLETADO (2026-08-08)
+
+```
+Objetivo: auditoría de 170 referencias Saltoki → 20 offerings matched en catálogo FSQ
+
+Auditoría (RC1_C4B_SPRINT_B_SALTOS_QUIROGA_AUDIT.md):
+✅ 170 referencias clasificadas: 38 descartadas, 6 dup internos, 126 válidas
+✅ 60 UPs cruzados: 17 reutilizables (P1/P2), 3 nuevos a crear
+✅ 7 incidencias documentadas (marcas reales, normalización ml, duplicados, splits CLI)
+✅ 4 decisiones aprobadas (D1-D4): UPs nuevos, normalización ml, gamas, diferir CLI a Sprint C
+
+Ejecución BD:
+✅ 3 UPs nuevos creados: Válvula antirretorno latón, Sifón botella lavabo, Bote sifónico PVC
+✅ 20 offerings creadas en catálogo 47fb567e (saltoki → Fontanería Saltos Quiroga)
+   · Grupo A (5): FSQ como primer proveedor en UPs vacíos
+     SAL-GRF-105 (bañera), SAL-GRF-114 (exterior), SAL-SAN-115 (plato extraplano),
+     SAL-TUB-101 (multicapa→ml, 1.44€/ml), SAL-SNM-110 (desagüe lavadora)
+   · Grupo B (7): competencia vs STN y ObrasMat
+     SAL-ACS-005/001/008, SAL-VAL-101/109, SAL-GRF-102 (premium), SAL-CAL-109
+   · Grupo C (5): variante en UPs multi-proveedor
+     SAL-GRF-101, SAL-SAN-107 (mampara), SAL-SAN-103, SAL-SAN-102, SAL-SNM-109
+   · Grupo D (3): FSQ inaugura 3 nuevas categorías
+     SAL-VAL-104 (antirretorno), SAL-FON-009 (sifón botella), SAL-SNM-101 (bote sifónico)
+   · Precios: coste × 1.08 = profesional; coste × 1.35 = público; IVA 21%; EUR
+   · UPs reutilizados: 17 | UPs nuevos: 3 | Gamas: básica/estándar/profesional/premium
+
+Estado del ecosistema tras Sprint B FSQ:
+  Total offerings matched: 105 → 125 (+20 FSQ)
+  Cobertura catálogo: 15.6% → 18.6% (125 / 672)
+  FSQ: 0 → 20 offerings matched
+  UPs totales validated: ~88
+
+Pendiente (Sprint B continuación):
+  · 15 offerings ElectroDistribución Cantábrica (sonepar, 76 prods)
 ```
 
 ### Paso 4 — RC1 (implementación real)
