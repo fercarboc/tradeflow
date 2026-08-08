@@ -4,6 +4,41 @@
 
 ---
 
+## B0.5 — Auditoría catálogo legacy: 891 referencias
+
+**Período:** 2026-08-08  
+**Estado:** STOP PARCIAL — entrega pre-migración ✓ (sin cambios de datos ni código)  
+**Doc:** `docs/marketplace/RC1_C4B_CATALOG_AUDIT.md`
+
+### Resultados del análisis
+
+| Categoría | Count | % |
+|-----------|-------|---|
+| A_MARKETPLACE_READY (listos hoy) | 18 | 2.0% |
+| B_MARKETPLACE_MAPPABLE (solo promoción) | 1 | 0.1% |
+| C_UP_REQUIRED (necesitan UP + offering) | 653 | 73.3% |
+| D_LEGACY_DUPLICATE (HVAC de marca — correcto como legacy) | 186 | 20.9% |
+| E_NON_MARKETPLACE (herramientas, EPIs) | 33 | 3.7% |
+| **TOTAL** | **891** | 100% |
+
+**Cobertura catálogo → Marketplace: 2.7%** (18/672 productos comerciales)
+
+### Hallazgos clave
+
+- Solo Obras y Materiales S.L. tiene actor Marketplace activo; los otros 12 proveedores no tienen actor
+- Los 160 obramat `pending_review` tienen offering pero 159 sin UP vinculado → reclasificados como C_UP_REQUIRED
+- 15 productos obramat son candidatos a mapeo rápido a UPs existentes (validación humana pendiente)
+- Falso positivo detectado: OBR-ELE-011 (enchufe estándar) ≠ UP "schuko IP44"
+- Para alcanzar cobertura ≥50% se requiere incorporar Saltoki al Marketplace (170 productos)
+
+### Propuesta de migración (pendiente aprobación)
+
+- **Inmediato:** promover OBR-FON-010 (B→A), validar 15 candidatos, crear ~65 UPs para obramat → cobertura ~26%
+- **Diferido:** actores + UPs + offerings para 6 proveedores (494 productos) → cobertura >60%
+- **Sin acción:** 186 HVAC legacy + 33 herramientas/EPIs
+
+---
+
 ## RC1-C.4A — Unificación de catálogo: Presupuesto ↔ Marketplace
 
 **Período:** 2026-08-08  

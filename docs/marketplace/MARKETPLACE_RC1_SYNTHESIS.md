@@ -127,9 +127,31 @@ Offerings matched: 58 → 70
 Documentos: RC1_C4A_*.md (6 documentos en docs/marketplace/)
 ```
 
+### Paso 3.6 — B0.5 Auditoría catálogo legacy ✅ COMPLETADO (2026-08-08, STOP PARCIAL entregado)
+
+```
+Objetivo: entender el estado de las 891 referencias legacy antes de migración masiva
+
+✅ Clasificación completa: A=18 / B=1 / C=653 / D=186 / E=33
+✅ Cobertura catálogo→Marketplace: 2.7% (18/672 productos comerciales)
+✅ 14 familias de obramat pending_review desglosadas (160 productos)
+✅ 15 candidatos de mapeo rápido a UPs existentes identificados
+✅ Falsos positivos prevenidos: OBR-ELE-011 ≠ UP IP44, EPDM ≠ membrana líquida
+✅ Propuesta de migración en 2 fases con volúmenes estimados:
+   · Fase inmediata: ~65 UPs nuevos obramat → cobertura ~26%
+   · Fase diferida: 6 actores + ~200 UPs + 494 offerings → cobertura >60%
+
+Documento: RC1_C4B_CATALOG_AUDIT.md
+```
+
+**Pendiente (aprobación humana requerida antes de continuar):**
+- Validar lista de 15 candidatos de mapeo rápido (§4 del doc)
+- Aprobar propuesta de migración por fases
+- Decidir si RC1-C.4B resolver puede ejecutarse en paralelo a la migración de datos
+
 ### Paso 4 — RC1 (implementación real)
 
-Con los pasos 0-3.5 completados, los bloqueantes de catálogo están resueltos. La cobertura demo es del 85%.
+Con los pasos 0-3.6 completados, los bloqueantes de catálogo están analizados. La cobertura demo es del 85% (Presupuesto→Marketplace). La cobertura catálogo legacy→Marketplace es del 2.7% — migración en curso.
 
 ---
 
