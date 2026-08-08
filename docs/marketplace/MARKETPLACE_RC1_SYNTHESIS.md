@@ -261,6 +261,39 @@ Pendiente (Sprint B continuación):
   · 15 offerings ElectroDistribución Cantábrica (sonepar, 76 prods)
 ```
 
+### Paso 3.10 — RC1-C.4B Sprint B: ElectroDistribución Cantábrica ✅ COMPLETADO (2026-08-08)
+
+```
+Objetivo: auditoría de 76 referencias Sonepar → 15 offerings matched en catálogo EDC
+
+Auditoría (RC1_C4B_SPRINT_B_ELECTRODISTRIBUCION_AUDIT.md):
+✅ 76 referencias clasificadas: 25 descartadas, 36 diferidas Sprint C, 15 seleccionadas
+✅ 7 UPs eléctricos cruzados: 1 reutilizable (cable 1,5mm²), 6 excluidos (IP20≠IP44)
+✅ 6 validaciones obligatorias aplicadas (IP20≠IP44, interruptor≠pulsador, diferencial≠magnetotérmico...)
+✅ 4 decisiones aprobadas (D1-D4): 14 UPs nuevos, normalización ml, PIA separados, diferir industrial
+
+Ejecución BD:
+✅ 14 UPs nuevos creados (13 auditados + caja derivación estanca):
+   · Cables: H07V-K 2,5mm² + manguera H05VV-F 3×1,5mm² (ambos en ml)
+   · Mecanismos IP20: interruptor + conmutador + enchufe schuko + pulsador timbre
+   · Protecciones: PIA monofásico 1P + PIA bifásico 2P + diferencial 2P 30mA
+   · Cuadros: caja ICP-M + cuadro distribución empotrar
+   · Iluminación: downlight LED 9W interior + aplique LED exterior IP65
+   · Canalizaciones: caja derivación estanca IP65
+✅ 15 offerings creadas en catálogo ff706aad (sonepar → ElectroDistribución Cantábrica)
+   · 1 en UP existente (cable 1,5mm²) → EDC como 3er proveedor junto a ElectroSuministros y STN
+   · 14 en UPs nuevos → EDC inaugura mecanismos IP20, protecciones, cuadros, luminaria técnica
+   · Cables normalizados: metadata unidad_original + metros_por_rollo + factor_conversion + unidad_normalizada
+   · Protecciones: calibre y poder de corte en metadata (1P 10A / 2P 25A / 2P 40A 30mA)
+
+Estado del ecosistema tras Sprint B EDC:
+  Total offerings matched: 125 → 140 (+15 EDC)
+  Cobertura catálogo: 18.6% → 20.8% (140 / 672)
+  EDC: 0 → 15 offerings matched
+  UPs validated totales: ~102
+  Actores con ≥15 offerings: ObrasMat(36), STN(35), FSQ(20), STN-comp(18), EDC(15)
+```
+
 ### Paso 4 — RC1 (implementación real)
 
 Con los pasos 0-3.6 completados, los bloqueantes de catálogo están analizados. La cobertura demo es del 85% (Presupuesto→Marketplace). La cobertura catálogo legacy→Marketplace es del 2.7% — migración en curso.

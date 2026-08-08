@@ -68,19 +68,23 @@ Cada proveedor demo tiene una identidad coherente y diferenciada. La plataforma 
 
 ---
 
-## 4. ElectroDistribución Cantábrica S.L. *(nuevo actor — pendiente)*
+## 4. ElectroDistribución Cantábrica S.L.
 
 | Campo | Valor |
 |-------|-------|
 | **Nombre legal** | ElectroDistribución Cantábrica S.L. |
-| **Slug** | `electrodistribucion-cantabrica` *(nuevo)* |
+| **Slug** | `electrodistribucion-cantabrica` |
+| **Actor ID** | `2512201e-...` |
 | **Catálogo fuente** | `ff706aad` — supplier_key=`sonepar`, 76 referencias |
-| **Estado** | ❌ Actor no creado — pendiente aprobación |
+| **Estado** | ✅ Activo — 15 offerings matched |
 | **Especialidad** | Distribución eléctrica industrial y doméstica, automatismos |
 | **Posicionamiento demo** | Distribuidor mayorista de material eléctrico. Desde mecanismos hasta cuadros de protección. |
 | **Tagline** | *"Distribución eléctrica profesional para el norte"* |
-| **Familias de producto** | Mecanismos 15, Cables 15, Protecciones 15, Canalizaciones 13, Luminaria 12, Cuadros 6 |
-| **Acción pendiente** | Crear actor + UPDATE supplier_name + crear mínimo 8 offerings matched |
+| **Familias cubiertas** | Mecanismos IP20 (interruptor, conmutador, enchufe, pulsador), Cables (H07V-K 1,5mm² y 2,5mm², manguera 3×1,5mm²), Protecciones (PIA 1P/2P, diferencial 2P 30mA), Cuadros (ICP-M, distribución 18M), Iluminación (downlight 9W, aplique exterior IP65), Canalizaciones (caja estanca IP65) |
+| **UPs reutilizados** | 1 (cable H07V-K 1,5mm² — EDC como 3er proveedor) |
+| **UPs nuevos (inaugurados EDC)** | 14: mecanismos IP20, cables normalizados, protecciones, cuadros, luminaria técnica, caja estanca |
+| **Diferenciación vs ElectroSuministros** | ElectroSuministros = IP44 zonas húmedas + LED baño; EDC = IP20 interior + protecciones + cuadros (mayorista técnico) |
+| **Acción pendiente** | Sprint C: cables 4+6mm², mangueras mayores, diferencial 25A, luminaria adicional, canalizaciones |
 
 ---
 
@@ -175,7 +179,7 @@ Cada proveedor demo tiene una identidad coherente y diferenciada. La plataforma 
 |---|------------|------|--------------|-------------|------------|--------|
 | 1 | Obras y Materiales S.L. | obramat-demo | obramat | 178 | 36 | ✅ |
 | 2 | Fontanería Saltos Quiroga S.L. | fontaneria-saltos-quiroga | saltoki | 170 | 20 | ✅ activo |
-| 3 | ElectroDistribución Cantábrica S.L. | electrodistribucion-cantabrica | sonepar | 76 | 0 | ❌ crear |
+| 3 | ElectroDistribución Cantábrica S.L. | electrodistribucion-cantabrica | sonepar | 76 | 15 | ✅ activo |
 | 4 | Revestimientos y Obra Norte S.L. | revestimientos-obra-norte | — | 0 | 5 | ✅ (escaso) |
 | 5 | Pinturas Profesionales del Norte S.L. | pinturas-profesionales-norte | — | 0 | 2 | ✅ (escaso) |
 | 6 | Carpintería y Cerramientos Norte S.L. | carpinteria-cerramientos-norte | — | 0 | 3 | ✅ (escaso) |
@@ -185,7 +189,7 @@ Cada proveedor demo tiene una identidad coherente y diferenciada. La plataforma 
 | — | TrabFlow | trabflow-platform | — | 0 | 0 | ℹ️ plataforma |
 
 **Total actores demo (incluyendo complementarios):** 9 actores + 1 plataforma  
-**Total offerings matched (hoy):** 125 (tras Sprint B STN + FSQ)  
-**Objetivo demo completo:** ≥20 offerings matched por proveedor principal (7 × 20 = 140 mínimo)
+**Total offerings matched (hoy):** 140 (tras Sprint B STN + FSQ + EDC)  
+**Objetivo demo completo:** ≥20 offerings matched por proveedor principal (7 × 20 = 140 mínimo) ✅
 
-*Actualizado 2026-08-08: STN activo con 35 offerings. FSQ activo con 20 offerings. Pendiente: ElectroDistribución Cantábrica (actor creado, 0 offerings).*
+*Actualizado 2026-08-08: STN 35 offerings ✅ · FSQ 20 offerings ✅ · EDC 15 offerings ✅. Sprint B completo. Objetivo de 140 alcanzado.*

@@ -4,6 +4,51 @@
 
 ---
 
+## RC1-C.4B Sprint B — ElectroDistribución Cantábrica: 14 UPs + 15 offerings
+
+**Período:** 2026-08-08  
+**Estado:** COMPLETADO ✓  
+**Commits:** ver git log RC1-C.4B Sprint B EDC
+
+### Ejecutado en BD
+
+**Auditoría catálogo Sonepar (76 refs → 15 offerings):**
+- 25 referencias descartadas (protecciones trifásicas, cables especializados, canalizaciones industriales)
+- 36 referencias diferidas a Sprint C (cables 4-16mm², luminaria completa, mecanismos telecomunicaciones)
+- 15 referencias seleccionadas por amplitud perceptual y cobertura P1/P2
+- 1 UP existente reutilizado; 14 UPs nuevos creados
+
+**14 UPs nuevos creados:**
+- Cables: H07V-K 2,5mm² + manguera H05VV-F 3×1,5mm² (unidad ml)
+- Mecanismos IP20: interruptor + conmutador + enchufe schuko + pulsador timbre
+- Protecciones: PIA monofásico 1P + PIA bifásico 2P + diferencial 2P 30mA AC
+- Cuadros: caja empotrar ICP-M + cuadro distribución empotrar 18M
+- Iluminación: downlight LED 9W + aplique LED exterior IP65
+- Canalizaciones: caja derivación estanca IP65
+
+**15 offerings en catálogo `ff706aad` (ElectroDistribución Cantábrica S.L.):**
+
+| Grupo | Offerings | Descripción |
+|-------|-----------|------------|
+| A — 3er proveedor | 1 | Cable H07V-K 1,5mm² junto a ElectroSuministros y STN |
+| B — Mecanismos IP20 | 4 | EDC inaugura categoría (sin competencia hasta Sprint C) |
+| C — Cables ml | 2 | 2,5mm² y manguera 3×1,5mm² normalizados |
+| D — Protecciones | 3 | PIA 1P / PIA 2P / diferencial — validación estricta |
+| E — Cuadros | 2 | ICP-M + distribución empotrar |
+| F — Iluminación técnica | 2 | Interior (no IP44) + exterior IP65 |
+| G — Canalización | 1 | Caja derivación estanca IP65 |
+
+Cables normalizados: precio/rollo ÷ metros → €/ml. Metadata: unidad_original, metros_por_rollo, precio_por_rollo, factor_conversion, unidad_normalizada.
+
+**Estado ecosistema:**
+- Offerings matched: 125 → **140** (+15 EDC)
+- Cobertura catálogo: 18.6% → **20.8%** (140 / 672)
+- EDC: actor activo, 0 → 15 offerings
+- UPs validated totales: ~102
+- Objetivo demo 140 offerings: **alcanzado** ✅
+
+---
+
 ## RC1-C.4B Sprint B — Fontanería Saltos Quiroga: 3 UPs + 20 offerings
 
 **Período:** 2026-08-08  
