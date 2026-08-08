@@ -149,6 +149,41 @@ Documento: RC1_C4B_CATALOG_AUDIT.md
 - Aprobar propuesta de migración por fases
 - Decidir si RC1-C.4B resolver puede ejecutarse en paralelo a la migración de datos
 
+### Paso 3.7 — RC1-C.4B Normalización identidades demo ✅ STOP PARCIAL entregado (2026-08-08)
+
+```
+Objetivo: eliminar todas las marcas reales del Marketplace demo y completar el ecosistema
+
+Diagnóstico completado:
+✅ 7 actores actuales auditados (70 offerings matched total)
+✅ 12 catálogos legacy con marcas reales identificados (713 referencias expuestas)
+✅ Identidades demo definitivas definidas para los 9 proveedores
+✅ 3 decisiones de arquitectura identificadas (bloquean ejecución)
+✅ Plan de expansión en 4 sprints documentado
+
+Marcas reales a eliminar de BD (UPDATE supplier_name, pendiente aprobación):
+  · Saltoki → Fontanería Saltos Quiroga S.L.
+  · Sonepar → ElectroDistribución Cantábrica S.L.
+  · Ariston/Saunier Duval/Daikin/Baxi/Junkers/Vaillant → Sistemas Térmicos del Norte S.L.
+  · Würth, Novelec, Bricomart, Rexel → nombres pendientes de aprobación
+
+Actores a crear (INSERT, pendiente aprobación):
+  · Fontanería Saltos Quiroga S.L. (catálogo Saltoki, 170 prods)
+  · ElectroDistribución Cantábrica S.L. (catálogo Sonepar, 76 prods)
+  · Sistemas Térmicos del Norte S.L. (catálogo nuevo, ~35 prods seleccionados de 186)
+
+Documentos:
+  · RC1_C4B_DEMO_SUPPLIERS.md — actores, cambios, SQL propuesto, riesgos
+  · RC1_C4B_SUPPLIER_IDENTITY_GUIDE.md — identidad completa de los 9 proveedores
+  · RC1_C4B_DEMO_MARKETPLACE_EXPANSION.md — plan de expansión por sprints
+```
+
+**Decisiones bloqueantes (requieren aprobación):**
+1. STN vs Fontanería Saltos Quiroga — roles complementarios o fusión?
+2. ElectroSuministros vs ElectroDistribución Cantábrica — dos actores o uno?
+3. HVAC brands — crear catálogo nuevo o migrar desde los 6 existentes?
+4. Nombres demo para Würth, Novelec, Bricomart, Rexel — ¿aprobar propuesta o diferir?
+
 ### Paso 4 — RC1 (implementación real)
 
 Con los pasos 0-3.6 completados, los bloqueantes de catálogo están analizados. La cobertura demo es del 85% (Presupuesto→Marketplace). La cobertura catálogo legacy→Marketplace es del 2.7% — migración en curso.

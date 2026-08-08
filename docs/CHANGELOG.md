@@ -4,6 +4,39 @@
 
 ---
 
+## RC1-C.4B — Normalización identidades demo Marketplace
+
+**Período:** 2026-08-08  
+**Estado:** STOP PARCIAL — plan entregado, sin cambios de datos ni código  
+**Docs:** `RC1_C4B_DEMO_SUPPLIERS.md`, `RC1_C4B_SUPPLIER_IDENTITY_GUIDE.md`, `RC1_C4B_DEMO_MARKETPLACE_EXPANSION.md`
+
+### Regla aprobada
+
+**Ninguna marca real en el Marketplace demo.** OBRAMAT, SALTOKI, SONEPAR, ARISTON, DAIKIN y equivalentes deben ser sustituidos por identidades ficticias antes de cualquier presentación a proveedores reales.
+
+### Ecosistema demo objetivo (9 actores)
+
+| Actor | Fuente legacy | Matched hoy | Acción |
+|-------|-------------|------------|--------|
+| Obras y Materiales S.L. | obramat (178) | 36 | ✅ Activo |
+| Fontanería Saltos Quiroga S.L. | saltoki (170) | 0 | ❌ Crear actor |
+| ElectroDistribución Cantábrica S.L. | sonepar (76) | 0 | ❌ Crear actor |
+| Revestimientos y Obra Norte S.L. | demo | 5 | ✅ Ampliar |
+| Pinturas Profesionales del Norte S.L. | demo | 2 | ✅ Ampliar |
+| Carpintería y Cerramientos Norte S.L. | demo | 3 | ✅ Ampliar |
+| Sistemas Térmicos del Norte S.L. | HVAC×6 (186) | 0 | ❌ Crear actor |
+| Suministros Técnicos Norte S.L. | demo | 18 | ✅ Complementario |
+| ElectroSuministros Cantábrico S.L. | demo | 6 | ✅ Complementario |
+
+### Pendiente aprobación antes de ejecutar
+
+- 4 decisiones de arquitectura (ver RC1_C4B_DEMO_SUPPLIERS.md §5)
+- Nombres demo para Würth, Novelec, Bricomart, Rexel
+- UPDATE supplier_name en 8 catálogos (marcas reales → demo)
+- INSERT de 3 nuevos actores Marketplace
+
+---
+
 ## B0.5 — Auditoría catálogo legacy: 891 referencias
 
 **Período:** 2026-08-08  

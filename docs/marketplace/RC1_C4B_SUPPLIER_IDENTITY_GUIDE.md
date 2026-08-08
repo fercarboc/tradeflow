@@ -1,0 +1,185 @@
+# RC1-C.4B — Guía de identidad de proveedores demo
+
+**Versión:** 1.0  
+**Fecha:** 2026-08-08  
+**Estado:** STOP PARCIAL — guía de referencia para diseño y datos demo  
+**Propósito:** Definir la identidad completa de cada proveedor demo para que el ecosistema sea presentable a proveedores reales
+
+---
+
+## Principio rector
+
+Cada proveedor demo tiene una identidad coherente y diferenciada. La plataforma se usa para demostrar el modelo de negocio completo a proveedores reales, por lo que el demo debe ser **creíble, profesional y neutral** — sin referencias a marcas comerciales reales.
+
+---
+
+## 1. Obras y Materiales S.L.
+
+| Campo | Valor |
+|-------|-------|
+| **Nombre legal** | Obras y Materiales S.L. |
+| **Slug** | `obramat-demo` *(conservar)* |
+| **Actor ID** | `85e73234-c74e-44e7-865a-1aca8312f9a5` |
+| **Catálogo** | `280c05e5` (178 referencias legacy) |
+| **Estado** | ✅ Activo — 36 offerings matched |
+| **Especialidad** | Materiales de construcción y reforma integral |
+| **Posicionamiento demo** | Distribuidor generalista de materiales. Amplio stock, precios competitivos, entrega en obra. |
+| **Tagline** | *"Todo lo que necesita la obra, en un solo proveedor"* |
+| **Familias de producto** | Fontanería, Electricidad, Revestimientos, Suelos, Pintura, Madera, Ferretería, Cubiertas, ACS, Cerraduras, Construcción |
+| **Acción pendiente** | Activar las 195 offerings pending_review vinculando UPs |
+
+---
+
+## 2. Fontanería Saltos Quiroga S.L.
+
+| Campo | Valor |
+|-------|-------|
+| **Nombre legal** | Fontanería Saltos Quiroga S.L. |
+| **Slug** | `fontaneria-saltos-quiroga` *(nuevo)* |
+| **Catálogo fuente** | `47fb567e` — supplier_key=`saltoki`, 170 referencias |
+| **Estado** | ❌ Actor no creado — pendiente aprobación |
+| **Especialidad** | Fontanería industrial y doméstica, climatización, ACS |
+| **Posicionamiento demo** | Especialista en instalaciones sanitarias y térmicas. Catálogo técnico profundo, asesoramiento especializado. |
+| **Tagline** | *"Especialistas en agua y calor desde el norte"* |
+| **Familias de producto** | Fontanería 32, ACS 20, Electricidad 18, Grifería 15, Calefacción 15, Tuberías 15, Sanitarios 15, Válvulas 13, Saneamiento 10, Climatización 9 |
+| **Diferenciación vs Obras y Materiales** | Especialización en fontanería premium; donde Obras y Materiales es generalista, Fontanería Saltos es técnico |
+| **Diferenciación vs STN** | STN = grifería premium de diseño; Fontanería Saltos = distribución técnica de fontanería general |
+| **Acción pendiente** | Crear actor + UPDATE supplier_name en catálogo + crear mínimo 10 offerings matched |
+
+---
+
+## 3. Suministros Técnicos Norte S.L. *(actor existente — rol clarificado)*
+
+| Campo | Valor |
+|-------|-------|
+| **Nombre legal** | Suministros Técnicos Norte S.L. |
+| **Slug** | `suministros-tecnicos-norte` *(conservar)* |
+| **Actor ID** | `aeca7bac-f559-4e01-8ba4-7fd1b7aae9b9` |
+| **Catálogo** | `1aec572f` (catálogo demo propio, 19 offerings) |
+| **Estado** | ✅ Activo — 18 offerings matched |
+| **Especialidad** | Grifería premium, mecanismos de baño, accesorios técnicos |
+| **Posicionamiento demo** | Proveedor de gama alta para instalaciones de baño y cocina. Productos de diseño y alta durabilidad. |
+| **Tagline** | *"Grifería y accesorios para instalaciones exigentes"* |
+| **Rol en el demo** | Segundo proveedor de fontanería — muestra competencia de precios y calidad frente a Fontanería Saltos Quiroga |
+| **Acción pendiente** | Clarificar rol + ampliar catálogo demo con 10-15 offerings adicionales |
+
+---
+
+## 4. ElectroDistribución Cantábrica S.L. *(nuevo actor — pendiente)*
+
+| Campo | Valor |
+|-------|-------|
+| **Nombre legal** | ElectroDistribución Cantábrica S.L. |
+| **Slug** | `electrodistribucion-cantabrica` *(nuevo)* |
+| **Catálogo fuente** | `ff706aad` — supplier_key=`sonepar`, 76 referencias |
+| **Estado** | ❌ Actor no creado — pendiente aprobación |
+| **Especialidad** | Distribución eléctrica industrial y doméstica, automatismos |
+| **Posicionamiento demo** | Distribuidor mayorista de material eléctrico. Desde mecanismos hasta cuadros de protección. |
+| **Tagline** | *"Distribución eléctrica profesional para el norte"* |
+| **Familias de producto** | Mecanismos 15, Cables 15, Protecciones 15, Canalizaciones 13, Luminaria 12, Cuadros 6 |
+| **Acción pendiente** | Crear actor + UPDATE supplier_name + crear mínimo 8 offerings matched |
+
+---
+
+## 5. ElectroSuministros Cantábrico S.L. *(actor existente — rol clarificado)*
+
+| Campo | Valor |
+|-------|-------|
+| **Nombre legal** | ElectroSuministros Cantábrico S.L. |
+| **Slug** | `electrosuministros-cantabrico` *(conservar)* |
+| **Actor ID** | `fba14bb4-aa80-438e-9a1c-4637963abedd` |
+| **Catálogo** | `498a2e63` (catálogo demo propio, 6 offerings) |
+| **Estado** | ✅ Activo — 6 offerings matched |
+| **Especialidad** | Mecanismos eléctricos de baño, luminarias domésticas, instalación domótica |
+| **Posicionamiento demo** | Especialista en electricidad doméstica y aplicaciones específicas (zonas húmedas, iluminación LED). |
+| **Tagline** | *"Electricidad doméstica con soluciones de instalación completas"* |
+| **Rol en el demo** | Segundo proveedor eléctrico — muestra competencia frente a ElectroDistribución |
+| **Diferenciación vs ElectroDistribución** | Cantábrico = doméstico + baño + LED; ElectroDistribución = mayorista industrial |
+| **Acción pendiente** | Ampliar catálogo demo con 10-15 offerings adicionales |
+
+---
+
+## 6. Revestimientos y Obra Norte S.L.
+
+| Campo | Valor |
+|-------|-------|
+| **Nombre legal** | Revestimientos y Obra Norte S.L. |
+| **Slug** | `revestimientos-obra-norte` *(conservar)* |
+| **Actor ID** | `ce5c781d-1d0b-48f7-b6d2-3dcc682b5747` |
+| **Catálogo** | `6ea37e62` (catálogo demo, 5 offerings) |
+| **Estado** | ✅ Activo — 5 offerings matched |
+| **Especialidad** | Revestimientos cerámicos, pavimentos, morteros, impermeabilizantes |
+| **Posicionamiento demo** | Especialista en acabados de obra húmeda y seca. Amplio catálogo de formatos y acabados. |
+| **Tagline** | *"Revestimientos y acabados para profesionales de la reforma"* |
+| **Acción pendiente** | Ampliar catálogo: azulejos, baldosas, morteros adhesivos, impermeabilizantes |
+
+---
+
+## 7. Pinturas Profesionales del Norte S.L.
+
+| Campo | Valor |
+|-------|-------|
+| **Nombre legal** | Pinturas Profesionales del Norte S.L. |
+| **Slug** | `pinturas-profesionales-norte` *(conservar)* |
+| **Actor ID** | `d8f0bf84-bc21-4c9c-bc89-64da9926c149` |
+| **Catálogo** | `5c72b86b` (catálogo demo, 2 offerings) |
+| **Estado** | ✅ Activo — 2 offerings matched |
+| **Especialidad** | Pinturas plásticas, esmaltes, imprimaciones, tratamientos antihumedad |
+| **Posicionamiento demo** | Fabricante y distribuidor de pinturas para uso profesional. Asesoramiento técnico incluido. |
+| **Tagline** | *"Pinturas técnicas para resultados duraderos"* |
+| **Acción pendiente** | Ampliar catálogo: esmaltes, barnices, imprimaciones, pinturas especiales |
+
+---
+
+## 8. Carpintería y Cerramientos Norte S.L.
+
+| Campo | Valor |
+|-------|-------|
+| **Nombre legal** | Carpintería y Cerramientos Norte S.L. |
+| **Slug** | `carpinteria-cerramientos-norte` *(conservar)* |
+| **Actor ID** | `0464ae2d-737d-42fe-9aae-3e796de716c8` |
+| **Catálogo** | `9907af28` (catálogo demo, 3 offerings) |
+| **Estado** | ✅ Activo — 3 offerings matched |
+| **Especialidad** | Puertas de paso, ventanas PVC/aluminio, mamparas, tarima |
+| **Posicionamiento demo** | Especialista en carpintería interior y exterior para reformas. Plazos ajustados y colocación incluida. |
+| **Tagline** | *"Cerramientos y carpintería de calidad para reformas integrales"* |
+| **Acción pendiente** | Ampliar catálogo: puertas de paso, ventanas, rodapiés, tarima flotante |
+
+---
+
+## 9. Sistemas Térmicos del Norte S.L. *(nuevo actor — pendiente)*
+
+| Campo | Valor |
+|-------|-------|
+| **Nombre legal** | Sistemas Térmicos del Norte S.L. |
+| **Slug** | `sistemas-termicos-norte` *(nuevo)* |
+| **Catálogo fuente** | Nuevo catálogo — productos seleccionados de los 6 catálogos HVAC legacy |
+| **Estado** | ❌ Actor no creado — pendiente aprobación |
+| **Especialidad** | ACS (termos, termostatos), bombas de calor, aerotermia, climatización |
+| **Posicionamiento demo** | Distribuidor especializado en sistemas térmicos. Soluciones para toda la gama de instalaciones de calefacción y ACS. |
+| **Tagline** | *"Calor eficiente: ACS, climatización y energías renovables"* |
+| **Familias de producto** | ACS (~30), Calderas (~20), Bomba de calor (~15), Split/Aerotermia (~15), Radiadores (~10) |
+| **Catálogos legacy a normalizar** | Saunier Duval 48 + Daikin 46 + Baxi 24 + Ariston 23 + Junkers 23 + Vaillant 22 = 186 refs |
+| **Productos a migrar** | Selección representativa: ~30-40 productos (no los 186 completos) |
+| **Acción pendiente** | Crear catálogo + actor + seleccionar ~35 UPs/refs a migrar + crear offerings |
+
+---
+
+## 10. Tabla maestra de identidades
+
+| # | Nombre demo | Slug | Fuente legacy | Prods legacy | Matched hoy | Estado |
+|---|------------|------|--------------|-------------|------------|--------|
+| 1 | Obras y Materiales S.L. | obramat-demo | obramat | 178 | 36 | ✅ |
+| 2 | Fontanería Saltos Quiroga S.L. | fontaneria-saltos-quiroga | saltoki | 170 | 0 | ❌ crear |
+| 3 | ElectroDistribución Cantábrica S.L. | electrodistribucion-cantabrica | sonepar | 76 | 0 | ❌ crear |
+| 4 | Revestimientos y Obra Norte S.L. | revestimientos-obra-norte | — | 0 | 5 | ✅ (escaso) |
+| 5 | Pinturas Profesionales del Norte S.L. | pinturas-profesionales-norte | — | 0 | 2 | ✅ (escaso) |
+| 6 | Carpintería y Cerramientos Norte S.L. | carpinteria-cerramientos-norte | — | 0 | 3 | ✅ (escaso) |
+| 7 | Sistemas Térmicos del Norte S.L. | sistemas-termicos-norte | HVAC×6 | 186 | 0 | ❌ crear |
+| — | Suministros Técnicos Norte S.L. | suministros-tecnicos-norte | demo | 0 | 18 | ✅ (complementario) |
+| — | ElectroSuministros Cantábrico S.L. | electrosuministros-cantabrico | demo | 0 | 6 | ✅ (complementario) |
+| — | TrabFlow | trabflow-platform | — | 0 | 0 | ℹ️ plataforma |
+
+**Total actores demo (incluyendo complementarios):** 9 actores + 1 plataforma  
+**Total offerings matched (hoy):** 70  
+**Objetivo demo completo:** ≥20 offerings matched por proveedor principal (7 × 20 = 140 mínimo)
