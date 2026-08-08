@@ -184,6 +184,47 @@ Documentos:
 3. HVAC brands — crear catálogo nuevo o migrar desde los 6 existentes?
 4. Nombres demo para Würth, Novelec, Bricomart, Rexel — ¿aprobar propuesta o diferir?
 
+### Paso 3.8 — RC1-C.4B Sprint A+B: Sistemas Térmicos del Norte ✅ COMPLETADO (2026-08-08)
+
+```
+Objetivo: ejecutar Sprint A (actores + normalización) y Sprint B parcial (STN con 35 UPs + 35 offerings)
+
+Sprint A — Normalización de identidades ✅
+✅ supplier_name limpiado en 12 catálogos legacy (cero marcas reales en supplier_name)
+✅ Actor Fontanería Saltos Quiroga S.L. creado (slug: fontaneria-saltos-quiroga, id: ff426e57)
+✅ Actor ElectroDistribución Cantábrica S.L. creado (slug: electrodistribucion-cantabrica, id: 2512201e)
+✅ Catálogo nuevo `sistemas-termicos-norte` creado (id: 8a44c358)
+✅ Actor Sistemas Térmicos del Norte S.L. creado (slug: sistemas-termicos-norte, id: ce208430)
+✅ STN metadata actualizado: grifería premium / sanitarios / accesorios / climatización
+✅ ElectroSuministros metadata actualizado: instalador residencial / pequeño material
+
+Sprint B parcial — 35 UPs + 35 offerings STN ✅
+✅ 35 universal products creados (genéricos, sin marca, validation_state='validated')
+   · 8 ACS: calentadores gas, termoacumuladores eléctricos, acumuladores indirectos
+   · 8 Calderas: condensación mural/pie/mixta, biomasa pellet
+   · 4 Bomba de calor: aerotermia 6/8/12/16kW
+   · 4 Split inverter: 2.150/3.400/5.200/7.000 frigorías
+   · 4 Radiadores: aluminio 6/10 elementos, panel acero 800/1200mm
+   · 4 Control: termostato WiFi, OpenTherm, válvula y cabezal termostático
+   · 3 Accesorios: kit evacuación coaxial, vaso expansión, gas R32
+✅ 35 offerings matched creadas en catálogo 8a44c358
+   · Refs STM-ACS-001..008, STM-CAL-001..006, STM-BIO-001..002,
+     STM-BDC-001..004, STM-SPL-001..004, STM-RAD-001..004,
+     STM-CON-001..002, STM-REG-001..002, STM-ACC-001..003
+   · Precios: coste × 1.08 = profesional; coste × 1.35 = público
+   · IVA: 21%; divisa: EUR; match_state: 'matched'; venta_profesional: true
+
+Estado del ecosistema tras Sprint A+B:
+  Actores activos: 9 (+3 nuevos: Fontanería Saltos, ElectroDistribución, STN)
+  Total offerings matched: 70 → 105 (+35 de STN)
+  Sistemas Térmicos: 0 → 35 offerings matched, 35 UPs nuevos
+
+Pendiente (Sprint B continuación):
+  · 20 offerings Fontanería Saltos Quiroga (saltoki, 170 prods — actor creado sin offerings)
+  · 15 offerings ElectroDistribución Cantábrica (sonepar, 76 prods — actor creado sin offerings)
+  · +10-15 offerings Revestimientos, Pinturas, Carpintería (ampliar actores escasos)
+```
+
 ### Paso 4 — RC1 (implementación real)
 
 Con los pasos 0-3.6 completados, los bloqueantes de catálogo están analizados. La cobertura demo es del 85% (Presupuesto→Marketplace). La cobertura catálogo legacy→Marketplace es del 2.7% — migración en curso.

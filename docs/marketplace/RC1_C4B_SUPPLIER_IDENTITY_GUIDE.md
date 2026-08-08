@@ -147,21 +147,22 @@ Cada proveedor demo tiene una identidad coherente y diferenciada. La plataforma 
 
 ---
 
-## 9. Sistemas Térmicos del Norte S.L. *(nuevo actor — pendiente)*
+## 9. Sistemas Térmicos del Norte S.L. *(actor creado — Sprint B completado)*
 
 | Campo | Valor |
 |-------|-------|
 | **Nombre legal** | Sistemas Térmicos del Norte S.L. |
-| **Slug** | `sistemas-termicos-norte` *(nuevo)* |
-| **Catálogo fuente** | Nuevo catálogo — productos seleccionados de los 6 catálogos HVAC legacy |
-| **Estado** | ❌ Actor no creado — pendiente aprobación |
-| **Especialidad** | ACS (termos, termostatos), bombas de calor, aerotermia, climatización |
+| **Slug** | `sistemas-termicos-norte` |
+| **Actor ID** | `ce208430-...` |
+| **Catálogo** | `8a44c358` — nuevo catálogo STN (35 offerings matched) |
+| **Estado** | ✅ Activo — 35 offerings matched |
+| **Especialidad** | ACS, calderas de condensación, bombas de calor, aerotermia, split inverter, control térmico |
 | **Posicionamiento demo** | Distribuidor especializado en sistemas térmicos. Soluciones para toda la gama de instalaciones de calefacción y ACS. |
 | **Tagline** | *"Calor eficiente: ACS, climatización y energías renovables"* |
-| **Familias de producto** | ACS (~30), Calderas (~20), Bomba de calor (~15), Split/Aerotermia (~15), Radiadores (~10) |
-| **Catálogos legacy a normalizar** | Saunier Duval 48 + Daikin 46 + Baxi 24 + Ariston 23 + Junkers 23 + Vaillant 22 = 186 refs |
-| **Productos a migrar** | Selección representativa: ~30-40 productos (no los 186 completos) |
-| **Acción pendiente** | Crear catálogo + actor + seleccionar ~35 UPs/refs a migrar + crear offerings |
+| **Familias de producto** | ACS (8), Calderas (8), Bomba de calor (4), Split inverter (4), Radiadores (4), Control (4), Accesorios (3) |
+| **Referencias** | STM-ACS-001..008, STM-CAL-001..006, STM-BIO-001..002, STM-BDC-001..004, STM-SPL-001..004, STM-RAD-001..004, STM-CON-001..002, STM-REG-001..002, STM-ACC-001..003 |
+| **Catálogos legacy normalizados** | Saunier Duval, Daikin, Baxi, Ariston, Junkers, Vaillant — supplier_name limpiado (sin marcas reales) |
+| **Acción pendiente** | Ampliar catálogo: grifería premium (§4.1 RC1_C4B_SUPPLIER_IDENTITY_GUIDE), sanitarios de diseño |
 
 ---
 
@@ -175,11 +176,13 @@ Cada proveedor demo tiene una identidad coherente y diferenciada. La plataforma 
 | 4 | Revestimientos y Obra Norte S.L. | revestimientos-obra-norte | — | 0 | 5 | ✅ (escaso) |
 | 5 | Pinturas Profesionales del Norte S.L. | pinturas-profesionales-norte | — | 0 | 2 | ✅ (escaso) |
 | 6 | Carpintería y Cerramientos Norte S.L. | carpinteria-cerramientos-norte | — | 0 | 3 | ✅ (escaso) |
-| 7 | Sistemas Térmicos del Norte S.L. | sistemas-termicos-norte | HVAC×6 | 186 | 0 | ❌ crear |
+| 7 | Sistemas Térmicos del Norte S.L. | sistemas-termicos-norte | HVAC×6 | 186 | 35 | ✅ activo |
 | — | Suministros Técnicos Norte S.L. | suministros-tecnicos-norte | demo | 0 | 18 | ✅ (complementario) |
 | — | ElectroSuministros Cantábrico S.L. | electrosuministros-cantabrico | demo | 0 | 6 | ✅ (complementario) |
 | — | TrabFlow | trabflow-platform | — | 0 | 0 | ℹ️ plataforma |
 
 **Total actores demo (incluyendo complementarios):** 9 actores + 1 plataforma  
-**Total offerings matched (hoy):** 70  
+**Total offerings matched (hoy):** 105 (tras Sprint B STN)  
 **Objetivo demo completo:** ≥20 offerings matched por proveedor principal (7 × 20 = 140 mínimo)
+
+*Actualizado 2026-08-08: STN activo con 35 offerings. Pendiente: Fontanería Saltos Quiroga (actor creado, 0 offerings) y ElectroDistribución Cantábrica (actor creado, 0 offerings).*

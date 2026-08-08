@@ -4,10 +4,47 @@
 
 ---
 
+## RC1-C.4B Sprint A+B — Sistemas Térmicos del Norte: 35 UPs + 35 offerings
+
+**Período:** 2026-08-08  
+**Estado:** COMPLETADO ✓  
+**Commits:** ver git log RC1-C.4B
+
+### Ejecutado en BD
+
+**Sprint A — Normalización de identidades:**
+- `supplier_name` limpiado en 12 catálogos: cero marcas reales (OBRAMAT, SALTOKI, SONEPAR, ARISTON, DAIKIN, etc.)
+- Actor **Fontanería Saltos Quiroga S.L.** creado (`fontaneria-saltos-quiroga`, id `ff426e57`)
+- Actor **ElectroDistribución Cantábrica S.L.** creado (`electrodistribucion-cantabrica`, id `2512201e`)
+- Catálogo `sistemas-termicos-norte` creado (id `8a44c358`)
+- Actor **Sistemas Térmicos del Norte S.L.** creado (`sistemas-termicos-norte`, id `ce208430`)
+
+**Sprint B — 35 UPs genéricos + 35 offerings STN:**
+
+| Familia | UPs | Refs STM |
+|---------|-----|----------|
+| ACS (calentadores, termos, acumuladores) | 8 | STM-ACS-001..008 |
+| Calderas (condensación mural/pie, biomasa) | 8 | STM-CAL-001..006, STM-BIO-001..002 |
+| Bomba de calor aerotermia 6/8/12/16kW | 4 | STM-BDC-001..004 |
+| Split inverter 2.150/3.400/5.200/7.000 frig | 4 | STM-SPL-001..004 |
+| Radiadores (aluminio + panel acero) | 4 | STM-RAD-001..004 |
+| Control térmico (termostatos, válvulas) | 4 | STM-CON-001..002, STM-REG-001..002 |
+| Accesorios (coaxial, vaso expansión, R32) | 3 | STM-ACC-001..003 |
+| **Total** | **35** | |
+
+Precios: coste × 1.08 = profesional_neto; coste × 1.35 = público_neto. IVA 21%, EUR, venta_profesional.
+
+**Estado ecosistema:**
+- Actores activos: 6 → 9 (+Fontanería Saltos, +ElectroDistribución, +STN)
+- Offerings matched: 70 → 105
+- STN: 0 → 35 offerings / 35 UPs nuevos
+
+---
+
 ## RC1-C.4B — Normalización identidades demo Marketplace
 
 **Período:** 2026-08-08  
-**Estado:** STOP PARCIAL — plan entregado, sin cambios de datos ni código  
+**Estado:** STOP PARCIAL entregado — plan de normalización y expansión  
 **Docs:** `RC1_C4B_DEMO_SUPPLIERS.md`, `RC1_C4B_SUPPLIER_IDENTITY_GUIDE.md`, `RC1_C4B_DEMO_MARKETPLACE_EXPANSION.md`
 
 ### Regla aprobada

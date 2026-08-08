@@ -71,11 +71,12 @@ Nota: 672 = 891 total − 33 herramientas/EPIs − 186 HVAC legacy
 
 | Fase | Cobertura | Hito |
 |------|----------|------|
-| Hoy | 10.4% | Línea base B0.5 |
-| Fase 1 (normalización) | 15% | Nombres limpios + actores creados |
-| Fase 2 (asignación) | 30% | Saltoki 20 offerings + elec 15 offerings |
-| Fase 3 (completa) | 50%+ | Todos los proveedores con catálogo activo |
-| Fase 4 (proveedores reales) | 80%+ | Transición a datos reales |
+| Hoy (línea base) | 10.4% | B0.5 — 70 offerings / 672 productos |
+| Sprint A+B STN ✅ | 15.6% | +35 offerings STN (105 matched total) |
+| Sprint B completo | ~21% | +20 Fontanería Saltos + 15 ElectroDistribución |
+| Sprint C | 30%+ | +Revestimientos, Pinturas, Carpintería ampliados |
+| Sprint D (completo) | 50%+ | Todos los proveedores con catálogo activo |
+| Proveedores reales | 80%+ | Transición a datos reales |
 
 ---
 
@@ -167,28 +168,28 @@ Nota: 672 = 891 total − 33 herramientas/EPIs − 186 HVAC legacy
 | Crear UPs y offerings para rodapiés y molduras | 3-4 UPs | Media |
 | **Objetivo:** 15 offerings matched | | |
 
-### 4.7 Sistemas Térmicos del Norte S.L. — CREAR
+### 4.7 Sistemas Térmicos del Norte S.L. — ✅ COMPLETADO (2026-08-08)
 
-**Situación:** Más complejo. 6 catálogos HVAC legacy (186 prods con marcas reales) sin actor.
+**Situación:** Actor creado, catálogo creado, 35 UPs + 35 offerings generados.
 
-| Acción | Volumen | Prioridad |
-|--------|---------|----------|
-| CREATE catálogo nuevo `sistemas-termicos-norte` | 1 catálogo | Inmediata |
-| INSERT actor `sistemas-termicos-norte` | 1 actor | Inmediata |
-| Seleccionar ~35 productos representativos de los 186 HVAC | ~35 prods | Alta |
-| Crear UPs genéricos (sin marca) para ACS, calderas, bomba de calor | ~10-12 UPs | Alta |
-| Crear offerings en el nuevo catálogo | ~20 offerings | Alta |
-| UPDATE supplier_name en los 6 catálogos HVAC (eliminar marcas reales) | 6 registros | Inmediata |
-| **Objetivo:** 20 offerings matched sin referencia a marcas reales | | |
+| Acción | Estado |
+|--------|--------|
+| CREATE catálogo nuevo `sistemas-termicos-norte` (id: `8a44c358`) | ✅ |
+| INSERT actor `sistemas-termicos-norte` (id: `ce208430`) | ✅ |
+| UPDATE supplier_name en los 6 catálogos HVAC (marcas eliminadas) | ✅ |
+| 35 UPs genéricos creados (sin marca, validation_state=validated) | ✅ |
+| 35 offerings matched en catálogo STN | ✅ |
 
-**Familias objetivo para Sistemas Térmicos:**
-- Calentador de agua instantáneo (gas/eléctrico)
-- Acumulador ACS 100L / 200L
-- Caldera de condensación mural
-- Bomba de calor ACS
-- Aerotermia doméstica
-- Termostato programable
-- Radiador de aluminio
+**Familias creadas:**
+- ACS: calentadores gas 11/14L, termoacumuladores eléctricos 50/80/100L WiFi, acumuladores 150/200/300L
+- Calderas: condensación mural 24/30/35kW, mixta 24kW, pie 30/45kW, biomasa pellet 15/25kW
+- Bomba de calor aerotermia: 6/8/12/16kW
+- Split inverter: 2.150/3.400/5.200/7.000 frigorías
+- Radiadores: aluminio 6/10 elem. 600mm, panel acero 600×800/1200mm
+- Control: termostato WiFi, OpenTherm, válvula termostática 1/2", cabezal M30
+- Accesorios: kit coaxial 60/100mm, vaso expansión 12L, gas R32 10kg
+
+**Pendiente (expansión futura):** grifería premium de diseño, sanitarios técnicos (diferenciación con Suministros Técnicos Norte).
 
 ---
 
@@ -230,13 +231,14 @@ Este modelo muestra la competencia de precios sin triplicar los UPs.
 ### Sprint B — Catálogos mínimos (3-5 días, creación de UPs y offerings)
 
 ```
-→ 20 offerings Fontanería Saltos Quiroga (fontanería, grifería, ACS)
-→ 15 offerings ElectroDistribución Cantábrica (mecanismos, cables, protecciones)
-→ 20 offerings Sistemas Térmicos (ACS, caldera, bomba de calor)
-→ 10 offerings adicionales en Revestimientos, Pinturas, Carpintería
+✅ 35 offerings Sistemas Térmicos del Norte (ACS, caldera, bomba de calor, split, radiadores, control) — COMPLETADO 2026-08-08
+⏳ 20 offerings Fontanería Saltos Quiroga (fontanería, grifería, ACS) — actor creado, pendiente offerings
+⏳ 15 offerings ElectroDistribución Cantábrica (mecanismos, cables, protecciones) — actor creado, pendiente offerings
+⏳ 10 offerings adicionales en Revestimientos, Pinturas, Carpintería
 ```
 
-**Cobertura tras Sprint B:** ~35%
+**Cobertura tras Sprint B parcial (STN):** ~15.6%  
+**Cobertura tras Sprint B completo:** ~28%
 
 ### Sprint C — Ampliar y añadir competencia (1 semana, datos y validación)
 
