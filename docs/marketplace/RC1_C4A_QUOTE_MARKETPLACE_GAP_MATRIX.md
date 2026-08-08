@@ -1,7 +1,20 @@
 # RC1-C.4A — Matriz Presupuesto ↔ Marketplace: gaps exactos
 
-**Estado:** ANÁLISIS — sin cambios de datos  
-**Versión:** 1.0 — 2026-08-08
+**Estado:** COMPLETADO — RC1-C.4A FASE A ejecutada y validada  
+**Versión:** 1.1 — 2026-08-08
+
+## Estado final post-RC1-C.4A
+
+| PRE | Total material | MARKETPLACE | UNRESOLVED | Cobertura |
+|-----|--------------|------------|------------|-----------|
+| PRE-2026-089 | 9 | 8 | 1 (Pequeño material/accesorios) | **89%** |
+| PRE-2026-085 | 16 | 13 | 3 (Pequeño material, Kit accesorios baño, Bidé) | **81%** |
+| PRE-2026-090 | 2 | 2 | 0 | **100%** |
+| **TOTAL** | **27** | **23** | **4** | **85%** |
+
+Los 4 UNRESOLVED son estructuralmente irresolubles: no existe UP adecuado en el catálogo B2B para esas categorías (pequeño material de obra, accesorios decorativos de baño, bidé). No son errores de matching.
+
+---
 
 ---
 

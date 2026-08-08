@@ -1,7 +1,7 @@
 # RC1-C.4A — Plan de offerings demo
 
-**Estado:** ANÁLISIS — pendiente de aprobación antes de insertar datos  
-**Versión:** 1.0 — 2026-08-08
+**Estado:** IMPLEMENTADO — RC1-C.4A FASE A completada 2026-08-08  
+**Versión:** 1.1 — 2026-08-08
 
 ---
 

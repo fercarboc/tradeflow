@@ -1,7 +1,7 @@
 # RC1-C.4A FASE A — Resultados
 
-**Versión:** 1.0 — 2026-08-08  
-**Estado:** COMPLETADO — pendiente de A10 (aprobación offerings) para activar en carrito
+**Versión:** 1.1 — 2026-08-08  
+**Estado:** COMPLETADO — A10 aprobado y ejecutado, A11 validado sin falsos positivos
 
 ---
 
@@ -13,12 +13,18 @@
 | PRE-2026-089 | 0/9 (0%) | 6/9 (67%) | 8/9 (89%) |
 | PRE-2026-085 | 0/16 (0%) | 11/16 (69%) | 13/16 (81%) |
 | PRE-2026-090 | 0/2 (0%) | 1/2 (50%) | 2/2 (100%) |
-| UPs en catálogo | 37 | 42 (+5) | 42 |
-| Offerings matched | 58 | 58 | 69 (+11 tras A10) |
-| Offerings pending_review | 196 | 208 (+12) | 197 (tras promoción) |
-| search_aliases configurados | 0 | 11 UPs × avg 7 | — |
+| UPs en catálogo | 37 | 43 (+6) | 43 |
+| Offerings matched | 58 | 58 | 70 (+12 tras A10) |
+| Offerings pending_review | 196 | 208 → 196 (todas promovidas) | — |
+| search_aliases configurados | 0 | 13 UPs × avg 6 | — |
 
-**Logro:** de 0% a 67% de cobertura sin cambios de código — solo datos.
+**Logro final:** de 0% a 85% de cobertura sin cambios de código — solo datos.
+
+### Notas post-A10
+
+- **Opción B aplicada:** UP "Mecanismo interruptor pulsador IP44" renombrado a "Mecanismo interruptor IP44"; creado nuevo UP "Mecanismo pulsador IP44" (id: `1ad915a0`); STN-MEC-0401 movido al nuevo UP y promovido.
+- **Fix alias plato de ducha:** alias "plato de ducha" añadido al UP "Plato de ducha" (44b86c78) para que PATH 3 resuelva antes que PATH 4, apuntando al UP con 5 offerings en lugar del UP "extraplano" vacío.
+- **Fix nombre UP caja eléctrica:** renombrado "Caja empotrar y pequeño material eléctrico" → "Kit cajas empotrar y accesorios eléctricos" para eliminar false positive vía name_prefix con descripciones tipo "Pequeño material y herramientas".
 
 ---
 
@@ -142,72 +148,92 @@ El plan original contenía:
 
 ---
 
-## A11 — Validación de cobertura (simulación alias match)
+## A10 — Decisiones de aprobación
 
-### PRE-2026-089 (reforma baño, 9 ítems material)
+| # | Ref | Decisión | Ejecutado |
+|---|-----|---------|-----------|
+| 1 | OYM-SAN-1001 | ✅ APROBADO | matched |
+| 2 | STN-SAN-1001 | ✅ APROBADO | matched |
+| 3 | OYM-ACC-0101 | ✅ APROBADO | matched |
+| 4 | STN-ACC-0101 | ✅ APROBADO | matched |
+| 5 | STN-KIT-0201 | ✅ APROBADO | matched |
+| 6 | OYM-KIT-0201 | ✅ APROBADO | matched |
+| 7 | ESC-MEC-1102 | ✅ APROBADO | matched en UP Interruptor IP44 |
+| 8 | STN-MEC-0401 | ✅ OPCIÓN B — UP separado | matched en nuevo UP Pulsador IP44 (1ad915a0) |
+| 9 | OYM-MUE-3002 | ✅ APROBADO | matched |
+| 10 | ESC-KIT-0001 | ✅ APROBADO | matched |
+| 11 | OYM-REV-1001 | ✅ APROBADO | matched |
+| 12 | OYM-REV-2001 | ✅ APROBADO | matched |
 
-| Pos | Descripción | Vía | UP matcheado | Estado actual |
-|-----|------------|-----|-------------|--------------|
-| 1 | Plato de ducha (70x70 cm...) | PATH 4 (nombre) | Plato de ducha | MARKETPLACE ✓ |
-| 2 | Grifería de ducha (monomando...) | PATH 3 alias "grifería de ducha" | Grifo monomando ducha | MARKETPLACE ✓ |
-| 3 | Sifón y válvula desagüe ducha | PATH 3 alias "válvula desagüe ducha" | Sifón y desagüe ducha | MARKETPLACE ✓ |
-| 4 | Adaptación fontanería (llaves...) | PATH 3 alias "adaptación fontanería" | Kit conexiones fontanería | UP_MATCH_PENDING |
-| 5 | Mampara de ducha (70x70...) | PATH 4 (nombre) | Mampara de ducha | MARKETPLACE ✓ |
-| 6 | Impermeabilización zona ducha | PATH 3 alias "impermeabilización zona ducha" | Membrana impermeabilizante | MARKETPLACE ✓ |
-| 7 | Baldosas y material alicatado | PATH 3 alias "baldosas y material alicatado" | Azulejo rectificado pared | MARKETPLACE ✓ |
-| 8 | Silicona sanitaria y sellado | PATH 3 alias "silicona sanitaria" | Silicona sanitaria sellado | UP_MATCH_PENDING |
-| 9 | Pequeño material y accesorios | — | — | UNRESOLVED (correcto) |
+**Decisión de diseño aprobada:** interruptor y pulsador son UPs separados. Motivo: no son equivalentes técnicamente — introducirlos en el mismo UP genera falsos positivos en Marketplace, comparador, IA, carrito y presupuesto.
 
-**PRE-089:** 6/9 MARKETPLACE ahora → 8/9 tras A10 ✓
-
-### PRE-2026-085 (reforma integral, 16 ítems material)
-
-| Pos | Descripción | Alias / Vía | UP matcheado | Estado |
-|-----|------------|-------------|-------------|--------|
-| 0 | Impermeabilización zona ducha/bañera | "impermeabilización zona ducha" | Membrana impermeabilizante | MARKETPLACE ✓ |
-| 1 | Baldosa suelo antideslizante R11 | "baldosa suelo antideslizante" | Baldosa porcelánica 60×60 | MARKETPLACE ✓ |
-| 2 | Azulejo/cerámica pared media altura | "cerámica pared media" | Azulejo rectificado pared | MARKETPLACE ✓ |
-| 4 | Pintura paredes y techo | "pintura paredes y techo" | Pintura plástica anti-humedad | MARKETPLACE ✓ |
-| 6 | Pequeño material y herramientas | — | — | UNRESOLVED (correcto) |
-| 8 | Mampara ducha fija 1 hoja cristal templado 6mm | "cristal templado 6mm" | Mampara de ducha | MARKETPLACE ✓ |
-| 9 | Conjunto mueble 80cm + lavabo + espejo LED | "conjunto mueble 80cm" | Mueble bajo lavabo 80cm | UP_MATCH_PENDING |
-| 10 | Grifo monomando lavabo básico cromo | "grifo monomando lavabo" | Grifo monomando lavabo | MARKETPLACE ✓ |
-| 11 | Monomando ducha + alcachofa + flexible | "monomando ducha" | Grifo monomando ducha | MARKETPLACE ✓ |
-| 12 | Enchufe IP44 baño + mecanismo + caja | "enchufe IP44 baño" | Mecanismo enchufe schuko IP44 | MARKETPLACE ✓ |
-| 13 | Punto de luz techo + cableado + downlight LED | "downlight led" | Luminaria baño LED IP44 | MARKETPLACE ✓ |
-| 14 | Pulsador o interruptor baño + caja | "interruptor baño" | Mecanismo interruptor pulsador IP44 | UP_MATCH_PENDING |
-| 15 | Punto de luz espejo IP44 + cableado | "luz espejo ip44" | Luminaria baño LED IP44 | MARKETPLACE ✓ |
-| 16 | Pintura antihumedad techo baño 2 manos | "pintura antihumedad techo" | Pintura plástica anti-humedad | MARKETPLACE ✓ |
-| 17 | Kit accesorios baño: toallero + portarrollos | — | — | UNRESOLVED (correcto) |
-| 18 | Bidé suelo blanco + grifería | — | — | UNRESOLVED (correcto — sin UP bidé) |
-
-**PRE-085:** 11/16 MARKETPLACE ahora → 13/16 tras A10 (81%). Los 3 UNRESOLVED son técnicamente irresolubles sin crear matches incorrectos.
-
-### PRE-2026-090 (instalación eléctrica, 2 ítems efectivos)
-
-| Pos | Descripción | Alias | UP matcheado | Estado |
-|-----|------------|-------|-------------|--------|
-| 0 | Suministro luminarias LED 4 unidades | "luminarias LED" | Luminaria baño LED IP44 | MARKETPLACE ✓ |
-| 1 | Suministro cajas de empotrar y pequeño material | "cajas de empotrar" | Caja empotrar y pequeño material | UP_MATCH_PENDING |
-| 2 | Suministro cable eléctrico H07V-K | qty=0 | — | FILTRADO |
-
-**PRE-090:** 1/2 MARKETPLACE ahora → 2/2 tras A10 (100%) ✓
+**Identidad comercial aprobada:** "Obras y Materiales S.L." (abreviatura OYM, código OYM). Slug interno `obramat-demo` se mantiene para no romper referencias frontend.
 
 ---
 
-## Pendiente — STOP obligatorio
+## A11 — Validación de cobertura real (post-A10)
 
-**Antes de continuar:**
+### PRE-2026-089 (reforma baño, 9 ítems material)
 
-1. ☐ Revisar [RC1_C4A_MATCH_REVIEW.md](RC1_C4A_MATCH_REVIEW.md) — 12 offerings pending_review
-2. ☐ Resolver pregunta de diseño: ¿interruptor y pulsador en el mismo UP o UPs separados? (ver Grupo 4)
-3. ☐ Confirmar que el nombre del actor "Obras y Materiales S.L." es el definitivo para pilotos
-4. ☐ Aprobar explícitamente qué offerings pasan a `matched`
+| Pos | Descripción | Vía | UP matcheado | Offers | Provs | Estado |
+|-----|------------|-----|-------------|--------|-------|--------|
+| 1 | Plato de ducha (70x70 cm...) | alias "plato de ducha" | Plato de ducha | 5 | 1 | **MARKETPLACE** ✓ |
+| 2 | Grifería de ducha (monomando...) | alias "grifería de ducha" | Grifo monomando ducha | 5 | 2 | **MARKETPLACE** ✓ |
+| 3 | Sifón y válvula desagüe ducha | alias "válvula desagüe ducha" | Sifón y desagüe ducha | 2 | 2 | **MARKETPLACE** ✓ |
+| 4 | Adaptación fontanería (llaves...) | alias "adaptación fontanería" | Kit conexiones fontanería baño | 2 | 2 | **MARKETPLACE** ✓ |
+| 5 | Mampara de ducha (70x70...) | name_prefix | Mampara de ducha | 6 | 2 | **MARKETPLACE** ✓ |
+| 6 | Impermeabilización zona ducha | alias "impermeabilización zona ducha" | Membrana impermeabilizante | 2 | 2 | **MARKETPLACE** ✓ |
+| 7 | Baldosas y material alicatado | alias "baldosas y material alicatado" | Azulejo rectificado pared | 2 | 2 | **MARKETPLACE** ✓ |
+| 8 | Silicona sanitaria y sellado | alias "silicona sanitaria" | Silicona sanitaria sellado | 2 | 2 | **MARKETPLACE** ✓ |
+| 9 | Pequeño material y accesorios | — | — | — | — | UNRESOLVED (correcto) |
 
-**Comando de promoción** (solo ejecutar tras aprobación):
-```sql
--- Ver RC1_C4A_MATCH_REVIEW.md → SQL de promoción
-```
+**PRE-089: 8/9 MARKETPLACE (89%) · 1 UNRESOLVED (estructural) · 0 falsos positivos**
+
+### PRE-2026-085 (reforma integral, 16 ítems material)
+
+| Pos | Descripción | Vía | UP matcheado | Offers | Provs | Estado |
+|-----|------------|-----|-------------|--------|-------|--------|
+| 0 | Impermeabilización zona ducha/bañera | alias | Membrana impermeabilizante | 2 | 2 | **MARKETPLACE** ✓ |
+| 1 | Baldosa suelo antideslizante R11 | alias | Baldosa porcelánica 60×60 | 2 | 2 | **MARKETPLACE** ✓ |
+| 2 | Azulejo/cerámica pared media altura | alias | Azulejo rectificado pared | 2 | 2 | **MARKETPLACE** ✓ |
+| 4 | Pintura paredes y techo | alias | Pintura plástica anti-humedad | 2 | 2 | **MARKETPLACE** ✓ |
+| 6 | Pequeño material y herramientas | — | — | — | — | UNRESOLVED (correcto) |
+| 8 | Mampara ducha fija 1 hoja cristal templado 6mm | alias | Mampara de ducha | 6 | 2 | **MARKETPLACE** ✓ |
+| 9 | Conjunto mueble 80cm + lavabo + espejo LED | alias "conjunto mueble 80cm" | Mueble bajo lavabo 80cm | 1 | 1 | **MARKETPLACE** ✓ |
+| 10 | Grifo monomando lavabo básico cromo | alias | Grifo monomando lavabo | 4 | 2 | **MARKETPLACE** ✓ |
+| 11 | Monomando ducha + alcachofa + flexible | alias | Grifo monomando ducha | 5 | 2 | **MARKETPLACE** ✓ |
+| 12 | Enchufe IP44 baño + mecanismo + caja | alias | Mecanismo enchufe schuko IP44 | 2 | 2 | **MARKETPLACE** ✓ |
+| 13 | Punto de luz techo + cableado + downlight LED | alias | Luminaria baño LED IP44 | 2 | 2 | **MARKETPLACE** ✓ |
+| 14 | Pulsador o interruptor baño + caja | alias "interruptor baño" | Mecanismo interruptor IP44 | 1 | 1 | **MARKETPLACE** ✓ |
+| 15 | Punto de luz espejo IP44 + cableado | alias | Luminaria baño LED IP44 | 2 | 2 | **MARKETPLACE** ✓ |
+| 16 | Pintura antihumedad techo baño 2 manos | alias | Pintura plástica anti-humedad | 2 | 2 | **MARKETPLACE** ✓ |
+| 17 | Kit accesorios baño: toallero + portarrollos | — | — | — | — | UNRESOLVED (correcto) |
+| 18 | Bidé suelo blanco + grifería | — | — | — | — | UNRESOLVED (correcto) |
+
+**PRE-085: 13/16 MARKETPLACE (81%) · 3 UNRESOLVED (estructurales) · 0 falsos positivos**
+
+### PRE-2026-090 (instalación eléctrica, 2 ítems efectivos)
+
+| Pos | Descripción | Vía | UP matcheado | Offers | Provs | Estado |
+|-----|------------|-----|-------------|--------|-------|--------|
+| 0 | Suministro luminarias LED 4 unidades | alias "luminarias LED" | Luminaria baño LED IP44 | 2 | 2 | **MARKETPLACE** ✓ |
+| 1 | Suministro cajas de empotrar y pequeño material | alias "cajas de empotrar" | Kit cajas empotrar y accesorios eléctricos | 1 | 1 | **MARKETPLACE** ✓ |
+
+**PRE-090: 2/2 MARKETPLACE (100%) · 0 UNRESOLVED · 0 falsos positivos**
+
+---
+
+## Estado final — COMPLETADO
+
+| Ítem | Estado |
+|------|--------|
+| A10 — aprobación offerings | ✅ 12/12 promovidas (11 directas + 1 con UP nuevo) |
+| Opción B — interruptor ≠ pulsador | ✅ Ejecutado — dos UPs separados |
+| A11 — validación de cobertura | ✅ 23/27 (85%) MARKETPLACE, 0 falsos positivos |
+| Identidad comercial | ✅ "Obras y Materiales S.L." confirmado |
+| Fixes de alias (plato de ducha, caja eléctrica) | ✅ Ejecutados |
+
+**Cobertura final verificada:** 23/27 (85%) — exactamente lo proyectado.
 
 ---
 

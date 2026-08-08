@@ -1,8 +1,8 @@
 # RC1-C.4A — Matriz de Matching para Revisión Humana (A10)
 
-**Estado:** PENDIENTE DE APROBACIÓN  
-**Versión:** 1.0 — 2026-08-08  
-**Regla:** NO promover a `matched` sin aprobación explícita de esta matriz.
+**Estado:** COMPLETADO — APROBACIÓN RECIBIDA Y EJECUTADA  
+**Versión:** 1.1 — 2026-08-08  
+**Resultado:** 12/12 offerings promovidas · Opción B ejecutada (interruptor ≠ pulsador separados)
 
 ---
 
@@ -187,22 +187,22 @@ Revisar cada fila. Para cada offering:
 
 ---
 
-## Resumen de recomendaciones
+## Decisiones finales — EJECUTADO 2026-08-08
 
-| # | Ref | Proveedor | UP | Recomendación |
-|---|-----|-----------|-----|--------------|
-| 1 | OYM-SAN-1001 | Obras y Materiales | Lavabo sobre encimera | ✅ APROBAR |
-| 2 | STN-SAN-1001 | STN | Lavabo sobre encimera | ✅ APROBAR |
-| 3 | OYM-ACC-0101 | Obras y Materiales | Silicona sanitaria | ✅ APROBAR |
-| 4 | STN-ACC-0101 | STN | Silicona sanitaria | ✅ APROBAR |
-| 5 | STN-KIT-0201 | STN | Kit conexiones fontanería | ✅ APROBAR |
-| 6 | OYM-KIT-0201 | Obras y Materiales | Kit conexiones fontanería | ✅ APROBAR |
-| 7 | ESC-MEC-1102 | ElectroSuministros | Interruptor IP44 | ✅ APROBAR |
-| 8 | STN-MEC-0401 | STN | Pulsador IP44 | ⚠️ REVISAR (¿UP unificado o separar pulsador?) |
-| 9 | OYM-MUE-3002 | Obras y Materiales | Mueble bajo lavabo 80cm | ✅ APROBAR |
-| 10 | ESC-KIT-0001 | ElectroSuministros | Caja empotrar / small eléctrico | ✅ APROBAR |
-| 11 | OYM-REV-1001 | Obras y Materiales | Azulejo rectificado pared | ✅ APROBAR |
-| 12 | OYM-REV-2001 | Obras y Materiales | Baldosa porcelánica 60×60 | ✅ APROBAR |
+| # | Ref | Proveedor | UP | Decisión | Estado |
+|---|-----|-----------|-----|---------|--------|
+| 1 | OYM-SAN-1001 | Obras y Materiales | Lavabo sobre encimera | ✅ APROBADO | matched |
+| 2 | STN-SAN-1001 | STN | Lavabo sobre encimera | ✅ APROBADO | matched |
+| 3 | OYM-ACC-0101 | Obras y Materiales | Silicona sanitaria | ✅ APROBADO | matched |
+| 4 | STN-ACC-0101 | STN | Silicona sanitaria | ✅ APROBADO | matched |
+| 5 | STN-KIT-0201 | STN | Kit conexiones fontanería | ✅ APROBADO | matched |
+| 6 | OYM-KIT-0201 | Obras y Materiales | Kit conexiones fontanería | ✅ APROBADO | matched |
+| 7 | ESC-MEC-1102 | ElectroSuministros | Mecanismo interruptor IP44 | ✅ APROBADO | matched |
+| 8 | STN-MEC-0401 | STN | **Mecanismo pulsador IP44** (UP nuevo `1ad915a0`) | ✅ OPCIÓN B | matched en UP nuevo |
+| 9 | OYM-MUE-3002 | Obras y Materiales | Mueble bajo lavabo 80cm | ✅ APROBADO | matched |
+| 10 | ESC-KIT-0001 | ElectroSuministros | Kit cajas empotrar y accesorios eléctricos | ✅ APROBADO | matched |
+| 11 | OYM-REV-1001 | Obras y Materiales | Azulejo rectificado pared | ✅ APROBADO | matched |
+| 12 | OYM-REV-2001 | Obras y Materiales | Baldosa porcelánica 60×60 | ✅ APROBADO | matched |
 
 ---
 

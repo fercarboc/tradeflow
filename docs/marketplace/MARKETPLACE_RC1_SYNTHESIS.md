@@ -103,9 +103,33 @@ Pendiente:
 Riesgo: Bajo (cambios TypeScript, sin lógica compleja)
 ```
 
+### Paso 3.5 — RC1-C.4A FASE A: Unificación de catálogo ✅ COMPLETADO (2026-08-08, commit 63c40f4 + post-A10)
+
+```
+Objetivo: elevar cobertura Presupuesto → Marketplace de 0% a ≥85% solo con cambios de datos
+
+✅ A2: actor "OBRAMAT Demo" renombrado → "Obras y Materiales S.L." (slug obramat-demo conservado)
+✅ A3: migración 20260808_01 — search_aliases text[] + create_cart_from_quote mejorado (PATH 3 alias)
+✅ A4: aliases en 11 UPs (diferenciación suelo vs pared, mín 8 chars)
+✅ A5: 2 offerings lavabo encimera × 2 proveedores
+✅ A6: 6 UPs nuevos — silicona, kit fontanería, interruptor IP44, pulsador IP44, mueble 80cm, caja eléctrica
+✅ A7: fix descripción UP eléctrico (eliminado "de fontanería")
+✅ A8/A9: offerings revestimientos × 2 proveedores (competencia visible)
+✅ A10: 12 offerings aprobadas y promovidas a matched
+✅ Opción B ejecutada: interruptor IP44 (0d72f97f) ≠ pulsador IP44 (1ad915a0) — UPs separados
+✅ Fix alias plato de ducha (44b86c78): PATH 3 resuelve antes que PATH 4 (UP con 5 offerings)
+✅ Fix nombre UP kit eléctrico → "Kit cajas empotrar y accesorios eléctricos" (elimina falsos positivos)
+✅ A11 validado: 23/27 (85%) MARKETPLACE, 4 UNRESOLVED estructurales, 0 falsos positivos
+
+Cobertura: 0/27 (0%) → 23/27 (85%)
+UPs en catálogo: 37 → 43
+Offerings matched: 58 → 70
+Documentos: RC1_C4A_*.md (6 documentos en docs/marketplace/)
+```
+
 ### Paso 4 — RC1 (implementación real)
 
-Con los pasos 0-3 completados, todos los bloqueantes están resueltos y se puede iniciar RC1.
+Con los pasos 0-3.5 completados, los bloqueantes de catálogo están resueltos. La cobertura demo es del 85%.
 
 ---
 

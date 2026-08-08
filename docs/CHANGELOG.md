@@ -4,6 +4,36 @@
 
 ---
 
+## RC1-C.4A — Unificación de catálogo: Presupuesto ↔ Marketplace
+
+**Período:** 2026-08-08  
+**Commits:** `63c40f4` (FASE A) + post-A10  
+**Estado:** COMPLETADO ✓ — solo datos, sin cambios de código  
+**Docs:** `docs/marketplace/RC1_C4A_*.md` (6 documentos)
+
+### Resultados
+
+| Métrica | Antes | Después |
+|---------|-------|---------|
+| Cobertura demo (Presupuesto → Marketplace) | 0/27 (0%) | 23/27 (85%) |
+| UPs en catálogo | 37 | 43 (+6) |
+| Offerings matched | 58 | 70 (+12) |
+| Falsos positivos | — | 0 |
+
+### Cambios aplicados
+
+**BD (solo datos — sin DDL excepto columna search_aliases):**
+- Migración `20260808_01`: columna `search_aliases text[]` + `create_cart_from_quote` mejorado (PATH 3 alias match, eliminado fallback familia que generaba falsos positivos)
+- Actor renombrado: "OBRAMAT Demo" → "Obras y Materiales S.L." (slug `obramat-demo` y `supplier_key='obramat'` sin cambio)
+- 11 UPs actualizados con aliases fuertes (≥8 chars, diferenciación suelo vs pared)
+- 6 UPs nuevos: silicona sanitaria, kit fontanería baño, interruptor IP44, pulsador IP44, mueble 80cm, kit cajas empotrar eléctrico
+- 12 offerings nuevas promovidas a `matched` (todas pasaron por `pending_review`)
+- Decisión de diseño: interruptor IP44 y pulsador IP44 son UPs separados
+
+**Sin cambios de código:** `create_cart_from_quote` es la migración SQL, no código TypeScript. No se modificó `resolveQuoteMaterialCandidates`, motor IA, checkout ni carrito.
+
+---
+
 ## RC1-B.1 — Marketplace en Navegación Privada y Web Pública
 
 **Período:** 2026-08-04  
