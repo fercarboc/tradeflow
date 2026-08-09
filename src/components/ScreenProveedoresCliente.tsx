@@ -5,6 +5,14 @@ import {
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
+interface ActorRow {
+  id: string;
+  nombre: string;
+  slug: string;
+  supplier_catalog_id: string | null;
+  offerings_matched: number;
+}
+
 interface CatalogRow {
   id: string;
   supplier_key: string;
@@ -39,6 +47,18 @@ const TRADE_CATEGORIAS = [
   'Mudanzas', 'Reformas interiores',
 ];
 
+const ACTOR_META: Record<string, { emoji: string; color: string; especialidad: string }> = {
+  'obramat-demo':                   { emoji: '🏗️', color: '#2C5F2E', especialidad: 'Materiales de construcción y reforma' },
+  'sistemas-termicos-norte':        { emoji: '🔥', color: '#C1440E', especialidad: 'Calefacción, ACS y aerotermia' },
+  'fontaneria-saltos-quiroga':      { emoji: '💧', color: '#005B8E', especialidad: 'Fontanería técnica y saneamiento' },
+  'suministros-tecnicos-norte':     { emoji: '🔩', color: '#2C3E50', especialidad: 'Grifería y accesorios premium' },
+  'electrodistribucion-cantabrica': { emoji: '⚡', color: '#B07D00', especialidad: 'Material eléctrico mayorista' },
+  'electrosuministros-cantabrico':  { emoji: '🔌', color: '#6C3483', especialidad: 'Electricidad zonas húmedas IP44' },
+  'revestimientos-obra-norte':      { emoji: '🏠', color: '#8D6E63', especialidad: 'Revestimientos y pavimentos' },
+  'carpinteria-cerramientos-norte': { emoji: '🚪', color: '#5D4037', especialidad: 'Carpintería y cerramientos' },
+  'pinturas-profesionales-norte':   { emoji: '🎨', color: '#1565C0', especialidad: 'Pinturas y acabados profesionales' },
+};
+
 const SUPPLIER_META: Record<string, { color: string; descripcion: string; tipo: string }> = {
   propio:   { color: '#059669', descripcion: 'Tus tarifas personalizadas y negociadas',          tipo: 'Propio' },
   obramat:  { color: '#E87722', descripcion: 'Materiales de construcción e instalaciones',        tipo: 'Nacional' },
@@ -70,6 +90,7 @@ interface Props {
 }
 
 export default function ScreenProveedoresCliente({ orgId, showToast }: Props) {
+  const [actors, setActors] = useState<ActorRow[]>([]);
   const [catalogs, setCatalogs] = useState<CatalogRow[]>([]);
   const [settings, setSettings] = useState<Record<string, OrgSetting>>({});
   const [loading, setLoading] = useState(true);
@@ -97,7 +118,7 @@ export default function ScreenProveedoresCliente({ orgId, showToast }: Props) {
     async function load() {
       setLoading(true);
       try {
-        const [globalRes, propioRes, settRes, countRes] = await Promise.all([
+        const [globalRes, propioRes, settRes, countRes, actorRes, offeringsRes] = await Promise.all([
           supabase
             .from('trade_supplier_catalogs')
             .select('id, supplier_key, supplier_name, margen_pct_default, prioridad, is_custom, org_id')
@@ -118,12 +139,36 @@ export default function ScreenProveedoresCliente({ orgId, showToast }: Props) {
           supabase
             .from('trade_supplier_products')
             .select('catalog_id'),
+          supabase
+            .from('trade_marketplace_actors')
+            .select('id, nombre, slug, supplier_catalog_id')
+            .eq('actor_type', 'supplier')
+            .eq('estado', 'active')
+            .order('nombre'),
+          supabase
+            .from('trade_marketplace_supplier_offerings')
+            .select('supplier_catalog_id')
+            .eq('match_state', 'matched')
+            .eq('activa', true),
         ]);
 
         const countMap = new Map<string, number>();
         for (const r of (countRes.data ?? []) as Array<{ catalog_id: string }>) {
           countMap.set(r.catalog_id, (countMap.get(r.catalog_id) ?? 0) + 1);
         }
+
+        const offeringCountMap = new Map<string, number>();
+        for (const r of (offeringsRes.data ?? []) as Array<{ supplier_catalog_id: string }>) {
+          offeringCountMap.set(r.supplier_catalog_id, (offeringCountMap.get(r.supplier_catalog_id) ?? 0) + 1);
+        }
+        const actorRows: ActorRow[] = (actorRes.data ?? []).map((a: { id: string; nombre: string; slug: string; supplier_catalog_id: string | null }) => ({
+          id: a.id,
+          nombre: a.nombre,
+          slug: a.slug,
+          supplier_catalog_id: a.supplier_catalog_id,
+          offerings_matched: a.supplier_catalog_id ? (offeringCountMap.get(a.supplier_catalog_id) ?? 0) : 0,
+        }));
+        setActors(actorRows);
 
         const globalRows: CatalogRow[] = (globalRes.data ?? []).map((c: {
           id: string; supplier_key: string; supplier_name: string;
@@ -373,6 +418,45 @@ export default function ScreenProveedoresCliente({ orgId, showToast }: Props) {
   return (
     <div className="p-4 lg:p-6 max-w-5xl space-y-5">
 
+      {/* Sección: Proveedores Marketplace */}
+      {actors.length > 0 && (
+        <div>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1 mb-3">
+            Proveedores en el Marketplace
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {actors.map(actor => {
+              const meta = ACTOR_META[actor.slug] ?? { emoji: '🏢', color: '#64748b', especialidad: actor.nombre };
+              return (
+                <div
+                  key={actor.id}
+                  className="bg-white border border-slate-200 rounded-xl p-3 flex items-start gap-2.5"
+                  style={{ borderLeftColor: meta.color, borderLeftWidth: 3 }}
+                >
+                  <span className="text-lg shrink-0 leading-none mt-0.5">{meta.emoji}</span>
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold text-slate-800 leading-tight">{actor.nombre}</p>
+                    <p className="text-[9px] text-slate-400 leading-tight mt-0.5">{meta.especialidad}</p>
+                    {actor.offerings_matched > 0 && (
+                      <p className="text-[9px] text-emerald-600 font-semibold mt-1">
+                        {actor.offerings_matched.toLocaleString('es-ES')} refs
+                      </p>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Separador */}
+      <div className="flex items-center gap-3">
+        <div className="flex-1 h-px bg-slate-200" />
+        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider whitespace-nowrap">Configuración de catálogos</p>
+        <div className="flex-1 h-px bg-slate-200" />
+      </div>
+
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-700 to-blue-900 rounded-2xl p-5 text-white">
         <div className="flex items-center gap-3 mb-4">
@@ -380,9 +464,9 @@ export default function ScreenProveedoresCliente({ orgId, showToast }: Props) {
             <Truck className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h2 className="font-black text-base">Motor de Catálogos</h2>
+            <h2 className="font-black text-base">Catálogos y fuentes de datos</h2>
             <p className="text-blue-200 text-[11px]">
-              Activa los proveedores con los que trabajas. La IA usará sus precios reales al generar presupuestos.
+              Activa los catálogos con los que trabaja la IA al generar presupuestos.
             </p>
           </div>
         </div>

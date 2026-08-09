@@ -4,6 +4,42 @@
 
 ---
 
+## RC1-C.5A.1 — Consolidación proveedores + diseño red de tiendas, stock y promociones locales
+
+**Período:** 2026-08-09  
+**Estado:** COMPLETADO ✓ (implementación autorizada) + DISEÑO (tablas pendientes de aprobación)  
+**Documentos:** `RC1_C5A1_SUPPLIER_LOCATIONS.md`, `RC1_C5A1_LOCAL_INVENTORY.md`, `RC1_C5A1_LOCAL_PROMOTIONS.md`
+
+### Ejecutado en esta fase
+
+**BD:**
+- STN-FON-018: `match_state` → `matched`, vinculado a UP `bf93aa66` ("Lavabo sobre encimera"). Atributo `metadata.forma = 'oval'` captura la variante. Decisión D4 aplicada.
+
+**Frontend:**
+- `ScreenProveedoresCliente.tsx` migrado a fuente dual:
+  - Nueva sección superior "Proveedores en el Marketplace": consulta `trade_marketplace_actors WHERE actor_type='supplier' AND estado='active'` → muestra exactamente los 9 actores demo con emoji, especialidad y conteo de referencias matched.
+  - Sección inferior rebautizada "Catálogos y fuentes de datos": mantiene toda la funcionalidad existente (toggle, márgenes, categorías preferidas, CSV).
+  - `ACTOR_META` definido por slug de actor (no por supplier_key).
+
+**Documentos de diseño:**
+- `RC1_C5A1_SUPPLIER_LOCATIONS.md`: modelo `trade_marketplace_supplier_locations` (tipo ENUM tienda/almacen/delegacion/punto_recogida, geolocalización, horario jsonb, capacidades recogida/entrega), 16 locations demo, decisión pickup_points vs locations, impacto checkout y Portal Proveedor.
+- `RC1_C5A1_LOCAL_INVENTORY.md`: modelo `trade_marketplace_location_inventory` (override de stock por tienda, resolución stock nacional ↔ local, vista `v_offering_location_stock`), 25 entradas demo.
+- `RC1_C5A1_LOCAL_PROMOTIONS.md`: modelo de promociones locales/regionales/nacionales, tipos (clearance, local_discount, excess_stock, local_campaign, etc.), regla PUBLICIDAD ≠ RANKING, 12 promociones demo.
+
+**Badges D5:**
+- Corregidos en `RC1_C5_MARKETPLACE_VISUAL_LAYER.md`: B03 "Amplia trayectoria", B04 "Larga trayectoria", B06 "Gestión técnica RITE", B07 "Gestión de garantías", B10 "Material REBT compatible", B15 "Distribuidor directo".
+- Regla `destacado_temporal` corregida en `RC1_C5_PROMOTIONS.md`: aparece en banners/home/perfil, nunca altera ranking del comparador.
+
+### No ejecutado (pendiente aprobación)
+- Crear `trade_marketplace_supplier_locations`
+- Crear `trade_marketplace_location_inventory`
+- Crear `trade_marketplace_promotions` (versión revisada con scope y tipos locales)
+- Crear vistas `v_offering_location_stock`
+- Insertar 16 locations + 25 inventarios + 12 promociones demo
+- 6 tablas RC1-C.5B (actor_profiles, badges, metrics, reviews, promotions, featured_offerings)
+
+---
+
 ## RC1-C.5B-PRE — Auditoría y consolidación definitiva de proveedores demo
 
 **Período:** 2026-08-09  

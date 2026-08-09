@@ -83,7 +83,7 @@ Esta capa opera en tres niveles:
 │                                                                   │
 │  📦 36 productos   ⭐ 4.2/5   ⚡ 24h   📍 Cantabria y alrededores │
 │  ─────────────────────────────────────────────────────────────   │
-│  [📦 Distribuidor integral] [⚡ Entrega 24h] [🏆 +18 años]        │
+│  [📦 Distribuidor integral] [⚡ Entrega 24h] [🏆 Amplia trayectoria] │
 │  ─────────────────────────────────────────────────────────────   │
 │  Kit fontanería · Extractor baño · Lavabo encimera   Ver más →  │
 └─────────────────────────────────────────────────────────────────┘
@@ -101,7 +101,7 @@ Esta capa opera en tres niveles:
 │                                                                   │
 │  📦 35 productos   ⭐ 4.5/5   ⚡ 48h   📍 Cantabria · Asturias   │
 │  ─────────────────────────────────────────────────────────────   │
-│  [🔥 Especialista térmico] [✅ Instalador RITE] [🛡️ Garantía ext] │
+│  [🔥 Especialista térmico] [✅ Gestión técnica RITE] [🛡️ Gestión de garantías] │
 │  ─────────────────────────────────────────────────────────────   │
 │  Calentador 11L · Caldera 24kW · Aerotermia 8kW   Ver más →    │
 └─────────────────────────────────────────────────────────────────┘
@@ -231,19 +231,19 @@ Esta capa opera en tres niveles:
 |----|------|--------|-------------|-------|---------------|
 | B01 | volumen | Distribuidor integral | Más de 1.000 referencias disponibles | 📦 | ObrasMat |
 | B02 | entrega | Entrega 24h | Stock disponible entregado en 24 horas | ⚡ | ObrasMat, FSQ, EDC |
-| B03 | experiencia | +18 años | Trayectoria contrastada | 🏆 | ObrasMat |
-| B04 | experiencia | +25 años | El veterano del sector | 🥇 | FSQ |
+| B03 | experiencia | Amplia trayectoria | Trayectoria contrastada | 🏆 | ObrasMat |
+| B04 | experiencia | Larga trayectoria | El veterano del sector | 🥇 | FSQ |
 | B05 | especialista | Especialista térmico | ACS + calefacción + aerotermia | 🔥 | STN |
-| B06 | certificado | Instalador RITE | Personal técnico habilitado | ✅ | STN |
-| B07 | garantia | Garantía extendida | Gestión directa con fabricante | 🛡️ | STN |
+| B06 | especialista | Gestión técnica RITE | Documentación y gestión de instalaciones RITE | ✅ | STN |
+| B07 | garantia | Gestión de garantías | Gestión directa con fabricante | 🛡️ | STN |
 | B08 | especialista | Fontanería técnica | Catálogo especializado | 💧 | FSQ |
 | B09 | especialista | Mayorista eléctrico | Catálogo técnico completo | ⚡ | EDC |
-| B10 | certificado | REBT homologado | Venta a instaladores REBT | ✅ | EDC |
+| B10 | especialista | Material REBT compatible | Material apto para instalaciones eléctricas | ✅ | EDC |
 | B11 | especialista | Gama premium | El proveedor de grifería de mayor calidad | 💎 | STN-comp |
 | B12 | valoracion | Mejor valorado | 4.7 sobre 5 — el más valorado del ecosistema | ⭐ | STN-comp |
 | B13 | especialista | Especialista IP44 | Zona húmedas y baños | 🚿 | ElectroSum |
 | B14 | especialista | Cerámicos y revestimientos | Catálogo especializado | 🏠 | RevObra |
-| B15 | especialista | Fabricante directo | Venta directa sin intermediario | 🎨 | Pinturas |
+| B15 | especialista | Distribuidor directo | Venta directa de primera mano | 🎨 | Pinturas |
 
 ### 4.2 Asignación por actor
 

@@ -26,7 +26,7 @@ CREATE TYPE promo_tipo AS ENUM (
   'descuento_porcentaje',   -- X% de descuento en offering(s)
   'pack_ahorro',            -- compra varias offerings juntas y ahorras
   'envio_gratis',           -- sin coste de envío si pedido > umbral
-  'destacado_temporal',     -- aparece primero en resultados durante N días
+  'destacado_temporal',     -- aparece en banners/home/perfil del proveedor (NUNCA altera ranking del comparador)
   'liquidacion',            -- stock reducido, precio especial
   'novedad'                 -- producto nuevo en el catálogo del proveedor
 );
@@ -48,7 +48,7 @@ CREATE TABLE public.trade_marketplace_promotions (
     descuento_porcentaje: { pct: 10, offering_ids: [...] }
     pack_ahorro:          { offering_ids: [...], precio_pack: 89.90, ahorro_pct: 12 }
     envio_gratis:         { umbral_eur: 150 }
-    destacado_temporal:   { dias: 30, offering_ids: [...] }
+    destacado_temporal:   { dias: 30, mostrar_en_home: true, mostrar_en_perfil: true }  -- NUNCA altera ranking
     liquidacion:          { offering_ids: [...], stock_max: 5 }
     novedad:              { offering_ids: [...], dias_nuevo: 30 }
   */
