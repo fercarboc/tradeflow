@@ -4,6 +4,36 @@
 
 ---
 
+## RC1-C.5B-PRE — Auditoría y consolidación definitiva de proveedores demo
+
+**Período:** 2026-08-09  
+**Estado:** AUDITORÍA COMPLETADA ✓ — pendiente aprobación D1-D5 para ejecutar  
+**Documento:** `docs/marketplace/RC1_C5B_PROVIDER_CONSOLIDATION.md`
+
+### Causa raíz confirmada
+`ScreenProveedoresCliente` consulta `trade_supplier_catalogs WHERE is_active=true`
+→ devuelve 20 catálogos (9 demo + 11 legacy activos) → duplicados y nombres extraños en UI.
+
+### Inventario BD auditado
+- `trade_marketplace_actors`: 10 registros (1 platform + 9 suppliers) — todos active, sin vacíos
+- `trade_supplier_catalogs` globales: 21 registros — 9 DEMO_OFICIAL + 11 LEGACY + 1 HISTORICAL
+- Offerings por actor confirmadas: ObrasMat 36m, STN 35, FSQ 20, STN-comp 18+1pr, EDC 15, ElectroSum 6, RevObra 5, Carpintería 3, Pinturas 2
+
+### Solución propuesta (pendiente aprobación)
+- ALTER TABLE trade_supplier_catalogs ADD COLUMN marketplace_visible boolean DEFAULT false
+- UPDATE: 9 catálogos demo → true, 12 legacy → false
+- 1 línea en ScreenProveedoresCliente.tsx
+- Fix STN-FON-018 pending_review → matched
+- Sin eliminar datos históricos; catálogos legacy permanecen como fuentes del motor de presupuestos
+
+### Mapa legacy → actor aprobado
+vaillant/daikin/junkers/saunier_duval/ariston/baxi/ferroli → STN
+bricomart/obramat-demo → ObrasMat
+rexel/novelec → EDC
+wurth (85 prods) → ⚠️ sin actor, pendiente decisión
+
+---
+
 ## RC1-C.5A — Marketplace Ecosystem Consolidation: capa comercial de 9 proveedores
 
 **Período:** 2026-08-09  
