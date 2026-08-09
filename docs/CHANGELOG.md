@@ -4,6 +4,32 @@
 
 ---
 
+## RC1-C.5A — Marketplace Ecosystem Consolidation: capa comercial de 9 proveedores
+
+**Período:** 2026-08-09  
+**Estado:** DISEÑO COMPLETADO ✓ — pendiente implantación en BD y frontend  
+**Documentos:**
+- `docs/marketplace/RC1_C5_SUPPLIER_PROFILES.md` — identidad, descripción, especialidades, badges, banners por proveedor
+- `docs/marketplace/RC1_C5_METRICS.md` — modelo de datos de métricas + datos demo pre-calculados (9 actores)
+- `docs/marketplace/RC1_C5_PROMOTIONS.md` — sistema de promociones y productos destacados
+- `docs/marketplace/RC1_C5_MARKETPLACE_VISUAL_LAYER.md` — capa visual: paletas, banners, señales de confianza
+
+### Tablas propuestas (pendiente migración)
+- `trade_marketplace_actor_profiles` — perfil comercial, tagline, zona, plazos, banner_config
+- `trade_marketplace_supplier_badges` — distintivos por proveedor
+- `trade_marketplace_supplier_metrics` — KPIs acumulados y series temporales
+- `trade_marketplace_supplier_reviews` — reseñas demo con alias ficticios
+- `trade_marketplace_promotions` — packs, descuentos, novedades, destacados temporales
+- `trade_marketplace_featured_offerings` — producto destacado por posición por proveedor
+
+### Cobertura
+- 9 actores con perfiles completos: P1 (ObrasMat, STN, FSQ, EDC), P2 (STN-comp, ElectroSum), P3 (Revestimientos, Carpintería, Pinturas)
+- 4 actores P1 con métricas completas + series temporales + 3-4 reseñas demo cada uno
+- 4 actores P1 con 2 promociones cada uno + 4 productos destacados
+- Sistema de badges: 15 badges definidos, asignados coherentemente
+
+---
+
 ## RC1-C.4B Sprint B — ElectroDistribución Cantábrica: 14 UPs + 15 offerings
 
 **Período:** 2026-08-08  
