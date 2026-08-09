@@ -4,6 +4,51 @@
 
 ---
 
+## RC1-C.5A.2 — Implantación locations, stock local y promociones con correcciones de arquitectura
+
+**Período:** 2026-08-09  
+**Estado:** COMPLETADO ✓  
+**Documento de resultados:** `docs/marketplace/RC1_C5A2_LOCATION_IMPLEMENTATION_RESULTS.md`
+
+### Ejecutado en esta fase
+
+**BD — Tablas:**
+- `trade_marketplace_supplier_locations` (17 locations demo, georreferenciadas, ENUM tipo: tienda/almacen/delegacion/punto_recogida)
+- `trade_marketplace_location_inventory` (26 entradas, solo stock — sin pricing, corrección arquitectura)
+- `trade_marketplace_promotions` (12 promociones demo, scope CHECK constraints, trigger actor consistency)
+- `trade_marketplace_supplier_pickup_points` marcada deprecated (campo `deprecated_at`, COMMENT)
+
+**BD — Funciones:**
+- `haversine_km` — distancia en SQL puro (sin PostGIS)
+- `resolve_effective_offering_price` — resolución precio por capas (base → nacional → regional → local)
+- `get_locations_for_actor` — locations ordenadas por distancia a la obra
+- `get_local_stock` — stock local con fallback nacional
+- `get_supplier_checkout_config` — actualizada con `supplier_locations jsonb` (pickup_points siempre vacío)
+
+**BD — Tests:** T1-T16 todos PASS (fix T7: `fecha_inicio` P08 actualizado a 2026-08-01)
+
+**Frontend — TypeScript (`src/lib/api/marketplace-checkout.ts`):**
+- Nuevos tipos: `SupplierLocationTipo`, `SupplierLocation`, `LocationForActor`, `LocalStockResult`, `EffectivePriceResultV2`
+- `SupplierCheckoutConfig.supplier_locations` (nuevo), `pickup_points` marcado deprecated
+- `DeliveryOptionPerProvider.pickup_location_id` + `pickup_location_snapshot` (nuevos)
+- Nuevas funciones: `getLocationsForActor()`, `getLocalStock()`, `resolveEffectivePriceWithLocation()`
+
+**Frontend — React (`src/components/marketplace/StepEntrega.tsx`):**
+- Selector de recogida migrado de `pickup_points` a `supplier_locations`
+- Muestra chip de tipo (Tienda/Almacén/Delegación), dirección compuesta, teléfono
+- Guarda `pickup_location_id` + `pickup_location_snapshot` en el pedido
+
+### Correcciones de arquitectura aplicadas
+- **CORRECCIÓN 1:** Inventario ≠ Pricing — `location_inventory` sin campos de precio
+- **CORRECCIÓN 2:** Ranking no manipulado — precio resuelto entrará al comparador como dato, no como criterio de orden hardcodeado
+
+### No ejecutado (pendiente RC1-C.5B)
+- Integración visual en comparador de offerings
+- Portal Proveedor — gestión de locations/inventario
+- Datos demo de badges, perfiles y reseñas
+
+---
+
 ## RC1-C.5A.1 — Consolidación proveedores + diseño red de tiendas, stock y promociones locales
 
 **Período:** 2026-08-09  
@@ -22,8 +67,8 @@
   - `ACTOR_META` definido por slug de actor (no por supplier_key).
 
 **Documentos de diseño:**
-- `RC1_C5A1_SUPPLIER_LOCATIONS.md`: modelo `trade_marketplace_supplier_locations` (tipo ENUM tienda/almacen/delegacion/punto_recogida, geolocalización, horario jsonb, capacidades recogida/entrega), 16 locations demo, decisión pickup_points vs locations, impacto checkout y Portal Proveedor.
-- `RC1_C5A1_LOCAL_INVENTORY.md`: modelo `trade_marketplace_location_inventory` (override de stock por tienda, resolución stock nacional ↔ local, vista `v_offering_location_stock`), 25 entradas demo.
+- `RC1_C5A1_SUPPLIER_LOCATIONS.md`: modelo `trade_marketplace_supplier_locations` (tipo ENUM tienda/almacen/delegacion/punto_recogida, geolocalización, horario jsonb, capacidades recogida/entrega), 17 locations demo, decisión pickup_points vs locations, impacto checkout y Portal Proveedor.
+- `RC1_C5A1_LOCAL_INVENTORY.md`: modelo `trade_marketplace_location_inventory` (override de stock por tienda, resolución stock nacional ↔ local, vista `v_offering_location_stock`), 26 entradas demo.
 - `RC1_C5A1_LOCAL_PROMOTIONS.md`: modelo de promociones locales/regionales/nacionales, tipos (clearance, local_discount, excess_stock, local_campaign, etc.), regla PUBLICIDAD ≠ RANKING, 12 promociones demo.
 
 **Badges D5:**

@@ -1,7 +1,9 @@
 import { useEffect, useState, useCallback } from 'react';
 import {
   CartProviderSummary,
-  SupplierCheckoutConfig, DeliveryMethod, PaymentMethod,
+  SupplierCheckoutConfig, SupplierLocation, SupplierLocationTipo,
+  SUPPLIER_LOCATION_TIPO_LABELS,
+  DeliveryMethod, PaymentMethod,
   DeliveryAddress, DeliveryOptionPerProvider, BuyerSnapshot,
   DELIVERY_METHOD_LABELS, PAYMENT_METHOD_LABELS,
   getSupplierCheckoutConfigs,
@@ -164,7 +166,8 @@ function ProviderSection({ summary, config, option, onChange, applyToAll, isFirs
   if (config?.permite_entrega !== false) {
     availableMethods.push('entrega_obra', 'entrega_almacen');
   }
-  if (config?.permite_recogida && (config.pickup_points?.length ?? 0) > 0) {
+  const pickupLocations = (config?.supplier_locations ?? []).filter(l => l.permite_recogida);
+  if (config?.permite_recogida && pickupLocations.length > 0) {
     availableMethods.push('recogida_proveedor');
   }
   if (config?.permite_coordinar !== false) {
@@ -223,7 +226,9 @@ function ProviderSection({ summary, config, option, onChange, applyToAll, isFirs
                   onChange={() => onChange({
                     ...option,
                     delivery_method: m,
-                    pickup_point_id: m === 'recogida_proveedor' ? (option.pickup_point_id ?? null) : null,
+                    pickup_point_id:          m === 'recogida_proveedor' ? (option.pickup_point_id ?? null) : null,
+                    pickup_location_id:       m === 'recogida_proveedor' ? (option.pickup_location_id ?? null) : null,
+                    pickup_location_snapshot: m === 'recogida_proveedor' ? (option.pickup_location_snapshot ?? null) : null,
                     delivery_address: (m === 'entrega_obra' || m === 'entrega_almacen')
                       ? (option.delivery_address ?? emptyAddress())
                       : undefined,
@@ -244,7 +249,8 @@ function ProviderSection({ summary, config, option, onChange, applyToAll, isFirs
                     plazo_entrega_dias: summary.delivery_days,
                     plazo_confirmacion_h: 24,
                     mensaje_instaladores: null,
-                    pickup_points: [],
+                    pickup_points:      [],
+                    supplier_locations: [],
                   })}
                 </span>
               </label>
@@ -263,30 +269,40 @@ function ProviderSection({ summary, config, option, onChange, applyToAll, isFirs
           </div>
         )}
 
-        {/* Selector de punto de recogida */}
-        {needsPickup && config && config.pickup_points.length > 0 && (
+        {/* Selector de location de recogida (RC1-C.5A.2) */}
+        {needsPickup && pickupLocations.length > 0 && (
           <div>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Punto de recogida</p>
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Selecciona dónde recoger</p>
             <div className="space-y-2">
-              {config.pickup_points.map(pp => (
-                <label key={pp.id} className={`flex items-start gap-3 rounded-lg border p-3 cursor-pointer transition-colors ${
-                  option.pickup_point_id === pp.id
+              {pickupLocations.map(loc => (
+                <label key={loc.id} className={`flex items-start gap-3 rounded-lg border p-3 cursor-pointer transition-colors ${
+                  option.pickup_location_id === loc.id
                     ? 'border-teal-400 bg-teal-50 dark:bg-teal-950/30'
                     : 'border-slate-200 dark:border-slate-700 hover:border-slate-300'
                 }`}>
                   <input
                     type="radio"
                     name={`pickup-${summary.actor_id}`}
-                    value={pp.id}
-                    checked={option.pickup_point_id === pp.id}
-                    onChange={() => onChange({ ...option, pickup_point_id: pp.id })}
+                    value={loc.id}
+                    checked={option.pickup_location_id === loc.id}
+                    onChange={() => onChange({
+                      ...option,
+                      pickup_location_id:       loc.id,
+                      pickup_location_snapshot: loc,
+                      pickup_point_id:          loc.id,
+                    })}
                     className="mt-1 accent-teal-600"
                   />
-                  <div>
-                    <p className="text-sm font-medium text-slate-800 dark:text-slate-200">{pp.nombre}</p>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <p className="text-sm font-medium text-slate-800 dark:text-slate-200">{loc.nombre}</p>
+                      <span className="text-[10px] font-medium uppercase tracking-wide px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
+                        {SUPPLIER_LOCATION_TIPO_LABELS[loc.tipo as SupplierLocationTipo] ?? loc.tipo}
+                      </span>
+                    </div>
                     <p className="text-xs text-slate-400 mt-0.5">
-                      {pp.direccion?.calle}{pp.direccion?.ciudad ? `, ${pp.direccion.ciudad}` : ''}
-                      {pp.telefono ? ` · ${pp.telefono}` : ''}
+                      {[loc.direccion_linea1, loc.localidad, loc.provincia].filter(Boolean).join(', ')}
+                      {loc.telefono ? ` · ${loc.telefono}` : ''}
                     </p>
                   </div>
                 </label>
@@ -386,7 +402,7 @@ function validateOption(opt: DeliveryOptionPerProvider): string | null {
     if (!a?.nombre_contacto?.trim())   return 'Falta la persona de contacto';
     if (!a?.telefono_contacto?.trim()) return 'Falta el teléfono de entrega';
   }
-  if (opt.delivery_method === 'recogida_proveedor' && !opt.pickup_point_id) {
+  if (opt.delivery_method === 'recogida_proveedor' && !opt.pickup_location_id && !opt.pickup_point_id) {
     return 'Selecciona un punto de recogida';
   }
   if (!opt.payment_method) return 'Selecciona una forma de pago';

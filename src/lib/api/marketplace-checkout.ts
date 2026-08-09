@@ -321,6 +321,34 @@ export interface PickupPoint {
   orden:     number;
 }
 
+// ─── RC1-C.5A.2 — Locations (trade_marketplace_supplier_locations) ────────────
+
+export type SupplierLocationTipo = 'tienda' | 'almacen' | 'delegacion' | 'punto_recogida';
+
+export const SUPPLIER_LOCATION_TIPO_LABELS: Record<SupplierLocationTipo, string> = {
+  tienda:          'Tienda',
+  almacen:         'Almacén',
+  delegacion:      'Delegación',
+  punto_recogida:  'Punto de recogida',
+};
+
+export interface SupplierLocation {
+  id:                    string;
+  codigo_interno:        string | null;
+  nombre:                string;
+  tipo:                  SupplierLocationTipo;
+  direccion_linea1:      string | null;
+  localidad:             string;
+  provincia:             string;
+  codigo_postal:         string | null;
+  telefono:              string | null;
+  horario:               Record<string, unknown> | null;
+  permite_recogida:      boolean;
+  permite_entrega_local: boolean;
+  radio_servicio_km:     number | null;
+  orden:                 number;
+}
+
 export interface SupplierCheckoutConfig {
   actor_id:                string;
   actor_nombre:            string;
@@ -334,15 +362,23 @@ export interface SupplierCheckoutConfig {
   plazo_entrega_dias:      number;
   plazo_confirmacion_h:    number;
   mensaje_instaladores:    string | null;
+  /** @deprecated desde RC1-C.5A.2 — siempre vacío; usar supplier_locations */
   pickup_points:           PickupPoint[];
+  /** RC1-C.5A.2: locations activas del proveedor */
+  supplier_locations:      SupplierLocation[];
 }
 
 export interface DeliveryOptionPerProvider {
-  delivery_method:   DeliveryMethod;
-  delivery_address?: DeliveryAddress;
-  pickup_point_id?:  string | null;
-  payment_method:    PaymentMethod;
-  notas?:            string;
+  delivery_method:           DeliveryMethod;
+  delivery_address?:         DeliveryAddress;
+  /** @deprecated usar pickup_location_id */
+  pickup_point_id?:          string | null;
+  /** RC1-C.5A.2: id de la location seleccionada */
+  pickup_location_id?:       string | null;
+  /** RC1-C.5A.2: snapshot de la location en el momento del pedido */
+  pickup_location_snapshot?: SupplierLocation | null;
+  payment_method:            PaymentMethod;
+  notas?:                    string;
 }
 
 export interface BuyerSnapshot {
@@ -499,6 +535,78 @@ export interface GuestCheckoutResult {
   session_token:     string;
   token_prefix:      string;
   expires_at:        string;
+}
+
+// ─── RC1-C.5A.2 — Locations & price resolution ────────────────────────────────
+
+export interface LocationForActor extends SupplierLocation {
+  distancia_km: number | null;
+}
+
+export async function getLocationsForActor(params: {
+  actorId:       string;
+  permiteRecogida?: boolean;
+  obraLat?:      number | null;
+  obraLon?:      number | null;
+}): Promise<LocationForActor[]> {
+  const { data, error } = await (supabase as any).rpc('get_locations_for_actor', {
+    p_actor_id:        params.actorId,
+    p_permite_recogida: params.permiteRecogida ?? null,
+    p_obra_lat:        params.obraLat ?? null,
+    p_obra_lon:        params.obraLon ?? null,
+  });
+  if (error) rpcError('getLocationsForActor', error);
+  return (data ?? []) as LocationForActor[];
+}
+
+export interface LocalStockResult {
+  stock_status:     string;
+  stock_cantidad:   number | null;
+  disponible_hoy:   boolean;
+  stock_source:     string;
+}
+
+export async function getLocalStock(params: {
+  offeringId:  string;
+  locationId:  string;
+}): Promise<LocalStockResult | null> {
+  const { data, error } = await (supabase as any).rpc('get_local_stock', {
+    p_offering_id: params.offeringId,
+    p_location_id: params.locationId,
+  });
+  if (error) rpcError('getLocalStock', error);
+  const rows = data as LocalStockResult[];
+  return rows?.[0] ?? null;
+}
+
+export interface EffectivePriceResultV2 {
+  net_amount:         number;
+  tax_rate:           number;
+  gross_amount:       number;
+  price_source:       string;
+  promotion_id:       string | null;
+  location_id:        string | null;
+  valid_until:        string | null;
+  resolution_version: string;
+}
+
+export async function resolveEffectivePriceWithLocation(params: {
+  offeringId:      string;
+  orgId?:          string | null;
+  locationId?:     string | null;
+  comunidadAuto?:  string | null;
+  cantidad?:       number;
+}): Promise<EffectivePriceResultV2 | null> {
+  const { data, error } = await (supabase as any).rpc('resolve_effective_offering_price', {
+    p_offering_id:    params.offeringId,
+    p_org_id:         params.orgId ?? null,
+    p_location_id:    params.locationId ?? null,
+    p_comunidad_auto: params.comunidadAuto ?? null,
+    p_cantidad:       params.cantidad ?? 1,
+  });
+  if (error) rpcError('resolveEffectivePriceWithLocation', error);
+  const rows = data as EffectivePriceResultV2[];
+  return rows?.[0] ?? null;
 }
 
 // Sprint Guest-2: resultado de seguimiento de pedido invitado
