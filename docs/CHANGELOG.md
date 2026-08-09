@@ -4,6 +4,31 @@
 
 ---
 
+## RC1-C.5B — Integración visual de locations, stock local y promociones
+
+**Período:** 2026-08-09  
+**Estado:** COMPLETADO ✓  
+**Documento de resultados:** `docs/marketplace/RC1_C5B_VISUAL_INTEGRATION.md`
+
+### Ejecutado en esta fase
+
+**Frontend — Marketplace:**
+- `useMarketplaceLocation` hook — contexto de ubicación persistido en sessionStorage (6 presets + input libre)
+- `ScreenMarketplace` — banner de ubicación activa, botón activación, modal selector
+- `MarketplaceProductCard` — señal "Recogida local disponible" sin async por tarjeta
+- `MarketplaceGrid` — prop `actorIdsWithPickup` (Set precargado, zero async por card)
+- `MarketplaceProductSlideOver` — enrich async con cancellación: precio local + pickup top-3 + badge promo scope
+
+**Frontend — Portal Proveedor:**
+- `PortalContext` — tipo `PortalTab` extendido con `'tiendas' | 'marketing'`
+- `PortalProveedorView` — tabs "Tiendas" y "Marketing" con lazy load
+- `PortalTiendas` — CRUD completo de `trade_marketplace_supplier_locations` + tab stock local (override por offering)
+- `PortalMarketing` — gestión de `trade_marketplace_promotions` con filtros, formulario completo, toggle activa
+
+**Invariante mantenida:** PUBLICIDAD ≠ RANKING en todos los componentes.
+
+---
+
 ## RC1-C.5A.2 — Implantación locations, stock local y promociones con correcciones de arquitectura
 
 **Período:** 2026-08-09  

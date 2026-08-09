@@ -1,16 +1,19 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { CheckCircle2, AlertTriangle, Info, ShoppingBag, User, MapPin, Package, AlertCircle, Search } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, Info, ShoppingBag, User, MapPin, Package, AlertCircle, Search, X } from 'lucide-react';
 import { ActivePage } from '../../types';
 import { useSession } from '../../context/SessionContext';
 import { useMarketplaceCart } from '../../hooks/useMarketplaceCart';
 import {
   getMarketplaceCatalog,
   getMarketplaceFamilias,
+  getActorIdsWithPickupLocations,
 } from '../../lib/api/marketplace-catalog';
 import type { MarketplaceCatalogItem, CatalogPage, OfferingDetail } from '../../lib/api/marketplace-catalog';
 import type { LocalCartItem } from '../../lib/marketplace/cart-storage';
 import type { CartItem } from '../../lib/api/marketplace-checkout';
 import { getCartDetail } from '../../lib/api/marketplace-checkout';
+import { useMarketplaceLocation, PRESET_LOCATIONS } from '../../hooks/useMarketplaceLocation';
+import type { MarketplaceLocation } from '../../hooks/useMarketplaceLocation';
 import {
   loadPurchaseContext,
   clearPurchaseContext,
@@ -38,6 +41,132 @@ function useToast() {
     setTimeout(() => setToast(prev => prev?.id === id ? null : prev), 3000);
   }, []);
   return { toast, show };
+}
+
+// ─── Banner de ubicación de contexto (B2) ────────────────────────────────────
+
+function LocationBanner({ location, onChangeRequest }: {
+  location: MarketplaceLocation;
+  onChangeRequest: () => void;
+}) {
+  return (
+    <div className="bg-[#1A5A96]/5 border-b border-[#1A5A96]/10 px-4 py-2 flex items-center gap-2 text-xs text-gray-600 shrink-0">
+      <MapPin className="w-3 h-3 text-[#1A5A96] shrink-0" />
+      <span>
+        Disponibilidad cerca de{' '}
+        <span className="font-semibold text-gray-900">{location.localidad}</span>
+        {location.comunidad_autonoma && (
+          <span className="text-gray-400"> · {location.comunidad_autonoma}</span>
+        )}
+      </span>
+      <button
+        onClick={onChangeRequest}
+        className="ml-1 text-[#1A5A96] font-medium hover:underline"
+      >
+        Cambiar
+      </button>
+    </div>
+  );
+}
+
+function LocationSetButton({ onRequest }: { onRequest: () => void }) {
+  return (
+    <button
+      onClick={onRequest}
+      className="flex items-center gap-1.5 text-[10px] text-gray-400 hover:text-[#1A5A96] transition-colors border-b border-transparent hover:border-[#1A5A96]/30 px-4 py-1.5 shrink-0"
+    >
+      <MapPin className="w-3 h-3" />
+      Activar disponibilidad local
+    </button>
+  );
+}
+
+function LocationSelectorModal({ current, onSelect, onClose }: {
+  current: MarketplaceLocation | null;
+  onSelect: (loc: MarketplaceLocation | null) => void;
+  onClose: () => void;
+}) {
+  const [customLocalidad, setCustomLocalidad] = useState(current?.localidad ?? '');
+
+  function handlePreset(loc: MarketplaceLocation) {
+    onSelect(loc);
+    onClose();
+  }
+
+  function handleCustom() {
+    if (!customLocalidad.trim()) return;
+    onSelect({ localidad: customLocalidad.trim() });
+    onClose();
+  }
+
+  function handleClear() {
+    onSelect(null);
+    onClose();
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
+      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm p-5 space-y-4">
+        <div className="flex items-center justify-between">
+          <h3 className="font-bold text-gray-900 text-sm">Ubicación de referencia</h3>
+          <button onClick={onClose} className="text-gray-300 hover:text-gray-600">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+        <p className="text-xs text-gray-500 -mt-2">
+          Muestra recogida local y precios con promociones de tu zona.
+          Sin acceso a tu ubicación GPS.
+        </p>
+        <div className="space-y-1.5">
+          {PRESET_LOCATIONS.map(loc => (
+            <button
+              key={loc.localidad}
+              onClick={() => handlePreset(loc)}
+              className={`w-full text-left flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm transition-colors ${
+                current?.localidad === loc.localidad
+                  ? 'bg-[#1A5A96] text-white'
+                  : 'bg-gray-50 hover:bg-gray-100 text-gray-700'
+              }`}
+            >
+              <MapPin className="w-3.5 h-3.5 shrink-0" />
+              <span className="font-medium">{loc.localidad}</span>
+              {loc.comunidad_autonoma && (
+                <span className={`text-[11px] ml-auto ${
+                  current?.localidad === loc.localidad ? 'text-white/70' : 'text-gray-400'
+                }`}>{loc.comunidad_autonoma}</span>
+              )}
+            </button>
+          ))}
+        </div>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={customLocalidad}
+            onChange={e => setCustomLocalidad(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && handleCustom()}
+            placeholder="Otra localidad…"
+            className="flex-1 text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1A5A96]/30 focus:border-[#1A5A96]"
+          />
+          <button
+            onClick={handleCustom}
+            disabled={!customLocalidad.trim()}
+            className="px-3 py-2 rounded-xl bg-[#1A5A96] text-white text-sm font-semibold disabled:opacity-40 hover:bg-[#154d82] transition-colors"
+          >
+            OK
+          </button>
+        </div>
+        {current && (
+          <button
+            onClick={handleClear}
+            className="w-full text-xs text-gray-400 hover:text-gray-600 text-center transition-colors"
+          >
+            Quitar ubicación de referencia
+          </button>
+        )}
+      </div>
+    </div>
+  );
 }
 
 // ─── Banner contextual presupuesto ────────────────────────────────────────────
@@ -127,6 +256,11 @@ interface Props {
 export default function ScreenMarketplace({ setCurrentPage, mode = 'professional' }: Props) {
   const { org }    = useSession();
   const { state, actions } = useMarketplaceCart();
+
+  // ── Contexto de ubicación (B2) ─────────────────────────────────────────────
+  const { location, setLocation } = useMarketplaceLocation();
+  const [locationModalOpen,  setLocationModalOpen]  = useState(false);
+  const [actorIdsWithPickup, setActorIdsWithPickup] = useState<Set<string>>(new Set());
 
   // ── Contexto de compra (llega desde presupuesto) ───────────────────────────
   const [purchaseCtx, setPurchaseCtx]           = useState<MarketplacePurchaseContext | null>(null);
@@ -265,6 +399,12 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
   useEffect(() => {
     getMarketplaceFamilias().then(setFamilias).catch(() => {});
   }, []);
+
+  // ── Cargar actores con recogida (para señal en tarjetas) ───────────────────
+  useEffect(() => {
+    if (!location) { setActorIdsWithPickup(new Set()); return; }
+    getActorIdsWithPickupLocations().then(setActorIdsWithPickup).catch(() => {});
+  }, [location?.localidad]);
 
   // ── Cargar catálogo ────────────────────────────────────────────────────────
   const loadCatalog = useCallback(async () => {
@@ -427,6 +567,12 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         />
       )}
 
+      {/* Banner de ubicación (B2) */}
+      {location
+        ? <LocationBanner location={location} onChangeRequest={() => setLocationModalOpen(true)} />
+        : <LocationSetButton onRequest={() => setLocationModalOpen(true)} />
+      }
+
       {/* Líneas sin proveedor */}
       {unresolvedItems.length > 0 && (
         <UnresolvedLinesPanel
@@ -471,6 +617,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
               onClearQuery={() => setQuery('')}
               onAddBest={handleAddBest}
               onViewOptions={setSlideOverItem}
+              actorIdsWithPickup={actorIdsWithPickup}
             />
           </div>
         </div>
@@ -494,6 +641,8 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         currentProviderName={currentSlideOverCartItem?.supplierName ?? null}
         currentQty={currentSlideOverCartItem?.cantidad ?? 1}
         onSubstitute={currentSlideOverCartItem ? handleSubstitute : undefined}
+        location={location}
+        orgId={org?.id ?? null}
       />
 
       {/* Carrito drawer móvil */}
@@ -548,6 +697,15 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
             </div>
           </div>
         </div>
+      )}
+
+      {/* Modal selector de ubicación (B2) */}
+      {locationModalOpen && (
+        <LocationSelectorModal
+          current={location}
+          onSelect={setLocation}
+          onClose={() => setLocationModalOpen(false)}
+        />
       )}
 
       {/* Toast */}

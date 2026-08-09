@@ -1,10 +1,11 @@
-import { Package, Truck, Plus, ChevronRight } from 'lucide-react';
+import { Package, Truck, Plus, ChevronRight, MapPin } from 'lucide-react';
 import type { MarketplaceCatalogItem, TopOfferingMini } from '../../lib/api/marketplace-catalog';
 
 interface Props {
-  item:          MarketplaceCatalogItem;
-  onAddBest:     (item: MarketplaceCatalogItem) => void;
-  onViewOptions: (item: MarketplaceCatalogItem) => void;
+  item:             MarketplaceCatalogItem;
+  onAddBest:        (item: MarketplaceCatalogItem) => void;
+  onViewOptions:    (item: MarketplaceCatalogItem) => void;
+  hasPickupNearby?: boolean;
 }
 
 function fmt(n: number | null | undefined): string {
@@ -69,7 +70,7 @@ function ProviderMiniRow({ offer, isFirst }: MiniRowProps) {
 
 // ─── Tarjeta de producto ──────────────────────────────────────────────────────
 
-export default function MarketplaceProductCard({ item, onAddBest, onViewOptions }: Props) {
+export default function MarketplaceProductCard({ item, onAddBest, onViewOptions, hasPickupNearby }: Props) {
   const hasMultiple   = item.offering_count > 1;
   const fColor        = familiaColor(item.familia);
 
@@ -221,6 +222,14 @@ export default function MarketplaceProductCard({ item, onAddBest, onViewOptions 
             </>
           )}
         </div>
+
+        {/* Señal de recogida local */}
+        {hasPickupNearby && (
+          <p className="text-[10px] text-[#1A5A96] font-medium flex items-center gap-1 mt-0.5">
+            <MapPin className="w-2.5 h-2.5 shrink-0" />
+            Recogida local disponible
+          </p>
+        )}
 
         {/* Tooltip transparencia (multiproveedor) */}
         {hasMultiple && (

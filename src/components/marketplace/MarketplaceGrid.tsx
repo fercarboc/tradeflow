@@ -4,17 +4,19 @@ import MarketplaceProductCard from './MarketplaceProductCard';
 import MarketplaceEmptyState  from './MarketplaceEmptyState';
 
 interface Props {
-  items:         MarketplaceCatalogItem[];
-  loading:       boolean;
-  error:         string | null;
-  query:         string;
-  onClearQuery:  () => void;
-  onAddBest:     (item: MarketplaceCatalogItem) => void;
-  onViewOptions: (item: MarketplaceCatalogItem) => void;
+  items:                MarketplaceCatalogItem[];
+  loading:              boolean;
+  error:                string | null;
+  query:                string;
+  onClearQuery:         () => void;
+  onAddBest:            (item: MarketplaceCatalogItem) => void;
+  onViewOptions:        (item: MarketplaceCatalogItem) => void;
+  actorIdsWithPickup?:  Set<string>;
 }
 
 export default function MarketplaceGrid({
   items, loading, error, query, onClearQuery, onAddBest, onViewOptions,
+  actorIdsWithPickup,
 }: Props) {
   if (loading && items.length === 0) {
     return (
@@ -48,6 +50,7 @@ export default function MarketplaceGrid({
             item={item}
             onAddBest={onAddBest}
             onViewOptions={onViewOptions}
+            hasPickupNearby={actorIdsWithPickup ? item.actor_ids.some(id => actorIdsWithPickup.has(id)) : false}
           />
         ))}
       </div>

@@ -120,6 +120,17 @@ export async function getOfferingsForUp(
   return (data ?? []) as OfferingDetail[];
 }
 
+// RC1-C.5B: actores que tienen al menos una location activa con recogida disponible
+export async function getActorIdsWithPickupLocations(): Promise<Set<string>> {
+  const { data, error } = await db
+    .from('trade_marketplace_supplier_locations')
+    .select('actor_id')
+    .eq('activa', true)
+    .eq('permite_recogida', true);
+  if (error) return new Set();
+  return new Set((data ?? []).map((r: { actor_id: string }) => r.actor_id));
+}
+
 // Familias únicas del catálogo activo (para filtros)
 export async function getMarketplaceFamilias(): Promise<string[]> {
   const { data, error } = await db

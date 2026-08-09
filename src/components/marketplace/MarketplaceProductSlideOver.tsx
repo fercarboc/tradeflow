@@ -1,22 +1,42 @@
 import { useEffect, useRef, useState } from 'react';
-import { X, Package, Truck, ShieldCheck, Plus, Loader2, Star, Info } from 'lucide-react';
+import { X, Package, Truck, ShieldCheck, Plus, Loader2, Star, Info, MapPin, Tag } from 'lucide-react';
 import type { MarketplaceCatalogItem, OfferingDetail } from '../../lib/api/marketplace-catalog';
 import { getOfferingsForUp } from '../../lib/api/marketplace-catalog';
 import type { LocalCartItem } from '../../lib/marketplace/cart-storage';
+import type { LocationForActor, EffectivePriceResultV2 } from '../../lib/api/marketplace-checkout';
+import { getLocationsForActor, resolveEffectivePriceWithLocation } from '../../lib/api/marketplace-checkout';
+import type { MarketplaceLocation } from '../../hooks/useMarketplaceLocation';
 
 // ─── Ranking reason ──────────────────────────────────────────────────────────
 
 const RANKING_REASON_LABEL: Record<string, string> = {
-  'in_stock':              'Stock confirmado',
-  'best_price':            'Mejor precio',
-  'fast_delivery':         'Entrega más rápida',
+  'in_stock':               'Stock confirmado',
+  'best_price':             'Mejor precio',
+  'fast_delivery':          'Entrega más rápida',
+  'best_availability':      'Mejor disponibilidad',
+  'best_effective_price':   'Mejor precio efectivo',
+  'fastest_delivery':       'Entrega más rápida',
+  'nearest_pickup':         'Recogida más cercana',
+  'habitual_supplier':      'Proveedor habitual',
+  'stable_tiebreak':        '',
   'deterministic_tiebreak': '',
 };
 
 const RANKING_REASON_COLOR: Record<string, string> = {
-  'in_stock':   'bg-emerald-50 text-emerald-700 border border-emerald-200',
-  'best_price': 'bg-[#1A5A96]/8 text-[#1A5A96] border border-[#1A5A96]/20',
-  'fast_delivery': 'bg-amber-50 text-amber-700 border border-amber-200',
+  'in_stock':             'bg-emerald-50 text-emerald-700 border border-emerald-200',
+  'best_price':           'bg-[#1A5A96]/8 text-[#1A5A96] border border-[#1A5A96]/20',
+  'best_effective_price': 'bg-amber-50 text-amber-700 border border-amber-200',
+  'fast_delivery':        'bg-amber-50 text-amber-700 border border-amber-200',
+  'fastest_delivery':     'bg-amber-50 text-amber-700 border border-amber-200',
+  'nearest_pickup':       'bg-teal-50 text-teal-700 border border-teal-200',
+};
+
+const PRICE_SOURCE_LABEL: Record<string, string> = {
+  'professional_pvd':  '',
+  'national_promotion': 'Oferta nacional',
+  'regional_promotion': 'Oferta regional',
+  'local_promotion':    'Oferta en tienda',
+  'local_clearance':    'Liquidación',
 };
 
 // ─── Confirm dialog de sustitución ──────────────────────────────────────────
@@ -70,16 +90,219 @@ function ConfirmSubstDialog({ currentName, newName, onSubstitute, onAddAlso, onC
 // ─── Props ────────────────────────────────────────────────────────────────────
 
 interface Props {
-  item:               MarketplaceCatalogItem | null;
-  onClose:            () => void;
-  onAdd:              (item: Omit<LocalCartItem, 'cartItemId'>) => void;
-  // Opcional: para marcar la offering actualmente seleccionada en el carrito
-  currentOfferingId?: string | null;
+  item:                MarketplaceCatalogItem | null;
+  onClose:             () => void;
+  onAdd:               (item: Omit<LocalCartItem, 'cartItemId'>) => void;
+  currentOfferingId?:  string | null;
   currentProviderName?: string | null;
-  // Opcional: para sustituir una offering existente en el carrito
-  onSubstitute?:      (offering: OfferingDetail, qty: number) => void;
-  // Cantidad actual en carrito (para conservar en sustitución)
-  currentQty?:        number;
+  onSubstitute?:       (offering: OfferingDetail, qty: number) => void;
+  currentQty?:         number;
+  location?:           MarketplaceLocation | null;
+  orgId?:              string | null;
+}
+
+// ─── OfferingRow props ───────────────────────────────────────────────────────
+
+interface OfferingRowProps {
+  offering:          OfferingDetail;
+  rank:              number;
+  isSelected:        boolean;
+  hasSubstituteMode: boolean;
+  onSelect:          () => void;
+  pickupLocations:   LocationForActor[];
+  effectivePrice:    EffectivePriceResultV2 | null;
+}
+
+// ─── OfferingRow ─────────────────────────────────────────────────────────────
+
+function fmt(n: number | null | undefined): string {
+  if (n == null) return '—';
+  return n.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function formatDate(d: string | null | undefined): string {
+  if (!d) return '';
+  try { return new Date(d).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }); }
+  catch { return d; }
+}
+
+function OfferingRow({
+  offering: o, rank, isSelected, hasSubstituteMode, onSelect,
+  pickupLocations, effectivePrice,
+}: OfferingRowProps) {
+  const isRecomendado = rank === 0;
+  const reason        = o.ranking_reason ?? '';
+  const reasonLabel   = RANKING_REASON_LABEL[reason] ?? '';
+  const reasonColor   = RANKING_REASON_COLOR[reason] ?? '';
+
+  const hasLocalDeal = effectivePrice != null
+    && effectivePrice.price_source !== 'professional_pvd'
+    && effectivePrice.net_amount < (o.precio_coste ?? Infinity);
+
+  const dealLabel = effectivePrice ? (PRICE_SOURCE_LABEL[effectivePrice.price_source] ?? '') : '';
+
+  const ctaLabel = isSelected
+    ? 'Seleccionado'
+    : hasSubstituteMode
+      ? 'Sustituir'
+      : 'Añadir al carrito';
+
+  return (
+    <div className={`border rounded-xl p-4 flex flex-col gap-3 transition-colors ${
+      isSelected
+        ? 'bg-emerald-50 border-emerald-200'
+        : isRecomendado
+          ? 'bg-[#1A5A96]/5 border-[#1A5A96]/20'
+          : 'bg-white border-gray-200 hover:border-gray-300'
+    }`}>
+      {/* Proveedor + precio */}
+      <div className="flex items-start justify-between gap-2">
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-1.5 flex-wrap mb-1">
+            {isSelected && (
+              <span className="inline-flex items-center gap-1 text-[9px] bg-emerald-600 text-white px-2 py-0.5 rounded-full font-bold uppercase tracking-wide">
+                <svg className="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                </svg>
+                Seleccionado
+              </span>
+            )}
+            {!isSelected && isRecomendado && (
+              <span className="inline-flex items-center gap-1 text-[9px] bg-[#1A5A96] text-white px-2 py-0.5 rounded-full font-bold uppercase tracking-wide">
+                <Star className="w-2.5 h-2.5" />
+                Recomendado
+              </span>
+            )}
+            {reasonLabel && !isSelected && (
+              <span className={`inline-flex text-[9px] px-2 py-0.5 rounded-full font-semibold ${reasonColor}`}>
+                {reasonLabel}
+              </span>
+            )}
+            {o.actor_verificado && (
+              <span className="inline-flex items-center gap-1 text-[9px] bg-emerald-50 text-emerald-600 border border-emerald-200 px-2 py-0.5 rounded-full font-semibold">
+                <ShieldCheck className="w-2.5 h-2.5" />
+                Verificado
+              </span>
+            )}
+          </div>
+          <p className="text-gray-900 font-semibold text-sm">{o.actor_nombre}</p>
+          {o.supplier_ref && (
+            <p className="text-gray-400 text-[10px]">Ref: {o.supplier_ref}</p>
+          )}
+        </div>
+
+        {/* Precio */}
+        <div className="text-right shrink-0">
+          {hasLocalDeal && effectivePrice ? (
+            <>
+              <p className="text-gray-400 text-[10px] line-through tabular-nums">
+                {fmt(o.precio_coste)} €
+              </p>
+              <p className="font-black text-xl tabular-nums leading-none text-amber-600">
+                {fmt(effectivePrice.net_amount)} €
+              </p>
+            </>
+          ) : (
+            <p className={`font-black text-xl tabular-nums leading-none ${
+              isSelected ? 'text-emerald-700' : 'text-[#1A5A96]'
+            }`}>
+              {o.precio_coste != null ? `${fmt(o.precio_coste)} €` : '—'}
+            </p>
+          )}
+          <p className="text-gray-400 text-[10px]">/{o.unidad}</p>
+        </div>
+      </div>
+
+      {/* Oferta local detalle */}
+      {hasLocalDeal && effectivePrice && dealLabel && (
+        <div className="flex items-center gap-1.5 bg-amber-50 border border-amber-100 rounded-lg px-3 py-1.5">
+          <Tag className="w-3 h-3 text-amber-600 shrink-0" />
+          <span className="text-xs font-semibold text-amber-700">{dealLabel}</span>
+          {effectivePrice.valid_until && (
+            <span className="text-[10px] text-amber-500 ml-auto">
+              hasta {formatDate(effectivePrice.valid_until)}
+            </span>
+          )}
+        </div>
+      )}
+
+      {/* Meta: stock y plazo */}
+      <div className="flex flex-wrap gap-2 text-[11px]">
+        <span className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-medium ${
+          o.stock_disponible
+            ? 'bg-emerald-50 text-emerald-700 border border-emerald-100'
+            : 'bg-amber-50 text-amber-700 border border-amber-100'
+        }`}>
+          <span className={`w-1.5 h-1.5 rounded-full ${o.stock_disponible ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+          {o.stock_disponible
+            ? o.stock_cantidad != null ? `${o.stock_cantidad} uds en stock` : 'Stock disponible'
+            : 'Sin stock'}
+        </span>
+
+        {o.plazo_dias != null && (
+          <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-medium bg-gray-50 text-gray-600 border border-gray-100">
+            <Truck className="w-3 h-3" />
+            {o.plazo_dias === 1 ? '1 día' : `${o.plazo_dias} días`}
+          </span>
+        )}
+      </div>
+
+      {/* Recogida disponible (B5) */}
+      {pickupLocations.length > 0 && (
+        <div>
+          <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+            Recogida disponible
+          </p>
+          <div className="space-y-1">
+            {pickupLocations.slice(0, 3).map(loc => (
+              <div key={loc.id} className="flex items-center gap-2 text-[11px]">
+                <MapPin className="w-3 h-3 text-[#1A5A96] shrink-0" />
+                <span className="font-medium text-gray-700 truncate">{loc.nombre}</span>
+                <span className="text-gray-400 shrink-0">{loc.localidad}</span>
+                {loc.distancia_km != null && (
+                  <span className="ml-auto text-gray-400 tabular-nums shrink-0">
+                    {loc.distancia_km < 1
+                      ? `${(loc.distancia_km * 1000).toFixed(0)} m`
+                      : `${loc.distancia_km.toFixed(1)} km`}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Observaciones */}
+      {o.descripcion && (
+        <p className="text-gray-500 text-[11px] leading-relaxed line-clamp-2 bg-gray-50 rounded-lg px-3 py-2">
+          {o.descripcion}
+        </p>
+      )}
+
+      {/* CTA */}
+      <button
+        onClick={onSelect}
+        disabled={isSelected}
+        aria-pressed={isSelected}
+        className={`w-full flex items-center justify-center gap-2 font-bold text-sm py-2.5 rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A5A96] ${
+          isSelected
+            ? 'bg-emerald-100 text-emerald-700 cursor-default'
+            : isRecomendado
+              ? 'bg-[#1A5A96] hover:bg-[#154d82] text-white'
+              : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+        }`}
+      >
+        {isSelected ? (
+          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+          </svg>
+        ) : (
+          <Plus className="w-4 h-4" />
+        )}
+        {ctaLabel}
+      </button>
+    </div>
+  );
 }
 
 // ─── SlideOver principal ─────────────────────────────────────────────────────
@@ -88,16 +311,19 @@ export default function MarketplaceProductSlideOver({
   item, onClose, onAdd,
   currentOfferingId, currentProviderName,
   onSubstitute, currentQty,
+  location, orgId,
 }: Props) {
-  const [offerings,  setOfferings]  = useState<OfferingDetail[]>([]);
-  const [loading,    setLoading]    = useState(false);
-  const [error,      setError]      = useState<string | null>(null);
-  const [showTooltip, setShowTooltip] = useState(false);
-  const [confirmOffer, setConfirmOffer] = useState<OfferingDetail | null>(null);
+  const [offerings,         setOfferings]         = useState<OfferingDetail[]>([]);
+  const [loading,           setLoading]           = useState(false);
+  const [error,             setError]             = useState<string | null>(null);
+  const [showTooltip,       setShowTooltip]       = useState(false);
+  const [confirmOffer,      setConfirmOffer]       = useState<OfferingDetail | null>(null);
+  const [locationsByActor,  setLocationsByActor]  = useState<Map<string, LocationForActor[]>>(new Map());
+  const [effectivePrices,   setEffectivePrices]   = useState<Map<string, EffectivePriceResultV2 | null>>(new Map());
   const tooltipRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!item) { setOfferings([]); return; }
+    if (!item) { setOfferings([]); setLocationsByActor(new Map()); setEffectivePrices(new Map()); return; }
     setLoading(true);
     setError(null);
     getOfferingsForUp(item.up_id)
@@ -105,6 +331,58 @@ export default function MarketplaceProductSlideOver({
       .catch(e => setError(e instanceof Error ? e.message : 'Error al cargar opciones'))
       .finally(() => setLoading(false));
   }, [item?.up_id]);
+
+  // Enriquecer con datos de location cuando hay offerings + contexto de ubicación
+  useEffect(() => {
+    if (!offerings.length || !location || !item) {
+      setLocationsByActor(new Map());
+      setEffectivePrices(new Map());
+      return;
+    }
+    let cancelled = false;
+
+    async function enrich() {
+      const uniqueActorIds = [...new Set(offerings.map(o => o.actor_id))];
+
+      const locationResults = await Promise.all(
+        uniqueActorIds.map(actorId =>
+          getLocationsForActor({
+            actorId,
+            permiteRecogida: true,
+            obraLat: location!.lat ?? null,
+            obraLon: location!.lon ?? null,
+          })
+            .then(locs => [actorId, locs] as [string, LocationForActor[]])
+            .catch(() => [actorId, []] as [string, LocationForActor[]])
+        )
+      );
+      if (cancelled) return;
+
+      const locMap = new Map<string, LocationForActor[]>(locationResults);
+      setLocationsByActor(locMap);
+
+      const priceResults = await Promise.all(
+        offerings.map(o => {
+          const nearest = (locMap.get(o.actor_id) ?? [])[0] ?? null;
+          return resolveEffectivePriceWithLocation({
+            offeringId:     o.offering_id,
+            orgId:          orgId ?? null,
+            locationId:     nearest?.id ?? null,
+            comunidadAuto:  location!.comunidad_autonoma ?? null,
+            cantidad:       1,
+          })
+            .then(p => [o.offering_id, p] as [string, EffectivePriceResultV2 | null])
+            .catch(() => [o.offering_id, null] as [string, null]);
+        })
+      );
+      if (cancelled) return;
+
+      setEffectivePrices(new Map(priceResults));
+    }
+
+    enrich();
+    return () => { cancelled = true; };
+  }, [offerings, location, orgId, item?.up_id]);
 
   useEffect(() => {
     if (!item) return;
@@ -118,7 +396,6 @@ export default function MarketplaceProductSlideOver({
     return () => document.removeEventListener('keydown', onKey);
   }, [item, onClose, confirmOffer]);
 
-  // Cerrar tooltip al hacer click fuera
   useEffect(() => {
     if (!showTooltip) return;
     const handler = (e: MouseEvent) => {
@@ -154,18 +431,11 @@ export default function MarketplaceProductSlideOver({
 
   function handleSelectOffering(o: OfferingDetail) {
     if (!item) return;
-    const isCurrentInCart = o.offering_id === currentOfferingId;
-
-    // Ya está seleccionado → no hace nada
-    if (isCurrentInCart) return;
-
-    // Si hay una offering ya seleccionada y se puede sustituir → confirm dialog
+    if (o.offering_id === currentOfferingId) return;
     if (currentOfferingId && onSubstitute) {
       setConfirmOffer(o);
       return;
     }
-
-    // Modo libre: añadir directamente
     onAdd(buildCartItem(o));
     onClose();
   }
@@ -186,7 +456,6 @@ export default function MarketplaceProductSlideOver({
 
   return (
     <>
-      {/* Backdrop */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/40 z-40 lg:hidden"
@@ -195,7 +464,6 @@ export default function MarketplaceProductSlideOver({
         />
       )}
 
-      {/* Panel */}
       <div
         className={`fixed right-0 top-0 h-full w-full max-w-md bg-white border-l border-gray-200 z-50 flex flex-col transform transition-transform duration-300 shadow-2xl ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
@@ -235,12 +503,19 @@ export default function MarketplaceProductSlideOver({
           </button>
         </div>
 
-        {/* Subtítulo + tooltip transparencia */}
+        {/* Subtítulo + contexto ubicación + tooltip */}
         <div className="px-5 py-3 border-b border-gray-100 bg-[#1A5A96]/5 flex items-center justify-between gap-3">
-          <p className="text-[#1A5A96] text-xs font-semibold">
-            Comparativa de proveedores — precio de compra instalador
-          </p>
-          {/* Botón info */}
+          <div className="flex-1 min-w-0">
+            <p className="text-[#1A5A96] text-xs font-semibold">
+              Comparativa de proveedores — precio de compra instalador
+            </p>
+            {location && (
+              <p className="text-gray-400 text-[10px] flex items-center gap-1 mt-0.5">
+                <MapPin className="w-3 h-3 shrink-0" />
+                Con recogida en: <span className="font-medium text-gray-600">{location.localidad}</span>
+              </p>
+            )}
+          </div>
           <div className="relative shrink-0" ref={tooltipRef}>
             <button
               onClick={() => setShowTooltip(v => !v)}
@@ -252,6 +527,7 @@ export default function MarketplaceProductSlideOver({
             {showTooltip && (
               <div className="absolute right-0 top-6 w-60 bg-white border border-gray-200 rounded-xl p-3 shadow-lg z-10 text-xs text-gray-600 leading-relaxed">
                 Ordenado por disponibilidad, precio y plazo. La publicidad no modifica esta comparativa.
+                {location && ' Precios y recogida calculados para tu ubicación.'}
               </div>
             )}
           </div>
@@ -281,6 +557,8 @@ export default function MarketplaceProductSlideOver({
               isSelected={o.offering_id === currentOfferingId}
               hasSubstituteMode={!!(currentOfferingId && onSubstitute)}
               onSelect={() => handleSelectOffering(o)}
+              pickupLocations={locationsByActor.get(o.actor_id) ?? []}
+              effectivePrice={effectivePrices.get(o.offering_id) ?? null}
             />
           ))}
         </div>
@@ -294,7 +572,6 @@ export default function MarketplaceProductSlideOver({
         </div>
       </div>
 
-      {/* Confirm substitution dialog */}
       {confirmOffer && currentProviderName && (
         <ConfirmSubstDialog
           currentName={currentProviderName}
@@ -305,139 +582,5 @@ export default function MarketplaceProductSlideOver({
         />
       )}
     </>
-  );
-}
-
-// ─── Fila de offering ────────────────────────────────────────────────────────
-
-interface OfferingRowProps {
-  offering:         OfferingDetail;
-  rank:             number;
-  isSelected:       boolean;
-  hasSubstituteMode: boolean;
-  onSelect:         () => void;
-}
-
-function OfferingRow({ offering: o, rank, isSelected, hasSubstituteMode, onSelect }: OfferingRowProps) {
-  const isRecomendado = rank === 0;
-  const reason        = o.ranking_reason ?? '';
-  const reasonLabel   = RANKING_REASON_LABEL[reason] ?? '';
-  const reasonColor   = RANKING_REASON_COLOR[reason] ?? '';
-
-  const ctaLabel = isSelected
-    ? 'Seleccionado'
-    : hasSubstituteMode
-      ? 'Sustituir'
-      : 'Añadir al carrito';
-
-  return (
-    <div className={`border rounded-xl p-4 flex flex-col gap-3 transition-colors ${
-      isSelected
-        ? 'bg-emerald-50 border-emerald-200'
-        : isRecomendado
-          ? 'bg-[#1A5A96]/5 border-[#1A5A96]/20'
-          : 'bg-white border-gray-200 hover:border-gray-300'
-    }`}>
-      {/* Proveedor + precio */}
-      <div className="flex items-start justify-between gap-2">
-        <div className="flex-1 min-w-0">
-          {/* Badges: Recomendado / Seleccionado / ranking reason */}
-          <div className="flex items-center gap-1.5 flex-wrap mb-1">
-            {isSelected && (
-              <span className="inline-flex items-center gap-1 text-[9px] bg-emerald-600 text-white px-2 py-0.5 rounded-full font-bold uppercase tracking-wide">
-                <svg className="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
-                </svg>
-                Seleccionado
-              </span>
-            )}
-            {!isSelected && isRecomendado && (
-              <span className="inline-flex items-center gap-1 text-[9px] bg-[#1A5A96] text-white px-2 py-0.5 rounded-full font-bold uppercase tracking-wide">
-                <Star className="w-2.5 h-2.5" />
-                Recomendado
-              </span>
-            )}
-            {reasonLabel && !isSelected && (
-              <span className={`inline-flex text-[9px] px-2 py-0.5 rounded-full font-semibold ${reasonColor}`}>
-                {reasonLabel}
-              </span>
-            )}
-            {o.actor_verificado && (
-              <span className="inline-flex items-center gap-1 text-[9px] bg-emerald-50 text-emerald-600 border border-emerald-200 px-2 py-0.5 rounded-full font-semibold">
-                <ShieldCheck className="w-2.5 h-2.5" />
-                Verificado
-              </span>
-            )}
-          </div>
-          <p className="text-gray-900 font-semibold text-sm">{o.actor_nombre}</p>
-          {o.supplier_ref && (
-            <p className="text-gray-400 text-[10px]">Ref: {o.supplier_ref}</p>
-          )}
-        </div>
-
-        {/* Precio */}
-        <div className="text-right shrink-0">
-          <p className={`font-black text-xl tabular-nums leading-none ${
-            isSelected ? 'text-emerald-700' : 'text-[#1A5A96]'
-          }`}>
-            {o.precio_coste != null
-              ? o.precio_coste.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €'
-              : '—'}
-          </p>
-          <p className="text-gray-400 text-[10px]">/{o.unidad}</p>
-        </div>
-      </div>
-
-      {/* Meta: stock y plazo */}
-      <div className="flex flex-wrap gap-2 text-[11px]">
-        <span className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-medium ${
-          o.stock_disponible
-            ? 'bg-emerald-50 text-emerald-700 border border-emerald-100'
-            : 'bg-amber-50 text-amber-700 border border-amber-100'
-        }`}>
-          <span className={`w-1.5 h-1.5 rounded-full ${o.stock_disponible ? 'bg-emerald-500' : 'bg-amber-500'}`} />
-          {o.stock_disponible
-            ? o.stock_cantidad != null ? `${o.stock_cantidad} uds en stock` : 'Stock disponible'
-            : 'Sin stock'}
-        </span>
-
-        {o.plazo_dias != null && (
-          <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-medium bg-gray-50 text-gray-600 border border-gray-100">
-            <Truck className="w-3 h-3" />
-            {o.plazo_dias === 1 ? '1 día' : `${o.plazo_dias} días`}
-          </span>
-        )}
-      </div>
-
-      {/* Observaciones */}
-      {o.descripcion && (
-        <p className="text-gray-500 text-[11px] leading-relaxed line-clamp-2 bg-gray-50 rounded-lg px-3 py-2">
-          {o.descripcion}
-        </p>
-      )}
-
-      {/* CTA */}
-      <button
-        onClick={onSelect}
-        disabled={isSelected}
-        aria-pressed={isSelected}
-        className={`w-full flex items-center justify-center gap-2 font-bold text-sm py-2.5 rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A5A96] ${
-          isSelected
-            ? 'bg-emerald-100 text-emerald-700 cursor-default'
-            : isRecomendado
-              ? 'bg-[#1A5A96] hover:bg-[#154d82] text-white'
-              : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-        }`}
-      >
-        {isSelected ? (
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
-          </svg>
-        ) : (
-          <Plus className="w-4 h-4" />
-        )}
-        {ctaLabel}
-      </button>
-    </div>
   );
 }

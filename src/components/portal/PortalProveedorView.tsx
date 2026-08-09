@@ -12,6 +12,8 @@ const PortalEquipo         = lazy(() => import('./PortalEquipo'));
 const PortalInformes       = lazy(() => import('./PortalInformes'));
 const PortalIntegraciones  = lazy(() => import('./PortalIntegraciones'));
 const PortalConfiguracion  = lazy(() => import('./PortalConfiguracion'));
+const PortalTiendas        = lazy(() => import('./PortalTiendas'));
+const PortalMarketing      = lazy(() => import('./PortalMarketing'));
 
 interface Props {
   setCurrentPage: (page: ActivePage) => void;
@@ -168,6 +170,27 @@ function PortalShell({ setCurrentPage, session, totalWorkspaces = 1, onChangeWor
       ),
     },
     {
+      tab: 'tiendas',
+      label: 'Tiendas',
+      icon: (
+        <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round"
+            d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 22V12h6v10" />
+        </svg>
+      ),
+    },
+    {
+      tab: 'marketing',
+      label: 'Marketing',
+      icon: (
+        <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round"
+            d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+        </svg>
+      ),
+    },
+    {
       tab: 'integraciones',
       label: 'API',
       icon: (
@@ -198,8 +221,10 @@ function PortalShell({ setCurrentPage, session, totalWorkspaces = 1, onChangeWor
       case 'pedidos':    return <PortalPedidos       {...props} />;
       case 'equipo':     return <PortalEquipo        {...props} />;
       case 'informes':        return <PortalInformes       {...props} />;
-      case 'integraciones':   return <PortalIntegraciones  actorId={activeActorId} />;
-      case 'config':          return <PortalConfiguracion  {...props} />;
+      case 'tiendas':         return <PortalTiendas         {...props} />;
+      case 'marketing':       return <PortalMarketing       {...props} />;
+      case 'integraciones':   return <PortalIntegraciones   actorId={activeActorId} />;
+      case 'config':          return <PortalConfiguracion   {...props} />;
       default:           return null;
     }
   };
