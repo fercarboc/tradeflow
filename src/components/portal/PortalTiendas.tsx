@@ -61,20 +61,20 @@ interface LocationInventoryRow {
   reservado:        number;
   plazo_local_dias: number | null;
   offering?: {
-    id:                  string;
-    nombre_interno:      string | null;
-    codigo_interno:      string | null;
-    precio_profesional:  number | null;
-    unidad:              string;
+    id:                    string;
+    descripcion_comercial: string | null;
+    supplier_ref:          string | null;
+    precio_profesional_neto: number | null;
+    unidad:                string;
   };
 }
 
 interface SupplierOffering {
-  id:                 string;
-  nombre_interno:     string | null;
-  codigo_interno:     string | null;
-  precio_profesional: number | null;
-  unidad:             string;
+  id:                      string;
+  descripcion_comercial:   string | null;
+  supplier_ref:            string | null;
+  precio_profesional_neto: number | null;
+  unidad:                  string;
 }
 
 // ─── Sub-componentes de formulario ────────────────────────────────────────────
@@ -388,17 +388,27 @@ function StockLocalTab({ actorId, locationId }: StockLocalTabProps) {
 
   const loadData = useCallback(async () => {
     setLoading(true);
+    // Obtener supplier_catalog_id del actor para filtrar offerings correctamente
+    const { data: actorData } = await (supabase as any)
+      .from('trade_marketplace_actors')
+      .select('supplier_catalog_id')
+      .eq('id', actorId)
+      .maybeSingle();
+    const catalogId = actorData?.supplier_catalog_id ?? null;
+
     const [invRes, offRes] = await Promise.all([
       (supabase as any)
         .from('trade_marketplace_location_inventory')
-        .select('*, offering:offering_id(id, nombre_interno, codigo_interno, precio_profesional, unidad)')
+        .select('*, offering:offering_id(id, descripcion_comercial, supplier_ref, precio_profesional_neto, unidad)')
         .eq('location_id', locationId),
-      (supabase as any)
-        .from('trade_marketplace_supplier_offerings')
-        .select('id, nombre_interno, codigo_interno, precio_profesional, unidad')
-        .eq('actor_id', actorId)
-        .eq('activa', true)
-        .order('nombre_interno'),
+      catalogId
+        ? (supabase as any)
+            .from('trade_marketplace_supplier_offerings')
+            .select('id, descripcion_comercial, supplier_ref, precio_profesional_neto, unidad')
+            .eq('supplier_catalog_id', catalogId)
+            .eq('activa', true)
+            .order('descripcion_comercial')
+        : Promise.resolve({ data: [], error: null }),
     ]);
     if (!invRes.error) setInventory(invRes.data ?? []);
     if (!offRes.error) setOfferings(offRes.data ?? []);
@@ -471,11 +481,11 @@ function StockLocalTab({ actorId, locationId }: StockLocalTabProps) {
             <div className="flex items-start justify-between gap-2 mb-2">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-slate-200 truncate">
-                  {offering.nombre_interno ?? offering.codigo_interno ?? offeringId.slice(0, 8)}
+                  {offering.descripcion_comercial ?? offering.supplier_ref ?? offeringId.slice(0, 8)}
                 </p>
-                {offering.precio_profesional != null && (
+                {offering.precio_profesional_neto != null && (
                   <p className="text-[11px] text-slate-500">
-                    {offering.precio_profesional.toFixed(2)} € / {offering.unidad}
+                    {offering.precio_profesional_neto.toFixed(2)} € / {offering.unidad}
                   </p>
                 )}
               </div>

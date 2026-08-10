@@ -170,10 +170,15 @@ export default function ScreenProveedoresCliente({ orgId, showToast }: Props) {
         }));
         setActors(actorRows);
 
-        const globalRows: CatalogRow[] = (globalRes.data ?? []).map((c: {
-          id: string; supplier_key: string; supplier_name: string;
-          margen_pct_default: number; prioridad: number; is_custom: boolean; org_id: string | null;
-        }) => ({ ...c, productos: countMap.get(c.id) ?? 0 }));
+        // Solo mostrar catálogos vinculados a actores marketplace activos → elimina duplicados legacy
+        const actorCatalogIds = new Set(actorRows.map(a => a.supplier_catalog_id).filter(Boolean));
+
+        const globalRows: CatalogRow[] = (globalRes.data ?? [])
+          .filter((c: { id: string }) => actorCatalogIds.has(c.id))
+          .map((c: {
+            id: string; supplier_key: string; supplier_name: string;
+            margen_pct_default: number; prioridad: number; is_custom: boolean; org_id: string | null;
+          }) => ({ ...c, productos: countMap.get(c.id) ?? 0 }));
 
         const allCatalogs: CatalogRow[] = [];
         if (propioRes.data) {
