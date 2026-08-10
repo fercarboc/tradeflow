@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import {
   CartProviderSummary,
   SupplierCheckoutConfig, SupplierLocation, SupplierLocationTipo,
@@ -11,10 +11,11 @@ import {
 import { useSession } from '../../context/SessionContext';
 
 interface Props {
-  summary:       CartProviderSummary[];
-  initialBuyer:  BuyerSnapshot;
-  onNext:        (delivery: Record<string, DeliveryOptionPerProvider>, buyer: BuyerSnapshot) => void;
-  onBack:        () => void;
+  summary:         CartProviderSummary[];
+  initialBuyer:    BuyerSnapshot;
+  initialDelivery: Record<string, DeliveryOptionPerProvider>; // restaurado de sesión (RC1-C.6.3 P3/P5)
+  onNext:          (delivery: Record<string, DeliveryOptionPerProvider>, buyer: BuyerSnapshot) => void;
+  onBack:          () => void;
 }
 
 // ─── Dirección vacía ──────────────────────────────────────────────────────────
@@ -411,8 +412,11 @@ function validateOption(opt: DeliveryOptionPerProvider): string | null {
 
 // ─── Componente principal ─────────────────────────────────────────────────────
 
-export default function StepEntrega({ summary, initialBuyer, onNext, onBack }: Props) {
+export default function StepEntrega({ summary, initialBuyer, initialDelivery, onNext, onBack }: Props) {
   const { org } = useSession();
+
+  // Captura initialDelivery sólo en el primer montaje — no debe reaccionar a cambios posteriores
+  const seedRef = useRef(initialDelivery);
 
   const [configs,    setConfigs]    = useState<SupplierCheckoutConfig[]>([]);
   const [loadingCfg, setLoadingCfg] = useState(true);
@@ -421,23 +425,29 @@ export default function StepEntrega({ summary, initialBuyer, onNext, onBack }: P
   const [errors,     setErrors]     = useState<Record<string, string>>({});
   const [proceeding, setProceeding] = useState(false);
 
-  // Inicializar opciones por proveedor
+  // Inicializar opciones por proveedor — prioridad: elección del usuario > sesión restaurada > default
   useEffect(() => {
-    const initial: Record<string, DeliveryOptionPerProvider> = {};
-    summary.forEach(s => {
-      initial[s.actor_id] = {
-        delivery_method: 'entrega_obra',
-        delivery_address: {
-          calle:             '',
-          cp:                '',
-          ciudad:            '',
-          nombre_contacto:   org?.nombre ?? '',
-          telefono_contacto: org?.telefono ?? '',
-        },
-        payment_method:  'cuenta_proveedor',
-      };
+    setOptions(prev => {
+      const next: Record<string, DeliveryOptionPerProvider> = {};
+      summary.forEach(s => {
+        next[s.actor_id] =
+          prev[s.actor_id]                 // elección ya hecha por el usuario (máxima prioridad)
+          ?? seedRef.current[s.actor_id]   // restaurado desde sesión persistida
+          ?? {                             // valor por defecto
+            delivery_method: 'entrega_obra',
+            delivery_address: {
+              calle:             '',
+              cp:                '',
+              ciudad:            '',
+              nombre_contacto:   org?.nombre ?? '',
+              telefono_contacto: org?.telefono ?? '',
+            },
+            payment_method: 'cuenta_proveedor',
+          };
+      });
+      return next;
     });
-    setOptions(initial);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [summary, org]);
 
   // Cargar configs de los proveedores

@@ -28,7 +28,30 @@ import StepConfirmar from './StepConfirmar';
 import OrderTimeline from './shared/OrderTimeline';
 import { INSTALLER_ESTADO_LABELS } from './shared/OrderStatusBadge';
 
-const CART_KEY = 'mkt_cart_id';
+// RC1-C.6.3: clave namespaciada por quoteId para aislar carritos de presupuestos distintos
+function cartKey(quoteId: string | null | undefined): string {
+  return quoteId ? `mkt_cart_id_${quoteId}` : 'mkt_cart_id_noquote';
+}
+
+// Elimina actores huérfanos y normaliza pickup_point_id para métodos no-recogida (P4)
+function sanitizeDeliveryData(
+  delivery: Record<string, DeliveryOptionPerProvider>,
+  summary:  CartProviderSummary[],
+): Record<string, DeliveryOptionPerProvider> {
+  const activeIds = new Set(summary.map(s => s.actor_id));
+  const result: Record<string, DeliveryOptionPerProvider> = {};
+  for (const [actorId, opt] of Object.entries(delivery)) {
+    if (!activeIds.has(actorId)) continue; // actor ya no está en el carrito activo
+    const isPickup = opt.delivery_method === 'recogida_proveedor';
+    result[actorId] = {
+      ...opt,
+      pickup_point_id:          isPickup ? (opt.pickup_point_id          ?? null) : null,
+      pickup_location_id:       isPickup ? (opt.pickup_location_id       ?? null) : null,
+      pickup_location_snapshot: isPickup ? (opt.pickup_location_snapshot ?? null) : null,
+    };
+  }
+  return result;
+}
 
 type WizardStep = 'revisar' | 'entrega' | 'confirmar' | 'exito';
 
@@ -168,32 +191,44 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
   }, [session, setCurrentPage]);
 
   useEffect(() => {
-    const ctx = loadPurchaseContext();
+    const ctx     = loadPurchaseContext();
+    const quoteId = ctx?.quoteId ?? null;
+    setContext(ctx ?? null);
 
-    // Restaurar sesión unificada (P0-A) — recupera paso, delivery y buyer si vuelves al tab
-    const existingSession = loadPurchaseSession();
+    // RC1-C.6.3 (P1+P2): sesión namespaciada por quoteId — aísla presupuestos distintos
+    const existingSession = loadPurchaseSession(quoteId);
     if (existingSession && existingSession.cart_id) {
       purchaseSession.current = existingSession;
       const restoredStep = existingSession.checkout_step;
       if (restoredStep !== 'exito') setStep(restoredStep);
       if (existingSession.delivery_options) setDeliveryData(existingSession.delivery_options);
       if (existingSession.buyer_data) setBuyerSnapshot(existingSession.buyer_data);
-      console.log('[CHECKOUT:C6.1] SESSION_RESTORED', {
-        session_id: existingSession.session_id,
+
+      // P3: restaurar providerSummary si se vuelve al paso entrega o confirmar
+      if ((restoredStep === 'entrega' || restoredStep === 'confirmar') && existingSession.cart_id) {
+        getCartProviderSummary(existingSession.cart_id)
+          .then(ps => setProviderSummary(ps))
+          .catch(() => {});
+      }
+
+      console.log('[CHECKOUT:C6.3] SESSION_RESTORED', {
+        session_id:    existingSession.session_id,
         checkout_step: restoredStep,
-        cart_id: existingSession.cart_id,
+        cart_id:       existingSession.cart_id,
+        quote_id:      quoteId,
       });
     }
 
     console.log('[RC1-C1D] MarketplaceComprarView mount', { hasFreshCtx: !!ctx, cartId: ctx?.cartId });
-    setContext(ctx ?? null);
 
-    const fromSession = sessionStorage.getItem(CART_KEY);
+    // P2: clave de carrito namespaciada por quoteId
+    const ck = cartKey(quoteId);
+    const fromSession = sessionStorage.getItem(ck);
     const resolvedId  = fromSession ?? existingSession?.cart_id ?? ctx?.cartId ?? null;
 
     if (resolvedId) {
       setCartId(resolvedId);
-      if (!fromSession && resolvedId) sessionStorage.setItem(CART_KEY, resolvedId);
+      if (!fromSession && resolvedId) sessionStorage.setItem(ck, resolvedId);
     } else {
       console.log('[RC1-C1D] MarketplaceComprarView: sin contexto fresco, redirigiendo a Marketplace');
       setCurrentPage(ActivePage.Marketplace);
@@ -201,7 +236,7 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setCurrentPage]);
 
-  // Crea o actualiza la sesión cuando los datos clave cambian (P0-A)
+  // Crea o actualiza la sesión cuando los datos clave cambian (P0-A / P5)
   useEffect(() => {
     if (!cartId) return;
     if (!purchaseSession.current) {
@@ -221,11 +256,12 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
         checkout_step:    step,
         delivery_options: Object.keys(deliveryData).length > 0 ? deliveryData : purchaseSession.current.delivery_options,
         buyer_data:       buyerSnapshot,
+        actor_ids:        providerSummary.map(s => s.actor_id),
         // checkout_key no se sobreescribe — se mantiene el de la sesión original
       };
     }
     savePurchaseSession(purchaseSession.current);
-  }, [cartId, step, deliveryData, buyerSnapshot, context, org]);
+  }, [cartId, step, deliveryData, buyerSnapshot, context, org, providerSummary]);
 
   const loadCart = useCallback(async (id: string) => {
     setLoading(true);
@@ -266,7 +302,9 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
     const CHECKOUT_TIMEOUT_MS = 25_000;
 
     try {
-      const checkoutPromise = checkoutCartV2({ cartId, deliveryData, buyerSnapshot, checkoutKey });
+      // P4: sanear delivery antes del RPC — elimina actores huérfanos y pickup_point_ids inválidos
+      const sanitizedDelivery = sanitizeDeliveryData(deliveryData, providerSummary);
+      const checkoutPromise = checkoutCartV2({ cartId, deliveryData: sanitizedDelivery, buyerSnapshot, checkoutKey });
       const timeoutPromise  = new Promise<never>((_, reject) =>
         setTimeout(
           () => reject(new Error('El servidor tardó demasiado en responder (>25s). Por favor, inténtalo de nuevo.')),
@@ -288,7 +326,7 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
       setOrders(rows);
       setStep('exito');
       clearPurchaseContext();
-      clearPurchaseSession();
+      clearPurchaseSession(purchaseSession.current?.quote_id);
     } catch (e) {
       const duration_ms = Date.now() - t0;
       const errorMsg    = e instanceof Error ? e.message : 'Error al confirmar el pedido';
@@ -319,7 +357,7 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
             setOrders(rows);
             setStep('exito');
             clearPurchaseContext();
-            clearPurchaseSession();
+            clearPurchaseSession(purchaseSession.current?.quote_id);
             return;
           }
           // Sin pedidos — retry seguro: la misma checkout_key garantiza idempotencia
@@ -524,10 +562,16 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
             onNext={handleNext}
           />
         )}
+        {step === 'entrega' && providerSummary.length === 0 && (
+          <div className="flex justify-center items-center py-20" aria-label="Cargando proveedores">
+            <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#1A5A96] border-t-transparent" aria-hidden="true" />
+          </div>
+        )}
         {step === 'entrega' && providerSummary.length > 0 && (
           <StepEntrega
             summary={providerSummary}
             initialBuyer={buyerSnapshot}
+            initialDelivery={deliveryData}
             onNext={handleEntregaNext}
             onBack={handleBack}
           />
