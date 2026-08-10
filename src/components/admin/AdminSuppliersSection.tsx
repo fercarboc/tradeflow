@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import {
   Package, Upload, RefreshCw, CheckCircle, XCircle, Clock,
-  ChevronRight, AlertTriangle, Truck, Building2, User, Plus,
+  ChevronRight, ChevronDown, AlertTriangle, Truck, Building2, User, Plus,
   Download, Eye, Trash2, ToggleLeft, ToggleRight,
   FileSpreadsheet, Zap, Search, X, Mail, Globe, Phone, MapPin,
   Hash, Send, ExternalLink, UserPlus, Copy,
@@ -37,6 +37,9 @@ interface SupplierConfig {
   is_custom?: boolean;
   marketplace_actor_id?: string | null;
   marketplace_actor_nombre?: string | null;
+  actor_verificado?: boolean;
+  actor_offerings?: number;
+  actor_orders?: number;
 }
 
 const SUPPLIER_META: Record<string, { tipo: SupplierTipo; descripcion: string; acuerdo: AcuerdoEstado; color: string }> = {
@@ -161,6 +164,9 @@ export default function AdminSuppliersSection({ toast }: Props) {
 
   // Eliminar proveedor (solo custom)
   const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  // Sección legacy catálogos
+  const [showLegacyCatalogs, setShowLegacyCatalogs] = useState(false);
 
   // Modal productos
   const [showProducts, setShowProducts] = useState(false);
@@ -288,14 +294,42 @@ export default function AdminSuppliersSection({ toast }: Props) {
         if (!prev || row.updated_at > prev) lastSyncMap.set(row.catalog_id, row.updated_at);
       }
 
-      // Cargar actores de marketplace vinculados a catálogos
+      // Cargar actores de marketplace con estadísticas
       const { data: actors } = await supabase
         .from('trade_marketplace_actors')
-        .select('id, nombre, supplier_catalog_id')
-        .not('supplier_catalog_id', 'is', null);
-      const actorByCatalog = new Map<string, { id: string; nombre: string }>();
-      for (const a of (actors ?? []) as Array<{ id: string; nombre: string; supplier_catalog_id: string }>) {
-        if (a.supplier_catalog_id) actorByCatalog.set(a.supplier_catalog_id, { id: a.id, nombre: a.nombre });
+        .select('id, nombre, supplier_catalog_id, verificado, actor_type')
+        .eq('actor_type', 'supplier');
+      const actorByCatalog = new Map<string, { id: string; nombre: string; verificado: boolean }>();
+      const actorOfferingsMap = new Map<string, number>();
+      const actorOrdersMap    = new Map<string, number>();
+      if (actors && actors.length > 0) {
+        // Offerings por catálogo
+        const catalogIds = actors.map((a: Record<string, unknown>) => a.supplier_catalog_id).filter(Boolean) as string[];
+        if (catalogIds.length > 0) {
+          const { data: offeringCounts } = await supabase
+            .from('trade_marketplace_supplier_offerings')
+            .select('supplier_catalog_id')
+            .in('supplier_catalog_id', catalogIds)
+            .eq('activa', true);
+          for (const o of (offeringCounts ?? []) as Array<{ supplier_catalog_id: string }>) {
+            actorOfferingsMap.set(o.supplier_catalog_id, (actorOfferingsMap.get(o.supplier_catalog_id) ?? 0) + 1);
+          }
+        }
+        // Pedidos por actor
+        const actorIds = actors.map((a: Record<string, unknown>) => a.id) as string[];
+        if (actorIds.length > 0) {
+          const { data: orderCounts } = await supabase
+            .from('trade_marketplace_orders')
+            .select('actor_id')
+            .in('actor_id', actorIds)
+            .neq('estado', 'cancelled');
+          for (const o of (orderCounts ?? []) as Array<{ actor_id: string }>) {
+            actorOrdersMap.set(o.actor_id, (actorOrdersMap.get(o.actor_id) ?? 0) + 1);
+          }
+        }
+      }
+      for (const a of (actors ?? []) as Array<{ id: string; nombre: string; verificado: boolean; supplier_catalog_id: string }>) {
+        if (a.supplier_catalog_id) actorByCatalog.set(a.supplier_catalog_id, { id: a.id, nombre: a.nombre, verificado: !!a.verificado });
       }
 
       const mapped: SupplierConfig[] = (catalogs ?? []).map((c: Record<string, unknown>) => {
@@ -330,6 +364,9 @@ export default function AdminSuppliersSection({ toast }: Props) {
           is_custom: (c.is_custom as boolean) ?? false,
           marketplace_actor_id:     actor?.id ?? null,
           marketplace_actor_nombre: actor?.nombre ?? null,
+          actor_verificado:         actor?.verificado ?? false,
+          actor_offerings:          actor?.id ? (actorOfferingsMap.get(c.id as string) ?? 0) : undefined,
+          actor_orders:             actor?.id ? (actorOrdersMap.get(actor.id) ?? 0) : undefined,
         } satisfies SupplierConfig;
       });
 
@@ -581,7 +618,8 @@ export default function AdminSuppliersSection({ toast }: Props) {
     loadProducts(sup.id, '', 0);
   };
 
-  const totalActivos = suppliers.filter(s => s.activo).length;
+  const marketplaceSuppliers = suppliers.filter(s => s.marketplace_actor_id);
+  const legacySuppliers      = suppliers.filter(s => !s.marketplace_actor_id);
   const totalProductos = suppliers.filter(s => s.activo).reduce((a, s) => a + s.productos, 0);
   const lastSync = suppliers.filter(s => s.ultima_sync).sort((a, b) => (b.ultima_sync ?? '').localeCompare(a.ultima_sync ?? ''))[0]?.ultima_sync;
 
@@ -625,7 +663,7 @@ export default function AdminSuppliersSection({ toast }: Props) {
       {/* KPIs */}
       <div className="grid grid-cols-3 gap-3">
         {[
-          { label: 'Proveedores activos', value: totalActivos, Icon: CheckCircle, color: 'text-emerald-400' },
+          { label: 'Proveedores Marketplace', value: marketplaceSuppliers.length, Icon: CheckCircle, color: 'text-emerald-400' },
           { label: 'Productos indexados', value: totalProductos.toLocaleString('es-ES'), Icon: Package, color: 'text-blue-400' },
           { label: 'Último sync', value: lastSync ?? '—', Icon: Clock, color: 'text-slate-300' },
         ].map(({ label, value, Icon, color }) => (
@@ -644,18 +682,20 @@ export default function AdminSuppliersSection({ toast }: Props) {
 
         {/* Lista */}
         <div className="space-y-2">
+
+          {/* ── Proveedores Marketplace ──────────────────────────────────── */}
           <div className="flex items-center justify-between mb-1">
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Proveedores ({suppliers.length})</p>
-            <span className="text-[10px] text-slate-500">Prioridad: propio &gt; preferido &gt; resto</span>
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+              <Globe className="h-3.5 w-3.5 text-blue-400" />
+              Proveedores Marketplace ({marketplaceSuppliers.length})
+            </p>
           </div>
 
-          {suppliers.map((sup) => {
-            const { label: tipoLabel, Icon: TipoIcon } = TIPO_CFG[sup.tipo];
-            const syncCfg = SYNC_CFG[sup.sync_estado];
+          {marketplaceSuppliers.map((sup) => {
+            const syncCfg  = SYNC_CFG[sup.sync_estado];
             const SyncIcon = syncCfg.Icon;
-            const isSyncing = syncing === sup.id;
-            const acuerdoCfg = ACUERDO_CFG[sup.acuerdo];
-            const isSelected = selected?.id === sup.id;
+            const isSyncing   = syncing === sup.id;
+            const isSelected  = selected?.id === sup.id;
 
             return (
               <div
@@ -674,37 +714,41 @@ export default function AdminSuppliersSection({ toast }: Props) {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="text-sm font-bold text-white">{sup.nombre}</span>
-                    <span className="text-[9px] bg-slate-700 text-slate-400 px-1.5 py-0.5 rounded flex items-center gap-1">
-                      <TipoIcon className="h-2.5 w-2.5" />{tipoLabel}
+                    {/* P1-D: Marketplace badge */}
+                    <span className="text-[9px] bg-blue-900/40 text-blue-300 border border-blue-700/60 px-1.5 py-0.5 rounded flex items-center gap-1">
+                      <Globe className="h-2.5 w-2.5" />Marketplace ✓
                     </span>
-                    <span className={`text-[9px] border px-1.5 py-0.5 rounded ${acuerdoCfg.cls}`}>
-                      {acuerdoCfg.label}
-                    </span>
-                    {sup.is_custom && (
-                      <span className="text-[9px] bg-purple-900/40 text-purple-300 border border-purple-700 px-1.5 py-0.5 rounded">Custom</span>
+                    {/* P1-D: Verificado badge */}
+                    {sup.actor_verificado ? (
+                      <span className="text-[9px] bg-teal-900/40 text-teal-300 border border-teal-700/60 px-1.5 py-0.5 rounded flex items-center gap-1">
+                        <CheckCircle className="h-2.5 w-2.5" />Verificado
+                      </span>
+                    ) : (
+                      <span className="text-[9px] bg-amber-900/30 text-amber-400 border border-amber-700/40 px-1.5 py-0.5 rounded flex items-center gap-1">
+                        <AlertTriangle className="h-2.5 w-2.5" />Sin verificar
+                      </span>
+                    )}
+                    {/* P1-D: Catálogo IA badge */}
+                    {sup.productos > 0 ? (
+                      <span className="text-[9px] bg-purple-900/30 text-purple-300 border border-purple-700/40 px-1.5 py-0.5 rounded">Catálogo IA ✓</span>
+                    ) : (
+                      <span className="text-[9px] bg-slate-800 text-slate-500 border border-slate-700 px-1.5 py-0.5 rounded">Catálogo IA —</span>
                     )}
                   </div>
                   <div className="flex items-center gap-3 mt-0.5 text-[10px] text-slate-500">
+                    {sup.actor_offerings != null && (
+                      <span><strong className="text-blue-400">{sup.actor_offerings}</strong> offerings</span>
+                    )}
+                    {sup.actor_orders != null && sup.actor_orders > 0 && (
+                      <span><strong className="text-emerald-400">{sup.actor_orders}</strong> pedidos</span>
+                    )}
                     <span>{sup.productos > 0 ? `${sup.productos.toLocaleString('es-ES')} prods` : 'Sin productos'}</span>
-                    <span>Margen: <strong className="text-slate-300">{sup.margen_pct}%</strong></span>
-                    {sup.contact_email && <span className="flex items-center gap-0.5 text-blue-500"><Mail className="h-2.5 w-2.5" />{sup.contact_email}</span>}
                     <span className={`flex items-center gap-1 ${syncCfg.cls}`}>
                       {isSyncing ? <><RefreshCw className="h-3 w-3 animate-spin" />Sincronizando…</> : <><SyncIcon className="h-3 w-3" />{syncCfg.label}</>}
                     </span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-[10px] text-slate-500">#{sup.prioridad}</span>
-                  {sup.is_custom && (
-                    <button
-                      onClick={(e) => { e.stopPropagation(); handleDelete(sup.id); }}
-                      disabled={deletingId === sup.id}
-                      className="text-slate-600 hover:text-red-400 transition-colors cursor-pointer disabled:opacity-50"
-                      title="Eliminar proveedor"
-                    >
-                      <Trash2 className="h-3.5 w-3.5" />
-                    </button>
-                  )}
                   <button onClick={(e) => { e.stopPropagation(); handleToggle(sup.id); }} className="cursor-pointer" title={sup.activo ? 'Desactivar' : 'Activar'}>
                     {sup.activo ? <ToggleRight className="h-6 w-6 text-emerald-400" /> : <ToggleLeft className="h-6 w-6 text-slate-600" />}
                   </button>
@@ -712,6 +756,89 @@ export default function AdminSuppliersSection({ toast }: Props) {
               </div>
             );
           })}
+
+          {/* ── Fuentes de catálogo (legacy) ────────────────────────────── */}
+          {legacySuppliers.length > 0 && (
+            <div className="mt-4">
+              <button
+                onClick={() => setShowLegacyCatalogs(v => !v)}
+                className="flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-slate-300 uppercase tracking-wider transition-colors py-1"
+              >
+                <Package className="h-3.5 w-3.5" />
+                Fuentes de catálogo ({legacySuppliers.length})
+                {showLegacyCatalogs
+                  ? <ChevronDown className="h-3.5 w-3.5 rotate-180" />
+                  : <ChevronDown className="h-3.5 w-3.5" />}
+              </button>
+
+              {showLegacyCatalogs && (
+                <div className="space-y-2 mt-2">
+                  {legacySuppliers.map((sup) => {
+                    const { label: tipoLabel, Icon: TipoIcon } = TIPO_CFG[sup.tipo];
+                    const syncCfg  = SYNC_CFG[sup.sync_estado];
+                    const SyncIcon = syncCfg.Icon;
+                    const isSyncing  = syncing === sup.id;
+                    const acuerdoCfg = ACUERDO_CFG[sup.acuerdo];
+                    const isSelected = selected?.id === sup.id;
+
+                    return (
+                      <div
+                        key={sup.id}
+                        onClick={() => handleSelect(sup)}
+                        className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${
+                          isSelected ? 'bg-blue-900/30 border-blue-700' : 'bg-slate-800/30 border-slate-700/60 hover:border-slate-600'
+                        }`}
+                      >
+                        <div
+                          className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 text-white text-xs font-black"
+                          style={{ backgroundColor: sup.color + '20', border: `1px solid ${sup.color}30` }}
+                        >
+                          <span style={{ color: sup.color + 'aa' }}>{sup.nombre.slice(0, 2).toUpperCase()}</span>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-sm font-semibold text-slate-300">{sup.nombre}</span>
+                            <span className="text-[9px] bg-slate-700 text-slate-400 px-1.5 py-0.5 rounded flex items-center gap-1">
+                              <TipoIcon className="h-2.5 w-2.5" />{tipoLabel}
+                            </span>
+                            <span className={`text-[9px] border px-1.5 py-0.5 rounded ${acuerdoCfg.cls}`}>
+                              {acuerdoCfg.label}
+                            </span>
+                            {sup.is_custom && (
+                              <span className="text-[9px] bg-purple-900/40 text-purple-300 border border-purple-700 px-1.5 py-0.5 rounded">Custom</span>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-3 mt-0.5 text-[10px] text-slate-600">
+                            <span>{sup.productos > 0 ? `${sup.productos.toLocaleString('es-ES')} prods` : 'Sin productos'}</span>
+                            <span>Margen: <strong className="text-slate-400">{sup.margen_pct}%</strong></span>
+                            <span className={`flex items-center gap-1 ${syncCfg.cls}`}>
+                              {isSyncing ? <><RefreshCw className="h-3 w-3 animate-spin" />…</> : <><SyncIcon className="h-3 w-3" />{syncCfg.label}</>}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className="text-[10px] text-slate-600">#{sup.prioridad}</span>
+                          {sup.is_custom && (
+                            <button
+                              onClick={(e) => { e.stopPropagation(); handleDelete(sup.id); }}
+                              disabled={deletingId === sup.id}
+                              className="text-slate-600 hover:text-red-400 transition-colors cursor-pointer disabled:opacity-50"
+                              title="Eliminar"
+                            >
+                              <Trash2 className="h-3.5 w-3.5" />
+                            </button>
+                          )}
+                          <button onClick={(e) => { e.stopPropagation(); handleToggle(sup.id); }} className="cursor-pointer" title={sup.activo ? 'Desactivar' : 'Activar'}>
+                            {sup.activo ? <ToggleRight className="h-5 w-5 text-emerald-500" /> : <ToggleLeft className="h-5 w-5 text-slate-600" />}
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Panel derecho: detalle / crear / subir */}
@@ -727,7 +854,21 @@ export default function AdminSuppliersSection({ toast }: Props) {
                     style={{ backgroundColor: selected.color + '30', border: `1px solid ${selected.color}40` }}>
                     <span style={{ color: selected.color }}>{selected.nombre.slice(0, 2).toUpperCase()}</span>
                   </div>
-                  <span className="font-bold text-white text-sm truncate max-w-[140px]">{selected.nombre}</span>
+                  <div className="min-w-0">
+                    <span className="font-bold text-white text-sm truncate max-w-[140px] block">{selected.nombre}</span>
+                    {selected.marketplace_actor_id && (
+                      <div className="flex items-center gap-1 mt-0.5">
+                        <span className="text-[9px] bg-blue-900/40 text-blue-300 border border-blue-700/60 px-1.5 py-0.5 rounded flex items-center gap-1">
+                          <Globe className="h-2.5 w-2.5" />Marketplace
+                        </span>
+                        {selected.actor_verificado && (
+                          <span className="text-[9px] bg-teal-900/40 text-teal-300 border border-teal-700/60 px-1.5 py-0.5 rounded flex items-center gap-1">
+                            <CheckCircle className="h-2.5 w-2.5" />Verificado
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
                 <button
                   onClick={() => handleToggle(selected.id)}
@@ -769,6 +910,23 @@ export default function AdminSuppliersSection({ toast }: Props) {
                 {/* ── TAB CATÁLOGO ── */}
                 {rightTab === 'catalogo' && (
                   <>
+                    {/* Ficha actor si es proveedor marketplace */}
+                    {selected.marketplace_actor_id && (
+                      <div className="bg-blue-900/15 border border-blue-800/40 rounded-lg px-3 py-2.5 space-y-1">
+                        <p className="text-[10px] text-blue-400 font-semibold uppercase tracking-wider">Actor Marketplace</p>
+                        <div className="grid grid-cols-2 gap-2 text-[10px]">
+                          <div>
+                            <span className="text-slate-500">Offerings activas</span>
+                            <span className="ml-2 text-blue-300 font-bold">{selected.actor_offerings ?? 0}</span>
+                          </div>
+                          <div>
+                            <span className="text-slate-500">Pedidos</span>
+                            <span className="ml-2 text-emerald-400 font-bold">{selected.actor_orders ?? 0}</span>
+                          </div>
+                        </div>
+                        <p className="text-[9px] text-slate-600 font-mono">{selected.marketplace_actor_id}</p>
+                      </div>
+                    )}
                     <p className="text-xs text-slate-400">{selected.descripcion}</p>
 
                     <div>

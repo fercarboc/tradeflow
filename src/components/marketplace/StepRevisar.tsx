@@ -296,19 +296,27 @@ function MaterialLine({
         <div className="flex-1 min-w-0">
           <div className="flex items-start gap-2 flex-wrap">
             <p className="text-sm font-medium text-slate-800 dark:text-slate-200 leading-snug flex-1 min-w-0">
-              {item.descripcion_original}
+              {item.descripcion_compra ?? item.descripcion_original}
             </p>
-            {isFromQuote && item.source_item_type === 'quote_item' && (
-              <span className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-[#1A5A96]/10 text-[#1A5A96] border border-[#1A5A96]/20">
-                Del presupuesto
-              </span>
-            )}
             {item.ia_añadido && item.ia_tipo && (
               <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium ${AI_TIPO_COLORS[item.ia_tipo]}`}>
                 {AI_TIPO_LABELS[item.ia_tipo]}
               </span>
             )}
           </div>
+          {/* Trazabilidad: origen del presupuesto cuando la descripción comercial difiere */}
+          {isFromQuote && item.source_item_type === 'quote_item' && item.descripcion_compra &&
+            item.descripcion_compra.trim().toLowerCase() !== item.descripcion_original.trim().toLowerCase() && (
+            <p className="mt-0.5 text-[10px] text-[#1A5A96]/70 leading-snug truncate">
+              Del presupuesto: {item.descripcion_original}
+            </p>
+          )}
+          {/* Badge cuando no hay descripción comercial alternativa */}
+          {isFromQuote && item.source_item_type === 'quote_item' && !item.descripcion_compra && (
+            <span className="mt-0.5 inline-flex rounded-full px-2 py-0.5 text-[10px] font-semibold bg-[#1A5A96]/10 text-[#1A5A96] border border-[#1A5A96]/20">
+              Del presupuesto
+            </span>
+          )}
           {hasProvider ? (
             <p className="mt-0.5 text-xs text-teal-600 dark:text-teal-400">
               {item.selected_actor_nombre}
