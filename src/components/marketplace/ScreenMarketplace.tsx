@@ -435,6 +435,15 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
   }, [loadCatalog]);
 
+  // ── Lista dinámica de nombres de actores para el filtro ───────────────────
+  const actorNombres = useMemo((): string[] => {
+    const seen = new Set<string>();
+    for (const item of catalog?.items ?? []) {
+      for (const n of item.actor_nombres) seen.add(n);
+    }
+    return [...seen].sort();
+  }, [catalog]);
+
   // ── Filtrado cliente-side ──────────────────────────────────────────────────
   const filteredItems = useMemo((): MarketplaceCatalogItem[] => {
     let items = catalog?.items ?? [];
@@ -590,6 +599,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
           onFamilia={setFamilia}
           oficio={oficio}
           onOficio={setOficio}
+          actorNombres={actorNombres}
           selectedActores={selectedActores}
           onActores={setSelectedActores}
           onlyStock={onlyStock}

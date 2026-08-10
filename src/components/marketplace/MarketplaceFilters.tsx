@@ -13,16 +13,13 @@ const OFICIOS = [
   { id: 'soldadura',     label: 'Soldadura',     color: '#EF4444' },
 ];
 
-const MAYORISTAS_LIST = [
-  'OBRAMAT', 'STN', 'ElectroCantábrico', 'Saltoki', 'BigMat', 'Sonepar', 'Ariston',
-];
-
 interface Props {
   familias:        string[];
   familia:         string | null;
   onFamilia:       (f: string | null) => void;
   oficio:          string | null;
   onOficio:        (o: string | null) => void;
+  actorNombres:    string[];
   selectedActores: string[];
   onActores:       (a: string[]) => void;
   onlyStock:       boolean;
@@ -40,7 +37,7 @@ interface Props {
 export default function MarketplaceFilters({
   familias, familia, onFamilia,
   oficio, onOficio,
-  selectedActores, onActores,
+  actorNombres, selectedActores, onActores,
   onlyStock, onOnlyStock,
   sortBy, onSortBy,
   minPrice, maxPrice, onMinPrice, onMaxPrice,
@@ -113,28 +110,30 @@ export default function MarketplaceFilters({
           </div>
         </Section>
 
-        {/* ── Mayorista ───────────────────────────────────────── */}
-        <Section label="Mayorista" open={openSections.mayorista} onToggle={() => toggle('mayorista')}>
-          <div className="space-y-1 py-1">
-            {MAYORISTAS_LIST.map(m => (
-              <label key={m} className="flex items-center gap-2 cursor-pointer group px-1 py-0.5 rounded-lg hover:bg-gray-50">
-                <input
-                  type="checkbox"
-                  checked={selectedActores.includes(m)}
-                  onChange={() => toggleActor(m)}
-                  className="w-3.5 h-3.5 rounded border-gray-300 accent-[#1A5A96] shrink-0"
-                />
-                <span className={`text-xs transition-colors ${
-                  selectedActores.includes(m)
-                    ? 'text-[#1A5A96] font-semibold'
-                    : 'text-gray-600 group-hover:text-gray-900'
-                }`}>
-                  {m}
-                </span>
-              </label>
-            ))}
-          </div>
-        </Section>
+        {/* ── Proveedor ───────────────────────────────────────── */}
+        {actorNombres.length > 0 && (
+          <Section label="Proveedor" open={openSections.mayorista} onToggle={() => toggle('mayorista')}>
+            <div className="space-y-1 py-1">
+              {actorNombres.map(m => (
+                <label key={m} className="flex items-center gap-2 cursor-pointer group px-1 py-0.5 rounded-lg hover:bg-gray-50">
+                  <input
+                    type="checkbox"
+                    checked={selectedActores.includes(m)}
+                    onChange={() => toggleActor(m)}
+                    className="w-3.5 h-3.5 rounded border-gray-300 accent-[#1A5A96] shrink-0"
+                  />
+                  <span className={`text-xs transition-colors truncate ${
+                    selectedActores.includes(m)
+                      ? 'text-[#1A5A96] font-semibold'
+                      : 'text-gray-600 group-hover:text-gray-900'
+                  }`}>
+                    {m}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </Section>
+        )}
 
         {/* ── Familia ─────────────────────────────────────────── */}
         {familias.length > 0 && (
