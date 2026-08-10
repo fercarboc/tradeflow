@@ -290,7 +290,7 @@ function ProviderSection({ summary, config, option, onChange, applyToAll, isFirs
                       ...option,
                       pickup_location_id:       loc.id,
                       pickup_location_snapshot: loc,
-                      pickup_point_id:          loc.id,
+                      pickup_point_id:          null, // FK a trade_marketplace_supplier_pickup_points — tabla vacía
                     })}
                     className="mt-1 accent-teal-600"
                   />

@@ -33,7 +33,9 @@ function cartKey(quoteId: string | null | undefined): string {
   return quoteId ? `mkt_cart_id_${quoteId}` : 'mkt_cart_id_noquote';
 }
 
-// Elimina actores huérfanos y normaliza pickup_point_id para métodos no-recogida (P4)
+// Elimina actores huérfanos y sanea campos de recogida (P4)
+// pickup_point_id referencia trade_marketplace_supplier_pickup_points — tabla vacía,
+// nunca puede tener valor válido. pickup_location_id → trade_marketplace_supplier_locations.
 function sanitizeDeliveryData(
   delivery: Record<string, DeliveryOptionPerProvider>,
   summary:  CartProviderSummary[],
@@ -45,7 +47,7 @@ function sanitizeDeliveryData(
     const isPickup = opt.delivery_method === 'recogida_proveedor';
     result[actorId] = {
       ...opt,
-      pickup_point_id:          isPickup ? (opt.pickup_point_id          ?? null) : null,
+      pickup_point_id:          null,                                              // FK a tabla vacía — siempre null
       pickup_location_id:       isPickup ? (opt.pickup_location_id       ?? null) : null,
       pickup_location_snapshot: isPickup ? (opt.pickup_location_snapshot ?? null) : null,
     };
