@@ -437,6 +437,32 @@ export async function getOrdersByIds(orderIds: string[]): Promise<OrderByIdRow[]
   return (data ?? []) as OrderByIdRow[];
 }
 
+// ─── Carrito libre (sin presupuesto) ────────────────────────────────────────
+
+export async function createFreeCart(orgId: string): Promise<string> {
+  const { data, error } = await (supabase as any).rpc('create_free_cart', { p_org_id: orgId });
+  if (error) rpcError('createFreeCart', error);
+  return data as string;
+}
+
+export interface FreeCartItemInput {
+  descripcion:          string;
+  cantidad:             number;
+  unidad:               string;
+  universal_product_id: string | null;
+  offering_id:          string;
+  actor_id:             string;
+  precio_unitario:      number;
+}
+
+export async function addFreeCartItems(cartId: string, items: FreeCartItemInput[]): Promise<void> {
+  const { error } = await (supabase as any).rpc('add_free_cart_items', {
+    p_cart_id: cartId,
+    p_items:   JSON.stringify(items),
+  });
+  if (error) rpcError('addFreeCartItems', error);
+}
+
 // Recuperación ante timeout: busca pedidos existentes para esta clave de idempotencia.
 // Si el RPC completó en backend antes de que el cliente recibiera el timeout, los pedidos
 // ya existen y no hay que crearlos de nuevo.

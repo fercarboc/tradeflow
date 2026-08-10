@@ -91,8 +91,10 @@ export function loadPurchaseSession(quoteId?: string | null): MarketplacePurchas
 }
 
 export function clearPurchaseSession(quoteId?: string | null): void {
-  const key = sessionKey(quoteId);
+  const key     = sessionKey(quoteId);
+  const cartKey = quoteId ? `mkt_cart_id_${quoteId}` : 'mkt_cart_id_noquote';
   sessionStorage.removeItem(key);
+  sessionStorage.removeItem(cartKey);
   sessionStorage.removeItem(SESSION_PREFIX); // clave legacy sin quoteId
   try {
     localStorage.removeItem(key);

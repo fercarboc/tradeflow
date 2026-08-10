@@ -22,6 +22,7 @@ import {
 } from '../../lib/marketplace/purchase-session';
 import { OrderLifecycleEstado } from '../../lib/api/marketplace-orders';
 import { useSession } from '../../context/SessionContext';
+import { useMarketplaceCart } from '../../hooks/useMarketplaceCart';
 import StepRevisar from './StepRevisar';
 import StepEntrega from './StepEntrega';
 import StepConfirmar from './StepConfirmar';
@@ -154,7 +155,8 @@ function ContextBanner({ context, cart, onVolver }: ContextBannerProps) {
 // ─── Componente principal ─────────────────────────────────────────────────────
 
 export default function MarketplaceComprarView({ setCurrentPage, session }: Props) {
-  const { org } = useSession();
+  const { org }                 = useSession();
+  const { actions: cartActions } = useMarketplaceCart();
 
   const [context,         setContext]         = useState<MarketplacePurchaseContext | null>(null);
   const [cartId,          setCartId]          = useState<string | null>(null);
@@ -329,6 +331,10 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
       setStep('exito');
       clearPurchaseContext();
       clearPurchaseSession(purchaseSession.current?.quote_id);
+      // Para carritos libres (sin presupuesto), limpiar el carrito local
+      if (!purchaseSession.current?.quote_id) {
+        cartActions.clearCart('ordered');
+      }
     } catch (e) {
       const duration_ms = Date.now() - t0;
       const errorMsg    = e instanceof Error ? e.message : 'Error al confirmar el pedido';
@@ -360,6 +366,7 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
             setStep('exito');
             clearPurchaseContext();
             clearPurchaseSession(purchaseSession.current?.quote_id);
+            if (!purchaseSession.current?.quote_id) cartActions.clearCart('ordered');
             return;
           }
           // Sin pedidos — retry seguro: la misma checkout_key garantiza idempotencia

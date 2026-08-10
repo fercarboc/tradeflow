@@ -179,30 +179,46 @@ export interface PortalOrderEvent {
   created_at:  string;
 }
 
-export interface PortalOrderDetailOrder {
+export interface PortalPickupLocationSnapshot {
   id:               string;
-  numero:           string;
-  estado:           PortalOrderEstado;
-  actor_id:         string;
-  actor_nombre:     string;
-  actor_verificado: boolean;
-  org_id:           string;
-  subtotal:         number;
-  coste_envio:      number;
-  total:            number;
-  notas:            string | null;
-  notas_proveedor:  string | null;
-  tracking_ref:     string | null;
-  tracking_url:     string | null;
-  delivery_address: string | null;
-  cancel_reason:    string | null;
-  created_at:       string;
-  confirmed_at:     string | null;
-  preparing_at:     string | null;
-  shipped_at:       string | null;
-  delivered_at:     string | null;
-  cancelled_at:     string | null;
-  completed_at:     string | null;
+  nombre:           string;
+  direccion_linea1: string | null;
+  codigo_postal:    string | null;
+  localidad:        string | null;
+  provincia:        string | null;
+  telefono:         string | null;
+}
+
+export interface PortalOrderDetailOrder {
+  id:                       string;
+  numero:                   string;
+  estado:                   PortalOrderEstado;
+  actor_id:                 string;
+  actor_nombre:             string;
+  actor_verificado:         boolean;
+  org_id:                   string;
+  subtotal:                 number;
+  coste_envio:              number;
+  total:                    number;
+  notas:                    string | null;
+  notas_proveedor:          string | null;
+  tracking_ref:             string | null;
+  tracking_url:             string | null;
+  delivery_address:         string | null;
+  delivery_method:          string | null;
+  payment_method:           string | null;
+  delivery_notas:           string | null;
+  direccion_entrega:        Record<string, unknown> | null;
+  pickup_location_id:       string | null;
+  pickup_location_snapshot: PortalPickupLocationSnapshot | null;
+  cancel_reason:            string | null;
+  created_at:               string;
+  confirmed_at:             string | null;
+  preparing_at:             string | null;
+  shipped_at:               string | null;
+  delivered_at:             string | null;
+  cancelled_at:             string | null;
+  completed_at:             string | null;
 }
 
 export interface PortalOrderDetail {

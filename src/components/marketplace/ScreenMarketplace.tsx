@@ -17,8 +17,11 @@ import type { MarketplaceLocation } from '../../hooks/useMarketplaceLocation';
 import {
   loadPurchaseContext,
   clearPurchaseContext,
+  savePurchaseContext,
 } from '../../lib/marketplace/purchase-context';
 import type { MarketplacePurchaseContext } from '../../lib/marketplace/purchase-context';
+import { createFreeCart, addFreeCartItems } from '../../lib/api/marketplace-checkout';
+import type { FreeCartItemInput } from '../../lib/api/marketplace-checkout';
 
 import MarketplaceBanner           from './MarketplaceBanner';
 import MarketplaceHeader           from './MarketplaceHeader';
@@ -364,12 +367,15 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
   }, [mergeDialogData, actions, state.items]);
 
   const handleClearCtx = useCallback(() => {
+    const qid = purchaseCtx?.quoteId ?? null;
     clearPurchaseContext();
+    if (qid) sessionStorage.removeItem(`mkt_cart_id_${qid}`);
+    else sessionStorage.removeItem('mkt_cart_id_noquote');
+    sessionStorage.removeItem('mkt_cart_id'); // legacy
     setPurchaseCtx(null);
     setUnresolvedItems([]);
-    sessionStorage.removeItem('mkt_cart_id');
     actions.clearCart('manual');
-  }, [actions]);
+  }, [actions, purchaseCtx?.quoteId]);
 
   // ── Filtros RPC ────────────────────────────────────────────────────────────
   const [query,     setQuery]     = useState('');
@@ -390,8 +396,9 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
   const [error,   setError]   = useState<string | null>(null);
 
   // ── UI ─────────────────────────────────────────────────────────────────────
-  const [slideOverItem, setSlideOverItem]   = useState<MarketplaceCatalogItem | null>(null);
-  const [mobileCartOpen, setMobileCartOpen] = useState(false);
+  const [slideOverItem,   setSlideOverItem]   = useState<MarketplaceCatalogItem | null>(null);
+  const [mobileCartOpen,  setMobileCartOpen]  = useState(false);
+  const [checkingOut,     setCheckingOut]     = useState(false);
   const { toast, show: showToast } = useToast();
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -552,7 +559,47 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         sessionStorage.setItem('mk_return', '1');
         setCurrentPage(ActivePage.Login);
       }
-    : () => setCurrentPage(ActivePage.MarketplaceComprar);
+    : async () => {
+        // Si ya hay contexto de compra activo (carrito de presupuesto), navegar directo
+        const existingCtx = loadPurchaseContext();
+        if (existingCtx?.cartId) {
+          setCurrentPage(ActivePage.MarketplaceComprar);
+          return;
+        }
+
+        // Carrito libre: crear cart en servidor con los ítems locales
+        const freeItems = state.items.filter(i => i.offeringId && i.supplierActorId);
+        if (freeItems.length === 0 || !org?.id) {
+          setCurrentPage(ActivePage.MarketplaceComprar);
+          return;
+        }
+
+        setCheckingOut(true);
+        try {
+          const cartId = await createFreeCart(org.id);
+          const payload: FreeCartItemInput[] = freeItems.map(i => ({
+            descripcion:          i.nombre,
+            cantidad:             i.cantidad,
+            unidad:               i.unidadComercial || i.unidadTecnica || 'ud',
+            universal_product_id: i.universalProductId || null,
+            offering_id:          i.offeringId,
+            actor_id:             i.supplierActorId,
+            precio_unitario:      i.precioUnitario,
+          }));
+          await addFreeCartItems(cartId, payload);
+          savePurchaseContext({
+            source:    'free',
+            cartId,
+            orgId:     org.id,
+            createdAt: new Date().toISOString(),
+          });
+          setCurrentPage(ActivePage.MarketplaceComprar);
+        } catch {
+          showToast('No se pudo preparar el carrito. Inténtalo de nuevo.', 'error');
+        } finally {
+          setCheckingOut(false);
+        }
+      };
 
   return (
     <div className="h-screen bg-gray-50 flex flex-col overflow-hidden">
@@ -637,7 +684,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
           items={cartItems}
           onUpdateQty={actions.updateQuantity}
           onRemove={actions.removeItem}
-          onCheckout={handleCheckout}
+          onCheckout={checkingOut ? undefined : handleCheckout}
           quoteRef={purchaseCtx?.quoteRef}
         />
       </div>
@@ -662,7 +709,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         onClose={() => setMobileCartOpen(false)}
         onUpdateQty={actions.updateQuantity}
         onRemove={actions.removeItem}
-        onCheckout={handleCheckout}
+        onCheckout={checkingOut ? undefined : handleCheckout}
         quoteRef={purchaseCtx?.quoteRef}
       />
 

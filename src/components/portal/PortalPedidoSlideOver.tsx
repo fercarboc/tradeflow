@@ -557,21 +557,90 @@ interface TabEnvioProps {
   detail: PortalOrderDetail;
 }
 
+const DELIVERY_METHOD_LABELS: Record<string, string> = {
+  entrega_obra:       'Envío a obra',
+  entrega_almacen:    'Envío a almacén',
+  recogida_proveedor: 'Recogida en tienda/almacén',
+  por_coordinar:      'Por coordinar',
+};
+
+const PAYMENT_METHOD_LABELS: Record<string, string> = {
+  cuenta_proveedor: 'Cuenta del proveedor',
+  pago_anticipado:  'Pago anticipado',
+  contrareembolso:  'Contra reembolso',
+};
+
 function TabEnvio({ detail }: TabEnvioProps) {
   const o = detail.order;
-  const hasTracking = o.tracking_ref || o.tracking_url;
-  const hasAddress  = o.delivery_address || o.notas_proveedor;
-
-  if (!hasTracking && !hasAddress && !detail.supplier_config) {
-    return (
-      <div className="flex h-40 items-center justify-center p-6">
-        <p className="text-sm text-slate-400">Sin datos de envío registrados.</p>
-      </div>
-    );
-  }
+  const hasTracking  = o.tracking_ref || o.tracking_url;
+  const isPickup     = o.delivery_method === 'recogida_proveedor';
+  const pickup       = o.pickup_location_snapshot;
+  const addr         = o.direccion_entrega as Record<string, string> | null;
 
   return (
     <div className="p-6 space-y-5">
+      {/* Método de entrega — siempre visible si existe */}
+      {o.delivery_method && (
+        <InfoSection title="Forma de entrega">
+          <div className="flex items-center gap-2">
+            <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${
+              isPickup
+                ? 'bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300'
+                : 'bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300'
+            }`}>
+              {isPickup ? '🏪' : '🚚'} {DELIVERY_METHOD_LABELS[o.delivery_method] ?? o.delivery_method}
+            </span>
+          </div>
+          {o.payment_method && (
+            <InfoCell label="Pago" value={PAYMENT_METHOD_LABELS[o.payment_method] ?? o.payment_method} />
+          )}
+        </InfoSection>
+      )}
+
+      {/* Punto de recogida */}
+      {isPickup && pickup && (
+        <InfoSection title="Punto de recogida">
+          <InfoCell label="Tienda / Almacén" value={pickup.nombre} />
+          {pickup.direccion_linea1 && (
+            <InfoCell
+              label="Dirección"
+              value={[pickup.direccion_linea1, pickup.codigo_postal, pickup.localidad, pickup.provincia]
+                .filter(Boolean).join(', ')}
+            />
+          )}
+          {pickup.telefono && <InfoCell label="Teléfono" value={pickup.telefono} />}
+        </InfoSection>
+      )}
+
+      {/* Dirección de entrega para envíos */}
+      {!isPickup && addr && (
+        <InfoSection title="Dirección de entrega">
+          {addr.nombre_contacto && <InfoCell label="Contacto" value={addr.nombre_contacto} />}
+          {addr.calle && (
+            <InfoCell
+              label="Dirección"
+              value={[addr.calle, addr.cp, addr.ciudad].filter(Boolean).join(', ')}
+            />
+          )}
+          {addr.telefono_contacto && <InfoCell label="Teléfono" value={addr.telefono_contacto} />}
+        </InfoSection>
+      )}
+
+      {/* Dirección legacy (texto plano) */}
+      {!isPickup && !addr && o.delivery_address && (
+        <InfoSection title="Dirección de entrega">
+          <p className="text-sm text-slate-700 dark:text-slate-300 whitespace-pre-line">{o.delivery_address}</p>
+        </InfoSection>
+      )}
+
+      {/* Notas de entrega del instalador */}
+      {o.delivery_notas && (
+        <InfoSection title="Notas del instalador">
+          <p className="text-sm text-slate-700 dark:text-slate-300 italic">"{o.delivery_notas}"</p>
+        </InfoSection>
+      )}
+
+      {/* Tracking */}
       {hasTracking && (
         <InfoSection title="Tracking">
           {o.tracking_ref && <InfoCell label="Referencia" value={o.tracking_ref} />}
@@ -591,33 +660,18 @@ function TabEnvio({ detail }: TabEnvioProps) {
         </InfoSection>
       )}
 
-      {o.delivery_address && (
-        <InfoSection title="Dirección de entrega">
-          <p className="text-sm text-slate-700 dark:text-slate-300 whitespace-pre-line">{o.delivery_address}</p>
-        </InfoSection>
-      )}
-
+      {/* Notas del proveedor al instalador */}
       {o.notas_proveedor && (
         <InfoSection title="Notas al instalador">
           <p className="text-sm text-slate-700 dark:text-slate-300 italic">"{o.notas_proveedor}"</p>
         </InfoSection>
       )}
 
-      {detail.supplier_config && (
-        <InfoSection title="Configuración de entrega">
-          {detail.supplier_config.permite_recogida !== undefined && (
-            <InfoCell
-              label="Recogida en tienda"
-              value={detail.supplier_config.permite_recogida ? 'Disponible' : 'No disponible'}
-            />
-          )}
-          {detail.supplier_config.mensaje_instaladores && (
-            <div>
-              <p className="text-xs text-slate-400 mb-0.5">Mensaje a instaladores</p>
-              <p className="text-sm text-slate-700 dark:text-slate-300">{detail.supplier_config.mensaje_instaladores}</p>
-            </div>
-          )}
-        </InfoSection>
+      {/* Vacío total */}
+      {!o.delivery_method && !hasTracking && !o.delivery_address && !o.notas_proveedor && !detail.supplier_config && (
+        <div className="flex h-40 items-center justify-center">
+          <p className="text-sm text-slate-400">Sin datos de envío registrados.</p>
+        </div>
       )}
     </div>
   );
