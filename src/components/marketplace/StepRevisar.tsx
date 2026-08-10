@@ -419,7 +419,7 @@ function AISuggestionRow({ sug, accepting, onAccept, onDismiss }: AISuggestionRo
   const icon = sug.tipo === 'consumible' ? '🔧' : sug.tipo === 'faltante' ? '⚠️' : '💡';
 
   return (
-    <div className="flex items-start gap-3 rounded-lg border border-teal-100 dark:border-teal-900/40 bg-teal-50 dark:bg-teal-950/30 p-3">
+    <div className="flex items-start gap-3 rounded-lg border border-teal-200 dark:border-teal-800/60 bg-teal-50 dark:bg-teal-950/40 p-3">
       <span className="text-base shrink-0 mt-0.5" aria-hidden="true">{icon}</span>
       <div className="flex-1 min-w-0">
         <p className="text-xs font-semibold text-slate-700 dark:text-slate-300">{sug.titulo}</p>
@@ -438,7 +438,7 @@ function AISuggestionRow({ sug, accepting, onAccept, onDismiss }: AISuggestionRo
         <button
           onClick={onDismiss}
           aria-label="Ignorar sugerencia"
-          className="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-teal-500 rounded"
+          className="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-teal-500 rounded"
         >
           Ignorar
         </button>
