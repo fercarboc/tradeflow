@@ -329,7 +329,10 @@ function MaterialLine({
               {item.provider_alternatives.length} alternativa{item.provider_alternatives.length > 1 ? 's' : ''} disponible{item.provider_alternatives.length > 1 ? 's' : ''}
             </p>
           ) : (
-            <p className="mt-0.5 text-xs text-slate-400">Sin proveedores disponibles</p>
+            <span className="mt-0.5 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-slate-100 dark:bg-slate-700/60 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-600"
+              title="Este artículo no tiene oferta en el catálogo marketplace. Debe adquirirse directamente con tu proveedor habitual y no formará parte del pedido online.">
+              Sin oferta marketplace — compra externa
+            </span>
           )}
         </div>
 

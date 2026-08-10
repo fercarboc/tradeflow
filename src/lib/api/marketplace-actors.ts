@@ -249,8 +249,21 @@ export async function revokeMarketplaceInvitation(invitationId: string): Promise
     .from('trade_marketplace_invitations')
     .update({ estado: 'revoked' })
     .eq('id', invitationId)
-    .eq('estado', 'pending');
+    .in('estado', ['pending', 'expired']);
   if (error) throw error;
+}
+
+// Reenviar invitación pendiente o expirada — devuelve nuevo rawToken (7 días más)
+export async function resendMarketplaceInvitation(
+  actorId: string,
+  invitationId: string,
+): Promise<{ rawToken: string }> {
+  const { data, error } = await db.rpc('resend_supplier_invitation', {
+    p_actor_id:      actorId,
+    p_invitation_id: invitationId,
+  });
+  if (error) throw error;
+  return { rawToken: data as string };
 }
 
 // ── RPC: aceptar invitación ───────────────────────────────────────────────────

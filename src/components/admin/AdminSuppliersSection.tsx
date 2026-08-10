@@ -7,7 +7,16 @@ import {
   Hash, Send, ExternalLink, UserPlus, Copy,
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
-import { createMarketplaceInvitation } from '../../lib/api/marketplace-actors';
+import {
+  createMarketplaceInvitation,
+  loadActorInvitations,
+  loadActorMembers,
+  revokeMarketplaceInvitation,
+  deactivateMember,
+  resendMarketplaceInvitation,
+  type MarketplaceInvitation,
+  type MarketplaceActorMember,
+} from '../../lib/api/marketplace-actors';
 
 type SupplierTipo = 'nacional' | 'fabricante' | 'propio' | 'custom';
 type AcuerdoEstado = 'activo' | 'negociando' | 'sin_acuerdo';
@@ -138,6 +147,16 @@ export default function AdminSuppliersSection({ toast }: Props) {
   const [actorVerificado, setActorVerificado] = useState<boolean | null>(null);
   const [verifying, setVerifying] = useState(false);
 
+  // Portal tab: miembros e invitaciones
+  const [portalInvitations, setPortalInvitations] = useState<MarketplaceInvitation[]>([]);
+  const [portalMembers,     setPortalMembers]     = useState<MarketplaceActorMember[]>([]);
+  const [portalLoading,     setPortalLoading]     = useState(false);
+  const [revoking,          setRevoking]          = useState<string | null>(null);
+  const [resending,         setResending]         = useState<string | null>(null);
+  const [deactivating,      setDeactivating]      = useState<string | null>(null);
+  const [resentToken,       setResentToken]       = useState<{ invId: string; token: string } | null>(null);
+  const [resentCopied,      setResentCopied]      = useState(false);
+
   // Edit: catálogo
   const [editMargen, setEditMargen] = useState('');
 
@@ -181,32 +200,32 @@ export default function AdminSuppliersSection({ toast }: Props) {
     loadCatalogs();
   }, []);
 
-  // Cargar roles y estado de verificación cuando se abre el tab Portal
+  // Cargar roles, verificación, miembros e invitaciones cuando se abre el tab Portal
   useEffect(() => {
     if (rightTab !== 'portal' || !selected?.marketplace_actor_id) return;
+    const actorId = selected.marketplace_actor_id;
     setPortalRoles([]);
     setInviteToken(null);
     setInviteError(null);
     setActorVerificado(null);
+    setPortalInvitations([]);
+    setPortalMembers([]);
+    setResentToken(null);
+    setPortalLoading(true);
 
-    // Cargar estado verificado del actor
-    supabase
-      .from('trade_marketplace_actors')
-      .select('verificado')
-      .eq('id', selected.marketplace_actor_id)
-      .single()
-      .then(({ data }) => setActorVerificado(data?.verificado ?? false));
-    supabase
-      .from('trade_marketplace_roles')
-      .select('id, nombre')
-      .in('actor_type', ['supplier', 'any'])
-      .neq('nombre', 'platform_super_admin')
-      .order('priority')
-      .then(({ data }) => {
-        const roles = (data ?? []) as Array<{ id: string; nombre: string }>;
-        setPortalRoles(roles);
-        if (roles.length > 0 && !inviteRoleId) setInviteRoleId(roles[0].id);
-      });
+    Promise.all([
+      supabase.from('trade_marketplace_actors').select('verificado').eq('id', actorId).single(),
+      supabase.from('trade_marketplace_roles').select('id, nombre').in('actor_type', ['supplier', 'any']).neq('nombre', 'platform_super_admin').order('priority'),
+      loadActorInvitations(actorId),
+      loadActorMembers(actorId),
+    ]).then(([actorRes, rolesRes, invs, mems]) => {
+      setActorVerificado(actorRes.data?.verificado ?? false);
+      const roles = (rolesRes.data ?? []) as Array<{ id: string; nombre: string }>;
+      setPortalRoles(roles);
+      if (roles.length > 0 && !inviteRoleId) setInviteRoleId(roles[0].id);
+      setPortalInvitations(invs);
+      setPortalMembers(mems);
+    }).catch(console.error).finally(() => setPortalLoading(false));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rightTab, selected?.marketplace_actor_id]);
 
@@ -222,6 +241,7 @@ export default function AdminSuppliersSection({ toast }: Props) {
         email:   inviteEmail.trim(),
       });
       setInviteToken(rawToken);
+      loadActorInvitations(selected.marketplace_actor_id).then(setPortalInvitations).catch(console.error);
     } catch (e: unknown) {
       const msg =
         e instanceof Error ? e.message :
@@ -269,6 +289,47 @@ export default function AdminSuppliersSection({ toast }: Props) {
       toast('success', 'Verificación retirada');
     } else {
       toast('error', error.message);
+    }
+  }
+
+  async function handleResendInvitation(invitationId: string) {
+    if (!selected?.marketplace_actor_id) return;
+    setResending(invitationId);
+    setResentToken(null);
+    try {
+      const { rawToken } = await resendMarketplaceInvitation(selected.marketplace_actor_id, invitationId);
+      setResentToken({ invId: invitationId, token: rawToken });
+      setPortalInvitations(prev => prev.map(i => i.id === invitationId ? { ...i, estado: 'pending' } : i));
+    } catch (e: unknown) {
+      toast('error', e instanceof Error ? e.message : 'Error al reenviar invitación');
+    } finally {
+      setResending(null);
+    }
+  }
+
+  async function handleRevokeInvitation(invitationId: string) {
+    setRevoking(invitationId);
+    try {
+      await revokeMarketplaceInvitation(invitationId);
+      setPortalInvitations(prev => prev.map(i => i.id === invitationId ? { ...i, estado: 'revoked' } : i));
+      toast('success', 'Invitación revocada');
+    } catch (e: unknown) {
+      toast('error', e instanceof Error ? e.message : 'Error al revocar invitación');
+    } finally {
+      setRevoking(null);
+    }
+  }
+
+  async function handleDeactivateMember(memberId: string) {
+    setDeactivating(memberId);
+    try {
+      await deactivateMember(memberId);
+      setPortalMembers(prev => prev.map(m => m.id === memberId ? { ...m, activo: false } : m));
+      toast('success', 'Acceso portal revocado');
+    } catch (e: unknown) {
+      toast('error', e instanceof Error ? e.message : 'Error al revocar acceso');
+    } finally {
+      setDeactivating(null);
     }
   }
 
@@ -1134,6 +1195,109 @@ export default function AdminSuppliersSection({ toast }: Props) {
                           </button>
                         )}
                       </div>
+                    </div>
+
+                    {/* Usuarios del Portal */}
+                    <div>
+                      <p className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mb-2 flex items-center gap-1.5">
+                        <User className="h-3 w-3" />Usuarios del Portal
+                      </p>
+                      {portalLoading ? (
+                        <p className="text-[10px] text-slate-500 text-center py-4">Cargando…</p>
+                      ) : portalMembers.length === 0 && portalInvitations.length === 0 ? (
+                        <div className="text-center py-5 border border-dashed border-slate-700 rounded-lg">
+                          <p className="text-xs text-slate-500">Sin usuarios del portal</p>
+                          <p className="text-[10px] text-slate-600 mt-0.5">Invita al primer usuario abajo</p>
+                        </div>
+                      ) : (
+                        <div className="space-y-1.5">
+                          {portalMembers.map(mem => (
+                            <div key={mem.id} className="flex items-start justify-between bg-slate-800/60 rounded-lg px-2.5 py-2 gap-2">
+                              <div className="min-w-0">
+                                <p className="text-xs text-white font-medium">{mem.role?.nombre ?? '—'}</p>
+                                <p className="text-[10px] text-slate-500">
+                                  Desde {mem.accepted_at ? new Date(mem.accepted_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' }) : '—'}
+                                </p>
+                              </div>
+                              <div className="flex items-center gap-1.5 shrink-0">
+                                {mem.activo ? (
+                                  <>
+                                    <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-emerald-900/40 text-emerald-300 border border-emerald-700/50">Activo</span>
+                                    <button
+                                      onClick={() => handleDeactivateMember(mem.id)}
+                                      disabled={deactivating === mem.id}
+                                      className="text-[10px] text-red-400 hover:text-red-300 disabled:opacity-50 transition-colors cursor-pointer"
+                                    >
+                                      {deactivating === mem.id ? <RefreshCw className="h-3 w-3 animate-spin inline" /> : 'Revocar'}
+                                    </button>
+                                  </>
+                                ) : (
+                                  <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-slate-700 text-slate-400 border border-slate-600">Revocado</span>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+
+                          {portalInvitations.map(inv => (
+                            <div key={inv.id} className="bg-slate-800/40 rounded-lg px-2.5 py-2 space-y-1.5">
+                              <div className="flex items-start justify-between gap-2">
+                                <div className="min-w-0">
+                                  <p className="text-[11px] text-slate-200 truncate">{inv.email}</p>
+                                  <p className="text-[10px] text-slate-500">
+                                    {inv.role?.nombre ?? '—'} · {new Date(inv.created_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })}
+                                  </p>
+                                </div>
+                                <div className="flex items-center gap-1.5 shrink-0 flex-wrap justify-end">
+                                  <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded border ${
+                                    inv.estado === 'pending'  ? 'bg-blue-900/40 text-blue-300 border-blue-700/50' :
+                                    inv.estado === 'accepted' ? 'bg-emerald-900/40 text-emerald-300 border-emerald-700/50' :
+                                    inv.estado === 'expired'  ? 'bg-yellow-900/40 text-yellow-300 border-yellow-700/50' :
+                                    'bg-slate-700 text-slate-400 border-slate-600'
+                                  }`}>
+                                    {inv.estado === 'pending' ? 'Pendiente' : inv.estado === 'accepted' ? 'Aceptada' : inv.estado === 'expired' ? 'Expirada' : 'Revocada'}
+                                  </span>
+                                  {(inv.estado === 'pending' || inv.estado === 'expired') && (
+                                    <button
+                                      onClick={() => handleResendInvitation(inv.id)}
+                                      disabled={resending === inv.id}
+                                      className="text-[10px] text-blue-400 hover:text-blue-300 disabled:opacity-50 transition-colors cursor-pointer"
+                                    >
+                                      {resending === inv.id ? <RefreshCw className="h-3 w-3 animate-spin inline" /> : 'Reenviar'}
+                                    </button>
+                                  )}
+                                  {inv.estado === 'pending' && (
+                                    <button
+                                      onClick={() => handleRevokeInvitation(inv.id)}
+                                      disabled={revoking === inv.id}
+                                      className="text-[10px] text-red-400 hover:text-red-300 disabled:opacity-50 transition-colors cursor-pointer"
+                                    >
+                                      {revoking === inv.id ? <RefreshCw className="h-3 w-3 animate-spin inline" /> : 'Revocar'}
+                                    </button>
+                                  )}
+                                </div>
+                              </div>
+                              {resentToken?.invId === inv.id && (
+                                <div className="bg-blue-900/20 border border-blue-700/40 rounded-lg p-2">
+                                  <p className="text-[10px] text-blue-300 font-semibold mb-1">Nuevo enlace (válido 7 días):</p>
+                                  <code className="block text-[10px] font-mono text-slate-300 break-all leading-relaxed mb-1.5">
+                                    {`${window.location.origin}/aceptar-invitacion?token=${resentToken.token}`}
+                                  </code>
+                                  <button
+                                    onClick={() => {
+                                      navigator.clipboard.writeText(`${window.location.origin}/aceptar-invitacion?token=${resentToken.token}`);
+                                      setResentCopied(true);
+                                      setTimeout(() => setResentCopied(false), 2500);
+                                    }}
+                                    className="flex items-center gap-1 bg-blue-800 hover:bg-blue-700 text-blue-200 text-[10px] font-bold px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
+                                  >
+                                    <Copy className="h-3 w-3" />{resentCopied ? '¡Copiado!' : 'Copiar enlace'}
+                                  </button>
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
 
                     <div>
