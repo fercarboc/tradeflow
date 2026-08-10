@@ -5,6 +5,7 @@ import {
   CartDetail, CartProviderSummary, OrderByIdRow,
   DeliveryOptionPerProvider, BuyerSnapshot,
   getCartDetail, getCartProviderSummary, checkoutCartV2, getOrdersByIds,
+  getOrdersByCheckoutKey,
   DELIVERY_METHOD_LABELS, PAYMENT_METHOD_LABELS,
 } from '../../lib/api/marketplace-checkout';
 import {
@@ -146,10 +147,8 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
     nombre: '', empresa: '', nif: '', email: session?.user?.email ?? '', telefono: '',
   });
 
-  // Clave de idempotencia: generada una sola vez en mount (o restaurada de sesión)
-  const checkoutKey = useRef(crypto.randomUUID()).current;
-
   // Sesión unificada de compra (P0-A)
+  // checkout_key vive en la sesión — nunca en el ciclo de vida del componente
   const purchaseSession = useRef<MarketplacePurchaseSession | null>(null);
 
   // Precarga datos del comprador desde la organización
@@ -206,6 +205,7 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
   useEffect(() => {
     if (!cartId) return;
     if (!purchaseSession.current) {
+      // checkout_key generado internamente en createPurchaseSession — persiste en storage
       purchaseSession.current = createPurchaseSession({
         orgId:       org?.id ?? null,
         quoteId:     context?.quoteId ?? null,
@@ -213,7 +213,6 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
         clientName:  context?.customerName ?? null,
         obra:        context?.projectName ?? null,
         cartId,
-        checkoutKey,
       });
     } else {
       purchaseSession.current = {
@@ -222,10 +221,11 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
         checkout_step:    step,
         delivery_options: Object.keys(deliveryData).length > 0 ? deliveryData : purchaseSession.current.delivery_options,
         buyer_data:       buyerSnapshot,
+        // checkout_key no se sobreescribe — se mantiene el de la sesión original
       };
     }
     savePurchaseSession(purchaseSession.current);
-  }, [cartId, step, deliveryData, buyerSnapshot, checkoutKey, context, org]);
+  }, [cartId, step, deliveryData, buyerSnapshot, context, org]);
 
   const loadCart = useCallback(async (id: string) => {
     setLoading(true);
@@ -249,7 +249,9 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
     setChecking(true);
     setError(null);
 
-    const sessionId   = purchaseSession.current?.session_id ?? 'no-session';
+    // checkout_key siempre viene de la sesión persistida — mismo valor tras reload/retry
+    const checkoutKey = purchaseSession.current?.checkout_key ?? '';
+    const sessionId   = purchaseSession.current?.session_id   ?? 'no-session';
     const t0          = Date.now();
 
     console.log('[CHECKOUT:C6.1] RPC_STARTED', {
@@ -289,7 +291,8 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
       clearPurchaseSession();
     } catch (e) {
       const duration_ms = Date.now() - t0;
-      const errorMsg = e instanceof Error ? e.message : 'Error al confirmar el pedido';
+      const errorMsg    = e instanceof Error ? e.message : 'Error al confirmar el pedido';
+      const isTimeout   = e instanceof Error && e.message.includes('>25s');
 
       console.error('[CHECKOUT:C6.1] RPC_ERROR', {
         session_id:    sessionId,
@@ -297,9 +300,37 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
         cart_id:       cartId,
         duration_ms,
         error_message: errorMsg,
+        is_timeout:    isTimeout,
       });
 
-      setError(errorMsg);
+      if (isTimeout && checkoutKey) {
+        // El RPC pudo haberse completado en backend antes de expirar el cliente.
+        // Consultar la BD por pedidos ya creados con esta checkout_key.
+        console.log('[CHECKOUT:C6.1] TIMEOUT_RECOVERY_START', { checkout_key: checkoutKey });
+        try {
+          const existingIds = await getOrdersByCheckoutKey(checkoutKey);
+          if (existingIds.length > 0) {
+            console.log('[CHECKOUT:C6.1] TIMEOUT_RECOVERED', {
+              checkout_key: checkoutKey,
+              order_ids:    existingIds,
+              order_count:  existingIds.length,
+            });
+            const rows = await getOrdersByIds(existingIds);
+            setOrders(rows);
+            setStep('exito');
+            clearPurchaseContext();
+            clearPurchaseSession();
+            return;
+          }
+          // Sin pedidos — retry seguro: la misma checkout_key garantiza idempotencia
+          console.log('[CHECKOUT:C6.1] TIMEOUT_NO_ORDERS_RETRY_SAFE', { checkout_key: checkoutKey });
+          setError('La conexión tardó demasiado. Puedes reintentar: tu compra no se duplicará.');
+        } catch {
+          setError('La conexión tardó demasiado. Puedes reintentar: tu compra no se duplicará.');
+        }
+      } else {
+        setError(errorMsg);
+      }
     } finally {
       setChecking(false);
     }

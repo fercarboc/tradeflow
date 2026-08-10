@@ -437,6 +437,19 @@ export async function getOrdersByIds(orderIds: string[]): Promise<OrderByIdRow[]
   return (data ?? []) as OrderByIdRow[];
 }
 
+// Recuperación ante timeout: busca pedidos existentes para esta clave de idempotencia.
+// Si el RPC completó en backend antes de que el cliente recibiera el timeout, los pedidos
+// ya existen y no hay que crearlos de nuevo.
+export async function getOrdersByCheckoutKey(checkoutKey: string): Promise<string[]> {
+  if (!checkoutKey) return [];
+  const { data } = await (supabase as any)
+    .from('trade_marketplace_orders')
+    .select('id')
+    .eq('checkout_key', checkoutKey)
+    .neq('estado', 'cancelled');
+  return ((data ?? []) as Array<{ id: string }>).map(r => r.id);
+}
+
 export async function listOrgCarts(params: {
   orgId: string;
   estado?: CartEstado;

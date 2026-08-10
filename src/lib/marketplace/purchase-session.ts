@@ -33,7 +33,7 @@ export function createPurchaseSession(opts: {
   clientName:  string | null;
   obra:        string | null;
   cartId:      string | null;
-  checkoutKey: string;
+  // checkout_key se genera internamente — nunca desde el ciclo de vida del componente
 }): MarketplacePurchaseSession {
   const now = new Date().toISOString();
   return {
@@ -44,7 +44,7 @@ export function createPurchaseSession(opts: {
     client_name:      opts.clientName ?? null,
     obra:             opts.obra ?? null,
     cart_id:          opts.cartId,
-    checkout_key:     opts.checkoutKey,
+    checkout_key:     crypto.randomUUID(),
     current_route:    'checkout',
     checkout_step:    'revisar',
     delivery_options: null,
