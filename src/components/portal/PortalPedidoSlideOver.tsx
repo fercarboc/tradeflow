@@ -4,6 +4,7 @@ import {
   PortalOrderDetail,
   PortalOrderItem,
   PortalOrderEvent,
+  PortalBuyerSnapshot,
   getSupplierOrderDetail,
   cancelSupplierOrder,
   markSupplierOrderIncident,
@@ -17,29 +18,54 @@ import {
 import OrderStatusBadge from '../marketplace/shared/OrderStatusBadge';
 import { OrderLifecycleEstado } from '../../lib/api/marketplace-orders';
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+// ── Formatters ────────────────────────────────────────────────────────────────
 
 const fmt = (v: number) =>
   new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(v);
 
 const fmtDate = (d: string | null) =>
-  d
-    ? new Date(d).toLocaleDateString('es-ES', {
-        day: 'numeric', month: 'short', year: 'numeric',
-        hour: '2-digit', minute: '2-digit',
-      })
-    : null;
+  d ? new Date(d).toLocaleDateString('es-ES', {
+    day: 'numeric', month: 'short', year: 'numeric',
+    hour: '2-digit', minute: '2-digit',
+  }) : null;
 
-const fmtRelative = (d: string) => {
-  const diff = Date.now() - new Date(d).getTime();
-  const h    = Math.floor(diff / 3_600_000);
-  const m    = Math.floor(diff / 60_000);
-  if (m < 60)  return `hace ${m} min`;
-  if (h < 24)  return `hace ${h} h`;
-  return fmtDate(d) ?? d;
+const fmtShort = (d: string | null) =>
+  d ? new Date(d).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : null;
+
+// ── Constants ─────────────────────────────────────────────────────────────────
+
+const DELIVERY_METHOD_LABELS: Record<string, string> = {
+  entrega_obra:       'Envío a obra',
+  entrega_almacen:    'Envío a almacén',
+  recogida_proveedor: 'Recogida en tienda / almacén',
+  por_coordinar:      'Por coordinar',
 };
 
-type Tab = 'resumen' | 'lineas' | 'envio' | 'documentos' | 'historial';
+const PAYMENT_METHOD_LABELS: Record<string, string> = {
+  cuenta_proveedor: 'Pago acordado con el proveedor',
+  pago_anticipado:  'Pago anticipado',
+  contrareembolso:  'Contra reembolso',
+};
+
+const SOURCE_TYPE_LABELS: Record<string, string> = {
+  quote:                'Desde presupuesto',
+  free:                 'Compra directa Marketplace',
+  job:                  'Desde trabajo',
+  field_action:         'Desde actuación',
+  maintenance_incident: 'Desde incidencia mantenimiento',
+};
+
+const ESTADO_LABELS: Record<string, string> = {
+  pending:   'Pendiente',
+  confirmed: 'Confirmado',
+  preparing: 'Preparando',
+  shipped:   'Enviado',
+  delivered: 'Entregado',
+  completed: 'Completado',
+  cancelled: 'Cancelado',
+};
+
+const inputCls = 'w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500';
 
 // ── Props ─────────────────────────────────────────────────────────────────────
 
@@ -52,12 +78,11 @@ interface Props {
   onUpdated:  () => void;
 }
 
-// ── Component ─────────────────────────────────────────────────────────────────
+// ── Main component ────────────────────────────────────────────────────────────
 
 export default function PortalPedidoSlideOver({
   actorId, order, canManage, canFulfill, onClose, onUpdated,
 }: Props) {
-  const [tab,     setTab]     = useState<Tab>('resumen');
   const [detail,  setDetail]  = useState<PortalOrderDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error,   setError]   = useState<string | null>(null);
@@ -93,43 +118,32 @@ export default function PortalPedidoSlideOver({
         role="dialog"
         aria-modal="true"
         aria-label={`Detalle pedido ${order.numero}`}
-        className="fixed inset-y-0 right-0 z-50 flex w-full flex-col bg-white dark:bg-slate-900 shadow-2xl sm:w-[640px] xl:w-[720px]"
+        className="fixed inset-y-0 right-0 z-50 flex w-full flex-col bg-white dark:bg-slate-900 shadow-2xl sm:w-[660px] xl:w-[740px]"
       >
-        {/* Header */}
-        <SlideHeader order={order} onClose={onClose} />
+        {/* Header fijo */}
+        <OrderHeader order={order} detail={detail} onClose={onClose} />
 
-        {/* Tabs */}
-        <SlideTabs tab={tab} onTabChange={setTab} />
-
-        {/* Error global */}
+        {/* Error */}
         {error && (
-          <div className="px-6 pt-3">
+          <div className="px-6 pt-3 shrink-0">
             <p className="text-sm text-red-500 bg-red-50 dark:bg-red-900/10 rounded-lg px-3 py-2">{error}</p>
           </div>
         )}
 
-        {/* Content */}
+        {/* Contenido scrollable */}
         <div className="flex-1 overflow-y-auto">
           {loading ? (
             <DetailSkeleton />
           ) : detail ? (
-            <>
-              {tab === 'resumen'    && (
-                <TabResumen
-                  detail={detail}
-                  order={order}
-                  actorId={actorId}
-                  canManage={canManage}
-                  canFulfill={canFulfill}
-                  onReload={reload}
-                  onError={setError}
-                />
-              )}
-              {tab === 'lineas'     && <TabLineas items={detail.items} total={detail.order.total} subtotal={detail.order.subtotal} costeEnvio={detail.order.coste_envio} />}
-              {tab === 'envio'      && <TabEnvio detail={detail} />}
-              {tab === 'documentos' && <TabDocumentos order={order} items={detail.items} />}
-              {tab === 'historial'  && <TabHistorial events={detail.events} />}
-            </>
+            <OrderContent
+              detail={detail}
+              order={order}
+              actorId={actorId}
+              canManage={canManage}
+              canFulfill={canFulfill}
+              onReload={reload}
+              onError={setError}
+            />
           ) : null}
         </div>
       </div>
@@ -137,81 +151,53 @@ export default function PortalPedidoSlideOver({
   );
 }
 
-// ── SlideHeader ───────────────────────────────────────────────────────────────
+// ── OrderHeader ───────────────────────────────────────────────────────────────
 
-interface SlideHeaderProps {
+interface OrderHeaderProps {
   order:   PortalOrder;
+  detail:  PortalOrderDetail | null;
   onClose: () => void;
 }
 
-function SlideHeader({ order, onClose }: SlideHeaderProps) {
+function OrderHeader({ order, detail, onClose }: OrderHeaderProps) {
+  const total = detail?.order.total ?? order.total;
   return (
-    <div className="flex items-center gap-3 border-b border-slate-200 dark:border-slate-800 px-6 py-4 shrink-0">
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className="font-mono text-sm font-bold text-slate-900 dark:text-slate-100">{order.numero}</span>
-          <OrderStatusBadge estado={order.estado as OrderLifecycleEstado} size="sm" />
-          {order.source === 'marketplace' && (
-            <span className="rounded-full bg-teal-100 dark:bg-teal-900/30 px-2 py-0.5 text-xs font-medium text-teal-700 dark:text-teal-300">
-              Marketplace
+    <div className="shrink-0 border-b border-slate-200 dark:border-slate-800 px-6 py-4 bg-white dark:bg-slate-900">
+      <div className="flex items-start gap-3">
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="font-mono text-base font-bold text-slate-900 dark:text-slate-100 tracking-tight">
+              {order.numero}
             </span>
+            <OrderStatusBadge estado={order.estado as OrderLifecycleEstado} size="sm" />
+          </div>
+          <div className="mt-0.5 flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+            <span>{fmtDate(order.created_at)}</span>
+            <span className="font-semibold text-slate-800 dark:text-slate-200 tabular-nums">
+              {fmt(total)}
+            </span>
+          </div>
+          {order.org_nombre && (
+            <p className="mt-0.5 text-xs text-slate-400 truncate">{order.org_nombre}</p>
           )}
         </div>
-        <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400 truncate">{order.org_nombre}</p>
-      </div>
-      <button
-        onClick={onClose}
-        aria-label="Cerrar detalle"
-        className="shrink-0 rounded-lg p-2 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-600 dark:hover:text-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
-      >
-        <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-    </div>
-  );
-}
-
-// ── SlideTabs ─────────────────────────────────────────────────────────────────
-
-interface SlideTabsProps {
-  tab:         Tab;
-  onTabChange: (t: Tab) => void;
-}
-
-const TAB_LIST: { id: Tab; label: string }[] = [
-  { id: 'resumen',    label: 'Resumen'    },
-  { id: 'lineas',     label: 'Líneas'     },
-  { id: 'envio',      label: 'Envío'      },
-  { id: 'documentos', label: 'Documentos' },
-  { id: 'historial',  label: 'Historial'  },
-];
-
-function SlideTabs({ tab, onTabChange }: SlideTabsProps) {
-  return (
-    <div className="flex border-b border-slate-200 dark:border-slate-800 shrink-0 overflow-x-auto" role="tablist">
-      {TAB_LIST.map((t) => (
         <button
-          key={t.id}
-          role="tab"
-          aria-selected={tab === t.id}
-          onClick={() => onTabChange(t.id)}
-          className={`shrink-0 px-5 py-3 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-teal-500 transition-colors ${
-            tab === t.id
-              ? 'border-b-2 border-teal-600 text-teal-600 dark:text-teal-400 -mb-px'
-              : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
-          }`}
+          onClick={onClose}
+          aria-label="Cerrar detalle"
+          className="shrink-0 rounded-lg p-2 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-600 dark:hover:text-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
         >
-          {t.label}
+          <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
         </button>
-      ))}
+      </div>
     </div>
   );
 }
 
-// ── TabResumen ────────────────────────────────────────────────────────────────
+// ── OrderContent (single-page layout) ────────────────────────────────────────
 
-interface TabResumenProps {
+interface OrderContentProps {
   detail:     PortalOrderDetail;
   order:      PortalOrder;
   actorId:    string;
@@ -221,18 +207,18 @@ interface TabResumenProps {
   onError:    (msg: string) => void;
 }
 
-function TabResumen({ detail, order, actorId, canManage, canFulfill, onReload, onError }: TabResumenProps) {
+function OrderContent({ detail, order, actorId, canManage, canFulfill, onReload, onError }: OrderContentProps) {
   const o     = detail.order;
   const estado = o.estado;
 
-  const [busy,        setBusy]        = useState(false);
-  const [showShip,    setShowShip]    = useState(false);
-  const [trackRef,    setTrackRef]    = useState('');
-  const [trackUrl,    setTrackUrl]    = useState('');
-  const [trackUrlErr, setTrackUrlErr] = useState('');
-  const [shipNotas,   setShipNotas]   = useState('');
-  const [showCancel,  setShowCancel]  = useState(false);
-  const [cancelReason, setCancelReason] = useState('');
+  const [busy,          setBusy]          = useState(false);
+  const [showShip,      setShowShip]      = useState(false);
+  const [trackRef,      setTrackRef]      = useState('');
+  const [trackUrl,      setTrackUrl]      = useState('');
+  const [trackUrlErr,   setTrackUrlErr]   = useState('');
+  const [shipNotas,     setShipNotas]     = useState('');
+  const [showCancel,    setShowCancel]    = useState(false);
+  const [cancelReason,  setCancelReason]  = useState('');
   const [showIncident,  setShowIncident]  = useState(false);
   const [incidentDesc,  setIncidentDesc]  = useState('');
 
@@ -240,23 +226,19 @@ function TabResumen({ detail, order, actorId, canManage, canFulfill, onReload, o
   const canPrepare  = estado === 'confirmed' && canFulfill && order.source === 'marketplace';
   const canShip     = (estado === 'confirmed' || estado === 'preparing') && canFulfill;
   const canCancel   = (estado === 'pending'   || estado === 'confirmed') && canManage;
-  const canIncident = !['completed','cancelled'].includes(estado);
+  const canIncident = !['completed', 'cancelled'].includes(estado);
 
   const doConfirm = async () => {
     setBusy(true);
-    try {
-      await confirmSupplierOrder(order.id, order.source);
-      onReload();
-    } catch (e) { onError(e instanceof Error ? e.message : 'Error al confirmar'); }
+    try { await confirmSupplierOrder(order.id, order.source); onReload(); }
+    catch (e) { onError(e instanceof Error ? e.message : 'Error al confirmar'); }
     finally { setBusy(false); }
   };
 
   const doPrepare = async () => {
     setBusy(true);
-    try {
-      await prepareOrderFromPortal(order.id);
-      onReload();
-    } catch (e) { onError(e instanceof Error ? e.message : 'Error al preparar'); }
+    try { await prepareOrderFromPortal(order.id); onReload(); }
+    catch (e) { onError(e instanceof Error ? e.message : 'Error al preparar'); }
     finally { setBusy(false); }
   };
 
@@ -269,18 +251,13 @@ function TabResumen({ detail, order, actorId, canManage, canFulfill, onReload, o
     try {
       if (order.source === 'marketplace') {
         await shipMarketplaceOrderWithTracking({
-          orderId:     order.id,
-          trackingRef: trackRef || undefined,
-          trackingUrl: trackUrl || undefined,
-          notas:       shipNotas || undefined,
+          orderId: order.id, trackingRef: trackRef || undefined,
+          trackingUrl: trackUrl || undefined, notas: shipNotas || undefined,
         });
       } else {
         await shipSupplierOrder(order.id, order.source, trackRef || undefined);
       }
-      setShowShip(false);
-      setTrackRef('');
-      setTrackUrl('');
-      setShipNotas('');
+      setShowShip(false); setTrackRef(''); setTrackUrl(''); setTrackUrlErr(''); setShipNotas('');
       onReload();
     } catch (e) { onError(e instanceof Error ? e.message : 'Error al enviar'); }
     finally { setBusy(false); }
@@ -290,8 +267,7 @@ function TabResumen({ detail, order, actorId, canManage, canFulfill, onReload, o
     setBusy(true);
     try {
       await cancelSupplierOrder(order.id, actorId, cancelReason || undefined);
-      setShowCancel(false);
-      setCancelReason('');
+      setShowCancel(false); setCancelReason('');
       onReload();
     } catch (e) { onError(e instanceof Error ? e.message : 'Error al cancelar'); }
     finally { setBusy(false); }
@@ -302,53 +278,113 @@ function TabResumen({ detail, order, actorId, canManage, canFulfill, onReload, o
     setBusy(true);
     try {
       await markSupplierOrderIncident(order.id, actorId, incidentDesc.trim());
-      setShowIncident(false);
-      setIncidentDesc('');
+      setShowIncident(false); setIncidentDesc('');
       onReload();
     } catch (e) { onError(e instanceof Error ? e.message : 'Error al registrar incidencia'); }
     finally { setBusy(false); }
   };
 
+  const exportCSV = () => {
+    const headers = ['Referencia', 'Descripcion', 'Cantidad', 'Unidad', 'Precio unitario', 'Total'];
+    const rows = detail.items.map((i) => [
+      i.referencia ?? '',
+      `"${(i.descripcion ?? '').replace(/"/g, '""')}"`,
+      i.cantidad, i.unidad,
+      i.precio_unitario != null ? i.precio_unitario.toFixed(2) : '',
+      i.precio_total    != null ? i.precio_total.toFixed(2)    : '',
+    ]);
+    const csv  = [headers.join(';'), ...rows.map((r) => r.join(';'))].join('\n');
+    const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href = url; a.download = `pedido-${order.numero}.csv`; a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
-    <div className="p-6 space-y-5">
-      {/* Totales */}
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4">
-        <div className="flex justify-between items-end">
-          <div className="space-y-1">
-            {o.subtotal !== o.total && (
-              <p className="text-xs text-slate-400">
-                Subtotal <span className="tabular-nums text-slate-600 dark:text-slate-300">{fmt(o.subtotal)}</span>
-                {o.coste_envio > 0 && (
-                  <> + portes <span className="tabular-nums">{fmt(o.coste_envio)}</span></>
-                )}
-              </p>
+    <div className="p-5 space-y-4">
+      {/* ── Acciones ────────────────────────────────────────────────────────── */}
+      {(canConfirm || canPrepare || canShip || canCancel || canIncident) && (
+        <section aria-label="Acciones del pedido" className="space-y-3">
+          <div className="flex flex-wrap gap-2">
+            {canConfirm && (
+              <ActionBtn label="Confirmar pedido" loading={busy}
+                className="bg-teal-600 hover:bg-teal-500 text-white"
+                onClick={doConfirm} icon={<CheckIcon />} />
             )}
-            <p className="text-2xl font-black tabular-nums text-slate-900 dark:text-slate-100">{fmt(o.total)}</p>
+            {canPrepare && (
+              <ActionBtn label="Iniciar preparación" loading={busy}
+                className="border border-violet-300 dark:border-violet-700 bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300 hover:bg-violet-100 dark:hover:bg-violet-900/40"
+                onClick={doPrepare} icon={<BoxIcon />} />
+            )}
+            {canShip && !showShip && (
+              <ActionBtn label="Marcar como enviado" loading={busy}
+                className="bg-blue-600 hover:bg-blue-500 text-white"
+                onClick={() => setShowShip(true)} icon={<TruckIcon />} />
+            )}
+            {canCancel && !showCancel && (
+              <ActionBtn label="Cancelar" loading={busy}
+                className="border border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30"
+                onClick={() => setShowCancel(true)} icon={<XIcon />} />
+            )}
+            {canIncident && !showIncident && (
+              <ActionBtn label="Registrar incidencia" loading={false}
+                className="border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/10 text-amber-700 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/30"
+                onClick={() => setShowIncident(true)} icon={<AlertIcon />} />
+            )}
           </div>
-          <p className="text-sm text-slate-400">{detail.items.length} línea{detail.items.length !== 1 ? 's' : ''}</p>
-        </div>
-      </div>
 
-      {/* Fechas */}
-      <div className="grid grid-cols-2 gap-3 text-xs">
-        <InfoCell label="Recibido"   value={fmtDate(o.created_at)} />
-        {o.confirmed_at && <InfoCell label="Confirmado"  value={fmtDate(o.confirmed_at)} />}
-        {o.preparing_at && <InfoCell label="Preparando"  value={fmtDate(o.preparing_at)} />}
-        {o.shipped_at   && <InfoCell label="Enviado"     value={fmtDate(o.shipped_at)}   />}
-        {o.delivered_at && <InfoCell label="Entregado"   value={fmtDate(o.delivered_at)} />}
-        {o.cancelled_at && <InfoCell label="Cancelado"   value={fmtDate(o.cancelled_at)} />}
-        {o.completed_at && <InfoCell label="Completado"  value={fmtDate(o.completed_at)} />}
-      </div>
-
-      {/* Notas del instalador */}
-      {o.notas && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-700 p-3">
-          <p className="text-xs font-medium text-slate-400 mb-1">Notas del instalador</p>
-          <p className="text-sm text-slate-700 dark:text-slate-300 italic">"{o.notas}"</p>
-        </div>
+          {showShip && (
+            <InlineForm title="Datos de envío (opcionales)" onSubmit={doShip} loading={busy}
+              onCancel={() => { setShowShip(false); setTrackRef(''); setTrackUrl(''); setTrackUrlErr(''); setShipNotas(''); }}
+              submitLabel="Confirmar envío" submitClass="bg-blue-600 hover:bg-blue-500 text-white">
+              <FormField id="track-ref" label="Referencia de tracking">
+                <input id="track-ref" type="text" value={trackRef}
+                  onChange={(e) => setTrackRef(e.target.value)}
+                  placeholder="Ej: ES123456789" className={inputCls} />
+              </FormField>
+              <FormField id="track-url" label="URL de seguimiento" error={trackUrlErr}>
+                <input id="track-url" type="url" value={trackUrl}
+                  onChange={(e) => { setTrackUrl(e.target.value); setTrackUrlErr(''); }}
+                  placeholder="https://seguimiento.transportista.es/..." aria-invalid={!!trackUrlErr}
+                  className={`${inputCls} ${trackUrlErr ? 'border-red-400 dark:border-red-600' : ''}`} />
+              </FormField>
+              <FormField id="ship-notas" label="Nota al instalador (opcional)">
+                <textarea id="ship-notas" rows={2} value={shipNotas}
+                  onChange={(e) => setShipNotas(e.target.value)}
+                  placeholder="Ej: Entrega en conserjería, preguntar por Juan"
+                  className={`${inputCls} resize-none`} />
+              </FormField>
+            </InlineForm>
+          )}
+          {showCancel && (
+            <InlineForm title="¿Por qué cancelas este pedido?" onSubmit={doCancel} loading={busy}
+              onCancel={() => { setShowCancel(false); setCancelReason(''); }}
+              submitLabel="Cancelar pedido" submitClass="bg-red-600 hover:bg-red-500 text-white">
+              <FormField id="cancel-reason" label="Motivo (opcional)">
+                <textarea id="cancel-reason" rows={3} value={cancelReason}
+                  onChange={(e) => setCancelReason(e.target.value)}
+                  placeholder="Ej: Sin stock disponible, plazo no viable..."
+                  className={`${inputCls} resize-none`} />
+              </FormField>
+            </InlineForm>
+          )}
+          {showIncident && (
+            <InlineForm title="Descripción de la incidencia" onSubmit={doIncident} loading={busy}
+              onCancel={() => { setShowIncident(false); setIncidentDesc(''); }}
+              submitLabel="Registrar incidencia" submitClass="bg-amber-600 hover:bg-amber-500 text-white">
+              <FormField id="incident-desc" label="Descripción *">
+                <textarea id="incident-desc" rows={3} value={incidentDesc}
+                  onChange={(e) => setIncidentDesc(e.target.value)}
+                  placeholder="Describe el problema encontrado..." required
+                  className={`${inputCls} resize-none`} />
+              </FormField>
+            </InlineForm>
+          )}
+        </section>
       )}
 
-      {/* Razón de cancelación */}
+      {/* ── Cancelación ─────────────────────────────────────────────────────── */}
       {o.cancel_reason && (
         <div className="rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/10 p-3">
           <p className="text-xs font-medium text-red-500 mb-1">Motivo de cancelación</p>
@@ -356,250 +392,229 @@ function TabResumen({ detail, order, actorId, canManage, canFulfill, onReload, o
         </div>
       )}
 
-      {/* Acciones */}
-      {(canConfirm || canPrepare || canShip || canCancel || canIncident) && (
-        <div className="space-y-2">
-          <p className="text-xs font-medium text-slate-400 uppercase tracking-wide">Acciones</p>
+      {/* ── Cliente / Origen ─────────────────────────────────────────────────── */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <SectionCliente buyer={o.buyer_snapshot} orgNombre={order.org_nombre} />
+        <SectionOrigen
+          sourceType={o.source_type}
+          sourceRef={o.source_ref}
+          quoteDescripcion={o.quote_descripcion}
+        />
+      </div>
 
-          <div className="flex flex-wrap gap-2">
-            {canConfirm && (
-              <ActionBtn
-                label="Confirmar pedido"
-                loading={busy}
-                className="bg-teal-600 hover:bg-teal-500 text-white"
-                onClick={doConfirm}
-                icon={<CheckIcon />}
-              />
-            )}
-            {canPrepare && (
-              <ActionBtn
-                label="Iniciar preparación"
-                loading={busy}
-                className="border border-violet-300 dark:border-violet-700 bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300 hover:bg-violet-100 dark:hover:bg-violet-900/40"
-                onClick={doPrepare}
-                icon={<BoxIcon />}
-              />
-            )}
-            {canShip && !showShip && (
-              <ActionBtn
-                label="Marcar como enviado"
-                loading={busy}
-                className="bg-blue-600 hover:bg-blue-500 text-white"
-                onClick={() => setShowShip(true)}
-                icon={<TruckIcon />}
-              />
-            )}
-            {canCancel && !showCancel && (
-              <ActionBtn
-                label="Cancelar pedido"
-                loading={busy}
-                className="border border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30"
-                onClick={() => setShowCancel(true)}
-                icon={<XIcon />}
-              />
-            )}
-            {canIncident && !showIncident && (
-              <ActionBtn
-                label="Registrar incidencia"
-                loading={false}
-                className="border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/10 text-amber-700 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/30"
-                onClick={() => setShowIncident(true)}
-                icon={<AlertIcon />}
-              />
-            )}
-          </div>
+      {/* ── Productos ────────────────────────────────────────────────────────── */}
+      <SectionProductos
+        items={detail.items}
+        subtotal={o.subtotal}
+        costeEnvio={o.coste_envio}
+        total={o.total}
+      />
 
-          {/* Formulario de envío inline */}
-          {showShip && (
-            <InlineForm
-              title="Datos de envío (opcionales)"
-              onSubmit={doShip}
-              onCancel={() => { setShowShip(false); setTrackRef(''); setTrackUrl(''); setTrackUrlErr(''); setShipNotas(''); }}
-              submitLabel="Confirmar envío"
-              submitClass="bg-blue-600 hover:bg-blue-500 text-white"
-              loading={busy}
-            >
-              <FormField id="track-ref" label="Referencia de tracking">
-                <input
-                  id="track-ref" type="text" value={trackRef}
-                  onChange={(e) => setTrackRef(e.target.value)}
-                  placeholder="Ej: ES123456789"
-                  className={inputCls}
-                />
-              </FormField>
-              <FormField id="track-url" label="URL de seguimiento" error={trackUrlErr}>
-                <input
-                  id="track-url" type="url" value={trackUrl}
-                  onChange={(e) => { setTrackUrl(e.target.value); setTrackUrlErr(''); }}
-                  placeholder="https://seguimiento.transportista.es/..."
-                  aria-invalid={!!trackUrlErr}
-                  className={`${inputCls} ${trackUrlErr ? 'border-red-400 dark:border-red-600' : ''}`}
-                />
-              </FormField>
-              <FormField id="ship-notas" label="Nota al instalador (opcional)">
-                <textarea
-                  id="ship-notas" rows={2} value={shipNotas}
-                  onChange={(e) => setShipNotas(e.target.value)}
-                  placeholder="Ej: Entrega en conserjería, preguntar por Juan"
-                  className={`${inputCls} resize-none`}
-                />
-              </FormField>
-            </InlineForm>
-          )}
+      {/* ── Entrega / Pago ────────────────────────────────────────────────────── */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <SectionEntrega order={o} />
+        <SectionPago paymentMethod={o.payment_method} notas={o.delivery_notas} />
+      </div>
 
-          {/* Formulario de cancelación inline */}
-          {showCancel && (
-            <InlineForm
-              title="¿Por qué cancelas este pedido?"
-              onSubmit={doCancel}
-              onCancel={() => { setShowCancel(false); setCancelReason(''); }}
-              submitLabel="Cancelar pedido"
-              submitClass="bg-red-600 hover:bg-red-500 text-white"
-              loading={busy}
-            >
-              <FormField id="cancel-reason" label="Motivo (opcional)">
-                <textarea
-                  id="cancel-reason" rows={3} value={cancelReason}
-                  onChange={(e) => setCancelReason(e.target.value)}
-                  placeholder="Ej: Sin stock disponible, plazo no viable..."
-                  className={`${inputCls} resize-none`}
-                />
-              </FormField>
-            </InlineForm>
-          )}
+      {/* ── Seguimiento ──────────────────────────────────────────────────────── */}
+      <SectionSeguimiento order={o} events={detail.events} />
 
-          {/* Formulario de incidencia inline */}
-          {showIncident && (
-            <InlineForm
-              title="Descripción de la incidencia"
-              onSubmit={doIncident}
-              onCancel={() => { setShowIncident(false); setIncidentDesc(''); }}
-              submitLabel="Registrar incidencia"
-              submitClass="bg-amber-600 hover:bg-amber-500 text-white"
-              loading={busy}
-            >
-              <FormField id="incident-desc" label="Descripción *">
-                <textarea
-                  id="incident-desc" rows={3} value={incidentDesc}
-                  onChange={(e) => setIncidentDesc(e.target.value)}
-                  placeholder="Describe el problema encontrado..."
-                  required
-                  className={`${inputCls} resize-none`}
-                />
-              </FormField>
-            </InlineForm>
-          )}
-        </div>
-      )}
-
-      {/* Notas del proveedor (propias) */}
+      {/* ── Notas propias del proveedor ───────────────────────────────────────── */}
       {o.notas_proveedor && (
         <div className="rounded-lg border border-teal-200 dark:border-teal-800 bg-teal-50 dark:bg-teal-900/10 p-3">
           <p className="text-xs font-medium text-teal-600 dark:text-teal-400 mb-1">Tus notas al instalador</p>
           <p className="text-sm text-teal-800 dark:text-teal-200">{o.notas_proveedor}</p>
         </div>
       )}
+
+      {/* ── Exportar ─────────────────────────────────────────────────────────── */}
+      <details className="rounded-xl border border-slate-200 dark:border-slate-800">
+        <summary className="px-4 py-3 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide cursor-pointer select-none hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl">
+          Exportar
+        </summary>
+        <div className="p-4 space-y-3 border-t border-slate-100 dark:border-slate-800">
+          <DocButton label="Exportar líneas como CSV" icon={<TableIcon />}
+            description="Compatible con Excel"
+            onClick={exportCSV} />
+          <DocButton label="Imprimir detalle" icon={<PrintIcon />}
+            description="Abre el diálogo de impresión"
+            onClick={() => window.print()} />
+        </div>
+      </details>
     </div>
   );
 }
 
-// ── TabLineas ─────────────────────────────────────────────────────────────────
+// ── SectionCliente ────────────────────────────────────────────────────────────
 
-interface TabLineasProps {
-  items:      PortalOrderItem[];
-  total:      number;
-  subtotal:   number;
-  costeEnvio: number;
+interface SectionClienteProps {
+  buyer:     PortalBuyerSnapshot | null;
+  orgNombre: string;
 }
 
-function TabLineas({ items, total, subtotal, costeEnvio }: TabLineasProps) {
+function SectionCliente({ buyer, orgNombre }: SectionClienteProps) {
+  const empresa  = buyer?.empresa  || orgNombre;
+  const nombre   = buyer?.nombre;
+  const nif      = buyer?.nif;
+  const email    = buyer?.email;
+  const telefono = buyer?.telefono;
+
   return (
-    <div className="p-6">
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950">
-                <th className="px-4 py-2.5 text-left text-xs font-medium text-slate-400">Ref.</th>
-                <th className="px-4 py-2.5 text-left text-xs font-medium text-slate-400">Descripción</th>
-                <th className="px-4 py-2.5 text-right text-xs font-medium text-slate-400">Cant.</th>
-                <th className="px-4 py-2.5 text-right text-xs font-medium text-slate-400">P. unitario</th>
-                <th className="px-4 py-2.5 text-right text-xs font-medium text-slate-400">Total</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
-              {items.map((item) => (
-                <OrderItemRow key={item.id} item={item} />
-              ))}
-            </tbody>
-            <tfoot className="border-t border-slate-200 dark:border-slate-800">
-              {costeEnvio > 0 && (
-                <tr className="bg-slate-50 dark:bg-slate-950">
-                  <td colSpan={4} className="px-4 py-2 text-right text-xs text-slate-400">Portes</td>
-                  <td className="px-4 py-2 text-right text-xs tabular-nums text-slate-500">+{fmt(costeEnvio)}</td>
-                </tr>
-              )}
-              <tr className="bg-slate-50 dark:bg-slate-950">
-                <td colSpan={4} className="px-4 py-2.5 text-right text-sm font-semibold text-slate-700 dark:text-slate-200">Total</td>
-                <td className="px-4 py-2.5 text-right text-sm font-bold tabular-nums text-teal-600 dark:text-teal-400">{fmt(total)}</td>
-              </tr>
-            </tfoot>
-          </table>
+    <CardSection title="Cliente">
+      {empresa && <InfoCell label="Empresa / Razón social" value={empresa} />}
+      {nombre && nombre !== empresa && <InfoCell label="Nombre contacto" value={nombre} />}
+      {nif     && <InfoCell label="NIF / CIF" value={nif} />}
+      {telefono && (
+        <div>
+          <p className="text-xs text-slate-400 mb-0.5">Teléfono</p>
+          <a href={`tel:${telefono}`}
+            className="text-sm font-medium text-teal-600 dark:text-teal-400 hover:underline">
+            {telefono}
+          </a>
         </div>
+      )}
+      {email && (
+        <div>
+          <p className="text-xs text-slate-400 mb-0.5">Email</p>
+          <a href={`mailto:${email}`}
+            className="text-sm font-medium text-teal-600 dark:text-teal-400 hover:underline break-all">
+            {email}
+          </a>
+        </div>
+      )}
+      {!buyer && !orgNombre && (
+        <p className="text-sm text-slate-400 italic">Sin datos de cliente registrados.</p>
+      )}
+    </CardSection>
+  );
+}
+
+// ── SectionOrigen ─────────────────────────────────────────────────────────────
+
+interface SectionOrigenProps {
+  sourceType:       string | null;
+  sourceRef:        string | null;
+  quoteDescripcion: string | null;
+}
+
+function SectionOrigen({ sourceType, sourceRef, quoteDescripcion }: SectionOrigenProps) {
+  const isQuote   = sourceType === 'quote' || !!sourceRef;
+  const isFree    = sourceType === 'free'  || (!sourceType && !sourceRef);
+  const typeLabel = sourceType ? (SOURCE_TYPE_LABELS[sourceType] ?? sourceType) : null;
+
+  return (
+    <CardSection title="Origen del pedido">
+      {isQuote && sourceRef && (
+        <InfoCell label="Presupuesto" value={sourceRef} />
+      )}
+      {quoteDescripcion && (
+        <InfoCell label="Descripción / Obra" value={quoteDescripcion} />
+      )}
+      {isFree && (
+        <div className="flex items-center gap-1.5">
+          <span className="inline-flex items-center gap-1 rounded-full bg-sky-50 dark:bg-sky-900/30 px-2.5 py-1 text-xs font-medium text-sky-700 dark:text-sky-300">
+            🛒 Compra directa Marketplace
+          </span>
+        </div>
+      )}
+      {typeLabel && !isFree && (
+        <div className="text-xs text-slate-400">{typeLabel}</div>
+      )}
+    </CardSection>
+  );
+}
+
+// ── SectionProductos ──────────────────────────────────────────────────────────
+
+interface SectionProductosProps {
+  items:      PortalOrderItem[];
+  subtotal:   number;
+  costeEnvio: number;
+  total:      number;
+}
+
+function SectionProductos({ items, subtotal, costeEnvio, total }: SectionProductosProps) {
+  return (
+    <div className="rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+      <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800">
+        <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+          Productos — {items.length} línea{items.length !== 1 ? 's' : ''}
+        </p>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="bg-slate-50 dark:bg-slate-950 text-xs text-slate-400">
+              <th className="px-4 py-2 text-left font-medium">Ref.</th>
+              <th className="px-4 py-2 text-left font-medium">Descripción</th>
+              <th className="px-4 py-2 text-right font-medium">Cant.</th>
+              <th className="px-4 py-2 text-right font-medium">P. unit.</th>
+              <th className="px-4 py-2 text-right font-medium">Total</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-50 dark:divide-slate-800/50">
+            {items.map((item) => (
+              <OrderItemRow key={item.id} item={item} />
+            ))}
+          </tbody>
+          <tfoot className="border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950">
+            {subtotal !== total && (
+              <tr>
+                <td colSpan={4} className="px-4 py-1.5 text-right text-xs text-slate-400">Subtotal</td>
+                <td className="px-4 py-1.5 text-right text-xs tabular-nums text-slate-500">{fmt(subtotal)}</td>
+              </tr>
+            )}
+            {costeEnvio > 0 && (
+              <tr>
+                <td colSpan={4} className="px-4 py-1.5 text-right text-xs text-slate-400">Portes</td>
+                <td className="px-4 py-1.5 text-right text-xs tabular-nums text-slate-500">+{fmt(costeEnvio)}</td>
+              </tr>
+            )}
+            <tr>
+              <td colSpan={4} className="px-4 py-2.5 text-right text-sm font-semibold text-slate-700 dark:text-slate-200">
+                Total pedido
+              </td>
+              <td className="px-4 py-2.5 text-right text-sm font-bold tabular-nums text-teal-600 dark:text-teal-400">
+                {fmt(total)}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
       </div>
     </div>
   );
 }
 
-// ── TabEnvio ──────────────────────────────────────────────────────────────────
+// ── SectionEntrega ────────────────────────────────────────────────────────────
 
-interface TabEnvioProps {
-  detail: PortalOrderDetail;
+interface SectionEntregaProps {
+  order: import('../../lib/api/marketplace-portal').PortalOrderDetailOrder;
 }
 
-const DELIVERY_METHOD_LABELS: Record<string, string> = {
-  entrega_obra:       'Envío a obra',
-  entrega_almacen:    'Envío a almacén',
-  recogida_proveedor: 'Recogida en tienda/almacén',
-  por_coordinar:      'Por coordinar',
-};
-
-const PAYMENT_METHOD_LABELS: Record<string, string> = {
-  cuenta_proveedor: 'Cuenta del proveedor',
-  pago_anticipado:  'Pago anticipado',
-  contrareembolso:  'Contra reembolso',
-};
-
-function TabEnvio({ detail }: TabEnvioProps) {
-  const o = detail.order;
-  const hasTracking  = o.tracking_ref || o.tracking_url;
-  const isPickup     = o.delivery_method === 'recogida_proveedor';
-  const pickup       = o.pickup_location_snapshot;
-  const addr         = o.direccion_entrega as Record<string, string> | null;
+function SectionEntrega({ order: o }: SectionEntregaProps) {
+  const isPickup = o.delivery_method === 'recogida_proveedor';
+  const pickup   = o.pickup_location_snapshot;
+  const addr     = o.direccion_entrega;
+  const methodLabel = o.delivery_method ? (DELIVERY_METHOD_LABELS[o.delivery_method] ?? o.delivery_method) : null;
 
   return (
-    <div className="p-6 space-y-5">
-      {/* Método de entrega — siempre visible si existe */}
-      {o.delivery_method && (
-        <InfoSection title="Forma de entrega">
-          <div className="flex items-center gap-2">
-            <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${
-              isPickup
-                ? 'bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300'
-                : 'bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300'
-            }`}>
-              {isPickup ? '🏪' : '🚚'} {DELIVERY_METHOD_LABELS[o.delivery_method] ?? o.delivery_method}
-            </span>
-          </div>
-          {o.payment_method && (
-            <InfoCell label="Pago" value={PAYMENT_METHOD_LABELS[o.payment_method] ?? o.payment_method} />
-          )}
-        </InfoSection>
+    <CardSection title="Entrega">
+      {/* Badge método */}
+      {methodLabel && (
+        <div>
+          <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${
+            isPickup
+              ? 'bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300'
+              : 'bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300'
+          }`}>
+            {isPickup ? '🏪' : '🚚'} {methodLabel}
+          </span>
+        </div>
       )}
 
       {/* Punto de recogida */}
       {isPickup && pickup && (
-        <InfoSection title="Punto de recogida">
+        <>
           <InfoCell label="Tienda / Almacén" value={pickup.nombre} />
           {pickup.direccion_linea1 && (
             <InfoCell
@@ -608,164 +623,190 @@ function TabEnvio({ detail }: TabEnvioProps) {
                 .filter(Boolean).join(', ')}
             />
           )}
-          {pickup.telefono && <InfoCell label="Teléfono" value={pickup.telefono} />}
-        </InfoSection>
+          {pickup.telefono && <InfoCell label="Teléfono tienda" value={pickup.telefono} />}
+        </>
       )}
 
-      {/* Dirección de entrega para envíos */}
+      {/* Dirección de envío (jsonb estructurado) */}
       {!isPickup && addr && (
-        <InfoSection title="Dirección de entrega">
-          {addr.nombre_contacto && <InfoCell label="Contacto" value={addr.nombre_contacto} />}
+        <>
+          {addr.nombre_contacto && <InfoCell label="Destinatario" value={addr.nombre_contacto} />}
           {addr.calle && (
             <InfoCell
               label="Dirección"
               value={[addr.calle, addr.cp, addr.ciudad].filter(Boolean).join(', ')}
             />
           )}
-          {addr.telefono_contacto && <InfoCell label="Teléfono" value={addr.telefono_contacto} />}
-        </InfoSection>
+          {addr.telefono_contacto && <InfoCell label="Teléfono contacto" value={addr.telefono_contacto} />}
+        </>
       )}
 
       {/* Dirección legacy (texto plano) */}
       {!isPickup && !addr && o.delivery_address && (
-        <InfoSection title="Dirección de entrega">
-          <p className="text-sm text-slate-700 dark:text-slate-300 whitespace-pre-line">{o.delivery_address}</p>
-        </InfoSection>
+        <p className="text-sm text-slate-700 dark:text-slate-300 whitespace-pre-line">{o.delivery_address}</p>
       )}
 
-      {/* Notas de entrega del instalador */}
-      {o.delivery_notas && (
-        <InfoSection title="Notas del instalador">
-          <p className="text-sm text-slate-700 dark:text-slate-300 italic">"{o.delivery_notas}"</p>
-        </InfoSection>
-      )}
-
-      {/* Tracking */}
-      {hasTracking && (
-        <InfoSection title="Tracking">
+      {/* Tracking (si existe) */}
+      {(o.tracking_ref || o.tracking_url) && (
+        <div className="mt-1 pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1">
+          <p className="text-xs font-medium text-slate-400 uppercase tracking-wide">Tracking</p>
           {o.tracking_ref && <InfoCell label="Referencia" value={o.tracking_ref} />}
           {o.tracking_url && (
-            <div>
-              <p className="text-xs text-slate-400 mb-0.5">URL de seguimiento</p>
-              <a
-                href={o.tracking_url}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="text-sm text-teal-600 dark:text-teal-400 underline underline-offset-2 break-all hover:text-teal-500"
-              >
-                {o.tracking_url}
-              </a>
-            </div>
+            <a href={o.tracking_url} target="_blank" rel="noreferrer noopener"
+              className="block text-xs text-teal-600 dark:text-teal-400 underline underline-offset-2 break-all hover:text-teal-500">
+              {o.tracking_url}
+            </a>
           )}
-        </InfoSection>
-      )}
-
-      {/* Notas del proveedor al instalador */}
-      {o.notas_proveedor && (
-        <InfoSection title="Notas al instalador">
-          <p className="text-sm text-slate-700 dark:text-slate-300 italic">"{o.notas_proveedor}"</p>
-        </InfoSection>
-      )}
-
-      {/* Vacío total */}
-      {!o.delivery_method && !hasTracking && !o.delivery_address && !o.notas_proveedor && !detail.supplier_config && (
-        <div className="flex h-40 items-center justify-center">
-          <p className="text-sm text-slate-400">Sin datos de envío registrados.</p>
         </div>
       )}
-    </div>
+
+      {/* Vacío */}
+      {!methodLabel && !pickup && !addr && !o.delivery_address && !o.tracking_ref && (
+        <p className="text-sm text-slate-400 italic">Sin datos de entrega.</p>
+      )}
+    </CardSection>
   );
 }
 
-// ── TabDocumentos ─────────────────────────────────────────────────────────────
+// ── SectionPago ───────────────────────────────────────────────────────────────
 
-interface TabDocumentosProps {
-  order: PortalOrder;
-  items: PortalOrderItem[];
+interface SectionPagoProps {
+  paymentMethod: string | null;
+  notas:         string | null;
 }
 
-function TabDocumentos({ order, items }: TabDocumentosProps) {
-  const exportCSV = () => {
-    const headers = ['Referencia', 'Descripcion', 'Cantidad', 'Unidad', 'Precio unitario', 'Total'];
-    const rows = items.map((i) => [
-      i.referencia ?? '',
-      `"${(i.descripcion ?? '').replace(/"/g, '""')}"`,
-      i.cantidad,
-      i.unidad,
-      i.precio_unitario != null ? i.precio_unitario.toFixed(2) : '',
-      i.precio_total    != null ? i.precio_total.toFixed(2)    : '',
-    ]);
-    const csv = [headers.join(';'), ...rows.map((r) => r.join(';'))].join('\n');
-    const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
-    const url  = URL.createObjectURL(blob);
-    const a    = document.createElement('a');
-    a.href     = url;
-    a.download = `pedido-${order.numero}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
+function SectionPago({ paymentMethod, notas }: SectionPagoProps) {
+  const payLabel = paymentMethod ? (PAYMENT_METHOD_LABELS[paymentMethod] ?? paymentMethod) : null;
   return (
-    <div className="p-6 space-y-3">
-      <p className="text-xs text-slate-400 uppercase tracking-wide font-medium mb-4">Exportar y descargar</p>
-
-      <DocButton
-        label="Exportar líneas como CSV"
-        description="Descarga un archivo CSV con todas las líneas del pedido (compatible con Excel)."
-        icon={<TableIcon />}
-        onClick={exportCSV}
-      />
-      <DocButton
-        label="Imprimir detalle"
-        description="Abre el diálogo de impresión del navegador con la vista del pedido."
-        icon={<PrintIcon />}
-        onClick={() => window.print()}
-      />
-    </div>
+    <CardSection title="Pago">
+      {payLabel
+        ? <InfoCell label="Método de pago" value={payLabel} />
+        : <p className="text-sm text-slate-400 italic">Sin método de pago registrado.</p>
+      }
+      {notas && (
+        <div className="mt-1">
+          <p className="text-xs text-slate-400 mb-0.5">Notas del instalador</p>
+          <p className="text-sm text-slate-700 dark:text-slate-300 italic">"{notas}"</p>
+        </div>
+      )}
+    </CardSection>
   );
 }
 
-// ── TabHistorial ──────────────────────────────────────────────────────────────
+// ── SectionSeguimiento ────────────────────────────────────────────────────────
 
-interface TabHistorialProps {
+interface SectionSeguimientoProps {
+  order:  import('../../lib/api/marketplace-portal').PortalOrderDetailOrder;
   events: PortalOrderEvent[];
 }
 
-function TabHistorial({ events }: TabHistorialProps) {
-  if (events.length === 0) {
-    return (
-      <div className="flex h-40 items-center justify-center p-6">
-        <p className="text-sm text-slate-400">Sin eventos registrados.</p>
+interface TimelineStep {
+  key:       string;
+  label:     string;
+  pickupLabel?: string;
+  ts:        string | null;
+}
+
+function SectionSeguimiento({ order: o, events }: SectionSeguimientoProps) {
+  const isPickup     = o.delivery_method === 'recogida_proveedor';
+  const isCancelled  = o.estado === 'cancelled';
+
+  const steps: TimelineStep[] = [
+    { key: 'pending',   label: 'Recibido',     ts: o.created_at  },
+    { key: 'confirmed', label: 'Confirmado',   ts: o.confirmed_at },
+    { key: 'preparing', label: 'Preparando',   ts: o.preparing_at },
+    { key: 'shipped',   label: isPickup ? 'Listo para recoger' : 'Enviado', pickupLabel: 'Listo para recoger', ts: o.shipped_at },
+    { key: 'completed', label: isPickup ? 'Recogido' : 'Completado', ts: o.completed_at ?? o.delivered_at },
+  ];
+
+  const currentIdx = (() => {
+    const map: Record<string, number> = { pending: 0, confirmed: 1, preparing: 2, shipped: 3, delivered: 4, completed: 4 };
+    return isCancelled ? -1 : (map[o.estado] ?? 0);
+  })();
+
+  return (
+    <div className="rounded-xl border border-slate-200 dark:border-slate-800">
+      <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800">
+        <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+          Seguimiento
+        </p>
       </div>
-    );
-  }
 
-  return (
-    <div className="p-6">
-      <ol className="relative border-l border-slate-200 dark:border-slate-700 space-y-6 ml-3">
-        {events.map((ev) => (
-          <EventItem key={ev.id} event={ev} />
-        ))}
-      </ol>
+      {/* Timeline visual */}
+      <div className="px-4 py-4">
+        <div className="flex items-start gap-0">
+          {steps.map((step, idx) => {
+            const done    = !isCancelled && idx < currentIdx;
+            const current = !isCancelled && idx === currentIdx;
+            const future  = isCancelled || idx > currentIdx;
+            return (
+              <div key={step.key} className="flex-1 flex flex-col items-center min-w-0">
+                {/* Conector línea */}
+                <div className="w-full flex items-center">
+                  {idx > 0 && (
+                    <div className={`flex-1 h-0.5 ${done || current ? 'bg-teal-500' : 'bg-slate-200 dark:bg-slate-700'}`} />
+                  )}
+                  <div className={`shrink-0 flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold border-2 transition-colors ${
+                    done    ? 'bg-teal-500 border-teal-500 text-white'
+                    : current ? 'bg-white dark:bg-slate-900 border-teal-500 text-teal-600 dark:text-teal-400 ring-2 ring-teal-500/20'
+                    : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400'
+                  }`}>
+                    {done ? (
+                      <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    ) : <span>{idx + 1}</span>}
+                  </div>
+                  {idx < steps.length - 1 && (
+                    <div className={`flex-1 h-0.5 ${done ? 'bg-teal-500' : 'bg-slate-200 dark:bg-slate-700'}`} />
+                  )}
+                </div>
+                {/* Label + fecha */}
+                <div className="mt-1.5 text-center px-0.5 min-w-0">
+                  <p className={`text-[10px] font-medium leading-tight ${
+                    current ? 'text-teal-600 dark:text-teal-400'
+                    : done   ? 'text-slate-600 dark:text-slate-300'
+                    : 'text-slate-400'
+                  }`}>{step.label}</p>
+                  {step.ts && (done || current) && (
+                    <p className="text-[9px] text-slate-400 mt-0.5 leading-tight">{fmtShort(step.ts)}</p>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Cancelado */}
+        {isCancelled && (
+          <div className="mt-4 flex items-center gap-2 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/10 px-3 py-2">
+            <XIcon />
+            <span className="text-sm font-medium text-red-600 dark:text-red-400">
+              Pedido cancelado{o.cancelled_at ? ` · ${fmtShort(o.cancelled_at)}` : ''}
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Eventos de auditoría */}
+      {events.length > 0 && (
+        <details className="border-t border-slate-100 dark:border-slate-800">
+          <summary className="px-4 py-2.5 text-xs font-medium text-slate-400 uppercase tracking-wide cursor-pointer select-none hover:text-slate-600 dark:hover:text-slate-200">
+            Historial de eventos ({events.length})
+          </summary>
+          <ol className="relative border-l border-slate-200 dark:border-slate-700 space-y-4 ml-7 mr-4 pb-4 mt-2">
+            {events.map((ev) => <EventItem key={ev.id} event={ev} />)}
+          </ol>
+        </details>
+      )}
     </div>
   );
 }
 
-// ── Shared sub-components (all module-level) ──────────────────────────────────
+// ── Shared primitives ─────────────────────────────────────────────────────────
 
-interface InfoCellProps  { label: string; value: string | null | undefined; }
-function InfoCell({ label, value }: InfoCellProps) {
-  if (!value) return null;
-  return (
-    <div>
-      <p className="text-xs text-slate-400">{label}</p>
-      <p className="text-sm text-slate-700 dark:text-slate-300 font-medium">{value}</p>
-    </div>
-  );
-}
-
-interface InfoSectionProps { title: string; children: React.ReactNode; }
-function InfoSection({ title, children }: InfoSectionProps) {
+interface CardSectionProps { title: string; children: React.ReactNode; }
+function CardSection({ title, children }: CardSectionProps) {
   return (
     <div className="rounded-xl border border-slate-200 dark:border-slate-800 p-4 space-y-3">
       <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{title}</p>
@@ -774,20 +815,22 @@ function InfoSection({ title, children }: InfoSectionProps) {
   );
 }
 
-interface ActionBtnProps {
-  label:     string;
-  loading:   boolean;
-  className: string;
-  onClick:   () => void;
-  icon:      React.ReactNode;
+interface InfoCellProps { label: string; value: string | null | undefined; }
+function InfoCell({ label, value }: InfoCellProps) {
+  if (!value) return null;
+  return (
+    <div>
+      <p className="text-xs text-slate-400">{label}</p>
+      <p className="text-sm text-slate-700 dark:text-slate-300 font-medium break-words">{value}</p>
+    </div>
+  );
 }
+
+interface ActionBtnProps { label: string; loading: boolean; className: string; onClick: () => void; icon: React.ReactNode; }
 function ActionBtn({ label, loading, className, onClick, icon }: ActionBtnProps) {
   return (
-    <button
-      onClick={onClick}
-      disabled={loading}
-      className={`flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold disabled:opacity-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-teal-500 ${className}`}
-    >
+    <button onClick={onClick} disabled={loading}
+      className={`flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold disabled:opacity-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-teal-500 ${className}`}>
       {loading
         ? <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" aria-hidden="true" />
         : icon}
@@ -796,33 +839,19 @@ function ActionBtn({ label, loading, className, onClick, icon }: ActionBtnProps)
   );
 }
 
-interface InlineFormProps {
-  title:       string;
-  onSubmit:    () => void;
-  onCancel:    () => void;
-  submitLabel: string;
-  submitClass: string;
-  loading:     boolean;
-  children:    React.ReactNode;
-}
+interface InlineFormProps { title: string; onSubmit: () => void; onCancel: () => void; submitLabel: string; submitClass: string; loading: boolean; children: React.ReactNode; }
 function InlineForm({ title, onSubmit, onCancel, submitLabel, submitClass, loading, children }: InlineFormProps) {
   return (
     <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4 space-y-3 bg-slate-50 dark:bg-slate-800/50">
       <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{title}</p>
       {children}
       <div className="flex gap-2 pt-1">
-        <button
-          onClick={onSubmit}
-          disabled={loading}
-          className={`rounded-lg px-4 py-2 text-sm font-semibold text-white disabled:opacity-50 transition-colors ${submitClass}`}
-        >
+        <button onClick={onSubmit} disabled={loading}
+          className={`rounded-lg px-4 py-2 text-sm font-semibold text-white disabled:opacity-50 transition-colors ${submitClass}`}>
           {loading ? 'Procesando...' : submitLabel}
         </button>
-        <button
-          onClick={onCancel}
-          disabled={loading}
-          className="rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 transition-colors"
-        >
+        <button onClick={onCancel} disabled={loading}
+          className="rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 transition-colors">
           Cancelar
         </button>
       </div>
@@ -844,10 +873,10 @@ function FormField({ id, label, error, children }: FormFieldProps) {
 interface OrderItemRowProps { item: PortalOrderItem; }
 function OrderItemRow({ item }: OrderItemRowProps) {
   return (
-    <tr>
+    <tr className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
       <td className="px-4 py-2.5 text-xs text-slate-400 font-mono whitespace-nowrap">{item.referencia ?? '—'}</td>
-      <td className="px-4 py-2.5 text-sm text-slate-700 dark:text-slate-300 max-w-[200px]">
-        <p className="truncate" title={item.descripcion}>{item.descripcion}</p>
+      <td className="px-4 py-2.5 text-sm text-slate-700 dark:text-slate-300">
+        <p className="line-clamp-2" title={item.descripcion}>{item.descripcion}</p>
       </td>
       <td className="px-4 py-2.5 text-right text-sm tabular-nums text-slate-600 dark:text-slate-400 whitespace-nowrap">
         {item.cantidad} {item.unidad}
@@ -865,25 +894,19 @@ function OrderItemRow({ item }: OrderItemRowProps) {
 interface DocButtonProps { label: string; description: string; icon: React.ReactNode; onClick: () => void; }
 function DocButton({ label, description, icon, onClick }: DocButtonProps) {
   return (
-    <button
-      onClick={onClick}
-      className="w-full flex items-center gap-4 rounded-xl border border-slate-200 dark:border-slate-700 p-4 text-left hover:border-teal-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
-    >
-      <span className="shrink-0 rounded-lg border border-slate-200 dark:border-slate-700 p-2.5 text-slate-500 dark:text-slate-400">
-        {icon}
-      </span>
+    <button onClick={onClick}
+      className="w-full flex items-center gap-4 rounded-xl border border-slate-200 dark:border-slate-700 p-4 text-left hover:border-teal-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500">
+      <span className="shrink-0 rounded-lg border border-slate-200 dark:border-slate-700 p-2.5 text-slate-500 dark:text-slate-400">{icon}</span>
       <div>
         <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">{label}</p>
         <p className="text-xs text-slate-400 mt-0.5">{description}</p>
       </div>
-      <svg className="ml-auto h-4 w-4 shrink-0 text-slate-300" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-      </svg>
     </button>
   );
 }
 
 const EVENT_TIPO_LABELS: Record<string, string> = {
+  order_created:      'Pedido creado',
   state_changed:      'Cambio de estado',
   incident_reported:  'Incidencia registrada',
   note_added:         'Nota añadida',
@@ -891,35 +914,27 @@ const EVENT_TIPO_LABELS: Record<string, string> = {
 };
 
 const EVENT_TIPO_COLORS: Record<string, string> = {
+  order_created:      'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400',
   state_changed:      'bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300',
   incident_reported:  'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   note_added:         'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
-};
-
-const ESTADO_LABELS: Record<string, string> = {
-  pending:   'Pendiente',
-  confirmed: 'Confirmado',
-  preparing: 'Preparando',
-  shipped:   'Enviado',
-  delivered: 'Entregado',
-  completed: 'Completado',
-  cancelled: 'Cancelado',
 };
 
 interface EventItemProps { event: PortalOrderEvent; }
 function EventItem({ event }: EventItemProps) {
   const label = EVENT_TIPO_LABELS[event.tipo] ?? event.tipo;
   const color = EVENT_TIPO_COLORS[event.tipo] ?? 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400';
-
   return (
     <li className="ml-4 relative">
       <span className="absolute -left-[1.35rem] top-1 h-2.5 w-2.5 rounded-full border-2 border-white dark:border-slate-900 bg-teal-500" aria-hidden="true" />
       <div className="flex flex-col gap-0.5">
         <div className="flex items-center gap-2 flex-wrap">
           <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${color}`}>{label}</span>
-          <span className="text-xs text-slate-400">{fmtRelative(event.created_at)}</span>
+          <span className="text-xs text-slate-400">{fmtShort(event.created_at)}</span>
           {event.actor_type && (
-            <span className="text-xs text-slate-400">· {event.actor_type === 'supplier' ? 'Proveedor' : event.actor_type === 'system' ? 'Sistema' : 'Instalador'}</span>
+            <span className="text-xs text-slate-400">
+              · {event.actor_type === 'supplier' ? 'Proveedor' : event.actor_type === 'system' ? 'Sistema' : 'Instalador'}
+            </span>
           )}
         </div>
         {event.from_estado && event.to_estado && (
@@ -927,9 +942,7 @@ function EventItem({ event }: EventItemProps) {
             {ESTADO_LABELS[event.from_estado] ?? event.from_estado} → {ESTADO_LABELS[event.to_estado] ?? event.to_estado}
           </p>
         )}
-        {event.notas && (
-          <p className="text-sm text-slate-700 dark:text-slate-300 mt-0.5">{event.notas}</p>
-        )}
+        {event.notas && <p className="text-sm text-slate-700 dark:text-slate-300 mt-0.5">{event.notas}</p>}
       </div>
     </li>
   );
@@ -939,21 +952,22 @@ function EventItem({ event }: EventItemProps) {
 
 function DetailSkeleton() {
   return (
-    <div className="p-6 space-y-4 animate-pulse" aria-busy="true" aria-label="Cargando detalle">
-      <div className="h-20 rounded-xl bg-slate-200 dark:bg-slate-800" />
-      <div className="grid grid-cols-2 gap-3">
-        {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="h-10 rounded-lg bg-slate-200 dark:bg-slate-800" />
-        ))}
+    <div className="p-5 space-y-4 animate-pulse" aria-busy="true" aria-label="Cargando detalle">
+      <div className="grid grid-cols-2 gap-4">
+        <div className="h-32 rounded-xl bg-slate-200 dark:bg-slate-800" />
+        <div className="h-32 rounded-xl bg-slate-200 dark:bg-slate-800" />
       </div>
-      <div className="h-32 rounded-xl bg-slate-200 dark:bg-slate-800" />
+      <div className="h-40 rounded-xl bg-slate-200 dark:bg-slate-800" />
+      <div className="grid grid-cols-2 gap-4">
+        <div className="h-28 rounded-xl bg-slate-200 dark:bg-slate-800" />
+        <div className="h-28 rounded-xl bg-slate-200 dark:bg-slate-800" />
+      </div>
+      <div className="h-24 rounded-xl bg-slate-200 dark:bg-slate-800" />
     </div>
   );
 }
 
-// ── Icon components ───────────────────────────────────────────────────────────
-
-const inputCls = 'w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500';
+// ── Icons ─────────────────────────────────────────────────────────────────────
 
 function CheckIcon() {
   return <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>;

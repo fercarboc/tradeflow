@@ -189,6 +189,14 @@ export interface PortalPickupLocationSnapshot {
   telefono:         string | null;
 }
 
+export interface PortalBuyerSnapshot {
+  nombre:   string | null;
+  empresa:  string | null;
+  nif:      string | null;
+  email:    string | null;
+  telefono: string | null;
+}
+
 export interface PortalOrderDetailOrder {
   id:                       string;
   numero:                   string;
@@ -208,9 +216,13 @@ export interface PortalOrderDetailOrder {
   delivery_method:          string | null;
   payment_method:           string | null;
   delivery_notas:           string | null;
-  direccion_entrega:        Record<string, unknown> | null;
+  direccion_entrega:        Record<string, string> | null;
   pickup_location_id:       string | null;
   pickup_location_snapshot: PortalPickupLocationSnapshot | null;
+  buyer_snapshot:           PortalBuyerSnapshot | null;
+  source_ref:               string | null;
+  source_type:              string | null;
+  quote_descripcion:        string | null;
   cancel_reason:            string | null;
   created_at:               string;
   confirmed_at:             string | null;
