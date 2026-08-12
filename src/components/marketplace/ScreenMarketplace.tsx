@@ -11,7 +11,7 @@ import {
 import type { MarketplaceCatalogItem, CatalogPage, OfferingDetail } from '../../lib/api/marketplace-catalog';
 import type { LocalCartItem } from '../../lib/marketplace/cart-storage';
 import type { CartItem } from '../../lib/api/marketplace-checkout';
-import { getCartDetail } from '../../lib/api/marketplace-checkout';
+import { getCartDetail, updateCartItem } from '../../lib/api/marketplace-checkout';
 import { useMarketplaceLocation, PRESET_LOCATIONS } from '../../hooks/useMarketplaceLocation';
 import type { MarketplaceLocation } from '../../hooks/useMarketplaceLocation';
 import {
@@ -249,6 +249,78 @@ function UnresolvedLinesPanel({ items, onSearch }: {
   );
 }
 
+// ─── Sync carrito local → server cart (pre-checkout) ─────────────────────────
+// Garantiza INV-1: cart UI lines == persisted cart lines antes de navegar al wizard.
+// Opera en tres pasos: añadir ítems nuevos, actualizar cantidades, desactivar eliminados.
+
+async function syncCartBeforeCheckout(
+  cartId:     string,
+  localItems: LocalCartItem[],
+): Promise<void> {
+  const serverDetail = await getCartDetail(cartId);
+  const serverItems  = serverDetail.items.filter(i => i.activo);
+
+  const serverById        = new Map(serverItems.map(i => [i.id, i]));
+  const serverOfferingIds = new Set<string>(
+    serverItems.flatMap(i => (i.selected_offering_id ? [i.selected_offering_id] : [])),
+  );
+  // IDs de items locales que ya existen en el server (por cartItemId = server item id)
+  const localServerIds = new Set<string>(
+    localItems.filter(i => serverById.has(i.cartItemId)).map(i => i.cartItemId),
+  );
+
+  console.log('[C6.5:CART_VISIBLE]', {
+    cartId,
+    localCount:  localItems.length,
+    localActors: [...new Set(localItems.map(i => i.supplierActorId))],
+    items:       localItems.map(i => ({ cid: i.cartItemId, off: i.offeringId, actor: i.supplierActorId, qty: i.cantidad })),
+  });
+  console.log('[C6.5:CART_PERSISTED]', {
+    cartId,
+    serverCount:  serverItems.length,
+    serverActors: [...new Set(serverItems.map(i => i.selected_actor_id).filter(Boolean))],
+    items:        serverItems.map(i => ({ id: i.id, off: i.selected_offering_id, actor: i.selected_actor_id, qty: i.cantidad })),
+  });
+
+  // 1. Nuevos ítems en local que no están en el server (ni por ID ni por offeringId)
+  const toAdd: FreeCartItemInput[] = localItems
+    .filter(i =>
+      !serverById.has(i.cartItemId) &&
+      i.offeringId && i.supplierActorId &&
+      !serverOfferingIds.has(i.offeringId),
+    )
+    .map(i => ({
+      descripcion:          i.nombre,
+      cantidad:             i.cantidad,
+      unidad:               i.unidadComercial || i.unidadTecnica || 'ud',
+      universal_product_id: i.universalProductId || null,
+      offering_id:          i.offeringId,
+      actor_id:             i.supplierActorId,
+      precio_unitario:      i.precioUnitario,
+    }));
+  if (toAdd.length > 0) {
+    console.log('[C6.5:CART_VISIBLE] new items to add to server', toAdd.map(i => i.offering_id));
+    await addFreeCartItems(cartId, toAdd);
+  }
+
+  // 2. Cambios de cantidad en ítems que ya están en el server
+  await Promise.all(
+    localItems
+      .filter(i => {
+        const s = serverById.get(i.cartItemId);
+        return s && s.cantidad !== i.cantidad;
+      })
+      .map(i => updateCartItem({ itemId: i.cartItemId, cantidad: i.cantidad })),
+  );
+
+  // 3. Desactivar ítems del server que el usuario eliminó del carrito local
+  await Promise.all(
+    serverItems
+      .filter(s => !localServerIds.has(s.id))
+      .map(s => updateCartItem({ itemId: s.id, activo: false })),
+  );
+}
+
 // ─── Pantalla principal ────────────────────────────────────────────────────────
 
 interface Props {
@@ -292,27 +364,45 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
     getCartDetail(cartId).then(detail => {
       const resolved: LocalCartItem[] = detail.items
         .filter(item => item.activo && item.selected_offering_id)
-        .map(item => ({
-          cartItemId:         item.id,
-          universalProductId: item.universal_product_id ?? '',
-          offeringId:         item.selected_offering_id!,
-          supplierActorId:    item.selected_actor_id ?? '',
-          supplierName:       item.selected_actor_nombre ?? '',
-          supplierRef:        null,
-          nombre:             item.up_nombre_canonico ?? item.descripcion_original,
-          imagen:             item.image_url,
-          cantidad:           item.cantidad,
-          unidadTecnica:      item.unidad,
-          unidadComercial:    item.unidad,
-          precioUnitario:     item.precio_unitario_final ?? 0,
-          stockDisponible:    true,
-          plazoEntregaDias:   0,
-          sourceType:         'quote' as const,
-          quoteItemId:        item.source_item_id,
-          lineaOrigen:        'quote' as const,
-        }));
+        .map(item => {
+          console.log('[C6.5:QUOTE_INPUT]', {
+            cartItemId:   item.id,
+            offering_id:  item.selected_offering_id,
+            actor_id:     item.selected_actor_id,
+            qty:          item.cantidad,
+            status:       'resolved',
+          });
+          return {
+            cartItemId:         item.id,
+            universalProductId: item.universal_product_id ?? '',
+            offeringId:         item.selected_offering_id!,
+            supplierActorId:    item.selected_actor_id ?? '',
+            supplierName:       item.selected_actor_nombre ?? '',
+            supplierRef:        null,
+            nombre:             item.up_nombre_canonico ?? item.descripcion_original,
+            imagen:             item.image_url,
+            cantidad:           item.cantidad,
+            unidadTecnica:      item.unidad,
+            unidadComercial:    item.unidad,
+            precioUnitario:     item.precio_unitario_final ?? 0,
+            stockDisponible:    true,
+            plazoEntregaDias:   0,
+            sourceType:         'quote' as const,
+            quoteItemId:        item.source_item_id,
+            lineaOrigen:        'quote' as const,
+          };
+        });
 
       const unresolved = detail.items.filter(item => item.activo && !item.selected_offering_id);
+      unresolved.forEach(item => {
+        console.log('[C6.5:QUOTE_INPUT]', {
+          cartItemId: item.id,
+          offering_id: null,
+          status: 'unresolved',
+          reason: 'no_offering_selected',
+          descripcion: item.descripcion_original,
+        });
+      });
       console.log('[RC1-C1D] ScreenMarketplace: hidratación completada', { resolved: resolved.length, unresolved: unresolved.length });
 
       setIsHydrating(false);
@@ -554,28 +644,35 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
   }, [slideOverItem, cartItems]);
 
   // ── Checkout handler ───────────────────────────────────────────────────────
+  // INV-1: antes de navegar al wizard, el server cart debe reflejar exactamente
+  // lo que muestra el carrito UI. syncCartBeforeCheckout garantiza esto siempre.
   const handleCheckout = mode === 'public'
     ? () => {
         sessionStorage.setItem('mk_return', '1');
         setCurrentPage(ActivePage.Login);
       }
     : async () => {
-        // Si ya hay contexto de compra activo (carrito de presupuesto), navegar directo
-        const existingCtx = loadPurchaseContext();
-        if (existingCtx?.cartId) {
-          setCurrentPage(ActivePage.MarketplaceComprar);
-          return;
-        }
-
-        // Carrito libre: crear cart en servidor con los ítems locales
-        const freeItems = state.items.filter(i => i.offeringId && i.supplierActorId);
-        if (freeItems.length === 0 || !org?.id) {
-          setCurrentPage(ActivePage.MarketplaceComprar);
-          return;
-        }
-
+        if (checkingOut) return;
         setCheckingOut(true);
         try {
+          const existingCtx = loadPurchaseContext();
+
+          if (existingCtx?.cartId) {
+            // Carrito existente (presupuesto o libre previo):
+            // sincronizar carrito local → server cart antes de navegar.
+            // BUG B fix: antes navegaba sin sincronizar → ítems manuales (actor C) se perdían.
+            await syncCartBeforeCheckout(existingCtx.cartId, state.items);
+            setCurrentPage(ActivePage.MarketplaceComprar);
+            return;
+          }
+
+          // Nuevo carrito libre: crear server cart desde los ítems locales
+          const freeItems = state.items.filter(i => i.offeringId && i.supplierActorId);
+          if (freeItems.length === 0 || !org?.id) {
+            setCurrentPage(ActivePage.MarketplaceComprar);
+            return;
+          }
+
           const cartId = await createFreeCart(org.id);
           const payload: FreeCartItemInput[] = freeItems.map(i => ({
             descripcion:          i.nombre,

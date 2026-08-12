@@ -19,7 +19,7 @@ export interface MarketplacePurchaseSession {
   checkout_step:    CheckoutStep;
   delivery_options: Record<string, DeliveryOptionPerProvider> | null;
   buyer_data:       BuyerSnapshot | null;
-  actor_ids:        string[];  // actores con ítems asignados — persiste para reconstruir providerSummary
+  actor_ids:        string[];  // informativo: snapshot del momento — NO usar para reconstruir providerSummary (usar getCartProviderSummary)
   created_at:       string;
   updated_at:       string;
   expires_at:       string;

@@ -294,6 +294,22 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
     const sessionId   = purchaseSession.current?.session_id   ?? 'no-session';
     const t0          = Date.now();
 
+    // INV-2: proveedores del checkout = unique(cart_items.actor_id), nunca actors del presupuesto original
+    console.log('[C6.5:CHECKOUT_ACTORS]', {
+      session_id:     sessionId,
+      checkout_key:   checkoutKey,
+      cart_id:        cartId,
+      quote_id:       context?.quoteId ?? null,
+      actors:         providerSummary.map(s => ({ actor_id: s.actor_id, actor: s.actor_nombre, items: s.items_count })),
+      actor_count:    providerSummary.length,
+    });
+    console.log('[C6.5:CHECKOUT_LINES]', {
+      cart_id:   cartId,
+      item_count: cart?.items.filter(i => i.activo && i.selected_offering_id).length ?? null,
+      items:     cart?.items
+        .filter(i => i.activo && i.selected_offering_id)
+        .map(i => ({ id: i.id, offering: i.selected_offering_id, actor: i.selected_actor_id, qty: i.cantidad })) ?? [],
+    });
     console.log('[CHECKOUT:C6.1] RPC_STARTED', {
       session_id:     sessionId,
       checkout_key:   checkoutKey,
@@ -327,14 +343,24 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
       });
 
       const rows = await getOrdersByIds(ids);
+
+      // INV-3: número de pedidos == actores únicos con al menos una línea procesable
+      console.log('[C6.5:ORDER_RESULT]', {
+        checkout_key:    checkoutKey,
+        expected_orders: providerSummary.length,
+        actual_orders:   ids.length,
+        order_ids:       ids,
+        orders:          rows.map(r => ({ numero: r.numero, actor: r.actor_nombre, total: r.total })),
+      });
+
       setOrders(rows);
       setStep('exito');
       clearPurchaseContext();
       clearPurchaseSession(purchaseSession.current?.quote_id);
-      // Para carritos libres (sin presupuesto), limpiar el carrito local
-      if (!purchaseSession.current?.quote_id) {
-        cartActions.clearCart('ordered');
-      }
+      // INV-5: siempre limpiar carrito local después de compra completada.
+      // BUG F fix: antes solo se limpiaba para carritos libres; para presupuesto
+      // el carrito local persistía y reaparecía al volver al Marketplace.
+      cartActions.clearCart('ordered');
     } catch (e) {
       const duration_ms = Date.now() - t0;
       const errorMsg    = e instanceof Error ? e.message : 'Error al confirmar el pedido';
@@ -366,7 +392,7 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
             setStep('exito');
             clearPurchaseContext();
             clearPurchaseSession(purchaseSession.current?.quote_id);
-            if (!purchaseSession.current?.quote_id) cartActions.clearCart('ordered');
+            cartActions.clearCart('ordered'); // siempre limpiar
             return;
           }
           // Sin pedidos — retry seguro: la misma checkout_key garantiza idempotencia
