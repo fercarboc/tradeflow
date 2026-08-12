@@ -48,6 +48,8 @@ const isUrgentPending = (o: PortalOrder) =>
 // ── Main component ────────────────────────────────────────────────────────────
 
 export default function PortalPedidos({ actorId, membership }: Props) {
+  const { refreshUnread, pedidosLocationFilter, setPedidosLocationFilter } = usePortal();
+
   const [page,       setPage]       = useState<PortalOrderPage>({ items: [], totalCount: 0 });
   const [loading,    setLoading]    = useState(true);
   const [estadoFlt,  setEstadoFlt]  = useState('');
@@ -65,8 +67,6 @@ export default function PortalPedidos({ actorId, membership }: Props) {
   const canManage  = membership.permissions.includes('orders:manage');
   const canFulfill = membership.permissions.includes('orders:fulfillment');
   const totalPages = Math.ceil(page.totalCount / LIMIT);
-
-  const { refreshUnread, pedidosLocationFilter, setPedidosLocationFilter } = usePortal();
 
   // Consumir filtro de tienda proveniente del contexto (CTA desde PortalTiendas)
   // eslint-disable-next-line react-hooks/exhaustive-deps
