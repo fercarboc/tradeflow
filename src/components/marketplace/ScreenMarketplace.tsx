@@ -257,68 +257,83 @@ async function syncCartBeforeCheckout(
   cartId:     string,
   localItems: LocalCartItem[],
 ): Promise<void> {
-  const serverDetail = await getCartDetail(cartId);
-  const serverItems  = serverDetail.items.filter(i => i.activo);
+  console.log('[C6.6:SYNC_BEGIN]', { cartId, localCount: localItems.length });
+  try {
+    const serverDetail = await getCartDetail(cartId);
+    const serverItems  = serverDetail.items.filter(i => i.activo);
 
-  const serverById        = new Map(serverItems.map(i => [i.id, i]));
-  const serverOfferingIds = new Set<string>(
-    serverItems.flatMap(i => (i.selected_offering_id ? [i.selected_offering_id] : [])),
-  );
-  // IDs de items locales que ya existen en el server (por cartItemId = server item id)
-  const localServerIds = new Set<string>(
-    localItems.filter(i => serverById.has(i.cartItemId)).map(i => i.cartItemId),
-  );
+    const serverById        = new Map(serverItems.map(i => [i.id, i]));
+    const serverOfferingIds = new Set<string>(
+      serverItems.flatMap(i => (i.selected_offering_id ? [i.selected_offering_id] : [])),
+    );
+    const localServerIds = new Set<string>(
+      localItems.filter(i => serverById.has(i.cartItemId)).map(i => i.cartItemId),
+    );
 
-  console.log('[C6.5:CART_VISIBLE]', {
-    cartId,
-    localCount:  localItems.length,
-    localActors: [...new Set(localItems.map(i => i.supplierActorId))],
-    items:       localItems.map(i => ({ cid: i.cartItemId, off: i.offeringId, actor: i.supplierActorId, qty: i.cantidad })),
-  });
-  console.log('[C6.5:CART_PERSISTED]', {
-    cartId,
-    serverCount:  serverItems.length,
-    serverActors: [...new Set(serverItems.map(i => i.selected_actor_id).filter(Boolean))],
-    items:        serverItems.map(i => ({ id: i.id, off: i.selected_offering_id, actor: i.selected_actor_id, qty: i.cantidad })),
-  });
+    console.log('[C6.6:QUOTE_LINES]', {
+      cartId,
+      localCount:  localItems.length,
+      localActors: [...new Set(localItems.map(i => i.supplierActorId))],
+      items:       localItems.map(i => ({ cid: i.cartItemId, off: i.offeringId, actor: i.supplierActorId, qty: i.cantidad })),
+    });
+    console.log('[C6.6:QUOTE_SELECTIONS]', {
+      cartId,
+      serverCount:  serverItems.length,
+      resolved:     serverItems.filter(i => i.selected_offering_id).length,
+      unresolved:   serverItems.filter(i => !i.selected_offering_id).length,
+      serverActors: [...new Set(serverItems.map(i => i.selected_actor_id).filter(Boolean))],
+      items:        serverItems.map(i => ({ id: i.id, off: i.selected_offering_id, actor: i.selected_actor_id, qty: i.cantidad })),
+    });
 
-  // 1. Nuevos ítems en local que no están en el server (ni por ID ni por offeringId)
-  const toAdd: FreeCartItemInput[] = localItems
-    .filter(i =>
-      !serverById.has(i.cartItemId) &&
-      i.offeringId && i.supplierActorId &&
-      !serverOfferingIds.has(i.offeringId),
-    )
-    .map(i => ({
-      descripcion:          i.nombre,
-      cantidad:             i.cantidad,
-      unidad:               i.unidadComercial || i.unidadTecnica || 'ud',
-      universal_product_id: i.universalProductId || null,
-      offering_id:          i.offeringId,
-      actor_id:             i.supplierActorId,
-      precio_unitario:      i.precioUnitario,
-    }));
-  if (toAdd.length > 0) {
-    console.log('[C6.5:CART_VISIBLE] new items to add to server', toAdd.map(i => i.offering_id));
-    await addFreeCartItems(cartId, toAdd);
+    // 1. Nuevos ítems en local que no están en el server (ni por ID ni por offeringId)
+    const toAdd: FreeCartItemInput[] = localItems
+      .filter(i =>
+        !serverById.has(i.cartItemId) &&
+        i.offeringId && i.supplierActorId &&
+        !serverOfferingIds.has(i.offeringId),
+      )
+      .map(i => ({
+        descripcion:          i.nombre,
+        cantidad:             i.cantidad,
+        unidad:               i.unidadComercial || i.unidadTecnica || 'ud',
+        universal_product_id: i.universalProductId || null,
+        offering_id:          i.offeringId,
+        actor_id:             i.supplierActorId,
+        precio_unitario:      i.precioUnitario,
+      }));
+    if (toAdd.length > 0) {
+      console.log('[C6.6:SYNC_ADD]', { cartId, count: toAdd.length, offerings: toAdd.map(i => i.offering_id) });
+      await addFreeCartItems(cartId, toAdd);
+    }
+
+    // 2. Cambios de cantidad en ítems que ya están en el server
+    const toUpdate = localItems.filter(i => {
+      const s = serverById.get(i.cartItemId);
+      return s && s.cantidad !== i.cantidad;
+    });
+    if (toUpdate.length > 0) {
+      console.log('[C6.6:SYNC_UPDATE]', { cartId, count: toUpdate.length });
+    }
+    await Promise.all(toUpdate.map(i => updateCartItem({ itemId: i.cartItemId, cantidad: i.cantidad })));
+
+    // 3. Desactivar ítems del server que el usuario eliminó del carrito local.
+    // EXCLUIR items no-resueltos (selected_offering_id = null): no se añaden al carrito
+    // local durante la hidratación, por lo que aparecerían falsamente como "eliminados".
+    const toDeactivate = serverItems.filter(
+      s => !localServerIds.has(s.id) && s.selected_offering_id != null,
+    );
+    if (toDeactivate.length > 0) {
+      console.log('[C6.6:SYNC_DEACTIVATE]', { cartId, count: toDeactivate.length, ids: toDeactivate.map(s => s.id) });
+    }
+    await Promise.all(toDeactivate.map(s => updateCartItem({ itemId: s.id, activo: false })));
+  } catch (err) {
+    console.error('[C6.6:SYNC_ERROR]', {
+      cartId,
+      localCount: localItems.length,
+      error: err instanceof Error ? { message: err.message, stack: err.stack } : err,
+    });
+    throw err;
   }
-
-  // 2. Cambios de cantidad en ítems que ya están en el server
-  await Promise.all(
-    localItems
-      .filter(i => {
-        const s = serverById.get(i.cartItemId);
-        return s && s.cantidad !== i.cantidad;
-      })
-      .map(i => updateCartItem({ itemId: i.cartItemId, cantidad: i.cantidad })),
-  );
-
-  // 3. Desactivar ítems del server que el usuario eliminó del carrito local
-  await Promise.all(
-    serverItems
-      .filter(s => !localServerIds.has(s.id))
-      .map(s => updateCartItem({ itemId: s.id, activo: false })),
-  );
 }
 
 // ─── Pantalla principal ────────────────────────────────────────────────────────
@@ -661,6 +676,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
             // Carrito existente (presupuesto o libre previo):
             // sincronizar carrito local → server cart antes de navegar.
             // BUG B fix: antes navegaba sin sincronizar → ítems manuales (actor C) se perdían.
+            console.log('[C6.6:CART_FROM_QUOTE]', { cartId: existingCtx.cartId, source: existingCtx.source, localItems: state.items.length });
             await syncCartBeforeCheckout(existingCtx.cartId, state.items);
             setCurrentPage(ActivePage.MarketplaceComprar);
             return;
