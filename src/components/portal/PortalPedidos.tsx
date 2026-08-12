@@ -1,8 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { MarketplaceMyMembership } from '../../lib/api/marketplace-actors';
 import {
   PortalOrder, PortalOrderPage, SupplierOrderAlerts,
+  SimpleSupplierLocation,
   getSupplierOrdersUnified, getSupplierOrderAlerts,
+  getSupplierLocations,
   bulkConfirmSupplierOrders, bulkShipSupplierOrders,
   getSupplierNotifications, markNotificationsRead,
 } from '../../lib/api/marketplace-portal';
@@ -57,12 +59,23 @@ export default function PortalPedidos({ actorId, membership }: Props) {
   const [slideOrder, setSlideOrder] = useState<PortalOrder | null>(null);
   const [alerts,     setAlerts]     = useState<SupplierOrderAlerts | null>(null);
   const [bulkBusy,   setBulkBusy]   = useState(false);
+  const [locationFlt, setLocationFlt] = useState<string | null>(() => pedidosLocationFilter || null);
+  const [locations,   setLocations]   = useState<SimpleSupplierLocation[]>([]);
 
   const canManage  = membership.permissions.includes('orders:manage');
   const canFulfill = membership.permissions.includes('orders:fulfillment');
   const totalPages = Math.ceil(page.totalCount / LIMIT);
 
-  const { refreshUnread } = usePortal();
+  const { refreshUnread, pedidosLocationFilter, setPedidosLocationFilter } = usePortal();
+
+  // Consumir filtro de tienda proveniente del contexto (CTA desde PortalTiendas)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { if (pedidosLocationFilter) setPedidosLocationFilter(null); }, []);
+
+  // Cargar tiendas disponibles para el dropdown de filtro
+  useEffect(() => {
+    getSupplierLocations(actorId).then(setLocations).catch(() => {});
+  }, [actorId]);
 
   // Marcar notificaciones leídas al entrar
   useEffect(() => {
@@ -81,15 +94,16 @@ export default function PortalPedidos({ actorId, membership }: Props) {
       .catch(() => {});
   }, [actorId]);
 
-  const load = useCallback(async (estado: string, p: number) => {
+  const load = useCallback(async (estado: string, p: number, locId: string | null) => {
     setLoading(true);
     setError(null);
     setSelected(new Set());
     try {
       const result = await getSupplierOrdersUnified(actorId, {
-        estado: estado || undefined,
-        limit:  LIMIT,
-        offset: p * LIMIT,
+        estado:     estado || undefined,
+        limit:      LIMIT,
+        offset:     p * LIMIT,
+        locationId: locId ?? undefined,
       });
       setPage(result);
     } catch (e) {
@@ -99,7 +113,7 @@ export default function PortalPedidos({ actorId, membership }: Props) {
     }
   }, [actorId]);
 
-  useEffect(() => { load(estadoFlt, pageIdx); }, [load, estadoFlt, pageIdx]);
+  useEffect(() => { load(estadoFlt, pageIdx, locationFlt); }, [load, estadoFlt, pageIdx, locationFlt]);
 
   const filteredItems = useMemo(() => {
     let items = [...page.items];
@@ -146,7 +160,7 @@ export default function PortalPedidos({ actorId, membership }: Props) {
     try {
       const pendingIds = selectedItems.filter((o) => o.estado === 'pending').map((o) => o.id);
       await bulkConfirmSupplierOrders(actorId, pendingIds);
-      await load(estadoFlt, pageIdx);
+      await load(estadoFlt, pageIdx, locationFlt);
       getSupplierOrderAlerts(actorId).then(setAlerts).catch(() => {});
     } catch (e) { setError(e instanceof Error ? e.message : 'Error en confirmación masiva'); }
     finally { setBulkBusy(false); }
@@ -160,7 +174,7 @@ export default function PortalPedidos({ actorId, membership }: Props) {
         .filter((o) => ['confirmed','preparing'].includes(o.estado))
         .map((o) => o.id);
       await bulkShipSupplierOrders(actorId, shipIds);
-      await load(estadoFlt, pageIdx);
+      await load(estadoFlt, pageIdx, locationFlt);
     } catch (e) { setError(e instanceof Error ? e.message : 'Error en envío masivo'); }
     finally { setBulkBusy(false); }
   };
@@ -180,7 +194,7 @@ export default function PortalPedidos({ actorId, membership }: Props) {
   };
 
   const handleSlideUpdated = () => {
-    load(estadoFlt, pageIdx);
+    load(estadoFlt, pageIdx, locationFlt);
     getSupplierOrderAlerts(actorId).then(setAlerts).catch(() => {});
   };
 
@@ -210,6 +224,32 @@ export default function PortalPedidos({ actorId, membership }: Props) {
               className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-9 pr-3 py-1.5 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
+          {/* Filtro por tienda */}
+          {locations.length > 0 && (
+            <div className="flex items-center gap-1.5 shrink-0">
+              <select
+                value={locationFlt ?? ''}
+                onChange={(e) => { setLocationFlt(e.target.value || null); setPageIdx(0); }}
+                aria-label="Filtrar por tienda"
+                className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1.5 text-xs text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 max-w-[180px]"
+              >
+                <option value="">Todas las tiendas</option>
+                {locations.map((loc) => (
+                  <option key={loc.id} value={loc.id}>{loc.nombre}</option>
+                ))}
+              </select>
+              {locationFlt && (
+                <button
+                  onClick={() => { setLocationFlt(null); setPageIdx(0); }}
+                  className="flex items-center gap-1 rounded-full bg-teal-100 dark:bg-teal-900/30 px-2 py-1 text-[10px] font-semibold text-teal-700 dark:text-teal-300 hover:bg-teal-200 dark:hover:bg-teal-900/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
+                  aria-label="Quitar filtro de tienda"
+                >
+                  <svg className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                  Tienda
+                </button>
+              )}
+            </div>
+          )}
           {/* Orden */}
           <button
             onClick={() => setSortNew((v) => !v)}
@@ -454,10 +494,19 @@ function OrderRow({ order, selected, onToggle, onOpen, canManage, canFulfill }: 
       </td>
       {/* Número */}
       <td className="px-4 py-3">
-        <span className="font-mono text-sm font-semibold text-slate-800 dark:text-slate-200">{order.numero}</span>
-        {order.source === 'marketplace' && (
-          <span className="ml-1.5 rounded-full bg-teal-100 dark:bg-teal-900/30 px-1.5 py-0.5 text-[10px] font-medium text-teal-700 dark:text-teal-300 align-middle">MKT</span>
-        )}
+        <div className="flex flex-col gap-0.5">
+          <div>
+            <span className="font-mono text-sm font-semibold text-slate-800 dark:text-slate-200">{order.numero}</span>
+            {order.source === 'marketplace' && (
+              <span className="ml-1.5 rounded-full bg-teal-100 dark:bg-teal-900/30 px-1.5 py-0.5 text-[10px] font-medium text-teal-700 dark:text-teal-300 align-middle">MKT</span>
+            )}
+          </div>
+          {order.tienda_nombre && (
+            <span className="text-[10px] text-slate-400 dark:text-slate-500 truncate max-w-[160px]" title={order.tienda_nombre}>
+              {order.tienda_nombre}
+            </span>
+          )}
+        </div>
       </td>
       {/* Instalador */}
       <td className="px-4 py-3">

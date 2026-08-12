@@ -20,17 +20,19 @@ function readStoredActor(): string | null {
 }
 
 interface PortalState {
-  memberships:       MarketplaceMyMembership[];
-  activeActorId:     string | null;
-  activeMembership:  MarketplaceMyMembership | null;
-  activeTab:         PortalTab;
-  unreadCount:       number;
-  loading:           boolean;
-  error:             string | null;
-  setActiveActorId:  (id: string) => void;
-  setActiveTab:      (tab: PortalTab) => void;
-  reloadMemberships: () => Promise<void>;
-  refreshUnread:     () => Promise<void>;
+  memberships:              MarketplaceMyMembership[];
+  activeActorId:            string | null;
+  activeMembership:         MarketplaceMyMembership | null;
+  activeTab:                PortalTab;
+  unreadCount:              number;
+  loading:                  boolean;
+  error:                    string | null;
+  pedidosLocationFilter:    string | null;
+  setActiveActorId:         (id: string) => void;
+  setActiveTab:             (tab: PortalTab) => void;
+  reloadMemberships:        () => Promise<void>;
+  refreshUnread:            () => Promise<void>;
+  setPedidosLocationFilter: (id: string | null) => void;
 }
 
 const PortalContext = createContext<PortalState | null>(null);
@@ -52,6 +54,7 @@ export function PortalProvider({ children }: Props) {
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [pedidosLocationFilter, setPedidosLocationFilter] = useState<string | null>(null);
 
   const setActiveTab = useCallback((tab: PortalTab) => {
     setActiveTabState(tab);
@@ -120,10 +123,12 @@ export function PortalProvider({ children }: Props) {
       unreadCount,
       loading,
       error,
+      pedidosLocationFilter,
       setActiveActorId,
       setActiveTab,
       reloadMemberships,
       refreshUnread,
+      setPedidosLocationFilter,
     }}>
       {children}
     </PortalContext.Provider>

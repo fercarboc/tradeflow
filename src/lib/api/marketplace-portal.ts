@@ -135,21 +135,24 @@ export interface MatchCandidate {
 // ── Pedidos ───────────────────────────────────────────────────────────────────
 
 export interface PortalOrder {
-  id:             string;
-  source:         'legacy' | 'marketplace';
-  numero:         string;
-  org_nombre:     string;
-  org_id:         string;
-  estado:         PortalOrderEstado;
-  original_estado: string;
-  total:          number;
-  items_count:    number;
-  notas:          string | null;
-  created_at:     string;
-  confirmed_at:   string | null;
-  shipped_at:     string | null;
-  completed_at:   string | null;
-  total_count:    number;
+  id:                string;
+  source:            'legacy' | 'marketplace';
+  numero:            string;
+  org_nombre:        string;
+  org_id:            string;
+  estado:            PortalOrderEstado;
+  original_estado:   string;
+  total:             number;
+  items_count:       number;
+  notas:             string | null;
+  created_at:        string;
+  confirmed_at:      string | null;
+  shipped_at:        string | null;
+  completed_at:      string | null;
+  total_count:       number;
+  delivery_method:   string | null;
+  pickup_location_id: string | null;
+  tienda_nombre:     string | null;
 }
 
 export interface PortalOrderPage {
@@ -528,16 +531,18 @@ export async function getOfferingMatchCandidates(
 export async function getSupplierOrdersUnified(
   actorId: string,
   opts?: {
-    estado?:  string;
-    limit?:   number;
-    offset?:  number;
+    estado?:     string;
+    limit?:      number;
+    offset?:     number;
+    locationId?: string;
   },
 ): Promise<PortalOrderPage> {
   const { data, error } = await db.rpc('get_supplier_orders_unified', {
-    p_actor_id: actorId,
-    p_estado:   opts?.estado ?? null,
-    p_limit:    opts?.limit  ?? 20,
-    p_offset:   opts?.offset ?? 0,
+    p_actor_id:    actorId,
+    p_estado:      opts?.estado     ?? null,
+    p_limit:       opts?.limit      ?? 20,
+    p_offset:      opts?.offset     ?? 0,
+    p_location_id: opts?.locationId ?? null,
   });
   if (error) throw error;
   const rows = (data ?? []) as PortalOrder[];
@@ -1441,4 +1446,63 @@ export async function getApiSyncLog(actorId: string, limit = 50): Promise<ApiSyn
   });
   if (error) throw error;
   return (data ?? []) as ApiSyncLogEntry[];
+}
+
+// ── RC1-C.7 — Tiendas y stats por location ───────────────────────────────────
+
+export interface SimpleSupplierLocation {
+  id:        string;
+  nombre:    string;
+  tipo:      string;
+  localidad: string;
+}
+
+export async function getSupplierLocations(actorId: string): Promise<SimpleSupplierLocation[]> {
+  const { data, error } = await (supabase as any)
+    .from('trade_marketplace_supplier_locations')
+    .select('id, nombre, tipo, localidad')
+    .eq('actor_id', actorId)
+    .eq('activa', true)
+    .order('orden', { ascending: true })
+    .order('nombre', { ascending: true });
+  if (error) throw error;
+  return (data ?? []) as SimpleSupplierLocation[];
+}
+
+// ── RC1-C.7.B — Métricas por tienda ──────────────────────────────────────────
+
+export interface LocationStats {
+  location_id:              string;
+  location_nombre:          string;
+  location_tipo:            string;
+  location_localidad:       string;
+  num_pedidos:              number;
+  volumen_pedidos:          number;
+  ventas_completadas:       number;
+  ticket_medio:             number | null;
+  pedidos_pendientes:       number;
+  pedidos_completados:      number;
+  pedidos_cancelados:       number;
+  clientes_distintos:       number;
+  top_universal_product_id: string | null;
+  top_producto_nombre:      string | null;
+  top_producto_unidades:    number | null;
+  pedidos_recogida:         number;
+  pedidos_entrega:          number;
+  porcentaje_recogida:      number;
+  porcentaje_entrega:       number;
+  avg_confirm_h:            number | null;
+}
+
+export async function getSupplierLocationStats(
+  actorId:   string,
+  dateFrom?: Date,
+  dateTo?:   Date,
+): Promise<LocationStats[]> {
+  const params: Record<string, unknown> = { p_actor_id: actorId };
+  if (dateFrom) params.p_date_from = dateFrom.toISOString();
+  if (dateTo)   params.p_date_to   = dateTo.toISOString();
+  const { data, error } = await db.rpc('get_supplier_location_stats', params);
+  if (error) throw error;
+  return (data ?? []) as LocationStats[];
 }
