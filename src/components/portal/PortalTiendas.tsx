@@ -1,6 +1,11 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
 import { supabase } from '../../lib/supabase';
 import type { MarketplaceMyMembership } from '../../lib/api/marketplace-actors';
+import {
+  LocationStats, PortalOrder,
+  getSupplierLocationStats, getSupplierOrdersUnified,
+} from '../../lib/api/marketplace-portal';
+import { usePortal } from './PortalContext';
 
 // ─── Tipos ────────────────────────────────────────────────────────────────────
 
@@ -552,6 +557,165 @@ function StockLocalTab({ actorId, locationId }: StockLocalTabProps) {
   );
 }
 
+// ─── KpiCard ──────────────────────────────────────────────────────────────────
+
+interface KpiCardProps {
+  label:  string;
+  value:  string;
+  sub?:   string;
+  small?: boolean;
+}
+
+function KpiCard({ label, value, sub, small }: KpiCardProps) {
+  return (
+    <div className="bg-slate-900 rounded-xl border border-slate-800 p-3">
+      <p className="text-[10px] font-medium text-slate-500 uppercase tracking-wide mb-1">{label}</p>
+      <p className={`font-bold tabular-nums text-slate-100 leading-tight ${small ? 'text-base' : 'text-lg'}`}>{value}</p>
+      {sub && <p className="text-[10px] text-slate-600 mt-0.5">{sub}</p>}
+    </div>
+  );
+}
+
+// ─── ResumenTab ───────────────────────────────────────────────────────────────
+
+interface ResumenTabProps {
+  actorId:    string;
+  locationId: string;
+}
+
+function ResumenTab({ actorId, locationId }: ResumenTabProps) {
+  const [stats,        setStats]        = useState<LocationStats | null>(null);
+  const [recentOrders, setRecentOrders] = useState<PortalOrder[]>([]);
+  const [loading,      setLoading]      = useState(true);
+
+  const { setActiveTab, setPedidosLocationFilter } = usePortal();
+
+  const dateFrom = useMemo(() => {
+    const d = new Date();
+    d.setDate(1);
+    d.setHours(0, 0, 0, 0);
+    return d;
+  }, []);
+
+  useEffect(() => {
+    setLoading(true);
+    Promise.all([
+      getSupplierLocationStats(actorId, dateFrom),
+      getSupplierOrdersUnified(actorId, { limit: 5, locationId }),
+    ])
+      .then(([allStats, ordersPage]) => {
+        setStats(allStats.find(s => s.location_id === locationId) ?? null);
+        setRecentOrders(ordersPage.items);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [actorId, locationId, dateFrom]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center py-12">
+        <div className="w-6 h-6 border-2 border-teal-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!stats) {
+    return <p className="text-center text-slate-500 text-sm py-8">Sin datos para este periodo.</p>;
+  }
+
+  const fmtEur = (v: number) =>
+    new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(v);
+
+  const monthLabel = dateFrom.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+
+  const ESTADO_COLOR: Record<string, string> = {
+    pending:   'bg-amber-100 text-amber-700',
+    confirmed: 'bg-blue-100 text-blue-700',
+    preparing: 'bg-purple-100 text-purple-700',
+    shipped:   'bg-indigo-100 text-indigo-700',
+    completed: 'bg-emerald-100 text-emerald-700',
+    delivered: 'bg-emerald-100 text-emerald-700',
+    cancelled: 'bg-slate-100 text-slate-500',
+  };
+
+  const ESTADO_LABEL: Record<string, string> = {
+    pending: 'Pendiente', confirmed: 'Confirmado', preparing: 'Preparando',
+    shipped: 'Enviado', completed: 'Completado', delivered: 'Entregado', cancelled: 'Cancelado',
+  };
+
+  return (
+    <div className="space-y-5">
+      <p className="text-[11px] text-slate-500 capitalize">{monthLabel}</p>
+
+      {/* KPI primarios */}
+      <div className="grid grid-cols-2 gap-3">
+        <KpiCard label="Pedidos" value={stats.num_pedidos.toString()} />
+        <KpiCard label="Volumen pedidos" value={fmtEur(stats.volumen_pedidos)} sub="pedidos activos" />
+        <KpiCard label="Ventas completadas" value={fmtEur(stats.ventas_completadas)} sub="ciclo cerrado" />
+        <KpiCard label="Ticket medio" value={stats.ticket_medio != null ? fmtEur(stats.ticket_medio) : '—'} sub="sobre completados" />
+      </div>
+
+      {/* Estados */}
+      <div className="grid grid-cols-3 gap-3">
+        <KpiCard label="Pendientes" value={stats.pedidos_pendientes.toString()} small />
+        <KpiCard label="Completados" value={stats.pedidos_completados.toString()} small />
+        <KpiCard label="Cancelados" value={stats.pedidos_cancelados.toString()} small />
+      </div>
+
+      {/* Operativo */}
+      <div className="grid grid-cols-2 gap-3">
+        <KpiCard label="Clientes distintos" value={stats.clientes_distintos.toString()} small />
+        <KpiCard
+          label="T. respuesta"
+          value={stats.avg_confirm_h != null ? `${stats.avg_confirm_h}h` : '—'}
+          sub="confirmación media"
+          small
+        />
+      </div>
+
+      {/* Top producto */}
+      {stats.top_producto_nombre && (
+        <div className="bg-slate-900 rounded-xl border border-slate-800 p-3">
+          <p className="text-[10px] font-medium text-slate-500 uppercase tracking-wide mb-1">Producto más vendido</p>
+          <p className="text-sm text-slate-200 font-medium truncate">{stats.top_producto_nombre}</p>
+          <p className="text-[11px] text-slate-500">{stats.top_producto_unidades} uds.</p>
+        </div>
+      )}
+
+      {/* Últimos pedidos */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <p className="text-[11px] font-medium text-slate-400 uppercase tracking-wide">Últimos pedidos</p>
+          <button
+            onClick={() => { setPedidosLocationFilter(locationId); setActiveTab('pedidos'); }}
+            className="text-[11px] font-semibold text-teal-400 hover:text-teal-300 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-teal-500 rounded"
+          >
+            Ver todos →
+          </button>
+        </div>
+        {recentOrders.length === 0 ? (
+          <p className="text-xs text-slate-500 py-4 text-center">Sin pedidos en este periodo.</p>
+        ) : (
+          <div className="space-y-1.5">
+            {recentOrders.map(o => (
+              <div key={o.id} className="bg-slate-900 rounded-lg border border-slate-800 px-3 py-2 flex items-center gap-3">
+                <span className="font-mono text-xs text-slate-300 shrink-0">{o.numero}</span>
+                <span className="text-xs text-slate-400 flex-1 min-w-0 truncate">{o.org_nombre}</span>
+                <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full shrink-0 ${ESTADO_COLOR[o.estado] ?? ESTADO_COLOR.pending}`}>
+                  {ESTADO_LABEL[o.estado] ?? o.estado}
+                </span>
+                <span className="text-xs tabular-nums text-slate-300 shrink-0">
+                  {fmtEur(o.total)}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ─── Props ────────────────────────────────────────────────────────────────────
 
 interface Props {
@@ -568,7 +732,7 @@ export default function PortalTiendas({ actorId }: Props) {
   const [selectedId,         setSelectedId]         = useState<string | null>(null);
   const [slideOverOpen,      setSlideOverOpen]      = useState(false);
   const [editingLocation,    setEditingLocation]    = useState<SupplierLocation | null>(null);
-  const [activeSubTab,       setActiveSubTab]       = useState<'config' | 'stock'>('config');
+  const [activeSubTab,       setActiveSubTab]       = useState<'resumen' | 'config' | 'stock'>('config');
   const [search,             setSearch]             = useState('');
 
   const loadLocations = useCallback(async () => {
@@ -703,7 +867,11 @@ export default function PortalTiendas({ actorId }: Props) {
 
             {/* Tabs */}
             <div className="flex gap-0.5 bg-slate-900 rounded-xl p-1 mb-5 w-fit">
-              {(['config', 'stock'] as const).map(tab => (
+              {([
+                ['resumen', 'Resumen'],
+                ['config',  'Configuración'],
+                ['stock',   'Stock local'],
+              ] as const).map(([tab, label]) => (
                 <button
                   key={tab}
                   onClick={() => setActiveSubTab(tab)}
@@ -713,12 +881,16 @@ export default function PortalTiendas({ actorId }: Props) {
                       : 'text-slate-400 hover:text-slate-200'
                   }`}
                 >
-                  {tab === 'config' ? 'Configuración' : 'Stock local'}
+                  {label}
                 </button>
               ))}
             </div>
 
             {/* Tab content */}
+            {activeSubTab === 'resumen' && (
+              <ResumenTab actorId={actorId} locationId={selectedLocation.id} />
+            )}
+
             {activeSubTab === 'config' && (
               <div className="grid grid-cols-2 gap-4">
                 {[
