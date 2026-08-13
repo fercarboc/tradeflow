@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { CheckCircle2, AlertTriangle, Info, ShoppingBag, User, MapPin, Package, AlertCircle, Search, X } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, Info, ShoppingBag, User, MapPin, Package, AlertCircle, Search, X, SlidersHorizontal } from 'lucide-react';
 import { ActivePage } from '../../types';
 import { useSession } from '../../context/SessionContext';
 import { useMarketplaceCart } from '../../hooks/useMarketplaceCart';
@@ -26,6 +26,7 @@ import type { FreeCartItemInput } from '../../lib/api/marketplace-checkout';
 import MarketplaceBanner           from './MarketplaceBanner';
 import MarketplaceHeader           from './MarketplaceHeader';
 import MarketplaceFilters          from './MarketplaceFilters';
+import MarketplaceFiltersDrawer    from './MarketplaceFiltersDrawer';
 import type { SortBy }             from './MarketplaceFilters';
 import MarketplaceGrid             from './MarketplaceGrid';
 import MarketplaceProductSlideOver from './MarketplaceProductSlideOver';
@@ -502,7 +503,8 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
 
   // ── UI ─────────────────────────────────────────────────────────────────────
   const [slideOverItem,   setSlideOverItem]   = useState<MarketplaceCatalogItem | null>(null);
-  const [mobileCartOpen,  setMobileCartOpen]  = useState(false);
+  const [mobileCartOpen,    setMobileCartOpen]    = useState(false);
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [checkingOut,     setCheckingOut]     = useState(false);
   const { toast, show: showToast } = useToast();
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -778,6 +780,40 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
           {!purchaseCtx && <MarketplaceBanner onCategory={handleBannerCategory} />}
 
+          {/* Toolbar móvil — solo visible en < lg */}
+          {(() => {
+            const activeCount = [
+              oficio !== null,
+              familia !== null,
+              selectedActores.length > 0,
+              onlyStock,
+              minPrice !== '' || maxPrice !== '',
+            ].filter(Boolean).length;
+            return (
+              <div className="lg:hidden shrink-0 flex items-center gap-2 px-3 py-2 border-b border-gray-100 bg-white">
+                <button
+                  onClick={() => setMobileFiltersOpen(true)}
+                  className="flex items-center gap-1.5 pl-2.5 pr-3 py-1.5 rounded-xl border border-gray-200 text-sm text-gray-700 hover:border-[#1A5A96]/40 hover:text-[#1A5A96] transition-colors"
+                >
+                  <SlidersHorizontal className="w-4 h-4" />
+                  {activeCount > 0 ? (
+                    <>
+                      Filtros
+                      <span className="ml-0.5 bg-[#1A5A96] text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
+                        {activeCount}
+                      </span>
+                    </>
+                  ) : (
+                    'Filtros'
+                  )}
+                </button>
+                <span className="ml-auto text-xs text-gray-400 tabular-nums">
+                  {loading ? '…' : `${filteredItems.length} resultado${filteredItems.length !== 1 ? 's' : ''}`}
+                </span>
+              </div>
+            );
+          })()}
+
           <div className="flex-1 overflow-y-auto">
             <MarketplaceGrid
               items={filteredItems}
@@ -813,6 +849,30 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         onSubstitute={currentSlideOverCartItem ? handleSubstitute : undefined}
         location={location}
         orgId={org?.id ?? null}
+      />
+
+      {/* Filtros drawer móvil */}
+      <MarketplaceFiltersDrawer
+        isOpen={mobileFiltersOpen}
+        onClose={() => setMobileFiltersOpen(false)}
+        familias={familias}
+        familia={familia}
+        onFamilia={setFamilia}
+        oficio={oficio}
+        onOficio={setOficio}
+        actorNombres={actorNombres}
+        selectedActores={selectedActores}
+        onActores={setSelectedActores}
+        onlyStock={onlyStock}
+        onOnlyStock={setOnlyStock}
+        sortBy={sortBy}
+        onSortBy={setSortBy}
+        minPrice={minPrice}
+        maxPrice={maxPrice}
+        onMinPrice={setMinPrice}
+        onMaxPrice={setMaxPrice}
+        totalResults={filteredItems.length}
+        loading={loading}
       />
 
       {/* Carrito drawer móvil */}

@@ -3,7 +3,7 @@ import { ChevronDown, ChevronUp, X, SlidersHorizontal } from 'lucide-react';
 
 export type SortBy = 'nombre' | 'precio_asc' | 'plazo_asc';
 
-const OFICIOS = [
+export const OFICIOS = [
   { id: 'fontaneria',    label: 'Fontanería',    color: '#3B82F6' },
   { id: 'electricidad',  label: 'Electricidad',  color: '#F59E0B' },
   { id: 'albanileria',   label: 'Albañilería',   color: '#8B5CF6' },

@@ -344,39 +344,38 @@ export default function MarketplaceProductSlideOver({
     async function enrich() {
       const uniqueActorIds = [...new Set(offerings.map(o => o.actor_id))];
 
-      const locationResults = await Promise.all(
-        uniqueActorIds.map(actorId =>
-          getLocationsForActor({
-            actorId,
-            permiteRecogida: true,
-            obraLat: location!.lat ?? null,
-            obraLon: location!.lon ?? null,
-          })
-            .then(locs => [actorId, locs] as [string, LocationForActor[]])
-            .catch(() => [actorId, []] as [string, LocationForActor[]])
-        )
-      );
+      // Paralelizar: locations y prices se resuelven simultáneamente.
+      // Precios usan locationId: null (nivel comunidad) para no depender de locations.
+      const [locationResults, priceResults] = await Promise.all([
+        Promise.all(
+          uniqueActorIds.map(actorId =>
+            getLocationsForActor({
+              actorId,
+              permiteRecogida: true,
+              obraLat: location!.lat ?? null,
+              obraLon: location!.lon ?? null,
+            })
+              .then(locs => [actorId, locs] as [string, LocationForActor[]])
+              .catch(() => [actorId, []] as [string, LocationForActor[]])
+          )
+        ),
+        Promise.all(
+          offerings.map(o =>
+            resolveEffectivePriceWithLocation({
+              offeringId:    o.offering_id,
+              orgId:         orgId ?? null,
+              locationId:    null,
+              comunidadAuto: location!.comunidad_autonoma ?? null,
+              cantidad:      1,
+            })
+              .then(p => [o.offering_id, p] as [string, EffectivePriceResultV2 | null])
+              .catch(() => [o.offering_id, null] as [string, null])
+          )
+        ),
+      ]);
       if (cancelled) return;
 
-      const locMap = new Map<string, LocationForActor[]>(locationResults);
-      setLocationsByActor(locMap);
-
-      const priceResults = await Promise.all(
-        offerings.map(o => {
-          const nearest = (locMap.get(o.actor_id) ?? [])[0] ?? null;
-          return resolveEffectivePriceWithLocation({
-            offeringId:     o.offering_id,
-            orgId:          orgId ?? null,
-            locationId:     nearest?.id ?? null,
-            comunidadAuto:  location!.comunidad_autonoma ?? null,
-            cantidad:       1,
-          })
-            .then(p => [o.offering_id, p] as [string, EffectivePriceResultV2 | null])
-            .catch(() => [o.offering_id, null] as [string, null]);
-        })
-      );
-      if (cancelled) return;
-
+      setLocationsByActor(new Map(locationResults));
       setEffectivePrices(new Map(priceResults));
     }
 
