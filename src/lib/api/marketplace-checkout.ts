@@ -458,7 +458,7 @@ export interface FreeCartItemInput {
 export async function addFreeCartItems(cartId: string, items: FreeCartItemInput[]): Promise<void> {
   const { error } = await (supabase as any).rpc('add_free_cart_items', {
     p_cart_id: cartId,
-    p_items:   JSON.stringify(items),
+    p_items:   items,
   });
   if (error) rpcError('addFreeCartItems', error);
 }
