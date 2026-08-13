@@ -1,17 +1,11 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, X, SlidersHorizontal } from 'lucide-react';
+import { MARKETPLACE_OFICIOS } from '../../lib/marketplace-config';
 
 export type SortBy = 'nombre' | 'precio_asc' | 'plazo_asc';
 
-export const OFICIOS = [
-  { id: 'fontaneria',    label: 'Fontanería',    color: '#3B82F6' },
-  { id: 'electricidad',  label: 'Electricidad',  color: '#F59E0B' },
-  { id: 'albanileria',   label: 'Albañilería',   color: '#8B5CF6' },
-  { id: 'carpinteria',   label: 'Carpintería',   color: '#92400E' },
-  { id: 'pintura',       label: 'Pintura',       color: '#EC4899' },
-  { id: 'climatizacion', label: 'Climatización', color: '#06B6D4' },
-  { id: 'soldadura',     label: 'Soldadura',     color: '#EF4444' },
-];
+// Re-export for legacy imports — fuente canónica: src/lib/marketplace-config.ts
+export const OFICIOS = MARKETPLACE_OFICIOS;
 
 interface Props {
   familias:        string[];
@@ -44,7 +38,7 @@ export default function MarketplaceFilters({
   totalResults, loading,
 }: Props) {
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
-    oficio: true, familia: false, mayorista: true, precio: false, sort: false,
+    oficio: true, familia: false, mayorista: true, precio: false,
   });
 
   const toggle = (key: string) =>
@@ -66,7 +60,7 @@ export default function MarketplaceFilters({
   };
 
   return (
-    <aside className="w-52 shrink-0 border-r border-gray-200 bg-white overflow-y-auto hidden lg:flex flex-col">
+    <aside className="w-60 shrink-0 border-r border-gray-200 bg-white overflow-y-auto hidden lg:flex flex-col">
       {/* Cabecera */}
       <div className="flex items-center justify-between px-3 py-3 border-b border-gray-100">
         <div className="flex items-center gap-1.5 text-gray-700 text-xs font-bold uppercase tracking-wider">
@@ -199,14 +193,6 @@ export default function MarketplaceFilters({
           </div>
         </Section>
 
-        {/* ── Ordenar ─────────────────────────────────────────── */}
-        <Section label="Ordenar por" open={openSections.sort} onToggle={() => toggle('sort')}>
-          <div className="space-y-0.5 py-1">
-            <CheckItem label="Nombre A–Z"    checked={sortBy === 'nombre'}     onChange={() => onSortBy('nombre')}     radio />
-            <CheckItem label="Precio más bajo" checked={sortBy === 'precio_asc'} onChange={() => onSortBy('precio_asc')} radio />
-            <CheckItem label="Entrega rápida" checked={sortBy === 'plazo_asc'}  onChange={() => onSortBy('plazo_asc')}  radio />
-          </div>
-        </Section>
       </div>
     </aside>
   );

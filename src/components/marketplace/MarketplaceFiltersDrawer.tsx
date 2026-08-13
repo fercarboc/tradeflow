@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, SlidersHorizontal, X } from 'lucide-react';
-import { OFICIOS } from './MarketplaceFilters';
+import { MARKETPLACE_OFICIOS } from '../../lib/marketplace-config';
 import type { SortBy } from './MarketplaceFilters';
 
 // ─── Props — interfaz idéntica a MarketplaceFilters ──────────────────────────
@@ -182,7 +182,7 @@ export default function MarketplaceFiltersDrawer({
                 active={oficio === null}
                 onClick={() => onOficio(null)}
               />
-              {OFICIOS.map(o => (
+              {MARKETPLACE_OFICIOS.map(o => (
                 <OficioItem
                   key={o.id}
                   label={o.label}
