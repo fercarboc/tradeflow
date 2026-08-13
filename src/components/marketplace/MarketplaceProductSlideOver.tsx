@@ -111,6 +111,7 @@ interface OfferingRowProps {
   onSelect:          () => void;
   pickupLocations:   LocationForActor[];
   effectivePrice:    EffectivePriceResultV2 | null;
+  enriching:         boolean;
 }
 
 // ─── OfferingRow ─────────────────────────────────────────────────────────────
@@ -128,7 +129,7 @@ function formatDate(d: string | null | undefined): string {
 
 function OfferingRow({
   offering: o, rank, isSelected, hasSubstituteMode, onSelect,
-  pickupLocations, effectivePrice,
+  pickupLocations, effectivePrice, enriching,
 }: OfferingRowProps) {
   const isRecomendado = rank === 0;
   const reason        = o.ranking_reason ?? '';
@@ -247,8 +248,13 @@ function OfferingRow({
         )}
       </div>
 
-      {/* Recogida disponible (B5) */}
-      {pickupLocations.length > 0 && (
+      {/* Recogida disponible (B5) — skeleton durante enrichment, datos reales después */}
+      {enriching ? (
+        <div className="flex items-center gap-1.5 text-[10px] text-gray-400">
+          <Loader2 className="w-3 h-3 animate-spin shrink-0" />
+          Cargando disponibilidad local…
+        </div>
+      ) : pickupLocations.length > 0 ? (
         <div>
           <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
             Recogida disponible
@@ -270,7 +276,7 @@ function OfferingRow({
             ))}
           </div>
         </div>
-      )}
+      ) : null}
 
       {/* Observaciones */}
       {o.descripcion && (
@@ -320,10 +326,18 @@ export default function MarketplaceProductSlideOver({
   const [confirmOffer,      setConfirmOffer]       = useState<OfferingDetail | null>(null);
   const [locationsByActor,  setLocationsByActor]  = useState<Map<string, LocationForActor[]>>(new Map());
   const [effectivePrices,   setEffectivePrices]   = useState<Map<string, EffectivePriceResultV2 | null>>(new Map());
+  const [enriching,         setEnriching]         = useState(false);
   const tooltipRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!item) { setOfferings([]); setLocationsByActor(new Map()); setEffectivePrices(new Map()); return; }
+    if (!item) {
+      setOfferings([]); setLocationsByActor(new Map()); setEffectivePrices(new Map()); setEnriching(false); return;
+    }
+    // Limpiar datos del producto anterior antes de cargar (evita que datos viejos aparezcan en el nuevo — T5)
+    setOfferings([]);
+    setLocationsByActor(new Map());
+    setEffectivePrices(new Map());
+    setEnriching(false);
     setLoading(true);
     setError(null);
     getOfferingsForUp(item.up_id)
@@ -332,21 +346,24 @@ export default function MarketplaceProductSlideOver({
       .finally(() => setLoading(false));
   }, [item?.up_id]);
 
-  // Enriquecer con datos de location cuando hay offerings + contexto de ubicación
+  // Enriquecer con datos de location — carga progresiva en 2 fases:
+  // Fase 1: locations + precios comunidad en paralelo → muestra datos inmediatos
+  // Fase 2: re-resolver precios con location concreta → aparecen promociones locales
   useEffect(() => {
     if (!offerings.length || !location || !item) {
       setLocationsByActor(new Map());
       setEffectivePrices(new Map());
+      setEnriching(false);
       return;
     }
     let cancelled = false;
+    setEnriching(true);
 
     async function enrich() {
       const uniqueActorIds = [...new Set(offerings.map(o => o.actor_id))];
 
-      // Paralelizar: locations y prices se resuelven simultáneamente.
-      // Precios usan locationId: null (nivel comunidad) para no depender de locations.
-      const [locationResults, priceResults] = await Promise.all([
+      // Fase 1: locations + precios de comunidad en paralelo (primer render útil)
+      const [locationResults, communityPriceResults] = await Promise.all([
         Promise.all(
           uniqueActorIds.map(actorId =>
             getLocationsForActor({
@@ -375,8 +392,41 @@ export default function MarketplaceProductSlideOver({
       ]);
       if (cancelled) return;
 
-      setLocationsByActor(new Map(locationResults));
-      setEffectivePrices(new Map(priceResults));
+      const locMap = new Map<string, LocationForActor[]>(locationResults);
+      const communityMap = new Map<string, EffectivePriceResultV2 | null>(communityPriceResults);
+      setLocationsByActor(locMap);
+      setEffectivePrices(communityMap);
+
+      // Fase 2: re-resolver con locationId concreto para promociones locales
+      const offeringsWithLoc = offerings.filter(o => (locMap.get(o.actor_id) ?? [])[0] != null);
+      if (offeringsWithLoc.length === 0) {
+        if (!cancelled) setEnriching(false);
+        return;
+      }
+
+      const localPriceResults = await Promise.all(
+        offeringsWithLoc.map(o => {
+          const nearest = (locMap.get(o.actor_id) ?? [])[0]!;
+          return resolveEffectivePriceWithLocation({
+            offeringId:    o.offering_id,
+            orgId:         orgId ?? null,
+            locationId:    nearest.id,
+            comunidadAuto: location!.comunidad_autonoma ?? null,
+            cantidad:      1,
+          })
+            .then(p => [o.offering_id, p] as [string, EffectivePriceResultV2 | null])
+            .catch(() => [o.offering_id, communityMap.get(o.offering_id) ?? null] as [string, EffectivePriceResultV2 | null]);
+        })
+      );
+      if (cancelled) return;
+
+      // Merge: precios locales sobreescriben los de comunidad donde hay tienda
+      const enrichedMap = new Map(communityMap);
+      for (const [offeringId, price] of localPriceResults) {
+        enrichedMap.set(offeringId, price);
+      }
+      setEffectivePrices(enrichedMap);
+      setEnriching(false);
     }
 
     enrich();
@@ -558,6 +608,7 @@ export default function MarketplaceProductSlideOver({
               onSelect={() => handleSelectOffering(o)}
               pickupLocations={locationsByActor.get(o.actor_id) ?? []}
               effectivePrice={effectivePrices.get(o.offering_id) ?? null}
+              enriching={enriching}
             />
           ))}
         </div>
