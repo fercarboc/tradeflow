@@ -278,13 +278,6 @@ function OfferingRow({
         </div>
       ) : null}
 
-      {/* Observaciones */}
-      {o.descripcion && (
-        <p className="text-gray-500 text-[11px] leading-relaxed line-clamp-2 bg-gray-50 rounded-lg px-3 py-2">
-          {o.descripcion}
-        </p>
-      )}
-
       {/* CTA */}
       <button
         onClick={onSelect}
@@ -307,6 +300,13 @@ function OfferingRow({
         )}
         {ctaLabel}
       </button>
+
+      {/* Observaciones — secundario, debajo del CTA (B10) */}
+      {o.descripcion && (
+        <p className="text-gray-400 text-[11px] leading-relaxed line-clamp-2 bg-gray-50 rounded-lg px-3 py-2">
+          {o.descripcion}
+        </p>
+      )}
     </div>
   );
 }
