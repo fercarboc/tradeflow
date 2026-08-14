@@ -488,9 +488,10 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
   }, [actions, purchaseCtx?.quoteId]);
 
   // Navega desde Home al catálogo aplicando filtros opcionales
-  const handleGoToCatalog = useCallback((oficio?: string | null, search?: string) => {
+  const handleGoToCatalog = useCallback((oficio?: string | null, search?: string, actor?: string) => {
     if (oficio) setOficio(oficio);
     if (search) setQuery(search);
+    if (actor) setSelectedActores([actor]);
     setView('catalog');
   }, []);
 

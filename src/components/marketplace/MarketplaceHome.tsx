@@ -198,7 +198,7 @@ function HomeCategoryScroll({ onGoToCatalog }: HomeCategoryScrollProps) {
 
 interface HomeSupplierCardProps {
   supplier:      ActiveSupplier;
-  onGoToCatalog: (oficio?: string | null, search?: string) => void;
+  onGoToCatalog: (oficio?: string | null, search?: string, actor?: string) => void;
 }
 
 function HomeSupplierCard({ supplier, onGoToCatalog }: HomeSupplierCardProps) {
@@ -207,7 +207,7 @@ function HomeSupplierCard({ supplier, onGoToCatalog }: HomeSupplierCardProps) {
 
   return (
     <button
-      onClick={() => onGoToCatalog()}
+      onClick={() => onGoToCatalog(undefined, undefined, supplier.nombre)}
       className="flex flex-col items-center gap-2 p-4 bg-white rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-md transition-all group shrink-0 w-28 min-h-[44px]"
     >
       {supplier.logo_url ? (
@@ -242,7 +242,7 @@ function HomeSupplierCard({ supplier, onGoToCatalog }: HomeSupplierCardProps) {
 interface HomeSuppliersProps {
   suppliers:     ActiveSupplier[];
   loading:       boolean;
-  onGoToCatalog: (oficio?: string | null, search?: string) => void;
+  onGoToCatalog: (oficio?: string | null, search?: string, actor?: string) => void;
 }
 
 function HomeSuppliers({ suppliers, loading, onGoToCatalog }: HomeSuppliersProps) {
@@ -285,7 +285,7 @@ function HomeSuppliers({ suppliers, loading, onGoToCatalog }: HomeSuppliersProps
 // ── Componente principal ───────────────────────────────────────────────────────
 
 interface MarketplaceHomeProps {
-  onGoToCatalog:    (oficio?: string | null, search?: string) => void;
+  onGoToCatalog:    (oficio?: string | null, search?: string, actor?: string) => void;
   cartCount:        number;
   onOpenCart:       () => void;
   location:         MarketplaceLocation | null;
