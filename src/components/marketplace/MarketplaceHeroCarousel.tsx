@@ -72,6 +72,9 @@ export default function MarketplaceHeroCarousel({ onGoToCatalog, className = '' 
 
   useEffect(() => {
     if (paused) return;
+    // Respetar prefers-reduced-motion: no autoplay si el usuario lo ha solicitado
+    const mq = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    if (mq?.matches) return;
     const id = setInterval(next, 5000);
     return () => clearInterval(id);
   }, [next, paused]);
