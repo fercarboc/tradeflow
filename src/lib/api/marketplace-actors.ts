@@ -355,3 +355,26 @@ export async function loadActorAuditLog(
   if (error) throw error;
   return (data ?? []) as MarketplaceAuditEvent[];
 }
+
+// ── Home: proveedores activos para la página principal ────────────────────────
+
+export interface ActiveSupplier {
+  id:         string;
+  nombre:     string;
+  slug:       string;
+  logo_url:   string | null;
+  verificado: boolean;
+  metadata:   Record<string, unknown>;
+}
+
+export async function listActiveSuppliers(limit = 12): Promise<ActiveSupplier[]> {
+  const { data, error } = await db
+    .from('trade_marketplace_actors')
+    .select('id, nombre, slug, logo_url, verificado, metadata')
+    .eq('actor_type', 'supplier')
+    .eq('estado', 'active')
+    .order('nombre')
+    .limit(limit);
+  if (error) throw new Error(`[listActiveSuppliers] ${error.message}`);
+  return (data ?? []) as ActiveSupplier[];
+}

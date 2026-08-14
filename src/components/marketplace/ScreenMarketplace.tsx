@@ -28,6 +28,7 @@ import type { SortBy }             from './MarketplaceFilters';
 import MarketplaceProductSlideOver from './MarketplaceProductSlideOver';
 import DesktopMarketplaceLayout    from './DesktopMarketplaceLayout';
 import MobileMarketplaceLayout     from './MobileMarketplaceLayout';
+import MarketplaceHome             from './MarketplaceHome';
 
 // ─── Toast ────────────────────────────────────────────────────────────────────
 
@@ -347,6 +348,12 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
   // ── Contexto de ubicación (B2) ─────────────────────────────────────────────
   const { location, setLocation } = useMarketplaceLocation();
   const [locationModalOpen,  setLocationModalOpen]  = useState(false);
+
+  // ── Vista: home (entrada comercial) o catalog (búsqueda/filtros) ───────────
+  // Si existe purchaseCtx en sessionStorage, se va directo al catálogo sin pasar por home.
+  const [view, setView] = useState<'home' | 'catalog'>(() =>
+    loadPurchaseContext() != null ? 'catalog' : 'home',
+  );
   const [actorIdsWithPickup, setActorIdsWithPickup] = useState<Set<string>>(new Set());
 
   // ── Contexto de compra (llega desde presupuesto) ───────────────────────────
@@ -362,6 +369,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
     console.log('[RC1-C1D] ScreenMarketplace: contexto fresco detectado', { cartId: ctx.cartId, quoteRef: ctx.quoteRef });
 
     setPurchaseCtx(ctx);
+    setView('catalog');
     openMobileCart();
 
     // Evitar hidratación doble en StrictMode
@@ -479,6 +487,13 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
     actions.clearCart('manual');
   }, [actions, purchaseCtx?.quoteId]);
 
+  // Navega desde Home al catálogo aplicando filtros opcionales
+  const handleGoToCatalog = useCallback((oficio?: string | null, search?: string) => {
+    if (oficio) setOficio(oficio);
+    if (search) setQuery(search);
+    setView('catalog');
+  }, []);
+
   // ── Filtros RPC ────────────────────────────────────────────────────────────
   const [query,     setQuery]     = useState('');
   const [oficio,    setOficio]    = useState<string | null>(null);
@@ -544,11 +559,12 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
   }, [query, oficio, familia, onlyStock, sortBy]);
 
   useEffect(() => {
+    if (view !== 'catalog') return;
     if (debounceRef.current) clearTimeout(debounceRef.current);
     const delay = query.trim() ? 350 : 0;
     debounceRef.current = setTimeout(loadCatalog, delay);
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
-  }, [loadCatalog]);
+  }, [loadCatalog, view]);
 
   // ── Lista dinámica de nombres de actores para el filtro ───────────────────
   const actorNombres = useMemo((): string[] => {
@@ -728,10 +744,12 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         query={query}
         onQueryChange={setQuery}
         orgName={org?.nombre}
+        onGoHome={view === 'catalog' ? () => setView('home') : undefined}
+        hideSearch={view === 'home'}
       />
 
-      {/* Banner contextual presupuesto */}
-      {purchaseCtx && (
+      {/* Banners contextuales — solo en vista catálogo */}
+      {view === 'catalog' && purchaseCtx && (
         <PurchaseContextBanner
           ctx={purchaseCtx}
           unresolvedCount={unresolvedItems.length}
@@ -739,94 +757,109 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         />
       )}
 
-      {/* Banner de ubicación (B2) */}
-      {location
-        ? <LocationBanner location={location} onChangeRequest={() => setLocationModalOpen(true)} />
-        : <LocationSetButton onRequest={() => setLocationModalOpen(true)} />
-      }
+      {view === 'catalog' && (
+        location
+          ? <LocationBanner location={location} onChangeRequest={() => setLocationModalOpen(true)} />
+          : <LocationSetButton onRequest={() => setLocationModalOpen(true)} />
+      )}
 
-      {/* Líneas sin proveedor */}
-      {unresolvedItems.length > 0 && (
+      {view === 'catalog' && unresolvedItems.length > 0 && (
         <UnresolvedLinesPanel
           items={unresolvedItems}
           onSearch={setQuery}
         />
       )}
 
-      {/* Desktop: 3 columnas (filtros | catálogo | carrito) */}
-      <DesktopMarketplaceLayout
-        familias={familias}
-        familia={familia}
-        onFamilia={setFamilia}
-        oficio={oficio}
-        onOficio={setOficio}
-        actorNombres={actorNombres}
-        selectedActores={selectedActores}
-        onActores={setSelectedActores}
-        onlyStock={onlyStock}
-        onOnlyStock={setOnlyStock}
-        sortBy={sortBy}
-        onSortBy={setSortBy}
-        minPrice={minPrice}
-        maxPrice={maxPrice}
-        onMinPrice={setMinPrice}
-        onMaxPrice={setMaxPrice}
-        filteredItems={filteredItems}
-        loading={loading}
-        error={error}
-        purchaseCtx={purchaseCtx}
-        actorIdsWithPickup={actorIdsWithPickup}
-        query={query}
-        onClearQuery={() => setQuery('')}
-        onAddBest={handleAddBest}
-        onViewItem={setSlideOverItem}
-        onCategory={handleBannerCategory}
-        cartItems={cartItems}
-        onUpdateQty={actions.updateQuantity}
-        onRemove={actions.removeItem}
-        onCheckout={checkingOut ? undefined : handleCheckout}
-        quoteRef={purchaseCtx?.quoteRef}
-      />
+      {/* Vista Home */}
+      {view === 'home' && (
+        <MarketplaceHome
+          onGoToCatalog={handleGoToCatalog}
+          cartCount={cartCount}
+          onOpenCart={openMobileCart}
+          location={location}
+          onChangeLocation={() => setLocationModalOpen(true)}
+        />
+      )}
 
-      {/* Mobile: chips + filtros + sort + grid + FAB + drawers */}
-      <MobileMarketplaceLayout
-        familias={familias}
-        familia={familia}
-        onFamilia={setFamilia}
-        oficio={oficio}
-        onOficio={setOficio}
-        actorNombres={actorNombres}
-        selectedActores={selectedActores}
-        onActores={setSelectedActores}
-        onlyStock={onlyStock}
-        onOnlyStock={setOnlyStock}
-        sortBy={sortBy}
-        onSortBy={setSortBy}
-        minPrice={minPrice}
-        maxPrice={maxPrice}
-        onMinPrice={setMinPrice}
-        onMaxPrice={setMaxPrice}
-        filteredItems={filteredItems}
-        loading={loading}
-        error={error}
-        purchaseCtx={purchaseCtx}
-        actorIdsWithPickup={actorIdsWithPickup}
-        query={query}
-        onClearQuery={() => setQuery('')}
-        onAddBest={handleAddBest}
-        onViewItem={setSlideOverItem}
-        cartItems={cartItems}
-        onUpdateQty={actions.updateQuantity}
-        onRemove={actions.removeItem}
-        onCheckout={checkingOut ? undefined : handleCheckout}
-        quoteRef={purchaseCtx?.quoteRef}
-        mobileFiltersOpen={mobileFiltersOpen}
-        onOpenMobileFilters={openMobileFilters}
-        onCloseMobileFilters={closeMobileFilters}
-        mobileCartOpen={mobileCartOpen}
-        onOpenMobileCart={openMobileCart}
-        onCloseMobileCart={closeMobileCart}
-      />
+      {/* Vista Catálogo */}
+      {view === 'catalog' && (
+        <>
+          {/* Desktop: 3 columnas (filtros | catálogo | carrito) */}
+          <DesktopMarketplaceLayout
+            familias={familias}
+            familia={familia}
+            onFamilia={setFamilia}
+            oficio={oficio}
+            onOficio={setOficio}
+            actorNombres={actorNombres}
+            selectedActores={selectedActores}
+            onActores={setSelectedActores}
+            onlyStock={onlyStock}
+            onOnlyStock={setOnlyStock}
+            sortBy={sortBy}
+            onSortBy={setSortBy}
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+            onMinPrice={setMinPrice}
+            onMaxPrice={setMaxPrice}
+            filteredItems={filteredItems}
+            loading={loading}
+            error={error}
+            purchaseCtx={purchaseCtx}
+            actorIdsWithPickup={actorIdsWithPickup}
+            query={query}
+            onClearQuery={() => setQuery('')}
+            onAddBest={handleAddBest}
+            onViewItem={setSlideOverItem}
+            onCategory={handleBannerCategory}
+            cartItems={cartItems}
+            onUpdateQty={actions.updateQuantity}
+            onRemove={actions.removeItem}
+            onCheckout={checkingOut ? undefined : handleCheckout}
+            quoteRef={purchaseCtx?.quoteRef}
+          />
+
+          {/* Mobile: chips + filtros + sort + grid + FAB + drawers */}
+          <MobileMarketplaceLayout
+            familias={familias}
+            familia={familia}
+            onFamilia={setFamilia}
+            oficio={oficio}
+            onOficio={setOficio}
+            actorNombres={actorNombres}
+            selectedActores={selectedActores}
+            onActores={setSelectedActores}
+            onlyStock={onlyStock}
+            onOnlyStock={setOnlyStock}
+            sortBy={sortBy}
+            onSortBy={setSortBy}
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+            onMinPrice={setMinPrice}
+            onMaxPrice={setMaxPrice}
+            filteredItems={filteredItems}
+            loading={loading}
+            error={error}
+            purchaseCtx={purchaseCtx}
+            actorIdsWithPickup={actorIdsWithPickup}
+            query={query}
+            onClearQuery={() => setQuery('')}
+            onAddBest={handleAddBest}
+            onViewItem={setSlideOverItem}
+            cartItems={cartItems}
+            onUpdateQty={actions.updateQuantity}
+            onRemove={actions.removeItem}
+            onCheckout={checkingOut ? undefined : handleCheckout}
+            quoteRef={purchaseCtx?.quoteRef}
+            mobileFiltersOpen={mobileFiltersOpen}
+            onOpenMobileFilters={openMobileFilters}
+            onCloseMobileFilters={closeMobileFilters}
+            mobileCartOpen={mobileCartOpen}
+            onOpenMobileCart={openMobileCart}
+            onCloseMobileCart={closeMobileCart}
+          />
+        </>
+      )}
 
       {/* SlideOver — común a ambos layouts (z-50) */}
       <MarketplaceProductSlideOver

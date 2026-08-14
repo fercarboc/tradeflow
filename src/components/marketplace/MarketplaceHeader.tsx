@@ -8,14 +8,16 @@ interface Props {
   onOpenCart:     () => void;
   query:          string;
   onQueryChange:  (q: string) => void;
-  orgName?:       string;   // nombre de la org del instalador (si existe)
+  orgName?:       string;
+  onGoHome?:      () => void;   // si se pasa, el branding vuelve al Home
+  hideSearch?:    boolean;      // ocultar input de búsqueda (ej: en vista Home)
 }
 
 export default function MarketplaceHeader({
   mode, setCurrentPage,
   cartCount, onOpenCart,
   query, onQueryChange,
-  orgName,
+  orgName, onGoHome, hideSearch,
 }: Props) {
   const handleBack = () => {
     if (mode === 'public') {
@@ -40,29 +42,48 @@ export default function MarketplaceHeader({
           </span>
         </button>
 
-        {/* Brand */}
-        <div className="flex items-center gap-1.5 shrink-0">
-          <div className="w-6 h-6 rounded-md bg-[#1A5A96] flex items-center justify-center">
-            <span className="text-white font-black text-[9px]">TF</span>
+        {/* Brand — clickable para volver a Home cuando se está en catálogo */}
+        {onGoHome ? (
+          <button
+            onClick={onGoHome}
+            className="flex items-center gap-1.5 shrink-0 hover:opacity-75 transition-opacity"
+            aria-label="Volver al inicio del marketplace"
+          >
+            <div className="w-6 h-6 rounded-md bg-[#1A5A96] flex items-center justify-center">
+              <span className="text-white font-black text-[9px]">TF</span>
+            </div>
+            <span className="text-[#1A5A96] font-black text-sm tracking-tight hidden sm:block">
+              Marketplace
+            </span>
+          </button>
+        ) : (
+          <div className="flex items-center gap-1.5 shrink-0">
+            <div className="w-6 h-6 rounded-md bg-[#1A5A96] flex items-center justify-center">
+              <span className="text-white font-black text-[9px]">TF</span>
+            </div>
+            <span className="text-[#1A5A96] font-black text-sm tracking-tight hidden sm:block">
+              Marketplace
+            </span>
           </div>
-          <span className="text-[#1A5A96] font-black text-sm tracking-tight hidden sm:block">
-            Marketplace
-          </span>
-        </div>
+        )}
 
-        {/* Search — centro, crece */}
-        <div className="flex-1 max-w-2xl mx-auto">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
-            <input
-              type="search"
-              value={query}
-              onChange={e => onQueryChange(e.target.value)}
-              placeholder="Buscar materiales, herramientas, equipos…"
-              className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-9 pr-4 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1A5A96]/30 focus:border-[#1A5A96] transition-all"
-            />
+        {/* Search — centro, crece; oculto en vista Home */}
+        {hideSearch ? (
+          <div className="flex-1" />
+        ) : (
+          <div className="flex-1 max-w-2xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+              <input
+                type="search"
+                value={query}
+                onChange={e => onQueryChange(e.target.value)}
+                placeholder="Buscar materiales, herramientas, equipos…"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-9 pr-4 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1A5A96]/30 focus:border-[#1A5A96] transition-all"
+              />
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Derecha: org name (professional) + carrito mobile */}
         <div className="flex items-center gap-2 shrink-0">
