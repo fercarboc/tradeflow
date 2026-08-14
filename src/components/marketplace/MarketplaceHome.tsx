@@ -45,6 +45,28 @@ function supplierInitials(nombre: string): string {
     .toUpperCase();
 }
 
+// ── Logos locales estáticos (fallback antes de usar iniciales) ────────────────
+// Clave: fragmento del nombre en minúsculas. El primer match gana.
+
+const SUPPLIER_LOGO_MAP: Array<[string, string]> = [
+  ['hidrosur',          '/marketplace/logos/hidrosur.png'],
+  ['obrama',            '/marketplace/logos/obrama.png'],
+  ['electro norte',     '/marketplace/logos/electro-norte.png'],
+  ['electrosuministros cantábrico', '/marketplace/logos/electro-norte.png'],
+  ['climatizar',        '/marketplace/logos/climatizar.png'],
+  ['maderas del norte', '/marketplace/logos/maderas-norte.png'],
+  ['pinturas pro',      '/marketplace/logos/pinturas-pro.png'],
+];
+
+function getLocalLogo(supplier: ActiveSupplier): string | null {
+  if (supplier.logo_url) return supplier.logo_url;
+  const key = supplier.nombre.toLowerCase();
+  for (const [pattern, path] of SUPPLIER_LOGO_MAP) {
+    if (key.includes(pattern)) return path;
+  }
+  return null;
+}
+
 // ── Sub-componentes (top-level — sin componentes anidados) ────────────────────
 
 interface HomeSearchBarProps {
@@ -204,15 +226,16 @@ interface HomeSupplierCardProps {
 function HomeSupplierCard({ supplier, onGoToCatalog }: HomeSupplierCardProps) {
   const color    = supplierColor(supplier.id);
   const initials = supplierInitials(supplier.nombre);
+  const logoSrc  = getLocalLogo(supplier);
 
   return (
     <button
       onClick={() => onGoToCatalog(undefined, undefined, supplier.nombre)}
       className="flex flex-col items-center gap-2 p-4 bg-white rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-md transition-all group shrink-0 w-28 min-h-[44px]"
     >
-      {supplier.logo_url ? (
+      {logoSrc ? (
         <img
-          src={supplier.logo_url}
+          src={logoSrc}
           alt={supplier.nombre}
           loading="lazy"
           className="w-12 h-12 rounded-xl object-contain"
