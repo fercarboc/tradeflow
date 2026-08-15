@@ -7,6 +7,8 @@ import type { SortBy } from './MarketplaceFilters';
 import MarketplaceGrid from './MarketplaceGrid';
 import MarketplaceFiltersDrawer from './MarketplaceFiltersDrawer';
 import CartSidebar from './CartSidebar';
+import MarketplaceCatalogBanner from './MarketplaceCatalogBanner';
+import { DEMO_CATALOG_BANNER } from '../../lib/marketplace-campaigns-demo';
 
 // ─── Chips horizontales de categoría ─────────────────────────────────────────
 
@@ -193,7 +195,7 @@ export default function MobileMarketplaceLayout({
   sortBy, onSortBy,
   minPrice, maxPrice, onMinPrice, onMaxPrice,
   filteredItems, loading, error,
-  actorIdsWithPickup,
+  purchaseCtx, actorIdsWithPickup,
   query, onClearQuery, onAddBest, onViewItem,
   cartItems, onUpdateQty, onRemove, onCheckout, quoteRef,
   mobileFiltersOpen, onOpenMobileFilters, onCloseMobileFilters,
@@ -223,6 +225,17 @@ export default function MobileMarketplaceLayout({
         totalResults={filteredItems.length}
         loading={loading}
       />
+
+      {/* Slot publicitario catalog — solo compra libre */}
+      {!purchaseCtx && (
+        <MarketplaceCatalogBanner
+          campaign={DEMO_CATALOG_BANNER}
+          onNavigate={(type, value) => {
+            if (type === 'category') onOficio(value ?? null);
+          }}
+          className="mx-0 mt-2"
+        />
+      )}
 
       {/* Catálogo */}
       <div className="flex-1 overflow-y-auto pb-20">

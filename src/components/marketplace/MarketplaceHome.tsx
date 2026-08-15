@@ -9,9 +9,22 @@ import { MARKETPLACE_OFICIOS } from '../../lib/marketplace-config';
 import { listActiveSuppliers } from '../../lib/api/marketplace-actors';
 import type { ActiveSupplier } from '../../lib/api/marketplace-actors';
 import type { MarketplaceLocation } from '../../hooks/useMarketplaceLocation';
-import MarketplaceHeroCarousel from './MarketplaceHeroCarousel';
+import type { AdDestinationType } from '../../lib/marketplace-ad-types';
+import {
+  DEMO_HERO_SLIDES,
+  DEMO_LATERAL_CAMPAIGNS,
+  DEMO_MOBILE_CAMPAIGNS,
+  DEMO_PROMO_CARDS,
+} from '../../lib/marketplace-campaigns-demo';
 
-// ── Mapa de iconos por oficio ─────────────────────────────────────────────────
+import MarketplaceHeroCarousel     from './MarketplaceHeroCarousel';
+import MarketplaceAdSlot            from './MarketplaceAdSlot';
+import MarketplaceBenefitsBar       from './MarketplaceBenefitsBar';
+import MarketplacePromotedSuppliers from './MarketplacePromotedSuppliers';
+import MarketplaceMobilePromos      from './MarketplaceMobilePromos';
+import MarketplaceTopNav            from './MarketplaceTopNav';
+
+// ── Iconos por oficio ─────────────────────────────────────────────────────────
 
 const OFICIO_ICONS: Record<string, LucideIcon> = {
   fontaneria:    Droplets,
@@ -23,7 +36,7 @@ const OFICIO_ICONS: Record<string, LucideIcon> = {
   soldadura:     Flame,
 };
 
-// ── Color determinista por proveedor (sin N+1, sin BD extra) ─────────────────
+// ── Colores de proveedores (determinista, sin N+1) ────────────────────────────
 
 const SUPPLIER_PALETTE = [
   '#3B82F6','#10B981','#8B5CF6','#F59E0B',
@@ -37,25 +50,19 @@ function supplierColor(id: string): string {
 }
 
 function supplierInitials(nombre: string): string {
-  return nombre
-    .split(/\s+/)
-    .slice(0, 2)
-    .map(w => w[0] ?? '')
-    .join('')
-    .toUpperCase();
+  return nombre.split(/\s+/).slice(0, 2).map(w => w[0] ?? '').join('').toUpperCase();
 }
 
-// ── Logos locales estáticos (fallback antes de usar iniciales) ────────────────
-// Clave: fragmento del nombre en minúsculas. El primer match gana.
+// ── Logos locales — match por nombre.toLowerCase().includes(pattern) ──────────
 
 const SUPPLIER_LOGO_MAP: Array<[string, string]> = [
-  ['hidrosur',          '/marketplace/logos/hidrosur.png'],
-  ['obrama',            '/marketplace/logos/obrama.png'],
-  ['electro norte',     '/marketplace/logos/electro-norte.png'],
+  ['hidrosur',                      '/marketplace/logos/hidrosur.png'],
+  ['obrama',                        '/marketplace/logos/obrama.png'],
+  ['electro norte',                 '/marketplace/logos/electro-norte.png'],
   ['electrosuministros cantábrico', '/marketplace/logos/electro-norte.png'],
-  ['climatizar',        '/marketplace/logos/climatizar.png'],
-  ['maderas del norte', '/marketplace/logos/maderas-norte.png'],
-  ['pinturas pro',      '/marketplace/logos/pinturas-pro.png'],
+  ['climatizar',                    '/marketplace/logos/climatizar.png'],
+  ['maderas del norte',             '/marketplace/logos/maderas-norte.png'],
+  ['pinturas pro',                  '/marketplace/logos/pinturas-pro.png'],
 ];
 
 function getLocalLogo(supplier: ActiveSupplier): string | null {
@@ -67,7 +74,7 @@ function getLocalLogo(supplier: ActiveSupplier): string | null {
   return null;
 }
 
-// ── Sub-componentes (top-level — sin componentes anidados) ────────────────────
+// ── Sub-componentes top-level (nunca anidados dentro del export default) ───────
 
 interface HomeSearchBarProps {
   onSearch: (q: string) => void;
@@ -152,10 +159,7 @@ function HomeCategoryGrid({ onGoToCatalog }: HomeCategoryGridProps) {
               style={{ background: o.bg }}
             >
               {Icon && (
-                <Icon
-                  className="w-6 h-6 transition-transform group-hover:scale-110"
-                  style={{ color: o.color }}
-                />
+                <Icon className="w-6 h-6 transition-transform group-hover:scale-110" style={{ color: o.color }} />
               )}
               <span className="text-xs font-semibold text-gray-700 text-center leading-tight">
                 {o.label}
@@ -234,12 +238,7 @@ function HomeSupplierCard({ supplier, onGoToCatalog }: HomeSupplierCardProps) {
       className="flex flex-col items-center gap-2 p-4 bg-white rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-md transition-all group shrink-0 w-28 min-h-[44px]"
     >
       {logoSrc ? (
-        <img
-          src={logoSrc}
-          alt={supplier.nombre}
-          loading="lazy"
-          className="w-12 h-12 rounded-xl object-contain"
-        />
+        <img src={logoSrc} alt={supplier.nombre} loading="lazy" className="w-12 h-12 rounded-xl object-contain" />
       ) : (
         <div
           className="w-12 h-12 rounded-xl flex items-center justify-center text-white text-sm font-black shrink-0"
@@ -249,13 +248,9 @@ function HomeSupplierCard({ supplier, onGoToCatalog }: HomeSupplierCardProps) {
         </div>
       )}
       <div className="text-center">
-        <p className="text-xs font-semibold text-gray-800 leading-tight line-clamp-2">
-          {supplier.nombre}
-        </p>
+        <p className="text-xs font-semibold text-gray-800 leading-tight line-clamp-2">{supplier.nombre}</p>
         {supplier.verificado && (
-          <span className="text-[9px] font-bold text-[#1A5A96] uppercase tracking-wide">
-            Verificado
-          </span>
+          <span className="text-[9px] font-bold text-[#1A5A96] uppercase tracking-wide">Verificado</span>
         )}
       </div>
     </button>
@@ -272,17 +267,11 @@ function HomeSuppliers({ suppliers, loading, onGoToCatalog }: HomeSuppliersProps
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-          Distribuidores
-        </h3>
-        <button
-          onClick={() => onGoToCatalog()}
-          className="text-xs text-[#1A5A96] font-semibold hover:underline"
-        >
+        <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Distribuidores</h3>
+        <button onClick={() => onGoToCatalog()} className="text-xs text-[#1A5A96] font-semibold hover:underline">
           Ver todos →
         </button>
       </div>
-
       {loading ? (
         <div className="flex gap-3 overflow-x-auto pb-1">
           {Array.from({ length: 4 }).map((_, i) => (
@@ -309,18 +298,22 @@ function HomeSuppliers({ suppliers, loading, onGoToCatalog }: HomeSuppliersProps
 
 interface MarketplaceHomeProps {
   onGoToCatalog:    (oficio?: string | null, search?: string, actor?: string) => void;
+  onGoHome:         () => void;
   cartCount:        number;
   onOpenCart:       () => void;
   location:         MarketplaceLocation | null;
   onChangeLocation: () => void;
+  onMisPedidos?:    () => void;
 }
 
 export default function MarketplaceHome({
   onGoToCatalog,
+  onGoHome,
   cartCount,
   onOpenCart,
   location,
   onChangeLocation,
+  onMisPedidos,
 }: MarketplaceHomeProps) {
   const [suppliers,   setSuppliers]   = useState<ActiveSupplier[]>([]);
   const [suppLoading, setSuppLoading] = useState(true);
@@ -336,47 +329,121 @@ export default function MarketplaceHome({
     onGoToCatalog(null, q);
   }, [onGoToCatalog]);
 
-  return (
-    <div className="flex-1 overflow-y-auto bg-gray-50">
+  // Construye la función de navegación para los slots de anuncios
+  function handleAdNavigate(type: AdDestinationType, value?: string) {
+    if (type === 'category')       onGoToCatalog(value ?? null);
+    else if (type === 'supplier')  onGoToCatalog(undefined, undefined, value);
+    else if (type === 'search')    onGoToCatalog(null, value);
+    else                           onGoToCatalog();
+  }
 
-      {/* ── Desktop (lg+) ────────────────────────────────────────────────────── */}
-      <div className="hidden lg:block max-w-5xl mx-auto px-6 py-6 space-y-7">
-        <div className="space-y-2.5">
-          <HomeSearchBar onSearch={handleSearch} />
-          <HomeLocationRow location={location} onChangeLocation={onChangeLocation} />
+  // Slots laterales del demo (fuente única)
+  const leftTop    = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_LEFT_TOP');
+  const leftBottom = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_LEFT_BOTTOM');
+  const rightTop   = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_RIGHT_TOP');
+  const rightBottom = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_RIGHT_BOTTOM');
+
+  return (
+    <div className="flex-1 flex flex-col overflow-y-auto bg-gray-50">
+
+      {/* ── TopNav — solo Desktop ─────────────────────────────────────────── */}
+      <div className="hidden lg:block">
+        <MarketplaceTopNav
+          activeTab="inicio"
+          onGoHome={onGoHome}
+          onGoToCatalog={oficio => onGoToCatalog(oficio ?? null)}
+          onMisPedidos={onMisPedidos}
+        />
+      </div>
+
+      {/* ── Desktop (lg+) — 3 columnas ────────────────────────────────────── */}
+      <div className="hidden lg:block">
+        {/* Buscador + ubicación — ancho central */}
+        <div className="max-w-[1280px] mx-auto px-4 pt-6 pb-2">
+          <div className="max-w-2xl mx-auto space-y-2.5">
+            <HomeSearchBar onSearch={handleSearch} />
+            <HomeLocationRow location={location} onChangeLocation={onChangeLocation} />
+          </div>
         </div>
 
-        <MarketplaceHeroCarousel onGoToCatalog={onGoToCatalog} />
+        {/* Layout 3 columnas */}
+        <div className="max-w-[1280px] mx-auto px-4 pb-8">
+          <div className="grid gap-4" style={{ gridTemplateColumns: '192px 1fr 192px' }}>
 
-        <HomeCategoryGrid onGoToCatalog={onGoToCatalog} />
+            {/* Columna izquierda — slots publicitarios */}
+            <div className="space-y-4 pt-1">
+              <MarketplaceAdSlot campaign={leftTop}    onNavigate={handleAdNavigate} />
+              <MarketplaceAdSlot campaign={leftBottom} onNavigate={handleAdNavigate} />
+            </div>
 
-        <HomeSuppliers
-          suppliers={suppliers}
-          loading={suppLoading}
-          onGoToCatalog={onGoToCatalog}
-        />
+            {/* Columna central — contenido editorial */}
+            <div className="space-y-6">
+              <MarketplaceHeroCarousel
+                slides={DEMO_HERO_SLIDES}
+                onGoToCatalog={onGoToCatalog}
+              />
 
-        <div className="pt-2 pb-6 text-center">
-          <button
-            onClick={() => onGoToCatalog()}
-            className="inline-flex items-center gap-2.5 bg-[#1A5A96] text-white font-bold px-8 py-3.5 rounded-2xl hover:bg-[#154d82] transition-colors shadow-sm"
-          >
-            <Package className="w-5 h-5" />
-            Ver todo el catálogo
-            <ChevronRight className="w-4 h-4" />
-          </button>
+              <MarketplaceBenefitsBar />
+
+              <HomeCategoryGrid onGoToCatalog={onGoToCatalog} />
+
+              <MarketplacePromotedSuppliers
+                cards={DEMO_PROMO_CARDS}
+                onNavigate={handleAdNavigate}
+                onViewAll={() => onGoToCatalog()}
+              />
+
+              <HomeSuppliers
+                suppliers={suppliers}
+                loading={suppLoading}
+                onGoToCatalog={onGoToCatalog}
+              />
+
+              <div className="pt-2 pb-4 text-center">
+                <button
+                  onClick={() => onGoToCatalog()}
+                  className="inline-flex items-center gap-2.5 bg-[#1A5A96] text-white font-bold px-8 py-3.5 rounded-2xl hover:bg-[#154d82] transition-colors shadow-sm"
+                >
+                  <Package className="w-5 h-5" />
+                  Ver todo el catálogo
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Columna derecha — slots publicitarios */}
+            <div className="space-y-4 pt-1">
+              <MarketplaceAdSlot campaign={rightTop}    onNavigate={handleAdNavigate} />
+              <MarketplaceAdSlot campaign={rightBottom} onNavigate={handleAdNavigate} />
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* ── Mobile (< lg) ────────────────────────────────────────────────────── */}
+      {/* ── Mobile (< lg) ─────────────────────────────────────────────────── */}
       <div className="lg:hidden px-4 py-4 space-y-5 pb-24">
         <HomeSearchBar onSearch={handleSearch} />
 
         <HomeLocationRow location={location} onChangeLocation={onChangeLocation} />
 
-        <MarketplaceHeroCarousel onGoToCatalog={onGoToCatalog} />
+        <MarketplaceHeroCarousel
+          slides={DEMO_HERO_SLIDES}
+          onGoToCatalog={onGoToCatalog}
+        />
 
         <HomeCategoryScroll onGoToCatalog={onGoToCatalog} />
+
+        {/* Slots promocionales mobile — reemplazan los 4 laterales desktop */}
+        <MarketplaceMobilePromos
+          campaigns={DEMO_MOBILE_CAMPAIGNS}
+          onNavigate={handleAdNavigate}
+        />
+
+        <MarketplacePromotedSuppliers
+          cards={DEMO_PROMO_CARDS}
+          onNavigate={handleAdNavigate}
+          onViewAll={() => onGoToCatalog()}
+        />
 
         <HomeSuppliers
           suppliers={suppliers}
@@ -395,7 +462,7 @@ export default function MarketplaceHome({
         </div>
       </div>
 
-      {/* FAB carrito — solo mobile cuando hay artículos */}
+      {/* FAB carrito — mobile con artículos */}
       {cartCount > 0 && (
         <button
           onClick={onOpenCart}

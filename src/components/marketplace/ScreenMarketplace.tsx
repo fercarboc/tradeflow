@@ -775,6 +775,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
       {view === 'home' && (
         <MarketplaceHome
           onGoToCatalog={handleGoToCatalog}
+          onGoHome={() => setView('home')}
           cartCount={cartCount}
           onOpenCart={openMobileCart}
           location={location}

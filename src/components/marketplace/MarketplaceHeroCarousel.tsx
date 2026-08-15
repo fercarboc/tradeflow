@@ -1,101 +1,50 @@
 import { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import type { HeroSlide } from '../../lib/marketplace-ad-types';
 
-// INVARIANT: Las campañas/hero dan visibilidad comercial pero NUNCA alteran
+// INVARIANTE: Las campañas/hero dan visibilidad comercial pero NUNCA alteran
 // el orden del comparador, el precio, el score ni la recomendación de proveedor.
 // Las posiciones en rankings se calculan exclusivamente por precio y disponibilidad.
 
-export interface MarketplaceHeroItem {
-  id:           string;
-  title:        string;
-  subtitle?:    string;
-  badge?:       string;
-  ctaLabel:     string;
-  action:       'catalog' | 'category' | 'search';
-  category?:    string;
-  searchQuery?: string;
-  // Imagen real — cuando está presente, se muestra como fondo; si no, gradient CSS
-  imageUrl?:    string;
-  gradient:     string;
-  patternColor: string;
-}
+// Re-exportamos HeroSlide para compatibilidad con importaciones antiguas.
+export type { HeroSlide };
 
-const RC1_SLIDES: MarketplaceHeroItem[] = [
-  {
-    id:           'hero-general',
-    title:        'Todo lo que necesitas para cada instalación',
-    subtitle:     'Compara precios entre distribuidores y elige el mejor proveedor al instante',
-    badge:        'Materiales profesionales',
-    ctaLabel:     'Ver catálogo completo',
-    action:       'catalog',
-    imageUrl:     '/marketplace/carousel/carrusel1.png',
-    gradient:     'linear-gradient(135deg, #1A5A96 0%, #2d7dd2 60%, #1a9dd9 100%)',
-    patternColor: 'rgba(255,255,255,0.04)',
-  },
-  {
-    id:           'hero-electricidad-cuadro',
-    title:        'Cuadro eléctrico profesional 18 módulos',
-    subtitle:     'Semana del instalador — Electrodistribución Cantábrica',
-    badge:        'Oferta mayorista',
-    ctaLabel:     'Ver electricidad',
-    action:       'category',
-    category:     'electricidad',
-    imageUrl:     '/marketplace/carousel/carrusel2.png',
-    gradient:     'linear-gradient(135deg, #78350f 0%, #b45309 60%, #d97706 100%)',
-    patternColor: 'rgba(255,255,255,0.05)',
-  },
-  {
-    id:           'hero-fontaneria-kit',
-    title:        'Kit instalación de fontanería profesional',
-    subtitle:     'Todo lo que necesitas, en un solo kit — Suministros Técnicos Norte',
-    badge:        'Novedad mayorista',
-    ctaLabel:     'Ver fontanería',
-    action:       'category',
-    category:     'fontaneria',
-    imageUrl:     '/marketplace/carousel/carrusel3.png',
-    gradient:     'linear-gradient(135deg, #1e40af 0%, #2563eb 60%, #3b82f6 100%)',
-    patternColor: 'rgba(255,255,255,0.05)',
-  },
-  {
-    id:           'hero-electricidad-cable',
-    title:        'Cable libre de halógenos H07Z1-K 6 mm²',
-    subtitle:     'Promoción instalador — Electrosuministros Cantábrico',
-    badge:        'Oferta mayorista',
-    ctaLabel:     'Ver electricidad',
-    action:       'category',
-    category:     'electricidad',
-    imageUrl:     '/marketplace/carousel/carrusel4.png',
-    gradient:     'linear-gradient(135deg, #134e4a 0%, #0f766e 60%, #14b8a6 100%)',
-    patternColor: 'rgba(255,255,255,0.05)',
-  },
-];
+// Tipo legacy para compatibilidad interna (alias).
+export type MarketplaceHeroItem = HeroSlide;
 
 interface Props {
+  slides:        HeroSlide[];
   onGoToCatalog: (oficio?: string | null, search?: string) => void;
   className?:    string;
 }
 
-export default function MarketplaceHeroCarousel({ onGoToCatalog, className = '' }: Props) {
+export default function MarketplaceHeroCarousel({ slides, onGoToCatalog, className = '' }: Props) {
   const [current, setCurrent] = useState(0);
   const [paused,  setPaused]  = useState(false);
 
+  const total = slides.length;
+
   const next = useCallback(() => {
-    setCurrent(c => (c + 1) % RC1_SLIDES.length);
-  }, []);
+    setCurrent(c => (c + 1) % total);
+  }, [total]);
 
   const prev = useCallback(() => {
-    setCurrent(c => (c - 1 + RC1_SLIDES.length) % RC1_SLIDES.length);
-  }, []);
+    setCurrent(c => (c - 1 + total) % total);
+  }, [total]);
 
   useEffect(() => {
-    if (paused) return;
+    if (paused || total < 2) return;
     const mq = window.matchMedia?.('(prefers-reduced-motion: reduce)');
     if (mq?.matches) return;
     const id = setInterval(next, 5000);
     return () => clearInterval(id);
-  }, [next, paused]);
+  }, [next, paused, total]);
 
-  const slide = RC1_SLIDES[current];
+  // Clampar índice si slides cambian en runtime
+  const idx   = Math.min(current, total - 1);
+  const slide = slides[idx];
+
+  if (!slide) return null;
 
   function handleCta() {
     if (slide.action === 'category') onGoToCatalog(slide.category ?? null);
@@ -103,14 +52,18 @@ export default function MarketplaceHeroCarousel({ onGoToCatalog, className = '' 
     else onGoToCatalog();
   }
 
+  const hasTextOverlay = !slide.imageUrl || Boolean(slide.price ?? slide.discount ?? false);
+  const gradient = slide.gradient ?? 'linear-gradient(135deg, #1A5A96 0%, #2d7dd2 100%)';
+  const patternColor = slide.patternColor ?? 'rgba(255,255,255,0.04)';
+
   return (
     <div
       className={`relative rounded-2xl overflow-hidden select-none ${className}`}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* ── Slide con imagen real ─────────────────────────────────────────────── */}
-      {slide.imageUrl ? (
+      {/* ── Slide con imagen sin overlay de texto ──────────────────────────── */}
+      {slide.imageUrl && !hasTextOverlay ? (
         <button
           onClick={handleCta}
           className="block w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
@@ -126,27 +79,50 @@ export default function MarketplaceHeroCarousel({ onGoToCatalog, className = '' 
           />
         </button>
       ) : (
-        /* ── Slide CSS gradient (fallback sin imagen) ────────────────────────── */
+        /* ── Slide con texto superpuesto (imagen como bg o gradiente CSS) ─── */
         <div
-          style={{ background: slide.gradient, transition: 'background 0.5s ease' }}
+          className="relative"
+          style={{
+            background:  slide.imageUrl ? undefined : gradient,
+            minHeight:   'clamp(160px, 28vw, 280px)',
+            transition:  'background 0.5s ease',
+          }}
         >
-          {/* Patrón decorativo */}
-          <div className="absolute inset-0 pointer-events-none" aria-hidden>
-            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <pattern id="hgrid" width="32" height="32" patternUnits="userSpaceOnUse">
-                  <path d="M 32 0 L 0 0 0 32" fill="none" stroke={slide.patternColor} strokeWidth="1"/>
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#hgrid)" />
-            </svg>
-          </div>
+          {/* Imagen como fondo si está disponible con texto overlay */}
+          {slide.imageUrl && (
+            <img
+              src={slide.imageUrl}
+              alt=""
+              aria-hidden
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          )}
 
-          <div className="relative z-10 px-5 py-6 sm:px-8 sm:py-8 min-h-[160px] sm:min-h-[200px] flex flex-col justify-between">
+          {/* Overlay oscuro para legibilidad del texto */}
+          <div className="absolute inset-0 bg-black/50" />
+
+          {/* Patrón decorativo (solo sin imagen) */}
+          {!slide.imageUrl && (
+            <div className="absolute inset-0 pointer-events-none" aria-hidden>
+              <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <pattern id="hgrid" width="32" height="32" patternUnits="userSpaceOnUse">
+                    <path d="M 32 0 L 0 0 0 32" fill="none" stroke={patternColor} strokeWidth="1"/>
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#hgrid)" />
+              </svg>
+            </div>
+          )}
+
+          {/* Contenido de texto */}
+          <div className="relative z-10 px-5 py-6 sm:px-8 sm:py-8 flex flex-col justify-between gap-4"
+            style={{ minHeight: 'clamp(160px, 28vw, 280px)' }}
+          >
             <div className="space-y-2">
-              {slide.badge && (
+              {slide.eyebrow && (
                 <span className="inline-block bg-white/20 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">
-                  {slide.badge}
+                  {slide.eyebrow}
                 </span>
               )}
               <h2 className="text-white font-black text-xl sm:text-2xl leading-tight max-w-xs sm:max-w-md">
@@ -157,53 +133,71 @@ export default function MarketplaceHeroCarousel({ onGoToCatalog, className = '' 
                   {slide.subtitle}
                 </p>
               )}
+              {/* Bloque de precio para slides de producto */}
+              {slide.price && (
+                <div className="flex items-baseline gap-2 mt-1">
+                  <span className="text-2xl font-black text-white">{slide.price}</span>
+                  {slide.previousPrice && (
+                    <span className="text-sm text-white/50 line-through">{slide.previousPrice}</span>
+                  )}
+                  {slide.discount && (
+                    <span className="text-xs font-black bg-white text-[#1A5A96] px-2 py-0.5 rounded-lg">
+                      {slide.discount}
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
 
-            <div className="flex items-center justify-between mt-5">
-              <button
-                onClick={handleCta}
-                className="bg-white text-[#1A5A96] font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-white/95 transition-colors shadow-sm min-h-[44px]"
-              >
-                {slide.ctaLabel}
-              </button>
-            </div>
+            <button
+              onClick={handleCta}
+              className="self-start bg-white text-[#1A5A96] font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-white/95 transition-colors shadow-sm min-h-[44px]"
+            >
+              {slide.ctaLabel}
+            </button>
           </div>
         </div>
       )}
 
-      {/* ── Flecha izquierda ─────────────────────────────────────────────────── */}
-      <button
-        onClick={e => { e.stopPropagation(); prev(); }}
-        aria-label="Anterior"
-        className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/30 hover:bg-black/50 text-white flex items-center justify-center transition-colors"
-      >
-        <ChevronLeft className="w-4 h-4" />
-      </button>
+      {/* ── Flecha izquierda ─────────────────────────────────────────────── */}
+      {total > 1 && (
+        <button
+          onClick={e => { e.stopPropagation(); prev(); }}
+          aria-label="Anterior"
+          className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/30 hover:bg-black/50 text-white flex items-center justify-center transition-colors"
+        >
+          <ChevronLeft className="w-4 h-4" />
+        </button>
+      )}
 
-      {/* ── Flecha derecha ───────────────────────────────────────────────────── */}
-      <button
-        onClick={e => { e.stopPropagation(); next(); }}
-        aria-label="Siguiente"
-        className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/30 hover:bg-black/50 text-white flex items-center justify-center transition-colors"
-      >
-        <ChevronRight className="w-4 h-4" />
-      </button>
+      {/* ── Flecha derecha ───────────────────────────────────────────────── */}
+      {total > 1 && (
+        <button
+          onClick={e => { e.stopPropagation(); next(); }}
+          aria-label="Siguiente"
+          className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/30 hover:bg-black/50 text-white flex items-center justify-center transition-colors"
+        >
+          <ChevronRight className="w-4 h-4" />
+        </button>
+      )}
 
-      {/* ── Dots ─────────────────────────────────────────────────────────────── */}
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5">
-        {RC1_SLIDES.map((_, i) => (
-          <button
-            key={i}
-            onClick={e => { e.stopPropagation(); setCurrent(i); }}
-            aria-label={`Slide ${i + 1}`}
-            className={`rounded-full transition-all min-w-[8px] min-h-[8px] ${
-              i === current
-                ? 'bg-white w-5 h-2'
-                : 'bg-white/50 w-2 h-2 hover:bg-white/80'
-            }`}
-          />
-        ))}
-      </div>
+      {/* ── Dots ─────────────────────────────────────────────────────────── */}
+      {total > 1 && (
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={e => { e.stopPropagation(); setCurrent(i); }}
+              aria-label={`Slide ${i + 1}`}
+              className={`rounded-full transition-all min-w-[8px] min-h-[8px] ${
+                i === idx
+                  ? 'bg-white w-5 h-2'
+                  : 'bg-white/50 w-2 h-2 hover:bg-white/80'
+              }`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

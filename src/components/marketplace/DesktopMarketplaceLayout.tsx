@@ -6,7 +6,9 @@ import type { SortBy } from './MarketplaceFilters';
 import MarketplaceFilters from './MarketplaceFilters';
 import MarketplaceGrid from './MarketplaceGrid';
 import MarketplaceBanner from './MarketplaceBanner';
+import MarketplaceCatalogBanner from './MarketplaceCatalogBanner';
 import { CartSidebarDesktop } from './CartSidebar';
+import { DEMO_CATALOG_BANNER } from '../../lib/marketplace-campaigns-demo';
 
 // ─── Sort bar sobre catálogo ──────────────────────────────────────────────────
 
@@ -128,9 +130,17 @@ export default function DesktopMarketplaceLayout({
         loading={loading}
       />
 
-      {/* Centro: banner + sort bar + catálogo */}
+      {/* Centro: banner + slot publicitario + sort bar + catálogo */}
       <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
         {!purchaseCtx && <MarketplaceBanner onCategory={onCategory} />}
+        {!purchaseCtx && (
+          <MarketplaceCatalogBanner
+            campaign={DEMO_CATALOG_BANNER}
+            onNavigate={(type, value) => {
+              if (type === 'category') onCategory(value ?? null);
+            }}
+          />
+        )}
         <SortBar
           sortBy={sortBy}
           onSortBy={onSortBy}
