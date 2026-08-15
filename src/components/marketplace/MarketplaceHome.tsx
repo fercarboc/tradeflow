@@ -78,9 +78,10 @@ function getLocalLogo(supplier: ActiveSupplier): string | null {
 
 interface HomeSearchBarProps {
   onSearch: (q: string) => void;
+  compact?: boolean;
 }
 
-function HomeSearchBar({ onSearch }: HomeSearchBarProps) {
+function HomeSearchBar({ onSearch, compact }: HomeSearchBarProps) {
   const [localQuery, setLocalQuery] = useState('');
 
   function handleSubmit(e: React.FormEvent) {
@@ -92,17 +93,17 @@ function HomeSearchBar({ onSearch }: HomeSearchBarProps) {
   return (
     <form onSubmit={handleSubmit}>
       <div className="relative">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
         <input
           type="search"
           value={localQuery}
           onChange={e => setLocalQuery(e.target.value)}
           placeholder="¿Qué material necesitas?"
-          className="w-full bg-white border-2 border-gray-200 rounded-2xl pl-12 pr-24 py-3.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#1A5A96] shadow-sm transition-colors"
+          className={`w-full bg-white border-2 border-gray-200 rounded-xl pl-10 pr-20 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#1A5A96] shadow-sm transition-colors ${compact ? 'py-2' : 'py-3.5 rounded-2xl text-base pl-12 pr-24'}`}
         />
         <button
           type="submit"
-          className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#1A5A96] text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-[#154d82] transition-colors min-h-[36px]"
+          className={`absolute right-1.5 top-1/2 -translate-y-1/2 bg-[#1A5A96] text-white rounded-lg font-bold hover:bg-[#154d82] transition-colors ${compact ? 'px-3 py-1.5 text-xs min-h-[30px]' : 'px-4 py-2 text-sm min-h-[36px] rounded-xl'}`}
         >
           Buscar
         </button>
@@ -346,28 +347,22 @@ export default function MarketplaceHome({
   return (
     <div className="flex-1 flex flex-col overflow-y-auto bg-gray-50">
 
-      {/* ── TopNav — solo Desktop ─────────────────────────────────────────── */}
+      {/* ── TopNav + Buscador + Ubicación — solo Desktop ─────────────────── */}
       <div className="hidden lg:block">
         <MarketplaceTopNav
           activeTab="inicio"
           onGoHome={onGoHome}
           onGoToCatalog={oficio => onGoToCatalog(oficio ?? null)}
           onMisPedidos={onMisPedidos}
+          centerSlot={<HomeSearchBar onSearch={handleSearch} compact />}
+          rightSlot={<HomeLocationRow location={location} onChangeLocation={onChangeLocation} />}
         />
       </div>
 
       {/* ── Desktop (lg+) — 3 columnas ────────────────────────────────────── */}
       <div className="hidden lg:block">
-        {/* Buscador + ubicación — centrado */}
-        <div className="px-6 pt-6 pb-2">
-          <div className="max-w-2xl mx-auto space-y-2.5">
-            <HomeSearchBar onSearch={handleSearch} />
-            <HomeLocationRow location={location} onChangeLocation={onChangeLocation} />
-          </div>
-        </div>
-
         {/* Layout 3 columnas — flush al borde izquierdo */}
-        <div className="w-full px-2 pb-8">
+        <div className="w-full px-2 pb-8 pt-3">
           <div className="grid gap-3" style={{ gridTemplateColumns: '192px 1fr 192px' }}>
 
             {/* Columna izquierda — slots publicitarios */}

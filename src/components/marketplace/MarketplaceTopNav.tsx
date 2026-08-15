@@ -25,12 +25,14 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 interface Props {
-  activeTab?:       string;
-  onGoHome:         () => void;
-  onGoToCatalog:    (oficio?: string | null, search?: string) => void;
-  onNavigateAd?:    (type: AdDestinationType, value?: string) => void;
-  onMisPedidos?:    () => void;
-  className?:       string;
+  activeTab?:    string;
+  onGoHome:      () => void;
+  onGoToCatalog: (oficio?: string | null, search?: string) => void;
+  onNavigateAd?: (type: AdDestinationType, value?: string) => void;
+  onMisPedidos?: () => void;
+  centerSlot?:   React.ReactNode;
+  rightSlot?:    React.ReactNode;
+  className?:    string;
 }
 
 export default function MarketplaceTopNav({
@@ -38,6 +40,8 @@ export default function MarketplaceTopNav({
   onGoHome,
   onGoToCatalog,
   onMisPedidos,
+  centerSlot,
+  rightSlot,
   className = '',
 }: Props) {
 
@@ -53,34 +57,49 @@ export default function MarketplaceTopNav({
 
   return (
     <nav
-      className={`bg-white border-b border-gray-100 shrink-0 overflow-x-auto scrollbar-none ${className}`}
+      className={`bg-white border-b border-gray-100 shrink-0 ${centerSlot ? '' : 'overflow-x-auto scrollbar-none'} ${className}`}
       aria-label="Navegación marketplace"
     >
-      <div className="flex items-center gap-0.5 px-4 max-w-[1280px] mx-auto">
-        {NAV_ITEMS.map(({ id, label, Icon, enabled }) => {
-          const isActive = id === activeTab;
-          const clickable = enabled;
+      <div className="flex items-center gap-1 px-2 w-full">
+        {/* Ítems de navegación */}
+        <div className="flex items-center gap-0.5 shrink-0">
+          {NAV_ITEMS.map(({ id, label, Icon, enabled }) => {
+            const isActive = id === activeTab;
+            return (
+              <button
+                key={id}
+                onClick={enabled ? () => handleClick(id) : undefined}
+                disabled={!enabled}
+                className={[
+                  'flex items-center gap-1.5 px-2.5 py-2.5 text-xs font-semibold whitespace-nowrap border-b-2 transition-colors shrink-0',
+                  isActive
+                    ? 'border-[#1A5A96] text-[#1A5A96]'
+                    : enabled
+                      ? 'border-transparent text-gray-500 hover:text-gray-800 hover:border-gray-200'
+                      : 'border-transparent text-gray-300 cursor-not-allowed',
+                ].join(' ')}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                <Icon className="w-3.5 h-3.5" />
+                {label}
+              </button>
+            );
+          })}
+        </div>
 
-          return (
-            <button
-              key={id}
-              onClick={clickable ? () => handleClick(id) : undefined}
-              disabled={!clickable}
-              className={[
-                'flex items-center gap-1.5 px-3 py-3 text-xs font-semibold whitespace-nowrap border-b-2 transition-colors shrink-0',
-                isActive
-                  ? 'border-[#1A5A96] text-[#1A5A96]'
-                  : enabled
-                    ? 'border-transparent text-gray-500 hover:text-gray-800 hover:border-gray-200'
-                    : 'border-transparent text-gray-300 cursor-not-allowed',
-              ].join(' ')}
-              aria-current={isActive ? 'page' : undefined}
-            >
-              <Icon className="w-3.5 h-3.5" />
-              {label}
-            </button>
-          );
-        })}
+        {/* Slot central — buscador */}
+        {centerSlot && (
+          <div className="flex-1 px-3 py-1.5">
+            {centerSlot}
+          </div>
+        )}
+
+        {/* Slot derecha — ubicación */}
+        {rightSlot && (
+          <div className="shrink-0 pr-2">
+            {rightSlot}
+          </div>
+        )}
       </div>
     </nav>
   );

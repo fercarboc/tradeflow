@@ -44,7 +44,7 @@ export default function MarketplacePromoCard({ card, onNavigate }: Props) {
 
   return (
     <div
-      className="flex flex-col rounded-2xl overflow-hidden border border-white/10 shrink-0 w-44 hover:scale-[1.02] transition-transform cursor-pointer select-none"
+      className="flex flex-col rounded-2xl overflow-hidden border border-white/10 w-full hover:scale-[1.02] transition-transform cursor-pointer select-none"
       style={{ background: bg }}
       onClick={() => onNavigate(card.destinationType, card.destinationValue)}
       role="button"

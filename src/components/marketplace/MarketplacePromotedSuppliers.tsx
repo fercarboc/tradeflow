@@ -29,7 +29,7 @@ export default function MarketplacePromotedSuppliers({ cards, onNavigate, onView
         )}
       </div>
 
-      <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none -mx-1 px-1">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {cards.map(card => (
           <MarketplacePromoCard
             key={card.id}
