@@ -9,13 +9,19 @@ import { MARKETPLACE_OFICIOS } from '../../lib/marketplace-config';
 import { listActiveSuppliers } from '../../lib/api/marketplace-actors';
 import type { ActiveSupplier } from '../../lib/api/marketplace-actors';
 import type { MarketplaceLocation } from '../../hooks/useMarketplaceLocation';
-import type { AdDestinationType } from '../../lib/marketplace-ad-types';
+import type { AdDestinationType, AdSlotId } from '../../lib/marketplace-ad-types';
 import {
   DEMO_HERO_SLIDES,
   DEMO_LATERAL_CAMPAIGNS,
   DEMO_MOBILE_CAMPAIGNS,
   DEMO_PROMO_CARDS,
 } from '../../lib/marketplace-campaigns-demo';
+import { useAdCampaigns } from '../../hooks/useAdCampaigns';
+import {
+  adCampaignToHeroSlide,
+  adCampaignToPromoCard,
+  resolveCampaignDestination,
+} from '../../lib/api/marketplace-ads';
 
 import MarketplaceHeroCarousel     from './MarketplaceHeroCarousel';
 import MarketplaceAdSlot            from './MarketplaceAdSlot';
@@ -295,6 +301,19 @@ function HomeSuppliers({ suppliers, loading, onGoToCatalog }: HomeSuppliersProps
   );
 }
 
+// ── Slots del Home (constante de módulo — estable, sin re-creación) ────────────
+// 15 slots = 6 laterales + 3 hero comerciales + 2 mobile + 4 promo cards.
+// MARKET_CATALOG_HERO se gestiona en DesktopMarketplaceLayout / MobileMarketplaceLayout.
+
+const HOME_SLOT_IDS: readonly AdSlotId[] = [
+  'MARKET_HOME_LEFT_TOP',    'MARKET_HOME_LEFT_MID',    'MARKET_HOME_LEFT_BOTTOM',
+  'MARKET_HOME_RIGHT_TOP',   'MARKET_HOME_RIGHT_MID',   'MARKET_HOME_RIGHT_BOTTOM',
+  'MARKET_HOME_HERO_1',      'MARKET_HOME_HERO_2',      'MARKET_HOME_HERO_3',
+  'MARKET_HOME_MOBILE_PROMO_1', 'MARKET_HOME_MOBILE_PROMO_2',
+  'MARKET_HOME_PROMO_CARD_1', 'MARKET_HOME_PROMO_CARD_2',
+  'MARKET_HOME_PROMO_CARD_3', 'MARKET_HOME_PROMO_CARD_4',
+];
+
 // ── Componente principal ───────────────────────────────────────────────────────
 
 interface MarketplaceHomeProps {
@@ -330,21 +349,46 @@ export default function MarketplaceHome({
     onGoToCatalog(null, q);
   }, [onGoToCatalog]);
 
-  // Construye la función de navegación para los slots de anuncios
+  // 1 llamada bulk para los 15 slots del Home — sin N+1
+  const { getCampaign } = useAdCampaigns(HOME_SLOT_IDS);
+
+  // Navegación central — delega a resolveCampaignDestination para un único punto de dispatch
   function handleAdNavigate(type: AdDestinationType, value?: string) {
-    if (type === 'category')       onGoToCatalog(value ?? null);
-    else if (type === 'supplier')  onGoToCatalog(undefined, undefined, value);
-    else if (type === 'search')    onGoToCatalog(null, value);
-    else                           onGoToCatalog();
+    resolveCampaignDestination(type, value, onGoToCatalog);
   }
 
-  // Slots laterales del demo (fuente única)
-  const leftTop     = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_LEFT_TOP');
-  const leftMid     = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_LEFT_MID');
-  const leftBottom  = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_LEFT_BOTTOM');
-  const rightTop    = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_RIGHT_TOP');
-  const rightMid    = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_RIGHT_MID');
-  const rightBottom = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_RIGHT_BOTTOM');
+  // ── Hero slides — slide 0 institucional (hardcoded), slides 1-3 de BD o demo ──
+  const heroSlides = [
+    DEMO_HERO_SLIDES[0], // TrabFlow institucional, nunca comercializable
+    ...((['MARKET_HOME_HERO_1', 'MARKET_HOME_HERO_2', 'MARKET_HOME_HERO_3'] as const).map(
+      (slotId, i) => {
+        const bd = getCampaign(slotId);
+        return bd ? adCampaignToHeroSlide(bd) : (DEMO_HERO_SLIDES[i + 1] ?? DEMO_HERO_SLIDES[1]);
+      }
+    )),
+  ];
+
+  // ── PromoCards — BD si disponible, demo como fallback ─────────────────────────
+  const promoCards = (
+    ['MARKET_HOME_PROMO_CARD_1', 'MARKET_HOME_PROMO_CARD_2',
+     'MARKET_HOME_PROMO_CARD_3', 'MARKET_HOME_PROMO_CARD_4'] as const
+  ).map((slotId, i) => {
+    const bd = getCampaign(slotId);
+    return bd ? adCampaignToPromoCard(bd, i) : (DEMO_PROMO_CARDS[i] ?? DEMO_PROMO_CARDS[0]);
+  });
+
+  // ── Mobile promos — BD si disponible, demo como fallback ─────────────────────
+  const mobileCampaigns = (
+    ['MARKET_HOME_MOBILE_PROMO_1', 'MARKET_HOME_MOBILE_PROMO_2'] as const
+  ).map((slotId, i) => getCampaign(slotId) ?? (DEMO_MOBILE_CAMPAIGNS[i] ?? DEMO_MOBILE_CAMPAIGNS[0]));
+
+  // ── Slots laterales — BD si disponible, demo como fallback ───────────────────
+  const leftTop     = getCampaign('MARKET_HOME_LEFT_TOP')     ?? DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_LEFT_TOP');
+  const leftMid     = getCampaign('MARKET_HOME_LEFT_MID')     ?? DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_LEFT_MID');
+  const leftBottom  = getCampaign('MARKET_HOME_LEFT_BOTTOM')  ?? DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_LEFT_BOTTOM');
+  const rightTop    = getCampaign('MARKET_HOME_RIGHT_TOP')    ?? DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_RIGHT_TOP');
+  const rightMid    = getCampaign('MARKET_HOME_RIGHT_MID')    ?? DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_RIGHT_MID');
+  const rightBottom = getCampaign('MARKET_HOME_RIGHT_BOTTOM') ?? DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_RIGHT_BOTTOM');
 
   return (
     <div className="flex-1 flex flex-col overflow-y-auto overflow-x-hidden bg-gray-50">
@@ -377,12 +421,12 @@ export default function MarketplaceHome({
             {/* Columna central — contenido editorial */}
             <div className="space-y-5">
               <MarketplaceHeroCarousel
-                slides={DEMO_HERO_SLIDES}
+                slides={heroSlides}
                 onGoToCatalog={onGoToCatalog}
               />
 
               <MarketplacePromotedSuppliers
-                cards={DEMO_PROMO_CARDS}
+                cards={promoCards}
                 onNavigate={handleAdNavigate}
                 onViewAll={() => onGoToCatalog()}
               />
@@ -424,7 +468,7 @@ export default function MarketplaceHome({
         <HomeLocationRow location={location} onChangeLocation={onChangeLocation} />
 
         <MarketplaceHeroCarousel
-          slides={DEMO_HERO_SLIDES}
+          slides={heroSlides}
           onGoToCatalog={onGoToCatalog}
         />
 
@@ -432,12 +476,12 @@ export default function MarketplaceHome({
 
         {/* Slots promocionales mobile — reemplazan los 4 laterales desktop */}
         <MarketplaceMobilePromos
-          campaigns={DEMO_MOBILE_CAMPAIGNS}
+          campaigns={mobileCampaigns}
           onNavigate={handleAdNavigate}
         />
 
         <MarketplacePromotedSuppliers
-          cards={DEMO_PROMO_CARDS}
+          cards={promoCards}
           onNavigate={handleAdNavigate}
           onViewAll={() => onGoToCatalog()}
         />

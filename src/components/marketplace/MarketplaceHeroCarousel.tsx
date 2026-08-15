@@ -14,7 +14,7 @@ export type MarketplaceHeroItem = HeroSlide;
 
 interface Props {
   slides:        HeroSlide[];
-  onGoToCatalog: (oficio?: string | null, search?: string) => void;
+  onGoToCatalog: (oficio?: string | null, search?: string, actor?: string) => void;
   className?:    string;
 }
 
@@ -47,8 +47,14 @@ export default function MarketplaceHeroCarousel({ slides, onGoToCatalog, classNa
   if (!slide) return null;
 
   function handleCta() {
-    if (slide.action === 'category') onGoToCatalog(slide.category ?? null);
-    else if (slide.action === 'search') onGoToCatalog(null, slide.searchQuery);
+    if (slide.action === 'category')        onGoToCatalog(slide.category ?? null);
+    else if (slide.action === 'search')     onGoToCatalog(null, slide.searchQuery);
+    else if (slide.action === 'supplier')   onGoToCatalog(undefined, undefined, slide.supplierName);
+    else if (slide.action === 'product' || slide.action === 'offer') {
+      if (import.meta.env.DEV)
+        console.warn('[ADS:E3:INVALID_DESTINATION] hero slide action not yet routable —', slide.action);
+      onGoToCatalog();
+    }
     else onGoToCatalog();
   }
 

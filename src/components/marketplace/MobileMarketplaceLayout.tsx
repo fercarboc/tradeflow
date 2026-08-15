@@ -9,6 +9,7 @@ import MarketplaceFiltersDrawer from './MarketplaceFiltersDrawer';
 import CartSidebar from './CartSidebar';
 import MarketplaceCatalogBanner from './MarketplaceCatalogBanner';
 import { DEMO_CATALOG_BANNER } from '../../lib/marketplace-campaigns-demo';
+import { useAdCampaigns } from '../../hooks/useAdCampaigns';
 
 // ─── Chips horizontales de categoría ─────────────────────────────────────────
 
@@ -201,6 +202,9 @@ export default function MobileMarketplaceLayout({
   mobileFiltersOpen, onOpenMobileFilters, onCloseMobileFilters,
   mobileCartOpen, onOpenMobileCart, onCloseMobileCart,
 }: MobileLayoutProps) {
+  const { getCampaign: getCatalogCampaign } = useAdCampaigns(['MARKET_CATALOG_HERO']);
+  const catalogBannerCampaign = getCatalogCampaign('MARKET_CATALOG_HERO') ?? DEMO_CATALOG_BANNER;
+
   const activeFilterCount = [
     oficio !== null,
     familia !== null,
@@ -229,7 +233,7 @@ export default function MobileMarketplaceLayout({
       {/* Slot publicitario catalog — solo compra libre */}
       {!purchaseCtx && (
         <MarketplaceCatalogBanner
-          campaign={DEMO_CATALOG_BANNER}
+          campaign={catalogBannerCampaign}
           onNavigate={(type, value) => {
             if (type === 'category') onOficio(value ?? null);
           }}

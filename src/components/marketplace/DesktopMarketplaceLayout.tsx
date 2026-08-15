@@ -9,6 +9,7 @@ import MarketplaceBanner from './MarketplaceBanner';
 import MarketplaceCatalogBanner from './MarketplaceCatalogBanner';
 import { CartSidebarDesktop } from './CartSidebar';
 import { DEMO_CATALOG_BANNER } from '../../lib/marketplace-campaigns-demo';
+import { useAdCampaigns } from '../../hooks/useAdCampaigns';
 
 // ─── Sort bar sobre catálogo ──────────────────────────────────────────────────
 
@@ -106,6 +107,9 @@ export default function DesktopMarketplaceLayout({
   query, onClearQuery, onAddBest, onViewItem, onCategory,
   cartItems, onUpdateQty, onRemove, onCheckout, quoteRef,
 }: DesktopLayoutProps) {
+  const { getCampaign: getCatalogCampaign } = useAdCampaigns(['MARKET_CATALOG_HERO']);
+  const catalogBannerCampaign = getCatalogCampaign('MARKET_CATALOG_HERO') ?? DEMO_CATALOG_BANNER;
+
   return (
     <div className="hidden lg:flex flex-1 min-h-0 overflow-hidden">
       {/* Filtros — 240px */}
@@ -135,7 +139,7 @@ export default function DesktopMarketplaceLayout({
         {!purchaseCtx && <MarketplaceBanner onCategory={onCategory} />}
         {!purchaseCtx && (
           <MarketplaceCatalogBanner
-            campaign={DEMO_CATALOG_BANNER}
+            campaign={catalogBannerCampaign}
             onNavigate={(type, value) => {
               if (type === 'category') onCategory(value ?? null);
             }}

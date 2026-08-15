@@ -37,8 +37,9 @@ function FeatureBullet({ text, accent }: { text: string; accent: string }) {
 export default function MarketplaceAdSlot({ campaign, onNavigate, className = '' }: AdSlotProps) {
   if (!campaign || !campaign.active) return null;
 
-  const accent = campaign.accent ?? '#60a5fa';
-  const bg     = campaign.bg ?? 'linear-gradient(160deg, #1e3a5f 0%, #0f2044 100%)';
+  const accent   = campaign.accent ?? '#60a5fa';
+  const bg       = campaign.bg ?? 'linear-gradient(160deg, #1e3a5f 0%, #0f2044 100%)';
+  const hasImage = Boolean(campaign.imageUrl);
 
   function handleClick() {
     onNavigate(campaign!.destinationType, campaign!.destinationValue);
@@ -47,17 +48,28 @@ export default function MarketplaceAdSlot({ campaign, onNavigate, className = ''
   return (
     <div
       className={`relative rounded-2xl overflow-hidden flex flex-col ${className}`}
-      style={{ background: bg, minHeight: '220px' }}
+      style={{ background: hasImage ? undefined : bg, minHeight: '220px' }}
     >
+      {/* Imagen de fondo cuando disponible */}
+      {hasImage && (
+        <img
+          src={campaign.imageUrl}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      )}
+      {hasImage && <div className="absolute inset-0 bg-black/50" />}
+
       {/* Etiqueta publicitaria */}
-      <div className="px-3 pt-3">
+      <div className="relative z-10 px-3 pt-3">
         <span className="text-[8px] font-bold uppercase tracking-[0.15em] text-white/30 select-none">
           Espacio publicitario
         </span>
       </div>
 
       {/* Contenido principal */}
-      <div className="flex flex-col gap-2.5 px-3 pt-2 pb-3 flex-1">
+      <div className="relative z-10 flex flex-col gap-2.5 px-3 pt-2 pb-3 flex-1">
         {/* Logo / iniciales + nombre */}
         <div className="flex items-center gap-2">
           <div
