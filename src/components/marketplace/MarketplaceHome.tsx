@@ -358,40 +358,38 @@ export default function MarketplaceHome({
 
       {/* ── Desktop (lg+) — 3 columnas ────────────────────────────────────── */}
       <div className="hidden lg:block">
-        {/* Buscador + ubicación — ancho central */}
-        <div className="max-w-[1280px] mx-auto px-4 pt-6 pb-2">
+        {/* Buscador + ubicación — centrado */}
+        <div className="px-6 pt-6 pb-2">
           <div className="max-w-2xl mx-auto space-y-2.5">
             <HomeSearchBar onSearch={handleSearch} />
             <HomeLocationRow location={location} onChangeLocation={onChangeLocation} />
           </div>
         </div>
 
-        {/* Layout 3 columnas */}
-        <div className="max-w-[1280px] mx-auto px-4 pb-8">
-          <div className="grid gap-4" style={{ gridTemplateColumns: '192px 1fr 192px' }}>
+        {/* Layout 3 columnas — flush al borde izquierdo */}
+        <div className="w-full px-2 pb-8">
+          <div className="grid gap-3" style={{ gridTemplateColumns: '192px 1fr 192px' }}>
 
             {/* Columna izquierda — slots publicitarios */}
-            <div className="space-y-4 pt-1">
+            <div className="space-y-3 pt-1">
               <MarketplaceAdSlot campaign={leftTop}    onNavigate={handleAdNavigate} />
               <MarketplaceAdSlot campaign={leftBottom} onNavigate={handleAdNavigate} />
             </div>
 
             {/* Columna central — contenido editorial */}
-            <div className="space-y-6">
+            <div className="space-y-5">
               <MarketplaceHeroCarousel
                 slides={DEMO_HERO_SLIDES}
                 onGoToCatalog={onGoToCatalog}
               />
-
-              <MarketplaceBenefitsBar />
-
-              <HomeCategoryGrid onGoToCatalog={onGoToCatalog} />
 
               <MarketplacePromotedSuppliers
                 cards={DEMO_PROMO_CARDS}
                 onNavigate={handleAdNavigate}
                 onViewAll={() => onGoToCatalog()}
               />
+
+              <MarketplaceBenefitsBar />
 
               <HomeSuppliers
                 suppliers={suppliers}
@@ -412,7 +410,7 @@ export default function MarketplaceHome({
             </div>
 
             {/* Columna derecha — slots publicitarios */}
-            <div className="space-y-4 pt-1">
+            <div className="space-y-3 pt-1">
               <MarketplaceAdSlot campaign={rightTop}    onNavigate={handleAdNavigate} />
               <MarketplaceAdSlot campaign={rightBottom} onNavigate={handleAdNavigate} />
             </div>

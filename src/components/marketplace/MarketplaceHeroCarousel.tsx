@@ -74,7 +74,7 @@ export default function MarketplaceHeroCarousel({ slides, onGoToCatalog, classNa
             src={slide.imageUrl}
             alt={slide.title}
             className="w-full object-cover"
-            style={{ height: 'clamp(160px, 28vw, 280px)', display: 'block' }}
+            style={{ height: 'clamp(280px, 34vw, 420px)', display: 'block' }}
             draggable={false}
           />
         </button>
@@ -84,7 +84,7 @@ export default function MarketplaceHeroCarousel({ slides, onGoToCatalog, classNa
           className="relative"
           style={{
             background:  slide.imageUrl ? undefined : gradient,
-            minHeight:   'clamp(160px, 28vw, 280px)',
+            minHeight:   'clamp(280px, 34vw, 420px)',
             transition:  'background 0.5s ease',
           }}
         >
@@ -117,7 +117,7 @@ export default function MarketplaceHeroCarousel({ slides, onGoToCatalog, classNa
 
           {/* Contenido de texto */}
           <div className="relative z-10 px-5 py-6 sm:px-8 sm:py-8 flex flex-col justify-between gap-4"
-            style={{ minHeight: 'clamp(160px, 28vw, 280px)' }}
+            style={{ minHeight: 'clamp(280px, 34vw, 420px)' }}
           >
             <div className="space-y-2">
               {slide.eyebrow && (
