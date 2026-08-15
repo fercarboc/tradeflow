@@ -164,7 +164,7 @@ export default function MarketplaceHeroCarousel({ slides, onGoToCatalog, classNa
         <button
           onClick={e => { e.stopPropagation(); prev(); }}
           aria-label="Anterior"
-          className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/30 hover:bg-black/50 text-white flex items-center justify-center transition-colors"
+          className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/30 hover:bg-black/50 text-white flex items-center justify-center transition-colors"
         >
           <ChevronLeft className="w-4 h-4" />
         </button>
@@ -175,7 +175,7 @@ export default function MarketplaceHeroCarousel({ slides, onGoToCatalog, classNa
         <button
           onClick={e => { e.stopPropagation(); next(); }}
           aria-label="Siguiente"
-          className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/30 hover:bg-black/50 text-white flex items-center justify-center transition-colors"
+          className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/30 hover:bg-black/50 text-white flex items-center justify-center transition-colors"
         >
           <ChevronRight className="w-4 h-4" />
         </button>

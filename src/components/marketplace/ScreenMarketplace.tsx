@@ -780,6 +780,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
           onOpenCart={openMobileCart}
           location={location}
           onChangeLocation={() => setLocationModalOpen(true)}
+          onMisPedidos={() => setCurrentPage(ActivePage.SeguimientoMaterial)}
         />
       )}
 
