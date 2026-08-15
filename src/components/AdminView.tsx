@@ -37,12 +37,13 @@ import {
   Inbox, Filter, LogOut, Download, WifiOff, Globe, ThumbsUp, ThumbsDown,
   X, StickyNote, Activity, Repeat, BarChart2, PackageOpen,
   Zap, Bell, BellOff, PlayCircle, Send, HelpCircle, Eye, EyeOff as EyeOffIcon,
-  Brain, ChevronRight, BookOpen, ExternalLink, Truck, FolderOpen, Database,
+  Brain, ChevronRight, BookOpen, ExternalLink, Truck, FolderOpen, Database, Megaphone,
 } from 'lucide-react';
 import AdminSuppliersSection from './admin/AdminSuppliersSection';
 import AdminDocumentosSection from './admin/AdminDocumentosSection';
 import AdminRepositorioSection from './admin/AdminRepositorioSection';
 import AdminAIValidationSection from './admin/AdminAIValidationSection';
+import AdminMarketplaceAdsSection from './admin/AdminMarketplaceAdsSection';
 import {
   adminLoadActuaciones, adminToggleActuacionActivo,
   adminUpdateActuacionPrecios, adminUpdateActuacionObservaciones,
@@ -812,7 +813,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [detailOrg, setDetailOrg]     = useState<AdminOrgRow | null>(null);
 
   // Sección activa
-  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs' | 'ai_feedback' | 'ia_normativa' | 'docs' | 'suppliers' | 'base_maestra' | 'ai_validation' | 'corp_docs' | 'repositorio'>('dashboard');
+  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs' | 'ai_feedback' | 'ia_normativa' | 'docs' | 'suppliers' | 'base_maestra' | 'ai_validation' | 'corp_docs' | 'repositorio' | 'mkt_ads'>('dashboard');
 
   // Necesidades instaladores (chatbot)
   const [needs, setNeeds]               = useState<InstallerNeed[]>([]);
@@ -1382,6 +1383,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     { id: 'corp_docs'     as const, label: 'CRM / Documentos',  Icon: FolderOpen },
     { id: 'repositorio'   as const, label: 'Repositorio Docs',  Icon: Database },
     { id: 'ai_validation' as const, label: 'AI Validation',    Icon: Activity },
+    { id: 'mkt_ads'       as const, label: 'Publicidad Mkt',   Icon: Megaphone },
   ];
 
   const handleMarkInvoicePaid = async (inv: TradePlatformInvoice) => {
@@ -1441,6 +1443,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
         .catch(() => {})
         .finally(() => setBmLoading(false));
     }
+    else if (section === 'mkt_ads') { /* AdminMarketplaceAdsSection carga sus propios datos */ }
     else { loadOrgs(); loadWeeklyQuotes(); }
   };
 
@@ -3572,6 +3575,13 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
         ════════════════════════════════════════════════════════ */}
         {section === 'ai_validation' && (
           <AdminAIValidationSection toast={toast} />
+        )}
+
+        {/* ════════════════════════════════════════════════════════
+            SECCIÓN: PUBLICIDAD MARKETPLACE
+        ════════════════════════════════════════════════════════ */}
+        {section === 'mkt_ads' && (
+          <AdminMarketplaceAdsSection toast={toast} />
         )}
 
         {/* ════════════════════════════════════════════════════════
