@@ -17,7 +17,7 @@ export default function MarketplacePromotedSuppliers({ cards, onNavigate, onView
     <div>
       <div className="flex items-center justify-between mb-3">
         <h3 className="text-sm font-black text-gray-800">
-          Mayoristas promocionados
+          Productos promocionados
         </h3>
         {onViewAll && (
           <button

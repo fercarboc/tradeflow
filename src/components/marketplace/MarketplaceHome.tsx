@@ -339,13 +339,15 @@ export default function MarketplaceHome({
   }
 
   // Slots laterales del demo (fuente única)
-  const leftTop    = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_LEFT_TOP');
-  const leftBottom = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_LEFT_BOTTOM');
-  const rightTop   = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_RIGHT_TOP');
+  const leftTop     = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_LEFT_TOP');
+  const leftMid     = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_LEFT_MID');
+  const leftBottom  = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_LEFT_BOTTOM');
+  const rightTop    = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_RIGHT_TOP');
+  const rightMid    = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_RIGHT_MID');
   const rightBottom = DEMO_LATERAL_CAMPAIGNS.find(c => c.slotId === 'MARKET_HOME_RIGHT_BOTTOM');
 
   return (
-    <div className="flex-1 flex flex-col overflow-y-auto bg-gray-50">
+    <div className="flex-1 flex flex-col overflow-y-auto overflow-x-hidden bg-gray-50">
 
       {/* ── TopNav + Buscador + Ubicación — solo Desktop ─────────────────── */}
       <div className="hidden lg:block">
@@ -365,9 +367,10 @@ export default function MarketplaceHome({
         <div className="w-full px-2 pb-8 pt-3">
           <div className="grid gap-3" style={{ gridTemplateColumns: '192px 1fr 192px' }}>
 
-            {/* Columna izquierda — slots publicitarios */}
+            {/* Columna izquierda — 3 slots publicitarios */}
             <div className="space-y-3 pt-1">
               <MarketplaceAdSlot campaign={leftTop}    onNavigate={handleAdNavigate} />
+              <MarketplaceAdSlot campaign={leftMid}    onNavigate={handleAdNavigate} />
               <MarketplaceAdSlot campaign={leftBottom} onNavigate={handleAdNavigate} />
             </div>
 
@@ -404,9 +407,10 @@ export default function MarketplaceHome({
               </div>
             </div>
 
-            {/* Columna derecha — slots publicitarios */}
+            {/* Columna derecha — 3 slots publicitarios */}
             <div className="space-y-3 pt-1">
               <MarketplaceAdSlot campaign={rightTop}    onNavigate={handleAdNavigate} />
+              <MarketplaceAdSlot campaign={rightMid}    onNavigate={handleAdNavigate} />
               <MarketplaceAdSlot campaign={rightBottom} onNavigate={handleAdNavigate} />
             </div>
           </div>
