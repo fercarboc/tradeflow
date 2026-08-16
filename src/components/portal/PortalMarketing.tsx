@@ -41,6 +41,12 @@ const SCOPE_COLORS: Record<PromoScope, string> = {
   local:    'bg-teal-900/50 text-teal-400',
 };
 
+const SCOPE_BAR_COLORS: Record<PromoScope, string> = {
+  national: 'bg-blue-600',
+  regional: 'bg-purple-600',
+  local:    'bg-teal-600',
+};
+
 const TIPO_LABELS: Record<PromoTipo, string> = {
   descuento_porcentaje: '% Descuento',
   pack_ahorro:          'Pack ahorro',
@@ -228,7 +234,6 @@ function PromoSlideOver({ actorId, promo, locations, onSave, onClose }: PromoSli
     setSaving(true);
     setError(null);
 
-    // Payload usa únicamente columnas reales de BD
     const payload = {
       actor_id:               actorId,
       titulo:                 form.titulo.trim(),
@@ -257,7 +262,7 @@ function PromoSlideOver({ actorId, promo, locations, onSave, onClose }: PromoSli
 
   return (
     <div className="fixed inset-0 z-50 flex">
-      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
       <div className="relative ml-auto w-full max-w-sm bg-slate-900 border-l border-slate-800 flex flex-col h-full shadow-2xl">
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-800">
           <h3 className="font-bold text-slate-100 text-sm">
@@ -408,65 +413,94 @@ function PromoCard({ promo, onEdit, onToggle }: PromoCardProps) {
   const status = promoStatus(promo);
 
   return (
-    <div className="bg-slate-900 rounded-xl border border-slate-800 hover:border-slate-700 transition-all p-4">
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 flex-wrap mb-1.5">
-            <span className={`text-[10px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded ${SCOPE_COLORS[promo.scope]}`}>
-              {SCOPE_LABELS[promo.scope]}
-            </span>
-            <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${STATUS_COLORS[status]}`}>
-              {STATUS_LABELS[status]}
-            </span>
-            <span className="text-[10px] text-slate-500 bg-slate-800 px-1.5 py-0.5 rounded">
-              {TIPO_LABELS[promo.tipo]}
-            </span>
+    <div className="bg-slate-900 rounded-xl border border-slate-800 hover:border-slate-700 transition-all overflow-hidden flex">
+      <div className={`w-1 shrink-0 ${SCOPE_BAR_COLORS[promo.scope]}`} />
+      <div className="flex-1 p-4">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 flex-wrap mb-1.5">
+              <span className={`text-[10px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded ${SCOPE_COLORS[promo.scope]}`}>
+                {SCOPE_LABELS[promo.scope]}
+              </span>
+              <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${STATUS_COLORS[status]}`}>
+                {STATUS_LABELS[status]}
+              </span>
+              <span className="text-[10px] text-slate-500 bg-slate-800 px-1.5 py-0.5 rounded">
+                {TIPO_LABELS[promo.tipo]}
+              </span>
+            </div>
+
+            <p className="font-bold text-slate-100 text-sm leading-snug">{promo.titulo}</p>
+            {promo.descripcion && (
+              <p className="text-xs text-slate-400 mt-0.5 line-clamp-2">{promo.descripcion}</p>
+            )}
+
+            <div className="flex items-center gap-2 mt-2 text-[11px] text-slate-500">
+              <svg className="h-3 w-3 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8"  y1="2" x2="8"  y2="6" />
+                <line x1="3"  y1="10" x2="21" y2="10" />
+              </svg>
+              {fmtDate(promo.fecha_inicio)} → {fmtDate(promo.fecha_fin)}
+            </div>
+
+            <div className="flex items-center gap-3 mt-1.5">
+              {promo.mostrar_en_home && (
+                <span className="text-[10px] text-teal-400 bg-teal-900/30 px-1.5 py-0.5 rounded">Home</span>
+              )}
+              {promo.mostrar_chip_comparador && (
+                <span className="text-[10px] text-blue-400 bg-blue-900/30 px-1.5 py-0.5 rounded">Comparador</span>
+              )}
+              {promo.comunidad_autonoma && (
+                <span className="text-[10px] text-slate-500">{promo.comunidad_autonoma}</span>
+              )}
+            </div>
           </div>
 
-          <p className="font-semibold text-slate-100 text-sm">{promo.titulo}</p>
-          {promo.descripcion && (
-            <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">{promo.descripcion}</p>
-          )}
-
-          <div className="flex items-center gap-2 mt-2 text-[11px] text-slate-500">
-            <svg className="h-3 w-3 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-              <line x1="16" y1="2" x2="16" y2="6" />
-              <line x1="8"  y1="2" x2="8"  y2="6" />
-              <line x1="3"  y1="10" x2="21" y2="10" />
-            </svg>
-            {fmtDate(promo.fecha_inicio)} → {fmtDate(promo.fecha_fin)}
-          </div>
-
-          <div className="flex items-center gap-3 mt-1.5">
-            {promo.mostrar_en_home && (
-              <span className="text-[10px] text-teal-400 bg-teal-900/30 px-1.5 py-0.5 rounded">Home</span>
-            )}
-            {promo.mostrar_chip_comparador && (
-              <span className="text-[10px] text-blue-400 bg-blue-900/30 px-1.5 py-0.5 rounded">Comparador</span>
-            )}
-            {promo.comunidad_autonoma && (
-              <span className="text-[10px] text-slate-500">{promo.comunidad_autonoma}</span>
-            )}
+          <div className="flex flex-col items-end gap-2 shrink-0">
+            <button
+              onClick={onToggle}
+              className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
+                promo.activa ? 'bg-teal-600' : 'bg-slate-700'
+              }`}
+              title={promo.activa ? 'Desactivar' : 'Activar'}
+            >
+              <span className={`inline-block h-3.5 w-3.5 rounded-full bg-white shadow transition-transform ${
+                promo.activa ? 'translate-x-4' : 'translate-x-0.5'
+              }`} />
+            </button>
+            <button onClick={onEdit} className="text-[11px] text-slate-500 hover:text-teal-400 transition-colors">
+              Editar
+            </button>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
 
-        <div className="flex flex-col items-end gap-2 shrink-0">
-          <button
-            onClick={onToggle}
-            className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
-              promo.activa ? 'bg-teal-600' : 'bg-slate-700'
-            }`}
-            title={promo.activa ? 'Desactivar' : 'Activar'}
-          >
-            <span className={`inline-block h-3.5 w-3.5 rounded-full bg-white shadow transition-transform ${
-              promo.activa ? 'translate-x-4' : 'translate-x-0.5'
-            }`} />
-          </button>
-          <button onClick={onEdit} className="text-[11px] text-slate-500 hover:text-teal-400 transition-colors">
-            Editar
-          </button>
-        </div>
+// ─── PromoExplanationBanner ───────────────────────────────────────────────────
+
+function PromoExplanationBanner() {
+  return (
+    <div className="flex items-start gap-3 bg-slate-900 border border-slate-800 rounded-xl p-3.5 mb-4">
+      <div className="shrink-0 w-7 h-7 rounded-lg bg-teal-900/40 flex items-center justify-center mt-0.5">
+        <svg className="h-3.5 w-3.5 text-teal-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+        </svg>
+      </div>
+      <div>
+        <p className="text-xs font-semibold text-slate-200 mb-0.5">¿Qué son las Promociones?</p>
+        <p className="text-[11px] text-slate-500 leading-relaxed">
+          Descuentos, ofertas y condiciones especiales visibles en tu perfil y catálogo.{' '}
+          <span className="text-slate-400 font-medium">No modifican el ranking del Marketplace</span>
+          {' '}— el orden siempre refleja precio, stock y plazo de entrega.
+        </p>
+        <p className="text-[11px] text-slate-600 mt-1">
+          Para aparecer en banners y espacios publicitarios, usa la pestaña{' '}
+          <span className="text-teal-600">Publicidad Marketplace</span>.
+        </p>
       </div>
     </div>
   );
@@ -495,17 +529,26 @@ const MARKETING_TABS: { id: MarketingTab; label: string }[] = [
 
 function MarketingTabBar({ active, onChange }: MarketingTabBarProps) {
   return (
-    <div className="flex gap-1 px-6 pt-4 bg-slate-950 border-b border-slate-800 pb-0">
+    <div className="flex gap-0 px-4 pt-3 bg-slate-950 border-b border-slate-800">
       {MARKETING_TABS.map(tab => (
         <button
           key={tab.id}
           onClick={() => onChange(tab.id)}
-          className={`px-4 py-2 text-xs font-semibold rounded-t-lg transition-colors border-b-2 -mb-px ${
+          className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-t transition-colors border-b-2 -mb-px ${
             active === tab.id
               ? 'text-teal-400 border-teal-500 bg-slate-900'
-              : 'text-slate-500 border-transparent hover:text-slate-300'
+              : 'text-slate-500 border-transparent hover:text-slate-300 hover:bg-slate-900/50'
           }`}
         >
+          {tab.id === 'promociones' ? (
+            <svg className="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+            </svg>
+          ) : (
+            <svg className="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+            </svg>
+          )}
           {tab.label}
         </button>
       ))}
@@ -543,7 +586,7 @@ export default function PortalMarketing({ actorId }: Props) {
         .from('trade_marketplace_promotions')
         .select('*')
         .eq('actor_id', actorId)
-        .order('created_at', { ascending: false }),   // ORDER BY real: created_at DESC
+        .order('created_at', { ascending: false }),
       supabase
         .from('trade_marketplace_supplier_locations')
         .select('id, nombre')
@@ -587,130 +630,131 @@ export default function PortalMarketing({ actorId }: Props) {
         <PortalPublicidadMarketplace actorId={actorId} />
       )}
 
-      {/* Tab: Promociones — contenido original */}
+      {/* Tab: Promociones */}
       {activeTab === 'promociones' && (
-      <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+        <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
 
-      {/* Header */}
-      <div className="px-6 pt-6 pb-4 border-b border-slate-800 bg-slate-950">
-        <div className="flex items-center justify-between gap-3 mb-4">
-          <div>
-            <h2 className="font-bold text-slate-100 text-base">Promociones locales</h2>
-            <p className="text-xs text-slate-500 mt-0.5">
-              {activeCount} activa{activeCount !== 1 ? 's' : ''}
-              {scheduledCount > 0 && `, ${scheduledCount} programada${scheduledCount !== 1 ? 's' : ''}`}
-              {' '}· {promos.length} total
-            </p>
-          </div>
-          <button
-            onClick={() => { setEditing(null); setSlideOver(true); }}
-            className="flex items-center gap-1.5 bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold px-3 py-2 rounded-xl transition-colors"
-          >
-            <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-            </svg>
-            Nueva
-          </button>
-        </div>
-
-        {/* Filtros */}
-        <div className="flex flex-wrap gap-2">
-          <input
-            type="search"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder="Buscar título…"
-            className="flex-1 min-w-40 bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/40 focus:border-teal-600 transition-colors"
-          />
-          <select
-            value={scopeFilter}
-            onChange={e => setScopeFilter(e.target.value as PromoScope | 'all')}
-            className="bg-slate-800 border border-slate-700 rounded-lg px-2 py-1.5 text-xs text-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500/40 appearance-none"
-          >
-            <option value="all">Todos los alcances</option>
-            {(Object.entries(SCOPE_LABELS) as [PromoScope, string][]).map(([k, v]) => (
-              <option key={k} value={k}>{v}</option>
-            ))}
-          </select>
-          <div className="flex gap-1 bg-slate-900 rounded-xl p-0.5">
-            {FILTER_LABELS.map(([k, v]) => (
-              <button
-                key={k}
-                onClick={() => setFilter(k)}
-                className={`px-3 py-1 rounded-lg text-[11px] font-semibold transition-colors ${
-                  filter === k ? 'bg-teal-600 text-white' : 'text-slate-400 hover:text-slate-200'
-                }`}
-              >
-                {v}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Lista */}
-      <div className="flex-1 overflow-y-auto p-6">
-        {loading && (
-          <div className="flex justify-center py-12">
-            <div className="w-6 h-6 border-2 border-teal-500 border-t-transparent rounded-full animate-spin" />
-          </div>
-        )}
-
-        {!loading && error && (
-          <p className="text-sm text-red-400 bg-red-900/20 border border-red-800 rounded-xl px-4 py-3 mb-4">{error}</p>
-        )}
-
-        {!loading && !error && filtered.length === 0 && (
-          <div className="text-center py-16">
-            <svg className="h-12 w-12 text-slate-800 mx-auto mb-3" fill="none" stroke="currentColor" strokeWidth={1} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-            </svg>
-            <p className="text-slate-500 text-sm">
-              {search || filter !== 'all' || scopeFilter !== 'all'
-                ? 'Sin resultados para este filtro'
-                : 'Todavía no hay promociones'}
-            </p>
-            {promos.length === 0 && (
+          {/* Header */}
+          <div className="px-6 pt-6 pb-4 border-b border-slate-800 bg-slate-950">
+            <div className="flex items-center justify-between gap-3 mb-4">
+              <div>
+                <h2 className="font-bold text-slate-100 text-base">Promociones locales</h2>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  {activeCount} activa{activeCount !== 1 ? 's' : ''}
+                  {scheduledCount > 0 && `, ${scheduledCount} programada${scheduledCount !== 1 ? 's' : ''}`}
+                  {' '}· {promos.length} total
+                </p>
+              </div>
               <button
                 onClick={() => { setEditing(null); setSlideOver(true); }}
-                className="mt-4 text-teal-400 hover:text-teal-300 text-sm transition-colors"
+                className="flex items-center gap-1.5 bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold px-3 py-2 rounded-xl transition-colors"
               >
-                Crear la primera promoción →
+                <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                </svg>
+                Nueva
               </button>
+            </div>
+
+            {/* Filtros */}
+            <div className="flex flex-wrap gap-2">
+              <input
+                type="search"
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                placeholder="Buscar título…"
+                className="flex-1 min-w-40 bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/40 focus:border-teal-600 transition-colors"
+              />
+              <select
+                value={scopeFilter}
+                onChange={e => setScopeFilter(e.target.value as PromoScope | 'all')}
+                className="bg-slate-800 border border-slate-700 rounded-lg px-2 py-1.5 text-xs text-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500/40 appearance-none"
+              >
+                <option value="all">Todos los alcances</option>
+                {(Object.entries(SCOPE_LABELS) as [PromoScope, string][]).map(([k, v]) => (
+                  <option key={k} value={k}>{v}</option>
+                ))}
+              </select>
+              <div className="flex gap-1 bg-slate-900 rounded-xl p-0.5">
+                {FILTER_LABELS.map(([k, v]) => (
+                  <button
+                    key={k}
+                    onClick={() => setFilter(k)}
+                    className={`px-3 py-1 rounded-lg text-[11px] font-semibold transition-colors ${
+                      filter === k ? 'bg-teal-600 text-white' : 'text-slate-400 hover:text-slate-200'
+                    }`}
+                  >
+                    {v}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Lista */}
+          <div className="flex-1 overflow-y-auto p-6">
+            <PromoExplanationBanner />
+
+            {loading && (
+              <div className="flex justify-center py-12">
+                <div className="w-6 h-6 border-2 border-teal-500 border-t-transparent rounded-full animate-spin" />
+              </div>
+            )}
+
+            {!loading && error && (
+              <p className="text-sm text-red-400 bg-red-900/20 border border-red-800 rounded-xl px-4 py-3 mb-4">{error}</p>
+            )}
+
+            {!loading && !error && filtered.length === 0 && (
+              <div className="text-center py-16">
+                <svg className="h-12 w-12 text-slate-800 mx-auto mb-3" fill="none" stroke="currentColor" strokeWidth={1} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                </svg>
+                <p className="text-slate-500 text-sm">
+                  {search || filter !== 'all' || scopeFilter !== 'all'
+                    ? 'Sin resultados para este filtro'
+                    : 'Todavía no hay promociones'}
+                </p>
+                {promos.length === 0 && (
+                  <button
+                    onClick={() => { setEditing(null); setSlideOver(true); }}
+                    className="mt-4 text-teal-400 hover:text-teal-300 text-sm transition-colors"
+                  >
+                    Crear la primera promoción →
+                  </button>
+                )}
+              </div>
+            )}
+
+            <div className="grid gap-3 max-w-2xl">
+              {filtered.map(p => (
+                <PromoCard
+                  key={p.id}
+                  promo={p}
+                  onEdit={() => { setEditing(p); setSlideOver(true); }}
+                  onToggle={() => handleToggle(p)}
+                />
+              ))}
+            </div>
+
+            {promos.length > 0 && (
+              <p className="text-[10px] text-slate-700 mt-6 max-w-2xl">
+                Las promociones afectan al precio que ve el comprador. No modifican el ranking — el orden en el marketplace siempre refleja stock, precio y plazo, nunca inversión publicitaria.
+              </p>
             )}
           </div>
-        )}
 
-        <div className="grid gap-3 max-w-2xl">
-          {filtered.map(p => (
-            <PromoCard
-              key={p.id}
-              promo={p}
-              onEdit={() => { setEditing(p); setSlideOver(true); }}
-              onToggle={() => handleToggle(p)}
+          {slideOver && (
+            <PromoSlideOver
+              actorId={actorId}
+              promo={editing}
+              locations={locations}
+              onSave={() => { setSlideOver(false); loadData(); }}
+              onClose={() => setSlideOver(false)}
             />
-          ))}
+          )}
         </div>
-
-        {promos.length > 0 && (
-          <p className="text-[10px] text-slate-700 mt-6 max-w-2xl">
-            Las promociones afectan al precio que ve el comprador. No modifican el ranking — el orden en el marketplace siempre refleja stock, precio y plazo, nunca inversión publicitaria.
-          </p>
-        )}
-      </div>
-
-      {slideOver && (
-        <PromoSlideOver
-          actorId={actorId}
-          promo={editing}
-          locations={locations}
-          onSave={() => { setSlideOver(false); loadData(); }}
-          onClose={() => setSlideOver(false)}
-        />
-      )}
-      </div>
       )}
     </div>
   );
 }
-
