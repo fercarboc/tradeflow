@@ -1,17 +1,37 @@
+// ═══════════════════════════════════════════════════════════════
+// PortalMarketing.tsx
+// Portal Proveedor → Marketing → Promociones locales
+//
+// Alineado con schema real trade_marketplace_promotions (2026-08-16):
+//   columnas: id, actor_id, tipo (promo_tipo), scope (promo_scope),
+//   location_id, comunidad_autonoma, titulo, descripcion, cta_label,
+//   fecha_inicio, fecha_fin, activa, mostrar_en_home, mostrar_en_perfil,
+//   mostrar_chip_comparador, config, created_at, updated_at.
+//
+// NO EXISTEN en BD: prioridad, codigo, nombre, valor, valida_desde,
+//   valida_hasta, comunidades_target (array), location_ids_target (array),
+//   offering_ids_target, familia_ids_target.
+//
+// INVARIANTE: promotion.activa no modifica ranking ni checkout.
+//   trade_marketplace_promotions ≠ trade_marketplace_ad_campaigns.
+// ═══════════════════════════════════════════════════════════════
 import { useEffect, useState, useCallback } from 'react';
 import { supabase } from '../../lib/supabase';
 import type { MarketplaceMyMembership } from '../../lib/api/marketplace-actors';
 
-// ─── Tipos ────────────────────────────────────────────────────────────────────
+// ─── Tipos alineados con schema real ──────────────────────────────────────────
 
-type PromoScope    = 'national' | 'regional' | 'local';
-type PromoType     = 'percentage_discount' | 'fixed_amount' | 'fixed_price';
-type PromoStatus   = 'active' | 'inactive' | 'scheduled' | 'expired';
+type PromoScope = 'national' | 'regional' | 'local';
+type PromoTipo  =
+  | 'descuento_porcentaje' | 'pack_ahorro'    | 'envio_gratis'
+  | 'recogida_gratis'      | 'local_discount' | 'clearance'
+  | 'discontinued'         | 'local_campaign' | 'excess_stock'
+  | 'novedad'              | 'destacado_home' | 'destacado_perfil';
+
+type PromoStatus = 'active' | 'inactive' | 'scheduled' | 'expired';
 
 const SCOPE_LABELS: Record<PromoScope, string> = {
-  national: 'Nacional',
-  regional: 'Regional',
-  local:    'Local',
+  national: 'Nacional', regional: 'Regional', local: 'Local',
 };
 
 const SCOPE_COLORS: Record<PromoScope, string> = {
@@ -20,10 +40,19 @@ const SCOPE_COLORS: Record<PromoScope, string> = {
   local:    'bg-teal-900/50 text-teal-400',
 };
 
-const TYPE_LABELS: Record<PromoType, string> = {
-  percentage_discount: '% Descuento',
-  fixed_amount:        'Importe fijo',
-  fixed_price:         'Precio fijo',
+const TIPO_LABELS: Record<PromoTipo, string> = {
+  descuento_porcentaje: '% Descuento',
+  pack_ahorro:          'Pack ahorro',
+  envio_gratis:         'Envío gratis',
+  recogida_gratis:      'Recogida gratis',
+  local_discount:       'Descuento local',
+  clearance:            'Liquidación',
+  discontinued:         'Descontinuado',
+  local_campaign:       'Campaña local',
+  excess_stock:         'Exceso stock',
+  novedad:              'Novedad',
+  destacado_home:       'Destacado home',
+  destacado_perfil:     'Destacado perfil',
 };
 
 const STATUS_COLORS: Record<PromoStatus, string> = {
@@ -33,45 +62,43 @@ const STATUS_COLORS: Record<PromoStatus, string> = {
   expired:   'bg-red-900/30 text-red-500',
 };
 
+const STATUS_LABELS: Record<PromoStatus, string> = {
+  active: 'Activa', inactive: 'Inactiva', scheduled: 'Programada', expired: 'Expirada',
+};
+
+// Columnas reales — sin prioridad, sin codigo, sin valor
 interface Promotion {
-  id:                    string;
-  actor_id:              string;
-  codigo:                string;
-  nombre:                string;
-  scope:                 PromoScope;
-  tipo:                  PromoType;
-  valor:                 number;
-  comunidades_target:    string[] | null;
-  location_ids_target:   string[] | null;
-  offering_ids_target:   string[] | null;
-  familia_ids_target:    string[] | null;
-  valida_desde:          string;
-  valida_hasta:          string | null;
-  prioridad:             number;
-  activa:                boolean;
-  descripcion:           string | null;
+  id:                     string;
+  actor_id:               string;
+  tipo:                   PromoTipo;
+  scope:                  PromoScope;
+  location_id:            string | null;
+  comunidad_autonoma:     string | null;
+  titulo:                 string;
+  descripcion:            string | null;
+  cta_label:              string | null;
+  fecha_inicio:           string;
+  fecha_fin:              string | null;
+  activa:                 boolean;
+  mostrar_en_home:        boolean;
+  mostrar_en_perfil:      boolean;
+  mostrar_chip_comparador: boolean;
+  created_at:             string;
 }
 
 interface SupplierLocation {
-  id:     string;
-  nombre: string;
-}
-
-interface SupplierOffering {
-  id:             string;
-  nombre_interno: string | null;
-  codigo_interno: string | null;
+  id: string; nombre: string;
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function promoStatus(p: Promotion): PromoStatus {
   if (!p.activa) return 'inactive';
-  const now    = Date.now();
-  const desde  = new Date(p.valida_desde).getTime();
-  const hasta  = p.valida_hasta ? new Date(p.valida_hasta).getTime() : null;
-  if (now < desde)             return 'scheduled';
-  if (hasta && now > hasta)    return 'expired';
+  const now   = Date.now();
+  const desde = new Date(p.fecha_inicio).getTime();
+  const hasta = p.fecha_fin ? new Date(p.fecha_fin).getTime() : null;
+  if (now < desde)          return 'scheduled';
+  if (hasta && now > hasta) return 'expired';
   return 'active';
 }
 
@@ -80,22 +107,15 @@ function fmtDate(iso: string | null | undefined) {
   return new Date(iso).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
 }
 
-function fmtValor(tipo: PromoType, valor: number) {
-  if (tipo === 'percentage_discount') return `−${valor}%`;
-  if (tipo === 'fixed_price')         return `${valor.toFixed(2)} €`;
-  return `−${valor.toFixed(2)} €`;
-}
-
-// ─── Sub-componentes ──────────────────────────────────────────────────────────
+// ─── Estilos compartidos ──────────────────────────────────────────────────────
 
 const inputCls  = 'w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-600 transition-colors';
 const selectCls = `${inputCls} appearance-none`;
 
+// ─── Field ────────────────────────────────────────────────────────────────────
+
 interface FieldProps {
-  label:    string;
-  required?: boolean;
-  children:  React.ReactNode;
-  hint?:     string;
+  label: string; required?: boolean; children: React.ReactNode; hint?: string;
 }
 
 function Field({ label, required, children, hint }: FieldProps) {
@@ -110,108 +130,124 @@ function Field({ label, required, children, hint }: FieldProps) {
   );
 }
 
-// ─── PromoSlideOver ───────────────────────────────────────────────────────────
+// ─── FormValues alineado con schema real ──────────────────────────────────────
 
 interface FormValues {
-  codigo:              string;
-  nombre:              string;
-  scope:               PromoScope;
-  tipo:                PromoType;
-  valor:               string;
-  valida_desde:        string;
-  valida_hasta:        string;
-  prioridad:           string;
-  descripcion:         string;
-  activa:              boolean;
-  comunidades_target:  string;
-  location_ids_target: string[];
-  offering_ids_target: string[];
+  titulo:                  string;
+  descripcion:             string;
+  tipo:                    PromoTipo;
+  scope:                   PromoScope;
+  fecha_inicio:            string;
+  fecha_fin:               string;
+  activa:                  boolean;
+  cta_label:               string;
+  location_id:             string;
+  comunidad_autonoma:      string;
+  mostrar_en_home:         boolean;
+  mostrar_en_perfil:       boolean;
+  mostrar_chip_comparador: boolean;
 }
 
 function emptyForm(): FormValues {
   const today = new Date().toISOString().slice(0, 10);
   return {
-    codigo: '', nombre: '', scope: 'national', tipo: 'percentage_discount',
-    valor: '', valida_desde: today, valida_hasta: '', prioridad: '10',
-    descripcion: '', activa: true,
-    comunidades_target: '', location_ids_target: [], offering_ids_target: [],
+    titulo: '', descripcion: '', tipo: 'descuento_porcentaje', scope: 'national',
+    fecha_inicio: today, fecha_fin: '', activa: true, cta_label: '',
+    location_id: '', comunidad_autonoma: '',
+    mostrar_en_home: false, mostrar_en_perfil: true, mostrar_chip_comparador: false,
   };
 }
 
 function promoToForm(p: Promotion): FormValues {
   return {
-    codigo:              p.codigo,
-    nombre:              p.nombre,
-    scope:               p.scope,
-    tipo:                p.tipo,
-    valor:               p.valor.toString(),
-    valida_desde:        p.valida_desde.slice(0, 10),
-    valida_hasta:        p.valida_hasta?.slice(0, 10) ?? '',
-    prioridad:           p.prioridad.toString(),
-    descripcion:         p.descripcion ?? '',
-    activa:              p.activa,
-    comunidades_target:  (p.comunidades_target ?? []).join(', '),
-    location_ids_target: p.location_ids_target ?? [],
-    offering_ids_target: p.offering_ids_target ?? [],
+    titulo:                  p.titulo,
+    descripcion:             p.descripcion ?? '',
+    tipo:                    p.tipo,
+    scope:                   p.scope,
+    fecha_inicio:            p.fecha_inicio.slice(0, 10),
+    fecha_fin:               p.fecha_fin?.slice(0, 10) ?? '',
+    activa:                  p.activa,
+    cta_label:               p.cta_label ?? '',
+    location_id:             p.location_id ?? '',
+    comunidad_autonoma:      p.comunidad_autonoma ?? '',
+    mostrar_en_home:         p.mostrar_en_home,
+    mostrar_en_perfil:       p.mostrar_en_perfil,
+    mostrar_chip_comparador: p.mostrar_chip_comparador,
   };
 }
+
+// ─── ToggleSwitch ─────────────────────────────────────────────────────────────
+
+function ToggleSwitch({ on, label, onChange }: { on: boolean; label: string; onChange: (v: boolean) => void }) {
+  return (
+    <label className="flex items-center justify-between cursor-pointer pt-1">
+      <span className="text-sm text-slate-300">{label}</span>
+      <button
+        type="button"
+        onClick={() => onChange(!on)}
+        className={`relative inline-flex h-5 w-9 shrink-0 items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 ${
+          on ? 'bg-teal-600' : 'bg-slate-700'
+        }`}
+      >
+        <span className={`inline-block h-3.5 w-3.5 rounded-full bg-white shadow transition-transform ${
+          on ? 'translate-x-4' : 'translate-x-0.5'
+        }`} />
+      </button>
+    </label>
+  );
+}
+
+// ─── PromoSlideOver ───────────────────────────────────────────────────────────
 
 interface PromoSlideOverProps {
   actorId:   string;
   promo:     Promotion | null;
   locations: SupplierLocation[];
-  offerings: SupplierOffering[];
   onSave:    () => void;
   onClose:   () => void;
 }
 
-function PromoSlideOver({ actorId, promo, locations, offerings, onSave, onClose }: PromoSlideOverProps) {
+function PromoSlideOver({ actorId, promo, locations, onSave, onClose }: PromoSlideOverProps) {
   const [form,   setForm]   = useState<FormValues>(promo ? promoToForm(promo) : emptyForm());
   const [saving, setSaving] = useState(false);
   const [error,  setError]  = useState<string | null>(null);
 
-  const set = (k: keyof FormValues, v: string | boolean | string[]) =>
+  const set = <K extends keyof FormValues>(k: K, v: FormValues[K]) =>
     setForm(prev => ({ ...prev, [k]: v }));
 
-  function toggleMultiId(key: 'location_ids_target' | 'offering_ids_target', id: string) {
-    setForm(prev => {
-      const cur = prev[key] as string[];
-      return { ...prev, [key]: cur.includes(id) ? cur.filter(x => x !== id) : [...cur, id] };
-    });
-  }
-
   async function handleSave() {
-    if (!form.codigo.trim() || !form.nombre.trim() || !form.valor) {
-      setError('Código, nombre y valor son obligatorios');
+    if (!form.titulo.trim()) {
+      setError('El título es obligatorio');
+      return;
+    }
+    if (!form.fecha_inicio) {
+      setError('La fecha de inicio es obligatoria');
       return;
     }
     setSaving(true);
     setError(null);
 
-    const comunidades = form.comunidades_target
-      .split(',').map(s => s.trim()).filter(Boolean);
-
+    // Payload usa únicamente columnas reales de BD
     const payload = {
-      actor_id:              actorId,
-      codigo:                form.codigo.trim().toUpperCase(),
-      nombre:                form.nombre.trim(),
-      scope:                 form.scope,
-      tipo:                  form.tipo,
-      valor:                 parseFloat(form.valor),
-      valida_desde:          form.valida_desde,
-      valida_hasta:          form.valida_hasta || null,
-      prioridad:             parseInt(form.prioridad) || 10,
-      descripcion:           form.descripcion.trim() || null,
-      activa:                form.activa,
-      comunidades_target:    comunidades.length > 0 ? comunidades : null,
-      location_ids_target:   form.location_ids_target.length > 0 ? form.location_ids_target : null,
-      offering_ids_target:   form.offering_ids_target.length > 0 ? form.offering_ids_target : null,
-      familia_ids_target:    null,
+      actor_id:               actorId,
+      titulo:                 form.titulo.trim(),
+      descripcion:            form.descripcion.trim() || null,
+      tipo:                   form.tipo,
+      scope:                  form.scope,
+      fecha_inicio:           form.fecha_inicio,
+      fecha_fin:              form.fecha_fin || null,
+      activa:                 form.activa,
+      cta_label:              form.cta_label.trim() || null,
+      location_id:            form.scope === 'local' && form.location_id ? form.location_id : null,
+      comunidad_autonoma:     form.scope === 'regional' && form.comunidad_autonoma.trim() ? form.comunidad_autonoma.trim() : null,
+      mostrar_en_home:        form.mostrar_en_home,
+      mostrar_en_perfil:      form.mostrar_en_perfil,
+      mostrar_chip_comparador: form.mostrar_chip_comparador,
     };
 
     const { error: dbErr } = promo
-      ? await (supabase as any).from('trade_marketplace_promotions').update(payload).eq('id', promo.id)
-      : await (supabase as any).from('trade_marketplace_promotions').insert(payload);
+      ? await supabase.from('trade_marketplace_promotions').update(payload).eq('id', promo.id)
+      : await supabase.from('trade_marketplace_promotions').insert(payload);
 
     setSaving(false);
     if (dbErr) { setError(dbErr.message); return; }
@@ -238,111 +274,111 @@ function PromoSlideOver({ actorId, promo, locations, offerings, onSave, onClose 
             <p className="text-sm text-red-400 bg-red-900/20 border border-red-800 rounded-lg px-3 py-2">{error}</p>
           )}
 
-          <div className="grid grid-cols-2 gap-3">
-            <Field label="Código" required>
-              <input className={inputCls} value={form.codigo} onChange={e => set('codigo', e.target.value.toUpperCase())} placeholder="VERANO25" />
-            </Field>
-            <Field label="Prioridad" hint="Mayor = más prioridad">
-              <input type="number" min={1} className={inputCls} value={form.prioridad} onChange={e => set('prioridad', e.target.value)} />
-            </Field>
-          </div>
-
-          <Field label="Nombre" required>
-            <input className={inputCls} value={form.nombre} onChange={e => set('nombre', e.target.value)} placeholder="Promo verano 2026" />
+          <Field label="Título" required>
+            <input
+              className={inputCls}
+              value={form.titulo}
+              onChange={e => set('titulo', e.target.value)}
+              placeholder="Promo verano 2026"
+            />
           </Field>
 
           <Field label="Descripción">
-            <textarea rows={2} className={inputCls} value={form.descripcion} onChange={e => set('descripcion', e.target.value)} placeholder="Texto visible en el marketplace…" />
+            <textarea
+              rows={2}
+              className={inputCls}
+              value={form.descripcion}
+              onChange={e => set('descripcion', e.target.value)}
+              placeholder="Texto visible en el marketplace…"
+            />
           </Field>
 
           <div className="grid grid-cols-2 gap-3">
+            <Field label="Tipo">
+              <select
+                className={selectCls}
+                value={form.tipo}
+                onChange={e => set('tipo', e.target.value as PromoTipo)}
+              >
+                {(Object.entries(TIPO_LABELS) as [PromoTipo, string][]).map(([k, v]) => (
+                  <option key={k} value={k}>{v}</option>
+                ))}
+              </select>
+            </Field>
             <Field label="Alcance">
-              <select className={selectCls} value={form.scope} onChange={e => set('scope', e.target.value as PromoScope)}>
+              <select
+                className={selectCls}
+                value={form.scope}
+                onChange={e => set('scope', e.target.value as PromoScope)}
+              >
                 {(Object.entries(SCOPE_LABELS) as [PromoScope, string][]).map(([k, v]) => (
                   <option key={k} value={k}>{v}</option>
                 ))}
               </select>
             </Field>
-            <Field label="Tipo">
-              <select className={selectCls} value={form.tipo} onChange={e => set('tipo', e.target.value as PromoType)}>
-                {(Object.entries(TYPE_LABELS) as [PromoType, string][]).map(([k, v]) => (
-                  <option key={k} value={k}>{v}</option>
-                ))}
-              </select>
-            </Field>
-          </div>
-
-          <Field label={form.tipo === 'percentage_discount' ? 'Valor (%)' : 'Valor (€)'} required>
-            <input type="number" min={0} step="0.01" className={inputCls} value={form.valor} onChange={e => set('valor', e.target.value)} placeholder={form.tipo === 'percentage_discount' ? '10' : '5.00'} />
-          </Field>
-
-          <div className="grid grid-cols-2 gap-3">
-            <Field label="Válida desde" required>
-              <input type="date" className={inputCls} value={form.valida_desde} onChange={e => set('valida_desde', e.target.value)} />
-            </Field>
-            <Field label="Válida hasta">
-              <input type="date" className={inputCls} value={form.valida_hasta} onChange={e => set('valida_hasta', e.target.value)} />
-            </Field>
           </div>
 
           {form.scope === 'regional' && (
-            <Field label="Comunidades autónomas" hint="Separadas por coma">
-              <input className={inputCls} value={form.comunidades_target} onChange={e => set('comunidades_target', e.target.value)} placeholder="Cantabria, País Vasco" />
+            <Field label="Comunidad autónoma">
+              <input
+                className={inputCls}
+                value={form.comunidad_autonoma}
+                onChange={e => set('comunidad_autonoma', e.target.value)}
+                placeholder="Cantabria"
+              />
             </Field>
           )}
 
           {form.scope === 'local' && locations.length > 0 && (
-            <Field label="Tiendas / almacenes">
-              <div className="space-y-1.5 max-h-36 overflow-y-auto pr-1">
+            <Field label="Tienda / almacén">
+              <select
+                className={selectCls}
+                value={form.location_id}
+                onChange={e => set('location_id', e.target.value)}
+              >
+                <option value="">Cualquier tienda</option>
                 {locations.map(loc => (
-                  <label key={loc.id} className="flex items-center gap-2 cursor-pointer group">
-                    <input
-                      type="checkbox"
-                      checked={form.location_ids_target.includes(loc.id)}
-                      onChange={() => toggleMultiId('location_ids_target', loc.id)}
-                      className="accent-teal-500 w-3.5 h-3.5"
-                    />
-                    <span className="text-xs text-slate-300 group-hover:text-slate-100 transition-colors">{loc.nombre}</span>
-                  </label>
+                  <option key={loc.id} value={loc.id}>{loc.nombre}</option>
                 ))}
-              </div>
+              </select>
             </Field>
           )}
 
-          {offerings.length > 0 && (
-            <Field label="Productos específicos" hint="Vacío = todos los productos">
-              <div className="space-y-1.5 max-h-40 overflow-y-auto pr-1">
-                {offerings.map(off => (
-                  <label key={off.id} className="flex items-center gap-2 cursor-pointer group">
-                    <input
-                      type="checkbox"
-                      checked={form.offering_ids_target.includes(off.id)}
-                      onChange={() => toggleMultiId('offering_ids_target', off.id)}
-                      className="accent-teal-500 w-3.5 h-3.5"
-                    />
-                    <span className="text-xs text-slate-300 group-hover:text-slate-100 transition-colors truncate">
-                      {off.nombre_interno ?? off.codigo_interno ?? off.id.slice(0, 8)}
-                    </span>
-                  </label>
-                ))}
-              </div>
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="Fecha inicio" required>
+              <input
+                type="date"
+                className={inputCls}
+                value={form.fecha_inicio}
+                onChange={e => set('fecha_inicio', e.target.value)}
+              />
             </Field>
-          )}
+            <Field label="Fecha fin">
+              <input
+                type="date"
+                className={inputCls}
+                value={form.fecha_fin}
+                onChange={e => set('fecha_fin', e.target.value)}
+              />
+            </Field>
+          </div>
 
-          <label className="flex items-center justify-between cursor-pointer pt-1">
-            <span className="text-sm text-slate-300">Promoción activa</span>
-            <button
-              type="button"
-              onClick={() => set('activa', !form.activa)}
-              className={`relative inline-flex h-5 w-9 shrink-0 items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 ${
-                form.activa ? 'bg-teal-600' : 'bg-slate-700'
-              }`}
-            >
-              <span className={`inline-block h-3.5 w-3.5 rounded-full bg-white shadow transition-transform ${
-                form.activa ? 'translate-x-4' : 'translate-x-0.5'
-              }`} />
-            </button>
-          </label>
+          <Field label="CTA (texto botón)" hint="Ej: Ver oferta">
+            <input
+              className={inputCls}
+              value={form.cta_label}
+              onChange={e => set('cta_label', e.target.value)}
+              placeholder="Ver oferta"
+            />
+          </Field>
+
+          <div className="space-y-2 pt-1 border-t border-slate-800">
+            <p className="text-[10px] uppercase font-bold tracking-wider text-slate-600">Visibilidad</p>
+            <ToggleSwitch on={form.activa}            label="Promoción activa"        onChange={v => set('activa', v)} />
+            <ToggleSwitch on={form.mostrar_en_perfil} label="Mostrar en perfil"       onChange={v => set('mostrar_en_perfil', v)} />
+            <ToggleSwitch on={form.mostrar_en_home}   label="Destacar en home"        onChange={v => set('mostrar_en_home', v)} />
+            <ToggleSwitch on={form.mostrar_chip_comparador} label="Chip en comparador" onChange={v => set('mostrar_chip_comparador', v)} />
+          </div>
         </div>
 
         <div className="p-5 border-t border-slate-800">
@@ -379,23 +415,17 @@ function PromoCard({ promo, onEdit, onToggle }: PromoCardProps) {
               {SCOPE_LABELS[promo.scope]}
             </span>
             <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${STATUS_COLORS[status]}`}>
-              {status === 'active' ? 'Activa' : status === 'inactive' ? 'Inactiva' : status === 'scheduled' ? 'Programada' : 'Expirada'}
+              {STATUS_LABELS[status]}
             </span>
-            <code className="text-[10px] font-mono text-slate-500 bg-slate-800 px-1.5 py-0.5 rounded">
-              {promo.codigo}
-            </code>
+            <span className="text-[10px] text-slate-500 bg-slate-800 px-1.5 py-0.5 rounded">
+              {TIPO_LABELS[promo.tipo]}
+            </span>
           </div>
 
-          <p className="font-semibold text-slate-100 text-sm">{promo.nombre}</p>
+          <p className="font-semibold text-slate-100 text-sm">{promo.titulo}</p>
           {promo.descripcion && (
             <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">{promo.descripcion}</p>
           )}
-
-          <div className="flex items-center gap-4 mt-2 text-xs text-slate-400">
-            <span className="font-bold text-emerald-400 text-sm">{fmtValor(promo.tipo, promo.valor)}</span>
-            <span>{TYPE_LABELS[promo.tipo]}</span>
-            <span className="text-slate-600">Prio: {promo.prioridad}</span>
-          </div>
 
           <div className="flex items-center gap-2 mt-2 text-[11px] text-slate-500">
             <svg className="h-3 w-3 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -404,14 +434,20 @@ function PromoCard({ promo, onEdit, onToggle }: PromoCardProps) {
               <line x1="8"  y1="2" x2="8"  y2="6" />
               <line x1="3"  y1="10" x2="21" y2="10" />
             </svg>
-            {fmtDate(promo.valida_desde)} → {fmtDate(promo.valida_hasta)}
+            {fmtDate(promo.fecha_inicio)} → {fmtDate(promo.fecha_fin)}
           </div>
 
-          {promo.offering_ids_target && promo.offering_ids_target.length > 0 && (
-            <p className="text-[10px] text-slate-600 mt-1">
-              {promo.offering_ids_target.length} producto{promo.offering_ids_target.length !== 1 ? 's' : ''} específico{promo.offering_ids_target.length !== 1 ? 's' : ''}
-            </p>
-          )}
+          <div className="flex items-center gap-3 mt-1.5">
+            {promo.mostrar_en_home && (
+              <span className="text-[10px] text-teal-400 bg-teal-900/30 px-1.5 py-0.5 rounded">Home</span>
+            )}
+            {promo.mostrar_chip_comparador && (
+              <span className="text-[10px] text-blue-400 bg-blue-900/30 px-1.5 py-0.5 rounded">Comparador</span>
+            )}
+            {promo.comunidad_autonoma && (
+              <span className="text-[10px] text-slate-500">{promo.comunidad_autonoma}</span>
+            )}
+          </div>
         </div>
 
         <div className="flex flex-col items-end gap-2 shrink-0">
@@ -453,51 +489,42 @@ const FILTER_LABELS: [FilterStatus, string][] = [
 // ─── PortalMarketing ──────────────────────────────────────────────────────────
 
 export default function PortalMarketing({ actorId }: Props) {
-  const [promos,       setPromos]       = useState<Promotion[]>([]);
-  const [locations,    setLocations]    = useState<SupplierLocation[]>([]);
-  const [offerings,    setOfferings]    = useState<SupplierOffering[]>([]);
-  const [loading,      setLoading]      = useState(true);
-  const [error,        setError]        = useState<string | null>(null);
-  const [slideOver,    setSlideOver]    = useState(false);
-  const [editing,      setEditing]      = useState<Promotion | null>(null);
-  const [filter,       setFilter]       = useState<FilterStatus>('all');
-  const [scopeFilter,  setScopeFilter]  = useState<PromoScope | 'all'>('all');
-  const [search,       setSearch]       = useState('');
+  const [promos,      setPromos]      = useState<Promotion[]>([]);
+  const [locations,   setLocations]   = useState<SupplierLocation[]>([]);
+  const [loading,     setLoading]     = useState(true);
+  const [error,       setError]       = useState<string | null>(null);
+  const [slideOver,   setSlideOver]   = useState(false);
+  const [editing,     setEditing]     = useState<Promotion | null>(null);
+  const [filter,      setFilter]      = useState<FilterStatus>('all');
+  const [scopeFilter, setScopeFilter] = useState<PromoScope | 'all'>('all');
+  const [search,      setSearch]      = useState('');
 
   const loadData = useCallback(async () => {
     setLoading(true);
     setError(null);
-    const [promosRes, locsRes, offsRes] = await Promise.all([
-      (supabase as any)
+    const [promosRes, locsRes] = await Promise.all([
+      supabase
         .from('trade_marketplace_promotions')
         .select('*')
         .eq('actor_id', actorId)
-        .order('prioridad', { ascending: false })
-        .order('valida_desde', { ascending: false }),
-      (supabase as any)
+        .order('created_at', { ascending: false }),   // ORDER BY real: created_at DESC
+      supabase
         .from('trade_marketplace_supplier_locations')
         .select('id, nombre')
         .eq('actor_id', actorId)
         .eq('activa', true)
         .order('nombre'),
-      (supabase as any)
-        .from('trade_marketplace_supplier_offerings')
-        .select('id, nombre_interno, codigo_interno')
-        .eq('actor_id', actorId)
-        .eq('activa', true)
-        .order('nombre_interno'),
     ]);
     setLoading(false);
     if (promosRes.error) { setError(promosRes.error.message); return; }
-    setPromos(promosRes.data ?? []);
-    setLocations(locsRes.data ?? []);
-    setOfferings(offsRes.data ?? []);
+    setPromos((promosRes.data ?? []) as Promotion[]);
+    setLocations((locsRes.data ?? []) as SupplierLocation[]);
   }, [actorId]);
 
   useEffect(() => { loadData(); }, [loadData]);
 
   async function handleToggle(p: Promotion) {
-    await (supabase as any)
+    await supabase
       .from('trade_marketplace_promotions')
       .update({ activa: !p.activa })
       .eq('id', p.id);
@@ -505,8 +532,7 @@ export default function PortalMarketing({ actorId }: Props) {
   }
 
   const filtered = promos.filter(p => {
-    if (search && !p.nombre.toLowerCase().includes(search.toLowerCase()) &&
-        !p.codigo.toLowerCase().includes(search.toLowerCase())) return false;
+    if (search && !p.titulo.toLowerCase().includes(search.toLowerCase())) return false;
     if (scopeFilter !== 'all' && p.scope !== scopeFilter) return false;
     if (filter !== 'all' && promoStatus(p) !== filter) return false;
     return true;
@@ -545,7 +571,7 @@ export default function PortalMarketing({ actorId }: Props) {
             type="search"
             value={search}
             onChange={e => setSearch(e.target.value)}
-            placeholder="Buscar código o nombre…"
+            placeholder="Buscar título…"
             className="flex-1 min-w-40 bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/40 focus:border-teal-600 transition-colors"
           />
           <select
@@ -582,17 +608,19 @@ export default function PortalMarketing({ actorId }: Props) {
           </div>
         )}
 
-        {error && (
+        {!loading && error && (
           <p className="text-sm text-red-400 bg-red-900/20 border border-red-800 rounded-xl px-4 py-3 mb-4">{error}</p>
         )}
 
-        {!loading && filtered.length === 0 && (
+        {!loading && !error && filtered.length === 0 && (
           <div className="text-center py-16">
             <svg className="h-12 w-12 text-slate-800 mx-auto mb-3" fill="none" stroke="currentColor" strokeWidth={1} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
             </svg>
             <p className="text-slate-500 text-sm">
-              {search || filter !== 'all' || scopeFilter !== 'all' ? 'Sin resultados para este filtro' : 'Todavía no hay promociones'}
+              {search || filter !== 'all' || scopeFilter !== 'all'
+                ? 'Sin resultados para este filtro'
+                : 'Todavía no hay promociones'}
             </p>
             {promos.length === 0 && (
               <button
@@ -616,21 +644,18 @@ export default function PortalMarketing({ actorId }: Props) {
           ))}
         </div>
 
-        {/* Aviso invariante publicidad */}
         {promos.length > 0 && (
           <p className="text-[10px] text-slate-700 mt-6 max-w-2xl">
-            Las promociones afectan al precio que ve el comprador. No modifican el ranking de productos — el orden en el marketplace siempre refleja stock, precio y plazo, nunca inversión publicitaria.
+            Las promociones afectan al precio que ve el comprador. No modifican el ranking — el orden en el marketplace siempre refleja stock, precio y plazo, nunca inversión publicitaria.
           </p>
         )}
       </div>
 
-      {/* SlideOver */}
       {slideOver && (
         <PromoSlideOver
           actorId={actorId}
           promo={editing}
           locations={locations}
-          offerings={offerings}
           onSave={() => { setSlideOver(false); loadData(); }}
           onClose={() => setSlideOver(false)}
         />
@@ -638,3 +663,4 @@ export default function PortalMarketing({ actorId }: Props) {
     </div>
   );
 }
+
