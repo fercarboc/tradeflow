@@ -6,12 +6,12 @@
 // INVARIANTE preservado: publicidad ≠ ranking.
 // No tocar: checkout, pricing, ranking, ProductCard, Universal Products.
 // ═══════════════════════════════════════════════════════════════
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import {
-  BarChart2, Layout, Calendar, Film, RefreshCw, Plus, Edit2,
+  BarChart2, Layout, Calendar, RefreshCw, Plus, Edit2,
   Eye, X, AlertCircle, CheckCircle, Clock, Monitor, Smartphone,
-  Globe, XCircle, ChevronDown, Megaphone, Image, Tag, Link,
-  ArrowRight, Layers,
+  XCircle, ChevronDown, ChevronUp, Megaphone, Image as ImageIcon,
+  Lock, Upload, AlertTriangle,
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
@@ -41,6 +41,7 @@ type AdCampaignAdmin = {
   start_at: string | null; end_at: string | null;
   accent: string | null; bg: string | null; text_color: string | null;
   aprobada_por: string | null; aprobada_at: string | null; rechazo_motivo: string | null;
+  image_url: string | null; mobile_image_url: string | null;
   created_at: string; updated_at: string;
 };
 
@@ -59,7 +60,7 @@ type AdCreativeAdmin = {
   generada_ia: boolean; activa: boolean; created_at: string;
 };
 
-type MarketplaceActor = { id: string; nombre: string; tipo: string };
+type MarketplaceActor = { id: string; nombre: string; actor_type: string; estado: string };
 
 type DashboardKPIs = {
   slots_total: number; slots_comerciales: number; slots_ocupados: number;
@@ -78,6 +79,7 @@ type CampaignFormData = {
   start_at: string; end_at: string;
   accent: string; bg: string; text_color: string;
   estado: AdCampaignAdmin['estado']; activa: boolean;
+  image_url: string; mobile_image_url: string;
 };
 
 type BookingFormData = {
@@ -158,6 +160,7 @@ const EMPTY_CAMPAIGN: CampaignFormData = {
   oficio: '', priority: '10', start_at: '', end_at: '',
   accent: '#60a5fa', bg: 'linear-gradient(135deg,#0f2044 0%,#1e3a5f 100%)',
   text_color: '#ffffff', estado: 'DRAFT', activa: false,
+  image_url: '', mobile_image_url: '',
 };
 
 const EMPTY_BOOKING: BookingFormData = {
@@ -196,6 +199,32 @@ const STATUS_CLS = {
 
 const iCls = 'w-full bg-slate-700 border border-slate-600 rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500';
 const lCls = 'text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1';
+
+// ─── SLOT FORMAT RECOMMENDATIONS (para validación de imagen) ─────────────────
+
+const SLOT_FORMAT_RECOMMENDATIONS: Partial<Record<AdSlot['formato'], { w: number; h: number; label: string }>> = {
+  banner_vertical:  { w: 300,  h: 600,  label: 'Banner vertical'    },
+  carousel_slide:   { w: 1200, h: 628,  label: 'Hero slide'         },
+  promo_card:       { w: 600,  h: 600,  label: 'Tarjeta promo'      },
+  mobile_promo:     { w: 800,  h: 400,  label: 'Promo mobile'        },
+  catalog_banner:   { w: 1200, h: 300,  label: 'Banner catálogo'    },
+};
+
+// ─── UPLOAD IMAGEN ────────────────────────────────────────────────────────────
+// Ruta: marketplace-offerings / ads / {campaignId|draft} / {uuid}.{ext}
+// Políticas bucket: público, 5 MB, jpeg/jpg/png/webp — namespace ads/ seguro.
+
+async function uploadAdImage(file: File, campaignId: string | null): Promise<string> {
+  const ext = file.type === 'image/webp' ? 'webp' : file.type === 'image/png' ? 'png' : 'jpg';
+  const folder = campaignId ? `ads/${campaignId}` : 'ads/draft';
+  const path   = `${folder}/${crypto.randomUUID()}.${ext}`;
+  const { error } = await supabase.storage
+    .from('marketplace-offerings')
+    .upload(path, file, { upsert: true, contentType: file.type });
+  if (error) throw error;
+  const { data } = supabase.storage.from('marketplace-offerings').getPublicUrl(path);
+  return data.publicUrl;
+}
 
 // ─── DASHBOARD ────────────────────────────────────────────────────────────────
 
@@ -537,58 +566,102 @@ function AdsSlotDetailPanel({
   );
 }
 
+// ─── SLOT BOX (top-level) ────────────────────────────────────────────────────
+
+function SlotBox({
+  className, children, bg, textColor, displayImg,
+}: {
+  className: string;
+  children: React.ReactNode;
+  bg: string;
+  textColor: string;
+  displayImg: string;
+}) {
+  return (
+    <div
+      className={`relative rounded-lg overflow-hidden ${className}`}
+      style={{ background: displayImg ? undefined : bg, color: textColor }}
+    >
+      {displayImg && (
+        <>
+          <img src={displayImg} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/50" />
+        </>
+      )}
+      <div className="relative z-10 w-full h-full flex flex-col justify-between p-3">
+        {children}
+      </div>
+    </div>
+  );
+}
+
 // ─── CAMPAIGN PREVIEW ─────────────────────────────────────────────────────────
 
-function AdsCampaignPreview({ campaign, formato }: { campaign: Partial<CampaignFormData>; formato: AdSlot['formato'] | null }) {
-  const bg = campaign.bg || 'linear-gradient(135deg,#0f2044 0%,#1e3a5f 100%)';
-  const textColor = campaign.text_color || '#ffffff';
-  const accent = campaign.accent || '#60a5fa';
+function AdsCampaignPreview({
+  campaign, formato, localImageUrl,
+}: {
+  campaign: Partial<CampaignFormData>;
+  formato: AdSlot['formato'] | null;
+  localImageUrl?: string;
+}) {
+  const bg         = campaign.bg || 'linear-gradient(135deg,#0f2044 0%,#1e3a5f 100%)';
+  const textColor  = campaign.text_color || '#ffffff';
+  const accent     = campaign.accent || '#60a5fa';
+  const displayImg = localImageUrl || campaign.image_url || '';
 
   const isVertical = formato === 'banner_vertical';
-  const isCard = formato === 'promo_card';
+  const isCard     = formato === 'promo_card';
+  const dims       = SLOT_FORMAT_RECOMMENDATIONS[formato ?? 'banner_vertical'];
 
   return (
-    <div className="flex gap-4 flex-wrap">
-      {/* Desktop preview */}
-      <div>
-        <div className="text-[9px] font-bold uppercase text-slate-500 mb-1.5 flex items-center gap-1">
-          <Monitor className="h-3 w-3" /> Desktop
-        </div>
-        <div
-          className={`rounded-lg overflow-hidden flex flex-col justify-between p-4 ${isVertical ? 'w-36 h-52' : isCard ? 'w-40 h-40' : 'w-72 h-32'}`}
-          style={{ background: bg, color: textColor }}
-        >
-          {campaign.eyebrow && (
-            <div className="text-[9px] font-bold uppercase tracking-widest opacity-70">{campaign.eyebrow}</div>
-          )}
-          <div>
-            <div className="text-sm font-bold leading-tight mb-1">{campaign.title || 'Título de la campaña'}</div>
-            {campaign.subtitle && <div className="text-[10px] opacity-70">{campaign.subtitle}</div>}
+    <div className="space-y-3">
+      {dims && (
+        <p className="text-[10px] text-slate-500">
+          Recomendado: <span className="text-slate-300">{dims.w}×{dims.h}px</span> · {dims.label}
+        </p>
+      )}
+      <div className="flex gap-4 flex-wrap">
+        <div>
+          <div className="text-[9px] font-bold uppercase text-slate-500 mb-1.5 flex items-center gap-1">
+            <Monitor className="h-3 w-3" /> Desktop
           </div>
-          <button
-            className="self-start text-[9px] font-bold px-2 py-1 rounded mt-2"
-            style={{ background: accent, color: '#fff' }}
+          <SlotBox className={`${isVertical ? 'w-36 h-52' : isCard ? 'w-40 h-40' : 'w-72 h-32'}`} bg={bg} textColor={textColor} displayImg={displayImg}>
+            {campaign.eyebrow && (
+              <div className="text-[9px] font-bold uppercase tracking-widest opacity-70">{campaign.eyebrow}</div>
+            )}
+            <div>
+              <div className="text-sm font-bold leading-tight mb-1">{campaign.title || 'Título de la campaña'}</div>
+              {campaign.subtitle && <div className="text-[10px] opacity-70">{campaign.subtitle}</div>}
+            </div>
+            <button className="self-start text-[9px] font-bold px-2 py-1 rounded mt-1" style={{ background: accent, color: '#fff' }}>
+              {campaign.cta_label || 'Ver más'}
+            </button>
+          </SlotBox>
+        </div>
+        <div>
+          <div className="text-[9px] font-bold uppercase text-slate-500 mb-1.5 flex items-center gap-1">
+            <Smartphone className="h-3 w-3" /> Mobile
+          </div>
+          <div
+            className="relative rounded-lg overflow-hidden flex items-center gap-3 px-3 py-2 w-60 h-16"
+            style={{ background: displayImg ? undefined : bg, color: textColor }}
           >
-            {campaign.cta_label || 'Ver más'}
-          </button>
-        </div>
-      </div>
-      {/* Mobile preview */}
-      <div>
-        <div className="text-[9px] font-bold uppercase text-slate-500 mb-1.5 flex items-center gap-1">
-          <Smartphone className="h-3 w-3" /> Mobile
-        </div>
-        <div
-          className="rounded-lg overflow-hidden flex items-center gap-3 px-3 py-2 w-60 h-16"
-          style={{ background: bg, color: textColor }}
-        >
-          <div className="flex-1 min-w-0">
-            <div className="text-[10px] font-bold truncate">{campaign.title || 'Título campaña'}</div>
-            <div className="text-[9px] opacity-60 truncate">{campaign.eyebrow || ''}</div>
+            {displayImg && (
+              <>
+                <img src={displayImg} alt="" className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-black/50" />
+              </>
+            )}
+            <div className="relative z-10 flex items-center gap-3 w-full">
+              <div className="flex-1 min-w-0">
+                <div className="text-[10px] font-bold truncate">{campaign.title || 'Título campaña'}</div>
+                <div className="text-[9px] opacity-60 truncate">{campaign.eyebrow || ''}</div>
+              </div>
+              <button className="text-[9px] font-bold px-2 py-1 rounded shrink-0" style={{ background: accent }}>
+                {campaign.cta_label || 'Ver'}
+              </button>
+            </div>
           </div>
-          <button className="text-[9px] font-bold px-2 py-1 rounded shrink-0" style={{ background: accent }}>
-            {campaign.cta_label || 'Ver'}
-          </button>
         </div>
       </div>
     </div>
@@ -598,64 +671,183 @@ function AdsCampaignPreview({ campaign, formato }: { campaign: Partial<CampaignF
 // ─── CAMPAIGN FORM MODAL ──────────────────────────────────────────────────────
 
 function AdsCampaignFormModal({
-  initial, slots, actors, onClose, onSaved, toast,
+  initial, slots, bookings, actors, onClose, onSaved, toast,
 }: {
-  initial: AdCampaignAdmin | null;
-  slots: AdSlot[];
-  actors: MarketplaceActor[];
-  onClose: () => void;
-  onSaved: () => void;
-  toast: (t: 'success' | 'error' | 'info', m: string) => void;
+  initial:  AdCampaignAdmin | null;
+  slots:    AdSlot[];
+  bookings: AdBookingAdmin[];
+  actors:   MarketplaceActor[];   // ya filtrados: solo supplier + active
+  onClose:  () => void;
+  onSaved:  () => void;
+  toast:    (t: 'success' | 'error' | 'info', m: string) => void;
 }) {
   const [form, setForm] = useState<CampaignFormData>(
     initial
       ? {
-          slot_id: initial.slot_id, campaign_source: initial.campaign_source,
-          actor_id: initial.actor_id ?? '', nombre: initial.nombre,
-          advertiser_name: initial.advertiser_name, eyebrow: initial.eyebrow ?? '',
-          title: initial.title, subtitle: initial.subtitle ?? '',
-          cta_label: initial.cta_label,
-          destination_type: initial.destination_type,
+          slot_id:           initial.slot_id,
+          campaign_source:   initial.campaign_source,
+          actor_id:          initial.actor_id ?? '',
+          nombre:            initial.nombre,
+          advertiser_name:   initial.advertiser_name,
+          eyebrow:           initial.eyebrow ?? '',
+          title:             initial.title,
+          subtitle:          initial.subtitle ?? '',
+          cta_label:         initial.cta_label,
+          destination_type:  initial.destination_type,
           destination_value: initial.destination_value ?? '',
-          oficio: initial.oficio ?? '', priority: String(initial.priority),
-          start_at: initial.start_at ? initial.start_at.slice(0, 10) : '',
-          end_at: initial.end_at ? initial.end_at.slice(0, 10) : '',
-          accent: initial.accent ?? '#60a5fa',
-          bg: initial.bg ?? 'linear-gradient(135deg,#0f2044 0%,#1e3a5f 100%)',
-          text_color: initial.text_color ?? '#ffffff',
-          estado: initial.estado, activa: initial.activa,
+          oficio:            initial.oficio ?? '',
+          priority:          String(initial.priority),
+          start_at:          initial.start_at ? initial.start_at.slice(0, 10) : '',
+          end_at:            initial.end_at   ? initial.end_at.slice(0, 10)   : '',
+          accent:            initial.accent     ?? '#60a5fa',
+          bg:                initial.bg         ?? 'linear-gradient(135deg,#0f2044 0%,#1e3a5f 100%)',
+          text_color:        initial.text_color ?? '#ffffff',
+          estado:            initial.estado,
+          activa:            initial.activa,
+          image_url:         initial.image_url        ?? '',
+          mobile_image_url:  initial.mobile_image_url ?? '',
         }
       : { ...EMPTY_CAMPAIGN }
   );
-  const [saving, setSaving] = useState(false);
-  const [showPreview, setShowPreview] = useState(false);
+
+  const [saving,          setSaving]          = useState(false);
+  const [showPreview,     setShowPreview]     = useState(false);
+  const [showAdvanced,    setShowAdvanced]    = useState(false);
+  const [imageFile,       setImageFile]       = useState<File | null>(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState('');
+  const [imageDimensions, setImageDimensions] = useState<{ w: number; h: number } | null>(null);
+  const [imageWarning,    setImageWarning]    = useState('');
+  const [uploadingImage,  setUploadingImage]  = useState(false);
+  const [isDragging,      setIsDragging]      = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const selectedSlot = slots.find(s => s.id === form.slot_id);
+
+  // E4.A: Detección de fallback por relación DB, NO por nombre
+  const isFallback = initial
+    ? slots.some(s => s.fallback_campaign_id === initial.id)
+    : false;
+
+  // E4.A: Slot locking — reglas A/B/C/D
+  let slotLockReason: string | null = null;
+  if (isFallback) {
+    slotLockReason = 'Campaña institucional protegida';
+  } else if (initial && (initial.estado === 'ACTIVE' || initial.estado === 'SCHEDULED')) {
+    slotLockReason = `Campaña ${ESTADO_CAMP_LABEL[initial.estado].toLowerCase()} — slot bloqueado`;
+  } else if (initial) {
+    const hasActiveBooking = bookings.some(b =>
+      b.slot_id === initial.slot_id &&
+      (b.estado === 'RESERVED' || b.estado === 'CONFIRMED')
+    );
+    if (hasActiveBooking) slotLockReason = 'Espacio con reserva activa';
+  }
+  const isSlotLocked   = slotLockReason !== null;
+  const isSourceLocked = isFallback;
 
   const set = (k: keyof CampaignFormData, v: string | boolean) =>
     setForm(f => ({ ...f, [k]: v }));
 
+  // ── Image handling ──────────────────────────────────────────────────────────
+
+  function processFile(file: File) {
+    const allowed = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+    if (!allowed.includes(file.type)) {
+      toast('error', 'Formato no permitido. Usa JPG, PNG o WebP.');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast('error', 'La imagen supera el límite de 5 MB.');
+      return;
+    }
+    const objectUrl = URL.createObjectURL(file);
+    const img = new window.Image();
+    img.onload = () => {
+      const w = img.naturalWidth;
+      const h = img.naturalHeight;
+      setImageDimensions({ w, h });
+      const rec = SLOT_FORMAT_RECOMMENDATIONS[selectedSlot?.formato ?? 'banner_vertical'];
+      if (rec) {
+        const diff = Math.abs(w / h - rec.w / rec.h) / (rec.w / rec.h);
+        setImageWarning(diff > 0.2
+          ? `Proporción distinta a la recomendada (${rec.w}×${rec.h}px). La imagen puede aparecer recortada.`
+          : ''
+        );
+      } else {
+        setImageWarning('');
+      }
+    };
+    img.src = objectUrl;
+    setImagePreviewUrl(objectUrl);
+    setImageFile(file);
+  }
+
+  function handleFileInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) processFile(file);
+  }
+
+  function handleDrop(e: React.DragEvent) {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) processFile(file);
+  }
+
+  function handleRemoveImage() {
+    setImageFile(null);
+    setImagePreviewUrl('');
+    setImageDimensions(null);
+    setImageWarning('');
+    set('image_url', '');
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  }
+
+  // ── Save ────────────────────────────────────────────────────────────────────
+
   const handleSave = async () => {
-    if (!form.slot_id || !form.nombre || !form.title || !form.cta_label) {
-      toast('error', 'Slot, nombre, título y CTA son obligatorios.');
+    if (!form.slot_id || !form.nombre.trim() || !form.title.trim() || !form.cta_label.trim()) {
+      toast('error', 'Espacio, nombre, título y CTA son obligatorios.');
+      return;
+    }
+    if (form.campaign_source === 'supplier' && !form.actor_id && form.estado !== 'DRAFT') {
+      toast('error', 'Asigna un proveedor antes de avanzar a este estado.');
+      return;
+    }
+    if (form.destination_type === 'product' || form.destination_type === 'offer') {
+      toast('error', 'Ese tipo de destino aún no está disponible.');
       return;
     }
     setSaving(true);
     try {
+      let finalImageUrl = form.image_url;
+      if (imageFile) {
+        setUploadingImage(true);
+        finalImageUrl = await uploadAdImage(imageFile, initial?.id ?? null);
+        setUploadingImage(false);
+      }
       const payload = {
-        slot_id: form.slot_id,
-        campaign_source: form.campaign_source,
-        actor_id: form.actor_id || null,
-        nombre: form.nombre, advertiser_name: form.advertiser_name,
-        eyebrow: form.eyebrow || null, title: form.title,
-        subtitle: form.subtitle || null, cta_label: form.cta_label,
-        destination_type: form.destination_type,
+        slot_id:           form.slot_id,
+        campaign_source:   form.campaign_source,
+        actor_id:          form.actor_id || null,
+        nombre:            form.nombre.trim(),
+        advertiser_name:   form.advertiser_name,
+        eyebrow:           form.eyebrow || null,
+        title:             form.title.trim(),
+        subtitle:          form.subtitle || null,
+        cta_label:         form.cta_label.trim(),
+        destination_type:  form.destination_type,
         destination_value: form.destination_value || null,
-        oficio: form.oficio || null,
-        priority: parseInt(form.priority) || 10,
-        start_at: form.start_at || null, end_at: form.end_at || null,
-        accent: form.accent || null, bg: form.bg || null,
-        text_color: form.text_color || null,
-        estado: form.estado, activa: form.activa,
+        oficio:            form.oficio || null,
+        priority:          parseInt(form.priority) || 10,
+        start_at:          form.start_at || null,
+        end_at:            form.end_at   || null,
+        accent:            form.accent     || null,
+        bg:                form.bg         || null,
+        text_color:        form.text_color || null,
+        estado:            form.estado,
+        activa:            form.activa,
+        image_url:         finalImageUrl          || null,
+        mobile_image_url:  form.mobile_image_url  || null,
       };
       if (initial) {
         const { error } = await supabase
@@ -677,134 +869,222 @@ function AdsCampaignFormModal({
       toast('error', 'Error: ' + (e instanceof Error ? e.message : String(e)));
     } finally {
       setSaving(false);
+      setUploadingImage(false);
     }
   };
+
+  const currentImageUrl = imagePreviewUrl || form.image_url;
+  const humanSlotName   = selectedSlot?.nombre ?? form.slot_id.replace('MARKET_', '').replace(/_/g, ' ');
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/70 backdrop-blur-sm p-4 overflow-y-auto">
       <div className="bg-slate-800 border border-slate-700 rounded-xl w-full max-w-2xl my-4 shadow-2xl">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-700">
-          <h2 className="font-bold text-white text-sm">{initial ? 'Editar campaña' : 'Nueva campaña'}</h2>
-          <button onClick={onClose} className="text-slate-400 hover:text-white cursor-pointer"><X className="h-4 w-4" /></button>
-        </div>
 
-        <div className="p-5 space-y-5">
-          {/* Básico */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="col-span-2">
-              <label className={lCls}>Nombre interno *</label>
-              <input value={form.nombre} onChange={e => set('nombre', e.target.value)} className={iCls} placeholder="Ej: Campaña Electricidad Agosto" />
-            </div>
-            <div>
-              <label className={lCls}>Fuente *</label>
-              <select value={form.campaign_source} onChange={e => set('campaign_source', e.target.value as CampaignFormData['campaign_source'])} className={iCls}>
-                <option value="trabflow">TrabFlow (editorial)</option>
-                <option value="supplier">Proveedor (comercial)</option>
-                <option value="demo">Demo</option>
-              </select>
-            </div>
-            <div>
-              <label className={lCls}>Slot *</label>
-              <select value={form.slot_id} onChange={e => set('slot_id', e.target.value)} className={iCls}>
-                <option value="">— Selecciona slot —</option>
-                {slots.map(s => <option key={s.id} value={s.id}>{s.nombre} ({s.id.replace('MARKET_', '')})</option>)}
-              </select>
-            </div>
-            {form.campaign_source === 'supplier' && (
-              <div className="col-span-2">
-                <label className={lCls}>Proveedor (actor)</label>
-                <select value={form.actor_id} onChange={e => set('actor_id', e.target.value)} className={iCls}>
-                  <option value="">— Sin proveedor —</option>
-                  {actors.map(a => <option key={a.id} value={a.id}>{a.nombre} ({a.tipo})</option>)}
-                </select>
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-700">
+          <div>
+            <h2 className="font-bold text-white text-sm">{initial ? 'Editar campaña' : 'Nueva campaña'}</h2>
+            {isFallback && (
+              <div className="flex items-center gap-1.5 mt-1">
+                <Lock className="h-3 w-3 text-amber-400" />
+                <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider">
+                  Fallback TrabFlow · Campaña institucional protegida
+                </span>
               </div>
             )}
           </div>
+          <button onClick={onClose} className="text-slate-400 hover:text-white cursor-pointer">
+            <X className="h-4 w-4" />
+          </button>
+        </div>
 
-          {/* Contenido */}
-          <div>
+        <div className="p-5 space-y-6">
+
+          {/* ── INFORMACIÓN ── */}
+          <section>
+            <h3 className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-3">Información</h3>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="col-span-2">
+                <label className={lCls}>Nombre interno *</label>
+                <input value={form.nombre} onChange={e => set('nombre', e.target.value)} className={iCls} placeholder="Ej: Campaña Electricidad Agosto" />
+              </div>
+              <div>
+                <label className={lCls}>Tipo *</label>
+                {isSourceLocked ? (
+                  <div className={`${iCls} flex items-center gap-2 opacity-60 cursor-not-allowed`}>
+                    <Lock className="h-3 w-3 text-amber-400" />
+                    <span>TrabFlow (protegido)</span>
+                  </div>
+                ) : (
+                  <select value={form.campaign_source} onChange={e => set('campaign_source', e.target.value as CampaignFormData['campaign_source'])} className={iCls}>
+                    <option value="trabflow">TrabFlow (editorial)</option>
+                    <option value="supplier">Proveedor (comercial)</option>
+                    <option value="demo">Demo</option>
+                  </select>
+                )}
+              </div>
+              <div>
+                <label className={lCls}>Espacio *</label>
+                {isSlotLocked ? (
+                  <div className={`${iCls} flex items-center gap-2 opacity-60 cursor-not-allowed`} title={slotLockReason ?? ''}>
+                    <Lock className="h-3 w-3 text-amber-400 shrink-0" />
+                    <div className="min-w-0">
+                      <div className="text-xs text-slate-200 truncate">{humanSlotName}</div>
+                      <div className="text-[10px] text-slate-500 truncate">{form.slot_id}</div>
+                    </div>
+                  </div>
+                ) : (
+                  <select value={form.slot_id} onChange={e => set('slot_id', e.target.value)} className={iCls}>
+                    <option value="">— Selecciona espacio —</option>
+                    {slots.map(s => (
+                      <option key={s.id} value={s.id}>{s.nombre} · {s.id.replace('MARKET_', '')}</option>
+                    ))}
+                  </select>
+                )}
+                {slotLockReason && (
+                  <p className="text-[10px] text-amber-400 mt-0.5 flex items-center gap-1">
+                    <Lock className="h-2.5 w-2.5 shrink-0" />{slotLockReason}
+                  </p>
+                )}
+              </div>
+              {form.campaign_source === 'supplier' && !isFallback && (
+                <div className="col-span-2">
+                  <label className={lCls}>Proveedor *</label>
+                  <select value={form.actor_id} onChange={e => set('actor_id', e.target.value)} className={iCls}>
+                    <option value="">— Selecciona proveedor —</option>
+                    {actors.map(a => <option key={a.id} value={a.id}>{a.nombre}</option>)}
+                  </select>
+                  {actors.length === 0 && (
+                    <p className="text-[10px] text-amber-400 mt-1">No hay proveedores activos registrados.</p>
+                  )}
+                  {form.campaign_source === 'supplier' && !form.actor_id && form.estado !== 'DRAFT' && (
+                    <p className="text-[10px] text-red-400 mt-1">Obligatorio para estado {form.estado}.</p>
+                  )}
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* ── CONTENIDO ── */}
+          <section>
             <h3 className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-3">Contenido</h3>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className={lCls}>Anunciante</label>
-                <input value={form.advertiser_name} onChange={e => set('advertiser_name', e.target.value)} className={iCls} />
+                <label className={lCls}>¿Qué quieres promocionar? *</label>
+                <select value={form.destination_type} onChange={e => set('destination_type', e.target.value as CampaignFormData['destination_type'])} className={iCls}>
+                  <option value="catalog">Catálogo general</option>
+                  <option value="category">Categoría</option>
+                  <option value="supplier">Proveedor específico</option>
+                  <option value="search">Búsqueda libre</option>
+                  <option value="product" disabled>Producto (próximamente)</option>
+                  <option value="offer" disabled>Oferta (próximamente)</option>
+                </select>
               </div>
               <div>
-                <label className={lCls}>Eyebrow</label>
-                <input value={form.eyebrow} onChange={e => set('eyebrow', e.target.value)} className={iCls} placeholder="Ej: Oferta del mes" />
+                <label className={lCls}>
+                  {form.destination_type === 'category' ? 'Categoría (slug)' :
+                   form.destination_type === 'search'   ? 'Término de búsqueda' :
+                   form.destination_type === 'supplier' ? 'Nombre del proveedor' : 'Valor (no aplica)'}
+                </label>
+                <input
+                  value={form.destination_value}
+                  onChange={e => set('destination_value', e.target.value)}
+                  className={iCls}
+                  placeholder={
+                    form.destination_type === 'category' ? 'electricidad' :
+                    form.destination_type === 'search'   ? 'cable rojo 2.5mm' :
+                    form.destination_type === 'supplier' ? 'Würth España' : ''
+                  }
+                  disabled={form.destination_type === 'catalog'}
+                />
+              </div>
+              <div>
+                <label className={lCls}>Eyebrow / Etiqueta</label>
+                <input value={form.eyebrow} onChange={e => set('eyebrow', e.target.value)} className={iCls} placeholder="Oferta del mes" />
+              </div>
+              <div>
+                <label className={lCls}>Nombre del anunciante</label>
+                <input value={form.advertiser_name} onChange={e => set('advertiser_name', e.target.value)} className={iCls} />
               </div>
               <div className="col-span-2">
                 <label className={lCls}>Título *</label>
-                <input value={form.title} onChange={e => set('title', e.target.value)} className={iCls} placeholder="Electricidad profesional" />
+                <input value={form.title} onChange={e => set('title', e.target.value)} className={iCls} placeholder="Electricidad profesional para instaladores" />
               </div>
               <div className="col-span-2">
                 <label className={lCls}>Subtítulo</label>
                 <input value={form.subtitle} onChange={e => set('subtitle', e.target.value)} className={iCls} />
               </div>
               <div>
-                <label className={lCls}>CTA *</label>
-                <input value={form.cta_label} onChange={e => set('cta_label', e.target.value)} className={iCls} placeholder="Ver más" />
-              </div>
-              <div>
-                <label className={lCls}>Oficio (fallback matching)</label>
-                <input value={form.oficio} onChange={e => set('oficio', e.target.value)} className={iCls} placeholder="electricidad" />
+                <label className={lCls}>CTA (botón) *</label>
+                <input value={form.cta_label} onChange={e => set('cta_label', e.target.value)} className={iCls} placeholder="Ver catálogo" />
               </div>
             </div>
-          </div>
+          </section>
 
-          {/* Destino */}
-          <div>
-            <h3 className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-3">Destino</h3>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className={lCls}>Tipo de destino *</label>
-                <select value={form.destination_type} onChange={e => set('destination_type', e.target.value as CampaignFormData['destination_type'])} className={iCls}>
-                  <option value="catalog">Catálogo (sin valor)</option>
-                  <option value="category">Categoría</option>
-                  <option value="supplier">Proveedor</option>
-                  <option value="search">Búsqueda</option>
-                  <option value="product">Producto (futuro)</option>
-                  <option value="offer">Oferta (futuro)</option>
-                </select>
+          {/* ── CREATIVIDAD ── */}
+          <section>
+            <h3 className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-3">Creatividad</h3>
+            {!currentImageUrl ? (
+              <div
+                onDragOver={e => { e.preventDefault(); setIsDragging(true); }}
+                onDragLeave={() => setIsDragging(false)}
+                onDrop={handleDrop}
+                onClick={() => fileInputRef.current?.click()}
+                className={`border-2 border-dashed rounded-xl px-6 py-8 flex flex-col items-center gap-3 cursor-pointer transition-colors ${
+                  isDragging ? 'border-blue-400 bg-blue-900/20' : 'border-slate-600 hover:border-slate-500 bg-slate-900/40'
+                }`}
+              >
+                <Upload className="h-7 w-7 text-slate-400" />
+                <div className="text-center">
+                  <p className="text-sm text-slate-300">Arrastra una imagen aquí</p>
+                  <p className="text-xs text-slate-500 mt-0.5">o</p>
+                  <p className="text-xs font-semibold text-blue-400 mt-0.5">Seleccionar imagen</p>
+                </div>
+                <p className="text-[10px] text-slate-600">JPG · PNG · WebP · máx. 5 MB</p>
               </div>
-              <div>
-                <label className={lCls}>Valor</label>
-                <input
-                  value={form.destination_value}
-                  onChange={e => set('destination_value', e.target.value)}
-                  className={iCls}
-                  placeholder={form.destination_type === 'category' ? 'electricidad' : form.destination_type === 'search' ? 'cable rojo' : ''}
-                  disabled={form.destination_type === 'catalog'}
-                />
+            ) : (
+              <div className="bg-slate-900/50 border border-slate-700 rounded-xl p-4">
+                <div className="flex items-start gap-4">
+                  <img src={currentImageUrl} alt="preview" className="w-24 h-16 object-cover rounded-lg border border-slate-600 shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    {imageFile ? (
+                      <>
+                        <p className="text-xs font-semibold text-slate-200 truncate">{imageFile.name}</p>
+                        <p className="text-[10px] text-slate-500 mt-0.5">
+                          {imageDimensions ? `${imageDimensions.w}×${imageDimensions.h}px · ` : ''}
+                          {(imageFile.size / 1024).toFixed(0)} KB
+                        </p>
+                      </>
+                    ) : (
+                      <p className="text-[10px] text-slate-500 break-all">{form.image_url.slice(0, 80)}{form.image_url.length > 80 ? '…' : ''}</p>
+                    )}
+                    {imageWarning && (
+                      <p className="text-[10px] text-amber-400 mt-1 flex items-start gap-1">
+                        <AlertTriangle className="h-3 w-3 shrink-0 mt-px" />{imageWarning}
+                      </p>
+                    )}
+                    {selectedSlot && SLOT_FORMAT_RECOMMENDATIONS[selectedSlot.formato] && (
+                      <p className="text-[10px] text-slate-600 mt-1">
+                        Recomendado: {SLOT_FORMAT_RECOMMENDATIONS[selectedSlot.formato]!.w}×{SLOT_FORMAT_RECOMMENDATIONS[selectedSlot.formato]!.h}px
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex flex-col gap-1.5 shrink-0">
+                    <button onClick={() => fileInputRef.current?.click()} className="px-2 py-1 rounded text-[10px] font-semibold bg-slate-700 hover:bg-slate-600 text-white cursor-pointer">
+                      Reemplazar
+                    </button>
+                    <button onClick={handleRemoveImage} className="px-2 py-1 rounded text-[10px] font-semibold bg-red-900/40 hover:bg-red-900/60 text-red-300 cursor-pointer">
+                      Eliminar
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            )}
+            <input ref={fileInputRef} type="file" accept="image/jpeg,image/jpg,image/png,image/webp" className="hidden" onChange={handleFileInputChange} />
+          </section>
 
-          {/* Estilo */}
-          <div>
-            <h3 className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-3">Estilo visual</h3>
-            <div className="grid grid-cols-3 gap-3">
-              <div>
-                <label className={lCls}>Accent color</label>
-                <input value={form.accent} onChange={e => set('accent', e.target.value)} className={iCls} placeholder="#60a5fa" />
-              </div>
-              <div>
-                <label className={lCls}>Texto color</label>
-                <input value={form.text_color} onChange={e => set('text_color', e.target.value)} className={iCls} placeholder="#ffffff" />
-              </div>
-              <div>
-                <label className={lCls}>Prioridad</label>
-                <input type="number" value={form.priority} onChange={e => set('priority', e.target.value)} className={iCls} min={0} max={999} />
-              </div>
-              <div className="col-span-3">
-                <label className={lCls}>Background (CSS)</label>
-                <input value={form.bg} onChange={e => set('bg', e.target.value)} className={iCls} placeholder="linear-gradient(…)" />
-              </div>
-            </div>
-          </div>
-
-          {/* Programación */}
-          <div>
+          {/* ── PROGRAMACIÓN ── */}
+          <section>
             <h3 className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-3">Programación</h3>
             <div className="grid grid-cols-3 gap-3">
               <div>
@@ -818,37 +1098,74 @@ function AdsCampaignFormModal({
               <div>
                 <label className={lCls}>Estado</label>
                 <select value={form.estado} onChange={e => set('estado', e.target.value as CampaignFormData['estado'])} className={iCls}>
-                  {(Object.keys(ESTADO_CAMP_LABEL) as AdCampaignAdmin['estado'][]).map(e => (
-                    <option key={e} value={e}>{ESTADO_CAMP_LABEL[e]}</option>
+                  {(Object.keys(ESTADO_CAMP_LABEL) as AdCampaignAdmin['estado'][]).map(s => (
+                    <option key={s} value={s}>{ESTADO_CAMP_LABEL[s]}</option>
                   ))}
                 </select>
               </div>
-              <div className="col-span-3">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" checked={form.activa} onChange={e => set('activa', e.target.checked)} className="w-4 h-4 rounded" />
-                  <span className="text-sm text-slate-300">Campaña activa (visible en RPC)</span>
-                </label>
-              </div>
             </div>
-          </div>
+          </section>
 
-          {/* Preview */}
-          <div>
-            <button
-              onClick={() => setShowPreview(v => !v)}
-              className="flex items-center gap-2 text-xs text-blue-400 hover:text-blue-300 cursor-pointer"
-            >
+          {/* ── CONFIGURACIÓN AVANZADA ── */}
+          <section>
+            <button onClick={() => setShowAdvanced(v => !v)} className="flex items-center gap-2 text-xs text-slate-400 hover:text-slate-200 cursor-pointer transition-colors w-full">
+              {showAdvanced ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+              Configuración avanzada
+            </button>
+            {showAdvanced && (
+              <div className="mt-3 grid grid-cols-3 gap-3">
+                <div>
+                  <label className={lCls}>Prioridad</label>
+                  <input type="number" value={form.priority} onChange={e => set('priority', e.target.value)} className={iCls} min={0} max={999} />
+                </div>
+                <div>
+                  <label className={lCls}>Oficio (fallback matching)</label>
+                  <input value={form.oficio} onChange={e => set('oficio', e.target.value)} className={iCls} placeholder="electricidad" />
+                </div>
+                <div>
+                  <label className={lCls}>Accent color</label>
+                  <div className="flex gap-2">
+                    <input type="color" value={form.accent} onChange={e => set('accent', e.target.value)} className="h-[38px] w-12 rounded border border-slate-600 bg-slate-700 cursor-pointer p-0.5" />
+                    <input value={form.accent} onChange={e => set('accent', e.target.value)} className={`${iCls} flex-1`} placeholder="#60a5fa" />
+                  </div>
+                </div>
+                <div>
+                  <label className={lCls}>Color texto</label>
+                  <div className="flex gap-2">
+                    <input type="color" value={form.text_color} onChange={e => set('text_color', e.target.value)} className="h-[38px] w-12 rounded border border-slate-600 bg-slate-700 cursor-pointer p-0.5" />
+                    <input value={form.text_color} onChange={e => set('text_color', e.target.value)} className={`${iCls} flex-1`} placeholder="#ffffff" />
+                  </div>
+                </div>
+                <div className="col-span-3">
+                  <label className={lCls}>Background (CSS)</label>
+                  <input value={form.bg} onChange={e => set('bg', e.target.value)} className={iCls} placeholder="linear-gradient(135deg,#0f2044 0%,#1e3a5f 100%)" />
+                </div>
+                <div className="col-span-3">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" checked={form.activa} onChange={e => set('activa', e.target.checked)} className="w-4 h-4 rounded" />
+                    <span className="text-sm text-slate-300">Campaña activa (visible en RPC)</span>
+                  </label>
+                </div>
+              </div>
+            )}
+          </section>
+
+          {/* ── PREVIEW ── */}
+          <section>
+            <button onClick={() => setShowPreview(v => !v)} className="flex items-center gap-2 text-xs text-blue-400 hover:text-blue-300 cursor-pointer">
               <Eye className="h-3.5 w-3.5" />
               {showPreview ? 'Ocultar preview' : 'Ver preview'}
             </button>
             {showPreview && (
               <div className="mt-3 p-3 bg-slate-900 rounded-lg">
-                <AdsCampaignPreview campaign={form} formato={selectedSlot?.formato ?? null} />
+                <AdsCampaignPreview campaign={form} formato={selectedSlot?.formato ?? null} localImageUrl={imagePreviewUrl} />
               </div>
             )}
-          </div>
+          </section>
+
         </div>
 
+        {/* Footer */}
         <div className="flex items-center justify-end gap-2 px-5 py-4 border-t border-slate-700">
           <button onClick={onClose} className="px-4 py-2 rounded text-xs font-semibold text-slate-400 hover:text-white cursor-pointer">
             Cancelar
@@ -858,9 +1175,10 @@ function AdsCampaignFormModal({
             disabled={saving}
             className="px-4 py-2 rounded text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white cursor-pointer disabled:opacity-50 transition-colors"
           >
-            {saving ? 'Guardando…' : initial ? 'Guardar cambios' : 'Crear campaña'}
+            {uploadingImage ? 'Subiendo imagen…' : saving ? 'Guardando…' : initial ? 'Guardar cambios' : 'Crear campaña'}
           </button>
         </div>
+
       </div>
     </div>
   );
@@ -869,10 +1187,11 @@ function AdsCampaignFormModal({
 // ─── CAMPAIGNS LIST ───────────────────────────────────────────────────────────
 
 function AdsCampaignsList({
-  campaigns, slots, actors, onRefresh, toast,
+  campaigns, slots, bookings, actors, onRefresh, toast,
 }: {
   campaigns: AdCampaignAdmin[];
   slots: AdSlot[];
+  bookings: AdBookingAdmin[];
   actors: MarketplaceActor[];
   onRefresh: () => void;
   toast: (t: 'success' | 'error' | 'info', m: string) => void;
@@ -892,6 +1211,10 @@ function AdsCampaignsList({
   });
 
   const handleTransition = async (campaign: AdCampaignAdmin, newEstado: AdCampaignAdmin['estado']) => {
+    if (newEstado === 'PENDING_APPROVAL' && campaign.campaign_source === 'supplier' && !campaign.actor_id) {
+      toast('error', 'Asigna un proveedor antes de enviar a aprobación.');
+      return;
+    }
     setTransitioning(campaign.id);
     try {
       const updates: Partial<AdCampaignAdmin> = { estado: newEstado };
@@ -967,8 +1290,9 @@ function AdsCampaignsList({
           const slot = slots.find(s => s.id === c.slot_id);
           const actor = actors.find(a => a.id === c.actor_id);
           const transitions = VALID_TRANSITIONS[c.estado];
+          const isCampaignFallback = slots.some(s => s.fallback_campaign_id === c.id);
           return (
-            <div key={c.id} className="bg-slate-800 border border-slate-700 rounded-lg p-3">
+            <div key={c.id} className={`border rounded-lg p-3 ${isCampaignFallback ? 'bg-amber-950/20 border-amber-700/30' : 'bg-slate-800 border-slate-700'}`}>
               <div className="flex items-start gap-3 flex-wrap">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap mb-1">
@@ -977,6 +1301,11 @@ function AdsCampaignsList({
                     </span>
                     <span className="text-[9px] font-bold bg-slate-700 text-slate-300 px-1.5 py-0.5 rounded">{c.campaign_source}</span>
                     {c.activa && <span className="text-[9px] text-emerald-400 font-bold">● ACTIVA</span>}
+                    {isCampaignFallback && (
+                      <span className="flex items-center gap-1 text-[9px] font-bold text-amber-400">
+                        <Lock className="h-2.5 w-2.5" /> FALLBACK
+                      </span>
+                    )}
                   </div>
                   <div className="text-sm font-semibold text-white truncate">{c.nombre}</div>
                   <div className="text-xs text-slate-400">{c.advertiser_name} · {slot?.nombre ?? c.slot_id}</div>
@@ -1027,6 +1356,7 @@ function AdsCampaignsList({
         <AdsCampaignFormModal
           initial={editCampaign instanceof Object && editCampaign !== null && 'id' in editCampaign ? editCampaign as AdCampaignAdmin : null}
           slots={slots}
+          bookings={bookings}
           actors={actors}
           onClose={() => setShowForm(false)}
           onSaved={onRefresh}
@@ -1134,9 +1464,9 @@ function AdsBookingFormModal({
             <label className={lCls}>Proveedor (actor) *</label>
             <select value={form.actor_id} onChange={e => set('actor_id', e.target.value)} className={iCls}>
               <option value="">— Selecciona proveedor —</option>
-              {actors.map(a => <option key={a.id} value={a.id}>{a.nombre} ({a.tipo})</option>)}
+              {actors.map(a => <option key={a.id} value={a.id}>{a.nombre}</option>)}
             </select>
-            {actors.length === 0 && <p className="text-[10px] text-amber-400 mt-1">No hay proveedores registrados.</p>}
+            {actors.length === 0 && <p className="text-[10px] text-amber-400 mt-1">No hay proveedores activos registrados.</p>}
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
@@ -1546,7 +1876,7 @@ export default function AdminMarketplaceAdsSection({ toast }: Props) {
         supabase.from('trade_marketplace_ad_campaigns').select('*').order('created_at', { ascending: false }),
         supabase.from('trade_marketplace_ad_bookings').select('*').order('inicio'),
         supabase.from('trade_marketplace_ad_creatives').select('*').order('created_at', { ascending: false }),
-        supabase.from('trade_marketplace_actors').select('id, nombre, tipo').order('nombre'),
+        supabase.from('trade_marketplace_actors').select('id, nombre, actor_type, estado').eq('actor_type', 'supplier').eq('estado', 'active').order('nombre'),
         supabase.rpc('admin_get_ads_dashboard'),
       ]);
       setSlots((slotData ?? []) as AdSlot[]);
@@ -1569,7 +1899,7 @@ export default function AdminMarketplaceAdsSection({ toast }: Props) {
     { id: 'slots',        label: 'Espacios',        Icon: Layout },
     { id: 'campanas',     label: 'Campañas',        Icon: Megaphone },
     { id: 'reservas',     label: 'Reservas',        Icon: Calendar },
-    { id: 'creatividades',label: 'Creatividades',   Icon: Image },
+    { id: 'creatividades',label: 'Creatividades',   Icon: ImageIcon },
   ];
 
   return (
@@ -1650,6 +1980,7 @@ export default function AdminMarketplaceAdsSection({ toast }: Props) {
           <AdsCampaignsList
             campaigns={campaigns}
             slots={slots}
+            bookings={bookings}
             actors={actors}
             onRefresh={loadAll}
             toast={toast}
