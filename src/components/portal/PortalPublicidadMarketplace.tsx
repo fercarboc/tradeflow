@@ -96,33 +96,33 @@ function sanitizeCampaigns(campaigns: PlacementCampaign[], actorId: string): Pla
 function AdCommercialInfo() {
   return (
     <div className="space-y-3">
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
-        <p className="text-xs font-bold text-slate-200 mb-2">¿Qué son los espacios publicitarios?</p>
-        <p className="text-[11px] text-slate-500 leading-relaxed mb-3">
+      <div className="bg-slate-800 border border-slate-700 rounded-xl p-4">
+        <p className="text-xs font-bold text-slate-100 mb-1.5">¿Qué son los espacios publicitarios?</p>
+        <p className="text-[11px] text-slate-300 leading-relaxed mb-3">
           Posiciones destacadas en el Marketplace — banners, cabeceras y secciones de relevancia —
           que incrementan la visibilidad de tu empresa y catálogo entre compradores activos.
         </p>
         <div className="grid grid-cols-3 gap-2">
-          <div className="bg-slate-800/60 rounded-lg p-2.5 text-center">
+          <div className="bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-center">
             <p className="text-[10px] font-bold text-teal-400 mb-0.5">Desktop</p>
-            <p className="text-[10px] text-slate-500 leading-snug">Cabecera · Lateral · Lista</p>
+            <p className="text-[10px] text-slate-400 leading-snug">Cabecera · Lateral · Lista</p>
           </div>
-          <div className="bg-slate-800/60 rounded-lg p-2.5 text-center">
+          <div className="bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-center">
             <p className="text-[10px] font-bold text-blue-400 mb-0.5">Mobile</p>
-            <p className="text-[10px] text-slate-500 leading-snug">Banner · Intersticial</p>
+            <p className="text-[10px] text-slate-400 leading-snug">Banner · Intersticial</p>
           </div>
-          <div className="bg-slate-800/60 rounded-lg p-2.5 text-center">
+          <div className="bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-center">
             <p className="text-[10px] font-bold text-purple-400 mb-0.5">Catálogo</p>
-            <p className="text-[10px] text-slate-500 leading-snug">Productos destacados</p>
+            <p className="text-[10px] text-slate-400 leading-snug">Productos destacados</p>
           </div>
         </div>
       </div>
 
-      <div className="flex items-center gap-2.5 px-3 py-2.5 bg-amber-950/30 border border-amber-900/40 rounded-xl">
+      <div className="flex items-center gap-2.5 px-3 py-2.5 bg-amber-950/40 border border-amber-800/60 rounded-xl">
         <svg className="h-3.5 w-3.5 text-amber-400 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
         </svg>
-        <p className="text-[11px] text-amber-400/80 leading-snug">
+        <p className="text-[11px] text-amber-300 leading-snug">
           <span className="font-semibold">Publicidad ≠ Ranking.</span>{' '}
           Los espacios publicitarios no afectan al orden de resultados ni al precio. El ranking siempre es objetivo.
         </p>
