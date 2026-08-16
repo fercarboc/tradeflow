@@ -484,13 +484,15 @@ export default function PortalPublicidadMarketplace({ actorId }: Props) {
                   <p className="text-xs text-slate-600">No se pudieron cargar los espacios</p>
                 </div>
               ) : (
-                <AdPlacementMap
-                  slots={slots}
-                  campaigns={campaigns}
-                  bookings={bookings}
-                  mode="supplier-preview"
-                  actorId={actorId}
-                />
+                <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
+                  <AdPlacementMap
+                    slots={slots}
+                    campaigns={campaigns}
+                    bookings={bookings}
+                    mode="supplier-preview"
+                    actorId={actorId}
+                  />
+                </div>
               )}
             </section>
 

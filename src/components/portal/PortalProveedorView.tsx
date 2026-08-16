@@ -362,7 +362,7 @@ function PortalShell({ setCurrentPage, session, totalWorkspaces = 1, onChangeWor
       </aside>
 
       {/* ── Main content ── */}
-      <main className="flex-1 overflow-y-auto bg-slate-50 dark:bg-slate-950 pt-14 sm:pt-0 pb-16 sm:pb-0">
+      <main className="flex-1 overflow-y-auto bg-slate-950 pt-14 sm:pt-0 pb-16 sm:pb-0">
         <Suspense fallback={<PortalLoading />}>
           {renderScreen()}
         </Suspense>
