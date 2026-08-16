@@ -11,7 +11,8 @@ import {
   BarChart2, Layout, Calendar, RefreshCw, Plus, Edit2,
   Eye, X, AlertCircle, CheckCircle, Clock, Monitor, Smartphone,
   XCircle, ChevronDown, ChevronUp, Megaphone, Image as ImageIcon,
-  Lock, Upload, AlertTriangle,
+  Lock, Upload, AlertTriangle, Layers,
+  AlignLeft, AlignCenter, AlignRight, Tag, Sparkles,
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
@@ -52,12 +53,29 @@ type AdBookingAdmin = {
   notas: string | null; created_at: string;
 };
 
+type CreativeMode  = 'FULL_IMAGE' | 'IMAGE_CONTENT' | 'TRABFLOW_DESIGN';
+type TextPosition  = 'LEFT' | 'CENTER' | 'RIGHT';
+type ThemePreset   = 'AZUL_PROFESIONAL' | 'VERDE_TECNICO' | 'NARANJA_OFERTA' | 'GRIS_INDUSTRIAL' | 'MORADO_NOVEDAD';
+type ThemePresetDef = { bg: string; accent: string; text: string; label: string };
+type AdSlotCreativeSpec = {
+  label: string; device: string;
+  recW: number; recH: number; ratio: string;
+  previewDesktop: string | null; previewMobile: string | null;
+};
+
 type AdCreativeAdmin = {
   id: string; campaign_id: string;
   image_url: string | null; mobile_image_url: string | null;
   headline: string | null; body_text: string | null;
   cta_text: string | null; alt_text: string | null;
   generada_ia: boolean; activa: boolean; created_at: string;
+  creative_mode: CreativeMode;
+  text_position: TextPosition;
+  overlay_strength: number;
+  price_display: number | null;
+  old_price_display: number | null;
+  discount_label: string | null;
+  theme_preset: ThemePreset;
 };
 
 type MarketplaceActor = { id: string; nombre: string; actor_type: string; estado: string };
@@ -92,6 +110,13 @@ type CreativeFormData = {
   campaign_id: string; image_url: string; mobile_image_url: string;
   headline: string; body_text: string; cta_text: string; alt_text: string;
   activa: boolean;
+  creative_mode: CreativeMode;
+  text_position: TextPosition;
+  overlay_strength: string;
+  price_display: string;
+  old_price_display: string;
+  discount_label: string;
+  theme_preset: ThemePreset;
 };
 
 // ─── CONSTANTS ───────────────────────────────────────────────────────────────
@@ -171,6 +196,9 @@ const EMPTY_BOOKING: BookingFormData = {
 const EMPTY_CREATIVE: CreativeFormData = {
   campaign_id: '', image_url: '', mobile_image_url: '',
   headline: '', body_text: '', cta_text: '', alt_text: '', activa: false,
+  creative_mode: 'IMAGE_CONTENT', text_position: 'LEFT',
+  overlay_strength: '50', price_display: '', old_price_display: '',
+  discount_label: '', theme_preset: 'AZUL_PROFESIONAL',
 };
 
 // ─── HELPERS ──────────────────────────────────────────────────────────────────
@@ -210,6 +238,41 @@ const SLOT_FORMAT_RECOMMENDATIONS: Partial<Record<AdSlot['formato'], { w: number
   catalog_banner:   { w: 1200, h: 300,  label: 'Banner catálogo'    },
 };
 
+// ─── CREATIVE THEMES (Modo C — TRABFLOW_DESIGN) ──────────────────────────────
+
+const THEME_PRESETS: Record<ThemePreset, ThemePresetDef> = {
+  AZUL_PROFESIONAL: { bg: 'linear-gradient(135deg,#0f2044 0%,#1e3a5f 100%)', accent: '#3b82f6', text: '#e2e8f0', label: 'Azul Profesional' },
+  VERDE_TECNICO:    { bg: 'linear-gradient(135deg,#052e16 0%,#14532d 100%)', accent: '#22c55e', text: '#d1fae5', label: 'Verde Técnico'    },
+  NARANJA_OFERTA:   { bg: 'linear-gradient(135deg,#431407 0%,#7c2d12 100%)', accent: '#f97316', text: '#fff7ed', label: 'Naranja Oferta'   },
+  GRIS_INDUSTRIAL:  { bg: 'linear-gradient(135deg,#1c1917 0%,#292524 100%)', accent: '#a8a29e', text: '#e7e5e4', label: 'Gris Industrial'  },
+  MORADO_NOVEDAD:   { bg: 'linear-gradient(135deg,#2e1065 0%,#4c1d95 100%)', accent: '#a855f7', text: '#f0e6ff', label: 'Morado Novedad'   },
+};
+
+const CREATIVE_MODE_INFO: Record<CreativeMode, { label: string; desc: string }> = {
+  FULL_IMAGE:      { label: 'A · Imagen completa',    desc: 'Banner terminado por proveedor/agencia. Sin composición de texto automática.' },
+  IMAGE_CONTENT:   { label: 'B · Imagen + Contenido', desc: 'Imagen de fondo con texto, precio y CTA compuesto por TrabFlow. Recomendado.' },
+  TRABFLOW_DESIGN: { label: 'C · Diseño TrabFlow',    desc: 'Sin imagen obligatoria. Gradiente y tipografía del sistema.' },
+};
+
+// ─── CREATIVE SPEC POR FORMATO (fuente única de verdad) ──────────────────────
+// Dimensiones reales de BD: banner_vertical 192×220px, carousel_slide min 280px.
+// Las dimensiones de recomendación de upload son mayores (mejor resolución).
+
+function getAdSlotCreativeSpec(formato: AdSlot['formato']): AdSlotCreativeSpec {
+  switch (formato) {
+    case 'banner_vertical':
+      return { label: 'Banner vertical', device: 'Desktop', recW: 400, recH: 600, ratio: '2:3', previewDesktop: 'w-28 h-44', previewMobile: null };
+    case 'carousel_slide':
+      return { label: 'Hero slide', device: 'Ambos', recW: 1600, recH: 400, ratio: '4:1', previewDesktop: 'w-80 h-20', previewMobile: 'w-64 h-28' };
+    case 'mobile_promo':
+      return { label: 'Promo mobile', device: 'Mobile', recW: 800, recH: 200, ratio: '4:1', previewDesktop: null, previewMobile: 'w-64 h-16' };
+    case 'promo_card':
+      return { label: 'Promo card', device: 'Ambos', recW: 600, recH: 500, ratio: '6:5', previewDesktop: 'w-40 h-36', previewMobile: 'w-36 h-32' };
+    case 'catalog_banner':
+      return { label: 'Banner catálogo', device: 'Ambos', recW: 1600, recH: 240, ratio: '20:3', previewDesktop: 'w-80 h-14', previewMobile: 'w-64 h-12' };
+  }
+}
+
 // ─── UPLOAD IMAGEN ────────────────────────────────────────────────────────────
 // Ruta: marketplace-offerings / ads / {campaignId|draft} / {uuid}.{ext}
 // Políticas bucket: público, 5 MB, jpeg/jpg/png/webp — namespace ads/ seguro.
@@ -218,6 +281,18 @@ async function uploadAdImage(file: File, campaignId: string | null): Promise<str
   const ext = file.type === 'image/webp' ? 'webp' : file.type === 'image/png' ? 'png' : 'jpg';
   const folder = campaignId ? `ads/${campaignId}` : 'ads/draft';
   const path   = `${folder}/${crypto.randomUUID()}.${ext}`;
+  const { error } = await supabase.storage
+    .from('marketplace-offerings')
+    .upload(path, file, { upsert: true, contentType: file.type });
+  if (error) throw error;
+  const { data } = supabase.storage.from('marketplace-offerings').getPublicUrl(path);
+  return data.publicUrl;
+}
+
+async function uploadCreativeImage(file: File, campaignId: string, role: 'desktop' | 'mobile'): Promise<string> {
+  const ext = file.type === 'image/webp' ? 'webp' : file.type === 'image/png' ? 'png' : 'jpg';
+  const prefix = role === 'mobile' ? 'mob' : 'desk';
+  const path   = `ads/${campaignId}/cr/${prefix}-${crypto.randomUUID()}.${ext}`;
   const { error } = await supabase.storage
     .from('marketplace-offerings')
     .upload(path, file, { upsert: true, contentType: file.type });
@@ -1648,30 +1723,435 @@ function AdsBookingsList({
   );
 }
 
+// ─── CREATIVE SUB-COMPONENTS (todos top-level — no componentes anidados) ─────
+
+function CreativeModeSelector({ value, onChange }: { value: CreativeMode; onChange: (m: CreativeMode) => void }) {
+  return (
+    <div className="space-y-2">
+      {(Object.entries(CREATIVE_MODE_INFO) as [CreativeMode, (typeof CREATIVE_MODE_INFO)[CreativeMode]][]).map(([mode, info]) => (
+        <button
+          key={mode}
+          type="button"
+          onClick={() => onChange(mode)}
+          className={`w-full text-left border rounded-lg px-4 py-3 transition-all cursor-pointer ${
+            value === mode
+              ? 'border-blue-500 bg-blue-900/20 text-white'
+              : 'border-slate-700 bg-slate-800/50 text-slate-400 hover:border-slate-600'
+          }`}
+        >
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-xs font-semibold">{info.label}</span>
+            <div className="flex items-center gap-1.5 shrink-0">
+              {mode === 'IMAGE_CONTENT' && (
+                <span className="text-[9px] font-bold bg-blue-600 text-white px-1.5 py-0.5 rounded">Recomendado</span>
+              )}
+              {value === mode && <CheckCircle className="h-3.5 w-3.5 text-blue-400" />}
+            </div>
+          </div>
+          <p className="text-[10px] text-slate-500 mt-0.5 leading-relaxed">{info.desc}</p>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function TextPositionControl({ value, onChange }: { value: TextPosition; onChange: (p: TextPosition) => void }) {
+  const opts: { v: TextPosition; Icon: React.ElementType; label: string }[] = [
+    { v: 'LEFT',   Icon: AlignLeft,   label: 'Izquierda' },
+    { v: 'CENTER', Icon: AlignCenter, label: 'Centro'    },
+    { v: 'RIGHT',  Icon: AlignRight,  label: 'Derecha'   },
+  ];
+  return (
+    <div className="flex gap-1">
+      {opts.map(o => (
+        <button
+          key={o.v}
+          type="button"
+          title={o.label}
+          onClick={() => onChange(o.v)}
+          className={`flex-1 flex items-center justify-center gap-1 py-2 rounded border text-[10px] font-semibold cursor-pointer transition-colors ${
+            value === o.v ? 'border-blue-500 bg-blue-900/30 text-blue-300' : 'border-slate-700 text-slate-400 hover:border-slate-600'
+          }`}
+        >
+          <o.Icon className="h-3.5 w-3.5" />
+          <span className="hidden sm:inline">{o.label}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function OverlayStrengthControl({ value, onChange }: { value: number; onChange: (v: number) => void }) {
+  const levels: { v: number; label: string }[] = [
+    { v: 0,  label: '0%'  },
+    { v: 20, label: '20%' },
+    { v: 35, label: '35%' },
+    { v: 50, label: '50%' },
+    { v: 65, label: '65%' },
+  ];
+  return (
+    <div className="flex gap-1">
+      {levels.map(l => (
+        <button
+          key={l.v}
+          type="button"
+          onClick={() => onChange(l.v)}
+          className={`flex-1 py-1.5 rounded border text-[10px] font-semibold cursor-pointer transition-colors ${
+            value === l.v ? 'border-blue-500 bg-blue-900/30 text-blue-300' : 'border-slate-700 text-slate-500 hover:border-slate-600'
+          }`}
+        >
+          {l.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function ThemePresetSelector({ value, onChange }: { value: ThemePreset; onChange: (t: ThemePreset) => void }) {
+  return (
+    <div className="flex gap-2 flex-wrap">
+      {(Object.entries(THEME_PRESETS) as [ThemePreset, ThemePresetDef][]).map(([preset, def]) => (
+        <button
+          key={preset}
+          type="button"
+          title={def.label}
+          onClick={() => onChange(preset)}
+          className={`flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer transition-all ${
+            value === preset ? 'border-blue-400 ring-1 ring-blue-400' : 'border-slate-700 hover:border-slate-600'
+          }`}
+          style={{ background: def.bg }}
+        >
+          <div className="w-3 h-3 rounded-full shrink-0" style={{ background: def.accent }} />
+          <span className="text-[10px] font-semibold" style={{ color: def.text }}>{def.label}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function PriceDisplaySection({
+  priceDisplay, oldPriceDisplay, discountLabel, onChange,
+}: {
+  priceDisplay: string; oldPriceDisplay: string; discountLabel: string;
+  onChange: (field: 'price_display' | 'old_price_display' | 'discount_label', val: string) => void;
+}) {
+  const price    = parseFloat(priceDisplay);
+  const oldPrice = parseFloat(oldPriceDisplay);
+  const suggestedDiscount =
+    !isNaN(price) && !isNaN(oldPrice) && oldPrice > price && oldPrice > 0
+      ? `-${Math.round((1 - price / oldPrice) * 100)}%`
+      : null;
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-start gap-2 bg-amber-900/20 border border-amber-700/30 rounded-lg px-3 py-2">
+        <AlertTriangle className="h-3.5 w-3.5 text-amber-400 shrink-0 mt-0.5" />
+        <p className="text-[10px] text-amber-300 leading-relaxed">
+          <strong>PUBLICIDAD ≠ PRICING.</strong> Estos campos son presentación visual en el anuncio únicamente.
+          No modifican offering.price, promotion.price, el comparador ni el checkout.
+        </p>
+      </div>
+      <div className="grid grid-cols-3 gap-3">
+        <div>
+          <label className={lCls}>Precio actual (€)</label>
+          <input
+            type="number" step="0.01" min="0"
+            value={priceDisplay}
+            onChange={e => onChange('price_display', e.target.value)}
+            className={iCls}
+            placeholder="89.90"
+          />
+        </div>
+        <div>
+          <label className={lCls}>Precio anterior (€)</label>
+          <input
+            type="number" step="0.01" min="0"
+            value={oldPriceDisplay}
+            onChange={e => onChange('old_price_display', e.target.value)}
+            className={iCls}
+            placeholder="119.90"
+          />
+        </div>
+        <div>
+          <label className={lCls}>Descuento</label>
+          <div className="flex items-center gap-1">
+            <input
+              value={discountLabel}
+              onChange={e => onChange('discount_label', e.target.value)}
+              className={iCls}
+              placeholder="-25%"
+            />
+            {suggestedDiscount && !discountLabel && (
+              <button
+                type="button"
+                onClick={() => onChange('discount_label', suggestedDiscount)}
+                className="shrink-0 text-[9px] px-1.5 py-1 rounded bg-blue-800 text-blue-300 cursor-pointer hover:bg-blue-700"
+              >
+                {suggestedDiscount}
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AdCreativePreview({
+  formato, device, mode, imageUrl, mobileImageUrl,
+  headline, bodyText, ctaText, priceDisplay, oldPriceDisplay,
+  discountLabel, textPosition, overlayStrength, themePreset, accent,
+}: {
+  formato: AdSlot['formato'] | null;
+  device: 'desktop' | 'mobile';
+  mode: CreativeMode;
+  imageUrl: string;
+  mobileImageUrl: string;
+  headline: string;
+  bodyText: string;
+  ctaText: string;
+  priceDisplay: string;
+  oldPriceDisplay: string;
+  discountLabel: string;
+  textPosition: TextPosition;
+  overlayStrength: number;
+  themePreset: ThemePreset;
+  accent?: string;
+}) {
+  const spec   = formato ? getAdSlotCreativeSpec(formato) : null;
+  const theme  = THEME_PRESETS[themePreset] ?? THEME_PRESETS.AZUL_PROFESIONAL;
+  const clrAcc = accent || theme.accent;
+
+  const displayImg = device === 'mobile' && mobileImageUrl ? mobileImageUrl : imageUrl;
+  const showImage  = mode !== 'TRABFLOW_DESIGN' && !!displayImg;
+  const showOverlay = mode === 'IMAGE_CONTENT' && showImage;
+  const bgStyle    = !showImage ? { background: theme.bg } : undefined;
+
+  const flexAlign: React.CSSProperties['alignItems'] =
+    textPosition === 'CENTER' ? 'center' : textPosition === 'RIGHT' ? 'flex-end' : 'flex-start';
+  const txtAlign: React.CSSProperties['textAlign'] =
+    textPosition === 'CENTER' ? 'center' : textPosition === 'RIGHT' ? 'right' : 'left';
+
+  const priceVal    = parseFloat(priceDisplay);
+  const oldPriceVal = parseFloat(oldPriceDisplay);
+  const hasPrice    = !isNaN(priceVal) && priceVal > 0;
+  const hasOldPrice = !isNaN(oldPriceVal) && oldPriceVal > 0;
+
+  const previewCls = spec ? (device === 'mobile' ? spec.previewMobile : spec.previewDesktop) : null;
+
+  if (!previewCls) {
+    return (
+      <div className="text-[10px] text-slate-500 text-center py-6">
+        {device === 'desktop' && formato === 'mobile_promo' && 'Este slot es solo mobile.'}
+        {device === 'mobile' && formato === 'banner_vertical' && 'Este slot es solo desktop.'}
+        {!formato && 'Selecciona una campaña para ver el preview.'}
+      </div>
+    );
+  }
+
+  const textColor = mode === 'TRABFLOW_DESIGN' ? theme.text : '#ffffff';
+
+  return (
+    <div className={`relative rounded-lg overflow-hidden flex-shrink-0 ${previewCls}`} style={bgStyle}>
+      {showImage && (
+        <img src={displayImg} alt="" className="absolute inset-0 w-full h-full object-cover" />
+      )}
+      {showOverlay && (
+        <div className="absolute inset-0" style={{ background: `rgba(0,0,0,${overlayStrength / 100})` }} />
+      )}
+      {mode === 'FULL_IMAGE' ? (
+        !showImage && (
+          <div className="relative z-10 flex items-center justify-center w-full h-full p-2">
+            <span className="text-[8px] text-slate-500 text-center">Sube una imagen</span>
+          </div>
+        )
+      ) : (
+        <div
+          className="relative z-10 flex flex-col h-full p-2 gap-0.5"
+          style={{ color: textColor, alignItems: flexAlign, textAlign: txtAlign }}
+        >
+          {discountLabel && (
+            <span className="text-[8px] font-black px-1.5 py-0.5 rounded-full" style={{ background: clrAcc, color: '#fff' }}>
+              {discountLabel}
+            </span>
+          )}
+          {headline && (
+            <div className="text-[9px] font-bold leading-tight line-clamp-2">{headline}</div>
+          )}
+          {bodyText && (
+            <div className="text-[8px] opacity-70 leading-snug line-clamp-2">{bodyText}</div>
+          )}
+          {hasPrice && (
+            <div className="flex items-baseline gap-1 flex-wrap">
+              <span className="text-[11px] font-black" style={{ color: clrAcc }}>
+                {priceVal.toLocaleString('es-ES', { minimumFractionDigits: 2 })} €
+              </span>
+              {hasOldPrice && (
+                <span className="text-[8px] line-through opacity-60">
+                  {oldPriceVal.toLocaleString('es-ES', { minimumFractionDigits: 2 })} €
+                </span>
+              )}
+            </div>
+          )}
+          {ctaText && (
+            <span
+              className="text-[8px] font-bold px-2 py-0.5 rounded mt-auto self-start"
+              style={{ background: clrAcc, color: '#fff', alignSelf: flexAlign === 'flex-end' ? 'flex-end' : flexAlign === 'center' ? 'center' : 'flex-start' }}
+            >
+              {ctaText}
+            </span>
+          )}
+          {!headline && !discountLabel && !hasPrice && !ctaText && (
+            <span className="text-[8px] text-slate-500 self-center mt-auto mb-auto">Preview</span>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── CREATIVE FORM MODAL ──────────────────────────────────────────────────────
 
 function AdsCreativeFormModal({
-  initial, campaigns, onClose, onSaved, toast,
+  initial, campaigns, slots, onClose, onSaved, toast,
 }: {
   initial: AdCreativeAdmin | null;
   campaigns: AdCampaignAdmin[];
+  slots: AdSlot[];
   onClose: () => void;
   onSaved: () => void;
   toast: (t: 'success' | 'error' | 'info', m: string) => void;
 }) {
   const [form, setForm] = useState<CreativeFormData>(
     initial
-      ? { campaign_id: initial.campaign_id, image_url: initial.image_url ?? '', mobile_image_url: initial.mobile_image_url ?? '', headline: initial.headline ?? '', body_text: initial.body_text ?? '', cta_text: initial.cta_text ?? '', alt_text: initial.alt_text ?? '', activa: initial.activa }
+      ? {
+          campaign_id:       initial.campaign_id,
+          image_url:         initial.image_url ?? '',
+          mobile_image_url:  initial.mobile_image_url ?? '',
+          headline:          initial.headline ?? '',
+          body_text:         initial.body_text ?? '',
+          cta_text:          initial.cta_text ?? '',
+          alt_text:          initial.alt_text ?? '',
+          activa:            initial.activa,
+          creative_mode:     initial.creative_mode ?? 'IMAGE_CONTENT',
+          text_position:     initial.text_position ?? 'LEFT',
+          overlay_strength:  String(initial.overlay_strength ?? 50),
+          price_display:     initial.price_display != null ? String(initial.price_display) : '',
+          old_price_display: initial.old_price_display != null ? String(initial.old_price_display) : '',
+          discount_label:    initial.discount_label ?? '',
+          theme_preset:      initial.theme_preset ?? 'AZUL_PROFESIONAL',
+        }
       : { ...EMPTY_CREATIVE }
   );
   const [saving, setSaving] = useState(false);
+  const [showPrice, setShowPrice] = useState(
+    !!initial && (initial.price_display != null || initial.old_price_display != null || !!initial.discount_label)
+  );
+  const [previewDevice, setPreviewDevice] = useState<'desktop' | 'mobile'>('desktop');
+  const [desktopFile, setDesktopFile] = useState<File | null>(null);
+  const [desktopPrev, setDesktopPrev] = useState('');
+  const [desktopDims, setDesktopDims] = useState<{ w: number; h: number } | null>(null);
+  const [desktopWarn, setDesktopWarn] = useState('');
+  const [mobileFile, setMobileFile] = useState<File | null>(null);
+  const [mobilePrev, setMobilePrev] = useState('');
+  const [dragDesk, setDragDesk] = useState(false);
+  const [dragMob, setDragMob] = useState(false);
+  const deskRef = useRef<HTMLInputElement>(null);
+  const mobRef  = useRef<HTMLInputElement>(null);
+
   const set = (k: keyof CreativeFormData, v: string | boolean) => setForm(f => ({ ...f, [k]: v }));
+
+  const selectedCampaign = campaigns.find(c => c.id === form.campaign_id);
+  const selectedSlot     = slots.find(s => s.id === selectedCampaign?.slot_id);
+  const spec             = selectedSlot ? getAdSlotCreativeSpec(selectedSlot.formato) : null;
+  const needsImage       = form.creative_mode !== 'TRABFLOW_DESIGN';
+
+  function processFile(file: File, role: 'desktop' | 'mobile') {
+    const allowed = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+    if (!allowed.includes(file.type)) { toast('error', 'Formato no permitido. Usa JPG, PNG o WebP.'); return; }
+    if (file.size > 5 * 1024 * 1024) { toast('error', 'La imagen supera 5 MB.'); return; }
+    const url = URL.createObjectURL(file);
+    if (role === 'desktop') {
+      const img = new window.Image();
+      img.onload = () => {
+        const { naturalWidth: w, naturalHeight: h } = img;
+        setDesktopDims({ w, h });
+        if (spec) {
+          const actualR  = w / h;
+          const expectR  = spec.recW / spec.recH;
+          const diff     = Math.abs(actualR - expectR) / expectR;
+          setDesktopWarn(
+            w < 400 ? `Resolución baja (${w}px). Puede verse borrosa.` :
+            diff > 0.25 ? `Proporción distinta a ${spec.recW}×${spec.recH}px. Puede recortarse.` : ''
+          );
+        }
+      };
+      img.src = url;
+      setDesktopPrev(url); setDesktopFile(file);
+    } else {
+      setMobilePrev(url); setMobileFile(file);
+    }
+  }
+
+  function removeImage(role: 'desktop' | 'mobile') {
+    if (role === 'desktop') {
+      setDesktopFile(null); setDesktopPrev(''); setDesktopDims(null); setDesktopWarn('');
+      set('image_url', '');
+      if (deskRef.current) deskRef.current.value = '';
+    } else {
+      setMobileFile(null); setMobilePrev('');
+      set('mobile_image_url', '');
+      if (mobRef.current) mobRef.current.value = '';
+    }
+  }
 
   const handleSave = async () => {
     if (!form.campaign_id) { toast('error', 'Selecciona una campaña.'); return; }
+    if (needsImage && !desktopFile && !form.image_url) {
+      toast('error', 'Los modos A y B requieren imagen. Sube una imagen desktop.'); return;
+    }
     setSaving(true);
     try {
-      const payload = { campaign_id: form.campaign_id, image_url: form.image_url || null, mobile_image_url: form.mobile_image_url || null, headline: form.headline || null, body_text: form.body_text || null, cta_text: form.cta_text || null, alt_text: form.alt_text || null, activa: form.activa };
+      const campId = form.campaign_id;
+      let finalDesk  = form.image_url;
+      let finalMob   = form.mobile_image_url;
+      if (desktopFile) finalDesk = await uploadCreativeImage(desktopFile, campId, 'desktop');
+      if (mobileFile)  finalMob  = await uploadCreativeImage(mobileFile,  campId, 'mobile');
+
+      if (form.activa) {
+        const { data: others } = await supabase
+          .from('trade_marketplace_ad_creatives')
+          .select('id')
+          .eq('campaign_id', campId)
+          .eq('activa', true)
+          .neq('id', initial?.id ?? '00000000-0000-0000-0000-000000000000');
+        if (others && others.length > 0) {
+          await supabase
+            .from('trade_marketplace_ad_creatives')
+            .update({ activa: false, updated_at: new Date().toISOString() })
+            .in('id', (others as { id: string }[]).map(o => o.id));
+        }
+      }
+
+      const payload = {
+        campaign_id:       campId,
+        image_url:         finalDesk || null,
+        mobile_image_url:  finalMob  || null,
+        headline:          form.headline  || null,
+        body_text:         form.body_text || null,
+        cta_text:          form.cta_text  || null,
+        alt_text:          form.alt_text  || null,
+        activa:            form.activa,
+        creative_mode:     form.creative_mode,
+        text_position:     form.text_position,
+        overlay_strength:  parseInt(form.overlay_strength) || 50,
+        price_display:     showPrice && form.price_display     ? parseFloat(form.price_display)     : null,
+        old_price_display: showPrice && form.old_price_display ? parseFloat(form.old_price_display) : null,
+        discount_label:    showPrice && form.discount_label    ? form.discount_label                : null,
+        theme_preset:      form.theme_preset,
+        updated_at:        new Date().toISOString(),
+      };
+
       if (initial) {
         const { error } = await supabase.from('trade_marketplace_ad_creatives').update(payload).eq('id', initial.id);
         if (error) throw error;
@@ -1690,52 +2170,324 @@ function AdsCreativeFormModal({
     }
   };
 
+  const curDesktop = desktopPrev || form.image_url;
+  const curMobile  = mobilePrev  || form.mobile_image_url;
+  const showMobileUpload = selectedSlot
+    ? selectedSlot.dispositivo === 'both' || selectedSlot.dispositivo === 'mobile'
+    : false;
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-      <div className="bg-slate-800 border border-slate-700 rounded-xl w-full max-w-md shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/70 backdrop-blur-sm p-4 overflow-y-auto">
+      <div className="bg-slate-800 border border-slate-700 rounded-xl w-full max-w-2xl my-4 shadow-2xl">
+
+        {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-700">
-          <h2 className="font-bold text-white text-sm">{initial ? 'Editar creatividad' : 'Nueva creatividad'}</h2>
-          <button onClick={onClose} className="text-slate-400 hover:text-white cursor-pointer"><X className="h-4 w-4" /></button>
-        </div>
-        <div className="p-5 space-y-4">
           <div>
-            <label className={lCls}>Campaña *</label>
-            <select value={form.campaign_id} onChange={e => set('campaign_id', e.target.value)} className={iCls}>
-              <option value="">— Selecciona campaña —</option>
-              {campaigns.map(c => <option key={c.id} value={c.id}>{c.nombre} ({ESTADO_CAMP_LABEL[c.estado]})</option>)}
-            </select>
+            <div className="flex items-center gap-2">
+              <Layers className="h-4 w-4 text-blue-400" />
+              <h2 className="font-bold text-white text-sm">
+                {initial ? 'Editar creatividad' : 'Nueva creatividad'}
+              </h2>
+            </div>
+            {selectedCampaign && (
+              <p className="text-[10px] text-slate-400 mt-0.5">
+                {selectedCampaign.nombre} · {selectedSlot?.nombre ?? selectedCampaign.slot_id}
+              </p>
+            )}
           </div>
-          <div>
-            <label className={lCls}>URL imagen desktop</label>
-            <input value={form.image_url} onChange={e => set('image_url', e.target.value)} className={iCls} placeholder="https://…" />
-          </div>
-          <div>
-            <label className={lCls}>URL imagen mobile</label>
-            <input value={form.mobile_image_url} onChange={e => set('mobile_image_url', e.target.value)} className={iCls} placeholder="https://…" />
-          </div>
-          <div>
-            <label className={lCls}>Alt text (accesibilidad)</label>
-            <input value={form.alt_text} onChange={e => set('alt_text', e.target.value)} className={iCls} />
-          </div>
-          <div>
-            <label className={lCls}>Headline (override campaña)</label>
-            <input value={form.headline} onChange={e => set('headline', e.target.value)} className={iCls} />
-          </div>
-          <div>
-            <label className={lCls}>CTA text (override campaña)</label>
-            <input value={form.cta_text} onChange={e => set('cta_text', e.target.value)} className={iCls} />
-          </div>
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" checked={form.activa} onChange={e => set('activa', e.target.checked)} className="w-4 h-4 rounded" />
-            <span className="text-sm text-slate-300">Creatividad activa</span>
-          </label>
-        </div>
-        <div className="flex justify-end gap-2 px-5 py-4 border-t border-slate-700">
-          <button onClick={onClose} className="px-4 py-2 rounded text-xs font-semibold text-slate-400 hover:text-white cursor-pointer">Cancelar</button>
-          <button onClick={handleSave} disabled={saving} className="px-4 py-2 rounded text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white cursor-pointer disabled:opacity-50 transition-colors">
-            {saving ? 'Guardando…' : initial ? 'Guardar' : 'Crear'}
+          <button onClick={onClose} className="text-slate-400 hover:text-white cursor-pointer">
+            <X className="h-4 w-4" />
           </button>
         </div>
+
+        <div className="p-5 space-y-6">
+
+          {/* 1 · Campaña */}
+          <section>
+            <label className={`${lCls} mb-1.5`}>1 · Campaña *</label>
+            <select
+              value={form.campaign_id}
+              onChange={e => set('campaign_id', e.target.value)}
+              className={iCls}
+              disabled={!!initial}
+            >
+              <option value="">— Selecciona campaña —</option>
+              {campaigns.map(c => (
+                <option key={c.id} value={c.id}>
+                  {c.nombre} ({ESTADO_CAMP_LABEL[c.estado]})
+                </option>
+              ))}
+            </select>
+            {spec && (
+              <div className="mt-2 flex items-center gap-3 flex-wrap text-[10px] text-slate-500 bg-slate-900/40 rounded px-3 py-2">
+                <span><span className="text-slate-400 font-semibold">Formato:</span> {spec.label}</span>
+                <span><span className="text-slate-400 font-semibold">Rec:</span> {spec.recW}×{spec.recH}px</span>
+                <span><span className="text-slate-400 font-semibold">Ratio:</span> {spec.ratio}</span>
+                <span><span className="text-slate-400 font-semibold">Dispositivo:</span> {spec.device}</span>
+              </div>
+            )}
+          </section>
+
+          {/* 2 · Tipo de creatividad */}
+          <section>
+            <label className={`${lCls} mb-1.5`}>2 · Tipo de creatividad</label>
+            <CreativeModeSelector
+              value={form.creative_mode}
+              onChange={v => set('creative_mode', v)}
+            />
+          </section>
+
+          {/* 3A · Imagen (modos A y B) */}
+          {needsImage && (
+            <section>
+              <label className={`${lCls} mb-1.5`}>3 · Imagen</label>
+              <div className="space-y-3">
+                {/* Desktop */}
+                <div>
+                  <div className="text-[9px] font-bold uppercase tracking-wider text-slate-500 mb-1.5 flex items-center gap-1">
+                    <Monitor className="h-3 w-3" /> Desktop
+                    {!curDesktop && <span className="text-red-400 ml-0.5">*</span>}
+                  </div>
+                  {!curDesktop ? (
+                    <div
+                      onDragOver={e => { e.preventDefault(); setDragDesk(true); }}
+                      onDragLeave={() => setDragDesk(false)}
+                      onDrop={e => { e.preventDefault(); setDragDesk(false); const f = e.dataTransfer.files?.[0]; if (f) processFile(f, 'desktop'); }}
+                      onClick={() => deskRef.current?.click()}
+                      className={`border-2 border-dashed rounded-xl px-4 py-6 flex flex-col items-center gap-2 cursor-pointer transition-colors ${
+                        dragDesk ? 'border-blue-400 bg-blue-900/20' : 'border-slate-600 hover:border-slate-500 bg-slate-900/40'
+                      }`}
+                    >
+                      <Upload className="h-5 w-5 text-slate-400" />
+                      <p className="text-xs text-slate-300">Arrastra o <span className="text-blue-400 font-semibold">selecciona</span></p>
+                      <p className="text-[9px] text-slate-600">JPG · PNG · WebP · máx 5 MB</p>
+                    </div>
+                  ) : (
+                    <div className="bg-slate-900/50 border border-slate-700 rounded-xl p-3 flex items-start gap-3">
+                      <img src={curDesktop} alt="" className="w-20 h-14 object-cover rounded border border-slate-600 shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        {desktopFile
+                          ? <p className="text-xs font-semibold text-slate-200 truncate">{desktopFile.name}</p>
+                          : <p className="text-[10px] text-slate-500 break-all line-clamp-2">{form.image_url}</p>
+                        }
+                        {desktopDims && desktopFile && (
+                          <p className="text-[10px] text-slate-500">{desktopDims.w}×{desktopDims.h}px · {(desktopFile.size / 1024).toFixed(0)} KB</p>
+                        )}
+                        {desktopWarn && (
+                          <p className="text-[10px] text-amber-400 mt-1 flex items-center gap-1">
+                            <AlertTriangle className="h-3 w-3 shrink-0" />{desktopWarn}
+                          </p>
+                        )}
+                      </div>
+                      <div className="flex flex-col gap-1 shrink-0">
+                        <button onClick={() => deskRef.current?.click()} className="px-2 py-1 rounded text-[10px] bg-slate-700 hover:bg-slate-600 text-white cursor-pointer">Cambiar</button>
+                        <button onClick={() => removeImage('desktop')} className="px-2 py-1 rounded text-[10px] bg-red-900/40 hover:bg-red-900/60 text-red-300 cursor-pointer">Quitar</button>
+                      </div>
+                    </div>
+                  )}
+                  <input ref={deskRef} type="file" accept="image/jpeg,image/jpg,image/png,image/webp" className="hidden"
+                    onChange={e => { const f = e.target.files?.[0]; if (f) processFile(f, 'desktop'); }} />
+                </div>
+
+                {/* Mobile */}
+                {showMobileUpload && (
+                  <div>
+                    <div className="text-[9px] font-bold uppercase tracking-wider text-slate-500 mb-1.5 flex items-center gap-1">
+                      <Smartphone className="h-3 w-3" /> Mobile
+                      <span className="text-slate-600 normal-case font-normal">(opcional · si no se sube, usa la desktop)</span>
+                    </div>
+                    {!curMobile ? (
+                      <div
+                        onDragOver={e => { e.preventDefault(); setDragMob(true); }}
+                        onDragLeave={() => setDragMob(false)}
+                        onDrop={e => { e.preventDefault(); setDragMob(false); const f = e.dataTransfer.files?.[0]; if (f) processFile(f, 'mobile'); }}
+                        onClick={() => mobRef.current?.click()}
+                        className={`border-2 border-dashed rounded-xl px-4 py-4 flex flex-col items-center gap-1.5 cursor-pointer transition-colors ${
+                          dragMob ? 'border-blue-400 bg-blue-900/20' : 'border-slate-700 hover:border-slate-600 bg-slate-900/20'
+                        }`}
+                      >
+                        <Upload className="h-4 w-4 text-slate-500" />
+                        <p className="text-xs text-slate-500">Imagen mobile específica</p>
+                      </div>
+                    ) : (
+                      <div className="bg-slate-900/50 border border-slate-700 rounded-xl p-3 flex items-center gap-3">
+                        <img src={curMobile} alt="" className="w-16 h-10 object-cover rounded border border-slate-600 shrink-0" />
+                        <div className="flex-1 text-[10px] text-slate-400 truncate">
+                          {mobileFile ? mobileFile.name : form.mobile_image_url}
+                        </div>
+                        <button onClick={() => removeImage('mobile')} className="px-2 py-1 rounded text-[10px] bg-red-900/40 hover:bg-red-900/60 text-red-300 cursor-pointer shrink-0">Quitar</button>
+                      </div>
+                    )}
+                    <input ref={mobRef} type="file" accept="image/jpeg,image/jpg,image/png,image/webp" className="hidden"
+                      onChange={e => { const f = e.target.files?.[0]; if (f) processFile(f, 'mobile'); }} />
+                  </div>
+                )}
+
+                {/* Alt text en modo FULL_IMAGE */}
+                {form.creative_mode === 'FULL_IMAGE' && (
+                  <div>
+                    <label className={lCls}>Alt text (accesibilidad)</label>
+                    <input value={form.alt_text} onChange={e => set('alt_text', e.target.value)} className={iCls} placeholder="Describir el contenido del banner" />
+                  </div>
+                )}
+              </div>
+            </section>
+          )}
+
+          {/* 3B · Tema visual (modo C) */}
+          {form.creative_mode === 'TRABFLOW_DESIGN' && (
+            <section>
+              <label className={`${lCls} mb-1.5`}>3 · Tema visual</label>
+              <ThemePresetSelector value={form.theme_preset} onChange={v => set('theme_preset', v)} />
+            </section>
+          )}
+
+          {/* 4 · Contenido (modos B y C) */}
+          {form.creative_mode !== 'FULL_IMAGE' && (
+            <section>
+              <label className={`${lCls} mb-1.5`}>4 · Contenido</label>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="col-span-2">
+                  <label className={lCls}>Titular (headline)</label>
+                  <input value={form.headline} onChange={e => set('headline', e.target.value)} className={iCls} placeholder="Taladro atornillador profesional" />
+                </div>
+                <div className="col-span-2">
+                  <label className={lCls}>Texto / descripción</label>
+                  <input value={form.body_text} onChange={e => set('body_text', e.target.value)} className={iCls} placeholder="Para instaladores exigentes" />
+                </div>
+                <div>
+                  <label className={lCls}>CTA (texto del botón)</label>
+                  <input value={form.cta_text} onChange={e => set('cta_text', e.target.value)} className={iCls} placeholder="Ver oferta" />
+                </div>
+                <div>
+                  <label className={lCls}>Alt text (accesibilidad)</label>
+                  <input value={form.alt_text} onChange={e => set('alt_text', e.target.value)} className={iCls} placeholder="Descripción accesible" />
+                </div>
+              </div>
+              <div className="mt-3 grid grid-cols-2 gap-3">
+                <div>
+                  <label className={lCls}>Posición del texto</label>
+                  <TextPositionControl value={form.text_position} onChange={v => set('text_position', v)} />
+                </div>
+                {form.creative_mode === 'IMAGE_CONTENT' && (
+                  <div>
+                    <label className={lCls}>Oscuridad del overlay</label>
+                    <OverlayStrengthControl
+                      value={parseInt(form.overlay_strength) || 50}
+                      onChange={v => set('overlay_strength', String(v))}
+                    />
+                  </div>
+                )}
+              </div>
+            </section>
+          )}
+
+          {/* 5 · Precio / descuento (colapsable) */}
+          <section>
+            <button
+              type="button"
+              onClick={() => setShowPrice(v => !v)}
+              className="flex items-center gap-2 text-xs text-slate-400 hover:text-slate-200 cursor-pointer"
+            >
+              {showPrice ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+              <Tag className="h-3 w-3" />
+              {showPrice ? 'Ocultar sección de precio' : 'Añadir precio / descuento publicitario (opcional)'}
+            </button>
+            {showPrice && (
+              <div className="mt-3">
+                <PriceDisplaySection
+                  priceDisplay={form.price_display}
+                  oldPriceDisplay={form.old_price_display}
+                  discountLabel={form.discount_label}
+                  onChange={(field, val) => set(field as keyof CreativeFormData, val)}
+                />
+              </div>
+            )}
+          </section>
+
+          {/* 6 · Preview */}
+          <section>
+            <div className="flex items-center justify-between mb-2">
+              <label className={lCls}>Preview</label>
+              {spec && spec.previewMobile && (
+                <div className="flex gap-1">
+                  {(['desktop', 'mobile'] as const).map(d => (
+                    <button
+                      key={d}
+                      type="button"
+                      onClick={() => setPreviewDevice(d)}
+                      className={`flex items-center gap-1 px-2 py-1 rounded text-[10px] font-semibold cursor-pointer transition-colors ${
+                        previewDevice === d ? 'bg-blue-700 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'
+                      }`}
+                    >
+                      {d === 'desktop' ? <Monitor className="h-3 w-3" /> : <Smartphone className="h-3 w-3" />}
+                      {d === 'desktop' ? 'Desktop' : 'Mobile'}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="bg-slate-900 rounded-lg p-4 flex items-center justify-center min-h-[80px]">
+              <AdCreativePreview
+                formato={selectedSlot?.formato ?? null}
+                device={previewDevice}
+                mode={form.creative_mode}
+                imageUrl={desktopPrev || form.image_url}
+                mobileImageUrl={mobilePrev || form.mobile_image_url}
+                headline={form.headline}
+                bodyText={form.body_text}
+                ctaText={form.cta_text}
+                priceDisplay={form.price_display}
+                oldPriceDisplay={form.old_price_display}
+                discountLabel={form.discount_label}
+                textPosition={form.text_position}
+                overlayStrength={parseInt(form.overlay_strength) || 50}
+                themePreset={form.theme_preset}
+                accent={selectedCampaign?.accent ?? undefined}
+              />
+            </div>
+          </section>
+
+          {/* 7 · Publicación */}
+          <section className="space-y-2">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" checked={form.activa} onChange={e => set('activa', e.target.checked)} className="w-4 h-4 rounded" />
+              <span className="text-sm text-slate-300">Activar esta creatividad al guardar</span>
+            </label>
+            {form.activa && (
+              <p className="text-[10px] text-amber-400 flex items-center gap-1">
+                <AlertTriangle className="h-3 w-3 shrink-0" />
+                Si hay otra creatividad activa en esta campaña, se desactivará automáticamente.
+              </p>
+            )}
+          </section>
+
+          {/* IA placeholder */}
+          <button
+            type="button"
+            disabled
+            className="w-full flex items-center justify-center gap-2 py-2 rounded-lg border border-dashed border-slate-700 text-slate-600 text-xs cursor-not-allowed"
+          >
+            <Sparkles className="h-3.5 w-3.5" />
+            Generar creatividad con IA · Próximamente
+          </button>
+
+        </div>
+
+        {/* Footer */}
+        <div className="flex items-center justify-end gap-2 px-5 py-4 border-t border-slate-700">
+          <button onClick={onClose} className="px-4 py-2 rounded text-xs font-semibold text-slate-400 hover:text-white cursor-pointer">
+            Cancelar
+          </button>
+          <button
+            onClick={handleSave}
+            disabled={saving}
+            className="px-4 py-2 rounded text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white cursor-pointer disabled:opacity-50 transition-colors"
+          >
+            {saving ? 'Guardando…' : initial ? 'Guardar cambios' : 'Crear creatividad'}
+          </button>
+        </div>
+
       </div>
     </div>
   );
@@ -1743,11 +2495,18 @@ function AdsCreativeFormModal({
 
 // ─── CREATIVES LIST ───────────────────────────────────────────────────────────
 
+const CREATIVE_MODE_BADGE: Record<CreativeMode, { label: string; cls: string }> = {
+  FULL_IMAGE:      { label: 'A · Imagen',    cls: 'bg-slate-700 text-slate-300'       },
+  IMAGE_CONTENT:   { label: 'B · Img+Texto', cls: 'bg-blue-900/60 text-blue-300'      },
+  TRABFLOW_DESIGN: { label: 'C · TrabFlow',  cls: 'bg-purple-900/60 text-purple-300'  },
+};
+
 function AdsCreativesList({
-  creatives, campaigns, onRefresh, toast,
+  creatives, campaigns, slots, onRefresh, toast,
 }: {
   creatives: AdCreativeAdmin[];
   campaigns: AdCampaignAdmin[];
+  slots: AdSlot[];
   onRefresh: () => void;
   toast: (t: 'success' | 'error' | 'info', m: string) => void;
 }) {
@@ -1759,9 +2518,27 @@ function AdsCreativesList({
 
   const handleToggleActiva = async (creative: AdCreativeAdmin) => {
     try {
-      const { error } = await supabase.from('trade_marketplace_ad_creatives').update({ activa: !creative.activa }).eq('id', creative.id);
+      const newActiva = !creative.activa;
+      if (newActiva) {
+        const { data: others } = await supabase
+          .from('trade_marketplace_ad_creatives')
+          .select('id')
+          .eq('campaign_id', creative.campaign_id)
+          .eq('activa', true)
+          .neq('id', creative.id);
+        if (others && others.length > 0) {
+          await supabase
+            .from('trade_marketplace_ad_creatives')
+            .update({ activa: false, updated_at: new Date().toISOString() })
+            .in('id', (others as { id: string }[]).map(o => o.id));
+        }
+      }
+      const { error } = await supabase
+        .from('trade_marketplace_ad_creatives')
+        .update({ activa: newActiva, updated_at: new Date().toISOString() })
+        .eq('id', creative.id);
       if (error) throw error;
-      toast('success', creative.activa ? 'Creatividad desactivada' : 'Creatividad activada');
+      toast('success', newActiva ? 'Creatividad activada' : 'Creatividad desactivada');
       onRefresh();
     } catch (e) {
       toast('error', 'Error: ' + (e instanceof Error ? e.message : String(e)));
@@ -1780,7 +2557,11 @@ function AdsCreativesList({
         </button>
       </div>
       <div>
-        <select value={filterCampaign} onChange={e => setFilterCampaign(e.target.value)} className="bg-slate-800 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-300">
+        <select
+          value={filterCampaign}
+          onChange={e => setFilterCampaign(e.target.value)}
+          className="bg-slate-800 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-300"
+        >
           <option value="all">Todas las campañas</option>
           {campaigns.map(c => <option key={c.id} value={c.id}>{c.nombre}</option>)}
         </select>
@@ -1789,20 +2570,48 @@ function AdsCreativesList({
         {filtered.length === 0 && <div className="text-center text-slate-500 text-sm py-12">No hay creatividades.</div>}
         {filtered.map(cr => {
           const camp = campaigns.find(c => c.id === cr.campaign_id);
+          const mode = (cr.creative_mode ?? 'IMAGE_CONTENT') as CreativeMode;
+          const badge = CREATIVE_MODE_BADGE[mode];
+          const thumb = cr.image_url || cr.mobile_image_url;
           return (
             <div key={cr.id} className="bg-slate-800 border border-slate-700 rounded-lg p-3">
-              <div className="flex items-start gap-3 flex-wrap">
+              <div className="flex items-start gap-3">
+                {thumb && (
+                  <img
+                    src={thumb}
+                    alt=""
+                    className="w-14 h-10 object-cover rounded border border-slate-700 shrink-0"
+                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  />
+                )}
+                {!thumb && mode === 'TRABFLOW_DESIGN' && (
+                  <div
+                    className="w-14 h-10 rounded border border-slate-700 shrink-0 flex items-center justify-center"
+                    style={{ background: THEME_PRESETS[cr.theme_preset ?? 'AZUL_PROFESIONAL']?.bg }}
+                  >
+                    <Layers className="h-4 w-4 opacity-50" style={{ color: THEME_PRESETS[cr.theme_preset ?? 'AZUL_PROFESIONAL']?.text }} />
+                  </div>
+                )}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
                     <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${cr.activa ? 'bg-emerald-900/60 text-emerald-300' : 'bg-slate-700 text-slate-400'}`}>
                       {cr.activa ? 'ACTIVA' : 'INACTIVA'}
                     </span>
-                    {cr.generada_ia && <span className="text-[9px] font-bold bg-purple-900/60 text-purple-300 px-1.5 py-0.5 rounded">IA</span>}
+                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${badge.cls}`}>
+                      {badge.label}
+                    </span>
+                    {cr.generada_ia && (
+                      <span className="text-[9px] font-bold bg-purple-900/60 text-purple-300 px-1.5 py-0.5 rounded">IA</span>
+                    )}
                   </div>
                   <div className="text-sm font-semibold text-white truncate">{camp?.nombre ?? cr.campaign_id.slice(0, 8)}</div>
-                  {cr.image_url && <div className="text-xs text-blue-400 truncate">Desktop: {cr.image_url}</div>}
-                  {cr.mobile_image_url && <div className="text-xs text-blue-400 truncate">Mobile: {cr.mobile_image_url}</div>}
-                  {cr.alt_text && <div className="text-xs text-slate-500">Alt: {cr.alt_text}</div>}
+                  {cr.headline && <div className="text-[10px] text-slate-400 truncate">{cr.headline}</div>}
+                  {cr.price_display != null && (
+                    <div className="text-[10px] text-amber-400">
+                      Precio publicitario: {cr.price_display} €
+                      {cr.old_price_display != null && <span className="line-through text-slate-500 ml-1">{cr.old_price_display} €</span>}
+                    </div>
+                  )}
                 </div>
                 <div className="flex flex-col gap-1.5 shrink-0">
                   <button
@@ -1813,7 +2622,9 @@ function AdsCreativesList({
                   </button>
                   <button
                     onClick={() => handleToggleActiva(cr)}
-                    className={`px-2 py-1 rounded text-[10px] font-semibold cursor-pointer transition-colors ${cr.activa ? 'bg-yellow-800 hover:bg-yellow-700 text-white' : 'bg-emerald-800 hover:bg-emerald-700 text-white'}`}
+                    className={`px-2 py-1 rounded text-[10px] font-semibold cursor-pointer transition-colors ${
+                      cr.activa ? 'bg-yellow-800 hover:bg-yellow-700 text-white' : 'bg-emerald-800 hover:bg-emerald-700 text-white'
+                    }`}
                   >
                     {cr.activa ? 'Desactivar' : 'Activar'}
                   </button>
@@ -1827,6 +2638,7 @@ function AdsCreativesList({
         <AdsCreativeFormModal
           initial={editCreative}
           campaigns={campaigns}
+          slots={slots}
           onClose={() => { setShowForm(false); setEditCreative(null); }}
           onSaved={onRefresh}
           toast={toast}
@@ -2001,6 +2813,7 @@ export default function AdminMarketplaceAdsSection({ toast }: Props) {
           <AdsCreativesList
             creatives={creatives}
             campaigns={campaigns}
+            slots={slots}
             onRefresh={loadAll}
             toast={toast}
           />
