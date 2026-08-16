@@ -11,10 +11,11 @@ import {
   BarChart2, Layout, Calendar, RefreshCw, Plus, Edit2,
   Eye, X, AlertCircle, CheckCircle, Clock, Monitor, Smartphone,
   XCircle, ChevronDown, ChevronUp, Megaphone, Image as ImageIcon,
-  Lock, Upload, AlertTriangle, Layers,
+  Lock, Upload, AlertTriangle, Layers, Map,
   AlignLeft, AlignCenter, AlignRight, Tag, Sparkles,
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
+import AdPlacementMap, { type PlacementCampaign, type PlacementBooking } from './AdPlacementMap';
 
 // ─── TYPES ───────────────────────────────────────────────────────────────────
 
@@ -746,15 +747,16 @@ function AdsCampaignPreview({
 // ─── CAMPAIGN FORM MODAL ──────────────────────────────────────────────────────
 
 function AdsCampaignFormModal({
-  initial, slots, bookings, actors, onClose, onSaved, toast,
+  initial, slots, bookings, actors, onClose, onSaved, toast, defaultSlotId,
 }: {
-  initial:  AdCampaignAdmin | null;
-  slots:    AdSlot[];
-  bookings: AdBookingAdmin[];
-  actors:   MarketplaceActor[];   // ya filtrados: solo supplier + active
-  onClose:  () => void;
-  onSaved:  () => void;
-  toast:    (t: 'success' | 'error' | 'info', m: string) => void;
+  initial:       AdCampaignAdmin | null;
+  slots:         AdSlot[];
+  bookings:      AdBookingAdmin[];
+  actors:        MarketplaceActor[];   // ya filtrados: solo supplier + active
+  onClose:       () => void;
+  onSaved:       () => void;
+  toast:         (t: 'success' | 'error' | 'info', m: string) => void;
+  defaultSlotId?: string | null;
 }) {
   const [form, setForm] = useState<CampaignFormData>(
     initial
@@ -782,8 +784,11 @@ function AdsCampaignFormModal({
           image_url:         initial.image_url        ?? '',
           mobile_image_url:  initial.mobile_image_url ?? '',
         }
-      : { ...EMPTY_CAMPAIGN }
+      : { ...EMPTY_CAMPAIGN, slot_id: defaultSlotId ?? EMPTY_CAMPAIGN.slot_id }
   );
+
+  // Lock slot selector when defaultSlotId provided (navigated from slot map, new campaign only)
+  const isDefaultSlotLocked = !initial && !!defaultSlotId;
 
   const [saving,          setSaving]          = useState(false);
   const [showPreview,     setShowPreview]     = useState(false);
@@ -816,6 +821,7 @@ function AdsCampaignFormModal({
     );
     if (hasActiveBooking) slotLockReason = 'Espacio con reserva activa';
   }
+  if (isDefaultSlotLocked && !slotLockReason) slotLockReason = 'Espacio preseleccionado desde el mapa';
   const isSlotLocked   = slotLockReason !== null;
   const isSourceLocked = isFallback;
 
@@ -1263,6 +1269,7 @@ function AdsCampaignFormModal({
 
 function AdsCampaignsList({
   campaigns, slots, bookings, actors, onRefresh, toast,
+  preSelectSlotId, onCampaignSlotConsumed,
 }: {
   campaigns: AdCampaignAdmin[];
   slots: AdSlot[];
@@ -1270,6 +1277,8 @@ function AdsCampaignsList({
   actors: MarketplaceActor[];
   onRefresh: () => void;
   toast: (t: 'success' | 'error' | 'info', m: string) => void;
+  preSelectSlotId?: string | null;
+  onCampaignSlotConsumed?: () => void;
 }) {
   const [filterEstado, setFilterEstado] = useState('all');
   const [filterSource, setFilterSource] = useState('all');
@@ -1277,6 +1286,16 @@ function AdsCampaignsList({
   const [editCampaign, setEditCampaign] = useState<AdCampaignAdmin | null | 'new'>('null_sentinel' as unknown as null);
   const [showForm, setShowForm] = useState(false);
   const [transitioning, setTransitioning] = useState<string | null>(null);
+
+  // Auto-open form when navigated from slot map
+  useEffect(() => {
+    if (preSelectSlotId) {
+      setEditCampaign(null);
+      setShowForm(true);
+      onCampaignSlotConsumed?.();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preSelectSlotId]);
 
   const filtered = campaigns.filter(c => {
     if (filterEstado !== 'all' && c.estado !== filterEstado) return false;
@@ -1436,6 +1455,7 @@ function AdsCampaignsList({
           onClose={() => setShowForm(false)}
           onSaved={onRefresh}
           toast={toast}
+          defaultSlotId={editCampaign === null ? preSelectSlotId : null}
         />
       )}
     </div>
@@ -2669,9 +2689,18 @@ export default function AdminMarketplaceAdsSection({ toast }: Props) {
   // Slot detail panel
   const [detailSlot, setDetailSlot] = useState<AdSlot | null>(null);
 
-  // Slot filters
-  const [filterDevice, setFilterDevice] = useState('all');
-  const [filterStatus, setFilterStatus] = useState('all');
+  // Slot filters + view toggle
+  const [slotsView, setSlotsView]         = useState<'visual' | 'list'>('visual');
+  const [filterDevice, setFilterDevice]   = useState('all');
+  const [filterStatus, setFilterStatus]   = useState('all');
+
+  // Pre-select slot when navigating from mapa → campaña
+  const [openCampaignSlotId, setOpenCampaignSlotId] = useState<string | null>(null);
+
+  const handleCreateCampaignFromSlot = (slotId: string) => {
+    setOpenCampaignSlotId(slotId);
+    setTab('campanas');
+  };
 
   const loadAll = useCallback(async () => {
     setLoading(true);
@@ -2758,23 +2787,55 @@ export default function AdminMarketplaceAdsSection({ toast }: Props) {
 
         {tab === 'slots' && (
           <div className="space-y-4">
-            <div className="flex gap-2 flex-wrap">
-              <select value={filterDevice} onChange={e => setFilterDevice(e.target.value)} className="bg-slate-800 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-300">
-                <option value="all">Todos los dispositivos</option>
-                <option value="desktop">Desktop</option>
-                <option value="mobile">Mobile</option>
-                <option value="both">Ambos</option>
-              </select>
-              <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="bg-slate-800 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-300">
-                <option value="all">Todos los estados</option>
-                <option value="LIBRE">Libre</option>
-                <option value="OCUPADO">Ocupado</option>
-                <option value="RESERVADO">Reservado</option>
-                <option value="INACTIVO">Inactivo</option>
-              </select>
+            {/* Toolbar: view toggle + list-only filters */}
+            <div className="flex items-center gap-2 flex-wrap justify-between">
+              <div className="flex gap-1">
+                <button
+                  type="button"
+                  onClick={() => setSlotsView('visual')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold cursor-pointer transition-colors ${slotsView === 'visual' ? 'bg-blue-700 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'}`}
+                >
+                  <Map className="h-3.5 w-3.5" /> Mapa visual
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSlotsView('list')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold cursor-pointer transition-colors ${slotsView === 'list' ? 'bg-blue-700 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'}`}
+                >
+                  <Layout className="h-3.5 w-3.5" /> Lista
+                </button>
+              </div>
+              {slotsView === 'list' && (
+                <div className="flex gap-2 flex-wrap">
+                  <select value={filterDevice} onChange={e => setFilterDevice(e.target.value)} className="bg-slate-800 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-300">
+                    <option value="all">Todos los dispositivos</option>
+                    <option value="desktop">Desktop</option>
+                    <option value="mobile">Mobile</option>
+                    <option value="both">Ambos</option>
+                  </select>
+                  <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="bg-slate-800 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-300">
+                    <option value="all">Todos los estados</option>
+                    <option value="LIBRE">Libre</option>
+                    <option value="OCUPADO">Ocupado</option>
+                    <option value="RESERVADO">Reservado</option>
+                    <option value="INACTIVO">Inactivo</option>
+                  </select>
+                </div>
+              )}
             </div>
+
             {loading ? (
               <div className="text-center text-slate-400 text-sm py-12">Cargando slots…</div>
+            ) : slotsView === 'visual' ? (
+              <AdPlacementMap
+                slots={slots}
+                campaigns={campaigns as unknown as PlacementCampaign[]}
+                bookings={bookings as unknown as PlacementBooking[]}
+                selectedSlotId={detailSlot?.id}
+                onSelectSlot={s => setDetailSlot(slots.find(sl => sl.id === s.id) ?? null)}
+                mode="admin"
+                onCreateCampaign={handleCreateCampaignFromSlot}
+              />
             ) : (
               <AdsSlotMap
                 slots={slots}
@@ -2796,6 +2857,8 @@ export default function AdminMarketplaceAdsSection({ toast }: Props) {
             actors={actors}
             onRefresh={loadAll}
             toast={toast}
+            preSelectSlotId={openCampaignSlotId}
+            onCampaignSlotConsumed={() => setOpenCampaignSlotId(null)}
           />
         )}
 
