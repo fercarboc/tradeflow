@@ -18,6 +18,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { supabase } from '../../lib/supabase';
 import type { MarketplaceMyMembership } from '../../lib/api/marketplace-actors';
+import PortalPublicidadMarketplace from './PortalPublicidadMarketplace';
 
 // ─── Tipos alineados con schema real ──────────────────────────────────────────
 
@@ -478,6 +479,40 @@ interface Props {
   membership: MarketplaceMyMembership;
 }
 
+// ─── MarketingTabBar ──────────────────────────────────────────────────────────
+
+type MarketingTab = 'promociones' | 'publicidad';
+
+interface MarketingTabBarProps {
+  active: MarketingTab;
+  onChange: (tab: MarketingTab) => void;
+}
+
+const MARKETING_TABS: { id: MarketingTab; label: string }[] = [
+  { id: 'promociones', label: 'Promociones' },
+  { id: 'publicidad',  label: 'Publicidad Marketplace' },
+];
+
+function MarketingTabBar({ active, onChange }: MarketingTabBarProps) {
+  return (
+    <div className="flex gap-1 px-6 pt-4 bg-slate-950 border-b border-slate-800 pb-0">
+      {MARKETING_TABS.map(tab => (
+        <button
+          key={tab.id}
+          onClick={() => onChange(tab.id)}
+          className={`px-4 py-2 text-xs font-semibold rounded-t-lg transition-colors border-b-2 -mb-px ${
+            active === tab.id
+              ? 'text-teal-400 border-teal-500 bg-slate-900'
+              : 'text-slate-500 border-transparent hover:text-slate-300'
+          }`}
+        >
+          {tab.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 // ─── Filtros ──────────────────────────────────────────────────────────────────
 
 type FilterStatus = 'all' | PromoStatus;
@@ -489,6 +524,7 @@ const FILTER_LABELS: [FilterStatus, string][] = [
 // ─── PortalMarketing ──────────────────────────────────────────────────────────
 
 export default function PortalMarketing({ actorId }: Props) {
+  const [activeTab,   setActiveTab]   = useState<MarketingTab>('promociones');
   const [promos,      setPromos]      = useState<Promotion[]>([]);
   const [locations,   setLocations]   = useState<SupplierLocation[]>([]);
   const [loading,     setLoading]     = useState(true);
@@ -543,6 +579,18 @@ export default function PortalMarketing({ actorId }: Props) {
 
   return (
     <div className="flex flex-col h-full min-h-0 overflow-hidden">
+      {/* Tabs */}
+      <MarketingTabBar active={activeTab} onChange={setActiveTab} />
+
+      {/* Tab: Publicidad Marketplace */}
+      {activeTab === 'publicidad' && (
+        <PortalPublicidadMarketplace actorId={actorId} />
+      )}
+
+      {/* Tab: Promociones — contenido original */}
+      {activeTab === 'promociones' && (
+      <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+
       {/* Header */}
       <div className="px-6 pt-6 pb-4 border-b border-slate-800 bg-slate-950">
         <div className="flex items-center justify-between gap-3 mb-4">
@@ -659,6 +707,8 @@ export default function PortalMarketing({ actorId }: Props) {
           onSave={() => { setSlideOver(false); loadData(); }}
           onClose={() => setSlideOver(false)}
         />
+      )}
+      </div>
       )}
     </div>
   );
