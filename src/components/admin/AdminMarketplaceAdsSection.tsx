@@ -12,14 +12,14 @@ import {
   Eye, X, AlertCircle, CheckCircle, Clock, Monitor, Smartphone,
   XCircle, ChevronDown, ChevronUp, Megaphone, Image as ImageIcon,
   Lock, Upload, AlertTriangle, Layers, Map,
-  AlignLeft, AlignCenter, AlignRight, Tag, Sparkles,
+  AlignLeft, AlignCenter, AlignRight, Tag, Sparkles, Inbox,
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import AdPlacementMap, { type PlacementCampaign, type PlacementBooking } from './AdPlacementMap';
 
 // ─── TYPES ───────────────────────────────────────────────────────────────────
 
-type AdsTab = 'dashboard' | 'slots' | 'campanas' | 'reservas' | 'creatividades';
+type AdsTab = 'dashboard' | 'slots' | 'solicitudes' | 'campanas' | 'reservas' | 'creatividades';
 
 type AdSlot = {
   id: string; nombre: string; descripcion: string | null;
@@ -49,9 +49,9 @@ type AdCampaignAdmin = {
 
 type AdBookingAdmin = {
   id: string; slot_id: string; actor_id: string;
-  estado: 'REQUESTED' | 'RESERVED' | 'CONFIRMED' | 'CANCELLED' | 'EXPIRED';
+  estado: 'REQUESTED' | 'CONTACTING' | 'ACCEPTED' | 'REJECTED' | 'RESERVED' | 'CONFIRMED' | 'CANCELLED' | 'EXPIRED';
   inicio: string; fin: string; origen: 'admin' | 'portal_request';
-  notas: string | null; created_at: string;
+  notas: string | null; mensaje: string | null; created_at: string;
 };
 
 type CreativeMode  = 'FULL_IMAGE' | 'IMAGE_CONTENT' | 'TRABFLOW_DESIGN';
@@ -87,6 +87,7 @@ type DashboardKPIs = {
   campanas_activas: number; campanas_programadas: number; campanas_pendientes_aprobacion: number;
   campanas_proximas_inicio: number; campanas_terminan_pronto: number;
   reservas_pendientes: number; reservas_activas: number; reservas_proximas: number;
+  solicitudes_portal_nuevas: number;
 };
 
 type CampaignFormData = {
@@ -149,24 +150,46 @@ const VALID_TRANSITIONS: Record<AdCampaignAdmin['estado'], AdCampaignAdmin['esta
 };
 
 const ESTADO_BOOK_LABEL: Record<AdBookingAdmin['estado'], string> = {
-  REQUESTED: 'Solicitada', RESERVED: 'Reservada', CONFIRMED: 'Confirmada',
-  CANCELLED: 'Cancelada', EXPIRED: 'Expirada',
+  REQUESTED:  'Nueva',
+  CONTACTING: 'En contacto',
+  ACCEPTED:   'Aceptada',
+  REJECTED:   'Rechazada',
+  RESERVED:   'Reservada',
+  CONFIRMED:  'Confirmada',
+  CANCELLED:  'Cancelada',
+  EXPIRED:    'Expirada',
 };
 
 const ESTADO_BOOK_CLS: Record<AdBookingAdmin['estado'], string> = {
-  REQUESTED: 'bg-amber-900/60 text-amber-300',
-  RESERVED: 'bg-blue-900/60 text-blue-300',
-  CONFIRMED: 'bg-emerald-900/60 text-emerald-300',
-  CANCELLED: 'bg-slate-700/40 text-slate-500',
-  EXPIRED: 'bg-red-900/60 text-red-300',
+  REQUESTED:  'bg-amber-900/60 text-amber-300',
+  CONTACTING: 'bg-blue-900/60 text-blue-300',
+  ACCEPTED:   'bg-teal-900/60 text-teal-300',
+  REJECTED:   'bg-red-900/60 text-red-400',
+  RESERVED:   'bg-blue-900/60 text-blue-300',
+  CONFIRMED:  'bg-emerald-900/60 text-emerald-300',
+  CANCELLED:  'bg-slate-700/40 text-slate-500',
+  EXPIRED:    'bg-red-900/60 text-red-300',
 };
 
+// Transiciones para tab Solicitudes (via RPC admin_update_ad_request_status)
+const SOLICITUD_TRANSITIONS: Record<string, string[]> = {
+  REQUESTED:  ['CONTACTING', 'ACCEPTED', 'REJECTED'],
+  CONTACTING: ['ACCEPTED', 'REJECTED'],
+  ACCEPTED:   ['REJECTED'],
+  REJECTED:   [],
+  CANCELLED:  [],
+};
+
+// Transiciones para tab Reservas (via supabase directo)
 const VALID_BOOK_TRANSITIONS: Record<AdBookingAdmin['estado'], AdBookingAdmin['estado'][]> = {
-  REQUESTED: ['RESERVED', 'CONFIRMED', 'CANCELLED'],
-  RESERVED: ['CONFIRMED', 'CANCELLED'],
-  CONFIRMED: ['CANCELLED'],
-  CANCELLED: [],
-  EXPIRED: [],
+  REQUESTED:  [],
+  CONTACTING: [],
+  ACCEPTED:   [],
+  REJECTED:   [],
+  RESERVED:   ['CONFIRMED', 'CANCELLED'],
+  CONFIRMED:  ['CANCELLED'],
+  CANCELLED:  [],
+  EXPIRED:    [],
 };
 
 const FORMATO_LABEL: Record<AdSlot['formato'], string> = {
@@ -330,11 +353,16 @@ function AdsDashboard({ kpis, loading }: { kpis: DashboardKPIs | null; loading: 
       ],
     },
     {
+      title: 'Solicitudes',
+      items: [
+        { label: 'Nuevas del portal', value: kpis.solicitudes_portal_nuevas ?? 0, color: (kpis.solicitudes_portal_nuevas ?? 0) > 0 ? 'text-amber-400' : 'text-slate-400' },
+      ],
+    },
+    {
       title: 'Reservas',
       items: [
-        { label: 'Pendientes',          value: kpis.reservas_pendientes,  color: kpis.reservas_pendientes > 0 ? 'text-amber-400' : 'text-slate-400' },
-        { label: 'Confirmadas activas', value: kpis.reservas_activas,     color: 'text-emerald-400' },
-        { label: 'Próximas',            value: kpis.reservas_proximas,    color: 'text-blue-400' },
+        { label: 'Confirmadas activas', value: kpis.reservas_activas,  color: 'text-emerald-400' },
+        { label: 'Próximas',            value: kpis.reservas_proximas, color: 'text-blue-400' },
       ],
     },
   ];
@@ -1613,6 +1641,250 @@ function AdsBookingFormModal({
   );
 }
 
+// ─── CONVERT BOOKING MODAL ───────────────────────────────────────────────────
+
+function AdsConvertBookingModal({
+  booking, slots, actors, onClose, onConverted, toast,
+}: {
+  booking:     AdBookingAdmin;
+  slots:       AdSlot[];
+  actors:      MarketplaceActor[];
+  onClose:     () => void;
+  onConverted: () => void;
+  toast:       (t: 'success' | 'error' | 'info', m: string) => void;
+}) {
+  const slot  = slots.find(s => s.id === booking.slot_id);
+  const actor = actors.find(a => a.id === booking.actor_id);
+  const [inicio, setInicio] = useState(booking.inicio);
+  const [fin,    setFin]    = useState(booking.fin);
+  const [saving, setSaving] = useState(false);
+
+  const handleConvert = async () => {
+    setSaving(true);
+    try {
+      const { error } = await supabase.rpc('admin_convert_request_to_booking', {
+        p_request_id: booking.id,
+        p_inicio:     inicio,
+        p_fin:        fin,
+      });
+      if (error) {
+        if (error.message?.includes('solapado') || error.code === '23P01') {
+          toast('error', 'El slot ya está reservado en esas fechas.');
+        } else throw error;
+      } else {
+        toast('success', 'Solicitud convertida a reserva (RESERVED)');
+        onConverted();
+        onClose();
+      }
+    } catch (e) {
+      toast('error', 'Error: ' + (e instanceof Error ? e.message : String(e)));
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
+      <div className="relative bg-slate-900 border border-slate-700 rounded-xl shadow-2xl p-6 w-full max-w-sm mx-4 space-y-4">
+        <div className="flex items-start justify-between">
+          <div>
+            <h3 className="font-bold text-white text-sm">Crear reserva</h3>
+            <p className="text-[11px] text-slate-500 mt-0.5">Convierte la solicitud en reserva RESERVED</p>
+          </div>
+          <button onClick={onClose} className="text-slate-500 hover:text-white cursor-pointer">
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+        <div className="bg-slate-800 border border-slate-700 rounded-lg p-3 space-y-1.5 text-xs">
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-bold text-slate-500 uppercase w-12">Slot</span>
+            <span className="text-slate-200">{slot?.nombre ?? booking.slot_id}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-bold text-slate-500 uppercase w-12">Actor</span>
+            <span className="text-slate-200">{actor?.nombre ?? booking.actor_id}</span>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className={lCls}>Desde</label>
+            <input type="date" value={inicio} onChange={e => setInicio(e.target.value)} className={iCls} />
+          </div>
+          <div>
+            <label className={lCls}>Hasta</label>
+            <input type="date" value={fin} onChange={e => setFin(e.target.value)} min={inicio} className={iCls} />
+          </div>
+        </div>
+        <p className="text-[10px] text-amber-400">
+          El sistema verificará que no haya solapamiento con reservas RESERVED/CONFIRMED existentes.
+        </p>
+        <div className="flex justify-end gap-2 pt-1">
+          <button onClick={onClose} className="px-3 py-1.5 rounded text-xs text-slate-400 hover:text-white cursor-pointer">
+            Cancelar
+          </button>
+          <button
+            onClick={handleConvert}
+            disabled={saving || !inicio || !fin || fin < inicio}
+            className="px-4 py-1.5 rounded text-xs font-semibold bg-emerald-700 hover:bg-emerald-600 text-white cursor-pointer disabled:opacity-50 transition-colors"
+          >
+            {saving ? 'Creando…' : 'Crear reserva'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── SOLICITUDES TAB ──────────────────────────────────────────────────────────
+
+function AdsSolicitudesTab({
+  bookings, slots, actors, onRefresh, toast,
+}: {
+  bookings: AdBookingAdmin[];
+  slots:    AdSlot[];
+  actors:   MarketplaceActor[];
+  onRefresh: () => void;
+  toast:    (t: 'success' | 'error' | 'info', m: string) => void;
+}) {
+  const [filterEstado,   setFilterEstado]   = useState('all');
+  const [filterSlot,     setFilterSlot]     = useState('all');
+  const [transitioning,  setTransitioning]  = useState<string | null>(null);
+  const [convertBooking, setConvertBooking] = useState<AdBookingAdmin | null>(null);
+
+  const solicitudes = bookings
+    .filter(b => ['REQUESTED','CONTACTING','ACCEPTED','REJECTED','CANCELLED'].includes(b.estado))
+    .sort((a, b) => b.created_at.localeCompare(a.created_at));
+
+  const filtered = solicitudes.filter(b => {
+    if (filterEstado !== 'all' && b.estado !== filterEstado) return false;
+    if (filterSlot   !== 'all' && b.slot_id !== filterSlot)  return false;
+    return true;
+  });
+
+  const handleTransition = async (booking: AdBookingAdmin, newEstado: string) => {
+    setTransitioning(booking.id);
+    try {
+      const { error } = await supabase.rpc('admin_update_ad_request_status', {
+        p_request_id: booking.id,
+        p_status:     newEstado,
+      });
+      if (error) throw error;
+      toast('success', `Solicitud → ${ESTADO_BOOK_LABEL[newEstado as AdBookingAdmin['estado']] ?? newEstado}`);
+      onRefresh();
+    } catch (e) {
+      toast('error', 'Error: ' + (e instanceof Error ? e.message : String(e)));
+    } finally {
+      setTransitioning(null);
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between flex-wrap gap-3">
+        <h2 className="text-base font-bold text-white">
+          Solicitudes de espacios ({solicitudes.length})
+        </h2>
+      </div>
+
+      <div className="flex gap-2 flex-wrap">
+        <select value={filterEstado} onChange={e => setFilterEstado(e.target.value)} className="bg-slate-800 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-300">
+          <option value="all">Todos los estados</option>
+          <option value="REQUESTED">Nuevas</option>
+          <option value="CONTACTING">En contacto</option>
+          <option value="ACCEPTED">Aceptadas</option>
+          <option value="REJECTED">Rechazadas</option>
+          <option value="CANCELLED">Canceladas</option>
+        </select>
+        <select value={filterSlot} onChange={e => setFilterSlot(e.target.value)} className="bg-slate-800 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-300">
+          <option value="all">Todos los espacios</option>
+          {slots.map(s => <option key={s.id} value={s.id}>{s.nombre}</option>)}
+        </select>
+      </div>
+
+      <div className="space-y-3">
+        {filtered.length === 0 && (
+          <div className="text-center text-slate-500 text-sm py-12">No hay solicitudes que coincidan.</div>
+        )}
+        {filtered.map(b => {
+          const slot  = slots.find(s => s.id === b.slot_id);
+          const actor = actors.find(a => a.id === b.actor_id);
+          const transitions = SOLICITUD_TRANSITIONS[b.estado] ?? [];
+          const isNew = b.estado === 'REQUESTED';
+
+          return (
+            <div key={b.id} className={`border rounded-xl p-4 ${isNew ? 'bg-amber-950/10 border-amber-700/30' : 'bg-slate-800 border-slate-700'}`}>
+              <div className="flex items-start gap-4">
+                <div className="flex-1 min-w-0 space-y-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${ESTADO_BOOK_CLS[b.estado]}`}>
+                      {ESTADO_BOOK_LABEL[b.estado]}
+                    </span>
+                    {b.origen === 'portal_request' && (
+                      <span className="text-[9px] text-teal-500 font-bold">portal</span>
+                    )}
+                    <span className="text-[9px] text-slate-600 font-mono">{b.id.slice(0, 8)}</span>
+                  </div>
+                  <div className="text-sm font-semibold text-white">{slot?.nombre ?? b.slot_id}</div>
+                  <div className="text-xs text-slate-400">{actor?.nombre ?? b.actor_id}</div>
+                  <div className="text-xs text-slate-500">{fmtDate(b.inicio)} — {fmtDate(b.fin)}</div>
+                  {b.mensaje && (
+                    <div className="mt-1.5 text-[11px] text-slate-400 italic bg-slate-900/50 rounded px-2.5 py-1.5 border border-slate-700/50">
+                      "{b.mensaje}"
+                    </div>
+                  )}
+                  {b.notas && (
+                    <div className="text-[10px] text-blue-400 mt-1">
+                      <span className="font-bold">Nota admin:</span> {b.notas}
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-col gap-1.5 shrink-0">
+                  {b.estado === 'ACCEPTED' && (
+                    <button
+                      onClick={() => setConvertBooking(b)}
+                      className="flex items-center gap-1 px-2.5 py-1.5 rounded text-[10px] font-bold bg-emerald-700 hover:bg-emerald-600 text-white cursor-pointer transition-colors"
+                    >
+                      <CheckCircle className="h-3 w-3" />
+                      Crear reserva
+                    </button>
+                  )}
+                  {transitions.map(t => (
+                    <button
+                      key={t}
+                      onClick={() => handleTransition(b, t)}
+                      disabled={transitioning === b.id}
+                      className={`px-2.5 py-1 rounded text-[10px] font-semibold cursor-pointer disabled:opacity-50 transition-colors ${
+                        t === 'ACCEPTED'   ? 'bg-teal-800 hover:bg-teal-700 text-white'     :
+                        t === 'REJECTED'   ? 'bg-red-800 hover:bg-red-700 text-white'       :
+                        t === 'CONTACTING' ? 'bg-blue-800 hover:bg-blue-700 text-slate-100' :
+                        'bg-slate-700 hover:bg-slate-600 text-slate-300'
+                      }`}
+                    >
+                      {ESTADO_BOOK_LABEL[t as AdBookingAdmin['estado']] ?? t}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {convertBooking && (
+        <AdsConvertBookingModal
+          booking={convertBooking}
+          slots={slots}
+          actors={actors}
+          onClose={() => setConvertBooking(null)}
+          onConverted={() => { setConvertBooking(null); onRefresh(); }}
+          toast={toast}
+        />
+      )}
+    </div>
+  );
+}
+
 // ─── BOOKINGS LIST ────────────────────────────────────────────────────────────
 
 function AdsBookingsList({
@@ -1631,8 +1903,9 @@ function AdsBookingsList({
   const [transitioning, setTransitioning] = useState<string | null>(null);
 
   const filtered = bookings.filter(b => {
+    if (!['RESERVED','CONFIRMED','CANCELLED','EXPIRED'].includes(b.estado)) return false;
     if (filterEstado !== 'all' && b.estado !== filterEstado) return false;
-    if (filterSlot !== 'all' && b.slot_id !== filterSlot) return false;
+    if (filterSlot   !== 'all' && b.slot_id !== filterSlot)  return false;
     return true;
   }).sort((a, b) => a.inicio.localeCompare(b.inicio));
 
@@ -1672,9 +1945,10 @@ function AdsBookingsList({
       <div className="flex gap-2 flex-wrap">
         <select value={filterEstado} onChange={e => setFilterEstado(e.target.value)} className="bg-slate-800 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-300">
           <option value="all">Todos los estados</option>
-          {(Object.keys(ESTADO_BOOK_LABEL) as AdBookingAdmin['estado'][]).map(e => (
-            <option key={e} value={e}>{ESTADO_BOOK_LABEL[e]}</option>
-          ))}
+          <option value="RESERVED">Reservada</option>
+          <option value="CONFIRMED">Confirmada</option>
+          <option value="CANCELLED">Cancelada</option>
+          <option value="EXPIRED">Expirada</option>
         </select>
         <select value={filterSlot} onChange={e => setFilterSlot(e.target.value)} className="bg-slate-800 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-300">
           <option value="all">Todos los slots</option>
@@ -2735,12 +3009,15 @@ export default function AdminMarketplaceAdsSection({ toast }: Props) {
 
   useEffect(() => { loadAll(); }, [loadAll]);
 
-  const TABS: { id: AdsTab; label: string; Icon: React.ElementType }[] = [
-    { id: 'dashboard',    label: 'Dashboard',      Icon: BarChart2 },
-    { id: 'slots',        label: 'Espacios',        Icon: Layout },
-    { id: 'campanas',     label: 'Campañas',        Icon: Megaphone },
-    { id: 'reservas',     label: 'Reservas',        Icon: Calendar },
-    { id: 'creatividades',label: 'Creatividades',   Icon: ImageIcon },
+  const solicitudesNuevas = bookings.filter(b => b.estado === 'REQUESTED').length;
+
+  const TABS: { id: AdsTab; label: string; Icon: React.ElementType; badge?: number }[] = [
+    { id: 'dashboard',     label: 'Dashboard',     Icon: BarChart2 },
+    { id: 'slots',         label: 'Espacios',       Icon: Layout },
+    { id: 'solicitudes',   label: 'Solicitudes',    Icon: Inbox, badge: solicitudesNuevas > 0 ? solicitudesNuevas : undefined },
+    { id: 'campanas',      label: 'Campañas',       Icon: Megaphone },
+    { id: 'reservas',      label: 'Reservas',       Icon: Calendar },
+    { id: 'creatividades', label: 'Creatividades',  Icon: ImageIcon },
   ];
 
   return (
@@ -2763,7 +3040,7 @@ export default function AdminMarketplaceAdsSection({ toast }: Props) {
 
       {/* Tabs */}
       <div className="flex gap-1 border-b border-slate-700 overflow-x-auto pb-px">
-        {TABS.map(({ id, label, Icon }) => (
+        {TABS.map(({ id, label, Icon, badge }) => (
           <button
             key={id}
             onClick={() => setTab(id)}
@@ -2775,6 +3052,11 @@ export default function AdminMarketplaceAdsSection({ toast }: Props) {
           >
             <Icon className="h-3.5 w-3.5" />
             {label}
+            {badge != null && badge > 0 && (
+              <span className="bg-amber-500 text-black text-[9px] font-black px-1.5 py-0.5 rounded-full leading-none">
+                {badge}
+              </span>
+            )}
           </button>
         ))}
       </div>
@@ -2847,6 +3129,16 @@ export default function AdminMarketplaceAdsSection({ toast }: Props) {
               />
             )}
           </div>
+        )}
+
+        {tab === 'solicitudes' && (
+          <AdsSolicitudesTab
+            bookings={bookings}
+            slots={slots}
+            actors={actors}
+            onRefresh={loadAll}
+            toast={toast}
+          />
         )}
 
         {tab === 'campanas' && (
