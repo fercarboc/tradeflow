@@ -41,7 +41,7 @@ export interface PlacementCampaign {
 
 export interface PlacementBooking {
   id: string; slot_id: string; actor_id: string;
-  estado: 'REQUESTED' | 'RESERVED' | 'CONFIRMED' | 'CANCELLED' | 'EXPIRED';
+  estado: 'REQUESTED' | 'CONTACTING' | 'ACCEPTED' | 'REJECTED' | 'RESERVED' | 'CONFIRMED' | 'CANCELLED' | 'EXPIRED';
   inicio: string; fin: string;
 }
 
