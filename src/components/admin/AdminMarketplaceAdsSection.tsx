@@ -2989,7 +2989,7 @@ export default function AdminMarketplaceAdsSection({ toast }: Props) {
       ] = await Promise.all([
         supabase.from('trade_marketplace_ad_slots').select('*').order('posicion'),
         supabase.from('trade_marketplace_ad_campaigns').select('*').order('created_at', { ascending: false }),
-        supabase.from('trade_marketplace_ad_bookings').select('*').order('inicio'),
+        supabase.rpc('admin_get_ad_bookings'),
         supabase.from('trade_marketplace_ad_creatives').select('*').order('created_at', { ascending: false }),
         supabase.from('trade_marketplace_actors').select('id, nombre, actor_type, estado').eq('actor_type', 'supplier').eq('estado', 'active').order('nombre'),
         supabase.rpc('admin_get_ads_dashboard'),
