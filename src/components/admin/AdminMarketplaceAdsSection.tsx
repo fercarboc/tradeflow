@@ -77,6 +77,10 @@ type AdCreativeAdmin = {
   old_price_display: number | null;
   discount_label: string | null;
   theme_preset: ThemePreset;
+  estado: 'DRAFT' | 'PENDING_APPROVAL' | 'APPROVED' | 'REJECTED';
+  submitted_at: string | null;
+  aprobada_por: string | null;
+  aprobada_at: string | null;
 };
 
 type MarketplaceActor = { id: string; nombre: string; actor_type: string; estado: string };
@@ -2805,10 +2809,14 @@ function AdsCreativesList({
   toast: (t: 'success' | 'error' | 'info', m: string) => void;
 }) {
   const [filterCampaign, setFilterCampaign] = useState('all');
+  const [filterEstado,   setFilterEstado]   = useState('all');
   const [showForm, setShowForm] = useState(false);
   const [editCreative, setEditCreative] = useState<AdCreativeAdmin | null>(null);
 
-  const filtered = creatives.filter(c => filterCampaign === 'all' || c.campaign_id === filterCampaign);
+  const filtered = creatives.filter(c =>
+    (filterCampaign === 'all' || c.campaign_id === filterCampaign) &&
+    (filterEstado   === 'all' || c.estado       === filterEstado)
+  );
 
   const handleToggleActiva = async (creative: AdCreativeAdmin) => {
     try {
@@ -2850,7 +2858,7 @@ function AdsCreativesList({
           <Plus className="h-3.5 w-3.5" /> Nueva creatividad
         </button>
       </div>
-      <div>
+      <div className="flex items-center gap-2 flex-wrap">
         <select
           value={filterCampaign}
           onChange={e => setFilterCampaign(e.target.value)}
@@ -2858,6 +2866,17 @@ function AdsCreativesList({
         >
           <option value="all">Todas las campañas</option>
           {campaigns.map(c => <option key={c.id} value={c.id}>{c.nombre}</option>)}
+        </select>
+        <select
+          value={filterEstado}
+          onChange={e => setFilterEstado(e.target.value)}
+          className="bg-slate-800 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-300"
+        >
+          <option value="all">Todos los estados</option>
+          <option value="PENDING_APPROVAL">Pendientes de revisión</option>
+          <option value="DRAFT">Borrador</option>
+          <option value="APPROVED">Aprobadas</option>
+          <option value="REJECTED">Rechazadas</option>
         </select>
       </div>
       <div className="space-y-2">
@@ -2894,6 +2913,18 @@ function AdsCreativesList({
                     <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${badge.cls}`}>
                       {badge.label}
                     </span>
+                    {cr.estado && cr.estado !== 'DRAFT' && (
+                      <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${
+                        cr.estado === 'PENDING_APPROVAL' ? 'bg-amber-900/60 text-amber-300' :
+                        cr.estado === 'APPROVED'         ? 'bg-emerald-900/60 text-emerald-300' :
+                        cr.estado === 'REJECTED'         ? 'bg-red-900/60 text-red-300' :
+                                                           'bg-slate-700 text-slate-400'
+                      }`}>
+                        {cr.estado === 'PENDING_APPROVAL' ? 'PEND. REVISIÓN' :
+                         cr.estado === 'APPROVED'         ? 'APROBADA' :
+                         cr.estado === 'REJECTED'         ? 'RECHAZADA' : cr.estado}
+                      </span>
+                    )}
                     {cr.generada_ia && (
                       <span className="text-[9px] font-bold bg-purple-900/60 text-purple-300 px-1.5 py-0.5 rounded">IA</span>
                     )}
@@ -2988,16 +3019,16 @@ export default function AdminMarketplaceAdsSection({ toast }: Props) {
         { data: kpiData },
       ] = await Promise.all([
         supabase.from('trade_marketplace_ad_slots').select('*').order('posicion'),
-        supabase.from('trade_marketplace_ad_campaigns').select('*').order('created_at', { ascending: false }),
+        supabase.rpc('admin_get_ad_campaigns'),
         supabase.rpc('admin_get_ad_bookings'),
-        supabase.from('trade_marketplace_ad_creatives').select('*').order('created_at', { ascending: false }),
+        supabase.rpc('admin_get_ad_creatives'),
         supabase.from('trade_marketplace_actors').select('id, nombre, actor_type, estado').eq('actor_type', 'supplier').eq('estado', 'active').order('nombre'),
         supabase.rpc('admin_get_ads_dashboard'),
       ]);
       setSlots((slotData ?? []) as AdSlot[]);
-      setCampaigns((campData ?? []) as AdCampaignAdmin[]);
+      setCampaigns((campData ?? []) as unknown as AdCampaignAdmin[]);
       setBookings((bookData ?? []) as AdBookingAdmin[]);
-      setCreatives((creativeData ?? []) as AdCreativeAdmin[]);
+      setCreatives((creativeData ?? []) as unknown as AdCreativeAdmin[]);
       setActors((actorData ?? []) as MarketplaceActor[]);
       setKpis((kpiData as DashboardKPIs) ?? null);
     } catch (e) {
@@ -3009,7 +3040,8 @@ export default function AdminMarketplaceAdsSection({ toast }: Props) {
 
   useEffect(() => { loadAll(); }, [loadAll]);
 
-  const solicitudesNuevas = bookings.filter(b => b.estado === 'REQUESTED').length;
+  const solicitudesNuevas  = bookings.filter(b => b.estado === 'REQUESTED').length;
+  const creativasPendientes = creatives.filter(c => c.estado === 'PENDING_APPROVAL').length;
 
   const TABS: { id: AdsTab; label: string; Icon: React.ElementType; badge?: number }[] = [
     { id: 'dashboard',     label: 'Dashboard',     Icon: BarChart2 },
@@ -3017,7 +3049,7 @@ export default function AdminMarketplaceAdsSection({ toast }: Props) {
     { id: 'solicitudes',   label: 'Solicitudes',    Icon: Inbox, badge: solicitudesNuevas > 0 ? solicitudesNuevas : undefined },
     { id: 'campanas',      label: 'Campañas',       Icon: Megaphone },
     { id: 'reservas',      label: 'Reservas',       Icon: Calendar },
-    { id: 'creatividades', label: 'Creatividades',  Icon: ImageIcon },
+    { id: 'creatividades', label: 'Creatividades',  Icon: ImageIcon, badge: creativasPendientes > 0 ? creativasPendientes : undefined },
   ];
 
   return (
