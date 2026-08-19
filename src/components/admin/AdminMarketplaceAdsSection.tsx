@@ -89,6 +89,9 @@ type AdCreativeAdmin = {
   submitted_at: string | null;
   aprobada_por: string | null;
   aprobada_at: string | null;
+  rechazo_motivo: string | null;
+  published_at: string | null;
+  published_by: string | null;
 };
 
 type MarketplaceActor = { id: string; nombre: string; actor_type: string; estado: string };
@@ -1968,12 +1971,12 @@ function AdsBookingsList({
   const handleTransition = async (booking: AdBookingAdmin, newEstado: AdBookingAdmin['estado']) => {
     setTransitioning(booking.id);
     try {
-      const { error } = await supabase
-        .from('trade_marketplace_ad_bookings')
-        .update({ estado: newEstado })
-        .eq('id', booking.id);
+      const { error } = await supabase.rpc('admin_update_ad_booking', {
+        p_booking_id: booking.id,
+        p_estado:     newEstado,
+      });
       if (error) {
-        if (error.message?.includes('Booking solapado') || error.code === '23P01') {
+        if ((error as { message?: string })?.message?.includes('solapado') || (error as { code?: string })?.code === '23P01') {
           toast('error', 'Este espacio ya está reservado para esas fechas.');
         } else throw error;
       } else {
@@ -2861,25 +2864,76 @@ function AdsCreativesList({
   toast: (t: 'success' | 'error' | 'info', m: string) => void;
 }) {
   const [filterCampaign, setFilterCampaign] = useState('all');
-  const [filterEstado,   setFilterEstado]   = useState('all');
-  const [showForm, setShowForm] = useState(false);
-  const [editCreative, setEditCreative] = useState<AdCreativeAdmin | null>(null);
+  const [filterEstado,   setFilterEstado]   = useState('PENDING_APPROVAL');
+  const [showForm,       setShowForm]       = useState(false);
+  const [editCreative,   setEditCreative]   = useState<AdCreativeAdmin | null>(null);
+
+  // Estado modal de rechazo
+  const [rejectingId,  setRejectingId]  = useState<string | null>(null);
+  const [rejectMotivo, setRejectMotivo] = useState('');
+  const [rejectSaving, setRejectSaving] = useState(false);
 
   const filtered = creatives.filter(c =>
     (filterCampaign === 'all' || c.campaign_id === filterCampaign) &&
     (filterEstado   === 'all' || c.estado       === filterEstado)
   );
 
-  const handleToggleActiva = async (creative: AdCreativeAdmin) => {
+  async function handleApprove(cr: AdCreativeAdmin) {
     try {
-      const newActiva = !creative.activa;
+      const { error } = await supabase.rpc('admin_approve_ad_creative', { p_creative_id: cr.id });
+      if (error) throw error;
+      toast('success', 'Creatividad aprobada');
+      onRefresh();
+    } catch (e) {
+      toast('error', 'Error al aprobar: ' + (e instanceof Error ? e.message : (e as { message?: string })?.message ?? String(e)));
+    }
+  }
+
+  async function handleRejectSubmit() {
+    if (!rejectingId) return;
+    if (rejectMotivo.trim().length < 5) {
+      toast('error', 'El motivo debe tener al menos 5 caracteres');
+      return;
+    }
+    setRejectSaving(true);
+    try {
+      const { error } = await supabase.rpc('admin_reject_ad_creative', {
+        p_creative_id: rejectingId,
+        p_motivo:      rejectMotivo.trim(),
+      });
+      if (error) throw error;
+      toast('success', 'Creatividad rechazada');
+      setRejectingId(null);
+      setRejectMotivo('');
+      onRefresh();
+    } catch (e) {
+      toast('error', 'Error al rechazar: ' + (e instanceof Error ? e.message : (e as { message?: string })?.message ?? String(e)));
+    } finally {
+      setRejectSaving(false);
+    }
+  }
+
+  async function handlePublish(cr: AdCreativeAdmin) {
+    try {
+      const { error } = await supabase.rpc('admin_publish_ad_creative', { p_creative_id: cr.id });
+      if (error) throw error;
+      toast('success', 'Creatividad publicada');
+      onRefresh();
+    } catch (e) {
+      toast('error', 'Error al publicar: ' + (e instanceof Error ? e.message : (e as { message?: string })?.message ?? String(e)));
+    }
+  }
+
+  async function handleToggleActivaDirect(cr: AdCreativeAdmin) {
+    try {
+      const newActiva = !cr.activa;
       if (newActiva) {
         const { data: others } = await supabase
           .from('trade_marketplace_ad_creatives')
           .select('id')
-          .eq('campaign_id', creative.campaign_id)
+          .eq('campaign_id', cr.campaign_id)
           .eq('activa', true)
-          .neq('id', creative.id);
+          .neq('id', cr.id);
         if (others && others.length > 0) {
           await supabase
             .from('trade_marketplace_ad_creatives')
@@ -2890,17 +2944,56 @@ function AdsCreativesList({
       const { error } = await supabase
         .from('trade_marketplace_ad_creatives')
         .update({ activa: newActiva, updated_at: new Date().toISOString() })
-        .eq('id', creative.id);
+        .eq('id', cr.id);
       if (error) throw error;
-      toast('success', newActiva ? 'Creatividad activada' : 'Creatividad desactivada');
+      toast('success', newActiva ? 'Activada' : 'Desactivada');
       onRefresh();
     } catch (e) {
       toast('error', 'Error: ' + (e instanceof Error ? e.message : (e as { message?: string })?.message ?? String(e)));
     }
-  };
+  }
 
   return (
     <div className="space-y-4">
+      {/* Modal rechazo */}
+      {rejectingId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="bg-slate-900 border border-red-800/60 rounded-xl p-5 w-full max-w-sm space-y-4">
+            <div className="flex items-center gap-2">
+              <XCircle className="h-5 w-5 text-red-400 shrink-0" />
+              <p className="text-sm font-bold text-white">Rechazar creatividad</p>
+            </div>
+            <p className="text-xs text-slate-400">Indica el motivo al proveedor para que pueda corregirlo.</p>
+            <textarea
+              value={rejectMotivo}
+              onChange={e => setRejectMotivo(e.target.value)}
+              placeholder="Motivo de rechazo (mín. 5 caracteres)..."
+              maxLength={500}
+              rows={4}
+              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 resize-none focus:outline-none focus:border-red-500"
+            />
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] text-slate-600">{rejectMotivo.length}/500</span>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => { setRejectingId(null); setRejectMotivo(''); }}
+                  className="px-3 py-1.5 rounded text-xs text-slate-400 hover:text-white cursor-pointer"
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={handleRejectSubmit}
+                  disabled={rejectSaving || rejectMotivo.trim().length < 5}
+                  className="px-3 py-1.5 rounded text-xs font-semibold bg-red-700 hover:bg-red-600 text-white disabled:opacity-40 cursor-pointer"
+                >
+                  {rejectSaving ? 'Rechazando…' : 'Confirmar rechazo'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex items-center justify-between flex-wrap gap-3">
         <h2 className="text-base font-bold text-white">Creatividades ({filtered.length})</h2>
         <button
@@ -2926,20 +3019,25 @@ function AdsCreativesList({
         >
           <option value="all">Todos los estados</option>
           <option value="PENDING_APPROVAL">Pendientes de revisión</option>
-          <option value="DRAFT">Borrador</option>
           <option value="APPROVED">Aprobadas</option>
+          <option value="DRAFT">Borrador</option>
           <option value="REJECTED">Rechazadas</option>
         </select>
       </div>
       <div className="space-y-2">
-        {filtered.length === 0 && <div className="text-center text-slate-500 text-sm py-12">No hay creatividades.</div>}
+        {filtered.length === 0 && (
+          <div className="text-center text-slate-500 text-sm py-12">
+            {filterEstado === 'PENDING_APPROVAL' ? 'No hay creatividades pendientes de revisión.' : 'No hay creatividades.'}
+          </div>
+        )}
         {filtered.map(cr => {
           const camp = campaigns.find(c => c.id === cr.campaign_id);
+          const isSupplier = camp?.campaign_source === 'supplier';
           const mode = (cr.creative_mode ?? 'IMAGE_CONTENT') as CreativeMode;
           const badge = CREATIVE_MODE_BADGE[mode];
           const thumb = cr.image_url || cr.mobile_image_url;
           return (
-            <div key={cr.id} className="bg-slate-800 border border-slate-700 rounded-lg p-3">
+            <div key={cr.id} className={`bg-slate-800 border rounded-lg p-3 ${cr.estado === 'PENDING_APPROVAL' ? 'border-amber-700/60' : 'border-slate-700'}`}>
               <div className="flex items-start gap-3">
                 {thumb && (
                   <img
@@ -2959,23 +3057,27 @@ function AdsCreativesList({
                 )}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
-                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${cr.activa ? 'bg-emerald-900/60 text-emerald-300' : 'bg-slate-700 text-slate-400'}`}>
-                      {cr.activa ? 'ACTIVA' : 'INACTIVA'}
-                    </span>
+                    {cr.activa && (
+                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-emerald-900/60 text-emerald-300">
+                        PUBLICADA
+                      </span>
+                    )}
                     <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${badge.cls}`}>
                       {badge.label}
                     </span>
-                    {cr.estado && cr.estado !== 'DRAFT' && (
-                      <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${
-                        cr.estado === 'PENDING_APPROVAL' ? 'bg-amber-900/60 text-amber-300' :
-                        cr.estado === 'APPROVED'         ? 'bg-emerald-900/60 text-emerald-300' :
-                        cr.estado === 'REJECTED'         ? 'bg-red-900/60 text-red-300' :
-                                                           'bg-slate-700 text-slate-400'
-                      }`}>
-                        {cr.estado === 'PENDING_APPROVAL' ? 'PEND. REVISIÓN' :
-                         cr.estado === 'APPROVED'         ? 'APROBADA' :
-                         cr.estado === 'REJECTED'         ? 'RECHAZADA' : cr.estado}
-                      </span>
+                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${
+                      cr.estado === 'PENDING_APPROVAL' ? 'bg-amber-900/60 text-amber-300' :
+                      cr.estado === 'APPROVED'         ? 'bg-emerald-900/60 text-emerald-300' :
+                      cr.estado === 'REJECTED'         ? 'bg-red-900/60 text-red-300' :
+                                                         'bg-slate-700 text-slate-400'
+                    }`}>
+                      {cr.estado === 'PENDING_APPROVAL' ? 'PEND. REVISIÓN' :
+                       cr.estado === 'APPROVED'         ? 'APROBADA' :
+                       cr.estado === 'REJECTED'         ? 'RECHAZADA' :
+                       cr.estado === 'DRAFT'            ? 'BORRADOR' : cr.estado}
+                    </span>
+                    {isSupplier && (
+                      <span className="text-[9px] font-bold bg-blue-900/60 text-blue-300 px-1.5 py-0.5 rounded">PROVEEDOR</span>
                     )}
                     {cr.generada_ia && (
                       <span className="text-[9px] font-bold bg-purple-900/60 text-purple-300 px-1.5 py-0.5 rounded">IA</span>
@@ -2983,11 +3085,19 @@ function AdsCreativesList({
                   </div>
                   <div className="text-sm font-semibold text-white truncate">{camp?.nombre ?? cr.campaign_id.slice(0, 8)}</div>
                   {cr.headline && <div className="text-[10px] text-slate-400 truncate">{cr.headline}</div>}
-                  {cr.price_display != null && (
-                    <div className="text-[10px] text-amber-400">
-                      Precio publicitario: {cr.price_display} €
-                      {cr.old_price_display != null && <span className="line-through text-slate-500 ml-1">{cr.old_price_display} €</span>}
+                  {cr.activa && cr.published_at && (
+                    <div className="text-[10px] text-emerald-400 mt-0.5">
+                      Publicada el {new Date(cr.published_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })}
                     </div>
+                  )}
+                  {cr.estado === 'REJECTED' && cr.rechazo_motivo && (
+                    <div className="mt-1.5 bg-red-950/40 border border-red-800/40 rounded p-1.5">
+                      <p className="text-[10px] font-semibold text-red-400 mb-0.5">Motivo de rechazo:</p>
+                      <p className="text-[10px] text-red-300 leading-relaxed">{cr.rechazo_motivo}</p>
+                    </div>
+                  )}
+                  {cr.estado === 'APPROVED' && !cr.activa && isSupplier && (
+                    <div className="text-[10px] text-teal-400 mt-0.5">Aprobada — pendiente de publicación</div>
                   )}
                 </div>
                 <div className="flex flex-col gap-1.5 shrink-0">
@@ -2997,14 +3107,44 @@ function AdsCreativesList({
                   >
                     <Edit2 className="h-3 w-3" /> Editar
                   </button>
-                  <button
-                    onClick={() => handleToggleActiva(cr)}
-                    className={`px-2 py-1 rounded text-[10px] font-semibold cursor-pointer transition-colors ${
-                      cr.activa ? 'bg-yellow-800 hover:bg-yellow-700 text-white' : 'bg-emerald-800 hover:bg-emerald-700 text-white'
-                    }`}
-                  >
-                    {cr.activa ? 'Desactivar' : 'Activar'}
-                  </button>
+
+                  {/* Workflow editorial para creatividades de proveedor */}
+                  {isSupplier && cr.estado === 'PENDING_APPROVAL' && (
+                    <>
+                      <button
+                        onClick={() => handleApprove(cr)}
+                        className="flex items-center gap-1 px-2 py-1 rounded text-[10px] font-semibold bg-emerald-700 hover:bg-emerald-600 text-white cursor-pointer"
+                      >
+                        <CheckCircle className="h-3 w-3" /> Aprobar
+                      </button>
+                      <button
+                        onClick={() => { setRejectingId(cr.id); setRejectMotivo(''); }}
+                        className="flex items-center gap-1 px-2 py-1 rounded text-[10px] font-semibold bg-red-800 hover:bg-red-700 text-white cursor-pointer"
+                      >
+                        <XCircle className="h-3 w-3" /> Rechazar
+                      </button>
+                    </>
+                  )}
+                  {isSupplier && cr.estado === 'APPROVED' && !cr.activa && (
+                    <button
+                      onClick={() => handlePublish(cr)}
+                      className="flex items-center gap-1 px-2 py-1 rounded text-[10px] font-semibold bg-teal-700 hover:bg-teal-600 text-white cursor-pointer"
+                    >
+                      <Eye className="h-3 w-3" /> Publicar
+                    </button>
+                  )}
+
+                  {/* Toggle directo para creatividades internas (trabflow/demo) */}
+                  {!isSupplier && (
+                    <button
+                      onClick={() => handleToggleActivaDirect(cr)}
+                      className={`px-2 py-1 rounded text-[10px] font-semibold cursor-pointer transition-colors ${
+                        cr.activa ? 'bg-yellow-800 hover:bg-yellow-700 text-white' : 'bg-emerald-800 hover:bg-emerald-700 text-white'
+                      }`}
+                    >
+                      {cr.activa ? 'Desactivar' : 'Activar'}
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -3201,6 +3341,14 @@ export default function AdminMarketplaceAdsSection({ toast }: Props) {
                 onSelectSlot={s => setDetailSlot(slots.find(sl => sl.id === s.id) ?? null)}
                 mode="admin"
                 onCreateCampaign={handleCreateCampaignFromSlot}
+                pendingCreativesPerSlot={(() => {
+                  const map: Record<string, number> = {};
+                  creatives.filter(c => c.estado === 'PENDING_APPROVAL').forEach(c => {
+                    const camp = campaigns.find(ca => ca.id === c.campaign_id);
+                    if (camp?.slot_id) map[camp.slot_id] = (map[camp.slot_id] ?? 0) + 1;
+                  });
+                  return map;
+                })()}
               />
             ) : (
               <AdsSlotMap
