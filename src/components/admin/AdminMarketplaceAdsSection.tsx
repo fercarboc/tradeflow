@@ -1579,7 +1579,7 @@ function AdsBookingFormModal({
     try {
       if (initial) {
         const { error } = await supabase.rpc('admin_update_ad_booking', {
-          p_id: initial.id, p_slot_id: form.slot_id, p_actor_id: form.actor_id,
+          p_booking_id: initial.id, p_slot_id: form.slot_id, p_actor_id: form.actor_id,
           p_inicio: form.inicio, p_fin: form.fin, p_estado: form.estado,
           p_notas: form.notas || null,
         });
