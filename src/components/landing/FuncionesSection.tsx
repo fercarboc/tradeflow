@@ -48,8 +48,8 @@ const CARDS = [
   {
     icon: ShoppingCart,
     color: '#1A7A5A',
-    title: 'Pedidos a proveedores',
-    description: 'Genera presupuestos y convierte automáticamente los materiales en pedidos para tus proveedores habituales.',
+    title: 'Marketplace integrado',
+    description: 'Busca materiales, compara proveedores, crea tu carrito y realiza pedidos sin salir de TrabFlow. Del presupuesto al pedido.',
   },
 ];
 

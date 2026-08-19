@@ -163,6 +163,7 @@ export interface TradeWaitlistEntry {
 
 export type WaitlistEstado = 'nuevo' | 'contactado' | 'interesado' | 'beta_activa' | 'convertido' | 'descartado';
 export type WaitlistPrioridad = 'alta' | 'media' | 'baja';
+export type LeadType = 'installer' | 'provider' | 'advertising' | 'partner' | 'other';
 
 export interface TradeWaitlistLead {
   id: string;
@@ -179,6 +180,27 @@ export interface TradeWaitlistLead {
   contacted_at?: string;
   converted_at?: string;
   created_at: string;
+  // Campos extendidos para múltiples tipos de lead
+  lead_type?: LeadType;
+  company_name?: string;
+  company_type?: string;
+  website?: string;
+  province?: string;
+  geographic_coverage?: string;
+  catalog_size?: string;
+  interests?: string[];
+  provider_interest?: boolean;
+  advertising_interest?: boolean;
+  founding_provider_interest?: boolean;
+  founding_provider?: boolean;
+  advertising_discount_percent?: number;
+  campaign_type?: string;
+  product_category?: string;
+  desired_period?: string;
+  desired_ad_space?: string;
+  estimated_budget?: string;
+  next_followup_at?: string;
+  provider_org_id?: string;
 }
 
 export interface TradeSubscription {
@@ -800,6 +822,55 @@ export async function submitContactMessage(data: {
     presupuestos_al_mes: 'Menos de 10',
     notas: data.mensaje ?? '',
     prioridad: 'baja',
+    estado: 'nuevo',
+    lead_type: 'installer',
+    fuente: 'contact',
+  });
+  if (error) throw error;
+}
+
+export async function submitProviderLead(data: {
+  nombre: string;
+  apellidos?: string;
+  empresa: string;
+  email: string;
+  telefono?: string;
+  company_type?: string;
+  website?: string;
+  province?: string;
+  interests?: string[];
+  advertising_interest?: boolean;
+  founding_provider_interest?: boolean;
+  campaign_type?: string;
+  product_category?: string;
+  desired_period?: string;
+  desired_ad_space?: string;
+  estimated_budget?: string;
+  notas?: string;
+  fuente?: string;
+}): Promise<void> {
+  const fullName = data.apellidos ? `${data.nombre} ${data.apellidos}` : data.nombre;
+  const { error } = await supabase.from('trade_waitlist').insert({
+    nombre: fullName,
+    email: data.email,
+    telefono: data.telefono ?? '',
+    company_name: data.empresa,
+    company_type: data.company_type ?? '',
+    website: data.website ?? '',
+    province: data.province ?? '',
+    interests: data.interests ?? [],
+    provider_interest: true,
+    advertising_interest: data.advertising_interest ?? false,
+    founding_provider_interest: data.founding_provider_interest ?? false,
+    campaign_type: data.campaign_type ?? '',
+    product_category: data.product_category ?? '',
+    desired_period: data.desired_period ?? '',
+    desired_ad_space: data.desired_ad_space ?? '',
+    estimated_budget: data.estimated_budget ?? '',
+    notas: data.notas ?? '',
+    lead_type: data.advertising_interest ? 'advertising' : 'provider',
+    fuente: data.fuente ?? 'provider_page',
+    prioridad: 'media',
     estado: 'nuevo',
   });
   if (error) throw error;
@@ -1583,13 +1654,21 @@ export async function updateCatalogVariant(
 // ── Email via Resend (Edge Function trade-email) ──────────────────────────────
 
 export async function sendTrabflowEmail(payload: {
-  type: 'waitlist_admin' | 'waitlist_confirm' | 'welcome' | 'contact_admin' | 'support_admin' | 'auth_confirm';
+  type: 'waitlist_admin' | 'waitlist_confirm' | 'welcome' | 'contact_admin' | 'support_admin' | 'auth_confirm' | 'provider_admin' | 'provider_confirm';
   nombre?: string;
   email?: string;
   telefono?: string;
   oficio?: string;
   ciudad?: string;
   presupuestos_al_mes?: string;
+  // Campos extra para leads de proveedor
+  empresa?: string;
+  company_type?: string;
+  website?: string;
+  province?: string;
+  interests?: string[];
+  advertising_interest?: boolean;
+  founding_provider_interest?: boolean;
 }): Promise<void> {
   await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/trade-email`, {
     method: 'POST',
@@ -2530,7 +2609,11 @@ export async function adminLoadWaitlist(): Promise<TradeWaitlistLead[]> {
 
 export async function adminUpdateWaitlistLead(
   id: string,
-  updates: Partial<Pick<TradeWaitlistLead, 'estado' | 'notas' | 'prioridad' | 'contacted_at' | 'converted_at'>>,
+  updates: Partial<Pick<TradeWaitlistLead,
+    'estado' | 'notas' | 'prioridad' | 'contacted_at' | 'converted_at' |
+    'founding_provider_interest' | 'founding_provider' | 'advertising_discount_percent' |
+    'next_followup_at' | 'lead_type' | 'provider_org_id'
+  >>,
 ): Promise<void> {
   const { error } = await supabase.from('trade_waitlist').update(updates).eq('id', id);
   if (error) throw error;

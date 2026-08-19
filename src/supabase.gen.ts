@@ -11220,52 +11220,112 @@ export type Database = {
       }
       trade_waitlist: {
         Row: {
+          advertising_discount_percent: number | null
+          advertising_interest: boolean | null
+          campaign_type: string | null
+          catalog_size: string | null
           ciudad: string | null
+          company_name: string | null
+          company_type: string | null
           contacted_at: string | null
           converted_at: string | null
           created_at: string
+          desired_ad_space: string | null
+          desired_period: string | null
           email: string
           estado: string
+          estimated_budget: string | null
+          founding_provider: boolean | null
+          founding_provider_interest: boolean | null
           fuente: string
+          geographic_coverage: string | null
           id: string
+          interests: string[] | null
+          lead_type: string | null
+          next_followup_at: string | null
           nombre: string
           notas: string | null
           oficio: string | null
           presupuestos_al_mes: string | null
           prioridad: string
+          product_category: string | null
+          provider_interest: boolean | null
+          provider_org_id: string | null
+          province: string | null
           telefono: string | null
+          website: string | null
         }
         Insert: {
+          advertising_discount_percent?: number | null
+          advertising_interest?: boolean | null
+          campaign_type?: string | null
+          catalog_size?: string | null
           ciudad?: string | null
+          company_name?: string | null
+          company_type?: string | null
           contacted_at?: string | null
           converted_at?: string | null
           created_at?: string
+          desired_ad_space?: string | null
+          desired_period?: string | null
           email: string
           estado?: string
+          estimated_budget?: string | null
+          founding_provider?: boolean | null
+          founding_provider_interest?: boolean | null
           fuente?: string
+          geographic_coverage?: string | null
           id?: string
+          interests?: string[] | null
+          lead_type?: string | null
+          next_followup_at?: string | null
           nombre: string
           notas?: string | null
           oficio?: string | null
           presupuestos_al_mes?: string | null
           prioridad?: string
+          product_category?: string | null
+          provider_interest?: boolean | null
+          provider_org_id?: string | null
+          province?: string | null
           telefono?: string | null
+          website?: string | null
         }
         Update: {
+          advertising_discount_percent?: number | null
+          advertising_interest?: boolean | null
+          campaign_type?: string | null
+          catalog_size?: string | null
           ciudad?: string | null
+          company_name?: string | null
+          company_type?: string | null
           contacted_at?: string | null
           converted_at?: string | null
           created_at?: string
+          desired_ad_space?: string | null
+          desired_period?: string | null
           email?: string
           estado?: string
+          estimated_budget?: string | null
+          founding_provider?: boolean | null
+          founding_provider_interest?: boolean | null
           fuente?: string
+          geographic_coverage?: string | null
           id?: string
+          interests?: string[] | null
+          lead_type?: string | null
+          next_followup_at?: string | null
           nombre?: string
           notas?: string | null
           oficio?: string | null
           presupuestos_al_mes?: string | null
           prioridad?: string
+          product_category?: string | null
+          provider_interest?: boolean | null
+          provider_org_id?: string | null
+          province?: string | null
           telefono?: string | null
+          website?: string | null
         }
         Relationships: []
       }

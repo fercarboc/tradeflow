@@ -18,7 +18,7 @@ function cors(req: Request): Record<string, string> {
 }
 
 interface EmailPayload {
-  type: 'waitlist_admin' | 'waitlist_confirm' | 'welcome' | 'contact_admin' | 'support_admin' | 'auth_confirm';
+  type: 'waitlist_admin' | 'waitlist_confirm' | 'welcome' | 'contact_admin' | 'support_admin' | 'auth_confirm' | 'provider_admin' | 'provider_confirm';
   nombre?: string;
   email?: string;
   telefono?: string;
@@ -26,6 +26,14 @@ interface EmailPayload {
   ciudad?: string;
   presupuestos_al_mes?: string;
   mensaje?: string;
+  // Campos para leads de proveedor
+  empresa?: string;
+  company_type?: string;
+  website?: string;
+  province?: string;
+  interests?: string[];
+  advertising_interest?: boolean;
+  founding_provider_interest?: boolean;
 }
 
 async function sendEmail(to: string, subject: string, html: string): Promise<void> {
@@ -237,6 +245,52 @@ Deno.serve(async (req: Request) => {
           )),
         );
         console.log('[trade-email] support_admin sent');
+        break;
+
+      case 'provider_admin': {
+        const interestsList = (payload.interests ?? []).join(', ') || '—';
+        const flags: string[] = [];
+        if (payload.advertising_interest) flags.push('Publicidad');
+        if (payload.founding_provider_interest) flags.push('Proveedor Fundador');
+        await sendEmail(
+          ADMIN_EMAIL,
+          `Nuevo proveedor: ${payload.empresa ?? payload.nombre ?? 'Sin nombre'}`,
+          emailWrap('Nuevo lead de proveedor', tableWrap(
+            row('Nombre', payload.nombre) +
+            row('Empresa', payload.empresa) +
+            row('Tipo empresa', payload.company_type) +
+            row('Email', payload.email) +
+            row('Teléfono', payload.telefono) +
+            row('Web', payload.website) +
+            row('Provincia', payload.province) +
+            row('Intereses', interestsList) +
+            row('Flags', flags.length ? flags.join(' · ') : undefined),
+          )),
+        );
+        console.log('[trade-email] provider_admin sent');
+        break;
+      }
+
+      case 'provider_confirm':
+        if (payload.email) {
+          await sendEmail(
+            payload.email,
+            'Hemos recibido tu solicitud — TRABFLOW Proveedores',
+            emailWrap('¡Gracias por tu interés!', `
+              <p style="color:#94a3b8;font-size:14px;line-height:1.6">
+                Hola ${payload.nombre ?? ''},<br>
+                hemos recibido tu solicitud para conectar <strong style="color:#fff">${payload.empresa ?? 'tu empresa'}</strong> con TrabFlow.
+              </p>
+              <p style="color:#94a3b8;font-size:14px;line-height:1.6">
+                Nos pondremos en contacto contigo en menos de 24h para continuar la conversación y explicarte cómo funciona el portal de proveedores.
+              </p>
+              <p style="color:#334155;font-size:12px;margin-top:24px">
+                ¿Tienes alguna pregunta urgente? Escríbenos a <a href="mailto:contacto@trabflow.com" style="color:#00CFE8">contacto@trabflow.com</a>
+              </p>
+            `),
+          );
+          console.log(`[trade-email] provider_confirm sent to ${payload.email}`);
+        }
         break;
 
       default:

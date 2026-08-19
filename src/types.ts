@@ -79,6 +79,9 @@ Marketplace = 'marketplace',
 
 // Marketplace público — acceso sin login desde web pública
 MarketplacePublico = 'marketplace-publico',
+
+// Página pública para proveedores / distribuidores / mayoristas
+Proveedores = 'proveedores',
 }
 
 export type TradeType =

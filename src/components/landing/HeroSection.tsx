@@ -6,10 +6,10 @@ interface HeroSectionProps {
 }
 
 const CHECKS = [
-  'Presupuestos PDF en menos de 3 minutos',
-  'Planificación de rutas automática',
-  'Normativa REBT, RITE, CTE, IVA, SS con IA',
-  'Control total de tu negocio en tiempo real',
+  'Presupuestos PDF en minutos con IA de voz',
+  'Marketplace de materiales integrado con tu trabajo',
+  'Parte de campo, fotos y firma digital del cliente',
+  'Control total: planificación, equipo, rutas y facturación',
 ];
 
 const BUDGET_ITEMS = [
@@ -115,13 +115,12 @@ export default function HeroSection({ setCurrentPage }: HeroSectionProps) {
             </div>
 
             <h1 className="text-4xl xl:text-5xl font-black text-[#1C2535] leading-[1.05] mb-4 tracking-tight">
-              La app que necesita{' '}
-              <span className="text-[#1A5A96]">tu negocio</span>{' '}
-              de instalaciones
+              El sistema operativo del{' '}
+              <span className="text-[#1A5A96]">instalador profesional</span>
             </h1>
 
             <p className="text-sm xl:text-base text-[#1C2535]/55 leading-relaxed mb-6">
-              Dicta el trabajo a realizar y la IA genera tu presupuesto profesional en segundos. Sin papeles, sin complicaciones.
+              Presupuesta con IA, compra materiales, ejecuta el trabajo, firma y cobra. Todo conectado en una sola plataforma.
             </p>
 
             <ul className="space-y-2.5 mb-8">
@@ -201,12 +200,11 @@ export default function HeroSection({ setCurrentPage }: HeroSectionProps) {
               Acceso anticipado — Empieza gratis hoy
             </div>
             <h1 className="text-3xl sm:text-4xl font-black text-[#1C2535] leading-[1.1] mb-4">
-              La app que necesita{' '}
-              <span className="text-[#1A5A96]">tu negocio</span>{' '}
-              de instalaciones
+              El sistema operativo del{' '}
+              <span className="text-[#1A5A96]">instalador profesional</span>
             </h1>
             <p className="text-base text-[#1C2535]/55 leading-relaxed mb-6">
-              Presupuestos profesionales, planificación de rutas y normativa técnica con IA.
+              Presupuesta con IA, compra materiales, ejecuta el trabajo, firma y cobra. Todo conectado.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <button

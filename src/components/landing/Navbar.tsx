@@ -9,6 +9,7 @@ interface NavbarProps {
 const NAV_LINKS = [
   { label: 'Funciones', page: ActivePage.ComoFunciona },
   { label: 'Marketplace', page: ActivePage.MarketplacePublico },
+  { label: 'Proveedores', page: ActivePage.Proveedores },
   { label: 'Precios', page: ActivePage.Precios },
   { label: 'Asistente IA', page: ActivePage.AsisTecnico },
   { label: 'Herramientas', page: ActivePage.Herramientas },

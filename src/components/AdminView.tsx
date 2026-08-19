@@ -21,7 +21,7 @@ import {
   adminLoadAIFeedback, adminMarkFeedbackApplied,
   applyActuacionLearning,
   AdminOrgRow, TradeSubscription, TradePlatformInvoice, TradeWaitlistLead,
-  WaitlistEstado, WaitlistPrioridad, TradeCatalogSuggestion, AdminSupportNote, AdminActivityLog,
+  WaitlistEstado, WaitlistPrioridad, LeadType, TradeCatalogSuggestion, AdminSupportNote, AdminActivityLog,
   AdminAutoConfig, TrialExpiringSoon, InstallerNeed, AIFeedbackRow,
 } from '../lib/supabase';
 import { ADMIN_EMAIL } from '../lib/constants';
@@ -308,6 +308,174 @@ function NewInstallerModal({ initialData, onClose, onCreated }: NewInstallerModa
             {loading ? <RefreshCw className="h-3.5 w-3.5 animate-spin" /> : <UserPlus className="h-3.5 w-3.5" />}
             {loading ? 'Creando…' : 'Crear instalador'}
           </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Modal: detalle de lead proveedor/publicidad (top-level) ──────────────────
+interface LeadDetailModalProps {
+  lead: TradeWaitlistLead;
+  onClose: () => void;
+  onUpdate: (id: string, updates: Partial<TradeWaitlistLead>) => void;
+}
+function LeadDetailModal({ lead, onClose, onUpdate }: LeadDetailModalProps) {
+  const isProvider = lead.lead_type === 'provider' || lead.lead_type === 'advertising';
+  const [followupDate, setFollowupDate] = useState(lead.next_followup_at ? lead.next_followup_at.slice(0, 10) : '');
+  const [savingFollowup, setSavingFollowup] = useState(false);
+
+  const saveFollowup = async () => {
+    if (!followupDate) return;
+    setSavingFollowup(true);
+    try {
+      const isoDate = new Date(followupDate).toISOString();
+      await adminUpdateWaitlistLead(lead.id, { next_followup_at: isoDate });
+      onUpdate(lead.id, { next_followup_at: isoDate });
+    } catch { /* silencioso */ }
+    finally { setSavingFollowup(false); }
+  };
+
+  const row = (label: string, value?: string | boolean | string[] | null) => {
+    if (value === undefined || value === null || value === '' || (Array.isArray(value) && value.length === 0)) return null;
+    const display = Array.isArray(value) ? value.join(', ') : typeof value === 'boolean' ? (value ? 'Sí' : 'No') : value;
+    return (
+      <div key={label} className="flex gap-2 py-1.5 border-b border-slate-700/50 last:border-0">
+        <span className="text-slate-500 text-[10px] uppercase tracking-wider w-36 shrink-0 pt-0.5">{label}</span>
+        <span className="text-slate-200 text-xs break-all">{display}</span>
+      </div>
+    );
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
+      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
+
+        {/* Header */}
+        <div className="sticky top-0 bg-slate-900 border-b border-slate-700 px-6 py-4 flex items-center justify-between">
+          <div>
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-white font-bold text-base">{lead.company_name ?? lead.nombre}</span>
+              {lead.lead_type === 'provider' && <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded bg-violet-900/40 text-violet-300 border border-violet-800">Proveedor</span>}
+              {lead.lead_type === 'advertising' && <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded bg-orange-900/40 text-orange-300 border border-orange-800">Publicidad</span>}
+              {lead.founding_provider && <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded bg-yellow-900/40 text-yellow-300 border border-yellow-800">Fundador ★</span>}
+            </div>
+            {lead.company_name && <p className="text-slate-400 text-xs mt-0.5">{lead.nombre}</p>}
+          </div>
+          <button onClick={onClose} className="h-8 w-8 flex items-center justify-center rounded-lg text-slate-500 hover:text-white hover:bg-slate-700 transition-colors cursor-pointer">
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+
+        <div className="px-6 py-5 space-y-5">
+
+          {/* Datos de contacto */}
+          <section>
+            <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2">Datos de contacto</h3>
+            <div className="bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-1">
+              {row('Nombre', lead.nombre)}
+              {row('Empresa', lead.company_name)}
+              {row('Tipo empresa', lead.company_type)}
+              {row('Email', lead.email)}
+              {row('Teléfono', lead.telefono)}
+              {row('Web', lead.website)}
+              {row('Provincia', lead.province ?? lead.ciudad)}
+              {row('Cobertura', lead.geographic_coverage)}
+              {row('Tamaño catálogo', lead.catalog_size)}
+              {row('Fuente', lead.fuente)}
+            </div>
+          </section>
+
+          {/* Intereses */}
+          {((lead.interests && lead.interests.length > 0) || lead.provider_interest || lead.advertising_interest || lead.founding_provider_interest) && (
+            <section>
+              <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2">Intereses declarados</h3>
+              <div className="flex flex-wrap gap-1.5">
+                {(lead.interests ?? []).map(i => (
+                  <span key={i} className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-900/30 border border-blue-800 text-blue-300">{i}</span>
+                ))}
+                {lead.advertising_interest && <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-orange-900/30 border border-orange-800 text-orange-300">Publicidad Marketplace</span>}
+                {lead.founding_provider_interest && <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-yellow-900/30 border border-yellow-800 text-yellow-300">Proveedor Fundador</span>}
+              </div>
+            </section>
+          )}
+
+          {/* Campaña publicitaria */}
+          {lead.advertising_interest && (
+            <section>
+              <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2">Campaña / Publicidad</h3>
+              <div className="bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-1">
+                {row('Producto / Categoría', lead.product_category)}
+                {row('Tipo de campaña', lead.campaign_type)}
+                {row('Periodo deseado', lead.desired_period)}
+                {row('Espacio de interés', lead.desired_ad_space)}
+                {row('Presupuesto orientativo', lead.estimated_budget)}
+              </div>
+            </section>
+          )}
+
+          {/* Programa Fundador */}
+          {isProvider && (lead.founding_provider || lead.founding_provider_interest) && (
+            <section>
+              <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2">Programa Proveedor Fundador</h3>
+              <div className="bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-1">
+                {row('Interés declarado', lead.founding_provider_interest)}
+                {row('Confirmado como Fundador', lead.founding_provider)}
+                {lead.founding_provider && row('Descuento publicidad', `${lead.advertising_discount_percent ?? 30}%`)}
+              </div>
+            </section>
+          )}
+
+          {/* Notas */}
+          {lead.notas && (
+            <section>
+              <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2">Notas internas</h3>
+              <div className="bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-slate-300 text-sm leading-relaxed whitespace-pre-wrap">{lead.notas}</div>
+            </section>
+          )}
+
+          {/* Seguimiento */}
+          <section>
+            <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2">Seguimiento</h3>
+            <div className="bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-1">
+              {row('Estado', lead.estado)}
+              {row('Prioridad', lead.prioridad)}
+              {row('Alta', new Date(lead.created_at).toLocaleDateString('es-ES'))}
+              {lead.contacted_at && row('Último contacto', new Date(lead.contacted_at).toLocaleDateString('es-ES'))}
+              {lead.converted_at && row('Conversión', new Date(lead.converted_at).toLocaleDateString('es-ES'))}
+              {lead.next_followup_at && row('Próximo seguimiento', new Date(lead.next_followup_at).toLocaleDateString('es-ES'))}
+            </div>
+            <div className="flex items-center gap-2 mt-3">
+              <input type="date" value={followupDate} onChange={e => setFollowupDate(e.target.value)}
+                className="flex-1 bg-slate-800 border border-slate-700 text-white text-xs rounded px-3 py-2 focus:outline-none focus:border-blue-500" />
+              <button onClick={saveFollowup} disabled={savingFollowup || !followupDate}
+                className="px-3 py-2 rounded text-xs font-bold bg-blue-700 hover:bg-blue-600 text-white disabled:opacity-50 cursor-pointer transition-colors">
+                {savingFollowup ? '…' : 'Fijar seguimiento'}
+              </button>
+            </div>
+          </section>
+
+          {/* Acciones rápidas */}
+          <section>
+            <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2">Acciones rápidas</h3>
+            <div className="flex flex-wrap gap-2">
+              <a href={`mailto:${lead.email}`}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold bg-slate-800 border border-slate-700 text-slate-300 hover:text-white hover:border-slate-600 transition-colors">
+                <Mail className="h-3.5 w-3.5" /> Enviar email
+              </a>
+              {lead.telefono && (
+                <a href={`https://wa.me/${(lead.telefono ?? '').replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold bg-emerald-900/30 border border-emerald-800 text-emerald-300 hover:bg-emerald-700 hover:text-white transition-colors">
+                  <MessageCircle className="h-3.5 w-3.5" /> WhatsApp
+                </a>
+              )}
+              <button onClick={() => { navigator.clipboard.writeText(lead.email); }}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold bg-slate-800 border border-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer">
+                <Copy className="h-3.5 w-3.5" /> Copiar email
+              </button>
+            </div>
+          </section>
+
         </div>
       </div>
     </div>
@@ -864,7 +1032,9 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [leadsEstado, setLeadsEstado]     = useState<string>('todos');
   const [leadsOficio, setLeadsOficio]     = useState<string>('todos');
   const [leadsPrioridad, setLeadsPrioridad] = useState<string>('todos');
+  const [leadsType, setLeadsType]         = useState<string>('todos');
   const [noteModal, setNoteModal]         = useState<TradeWaitlistLead | null>(null);
+  const [detailModal, setDetailModal]     = useState<TradeWaitlistLead | null>(null);
   const [convertModal, setConvertModal]   = useState<TradeWaitlistLead | null>(null);
   const [leadFromConvert, setLeadFromConvert] = useState<Partial<typeof EMPTY_NEW> | undefined>(undefined);
   const [copiedField, setCopiedField]     = useState<string | null>(null);
@@ -1131,14 +1301,27 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const handleExportLeads = () => {
     const rows = filteredLeads.map(l => ({
       Nombre: l.nombre,
+      Empresa: l.company_name ?? '',
       Email: l.email,
       Teléfono: l.telefono ?? '',
+      Tipo: l.lead_type ?? 'installer',
       Oficio: l.oficio ?? '',
       Ciudad: l.ciudad ?? '',
+      Provincia: l.province ?? '',
+      'Tipo empresa': l.company_type ?? '',
+      Web: l.website ?? '',
       'Presup./mes': l.presupuestos_al_mes ?? '',
       Estado: l.estado,
       Prioridad: l.prioridad,
       Fuente: l.fuente ?? '',
+      Intereses: (l.interests ?? []).join(', '),
+      Publicidad: l.advertising_interest ? 'Sí' : '',
+      'Proveedor Fundador': l.founding_provider_interest ? 'Sí' : '',
+      'Tipo campaña': l.campaign_type ?? '',
+      'Producto / Categoría': l.product_category ?? '',
+      'Periodo deseado': l.desired_period ?? '',
+      'Espacio deseado': l.desired_ad_space ?? '',
+      'Presupuesto estimado': l.estimated_budget ?? '',
       'Fecha alta': new Date(l.created_at).toLocaleDateString('es-ES'),
       Notas: l.notas ?? '',
     }));
@@ -1172,14 +1355,19 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const convertidos   = leads.filter(l => l.estado === 'convertido').length;
   const tasaBeta      = totalLeads ? Math.round((betaActiva + convertidos) / totalLeads * 100) : 0;
   const tasaConv      = (betaActiva + convertidos) ? Math.round(convertidos / (betaActiva + convertidos) * 100) : 0;
+  const proveedoresLeads   = leads.filter(l => l.lead_type === 'provider' || l.lead_type === 'advertising').length;
+  const publicidadLeads    = leads.filter(l => l.advertising_interest).length;
 
   const filteredLeads = leads.filter(l => {
     const q = leadsSearch.toLowerCase();
-    const matchSearch = !q || l.nombre.toLowerCase().includes(q) || l.email.toLowerCase().includes(q) || (l.telefono ?? '').includes(q);
+    const matchSearch = !q || l.nombre.toLowerCase().includes(q) || l.email.toLowerCase().includes(q) ||
+      (l.telefono ?? '').includes(q) || (l.company_name ?? '').toLowerCase().includes(q);
     const matchEstado    = leadsEstado === 'todos' || l.estado === leadsEstado;
     const matchOficio    = leadsOficio === 'todos' || l.oficio === leadsOficio;
     const matchPrioridad = leadsPrioridad === 'todos' || l.prioridad === leadsPrioridad;
-    return matchSearch && matchEstado && matchOficio && matchPrioridad;
+    const matchType = leadsType === 'todos' || l.lead_type === leadsType ||
+      (leadsType === 'advertising' && l.advertising_interest);
+    return matchSearch && matchEstado && matchOficio && matchPrioridad && matchType;
   });
 
   const pendingSuggestions = suggestions.filter(s => s.estado === 'pendiente').length;
@@ -1367,7 +1555,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const NAV = [
     { id: 'dashboard'     as const, label: 'Dashboard',      Icon: TrendingUp },
     { id: 'orgs'          as const, label: 'Clientes',        Icon: Users },
-    { id: 'leads'         as const, label: 'Leads beta',      Icon: Inbox,       badge: nuevosLeads },
+    { id: 'leads'         as const, label: 'Leads',            Icon: Inbox,       badge: nuevosLeads },
     { id: 'subscriptions' as const, label: 'Suscripciones',   Icon: Repeat },
     { id: 'invoices'      as const, label: 'Facturación',     Icon: CreditCard },
     { id: 'usage'         as const, label: 'Uso',             Icon: BarChart2 },
@@ -1849,15 +2037,17 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
         {section === 'leads' && (<>
 
           {/* Métricas CRM */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 mb-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-3 mb-6">
             {[
-              { label: 'Total leads',      value: totalLeads,  color: 'text-slate-300' },
-              { label: 'Nuevos',           value: nuevosLeads, color: 'text-blue-400' },
-              { label: 'Contactados',      value: contactados, color: 'text-yellow-400' },
-              { label: 'Beta activa',      value: betaActiva,  color: 'text-cyan-400' },
-              { label: 'Convertidos',      value: convertidos, color: 'text-emerald-400' },
-              { label: 'Lead → beta',      value: `${tasaBeta}%`, color: 'text-purple-400' },
-              { label: 'Beta → pago',      value: `${tasaConv}%`, color: 'text-pink-400' },
+              { label: 'Total leads',      value: totalLeads,       color: 'text-slate-300' },
+              { label: 'Nuevos',           value: nuevosLeads,      color: 'text-blue-400' },
+              { label: 'Contactados',      value: contactados,      color: 'text-yellow-400' },
+              { label: 'Beta activa',      value: betaActiva,       color: 'text-cyan-400' },
+              { label: 'Convertidos',      value: convertidos,      color: 'text-emerald-400' },
+              { label: 'Proveedores',      value: proveedoresLeads, color: 'text-violet-400' },
+              { label: 'Publicidad',       value: publicidadLeads,  color: 'text-orange-400' },
+              { label: 'Lead → beta',      value: `${tasaBeta}%`,   color: 'text-purple-400' },
+              { label: 'Beta → pago',      value: `${tasaConv}%`,   color: 'text-pink-400' },
             ].map(({ label, value, color }) => (
               <div key={label} className="bg-slate-800/50 border border-slate-700 rounded-lg p-3">
                 <div className="text-[9px] text-slate-400 uppercase tracking-wider mb-1">{label}</div>
@@ -1874,6 +2064,15 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                 onChange={e => setLeadsSearch(e.target.value)}
                 className="w-full pl-9 pr-3 py-2 bg-slate-800 border border-slate-700 rounded text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
             </div>
+            <select value={leadsType} onChange={e => setLeadsType(e.target.value)}
+              className="bg-slate-800 border border-slate-700 text-slate-300 text-xs rounded px-3 py-2 cursor-pointer focus:outline-none focus:border-blue-500">
+              <option value="todos">Todos los tipos</option>
+              <option value="installer">Instalador</option>
+              <option value="provider">Proveedor</option>
+              <option value="advertising">Publicidad</option>
+              <option value="partner">Partner</option>
+              <option value="other">Otros</option>
+            </select>
             <select value={leadsEstado} onChange={e => setLeadsEstado(e.target.value)}
               className="bg-slate-800 border border-slate-700 text-slate-300 text-xs rounded px-3 py-2 cursor-pointer focus:outline-none focus:border-blue-500">
               <option value="todos">Todos los estados</option>
@@ -1931,9 +2130,44 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                       <tr key={lead.id} className="border-b border-slate-700/50 hover:bg-slate-800/60 transition-colors">
 
                         {/* Nombre */}
-                        <td className="px-4 py-3 min-w-[140px]">
-                          <div className="font-semibold text-white text-sm">{lead.nombre}</div>
-                          <div className="text-[10px] text-slate-500 font-mono">{lead.fuente}</div>
+                        <td className="px-4 py-3 min-w-[160px]">
+                          <div className="font-semibold text-white text-sm">
+                            {lead.company_name ? lead.company_name : lead.nombre}
+                          </div>
+                          {lead.company_name && (
+                            <div className="text-[10px] text-slate-400">{lead.nombre}</div>
+                          )}
+                          <div className="flex items-center gap-1 mt-0.5 flex-wrap">
+                            {(lead.lead_type === 'provider' || lead.lead_type === 'advertising') && (
+                              <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-violet-900/40 text-violet-300 border border-violet-800">
+                                Proveedor
+                              </span>
+                            )}
+                            {lead.advertising_interest && (
+                              <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-orange-900/40 text-orange-300 border border-orange-800">
+                                Publicidad
+                              </span>
+                            )}
+                            {lead.founding_provider && (
+                              <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-yellow-900/40 text-yellow-300 border border-yellow-800">
+                                Fundador ★
+                              </span>
+                            )}
+                            {!lead.founding_provider && lead.founding_provider_interest && (
+                              <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-yellow-900/20 text-yellow-600 border border-yellow-900">
+                                Fundador?
+                              </span>
+                            )}
+                            {!lead.lead_type || lead.lead_type === 'installer' ? (
+                              <div className="text-[10px] text-slate-500 font-mono">{lead.fuente}</div>
+                            ) : null}
+                            {(lead.lead_type === 'provider' || lead.lead_type === 'advertising') && (
+                              <button onClick={() => setDetailModal(lead)}
+                                className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-slate-300 hover:text-white border border-slate-600 transition-colors cursor-pointer">
+                                Ver detalle
+                              </button>
+                            )}
+                          </div>
                         </td>
 
                         {/* Contacto */}
@@ -1954,10 +2188,15 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                           )}
                         </td>
 
-                        {/* Oficio / Ciudad */}
+                        {/* Oficio / Ciudad o Tipo empresa / Provincia */}
                         <td className="px-4 py-3">
-                          <div className="text-xs text-slate-300">{lead.oficio ?? '—'}</div>
-                          <div className="text-[10px] text-slate-500">{lead.ciudad ?? '—'}</div>
+                          {lead.lead_type === 'provider' || lead.lead_type === 'advertising' ? (<>
+                            <div className="text-xs text-slate-300">{lead.company_type ?? '—'}</div>
+                            <div className="text-[10px] text-slate-500">{lead.province ?? lead.ciudad ?? '—'}</div>
+                          </>) : (<>
+                            <div className="text-xs text-slate-300">{lead.oficio ?? '—'}</div>
+                            <div className="text-[10px] text-slate-500">{lead.ciudad ?? '—'}</div>
+                          </>)}
                         </td>
 
                         {/* Presupuestos/mes */}
@@ -2025,11 +2264,39 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                               className={`flex items-center gap-1 px-2 py-1.5 rounded text-[10px] font-bold uppercase cursor-pointer border transition-colors ${lead.notas ? 'bg-yellow-900/30 border-yellow-700 text-yellow-300 hover:bg-yellow-700 hover:text-white' : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-yellow-700 hover:border-yellow-600 hover:text-white'}`}>
                               <Star className="h-3 w-3" /> Nota
                             </button>
-                            {/* Convertir */}
+                            {/* Convertir / Activar como proveedor */}
                             {lead.estado !== 'convertido' && lead.estado !== 'descartado' && (
-                              <button onClick={() => handleOpenConvert(lead)} title="Convertir en instalador"
+                              <button onClick={() => {
+                                if (lead.lead_type === 'provider' || lead.lead_type === 'advertising') {
+                                  adminUpdateWaitlistLead(lead.id, { estado: 'convertido' as WaitlistEstado, converted_at: new Date().toISOString() })
+                                    .then(() => setLeads(prev => prev.map(l => l.id === lead.id ? { ...l, estado: 'convertido' as WaitlistEstado, converted_at: new Date().toISOString() } : l)))
+                                    .catch((e: unknown) => toast('error', 'Error: ' + (e instanceof Error ? e.message : String(e))));
+                                } else {
+                                  handleOpenConvert(lead);
+                                }
+                              }} title={lead.lead_type === 'provider' || lead.lead_type === 'advertising' ? 'Marcar como proveedor activo' : 'Convertir en instalador'}
                                 className="flex items-center gap-1 px-2 py-1.5 rounded text-[10px] font-bold uppercase cursor-pointer border bg-cyan-900/30 border-cyan-700 text-cyan-300 hover:bg-cyan-600 hover:text-white transition-colors">
-                                <UserCheck className="h-3 w-3" /> Convertir
+                                <UserCheck className="h-3 w-3" />
+                                {lead.lead_type === 'provider' || lead.lead_type === 'advertising' ? 'Activar' : 'Convertir'}
+                              </button>
+                            )}
+                            {/* Marcar / Desmarcar Proveedor Fundador */}
+                            {(lead.lead_type === 'provider' || lead.lead_type === 'advertising') && (
+                              <button onClick={() => {
+                                const isFounding = lead.founding_provider;
+                                const updates = isFounding
+                                  ? { founding_provider: false, advertising_discount_percent: 0 }
+                                  : { founding_provider: true, founding_provider_interest: true, advertising_discount_percent: 30 };
+                                adminUpdateWaitlistLead(lead.id, updates as Parameters<typeof adminUpdateWaitlistLead>[1])
+                                  .then(() => setLeads(prev => prev.map(l => l.id === lead.id ? { ...l, ...updates } : l)))
+                                  .catch((e: unknown) => toast('error', 'Error: ' + (e instanceof Error ? e.message : String(e))));
+                              }} title={lead.founding_provider ? 'Desmarcar Proveedor Fundador' : 'Marcar como Proveedor Fundador (30% dto. publicidad)'}
+                                className={`flex items-center gap-1 px-2 py-1.5 rounded text-[10px] font-bold uppercase cursor-pointer border transition-colors ${
+                                  lead.founding_provider
+                                    ? 'bg-yellow-600 border-yellow-500 text-white hover:bg-yellow-900/30 hover:border-yellow-700 hover:text-yellow-300'
+                                    : 'bg-yellow-900/30 border-yellow-700 text-yellow-300 hover:bg-yellow-600 hover:text-white'
+                                }`}>
+                                <Star className="h-3 w-3" /> {lead.founding_provider ? 'Fundador ✓' : 'Fundador'}
                               </button>
                             )}
                             {/* Descartar */}
@@ -3862,6 +4129,17 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
           initialData={leadFromConvert}
           onClose={() => { setShowNewInstaller(false); setLeadFromConvert(undefined); }}
           onCreated={loadOrgs}
+        />
+      )}
+
+      {detailModal && (
+        <LeadDetailModal
+          lead={detailModal}
+          onClose={() => setDetailModal(null)}
+          onUpdate={(id, updates) => {
+            setLeads(prev => prev.map(l => l.id === id ? { ...l, ...updates } : l));
+            setDetailModal(prev => prev ? { ...prev, ...updates } : null);
+          }}
         />
       )}
 

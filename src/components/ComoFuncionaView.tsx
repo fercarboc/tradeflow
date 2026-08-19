@@ -432,6 +432,162 @@ export default function ComoFuncionaView({ setCurrentPage, setPreselectedTrade }
           </div>
         </div>
 
+        {/* ── Del presupuesto al pedido de materiales ─── */}
+        <div className="space-y-8">
+          <div className="text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[#5B9BD5]/30 bg-[#5B9BD5]/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#5B9BD5] mb-4">
+              Marketplace integrado
+            </span>
+            <h2 className="text-3xl font-black uppercase tracking-tight text-white">
+              Del presupuesto al pedido de materiales
+            </h2>
+            <p className="text-white/40 text-sm mt-3 max-w-2xl mx-auto leading-relaxed">
+              Cuando sabes qué materiales necesitas, puedes buscarlos, compararlos y pedirlos directamente desde TrabFlow. Sin salir de la plataforma.
+            </p>
+          </div>
+
+          {/* Flujo visual Marketplace */}
+          <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-6 sm:p-8">
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-0">
+              {[
+                { label: 'Presupuesto',          emoji: '📋' },
+                { label: 'Materiales necesarios', emoji: '🔩' },
+                { label: 'Buscar en Marketplace', emoji: '🛍️' },
+                { label: 'Comparar proveedores',  emoji: '⚖️' },
+                { label: 'Carrito',               emoji: '🛒' },
+                { label: 'Pedido al proveedor',   emoji: '📦' },
+              ].map((step, i, arr) => (
+                <div key={step.label} className="flex items-center gap-2 sm:gap-0">
+                  <div className="flex flex-col items-center gap-1 px-3">
+                    <span className="text-xl">{step.emoji}</span>
+                    <span className="text-[10px] font-bold text-white/55 text-center leading-tight max-w-[80px]">{step.label}</span>
+                  </div>
+                  {i < arr.length - 1 && (
+                    <span className="text-white/20 text-lg hidden sm:block">→</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Captura del Marketplace */}
+          <div className="rounded-2xl bg-[#0d1f38] border border-white/10 overflow-hidden">
+            <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between">
+              <span className="text-[10px] font-mono text-white/30 uppercase tracking-wider">TrabFlow · Marketplace</span>
+              <span className="text-[9px] font-mono text-[#5B9BD5] bg-[#5B9BD5]/10 px-2 py-0.5 rounded border border-[#5B9BD5]/20">Fase de validación</span>
+            </div>
+            <div className="p-2">
+              <img
+                src="/marketplace/carousel/carrusel1.png"
+                alt="Marketplace TrabFlow — catálogo de materiales"
+                className="w-full rounded-xl object-cover"
+                style={{ maxHeight: '360px', objectPosition: 'top' }}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              { emoji: '🔍', title: 'Busca y filtra', text: 'Encuentra materiales por categoría, familia o referencia. Compara alternativas de diferentes proveedores.' },
+              { emoji: '🛒', title: 'Carrito multi-proveedor', text: 'Añade productos de distintos proveedores al mismo carrito. TrabFlow agrupa los pedidos automáticamente.' },
+              { emoji: '📦', title: 'Pedido y seguimiento', text: 'Genera el pedido con un toque. Selecciona entrega o recogida y haz seguimiento desde la plataforma.' },
+            ].map(({ emoji, title, text }) => (
+              <div key={title} className="rounded-2xl bg-[#0d1f38] border border-white/10 p-6 space-y-3">
+                <span className="text-2xl">{emoji}</span>
+                <h3 className="text-sm font-black uppercase tracking-wide text-white">{title}</h3>
+                <p className="text-sm text-white/50 leading-relaxed">{text}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="rounded-2xl border border-[#5B9BD5]/20 bg-[#5B9BD5]/5 p-5 flex items-start gap-3">
+            <span className="text-[#5B9BD5] text-lg shrink-0">ℹ️</span>
+            <p className="text-sm text-white/50 leading-relaxed">
+              El Marketplace TrabFlow está operativo con catálogos y proveedores de prueba.{' '}
+              <span className="text-white/70 font-medium">La siguiente fase incorpora proveedores comerciales reales.</span>
+            </p>
+          </div>
+        </div>
+
+        {/* ── Cierra cada trabajo como un profesional ─── */}
+        <div className="space-y-8">
+          <div className="text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[#00CFE8]/30 bg-[#00CFE8]/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#00CFE8] mb-4">
+              Todos los planes
+            </span>
+            <h2 className="text-3xl font-black uppercase tracking-tight text-white">
+              Cierra cada trabajo como un profesional
+            </h2>
+            <p className="text-white/40 text-sm mt-3 max-w-2xl mx-auto leading-relaxed">
+              Del trabajo al cobro en un flujo continuo. Sin papel y sin duplicar información.
+            </p>
+          </div>
+
+          {/* Flujo visual cierre */}
+          <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-6 sm:p-8">
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-0">
+              {[
+                { label: 'Ejecución',           emoji: '🔧' },
+                { label: 'Parte de trabajo',    emoji: '📝' },
+                { label: 'Fotos adjuntas',      emoji: '📸' },
+                { label: 'Firma digital',       emoji: '✍️' },
+                { label: 'Factura',             emoji: '🧾' },
+                { label: 'Cobro',               emoji: '💶' },
+              ].map((step, i, arr) => (
+                <div key={step.label} className="flex items-center gap-2 sm:gap-0">
+                  <div className="flex flex-col items-center gap-1 px-3">
+                    <span className="text-xl">{step.emoji}</span>
+                    <span className="text-[10px] font-bold text-white/55 text-center leading-tight max-w-[80px]">{step.label}</span>
+                  </div>
+                  {i < arr.length - 1 && (
+                    <span className="text-white/20 text-lg hidden sm:block">→</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              { emoji: '📝', title: 'Parte de trabajo', text: 'El técnico documenta desde el móvil: descripción, materiales utilizados y horas. Vinculado al trabajo y al presupuesto original.' },
+              { emoji: '📸', title: 'Fotos del trabajo', text: 'Adjunta fotografías directamente desde la cámara del móvil. Quedan asociadas al trabajo y disponibles para el cliente.' },
+              { emoji: '✍️', title: 'Firma digital del cliente', text: 'El cliente firma en pantalla en el acto. Sin papel, sin impresoras. La firma queda registrada y vinculada al parte.' },
+            ].map(({ emoji, title, text }) => (
+              <div key={title} className="rounded-2xl bg-[#0d1f38] border border-white/10 p-6 space-y-3">
+                <span className="text-2xl">{emoji}</span>
+                <h3 className="text-sm font-black uppercase tracking-wide text-white">{title}</h3>
+                <p className="text-sm text-white/50 leading-relaxed">{text}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-6 sm:p-8">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-white/40 text-center mb-6">
+              Todo vinculado — del presupuesto a la factura
+            </h4>
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-0">
+              {[
+                { label: 'Presupuesto aceptado', emoji: '✅' },
+                { label: 'Trabajo asignado',     emoji: '📋' },
+                { label: 'Ejecución y parte',    emoji: '🔧' },
+                { label: 'Firma cliente',        emoji: '✍️' },
+                { label: 'Factura generada',     emoji: '🧾' },
+                { label: 'Cobro registrado',     emoji: '💶' },
+              ].map((step, i, arr) => (
+                <div key={step.label} className="flex items-center gap-2 sm:gap-0">
+                  <div className="flex flex-col items-center gap-1 px-3">
+                    <span className="text-xl">{step.emoji}</span>
+                    <span className="text-[10px] font-bold text-white/55 text-center leading-tight max-w-[80px]">{step.label}</span>
+                  </div>
+                  {i < arr.length - 1 && (
+                    <span className="text-white/20 text-lg hidden sm:block">→</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* ── Trabajos Externalizados + Gastos ────────── */}
         <div className="space-y-8">
           <div className="text-center">

@@ -317,13 +317,14 @@ const HOME_SLOT_IDS: readonly AdSlotId[] = [
 // ── Componente principal ───────────────────────────────────────────────────────
 
 interface MarketplaceHomeProps {
-  onGoToCatalog:    (oficio?: string | null, search?: string, actor?: string) => void;
-  onGoHome:         () => void;
-  cartCount:        number;
-  onOpenCart:       () => void;
-  location:         MarketplaceLocation | null;
-  onChangeLocation: () => void;
-  onMisPedidos?:    () => void;
+  onGoToCatalog:      (oficio?: string | null, search?: string, actor?: string) => void;
+  onGoHome:           () => void;
+  cartCount:          number;
+  onOpenCart:         () => void;
+  location:           MarketplaceLocation | null;
+  onChangeLocation:   () => void;
+  onMisPedidos?:      () => void;
+  onGoToProveedores?: () => void;
 }
 
 export default function MarketplaceHome({
@@ -334,6 +335,7 @@ export default function MarketplaceHome({
   location,
   onChangeLocation,
   onMisPedidos,
+  onGoToProveedores,
 }: MarketplaceHomeProps) {
   const [suppliers,   setSuppliers]   = useState<ActiveSupplier[]>([]);
   const [suppLoading, setSuppLoading] = useState(true);
@@ -502,6 +504,30 @@ export default function MarketplaceHome({
           </button>
         </div>
       </div>
+
+      {/* Strip para proveedores — visible solo si se pasa el callback (modo público) */}
+      {onGoToProveedores && (
+        <div className="mx-auto max-w-5xl px-4 pb-8 pt-2">
+          <div
+            className="rounded-2xl bg-[#0F1A2E] border border-[#1A5A96]/25 px-5 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 cursor-pointer hover:border-[#1A5A96]/50 transition-colors"
+            onClick={onGoToProveedores}
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-[#1A5A96]/20 flex items-center justify-center shrink-0">
+                <Store className="w-4 h-4 text-[#5B9BD5]" />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-white">¿Eres distribuidor, mayorista o fabricante?</p>
+                <p className="text-xs text-white/45">Conecta tu catálogo con TrabFlow y gestiona productos, pedidos y visibilidad desde tu portal.</p>
+              </div>
+            </div>
+            <span className="text-xs font-bold text-[#5B9BD5] whitespace-nowrap flex items-center gap-1.5 shrink-0">
+              Descubre TrabFlow para proveedores
+              <ChevronRight className="w-3.5 h-3.5" />
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* FAB carrito — mobile con artículos */}
       {cartCount > 0 && (

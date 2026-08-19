@@ -54,6 +54,7 @@ const ScreenSeguimientoMaterial   = lazy(() => import('./components/marketplace/
 const WorkspaceSelectorView              = lazy(() => import('./components/workspace/WorkspaceSelectorView'));
 const MarketplaceInvitationAcceptView    = lazy(() => import('./components/auth/MarketplaceInvitationAcceptView'));
 const ScreenMarketplace                  = lazy(() => import('./components/marketplace/ScreenMarketplace'));
+const ProveedoresView                    = lazy(() => import('./components/landing/ProveedoresView'));
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -144,6 +145,7 @@ const PAGE_PATHS: Partial<Record<ActivePage, string>> = {
   [ActivePage.MarketplaceInvitationAccept]: '/aceptar-invitacion',
   [ActivePage.Marketplace]:                 '/app/marketplace',
   [ActivePage.MarketplacePublico]:          '/marketplace',
+  [ActivePage.Proveedores]:                 '/proveedores',
 };
 
 function pageToPath(page: ActivePage): string {
@@ -192,6 +194,7 @@ const PUBLIC_OR_AUTH_PAGES = new Set<ActivePage>([
   ActivePage.Parte,
   ActivePage.MarketplaceInvitationAccept,
   ActivePage.MarketplacePublico,
+  ActivePage.Proveedores,
 ]);
 
 // Páginas de app donde el routing post-auth no debe redirigir si el usuario ya estaba ahí
@@ -241,6 +244,7 @@ function detectAuthRoute(): ActivePage | null {
   if (path.startsWith('/parte/')) return ActivePage.Parte;
   if (path === '/aceptar-invitacion') return ActivePage.MarketplaceInvitationAccept;
   if (path === '/marketplace') return ActivePage.MarketplacePublico;
+  if (path === '/proveedores') return ActivePage.Proveedores;
 
   return null;
 }
@@ -691,6 +695,9 @@ export default function App() {
 
       case ActivePage.MarketplacePublico:
         return <ScreenMarketplace setCurrentPage={setCurrentPage} mode="public" />;
+
+      case ActivePage.Proveedores:
+        return <ProveedoresView setCurrentPage={setCurrentPage} />;
 
       case ActivePage.NoWorkspace:
         return (

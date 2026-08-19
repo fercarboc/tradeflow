@@ -7,6 +7,8 @@ interface LandingFooterProps {
 
 const COL_PRODUCTO = [
   { label: 'Funciones', page: ActivePage.ComoFunciona },
+  { label: 'Marketplace', page: ActivePage.MarketplacePublico },
+  { label: 'Proveedores', page: ActivePage.Proveedores },
   { label: 'Precios', page: ActivePage.Precios },
   { label: 'Asistente IA', page: ActivePage.AsisTecnico },
   { label: 'Roadmap', page: ActivePage.Home },
