@@ -218,7 +218,7 @@ interface TargetOption { id: string; label: string; extra: string }
 
 const TARGET_TYPE_DEFS: { type: TargetType; label: string; desc: string }[] = [
   { type: 'CATEGORY', label: 'Categoría',   desc: 'Vincula el anuncio a una categoría del marketplace' },
-  { type: 'TRADE',    label: 'Gremio',       desc: 'Vincula el anuncio a un oficio profesional' },
+  { type: 'TRADE',    label: 'Gremios',      desc: 'Dirige el anuncio a instaladores de un gremio concreto o varios' },
   { type: 'BRAND',    label: 'Marca',        desc: 'Vincula el anuncio a una marca de producto' },
   { type: 'SUPPLIER', label: 'Tu empresa',   desc: 'Promoción directa de tu empresa como proveedor' },
   { type: 'PRODUCT',  label: 'Producto',     desc: 'Vincula el anuncio a un producto concreto' },
@@ -259,6 +259,7 @@ interface SolicitarForm {
   targetType:  TargetType | '';
   targetId:    string;
   targetLabel: string;
+  targetIds:   string[];
 }
 
 interface SolicitarEspacioDrawerProps {
@@ -266,6 +267,19 @@ interface SolicitarEspacioDrawerProps {
   actorId:    string;
   onClose:    () => void;
   onSubmitted: () => void;
+}
+
+const TRADE_GROUP_ORDER = [
+  'Instalaciones', 'Construcción y reformas', 'Acabados',
+  'Carpintería y cerramientos', 'Baños y cocinas',
+  'Exterior y piscinas', 'Servicios técnicos', 'Otros profesionales',
+];
+
+interface TradeGremioExtra { grupo: string; aliases: string[] }
+
+function parseTradeExtra(extra: string): TradeGremioExtra {
+  try { return JSON.parse(extra) as TradeGremioExtra; }
+  catch { return { grupo: 'Otros', aliases: [] }; }
 }
 
 const PERIOD_PRESETS = [
@@ -290,7 +304,7 @@ function SolicitarEspacioDrawer({ slots, actorId, onClose, onSubmitted }: Solici
   const [form,           setForm]           = useState<SolicitarForm>({
     slotId: freeSlots[0]?.id ?? '', inicio: tomorrow,
     fin: addDays(tomorrow, 6), mensaje: '',
-    targetType: '', targetId: '', targetLabel: '',
+    targetType: '', targetId: '', targetLabel: '', targetIds: [],
   });
   const [targetOptions,  setTargetOptions]  = useState<TargetOption[]>([]);
   const [targetLoading,  setTargetLoading]  = useState(false);
@@ -298,6 +312,8 @@ function SolicitarEspacioDrawer({ slots, actorId, onClose, onSubmitted }: Solici
   const [sending,        setSending]        = useState(false);
   const [sendError,      setSendError]      = useState<string | null>(null);
   const [requestId,      setRequestId]      = useState('');
+  const [isOtroSelected, setIsOtroSelected] = useState(false);
+  const [otroGremioText, setOtroGremioText] = useState('');
 
   const selSlot  = freeSlots.find(s => s.id === form.slotId) ?? null;
   const estimate = calcEstimate(selSlot, form.inicio, form.fin);
@@ -324,21 +340,30 @@ function SolicitarEspacioDrawer({ slots, actorId, onClose, onSubmitted }: Solici
     setField('targetType', type);
     setField('targetId', '');
     setField('targetLabel', '');
+    setField('targetIds', []);
     setTargetSearch('');
+    setIsOtroSelected(false);
+    setOtroGremioText('');
     loadTargetOptions(type);
   }
 
   async function handleSend() {
     setSending(true);
     setSendError(null);
+    const isTradeMulti = form.targetType === 'TRADE' && form.targetIds.length > 0;
+    let finalMensaje = form.mensaje.trim();
+    if (isOtroSelected && otroGremioText.trim()) {
+      finalMensaje = [finalMensaje, `Gremio personalizado: ${otroGremioText.trim()}`].filter(Boolean).join('\n');
+    }
     const { data, error } = await supabase.rpc('request_ad_slot_v2', {
       p_actor_id:    actorId,
       p_slot_id:     form.slotId,
       p_inicio:      form.inicio,
       p_fin:         form.fin,
-      p_mensaje:     form.mensaje.trim() || null,
-      p_target_type: form.targetType || null,
-      p_target_id:   form.targetId   || null,
+      p_mensaje:     finalMensaje || null,
+      p_target_type: isTradeMulti ? 'TRADE' : (form.targetType || null),
+      p_target_id:   isTradeMulti ? null : (form.targetId || null),
+      p_target_ids:  isTradeMulti ? form.targetIds : null,
     });
     setSending(false);
     if (error) {
@@ -362,9 +387,29 @@ function SolicitarEspacioDrawer({ slots, actorId, onClose, onSubmitted }: Solici
 
   const stepIdx = SOL_STEPS.findIndex(s => s.key === step);
 
-  const filteredOptions = targetSearch
-    ? targetOptions.filter(o => o.label.toLowerCase().includes(targetSearch.toLowerCase()))
-    : targetOptions;
+  const filteredOptions = (() => {
+    if (!targetSearch) return targetOptions;
+    const q = targetSearch.toLowerCase();
+    if (form.targetType === 'TRADE') {
+      return targetOptions.filter(o => {
+        if (o.label.toLowerCase().includes(q)) return true;
+        const tx = parseTradeExtra(o.extra);
+        return tx.aliases.some(a => a.toLowerCase().includes(q)) || tx.grupo.toLowerCase().includes(q);
+      });
+    }
+    return targetOptions.filter(o => o.label.toLowerCase().includes(q));
+  })();
+
+  const displayTargetLabel = (() => {
+    if (form.targetType === 'TRADE') {
+      if (form.targetIds.length > 0) {
+        return form.targetIds.map(id => targetOptions.find(o => o.id === id)?.label ?? id).join(', ');
+      }
+      if (isOtroSelected && otroGremioText) return `Otro: ${otroGremioText}`;
+      return 'Todos los profesionales';
+    }
+    return form.targetLabel || '';
+  })();
 
   if (step === 'enviado') {
     return (
@@ -538,7 +583,170 @@ function SolicitarEspacioDrawer({ slots, actorId, onClose, onSubmitted }: Solici
                   </button>
                 ))}
               </div>
-              {form.targetType && (
+
+              {/* TRADE — selector multi-gremio agrupado */}
+              {form.targetType === 'TRADE' && (
+                <div className="space-y-3">
+                  <input type="text" value={targetSearch}
+                    onChange={e => setTargetSearch(e.target.value)}
+                    placeholder="Buscar gremio o sinónimo (ej: caldera, split, pladur)…"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-teal-600 transition-colors" />
+
+                  {form.targetIds.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 items-center">
+                      <span className="text-[10px] font-bold text-teal-400 shrink-0">
+                        {form.targetIds.length} seleccionado{form.targetIds.length > 1 ? 's' : ''}:
+                      </span>
+                      {form.targetIds.slice(0, 4).map(id => {
+                        const opt = targetOptions.find(o => o.id === id);
+                        return opt ? (
+                          <span key={id} className="flex items-center gap-1 text-[10px] font-medium bg-teal-900/30 border border-teal-700/60 text-teal-200 px-2 py-0.5 rounded-full">
+                            {opt.label}
+                            <button type="button"
+                              onClick={() => setField('targetIds', form.targetIds.filter(i => i !== id))}
+                              className="text-teal-400 hover:text-white transition-colors cursor-pointer ml-0.5 leading-none">×</button>
+                          </span>
+                        ) : null;
+                      })}
+                      {form.targetIds.length > 4 && (
+                        <span className="text-[10px] text-slate-500">+{form.targetIds.length - 4} más</span>
+                      )}
+                      <button type="button" onClick={() => setField('targetIds', [])}
+                        className="text-[10px] text-slate-600 hover:text-red-400 transition-colors cursor-pointer ml-1">
+                        Limpiar
+                      </button>
+                    </div>
+                  )}
+
+                  {targetLoading && (
+                    <div className="flex justify-center py-4">
+                      <div className="w-4 h-4 border-2 border-teal-500 border-t-transparent rounded-full animate-spin" />
+                    </div>
+                  )}
+
+                  {!targetLoading && (
+                    <div className="max-h-64 overflow-y-auto space-y-0.5 pr-0.5">
+                      {/* Todos los profesionales */}
+                      <button type="button"
+                        onClick={() => { setField('targetIds', []); setIsOtroSelected(false); setOtroGremioText(''); }}
+                        className={`w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-lg border cursor-pointer transition-colors ${
+                          form.targetIds.length === 0 && !isOtroSelected
+                            ? 'border-teal-600 bg-teal-900/20 text-teal-200'
+                            : 'border-slate-700 bg-slate-800/40 text-slate-400 hover:border-slate-600'
+                        }`}>
+                        <svg className={`h-3.5 w-3.5 shrink-0 ${form.targetIds.length === 0 && !isOtroSelected ? 'text-teal-400' : 'text-slate-600'}`} fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zm5 8a7 7 0 10-14 0h14z" />
+                        </svg>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-semibold">Todos los profesionales</p>
+                          <p className="text-[10px] text-slate-500">Alcance universal — sin filtro por gremio</p>
+                        </div>
+                        {form.targetIds.length === 0 && !isOtroSelected && (
+                          <svg className="h-3 w-3 text-teal-400 shrink-0" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        )}
+                      </button>
+
+                      {/* Grupos de gremios */}
+                      {(() => {
+                        const groups: Record<string, TargetOption[]> = {};
+                        for (const o of filteredOptions) {
+                          const g = parseTradeExtra(o.extra).grupo || 'Otros';
+                          if (!groups[g]) groups[g] = [];
+                          groups[g].push(o);
+                        }
+                        const orderedGroups = TRADE_GROUP_ORDER
+                          .filter(g => groups[g])
+                          .map(g => ({ grupo: g, opts: groups[g] }))
+                          .concat(
+                            Object.keys(groups)
+                              .filter(g => !TRADE_GROUP_ORDER.includes(g))
+                              .map(g => ({ grupo: g, opts: groups[g] }))
+                          );
+                        if (orderedGroups.length === 0) {
+                          return (
+                            <p className="text-[11px] text-slate-600 text-center py-4">Sin resultados para "{targetSearch}"</p>
+                          );
+                        }
+                        return orderedGroups.map(({ grupo, opts }) => {
+                          const selectedInGroup = opts.filter(o => form.targetIds.includes(o.id)).length;
+                          return (
+                            <div key={grupo} className="mt-1">
+                              <div className="flex items-center gap-2 px-3 py-1">
+                                <p className="text-[9px] font-bold uppercase tracking-widest text-slate-600 flex-1">{grupo}</p>
+                                {selectedInGroup > 0 && (
+                                  <span className="text-[9px] font-bold text-teal-500 bg-teal-900/30 px-1.5 py-0.5 rounded-full">
+                                    {selectedInGroup}/{opts.length}
+                                  </span>
+                                )}
+                              </div>
+                              {opts.map(o => {
+                                const checked = form.targetIds.includes(o.id);
+                                return (
+                                  <button key={o.id} type="button"
+                                    onClick={() => {
+                                      setIsOtroSelected(false);
+                                      setField('targetIds', checked
+                                        ? form.targetIds.filter(i => i !== o.id)
+                                        : [...form.targetIds, o.id]
+                                      );
+                                    }}
+                                    className={`w-full text-left flex items-center gap-2 px-3 py-1.5 rounded cursor-pointer transition-colors ${
+                                      checked ? 'bg-teal-900/20 text-teal-200' : 'text-slate-300 hover:bg-slate-800/60'
+                                    }`}>
+                                    <div className={`w-3.5 h-3.5 rounded border shrink-0 flex items-center justify-center transition-colors ${
+                                      checked ? 'bg-teal-600 border-teal-500' : 'border-slate-600'
+                                    }`}>
+                                      {checked && (
+                                        <svg className="h-2 w-2 text-white" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+                                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                      )}
+                                    </div>
+                                    <span className="text-xs leading-tight">{o.label}</span>
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          );
+                        });
+                      })()}
+
+                      {/* Otro gremio */}
+                      <div className="mt-2 pt-2 border-t border-slate-800">
+                        <button type="button"
+                          onClick={() => { setIsOtroSelected(!isOtroSelected); setField('targetIds', []); }}
+                          className={`w-full text-left flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer transition-colors ${
+                            isOtroSelected
+                              ? 'border-teal-600 bg-teal-900/20 text-teal-200'
+                              : 'border-slate-700 bg-slate-800/40 text-slate-400 hover:border-slate-600'
+                          }`}>
+                          <div className={`w-3.5 h-3.5 rounded border shrink-0 flex items-center justify-center transition-colors ${
+                            isOtroSelected ? 'bg-teal-600 border-teal-500' : 'border-slate-600'
+                          }`}>
+                            {isOtroSelected && (
+                              <svg className="h-2 w-2 text-white" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                              </svg>
+                            )}
+                          </div>
+                          <span className="text-xs">Otro gremio no listado</span>
+                        </button>
+                        {isOtroSelected && (
+                          <input type="text" value={otroGremioText}
+                            onChange={e => setOtroGremioText(e.target.value)}
+                            placeholder="Escribe el gremio o profesión…"
+                            className="mt-1.5 w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-teal-600 transition-colors" />
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Otros tipos de objetivo — single-select */}
+              {form.targetType && form.targetType !== 'TRADE' && (
                 <div className="space-y-2">
                   <input type="text" value={targetSearch}
                     onChange={e => setTargetSearch(e.target.value)}
@@ -569,7 +777,7 @@ function SolicitarEspacioDrawer({ slots, actorId, onClose, onSubmitted }: Solici
                           )}
                           <div className="flex-1 min-w-0">
                             <p className="text-xs font-medium leading-tight truncate">{o.label}</p>
-                            {o.extra && <p className="text-[10px] text-slate-500 truncate">{o.extra}</p>}
+                            {o.extra && !o.extra.startsWith('{') && <p className="text-[10px] text-slate-500 truncate">{o.extra}</p>}
                           </div>
                         </button>
                       ))}
@@ -599,12 +807,30 @@ function SolicitarEspacioDrawer({ slots, actorId, onClose, onSubmitted }: Solici
                     <p className="text-teal-300 font-bold text-right">{fmtMoney(estimate)}</p>
                   </div>
                 )}
-                {form.targetLabel && (
-                  <div className="px-4 py-3 flex justify-between gap-2">
+                {(displayTargetLabel || form.targetType) && (
+                  <div className="px-4 py-3 flex flex-col gap-1">
                     <p className="text-slate-500">Objetivo</p>
-                    <p className="text-slate-200 font-medium text-right">
-                      {TARGET_TYPE_DEFS.find(t => t.type === form.targetType)?.label} · {form.targetLabel}
-                    </p>
+                    {form.targetType && (
+                      <p className="text-[10px] text-slate-600 font-semibold uppercase tracking-wide">
+                        {TARGET_TYPE_DEFS.find(t => t.type === form.targetType)?.label ?? form.targetType}
+                      </p>
+                    )}
+                    {displayTargetLabel && (
+                      form.targetType === 'TRADE' && form.targetIds.length > 2 ? (
+                        <div className="flex flex-wrap gap-1 mt-0.5">
+                          {form.targetIds.map(id => {
+                            const opt = targetOptions.find(o => o.id === id);
+                            return opt ? (
+                              <span key={id} className="text-[10px] bg-teal-900/30 text-teal-200 px-2 py-0.5 rounded-full border border-teal-700/40">
+                                {opt.label}
+                              </span>
+                            ) : null;
+                          })}
+                        </div>
+                      ) : (
+                        <p className="text-slate-200 font-medium text-sm">{displayTargetLabel}</p>
+                      )
+                    )}
                   </div>
                 )}
                 {form.mensaje && (

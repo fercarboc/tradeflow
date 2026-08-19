@@ -322,13 +322,15 @@ BEGIN
 
   INSERT INTO public.trade_marketplace_ad_campaigns (
     slot_id, actor_id, booking_id, campaign_source,
-    nombre, advertiser_name, estado, activa,
+    nombre, advertiser_name, title, cta_label, estado, activa,
     destination_type, destination_value,
     target_type, target_id, target_label
   ) VALUES (
     v_slot_id, v_actor_id, p_booking_id, 'supplier',
     v_actor_name || ' — ' || COALESCE(v_target_label, 'Campaña publicitaria'),
     v_actor_name,
+    COALESCE(v_target_label, v_actor_name),
+    'Ver más',
     'DRAFT', false,
     v_dest_type, v_dest_value,
     v_target_type, v_target_id, v_target_label

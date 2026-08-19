@@ -564,7 +564,7 @@ function AdsSlotDetailPanel({
       toast('success', 'Fallback actualizado');
       onUpdated();
     } catch (e) {
-      toast('error', 'Error al guardar fallback: ' + (e instanceof Error ? e.message : String(e)));
+      toast('error', 'Error al guardar fallback: ' + (e instanceof Error ? e.message : (e as { message?: string })?.message ?? String(e)));
     } finally {
       setSavingFb(false);
     }
@@ -1008,7 +1008,7 @@ function AdsCampaignFormModal({
       onSaved();
       onClose();
     } catch (e) {
-      toast('error', 'Error: ' + (e instanceof Error ? e.message : String(e)));
+      toast('error', 'Error: ' + (e instanceof Error ? e.message : (e as { message?: string })?.message ?? String(e)));
     } finally {
       setSaving(false);
       setUploadingImage(false);
@@ -1384,7 +1384,7 @@ function AdsCampaignsList({
       toast('success', `Campaña → ${ESTADO_CAMP_LABEL[newEstado]}`);
       onRefresh();
     } catch (e) {
-      toast('error', 'Error: ' + (e instanceof Error ? e.message : String(e)));
+      toast('error', 'Error: ' + (e instanceof Error ? e.message : (e as { message?: string })?.message ?? String(e)));
     } finally {
       setTransitioning(null);
     }
@@ -1400,7 +1400,7 @@ function AdsCampaignsList({
       toast('success', 'Campaña duplicada como DRAFT');
       onRefresh();
     } catch (e) {
-      toast('error', 'Error al duplicar: ' + (e instanceof Error ? e.message : String(e)));
+      toast('error', 'Error al duplicar: ' + (e instanceof Error ? e.message : (e as { message?: string })?.message ?? String(e)));
     }
   };
 
@@ -1601,7 +1601,7 @@ function AdsBookingFormModal({
       onSaved();
       onClose();
     } catch (e) {
-      toast('error', 'Error: ' + (e instanceof Error ? e.message : String(e)));
+      toast('error', 'Error: ' + (e instanceof Error ? e.message : (e as { message?: string })?.message ?? String(e)));
     } finally {
       setSaving(false);
     }
@@ -1716,7 +1716,7 @@ function AdsConvertBookingModal({
         onClose();
       }
     } catch (e) {
-      toast('error', 'Error: ' + (e instanceof Error ? e.message : String(e)));
+      toast('error', 'Error: ' + (e instanceof Error ? e.message : (e as { message?: string })?.message ?? String(e)));
     } finally {
       setSaving(false);
     }
@@ -1812,7 +1812,7 @@ function AdsSolicitudesTab({
       toast('success', `Solicitud → ${ESTADO_BOOK_LABEL[newEstado as AdBookingAdmin['estado']] ?? newEstado}`);
       onRefresh();
     } catch (e) {
-      toast('error', 'Error: ' + (e instanceof Error ? e.message : String(e)));
+      toast('error', 'Error: ' + (e instanceof Error ? e.message : (e as { message?: string })?.message ?? String(e)));
     } finally {
       setTransitioning(null);
     }
@@ -1981,7 +1981,7 @@ function AdsBookingsList({
         onRefresh();
       }
     } catch (e) {
-      toast('error', 'Error: ' + (e instanceof Error ? e.message : String(e)));
+      toast('error', 'Error: ' + (e instanceof Error ? e.message : (e as { message?: string })?.message ?? String(e)));
     } finally {
       setTransitioning(null);
     }
@@ -2514,7 +2514,7 @@ function AdsCreativeFormModal({
       onSaved();
       onClose();
     } catch (e) {
-      toast('error', 'Error: ' + (e instanceof Error ? e.message : String(e)));
+      toast('error', 'Error: ' + (e instanceof Error ? e.message : (e as { message?: string })?.message ?? String(e)));
     } finally {
       setSaving(false);
     }
@@ -2895,7 +2895,7 @@ function AdsCreativesList({
       toast('success', newActiva ? 'Creatividad activada' : 'Creatividad desactivada');
       onRefresh();
     } catch (e) {
-      toast('error', 'Error: ' + (e instanceof Error ? e.message : String(e)));
+      toast('error', 'Error: ' + (e instanceof Error ? e.message : (e as { message?: string })?.message ?? String(e)));
     }
   };
 
@@ -3084,7 +3084,7 @@ export default function AdminMarketplaceAdsSection({ toast }: Props) {
       setActors((actorData ?? []) as MarketplaceActor[]);
       setKpis((kpiData as DashboardKPIs) ?? null);
     } catch (e) {
-      toast('error', 'Error al cargar datos de publicidad: ' + (e instanceof Error ? e.message : String(e)));
+      toast('error', 'Error al cargar datos de publicidad: ' + (e instanceof Error ? e.message : (e as { message?: string })?.message ?? String(e)));
     } finally {
       setLoading(false);
     }
