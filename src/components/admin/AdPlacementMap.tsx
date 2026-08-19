@@ -27,6 +27,11 @@ export interface PlacementSlot {
   ancho_px: number | null; alto_min_px: number | null; aspect_ratio: string | null;
   activo: boolean; comercializable: boolean; posicion: number;
   fallback_campaign_id: string | null;
+  rate_amount: number | null;
+  rate_currency: string;
+  rate_unit: 'day' | 'week' | 'month' | null;
+  min_duration_days: number | null;
+  max_duration_days: number | null;
 }
 
 export interface PlacementCampaign {
@@ -43,6 +48,10 @@ export interface PlacementBooking {
   id: string; slot_id: string; actor_id: string;
   estado: 'REQUESTED' | 'CONTACTING' | 'ACCEPTED' | 'REJECTED' | 'RESERVED' | 'CONFIRMED' | 'CANCELLED' | 'EXPIRED';
   inicio: string; fin: string;
+  target_type: string | null;
+  target_label: string | null;
+  estimated_total_snapshot: number | null;
+  rate_currency_snapshot: string | null;
 }
 
 export type SlotMapStatus = 'LIBRE' | 'RESERVADO' | 'OCUPADO' | 'TU_CAMPANA' | 'INACTIVO';

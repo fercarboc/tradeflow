@@ -36,6 +36,10 @@ interface OwnBooking {
   inicio: string; fin: string;
   origen: string;
   mensaje: string | null;
+  target_type: string | null;
+  target_label: string | null;
+  estimated_total_snapshot: number | null;
+  rate_currency_snapshot: string | null;
 }
 
 interface OwnCreative {
@@ -206,21 +210,61 @@ function AdCommercialInfo() {
   );
 }
 
+// ─── Targeting ────────────────────────────────────────────────────────────────
+
+type TargetType = 'CATEGORY' | 'TRADE' | 'BRAND' | 'SUPPLIER' | 'PRODUCT' | 'OFFERING';
+
+interface TargetOption { id: string; label: string; extra: string }
+
+const TARGET_TYPE_DEFS: { type: TargetType; label: string; desc: string }[] = [
+  { type: 'CATEGORY', label: 'Categoría',   desc: 'Vincula el anuncio a una categoría del marketplace' },
+  { type: 'TRADE',    label: 'Gremio',       desc: 'Vincula el anuncio a un oficio profesional' },
+  { type: 'BRAND',    label: 'Marca',        desc: 'Vincula el anuncio a una marca de producto' },
+  { type: 'SUPPLIER', label: 'Tu empresa',   desc: 'Promoción directa de tu empresa como proveedor' },
+  { type: 'PRODUCT',  label: 'Producto',     desc: 'Vincula el anuncio a un producto concreto' },
+  { type: 'OFFERING', label: 'Tu oferta',    desc: 'Vincula el anuncio a un artículo de tu catálogo' },
+];
+
+const RATE_UNIT_LABEL: Record<string, string> = {
+  day: 'día', week: 'semana', month: 'mes',
+};
+
+function fmtMoney(n: number | null | undefined): string {
+  if (n == null) return '—';
+  return n.toLocaleString('es-ES', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+
+function calcEstimate(slot: PlacementSlot | null, inicio: string, fin: string): number | null {
+  if (!slot?.rate_amount || !slot?.rate_unit || !inicio || !fin) return null;
+  const days = Math.max(1, Math.round(
+    (new Date(fin).getTime() - new Date(inicio).getTime()) / 86400000,
+  ) + 1);
+  switch (slot.rate_unit) {
+    case 'day':   return slot.rate_amount * days;
+    case 'week':  return slot.rate_amount * Math.ceil(days / 7);
+    case 'month': return slot.rate_amount * Math.ceil(days / 30);
+    default:      return null;
+  }
+}
+
 // ─── SolicitarEspacioDrawer ───────────────────────────────────────────────────
 
-type DrawerStep = 'form' | 'sent';
+type SolWizardStep = 'espacio' | 'periodo' | 'objetivo' | 'resumen' | 'enviado';
 
 interface SolicitarForm {
-  slotId:  string;
-  inicio:  string;
-  fin:     string;
-  mensaje: string;
+  slotId:      string;
+  inicio:      string;
+  fin:         string;
+  mensaje:     string;
+  targetType:  TargetType | '';
+  targetId:    string;
+  targetLabel: string;
 }
 
 interface SolicitarEspacioDrawerProps {
-  slots:   PlacementSlot[];
-  actorId: string;
-  onClose: () => void;
+  slots:      PlacementSlot[];
+  actorId:    string;
+  onClose:    () => void;
   onSubmitted: () => void;
 }
 
@@ -231,81 +275,102 @@ const PERIOD_PRESETS = [
   { label: '3 meses', days: 89 },
 ];
 
+const SOL_STEPS: { key: SolWizardStep; label: string }[] = [
+  { key: 'espacio',  label: 'Espacio'  },
+  { key: 'periodo',  label: 'Periodo'  },
+  { key: 'objetivo', label: 'Objetivo' },
+  { key: 'resumen',  label: 'Resumen'  },
+];
+
 function SolicitarEspacioDrawer({ slots, actorId, onClose, onSubmitted }: SolicitarEspacioDrawerProps) {
   const freeSlots = slots.filter(s => s.comercializable);
   const tomorrow  = addDays(todayStr(), 1);
 
-  const [step,      setStep]      = useState<DrawerStep>('form');
-  const [form,      setForm]      = useState<SolicitarForm>({
-    slotId:  freeSlots[0]?.id ?? '',
-    inicio:  tomorrow,
-    fin:     addDays(tomorrow, 6),
-    mensaje: '',
+  const [step,           setStep]           = useState<SolWizardStep>('espacio');
+  const [form,           setForm]           = useState<SolicitarForm>({
+    slotId: freeSlots[0]?.id ?? '', inicio: tomorrow,
+    fin: addDays(tomorrow, 6), mensaje: '',
+    targetType: '', targetId: '', targetLabel: '',
   });
-  const [sending,   setSending]   = useState(false);
-  const [sendError, setSendError] = useState<string | null>(null);
-  const [requestId, setRequestId] = useState('');
+  const [targetOptions,  setTargetOptions]  = useState<TargetOption[]>([]);
+  const [targetLoading,  setTargetLoading]  = useState(false);
+  const [targetSearch,   setTargetSearch]   = useState('');
+  const [sending,        setSending]        = useState(false);
+  const [sendError,      setSendError]      = useState<string | null>(null);
+  const [requestId,      setRequestId]      = useState('');
 
-  const setField = <K extends keyof SolicitarForm>(k: K, v: SolicitarForm[K]) =>
+  const selSlot  = freeSlots.find(s => s.id === form.slotId) ?? null;
+  const estimate = calcEstimate(selSlot, form.inicio, form.fin);
+
+  function setField<K extends keyof SolicitarForm>(k: K, v: SolicitarForm[K]) {
     setForm(prev => ({ ...prev, [k]: v }));
+  }
 
   function applyPreset(days: number) {
-    const base = form.inicio || tomorrow;
-    setField('fin', addDays(base, days));
+    setField('fin', addDays(form.inicio || tomorrow, days));
+  }
+
+  async function loadTargetOptions(type: TargetType) {
+    setTargetLoading(true);
+    setTargetOptions([]);
+    const { data, error } = await supabase.rpc('get_ad_targeting_options', {
+      p_actor_id: actorId, p_target_type: type,
+    });
+    setTargetLoading(false);
+    if (!error && data) setTargetOptions(data as TargetOption[]);
+  }
+
+  function handleTargetTypeChange(type: TargetType) {
+    setField('targetType', type);
+    setField('targetId', '');
+    setField('targetLabel', '');
+    setTargetSearch('');
+    loadTargetOptions(type);
   }
 
   async function handleSend() {
-    if (!form.slotId || !form.inicio || !form.fin) return;
     setSending(true);
     setSendError(null);
-
-    const { data, error } = await supabase.rpc('request_ad_slot', {
-      p_actor_id: actorId,
-      p_slot_id:  form.slotId,
-      p_inicio:   form.inicio,
-      p_fin:      form.fin,
-      p_mensaje:  form.mensaje.trim() || null,
+    const { data, error } = await supabase.rpc('request_ad_slot_v2', {
+      p_actor_id:    actorId,
+      p_slot_id:     form.slotId,
+      p_inicio:      form.inicio,
+      p_fin:         form.fin,
+      p_mensaje:     form.mensaje.trim() || null,
+      p_target_type: form.targetType || null,
+      p_target_id:   form.targetId   || null,
     });
-
     setSending(false);
-
     if (error) {
       if (error.message.includes('Ya existe una solicitud')) {
         setSendError('Ya tienes una solicitud activa para este espacio en esas fechas.');
       } else if (error.message.includes('en el pasado')) {
         setSendError('La fecha de inicio no puede ser anterior a hoy.');
+      } else if (error.message.includes('duración')) {
+        setSendError(error.message);
       } else if (error.message.includes('No autorizado')) {
-        setSendError('Sin autorización. Recarga la página y vuelve a intentarlo.');
+        setSendError('Sin autorización. Recarga la página.');
       } else {
         setSendError('No se pudo enviar. Inténtalo de nuevo.');
       }
       return;
     }
-
     setRequestId((data as { request_id: string })?.request_id ?? '');
-    setStep('sent');
+    setStep('enviado');
     onSubmitted();
   }
 
-  const canSend = !!form.slotId && !!form.inicio && !!form.fin && form.fin >= form.inicio;
+  const stepIdx = SOL_STEPS.findIndex(s => s.key === step);
 
-  return (
-    <div className="fixed inset-0 z-50 flex">
-      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
-      <div className="relative ml-auto w-full max-w-sm bg-slate-900 border-l border-slate-800 flex flex-col h-full shadow-2xl">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-800">
-          <div>
-            <h3 className="font-bold text-slate-100 text-sm">Solicitar espacio publicitario</h3>
-            <p className="text-[11px] text-slate-500 mt-0.5">Sin compromiso · El equipo te contactará</p>
-          </div>
-          <button onClick={onClose} className="text-slate-500 hover:text-slate-300 transition-colors cursor-pointer">
-            <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
+  const filteredOptions = targetSearch
+    ? targetOptions.filter(o => o.label.toLowerCase().includes(targetSearch.toLowerCase()))
+    : targetOptions;
 
-        {step === 'sent' ? (
+  if (step === 'enviado') {
+    return (
+      <div className="fixed inset-0 z-50 flex">
+        <div className="absolute inset-0 bg-black/60" onClick={onClose} />
+        <div className="relative ml-auto w-full max-w-sm bg-slate-900 border-l border-slate-800 flex flex-col h-full shadow-2xl">
           <div className="flex-1 flex flex-col items-center justify-center p-8 text-center gap-4">
             <div className="w-14 h-14 rounded-full bg-emerald-900/40 flex items-center justify-center">
               <svg className="h-7 w-7 text-emerald-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -321,123 +386,295 @@ function SolicitarEspacioDrawer({ slots, actorId, onClose, onSubmitted }: Solici
               )}
               <p className="text-xs text-slate-400 leading-relaxed">
                 El equipo de TrabFlow revisará tu solicitud y se pondrá en contacto
-                para confirmar disponibilidad, periodo y condiciones.
+                para confirmar disponibilidad, periodo y condiciones comerciales.
               </p>
             </div>
-            <button
-              onClick={onClose}
-              className="mt-2 text-teal-400 hover:text-teal-300 text-xs font-semibold transition-colors cursor-pointer"
-            >
+            <button onClick={onClose} className="mt-2 text-teal-400 hover:text-teal-300 text-xs font-semibold transition-colors cursor-pointer">
               Cerrar
             </button>
           </div>
-        ) : (
-          <>
-            <div className="flex-1 overflow-y-auto p-5 space-y-5">
-              <div className="bg-slate-800/60 border border-slate-700/60 rounded-xl px-4 py-3 text-[11px] text-slate-400 leading-relaxed">
-                Selecciona el espacio y el periodo. Nuestro equipo confirmará disponibilidad,
-                precio y condiciones.
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex">
+      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
+      <div className="relative ml-auto w-full max-w-sm bg-slate-900 border-l border-slate-800 flex flex-col h-full shadow-2xl">
+
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-800">
+          <div>
+            <h3 className="font-bold text-slate-100 text-sm">Solicitar espacio publicitario</h3>
+            <p className="text-[11px] text-slate-500 mt-0.5">Paso {stepIdx + 1} de {SOL_STEPS.length} · Sin compromiso</p>
+          </div>
+          <button onClick={onClose} className="text-slate-500 hover:text-slate-300 transition-colors cursor-pointer">
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Step bar */}
+        <div className="flex gap-1 px-5 py-2.5 border-b border-slate-800">
+          {SOL_STEPS.map((s, i) => (
+            <div key={s.key} className={`flex-1 h-1 rounded-full transition-colors ${
+              i <= stepIdx ? 'bg-teal-500' : 'bg-slate-700'
+            }`} />
+          ))}
+        </div>
+
+        {/* Body */}
+        <div className="flex-1 overflow-y-auto p-5 space-y-5">
+
+          {/* ── Paso 1: ESPACIO ── */}
+          {step === 'espacio' && (
+            <>
+              <p className="text-[10px] uppercase font-bold tracking-wider text-slate-500">Elige el espacio</p>
+              {freeSlots.length === 0 ? (
+                <p className="text-[11px] text-slate-600 italic">No hay espacios disponibles.</p>
+              ) : (
+                <div className="space-y-1.5">
+                  {freeSlots.map(s => (
+                    <label
+                      key={s.id}
+                      className={`flex items-start gap-3 px-3 py-2.5 rounded-lg border cursor-pointer transition-colors ${
+                        form.slotId === s.id
+                          ? 'bg-teal-900/30 border-teal-700'
+                          : 'bg-slate-800/40 border-slate-700 hover:border-slate-600'
+                      }`}
+                    >
+                      <input type="radio" name="slot" value={s.id} checked={form.slotId === s.id}
+                        onChange={() => setField('slotId', s.id)} className="sr-only" />
+                      <div className={`mt-0.5 w-3.5 h-3.5 rounded-full border-2 shrink-0 flex items-center justify-center ${
+                        form.slotId === s.id ? 'border-teal-500' : 'border-slate-600'
+                      }`}>
+                        {form.slotId === s.id && <div className="w-1.5 h-1.5 rounded-full bg-teal-400" />}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-medium text-slate-200 leading-tight">{s.nombre}</p>
+                        <p className="text-[10px] text-slate-500 capitalize mt-0.5">{s.dispositivo} · {s.pagina}</p>
+                        {s.rate_amount && (
+                          <p className="text-[10px] text-teal-400 font-semibold mt-0.5">
+                            {fmtMoney(s.rate_amount)} / {RATE_UNIT_LABEL[s.rate_unit ?? ''] ?? s.rate_unit}
+                          </p>
+                        )}
+                      </div>
+                    </label>
+                  ))}
+                </div>
+              )}
+              {selSlot?.rate_amount && (
+                <div className="bg-slate-800/60 border border-slate-700/60 rounded-xl px-4 py-3 text-[11px] text-slate-400">
+                  <p className="font-semibold text-slate-300 mb-1">Tarifa orientativa</p>
+                  <p>{fmtMoney(selSlot.rate_amount)} por {RATE_UNIT_LABEL[selSlot.rate_unit ?? ''] ?? selSlot.rate_unit}
+                    {selSlot.min_duration_days ? ` · mín. ${selSlot.min_duration_days} días` : ''}
+                  </p>
+                  <p className="text-[10px] text-slate-600 mt-1">Precio a confirmar por el equipo. No es una oferta vinculante.</p>
+                </div>
+              )}
+            </>
+          )}
+
+          {/* ── Paso 2: PERIODO ── */}
+          {step === 'periodo' && (
+            <>
+              <p className="text-[10px] uppercase font-bold tracking-wider text-slate-500">Elige el periodo</p>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-[10px] text-slate-500 mb-1">Desde</label>
+                  <input type="date" min={todayStr()} value={form.inicio}
+                    onChange={e => setField('inicio', e.target.value)}
+                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-teal-600 transition-colors" />
+                </div>
+                <div>
+                  <label className="block text-[10px] text-slate-500 mb-1">Hasta</label>
+                  <input type="date" min={form.inicio || todayStr()} value={form.fin}
+                    onChange={e => setField('fin', e.target.value)}
+                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-teal-600 transition-colors" />
+                </div>
               </div>
-              <div>
-                <p className="text-xs font-medium text-slate-400 mb-2">Espacio publicitario</p>
-                {freeSlots.length === 0 ? (
-                  <p className="text-[11px] text-slate-600 italic">No hay espacios disponibles en este momento.</p>
-                ) : (
-                  <div className="space-y-1.5">
-                    {freeSlots.map(s => (
-                      <label
-                        key={s.id}
-                        className={`flex items-center gap-3 px-3 py-2.5 rounded-lg border cursor-pointer transition-colors ${
-                          form.slotId === s.id
-                            ? 'bg-teal-900/30 border-teal-700'
-                            : 'bg-slate-800/40 border-slate-700 hover:border-slate-600'
-                        }`}
-                      >
-                        <input
-                          type="radio" name="slot" value={s.id}
-                          checked={form.slotId === s.id}
-                          onChange={() => setField('slotId', s.id)}
-                          className="sr-only"
-                        />
-                        <div className={`w-3.5 h-3.5 rounded-full border-2 shrink-0 flex items-center justify-center ${
-                          form.slotId === s.id ? 'border-teal-500' : 'border-slate-600'
-                        }`}>
-                          {form.slotId === s.id && <div className="w-1.5 h-1.5 rounded-full bg-teal-400" />}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs font-medium text-slate-200 leading-tight">{s.nombre}</p>
-                          <p className="text-[10px] text-slate-500 capitalize mt-0.5">{s.dispositivo} · {s.pagina}</p>
-                        </div>
-                      </label>
-                    ))}
+              <div className="flex gap-1.5 flex-wrap">
+                {PERIOD_PRESETS.map(p => (
+                  <button key={p.label} type="button" onClick={() => applyPreset(p.days)}
+                    className="px-2.5 py-1 rounded-md text-[10px] font-semibold bg-slate-800 border border-slate-700 text-slate-400 hover:border-teal-700 hover:text-teal-300 transition-colors cursor-pointer">
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+              {estimate != null && (
+                <div className="bg-teal-900/20 border border-teal-700/50 rounded-xl px-4 py-3">
+                  <p className="text-[10px] text-teal-400 font-bold mb-0.5">Estimación orientativa</p>
+                  <p className="text-lg font-black text-teal-300">{fmtMoney(estimate)}</p>
+                  <p className="text-[10px] text-teal-600 mt-0.5">
+                    {fmtMoney(selSlot?.rate_amount ?? null)} × unidades de {RATE_UNIT_LABEL[selSlot?.rate_unit ?? ''] ?? '—'} · precio a confirmar
+                  </p>
+                </div>
+              )}
+              {selSlot?.min_duration_days && (
+                <p className="text-[10px] text-amber-400">
+                  Duración mínima para este espacio: {selSlot.min_duration_days} días.
+                </p>
+              )}
+            </>
+          )}
+
+          {/* ── Paso 3: OBJETIVO ── */}
+          {step === 'objetivo' && (
+            <>
+              <p className="text-[10px] uppercase font-bold tracking-wider text-slate-500">Objetivo del anuncio <span className="text-slate-600 normal-case font-normal">(opcional)</span></p>
+              <div className="space-y-1.5">
+                {TARGET_TYPE_DEFS.map(td => (
+                  <button key={td.type} type="button"
+                    onClick={() => handleTargetTypeChange(td.type)}
+                    className={`w-full text-left border rounded-xl px-4 py-3 transition-all cursor-pointer ${
+                      form.targetType === td.type
+                        ? 'border-teal-500 bg-teal-900/20'
+                        : 'border-slate-700 bg-slate-800/50 hover:border-slate-600'
+                    }`}>
+                    <p className="text-xs font-semibold text-slate-100">{td.label}</p>
+                    <p className="text-[10px] text-slate-500 mt-0.5">{td.desc}</p>
+                  </button>
+                ))}
+              </div>
+              {form.targetType && (
+                <div className="space-y-2">
+                  <input type="text" value={targetSearch}
+                    onChange={e => setTargetSearch(e.target.value)}
+                    placeholder="Buscar…"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-teal-600 transition-colors" />
+                  {targetLoading && (
+                    <div className="flex justify-center py-4">
+                      <div className="w-4 h-4 border-2 border-teal-500 border-t-transparent rounded-full animate-spin" />
+                    </div>
+                  )}
+                  {!targetLoading && (
+                    <div className="space-y-1 max-h-48 overflow-y-auto">
+                      {filteredOptions.length === 0 && (
+                        <p className="text-[11px] text-slate-600 text-center py-3">Sin resultados</p>
+                      )}
+                      {filteredOptions.map(o => (
+                        <button key={o.id} type="button"
+                          onClick={() => { setField('targetId', o.id); setField('targetLabel', o.label); }}
+                          className={`w-full text-left flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer transition-colors ${
+                            form.targetId === o.id
+                              ? 'border-teal-600 bg-teal-900/20 text-teal-200'
+                              : 'border-slate-700 bg-slate-800/40 text-slate-300 hover:border-slate-600'
+                          }`}>
+                          {form.targetId === o.id && (
+                            <svg className="h-3 w-3 text-teal-400 shrink-0" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                          )}
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-medium leading-tight truncate">{o.label}</p>
+                            {o.extra && <p className="text-[10px] text-slate-500 truncate">{o.extra}</p>}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </>
+          )}
+
+          {/* ── Paso 4: RESUMEN ── */}
+          {step === 'resumen' && (
+            <>
+              <p className="text-[10px] uppercase font-bold tracking-wider text-slate-500">Resumen de la solicitud</p>
+              <div className="bg-slate-800 border border-slate-700 rounded-xl divide-y divide-slate-700/60 text-[11px]">
+                <div className="px-4 py-3 flex justify-between gap-2">
+                  <p className="text-slate-500">Espacio</p>
+                  <p className="text-slate-200 font-medium text-right">{selSlot?.nombre ?? form.slotId}</p>
+                </div>
+                <div className="px-4 py-3 flex justify-between gap-2">
+                  <p className="text-slate-500">Periodo</p>
+                  <p className="text-slate-200 font-medium text-right">{fmtDate(form.inicio)} → {fmtDate(form.fin)}</p>
+                </div>
+                {estimate != null && (
+                  <div className="px-4 py-3 flex justify-between gap-2">
+                    <p className="text-slate-500">Estimación orientativa</p>
+                    <p className="text-teal-300 font-bold text-right">{fmtMoney(estimate)}</p>
+                  </div>
+                )}
+                {form.targetLabel && (
+                  <div className="px-4 py-3 flex justify-between gap-2">
+                    <p className="text-slate-500">Objetivo</p>
+                    <p className="text-slate-200 font-medium text-right">
+                      {TARGET_TYPE_DEFS.find(t => t.type === form.targetType)?.label} · {form.targetLabel}
+                    </p>
+                  </div>
+                )}
+                {form.mensaje && (
+                  <div className="px-4 py-3">
+                    <p className="text-slate-500 mb-0.5">Mensaje</p>
+                    <p className="text-slate-400 italic">"{form.mensaje}"</p>
                   </div>
                 )}
               </div>
-              <div>
-                <p className="text-xs font-medium text-slate-400 mb-2">Periodo deseado</p>
-                <div className="grid grid-cols-2 gap-2 mb-2">
-                  <div>
-                    <label className="block text-[10px] text-slate-500 mb-1">Desde</label>
-                    <input
-                      type="date" min={todayStr()} value={form.inicio}
-                      onChange={e => setField('inicio', e.target.value)}
-                      className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-teal-600 transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] text-slate-500 mb-1">Hasta</label>
-                    <input
-                      type="date" min={form.inicio || todayStr()} value={form.fin}
-                      onChange={e => setField('fin', e.target.value)}
-                      className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-teal-600 transition-colors"
-                    />
-                  </div>
-                </div>
-                <div className="flex gap-1.5 flex-wrap">
-                  {PERIOD_PRESETS.map(p => (
-                    <button
-                      key={p.label} type="button" onClick={() => applyPreset(p.days)}
-                      className="px-2.5 py-1 rounded-md text-[10px] font-semibold bg-slate-800 border border-slate-700 text-slate-400 hover:border-teal-700 hover:text-teal-300 transition-colors cursor-pointer"
-                    >
-                      {p.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
+
               <div>
                 <label className="block text-xs font-medium text-slate-400 mb-1.5">
-                  Mensaje adicional{' '}
-                  <span className="text-slate-600 font-normal">(opcional)</span>
+                  Mensaje adicional <span className="text-slate-600 font-normal">(opcional)</span>
                 </label>
-                <textarea
-                  rows={3}
+                <textarea rows={2}
                   className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-teal-600 transition-colors resize-none"
                   value={form.mensaje}
                   onChange={e => setField('mensaje', e.target.value)}
-                  placeholder="Qué quieres promocionar, presupuesto aproximado…"
-                />
+                  placeholder="Objetivo, presupuesto, preferencias…" />
               </div>
+
+              <div className="flex items-start gap-2.5 px-3 py-2.5 bg-amber-950/40 border border-amber-800/60 rounded-xl">
+                <svg className="h-3.5 w-3.5 text-amber-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+                <p className="text-[10px] text-amber-300 leading-snug">
+                  La estimación es <strong>orientativa</strong>. El precio final lo confirma el equipo.
+                  <strong> Publicidad ≠ Ranking</strong> — el anuncio no modifica el orden de resultados ni el precio de ningún producto.
+                </p>
+              </div>
+
               {sendError && (
                 <div className="text-[11px] text-red-400 bg-red-900/20 border border-red-800/50 rounded-lg px-3 py-2">
                   {sendError}
                 </div>
               )}
-            </div>
-            <div className="p-5 border-t border-slate-800 space-y-2">
-              <button
-                onClick={handleSend}
-                disabled={!canSend || sending}
-                className="w-full bg-teal-600 hover:bg-teal-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-sm py-2.5 rounded-xl transition-colors cursor-pointer"
-              >
+            </>
+          )}
+        </div>
+
+        {/* Footer nav */}
+        <div className="p-5 border-t border-slate-800 space-y-2">
+          {step === 'resumen' ? (
+            <>
+              <button onClick={handleSend} disabled={sending}
+                className="w-full bg-teal-600 hover:bg-teal-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-sm py-2.5 rounded-xl transition-colors cursor-pointer">
                 {sending ? 'Enviando…' : 'Enviar solicitud a TrabFlow'}
               </button>
-              <p className="text-[10px] text-slate-600 text-center leading-relaxed">
-                Sin compromiso de contratación. Nuestro equipo te responderá para
-                confirmar disponibilidad y condiciones.
-              </p>
+              <button onClick={() => setStep('objetivo')} disabled={sending}
+                className="w-full py-2 text-slate-500 hover:text-slate-300 text-xs font-medium transition-colors cursor-pointer">
+                ← Atrás
+              </button>
+            </>
+          ) : (
+            <div className="flex gap-2">
+              {stepIdx > 0 && (
+                <button onClick={() => setStep(SOL_STEPS[stepIdx - 1].key)}
+                  className="flex-1 py-2.5 rounded-xl border border-slate-700 text-slate-300 text-sm font-semibold hover:border-slate-600 transition-colors cursor-pointer">
+                  ← Atrás
+                </button>
+              )}
+              <button
+                onClick={() => setStep(SOL_STEPS[stepIdx + 1].key)}
+                disabled={step === 'espacio' && !form.slotId}
+                className="flex-1 bg-slate-700 hover:bg-slate-600 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold py-2.5 rounded-xl transition-colors cursor-pointer">
+                {step === 'objetivo' ? 'Revisar solicitud →' : 'Siguiente →'}
+              </button>
             </div>
-          </>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
@@ -1312,6 +1549,16 @@ function OwnRequestsPanel({ requests, slots }: OwnRequestsPanelProps) {
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-slate-200 truncate">{slotName(r.slot_id, slots)}</p>
               <p className="text-[11px] text-slate-500 mt-0.5">{fmtDate(r.inicio)} → {fmtDate(r.fin)}</p>
+              {r.target_label && (
+                <p className="text-[10px] text-teal-400 mt-0.5 truncate">
+                  Objetivo: {r.target_label}
+                </p>
+              )}
+              {r.estimated_total_snapshot != null && (
+                <p className="text-[10px] text-slate-500 mt-0.5">
+                  Est. orientativa: {fmtMoney(r.estimated_total_snapshot)}
+                </p>
+              )}
               {r.mensaje && (
                 <p className="text-[11px] text-slate-600 italic mt-0.5 truncate">"{r.mensaje}"</p>
               )}
@@ -1374,12 +1621,20 @@ function OwnBookingsPanel({ bookings, slots, campaigns, creatives, actorId: _act
 
         return (
           <div key={b.id} className="bg-slate-900 border border-slate-800 rounded-xl px-4 py-3">
-            <div className="flex items-center gap-3">
+            <div className="flex items-start gap-3">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-slate-200 truncate">{slotName(b.slot_id, slots)}</p>
                 <p className="text-[11px] text-slate-500 mt-0.5">{fmtDate(b.inicio)} → {fmtDate(b.fin)}</p>
+                {b.target_label && (
+                  <p className="text-[10px] text-teal-400 mt-0.5 truncate">Objetivo: {b.target_label}</p>
+                )}
+                {b.estimated_total_snapshot != null && (
+                  <p className="text-[10px] text-slate-500 mt-0.5">
+                    Est. orientativa: <span className="text-teal-300 font-semibold">{fmtMoney(b.estimated_total_snapshot)}</span>
+                  </p>
+                )}
               </div>
-              <div className="flex items-center gap-2 shrink-0">
+              <div className="flex flex-col items-end gap-1.5 shrink-0">
                 <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${ESTADO_COLORS[b.estado] ?? 'bg-slate-800 text-slate-400'}`}>
                   {ESTADO_LABELS[b.estado] ?? b.estado}
                 </span>
@@ -1394,7 +1649,7 @@ function OwnBookingsPanel({ bookings, slots, campaigns, creatives, actorId: _act
             </div>
             {creativeEstado === 'PENDING_APPROVAL' && (
               <p className="text-[10px] text-slate-600 mt-1.5">
-                Tu creatividad está siendo revisada por el equipo. Te contactaremos pronto.
+                Tu creatividad está siendo revisada. Te contactaremos pronto.
               </p>
             )}
           </div>
@@ -1439,7 +1694,7 @@ export default function PortalPublicidadMarketplace({ actorId }: Props) {
     const [slotsRes, campaignsRes, bookingsRes, creativesRes] = await Promise.all([
       supabase
         .from('trade_marketplace_ad_slots')
-        .select('id,nombre,descripcion,pagina,dispositivo,formato,ancho_px,alto_min_px,aspect_ratio,activo,comercializable,posicion,fallback_campaign_id')
+        .select('id,nombre,descripcion,pagina,dispositivo,formato,ancho_px,alto_min_px,aspect_ratio,activo,comercializable,posicion,fallback_campaign_id,rate_amount,rate_currency,rate_unit,min_duration_days,max_duration_days')
         .eq('activo', true)
         .order('posicion'),
       supabase
@@ -1447,7 +1702,7 @@ export default function PortalPublicidadMarketplace({ actorId }: Props) {
         .select('id,slot_id,actor_id,campaign_source,estado,nombre,advertiser_name,activa,start_at,end_at,image_url,accent,bg,text_color,title,booking_id'),
       supabase
         .from('trade_marketplace_ad_bookings')
-        .select('id,slot_id,actor_id,estado,inicio,fin,origen,mensaje')
+        .select('id,slot_id,actor_id,estado,inicio,fin,origen,mensaje,target_type,target_label,estimated_total_snapshot,rate_currency_snapshot')
         .in('estado', ['REQUESTED','CONTACTING','ACCEPTED','REJECTED','RESERVED','CONFIRMED']),
       supabase
         .from('trade_marketplace_ad_creatives')
@@ -1474,6 +1729,10 @@ export default function PortalPublicidadMarketplace({ actorId }: Props) {
           estado: b.estado as OwnBooking['estado'],
           inicio: b.inicio, fin: b.fin,
           origen: b.origen, mensaje: b.mensaje,
+          target_type:              b.target_type,
+          target_label:             b.target_label,
+          estimated_total_snapshot: b.estimated_total_snapshot,
+          rate_currency_snapshot:   b.rate_currency_snapshot,
         }))
     );
 

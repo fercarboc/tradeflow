@@ -29,6 +29,11 @@ type AdSlot = {
   ancho_px: number | null; alto_min_px: number | null; aspect_ratio: string | null;
   activo: boolean; comercializable: boolean; posicion: number;
   fallback_campaign_id: string | null; created_at: string;
+  rate_amount: number | null;
+  rate_currency: string;
+  rate_unit: 'day' | 'week' | 'month' | null;
+  min_duration_days: number | null;
+  max_duration_days: number | null;
 };
 
 type AdCampaignAdmin = {
@@ -50,8 +55,11 @@ type AdCampaignAdmin = {
 type AdBookingAdmin = {
   id: string; slot_id: string; actor_id: string;
   estado: 'REQUESTED' | 'CONTACTING' | 'ACCEPTED' | 'REJECTED' | 'RESERVED' | 'CONFIRMED' | 'CANCELLED' | 'EXPIRED';
-  inicio: string; fin: string; origen: 'admin' | 'portal_request';
+  inicio: string; fin: string; origen: 'admin' | 'portal_request' | 'portal_supplier';
   notas: string | null; mensaje: string | null; created_at: string;
+  target_type: string | null; target_label: string | null;
+  rate_amount_snapshot: number | null; rate_unit_snapshot: string | null;
+  estimated_total_snapshot: number | null;
 };
 
 type CreativeMode  = 'FULL_IMAGE' | 'IMAGE_CONTENT' | 'TRABFLOW_DESIGN';
@@ -594,6 +602,27 @@ function AdsSlotDetailPanel({
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Tarifa */}
+          <div>
+            <h3 className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-3">Condiciones comerciales</h3>
+            {slot.rate_amount ? (
+              <div className="grid grid-cols-2 gap-2 text-xs">
+                {[
+                  ['Tarifa', `${slot.rate_amount.toLocaleString('es-ES', { style: 'currency', currency: slot.rate_currency || 'EUR', maximumFractionDigits: 0 })} / ${slot.rate_unit === 'day' ? 'día' : slot.rate_unit === 'week' ? 'semana' : 'mes'}`],
+                  ['Duración mín.', slot.min_duration_days ? `${slot.min_duration_days} días` : '—'],
+                  ['Duración máx.', slot.max_duration_days ? `${slot.max_duration_days} días` : '—'],
+                ].map(([k, v]) => (
+                  <div key={k} className="bg-slate-800 rounded p-2">
+                    <div className="text-slate-500 text-[9px] font-bold uppercase">{k}</div>
+                    <div className="text-teal-300 font-semibold mt-0.5">{v}</div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-xs text-slate-600 bg-slate-800/50 rounded-lg p-3">Sin tarifa configurada — se confirma manualmente con el cliente.</p>
+            )}
           </div>
 
           {/* Campaña activa */}
@@ -1832,6 +1861,23 @@ function AdsSolicitudesTab({
                   <div className="text-sm font-semibold text-white">{slot?.nombre ?? b.slot_id}</div>
                   <div className="text-xs text-slate-400">{actor?.nombre ?? b.actor_id}</div>
                   <div className="text-xs text-slate-500">{fmtDate(b.inicio)} — {fmtDate(b.fin)}</div>
+                  {b.target_label && (
+                    <div className="text-[10px] text-teal-400 mt-0.5">
+                      Objetivo: {b.target_label}
+                    </div>
+                  )}
+                  {b.estimated_total_snapshot != null && (
+                    <div className="text-[10px] text-slate-400 mt-0.5">
+                      Est. orientativa: <span className="text-teal-300 font-semibold">
+                        {b.estimated_total_snapshot.toLocaleString('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })}
+                      </span>
+                      {b.rate_amount_snapshot && b.rate_unit_snapshot && (
+                        <span className="text-slate-600 ml-1">
+                          ({b.rate_amount_snapshot}€ / {b.rate_unit_snapshot === 'day' ? 'día' : b.rate_unit_snapshot === 'week' ? 'sem.' : 'mes'})
+                        </span>
+                      )}
+                    </div>
+                  )}
                   {b.mensaje && (
                     <div className="mt-1.5 text-[11px] text-slate-400 italic bg-slate-900/50 rounded px-2.5 py-1.5 border border-slate-700/50">
                       "{b.mensaje}"
