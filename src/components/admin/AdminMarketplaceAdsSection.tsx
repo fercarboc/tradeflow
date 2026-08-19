@@ -1574,15 +1574,21 @@ function AdsBookingFormModal({
     }
     setSaving(true);
     try {
-      const payload = { slot_id: form.slot_id, actor_id: form.actor_id, inicio: form.inicio, fin: form.fin, estado: form.estado, notas: form.notas || null, origen: 'admin' as const };
       if (initial) {
-        const { error } = await supabase.from('trade_marketplace_ad_bookings').update(payload).eq('id', initial.id);
+        const { error } = await supabase.rpc('admin_update_ad_booking', {
+          p_id: initial.id, p_slot_id: form.slot_id, p_actor_id: form.actor_id,
+          p_inicio: form.inicio, p_fin: form.fin, p_estado: form.estado,
+          p_notas: form.notas || null,
+        });
         if (error) throw error;
         toast('success', 'Reserva actualizada');
       } else {
-        const { error } = await supabase.from('trade_marketplace_ad_bookings').insert(payload);
+        const { error } = await supabase.rpc('admin_create_ad_booking', {
+          p_slot_id: form.slot_id, p_actor_id: form.actor_id,
+          p_inicio: form.inicio, p_fin: form.fin, p_estado: form.estado,
+          p_notas: form.notas || null,
+        });
         if (error) {
-          // Trigger anti-overlap returns exclusion_violation
           if (error.message?.includes('Booking solapado') || error.code === '23P01') {
             toast('error', 'Este espacio ya está reservado para esas fechas.');
           } else {
