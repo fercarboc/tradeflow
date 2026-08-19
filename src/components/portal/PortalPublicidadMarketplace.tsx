@@ -1248,15 +1248,22 @@ function CreativeWizardDrawer({
         setDraftField('id', creativeId);
       }
       const url = await uploadSupplierCreativeImage(file, actorId, campId, creativeId);
+      // Persistir en BD inmediatamente para que el submit vea la imagen aunque se salte "Guardar borrador"
+      const { error: updErr } = await supabase
+        .from('trade_marketplace_ad_creatives')
+        .update({ image_url: url, updated_at: new Date().toISOString() })
+        .eq('id', creativeId)
+        .eq('estado', 'DRAFT');
+      if (updErr) throw updErr;
       setDraftField('image_url', url);
     } catch (e) {
-      setUploadErr(e instanceof Error ? e.message : 'Error al subir la imagen');
+      setUploadErr((e as { message?: string })?.message ?? String(e));
     } finally {
       setUploading(false);
     }
   }
 
-  async function handleSave() {
+  async function handleSave(): Promise<boolean> {
     setSaving(true);
     setSaveErr(null);
 
@@ -1272,8 +1279,8 @@ function CreativeWizardDrawer({
         setCampaignId(campId);
       }
 
-      const payload = {
-        campaign_id:       campId,
+      // Columnas editables (GRANT UPDATE de 20260818_05): campaign_id excluido (inmutable)
+      const updatePayload = {
         creative_mode:     draft.creative_mode,
         image_url:         draft.image_url || null,
         mobile_image_url:  null,
@@ -1287,7 +1294,6 @@ function CreativeWizardDrawer({
         old_price_display: draft.old_price_display ? parseFloat(draft.old_price_display) : null,
         discount_label:    draft.discount_label || null,
         theme_preset:      draft.theme_preset,
-        generada_ia:       false,
         activa:            false,
         estado:            'DRAFT',
         updated_at:        new Date().toISOString(),
@@ -1296,14 +1302,14 @@ function CreativeWizardDrawer({
       if (draft.id) {
         const { error } = await supabase
           .from('trade_marketplace_ad_creatives')
-          .update(payload)
+          .update(updatePayload)
           .eq('id', draft.id)
           .eq('estado', 'DRAFT');
         if (error) throw error;
       } else {
         const { data: newCr, error } = await supabase
           .from('trade_marketplace_ad_creatives')
-          .insert({ ...payload })
+          .insert({ campaign_id: campId, ...updatePayload })
           .select('id')
           .single();
         if (error) throw error;
@@ -1311,17 +1317,19 @@ function CreativeWizardDrawer({
       }
 
       setSaved(true);
+      return true;
     } catch (e) {
-      setSaveErr(e instanceof Error ? e.message : 'Error al guardar');
+      setSaveErr((e as { message?: string })?.message ?? String(e));
+      return false;
     } finally {
       setSaving(false);
     }
   }
 
   async function handleSubmit() {
-    if (!draft.id) {
-      await handleSave();
-    }
+    // Siempre guardar primero para persistir todos los campos (headline, body_text, etc.)
+    const ok = await handleSave();
+    if (!ok) return;
     const creativeId = draft.id;
     if (!creativeId) return;
     setSaving(true);
@@ -1334,7 +1342,7 @@ function CreativeWizardDrawer({
       setSubmitted(true);
       onSaved();
     } catch (e) {
-      setSaveErr(e instanceof Error ? e.message : 'Error al enviar');
+      setSaveErr((e as { message?: string })?.message ?? String(e));
     } finally {
       setSaving(false);
     }
