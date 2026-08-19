@@ -1977,6 +1977,7 @@ export default function PortalPublicidadMarketplace({ actorId }: Props) {
   const [loading,       setLoading]       = useState(true);
   const [error,         setError]         = useState<string | null>(null);
   const [showSolicitar, setShowSolicitar] = useState(false);
+  const reservasSectionRef = useRef<HTMLDivElement>(null);
 
   // Wizard state
   const [wizardBookingId,    setWizardBookingId]    = useState<string | null>(null);
@@ -2086,15 +2087,28 @@ export default function PortalPublicidadMarketplace({ actorId }: Props) {
               {slots.length} espacios · {ownCampaigns.length} campañas · {totalSolicitudes} solicitudes · {totalReservas} reservas
             </p>
           </div>
-          <button
-            onClick={() => setShowSolicitar(true)}
-            className="flex items-center gap-1.5 bg-teal-700 hover:bg-teal-600 text-white text-xs font-bold px-3 py-2 rounded-xl transition-colors cursor-pointer"
-          >
-            <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-            </svg>
-            Solicitar espacio
-          </button>
+          <div className="flex items-center gap-2">
+            {totalReservas > 0 && (
+              <button
+                onClick={() => reservasSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                className="flex items-center gap-1.5 bg-slate-700 hover:bg-slate-600 text-teal-300 text-xs font-semibold px-3 py-2 rounded-xl transition-colors cursor-pointer"
+              >
+                <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a3 3 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
+                </svg>
+                Mis reservas ({totalReservas})
+              </button>
+            )}
+            <button
+              onClick={() => setShowSolicitar(true)}
+              className="flex items-center gap-1.5 bg-teal-700 hover:bg-teal-600 text-white text-xs font-bold px-3 py-2 rounded-xl transition-colors cursor-pointer"
+            >
+              <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+              </svg>
+              Solicitar espacio
+            </button>
+          </div>
         </div>
         <AdCommercialInfo />
       </div>
@@ -2143,7 +2157,7 @@ export default function PortalPublicidadMarketplace({ actorId }: Props) {
             </section>
 
             {/* Mis reservas */}
-            <section>
+            <section ref={reservasSectionRef}>
               <SectionTitle>Mis reservas ({totalReservas})</SectionTitle>
               <OwnBookingsPanel
                 bookings={ownReservas}
