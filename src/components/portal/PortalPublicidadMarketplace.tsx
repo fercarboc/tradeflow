@@ -45,6 +45,9 @@ interface OwnBooking {
 interface OwnCreative {
   id: string; campaign_id: string;
   estado: string; submitted_at: string | null;
+  activa: boolean;
+  rechazo_motivo: string | null;
+  published_at: string | null;
   image_url: string | null; mobile_image_url: string | null;
   headline: string | null; body_text: string | null;
   cta_text: string | null; alt_text: string | null;
@@ -160,12 +163,15 @@ async function uploadSupplierCreativeImage(
   file: File,
   actorId: string,
   campaignId: string,
+  creativeId: string,
 ): Promise<string> {
   const ext = file.type === 'image/webp' ? 'webp' : file.type === 'image/png' ? 'png' : 'jpg';
-  const path = `ads/${actorId}/${campaignId}/${crypto.randomUUID()}.${ext}`;
+  // Path 4-level: ads/{actor}/{campaign}/{creative}/{uuid}.ext
+  // Garantiza aislamiento por creatividad e inmutabilidad tras aprobación.
+  const path = `ads/${actorId}/${campaignId}/${creativeId}/${crypto.randomUUID()}.${ext}`;
   const { error } = await supabase.storage
     .from('marketplace-offerings')
-    .upload(path, file, { upsert: true, contentType: file.type });
+    .upload(path, file, { upsert: false, contentType: file.type });
   if (error) throw error;
   const { data } = supabase.storage.from('marketplace-offerings').getPublicUrl(path);
   return data.publicUrl;
@@ -1190,7 +1196,7 @@ function CreativeWizardDrawer({
   const [saved,      setSaved]      = useState(false);
   const [submitted,  setSubmitted]  = useState(false);
 
-  const isLocked = existingCreative?.estado === 'PENDING_APPROVAL';
+  const isLocked = existingCreative?.estado === 'PENDING_APPROVAL' || existingCreative?.estado === 'APPROVED';
   const spec     = slot ? getAdSlotCreativeSpec(slot.formato) : null;
   const stepIdx  = WIZARD_STEPS.indexOf(step);
 
@@ -1219,7 +1225,29 @@ function CreativeWizardDrawer({
     setUploading(true);
     setUploadErr(null);
     try {
-      const url = await uploadSupplierCreativeImage(file, actorId, campId);
+      // Para el path 4-level, la creatividad debe existir en BD antes del upload.
+      // Si es nueva (sin id), se inserta primero con imagen vacía.
+      let creativeId = draft.id;
+      if (!creativeId) {
+        const { data: newCr, error: insErr } = await supabase
+          .from('trade_marketplace_ad_creatives')
+          .insert({
+            campaign_id:      campId,
+            creative_mode:    draft.creative_mode,
+            theme_preset:     draft.theme_preset,
+            text_position:    draft.text_position,
+            overlay_strength: draft.overlay_strength,
+            activa:           false,
+            estado:           'DRAFT',
+            updated_at:       new Date().toISOString(),
+          })
+          .select('id')
+          .single();
+        if (insErr) throw insErr;
+        creativeId = (newCr as { id: string }).id;
+        setDraftField('id', creativeId);
+      }
+      const url = await uploadSupplierCreativeImage(file, actorId, campId, creativeId);
       setDraftField('image_url', url);
     } catch (e) {
       setUploadErr(e instanceof Error ? e.message : 'Error al subir la imagen');
@@ -1836,16 +1864,24 @@ function OwnBookingsPanel({ bookings, slots, campaigns, creatives, actorId: _act
         const creative = campaign ? creatives.find(cr => cr.campaign_id === campaign.id) ?? null : null;
         const creativeEstado = creative?.estado ?? null;
 
-        let btnLabel = 'Preparar creatividad';
-        let btnCls   = 'bg-teal-700 hover:bg-teal-600 text-white cursor-pointer';
+        const isPublished    = creativeEstado === 'APPROVED' && creative?.activa === true;
+        const isApprovedWait = creativeEstado === 'APPROVED' && creative?.activa !== true;
+        const isActive       = b.estado === 'RESERVED' || b.estado === 'CONFIRMED';
+
+        let btnLabel    = 'Preparar creatividad';
+        let btnCls      = 'bg-teal-700 hover:bg-teal-600 text-white cursor-pointer';
         let btnDisabled = false;
 
         if (creativeEstado === 'PENDING_APPROVAL') {
           btnLabel = 'En revisión';
           btnCls   = 'bg-amber-900/40 text-amber-300 cursor-default';
           btnDisabled = true;
-        } else if (creativeEstado === 'APPROVED') {
+        } else if (isApprovedWait) {
           btnLabel = 'Aprobada';
+          btnCls   = 'bg-emerald-900/40 text-emerald-300 cursor-default';
+          btnDisabled = true;
+        } else if (isPublished) {
+          btnLabel = 'Publicada ✓';
           btnCls   = 'bg-emerald-900/40 text-emerald-300 cursor-default';
           btnDisabled = true;
         } else if (creativeEstado === 'DRAFT') {
@@ -1870,6 +1906,20 @@ function OwnBookingsPanel({ bookings, slots, campaigns, creatives, actorId: _act
                     Est. orientativa: <span className="text-teal-300 font-semibold">{fmtMoney(b.estimated_total_snapshot)}</span>
                   </p>
                 )}
+                {isPublished && creative?.published_at && (
+                  <p className="text-[10px] text-emerald-400 mt-0.5">
+                    En antena desde {fmtDate(creative.published_at)}
+                  </p>
+                )}
+                {isApprovedWait && (
+                  <p className="text-[10px] text-teal-400 mt-0.5">Aprobada — pendiente de publicación por TrabFlow</p>
+                )}
+                {creativeEstado === 'REJECTED' && creative?.rechazo_motivo && (
+                  <div className="mt-1.5 bg-red-950/30 border border-red-800/40 rounded-lg px-2.5 py-1.5">
+                    <p className="text-[10px] font-semibold text-red-400 mb-0.5">Motivo de rechazo:</p>
+                    <p className="text-[10px] text-red-300 leading-relaxed">{creative.rechazo_motivo}</p>
+                  </div>
+                )}
               </div>
               <div className="flex flex-col items-end gap-1.5 shrink-0">
                 <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${ESTADO_COLORS[b.estado] ?? 'bg-slate-800 text-slate-400'}`}>
@@ -1882,6 +1932,15 @@ function OwnBookingsPanel({ bookings, slots, campaigns, creatives, actorId: _act
                 >
                   {btnLabel}
                 </button>
+                {/* Case 9: permitir nueva creatividad cuando el contrato está activo y hay otra publicada/en revisión */}
+                {isPublished && isActive && (
+                  <button
+                    onClick={() => onOpenWizard(b.id, b.slot_id, null, campaign?.id ?? null)}
+                    className="text-[10px] font-semibold px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer transition-colors"
+                  >
+                    + Nueva creatividad
+                  </button>
+                )}
               </div>
             </div>
             {creativeEstado === 'PENDING_APPROVAL' && (
@@ -1943,7 +2002,7 @@ export default function PortalPublicidadMarketplace({ actorId }: Props) {
         .in('estado', ['REQUESTED','CONTACTING','ACCEPTED','REJECTED','RESERVED','CONFIRMED']),
       supabase
         .from('trade_marketplace_ad_creatives')
-        .select('id,campaign_id,estado,submitted_at,image_url,mobile_image_url,headline,body_text,cta_text,alt_text,creative_mode,text_position,overlay_strength,price_display,old_price_display,discount_label,theme_preset'),
+        .select('id,campaign_id,estado,submitted_at,activa,rechazo_motivo,published_at,image_url,mobile_image_url,headline,body_text,cta_text,alt_text,creative_mode,text_position,overlay_strength,price_display,old_price_display,discount_label,theme_preset'),
     ]);
     setLoading(false);
     if (slotsRes.error)     { setError(slotsRes.error.message);     return; }

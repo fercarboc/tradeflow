@@ -214,7 +214,7 @@ function SlotStatusPill({ status }: { status: SlotMapStatus }) {
 
 function MapSlotButton({
   slot, campaigns, bookings, isSelected, isHovered,
-  onSelect, onHover, actorId, className,
+  onSelect, onHover, actorId, className, pendingCreativeCount,
 }: {
   slot: PlacementSlot;
   campaigns: PlacementCampaign[];
@@ -225,12 +225,14 @@ function MapSlotButton({
   onHover: (slot: PlacementSlot | null) => void;
   actorId?: string;
   className?: string;
+  pendingCreativeCount?: number;
 }) {
   const status    = calcSlotStatus(slot, campaigns, bookings, actorId);
   const cfg       = STATUS_CONFIG[status];
   const camp      = getCommercialCampaign(slot, campaigns);
   const name      = SLOT_NAMES[slot.id] ?? slot.nombre;
   const isFallback = !camp;
+  const hasPending = (pendingCreativeCount ?? 0) > 0;
 
   return (
     <button
@@ -240,7 +242,7 @@ function MapSlotButton({
       onMouseLeave={() => onHover(null)}
       onFocus={() => onHover(slot)}
       onBlur={() => onHover(null)}
-      aria-label={`${name}, ${cfg.label}`}
+      aria-label={`${name}, ${cfg.label}${hasPending ? ', 1 creatividad pendiente de revisión' : ''}`}
       aria-pressed={isSelected}
       className={`relative border rounded-lg overflow-hidden transition-all duration-150 text-left cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 focus-visible:ring-offset-slate-900 ${cfg.border} ${cfg.bg} ${
         isSelected ? 'ring-2 ring-blue-400 ring-offset-1 ring-offset-slate-900 brightness-110' :
@@ -260,6 +262,11 @@ function MapSlotButton({
           className="absolute inset-0 opacity-25"
           style={{ background: 'linear-gradient(135deg,#0f2044 0%,#1e3a5f 100%)' }}
         />
+      )}
+      {hasPending && (
+        <div className="absolute top-0 left-0 z-20 bg-amber-500 text-black text-[7px] font-black px-1 py-px leading-tight rounded-br">
+          {pendingCreativeCount} rev.
+        </div>
       )}
       <div className="relative z-10 w-full h-full flex flex-col justify-between p-1.5 gap-0.5">
         <div className="flex justify-end">
@@ -281,7 +288,7 @@ function MapSlotButton({
 
 function HeroSlotGroup({
   heroSlots, campaigns, bookings, selectedSlotId, hoveredSlotId,
-  onSelect, onHover, actorId,
+  onSelect, onHover, actorId, pendingCreativesPerSlot,
 }: {
   heroSlots: PlacementSlot[];
   campaigns: PlacementCampaign[];
@@ -291,6 +298,7 @@ function HeroSlotGroup({
   onSelect: (slot: PlacementSlot) => void;
   onHover: (slot: PlacementSlot | null) => void;
   actorId?: string;
+  pendingCreativesPerSlot?: Record<string, number>;
 }) {
   const [activeIdx, setActiveIdx] = useState(0); // 0 = institucional, 1-3 = commercial
 
@@ -348,6 +356,7 @@ function HeroSlotGroup({
             onHover={onHover}
             actorId={actorId}
             className="absolute inset-0 rounded-none border-0"
+            pendingCreativeCount={pendingCreativesPerSlot?.[currentSlot.id] ?? 0}
           />
         )}
       </div>
@@ -509,7 +518,7 @@ function MapLegend() {
 
 function DesktopMapView({
   slots, campaigns, bookings, selectedSlotId, hoveredSlotId,
-  onSelect, onHover, actorId,
+  onSelect, onHover, actorId, pendingCreativesPerSlot,
 }: {
   slots: PlacementSlot[];
   campaigns: PlacementCampaign[];
@@ -519,6 +528,7 @@ function DesktopMapView({
   onSelect: (s: PlacementSlot) => void;
   onHover: (s: PlacementSlot | null) => void;
   actorId?: string;
+  pendingCreativesPerSlot?: Record<string, number>;
 }) {
   const ls = (id: string) => slotById(id, slots);
 
@@ -548,6 +558,7 @@ function DesktopMapView({
         onHover={onHover}
         actorId={actorId}
         className="h-[92px]"
+        pendingCreativeCount={pendingCreativesPerSlot?.[id] ?? 0}
       />
     );
   }
@@ -571,6 +582,7 @@ function DesktopMapView({
           onSelect={onSelect}
           onHover={onHover}
           actorId={actorId}
+          pendingCreativesPerSlot={pendingCreativesPerSlot}
         />
         {/* Placeholder productos */}
         <div className="h-9 bg-slate-900/30 border border-dashed border-slate-800/60 rounded-lg flex items-center justify-center gap-1.5 px-3">
@@ -593,6 +605,7 @@ function DesktopMapView({
               onHover={onHover}
               actorId={actorId}
               className="h-[76px]"
+              pendingCreativeCount={pendingCreativesPerSlot?.[slot.id] ?? 0}
             />
           ))}
         </div>
@@ -608,7 +621,7 @@ function DesktopMapView({
 
 function MobileMapView({
   slots, campaigns, bookings, selectedSlotId, hoveredSlotId,
-  onSelect, onHover, actorId,
+  onSelect, onHover, actorId, pendingCreativesPerSlot,
 }: {
   slots: PlacementSlot[];
   campaigns: PlacementCampaign[];
@@ -618,6 +631,7 @@ function MobileMapView({
   onSelect: (s: PlacementSlot) => void;
   onHover: (s: PlacementSlot | null) => void;
   actorId?: string;
+  pendingCreativesPerSlot?: Record<string, number>;
 }) {
   const HERO_IDS   = ['MARKET_HOME_HERO_1', 'MARKET_HOME_HERO_2', 'MARKET_HOME_HERO_3'];
   const MOBILE_IDS = ['MARKET_HOME_MOBILE_PROMO_1', 'MARKET_HOME_MOBILE_PROMO_2'];
@@ -642,6 +656,7 @@ function MobileMapView({
             onSelect={onSelect}
             onHover={onHover}
             actorId={actorId}
+            pendingCreativesPerSlot={pendingCreativesPerSlot}
           />
           {/* Category chips placeholder */}
           <div className="flex gap-1 overflow-hidden">
@@ -662,6 +677,7 @@ function MobileMapView({
               onHover={onHover}
               actorId={actorId}
               className="w-full h-12"
+              pendingCreativeCount={pendingCreativesPerSlot?.[slot.id] ?? 0}
             />
           ))}
           {/* Ghost products */}
@@ -681,7 +697,7 @@ function MobileMapView({
 
 function CatalogMapView({
   slots, campaigns, bookings, selectedSlotId, hoveredSlotId,
-  onSelect, onHover, actorId,
+  onSelect, onHover, actorId, pendingCreativesPerSlot,
 }: {
   slots: PlacementSlot[];
   campaigns: PlacementCampaign[];
@@ -691,6 +707,7 @@ function CatalogMapView({
   onSelect: (s: PlacementSlot) => void;
   onHover: (s: PlacementSlot | null) => void;
   actorId?: string;
+  pendingCreativesPerSlot?: Record<string, number>;
 }) {
   const catalogSlot = slotById('MARKET_CATALOG_HERO', slots);
 
@@ -714,6 +731,7 @@ function CatalogMapView({
             onHover={onHover}
             actorId={actorId}
             className="w-full h-14"
+            pendingCreativeCount={pendingCreativesPerSlot?.[catalogSlot.id] ?? 0}
           />
         </div>
       ) : (
@@ -756,11 +774,12 @@ export interface AdPlacementMapProps {
   mode: 'admin' | 'supplier-preview';
   actorId?: string;
   onCreateCampaign?: (slotId: string) => void;
+  pendingCreativesPerSlot?: Record<string, number>;
 }
 
 export default function AdPlacementMap({
   slots, campaigns, bookings, selectedSlotId, onSelectSlot,
-  mode, actorId, onCreateCampaign,
+  mode, actorId, onCreateCampaign, pendingCreativesPerSlot,
 }: AdPlacementMapProps) {
   const [view, setView]           = useState<MapView>('desktop');
   const [hoveredSlot, setHoveredSlot] = useState<PlacementSlot | null>(null);
@@ -786,10 +805,11 @@ export default function AdPlacementMap({
 
   const mapProps = {
     slots, campaigns, bookings, actorId,
-    selectedSlotId: selectedSlotId ?? infoSlot?.id,
-    hoveredSlotId:  hoveredSlot?.id,
-    onSelect:       handleSelect,
-    onHover:        handleHover,
+    selectedSlotId:        selectedSlotId ?? infoSlot?.id,
+    hoveredSlotId:         hoveredSlot?.id,
+    onSelect:              handleSelect,
+    onHover:               handleHover,
+    pendingCreativesPerSlot,
   };
 
   return (
