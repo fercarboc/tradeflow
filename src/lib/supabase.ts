@@ -2200,6 +2200,140 @@ export async function adminMarkInvoicePaid(invoiceId: string): Promise<void> {
   if (error) throw error;
 }
 
+// ── Centro Financiero Unificado ──────────────────────────────────────────
+
+export interface TradeFinancialDocument {
+  id: string;
+  doc_number: string;
+  doc_series: string;
+  revenue_type: 'subscription' | 'advertising' | 'marketplace' | 'provider_service' | 'other';
+  payer_type: 'installer' | 'installer_company' | 'provider' | 'other';
+  document_type: 'invoice' | 'commercial_summary' | 'proforma' | 'credit_note';
+  estado: 'draft' | 'issued' | 'pending' | 'paid' | 'waived' | 'cancelled' | 'refunded';
+  payment_status: 'paid' | 'unpaid' | 'waived' | 'refunded';
+  org_id?: string;
+  actor_id?: string;
+  customer_name: string;
+  customer_nif?: string;
+  customer_email?: string;
+  concept: string;
+  period_start?: string;
+  period_end?: string;
+  rate_amount: number;
+  discount_amount: number;
+  promotion_amount: number;
+  commercial_value: number;
+  net_amount: number;
+  tax_rate: number;
+  tax_amount: number;
+  total_amount: number;
+  currency: string;
+  paid_at?: string;
+  payment_method?: string;
+  stripe_invoice_id?: string;
+  invoice_url?: string;
+  invoice_pdf_url?: string;
+  issued_at?: string;
+  sent_at?: string;
+  metadata: Record<string, unknown>;
+  created_at: string;
+  // Joins
+  org_nombre?: string;
+  actor_nombre?: string;
+  slot_nombre?: string;
+}
+
+export interface FinancialSummary {
+  kpis: {
+    facturado_mes: number;
+    cobrado_mes: number;
+    pendiente: number;
+    ytd_cobrado: number;
+    valor_comercial_bonificado: number;
+    total_docs: number;
+    ticket_medio: number;
+  };
+  por_tipo: Array<{
+    revenue_type: string;
+    docs: number;
+    valor_comercial: number;
+    cobrado: number;
+    pendiente: number;
+    bonificado: number;
+  }>;
+  ad_espacios: Array<{
+    slot_id: string;
+    slot_nombre: string;
+    formato: string;
+    tarifa_base: number;
+    reservas_activas: number;
+    total_reservas: number;
+    dias_reservados: number;
+    valor_tarifa: number;
+    proveedores_activos: number;
+    valor_comercial_total: number;
+  }>;
+  saas_planes: Array<{
+    plan: string;
+    billing_cycle: string;
+    activos: number;
+    en_prueba: number;
+    cancelados: number;
+  }>;
+}
+
+export interface FinancialDocFilters {
+  revenue_type?: string;
+  payer_type?: string;
+  estado?: string;
+  payment_status?: string;
+  date_from?: string;
+  date_to?: string;
+  search?: string;
+  plan?: string;
+  billing_cycle?: string;
+  slot_id?: string;
+  actor_id?: string;
+}
+
+export async function adminGetFinancialDocuments(filters: FinancialDocFilters = {}): Promise<TradeFinancialDocument[]> {
+  const { data, error } = await supabase.rpc('admin_get_financial_documents', {
+    p_revenue_type:   filters.revenue_type   ?? null,
+    p_payer_type:     filters.payer_type     ?? null,
+    p_estado:         filters.estado         ?? null,
+    p_payment_status: filters.payment_status ?? null,
+    p_date_from:      filters.date_from      ?? null,
+    p_date_to:        filters.date_to        ?? null,
+    p_search:         filters.search         ?? null,
+    p_plan:           filters.plan           ?? null,
+    p_billing_cycle:  filters.billing_cycle  ?? null,
+    p_slot_id:        filters.slot_id        ?? null,
+    p_actor_id:       filters.actor_id       ?? null,
+  });
+  if (error) throw error;
+  return (data ?? []) as TradeFinancialDocument[];
+}
+
+export async function adminGetFinancialSummary(): Promise<FinancialSummary> {
+  const { data, error } = await supabase.rpc('admin_get_financial_summary');
+  if (error) throw error;
+  return data as FinancialSummary;
+}
+
+export async function adminCreateAdFinancialDocument(
+  bookingId: string,
+  pricingMode: string = 'validation_free',
+  discountRate: number = 0,
+): Promise<string> {
+  const { data, error } = await supabase.rpc('admin_create_ad_financial_document', {
+    p_booking_id:   bookingId,
+    p_pricing_mode: pricingMode,
+    p_discount_rate: discountRate,
+  });
+  if (error) throw error;
+  return data as string;
+}
+
 export async function setSubscriptionActive(orgId: string, active: boolean): Promise<void> {
   const { error } = await supabase.rpc('admin_set_subscription_active', {
     p_org_id: orgId,

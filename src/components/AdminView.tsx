@@ -15,7 +15,6 @@ import {
   adminLoadCatalogSuggestions, adminUpdateCatalogSuggestion, adminApproveSuggestionToGlobal,
   adminLoadNotes, adminAddNote, adminDeleteNote, adminLogAction, adminLoadActivityLog, adminSetOrgFlag,
   adminLoadOrgRecentQuotes, AdminOrgRecentQuote,
-  adminMarkInvoicePaid,
   adminLoadAutoConfig, adminSaveAutoConfig, adminGetTrialsExpiringSoon, adminRunChurnRiskNow,
   loadInstallerNeeds, markNeedReviewed,
   adminLoadAIFeedback, adminMarkFeedbackApplied,
@@ -44,6 +43,7 @@ import AdminDocumentosSection from './admin/AdminDocumentosSection';
 import AdminRepositorioSection from './admin/AdminRepositorioSection';
 import AdminAIValidationSection from './admin/AdminAIValidationSection';
 import AdminMarketplaceAdsSection from './admin/AdminMarketplaceAdsSection';
+import AdminFinancialCenter from './admin/AdminFinancialCenter';
 import {
   adminLoadActuaciones, adminToggleActuacionActivo,
   adminUpdateActuacionPrecios, adminUpdateActuacionObservaciones,
@@ -1014,11 +1014,8 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [weeklyQuotes, setWeeklyQuotes] = useState<Array<{ week: string; count: number }>>([]);
   const [weeklyQuotesLoading, setWeeklyQuotesLoading] = useState(false);
 
-  // Platform invoices
-  const [invoices, setInvoices]               = useState<TradePlatformInvoice[]>([]);
-  const [invoicesLoading, setInvoicesLoading] = useState(false);
-  const [invoiceMonthFilter, setInvoiceMonthFilter] = useState<string>('all');
-  const [markingPaidId, setMarkingPaidId]     = useState<string | null>(null);
+  // Platform invoices (usadas en sección Exportar)
+  const [invoices, setInvoices] = useState<TradePlatformInvoice[]>([]);
   const [toggleLoading, setToggleLoading]     = useState<string | null>(null);
 
   // Stripe
@@ -1086,10 +1083,8 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   };
 
   const loadInvoices = async () => {
-    setInvoicesLoading(true);
     try { setInvoices(await loadPlatformInvoices()); }
     catch { setInvoices([]); }
-    finally { setInvoicesLoading(false); }
   };
 
   const loadWeeklyQuotes = async () => {
@@ -1108,7 +1103,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
 
   useEffect(() => { if (isAdmin) { loadOrgs(); loadWeeklyQuotes(); } }, [isAdmin]);
   useEffect(() => { if (isAdmin && section === 'leads') loadLeads(); }, [isAdmin, section]);
-  useEffect(() => { if (isAdmin && section === 'invoices') loadInvoices(); }, [isAdmin, section]);
+  // Invoices loaded on-demand for exports section; AdminFinancialCenter manages its own data
   useEffect(() => { if (isAdmin && section === 'suggestions') loadSuggestions(); }, [isAdmin, section]);
   useEffect(() => {
     if (!isAdmin || section !== 'ia_normativa') return;
@@ -1384,15 +1379,6 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     planMrr[plan]    = (planMrr[plan] ?? 0) + (PLAN_PRICES[plan]?.[org.subscription!.billing_cycle] ?? 0);
   }
 
-  // ── Cálculos facturas ──────────────────────────────────────────────────────
-  const currentYearMonth = new Date().toISOString().slice(0, 7);
-  const currentYear      = new Date().getFullYear().toString();
-  const invoicedThisMonth = invoices.filter(i => i.period_start.startsWith(currentYearMonth)).reduce((s, i) => s + i.amount_cents, 0);
-  const invoicedYTD       = invoices.filter(i => i.period_start.startsWith(currentYear)).reduce((s, i) => s + i.amount_cents, 0);
-  const pendingAmount     = invoices.filter(i => i.status !== 'paid').reduce((s, i) => s + i.amount_cents, 0);
-  const paidCount         = invoices.filter(i => i.status === 'paid').length;
-  const invoiceMonths     = [...new Set(invoices.map(i => i.period_start.slice(0, 7)))].sort().reverse();
-  const filteredInvoices  = invoiceMonthFilter === 'all' ? invoices : invoices.filter(i => i.period_start.slice(0, 7) === invoiceMonthFilter);
 
   // ── Cálculos uso del producto ─────────────────────────────────────────────
   const noFirstQuote     = orgs.filter(o => (o.quotes_count ?? 0) === 0).length;
@@ -1573,36 +1559,6 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     { id: 'ai_validation' as const, label: 'AI Validation',    Icon: Activity },
     { id: 'mkt_ads'       as const, label: 'Publicidad Mkt',   Icon: Megaphone },
   ];
-
-  const handleMarkInvoicePaid = async (inv: TradePlatformInvoice) => {
-    setMarkingPaidId(inv.id);
-    try {
-      await adminMarkInvoicePaid(inv.id);
-      setInvoices(prev => prev.map(i => i.id === inv.id ? { ...i, status: 'paid', paid_at: new Date().toISOString() } : i));
-      toast('success', 'Factura marcada como pagada');
-    } catch (e: unknown) {
-      toast('error', 'Error al actualizar factura: ' + (e instanceof Error ? e.message : String(e)));
-    } finally {
-      setMarkingPaidId(null);
-    }
-  };
-
-  const handleExportInvoices = () => {
-    const rows = filteredInvoices.map(inv => {
-      const org = orgs.find(o => o.id === inv.org_id);
-      return {
-        Organización: org?.nombre ?? inv.org_id.slice(0, 8),
-        'Período inicio': new Date(inv.period_start).toLocaleDateString('es-ES'),
-        'Período fin': new Date(inv.period_end).toLocaleDateString('es-ES'),
-        'Importe (€)': (inv.amount_cents / 100).toFixed(2),
-        Estado: inv.status,
-        'Pagada el': inv.paid_at ? new Date(inv.paid_at).toLocaleDateString('es-ES') : '',
-        'Stripe ID': inv.stripe_invoice_id ?? '',
-        'Creada': new Date(inv.created_at).toLocaleDateString('es-ES'),
-      };
-    });
-    exportToCsv(rows, `tradeflow_facturas_${invoiceMonthFilter !== 'all' ? invoiceMonthFilter : new Date().toISOString().slice(0, 10)}`);
-  };
 
   const reloadCurrent = () => {
     if (section === 'leads') loadLeads();
@@ -2463,127 +2419,9 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
         )}
 
         {/* ════════════════════════════════════════════════════════
-            SECCIÓN: FACTURAS PLATAFORMA
+            SECCIÓN: CENTRO FINANCIERO UNIFICADO
         ════════════════════════════════════════════════════════ */}
-        {section === 'invoices' && (
-          <div className="space-y-5">
-
-            {/* KPI cards */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {[
-                { label: 'Facturado este mes', value: `${(invoicedThisMonth / 100).toFixed(0)}€`, color: 'text-blue-300' },
-                { label: 'Total YTD',           value: `${(invoicedYTD / 100).toFixed(0)}€`,       color: 'text-purple-300' },
-                { label: 'Pendiente cobro',     value: `${(pendingAmount / 100).toFixed(0)}€`,     color: pendingAmount > 0 ? 'text-yellow-400' : 'text-slate-500' },
-                { label: 'Pagadas',             value: paidCount,                                  color: 'text-emerald-400' },
-              ].map(({ label, value, color }) => (
-                <div key={label} className="bg-slate-800/50 border border-slate-700 rounded-lg p-3">
-                  <div className="text-[9px] text-slate-400 uppercase tracking-wider mb-1">{label}</div>
-                  <div className={`text-2xl font-bold ${color}`}>{value}</div>
-                </div>
-              ))}
-            </div>
-
-            {/* Filtros + acciones */}
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="flex items-center gap-2">
-                <CreditCard className="h-4 w-4 text-purple-400" />
-                <span className="text-sm font-semibold text-white">Facturas de plataforma</span>
-              </div>
-              <select value={invoiceMonthFilter} onChange={e => setInvoiceMonthFilter(e.target.value)}
-                className="bg-slate-800 border border-slate-700 text-slate-300 text-xs rounded px-3 py-2 cursor-pointer focus:outline-none focus:border-blue-500">
-                <option value="all">Todos los meses</option>
-                {invoiceMonths.map(m => (
-                  <option key={m} value={m}>{m}</option>
-                ))}
-              </select>
-              <span className="text-xs text-slate-500">{filteredInvoices.length} facturas</span>
-              <div className="ml-auto flex items-center gap-2">
-                <button onClick={handleExportInvoices} title="Exportar CSV"
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold border border-slate-700 text-slate-400 hover:text-white hover:border-emerald-700 hover:bg-emerald-900/20 cursor-pointer transition-colors">
-                  <Download className="h-3.5 w-3.5" /> CSV
-                </button>
-                <button onClick={loadInvoices} title="Recargar"
-                  className="h-7 w-7 rounded border border-slate-700 flex items-center justify-center hover:bg-slate-700 cursor-pointer transition-colors">
-                  <RefreshCw className={`h-3.5 w-3.5 text-slate-400 ${invoicesLoading ? 'animate-spin' : ''}`} />
-                </button>
-              </div>
-            </div>
-
-            {/* Tabla */}
-            <div className="bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-slate-700">
-                      {['Organización', 'Periodo', 'Importe', 'Estado', 'Pagada el', 'Stripe ID', 'Acciones'].map(h => (
-                        <th key={h} className="px-3 py-2 text-left text-[9px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">{h}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {invoicesLoading ? (
-                      <tr><td colSpan={7} className="px-4 py-10 text-center text-slate-500 text-sm">
-                        <RefreshCw className="h-4 w-4 animate-spin inline-block mr-2" /> Cargando facturas...
-                      </td></tr>
-                    ) : filteredInvoices.length === 0 ? (
-                      <tr><td colSpan={7} className="px-4 py-10 text-center">
-                        <CreditCard className="h-8 w-8 text-slate-700 mx-auto mb-2" />
-                        <p className="text-slate-500 text-sm">No hay facturas de plataforma aún</p>
-                        <p className="text-slate-600 text-xs mt-1">Se generarán automáticamente cuando haya clientes activos</p>
-                      </td></tr>
-                    ) : filteredInvoices.map(inv => {
-                      const org = orgs.find(o => o.id === inv.org_id);
-                      const statusCfg = {
-                        draft: { cls: 'bg-slate-700 text-slate-300 border-slate-600', label: 'Borrador' },
-                        sent:  { cls: 'bg-blue-900/40 text-blue-300 border-blue-800', label: 'Enviada' },
-                        paid:  { cls: 'bg-emerald-900/40 text-emerald-300 border-emerald-800', label: 'Pagada' },
-                      };
-                      const { cls, label } = statusCfg[inv.status];
-                      return (
-                        <tr key={inv.id} className="border-b border-slate-700/50 hover:bg-slate-800/60 transition-colors">
-                          <td className="px-3 py-1.5">
-                            <span className="text-white text-xs font-medium">{org?.nombre ?? inv.org_id.slice(0, 8)}</span>
-                          </td>
-                          <td className="px-3 py-1.5 font-mono text-xs text-slate-400 whitespace-nowrap">
-                            {new Date(inv.period_start).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' })}
-                            {' – '}
-                            {new Date(inv.period_end).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' })}
-                          </td>
-                          <td className="px-3 py-1.5">
-                            <span className="text-white font-semibold text-xs">{(inv.amount_cents / 100).toFixed(2)} €</span>
-                          </td>
-                          <td className="px-3 py-1.5">
-                            <span className={`inline-block text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded border ${cls}`}>{label}</span>
-                          </td>
-                          <td className="px-3 py-1.5">
-                            <span className="text-slate-500 text-xs font-mono whitespace-nowrap">
-                              {inv.paid_at ? new Date(inv.paid_at).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' }) : '—'}
-                            </span>
-                          </td>
-                          <td className="px-3 py-1.5">
-                            <span className="text-slate-500 text-xs font-mono">{inv.stripe_invoice_id ?? '—'}</span>
-                          </td>
-                          <td className="px-3 py-1.5">
-                            {inv.status !== 'paid' && (
-                              <button onClick={() => handleMarkInvoicePaid(inv)}
-                                disabled={markingPaidId === inv.id}
-                                className="flex items-center gap-1 px-2 py-1 rounded text-[9px] font-bold uppercase cursor-pointer border bg-slate-700 border-slate-600 text-slate-300 hover:bg-emerald-900/40 hover:border-emerald-700 hover:text-emerald-300 disabled:opacity-50 transition-colors">
-                                {markingPaidId === inv.id
-                                  ? <RefreshCw className="h-2.5 w-2.5 animate-spin" />
-                                  : <CheckCircle className="h-2.5 w-2.5" />}
-                                Pagada
-                              </button>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        )}
+        {section === 'invoices' && <AdminFinancialCenter />}
 
         {/* ════════════════════════════════════════════════════════
             SECCIÓN: USO DEL PRODUCTO
