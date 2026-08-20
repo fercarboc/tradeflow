@@ -758,7 +758,7 @@ function CommercialVsCobradoChart({ summary }: { summary: FinancialSummary }) {
         <XAxis dataKey="name" tick={{ fill: '#94a3b8', fontSize: 10 }} axisLine={false} tickLine={false} />
         <YAxis tickFormatter={tickFmt} tick={{ fill: '#94a3b8', fontSize: 10 }} axisLine={false} tickLine={false} width={42} />
         <Tooltip
-          contentStyle={TOOLTIP_STYLE} labelStyle={TOOLTIP_LABEL_STYLE}
+          contentStyle={TOOLTIP_STYLE} labelStyle={TOOLTIP_LABEL_STYLE} itemStyle={{ color: '#f1f5f9' }}
           formatter={((value: number) => [fmtEur(value, 2), 'Importe']) as never}
         />
         <Bar dataKey="valor" radius={[4, 4, 0, 0]}>
@@ -797,7 +797,7 @@ function OrigenIngresosChart({ summary }: { summary: FinancialSummary }) {
           {data.map((_, i) => <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />)}
         </Pie>
         <Tooltip
-          contentStyle={TOOLTIP_STYLE} labelStyle={TOOLTIP_LABEL_STYLE}
+          contentStyle={TOOLTIP_STYLE} labelStyle={TOOLTIP_LABEL_STYLE} itemStyle={{ color: '#f1f5f9' }}
           formatter={((value: number) => [fmtEur(value, 2), 'Cobrado']) as never}
         />
         <Legend wrapperStyle={{ fontSize: 10, color: '#94a3b8' }} />
@@ -842,7 +842,7 @@ function AdSpaceBarChart({ summary }: { summary: FinancialSummary }) {
           <XAxis type="number" tickFormatter={isEur ? tickFmt : (v: number) => String(v)} tick={{ fill: '#94a3b8', fontSize: 10 }} axisLine={false} tickLine={false} />
           <YAxis type="category" dataKey="name" width={100} tick={{ fill: '#94a3b8', fontSize: 10 }} axisLine={false} tickLine={false} />
           <Tooltip
-            contentStyle={TOOLTIP_STYLE} labelStyle={TOOLTIP_LABEL_STYLE}
+            contentStyle={TOOLTIP_STYLE} labelStyle={TOOLTIP_LABEL_STYLE} itemStyle={{ color: '#f1f5f9' }}
             formatter={((value: number) => [isEur ? fmtEur(value, 0) : value, AD_METRIC_LABELS[metric]]) as never}
           />
           <Bar dataKey="valor" fill={CHART_COLORS.bonificado} radius={[0, 4, 4, 0]} />
@@ -872,7 +872,7 @@ function OcupacionChart({ summary }: { summary: FinancialSummary }) {
         <XAxis type="number" domain={[0, 100]} tickFormatter={(v: number) => `${v}%`} tick={{ fill: '#94a3b8', fontSize: 10 }} axisLine={false} tickLine={false} />
         <YAxis type="category" dataKey="name" width={100} tick={{ fill: '#94a3b8', fontSize: 10 }} axisLine={false} tickLine={false} />
         <Tooltip
-          contentStyle={TOOLTIP_STYLE} labelStyle={TOOLTIP_LABEL_STYLE}
+          contentStyle={TOOLTIP_STYLE} labelStyle={TOOLTIP_LABEL_STYLE} itemStyle={{ color: '#f1f5f9' }}
           formatter={((value: number, _name: string, props: { payload?: { dias?: number } }) => [
             `${value}% relativo (${props.payload?.dias ?? 0} días)`,
             'Actividad',
@@ -921,7 +921,7 @@ function SaasPlansChart({ summary }: { summary: FinancialSummary }) {
           <XAxis dataKey="name" tick={{ fill: '#94a3b8', fontSize: 10 }} axisLine={false} tickLine={false} />
           <YAxis tickFormatter={metric === 'mrr' ? tickFmt : (v: number) => String(v)} tick={{ fill: '#94a3b8', fontSize: 10 }} axisLine={false} tickLine={false} width={36} />
           <Tooltip
-            contentStyle={TOOLTIP_STYLE} labelStyle={TOOLTIP_LABEL_STYLE}
+            contentStyle={TOOLTIP_STYLE} labelStyle={TOOLTIP_LABEL_STYLE} itemStyle={{ color: '#f1f5f9' }}
             formatter={((value: number) => [metric === 'mrr' ? fmtEur(value, 0) + '/mes' : `${value} clientes`, metric === 'mrr' ? 'MRR' : 'Clientes']) as never}
           />
           <Bar dataKey="valor" fill={CHART_COLORS.saas} radius={[4, 4, 0, 0]} />
