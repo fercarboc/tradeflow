@@ -2873,19 +2873,34 @@ function AdsCreativesList({
   const [rejectMotivo, setRejectMotivo] = useState('');
   const [rejectSaving, setRejectSaving] = useState(false);
 
+  // Estado modal de aprobación (D21)
+  const [approveTarget, setApproveTarget] = useState<AdCreativeAdmin | null>(null);
+  const [approveSaving, setApproveSaving] = useState(false);
+
+  // Estado modal de publicación (D23)
+  const [publishTarget, setPublishTarget] = useState<AdCreativeAdmin | null>(null);
+  const [publishSaving, setPublishSaving] = useState(false);
+
   const filtered = creatives.filter(c =>
     (filterCampaign === 'all' || c.campaign_id === filterCampaign) &&
     (filterEstado   === 'all' || c.estado       === filterEstado)
   );
 
-  async function handleApprove(cr: AdCreativeAdmin) {
+  function openApproveModal(cr: AdCreativeAdmin) { setApproveTarget(cr); }
+
+  async function handleApproveConfirm() {
+    if (!approveTarget) return;
+    setApproveSaving(true);
     try {
-      const { error } = await supabase.rpc('admin_approve_ad_creative', { p_creative_id: cr.id });
+      const { error } = await supabase.rpc('admin_approve_ad_creative', { p_creative_id: approveTarget.id });
       if (error) throw error;
       toast('success', 'Creatividad aprobada');
+      setApproveTarget(null);
       onRefresh();
     } catch (e) {
       toast('error', 'Error al aprobar: ' + (e instanceof Error ? e.message : (e as { message?: string })?.message ?? String(e)));
+    } finally {
+      setApproveSaving(false);
     }
   }
 
@@ -2913,16 +2928,30 @@ function AdsCreativesList({
     }
   }
 
-  async function handlePublish(cr: AdCreativeAdmin) {
+  function openPublishModal(cr: AdCreativeAdmin) { setPublishTarget(cr); }
+
+  async function handlePublishConfirm() {
+    if (!publishTarget) return;
+    setPublishSaving(true);
     try {
-      const { error } = await supabase.rpc('admin_publish_ad_creative', { p_creative_id: cr.id });
+      const { error } = await supabase.rpc('admin_publish_ad_creative', { p_creative_id: publishTarget.id });
       if (error) throw error;
       toast('success', 'Creatividad publicada');
+      setPublishTarget(null);
       onRefresh();
     } catch (e) {
       toast('error', 'Error al publicar: ' + (e instanceof Error ? e.message : (e as { message?: string })?.message ?? String(e)));
+    } finally {
+      setPublishSaving(false);
     }
   }
+
+  // Datos derivados para modales (computados antes del return, sin hooks)
+  const approveModalCamp = approveTarget ? (campaigns.find(c => c.id === approveTarget.campaign_id) ?? null) : null;
+  const approveModalSlot = approveModalCamp ? (slots.find(s => s.id === approveModalCamp.slot_id) ?? null) : null;
+  const publishCurrentActive = publishTarget
+    ? (creatives.find(c => c.campaign_id === publishTarget.campaign_id && c.activa && c.id !== publishTarget.id) ?? null)
+    : null;
 
   async function handleToggleActivaDirect(cr: AdCreativeAdmin) {
     try {
@@ -2989,6 +3018,186 @@ function AdsCreativesList({
                   {rejectSaving ? 'Rechazando…' : 'Confirmar rechazo'}
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal aprobación (D21) */}
+      {approveTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="bg-slate-900 border border-emerald-800/60 rounded-xl p-5 w-full max-w-sm space-y-4">
+            <div className="flex items-center gap-2">
+              <CheckCircle className="h-5 w-5 text-emerald-400 shrink-0" />
+              <p className="text-sm font-bold text-white">Aprobar creatividad</p>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Esta creatividad quedará aprobada para su publicación, pero todavía no se mostrará en el Marketplace hasta que pulses{' '}
+              <strong className="text-white">Publicar</strong>.
+            </p>
+            <div className="bg-slate-800/60 rounded-lg p-3 space-y-1.5 text-xs text-slate-300">
+              <div className="flex justify-between gap-2">
+                <span className="text-slate-500 shrink-0">Proveedor</span>
+                <span className="font-medium text-right">{approveModalCamp?.advertiser_name ?? '—'}</span>
+              </div>
+              <div className="flex justify-between gap-2">
+                <span className="text-slate-500 shrink-0">Espacio</span>
+                <span className="font-medium text-right">{approveModalSlot?.nombre ?? '—'}</span>
+              </div>
+              <div className="flex justify-between gap-2">
+                <span className="text-slate-500 shrink-0">Campaña</span>
+                <span className="font-medium text-right">{approveModalCamp?.nombre ?? '—'}</span>
+              </div>
+              {(approveModalCamp?.start_at || approveModalCamp?.end_at) && (
+                <div className="flex justify-between gap-2">
+                  <span className="text-slate-500 shrink-0">Periodo</span>
+                  <span className="font-medium text-right">
+                    {[
+                      approveModalCamp.start_at ? new Date(approveModalCamp.start_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' }) : null,
+                      approveModalCamp.end_at   ? new Date(approveModalCamp.end_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })   : null,
+                    ].filter(Boolean).join(' → ')}
+                  </span>
+                </div>
+              )}
+              {approveModalCamp?.destination_value && (
+                <div className="flex justify-between gap-2">
+                  <span className="text-slate-500 shrink-0">Targeting</span>
+                  <span className="font-medium text-right">{approveModalCamp.destination_value}</span>
+                </div>
+              )}
+              {approveModalCamp?.oficio && (
+                <div className="flex justify-between gap-2">
+                  <span className="text-slate-500 shrink-0">Oficio</span>
+                  <span className="font-medium text-right">{approveModalCamp.oficio}</span>
+                </div>
+              )}
+            </div>
+            {(approveTarget.image_url || approveTarget.mobile_image_url) ? (
+              <img
+                src={approveTarget.image_url || approveTarget.mobile_image_url || ''}
+                alt=""
+                className="w-full h-24 object-cover rounded border border-slate-700"
+                onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+              />
+            ) : (
+              <div
+                className="w-full h-16 rounded border border-slate-700 flex items-center justify-center gap-2"
+                style={{ background: THEME_PRESETS[approveTarget.theme_preset ?? 'AZUL_PROFESIONAL']?.bg }}
+              >
+                <Layers className="h-4 w-4 opacity-50" style={{ color: THEME_PRESETS[approveTarget.theme_preset ?? 'AZUL_PROFESIONAL']?.text }} />
+                {approveTarget.headline && (
+                  <span className="text-xs truncate max-w-[160px]" style={{ color: THEME_PRESETS[approveTarget.theme_preset ?? 'AZUL_PROFESIONAL']?.text }}>
+                    {approveTarget.headline}
+                  </span>
+                )}
+              </div>
+            )}
+            <div className="flex items-center justify-end gap-2">
+              <button
+                onClick={() => setApproveTarget(null)}
+                disabled={approveSaving}
+                className="px-3 py-1.5 rounded text-xs text-slate-400 hover:text-white cursor-pointer"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleApproveConfirm}
+                disabled={approveSaving}
+                className="px-3 py-1.5 rounded text-xs font-semibold bg-emerald-700 hover:bg-emerald-600 text-white disabled:opacity-40 cursor-pointer"
+              >
+                {approveSaving ? 'Aprobando…' : 'Aprobar creatividad'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal publicación (D23) */}
+      {publishTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className={`bg-slate-900 border rounded-xl p-5 w-full max-w-md space-y-4 ${publishCurrentActive ? 'border-amber-700/60' : 'border-teal-800/60'}`}>
+            <div className="flex items-center gap-2">
+              <Eye className={`h-5 w-5 shrink-0 ${publishCurrentActive ? 'text-amber-400' : 'text-teal-400'}`} />
+              <p className="text-sm font-bold text-white">
+                {publishCurrentActive ? 'Reemplazar creatividad publicada' : 'Publicar creatividad'}
+              </p>
+            </div>
+            {publishCurrentActive ? (
+              <>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Esta campaña ya tiene una creatividad publicada.<br />
+                  Al continuar, la creatividad actual <strong className="text-amber-300">dejará de mostrarse</strong> y será sustituida por esta nueva versión.
+                  <span className="block mt-1 text-slate-500">La creatividad anterior se conservará en el histórico.</span>
+                </p>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <p className="text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Actualmente publicada</p>
+                    {(publishCurrentActive.image_url || publishCurrentActive.mobile_image_url) ? (
+                      <img
+                        src={publishCurrentActive.image_url || publishCurrentActive.mobile_image_url || ''}
+                        alt=""
+                        className="w-full h-20 object-cover rounded border border-slate-700"
+                        onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                      />
+                    ) : (
+                      <div
+                        className="w-full h-20 rounded border border-slate-700 flex items-center justify-center"
+                        style={{ background: THEME_PRESETS[publishCurrentActive.theme_preset ?? 'AZUL_PROFESIONAL']?.bg }}
+                      >
+                        <Layers className="h-4 w-4 opacity-40" style={{ color: THEME_PRESETS[publishCurrentActive.theme_preset ?? 'AZUL_PROFESIONAL']?.text }} />
+                      </div>
+                    )}
+                    {publishCurrentActive.headline && (
+                      <p className="text-[10px] text-slate-500 mt-1 truncate">{publishCurrentActive.headline}</p>
+                    )}
+                  </div>
+                  <div>
+                    <p className="text-[9px] font-bold text-teal-500 uppercase tracking-wider mb-1.5">Nueva creatividad</p>
+                    {(publishTarget.image_url || publishTarget.mobile_image_url) ? (
+                      <img
+                        src={publishTarget.image_url || publishTarget.mobile_image_url || ''}
+                        alt=""
+                        className="w-full h-20 object-cover rounded border border-teal-700/60"
+                        onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                      />
+                    ) : (
+                      <div
+                        className="w-full h-20 rounded border border-teal-700/60 flex items-center justify-center"
+                        style={{ background: THEME_PRESETS[publishTarget.theme_preset ?? 'AZUL_PROFESIONAL']?.bg }}
+                      >
+                        <Layers className="h-4 w-4 opacity-40" style={{ color: THEME_PRESETS[publishTarget.theme_preset ?? 'AZUL_PROFESIONAL']?.text }} />
+                      </div>
+                    )}
+                    {publishTarget.headline && (
+                      <p className="text-[10px] text-teal-400 mt-1 truncate">{publishTarget.headline}</p>
+                    )}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Esta creatividad comenzará a mostrarse en el espacio publicitario durante el periodo contratado.
+              </p>
+            )}
+            <div className="flex items-center justify-end gap-2">
+              <button
+                onClick={() => setPublishTarget(null)}
+                disabled={publishSaving}
+                className="px-3 py-1.5 rounded text-xs text-slate-400 hover:text-white cursor-pointer"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handlePublishConfirm}
+                disabled={publishSaving}
+                className={`px-3 py-1.5 rounded text-xs font-semibold text-white disabled:opacity-40 cursor-pointer ${
+                  publishCurrentActive ? 'bg-amber-700 hover:bg-amber-600' : 'bg-teal-700 hover:bg-teal-600'
+                }`}
+              >
+                {publishSaving
+                  ? (publishCurrentActive ? 'Reemplazando…' : 'Publicando…')
+                  : (publishCurrentActive ? 'Reemplazar y publicar' : 'Publicar')}
+              </button>
             </div>
           </div>
         </div>
@@ -3112,7 +3321,7 @@ function AdsCreativesList({
                   {isSupplier && cr.estado === 'PENDING_APPROVAL' && (
                     <>
                       <button
-                        onClick={() => handleApprove(cr)}
+                        onClick={() => openApproveModal(cr)}
                         className="flex items-center gap-1 px-2 py-1 rounded text-[10px] font-semibold bg-emerald-700 hover:bg-emerald-600 text-white cursor-pointer"
                       >
                         <CheckCircle className="h-3 w-3" /> Aprobar
@@ -3127,7 +3336,7 @@ function AdsCreativesList({
                   )}
                   {isSupplier && cr.estado === 'APPROVED' && !cr.activa && (
                     <button
-                      onClick={() => handlePublish(cr)}
+                      onClick={() => openPublishModal(cr)}
                       className="flex items-center gap-1 px-2 py-1 rounded text-[10px] font-semibold bg-teal-700 hover:bg-teal-600 text-white cursor-pointer"
                     >
                       <Eye className="h-3 w-3" /> Publicar
