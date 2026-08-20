@@ -675,7 +675,7 @@ function SaasPlansSection({ summary }: { summary: FinancialSummary }) {
 
 // ── Tooltip común para gráficos ──────────────────────────────────────────
 
-const TOOLTIP_STYLE = { background: '#1e293b', border: '1px solid #334155', borderRadius: 8, fontSize: 11 };
+const TOOLTIP_STYLE = { background: '#1e293b', border: '1px solid #334155', borderRadius: 8, fontSize: 11, color: '#f1f5f9' };
 const TOOLTIP_LABEL_STYLE = { color: '#f1f5f9', fontWeight: 700 as const };
 
 // ── Gráficos: wrapper ─────────────────────────────────────────────────────
@@ -758,8 +758,7 @@ function CommercialVsCobradoChart({ summary }: { summary: FinancialSummary }) {
         <XAxis dataKey="name" tick={{ fill: '#94a3b8', fontSize: 10 }} axisLine={false} tickLine={false} />
         <YAxis tickFormatter={tickFmt} tick={{ fill: '#94a3b8', fontSize: 10 }} axisLine={false} tickLine={false} width={42} />
         <Tooltip
-          contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8, fontSize: 11 }}
-          labelStyle={{ color: '#f1f5f9', fontWeight: 700 }}
+          contentStyle={TOOLTIP_STYLE} labelStyle={TOOLTIP_LABEL_STYLE}
           formatter={((value: number) => [fmtEur(value, 2), 'Importe']) as never}
         />
         <Bar dataKey="valor" radius={[4, 4, 0, 0]}>
@@ -798,7 +797,7 @@ function OrigenIngresosChart({ summary }: { summary: FinancialSummary }) {
           {data.map((_, i) => <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />)}
         </Pie>
         <Tooltip
-          contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8, fontSize: 11 }}
+          contentStyle={TOOLTIP_STYLE} labelStyle={TOOLTIP_LABEL_STYLE}
           formatter={((value: number) => [fmtEur(value, 2), 'Cobrado']) as never}
         />
         <Legend wrapperStyle={{ fontSize: 10, color: '#94a3b8' }} />
@@ -843,7 +842,7 @@ function AdSpaceBarChart({ summary }: { summary: FinancialSummary }) {
           <XAxis type="number" tickFormatter={isEur ? tickFmt : (v: number) => String(v)} tick={{ fill: '#94a3b8', fontSize: 10 }} axisLine={false} tickLine={false} />
           <YAxis type="category" dataKey="name" width={100} tick={{ fill: '#94a3b8', fontSize: 10 }} axisLine={false} tickLine={false} />
           <Tooltip
-            contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8, fontSize: 11 }}
+            contentStyle={TOOLTIP_STYLE} labelStyle={TOOLTIP_LABEL_STYLE}
             formatter={((value: number) => [isEur ? fmtEur(value, 0) : value, AD_METRIC_LABELS[metric]]) as never}
           />
           <Bar dataKey="valor" fill={CHART_COLORS.bonificado} radius={[0, 4, 4, 0]} />
@@ -873,7 +872,7 @@ function OcupacionChart({ summary }: { summary: FinancialSummary }) {
         <XAxis type="number" domain={[0, 100]} tickFormatter={(v: number) => `${v}%`} tick={{ fill: '#94a3b8', fontSize: 10 }} axisLine={false} tickLine={false} />
         <YAxis type="category" dataKey="name" width={100} tick={{ fill: '#94a3b8', fontSize: 10 }} axisLine={false} tickLine={false} />
         <Tooltip
-          contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8, fontSize: 11 }}
+          contentStyle={TOOLTIP_STYLE} labelStyle={TOOLTIP_LABEL_STYLE}
           formatter={((value: number, _name: string, props: { payload?: { dias?: number } }) => [
             `${value}% relativo (${props.payload?.dias ?? 0} días)`,
             'Actividad',
@@ -922,7 +921,7 @@ function SaasPlansChart({ summary }: { summary: FinancialSummary }) {
           <XAxis dataKey="name" tick={{ fill: '#94a3b8', fontSize: 10 }} axisLine={false} tickLine={false} />
           <YAxis tickFormatter={metric === 'mrr' ? tickFmt : (v: number) => String(v)} tick={{ fill: '#94a3b8', fontSize: 10 }} axisLine={false} tickLine={false} width={36} />
           <Tooltip
-            contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8, fontSize: 11 }}
+            contentStyle={TOOLTIP_STYLE} labelStyle={TOOLTIP_LABEL_STYLE}
             formatter={((value: number) => [metric === 'mrr' ? fmtEur(value, 0) + '/mes' : `${value} clientes`, metric === 'mrr' ? 'MRR' : 'Clientes']) as never}
           />
           <Bar dataKey="valor" fill={CHART_COLORS.saas} radius={[4, 4, 0, 0]} />
