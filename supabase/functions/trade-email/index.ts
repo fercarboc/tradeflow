@@ -18,7 +18,7 @@ function cors(req: Request): Record<string, string> {
 }
 
 interface EmailPayload {
-  type: 'waitlist_admin' | 'waitlist_confirm' | 'welcome' | 'contact_admin' | 'support_admin' | 'auth_confirm' | 'provider_admin' | 'provider_confirm';
+  type: 'waitlist_admin' | 'waitlist_confirm' | 'welcome' | 'contact_admin' | 'support_admin' | 'auth_confirm' | 'provider_admin' | 'provider_confirm' | 'ad_document';
   nombre?: string;
   email?: string;
   telefono?: string;
@@ -34,6 +34,17 @@ interface EmailPayload {
   interests?: string[];
   advertising_interest?: boolean;
   founding_provider_interest?: boolean;
+  // Campos para documentos publicitarios
+  to_email?: string;
+  doc_number?: string;
+  customer_name?: string;
+  concept?: string;
+  period_start?: string;
+  period_end?: string;
+  slot_nombre?: string;
+  commercial_value?: number;
+  custom_message?: string;
+  doc_url?: string;
 }
 
 async function sendEmail(to: string, subject: string, html: string): Promise<void> {
@@ -292,6 +303,50 @@ Deno.serve(async (req: Request) => {
           console.log(`[trade-email] provider_confirm sent to ${payload.email}`);
         }
         break;
+
+      case 'ad_document': {
+        const toAddr = payload.to_email;
+        if (!toAddr) {
+          return new Response(JSON.stringify({ error: 'to_email requerido' }), {
+            status: 400, headers: { ...cors(req), 'Content-Type': 'application/json' },
+          });
+        }
+        const docNum    = payload.doc_number    ?? '—';
+        const customer  = payload.customer_name ?? '';
+        const concept   = payload.concept       ?? 'Publicidad Marketplace TrabFlow';
+        const slotName  = payload.slot_nombre   ?? '';
+        const comValue  = payload.commercial_value != null ? `${payload.commercial_value.toFixed(2)} €` : '';
+        const periodStr = [payload.period_start, payload.period_end].filter(Boolean).join(' – ');
+        const bodyMsg   = payload.custom_message
+          ? payload.custom_message.replace(/\n/g, '<br>')
+          : `Hola ${customer},<br><br>Te adjuntamos el resumen correspondiente a tu reserva publicitaria en TrabFlow Marketplace.`;
+        const docLink = payload.doc_url
+          ? `<div style="margin:20px 0"><a href="${payload.doc_url}" style="display:inline-block;background:#7c3aed;color:#fff;font-weight:700;text-decoration:none;padding:12px 24px;border-radius:8px;font-size:13px">Ver documento →</a></div>`
+          : '';
+
+        await sendEmail(
+          toAddr,
+          `Documento de publicidad TrabFlow — ${docNum}`,
+          emailWrap(`Publicidad TrabFlow — ${docNum}`, `
+            <p style="color:#94a3b8;font-size:14px;line-height:1.7">${bodyMsg}</p>
+            ${tableWrap(
+              row('Documento',         docNum)                     +
+              row('Espacio',           slotName || undefined)      +
+              row('Concepto',          concept)                    +
+              row('Periodo',           periodStr || undefined)     +
+              row('Valor comercial',   comValue  || undefined)     +
+              row('Estado',            'BONIFICADA — Fase validación comercial'),
+            )}
+            ${docLink}
+            <p style="color:#475569;font-size:12px;margin-top:24px">
+              ¿Tienes preguntas? Escríbenos a
+              <a href="mailto:contacto@trabflow.com" style="color:#00CFE8">contacto@trabflow.com</a>
+            </p>
+          `),
+        );
+        console.log(`[trade-email] ad_document sent to ${toAddr} doc=${docNum}`);
+        break;
+      }
 
       default:
         return new Response(JSON.stringify({ error: `Unknown type: ${(payload as { type: string }).type}` }), {

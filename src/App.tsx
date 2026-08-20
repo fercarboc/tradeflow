@@ -55,6 +55,7 @@ const WorkspaceSelectorView              = lazy(() => import('./components/works
 const MarketplaceInvitationAcceptView    = lazy(() => import('./components/auth/MarketplaceInvitationAcceptView'));
 const ScreenMarketplace                  = lazy(() => import('./components/marketplace/ScreenMarketplace'));
 const ProveedoresView                    = lazy(() => import('./components/landing/ProveedoresView'));
+const FinDocPublicView                   = lazy(() => import('./pages/FinDocPublicView'));
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -245,6 +246,7 @@ function detectAuthRoute(): ActivePage | null {
   if (path === '/aceptar-invitacion') return ActivePage.MarketplaceInvitationAccept;
   if (path === '/marketplace') return ActivePage.MarketplacePublico;
   if (path === '/proveedores') return ActivePage.Proveedores;
+  if (path.startsWith('/doc/')) return ActivePage.FinDocPublic;
 
   return null;
 }
@@ -264,6 +266,12 @@ export default function App() {
   const [invoiceToken] = useState(() => {
     const path = window.location.pathname;
     if (path.startsWith('/factura/')) return path.split('/')[2] ?? '';
+    return '';
+  });
+
+  const [finDocToken] = useState(() => {
+    const path = window.location.pathname;
+    if (path.startsWith('/doc/')) return path.split('/')[2] ?? '';
     return '';
   });
 
@@ -640,6 +648,9 @@ export default function App() {
 
       case ActivePage.InvoiceView:
         return <InvoicePublicView token={invoiceToken} />;
+
+      case ActivePage.FinDocPublic:
+        return <FinDocPublicView token={finDocToken} />;
 
       case ActivePage.PartnerDemo:
         return <PartnerDemoView setCurrentPage={setCurrentPage} />;

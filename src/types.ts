@@ -82,6 +82,9 @@ MarketplacePublico = 'marketplace-publico',
 
 // Página pública para proveedores / distribuidores / mayoristas
 Proveedores = 'proveedores',
+
+// Vista pública de documento financiero por token (publicidad)
+FinDocPublic = 'fin-doc-public',
 }
 
 export type TradeType =

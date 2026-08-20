@@ -2235,11 +2235,15 @@ export interface TradeFinancialDocument {
   invoice_pdf_url?: string;
   issued_at?: string;
   sent_at?: string;
+  sent_to?: string;
+  public_token?: string;
   metadata: Record<string, unknown>;
   created_at: string;
   // Joins
   org_nombre?: string;
   actor_nombre?: string;
+  actor_telefono?: string;
+  actor_tax_id?: string;
   slot_nombre?: string;
 }
 
@@ -2318,6 +2322,50 @@ export async function adminGetFinancialSummary(): Promise<FinancialSummary> {
   const { data, error } = await supabase.rpc('admin_get_financial_summary');
   if (error) throw error;
   return data as FinancialSummary;
+}
+
+export async function adminMarkFinancialDocSent(docId: string, sentTo: string): Promise<void> {
+  const { error } = await supabase.rpc('admin_mark_financial_doc_sent', {
+    p_doc_id:  docId,
+    p_sent_to: sentTo,
+  });
+  if (error) throw error;
+}
+
+export async function getFinancialDocumentPublic(token: string): Promise<TradeFinancialDocument | null> {
+  const { data, error } = await supabase.rpc('get_financial_document_public', { p_token: token });
+  if (error || !data || (Array.isArray(data) && data.length === 0)) return null;
+  const row = Array.isArray(data) ? data[0] : data;
+  return row as TradeFinancialDocument;
+}
+
+export async function adminSendAdDocumentEmail(
+  doc: TradeFinancialDocument,
+  toEmail: string,
+  customMessage?: string,
+): Promise<void> {
+  const meta = doc.metadata ?? {};
+  const slotNombre = doc.slot_nombre ?? (typeof meta.slot_nombre === 'string' ? meta.slot_nombre : '');
+  const publicUrl = doc.public_token ? `https://trabflow.com/doc/${doc.public_token}` : undefined;
+
+  const { error } = await supabase.functions.invoke('trade-email', {
+    body: {
+      type:             'ad_document',
+      to_email:         toEmail,
+      doc_number:       doc.doc_number,
+      customer_name:    doc.customer_name,
+      concept:          doc.concept,
+      period_start:     doc.period_start,
+      period_end:       doc.period_end,
+      slot_nombre:      slotNombre,
+      commercial_value: doc.commercial_value,
+      custom_message:   customMessage,
+      doc_url:          publicUrl,
+    },
+  });
+  if (error) throw error;
+
+  await adminMarkFinancialDocSent(doc.id, toEmail);
 }
 
 export async function adminCreateAdFinancialDocument(
