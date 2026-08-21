@@ -2,7 +2,7 @@
 
 > **Documento vivo.** Actualizar tras cada fase.  
 > **Regla:** Una fase no se marca COMPLETED hasta que compile, pase tests y esté verificada en entorno de desarrollo.  
-> **Última actualización:** 2026-08-21 (MP-FIN-1B.1 VALIDATED)
+> **Última actualización:** 2026-08-21 (MP-FIN-1B.1D VALIDATED)
 
 ---
 
@@ -17,6 +17,7 @@
 | **MP-FIN-0** | Auditoría | ✅ CLOSED | 2026-08-21 | 2026-08-21 |
 | **MP-FIN-1A** | Cimentación financiera neutral (DB + Types + Services) | ✅ VALIDATED | 2026-08-21 | 2026-08-21 |
 | **MP-FIN-1B.1** | Master Order + Snapshots (sin ledger, sin pago sim) | ✅ VALIDATED | 2026-08-21 | 2026-08-21 |
+| **MP-FIN-1B.1D** | PDF Resumen de compra Marketplace | ✅ VALIDATED | 2026-08-21 | 2026-08-21 |
 | **MP-FIN-1B.2** | Sim events + ledger (requiere aprobación tras 1B.1) | 🔒 BLOQUEADO (1B.1) | — | — |
 | **MP-FIN-2** | Simulation Engine | 🔒 BLOQUEADO (MP-FIN-1B) | — | — |
 | **MP-FIN-3** | Admin Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
@@ -414,6 +415,85 @@ STEP 6: cart.estado = 'ordered', actualizar quote items
 | INV-007 | Snapshots inmutables — trigger bloqueó UPDATE en C-08 |
 | INV-017 | Idempotencia por checkout_key — verificado en C-03 y C-04 |
 | INV-003 | `master.checkout_gross = SUM(goods_gross + shipping_gross)` — verificado en C-05 |
+
+---
+
+## MP-FIN-1B.1D — PDF Resumen de compra Marketplace ✅ VALIDATED
+
+> **Cerrada: 2026-08-21. Validación cloud: 2026-08-21.**  
+> Genera un PDF descargable "Resumen de compra" a partir de snapshots inmutables.  
+> **NO es factura fiscal** (LEGAL_GATE/TAX_GATE). Precios siempre del snapshot de checkout (INV-007).  
+> INV-005: comisión TrabFlow no expuesta al comprador.
+
+### Componentes
+
+| Archivo | Propósito |
+|---|---|
+| `supabase/migrations/20260821_10_mkt_fin_purchase_summary_fn.sql` | Función `mkt_fin_get_purchase_summary_data` — Route A (checkout_key) + Route B (order_id) + legacy fallback |
+| `src/lib/marketplace/finance/marketplace-purchase-summary.service.ts` | Servicio TS: mapeo JSONB → tipos, `getPurchaseSummaryByCheckoutKey`, `getPurchaseSummaryByOrderId` |
+| `src/lib/printMarketplacePurchase.ts` | HTML template + `printMarketplacePurchaseSummary`, `downloadMarketplacePurchaseSummary` |
+| `src/components/marketplace/MarketplaceComprarView.tsx` | Botón "Descargar resumen" en pantalla de éxito post-checkout |
+| `src/components/marketplace/ScreenMisPedidos.tsx` | Sección "Documentos" con "Resumen de compra (PDF)" en panel detalle |
+| `supabase/tests/test_purchase_summary.sql` | 10 tests P-01..P-10 validados contra cloud |
+
+### Función SQL: mkt_fin_get_purchase_summary_data
+
+```sql
+-- SECURITY DEFINER, SET search_path = public
+-- Parámetros: p_checkout_key (Route A) ó p_order_id (Route B)
+-- Auth: verifica auth.uid() + trade_org_members (comprador o platform_admin)
+-- INV-007: lee solo de snapshots, NUNCA recalcula desde catálogo actual
+-- INV-005: commission_net_snapshot NOT incluido en respuesta
+```
+
+**Route A** — por `checkout_key`: busca master_order → supplier_orders + items anidados.  
+**Route B** — por `order_id`: JOIN master+supplier → si NOT FOUND → legacy fallback (is_legacy=true, master_order=null).
+
+### Estructura del PDF
+
+- Cabecera: TrabFlow brand + número documento + fecha
+- Banner simulación (si `external_provider='simulation'`): amber con "⚠ OPERACIÓN DE PRUEBA / SIMULACIÓN — NO SE HA REALIZADO NINGÚN CARGO REAL"
+- Banner legacy (si `is_legacy=true`): informativo
+- Grid comprador + detalles del pedido
+- Por proveedor: tabla 5 columnas (Descripción, Cantidad, P. unit. neto, IVA%, Total) + portes + subtotales
+- Placeholder factura proveedor (status='pending') dentro de cada bloque
+- Totales globales alineados a la derecha
+- Disclaimer LEGAL_GATE/TAX_GATE (provisional)
+- XSS: `escHtml()` en todos los campos de usuario
+
+### Tests SQL P-01..P-10
+
+| Test | Invariante verificada | Resultado |
+|---|---|---|
+| P-01 | 1 proveedor: is_legacy=false, master_order presente, 1 supplier_order | ✅ PASSED |
+| P-02 | 3 proveedores: jsonb_array_length(supplier_orders)=3, actor_nombre no vacío | ✅ PASSED |
+| P-03 | Total global = master_order.checkout_gross_total = SUM(proveedor goods+shipping) | ✅ PASSED (15.31€) |
+| P-04 | goods_gross_snapshot fn = goods_gross_snapshot BD (INV-007) | ✅ PASSED (1.75€) |
+| P-05 | Portes separados por proveedor (≥1 proveedor con shipping>0 de 3) | ✅ PASSED (1/3) |
+| P-06 | has_snapshot=true en todos los items (datos de snapshot, no catálogo) | ✅ PASSED (1/1 items) |
+| P-07 | commission_net_snapshot y sim_commission_net NO en respuesta (INV-005) | ✅ PASSED |
+| P-08 | external_provider='simulation' → campo presente para mostrar banner PDF | ✅ PASSED |
+| P-09 | Pedido legacy (master_order_id IS NULL): is_legacy=true, master_order=null | ✅ PASSED (MKT-000001) |
+| P-10 | Número MKP-*, invoice_placeholder.status='pending', sin numeración FAC/F- | ✅ PASSED (MKP-2026-0003) |
+
+**BD final:** 6 master_orders, 7 supplier_orders linked, 7 con snapshot completo.
+
+### Acceso por rol
+
+| Rol | Acceso |
+|---|---|
+| Comprador (org member) | Ver + descargar PDF completo (todos los proveedores) |
+| Admin | Ver + descargar (acceso platform_admin en función SECURITY DEFINER) |
+| Proveedor | Solo su supplier_order vía portal proveedor (no este PDF multi-proveedor) |
+
+### Invariantes garantizadas
+
+| Inv | Garantía |
+|---|---|
+| INV-007 | PDF siempre usa precios del snapshot de checkout, nunca catálogo actual |
+| INV-005 | commission_net_snapshot no incluido en JSON al comprador |
+| LEGAL_GATE | Documento titulado "Resumen de compra", nunca "Factura" |
+| TAX_GATE | Tipos IVA del snapshot marcados como provisionales en código |
 
 ---
 

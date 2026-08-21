@@ -8,6 +8,8 @@ import {
 import type { OrderLifecycleEstado } from '../../lib/api/marketplace-orders';
 import { useSession } from '../../context/SessionContext';
 import ConfirmModal from './shared/ConfirmModal';
+import { getPurchaseSummaryByOrderId } from '../../lib/marketplace/finance/marketplace-purchase-summary.service';
+import { downloadMarketplacePurchaseSummary } from '../../lib/printMarketplacePurchase';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -301,6 +303,26 @@ function DetailPanel({ orderId, onClose, onDeliver, onCancel }: DetailPanelProps
                   <dd className="font-bold text-gray-900 tabular-nums">{fmtEur(order.total)}</dd>
                 </div>
               </dl>
+            </section>
+
+            {/* Documentos */}
+            <section className="px-5 py-4 border-b border-gray-100">
+              <h3 className="text-[11px] uppercase tracking-wider text-gray-400 font-semibold mb-3">Documentos</h3>
+              <button
+                onClick={async () => {
+                  if (!orderId) return;
+                  try {
+                    const summary = await getPurchaseSummaryByOrderId(orderId);
+                    if (summary) downloadMarketplacePurchaseSummary(summary);
+                  } catch { /* si falla, no bloquear UI */ }
+                }}
+                className="flex items-center gap-2 text-sm text-[#1A5A96] hover:text-[#154d82] font-medium transition-colors"
+              >
+                <svg className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                </svg>
+                Resumen de compra (PDF)
+              </button>
             </section>
 
             {/* Seguimiento */}

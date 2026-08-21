@@ -8,6 +8,8 @@ import {
   getOrdersByCheckoutKey,
   DELIVERY_METHOD_LABELS, PAYMENT_METHOD_LABELS,
 } from '../../lib/api/marketplace-checkout';
+import { getPurchaseSummaryByCheckoutKey } from '../../lib/marketplace/finance/marketplace-purchase-summary.service';
+import { downloadMarketplacePurchaseSummary } from '../../lib/printMarketplacePurchase';
 import {
   MarketplacePurchaseContext,
   loadPurchaseContext,
@@ -505,6 +507,19 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
           </div>
 
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <button
+              onClick={async () => {
+                const key = purchaseSession.current?.checkout_key;
+                if (!key) return;
+                try {
+                  const summary = await getPurchaseSummaryByCheckoutKey(key);
+                  if (summary) downloadMarketplacePurchaseSummary(summary);
+                } catch { /* abre ventana igualmente si hay error */ }
+              }}
+              className="rounded-lg border border-gray-300 px-6 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A5A96]"
+            >
+              Descargar resumen
+            </button>
             <button
               onClick={() => {
                 sessionStorage.setItem('tf:nav:tab', 'pedidos_material');
