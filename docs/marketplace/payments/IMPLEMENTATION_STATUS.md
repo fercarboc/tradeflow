@@ -2,7 +2,7 @@
 
 > **Documento vivo.** Actualizar tras cada fase.  
 > **Regla:** Una fase no se marca COMPLETED hasta que compile, pase tests y esté verificada en entorno de desarrollo.  
-> **Última actualización:** 2026-08-21
+> **Última actualización:** 2026-08-21 (MP-FIN-1B.1 VALIDATED)
 
 ---
 
@@ -16,7 +16,7 @@
 | **M0-D** | Architecture Freeze | 🔒 BLOQUEADO | — | — |
 | **MP-FIN-0** | Auditoría | ✅ CLOSED | 2026-08-21 | 2026-08-21 |
 | **MP-FIN-1A** | Cimentación financiera neutral (DB + Types + Services) | ✅ VALIDATED | 2026-08-21 | 2026-08-21 |
-| **MP-FIN-1B.1** | Master Order + Snapshots (sin ledger, sin pago sim) | ⏳ PRÓXIMO | — | — |
+| **MP-FIN-1B.1** | Master Order + Snapshots (sin ledger, sin pago sim) | ✅ VALIDATED | 2026-08-21 | 2026-08-21 |
 | **MP-FIN-1B.2** | Sim events + ledger (requiere aprobación tras 1B.1) | 🔒 BLOQUEADO (1B.1) | — | — |
 | **MP-FIN-2** | Simulation Engine | 🔒 BLOQUEADO (MP-FIN-1B) | — | — |
 | **MP-FIN-3** | Admin Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
@@ -321,82 +321,99 @@ src/lib/marketplace/finance/
 
 ---
 
-## MP-FIN-1B.1 — Master Order + Snapshots ⏳ PRÓXIMO
+## MP-FIN-1B.1 — Master Order + Snapshots ✅ VALIDATED
 
-> **Objetivo:** Conectar `checkoutCartV2` con `trade_marketplace_master_orders` + snapshots financieros.  
-> **Limitación explícita:** SIN simulation events, SIN ledger. Solo atomicidad y snapshots.  
-> **Prerrequisito:** MP-FIN-1A validada en cloud. ✅ Cumplido.  
-> **Al completar 1B.1: DETENER y entregar resumen para aprobación de MP-FIN-1B.2.**
+> **Cerrada: 2026-08-21. Validación cloud: 2026-08-21.**  
+> Checkout atómico PL/pgSQL crea 1 master_order + N supplier_orders con snapshots financieros inmutables.  
+> Limitación respetada: SIN simulation events, SIN ledger, SIN Stripe.  
+> **Al continuar a MP-FIN-1B.2 se requiere aprobación explícita.**
 
-### Flujo actual (AS-IS)
+### Validación Cloud (Supabase dqqjaujnulutinskmqsu — eu-central-1)
 
+**Migración aplicada:**
+
+| # | Migración | Estado | Notas |
+|---|---|---|---|
+| 9 | `20260821_09_mkt_fin_checkout_v2_finance` | ✅ | `checkout_cart_v2` refactorizado como función PL/pgSQL única |
+
+**Estado final BD tras tests:**
+
+| Métrica | Valor | Interpretación |
+|---|---|---|
+| `total_orders` | 29 | 22 legacy + 7 nuevos de tests |
+| `linked_to_master` | 7 | todos los nuevos órdenes vinculados al master |
+| `with_snapshot` | 7 | 100% de los nuevos con `financial_snapshot_at IS NOT NULL` |
+| `master_count` | 5 | C-01:1, C-02:1, C-16:1, C-17:1, C-18:1 |
+| `legacy_orders` | 22 | backward compat confirmado |
+
+**Tests C-01 a C-18 — resultados:**
+
+| Test | Descripción | Resultado |
+|---|---|---|
+| C-01 | 1 proveedor: crea 1 supplier_order + 1 master_order | ✅ PASSED |
+| C-02 | 3 proveedores: crea 3 supplier_orders + 1 master_order | ✅ PASSED |
+| C-03 | Mismo checkout_key → no duplica master_order (INV-017) | ✅ PASSED |
+| C-04 | Mismo checkout_key → devuelve los mismos order_ids (INV-017) | ✅ PASSED |
+| C-05 | `master.checkout_gross = SUM(supplier.goods_gross + supplier.shipping_gross)` | ✅ PASSED |
+| C-06 | `item_net + item_tax = item_gross` en todos los order_items (tolerancia 0.01 EUR) | ✅ PASSED |
+| C-07 | `financial_snapshot_at IS NOT NULL` tras checkout (INV-007) | ✅ PASSED |
+| C-08 | UPDATE de campo snapshot lanza excepción con 'INV-007' (inmutabilidad) | ✅ PASSED |
+| C-09 | `commission_net_snapshot = 0` en todos (INV-005: comisión real = 0) | ✅ PASSED |
+| C-10 | master_order recuperable por checkout_key vía `trade_marketplace_master_orders` | ✅ PASSED |
+| C-11 | Todos los supplier_orders tienen `master_order_id = master_order.id` | ✅ PASSED |
+| C-12 | Carrito vacío lanza excepción `NO_ITEMS` | ✅ PASSED |
+| C-13 | Actor con `estado='suspended'` lanza `ACTOR_INACTIVE` | ✅ PASSED |
+| C-14 | `cart.estado = 'ordered'` tras checkout exitoso | ✅ PASSED |
+| C-15 | 22 pedidos legacy (master_order_id IS NULL) siguen existentes | ✅ PASSED |
+| C-16 | `checkout_key=''` → genera UUID válido (DT-1A-2) | ✅ PASSED |
+| C-17 | `checkout_key=NULL` → genera UUID válido (DT-1A-2) | ✅ PASSED |
+| C-18 | `payment_method='cuenta_proveedor'` (pago offline) → checkout completo + snapshot | ✅ PASSED |
+
+### Flujo implementado (TO-BE 1B.1 — pasos 1-6 en función atómica)
+
+```sql
+-- checkout_cart_v2() — 1 transacción PL/pgSQL SECURITY DEFINER
+STEP 0: v_checkout_key := COALESCE(NULLIF(p_checkout_key, ''), gen_random_uuid()::text)
+STEP 1: idempotencia — buscar master_order por checkout_key
+STEP 2: validaciones carrito (NOT_FOUND, CART_NOT_READY, NO_ITEMS, ACTOR_INACTIVE, OFFERING_INACTIVE)
+STEP 3: por cada actor → supplier_order + order_items con snapshots financieros
+STEP 3.5: insertar snapshots en trade_marketplace_order_items
+STEP 4: mkt_fin_create_master_order() con totales acumulados
+STEP 5: UPDATE trade_marketplace_orders SET master_order_id = ... (trigger lo permite)
+STEP 6: cart.estado = 'ordered', actualizar quote items
 ```
-checkoutCartV2()
-  → crea trade_marketplace_orders (1 por proveedor)
-  → asigna checkout_key existente
-  → sin master_order_id
-  → sin snapshots financieros
-  → pago = externo / simulado sin registro en ledger
-```
 
-### Flujo objetivo (TO-BE subfase 1B.1 — solo pasos 1-6)
+### Constraints descubiertas durante testing
 
-```
-checkoutCartV2()
-  1. assertSimulationMode()                            ← guard financial-config.service
-  2. mkt_fin_create_master_order(checkout_key, totals) ← idempotente (INV-017)
-  3. crear trade_marketplace_orders (sin cambio)
-  4. vincular orders → master_order_id
-  5. mkt_fin_write_order_financial_snapshot(...)        ← snapshot inmutable (INV-007)
-  6. mkt_fin_write_item_snapshot(...) por cada línea
-  -- pasos 7-11 son MP-FIN-1B.2 (con aprobación)
-```
+| Restricción | Valor correcto | Error incorrecto |
+|---|---|---|
+| `source_type` (cart_items) | `'manual'`, `'quote'`, `'job'`, etc. | `'test'` → CHECK violation |
+| `delivery_method` | `'entrega_obra'`, `'entrega_almacen'`, `'recogida_proveedor'`, `'por_coordinar'`, NULL | `'delivery'` → CHECK violation |
+| `total_linea` (order_items) | columna GENERATED (`cantidad * precio_unitario_final`) | no puede insertarse directamente |
 
-### Flujo objetivo (TO-BE subfase 1B.2 — pasos 7-11, requiere aprobación)
-
-```
-  7. getPaymentProvider().createPayment(...)            ← simulation en Fase 0
-  8. ledgerAppend(BUYER_PAYMENT, ...)
-  9. ledgerAppend(GOODS_ENTITLEMENT, ...) × N proveedores
-  10. ledgerAppend(SHIPPING_ENTITLEMENT, ...) × N proveedores
-  11. ledgerAppend(COMMISSION_SIM_ACCRUAL, ...) × N (si sim_rate > 0)
-```
-
-### Compatibilidad durante transición
-
-- Todos los `ADD COLUMN` son `NULL` o `DEFAULT` → pedidos pre-MP-FIN-1B no se rompen
-- `master_order_id IS NULL` en pedidos anteriores = válido (test H lo verifica)
-- `checkout_key` ya existe en el flujo; solo hay que garantizar que nunca sea `undefined`
-
-### Archivos a modificar en MP-FIN-1B
-
-| Archivo | Cambio |
-|---|---|
-| `src/lib/marketplace/checkoutCartV2.ts` | Integrar pasos 1-11 del flujo TO-BE |
-| `src/lib/marketplace/checkoutCartV2.ts` | Añadir `checkout_key` garantizado (uuid si falta) |
-| `src/lib/marketplace/finance/ledger.service.ts` | Ya listo |
-| `src/lib/marketplace/finance/master-order.service.ts` | Ya listo |
-| `src/lib/marketplace/finance/financial-config.service.ts` | Ya listo |
-
-### Archivos a crear en MP-FIN-1B
+### Archivos creados
 
 | Archivo | Propósito |
 |---|---|
-| `src/lib/marketplace/finance/checkout-finance.service.ts` | Orquesta pasos 1-11; sin lógica en componente React |
+| `supabase/migrations/20260821_09_mkt_fin_checkout_v2_finance.sql` | Refactor `checkout_cart_v2` a PL/pgSQL con master_order + snapshots |
+| `src/lib/marketplace/finance/checkout-finance.service.ts` | Servicio TS post-checkout: `getCheckoutFinancialSummary`, `verifyCheckoutTotalsIntegrity`, `assertValidCheckoutKey` |
+| `supabase/tests/test_checkout_finance_flow.sql` | Suite 18 tests C-01 a C-18 ejecutados y validados contra cloud |
 
-### Tests a crear en MP-FIN-1B.1
+### Deuda técnica resuelta
 
-- `supabase/tests/test_checkout_finance_flow.sql` — Tests C-01 a C-12:
-  - C-01 a C-04: atomicidad (éxito, fallo, rollback)
-  - C-05 a C-07: idempotencia checkout_key
-  - C-08 a C-09: snapshots inmutables tras checkout
-  - C-10 a C-12: backward compat pedidos legacy
+| ID | Descripción | Estado |
+|---|---|---|
+| ~~DT-1A-1~~ | ~~`checkoutCartV2` no integrado con master_order~~ | ✅ RESUELTO — función SQL atómica integrada 2026-08-21 |
+| ~~DT-1A-2~~ | ~~`checkout_key` puede ser `undefined`/vacío~~ | ✅ RESUELTO — `COALESCE(NULLIF(p_checkout_key,''), gen_random_uuid()::text)` en STEP 0 |
 
-### Decisiones MP-FIN-1B.1 pendientes
+### Invariantes garantizadas por esta fase
 
-| Ref | Decisión |
+| Inv | Garantía |
 |---|---|
-| DT-1A-2 | ¿Generar checkout_key en cliente o en servidor? → recomendación: servidor (UUID v4) |
+| INV-005 | `commission_net_snapshot = 0` — verificado en C-09 |
+| INV-007 | Snapshots inmutables — trigger bloqueó UPDATE en C-08 |
+| INV-017 | Idempotencia por checkout_key — verificado en C-03 y C-04 |
+| INV-003 | `master.checkout_gross = SUM(goods_gross + shipping_gross)` — verificado en C-05 |
 
 ---
 
