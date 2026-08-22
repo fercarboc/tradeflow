@@ -2,7 +2,7 @@
 
 > **Documento vivo.** Actualizar tras cada fase.  
 > **Regla:** Una fase no se marca COMPLETED hasta que compile, pase tests y esté verificada en entorno de desarrollo.  
-> **Última actualización:** 2026-08-21 (MP-FIN-1B.1D VALIDATED)
+> **Última actualización:** 2026-08-22 (MP-FIN-1B.2 VALIDATED)
 
 ---
 
@@ -18,7 +18,7 @@
 | **MP-FIN-1A** | Cimentación financiera neutral (DB + Types + Services) | ✅ VALIDATED | 2026-08-21 | 2026-08-21 |
 | **MP-FIN-1B.1** | Master Order + Snapshots (sin ledger, sin pago sim) | ✅ VALIDATED | 2026-08-21 | 2026-08-21 |
 | **MP-FIN-1B.1D** | PDF Resumen de compra Marketplace | ✅ VALIDATED | 2026-08-21 | 2026-08-21 |
-| **MP-FIN-1B.2** | Sim events + ledger (requiere aprobación tras 1B.1) | 🔒 BLOQUEADO (1B.1) | — | — |
+| **MP-FIN-1B.2** | Sim events + ledger (requiere aprobación tras 1B.1) | ✅ VALIDATED | 2026-08-22 | 2026-08-22 |
 | **MP-FIN-2** | Simulation Engine | 🔒 BLOQUEADO (MP-FIN-1B) | — | — |
 | **MP-FIN-3** | Admin Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
 | **MP-FIN-4** | Provider Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
@@ -497,12 +497,155 @@ STEP 6: cart.estado = 'ordered', actualizar quote items
 
 ---
 
-## MP-FIN-1B.2 — Simulation Events + Ledger 🔒 BLOQUEADO (1B.1)
+## MP-FIN-1B.2 — Simulation Events + Ledger ✅ VALIDATED
 
-> **Requiere aprobación explícita tras revisar MP-FIN-1B.1.**  
-> Objetivo: pasos 7-11 del flujo TO-BE completo (payment simulation + ledger entries).  
-> **IMPORTANTE:** `simulation_rate=0.02` permanece completamente separado de `commission_rate=0`.  
+> **Cerrada: 2026-08-22. Validación cloud: 2026-08-22.**  
+> Ledger simulado inicial generado automáticamente en el checkout (STEP 7, no-blocking).  
+> Modelo B (Gross): GOODS_ENTITLEMENT + SHIPPING_ENTITLEMENT por supplier_order.  
+> IVA incluido en amount, no como entrada separada [TAX_GATE].  
+> **20 tests L-01..L-20 — TODOS PASSED.**  
+> **IMPORTANTE:** `simulation_rate=0.02` completamente separado de `commission_rate=0`.  
 > Admin Finance mostrará dos KPIs distintos: "Revenue real Marketplace = 0 €" y "Revenue potencial simulado = X €".
+
+### Validación Cloud (Supabase dqqjaujnulutinskmqsu — eu-central-1)
+
+**Migración aplicada:**
+
+| # | Migración | Estado | Notas |
+|---|---|---|---|
+| 11 | `20260822_11_mkt_fin_checkout_ledger.sql` | ✅ | `mkt_fin_post_checkout_ledger` + `checkout_cart_v2` (STEP 7) |
+
+**Reconciliación final PDF ↔ Ledger ↔ Master Snapshot:**
+
+| Master | PDF Total | SUM Snapshots | Ledger Total | Reconciled | Commission entries |
+|---|---|---|---|---|---|
+| MKP-2026-0002 | 10.25 € | 10.25 € | 10.25 € | ✅ true | 0 |
+| MKP-2026-0003 | 15.31 € | 15.31 € | 15.31 € | ✅ true | 0 |
+
+### Modelo de Ledger Elegido: B (Gross)
+
+| Tipo de entrada | Fórmula | Fase 0 |
+|---|---|---|
+| `GOODS_ENTITLEMENT` | `goods_gross_snapshot` (mercancía + IVA) | ✅ escrito |
+| `SHIPPING_ENTITLEMENT` | `shipping_gross_snapshot` (solo si > 0) | ✅ escrito si >0 |
+| `COMMISSION_ACCRUAL` | `commission_net_snapshot` | **NO escrito** (INV-L03/L04, commission=0) |
+| `TAX_ENTITLEMENT` | IVA separado | **NO** (incluido en gross) |
+
+**Fórmula de reconciliación:**
+
+```
+INV-L01: GOODS_ENTITLEMENT(SO) + SHIPPING_ENTITLEMENT(SO) = provider_payable_snapshot(SO)
+INV-L02: SUM(supplier economic totals) = master_order.checkout_gross_total
+INV-L03: SUM(COMMISSION_ACCRUAL) = 0  (no escrito en Phase 0)
+INV-L04: TrabFlow real marketplace revenue = 0  (mismo)
+```
+
+**Comisión simulada 2%:** NO escrita en ledger. Calculada via `simulation_rate` en reporting únicamente para análisis. Evita ambigüedad entre revenue real (0) e hipótesis analítica.
+
+### Idempotencia
+
+| Campo | Valor |
+|---|---|
+| `source_event_id` | `mkt-chk-{checkout_key}-{supplier_order_id}-GOODS` / `-SHIP` |
+| `correlation_id` | `mkt-chk-{checkout_key}` (agrupa todas las entradas del mismo checkout) |
+
+La función `mkt_fin_ledger_append` verifica `(source_event_id, entry_type, supplier_order_id)` — reintentar es seguro.
+
+### Gates activos
+
+| Gate | Estado |
+|---|---|
+| `STRIPE_GATE` | `payment.real_payments_enabled=false` — bloqueado, ledger simulado funciona ✅ |
+| `TAX_GATE` | IVA en snapshots, no como entrada separada — pendiente dictamen fiscal ✅ |
+| `INV-L03` | `COMMISSION_ACCRUAL` no escrita — commission=0 Phase 0 ✅ |
+| `INV-L04` | TrabFlow real revenue=0 — confirmado ✅ |
+
+### Componentes
+
+| Archivo | Propósito |
+|---|---|
+| `supabase/migrations/20260822_11_mkt_fin_checkout_ledger.sql` | `mkt_fin_post_checkout_ledger` SECURITY DEFINER + `checkout_cart_v2` con STEP 7 no-blocking |
+| `src/lib/marketplace/finance/checkout-ledger.service.ts` | Servicio TS: `postCheckoutLedger`, `getCheckoutLedgerEntries`, `verifyLedgerReconciliation` |
+| `supabase/tests/test_checkout_initial_ledger.sql` | 20 tests L-01..L-20 validados contra cloud |
+
+### Función SQL: mkt_fin_post_checkout_ledger
+
+```sql
+-- SECURITY DEFINER, SET search_path = public
+-- Parámetros: p_master_order_id uuid
+-- Retorno: {status, entry_count, correlation_id, suppliers_processed, master_order_num, model}
+-- 1. STRIPE_GATE check
+-- 2. Load master_order  → MASTER_ORDER_NOT_FOUND si inválido
+-- 3. Auth: org_member OR platform_admin
+-- 4. Correlation: 'mkt-chk-' || checkout_key
+-- 5. Idempotencia: si ya hay entries con correlation_id → status='replayed'
+-- 6. Audit: checkout_ledger_posting_started
+-- 7. Loop SO con financial_snapshot_at: GOODS_ENTITLEMENT + SHIPPING_ENTITLEMENT (si >0)
+-- 8. Validar suppliers_count > 0  → NO_SNAPSHOTTED_ORDERS si 0
+-- 9. Outbox: 'marketplace.simulation.checkout_posted'
+-- 10. Audit: checkout_ledger_posted
+```
+
+### STEP 7 en checkout_cart_v2 (no-blocking)
+
+```sql
+-- Si falla el ledger, el checkout ya está confirmado. El ledger es re-intentable.
+BEGIN
+  PERFORM public.mkt_fin_post_checkout_ledger(v_master_order.id);
+EXCEPTION WHEN OTHERS THEN
+  PERFORM public.mkt_fin_audit('checkout_ledger_failed', ...);
+END;
+```
+
+### Tests L-01..L-20
+
+| Test | Descripción | Resultado |
+|---|---|---|
+| L-01 | 1 proveedor → al menos 1 GOODS_ENTITLEMENT | ✅ PASSED |
+| L-02 | 3 proveedores → 3 GOODS_ENTITLEMENT, 3 actores distintos | ✅ PASSED |
+| L-03 | Idempotencia: segunda llamada → status=replayed, sin duplicados | ✅ PASSED |
+| L-04 | Correlation: todos con `mkt-chk-{checkout_key}` | ✅ PASSED |
+| L-05 | Provider attribution: actor_id = SO.actor_id en cada entrada | ✅ PASSED |
+| L-06 | Master attribution: todos con master_order_id correcto | ✅ PASSED |
+| L-07 | Supplier attribution: supplier_order_id válido en todas las entradas | ✅ PASSED |
+| L-08 | INV-L01 (1 proveedor): GOODS+SHIP = provider_payable_snapshot | ✅ PASSED |
+| L-09 | INV-L01 (3 proveedores): todos los proveedores reconcilados | ✅ PASSED |
+| L-10 | INV-L02: SUM(supplier totals) = master.checkout_gross_total | ✅ PASSED |
+| L-11 | SHIPPING_ENTITLEMENT.amount = shipping_gross_snapshot | ✅ PASSED |
+| L-12 | Modelo B: GOODS_ENTITLEMENT = goods_gross (IVA incluido, no duplicado) | ✅ PASSED |
+| L-13 | INV-L03: 0 COMMISSION_ACCRUAL entries | ✅ PASSED |
+| L-14 | INV-L04: SUM(COMMISSION_ACCRUAL) global = 0 | ✅ PASSED |
+| L-15 | Comisión simulada no en ledger, payable = snapshot | ✅ PASSED |
+| L-16 | Snapshot immutability: amount = goods_gross_snapshot (no precio actual) | ✅ PASSED |
+| L-17 | Todos los entries status=confirmed (policy change no afecta histórico) | ✅ PASSED |
+| L-18 | Pedidos legacy sin ledger; financializar ID inválido → excepción | ✅ PASSED |
+| L-19 | Rollback: master_order inválido → excepción, 0 entradas parciales | ✅ PASSED |
+| L-20 | RLS: relrowsecurity=true, 3 actores distintos, policy ledger_select_own_actor existe | ✅ PASSED |
+
+### Invariantes garantizadas
+
+| Inv | Garantía | Mecanismo |
+|---|---|---|
+| INV-L01 | `GOODS_ENTITLEMENT + SHIPPING_ENTITLEMENT = provider_payable_snapshot` | Modelo B: amount = gross_snapshot |
+| INV-L02 | `SUM(supplier ledger) = master.checkout_gross_total` | Loop atómico en función SECURITY DEFINER |
+| INV-L03 | `SUM(COMMISSION_ACCRUAL) = 0` (Phase 0) | No-op: 7c comentado, nunca se llama |
+| INV-L04 | TrabFlow real revenue = 0 | Mismo mecanismo que INV-L03 |
+| INV-009 | Ledger append-only | Triggers inmutabilidad (heredados de Migración 06) |
+| INV-007 | Amounts = snapshot de checkout (nunca catálogo actual) | Lee `goods_gross_snapshot`, no `precio_venta` |
+
+### Archivos TypeScript (checkout-ledger.service.ts)
+
+```typescript
+export interface CheckoutLedgerResult   // {status, entryCount, correlationId, suppliersProcessed, masterOrderNum, model}
+export interface CheckoutLedgerEntry    // {id, entryType, amount, currency, masterOrderId, supplierOrderId, actorId, ...}
+export interface SupplierLedgerBreakdown // {supplierOrderId, actorId, providerPayableSnapshot, ledgerGoodsEntitlement, ...}
+export interface LedgerReconciliation   // {masterOrderId, checkoutGrossTotal, ledgerEconomicTotal, reconciles, supplierBreakdown, ...}
+
+export async function postCheckoutLedger(masterOrderId)        // RPC mkt_fin_post_checkout_ledger
+export async function getCheckoutLedgerEntries(masterOrderId)  // SELECT ledger_entries WHERE master_order_id
+export async function verifyLedgerReconciliation(masterOrderId) // INV-L01..L04 check completo
+export { getLedgerEntriesForMasterOrder, getLedgerBalance }    // re-export de ledger.service
+```
 
 ---
 
