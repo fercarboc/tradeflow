@@ -2,7 +2,7 @@
 
 > **Documento vivo.** Actualizar tras cada fase.  
 > **Regla:** Una fase no se marca COMPLETED hasta que compile, pase tests y esté verificada en entorno de desarrollo.  
-> **Última actualización:** 2026-08-22 (MP-FIN-1B.2 VALIDATED)
+> **Última actualización:** 2026-08-22 (MP-FIN-2A VALIDATED)
 
 ---
 
@@ -19,6 +19,7 @@
 | **MP-FIN-1B.1** | Master Order + Snapshots (sin ledger, sin pago sim) | ✅ VALIDATED | 2026-08-21 | 2026-08-21 |
 | **MP-FIN-1B.1D** | PDF Resumen de compra Marketplace | ✅ VALIDATED | 2026-08-21 | 2026-08-21 |
 | **MP-FIN-1B.2** | Sim events + ledger (requiere aprobación tras 1B.1) | ✅ VALIDATED | 2026-08-22 | 2026-08-22 |
+| **MP-FIN-2A** | Provider Balance Projections (ledger→balance, rebuild, reconcile) | ✅ VALIDATED | 2026-08-22 | 2026-08-22 |
 | **MP-FIN-2** | Simulation Engine | 🔒 BLOQUEADO (MP-FIN-1B) | — | — |
 | **MP-FIN-3** | Admin Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
 | **MP-FIN-4** | Provider Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
@@ -646,6 +647,167 @@ export async function getCheckoutLedgerEntries(masterOrderId)  // SELECT ledger_
 export async function verifyLedgerReconciliation(masterOrderId) // INV-L01..L04 check completo
 export { getLedgerEntriesForMasterOrder, getLedgerBalance }    // re-export de ledger.service
 ```
+
+---
+
+## MP-FIN-2A — Provider Balance Projections ✅ VALIDATED
+
+> **Cerrada: 2026-08-22. Validación cloud: 2026-08-22.**  
+> Capa de saldos por proveedor derivada del ledger. LEDGER = SOURCE OF TRUTH.  
+> `trade_marketplace_balances` es una proyección reconstruible. Rebuild idempotente (INV-B04).  
+> **25 tests B-01..B-25 — TODOS PASSED.**  
+> **SIGUIENTE: DETENTE. No iniciar MP-FIN-2B sin autorización explícita.**
+
+### Principios de diseño
+
+| Principio | Descripción |
+|---|---|
+| **LEDGER = SOURCE OF TRUTH** | `trade_marketplace_balances` es cache derivable. Si hay discrepancia, el ledger prevalece (INV-B04). |
+| **Rebuild idempotente** | `mkt_fin_rebuild_provider_balance` puede llamarse N veces — produce el mismo resultado. |
+| **Append-only ledger** | El rebuild lee el ledger, nunca lo modifica (INV-009). |
+| **historical_settled excluido del total** | Es flujo histórico (dinero ya pagado), no stock actual. Sumar causaría doble contabilización (INV-B03). |
+| **COMMISSION_SIM_ACCRUAL no afecta balances** | La tasa del 2% es exclusivamente analítica — nunca reduce pending, available ni ningún bucket (INV-B02). |
+
+### Semántica de buckets (Phase 2A)
+
+| Bucket | Tipo | Phase 2A | Implementación futura |
+|---|---|---|---|
+| `pending_amount` | STOCK | `SUM(GOODS+SHIP del ledger)` | Base para disponibilización (MP-FIN-2B) |
+| `available_amount` | STOCK | 0 (BUSINESS_RULE_GATE) | Proceso de liquidación |
+| `reserved_amount` | STOCK | 0 (MP-FIN-2E) | Reserves / holds |
+| `negative_amount` | STOCK (absoluto) | 0 (MP-FIN-2D) | Déficit tracking |
+| `historical_settled_amount` | FLUJO HISTÓRICO | 0 (MP-FIN-2F) | Settlement Engine |
+| `total_economic_balance` | COMPUTED | `pending + available + reserved − negative` | GENERATED ALWAYS AS STORED |
+
+**Fórmula principal:**
+```
+total_economic_balance = pending_amount + available_amount + reserved_amount − negative_amount
+(historical_settled excluido intencionalmente — INV-B03)
+```
+
+**Phase 2A invariantes:**
+```
+INV-B01: total_economic_balance = SUM(GOODS_ENTITLEMENT + SHIPPING_ENTITLEMENT del ledger)
+INV-B02: COMMISSION_ACCRUAL y COMMISSION_SIM_ACCRUAL NO afectan ningún bucket
+INV-B03: historical_settled es flujo histórico, NO stock actual
+INV-B04: Rebuild desde ledger produce el mismo resultado siempre
+```
+
+### Validación Cloud (Supabase dqqjaujnulutinskmqsu — eu-central-1)
+
+**Migración aplicada:**
+
+| # | Migración | Estado | Notas |
+|---|---|---|---|
+| 12 | `20260822_12_mkt_fin_provider_balances.sql` | ✅ | Tabla + 4 funciones + RLS + triggers + extensión de admin_overview |
+
+**Reconciliación final (ledger = balance):**
+
+| Proveedor | Ledger total (GOODS+SHIP) | Balance pending | Reconciled |
+|---|---|---|---|
+| Obras y Materiales S.L. | 220.50 EUR | 220.50 EUR | ✅ true |
+| TrabFlow (actor proveedor) | 303.36 EUR | 303.36 EUR | ✅ true |
+| Suministros Técnicos Norte S.L. | 1.70 EUR | 1.70 EUR | ✅ true |
+
+> **Nota:** Los valores incluyen entradas sintéticas de los tests L-01..L-20 (200 EUR Obras + 300 EUR TrabFlow). El balance es correcto — el ledger es la fuente de verdad y todas las entradas son válidas.
+
+### Tests B-01..B-25
+
+| Test | Descripción | Resultado |
+|---|---|---|
+| B-01 | 1 proveedor: pending ≥ payable de MKP-0002 | ✅ PASSED |
+| B-02 | pending = SUM(GOODS+SHIP del ledger) — INV-B01 | ✅ PASSED |
+| B-03 | 3 proveedores: todos con proyección y pending > 0 | ✅ PASSED |
+| B-04 | Aislamiento: cada balance = exactamente su propio ledger | ✅ PASSED |
+| B-05 | Shipping atribuido a Obras (= 0 para TrabFlow y Suministros) | ✅ PASSED |
+| B-06 | COMMISSION_ACCRUAL = 0 en el ledger — INV-B02 | ✅ PASSED |
+| B-07 | simulation_rate 2% no reduce pending — INV-B02 | ✅ PASSED |
+| B-08 | Rebuild produce mismo saldo que antes (idempotente) | ✅ PASSED |
+| B-09 | Dos rebuild consecutivos = mismo resultado | ✅ PASSED |
+| B-10 | Reconciliar produce MATCH (proyección = ledger-derived) | ✅ PASSED |
+| B-11 | Alteración intencionada de proyección → MISMATCH detectado | ✅ PASSED |
+| B-12 | Rebuild corrige MISMATCH → MATCH | ✅ PASSED |
+| B-13 | Ledger permanece inalterado tras rebuild (INV-009) | ✅ PASSED |
+| B-14 | Actor legacy sin ledger no rompe rebuild (SKIP si no hay) | ✅ PASSED/SKIP |
+| B-15 | Actor sin operaciones → balance = 0 (SKIP si no hay) | ✅ PASSED/SKIP |
+| B-16 | UNIQUE(provider_actor_id, currency) existe | ✅ PASSED |
+| B-17 | EUR y USD son filas separadas; USD = 0 (sin entradas en USD) | ✅ PASSED |
+| B-18 | negative_amount: columna + constraint chk_negative_nn existe; Phase 2A = 0 | ✅ PASSED |
+| B-19 | reserved_amount = 0 en Phase 2A (MP-FIN-2E pendiente) | ✅ PASSED |
+| B-20 | historical_settled_amount = 0 en Phase 2A (MP-FIN-2F, INV-B03) | ✅ PASSED |
+| B-21 | RLS activo + policies existen en trade_marketplace_balances | ✅ PASSED |
+| B-22 | Admin puede consultar mkt_fin_admin_balances_overview | ✅ PASSED |
+| B-23 | Replay idempotente: balance no se duplica tras segunda llamada | ✅ PASSED |
+| B-24 | Cambio de catálogo no altera balance (rebuild lee ledger, no catálogo) | ✅ PASSED |
+| B-25 | Cambio de simulation_rate no altera balance económico real — INV-B02 | ✅ PASSED |
+
+### Componentes creados
+
+| Archivo | Propósito |
+|---|---|
+| `supabase/migrations/20260822_12_mkt_fin_provider_balances.sql` | Tabla + funciones + RLS + triggers + extensión admin_overview |
+| `src/lib/marketplace/finance/balance.service.ts` | Servicio TS: `rebuildProviderBalance`, `getProviderBalance`, `reconcileProviderBalance`, `getAdminBalancesOverview`, `rebuildAndVerifyBalance` |
+| `supabase/tests/test_provider_balances.sql` | 25 tests B-01..B-25 validados contra cloud |
+
+### Funciones SQL creadas
+
+| Función | Propósito |
+|---|---|
+| `mkt_fin_rebuild_provider_balance(actor_id, currency)` | Reconstruye proyección desde ledger (idempotente, INV-B04) |
+| `mkt_fin_get_provider_balance(actor_id, currency)` | Lee proyección almacenada. Si no existe → {balance=0, projection_exists=false} |
+| `mkt_fin_reconcile_provider_balance(actor_id, currency)` | Diagnóstico MATCH/MISMATCH. Solo lectura. |
+| `mkt_fin_admin_balances_overview()` | KPIs agregados de todos los proveedores (solo platform_admin) |
+
+**Funciones extendidas:**
+
+| Función | Cambio |
+|---|---|
+| `mkt_fin_get_provider_financial_summary(actor_id)` | Añadido campo `balance` con proyección actual |
+| `mkt_fin_admin_overview()` | Añadido campo `provider_balances` con KPIs agregados |
+| `mkt_fin_post_checkout_ledger(master_order_id)` | Añadido STEP +1: rebuild no-blocking por actor tras postear ledger |
+
+### RLS
+
+| Policy | Tabla | Regla |
+|---|---|---|
+| `balance_select_own_actor` | `trade_marketplace_balances` | SELECT si actor propio OR platform_admin |
+| `balance_admin_all` | `trade_marketplace_balances` | ALL solo para platform_admin |
+
+### TypeScript (balance.service.ts)
+
+```typescript
+// Tipos
+export interface ProviderBalance        // {pending, available, reserved, negative, historical_settled, total_economic_balance, ...}
+export interface BalanceRebuildResult   // extends ProviderBalance + {status:'rebuilt', ledger_entries_read, recalculated_at}
+export interface BalanceReconciliation  // {status:'MATCH'|'MISMATCH', expected_total, stored_total, difference, ...}
+export interface AdminBalancesOverview  // {total_provider_pending, total_economic_balance, providers_with_balance, ...}
+
+// Funciones
+export async function rebuildProviderBalance(actorId, currency?)     // RPC mkt_fin_rebuild_provider_balance
+export async function getProviderBalance(actorId, currency?)         // RPC mkt_fin_get_provider_balance
+export async function reconcileProviderBalance(actorId, currency?)   // RPC mkt_fin_reconcile_provider_balance
+export async function getAdminBalancesOverview()                     // RPC mkt_fin_admin_balances_overview
+export async function rebuildAndVerifyBalance(actorId, currency?)    // rebuild + reconcile combinados
+```
+
+### Gates activos
+
+| Gate | Estado |
+|---|---|
+| `BUSINESS_RULE_GATE` | `available_amount = 0` — en Phase 2A todo queda en pending |
+| `MP-FIN-2E` | `reserved_amount = 0` — Reserves pendientes |
+| `MP-FIN-2D` | `negative_amount = 0` — Chargeback/deficit tracking pendiente |
+| `MP-FIN-2F` | `historical_settled = 0` — Settlement Engine pendiente (INV-B03) |
+
+### Invariantes garantizadas
+
+| Inv | Garantía | Mecanismo |
+|---|---|---|
+| INV-B01 | `total_economic_balance = SUM(GOODS+SHIP del ledger)` | Rebuild calcula directamente del ledger |
+| INV-B02 | COMMISSION_SIM_ACCRUAL no afecta ningún bucket | Excluida explícitamente del cálculo de pending |
+| INV-B03 | `historical_settled` es flujo, no stock | Campo separado, excluido de `GENERATED ALWAYS AS` |
+| INV-B04 | Rebuild siempre produce el mismo resultado | UPSERT idempotente leyendo ledger completo |
+| INV-009 | Ledger no modificado por rebuild | Rebuild solo hace SELECT del ledger, UPSERT en balances |
 
 ---
 
