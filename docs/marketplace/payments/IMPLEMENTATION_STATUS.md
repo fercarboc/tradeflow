@@ -2,7 +2,7 @@
 
 > **Documento vivo.** Actualizar tras cada fase.  
 > **Regla:** Una fase no se marca COMPLETED hasta que compile, pase tests y esté verificada en entorno de desarrollo.  
-> **Última actualización:** 2026-08-23 (MP-FIN-2C VALIDATED)
+> **Última actualización:** 2026-08-23 (MP-FIN-2D VALIDATED)
 
 ---
 
@@ -22,6 +22,7 @@
 | **MP-FIN-2A** | Provider Balance Projections (ledger→balance, rebuild, reconcile) | ✅ VALIDATED | 2026-08-22 | 2026-08-22 |
 | **MP-FIN-2B** | Refunds + Partial Refunds (dominio completo de devoluciones) | ✅ VALIDATED | 2026-08-23 | 2026-08-23 |
 | **MP-FIN-2C** | Disputes + Chargebacks (DISPUTE ≠ REFUND, aislamiento proveedor) | ✅ VALIDATED | 2026-08-23 | 2026-08-23 |
+| **MP-FIN-2D** | Negative Balances + Recovery Infrastructure | ✅ VALIDATED | 2026-08-23 | 2026-08-23 |
 | **MP-FIN-2** | Simulation Engine | 🔒 BLOQUEADO (MP-FIN-1B) | — | — |
 | **MP-FIN-3** | Admin Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
 | **MP-FIN-4** | Provider Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
@@ -1113,6 +1114,194 @@ exposure = original_total_gross
 | `STRIPE_GATE` | `simulation_only=true` CHECK. Sin Stripe real. Sin chargeback fee real. |
 | `LEGAL_GATE` | `responsibility` configurable pero sin dictar. Opciones definidas, elección operativa. |
 | `MP-FIN-2D` | Negative balance recovery pendiente. `negative_amount=0` en balances. |
+
+---
+
+## MP-FIN-2D — Negative Balances + Recovery Infrastructure ✅ VALIDATED
+
+> **Cerrada: 2026-08-23. Validación cloud: 2026-08-23.**
+> Detecta saldos negativos por proveedor, registra el déficit con historial de antigüedad
+> y permite simular estrategias de recuperación (future_sales_offset, manual_simulation).
+> simulation_only = true (STRIPE_GATE + LEGAL_GATE). Sin dinero real.
+> **50 tests N-01..N-50 — TODOS PASSED.**
+> **DETENTE. No iniciar MP-FIN-2E sin autorización explícita.**
+
+### Principios de diseño
+
+| Principio | Descripción |
+|---|---|
+| **LEDGER = SOURCE OF TRUTH** | `trade_marketplace_balances` es proyección reconstruible. Rebuild idempotente. |
+| **Venta original intacta** | GOODS_ENTITLEMENT nunca se modifica. Recovery = entrada separada positiva. |
+| **FUTURE_SETOFF positivo** | Representa el derecho de TrabFlow a retener earnings futuros. Amount > 0. |
+| **BALANCE_RECOVERY positivo** | Pago manual del proveedor. Amount > 0. |
+| **NEGATIVE_BALANCE_RECORD excluido** | Entrada informacional, no sumada al balance. |
+| **Aislamiento por proveedor y moneda** | Déficit de A no afecta B. EUR y USD son filas separadas. |
+
+### Fórmula balance Phase 2D
+
+```
+ledger_sum = SUM(GOODS_ENTITLEMENT, SHIPPING_ENTITLEMENT,
+                 GOODS_REFUND_REVERSAL, SHIPPING_REFUND_REVERSAL,
+                 CHARGEBACK_DEBIT, CHARGEBACK_CREDIT, CHARGEBACK_FEE,
+                 BALANCE_RECOVERY, FUTURE_SETOFF)
+             -- NEGATIVE_BALANCE_RECORD excluido explícitamente
+
+Si ledger_sum >= 0: pending = sum, negative = 0
+Si ledger_sum  < 0: pending = 0,   negative = abs(sum)
+```
+
+### Estado de columnas en `trade_marketplace_balances`
+
+| Columna | Phase 2D | Semántica |
+|---|---|---|
+| `negative_since` | ✅ activo | Timestamp primera vez que el balance fue negativo; preservado en rebuilds; limpiado al recuperarse |
+| `recovery_in_progress` | ✅ activo | true si hay recovery en status pending o partial |
+| `pending_amount` | Calculado desde ledger | 0 si balance negativo |
+| `negative_amount` | Calculado desde ledger | abs(sum) si sum < 0 |
+
+### Ciclo de vida de una recovery
+
+```
+[create_recovery]     → status=pending, recovery_in_progress=true
+[process_recovery]    → status=partial (si amount < deficit_amount)
+[process_recovery]    → status=completed, negative_since=NULL (si amount completa)
+[cancel_recovery]     → status=cancelled, recovery_in_progress recalculado
+```
+
+### Risk flags del breakdown
+
+| Flag | Condición |
+|---|---|
+| `AGING_CRITICAL` | negative_since > 90 días |
+| `NO_RECOVERY_PLAN` | negative_since > 30 días y recovery_in_progress = false |
+| `HIGH_DEFICIT` | negative_amount > 10000 (umbral configurable) |
+
+### Validación Cloud (Supabase dqqjaujnulutinskmqsu — eu-central-1)
+
+**Migración aplicada:**
+
+| # | Migración | Estado | Notas |
+|---|---|---|---|
+| 21 | `20260823_21_mkt_fin_negative_balances.sql` | ✅ | Columnas balance + tabla recoveries + 9 funciones + RLS |
+
+### Tests N-01..N-50
+
+| Rango | Descripción | Resultado |
+|---|---|---|
+| N-01..N-03 | Rebuild Phase 2D retorna phase=2D, balance positivo → negative=0, pending=200 | ✅ PASSED |
+| N-04..N-06 | CHARGEBACK_DEBIT crea negative>0, pending=0, negative_since establecido | ✅ PASSED |
+| N-07 | negative_since preservado en rebuilds consecutivos | ✅ PASSED |
+| N-08 | negative_since limpiado al recuperarse | ✅ PASSED |
+| N-09..N-10 | Aislamiento por proveedor (TB no afectado) y por moneda (USD independiente) | ✅ PASSED |
+| N-11..N-12 | BALANCE_RECOVERY y FUTURE_SETOFF reducen déficit | ✅ PASSED |
+| N-13 | NEGATIVE_BALANCE_RECORD excluido de la suma (no afecta balance) | ✅ PASSED |
+| N-14..N-15 | get_provider_balance retorna negative_since y recovery_in_progress | ✅ PASSED |
+| N-16..N-18 | get_negative_balance_breakdown: sin déficit, con déficit, aging_bucket=0_7 | ✅ PASSED |
+| N-19..N-20 | Risk flags AGING_CRITICAL (>90 días) y NO_RECOVERY_PLAN (>30 sin plan) | ✅ PASSED |
+| N-21..N-25 | preview_recovery: sin amount usa déficit, parcial, no persiste, impact_pct, FSO type | ✅ PASSED |
+| N-26..N-28 | create_recovery: creado, recovery_in_progress=true, idempotencia replayed | ✅ PASSED |
+| N-29..N-30 | Errores: NO_DEFICIT, AMOUNT_EXCEEDS_DEFICIT | ✅ PASSED |
+| N-31..N-34 | process_recovery parcial: BALANCE_RECOVERY positivo, partial, negative>0 | ✅ PASSED |
+| N-35..N-36 | process_recovery completo: completed, negative=0, negative_since=NULL | ✅ PASSED |
+| N-37 | RECOVERY_TERMINAL al procesar recovery ya completada | ✅ PASSED |
+| N-38..N-40 | future_sales_offset: FUTURE_SETOFF positivo, GOODS_ENTITLEMENT original intacto | ✅ PASSED |
+| N-41 | Idempotencia process_recovery por source_event_id → replayed | ✅ PASSED |
+| N-42 | AMOUNT_EXCEEDS_REMAINING | ✅ PASSED |
+| N-43 | cancel_recovery → cancelled | ✅ PASSED |
+| N-44..N-45 | recovery_in_progress coherente con activos; RECOVERY_TERMINAL en cancel | ✅ PASSED |
+| N-46..N-48 | list_provider_recoveries paginado, list_admin_recoveries con filtros | ✅ PASSED |
+| N-49 | admin_negative_overview con by_aging completo | ✅ PASSED |
+| N-50 | reconcile Phase 2D → MATCH, includes_recovery=true | ✅ PASSED |
+
+### Componentes creados
+
+| Archivo | Propósito |
+|---|---|
+| `supabase/migrations/20260823_21_mkt_fin_negative_balances.sql` | Columnas balance + tabla recoveries + 9 funciones SQL |
+| `src/lib/marketplace/finance/recovery.service.ts` | Servicio TS: 7 funciones |
+| `supabase/tests/test_negative_balances_recovery.sql` | 50 tests N-01..N-50 validados contra cloud |
+
+### Tabla creada
+
+| Tabla | Descripción |
+|---|---|
+| `trade_marketplace_recoveries` | Planes de recuperación de déficit: tipo, status, montos, idempotencia, historial |
+
+### Columnas añadidas a `trade_marketplace_balances`
+
+| Columna | Tipo | Propósito |
+|---|---|---|
+| `negative_since` | `timestamptz` | Momento en que el balance entró en déficit |
+| `recovery_in_progress` | `bool NOT NULL DEFAULT false` | Flag de recovery activa |
+
+### Funciones SQL creadas / extendidas
+
+| Función | Acción | Propósito |
+|---|---|---|
+| `mkt_fin_rebuild_provider_balance` | **EXTENDIDA Phase 2D** | Suma BR+FSO; split pending/negative; gestiona negative_since y recovery_in_progress |
+| `mkt_fin_reconcile_provider_balance` | **EXTENDIDA Phase 2D** | Fórmula actualizada con BR+FSO; retorna includes_recovery=true |
+| `mkt_fin_get_provider_balance` | **EXTENDIDA Phase 2D** | Retorna negative_since y recovery_in_progress |
+| `mkt_fin_get_negative_balance_breakdown` | NUEVA | Aging, aging_bucket, risk_flags; readonly |
+| `mkt_fin_preview_recovery` | NUEVA | Dry-run: effective, impact_pct, ledger_entry_type; sin persistencia |
+| `mkt_fin_create_recovery` | NUEVA | Crea plan recovery; idempotente por idempotency_key; admin-only |
+| `mkt_fin_process_recovery` | NUEVA | Crea entrada ledger BR o FSO; actualiza status; idempotente por source_event_id |
+| `mkt_fin_cancel_recovery` | NUEVA | Cancela recovery pending/partial; bloquea en terminal |
+| `mkt_fin_list_provider_recoveries` | NUEVA | Lista paginada por proveedor |
+| `mkt_fin_list_admin_recoveries` | NUEVA | Lista global con filtros status/currency |
+| `mkt_fin_admin_negative_overview` | NUEVA | KPIs: providers_in_deficit, by_aging buckets, active_recoveries |
+
+### RLS
+
+| Policy | Tabla | Regla |
+|---|---|---|
+| `recoveries_provider_select` | `trade_marketplace_recoveries` | SELECT si provider_actor_id propio |
+| `recoveries_admin_all` | `trade_marketplace_recoveries` | ALL solo para platform_admin |
+
+### TypeScript (recovery.service.ts)
+
+```typescript
+// Tipos
+export type RecoveryType     // 'future_sales_offset' | 'manual_simulation'
+export type RecoveryStatus   // 'pending' | 'partial' | 'completed' | 'cancelled'
+export type AgingBucket      // '0_7' | '8_30' | '31_60' | '61_90' | '90_plus'
+export interface NegativeBalanceBreakdown    // in_deficit, deficit_amount, aging_days, aging_bucket, risk_flags
+export interface RecoveryPreview             // effective_recovery, impact_pct, full_recovery, ledger_entry_type
+export interface CreateRecoveryResult        // status, recovery_id, recovery_number, ...
+export interface ProcessRecoveryResult       // entry_type, ledger_entry_id, new_negative_amount, remaining_amount, ...
+export interface CancelRecoveryResult        // status='cancelled', cancelled_at
+export interface RecoveryListItem / RecoveryListResult / AdminRecoveryListResult
+export interface AdminNegativeOverview       // providers_in_deficit, by_aging, active_recoveries
+
+// Funciones
+export async function getNegativeBalanceBreakdown(actorId, currency?)    // RPC mkt_fin_get_negative_balance_breakdown
+export async function previewRecovery(actorId, currency, amount, type)   // RPC mkt_fin_preview_recovery
+export async function createRecovery(params)                             // RPC mkt_fin_create_recovery (admin)
+export async function processRecovery(params)                            // RPC mkt_fin_process_recovery (admin)
+export async function cancelRecovery(params)                             // RPC mkt_fin_cancel_recovery (admin)
+export async function listProviderRecoveries(actorId, limit, offset)     // RPC mkt_fin_list_provider_recoveries
+export async function listAdminRecoveries(params?)                       // RPC mkt_fin_list_admin_recoveries
+export async function getAdminNegativeOverview()                         // RPC mkt_fin_admin_negative_overview
+```
+
+### Invariantes garantizadas
+
+| Inv | Garantía | Mecanismo |
+|---|---|---|
+| **LEDGER_TRUTH** | balance = proyección reconstruible del ledger | Rebuild idempotente desde ledger |
+| **SALE_INTACT** | GOODS_ENTITLEMENT nunca modificado | BR y FSO son entradas independientes positivas |
+| **FSO_POSITIVE** | FUTURE_SETOFF.amount > 0 | CHECK en tabla + lógica en process_recovery |
+| **ISOLATION** | Déficit de A no afecta B ni C | actor_id en todas las entradas ledger |
+| **SIMULATION_ONLY** | `simulation_only=true` CHECK constraint | `chk_recovery_simulation` en tabla |
+| **IDEMPOTENCY** | idempotency_key en create; source_event_id en process | UNIQUE constraints + verificación en funciones |
+| **negative_since** | Preservado en rebuilds; limpiado al recuperarse | Lógica explícita en mkt_fin_rebuild_provider_balance |
+
+### Gates activos
+
+| Gate | Estado |
+|---|---|
+| `STRIPE_GATE` | `simulation_only=true` — sin dinero real |
+| `LEGAL_GATE` | Compensación saldos negativos (L7) — pendiente dictamen |
+| `MP-FIN-2E` | Reserves — siguiente fase |
 
 ---
 
