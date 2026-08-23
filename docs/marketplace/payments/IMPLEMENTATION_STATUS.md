@@ -2,7 +2,7 @@
 
 > **Documento vivo.** Actualizar tras cada fase.  
 > **Regla:** Una fase no se marca COMPLETED hasta que compile, pase tests y esté verificada en entorno de desarrollo.  
-> **Última actualización:** 2026-08-22 (MP-FIN-2A VALIDATED)
+> **Última actualización:** 2026-08-23 (MP-FIN-2B VALIDATED)
 
 ---
 
@@ -20,6 +20,7 @@
 | **MP-FIN-1B.1D** | PDF Resumen de compra Marketplace | ✅ VALIDATED | 2026-08-21 | 2026-08-21 |
 | **MP-FIN-1B.2** | Sim events + ledger (requiere aprobación tras 1B.1) | ✅ VALIDATED | 2026-08-22 | 2026-08-22 |
 | **MP-FIN-2A** | Provider Balance Projections (ledger→balance, rebuild, reconcile) | ✅ VALIDATED | 2026-08-22 | 2026-08-22 |
+| **MP-FIN-2B** | Refunds + Partial Refunds (dominio completo de devoluciones) | ✅ VALIDATED | 2026-08-23 | 2026-08-23 |
 | **MP-FIN-2** | Simulation Engine | 🔒 BLOQUEADO (MP-FIN-1B) | — | — |
 | **MP-FIN-3** | Admin Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
 | **MP-FIN-4** | Provider Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
@@ -808,6 +809,140 @@ export async function rebuildAndVerifyBalance(actorId, currency?)    // rebuild 
 | INV-B03 | `historical_settled` es flujo, no stock | Campo separado, excluido de `GENERATED ALWAYS AS` |
 | INV-B04 | Rebuild siempre produce el mismo resultado | UPSERT idempotente leyendo ledger completo |
 | INV-009 | Ledger no modificado por rebuild | Rebuild solo hace SELECT del ledger, UPSERT en balances |
+
+---
+
+## MP-FIN-2B — Refunds + Partial Refunds ✅ VALIDATED
+
+> **Cerrada: 2026-08-23. Validación cloud: 2026-08-23.**  
+> Dominio completo de devoluciones económicas. REFUND = MOVIMIENTO COMPENSATORIO.  
+> La venta original NUNCA se modifica.  
+> **35 tests R-01..R-35 — TODOS PASSED.**  
+> **DETENTE. No iniciar MP-FIN-2C sin autorización explícita.**
+
+### Principio fundamental
+
+```
+SALE +100  ← la venta original permanece intacta en el ledger
+REFUND -30 ← entrada compensatoria (GOODS_REFUND_REVERSAL, amount NEGATIVO)
+─────────
+NET  +70   ← deducible en cualquier momento sumando ambas entradas
+```
+
+El refund pertenece siempre a un **Supplier Order** (aislamiento por proveedor). Sin contaminación entre proveedores.
+
+### Tipos de refund
+
+| Tipo | Descripción |
+|---|---|
+| `full_order` | Devuelve todo lo pendiente (goods + shipping) |
+| `partial_amount` | Devuelve una cantidad arbitraria de goods |
+| `full_item` | Devuelve todos los restantes de un item específico |
+| `partial_quantity` | Devuelve N unidades de un item |
+| `shipping_only` | Devuelve sólo shipping |
+| `mixed` | Items + shipping combinados |
+
+### Fórmula pending Phase 2B
+
+```
+pending = SUM(GOODS_ENTITLEMENT + SHIPPING_ENTITLEMENT        ← positivos
+            + GOODS_REFUND_REVERSAL + SHIPPING_REFUND_REVERSAL) ← negativos (se restan naturalmente)
+```
+
+### Rounding strategy
+
+- **No-último refund:** proporcional desde snapshot unit price
+- **Último refund que cierra la línea:** absorbe el remanente exacto → garantiza `SUM(refunds) = original` al centavo
+
+### Invariantes
+
+| Inv | Garantía |
+|---|---|
+| **COMPENSATORY** | La venta original NUNCA se modifica en el ledger |
+| **PER-SUPPLIER** | Refund en proveedor B no afecta A ni C |
+| **TAX_GATE** | IVA calculado desde snapshots, nunca desde config actual |
+| **STRIPE_GATE** | `simulation_only = true` — CHECK constraint. Sin Stripe refunds reales |
+| **COMMISSION_GATE** | `commission_reversal = 0` (commission_real = 0, Phase 0) |
+| **IDEMPOTENCY** | `idempotency_key` único — segunda llamada retorna `status='replayed'` |
+| **ATOMICITY** | Entidad + items + ledger + balance o ROLLBACK total |
+
+### Validación Cloud
+
+| # | Migración | Estado | Notas |
+|---|---|---|---|
+| 13 | `20260823_13_mkt_fin_refunds.sql` | ✅ | Tablas + 11 funciones + RLS + triggers + extensión rebuild Phase 2B |
+| 14 | `20260823_14_fix_mkt_fin_create_refund.sql` | ✅ | Fix buyer_actor_id = NULL (actors sin org_id en Phase 0) |
+
+### Tests R-01..R-35
+
+| Test | Descripción | Resultado |
+|---|---|---|
+| R-01 | `trade_marketplace_refunds` table exists | ✅ PASSED |
+| R-02 | `trade_marketplace_refund_items` table exists | ✅ PASSED |
+| R-03 | `refund_status` default = 'not_refunded' en supplier orders | ✅ PASSED |
+| R-04 | `refund_aggregate_status` column en master orders | ✅ PASSED |
+| R-05 | `chk_refund_simulation` CHECK constraint (STRIPE_GATE) | ✅ PASSED |
+| R-06 | `original_goods_gross = 1.75` (b829eaf4) | ✅ PASSED |
+| R-07 | `remaining_total_refundable = 10.25` (sin refunds previos) | ✅ PASSED |
+| R-08 | `items` array tiene elementos | ✅ PASSED |
+| R-09 | `original_shipping_gross = 8.50` | ✅ PASSED |
+| R-10 | `refund_status = not_refunded` en pedido limpio | ✅ PASSED |
+| R-11 | Preview `full_order` total = 10.25 | ✅ PASSED |
+| R-12 | Preview `shipping_only` = 8.50 | ✅ PASSED |
+| R-13 | Preview fiscal: `gross = net + tax` | ✅ PASSED |
+| R-14 | `create_refund full_order` retorna `status=created` | ✅ PASSED |
+| R-15 | `refund_number` matches `RF-YYYY-NNNN` | ✅ PASSED |
+| R-16 | `total_refund_gross = 9.20` (0.70 goods + 8.50 ship) | ✅ PASSED |
+| R-17 | Entidad refund persisted: `status=processed`, `simulation_only=true` | ✅ PASSED |
+| R-18 | `refund_items count = 2` (1 goods + 1 shipping) | ✅ PASSED |
+| R-19 | `GOODS_REFUND_REVERSAL` con `amount < 0` y `status=confirmed` | ✅ PASSED |
+| R-20 | `SHIPPING_REFUND_REVERSAL` con `amount < 0` y `status=confirmed` | ✅ PASSED |
+| R-21 | `refund_status = fully_refunded` tras full_order | ✅ PASSED |
+| R-22 | `remaining_total_refundable = 0` tras full_order | ✅ PASSED |
+| R-23 | `partial_quantity` 2/5 Ladrillo retorna `status=created` | ✅ PASSED |
+| R-24 | `items_gross = 0.70` (2 × 0.35, proporcional) | ✅ PASSED |
+| R-25 | `refund_status = partially_refunded` tras 2/5 unidades | ✅ PASSED |
+| R-26 | `shipping_only = 8.50` | ✅ PASSED |
+| R-27 | Estado sigue `partially_refunded` (3 goods restantes) | ✅ PASSED |
+| R-28 | `full_item total = 1.70` (último absorbe remanente exacto) | ✅ PASSED |
+| R-29 | `refund_status = fully_refunded` tras `full_item` 2/2 unidades | ✅ PASSED |
+| R-30 | `mixed` (1 teja de 3) retorna `status=created` | ✅ PASSED |
+| R-31 | `partial_amount 999 > remaining 1.75` → `EXCEEDS_REFUNDABLE` | ✅ PASSED |
+| R-32 | `full_order` en pedido `fully_refunded` → `ZERO_REFUND` | ✅ PASSED |
+| R-33 | Tipo desconocido → `INVALID_REFUND_TYPE` | ✅ PASSED |
+| R-34 | Segunda llamada con mismo `idempotency_key` → `status=replayed` | ✅ PASSED |
+| R-35 | `admin_refunds_overview total_refunds >= 1` | ✅ PASSED |
+
+### Componentes creados
+
+| Archivo | Propósito |
+|---|---|
+| `supabase/migrations/20260823_13_mkt_fin_refunds.sql` | Tablas + 11 funciones + RLS + triggers + extensión rebuild 2B |
+| `supabase/migrations/20260823_14_fix_mkt_fin_create_refund.sql` | Fix buyer_actor_id = NULL |
+| `src/lib/marketplace/finance/refund.service.ts` | Servicio TS: `createRefund`, `previewRefund`, `getRefundableSummary`, `getRefund`, `listSupplierRefunds`, `getAdminRefundsOverview` |
+| `supabase/tests/test_marketplace_refunds.sql` | 35 tests R-01..R-35 validados contra cloud |
+
+### Funciones SQL creadas
+
+| Función | Propósito |
+|---|---|
+| `mkt_fin_get_refundable_summary(supplier_order_id)` | Estado refundable + items pendientes |
+| `mkt_fin_preview_refund(...)` | Cálculo sin efectos secundarios |
+| `mkt_fin_create_refund(...)` | Función principal — atómica |
+| `mkt_fin_get_refund(refund_id)` | Detalle de un refund con sus líneas |
+| `mkt_fin_list_supplier_refunds(actor_id)` | Lista paginada por proveedor |
+| `mkt_fin_admin_refunds_overview()` | KPIs globales (solo platform_admin) |
+| `_mkt_update_so_refund_status(supplier_order_id)` | Helper — actualiza refund_status |
+| `_mkt_update_master_refund_status(master_order_id)` | Helper — actualiza refund_aggregate_status |
+| `_mkt_calc_item_refund_amounts(supplier_order_id, items)` | Helper — rounding proporcional |
+
+**Funciones extendidas:**
+
+| Función | Cambio |
+|---|---|
+| `mkt_fin_rebuild_provider_balance` | Añadida inclusión de GOODS/SHIPPING_REFUND_REVERSAL en pending |
+| `mkt_fin_reconcile_provider_balance` | Actualizada con fórmula Phase 2B |
+| `mkt_fin_admin_overview` | Añadido bloque `refunds` con KPIs |
 
 ---
 
