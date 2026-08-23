@@ -2,7 +2,7 @@
 
 > **Documento vivo.** Actualizar tras cada fase.  
 > **Regla:** Una fase no se marca COMPLETED hasta que compile, pase tests y esté verificada en entorno de desarrollo.  
-> **Última actualización:** 2026-08-23 (MP-FIN-2B VALIDATED)
+> **Última actualización:** 2026-08-23 (MP-FIN-2C VALIDATED)
 
 ---
 
@@ -21,6 +21,7 @@
 | **MP-FIN-1B.2** | Sim events + ledger (requiere aprobación tras 1B.1) | ✅ VALIDATED | 2026-08-22 | 2026-08-22 |
 | **MP-FIN-2A** | Provider Balance Projections (ledger→balance, rebuild, reconcile) | ✅ VALIDATED | 2026-08-22 | 2026-08-22 |
 | **MP-FIN-2B** | Refunds + Partial Refunds (dominio completo de devoluciones) | ✅ VALIDATED | 2026-08-23 | 2026-08-23 |
+| **MP-FIN-2C** | Disputes + Chargebacks (DISPUTE ≠ REFUND, aislamiento proveedor) | ✅ VALIDATED | 2026-08-23 | 2026-08-23 |
 | **MP-FIN-2** | Simulation Engine | 🔒 BLOQUEADO (MP-FIN-1B) | — | — |
 | **MP-FIN-3** | Admin Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
 | **MP-FIN-4** | Provider Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
@@ -943,6 +944,175 @@ pending = SUM(GOODS_ENTITLEMENT + SHIPPING_ENTITLEMENT        ← positivos
 | `mkt_fin_rebuild_provider_balance` | Añadida inclusión de GOODS/SHIPPING_REFUND_REVERSAL en pending |
 | `mkt_fin_reconcile_provider_balance` | Actualizada con fórmula Phase 2B |
 | `mkt_fin_admin_overview` | Añadido bloque `refunds` con KPIs |
+
+---
+
+---
+
+## MP-FIN-2C — Disputes + Chargebacks ✅ VALIDATED
+
+> **Cerrada: 2026-08-23. Validación cloud: 2026-08-23.**
+> DISPUTE ≠ REFUND. Entidad separada con estado propio y ledger independiente.
+> Aislamiento por proveedor: chargeback en SO_A no afecta SO_B ni SO_C.
+> simulation_only = true (STRIPE_GATE). responsibility configurable (LEGAL_GATE).
+> **40 tests D-01..D-40 — TODOS PASSED.**
+> **DETENTE. No iniciar MP-FIN-2D sin autorización explícita.**
+
+### Principios de diseño
+
+| Principio | Descripción |
+|---|---|
+| **DISPUTE ≠ REFUND** | Entidades separadas. Dispute abre → cierra con outcome. Refund es movimiento compensatorio inmediato. |
+| **Aislamiento por proveedor** | `mkt_fin_create_dispute` calcula exposición solo de ese supplier_order. FK `provider_actor_id`. |
+| **Sin ledger al abrir** | Opened → sin entrada ledger. Solo LOST/ACCEPTED → CHARGEBACK_DEBIT. |
+| **LEGAL_GATE: responsibility** | Configurable: provider/platform/buyer/undetermined/shared. Nunca hardcodeado. |
+| **STRIPE_GATE: chargeback_fee** | Parámetro configurable `p_chargeback_fee`. Sin Stripe real aún. |
+| **Lost → Won (reversal)** | WON post-LOST = CHARGEBACK_CREDIT que compensa el DEBIT previo. Net neto = 0. |
+
+### State machine
+
+```
+opened → needs_response | under_review | won | lost | accepted | cancelled
+needs_response → evidence_submitted → under_review → won | lost | cancelled
+lost → won (reversal CHARGEBACK_CREDIT) | closed
+won | accepted | cancelled → closed
+```
+
+Terminales: `cancelled`, `closed` (sin transición posible).
+
+### Modelo económico de ledger
+
+| Outcome | Entradas ledger | Impacto |
+|---|---|---|
+| `opened` | — | Sin impacto |
+| `lost` | CHARGEBACK_DEBIT (neg) + opcional CHARGEBACK_FEE (neg) | Reduce pending |
+| `accepted` | CHARGEBACK_DEBIT (neg) + opcional CHARGEBACK_FEE (neg) | Reduce pending |
+| `won` (tras LOST) | CHARGEBACK_CREDIT (pos) = chargeback_amount | Compensa DEBIT, net=0 |
+| `won` (sin LOST) | — | Sin impacto |
+| `cancelled` / `closed` | — | Sin impacto |
+
+### Fórmula exposición disputable
+
+```
+exposure = original_total_gross
+         - refunds_procesados
+         - chargebacks_net (DEBIT - CREDIT)
+         - open_disputes_sin_CB_posteado
+```
+
+### Validación Cloud (Supabase dqqjaujnulutinskmqsu — eu-central-1)
+
+**Migraciones aplicadas:**
+
+| # | Migración | Estado | Notas |
+|---|---|---|---|
+| 15 | `20260823_15_mkt_fin_disputes.sql` | ✅ | Tablas + 17 objetos. Bugs en create_dispute y simulate_outcome. |
+| 16 | `20260823_16_mkt_fin_disputes_fix_actor_id.sql` | ✅ | Fix `o.actor_id` (no provider_actor_id) + audit 9th param NULL |
+| 17 | `20260823_17_mkt_fin_disputes_fix_audit_actor.sql` | ✅ | Fix audit 4th param auth.uid()→NULL (FK violation) |
+| 18 | `20260823_18_mkt_fin_disputes_fix_outbox_actor.sql` | ✅ | Fix outbox 3rd param auth.uid()→v_order.actor_id (FK violation) |
+| 19 | `20260823_19_mkt_fin_disputes_fix_state_machine.sql` | ✅ | Fix lost→won en state machine |
+| 20 | `20260823_20_mkt_fin_disputes_fix_currency_char.sql` | ✅ | Fix currency::char→currency (truncaba 'EUR'→'E', invisible al balance) |
+
+**Bugs descubiertos y corregidos:**
+
+| Bug | Causa | Efecto | Migración fix |
+|---|---|---|---|
+| `o.provider_actor_id` no existe | `trade_marketplace_orders.actor_id` no `provider_actor_id` | Runtime error en create_dispute | 16 |
+| `p_source_event_id` (text) como jsonb | `mkt_fin_audit` 9th param = jsonb, no text | Type cast error | 16 |
+| `auth.uid()` en audit actor_id | auth user UUID ≠ marketplace actor → FK violation | `audit_log_actor_id_fkey` violation | 17 |
+| `auth.uid()` en outbox actor_id | auth user UUID ≠ marketplace actor → FK violation | `outbox_actor_id_fkey` violation | 18 |
+| `lost → won` no en state machine | Transición WON post-reversal no incluida | D-18 INVALID_TRANSITION | 19 |
+| `v_d.currency::char` trunca 'EUR'→'E' | `::char` = `::character(1)` en SQL context | CHARGEBACK_DEBIT/CREDIT con currency='E', invisible al balance | 20 |
+
+### Tests D-01..D-40
+
+| Rango | Descripción | Resultado |
+|---|---|---|
+| D-01..D-02 | Crear dispute SO_A, sin CB en apertura | ✅ PASSED |
+| D-03..D-05 | Exposición por SO (A=5.25, B=1.70, C=3.36) — aislamiento | ✅ PASSED |
+| D-06..D-07 | Transición needs_response + evidence_submitted | ✅ PASSED |
+| D-08..D-12 | LOST: CHARGEBACK_DEBIT, cb_posted, aislamiento B/C | ✅ PASSED |
+| D-13..D-16 | Validaciones: AMOUNT_EXCEEDS_EXPOSURE, AMOUNT_MUST_BE_POSITIVE | ✅ PASSED |
+| D-17 | WON sin CB previo (sin entrada ledger) | ✅ PASSED |
+| D-18..D-20 | WON post-LOST: CHARGEBACK_CREDIT, reversed=true, net=0 | ✅ PASSED |
+| D-21 | ACCEPTED: CHARGEBACK_DEBIT | ✅ PASSED |
+| D-22..D-24 | Idempotencia: idempotency_key, source_event_id, simulate replay | ✅ PASSED |
+| D-25..D-26 | State machine: CANCELLED→won bloqueado, LOST→under_review bloqueado | ✅ PASSED |
+| D-27 | Evidence en terminal DISPUTE_TERMINAL | ✅ PASSED |
+| D-28 | RLS policy admin_all existe | ✅ PASSED |
+| D-29..D-31 | Preview outcome (LOST net=-2, LOST+fee net=-2.5, WON post-CB net=+1.5) | ✅ PASSED |
+| D-32 | won→closed cierre formal | ✅ PASSED |
+| D-33..D-35 | get_dispute, list_supplier, admin_overview | ✅ PASSED |
+| D-36 | dispute_number DI-2026-NNNN | ✅ PASSED |
+| D-37..D-38 | audit dispute_created, outbox dispute.opened | ✅ PASSED |
+| D-39 | simulation_only=true en todos | ✅ PASSED |
+| D-40 | Balance ACTOR_A = SUM(ledger incluyendo CB) — INV-B02 | ✅ PASSED |
+
+### Componentes creados
+
+| Archivo | Propósito |
+|---|---|
+| `supabase/migrations/20260823_15_mkt_fin_disputes.sql` | Tablas + 17 objetos SQL (versión original con bugs) |
+| `supabase/migrations/20260823_16_mkt_fin_disputes_fix_actor_id.sql` | Fix 1/5: actor_id + audit 9th |
+| `supabase/migrations/20260823_17_mkt_fin_disputes_fix_audit_actor.sql` | Fix 2/5: audit actor NULL |
+| `supabase/migrations/20260823_18_mkt_fin_disputes_fix_outbox_actor.sql` | Fix 3/5: outbox actor (FINAL create_dispute) |
+| `supabase/migrations/20260823_19_mkt_fin_disputes_fix_state_machine.sql` | Fix 4/5: lost→won |
+| `supabase/migrations/20260823_20_mkt_fin_disputes_fix_currency_char.sql` | Fix 5/5: currency::char→currency (FINAL simulate_outcome) |
+| `src/lib/marketplace/finance/dispute.service.ts` | Servicio TS: 8 funciones |
+| `supabase/tests/test_marketplace_disputes.sql` | 40 tests D-01..D-40 validados contra cloud |
+
+### Funciones SQL creadas
+
+| Función | Propósito |
+|---|---|
+| `_mkt_validate_dispute_transition(current, new)` | Helper: valida transición de estado |
+| `_mkt_calc_chargeback_exposure(supplier_order_id, exclude_dispute_id)` | Helper: exposición disponible |
+| `mkt_fin_get_dispute_exposure(supplier_order_id)` | Exposición disputable + desglose |
+| `mkt_fin_preview_dispute_outcome(dispute_id, outcome, fee)` | Preview sin efectos secundarios |
+| `mkt_fin_create_dispute(...)` | Crear dispute idempotente. Sin ledger al abrir. |
+| `mkt_fin_add_dispute_evidence(...)` | Añadir evidencia + avanzar estado |
+| `mkt_fin_simulate_dispute_outcome(...)` | Transicionar estado + entradas ledger |
+| `mkt_fin_get_dispute(dispute_id)` | Detalle con evidencias |
+| `mkt_fin_list_supplier_disputes(actor_id, limit, offset)` | Lista paginada por proveedor |
+| `mkt_fin_admin_disputes_overview()` | KPIs globales (solo platform_admin) |
+
+**Funciones extendidas:**
+
+| Función | Cambio |
+|---|---|
+| `mkt_fin_rebuild_provider_balance` | Extendida Phase 2C: incluye CHARGEBACK_DEBIT/CREDIT/FEE en pending |
+| `mkt_fin_reconcile_provider_balance` | Actualizada con fórmula Phase 2C |
+
+### RLS
+
+| Policy | Tabla | Regla |
+|---|---|---|
+| `disputes_admin_all` | `trade_marketplace_disputes` | ALL solo para platform_admin |
+| `disputes_provider_select` | `trade_marketplace_disputes` | SELECT si provider_actor_id propio |
+| `dispute_evidence_admin_all` | `trade_marketplace_dispute_evidence` | ALL solo para platform_admin |
+| `dispute_evidence_provider_select` | `trade_marketplace_dispute_evidence` | SELECT evidencias de sus disputes |
+
+### Invariantes garantizadas
+
+| Inv | Garantía | Mecanismo |
+|---|---|---|
+| **DISPUTE ≠ REFUND** | Tablas, tipos y ledger separados | `trade_marketplace_disputes` independiente |
+| **PER-SUPPLIER** | Exposición calculada por supplier_order | `_mkt_calc_chargeback_exposure` aísla por SO |
+| **NO-LEDGER-OPEN** | `chk_dispute_simulation` solo simulation | Sin entrada al abrir; solo al resolver |
+| **NET-ZERO-WON** | WON post-LOST = CREDIT del mismo amount | D-20: net SO_D = 0.00 verificado |
+| **LEGAL_GATE** | responsibility configurable, nunca hardcodeado | CHECK constraint + validación en función |
+| **STRIPE_GATE** | `simulation_only = true` CHECK constraint | `chk_dispute_simulation` en tabla |
+| **IDEMPOTENCY** | idempotency_key + source_event_id | UNIQUE constraint + verificación en función |
+| **ATOMICITY** | Entidad + ledger + balance o ROLLBACK | Todo en misma transacción PL/pgSQL |
+| **INV-B02** | CHARGEBACK_DEBIT/CREDIT en balance (no COMMISSION_SIM) | Phase 2C rebuild incluye tipos CB |
+
+### Gates activos
+
+| Gate | Estado |
+|---|---|
+| `STRIPE_GATE` | `simulation_only=true` CHECK. Sin Stripe real. Sin chargeback fee real. |
+| `LEGAL_GATE` | `responsibility` configurable pero sin dictar. Opciones definidas, elección operativa. |
+| `MP-FIN-2D` | Negative balance recovery pendiente. `negative_amount=0` en balances. |
 
 ---
 
