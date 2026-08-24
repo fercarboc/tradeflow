@@ -2,7 +2,7 @@
 
 > **Documento vivo.** Actualizar tras cada fase.  
 > **Regla:** Una fase no se marca COMPLETED hasta que compile, pase tests y esté verificada en entorno de desarrollo.  
-> **Última actualización:** 2026-08-23 (MP-FIN-2D VALIDATED)
+> **Última actualización:** 2026-08-24 (MP-FIN-2E VALIDATED)
 
 ---
 
@@ -23,6 +23,7 @@
 | **MP-FIN-2B** | Refunds + Partial Refunds (dominio completo de devoluciones) | ✅ VALIDATED | 2026-08-23 | 2026-08-23 |
 | **MP-FIN-2C** | Disputes + Chargebacks (DISPUTE ≠ REFUND, aislamiento proveedor) | ✅ VALIDATED | 2026-08-23 | 2026-08-23 |
 | **MP-FIN-2D** | Negative Balances + Recovery Infrastructure | ✅ VALIDATED | 2026-08-23 | 2026-08-23 |
+| **MP-FIN-2E** | Reserves + Holds | ✅ VALIDATED | 2026-08-24 | 2026-08-24 |
 | **MP-FIN-2** | Simulation Engine | 🔒 BLOQUEADO (MP-FIN-1B) | — | — |
 | **MP-FIN-3** | Admin Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
 | **MP-FIN-4** | Provider Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
@@ -1302,6 +1303,202 @@ export async function getAdminNegativeOverview()                         // RPC 
 | `STRIPE_GATE` | `simulation_only=true` — sin dinero real |
 | `LEGAL_GATE` | Compensación saldos negativos (L7) — pendiente dictamen |
 | `MP-FIN-2E` | Reserves — siguiente fase |
+
+---
+
+## MP-FIN-2E — Reserves + Holds ✅ VALIDATED
+
+> **Cerrada: 2026-08-24. Validación cloud: 2026-08-24.**
+> Implementa infraestructura de reservas/holds sobre buckets de balance de proveedores.
+> INVARIANTE FUNDAMENTAL: reserve ≠ pérdida económica. TEB = constante al crear/liberar reservas.
+> simulation_only = true (STRIPE_GATE + LEGAL_GATE + TAX_GATE). Sin dinero real.
+> **55 tests H-01..H-55 — TODOS PASSED.**
+
+### Semántica de reservas
+
+| Concepto | Descripción |
+|---|---|
+| **Reserve** | Mueve fondos available → reserved. TEB inalterado. |
+| **Release** | Mueve fondos reserved → available. No crea revenue. |
+| **Expiry** | Reserva vencida se libera automáticamente. TEB inalterado. |
+| **Cancel** | Libera remaining; status = cancelled. |
+| **Simulation only** | `CHECK (simulation_only = true)` en tabla. |
+
+### Balance buckets Phase 2E
+
+```
+pending   = base_sum − p2a_sum          (base = GOODS/SHIPPING/CHARGEBACK/RECOVERY/FSO)
+available = GREATEST(p2a + rh + rr, 0)  (rh negativo, rr positivo)
+reserved  = GREATEST(−(rh + rr), 0)
+negative  = ABS(pending_net) si < 0, else 0
+TEB       = pending + available + reserved − negative  = base_sum  (GENERATED ALWAYS)
+```
+
+### Tipos de ledger involucrados
+
+| Tipo | Signo | Efecto en balance |
+|---|---|---|
+| `PENDING_TO_AVAILABLE` | + | pending ↓  available ↑  TEB sin cambio |
+| `RESERVE_HOLD`         | − | available ↓  reserved ↑  TEB sin cambio |
+| `RESERVE_RELEASE`      | + | reserved ↓  available ↑  TEB sin cambio |
+
+### Invariante económico (prueba matemática)
+
+```
+available + reserved
+= (p2a + rh + rr) + (−(rh + rr))
+= p2a
+= CONSTANT (base = p2a + pendiente restante)
+TEB = base_sum  siempre
+```
+
+### Schema — `trade_marketplace_reserves`
+
+| Columna | Tipo | Detalle |
+|---|---|---|
+| `id` | uuid PK | gen_random_uuid() |
+| `reserve_number` | text UNIQUE | prefijo RSV- |
+| `provider_actor_id` | uuid FK | actor proveedor |
+| `currency` | char(3) | EUR por defecto |
+| `reserve_type` | text | risk/dispute/chargeback_exposure/new_provider/delivery_window/manual_review/rolling/fixed/manual/other |
+| `requested_amount` | numeric(15,4) | > 0 CHECK |
+| `reserved_amount` | numeric(15,4) | ≥ 0 |
+| `released_amount` | numeric(15,4) | ≤ reserved_amount CHECK |
+| `remaining_amount` | numeric(15,4) | GENERATED ALWAYS AS (reserved − released) |
+| `source_bucket` | text | available \| pending |
+| `status` | text | active → partially_released → released; active/partially → expired/cancelled |
+| `simulation_only` | bool | true CHECK (inamovible) |
+| `idempotency_key` | text UNIQUE | idempotencia en create |
+| `source_event_id` | text UNIQUE | idempotencia en release |
+| `expires_at` | timestamptz | para batch expiry |
+| `dispute_id` | uuid FK nullable | link a dispute |
+
+### State machine
+
+```
+active ──── release(partial) ──→ partially_released ──── release(full) ──→ released
+active ──── release(full)   ──→ released
+active ──── cancel          ──→ cancelled
+active ──── expire          ──→ expired
+partially_released ─ cancel ──→ cancelled
+partially_released ─ expire ──→ expired
+```
+
+### Funciones SQL
+
+| Función | Descripción |
+|---|---|
+| `mkt_fin_sim_make_available` | Admin-only. PENDING_TO_AVAILABLE en ledger (setup/test). |
+| `mkt_fin_preview_reserve` | Dry run. Retorna teb_unchanged=true siempre. |
+| `mkt_fin_create_simulation_reserve` | Crea reserva. RESERVE_HOLD en ledger. Idempotente. |
+| `mkt_fin_release_simulation_reserve` | Partial/full release. RESERVE_RELEASE en ledger. Idempotente. |
+| `mkt_fin_cancel_simulation_reserve` | Cancela, emite RESERVE_RELEASE por remaining. |
+| `mkt_fin_process_expired_simulation_reserves` | Batch. SKIP LOCKED. Libera expired. |
+| `mkt_fin_get_reserve` | Detalle de reserva. RLS: provider ve las suyas, admin ve todas. |
+| `mkt_fin_list_provider_reserves` | Lista paginada por proveedor. |
+| `mkt_fin_list_admin_reserves` | Lista global con filtros status/currency. |
+| `mkt_fin_get_reserve_aging_summary` | Aging 0-7/8-30/31-60/61-90/90+ días. |
+| `mkt_fin_admin_reserves_overview` | KPIs globales: total_reserved, by_currency, near_expiry. |
+| `mkt_fin_rebuild_provider_balance` | Extendida Phase 2E: 4 sumas del ledger, 3 buckets. |
+| `mkt_fin_reconcile_provider_balance` | Extendida Phase 2E: includes_reserves=true. |
+| `mkt_fin_get_provider_balance` | Extendida Phase 2E: añade active_reserve_count, phase='2E'. |
+
+### Aislamiento multi-proveedor
+
+- `provider_actor_id` en cada reserva y entrada de ledger
+- Rebuild de Actor A no toca proyección de Actor B
+- RLS: cada proveedor accede solo a sus reservas
+
+### Multi-currency
+
+- EUR y USD son namespaces separados en ledger y en reservas
+- Reserva EUR no afecta balance USD del mismo proveedor
+
+### Idempotencia
+
+- CREATE: `idempotency_key` UNIQUE → replay devuelve `status='replayed'`
+- RELEASE: `source_event_id` UNIQUE → replay devuelve `status='replayed'`
+
+### Atomicidad
+
+- CREATE: RESERVE_HOLD + INSERT reserve + rebuild en misma transacción
+- RELEASE: RESERVE_RELEASE + UPDATE reserve + rebuild en misma transacción
+- CANCEL: RESERVE_RELEASE (remaining) + UPDATE + rebuild en misma transacción
+
+### RLS
+
+| Policy | Para | Acción |
+|---|---|---|
+| `reserves_provider_select` | authenticated | SELECT si actor_id en `_mkt_actor_ids_for_user()` o es admin |
+| `reserves_admin_all` | authenticated | ALL si `_mkt_is_platform_admin()` |
+
+### Audit & Outbox
+
+- `mkt_fin_audit`: `reserve_created`, `reserve_partially_released`, `reserve_released`, `reserve_cancelled`
+- `mkt_fin_outbox_publish`: `marketplace.reserve.created` tras create
+
+### Interacción con saldo negativo (MP-FIN-2D)
+
+- Reserve ≠ debt: un proveedor con negative_amount puede tener reservas simultáneamente
+- El rebuild calcula los tres buckets (pending, available, reserved) + negative independientemente
+- TEB = pending + available + reserved − negative (GENERATED ALWAYS en `trade_marketplace_balances`)
+
+### Rebuild — total_economic_balance
+
+`total_economic_balance` es `GENERATED ALWAYS AS (pending + available + reserved − negative)` en `trade_marketplace_balances`. El rebuild NO puede insertarlo ni actualizarlo explícitamente (PostgreSQL rechaza `ERROR 428C9`). El rebuild escribe solo los 4 buckets; PostgreSQL deriva TEB automáticamente.
+
+### Entregables
+
+| Archivo | Estado |
+|---|---|
+| `supabase/migrations/20260824_22_mkt_fin_reserves.sql` | ✅ Migración principal (tabla + 17 funciones) |
+| `supabase/migrations/20260824_23_fix_rebuild_teb_generated.sql` | ✅ Fix rebuild TEB GENERATED |
+| `supabase/migrations/20260824_24_fix_admin_reserves_overview.sql` | ✅ Fix nested aggregates overview |
+| `supabase/tests/test_marketplace_reserves.sql` | ✅ 55 tests H-01..H-55 |
+| `src/lib/marketplace/finance/reserve.service.ts` | ✅ TypeScript service |
+
+### Tests cloud — resultado final
+
+| Bloque | Tests | Resultado |
+|---|---|---|
+| H-01..H-10 | Setup, tabla, constraint, funciones, balance formula Phase 2E | ✅ PASS |
+| H-11..H-17 | sim_make_available (total, parcial, rechazo), preview (teb, buckets, can_reserve, pending) | ✅ PASS |
+| H-18..H-25 | create: básico, TEB invariante, idempotencia, sin fondos, amount>avail, row en tabla, RESERVE_HOLD, reserve_number | ✅ PASS |
+| H-26..H-32 | release: parcial, total, RESERVE_RELEASE ledger, idempotencia, amount>remaining, terminal, dos parciales | ✅ PASS |
+| H-33..H-37 | cancel: activo libera, partial libera remaining, terminal, RESERVE_RELEASE en ledger, full→terminal | ✅ PASS |
+| H-38..H-41 | expiry: batch expired, count >=2, future no expira, TEB invariante tras expirar | ✅ PASS |
+| H-42..H-44 | get_reserve, list_provider_reserves, list_admin_reserves filtro active | ✅ PASS |
+| H-45..H-47 | Multi-provider: A no afecta B, reserve scoped, rebuild A no afecta B | ✅ PASS |
+| H-48..H-49 | Multi-currency: EUR/USD independientes, reserva EUR no afecta USD | ✅ PASS |
+| H-50..H-52 | TEB invariante ciclo completo, reconcile=MATCH, 3 reservas acumulan reserved=600 | ✅ PASS |
+| H-53..H-55 | admin_reserves_overview, aging_summary 5 buckets, active_reserve_count + phase=2E | ✅ PASS |
+
+**TOTAL: 55/55 PASS**
+
+### Bugs encontrados y fixes durante validación
+
+| # | Bug | Fix | Migración |
+|---|---|---|---|
+| BUG-1 | `mkt_fin_rebuild_provider_balance` intentaba INSERT/UPDATE `total_economic_balance` — rechazado por PostgreSQL (`ERROR 428C9: cannot insert a non-DEFAULT value into column "total_economic_balance"`) | Eliminar TEB del INSERT y del ON CONFLICT SET; es GENERATED ALWAYS | `20260824_23` |
+| BUG-2 | `mkt_fin_admin_reserves_overview()` usaba `jsonb_object_agg(... SUM(...))` dentro de un SELECT con SUM — PostgreSQL `ERROR 42803: aggregate function calls cannot be nested` | Separar `by_currency` en subquery CTE previo | `20260824_24` |
+
+### Deuda técnica / TECH DEBT
+
+| TD | Descripción |
+|---|---|
+| TD-01 | `mkt_fin_sim_make_available` es helper de test/demo — no exponer en API pública sin BUSINESS_RULE_GATE |
+| TD-02 | `source_bucket='pending'` en create_reserve no tiene PENDING_TO_AVAILABLE automático — flujo manual |
+| TD-03 | `release_conditions[]` almacenado pero no evaluado automáticamente (requiere LEGAL_GATE) |
+| TD-04 | Outbox solo en create, no en release/cancel — añadir en fase siguiente |
+| TD-05 | Dispute link `dispute_id` almacenado pero no hay cascade automático desde `mkt_fin_close_dispute` |
+
+### Gates
+
+| Gate | Estado | Desbloqueo |
+|---|---|---|
+| `STRIPE_GATE` | `simulation_only=true` | Stripe Connect real — requiere MP-FIN-7 |
+| `LEGAL_GATE` | Reservas son contratos de retención | Dictamen jurídico pendiente |
+| `TAX_GATE` | Reservas no son ingresos ni gastos | Dictamen fiscal pendiente |
 
 ---
 
