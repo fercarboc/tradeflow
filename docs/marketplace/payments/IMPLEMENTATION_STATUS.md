@@ -2,7 +2,7 @@
 
 > **Documento vivo.** Actualizar tras cada fase.  
 > **Regla:** Una fase no se marca COMPLETED hasta que compile, pase tests y esté verificada en entorno de desarrollo.  
-> **Última actualización:** 2026-08-24 (MP-FIN-2E VALIDATED)
+> **Última actualización:** 2026-08-24 (MP-FIN-2F VALIDATED)
 
 ---
 
@@ -24,6 +24,7 @@
 | **MP-FIN-2C** | Disputes + Chargebacks (DISPUTE ≠ REFUND, aislamiento proveedor) | ✅ VALIDATED | 2026-08-23 | 2026-08-23 |
 | **MP-FIN-2D** | Negative Balances + Recovery Infrastructure | ✅ VALIDATED | 2026-08-23 | 2026-08-23 |
 | **MP-FIN-2E** | Reserves + Holds | ✅ VALIDATED | 2026-08-24 | 2026-08-24 |
+| **MP-FIN-2F** | Settlement Engine | ✅ VALIDATED | 2026-08-24 | 2026-08-24 |
 | **MP-FIN-2** | Simulation Engine | 🔒 BLOQUEADO (MP-FIN-1B) | — | — |
 | **MP-FIN-3** | Admin Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
 | **MP-FIN-4** | Provider Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
@@ -1499,6 +1500,185 @@ partially_released ─ expire ──→ expired
 | `STRIPE_GATE` | `simulation_only=true` | Stripe Connect real — requiere MP-FIN-7 |
 | `LEGAL_GATE` | Reservas son contratos de retención | Dictamen jurídico pendiente |
 | `TAX_GATE` | Reservas no son ingresos ni gastos | Dictamen fiscal pendiente |
+
+---
+
+## MP-FIN-2F — Settlement Engine ✅ VALIDATED
+
+> **Cerrada: 2026-08-24. Validación cloud: 2026-08-24.**
+> Implementa el motor de liquidación económica de proveedores (SETTLEMENT ≠ PAYOUT).
+> LEDGER = SOURCE OF TRUTH. Los settlements se construyen exclusivamente desde `trade_marketplace_ledger_entries`.
+> simulation_only = true (COMMISSION_GATE + STRIPE_GATE). Sin dinero real.
+> **60 tests S-01..S-60 — TODOS PASSED.**
+
+### Principios fundamentales
+
+| Principio | Garantía |
+|---|---|
+| **SETTLEMENT ≠ PAYOUT** | Settlement = obligación económica. Sin transferencia real de dinero. |
+| **LEDGER = SOURCE OF TRUTH** | `trade_marketplace_balances` es proyección rebuildable. |
+| **S-26 invariant** | `UNIQUE(ledger_entry_id)` en settlement_lines — una entrada no puede aparecer en dos settlements. |
+| **simulation_only** | `CHECK (simulation_only = true)` inamovible en tabla. |
+| **COMMISSION_GATE** | `commission_amount = 0` en settlements económicos reales simulados. |
+| **STRIPE_GATE** | `stripe_fees = 0`. Sin Stripe real. |
+
+### Balance buckets Phase 2F
+
+```
+v_sps_sum  = SUM(SETTLEMENT_PAID_SIMULATION entries)  -- negativo
+pending    = base_sum − p2a_sum
+available  = GREATEST(p2a + rh + rr + sps, 0)  ← sps reduce available
+reserved   = GREATEST(−(rh + rr), 0)
+negative   = ABS(pending_net) si < 0, else 0
+historical_settled = GREATEST(−sps, 0)  ← acumulado pagado
+TEB = pending + available + reserved − negative  (GENERATED ALWAYS, decrece por settlement)
+```
+
+### Elegibilidad (max_payable)
+
+```
+max_payable = GREATEST(available − negative, 0)
+```
+
+Solo el bucket `available` es elegible. `pending`, `reserved` y `negative` NO son elegibles.
+Si `negative > 0`, TrabFlow retiene ese importe antes de liquidar.
+
+### Nuevo tipo de ledger
+
+| Tipo | Signo | Efecto en balance |
+|---|---|---|
+| `SETTLEMENT_PAID_SIMULATION` | − (negativo) | available ↓  historical_settled ↑  TEB ↓ |
+
+### Schema — `trade_marketplace_settlements`
+
+| Columna | Tipo | Detalle |
+|---|---|---|
+| `id` | uuid PK | gen_random_uuid() |
+| `settlement_number` | text UNIQUE | prefijo SETL- |
+| `provider_actor_id` | uuid FK | actor proveedor |
+| `currency` | char(3) | EUR por defecto |
+| `period_start` / `period_end` | timestamptz | rango del settlement (period_end > period_start) |
+| `status` | text | draft → calculated → approved → payable → simulated_paid → closed/adjusted/cancelled |
+| `max_payable` | numeric(15,4) | GREATEST(available − negative, 0) |
+| `settlement_amount` | numeric(15,4) | ≤ max_payable + 0.0001 (tolerancia rounding) |
+| `settlement_ledger_entry_id` | uuid FK nullable | entrada SETTLEMENT_PAID_SIMULATION asociada |
+| `simulation_only` | bool | true CHECK (inamovible) |
+| `idempotency_key` | text UNIQUE | idempotencia en create |
+
+### Schema — `trade_marketplace_settlement_lines`
+
+| Columna | Tipo | Detalle |
+|---|---|---|
+| `id` | uuid PK | gen_random_uuid() |
+| `settlement_id` | uuid FK CASCADE | ON DELETE CASCADE |
+| `ledger_entry_id` | uuid FK | UNIQUE — invariante S-26 |
+| `entry_type` | text | tipo ledger de la entrada |
+| `gross_amount` | numeric(15,4) | importe bruto de la entrada |
+| `included_amount` | numeric(15,4) | importe incluido en settlement |
+| `line_status` | text | included / excluded / adjusted |
+
+### State machine
+
+```
+draft ──── (auto_calculate=true) ──→ calculated
+draft ──── recalculate           ──→ calculated
+calculated ─ approve             ──→ approved
+approved ── mark_payable         ──→ payable
+payable ─── simulate_payment     ──→ simulated_paid
+simulated_paid ── close          ──→ closed
+any(draft/calc/approved/payable) ─ cancel ──→ cancelled
+closed ─── adjust                ──→ adjusted
+```
+
+### Funciones SQL
+
+| Función | Descripción |
+|---|---|
+| `mkt_fin_preview_settlement` | Dry run. Calcula max_payable, líneas elegibles, sin efectos. |
+| `mkt_fin_create_simulation_settlement` | Crea settlement draft → calculated (auto). Idempotente. |
+| `mkt_fin_get_settlement` | Detalle settlement con líneas. RLS: proveedor ve los suyos. |
+| `mkt_fin_list_provider_settlements` | Lista paginada por proveedor. |
+| `mkt_fin_list_admin_settlements` | Lista global admin con filtros. |
+| `mkt_fin_recalculate_draft_settlement` | Recalcula settlement en draft (re-lee ledger). |
+| `mkt_fin_approve_simulation_settlement` | calculated → approved. |
+| `mkt_fin_simulate_settlement_payment` | payable → simulated_paid. Escribe SETTLEMENT_PAID_SIMULATION + rebuild balance. |
+| `mkt_fin_cancel_draft_settlement` | Cancela; ON DELETE CASCADE borra líneas. |
+| `mkt_fin_get_settlement_statement_data` | Datos para statement PDF/DOCX. |
+| `mkt_fin_get_admin_settlements_overview` | KPIs globales: total_draft, total_approved, total_simulated_paid, by_currency. |
+
+### Invariante S-26 — garantía anti-duplicación
+
+```sql
+CONSTRAINT uq_settlement_line_ledger_entry UNIQUE (ledger_entry_id)
+```
+
+Una entrada de ledger no puede aparecer en dos settlements distintos. Garantiza que el historial de ventas no se liquide dos veces.
+
+### Comportamiento post-settlement
+
+- Refunds y chargebacks posteriores a un settlement NO modifican el historical settlement.
+- Aparecen en el ledger como nuevas entradas negativas que reducen `available` en el siguiente período.
+- El siguiente settlement los incorporará en sus líneas elegibles.
+
+### Entregables
+
+| Archivo | Estado |
+|---|---|
+| `supabase/migrations/20260824_25_mkt_fin_settlements.sql` | ✅ Migración principal (2 tablas + 11 funciones + RLS + triggers) |
+| `supabase/tests/test_marketplace_settlements.sql` | ✅ 60 tests S-01..S-60 |
+| `src/lib/marketplace/finance/settlement.service.ts` | ✅ TypeScript service (11 funciones exportadas) |
+
+### Tests cloud — resultado final
+
+| Bloque | Tests | Resultado |
+|---|---|---|
+| S-01..S-05 | Schema, tablas, constraints (simulation_only, chk_period, chk_amount) | ✅ PASS |
+| S-06..S-10 | Funciones SQL presentes (11 RPCs verificadas) | ✅ PASS |
+| S-11..S-15 | Preview: max_payable, líneas elegibles, sin efectos colaterales | ✅ PASS |
+| S-16..S-20 | Create: draft→calculated, idempotencia, settlement_number SETL-, líneas insertadas | ✅ PASS |
+| S-21..S-26 | Invariante S-26: UNIQUE ledger_entry_id entre settlements, recalculate draft | ✅ PASS |
+| S-27..S-30 | Approve: calculated→approved, rechazo si no calculated | ✅ PASS |
+| S-31..S-35 | Payable + simulate_payment: payable→simulated_paid, SETTLEMENT_PAID_SIMULATION en ledger | ✅ PASS |
+| S-36..S-40 | Balance rebuild Phase 2F: available baja, historical_settled sube, TEB baja | ✅ PASS |
+| S-41..S-45 | Cancel: ON DELETE CASCADE elimina líneas, rechazo si simulated_paid | ✅ PASS |
+| S-46..S-50 | max_payable con negative balance: retención correcta; settlement_amount ≤ max_payable | ✅ PASS |
+| S-51..S-55 | Multi-proveedor: A no afecta B; RLS; aislamiento ledger | ✅ PASS |
+| S-56..S-60 | Admin overview KPIs, statement data, get/list, multi-currency EUR/USD | ✅ PASS |
+
+**TOTAL: 60/60 PASS**
+
+### TypeScript service — `src/lib/marketplace/finance/settlement.service.ts`
+
+| Función exportada | RPC Supabase |
+|---|---|
+| `previewSettlement` | `mkt_fin_preview_settlement` |
+| `createSimulationSettlement` | `mkt_fin_create_simulation_settlement` |
+| `getSettlement` | `mkt_fin_get_settlement` |
+| `listProviderSettlements` | `mkt_fin_list_provider_settlements` |
+| `listAdminSettlements` | `mkt_fin_list_admin_settlements` |
+| `recalculateDraftSettlement` | `mkt_fin_recalculate_draft_settlement` |
+| `approveSimulationSettlement` | `mkt_fin_approve_simulation_settlement` |
+| `simulateSettlementPayment` | `mkt_fin_simulate_settlement_payment` |
+| `cancelDraftSettlement` | `mkt_fin_cancel_draft_settlement` |
+| `getSettlementStatementData` | `mkt_fin_get_settlement_statement_data` |
+| `getAdminSettlementsOverview` | `mkt_fin_get_admin_settlements_overview` |
+
+### Gates
+
+| Gate | Estado | Desbloqueo |
+|---|---|---|
+| `COMMISSION_GATE` | `commission_amount = 0` | Política real de comisión — requiere TAX_GATE + LEGAL_GATE |
+| `STRIPE_GATE` | `stripe_fees = 0` | Stripe Connect real — requiere MP-FIN-7 |
+| `LEGAL_GATE` | simulation_only | Dictamen jurídico pendiente |
+
+### Recomendación para MP-FIN-3
+
+MP-FIN-3 (Admin Finance Panel) puede arrancar con los módulos de UI sobre la infraestructura ya disponible:
+- `AdminMktFinanceSettlements.tsx` — usando `listAdminSettlements` + `getAdminSettlementsOverview`
+- `AdminMktFinanceProviders.tsx` — usando `getProviderBalance` (Phase 2F: incluye `historical_settled`)
+- Statement preview — usando `getSettlementStatementData` para renderizar PDF/DOCX
+
+**DETENTE. No comenzar MP-FIN-3 sin autorización explícita de Fernando.**
 
 ---
 
