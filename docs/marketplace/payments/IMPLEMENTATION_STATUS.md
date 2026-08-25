@@ -2,7 +2,7 @@
 
 > **Documento vivo.** Actualizar tras cada fase.  
 > **Regla:** Una fase no se marca COMPLETED hasta que compile, pase tests y esté verificada en entorno de desarrollo.  
-> **Última actualización:** 2026-08-25 (MP-FIN-3 COMPLETED)
+> **Última actualización:** 2026-08-25 (MP-FIN-4 COMPLETED)
 
 ---
 
@@ -27,7 +27,7 @@
 | **MP-FIN-2F** | Settlement Engine | ✅ VALIDATED | 2026-08-24 | 2026-08-24 |
 | **MP-FIN-2** | Simulation Engine | 🔒 BLOQUEADO (MP-FIN-1B) | — | — |
 | **MP-FIN-3** | Admin Finance Panel | ✅ COMPLETED | 2026-08-25 | 2026-08-25 |
-| **MP-FIN-4** | Provider Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
+| **MP-FIN-4** | Provider Finance Panel | ✅ COMPLETED | 2026-08-25 | 2026-08-25 |
 | **MP-FIN-5** | Documents | 🔒 BLOQUEADO (MP-FIN-4) | — | — |
 | **MP-FIN-6** | Reconciliation Layer | 🔒 BLOQUEADO (MP-FIN-5) | — | — |
 | **MP-FIN-7** | Stripe Sandbox | 🚫 NO INICIAR sin autorización explícita | — | — |
@@ -1793,25 +1793,54 @@ src/components/admin/marketplace-finance/
 
 ---
 
-## MP-FIN-4 — Provider Finance Panel 🔒 BLOQUEADO (MP-FIN-2)
+## MP-FIN-4 — Provider Finance Panel ✅ COMPLETED 2026-08-25
 
-### Componentes a crear
+### Principios
 
-```
-src/components/portal/finance/
-  PortalFinanzasView.tsx            — Shell del panel
-  PortalFinanzasResumen.tsx         — KPIs y saldos
-  PortalFinanzasMovimientos.tsx     — Tabla de movimientos filtrable
-  PortalFinanzasLiquidaciones.tsx   — Lista + detalle settlements
-  PortalFinanzasDevoluciones.tsx    — Refunds
-  PortalFinanzasDisputas.tsx        — Chargebacks
-  PortalFinanzasFacturas.tsx        — Infraestructura facturas (TAX_GATE)
-  PortalFinanzasDocumentos.tsx      — Documentos MKP vinculados
-```
+- **Aislamiento multiproveedor** (INV-MPI-01): Master Order solo referencia (numero). Nunca expone totales ni datos financieros de otros proveedores de la misma compra.
+- **SIMULATION ONLY**: Banner en cada tab. "Liquidación simulada", nunca "Transferido".
+- **Comisión real = 0%**: COMMISSION_GATE cerrado. No se muestra tasa al proveedor.
+- **Reserva ≠ Pérdida económica**: Explicación inline en tab Retenciones.
+- **historical_settled ∉ TEB**: Mostrado separado con nota explicativa (INV-B03).
+- **No inner components**: Todos los sub-componentes en nivel de módulo.
 
-### Archivos a modificar
+### Archivos creados
 
-- `src/components/portal/PortalProveedorView.tsx` — añadir tab "Finanzas"
+| Archivo | Descripción |
+|---|---|
+| `src/lib/marketplace/finance/provider-finance.service.ts` | Facade: getProviderSupplierOrders, getProviderSupplierOrderDetail, getProviderLedgerEntries, humanizeEntryType |
+| `src/components/portal/finance/shared.tsx` | UI primitivos: SimBanner, CurrencyAmount, StatusBadge, Modal, KpiCard, PaginationBar, etc. |
+| `src/components/portal/finance/ProviderFinance.tsx` | Contenedor 8 tabs |
+| `src/components/portal/finance/ProviderFinanceOverview.tsx` | Resumen de balances + alerta saldo negativo |
+| `src/components/portal/finance/ProviderMovements.tsx` | Ledger con etiquetas humanizadas + modal detalle |
+| `src/components/portal/finance/ProviderOrders.tsx` | Lista pedidos + detalle con items (isolation verificada) |
+| `src/components/portal/finance/ProviderSettlements.tsx` | Liquidaciones — label "simulada", nunca "transferido" |
+| `src/components/portal/finance/ProviderRefunds.tsx` | Devoluciones con detalle |
+| `src/components/portal/finance/ProviderDisputes.tsx` | Disputas + formulario de evidencias |
+| `src/components/portal/finance/ProviderReserves.tsx` | Retenciones + explicación "no es pérdida" |
+| `src/components/portal/finance/ProviderDocuments.tsx` | Placeholder documentos |
+| `src/lib/marketplace/finance/__tests__/provider-finance-account.test.ts` | 50 tests PFA-01..PFA-50 |
+
+### Archivos modificados
+
+- `src/components/portal/PortalContext.tsx` — 'finanzas' añadido a PortalTab + VALID_TABS
+- `src/components/portal/PortalProveedorView.tsx` — lazy PortalFinance, nav item Finanzas (Wallet icon), case 'finanzas'
+
+### Tests
+
+50 tests PFA-01..PFA-50 cubren: humanización de tipos de ledger, aislamiento proveedor, filtros actor_id, paginación, mapeo de campos, invariantes de negocio.
+
+### Invariantes verificadas
+
+| ID | Invariante | Verificación |
+|---|---|---|
+| INV-MPI-01 | Master Order solo numero — sin financials otros proveedores | ProviderOrders.tsx + test PFA-20/23 |
+| INV-B03 | historical_settled ∉ TEB | ProviderFinanceOverview.tsx — sección separada con nota |
+| INV-SIM-01 | "Liquidación simulada", nunca "Transferido" | ProviderSettlements.tsx |
+| INV-SIM-02 | COMMISSION_GATE cerrado — tasa no visible al proveedor | No mostrar commission_amount en proveedor |
+| INV-RES-01 | Reserva ≠ pérdida económica | ProviderReserves.tsx + modal detalle |
+
+**DETENTE. No comenzar MP-FIN-5 sin autorización explícita de Fernando.**
 
 ---
 

@@ -14,6 +14,7 @@ const PortalIntegraciones  = lazy(() => import('./PortalIntegraciones'));
 const PortalConfiguracion  = lazy(() => import('./PortalConfiguracion'));
 const PortalTiendas        = lazy(() => import('./PortalTiendas'));
 const PortalMarketing      = lazy(() => import('./PortalMarketing'));
+const PortalFinance        = lazy(() => import('./finance/ProviderFinance'));
 
 interface Props {
   setCurrentPage: (page: ActivePage) => void;
@@ -201,6 +202,16 @@ function PortalShell({ setCurrentPage, session, totalWorkspaces = 1, onChangeWor
       ),
     },
     {
+      tab: 'finanzas',
+      label: 'Finanzas',
+      icon: (
+        <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round"
+            d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+        </svg>
+      ),
+    },
+    {
       tab: 'config',
       label: 'Configuración',
       icon: (
@@ -225,6 +236,7 @@ function PortalShell({ setCurrentPage, session, totalWorkspaces = 1, onChangeWor
       case 'marketing':       return <PortalMarketing       {...props} />;
       case 'integraciones':   return <PortalIntegraciones   actorId={activeActorId} />;
       case 'config':          return <PortalConfiguracion   {...props} />;
+      case 'finanzas':        return <PortalFinance          actorId={activeActorId} membership={activeMembership} />;
       default:           return null;
     }
   };
