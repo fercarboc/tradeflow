@@ -2,7 +2,7 @@
 
 > **Documento vivo.** Actualizar tras cada fase.  
 > **Regla:** Una fase no se marca COMPLETED hasta que compile, pase tests y esté verificada en entorno de desarrollo.  
-> **Última actualización:** 2026-08-24 (MP-FIN-2F VALIDATED)
+> **Última actualización:** 2026-08-25 (MP-FIN-3 COMPLETED)
 
 ---
 
@@ -26,7 +26,7 @@
 | **MP-FIN-2E** | Reserves + Holds | ✅ VALIDATED | 2026-08-24 | 2026-08-24 |
 | **MP-FIN-2F** | Settlement Engine | ✅ VALIDATED | 2026-08-24 | 2026-08-24 |
 | **MP-FIN-2** | Simulation Engine | 🔒 BLOQUEADO (MP-FIN-1B) | — | — |
-| **MP-FIN-3** | Admin Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
+| **MP-FIN-3** | Admin Finance Panel | ✅ COMPLETED | 2026-08-25 | 2026-08-25 |
 | **MP-FIN-4** | Provider Finance Panel | 🔒 BLOQUEADO (MP-FIN-2) | — | — |
 | **MP-FIN-5** | Documents | 🔒 BLOQUEADO (MP-FIN-4) | — | — |
 | **MP-FIN-6** | Reconciliation Layer | 🔒 BLOQUEADO (MP-FIN-5) | — | — |
@@ -1679,6 +1679,67 @@ MP-FIN-3 (Admin Finance Panel) puede arrancar con los módulos de UI sobre la in
 - Statement preview — usando `getSettlementStatementData` para renderizar PDF/DOCX
 
 **DETENTE. No comenzar MP-FIN-3 sin autorización explícita de Fernando.**
+
+---
+
+## MP-FIN-3 — Admin Finance Panel ✅ COMPLETED
+
+> **Cerrada: 2026-08-25. Autorizada por Fernando.**
+
+### Principios de diseño
+
+- **Visualización + control + trazabilidad únicamente.** Ninguna lógica financiera nueva en React.
+- **GMV ≠ Revenue TrabFlow** — separación visual inamovible (INV-001). GMV en azul, revenue en panel separado.
+- **SIMULATION ONLY** — SimulationBanner visible en todos los tabs. Ingresos reales = 0€ (COMMISSION_GATE cerrado).
+- **No inner components** — todos los sub-componentes definidos a nivel de módulo, no dentro del padre.
+- **No N+1** — paginación para listas grandes, joins server-side.
+- **Confirmación antes de toda mutación** (approve/simulate_payment en settlements).
+- Reutiliza: `ledger.service.ts`, `balance.service.ts`, `refund.service.ts`, `dispute.service.ts`, `recovery.service.ts`, `reserve.service.ts`, `settlement.service.ts`, `financial-config.service.ts`.
+
+### Estructura de archivos
+
+| Archivo | Descripción |
+|---|---|
+| `src/lib/marketplace/finance/admin-finance.service.ts` | Facade de lecturas Admin |
+| `src/components/admin/AdminMarketplaceFinanceSection.tsx` | Contenedor principal, 11 tabs |
+| `src/components/admin/marketplace-finance/shared.tsx` | Componentes compartidos |
+| `src/components/admin/marketplace-finance/FinanceOverview.tsx` | Resumen: GMV vs Revenue, KPIs, alertas |
+| `src/components/admin/marketplace-finance/FinanceOrders.tsx` | Master Orders + Supplier Orders |
+| `src/components/admin/marketplace-finance/FinanceProviders.tsx` | Proveedores + detalle 4 tabs |
+| `src/components/admin/marketplace-finance/FinanceLedger.tsx` | Ledger global inmutable |
+| `src/components/admin/marketplace-finance/FinanceBalances.tsx` | Saldos + reconciliación + rebuild |
+| `src/components/admin/marketplace-finance/FinanceSettlements.tsx` | Settlements + approve + sim.pago |
+| `src/components/admin/marketplace-finance/FinanceRefunds.tsx` | Devoluciones + detalle |
+| `src/components/admin/marketplace-finance/FinanceDisputes.tsx` | Disputas + evidencia |
+| `src/components/admin/marketplace-finance/FinanceReserves.tsx` | Reservas + timeline |
+| `src/components/admin/marketplace-finance/FinanceRecoveries.tsx` | Recuperaciones de saldo negativo |
+| `src/components/admin/marketplace-finance/FinanceConfig.tsx` | Gates: LEGAL, TAX, STRIPE, COMMISSION |
+
+### Integración AdminView.tsx
+
+- Nuevo tipo de sección: `'mkt_finance'` añadido al union type.
+- Nuevo nav entry: `{ id: 'mkt_finance', label: 'Finanzas Mkt', Icon: BarChart3 }`.
+- Render: `{section === 'mkt_finance' && <AdminMarketplaceFinanceSection />}`.
+
+### Invariantes implementados
+
+| ID | Invariante | Dónde |
+|---|---|---|
+| INV-001 | GMV ≠ Revenue — visualmente imposible confundir | FinanceOverview: paneles separados con colores distintos |
+| INV-009 | Ledger inmutable — sin botón Editar | FinanceLedger: Lock icon + mensaje "solo lectura" |
+| INV-B03 | historical_settled ∉ TEB | FinanceBalances: nota explícita en pie de tabla |
+| SIMULATION_ONLY | Toda mutación financiera = simulada | SimulationBanner global + SimulationBadge en cada modal |
+
+### Gates mostrados en FinanceConfig
+
+| Gate | Estado | Condición para apertura |
+|---|---|---|
+| STRIPE_GATE | PENDING | Cuenta Stripe empresarial + dictamen legal |
+| LEGAL_GATE | PENDING | Dictamen legal + fiscal documentado |
+| TAX_GATE | PENDING | Fuera de Fase 0 |
+| COMMISSION_GATE | PENDING | Real rate = 0% en Fase 0 |
+
+**DETENTE. No comenzar MP-FIN-4 sin autorización explícita de Fernando.**
 
 ---
 
