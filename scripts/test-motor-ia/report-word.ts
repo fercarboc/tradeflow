@@ -231,8 +231,8 @@ export async function generateWord(results: TestResult[], outputPath: string): P
               bottom: { style: BorderStyle.SINGLE, size: 1 },
               left: { style: BorderStyle.SINGLE, size: 1 },
               right: { style: BorderStyle.SINGLE, size: 1 },
-              insideH: { style: BorderStyle.SINGLE, size: 1 },
-              insideV: { style: BorderStyle.SINGLE, size: 1 },
+              insideHorizontal: { style: BorderStyle.SINGLE, size: 1 },
+              insideVertical: { style: BorderStyle.SINGLE, size: 1 },
             },
           }),
 

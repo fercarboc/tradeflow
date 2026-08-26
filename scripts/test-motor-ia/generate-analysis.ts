@@ -204,7 +204,7 @@ const kpiTable = new Table({
       tc(counts['ERROR_TECNICO'] / total <= 0.02 ? 'CUMPLE' : 'NO CUMPLE', { bold: true, bg: counts['ERROR_TECNICO'] / total <= 0.02 ? LIGHT_GREEN : LIGHT_RED, color: counts['ERROR_TECNICO'] / total <= 0.02 ? GREEN : RED }),
     ]}),
   ],
-  borders: { top: { style: BorderStyle.SINGLE, size: 1 }, bottom: { style: BorderStyle.SINGLE, size: 1 }, left: { style: BorderStyle.SINGLE, size: 1 }, right: { style: BorderStyle.SINGLE, size: 1 }, insideH: { style: BorderStyle.SINGLE, size: 1 }, insideV: { style: BorderStyle.SINGLE, size: 1 } },
+  borders: { top: { style: BorderStyle.SINGLE, size: 1 }, bottom: { style: BorderStyle.SINGLE, size: 1 }, left: { style: BorderStyle.SINGLE, size: 1 }, right: { style: BorderStyle.SINGLE, size: 1 }, insideHorizontal: { style: BorderStyle.SINGLE, size: 1 }, insideVertical: { style: BorderStyle.SINGLE, size: 1 } },
 });
 
 // ─── Tabla distribución de resultados ───────────────────────────────────────
@@ -243,7 +243,7 @@ const distTable = new Table({
       tc('', { bg: HEADER_BG }),
     ]}),
   ],
-  borders: { top: { style: BorderStyle.SINGLE, size: 1 }, bottom: { style: BorderStyle.SINGLE, size: 1 }, left: { style: BorderStyle.SINGLE, size: 1 }, right: { style: BorderStyle.SINGLE, size: 1 }, insideH: { style: BorderStyle.SINGLE, size: 1 }, insideV: { style: BorderStyle.SINGLE, size: 1 } },
+  borders: { top: { style: BorderStyle.SINGLE, size: 1 }, bottom: { style: BorderStyle.SINGLE, size: 1 }, left: { style: BorderStyle.SINGLE, size: 1 }, right: { style: BorderStyle.SINGLE, size: 1 }, insideHorizontal: { style: BorderStyle.SINGLE, size: 1 }, insideVertical: { style: BorderStyle.SINGLE, size: 1 } },
 });
 
 // ─── Tabla latencia percentiles ───────────────────────────────────────────────
@@ -259,7 +259,7 @@ const latTable = new Table({
     new TableRow({ children: [tc('P99'), tc(`${p99Lat.toLocaleString('es-ES')} ms`, { bold: true, color: RED }), tc('')]}),
     new TableRow({ children: [tc('Máximo'), tc(`${maxLat.toLocaleString('es-ES')} ms`, { bold: true, color: RED }), tc('Reformas Integrales')]}),
   ],
-  borders: { top: { style: BorderStyle.SINGLE, size: 1 }, bottom: { style: BorderStyle.SINGLE, size: 1 }, left: { style: BorderStyle.SINGLE, size: 1 }, right: { style: BorderStyle.SINGLE, size: 1 }, insideH: { style: BorderStyle.SINGLE, size: 1 }, insideV: { style: BorderStyle.SINGLE, size: 1 } },
+  borders: { top: { style: BorderStyle.SINGLE, size: 1 }, bottom: { style: BorderStyle.SINGLE, size: 1 }, left: { style: BorderStyle.SINGLE, size: 1 }, right: { style: BorderStyle.SINGLE, size: 1 }, insideHorizontal: { style: BorderStyle.SINGLE, size: 1 }, insideVertical: { style: BorderStyle.SINGLE, size: 1 } },
 });
 
 // ─── Tabla por oficio ───────────────────────────────────────────────────────
@@ -298,7 +298,7 @@ oficioTableRows.push(new TableRow({ children: [
 const oficioTable = new Table({
   width: { size: 100, type: WidthType.PERCENTAGE },
   rows: oficioTableRows,
-  borders: { top: { style: BorderStyle.SINGLE, size: 1 }, bottom: { style: BorderStyle.SINGLE, size: 1 }, left: { style: BorderStyle.SINGLE, size: 1 }, right: { style: BorderStyle.SINGLE, size: 1 }, insideH: { style: BorderStyle.SINGLE, size: 1 }, insideV: { style: BorderStyle.SINGLE, size: 1 } },
+  borders: { top: { style: BorderStyle.SINGLE, size: 1 }, bottom: { style: BorderStyle.SINGLE, size: 1 }, left: { style: BorderStyle.SINGLE, size: 1 }, right: { style: BorderStyle.SINGLE, size: 1 }, insideHorizontal: { style: BorderStyle.SINGLE, size: 1 }, insideVertical: { style: BorderStyle.SINGLE, size: 1 } },
 });
 
 // ─── Tabla coincide oficio por oficio (peores primero) ───────────────────────
@@ -330,7 +330,7 @@ for (const o of ofsByCoincide) {
 const coincideTable = new Table({
   width: { size: 100, type: WidthType.PERCENTAGE },
   rows: coincideTableRows,
-  borders: { top: { style: BorderStyle.SINGLE, size: 1 }, bottom: { style: BorderStyle.SINGLE, size: 1 }, left: { style: BorderStyle.SINGLE, size: 1 }, right: { style: BorderStyle.SINGLE, size: 1 }, insideH: { style: BorderStyle.SINGLE, size: 1 }, insideV: { style: BorderStyle.SINGLE, size: 1 } },
+  borders: { top: { style: BorderStyle.SINGLE, size: 1 }, bottom: { style: BorderStyle.SINGLE, size: 1 }, left: { style: BorderStyle.SINGLE, size: 1 }, right: { style: BorderStyle.SINGLE, size: 1 }, insideHorizontal: { style: BorderStyle.SINGLE, size: 1 }, insideVertical: { style: BorderStyle.SINGLE, size: 1 } },
 });
 
 // ─── Tabla roadmap técnico ────────────────────────────────────────────────────
@@ -379,7 +379,7 @@ const roadmapTable = new Table({
       tc('UPDATE en trade_global_catalog para las 4 partidas identificadas: alicatar piscina, apertura urgente, llave maestra, estudio fotovoltaico.', { align: AlignmentType.LEFT }),
     ]}),
   ],
-  borders: { top: { style: BorderStyle.SINGLE, size: 1 }, bottom: { style: BorderStyle.SINGLE, size: 1 }, left: { style: BorderStyle.SINGLE, size: 1 }, right: { style: BorderStyle.SINGLE, size: 1 }, insideH: { style: BorderStyle.SINGLE, size: 1 }, insideV: { style: BorderStyle.SINGLE, size: 1 } },
+  borders: { top: { style: BorderStyle.SINGLE, size: 1 }, bottom: { style: BorderStyle.SINGLE, size: 1 }, left: { style: BorderStyle.SINGLE, size: 1 }, right: { style: BorderStyle.SINGLE, size: 1 }, insideHorizontal: { style: BorderStyle.SINGLE, size: 1 }, insideVertical: { style: BorderStyle.SINGLE, size: 1 } },
 });
 
 // ── Document assembly ─────────────────────────────────────────────────────────
