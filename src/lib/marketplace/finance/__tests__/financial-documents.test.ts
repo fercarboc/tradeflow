@@ -159,7 +159,7 @@ describe('getBuyerDocuments (QUERY-04..06)', () => {
     const result = await getBuyerDocuments(sb, FAKE_ORG_A)
     expect(sb.rpc).toHaveBeenCalledWith(
       QUERY_RPC_NAMES.GET_BUYER_DOCUMENTS,
-      { p_org_id: FAKE_ORG_A, p_limit: 50, p_offset: 0 },
+      { p_org_id: FAKE_ORG_A, p_limit: 50, p_offset: 0, p_search: null },
     )
     expect(result).toEqual(FAKE_PAGINATED_EMPTY)
   })
@@ -292,7 +292,7 @@ describe('Paginación (QUERY-13..14)', () => {
     await getBuyerDocuments(sb, FAKE_ORG_A, { limit: 500, offset: 0 })
     expect(sb.rpc).toHaveBeenCalledWith(
       QUERY_RPC_NAMES.GET_BUYER_DOCUMENTS,
-      { p_org_id: FAKE_ORG_A, p_limit: 500, p_offset: 0 },
+      { p_org_id: FAKE_ORG_A, p_limit: 500, p_offset: 0, p_search: null },
     )
     // El servidor devolvería limit=100 en la respuesta; aquí simulamos eso.
   })
@@ -415,7 +415,7 @@ describe('listProviderDocRefs (REF-05, REF-07..08)', () => {
     const result = await listBuyerDocRefs(sb, FAKE_ORG_A)
     expect(sb.rpc).toHaveBeenCalledWith(
       QUERY_RPC_NAMES.LIST_BUYER_DOC_REFS,
-      { p_org_id: FAKE_ORG_A, p_limit: 50, p_offset: 0 },
+      { p_org_id: FAKE_ORG_A, p_limit: 50, p_offset: 0, p_search: null, p_doc_type: null },
     )
     expect(result.items).toHaveLength(1)
   })

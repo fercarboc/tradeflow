@@ -781,6 +781,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
           location={location}
           onChangeLocation={() => setLocationModalOpen(true)}
           onMisPedidos={() => setCurrentPage(ActivePage.SeguimientoMaterial)}
+          onDocumentos={mode === 'professional' ? () => setCurrentPage(ActivePage.DocumentosMarketplace) : undefined}
           onGoToProveedores={mode === 'public' ? () => setCurrentPage(ActivePage.Proveedores) : undefined}
         />
       )}

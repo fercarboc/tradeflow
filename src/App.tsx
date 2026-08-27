@@ -50,7 +50,8 @@ const ReviewView = lazy(() => import('./pages/ReviewView'));
 const ParteView = lazy(() => import('./pages/ParteView'));
 const PortalProveedorView = lazy(() => import('./components/portal/PortalProveedorView'));
 const MarketplaceComprarView      = lazy(() => import('./components/marketplace/MarketplaceComprarView'));
-const ScreenSeguimientoMaterial   = lazy(() => import('./components/marketplace/ScreenSeguimientoMaterial'));
+const ScreenSeguimientoMaterial        = lazy(() => import('./components/marketplace/ScreenSeguimientoMaterial'));
+const ScreenDocumentosMarketplace      = lazy(() => import('./components/marketplace/ScreenDocumentosMarketplace'));
 const WorkspaceSelectorView              = lazy(() => import('./components/workspace/WorkspaceSelectorView'));
 const MarketplaceInvitationAcceptView    = lazy(() => import('./components/auth/MarketplaceInvitationAcceptView'));
 const ScreenMarketplace                  = lazy(() => import('./components/marketplace/ScreenMarketplace'));
@@ -140,7 +141,8 @@ const PAGE_PATHS: Partial<Record<ActivePage, string>> = {
   [ActivePage.PartnerDemo]:       '/demo-socios',
   [ActivePage.PortalProveedor]:     '/proveedor',
   [ActivePage.MarketplaceComprar]:  '/marketplace/comprar',
-  [ActivePage.SeguimientoMaterial]: '/marketplace/seguimiento',
+  [ActivePage.SeguimientoMaterial]:     '/marketplace/seguimiento',
+  [ActivePage.DocumentosMarketplace]:   '/marketplace/documentos',
   [ActivePage.WorkspaceSelector]:   '/workspace',
   [ActivePage.NoWorkspace]:                '/sin-espacio',
   [ActivePage.MarketplaceInvitationAccept]: '/aceptar-invitacion',
@@ -205,6 +207,7 @@ const PUBLIC_OR_AUTH_PAGES = new Set<ActivePage>([
 // detectará el contexto caducado y redirigirá al catálogo (ActivePage.Marketplace).
 const PRESERVED_APP_PAGES = new Set<ActivePage>([
   ActivePage.SeguimientoMaterial,
+  ActivePage.DocumentosMarketplace,
   ActivePage.PortalProveedor,
   ActivePage.AppDashboard,
   ActivePage.Marketplace,
@@ -689,6 +692,9 @@ export default function App() {
       case ActivePage.SeguimientoMaterial:
         return <ScreenSeguimientoMaterial setCurrentPage={setCurrentPage} session={session} />;
 
+      case ActivePage.DocumentosMarketplace:
+        return <ScreenDocumentosMarketplace setCurrentPage={setCurrentPage} session={session} />;
+
       case ActivePage.WorkspaceSelector:
         return (
           <WorkspaceSelectorView
@@ -747,6 +753,7 @@ export default function App() {
     currentPage === ActivePage.PortalProveedor ||
     currentPage === ActivePage.MarketplaceComprar ||
     currentPage === ActivePage.SeguimientoMaterial ||
+    currentPage === ActivePage.DocumentosMarketplace ||
     currentPage === ActivePage.Marketplace ||
     currentPage === ActivePage.MarketplacePublico ||
     currentPage === ActivePage.WorkspaceSelector ||

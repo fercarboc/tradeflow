@@ -85,6 +85,9 @@ Proveedores = 'proveedores',
 
 // Vista pública de documento financiero por token (publicidad)
 FinDocPublic = 'fin-doc-public',
+
+// Documentos del comprador — Marketplace
+DocumentosMarketplace = 'marketplace-documentos',
 }
 
 export type TradeType =

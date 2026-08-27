@@ -1,4 +1,4 @@
-import { Home, LayoutGrid, Tag, Sparkles, Award, Building2, Package, Heart } from 'lucide-react';
+import { Home, LayoutGrid, Tag, Sparkles, Award, Building2, Package, Heart, FileText } from 'lucide-react';
 import type { AdDestinationType } from '../../lib/marketplace-ad-types';
 
 // Barra de navegación superior de la Home del Marketplace.
@@ -20,8 +20,9 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'novedades',  label: 'Novedades',   Icon: Sparkles,   enabled: false },
   { id: 'marcas',     label: 'Marcas',      Icon: Award,      enabled: false },
   { id: 'mayoristas', label: 'Mayoristas',  Icon: Building2,  enabled: true  },
-  { id: 'pedidos',    label: 'Mis pedidos', Icon: Package,    enabled: true  },
-  { id: 'listas',     label: 'Mis listas',  Icon: Heart,      enabled: false },
+  { id: 'pedidos',     label: 'Mis pedidos',  Icon: Package,  enabled: true  },
+  { id: 'documentos', label: 'Documentos',   Icon: FileText, enabled: true  },
+  { id: 'listas',     label: 'Mis listas',   Icon: Heart,    enabled: false },
 ];
 
 interface Props {
@@ -29,10 +30,11 @@ interface Props {
   onGoHome:      () => void;
   onGoToCatalog: (oficio?: string | null, search?: string) => void;
   onNavigateAd?: (type: AdDestinationType, value?: string) => void;
-  onMisPedidos?: () => void;
-  centerSlot?:   React.ReactNode;
-  rightSlot?:    React.ReactNode;
-  className?:    string;
+  onMisPedidos?:  () => void;
+  onDocumentos?:  () => void;
+  centerSlot?:    React.ReactNode;
+  rightSlot?:     React.ReactNode;
+  className?:     string;
 }
 
 export default function MarketplaceTopNav({
@@ -40,6 +42,7 @@ export default function MarketplaceTopNav({
   onGoHome,
   onGoToCatalog,
   onMisPedidos,
+  onDocumentos,
   centerSlot,
   rightSlot,
   className = '',
@@ -47,11 +50,12 @@ export default function MarketplaceTopNav({
 
   function handleClick(id: string) {
     switch (id) {
-      case 'inicio':     return onGoHome();
-      case 'categorias': return onGoToCatalog();
-      case 'mayoristas': return onGoToCatalog();
-      case 'pedidos':    return onMisPedidos?.();
-      default:           return;
+      case 'inicio':      return onGoHome();
+      case 'categorias':  return onGoToCatalog();
+      case 'mayoristas':  return onGoToCatalog();
+      case 'pedidos':     return onMisPedidos?.();
+      case 'documentos':  return onDocumentos?.();
+      default:            return;
     }
   }
 

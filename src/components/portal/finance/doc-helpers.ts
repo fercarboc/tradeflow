@@ -7,6 +7,7 @@
 export const DOC_SUBTYPE_LABELS: Record<string, string> = {
   supplier_statement:   'Extracto de proveedor',
   settlement_statement: 'Liquidación',
+  purchase_summary:     'Resumen de compra',
 }
 
 export const DOC_REF_TYPE_LABELS: Record<string, string> = {
@@ -197,4 +198,79 @@ export function isSimulationOnly(metadata: Record<string, unknown>): boolean {
     return (s as Record<string, unknown>).simulation_only === true
   }
   return false
+}
+
+// ─── Purchase Summary types and extractor (MP-FIN-5C) ────────────────────────
+
+export interface PurchaseSummaryItem {
+  id: string
+  referencia: string | null
+  descripcion: string | null
+  unidad: string | null
+  cantidad: number
+  precio_unitario: number | null
+  precio_unitario_neto_snapshot: number | null
+  tax_rate_snapshot: number | null
+  item_net_snapshot: number | null
+  item_tax_snapshot: number | null
+  item_gross_snapshot: number | null
+  currency: string
+}
+
+export interface PurchaseSummaryOrderSnap {
+  id: string
+  actor_id: string
+  numero: string
+  estado: string
+  goods_gross_snapshot: number | null
+  shipping_gross_snapshot: number | null
+  tax_rate_snapshot: number | null
+  currency: string
+  delivery_method: string | null
+  confirmed_at: string | null
+  created_at: string
+}
+
+export interface PurchaseSummaryOrderBlock {
+  order: PurchaseSummaryOrderSnap
+  items: PurchaseSummaryItem[] | null
+}
+
+export interface PurchaseSummaryMasterSnap {
+  id: string
+  numero: string
+  org_id: string
+  order_status: string
+  goods_net_total: number
+  goods_tax_total: number
+  goods_gross_total: number
+  shipping_net_total: number
+  shipping_tax_total: number
+  shipping_gross_total: number
+  checkout_gross_total: number
+  currency: string
+  confirmed_at: string | null
+  created_at: string
+  buyer_snapshot?: Record<string, unknown>
+  delivery_address_snapshot?: Record<string, unknown> | null
+}
+
+export interface PurchaseSummaryMeta {
+  master_order: PurchaseSummaryMasterSnap
+  supplier_orders: PurchaseSummaryOrderBlock[] | null
+  generated_at: string
+}
+
+/** Returns null if master_order key is missing — signals malformed metadata. */
+export function extractPurchaseSummaryMeta(
+  metadata: Record<string, unknown>,
+): PurchaseSummaryMeta | null {
+  const mo = metadata.master_order
+  if (!mo || typeof mo !== 'object') return null
+  return metadata as unknown as PurchaseSummaryMeta
+}
+
+/** Sum of goods_gross + shipping_gross for a supplier order block. */
+export function computeSupplierOrderTotal(order: PurchaseSummaryOrderSnap): number {
+  return (order.goods_gross_snapshot ?? 0) + (order.shipping_gross_snapshot ?? 0)
 }

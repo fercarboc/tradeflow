@@ -44,6 +44,11 @@ export const QUERY_ERROR_CODES = {
 export interface DocQueryParams {
   limit?: number
   offset?: number
+  search?: string | null
+}
+
+export interface BuyerDocRefQueryParams extends DocQueryParams {
+  docType?: ProviderDocRefType | null
 }
 
 export interface PaginatedResult<T> {
@@ -128,6 +133,12 @@ export interface ProviderDocRef {
   created_at: string
 }
 
+/** BuyerDocRef extiende ProviderDocRef con campos JOIN del servidor (MP-FIN-5C). */
+export interface BuyerDocRef extends ProviderDocRef {
+  actor_nombre: string
+  supplier_order_numero: string
+}
+
 export interface RegisterProviderDocRefParams {
   supplierOrderId: string
   docType: ProviderDocRefType
@@ -179,6 +190,7 @@ export async function getBuyerDocuments(
       p_org_id: orgId,
       p_limit:  params.limit  ?? 50,
       p_offset: params.offset ?? 0,
+      p_search: params.search ?? null,
     },
   )
 
@@ -247,14 +259,16 @@ export async function listProviderDocRefs(
 export async function listBuyerDocRefs(
   supabase: SupabaseClient,
   orgId: string,
-  params: DocQueryParams = {},
-): Promise<PaginatedResult<ProviderDocRef>> {
+  params: BuyerDocRefQueryParams = {},
+): Promise<PaginatedResult<BuyerDocRef>> {
   const { data, error } = await supabase.rpc(
     QUERY_RPC_NAMES.LIST_BUYER_DOC_REFS,
     {
-      p_org_id: orgId,
-      p_limit:  params.limit  ?? 50,
-      p_offset: params.offset ?? 0,
+      p_org_id:   orgId,
+      p_limit:    params.limit    ?? 50,
+      p_offset:   params.offset   ?? 0,
+      p_search:   params.search   ?? null,
+      p_doc_type: params.docType  ?? null,
     },
   )
 
@@ -264,7 +278,7 @@ export async function listBuyerDocRefs(
     )
   }
 
-  return data as PaginatedResult<ProviderDocRef>
+  return data as PaginatedResult<BuyerDocRef>
 }
 
 // ─── registerProviderDocRef ──────────────────────────────────────────────────

@@ -324,6 +324,7 @@ interface MarketplaceHomeProps {
   location:           MarketplaceLocation | null;
   onChangeLocation:   () => void;
   onMisPedidos?:      () => void;
+  onDocumentos?:      () => void;
   onGoToProveedores?: () => void;
 }
 
@@ -335,6 +336,7 @@ export default function MarketplaceHome({
   location,
   onChangeLocation,
   onMisPedidos,
+  onDocumentos,
   onGoToProveedores,
 }: MarketplaceHomeProps) {
   const [suppliers,   setSuppliers]   = useState<ActiveSupplier[]>([]);
@@ -402,6 +404,7 @@ export default function MarketplaceHome({
           onGoHome={onGoHome}
           onGoToCatalog={oficio => onGoToCatalog(oficio ?? null)}
           onMisPedidos={onMisPedidos}
+          onDocumentos={onDocumentos}
           centerSlot={<HomeSearchBar onSearch={handleSearch} compact />}
           rightSlot={<HomeLocationRow location={location} onChangeLocation={onChangeLocation} />}
         />
