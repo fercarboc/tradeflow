@@ -39,6 +39,14 @@ export interface TradeOrganization {
   base_longitud?: number | null;
   created_at: string;
   updated_at: string;
+  // Internal admin-only fields — not displayed in normal installer UI
+  phase?: string | null;
+  pilot?: boolean;
+  founding_installer?: boolean;
+  founding_installer_number?: number | null;
+  internal_notes?: string | null;
+  vip?: boolean;
+  tags?: string[];
 }
 
 export interface TradeClient {

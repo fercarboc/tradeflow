@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Construcciones Pedro Pérez Ortiz | Reformas · Rehabilitaciones · Obra Nueva · Cantabria</title>
+  <meta name="description" content="Construcciones Pedro Pérez Ortiz — soluciones integrales en construcción, reforma y rehabilitación en Cantabria. Tlf: 654 353 296. Presupuesto sin compromiso.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ── Tokens ────────────────────────────────────────────────────────────────── */
+    :root {
+      --navy:       #1B2E52;
+      --navy-deep:  #0D1A2E;
+      --navy-mid:   #263F6E;
+      --steel:      #7B8FA6;
+      --steel-lt:   #A8BDD1;
+      --white:      #FFFFFF;
+      --off:        #F5F7FC;
+      --border:     #DDE3EE;
+      --text:       #1A2340;
+      --text-2:     #4A5E78;
+      --hero-h:     90vh;
+      --r:          6px;
+      --gap:        1.5rem;
+    }
+
+    /* ── Reset ─────────────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', system-ui, sans-serif;
+      background: var(--off);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Header ────────────────────────────────────────────────────────────────── */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 12px rgba(13,26,46,.08);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: .75rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .logo-wrap {
+      flex-shrink: 0;
+    }
+    .logo-wrap img {
+      height: 52px;
+      width: auto;
+    }
+    .header-contact {
+      display: flex;
+      gap: 2rem;
+    }
+    .hc-item {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .hc-item svg {
+      flex-shrink: 0;
+      color: var(--navy);
+    }
+    .hc-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--navy);
+      color: var(--white);
+      font-size: .82rem;
+      font-weight: 700;
+      padding: .55rem 1.2rem;
+      border-radius: var(--r);
+      letter-spacing: .03em;
+      transition: background .2s;
+      white-space: nowrap;
+    }
+    .hc-cta:hover { background: var(--navy-mid); }
+
+    /* ── Hero ──────────────────────────────────────────────────────────────────── */
+    .hero {
+      min-height: var(--hero-h);
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--navy-deep);
+    }
+    /* Blueprint grid overlay */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(123,143,166,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(123,143,166,.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+    /* Diagonal accent bar */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 45%;
+      height: 100%;
+      background: linear-gradient(135deg, transparent 40%, rgba(27,46,82,.6) 100%);
+      pointer-events: none;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 70% at 75% 40%, rgba(38,63,110,.55) 0%, transparent 60%),
+        linear-gradient(160deg, #0D1A2E 0%, #162340 45%, #0A131E 100%);
+    }
+    .hero-accent-line {
+      position: absolute;
+      top: 0; left: 50%;
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent 0%, rgba(123,143,166,.18) 30%, rgba(123,143,166,.18) 70%, transparent 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 7rem 2rem 4rem;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--steel-lt);
+      margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--steel-lt);
+    }
+    .hero-title {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      text-wrap: balance;
+      max-width: 620px;
+      margin-bottom: 1.25rem;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--steel-lt);
+    }
+    .hero-subtitle {
+      font-size: 1rem;
+      font-weight: 400;
+      color: rgba(255,255,255,.72);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background: var(--white);
+      color: var(--navy);
+      font-size: .9rem;
+      font-weight: 700;
+      padding: .8rem 1.8rem;
+      border-radius: var(--r);
+      transition: transform .15s, box-shadow .15s;
+      letter-spacing: .02em;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      border: 1.5px solid rgba(255,255,255,.35);
+      color: rgba(255,255,255,.88);
+      font-size: .9rem;
+      font-weight: 600;
+      padding: .8rem 1.8rem;
+      border-radius: var(--r);
+      transition: border-color .2s, background .2s;
+    }
+    .btn-secondary:hover {
+      border-color: rgba(255,255,255,.7);
+      background: rgba(255,255,255,.06);
+    }
+    .hero-badge-row {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      padding: 0 2rem;
+    }
+    .hero-badge {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      color: rgba(255,255,255,.55);
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+    }
+    .hero-badge svg { flex-shrink: 0; }
+
+    /* ── Services ──────────────────────────────────────────────────────────────── */
+    .section { max-width: 1200px; margin: 0 auto; padding: 5rem 2rem; }
+    .section-header { text-align: center; margin-bottom: 3rem; }
+    .section-eyebrow {
+      display: block;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: .6rem;
+    }
+    .section-rule {
+      width: 36px;
+      height: 3px;
+      background: var(--navy);
+      border-radius: 2px;
+      margin: .8rem auto 0;
+    }
+    .section-title {
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 800;
+      color: var(--navy);
+      text-wrap: balance;
+    }
+    .section-sub {
+      font-size: .95rem;
+      color: var(--text-2);
+      margin-top: .5rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: var(--gap);
+    }
+    .service-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .75rem;
+      text-align: center;
+      cursor: default;
+      transition: border-color .2s, box-shadow .2s, transform .15s;
+    }
+    .service-card:hover {
+      border-color: var(--navy);
+      box-shadow: 0 4px 20px rgba(27,46,82,.1);
+      transform: translateY(-3px);
+    }
+    .service-icon {
+      width: 52px; height: 52px;
+      background: var(--off);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--navy);
+      transition: background .2s;
+    }
+    .service-card:hover .service-icon {
+      background: var(--navy);
+      color: var(--white);
+    }
+    .service-label {
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: .02em;
+    }
+
+    /* ── About + Contact ───────────────────────────────────────────────────────── */
+    .about-section {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-photo {
+      aspect-ratio: 4/3;
+      border-radius: var(--r);
+      overflow: hidden;
+      background: linear-gradient(135deg, #1B2E52 0%, #263F6E 60%, #0D1A2E 100%);
+      position: relative;
+    }
+    .about-photo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,.2);
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .about-text h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 1rem;
+    }
+    .about-text p {
+      font-size: .9rem;
+      color: var(--text-2);
+      margin-bottom: 1rem;
+      line-height: 1.75;
+    }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      border: 2px solid var(--navy);
+      color: var(--navy);
+      font-size: .85rem;
+      font-weight: 700;
+      padding: .65rem 1.4rem;
+      border-radius: var(--r);
+      margin-top: .5rem;
+      transition: background .2s, color .2s;
+    }
+    .btn-outline:hover {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    /* Contact card */
+    .contact-card {
+      background: var(--off);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 2rem;
+    }
+    .contact-card h2 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+    }
+    .contact-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .8rem;
+      font-size: .85rem;
+      color: var(--text-2);
+    }
+    .contact-item svg {
+      flex-shrink: 0;
+      color: var(--navy);
+      margin-top: 1px;
+    }
+    .contact-item strong {
+      display: block;
+      color: var(--text);
+      font-weight: 600;
+      font-size: .87rem;
+    }
+    .contact-logo {
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .contact-logo img {
+      height: 48px;
+      width: auto;
+    }
+    .contact-logo p {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--navy);
+      text-align: center;
+      letter-spacing: .03em;
+    }
+    .btn-full {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+      background: var(--navy);
+      color: var(--white);
+      font-size: .88rem;
+      font-weight: 700;
+      padding: .85rem;
+      border-radius: var(--r);
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      transition: background .2s;
+    }
+    .btn-full:hover { background: var(--navy-mid); }
+
+    /* ── Trust badges ──────────────────────────────────────────────────────────── */
+    .trust-strip {
+      background: var(--navy);
+    }
+    .trust-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    .trust-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .trust-icon {
+      flex-shrink: 0;
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--steel-lt);
+    }
+    .trust-text strong {
+      display: block;
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: .2rem;
+    }
+    .trust-text span {
+      font-size: .75rem;
+      color: rgba(255,255,255,.55);
+      font-weight: 500;
+    }
+
+    /* ── Footer ────────────────────────────────────────────────────────────────── */
+    .site-footer {
+      background: var(--navy-deep);
+      text-align: center;
+      padding: 1.25rem 2rem;
+    }
+    .site-footer p {
+      font-size: .75rem;
+      color: rgba(255,255,255,.35);
+      font-weight: 500;
+    }
+
+    /* ── Responsive ────────────────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .header-contact { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .trust-inner { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .hero-title { font-size: 1.9rem; }
+      .trust-inner { grid-template-columns: 1fr; }
+      .hero-badge-row { display: none; }
+      .services-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+    }
+
+    /* ── Focus ─────────────────────────────────────────────────────────────────── */
+    :focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ──────────────────────────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <a href="#inicio">
+          <img src="/logopedroperez.png" alt="Construcciones Pedro Pérez Ortiz" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <img src="/logopedro.png" alt="Construcciones Pedro Pérez Ortiz" style="display:none" onerror="this.style.display='none'">
+        </a>
+      </div>
+      <nav class="header-contact" aria-label="Contacto rápido">
+        <div class="hc-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          <a href="tel:+34654353296">654 353 296</a>
+        </div>
+        <div class="hc-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          C/ El Milenio 1, 1º Centro · Ontaneda, Cantabria
+        </div>
+        <a href="tel:+34654353296" class="hc-cta">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          Llamar ahora
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── Hero ────────────────────────────────────────────────────────────────── -->
+  <section class="hero" id="inicio" aria-label="Inicio">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-accent-line" aria-hidden="true"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot" aria-hidden="true"></span>
+        Construcción profesional en Cantabria
+      </div>
+      <h1 class="hero-title">
+        Nuestra web está<br>
+        <em>en preparación</em>
+      </h1>
+      <p class="hero-subtitle">
+        Estamos trabajando para ofrecerte una experiencia online a la altura de la calidad de nuestro trabajo.
+      </p>
+      <div class="hero-actions">
+        <a href="tel:+34654353296" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          Contacto directo
+        </a>
+        <a href="#servicios" class="btn-secondary">
+          Ver servicios
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-badge-row" aria-hidden="true">
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Reformas
+      </div>
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        Rehabilitaciones
+      </div>
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Obra Nueva
+      </div>
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Lun–Vie 8:00–18:00
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Services ─────────────────────────────────────────────────────────────── -->
+  <section id="servicios" aria-label="Servicios">
+    <div class="section">
+      <div class="section-header">
+        <span class="section-eyebrow">Lo que hacemos</span>
+        <h2 class="section-title">¿Qué podemos hacer por ti?</h2>
+        <p class="section-sub">Soluciones integrales para tu vivienda o negocio</p>
+        <div class="section-rule" aria-hidden="true"></div>
+      </div>
+      <div class="services-grid" role="list">
+        <div class="service-card" role="listitem">
+          <div class="service-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <span class="service-label">Obras</span>
+        </div>
+        <div class="service-card" role="listitem">
+          <div class="service-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M4 20V8l8-6 8 6v12"/><path d="M9 20v-8h6v8"/></svg>
+          </div>
+          <span class="service-label">Chalets</span>
+        </div>
+        <div class="service-card" role="listitem">
+          <div class="service-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
+          </div>
+          <span class="service-label">Paredes</span>
+        </div>
+        <div class="service-card" role="listitem">
+          <div class="service-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 00-3 3v1H4a1 1 0 00-1 1v3a1 1 0 001 1h1v9a1 1 0 001 1h12a1 1 0 001-1v-9h1a1 1 0 001-1V7a1 1 0 00-1-1h-5V5a3 3 0 00-3-3z"/></svg>
+          </div>
+          <span class="service-label">Fontanería</span>
+        </div>
+        <div class="service-card" role="listitem">
+          <div class="service-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <span class="service-label">Electricidad</span>
+        </div>
+        <div class="service-card" role="listitem">
+          <div class="service-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 8 12 3 21 8"/><line x1="3" y1="8" x2="3" y2="20"/><line x1="21" y1="8" x2="21" y2="20"/><rect x="8" y="14" width="8" height="6"/><line x1="3" y1="20" x2="21" y2="20"/></svg>
+          </div>
+          <span class="service-label">Tejados</span>
+        </div>
+        <div class="service-card" role="listitem">
+          <div class="service-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+          </div>
+          <span class="service-label">Fachadas</span>
+        </div>
+        <div class="service-card" role="listitem">
+          <div class="service-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>
+          </div>
+          <span class="service-label">y más…</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── About + Contact ──────────────────────────────────────────────────────── -->
+  <section class="about-section" id="sobre-nosotros" aria-label="Sobre nosotros y contacto">
+    <div class="section">
+      <div class="about-grid">
+        <!-- Left: text + photo -->
+        <div>
+          <div class="about-text">
+            <h2>Sobre nosotros</h2>
+            <p>
+              En Construcciones Pedro Pérez Ortiz ofrecemos soluciones integrales en construcción, reforma y rehabilitación.
+            </p>
+            <p>
+              Nos encargamos de todo el proceso, desde el proyecto hasta la entrega final, cuidando cada detalle. Con más de dos décadas de experiencia en Cantabria, trabajamos con materiales de primera calidad y un equipo propio comprometido con el resultado.
+            </p>
+            <a href="tel:+34654353296" class="btn-outline">
+              Conoce más sobre nosotros
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+          <div class="about-photo" style="margin-top: 2rem;" aria-label="Interior de proyecto de reforma">
+            <div class="about-photo-placeholder" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              Galería de proyectos — próximamente
+            </div>
+          </div>
+        </div>
+        <!-- Right: contact card -->
+        <div>
+          <div class="contact-card">
+            <h2>Contacto</h2>
+            <div class="contact-items">
+              <div class="contact-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                <div>
+                  <strong><a href="tel:+34654353296">654 353 296</a></strong>
+                </div>
+              </div>
+              <div class="contact-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <div>
+                  <strong>C/ El Milenio 1, 1º Centro</strong>
+                  39699 Ontaneda, Cantabria
+                </div>
+              </div>
+              <div class="contact-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <div>
+                  <strong>Lunes a Viernes</strong>
+                  8:00 – 18:00
+                </div>
+              </div>
+              <div class="contact-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <div>
+                  <a href="mailto:info@construccionespedroperez.com">info@construccionespedroperez.com</a>
+                </div>
+              </div>
+            </div>
+            <div class="contact-logo">
+              <img src="/logopedroperez.png" alt="Construcciones Pedro Pérez Ortiz" onerror="this.style.display='none'">
+              <p>Presupuesto sin compromiso</p>
+              <a href="tel:+34654353296" class="btn-full">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                Contactar ahora
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Trust strip ───────────────────────────────────────────────────────────── -->
+  <div class="trust-strip" aria-label="Garantías y compromisos">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <div class="trust-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="trust-text">
+          <strong>Calidad garantizada</strong>
+          <span>Materiales de primeras marcas</span>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="9 16 11 18 15 14"/></svg>
+        </div>
+        <div class="trust-text">
+          <strong>Cumplimos plazos</strong>
+          <span>Compromiso y seriedad en cada proyecto</span>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="trust-text">
+          <strong>Profesionales cualificados</strong>
+          <span>Equipo propio y de confianza</span>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <div class="trust-text">
+          <strong>Presupuesto sin compromiso</strong>
+          <span>Transparencia y asesoramiento personalizado</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Footer ────────────────────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <p>© 2024 Construcciones Pedro Pérez Ortiz. Todos los derechos reservados. · Ontaneda, Cantabria</p>
+  </footer>
+
+</body>
+</html>
