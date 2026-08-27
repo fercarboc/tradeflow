@@ -1,22 +1,20 @@
-// MP-FIN-4 — Provider Documents Tab
-// Placeholder — módulo de documentos financieros (facturas, certificados) pendiente.
-
-import { FileText } from 'lucide-react'
+// MP-FIN-5B — Provider Documents tab (replaces placeholder)
+// Two vertical blocks: TrabFlow financial documents + provider-emitted references.
 import { SimBanner } from './shared'
+import FinDocList from './FinDocList'
+import ProviderDocRefList from './ProviderDocRefList'
 
-export default function ProviderDocuments() {
+export default function ProviderDocuments({ actorId }: { actorId: string }) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <SimBanner />
-      <div className="flex flex-col items-center gap-4 py-16 text-slate-600">
-        <FileText className="h-12 w-12" />
-        <div className="text-center">
-          <p className="text-sm font-semibold text-slate-400">Documentos financieros</p>
-          <p className="text-xs mt-1 max-w-xs">
-            En esta sección estarán disponibles facturas, certificados de retención
-            y otros documentos financieros. Próximamente.
-          </p>
-        </div>
+
+      <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-4">
+        <FinDocList actorId={actorId} />
+      </div>
+
+      <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-4">
+        <ProviderDocRefList actorId={actorId} />
       </div>
     </div>
   )

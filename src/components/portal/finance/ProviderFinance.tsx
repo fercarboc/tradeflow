@@ -44,7 +44,7 @@ export default function ProviderFinance({ actorId, membership }: Props) {
       case 'refunds':     return <ProviderRefunds actorId={actorId} />
       case 'disputes':    return <ProviderDisputes actorId={actorId} />
       case 'reserves':    return <ProviderReserves actorId={actorId} />
-      case 'documents':   return <ProviderDocuments />
+      case 'documents':   return <ProviderDocuments actorId={actorId} />
       default:            return null
     }
   }
