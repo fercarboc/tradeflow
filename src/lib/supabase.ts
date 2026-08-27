@@ -622,6 +622,7 @@ export async function saveQuote(
   descripcion: string,
   items: Pick<TradeQuoteItem, 'descripcion' | 'tipo' | 'cantidad' | 'precio_unitario' | 'precio_material' | 'supplier_key' | 'supplier_name' | 'supplier_ref' | 'catalog_variant_id' | 'familia' | 'global_catalog_id' | 'universal_product_id' | 'universal_variant_id'>[],
   kbActuaciones?: string[],
+  ivaPct?: number,
 ): Promise<TradeQuote> {
   const { count } = await supabase
     .from('trade_quotes')
@@ -632,6 +633,7 @@ export async function saveQuote(
   const totalNeto = items.reduce((s, i) => s + i.cantidad * i.precio_unitario, 0);
 
   const insertPayload: Record<string, unknown> = { org_id: orgId, client_id: clientId, numero, descripcion, total_neto: totalNeto };
+  if (ivaPct !== undefined) insertPayload.iva_pct = ivaPct;
   if (kbActuaciones && kbActuaciones.length > 0) insertPayload.kb_actuaciones = kbActuaciones;
 
   const { data: quote, error: qErr } = await supabase
@@ -1145,6 +1147,33 @@ export async function loadInvoiceLines(facturaId: string): Promise<TradeInvoiceL
   return (data ?? []) as TradeInvoiceLine[];
 }
 
+export async function updateDraftInvoice(
+  invoiceId: string,
+  ivaPct: number,
+  lines: Array<{ descripcion: string; cantidad: number; precio_unitario: number; subtotal: number; tipo: string }>,
+): Promise<TradeInvoice> {
+  const subtotal = lines.reduce((s, l) => s + l.subtotal, 0);
+  const ivaImporte = Math.round(subtotal * ivaPct) / 100;
+  const total = subtotal + ivaImporte;
+
+  const { data, error } = await supabase
+    .from('trade_invoices')
+    .update({ iva_pct: ivaPct, iva_importe: ivaImporte, subtotal, total })
+    .eq('id', invoiceId)
+    .eq('estado', 'Borrador')
+    .select()
+    .single();
+  if (error) throw error;
+
+  await supabase.from('trade_invoice_lines').delete().eq('factura_id', invoiceId);
+  if (lines.length > 0) {
+    await supabase.from('trade_invoice_lines').insert(
+      lines.map((l, i) => ({ factura_id: invoiceId, descripcion: l.descripcion, cantidad: l.cantidad, precio_unitario: l.precio_unitario, subtotal: l.subtotal, tipo: l.tipo, orden: i }))
+    );
+  }
+  return data as TradeInvoice;
+}
+
 export async function createInvoiceLines(
   facturaId: string,
   lines: Array<{ descripcion: string; cantidad: number; precio_unitario: number; tipo?: string; orden?: number }>,
@@ -1520,11 +1549,14 @@ export async function updateQuote(
   clientId: string,
   descripcion: string,
   items: Pick<TradeQuoteItem, 'descripcion' | 'tipo' | 'cantidad' | 'precio_unitario' | 'precio_material' | 'supplier_key' | 'supplier_name' | 'supplier_ref' | 'catalog_variant_id' | 'familia'>[],
+  ivaPct?: number,
 ): Promise<TradeQuote> {
   const totalNeto = items.reduce((s, i) => s + i.cantidad * i.precio_unitario, 0);
+  const updatePayload: Record<string, unknown> = { client_id: clientId, descripcion, total_neto: totalNeto };
+  if (ivaPct !== undefined) updatePayload.iva_pct = ivaPct;
   const { data: quote, error: qErr } = await supabase
     .from('trade_quotes')
-    .update({ client_id: clientId, descripcion, total_neto: totalNeto })
+    .update(updatePayload)
     .eq('id', quoteId)
     .select()
     .single();

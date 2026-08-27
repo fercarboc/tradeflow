@@ -25,7 +25,8 @@ interface ActionBtn {
 export default function ScreenPostConfirm({
   quote, onWhatsApp, onCobrar, onCrearTrabajo, onComprarMateriales, onVerPresupuesto, onEditar, onClose,
 }: Props) {
-  const totalConIva = ((quote.total ?? 0) * 1.21).toFixed(2);
+  // ?? 21: fallback para registros históricos sin iva_pct almacenado en trade_quotes
+  const totalConIva = ((quote.total ?? 0) * (1 + (quote.iva_pct ?? 21) / 100)).toFixed(2);
 
   const actions: ActionBtn[] = [
     {

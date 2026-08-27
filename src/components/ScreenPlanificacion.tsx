@@ -26,6 +26,7 @@ export interface LinkedPresupuesto {
   total: number;
   estado: 'Borrador' | 'Enviado' | 'Aceptado' | 'Facturado';
   fecha: string;
+  iva_pct?: number;
 }
 
 export interface ScreenPlanificacionProps {
@@ -863,7 +864,8 @@ function JobCard({ job, onIniciar, onPause, onQuickStatus, onEdit, onDelete, onO
                   {p.descripcion || 'Presupuesto vinculado'}
                 </span>
                 <span className={`font-mono font-bold shrink-0 ${isAceptado ? 'text-emerald-700 dark:text-emerald-400' : 'text-violet-700 dark:text-violet-400'}`}>
-                  {(p.total * 1.21).toFixed(0)}€
+                  {/* ?? 21: fallback para registros históricos sin iva_pct almacenado */}
+                  {(p.total * (1 + (p.iva_pct ?? 21) / 100)).toFixed(0)}€
                 </span>
               </div>
               {!isAceptado && !isFacturado && (

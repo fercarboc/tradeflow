@@ -77,7 +77,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote, getOrgActiveOrders } from '../lib/supabase';
+import { supabase, loadDashboard, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote, getOrgActiveOrders, loadInvoiceLines, updateDraftInvoice } from '../lib/supabase';
 import type { TradeSubcontractor, TradeSubcontrata, ActiveSupplierCatalog } from '../lib/supabase';
 import { printTradeInvoice } from '../lib/printTradeInvoice';
 import { savePurchaseContext } from '../lib/marketplace/purchase-context';
@@ -625,7 +625,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       // Always replace demo clients with real data (even if empty list)
       setClientes(data.clients.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono ?? '', email: c.email ?? '', direccion: c.direccion ?? '', obrasActivas: c.obras_activas, totalFacturado: c.total_facturado })));
       setPresupuestos(data.quotes.map(q => ({ id: q.numero, dbId: q.id, clientId: q.client_id ?? null, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total, familia: i.familia ?? undefined })), total: q.total_neto, iva_pct: q.iva_pct, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '', kbActuaciones: q.kb_actuaciones ?? undefined })));
-      setFacturas(data.invoices.map(f => ({ id: f.id, numeroFactura: f.numero, nombreCliente: f.client_id ? (data.clients.find(c => c.id === f.client_id)?.nombre ?? '') : (f.concepto?.split('—')[1]?.trim() ?? ''), idPresupuesto: f.quote_id ?? '', job_id: f.job_id ?? null, importe: f.subtotal, fecha: f.fecha, fechaVencimiento: f.fecha_vencimiento ?? '', estado: f.estado as any, concepto: f.concepto ?? undefined, esMantenimineto: !!f.contract_id })));
+      setFacturas(data.invoices.map(f => ({ id: f.id, numeroFactura: f.numero, nombreCliente: f.client_id ? (data.clients.find(c => c.id === f.client_id)?.nombre ?? '') : (f.concepto?.split('—')[1]?.trim() ?? ''), idPresupuesto: f.quote_id ?? '', job_id: f.job_id ?? null, importe: f.subtotal, iva_pct: f.iva_pct, fecha: f.fecha, fechaVencimiento: f.fecha_vencimiento ?? '', estado: f.estado as any, concepto: f.concepto ?? undefined, esMantenimineto: !!f.contract_id })));
       if (org) {
         setOrgId(org.id);
         setOrgData(org);
@@ -650,6 +650,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           iban:          org.iban ?? prev.iban,
           banco:         org.banco ?? prev.banco,
           titularCuenta: org.titular_cuenta ?? prev.titularCuenta,
+          ivaDefault:    (org as any).iva_default ?? prev.ivaDefault,
         }));
         const [workersRes, tarifasRes, catalogRes, jobsRes] = await Promise.all([
           loadWorkers(org.id),
@@ -989,6 +990,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [supportMsg, setSupportMsg] = useState('');
   const [supportSending, setSupportSending] = useState(false);
   const [filterEstado, setFilterEstado] = useState<'todas' | 'Pendiente' | 'Pagada' | 'Vencida' | 'Devuelta'>('todas');
+  type DraftInvoiceLine = { id?: string; descripcion: string; cantidad: number; precio_unitario: number; subtotal: number; tipo: string };
+  const [draftInvoiceEdit, setDraftInvoiceEdit] = useState<{
+    id: string; numeroFactura: string; ivaPct: number; lines: DraftInvoiceLine[]; saving: boolean;
+  } | null>(null);
   const [showAddTarifa, setShowAddTarifa] = useState(false);
   const [newWorkerDraft, setNewWorkerDraft] = useState({ nombre: '', telefono: '', email: '', rol: 'tecnico' as TrabajadorItem['rol'] });
   const [newTarifaDraft, setNewTarifaDraft] = useState({ codigo: '', familia: 'General', descripcion: '', precioBase: 0, unidad: 'ud' });
@@ -1728,6 +1733,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               familia: p.familia ?? null,
             })),
             kbActuacionesSaved.length > 0 ? kbActuacionesSaved : undefined,
+            empresaAjustes.ivaDefault,
           );
           savedQuote = { ...finalQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], kbActuaciones: dbQuote.kb_actuaciones ?? undefined };
         } catch (e) { console.error('Error guardando presupuesto:', e); }
@@ -1846,7 +1852,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   };
 
   const buildQuoteMessage = (q: Presupuesto, acceptanceUrl?: string, pdfUrl?: string) => {
-    const iva = empresaAjustes.ivaDefault || 21;
+    // ?? 21: registros históricos sin iva_pct; NO usar ivaDefault (sería el default ACTUAL, no el del documento)
+    const iva = q.iva_pct ?? 21;
     const ivaAmt = q.total * (iva / 100);
     const totalConIVA = q.total + ivaAmt;
 
@@ -2008,7 +2015,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   };
 
   const handleRemindInvoice = (f: Factura) => {
-    const totalConIVA = (f.importe * 1.21).toFixed(2);
+    // ?? 21: registros históricos sin iva_pct; NO usar ivaDefault (sería el default ACTUAL, no el del documento)
+    const ivaPct = f.iva_pct ?? 21;
+    const totalConIVA = (f.importe * (1 + ivaPct / 100)).toFixed(2);
     const msg = [
       `Hola ${f.nombreCliente}, te recuerdo el pago pendiente de la factura *${f.numeroFactura}*.`,
       '',
@@ -2110,8 +2119,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     fecha: new Date().toISOString().split('T')[0],
     estado: 'Borrador',
     partidas: [],
-    total: 0
+    total: 0,
+    iva_pct: undefined,
   });
+
+  // Sync iva_pct default when opening a new quote (not editing an existing one)
+  useEffect(() => {
+    if (activeTab === 'create_quote' && !editingQuoteId) {
+      setEditingQuote(prev => ({ ...prev, iva_pct: empresaAjustes.ivaDefault }));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeTab, editingQuoteId]);
 
   const presupuestosPendientesCount = presupuestos.filter(p => p.estado === 'Borrador' || p.estado === 'Enviado').length;
   const totalPendienteFacturas = facturas.filter(f => f.estado !== 'Pagada').reduce((acc, f) => acc + f.importe, 0);
@@ -2388,10 +2406,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       if (!client) { showToast('Cliente no encontrado en CRM', 'error'); return; }
       try {
         if (isEditing) {
-          const dbQuote = await updateQuote(editingQuoteId, client.id, editingQuote.descripcion, partidasPayload);
+          const dbQuote = await updateQuote(editingQuoteId, client.id, editingQuote.descripcion, partidasPayload, editingQuote.iva_pct);
           saved = { ...editingQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'] };
         } else {
-          const dbQuote = await saveQuote(orgId, client.id, editingQuote.descripcion, partidasPayload);
+          const dbQuote = await saveQuote(orgId, client.id, editingQuote.descripcion, partidasPayload, undefined, editingQuote.iva_pct ?? empresaAjustes.ivaDefault);
           saved = { id: dbQuote.numero, dbId: dbQuote.id, nombreCliente: editingQuote.nombreCliente, descripcion: dbQuote.descripcion ?? '', partidas: editingQuote.partidas, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], telefonoCliente: editingQuote.telefonoCliente, emailCliente: editingQuote.emailCliente };
         }
       } catch (e: any) { showToast('Error al guardar: ' + e.message, 'error'); return; }
@@ -3565,7 +3583,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 setWizardStep(1);
                 setWizardActive(true);
               }}
-              presupuestosPorId={Object.fromEntries(presupuestos.map(p => [p.id, { id: p.id, descripcion: p.descripcion, total: p.total, estado: p.estado, fecha: p.fecha }]))}
+              presupuestosPorId={Object.fromEntries(presupuestos.map(p => [p.id, { id: p.id, descripcion: p.descripcion, total: p.total, estado: p.estado, fecha: p.fecha, iva_pct: p.iva_pct }]))}
               showToast={showToast}
               triggerNew={newJobTrigger}
               prefillJobFromQuote={prefillJobFromQuote ? { id: prefillJobFromQuote.id, dbId: prefillJobFromQuote.dbId, nombreCliente: prefillJobFromQuote.nombreCliente, descripcion: prefillJobFromQuote.descripcion, total: prefillJobFromQuote.total ?? 0, client_id: prefillJobFromQuote.clientId ?? null } : null}
@@ -3675,6 +3693,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           <ScreenPresupuestoIncremental
             showToast={showToast}
             orgId={orgId ?? undefined}
+            ivaDefault={empresaAjustes.ivaDefault}
             onClose={() => setShowPresupuestoIncremental(false)}
             onConfirm={(q) => {
               setShowPresupuestoIncremental(false);
@@ -4307,7 +4326,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               <div className="flex justify-between items-center pt-3 border-t border-gray-100">
                 <div>
                   <span className="text-[10px] text-gray-400 uppercase tracking-wide block">Total c/IVA</span>
-                  <span className="text-lg font-black font-mono text-gray-900">{(p.total * 1.21).toFixed(0)}€</span>
+                  <span className="text-lg font-black font-mono text-gray-900">{(p.total * (1 + (p.iva_pct ?? 21) / 100)).toFixed(0)}€</span>
                 </div>
                 <span className="text-xs text-gray-400">{p.fecha}</span>
               </div>
@@ -4318,7 +4337,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   style={{ gridTemplateColumns: jobForP?.parte_token ? 'repeat(4,1fr)' : 'repeat(3,1fr)' }}
                   onClick={e => e.stopPropagation()}>
                   <a
-                    href={`https://wa.me/${(p.telefonoCliente ?? '').replace(/\D/g, '')}?text=${encodeURIComponent(`Hola ${p.nombreCliente ?? ''}, adjunto tu presupuesto TradeFlow:\n${p.descripcion ?? ''}\nTotal: ${(p.total * 1.21).toFixed(0)}€`)}`}
+                    href={`https://wa.me/${(p.telefonoCliente ?? '').replace(/\D/g, '')}?text=${encodeURIComponent(`Hola ${p.nombreCliente ?? ''}, adjunto tu presupuesto TradeFlow:\n${p.descripcion ?? ''}\nTotal: ${(p.total * (1 + (p.iva_pct ?? 21) / 100)).toFixed(0)}€`)}`}
                     target="_blank" rel="noreferrer"
                     className="flex flex-col items-center gap-0.5 bg-emerald-50 border border-emerald-200 rounded-xl py-2 text-emerald-600 active:bg-emerald-100 cursor-pointer"
                   >
@@ -4326,7 +4345,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <span className="text-[9px] font-bold">WhatsApp</span>
                   </a>
                   <a
-                    href={`mailto:${p.emailCliente ?? ''}?subject=Presupuesto ${p.id}&body=${encodeURIComponent(`Hola ${p.nombreCliente ?? ''},\n\nAdjunto tu presupuesto.\n\nTotal: ${(p.total * 1.21).toFixed(0)}€\n\nGracias.`)}`}
+                    href={`mailto:${p.emailCliente ?? ''}?subject=Presupuesto ${p.id}&body=${encodeURIComponent(`Hola ${p.nombreCliente ?? ''},\n\nAdjunto tu presupuesto.\n\nTotal: ${(p.total * (1 + (p.iva_pct ?? 21) / 100)).toFixed(0)}€\n\nGracias.`)}`}
                     className="flex flex-col items-center gap-0.5 bg-blue-50 border border-blue-200 rounded-xl py-2 text-blue-600 active:bg-blue-100 cursor-pointer"
                   >
                     <Mail className="w-3.5 h-3.5" />
@@ -4400,7 +4419,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       const clientJobs = jobs.filter(j => j.client_id === selectedCliente.id);
       const totalFacturado = clientQuotes
         .filter(q => q.estado === 'Facturado')
-        .reduce((s, q) => s + q.total * 1.21, 0);
+        .reduce((s, q) => s + q.total * (1 + (q.iva_pct ?? 21) / 100), 0);
 
       const estadoBadge = (estado: string) => {
         const map: Record<string, string> = {
@@ -4545,7 +4564,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       </span>
                     </div>
                     <div className="text-right shrink-0">
-                      <span className="text-xs font-mono font-bold text-gray-900 block">{(q.total * 1.21).toFixed(0)}€</span>
+                      <span className="text-xs font-mono font-bold text-gray-900 block">{(q.total * (1 + (q.iva_pct ?? 21) / 100)).toFixed(0)}€</span>
                       {!isFacturado && <span className="text-[8px] text-blue-600 font-bold uppercase">Ver →</span>}
                     </div>
                   </div>
@@ -4744,7 +4763,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         return (order[a.estado] ?? 1) - (order[b.estado] ?? 1);
       });
 
-    const pendiente = sorted.filter(f => f.estado === 'Pendiente' || f.estado === 'Vencida').reduce((s, f) => s + f.importe * 1.21, 0);
+    const pendiente = sorted.filter(f => f.estado === 'Pendiente' || f.estado === 'Vencida').reduce((s, f) => s + f.importe * (1 + (f.iva_pct ?? 21) / 100), 0);
     const pagadas = sorted.filter(f => f.estado === 'Pagada');
 
     return (
@@ -4805,7 +4824,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <span className="text-[9px] text-amber-600 font-semibold shrink-0">
                   {Math.ceil((new Date(f.fechaVencimiento).getTime() - now.getTime()) / 86400000)}d
                 </span>
-                <span className="font-mono text-[9px] font-bold text-gray-900 shrink-0">{(f.importe * 1.21).toFixed(0)}€</span>
+                <span className="font-mono text-[9px] font-bold text-gray-900 shrink-0">{(f.importe * (1 + (f.iva_pct ?? 21) / 100)).toFixed(0)}€</span>
               </div>
             ))}
           </div>
@@ -4821,7 +4840,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {devueltas.map(f => (
               <div key={f.id} className="flex items-center gap-2 bg-white rounded-xl px-3 py-1.5 border border-orange-100">
                 <span className="font-mono text-[9px] font-bold text-gray-700 flex-1 truncate">{f.numeroFactura} · {f.nombreCliente}</span>
-                <span className="font-mono text-[9px] font-bold text-orange-600 shrink-0">{(f.importe * 1.21).toFixed(0)}€</span>
+                <span className="font-mono text-[9px] font-bold text-orange-600 shrink-0">{(f.importe * (1 + (f.iva_pct ?? 21) / 100)).toFixed(0)}€</span>
                 <button onClick={() => handleRemindInvoice(f)} className="text-[8px] px-1.5 py-1 bg-green-100 text-green-700 rounded font-bold cursor-pointer">💬</button>
               </div>
             ))}
@@ -4856,7 +4875,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </div>
                 <div className="text-right">
                   <span className="text-[8px] font-mono text-gray-400 block uppercase">Total cobro:</span>
-                  <span className="text-sm font-mono font-bold text-gray-900">{(f.importe * 1.21).toFixed(0)}€</span>
+                  <span className="text-sm font-mono font-bold text-gray-900">{(f.importe * (1 + (f.iva_pct ?? 21) / 100)).toFixed(0)}€</span>
                 </div>
               </div>
 
@@ -5615,7 +5634,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <div className="flex justify-between items-baseline py-1">
                   <span className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider font-mono">Importe Final (IVA Incl.):</span>
                   <span className="text-lg font-bold font-mono text-blue-600">
-                    {((wizardQuote.total || 0) * 1.21).toFixed(2)}€
+                    {((wizardQuote.total || 0) * (1 + (wizardQuote.iva_pct ?? empresaAjustes.ivaDefault ?? 21) / 100)).toFixed(2)}€
                   </span>
                 </div>
 
@@ -6158,6 +6177,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           <ScreenPresupuestoIncremental
             showToast={showToast}
             orgId={orgId ?? undefined}
+            ivaDefault={empresaAjustes.ivaDefault}
             onClose={() => setShowPresupuestoIncremental(false)}
             onConfirm={(q) => {
               setShowPresupuestoIncremental(false);
@@ -6906,6 +6926,34 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         </div>
 
+        {/* IVA del presupuesto */}
+        <div className="flex items-center gap-3">
+          <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider shrink-0">IVA del documento</label>
+          <div className="flex gap-1.5">
+            {[0, 4, 10, 21].map(pct => (
+              <button
+                key={pct}
+                type="button"
+                onClick={() => {
+                  const prev = editingQuote.iva_pct ?? empresaAjustes.ivaDefault;
+                  if (editingQuoteId && prev !== pct) {
+                    if (!window.confirm(`¿Cambiar el IVA de este presupuesto del ${prev}% al ${pct}%?\nSe recalcularán los importes del documento.`)) return;
+                  }
+                  setEditingQuote(q => ({ ...q, iva_pct: pct }));
+                }}
+                className={`px-3 py-1.5 rounded-lg text-[10px] font-bold border cursor-pointer transition-all ${
+                  (editingQuote.iva_pct ?? empresaAjustes.ivaDefault) === pct
+                    ? 'bg-blue-600 text-white border-blue-600'
+                    : 'bg-white text-slate-500 border-slate-200 hover:border-blue-400 hover:text-blue-600'
+                }`}
+              >
+                {pct}%
+              </button>
+            ))}
+          </div>
+          <span className="text-[9px] text-slate-400">Se guardará en el documento</span>
+        </div>
+
         <div className="space-y-4">
           {/* Banner desktop: guardar nueva actuación */}
           {aiLearningData && aiLearningData.nuevosOficios.length > 0 && isLiveMode && (
@@ -7093,8 +7141,21 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
         <div className="border-t border-slate-200 pt-4 flex justify-between items-center">
           <div>
-            <span className="text-[9px] text-slate-400 uppercase tracking-wider block font-mono">Total Neto</span>
-            <div className="text-xl font-bold font-mono text-slate-900">{(editingQuote.total ?? 0).toFixed(2)}€</div>
+            {(() => {
+              const ivaPct = editingQuote.iva_pct ?? empresaAjustes.ivaDefault;
+              const neto = editingQuote.total ?? 0;
+              const ivaAmt = Math.round(neto * ivaPct) / 100;
+              const total = neto + ivaAmt;
+              return (
+                <div className="space-y-0.5">
+                  <div className="flex gap-3 text-[10px] text-slate-400 font-mono">
+                    <span>Neto: {neto.toFixed(2)}€</span>
+                    <span>IVA {ivaPct}%: {ivaAmt.toFixed(2)}€</span>
+                  </div>
+                  <div className="text-xl font-bold font-mono text-slate-900">TOTAL: {total.toFixed(2)}€</div>
+                </div>
+              );
+            })()}
           </div>
           {editingQuote.partidas.length > 0 && (
             <button
@@ -7336,7 +7397,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   empresa: empresaAjustes,
                   partidas: selectedQuoteForPreview.partidas,
                   total: selectedQuoteForPreview.total,
-                  iva: empresaAjustes.ivaDefault || 21,
+                  iva: selectedQuoteForPreview.iva_pct ?? 21, // ?? 21: registros históricos; NO usar ivaDefault
                   estado: selectedQuoteForPreview.estado,
                 }, selectedQuoteForPreview.id);
               }}
@@ -8142,7 +8203,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                               {inv.estado !== 'Borrador' && (
                                 <button
                                   onClick={() => printTradeInvoice(
-                                    { ...inv, numero: inv.numero ?? '', subtotal: inv.total / 1.21, iva_pct: 21, iva_importe: inv.total - inv.total / 1.21 } as Parameters<typeof printTradeInvoice>[0],
+                                    { ...inv, numero: inv.numero ?? '' } as Parameters<typeof printTradeInvoice>[0],
                                     [],
                                     { nombre: orgData?.nombre, nif: orgData?.nif, direccion: orgData?.direccion, ciudad: (orgData as unknown as Record<string, unknown>)?.ciudad as string, telefono: orgData?.telefono, email: orgData?.email, logo_url: orgData?.logo_url },
                                   )}
@@ -8185,7 +8246,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                             <p className="text-sm text-slate-800 truncate">{p.descripcion || p.id}</p>
                           </div>
                           <div className="text-right shrink-0">
-                            <p className="text-sm font-bold text-slate-900 font-mono">{(p.total * 1.21).toFixed(0)}€</p>
+                            <p className="text-sm font-bold text-slate-900 font-mono">{(p.total * (1 + (p.iva_pct ?? 21) / 100)).toFixed(0)}€</p>
                             <span className="text-[9px] text-blue-500 font-bold">Ver →</span>
                           </div>
                         </div>
@@ -8495,7 +8556,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       logoUrl: orgData?.logo_url ?? undefined,
       partidas: presupuesto.partidas,
       total: presupuesto.total,
-      iva: empresaAjustes.ivaDefault || 21,
+      iva: presupuesto.iva_pct ?? 21, // ?? 21: registros históricos sin iva_pct; NO usar ivaDefault (sería el default ACTUAL, no el del documento)
       estado: presupuesto.estado,
     });
     printDocument(html);
@@ -8522,7 +8583,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       logoUrl: orgData?.logo_url ?? undefined,
       partidas,
       total: factura.importe,
-      iva: empresaAjustes.ivaDefault || 21,
+      iva: factura.iva_pct ?? 21, // ?? 21: registros históricos sin iva_pct; NO usar ivaDefault (sería el default ACTUAL, no el del documento)
       estado: factura.estado,
     });
     printDocument(html);
@@ -8548,8 +8609,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       return false;
     });
 
-    const pendiente = facturasFacturacion.filter(f => f.estado === 'Pendiente' || f.estado === 'Vencida').reduce((s, f) => s + f.importe * 1.21, 0);
-    const cobradoTotal = facturasFacturacion.filter(f => f.estado === 'Pagada').reduce((s, f) => s + f.importe * 1.21, 0);
+    const pendiente = facturasFacturacion.filter(f => f.estado === 'Pendiente' || f.estado === 'Vencida').reduce((s, f) => s + f.importe * (1 + (f.iva_pct ?? 21) / 100), 0);
+    const cobradoTotal = facturasFacturacion.filter(f => f.estado === 'Pagada').reduce((s, f) => s + f.importe * (1 + (f.iva_pct ?? 21) / 100), 0);
     const vencidas = facturasFacturacion.filter(f => f.estado === 'Vencida').length;
     const devueltas = facturasFacturacion.filter(f => f.estado === 'Devuelta');
 
@@ -8615,7 +8676,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 Próximas a cobrar — {proximas.length} factura{proximas.length !== 1 ? 's' : ''} en 15 días
               </span>
               <span className="ml-auto text-xs font-bold font-mono text-amber-700">
-                {proximas.reduce((s, f) => s + f.importe * 1.21, 0).toFixed(0)}€
+                {proximas.reduce((s, f) => s + f.importe * (1 + (f.iva_pct ?? 21) / 100), 0).toFixed(0)}€
               </span>
             </div>
             <div className="space-y-2">
@@ -8629,7 +8690,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     Vence en {diasHasta(f.fechaVencimiento)} días
                   </span>
                   <span className="text-[11px] font-bold font-mono text-slate-800 shrink-0">
-                    {(f.importe * 1.21).toFixed(0)}€
+                    {(f.importe * (1 + (f.iva_pct ?? 21) / 100)).toFixed(0)}€
                   </span>
                   <button
                     onClick={() => handleRemindInvoice(f)}
@@ -8657,7 +8718,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <div key={f.id} className="flex items-center gap-3 bg-white border border-blue-100 rounded-lg px-3 py-1.5">
                   <span className="font-mono text-[10px] font-bold text-slate-700 flex-1">{f.numeroFactura} — {f.nombreCliente}</span>
                   <span className="text-[10px] text-blue-700 font-semibold shrink-0">en {diasHasta(f.fechaVencimiento)} días</span>
-                  <span className="text-[11px] font-bold font-mono text-slate-800 shrink-0">{(f.importe * 1.21).toFixed(0)}€</span>
+                  <span className="text-[11px] font-bold font-mono text-slate-800 shrink-0">{(f.importe * (1 + (f.iva_pct ?? 21) / 100)).toFixed(0)}€</span>
                 </div>
               ))}
             </div>
@@ -8680,7 +8741,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <span className="font-mono text-[10px] font-bold text-slate-700">{f.numeroFactura}</span>
                     <span className="text-[10px] text-slate-500 ml-2">{f.nombreCliente}</span>
                   </div>
-                  <span className="text-[11px] font-bold font-mono text-orange-700">{(f.importe * 1.21).toFixed(0)}€</span>
+                  <span className="text-[11px] font-bold font-mono text-orange-700">{(f.importe * (1 + (f.iva_pct ?? 21) / 100)).toFixed(0)}€</span>
                   <button
                     onClick={() => handleRemindInvoice(f)}
                     className="text-[9px] px-2 py-1 bg-green-100 text-green-700 rounded font-bold cursor-pointer hover:bg-green-200 transition-colors"
@@ -8735,25 +8796,55 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   {/* Importe */}
                   <div className="text-right shrink-0">
                     <span className="text-[9px] text-slate-400 block font-mono uppercase">Total c/IVA</span>
-                    <span className="text-lg font-bold font-mono text-slate-900">{(f.importe * 1.21).toFixed(2)}€</span>
-                    <span className="text-[9px] text-slate-400 block font-mono">{f.importe.toFixed(2)}€ + IVA</span>
+                    <span className="text-lg font-bold font-mono text-slate-900">{(f.importe * (1 + (f.iva_pct ?? 21) / 100)).toFixed(2)}€</span>
+                    <span className="text-[9px] text-slate-400 block font-mono">{f.importe.toFixed(2)}€ + IVA {f.iva_pct ?? 21}%</span>
                   </div>
                 </div>
                 {/* Acciones */}
                 <div className="flex gap-2 mt-3 pt-3 border-t border-slate-100 flex-wrap">
-                  <button
-                    onClick={() => printInvoice(f)}
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 text-slate-700 text-[9px] font-bold uppercase tracking-wider hover:bg-slate-200 cursor-pointer transition-colors"
-                  >
-                    <FileText className="w-3.5 h-3.5" />
-                    PDF
-                  </button>
+                  {f.estado === 'Borrador' && (
+                    <button
+                      onClick={async () => {
+                        try {
+                          const lines = await loadInvoiceLines(f.id);
+                          setDraftInvoiceEdit({
+                            id: f.id,
+                            numeroFactura: f.numeroFactura,
+                            ivaPct: f.iva_pct ?? 21,
+                            lines: lines.map(l => ({ id: l.id, descripcion: l.descripcion, cantidad: l.cantidad, precio_unitario: l.precio_unitario, subtotal: l.subtotal, tipo: l.tipo })),
+                            saving: false,
+                          });
+                        } catch { showToast('Error cargando líneas de la factura', 'error'); }
+                      }}
+                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-amber-100 text-amber-700 text-[9px] font-bold uppercase tracking-wider hover:bg-amber-200 cursor-pointer transition-colors"
+                    >
+                      ✏️ Editar borrador
+                    </button>
+                  )}
+                  {f.estado !== 'Borrador' && (
+                    <button
+                      onClick={() => printInvoice(f)}
+                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 text-slate-700 text-[9px] font-bold uppercase tracking-wider hover:bg-slate-200 cursor-pointer transition-colors"
+                    >
+                      <FileText className="w-3.5 h-3.5" />
+                      PDF
+                    </button>
+                  )}
+                  {f.estado === 'Borrador' && (
+                    <button
+                      onClick={() => printInvoice(f)}
+                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 text-slate-700 text-[9px] font-bold uppercase tracking-wider hover:bg-slate-200 cursor-pointer transition-colors"
+                    >
+                      <FileText className="w-3.5 h-3.5" />
+                      Vista previa
+                    </button>
+                  )}
                   <button
                     onClick={() => {
                       const cliente = clientes.find(c => c.nombre === f.nombreCliente);
                       const quotePartidas = presupuestos.find(p => p.id === f.idPresupuesto)?.partidas ?? [];
                       const partidas = quotePartidas.length > 0 ? quotePartidas : f.concepto ? [{ descripcion: f.concepto, tipo: 'mano_de_obra' as const, cantidad: 1, precioUnitario: f.importe, total: f.importe }] : [];
-                      downloadAsWordDocx({ tipo: 'factura', numero: f.numeroFactura, fecha: f.fecha, fechaVencimiento: f.fechaVencimiento, clienteNombre: f.nombreCliente, clienteDireccion: cliente?.direccion, clienteEmail: cliente?.email, empresa: empresaAjustes, partidas, total: f.importe, iva: empresaAjustes.ivaDefault || 21, estado: f.estado }, f.numeroFactura);
+                      downloadAsWordDocx({ tipo: 'factura', numero: f.numeroFactura, fecha: f.fecha, fechaVencimiento: f.fechaVencimiento, clienteNombre: f.nombreCliente, clienteDireccion: cliente?.direccion, clienteEmail: cliente?.email, empresa: empresaAjustes, partidas, total: f.importe, iva: f.iva_pct ?? 21, estado: f.estado }, f.numeroFactura);
                     }}
                     className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-blue-100 text-blue-700 text-[9px] font-bold uppercase tracking-wider hover:bg-blue-200 cursor-pointer transition-colors"
                     title="Descargar como Word editable"
@@ -9594,9 +9685,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 onChange={e => setEmpresaAjustes(p => ({ ...p, email: e.target.value }))} />
             </div>
             <div>
-              <span className={lbl}>IVA por defecto (%)</span>
+              <span className={lbl}>IVA predeterminado</span>
               <input type="number" min={0} max={100} className={`${inp} font-mono`} value={empresaAjustes.ivaDefault}
                 onChange={e => setEmpresaAjustes(p => ({ ...p, ivaDefault: Number(e.target.value) }))} />
+              <p className="mt-1 text-[10px] text-slate-400">Se aplicará inicialmente a los nuevos presupuestos y facturas. Podrás modificarlo en cada documento.</p>
             </div>
             <div>
               <span className={lbl}>Teléfono fijo</span>
@@ -10647,6 +10739,148 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
           </div>
         )}
+
+
+      {/* Modal Editar Borrador de Factura */}
+      {draftInvoiceEdit && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Factura borrador</p>
+                <h2 className="text-lg font-bold text-slate-800">{draftInvoiceEdit.numeroFactura}</h2>
+              </div>
+              <button
+                onClick={() => setDraftInvoiceEdit(null)}
+                className="p-2 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto px-6 py-4 space-y-5">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">IVA aplicable</p>
+                <div className="flex gap-2">
+                  {[0, 4, 10, 21].map(pct => (
+                    <button
+                      key={pct}
+                      onClick={() => setDraftInvoiceEdit(prev => prev ? { ...prev, ivaPct: pct } : prev)}
+                      className={`px-4 py-2 rounded-lg text-sm font-bold border transition cursor-pointer ${
+                        draftInvoiceEdit.ivaPct === pct
+                          ? 'bg-blue-600 text-white border-blue-600'
+                          : 'bg-white text-slate-600 border-slate-200 hover:border-blue-300'
+                      }`}
+                    >
+                      {pct}%
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">Partidas</p>
+                {draftInvoiceEdit.lines.length === 0 ? (
+                  <p className="text-sm text-slate-400 italic">Sin partidas</p>
+                ) : (
+                  <div className="border border-slate-200 rounded-xl overflow-hidden">
+                    <table className="w-full text-xs">
+                      <thead className="bg-slate-50 border-b border-slate-200">
+                        <tr>
+                          <th className="text-left px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">Descripción</th>
+                          <th className="text-right px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-500 w-16">Cant.</th>
+                          <th className="text-right px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-500 w-24">P. Unit.</th>
+                          <th className="text-right px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-500 w-24">Subtotal</th>
+                          <th className="w-8"></th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {draftInvoiceEdit.lines.map((line, idx) => (
+                          <tr key={idx} className="hover:bg-slate-50/50">
+                            <td className="px-3 py-2 text-slate-700">{line.descripcion}</td>
+                            <td className="px-3 py-2 text-right text-slate-600 tabular-nums">{line.cantidad}</td>
+                            <td className="px-3 py-2 text-right text-slate-600 tabular-nums">{line.precio_unitario.toFixed(2)} €</td>
+                            <td className="px-3 py-2 text-right font-semibold text-slate-800 tabular-nums">{line.subtotal.toFixed(2)} €</td>
+                            <td className="px-3 py-2 text-center">
+                              <button
+                                onClick={() => setDraftInvoiceEdit(prev => prev ? {
+                                  ...prev,
+                                  lines: prev.lines.filter((_, i) => i !== idx),
+                                } : prev)}
+                                className="text-red-400 hover:text-red-600 transition-colors cursor-pointer font-bold text-base leading-none"
+                                title="Eliminar partida"
+                              >
+                                ×
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+
+              <div className="bg-slate-50 rounded-xl px-4 py-3 space-y-1">
+                {(() => {
+                  const neto = draftInvoiceEdit.lines.reduce((s, l) => s + l.subtotal, 0);
+                  const ivaImporte = Math.round(neto * draftInvoiceEdit.ivaPct) / 100;
+                  const total = neto + ivaImporte;
+                  return (
+                    <>
+                      <div className="flex justify-between text-xs text-slate-600">
+                        <span>Base imponible</span>
+                        <span className="tabular-nums">{neto.toFixed(2)} €</span>
+                      </div>
+                      <div className="flex justify-between text-xs text-slate-600">
+                        <span>IVA {draftInvoiceEdit.ivaPct}%</span>
+                        <span className="tabular-nums">{ivaImporte.toFixed(2)} €</span>
+                      </div>
+                      <div className="flex justify-between text-sm font-bold text-slate-800 border-t border-slate-200 pt-1 mt-1">
+                        <span>TOTAL</span>
+                        <span className="tabular-nums">{total.toFixed(2)} €</span>
+                      </div>
+                    </>
+                  );
+                })()}
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-3 px-6 py-4 border-t border-slate-200">
+              <button
+                onClick={() => setDraftInvoiceEdit(null)}
+                className="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+              >
+                Cancelar
+              </button>
+              <button
+                disabled={draftInvoiceEdit.saving}
+                onClick={async () => {
+                  if (!draftInvoiceEdit) return;
+                  setDraftInvoiceEdit(prev => prev ? { ...prev, saving: true } : prev);
+                  try {
+                    await updateDraftInvoice(draftInvoiceEdit.id, draftInvoiceEdit.ivaPct, draftInvoiceEdit.lines);
+                    const neto = draftInvoiceEdit.lines.reduce((s, l) => s + l.subtotal, 0);
+                    setFacturas(prev => prev.map(f =>
+                      f.id === draftInvoiceEdit.id
+                        ? { ...f, importe: neto, iva_pct: draftInvoiceEdit.ivaPct }
+                        : f,
+                    ));
+                    showToast('Borrador actualizado ✓', 'success');
+                    setDraftInvoiceEdit(null);
+                  } catch {
+                    showToast('Error al guardar el borrador', 'error');
+                    setDraftInvoiceEdit(prev => prev ? { ...prev, saving: false } : prev);
+                  }
+                }}
+                className="px-5 py-2 rounded-lg text-sm font-bold bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
+              >
+                {draftInvoiceEdit.saving ? 'Guardando...' : 'Guardar cambios'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       </div>
     );

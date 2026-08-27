@@ -161,10 +161,11 @@ numeroFactura: string;
 nombreCliente: string;
 idPresupuesto: string;
 job_id?: string | null;
-importe: number;
+importe: number;     // subtotal (base imponible, sin IVA)
+iva_pct?: number;    // snapshot fiscal — no leer de empresaAjustes para PDFs/Word
 fecha: string;
 fechaVencimiento: string;
-estado: 'Pagada' | 'Pendiente' | 'Vencida' | 'Devuelta';
+estado: 'Borrador' | 'Emitida' | 'Pagada' | 'Pendiente' | 'Vencida' | 'Devuelta';
 concepto?: string;
 esMantenimineto?: boolean;
 }

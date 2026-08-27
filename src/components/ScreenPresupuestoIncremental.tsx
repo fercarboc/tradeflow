@@ -121,6 +121,7 @@ export interface ScreenPresupuestoIncrementalProps {
   onClose: () => void;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   orgId?: string;
+  ivaDefault?: number;
 }
 
 type Phase = 'categoria' | 'mudanza_detalles' | 'red_detalles' | 'clima_detalles' | 'acumulando' | 'resultado';
@@ -168,7 +169,7 @@ function buildMudanzaTexto(m: MudanzaDetalles, categoria: string): string {
   return lines.join('\n');
 }
 
-export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showToast, orgId }: ScreenPresupuestoIncrementalProps) {
+export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showToast, orgId, ivaDefault }: ScreenPresupuestoIncrementalProps) {
   const [phase, setPhase]               = useState<Phase>('categoria');
   const [categoria, setCategoria]       = useState('');
   const [customText, setCustomText]     = useState('');
@@ -1570,8 +1571,9 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
 
       {/* Footer: confirmar (resultado) */}
       {phase === 'resultado' && (() => {
+        const ivaPct = ivaDefault ?? 21;
         const neto = partidas.reduce((s, p) => s + (p.precioUnitario > 0 ? p.precioUnitario * p.cantidad : 0), 0);
-        const totalConIva = neto * 1.21;
+        const totalConIva = neto * (1 + ivaPct / 100);
         return (
           <div className="absolute bottom-0 left-0 right-0 px-5 pb-8 pt-4 bg-gradient-to-t from-[#080C10] via-[#080C10]/90 to-transparent space-y-2">
             {neto > 0 && (
@@ -1581,7 +1583,7 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
                   <span className="text-[10px] text-white/25">·</span>
                   <span className="text-[10px] text-white/40">{neto.toLocaleString('es-ES', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} € neto</span>
                   <span className="text-[10px] text-white/25">+</span>
-                  <span className="text-[10px] text-white/40">IVA 21%</span>
+                  <span className="text-[10px] text-white/40">IVA {ivaPct}%</span>
                 </div>
                 <span className="text-sm font-black text-amber-400 font-mono shrink-0">
                   {totalConIva.toLocaleString('es-ES', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} €
