@@ -176,6 +176,11 @@ nombre: string;
 telefono: string;
 email: string;
 direccion: string;
+nif?: string;
+ciudad?: string;
+cp?: string;
+provincia?: string;
+pais?: string;
 obrasActivas: number;
 totalFacturado: number;
 }

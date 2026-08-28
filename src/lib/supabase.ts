@@ -37,6 +37,7 @@ export interface TradeOrganization {
   titular_cuenta?: string;
   base_latitud?: number | null;
   base_longitud?: number | null;
+  timezone?: string;
   created_at: string;
   updated_at: string;
   // Internal admin-only fields — not displayed in normal installer UI
@@ -57,6 +58,9 @@ export interface TradeClient {
   email?: string;
   direccion?: string;
   ciudad?: string;
+  cp?: string;
+  provincia?: string;
+  pais?: string;
   nif?: string;
   notas?: string;
   obras_activas: number;
@@ -135,16 +139,46 @@ export interface TradeInvoice {
   razon_social_cliente?: string | null;
   nif_cliente?: string | null;
   direccion_cliente?: string | null;
+  localidad_cliente?: string | null;
+  cp_cliente?: string | null;
+  provincia_cliente?: string | null;
+  pais_cliente?: string | null;
   notas_internas?: string | null;
   rectifica_factura_id?: string | null;
   motivo_rectificacion?: string | null;
-  factura_original_id?: string | null;
   // VeriFactu (RD 1007/2023)
   verifactu_hash?: string | null;
   verifactu_hash_anterior?: string | null;
+  verifactu_generated_at?: string | null;
+  fiscal_record_id?: string | null;
   view_token?: string | null;
   created_at: string;
   updated_at: string;
+}
+
+export interface TradeFiscalRecord {
+  id: string;
+  org_id: string;
+  invoice_id?: string | null;
+  record_type: 'alta' | 'anulacion';
+  nif_emisor: string;
+  numero_factura: string;
+  serie_factura?: string | null;
+  tipo_factura_vf: string;
+  fecha_expedicion: string;
+  fecha_expedicion_vf: string;
+  cuota_iva: number;
+  importe_total: number;
+  previous_record_id?: string | null;
+  previous_numero?: string | null;
+  previous_hash?: string | null;
+  hash: string;
+  hash_input: string;
+  generated_at: string;
+  generated_at_str: string;
+  timezone_used: string;
+  payload_version: string;
+  created_at: string;
 }
 
 export interface TradeInvoiceLine {
@@ -652,43 +686,68 @@ export async function saveQuote(
 }
 
 export async function convertToInvoice(quote: TradeQuote, orgId: string): Promise<TradeInvoice> {
-  const year = new Date().getFullYear();
-
-  // Contar solo facturas serie F (trabajo puntual) para numeración correlativa
-  const { count } = await supabase
-    .from('trade_invoices')
-    .select('*', { count: 'exact', head: true })
-    .eq('org_id', orgId)
-    .eq('serie', 'F')
-    .neq('estado', 'Borrador');
-
-  const numero = `F-${year}-${String((count ?? 0) + 1).padStart(4, '0')}`;
   const due = new Date();
   due.setDate(due.getDate() + 30);
   const today = new Date().toISOString().split('T')[0];
 
   const ivaPct = quote.iva_pct ?? 21;
   const subtotal = quote.total_neto ?? 0;
-  const ivaImporte = Math.round(subtotal * ivaPct) / 100;
-  const total = subtotal + ivaImporte;
 
+  // Cargar snapshot fiscal del cliente desde CRM
+  let snapshot: {
+    razon_social_cliente: string | null;
+    nif_cliente: string | null;
+    direccion_cliente: string | null;
+    localidad_cliente: string | null;
+    cp_cliente: string | null;
+    provincia_cliente: string | null;
+    pais_cliente: string | null;
+  } = {
+    razon_social_cliente: (quote as unknown as Record<string,unknown>).nombre_cliente as string ?? null,
+    nif_cliente: null,
+    direccion_cliente: null,
+    localidad_cliente: null,
+    cp_cliente: null,
+    provincia_cliente: null,
+    pais_cliente: null,
+  };
+
+  if (quote.client_id) {
+    const { data: client } = await supabase
+      .from('trade_clients')
+      .select('nombre, nif, direccion, ciudad, cp, provincia, pais')
+      .eq('id', quote.client_id)
+      .single();
+    if (client) {
+      snapshot = {
+        razon_social_cliente: client.nombre ?? snapshot.razon_social_cliente,
+        nif_cliente: client.nif ? normalizaNif(client.nif) : null,
+        direccion_cliente: client.direccion ?? null,
+        localidad_cliente: client.ciudad ?? null,
+        cp_cliente: client.cp ?? null,
+        provincia_cliente: client.provincia ?? null,
+        pais_cliente: client.pais ?? null,
+      };
+    }
+  }
+
+  // Crea siempre como Borrador. El número definitivo lo asigna emitirFactura() via RPC.
   const { data: inv, error } = await supabase
     .from('trade_invoices')
     .insert({
       org_id: orgId,
       quote_id: quote.id,
       client_id: quote.client_id ?? null,
-      numero,
+      numero: `BORRADOR-${Date.now()}`,
       serie: 'F',
       tipo_factura: 'trabajo_puntual',
-      estado: 'Emitida',
+      estado: 'Borrador',
       subtotal,
       iva_pct: ivaPct,
       fecha: today,
-      fecha_emision: today,
       fecha_vencimiento: due.toISOString().split('T')[0],
       concepto: quote.descripcion ?? null,
-      razon_social_cliente: (quote as unknown as Record<string,unknown>).nombre_cliente as string ?? null,
+      ...snapshot,
     })
     .select()
     .single();
@@ -1088,7 +1147,7 @@ export async function submitCatalogSuggestion(orgId: string, params: {
 
 export async function addClient(
   orgId: string,
-  client: Pick<TradeClient, 'nombre'> & Partial<Pick<TradeClient, 'telefono' | 'email' | 'direccion' | 'nif' | 'ciudad'>>,
+  client: Pick<TradeClient, 'nombre'> & Partial<Pick<TradeClient, 'telefono' | 'email' | 'direccion' | 'ciudad' | 'nif' | 'cp' | 'provincia' | 'pais'>>,
 ): Promise<TradeClient> {
   const { data, error } = await supabase
     .from('trade_clients')
@@ -1111,10 +1170,14 @@ export async function loadClients(orgId: string): Promise<TradeClient[]> {
 
 export async function updateClient(
   id: string,
-  data: Partial<Pick<TradeClient, 'nombre' | 'telefono' | 'email' | 'direccion' | 'ciudad' | 'nif' | 'notas'>>,
+  data: Partial<Pick<TradeClient, 'nombre' | 'telefono' | 'email' | 'direccion' | 'ciudad' | 'nif' | 'cp' | 'provincia' | 'pais' | 'notas'>>,
 ): Promise<void> {
   const { error } = await supabase.from('trade_clients').update(data).eq('id', id);
   if (error) throw error;
+}
+
+export function normalizaNif(raw: string): string {
+  return raw.trim().toUpperCase();
 }
 
 // ── Facturas ──────────────────────────────────────────────────────────────
@@ -1192,9 +1255,48 @@ export async function createInvoiceLines(
   if (error) throw error;
 }
 
-// ── VeriFactu — Huella digital (RD 1007/2023) ─────────────────────────────
-// Input: CIF;NumFactura;FechaDD-MM-YYYY;TipoFactura;CuotaIVA;Total;HashAnterior
-// Output: SHA-256 en hexadecimal mayúsculas
+// ── VeriFactu — Huella digital (RD 1007/2023 + Orden HAC/1177/2024) ────────
+// Campos del input (separados por ';'):
+//   IDEmisorFactura ; NumSerieFactura ; FechaExpedicionFacturaEmisor (DD-MM-YYYY) ;
+//   TipoFactura (L2) ; CuotaTotal (.2f) ; ImporteTotal (.2f) ;
+//   HuellaAnterior (64 hex / '0') ; FechaHoraHusoGenRegistro (ISO 8601 + UTC offset)
+// Output: SHA-256 en hexadecimal MAYÚSCULAS (64 chars)
+
+// Formato ISO 8601 con huso horario UTC — reproducible desde timestamptz en DB.
+function formatGeneratedAt(d: Date): string {
+  return d.toISOString().replace(/\.\d{3}Z$/, '+00:00');
+}
+
+// TipoFactura L2 según Orden HAC/1177/2024.
+// F1 = factura completa. F2 = simplificada (ticket). R1-R5 = rectificativas.
+// TODAS las facturas de TrabFlow son facturas completas → F1.
+// Las rectificativas bloquean emisión hasta que se implemente el flujo R1-R5.
+function getTipoFacturaVF(tipoFactura: string | null | undefined): string {
+  if (tipoFactura === 'rectificativa') {
+    throw new Error(
+      'Emisión bloqueada: las facturas rectificativas requieren TipoFactura R1-R5 ' +
+      'según la Orden HAC/1177/2024. Completa la clasificación antes de emitir.',
+    );
+  }
+  return 'F1';
+}
+
+// Construye el input del hash, separable para tests deterministas.
+export function buildVeriFactuHashInput(
+  cif: string,
+  numero: string,
+  fechaDDMMYYYY: string,
+  tipoFactura: string,
+  cuotaIVA: number,
+  total: number,
+  hashAnterior: string,
+  generatedAt: string,
+): string {
+  return [
+    cif, numero, fechaDDMMYYYY, tipoFactura,
+    cuotaIVA.toFixed(2), total.toFixed(2), hashAnterior, generatedAt,
+  ].join(';');
+}
 
 export async function computeVeriFactuHash(
   cif: string,
@@ -1204,76 +1306,27 @@ export async function computeVeriFactuHash(
   cuotaIVA: number,
   total: number,
   hashAnterior: string,
+  generatedAt: string,
 ): Promise<string> {
-  const input = [cif, numero, fechaDDMMYYYY, tipoFactura,
-    cuotaIVA.toFixed(2), total.toFixed(2), hashAnterior].join(';');
+  const input = buildVeriFactuHashInput(cif, numero, fechaDDMMYYYY, tipoFactura, cuotaIVA, total, hashAnterior, generatedAt);
   const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(input));
   return Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
 }
 
 export async function emitirFactura(id: string, orgId: string): Promise<TradeInvoice> {
-  const year = new Date().getFullYear();
-  const { data: inv } = await supabase.from('trade_invoices')
-    .select('serie, tipo_factura, subtotal, iva_importe, total, iva_pct')
-    .eq('id', id).single();
-  const serie = inv?.serie ?? 'F';
+  // Emisión atómica via RPC PostgreSQL con advisory lock.
+  // La BD calcula el número, el hash y gestiona el encadenamiento.
+  const { error: rpcError } = await supabase.rpc('fn_emitir_factura', {
+    p_invoice_id: id,
+    p_org_id: orgId,
+  });
+  if (rpcError) throw new Error(rpcError.message);
 
-  const { count } = await supabase
-    .from('trade_invoices')
-    .select('*', { count: 'exact', head: true })
-    .eq('org_id', orgId)
-    .eq('serie', serie)
-    .neq('estado', 'Borrador');
-
-  const numero = `${serie}-${year}-${String((count ?? 0) + 1).padStart(4, '0')}`;
-  const now = new Date().toISOString();
-  const fechaEmision = now.split('T')[0];
-  const due = new Date(); due.setDate(due.getDate() + 30);
-
-  // Obtener hash de la factura anterior (encadenamiento VeriFactu)
-  const { data: prevInv } = await supabase
-    .from('trade_invoices')
-    .select('verifactu_hash')
-    .eq('org_id', orgId)
-    .eq('serie', serie)
-    .not('verifactu_hash', 'is', null)
-    .neq('estado', 'Borrador')
-    .order('fecha_emision', { ascending: false })
-    .limit(1)
-    .maybeSingle();
-
-  const hashAnterior = prevInv?.verifactu_hash ?? '0';
-
-  // Calcular huella VeriFactu
-  const [dd, mm] = fechaEmision.split('-').reverse(); // AAAA-MM-DD → DD, MM
-  const fechaVF = `${dd}-${mm}-${year}`;
-  const tipoVF = serie === 'M' ? 'F2' : 'F1'; // F1=normal, F2=mantenimiento
-  const ivaImporte = inv?.iva_importe ?? (inv?.subtotal ?? 0) * ((inv?.iva_pct ?? 21) / 100);
-  const totalInv = inv?.total ?? 0;
-
-  // Necesitamos el CIF del emisor — lo obtenemos de la org
-  const { data: orgData } = await supabase
-    .from('trade_organizations')
-    .select('nif')
-    .eq('id', orgId)
-    .single();
-  const cif = orgData?.nif ?? 'UNKNOWN';
-
-  const verifactuHash = await computeVeriFactuHash(cif, numero, fechaVF, tipoVF, ivaImporte, totalInv, hashAnterior);
-
+  // Recargar la factura completa post-emisión
   const { data, error } = await supabase
     .from('trade_invoices')
-    .update({
-      estado: 'Emitida',
-      numero,
-      fecha: fechaEmision,
-      fecha_emision: now,
-      fecha_vencimiento: due.toISOString().split('T')[0],
-      verifactu_hash: verifactuHash,
-      verifactu_hash_anterior: hashAnterior === '0' ? null : hashAnterior,
-    })
+    .select('*')
     .eq('id', id)
-    .select()
     .single();
   if (error) throw error;
   return data as TradeInvoice;
@@ -1349,9 +1402,7 @@ export async function crearFacturaRectificadora(
       razon_social_cliente: orig.razon_social_cliente,
       nif_cliente: orig.nif_cliente,
       direccion_cliente: orig.direccion_cliente,
-      factura_original_id: originalId,
-      created_at: now,
-      updated_at: now,
+      rectifica_factura_id: originalId,
     })
     .select()
     .single();

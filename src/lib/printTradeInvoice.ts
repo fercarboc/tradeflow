@@ -25,6 +25,10 @@ export function buildInvoiceHtml(
   const clienteNombre = inv.razon_social_cliente ?? inv.trade_clients?.nombre ?? '—';
   const clienteNif    = inv.nif_cliente ?? '';
   const clienteDir    = inv.direccion_cliente ?? '';
+  const clienteCp         = inv.cp_cliente ?? '';
+  const clienteLocalidad  = inv.localidad_cliente ?? '';
+  const clienteProvincia  = inv.provincia_cliente ?? '';
+  const clientePais       = inv.pais_cliente ?? '';
 
   const empresaNombre = org.razon_social ?? org.nombre ?? 'Empresa';
   const empresaCif    = org.cif ?? org.nif ?? '';
@@ -116,7 +120,7 @@ export function buildInvoiceHtml(
       </div>
     </div>
 
-    ${esRectificativa ? `<div class="rectif-notice">⚠ Factura rectificativa de ${inv.factura_original_id ? 'la factura original' : ''}. Anula y sustituye los importes de la factura original.</div>` : ''}
+    ${esRectificativa ? `<div class="rectif-notice">⚠ Factura rectificativa de ${inv.rectifica_factura_id ? 'la factura original' : ''}. Anula y sustituye los importes de la factura original.</div>` : ''}
 
     <div class="info-grid">
       <div class="info-box">
@@ -124,6 +128,9 @@ export function buildInvoiceHtml(
         <div style="font-size:12.5px;font-weight:700;color:#0f172a">${clienteNombre}</div>
         ${clienteNif ? `<div style="font-size:11px;color:#64748b;margin-top:2px">NIF/CIF: ${clienteNif}</div>` : ''}
         ${clienteDir ? `<div style="font-size:11px;color:#64748b;margin-top:2px">${clienteDir}</div>` : ''}
+        ${(clienteCp || clienteLocalidad) ? `<div style="font-size:11px;color:#64748b;margin-top:1px">${[clienteCp, clienteLocalidad].filter(Boolean).join(' ')}</div>` : ''}
+        ${clienteProvincia ? `<div style="font-size:11px;color:#64748b;margin-top:1px">${clienteProvincia}</div>` : ''}
+        ${clientePais && clientePais !== 'España' ? `<div style="font-size:11px;color:#64748b;margin-top:1px">${clientePais}</div>` : ''}
       </div>
       <div class="info-box">
         <div class="info-label">Datos de la factura</div>
@@ -207,7 +214,7 @@ export function buildInvoiceHtml(
     ` : `
     <div style="margin-top:16px;padding-top:12px;border-top:1px solid #f1f5f9;text-align:center;font-size:9px;color:#cbd5e1;line-height:1.6">
       Factura expedida en el marco del Reglamento de Sistemas de Facturación Verificable (VeriFactu) · RD 1007/2023<br>
-      Nº Registro: <span style="font-family:monospace">${inv.numero}</span>
+      Registro en proceso de validación fiscal.
     </div>
     `}
   </body></html>`;
