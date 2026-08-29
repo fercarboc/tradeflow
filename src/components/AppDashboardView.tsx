@@ -1651,6 +1651,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [quickClientEmail, setQuickClientEmail] = useState('');
 
   const finishWizardAndSave = async (clientName: string, clientPhone: string) => {
+    if (savingQuoteRef.current) return;
+    savingQuoteRef.current = true;
     const finalQuote = { ...wizardQuote, nombreCliente: clientName || 'Sin nombre', telefonoCliente: clientPhone } as Presupuesto;
     // Aprender precios rellenados por el usuario antes de guardar
     autoLearnPrices(finalQuote.partidas ?? [], wizardOrigin);
@@ -1707,62 +1709,84 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       setAiLearningData(null);
     }
     let savedQuote = finalQuote;
-    if (isLiveMode && orgId && finalQuote.partidas?.length) {
-      const phone = clientPhone.trim().replace(/\s/g, '');
-      const existingClient = phone
-        ? clientes.find(c => (c.telefono ?? '').replace(/\s/g, '') === phone)
-        : clientes.find(c => c.nombre === clientName);
-      let clientId = existingClient?.id;
-      if (existingClient) {
-        showToast(`Cliente existente: ${existingClient.nombre}`, 'info');
-      } else if (clientName.trim()) {
-        try {
-          const nc = await addClient(orgId, { nombre: clientName.trim(), telefono: phone || undefined, email: quickClientEmail.trim() || undefined });
-          if (nc) { clientId = nc.id; setClientes(prev => [nc as unknown as Cliente, ...prev]); }
-        } catch { /* skip */ }
+    try {
+      if (isLiveMode && orgId && finalQuote.partidas?.length) {
+        const phone = clientPhone.trim().replace(/\s/g, '');
+        const existingClient = phone
+          ? clientes.find(c => (c.telefono ?? '').replace(/\s/g, '') === phone)
+          : clientes.find(c => c.nombre === clientName);
+        let clientId = existingClient?.id;
+        if (existingClient) {
+          showToast(`Cliente existente: ${existingClient.nombre}`, 'info');
+        } else if (clientName.trim()) {
+          try {
+            const nc = await addClient(orgId, { nombre: clientName.trim(), telefono: phone || undefined, email: quickClientEmail.trim() || undefined });
+            if (nc) { clientId = nc.id; setClientes(prev => [nc as unknown as Cliente, ...prev]); }
+          } catch { /* skip */ }
+        }
+        if (clientId) {
+          const itemsPayload = (finalQuote.partidas ?? []).map(p => ({
+            descripcion: p.descripcion,
+            tipo: p.tipo,
+            cantidad: p.cantidad,
+            precio_unitario: p.precioUnitario,
+            precio_material: p.precioCoste ?? null,
+            supplier_key: p.supplier_key ?? null,
+            supplier_name: p.supplier_name ?? null,
+            supplier_ref: p.supplier_ref ?? null,
+            catalog_variant_id: p.catalog_variant_id ?? null,
+            familia: p.familia ?? null,
+          }));
+          if (editingQuoteId) {
+            // Edit: no inner catch — error bubbles to outer catch to keep wizard open
+            const ivaPct = wizardQuote.iva_pct ?? empresaAjustes.ivaDefault;
+            const dbQuote = await updateQuote(editingQuoteId, clientId, finalQuote.descripcion ?? '', itemsPayload, ivaPct);
+            savedQuote = { ...finalQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'] };
+          } else {
+            // Create: swallow error, fall through with local copy (original behavior)
+            try {
+              const dbQuote = await saveQuote(
+                orgId, clientId, finalQuote.descripcion ?? '',
+                itemsPayload,
+                kbActuacionesSaved.length > 0 ? kbActuacionesSaved : undefined,
+                empresaAjustes.ivaDefault,
+              );
+              savedQuote = { ...finalQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], kbActuaciones: dbQuote.kb_actuaciones ?? undefined };
+            } catch (e) { console.error('Error guardando presupuesto:', e); }
+          }
+        }
       }
-      if (clientId) {
-        try {
-          const dbQuote = await saveQuote(
-            orgId, clientId, finalQuote.descripcion ?? '',
-            (finalQuote.partidas ?? []).map(p => ({
-              descripcion: p.descripcion,
-              tipo: p.tipo,
-              cantidad: p.cantidad,
-              precio_unitario: p.precioUnitario,
-              precio_material: p.precioCoste ?? null,
-              supplier_key: p.supplier_key ?? null,
-              supplier_name: p.supplier_name ?? null,
-              supplier_ref: p.supplier_ref ?? null,
-              catalog_variant_id: p.catalog_variant_id ?? null,
-              familia: p.familia ?? null,
-            })),
-            kbActuacionesSaved.length > 0 ? kbActuacionesSaved : undefined,
-            empresaAjustes.ivaDefault,
-          );
-          savedQuote = { ...finalQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], kbActuaciones: dbQuote.kb_actuaciones ?? undefined };
-        } catch (e) { console.error('Error guardando presupuesto:', e); }
+
+      // ── Estado + flujo post-guardado ─────────────────────────────────────
+      if (editingQuoteId) {
+        setPresupuestos(prev => prev.map(p => p.dbId === editingQuoteId ? savedQuote : p));
+        setEditingQuoteId(null);
+      } else {
+        setPresupuestos(prev => [savedQuote, ...prev]);
       }
-    }
-    setPresupuestos(prev => [savedQuote, ...prev]);
 
-    // Vincular presupuesto al trabajo que lo originó
-    if (pendingPresupuestoJobId && savedQuote.id) {
-      const jid = pendingPresupuestoJobId;
-      setPendingPresupuestoJobId(null);
-      updateJob(jid, { quote_id: savedQuote.id }).catch(() => {});
-      setJobs(prev => prev.map(j => j.id === jid ? { ...j, quote_id: savedQuote.id } : j));
-    }
+      if (pendingPresupuestoJobId && savedQuote.id) {
+        const jid = pendingPresupuestoJobId;
+        setPendingPresupuestoJobId(null);
+        updateJob(jid, { quote_id: savedQuote.id }).catch(() => {});
+        setJobs(prev => prev.map(j => j.id === jid ? { ...j, quote_id: savedQuote.id } : j));
+      }
 
-    setWizardActive(false);
-    setShowQuickClientModal(false);
-    if (isNativeDevice) {
-      setPostConfirmQuote(savedQuote);
-    } else {
-      setTargetQuoteForWhatsApp(savedQuote);
-      setWhatsAppStep('confirm');
-      setShowWhatsAppModal(true);
-      setMobileTab('presupuestos');
+      setWizardActive(false);
+      setShowQuickClientModal(false);
+      if (isNativeDevice) {
+        setPostConfirmQuote(savedQuote);
+      } else {
+        setTargetQuoteForWhatsApp(savedQuote);
+        setWhatsAppStep('confirm');
+        setShowWhatsAppModal(true);
+        setMobileTab('presupuestos');
+      }
+    } catch (e: any) {
+      // Edit failed: wizard stays open, editingQuoteId preserved
+      showToast('Error al actualizar: ' + (e?.message ?? 'Error desconocido'), 'error');
+    } finally {
+      savingQuoteRef.current = false;
     }
   };
 
@@ -2083,6 +2107,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [mktPendingCount, setMktPendingCount] = useState(0);
   const [postConfirmQuote, setPostConfirmQuote] = useState<Presupuesto | null>(null);
   const [editingQuoteId, setEditingQuoteId] = useState<string | null>(null); // null = crear nuevo, string = editar existente
+  const savingQuoteRef = useRef(false);
   // Subcontratas vinculadas al presupuesto en preview
   const [previewSubcontratas, setPreviewSubcontratas] = useState<TradeSubcontrata[]>([]);
   const [previewProveedores, setPreviewProveedores] = useState<TradeSubcontractor[]>([]);
@@ -2124,7 +2149,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   });
 
   const [isClientModalOpen, setIsClientModalOpen] = useState<boolean>(false);
-  const [newClient, setNewClient] = useState<Partial<Cliente>>({ nombre: '', telefono: '', email: '', direccion: '' });
+  const [editingClientId, setEditingClientId] = useState<string | null>(null);
+  const [newClient, setNewClient] = useState<Partial<Cliente>>({ nombre: '', telefono: '', email: '', direccion: '', nif: '', cp: '', ciudad: '', provincia: '', pais: '' });
   const [emailModalCliente, setEmailModalCliente] = useState<Cliente | null>(null);
 
   const TARIFA_SUGERIDA = 52;
@@ -2413,28 +2439,29 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   };
 
   const saveCurrentQuote = async () => {
+    if (savingQuoteRef.current) return;
     if (!editingQuote.nombreCliente) { showToast('Selecciona un cliente', 'error'); return; }
     if (editingQuote.partidas.length === 0) { showToast('Añade al menos una partida', 'error'); return; }
+    savingQuoteRef.current = true;
+    try {
+      const isEditing = !!editingQuoteId;
+      let saved: Presupuesto;
+      const partidasPayload = editingQuote.partidas.map(p => ({
+        descripcion: p.descripcion,
+        tipo: p.tipo,
+        cantidad: p.cantidad,
+        precio_unitario: p.precioUnitario,
+        precio_material: p.precioCoste ?? null,
+        supplier_key: p.supplier_key ?? null,
+        supplier_name: p.supplier_name ?? null,
+        supplier_ref: p.supplier_ref ?? null,
+        catalog_variant_id: p.catalog_variant_id ?? null,
+        familia: p.familia ?? null,
+      }));
 
-    const isEditing = !!editingQuoteId;
-    let saved: Presupuesto;
-    const partidasPayload = editingQuote.partidas.map(p => ({
-      descripcion: p.descripcion,
-      tipo: p.tipo,
-      cantidad: p.cantidad,
-      precio_unitario: p.precioUnitario,
-      precio_material: p.precioCoste ?? null,
-      supplier_key: p.supplier_key ?? null,
-      supplier_name: p.supplier_name ?? null,
-      supplier_ref: p.supplier_ref ?? null,
-      catalog_variant_id: p.catalog_variant_id ?? null,
-      familia: p.familia ?? null,
-    }));
-
-    if (isLiveMode && orgId) {
-      const client = clientes.find(c => c.nombre === editingQuote.nombreCliente);
-      if (!client) { showToast('Cliente no encontrado en CRM', 'error'); return; }
-      try {
+      if (isLiveMode && orgId) {
+        const client = clientes.find(c => c.nombre === editingQuote.nombreCliente);
+        if (!client) { showToast('Cliente no encontrado en CRM', 'error'); return; }
         if (isEditing) {
           const dbQuote = await updateQuote(editingQuoteId, client.id, editingQuote.descripcion, partidasPayload, editingQuote.iva_pct);
           saved = { ...editingQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'] };
@@ -2442,24 +2469,27 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           const dbQuote = await saveQuote(orgId, client.id, editingQuote.descripcion, partidasPayload, undefined, editingQuote.iva_pct ?? empresaAjustes.ivaDefault);
           saved = { id: dbQuote.numero, dbId: dbQuote.id, nombreCliente: editingQuote.nombreCliente, descripcion: dbQuote.descripcion ?? '', partidas: editingQuote.partidas, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], telefonoCliente: editingQuote.telefonoCliente, emailCliente: editingQuote.emailCliente };
         }
-      } catch (e: any) { showToast('Error al guardar: ' + e.message, 'error'); return; }
-    } else {
-      saved = { ...editingQuote, id: editingQuoteId ?? `P-2026-00${presupuestos.length + 1}` };
-    }
+      } else {
+        saved = { ...editingQuote, id: editingQuoteId ?? `P-2026-00${presupuestos.length + 1}` };
+      }
 
-    autoLearnPrices(editingQuote.partidas, 'manual');
-    if (isEditing) {
-      setPresupuestos(prev => prev.map(p => p.id === saved.id ? saved : p));
-    } else {
-      setPresupuestos(prev => [saved, ...prev]);
+      autoLearnPrices(editingQuote.partidas, 'manual');
+      if (isEditing) {
+        setPresupuestos(prev => prev.map(p => p.id === saved.id ? saved : p));
+      } else {
+        setPresupuestos(prev => [saved, ...prev]);
+      }
+      setEditingQuoteId(null);
+      setSelectedQuoteForPreview(saved);
+      setActiveTab('preview');
+      showToast(isEditing ? 'Presupuesto actualizado' : 'Presupuesto guardado');
+      if (!isEditing) { setShowConfetti(true); setTimeout(() => setShowConfetti(false), 3000); }
+      setTimeout(() => printQuote(saved), 600);
+    } catch (e: any) {
+      showToast('Error al guardar: ' + (e?.message ?? 'Error desconocido'), 'error');
+    } finally {
+      savingQuoteRef.current = false;
     }
-    setEditingQuoteId(null);
-    setSelectedQuoteForPreview(saved);
-    setActiveTab('preview');
-    showToast(isEditing ? 'Presupuesto actualizado' : 'Presupuesto guardado');
-    if (!isEditing) { setShowConfetti(true); setTimeout(() => setShowConfetti(false), 3000); }
-    // Auto-generar PDF
-    setTimeout(() => printQuote(saved), 600);
   };
 
   const convertQuoteToInvoice = (presupuesto: Presupuesto) => {
@@ -2533,19 +2563,43 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     return missing;
   };
 
-  const handleAddClient = async () => {
+  const handleSaveClient = async () => {
     if (!newClient.nombre?.trim()) return;
+    const isEditing = !!editingClientId;
+    const fiscalPayload = {
+      nombre: newClient.nombre!,
+      telefono: newClient.telefono ?? '',
+      email: newClient.email ?? '',
+      direccion: newClient.direccion ?? '',
+      nif: newClient.nif || undefined,
+      cp: newClient.cp || undefined,
+      ciudad: newClient.ciudad || undefined,
+      provincia: newClient.provincia || undefined,
+      pais: newClient.pais || undefined,
+    };
     if (isLiveMode && orgId) {
       try {
-        const saved = await addClient(orgId, { nombre: newClient.nombre!, telefono: newClient.telefono ?? '', email: newClient.email ?? '', direccion: newClient.direccion ?? '' });
-        setClientes(prev => [...prev, { id: saved.id, nombre: saved.nombre, telefono: saved.telefono ?? '', email: saved.email ?? '', direccion: saved.direccion ?? '', obrasActivas: 0, totalFacturado: 0 }]);
-        showToast('Cliente añadido ✓', 'success');
+        if (isEditing) {
+          await updateClient(editingClientId!, fiscalPayload);
+          setClientes(prev => prev.map(c => c.id === editingClientId ? { ...c, ...fiscalPayload } : c));
+          showToast('Cliente actualizado ✓', 'success');
+        } else {
+          const saved = await addClient(orgId, fiscalPayload);
+          setClientes(prev => [...prev, { id: saved.id, nombre: saved.nombre, telefono: saved.telefono ?? '', email: saved.email ?? '', direccion: saved.direccion ?? '', nif: saved.nif ?? undefined, cp: saved.cp ?? undefined, ciudad: saved.ciudad ?? undefined, provincia: saved.provincia ?? undefined, pais: saved.pais ?? undefined, obrasActivas: 0, totalFacturado: 0 }]);
+          showToast('Cliente añadido ✓', 'success');
+        }
       } catch (e: any) { showToast('Error al guardar: ' + e.message, 'error'); return; }
     } else {
-      setClientes(prev => [...prev, { id: Date.now().toString(), nombre: newClient.nombre!, telefono: newClient.telefono ?? '', email: newClient.email ?? '', direccion: newClient.direccion ?? '', obrasActivas: 0, totalFacturado: 0 }]);
-      showToast('Cliente añadido (demo) ✓', 'success');
+      if (isEditing) {
+        setClientes(prev => prev.map(c => c.id === editingClientId ? { ...c, ...fiscalPayload } : c));
+        showToast('Cliente actualizado (demo) ✓', 'success');
+      } else {
+        setClientes(prev => [...prev, { id: Date.now().toString(), ...fiscalPayload, obrasActivas: 0, totalFacturado: 0 }]);
+        showToast('Cliente añadido (demo) ✓', 'success');
+      }
     }
-    setNewClient({ nombre: '', telefono: '', email: '', direccion: '' });
+    setNewClient({ nombre: '', telefono: '', email: '', direccion: '', nif: '', cp: '', ciudad: '', provincia: '', pais: '' });
+    setEditingClientId(null);
     setIsClientModalOpen(false);
   };
 
@@ -3011,15 +3065,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         />
       )}
 
-      {/* ================= MODAL NUEVO CLIENTE ================= */}
+      {/* ================= MODAL CLIENTE (CREAR / EDITAR) ================= */}
       {isClientModalOpen && (
         <div className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 w-full max-w-md space-y-4 shadow-2xl">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 w-full max-w-md space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center">
-              <h3 className="font-bold text-sm uppercase tracking-wider text-slate-900 dark:text-white">Nuevo Cliente</h3>
-              <button onClick={() => setIsClientModalOpen(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer"><X className="w-5 h-5" /></button>
+              <h3 className="font-bold text-sm uppercase tracking-wider text-slate-900 dark:text-white">
+                {editingClientId ? 'Editar Cliente' : 'Nuevo Cliente'}
+              </h3>
+              <button onClick={() => { setIsClientModalOpen(false); setEditingClientId(null); setNewClient({ nombre: '', telefono: '', email: '', direccion: '', nif: '', cp: '', ciudad: '', provincia: '', pais: '' }); }} className="text-slate-400 hover:text-slate-700 cursor-pointer"><X className="w-5 h-5" /></button>
             </div>
-            {([['nombre','Nombre *','text','Juan García Instalaciones'],['telefono','Teléfono','tel','600 000 000'],['email','Email','email','cliente@email.com'],['direccion','Dirección','text','Calle Mayor 1, Madrid']] as const).map(([field, label, type, ph]) => (
+            {([['nombre','Nombre *','text','Juan García Instalaciones'],['telefono','Teléfono','tel','600 000 000'],['email','Email','email','cliente@email.com'],['nif','NIF / DNI / CIF','text','12345678A'],['direccion','Dirección','text','Calle Mayor 1'],['cp','Código postal','text','28001'],['ciudad','Localidad','text','Madrid'],['provincia','Provincia','text','Madrid'],['pais','País','text','España']] as const).map(([field, label, type, ph]) => (
               <div key={field}>
                 <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">{label}</label>
                 <input type={type} placeholder={ph} value={(newClient as any)[field] ?? ''} onChange={(e) => setNewClient(prev => ({ ...prev, [field]: e.target.value }))}
@@ -3029,8 +3085,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </div>
             ))}
             <div className="flex gap-3 pt-2">
-              <button onClick={() => setIsClientModalOpen(false)} className="flex-1 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 cursor-pointer hover:border-slate-400">Cancelar</button>
-              <button onClick={handleAddClient} className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-bold text-white cursor-pointer">Guardar Cliente</button>
+              <button onClick={() => { setIsClientModalOpen(false); setEditingClientId(null); setNewClient({ nombre: '', telefono: '', email: '', direccion: '', nif: '', cp: '', ciudad: '', provincia: '', pais: '' }); }} className="flex-1 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 cursor-pointer hover:border-slate-400">Cancelar</button>
+              <button onClick={handleSaveClient} className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-bold text-white cursor-pointer">
+                {editingClientId ? 'Actualizar Cliente' : 'Guardar Cliente'}
+              </button>
             </div>
           </div>
         </div>
@@ -4540,6 +4598,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <Mail className="w-3.5 h-3.5" /> Email
               </button>
             </div>
+            {/* Editar datos fiscales */}
+            <button
+              onClick={() => {
+                setEditingClientId(selectedCliente.id);
+                setNewClient({ nombre: selectedCliente.nombre, telefono: selectedCliente.telefono ?? '', email: selectedCliente.email ?? '', direccion: selectedCliente.direccion ?? '', nif: selectedCliente.nif ?? '', cp: selectedCliente.cp ?? '', ciudad: selectedCliente.ciudad ?? '', provincia: selectedCliente.provincia ?? '', pais: selectedCliente.pais ?? '' });
+                setIsClientModalOpen(true);
+              }}
+              className="w-full py-2.5 border border-slate-200 rounded-xl text-[10px] font-bold text-slate-600 uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer hover:bg-slate-50"
+            >
+              <Edit3 className="w-3.5 h-3.5" /> Editar datos
+            </button>
           </div>
 
           {/* Facturas */}
@@ -4684,7 +4753,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             />
           </div>
           <button
-            onClick={() => { setNewClient({ nombre: '', telefono: '', email: '', direccion: '' }); setIsClientModalOpen(true); }}
+            onClick={() => { setNewClient({ nombre: '', telefono: '', email: '', direccion: '', nif: '', cp: '', ciudad: '', provincia: '' }); setIsClientModalOpen(true); }}
             className="bg-blue-600 text-white rounded-2xl px-3.5 py-2.5 flex items-center justify-center cursor-pointer shrink-0"
           >
             <Plus className="w-4 h-4" />
@@ -5122,7 +5191,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               {/* Crear cliente rápido */}
               <button
                 onClick={() => {
-                  setNewClient({ nombre: '', telefono: '', email: '', direccion: '' });
+                  setNewClient({ nombre: '', telefono: '', email: '', direccion: '', nif: '', cp: '', ciudad: '', provincia: '' });
                   setIsClientModalOpen(true);
                 }}
                 className="w-full bg-gray-100 text-gray-700 font-bold p-3.5 rounded-2xl border border-gray-200 text-center uppercase tracking-wider text-[10px] cursor-pointer"
@@ -6515,7 +6584,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
           <button
             onClick={() => {
-              setNewClient({ nombre: '', telefono: '', email: '', direccion: '' });
+              setNewClient({ nombre: '', telefono: '', email: '', direccion: '', nif: '', cp: '', ciudad: '', provincia: '' });
               setIsClientModalOpen(true);
             }}
             className="bg-white border border-slate-200 text-slate-800 rounded-2xl p-5 text-center space-y-2 cursor-pointer flex flex-col items-center justify-center transition-transform hover:scale-101"
@@ -6938,7 +7007,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 ))}
               </select>
               <button
-                onClick={() => { setNewClient({ nombre: '', telefono: '', email: '', direccion: '' }); setIsClientModalOpen(true); }}
+                onClick={() => { setNewClient({ nombre: '', telefono: '', email: '', direccion: '', nif: '', cp: '', ciudad: '', provincia: '' }); setIsClientModalOpen(true); }}
                 className="bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-3 flex items-center justify-center cursor-pointer shrink-0"
                 title="Añadir nuevo cliente"
               >
@@ -7466,6 +7535,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     partidas: q.partidas ?? [],
                     total: q.total ?? 0,
                     estado: q.estado,
+                    iva_pct: q.iva_pct,
                   });
                   setActiveTab('create_quote');
                 }}
@@ -8019,7 +8089,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             />
           </div>
           <button
-            onClick={() => { setNewClient({ nombre: '', telefono: '', email: '', direccion: '' }); setIsClientModalOpen(true); }}
+            onClick={() => { setNewClient({ nombre: '', telefono: '', email: '', direccion: '', nif: '', cp: '', ciudad: '', provincia: '' }); setIsClientModalOpen(true); }}
             className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-4 py-2.5 font-bold uppercase tracking-wider text-[10px] cursor-pointer shrink-0"
           >
             <Plus className="w-3.5 h-3.5" />
