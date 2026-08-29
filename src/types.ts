@@ -173,6 +173,8 @@ esMantenimineto?: boolean;
 export interface Cliente {
 id: string;
 nombre: string;
+apellidos?: string;
+tipo_cliente?: 'particular' | 'autonomo' | 'empresa';
 telefono: string;
 email: string;
 direccion: string;

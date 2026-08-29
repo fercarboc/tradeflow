@@ -54,6 +54,8 @@ export interface TradeClient {
   id: string;
   org_id: string;
   nombre: string;
+  apellidos?: string;
+  tipo_cliente?: 'particular' | 'autonomo' | 'empresa';
   telefono?: string;
   email?: string;
   direccion?: string;
@@ -67,6 +69,11 @@ export interface TradeClient {
   total_facturado: number;
   created_at: string;
   updated_at: string;
+}
+
+export function getClientDisplayName(client: Pick<TradeClient, 'nombre'> & { apellidos?: string | null; tipo_cliente?: string | null }): string {
+  if (client.tipo_cliente === 'empresa') return client.nombre;
+  return [client.nombre, client.apellidos].filter(Boolean).join(' ');
 }
 
 export interface TradeQuote {
@@ -717,12 +724,12 @@ export async function convertToInvoice(quote: TradeQuote, orgId: string): Promis
   if (quote.client_id) {
     const { data: client } = await supabase
       .from('trade_clients')
-      .select('nombre, nif, direccion, ciudad, cp, provincia, pais')
+      .select('nombre, apellidos, tipo_cliente, nif, direccion, ciudad, cp, provincia, pais')
       .eq('id', quote.client_id)
       .single();
     if (client) {
       snapshot = {
-        razon_social_cliente: client.nombre ?? snapshot.razon_social_cliente,
+        razon_social_cliente: getClientDisplayName(client) ?? snapshot.razon_social_cliente,
         nif_cliente: client.nif ? normalizaNif(client.nif) : null,
         direccion_cliente: client.direccion ?? null,
         localidad_cliente: client.ciudad ?? null,
@@ -1149,7 +1156,7 @@ export async function submitCatalogSuggestion(orgId: string, params: {
 
 export async function addClient(
   orgId: string,
-  client: Pick<TradeClient, 'nombre'> & Partial<Pick<TradeClient, 'telefono' | 'email' | 'direccion' | 'ciudad' | 'nif' | 'cp' | 'provincia' | 'pais'>>,
+  client: Pick<TradeClient, 'nombre'> & Partial<Pick<TradeClient, 'apellidos' | 'tipo_cliente' | 'telefono' | 'email' | 'direccion' | 'ciudad' | 'nif' | 'cp' | 'provincia' | 'pais'>>,
 ): Promise<TradeClient> {
   const { data, error } = await supabase
     .from('trade_clients')
@@ -1172,7 +1179,7 @@ export async function loadClients(orgId: string): Promise<TradeClient[]> {
 
 export async function updateClient(
   id: string,
-  data: Partial<Pick<TradeClient, 'nombre' | 'telefono' | 'email' | 'direccion' | 'ciudad' | 'nif' | 'cp' | 'provincia' | 'pais' | 'notas'>>,
+  data: Partial<Pick<TradeClient, 'nombre' | 'apellidos' | 'tipo_cliente' | 'telefono' | 'email' | 'direccion' | 'ciudad' | 'nif' | 'cp' | 'provincia' | 'pais' | 'notas'>>,
 ): Promise<void> {
   const { error } = await supabase.from('trade_clients').update(data).eq('id', id);
   if (error) throw error;

@@ -77,8 +77,8 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, updateClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, emitirFactura, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote, getOrgActiveOrders, loadInvoiceLines, updateDraftInvoice, normalizaNif } from '../lib/supabase';
-import type { TradeSubcontractor, TradeSubcontrata, ActiveSupplierCatalog } from '../lib/supabase';
+import { supabase, loadDashboard, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, updateClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, emitirFactura, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote, getOrgActiveOrders, loadInvoiceLines, updateDraftInvoice, normalizaNif, getClientDisplayName } from '../lib/supabase';
+import type { TradeSubcontractor, TradeSubcontrata, ActiveSupplierCatalog, TradeClient } from '../lib/supabase';
 import { printTradeInvoice } from '../lib/printTradeInvoice';
 import { savePurchaseContext } from '../lib/marketplace/purchase-context';
 import { geocodeAddress } from '../lib/geocoder';
@@ -2150,7 +2150,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   const [isClientModalOpen, setIsClientModalOpen] = useState<boolean>(false);
   const [editingClientId, setEditingClientId] = useState<string | null>(null);
-  const [newClient, setNewClient] = useState<Partial<Cliente>>({ nombre: '', telefono: '', email: '', direccion: '', nif: '', cp: '', ciudad: '', provincia: '', pais: '' });
+  const [newClient, setNewClient] = useState<Partial<Cliente>>({ tipo_cliente: 'particular', nombre: '', apellidos: '', telefono: '', email: '', nif: '', direccion: '', cp: '', ciudad: '', provincia: '', pais: 'España' });
   const [emailModalCliente, setEmailModalCliente] = useState<Cliente | null>(null);
 
   const TARIFA_SUGERIDA = 52;
@@ -2551,7 +2551,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   };
 
   const isFiscalComplete = (c: Cliente): boolean =>
-    !!(c.nif?.trim() && c.direccion?.trim() && c.cp?.trim() && c.ciudad?.trim() && c.provincia?.trim());
+    !!(c.nif?.trim() && c.direccion?.trim() && c.cp?.trim() && c.ciudad?.trim() && c.provincia?.trim() && c.pais?.trim());
 
   const getMissingFiscalFields = (c: Cliente): string[] => {
     const missing: string[] = [];
@@ -2566,39 +2566,56 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const handleSaveClient = async () => {
     if (!newClient.nombre?.trim()) return;
     const isEditing = !!editingClientId;
-    const fiscalPayload = {
-      nombre: newClient.nombre!,
-      telefono: newClient.telefono ?? '',
-      email: newClient.email ?? '',
-      direccion: newClient.direccion ?? '',
-      nif: newClient.nif || undefined,
-      cp: newClient.cp || undefined,
-      ciudad: newClient.ciudad || undefined,
-      provincia: newClient.provincia || undefined,
-      pais: newClient.pais || undefined,
+    const tipo = newClient.tipo_cliente ?? 'particular';
+    const payload = {
+      nombre: newClient.nombre!.trim(),
+      apellidos: tipo !== 'empresa' ? (newClient.apellidos?.trim() || undefined) : undefined,
+      tipo_cliente: tipo as TradeClient['tipo_cliente'],
+      telefono: newClient.telefono?.trim() || undefined,
+      email: newClient.email?.trim() || undefined,
+      nif: newClient.nif?.trim() || undefined,
+      direccion: newClient.direccion?.trim() || undefined,
+      cp: newClient.cp?.trim() || undefined,
+      ciudad: newClient.ciudad?.trim() || undefined,
+      provincia: newClient.provincia?.trim() || undefined,
+      pais: newClient.pais?.trim() || 'España',
     };
     if (isLiveMode && orgId) {
       try {
         if (isEditing) {
-          await updateClient(editingClientId!, fiscalPayload);
-          setClientes(prev => prev.map(c => c.id === editingClientId ? { ...c, ...fiscalPayload } : c));
+          await updateClient(editingClientId!, payload);
+          setClientes(prev => prev.map(c => c.id === editingClientId ? { ...c, ...payload, telefono: payload.telefono ?? c.telefono, email: payload.email ?? c.email, direccion: payload.direccion ?? c.direccion } : c));
           showToast('Cliente actualizado ✓', 'success');
         } else {
-          const saved = await addClient(orgId, fiscalPayload);
-          setClientes(prev => [...prev, { id: saved.id, nombre: saved.nombre, telefono: saved.telefono ?? '', email: saved.email ?? '', direccion: saved.direccion ?? '', nif: saved.nif ?? undefined, cp: saved.cp ?? undefined, ciudad: saved.ciudad ?? undefined, provincia: saved.provincia ?? undefined, pais: saved.pais ?? undefined, obrasActivas: 0, totalFacturado: 0 }]);
+          const saved = await addClient(orgId, payload);
+          setClientes(prev => [...prev, {
+            id: saved.id, nombre: saved.nombre, apellidos: saved.apellidos ?? undefined,
+            tipo_cliente: saved.tipo_cliente ?? 'particular',
+            telefono: saved.telefono ?? '', email: saved.email ?? '', direccion: saved.direccion ?? '',
+            nif: saved.nif ?? undefined, cp: saved.cp ?? undefined, ciudad: saved.ciudad ?? undefined,
+            provincia: saved.provincia ?? undefined, pais: saved.pais ?? 'España',
+            obrasActivas: 0, totalFacturado: 0,
+          }]);
           showToast('Cliente añadido ✓', 'success');
+        }
+        // Reanudar factura pendiente si la había
+        if (pendingInvoiceQuoteId) {
+          const pres = presupuestos.find(p => p.id === pendingInvoiceQuoteId);
+          setPendingInvoiceQuoteId(null);
+          setMissingFiscalModal(null);
+          if (pres) setTimeout(() => handleQuickConvertInvoice(pres), 400);
         }
       } catch (e: any) { showToast('Error al guardar: ' + e.message, 'error'); return; }
     } else {
       if (isEditing) {
-        setClientes(prev => prev.map(c => c.id === editingClientId ? { ...c, ...fiscalPayload } : c));
+        setClientes(prev => prev.map(c => c.id === editingClientId ? { ...c, ...payload, telefono: payload.telefono ?? c.telefono, email: payload.email ?? c.email, direccion: payload.direccion ?? c.direccion } as Cliente : c));
         showToast('Cliente actualizado (demo) ✓', 'success');
       } else {
-        setClientes(prev => [...prev, { id: Date.now().toString(), ...fiscalPayload, obrasActivas: 0, totalFacturado: 0 }]);
+        setClientes(prev => [...prev, { id: Date.now().toString(), ...payload, telefono: payload.telefono ?? '', email: payload.email ?? '', direccion: payload.direccion ?? '', obrasActivas: 0, totalFacturado: 0 } as Cliente]);
         showToast('Cliente añadido (demo) ✓', 'success');
       }
     }
-    setNewClient({ nombre: '', telefono: '', email: '', direccion: '', nif: '', cp: '', ciudad: '', provincia: '', pais: '' });
+    setNewClient({ tipo_cliente: 'particular', nombre: '', apellidos: '', telefono: '', email: '', nif: '', direccion: '', cp: '', ciudad: '', provincia: '', pais: 'España' });
     setEditingClientId(null);
     setIsClientModalOpen(false);
   };
@@ -3066,33 +3083,95 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       )}
 
       {/* ================= MODAL CLIENTE (CREAR / EDITAR) ================= */}
-      {isClientModalOpen && (
-        <div className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 w-full max-w-md space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center">
-              <h3 className="font-bold text-sm uppercase tracking-wider text-slate-900 dark:text-white">
-                {editingClientId ? 'Editar Cliente' : 'Nuevo Cliente'}
-              </h3>
-              <button onClick={() => { setIsClientModalOpen(false); setEditingClientId(null); setNewClient({ nombre: '', telefono: '', email: '', direccion: '', nif: '', cp: '', ciudad: '', provincia: '', pais: '' }); }} className="text-slate-400 hover:text-slate-700 cursor-pointer"><X className="w-5 h-5" /></button>
-            </div>
-            {([['nombre','Nombre *','text','Juan García Instalaciones'],['telefono','Teléfono','tel','600 000 000'],['email','Email','email','cliente@email.com'],['nif','NIF / DNI / CIF','text','12345678A'],['direccion','Dirección','text','Calle Mayor 1'],['cp','Código postal','text','28001'],['ciudad','Localidad','text','Madrid'],['provincia','Provincia','text','Madrid'],['pais','País','text','España']] as const).map(([field, label, type, ph]) => (
-              <div key={field}>
-                <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">{label}</label>
-                <input type={type} placeholder={ph} value={(newClient as any)[field] ?? ''} onChange={(e) => setNewClient(prev => ({ ...prev, [field]: e.target.value }))}
-                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
-                  autoFocus={field === 'nombre'}
-                />
+      {isClientModalOpen && (() => {
+        const tipo = newClient.tipo_cliente ?? 'particular';
+        const isEmpresa = tipo === 'empresa';
+        const closeModal = () => { setIsClientModalOpen(false); setEditingClientId(null); setNewClient({ tipo_cliente: 'particular', nombre: '', apellidos: '', telefono: '', email: '', nif: '', direccion: '', cp: '', ciudad: '', provincia: '', pais: 'España' }); };
+        const field = (key: keyof typeof newClient, label: string, ph: string, type = 'text') => (
+          <div key={key}>
+            <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">{label}</label>
+            <input type={type} placeholder={ph} value={(newClient as any)[key] ?? ''}
+              onChange={(e) => setNewClient(prev => ({ ...prev, [key]: e.target.value }))}
+              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
+            />
+          </div>
+        );
+        return (
+          <div className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4">
+            <div className="bg-white dark:bg-slate-900 rounded-2xl w-full max-w-md shadow-2xl max-h-[90vh] flex flex-col">
+              {/* Header */}
+              <div className="flex justify-between items-center px-6 pt-5 pb-3 border-b border-slate-100 dark:border-slate-800 shrink-0">
+                <h3 className="font-bold text-sm uppercase tracking-wider text-slate-900 dark:text-white">
+                  {editingClientId ? 'Editar Cliente' : 'Nuevo Cliente'}
+                </h3>
+                <button onClick={closeModal} className="text-slate-400 hover:text-slate-700 cursor-pointer"><X className="w-5 h-5" /></button>
               </div>
-            ))}
-            <div className="flex gap-3 pt-2">
-              <button onClick={() => { setIsClientModalOpen(false); setEditingClientId(null); setNewClient({ nombre: '', telefono: '', email: '', direccion: '', nif: '', cp: '', ciudad: '', provincia: '', pais: '' }); }} className="flex-1 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 cursor-pointer hover:border-slate-400">Cancelar</button>
-              <button onClick={handleSaveClient} className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-bold text-white cursor-pointer">
-                {editingClientId ? 'Actualizar Cliente' : 'Guardar Cliente'}
-              </button>
+
+              {/* Body scrollable */}
+              <div className="overflow-y-auto flex-1 px-6 py-4 space-y-5">
+
+                {/* Tipo de cliente */}
+                <div>
+                  <p className="text-[9px] font-mono uppercase text-slate-400 mb-2">Tipo de cliente</p>
+                  <div className="flex gap-2">
+                    {(['particular', 'autonomo', 'empresa'] as const).map(t => (
+                      <button
+                        key={t}
+                        onClick={() => setNewClient(prev => ({ ...prev, tipo_cliente: t }))}
+                        className={`flex-1 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider border cursor-pointer transition-colors ${tipo === t ? 'bg-blue-600 text-white border-blue-600' : 'bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-blue-400'}`}
+                      >
+                        {t === 'particular' ? 'Particular' : t === 'autonomo' ? 'Autónomo' : 'Empresa'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Identificación */}
+                <div className="space-y-3">
+                  <p className="text-[9px] font-black uppercase tracking-widest text-slate-400">Datos de identificación</p>
+                  {isEmpresa ? (
+                    <>
+                      {field('nombre', 'Razón social *', 'Fontanería García S.L.')}
+                      {field('nif', 'NIF / CIF', 'B12345678')}
+                    </>
+                  ) : (
+                    <>
+                      {field('nombre', 'Nombre *', 'Juan')}
+                      {field('apellidos', 'Apellidos', 'García López')}
+                      {field('nif', 'DNI / NIE / NIF', '12345678A')}
+                    </>
+                  )}
+                </div>
+
+                {/* Contacto */}
+                <div className="space-y-3">
+                  <p className="text-[9px] font-black uppercase tracking-widest text-slate-400">Datos de contacto</p>
+                  {field('telefono', 'Teléfono', '600 000 000', 'tel')}
+                  {field('email', 'Email', 'cliente@email.com', 'email')}
+                </div>
+
+                {/* Dirección */}
+                <div className="space-y-3">
+                  <p className="text-[9px] font-black uppercase tracking-widest text-slate-400">Dirección</p>
+                  {field('direccion', 'Dirección', 'Calle Mayor 1')}
+                  {field('cp', 'Código postal', '28001')}
+                  {field('ciudad', 'Localidad', 'Madrid')}
+                  {field('provincia', 'Provincia', 'Madrid')}
+                  {field('pais', 'País', 'España')}
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="flex gap-3 px-6 py-4 border-t border-slate-100 dark:border-slate-800 shrink-0">
+                <button onClick={closeModal} className="flex-1 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 cursor-pointer hover:border-slate-400">Cancelar</button>
+                <button onClick={handleSaveClient} className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-bold text-white cursor-pointer">
+                  {editingClientId ? 'Actualizar cliente' : 'Guardar cliente'}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* ================= MODAL VISITA / TRABAJO (GLOBAL — desktop + native) ================= */}
       {showVisitaModal && !isMobileMode && !isNativeDevice && (
@@ -4602,7 +4681,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <button
               onClick={() => {
                 setEditingClientId(selectedCliente.id);
-                setNewClient({ nombre: selectedCliente.nombre, telefono: selectedCliente.telefono ?? '', email: selectedCliente.email ?? '', direccion: selectedCliente.direccion ?? '', nif: selectedCliente.nif ?? '', cp: selectedCliente.cp ?? '', ciudad: selectedCliente.ciudad ?? '', provincia: selectedCliente.provincia ?? '', pais: selectedCliente.pais ?? '' });
+                setNewClient({ tipo_cliente: selectedCliente.tipo_cliente ?? 'particular', nombre: selectedCliente.nombre, apellidos: selectedCliente.apellidos ?? '', telefono: selectedCliente.telefono ?? '', email: selectedCliente.email ?? '', nif: selectedCliente.nif ?? '', cp: selectedCliente.cp ?? '', ciudad: selectedCliente.ciudad ?? '', provincia: selectedCliente.provincia ?? '', pais: selectedCliente.pais ?? 'España' });
                 setIsClientModalOpen(true);
               }}
               className="w-full py-2.5 border border-slate-200 rounded-xl text-[10px] font-bold text-slate-600 uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer hover:bg-slate-50"
@@ -4753,7 +4832,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             />
           </div>
           <button
-            onClick={() => { setNewClient({ nombre: '', telefono: '', email: '', direccion: '', nif: '', cp: '', ciudad: '', provincia: '' }); setIsClientModalOpen(true); }}
+            onClick={() => { setEditingClientId(null); setNewClient({ tipo_cliente: 'particular', nombre: '', apellidos: '', telefono: '', email: '', nif: '', direccion: '', cp: '', ciudad: '', provincia: '', pais: 'España' }); setIsClientModalOpen(true); }}
             className="bg-blue-600 text-white rounded-2xl px-3.5 py-2.5 flex items-center justify-center cursor-pointer shrink-0"
           >
             <Plus className="w-4 h-4" />
@@ -5191,7 +5270,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               {/* Crear cliente rápido */}
               <button
                 onClick={() => {
-                  setNewClient({ nombre: '', telefono: '', email: '', direccion: '', nif: '', cp: '', ciudad: '', provincia: '' });
+                  setEditingClientId(null); setNewClient({ tipo_cliente: 'particular', nombre: '', apellidos: '', telefono: '', email: '', nif: '', direccion: '', cp: '', ciudad: '', provincia: '', pais: 'España' });
                   setIsClientModalOpen(true);
                 }}
                 className="w-full bg-gray-100 text-gray-700 font-bold p-3.5 rounded-2xl border border-gray-200 text-center uppercase tracking-wider text-[10px] cursor-pointer"
@@ -7007,7 +7086,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 ))}
               </select>
               <button
-                onClick={() => { setNewClient({ nombre: '', telefono: '', email: '', direccion: '', nif: '', cp: '', ciudad: '', provincia: '' }); setIsClientModalOpen(true); }}
+                onClick={() => { setEditingClientId(null); setNewClient({ tipo_cliente: 'particular', nombre: '', apellidos: '', telefono: '', email: '', nif: '', direccion: '', cp: '', ciudad: '', provincia: '', pais: 'España' }); setIsClientModalOpen(true); }}
                 className="bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-3 flex items-center justify-center cursor-pointer shrink-0"
                 title="Añadir nuevo cliente"
               >
@@ -8089,7 +8168,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             />
           </div>
           <button
-            onClick={() => { setNewClient({ nombre: '', telefono: '', email: '', direccion: '', nif: '', cp: '', ciudad: '', provincia: '' }); setIsClientModalOpen(true); }}
+            onClick={() => { setEditingClientId(null); setNewClient({ tipo_cliente: 'particular', nombre: '', apellidos: '', telefono: '', email: '', nif: '', direccion: '', cp: '', ciudad: '', provincia: '', pais: 'España' }); setIsClientModalOpen(true); }}
             className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-4 py-2.5 font-bold uppercase tracking-wider text-[10px] cursor-pointer shrink-0"
           >
             <Plus className="w-3.5 h-3.5" />
@@ -8217,15 +8296,25 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   </button>
                 </div>
 
-                {/* Indicador fiscal + sección editable */}
+                {/* Indicador fiscal + botón editar datos completos */}
                 {(() => {
                   const fiscalOk = isFiscalComplete(panelClient);
                   return (
-                    <div className="mt-3">
+                    <div className="mt-3 space-y-2">
+                      <div className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold ${fiscalOk ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
+                        <span className="flex items-center gap-1.5">
+                          {fiscalOk ? '✓' : '⚠'} Datos fiscales: {fiscalOk ? 'Completos' : 'Incompletos'}
+                        </span>
+                      </div>
                       <button
                         onClick={() => {
-                          setCrmFiscalEditOpen(o => !o);
-                          setCrmFiscalForm({
+                          setEditingClientId(panelClient.id);
+                          setNewClient({
+                            tipo_cliente: panelClient.tipo_cliente ?? 'particular',
+                            nombre: panelClient.nombre,
+                            apellidos: panelClient.apellidos ?? '',
+                            telefono: panelClient.telefono ?? '',
+                            email: panelClient.email ?? '',
                             nif: panelClient.nif ?? '',
                             direccion: panelClient.direccion ?? '',
                             cp: panelClient.cp ?? '',
@@ -8233,88 +8322,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                             provincia: panelClient.provincia ?? '',
                             pais: panelClient.pais ?? 'España',
                           });
+                          setIsClientModalOpen(true);
                         }}
-                        className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold cursor-pointer transition-colors ${fiscalOk ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-amber-50 text-amber-700 hover:bg-amber-100'}`}
+                        className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold border border-slate-200 text-slate-600 hover:bg-slate-50 cursor-pointer transition-colors"
                       >
-                        <span className="flex items-center gap-1.5">
-                          {fiscalOk ? '✓' : '⚠'} Datos fiscales: {fiscalOk ? 'Completos' : 'Incompletos'}
-                        </span>
-                        <span className="text-[9px] uppercase tracking-wider">{crmFiscalEditOpen ? 'Cerrar' : 'Editar'}</span>
+                        <Edit3 className="w-3.5 h-3.5" /> Editar todos los datos
                       </button>
-
-                      {crmFiscalEditOpen && (
-                        <div className="mt-2 bg-slate-50 rounded-xl p-3 space-y-2">
-                          <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 mb-2">Datos fiscales y facturación</p>
-                          {[
-                            { key: 'nif', label: 'NIF / DNI / CIF', placeholder: 'B12345678' },
-                            { key: 'direccion', label: 'Dirección', placeholder: 'Calle Mayor 1' },
-                            { key: 'cp', label: 'Código postal', placeholder: '28001' },
-                            { key: 'ciudad', label: 'Localidad', placeholder: 'Madrid' },
-                            { key: 'provincia', label: 'Provincia', placeholder: 'Madrid' },
-                            { key: 'pais', label: 'País', placeholder: 'España' },
-                          ].map(({ key, label, placeholder }) => (
-                            <div key={key}>
-                              <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider">{label}</label>
-                              <input
-                                type="text"
-                                value={(crmFiscalForm as Record<string,string>)[key]}
-                                onChange={e => setCrmFiscalForm(prev => ({
-                                  ...prev,
-                                  [key]: key === 'nif' ? normalizaNif(e.target.value) : e.target.value,
-                                }))}
-                                placeholder={placeholder}
-                                className="w-full mt-0.5 bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-blue-400"
-                              />
-                            </div>
-                          ))}
-                          <div className="flex gap-2 pt-1">
-                            <button
-                              disabled={crmFiscalSaving}
-                              onClick={async () => {
-                                if (!isLiveMode || !orgId) return;
-                                setCrmFiscalSaving(true);
-                                try {
-                                  await updateClient(panelClient.id, {
-                                    nif: crmFiscalForm.nif || undefined,
-                                    direccion: crmFiscalForm.direccion || undefined,
-                                    cp: crmFiscalForm.cp || undefined,
-                                    ciudad: crmFiscalForm.ciudad || undefined,
-                                    provincia: crmFiscalForm.provincia || undefined,
-                                    pais: crmFiscalForm.pais || undefined,
-                                  });
-                                  setClientes(prev => prev.map(c => c.id === panelClient.id
-                                    ? { ...c, nif: crmFiscalForm.nif || undefined, direccion: crmFiscalForm.direccion || c.direccion, cp: crmFiscalForm.cp || undefined, ciudad: crmFiscalForm.ciudad || undefined, provincia: crmFiscalForm.provincia || undefined, pais: crmFiscalForm.pais || undefined }
-                                    : c));
-                                  setCrmFiscalEditOpen(false);
-                                  showToast('Datos fiscales guardados ✓', 'success');
-                                  // Si hay una factura pendiente, reanudar flujo
-                                  if (pendingInvoiceQuoteId) {
-                                    const pres = presupuestos.find(p => p.id === pendingInvoiceQuoteId);
-                                    setPendingInvoiceQuoteId(null);
-                                    setMissingFiscalModal(null);
-                                    if (pres) {
-                                      setTimeout(() => handleQuickConvertInvoice(pres), 400);
-                                    }
-                                  }
-                                } catch (e: any) {
-                                  showToast('Error al guardar: ' + e.message, 'error');
-                                } finally {
-                                  setCrmFiscalSaving(false);
-                                }
-                              }}
-                              className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-xs font-bold py-2 rounded-lg cursor-pointer transition-colors"
-                            >
-                              {crmFiscalSaving ? 'Guardando…' : 'Guardar datos'}
-                            </button>
-                            <button
-                              onClick={() => setCrmFiscalEditOpen(false)}
-                              className="px-3 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold py-2 rounded-lg cursor-pointer transition-colors"
-                            >
-                              Cancelar
-                            </button>
-                          </div>
-                        </div>
-                      )}
                     </div>
                   );
                 })()}
@@ -8615,18 +8628,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   </button>
                   <button
                     onClick={() => {
+                      const c = clientes.find(cl => cl.id === missingFiscalModal.clientId);
                       setMissingFiscalModal(null);
-                      setActiveTab('crm');
-                      setCrmPanelClientId(missingFiscalModal.clientId);
-                      setCrmFiscalEditOpen(true);
-                      setCrmFiscalForm({
-                        nif: clientes.find(c => c.id === missingFiscalModal.clientId)?.nif ?? '',
-                        direccion: clientes.find(c => c.id === missingFiscalModal.clientId)?.direccion ?? '',
-                        cp: clientes.find(c => c.id === missingFiscalModal.clientId)?.cp ?? '',
-                        ciudad: clientes.find(c => c.id === missingFiscalModal.clientId)?.ciudad ?? '',
-                        provincia: clientes.find(c => c.id === missingFiscalModal.clientId)?.provincia ?? '',
-                        pais: clientes.find(c => c.id === missingFiscalModal.clientId)?.pais ?? 'España',
-                      });
+                      if (c) {
+                        setEditingClientId(c.id);
+                        setNewClient({
+                          tipo_cliente: c.tipo_cliente ?? 'particular',
+                          nombre: c.nombre, apellidos: c.apellidos ?? '',
+                          telefono: c.telefono ?? '', email: c.email ?? '',
+                          nif: c.nif ?? '', direccion: c.direccion ?? '',
+                          cp: c.cp ?? '', ciudad: c.ciudad ?? '',
+                          provincia: c.provincia ?? '', pais: c.pais ?? 'España',
+                        });
+                        setIsClientModalOpen(true);
+                      }
                     }}
                     className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-xl cursor-pointer transition-colors"
                   >
