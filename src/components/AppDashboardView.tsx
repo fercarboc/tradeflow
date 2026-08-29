@@ -1964,82 +1964,142 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   };
 
   // Convertir a factura (one-tap — live: DB, demo: local)
+  // GAP-INVOICE-DRAFT-ATOMICITY: invoice INSERT + invoice_lines INSERT son operaciones separadas.
+  // Si la segunda falla puede quedar un borrador sin líneas. Deuda pendiente: convertir a RPC/transacción.
   const handleQuickConvertInvoice = async (presupuesto: Presupuesto) => {
-    if (isLiveMode && orgId) {
-      // Buscar la quote en DB por número para obtener el objeto TradeQuote completo
-      const { data: dbQuote } = await supabase
-        .from('trade_quotes')
-        .select('*, trade_quote_items(*)')
-        .eq('org_id', orgId)
-        .eq('numero', presupuesto.id)
-        .single();
+    // Guard anti doble conversión concurrente (doble clic / doble tap / reanudación duplicada)
+    if (convertingInvoiceRef.current) return;
+    convertingInvoiceRef.current = true;
+    setConvertingInvoice(true);
+    try {
+      if (isLiveMode && orgId) {
+        // 1. Obtener quote de BD
+        const { data: dbQuote } = await supabase
+          .from('trade_quotes')
+          .select('*, trade_quote_items(*)')
+          .eq('org_id', orgId)
+          .eq('numero', presupuesto.id)
+          .single();
 
-      if (dbQuote) {
-        // Validar datos fiscales del cliente ANTES de crear el borrador
-        if (dbQuote.client_id) {
-          const client = clientes.find(c => c.id === dbQuote.client_id);
-          if (client && !isFiscalComplete(client)) {
-            setMissingFiscalModal({
-              clientId: client.id,
-              clientName: client.nombre,
-              quoteId: presupuesto.id,
-              missingFields: getMissingFiscalFields(client),
-            });
-            setPendingInvoiceQuoteId(presupuesto.id);
-            return;
-          }
+        if (!dbQuote) {
+          showToast('Presupuesto no encontrado en BD. Recarga la página.', 'error');
+          return;
         }
 
-        try {
-          const inv = await convertToInvoice(dbQuote, orgId);
-          const clienteNombre = clientes.find(c => c.id === inv.client_id)?.nombre ?? presupuesto.nombreCliente;
-          setFacturas(prev => [{
-            id: inv.id,
-            numeroFactura: inv.numero,
-            nombreCliente: clienteNombre,
-            idPresupuesto: presupuesto.id,
-            importe: inv.subtotal,
-            iva_pct: inv.iva_pct,
-            fecha: inv.fecha,
-            fechaVencimiento: inv.fecha_vencimiento ?? '',
-            estado: inv.estado as Factura['estado'],
-          }, ...prev]);
-          setPresupuestos(prev => prev.map(p => p.id === presupuesto.id ? { ...p, estado: 'Facturado' } : p));
-          // Cargar líneas y abrir el editor de borrador para que el usuario revise antes de emitir.
-          const lines = await loadInvoiceLines(inv.id);
-          setDraftInvoiceEdit({
-            id: inv.id,
-            numeroFactura: inv.numero,
-            ivaPct: inv.iva_pct ?? 21,
-            lines: lines.map(l => ({ id: l.id, descripcion: l.descripcion, cantidad: l.cantidad, precio_unitario: l.precio_unitario, subtotal: l.subtotal, tipo: l.tipo })),
-            saving: false,
+        // 2. client_id obligatorio
+        if (!dbQuote.client_id) {
+          showToast('El presupuesto no tiene cliente asignado. Edítalo y asigna un cliente.', 'error');
+          return;
+        }
+
+        // 3. Cargar cliente FRESCO desde BD (evita cierre viejo por setState async)
+        // GAP-DUPLICATE-INVOICES: trade_invoices no tiene UNIQUE(org_id, quote_id).
+        // El guard frontend (convertingInvoiceRef) es la única protección contra duplicados.
+        const { data: dbClient } = await supabase
+          .from('trade_clients')
+          .select('id, nombre, apellidos, tipo_cliente, nif, direccion, cp, ciudad, provincia, pais, telefono, email')
+          .eq('id', dbQuote.client_id)
+          .single();
+
+        if (!dbClient) {
+          showToast('No se encontró el cliente en BD. Recarga la página.', 'error');
+          return;
+        }
+
+        // Mapear a Cliente local para isFiscalComplete / getMissingFiscalFields
+        const clientForCheck: Cliente = {
+          id: dbClient.id,
+          nombre: dbClient.nombre,
+          apellidos: (dbClient.apellidos as string | undefined) ?? undefined,
+          tipo_cliente: ((dbClient.tipo_cliente as string) as 'particular' | 'autonomo' | 'empresa') ?? 'particular',
+          telefono: (dbClient.telefono as string | undefined) ?? '',
+          email: (dbClient.email as string | undefined) ?? '',
+          direccion: (dbClient.direccion as string | undefined) ?? '',
+          nif: (dbClient.nif as string | undefined) ?? undefined,
+          cp: (dbClient.cp as string | undefined) ?? undefined,
+          ciudad: (dbClient.ciudad as string | undefined) ?? undefined,
+          provincia: (dbClient.provincia as string | undefined) ?? undefined,
+          pais: (dbClient.pais as string | undefined) ?? undefined,
+          obrasActivas: 0,
+          totalFacturado: 0,
+        };
+
+        // Sincronizar datos frescos al estado local (para que el modal "Completar datos" tenga datos actuales)
+        setClientes(prev => prev.some(c => c.id === dbClient.id)
+          ? prev.map(c => c.id === dbClient.id ? { ...c, ...clientForCheck } : c)
+          : [...prev, clientForCheck],
+        );
+
+        // 4. Validación fiscal obligatoria
+        if (!isFiscalComplete(clientForCheck)) {
+          setMissingFiscalModal({
+            clientId: dbClient.id,
+            clientName: getClientDisplayName(dbClient as Parameters<typeof getClientDisplayName>[0]),
+            quoteId: presupuesto.id,
+            missingFields: getMissingFiscalFields(clientForCheck),
           });
-          showToast('Borrador de factura creado — revisa y emite', 'info');
-          return;
-        } catch (e: any) {
-          showToast('Error al crear factura: ' + e.message, 'error');
-          return;
+          setPendingInvoiceQuoteId(presupuesto.id);
+          return; // NO cambiar tab — el modal se muestra sobre la pantalla actual
         }
+
+        // 5. Fiscal completo — crear borrador
+        const inv = await convertToInvoice(dbQuote, orgId);
+        const clienteNombre = getClientDisplayName(dbClient as Parameters<typeof getClientDisplayName>[0]);
+        setFacturas(prev => [{
+          id: inv.id,
+          numeroFactura: inv.numero,
+          nombreCliente: clienteNombre,
+          idPresupuesto: presupuesto.id,
+          importe: inv.subtotal,
+          iva_pct: inv.iva_pct,
+          fecha: inv.fecha,
+          fechaVencimiento: inv.fecha_vencimiento ?? '',
+          estado: inv.estado as Factura['estado'],
+        }, ...prev]);
+        setPresupuestos(prev => prev.map(p => p.id === presupuesto.id ? { ...p, estado: 'Facturado' } : p));
+        const lines = await loadInvoiceLines(inv.id);
+        setDraftInvoiceEdit({
+          id: inv.id,
+          numeroFactura: inv.numero,
+          ivaPct: inv.iva_pct ?? 21,
+          lines: lines.map(l => ({ id: l.id, descripcion: l.descripcion, cantidad: l.cantidad, precio_unitario: l.precio_unitario, subtotal: l.subtotal, tipo: l.tipo })),
+          saving: false,
+        });
+        showToast('Borrador de factura creado — revisa y emite', 'info');
+        setPendingInvoiceQuoteId(null); // limpiar sólo tras éxito confirmado
+        // Navegar a facturas solo tras éxito (desktop y móvil nativo)
+        setActiveTab('invoices');
+        setMobileTab('facturas');
+        return;
       }
+
+      // Demo / fallback local (solo cuando !isLiveMode)
+      const nextNum = facturas.length + 1;
+      const facNumber = `FAC-${new Date().getFullYear()}-${String(nextNum).padStart(3, '0')}`;
+      const today = new Date().toISOString().split('T')[0];
+      const dueDate = new Date();
+      dueDate.setDate(dueDate.getDate() + 30);
+      setPresupuestos(prev => prev.map(p => p.id === presupuesto.id ? { ...p, estado: 'Facturado' } : p));
+      setFacturas(prev => [{
+        id: `fac-${Date.now()}`,
+        numeroFactura: facNumber,
+        nombreCliente: presupuesto.nombreCliente,
+        idPresupuesto: presupuesto.id,
+        importe: presupuesto.total,
+        fecha: today,
+        fechaVencimiento: dueDate.toISOString().split('T')[0],
+        estado: 'Pendiente',
+      }, ...prev]);
+      showToast(`Factura ${facNumber} creada`, 'success');
+      setActiveTab('invoices');
+      setMobileTab('facturas');
+    } catch (e: any) {
+      showToast('No se ha podido crear la factura: ' + (e?.message ?? 'Error desconocido'), 'error');
+      // pendingInvoiceQuoteId se mantiene para permitir reintento
+    } finally {
+      convertingInvoiceRef.current = false;
+      setConvertingInvoice(false);
     }
-    // Demo / fallback local
-    const nextNum = facturas.length + 1;
-    const facNumber = `FAC-${new Date().getFullYear()}-${String(nextNum).padStart(3, '0')}`;
-    const today = new Date().toISOString().split('T')[0];
-    const dueDate = new Date();
-    dueDate.setDate(dueDate.getDate() + 30);
-    setPresupuestos(prev => prev.map(p => p.id === presupuesto.id ? { ...p, estado: 'Facturado' } : p));
-    setFacturas(prev => [{
-      id: `fac-${Date.now()}`,
-      numeroFactura: facNumber,
-      nombreCliente: presupuesto.nombreCliente,
-      idPresupuesto: presupuesto.id,
-      importe: presupuesto.total,
-      fecha: today,
-      fechaVencimiento: dueDate.toISOString().split('T')[0],
-      estado: 'Pendiente',
-    }, ...prev]);
-    showToast(`Factura ${facNumber} creada`, 'success');
   };
 
   const handlePayInvoice = async (id: string) => {
@@ -2108,6 +2168,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [postConfirmQuote, setPostConfirmQuote] = useState<Presupuesto | null>(null);
   const [editingQuoteId, setEditingQuoteId] = useState<string | null>(null); // null = crear nuevo, string = editar existente
   const savingQuoteRef = useRef(false);
+  const convertingInvoiceRef = useRef(false);
+  const [convertingInvoice, setConvertingInvoice] = useState(false);
   // Subcontratas vinculadas al presupuesto en preview
   const [previewSubcontratas, setPreviewSubcontratas] = useState<TradeSubcontrata[]>([]);
   const [previewProveedores, setPreviewProveedores] = useState<TradeSubcontractor[]>([]);
@@ -2494,7 +2556,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   const convertQuoteToInvoice = (presupuesto: Presupuesto) => {
     handleQuickConvertInvoice(presupuesto);
-    setActiveTab('invoices');
+    // Tab switch al éxito ya lo hace handleQuickConvertInvoice
   };
 
   const triggerWhatsAppShare = (quote: Presupuesto) => {
@@ -2560,6 +2622,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     if (!c.cp?.trim())        missing.push('Código postal');
     if (!c.ciudad?.trim())    missing.push('Localidad');
     if (!c.provincia?.trim()) missing.push('Provincia');
+    if (!c.pais?.trim())      missing.push('País');
     return missing;
   };
 
@@ -2598,12 +2661,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           }]);
           showToast('Cliente añadido ✓', 'success');
         }
-        // Reanudar factura pendiente si la había
+        // Reanudar factura pendiente si la había (fiscal ya completo tras guardar)
         if (pendingInvoiceQuoteId) {
           const pres = presupuestos.find(p => p.id === pendingInvoiceQuoteId);
-          setPendingInvoiceQuoteId(null);
-          setMissingFiscalModal(null);
-          if (pres) setTimeout(() => handleQuickConvertInvoice(pres), 400);
+          setMissingFiscalModal(null); // cerrar modal
+          // pendingInvoiceQuoteId lo limpia handleQuickConvertInvoice al éxito (no antes)
+          if (pres) void handleQuickConvertInvoice(pres);
         }
       } catch (e: any) { showToast('Error al guardar: ' + e.message, 'error'); return; }
     } else {
@@ -3541,6 +3604,64 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         />
       )}
 
+      {/* ── Modal: Faltan datos fiscales (top-level — visible en cualquier tab/pantalla) ── */}
+      {missingFiscalModal && (
+        <>
+          <div className="fixed inset-0 bg-black/40 z-60" onClick={() => { setMissingFiscalModal(null); setPendingInvoiceQuoteId(null); }} />
+          <div className="fixed inset-0 z-60 flex items-center justify-center p-6">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
+                  <span className="text-xl">⚠</span>
+                </div>
+                <div>
+                  <h3 className="font-black text-base text-slate-900">Faltan datos fiscales</h3>
+                  <p className="text-xs text-slate-500">del cliente: {missingFiscalModal.clientName}</p>
+                </div>
+              </div>
+              <p className="text-sm text-slate-600 mb-3">Para crear la factura necesitamos completar:</p>
+              <ul className="space-y-1 mb-5">
+                {missingFiscalModal.missingFields.map(f => (
+                  <li key={f} className="flex items-center gap-2 text-sm text-slate-700">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => { setMissingFiscalModal(null); setPendingInvoiceQuoteId(null); }}
+                  className="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-bold rounded-xl cursor-pointer transition-colors"
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={() => {
+                    const c = clientes.find(cl => cl.id === missingFiscalModal.clientId);
+                    setMissingFiscalModal(null);
+                    if (c) {
+                      setEditingClientId(c.id);
+                      setNewClient({
+                        tipo_cliente: c.tipo_cliente ?? 'particular',
+                        nombre: c.nombre, apellidos: c.apellidos ?? '',
+                        telefono: c.telefono ?? '', email: c.email ?? '',
+                        nif: c.nif ?? '', direccion: c.direccion ?? '',
+                        cp: c.cp ?? '', ciudad: c.ciudad ?? '',
+                        provincia: c.provincia ?? '', pais: c.pais ?? 'España',
+                      });
+                      setIsClientModalOpen(true);
+                    }
+                  }}
+                  className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-xl cursor-pointer transition-colors"
+                >
+                  Completar datos
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
     </div>
   );
 
@@ -3917,7 +4038,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             onCobrar={() => {
               handleQuickConvertInvoice(postConfirmQuote);
               setPostConfirmQuote(null);
-              setMobileTab('facturas');
+              // Tab switch al éxito ya lo hace handleQuickConvertInvoice
             }}
             onCrearTrabajo={() => {
               setPrefillJobFromQuote(postConfirmQuote);
@@ -6207,10 +6328,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   {selectedQuoteForPreview.estado !== 'Facturado' ? (
                     <button
                       onClick={() => convertQuoteToInvoice(selectedQuoteForPreview)}
-                      className="bg-blue-600 hover:bg-blue-700 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl shadow-xs flex items-center gap-1.5 cursor-pointer transition-transform hover:scale-101"
+                      disabled={convertingInvoice}
+                      className="bg-blue-600 hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl shadow-xs flex items-center gap-1.5 cursor-pointer transition-transform hover:scale-101"
                     >
                       <FileText className="w-3.5 h-3.5" />
-                      <span>Facturar Presupuesto</span>
+                      <span>{convertingInvoice ? 'Creando...' : 'Facturar Presupuesto'}</span>
                     </button>
                   ) : (
                     <span className="bg-indigo-100 text-indigo-700 font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl flex items-center gap-1.5">
@@ -7625,9 +7747,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </button>
             )}
             {selectedQuoteForPreview.estado !== 'Facturado' && (
-              <button onClick={() => convertQuoteToInvoice(selectedQuoteForPreview)} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer flex items-center gap-1.5">
+              <button
+                onClick={() => convertQuoteToInvoice(selectedQuoteForPreview)}
+                disabled={convertingInvoice}
+                className="bg-blue-600 hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer flex items-center gap-1.5"
+              >
                 <FileText className="w-3.5 h-3.5" />
-                Convertir en Factura
+                {convertingInvoice ? 'Creando...' : 'Convertir en Factura'}
               </button>
             )}
             {selectedQuoteForPreview.estado !== 'Aceptado' && selectedQuoteForPreview.estado !== 'Facturado' && (
@@ -8590,64 +8716,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     </div>
                   );
                 })()}
-              </div>
-            </div>
-          </>
-        )}
-
-        {/* ── Modal: Faltan datos fiscales ────────────────────────────────────── */}
-        {missingFiscalModal && (
-          <>
-            <div className="fixed inset-0 bg-black/40 z-60" onClick={() => { setMissingFiscalModal(null); setPendingInvoiceQuoteId(null); }} />
-            <div className="fixed inset-0 z-60 flex items-center justify-center p-6">
-              <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
-                    <span className="text-xl">⚠</span>
-                  </div>
-                  <div>
-                    <h3 className="font-black text-base text-slate-900">Faltan datos fiscales</h3>
-                    <p className="text-xs text-slate-500">del cliente: {missingFiscalModal.clientName}</p>
-                  </div>
-                </div>
-                <p className="text-sm text-slate-600 mb-3">Para crear la factura necesitamos completar:</p>
-                <ul className="space-y-1 mb-5">
-                  {missingFiscalModal.missingFields.map(f => (
-                    <li key={f} className="flex items-center gap-2 text-sm text-slate-700">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => { setMissingFiscalModal(null); setPendingInvoiceQuoteId(null); }}
-                    className="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-bold rounded-xl cursor-pointer transition-colors"
-                  >
-                    Cancelar
-                  </button>
-                  <button
-                    onClick={() => {
-                      const c = clientes.find(cl => cl.id === missingFiscalModal.clientId);
-                      setMissingFiscalModal(null);
-                      if (c) {
-                        setEditingClientId(c.id);
-                        setNewClient({
-                          tipo_cliente: c.tipo_cliente ?? 'particular',
-                          nombre: c.nombre, apellidos: c.apellidos ?? '',
-                          telefono: c.telefono ?? '', email: c.email ?? '',
-                          nif: c.nif ?? '', direccion: c.direccion ?? '',
-                          cp: c.cp ?? '', ciudad: c.ciudad ?? '',
-                          provincia: c.provincia ?? '', pais: c.pais ?? 'España',
-                        });
-                        setIsClientModalOpen(true);
-                      }
-                    }}
-                    className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-xl cursor-pointer transition-colors"
-                  >
-                    Completar datos
-                  </button>
-                </div>
               </div>
             </div>
           </>
