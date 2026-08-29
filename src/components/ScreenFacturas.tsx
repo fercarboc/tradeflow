@@ -638,7 +638,14 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
                         )}
                         {!isBorrador && (
                           <button
-                            onClick={() => handlePrintInvoice(inv, [])}
+                            onClick={async () => {
+                              try {
+                                const lines = await loadInvoiceLines(inv.id);
+                                handlePrintInvoice(inv, lines);
+                              } catch {
+                                handlePrintInvoice(inv, []);
+                              }
+                            }}
                             className="p-1 rounded text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 cursor-pointer"
                             title="Ver PDF"
                           >
