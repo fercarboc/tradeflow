@@ -146,6 +146,8 @@ export interface TradeInvoice {
   notas_internas?: string | null;
   rectifica_factura_id?: string | null;
   motivo_rectificacion?: string | null;
+  tipo_factura_vf?: 'F1' | 'F2' | 'R1' | 'R2' | 'R3' | 'R4' | 'R5' | null;
+  tipo_rectificativa?: 'I' | 'S' | null;
   // VeriFactu (RD 1007/2023)
   verifactu_hash?: string | null;
   verifactu_hash_anterior?: string | null;
@@ -1267,19 +1269,46 @@ function formatGeneratedAt(d: Date): string {
   return d.toISOString().replace(/\.\d{3}Z$/, '+00:00');
 }
 
-// TipoFactura L2 según Orden HAC/1177/2024.
-// F1 = factura completa. F2 = simplificada (ticket). R1-R5 = rectificativas.
-// TODAS las facturas de TrabFlow son facturas completas → F1.
-// Las rectificativas bloquean emisión hasta que se implemente el flujo R1-R5.
-function getTipoFacturaVF(tipoFactura: string | null | undefined): string {
-  if (tipoFactura === 'rectificativa') {
-    throw new Error(
-      'Emisión bloqueada: las facturas rectificativas requieren TipoFactura R1-R5 ' +
-      'según la Orden HAC/1177/2024. Completa la clasificación antes de emitir.',
-    );
-  }
-  return 'F1';
-}
+// ── Motivos de rectificación — mapping motivo funcional → TipoFactura VeriFactu ──
+// Fuente: Orden HAC/1177/2024 Lista L2 TipoFactura (RD 1007/2023).
+// R1 = art. 80.1, 80.2 y 80.6 LIVA, y error fundado en derecho.
+// R2 = art. 80.3 LIVA (concurso de acreedores).
+// R3 = art. 80.4 LIVA (créditos incobrables).
+// R4 = resto de causas.
+// R5 = rectificativa de factura simplificada F2 — bloqueado (TrabFlow no emite F2).
+// Tipo de rectificación: siempre 'I' (por diferencias). 'S' (sustitución) no implementado.
+export const MOTIVOS_RECTIFICACION = [
+  {
+    id: 'error_factura',
+    label: 'Error en la factura',
+    descripcion: 'Importe, tipo de IVA, datos del cliente u otro error en la factura original (art. 80.1, 80.2 y 80.6 LIVA).',
+    tipo_factura_vf: 'R1' as const,
+  },
+  {
+    id: 'devolucion_descuento',
+    label: 'Devolución o descuento posterior',
+    descripcion: 'Descuento o devolución de materiales acordado después de emitir la factura (art. 80.1 y 80.2 LIVA).',
+    tipo_factura_vf: 'R1' as const,
+  },
+  {
+    id: 'cancelacion_acuerdo',
+    label: 'Cancelación o acuerdo comercial',
+    descripcion: 'Servicio no prestado, rescisión del encargo o acuerdo de cancelación con el cliente.',
+    tipo_factura_vf: 'R4' as const,
+  },
+  {
+    id: 'credito_incobrable',
+    label: 'Crédito incobrable (art. 80.4 LIVA)',
+    descripcion: 'Deuda declarada total o parcialmente incobrable según procedimiento legal.',
+    tipo_factura_vf: 'R3' as const,
+  },
+  {
+    id: 'concurso_acreedores',
+    label: 'Concurso de acreedores (art. 80.3 LIVA)',
+    descripcion: 'El cliente ha entrado en concurso de acreedores.',
+    tipo_factura_vf: 'R2' as const,
+  },
+] as const;
 
 // Construye el input del hash, separable para tests deterministas.
 export function buildVeriFactuHashInput(
@@ -1369,60 +1398,33 @@ export async function markInvoicePendiente(id: string): Promise<void> {
   if (error) throw error;
 }
 
-export async function crearFacturaRectificadora(
+export async function crearFacturaRectificativaRPC(
   originalId: string,
   orgId: string,
+  tipoFacturaVf: string,
+  motivo: string,
 ): Promise<TradeInvoice> {
-  const { data: orig, error: origErr } = await supabase
+  const { data: rpcData, error: rpcError } = await supabase.rpc(
+    'fn_crear_factura_rectificativa',
+    {
+      p_original_invoice_id: originalId,
+      p_org_id:              orgId,
+      p_tipo_factura_vf:     tipoFacturaVf,
+      p_motivo:              motivo,
+    },
+  );
+  if (rpcError) throw new Error(rpcError.message);
+
+  const rectId = (rpcData as { rectificativa_id: string }).rectificativa_id;
+
+  const { data: inv, error: invError } = await supabase
     .from('trade_invoices')
-    .select('*')
-    .eq('id', originalId)
+    .select('*, trade_clients(nombre, telefono)')
+    .eq('id', rectId)
     .single();
-  if (origErr || !orig) throw origErr ?? new Error('Factura original no encontrada');
+  if (invError || !inv) throw invError ?? new Error('No se pudo cargar la rectificativa creada');
 
-  const { data: lines } = await supabase
-    .from('trade_invoice_lines')
-    .select('*')
-    .eq('factura_id', originalId)
-    .order('orden');
-
-  const now = new Date().toISOString();
-  const { data: newInv, error: invErr } = await supabase
-    .from('trade_invoices')
-    .insert({
-      org_id: orgId,
-      client_id: orig.client_id,
-      tipo_factura: 'rectificativa',
-      serie: orig.serie,
-      estado: 'Borrador',
-      numero: `BORRADOR-rect-${Date.now()}`,
-      concepto: `Rectificativa de ${orig.numero ?? orig.id}`,
-      subtotal: -(orig.subtotal ?? 0),
-      iva_pct: orig.iva_pct ?? 21,
-      razon_social_cliente: orig.razon_social_cliente,
-      nif_cliente: orig.nif_cliente,
-      direccion_cliente: orig.direccion_cliente,
-      rectifica_factura_id: originalId,
-    })
-    .select()
-    .single();
-  if (invErr) throw invErr;
-
-  if (lines?.length) {
-    await supabase.from('trade_invoice_lines').insert(
-      lines.map((l: TradeInvoiceLine) => ({
-        factura_id: newInv.id,
-        descripcion: l.descripcion,
-        cantidad: l.cantidad,
-        precio_unitario: -(l.precio_unitario ?? 0),
-        subtotal: -(l.subtotal ?? 0),
-        tipo: l.tipo,
-        orden: l.orden,
-      })),
-    );
-  }
-
-  return newInv as TradeInvoice;
+  return inv as TradeInvoice;
 }
 
 // ── Rutas y paradas ───────────────────────────────────────────────────────

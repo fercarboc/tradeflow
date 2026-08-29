@@ -7,8 +7,9 @@ import {
 import { supabase } from '../lib/supabase';
 import {
   loadAllInvoices, emitirFactura, markInvoicePaid,
-  loadInvoiceLines, anularPago, crearFacturaRectificadora, markInvoicePendiente,
+  loadInvoiceLines, anularPago, crearFacturaRectificativaRPC, markInvoicePendiente,
   TradeInvoice, TradeInvoiceLine, loadJobPhotos, TradeJobPhoto,
+  MOTIVOS_RECTIFICACION,
 } from '../lib/supabase';
 import { printTradeInvoice } from '../lib/printTradeInvoice';
 import { downloadAsWordDocx } from '../lib/exportWord';
@@ -88,6 +89,12 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
   const [anulando, setAnulando]             = useState<string | null>(null);
   const [rectificando, setRectificando]     = useState<string | null>(null);
   const [pendienting, setPendienting]       = useState<string | null>(null);
+  const [showRectModal, setShowRectModal]   = useState(false);
+  const [rectModalInv, setRectModalInv]     = useState<InvoiceWithClient | null>(null);
+  const [rectMotivoId, setRectMotivoId]     = useState<string>('');
+  const [rectMotivoTexto, setRectMotivoTexto] = useState<string>('');
+  const [rectSubmitting, setRectSubmitting] = useState(false);
+  const [selectedInvOriginal, setSelectedInvOriginal] = useState<InvoiceWithClient | null>(null);
   const [gestoriaPeriod, setGestoriaPeriod] = useState(() => {
     const now = new Date();
     const q = Math.ceil((now.getMonth() + 1) / 3);
@@ -142,6 +149,22 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
     setSelectedParteToken(null);
     setSelectedJobFirma(null);
     setSelectedJobPhotos([]);
+    // Para rectificativas: cargar factura original para mostrar su número en PDF/Word
+    if (inv.tipo_factura === 'rectificativa' && inv.rectifica_factura_id) {
+      const found = invoices.find(i => i.id === inv.rectifica_factura_id);
+      if (found) {
+        setSelectedInvOriginal(found);
+      } else {
+        supabase
+          .from('trade_invoices')
+          .select('*')
+          .eq('id', inv.rectifica_factura_id)
+          .maybeSingle()
+          .then(({ data }) => setSelectedInvOriginal(data as InvoiceWithClient | null));
+      }
+    } else {
+      setSelectedInvOriginal(null);
+    }
     setLoadingLines(true);
     try {
       const lines = await loadInvoiceLines(inv.id);
@@ -216,19 +239,38 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
     }
   }
 
-  async function handleCrearRectificadora(inv: InvoiceWithClient) {
-    if (!isLiveMode || !org) return;
-    if (!window.confirm(`¿Crear factura rectificativa de ${inv.numero}? Se creará como borrador con importes negativos.`)) return;
-    setRectificando(inv.id);
+  function handleAbrirRectModal(inv: InvoiceWithClient) {
+    if (!isLiveMode) return;
+    setRectModalInv(inv);
+    setRectMotivoId('');
+    setRectMotivoTexto('');
+    setShowRectModal(true);
+  }
+
+  async function handleSubmitRectificativa() {
+    if (!rectModalInv || !org || !rectMotivoId) return;
+    const motivo = MOTIVOS_RECTIFICACION.find(m => m.id === rectMotivoId);
+    if (!motivo) return;
+    const textoFinal = rectMotivoTexto.trim() || motivo.descripcion;
+    setRectSubmitting(true);
     try {
-      const rect = await crearFacturaRectificadora(inv.id, org.id);
-      setInvoices(prev => [{ ...rect, trade_clients: inv.trade_clients } as InvoiceWithClient, ...prev]);
-      showToast(`Rectificativa creada como borrador — emítela cuando esté lista`, 'success');
+      const rect = await crearFacturaRectificativaRPC(
+        rectModalInv.id,
+        org.id,
+        motivo.tipo_factura_vf,
+        textoFinal,
+      );
+      const rectConCliente = { ...rect, trade_clients: rectModalInv.trade_clients } as InvoiceWithClient;
+      setInvoices(prev => [rectConCliente, ...prev]);
+      setShowRectModal(false);
       setSelectedInv(null);
-    } catch {
-      showToast('Error al crear la rectificativa', 'error');
+      // Abrir la rectificativa recién creada
+      setTimeout(() => openDetail(rectConCliente), 50);
+      showToast(`Rectificativa ${rect.numero} creada — revísala y emítela cuando esté lista`, 'success');
+    } catch (e: unknown) {
+      showToast((e as Error).message ?? 'Error al crear la rectificativa', 'error');
     } finally {
-      setRectificando(null);
+      setRectSubmitting(false);
     }
   }
 
@@ -250,6 +292,9 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
 
   function handlePrintInvoice(inv: InvoiceWithClient, lines: TradeInvoiceLine[]) {
     if (!org) return;
+    const originalNumero = inv.tipo_factura === 'rectificativa'
+      ? (selectedInvOriginal?.numero ?? undefined)
+      : undefined;
     printTradeInvoice(inv, lines, {
       nombre: (org as unknown as Record<string,unknown>).razon_social as string ?? org.nombre,
       cif: (org as unknown as Record<string,unknown>).cif as string ?? org.nif,
@@ -259,7 +304,7 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
       telefono: org.telefono,
       email: org.email,
       logo_url: org.logo_url,
-    });
+    }, originalNumero);
   }
 
   function handleWordDownload(inv: InvoiceWithClient, lines: TradeInvoiceLine[]) {
@@ -267,6 +312,7 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
     const partidas = lines.length > 0
       ? lines.map(l => ({ descripcion: l.descripcion, tipo: 'mano_de_obra' as const, cantidad: l.cantidad ?? 1, precioUnitario: l.precio_unitario ?? 0, total: l.subtotal ?? 0 }))
       : [{ descripcion: inv.concepto ?? 'Servicio', tipo: 'mano_de_obra' as const, cantidad: 1, precioUnitario: inv.subtotal ?? 0, total: inv.subtotal ?? 0 }];
+    const esRect = inv.tipo_factura === 'rectificativa';
     downloadAsWordDocx({
       tipo: 'factura',
       numero: inv.numero,
@@ -285,6 +331,12 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
       total: inv.subtotal ?? 0,
       iva: inv.iva_pct ?? 21,
       estado: inv.estado,
+      esRectificativa: esRect,
+      rectificaNumeroOriginal: esRect ? (selectedInvOriginal?.numero ?? undefined) : undefined,
+      rectificaFechaOriginal: esRect
+        ? ((selectedInvOriginal?.fecha_emision ?? selectedInvOriginal?.fecha ?? undefined))
+        : undefined,
+      motivo: esRect ? (inv.motivo_rectificacion ?? undefined) : undefined,
     }, inv.numero);
   }
 
@@ -724,6 +776,23 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
                 </div>
               )}
 
+              {/* Info de rectificativa */}
+              {selectedInv.tipo_factura === 'rectificativa' && (
+                <div className="bg-red-50 border border-red-200 rounded-xl p-3 text-xs space-y-1.5">
+                  <p className="text-[10px] font-bold text-red-500 uppercase tracking-wider">Factura rectificativa</p>
+                  {selectedInvOriginal && (
+                    <p className="text-red-700 font-semibold">Rectifica: {selectedInvOriginal.numero}</p>
+                  )}
+                  {selectedInv.motivo_rectificacion && (
+                    <p className="text-red-700">Motivo: {selectedInv.motivo_rectificacion}</p>
+                  )}
+                  <p className="text-red-400 text-[10px]">Tipo de rectificación: <span className="font-semibold">Por diferencias</span></p>
+                  {selectedInv.tipo_factura_vf && (
+                    <p className="text-red-500 font-mono text-[10px]">Cód. fiscal: {selectedInv.tipo_factura_vf}</p>
+                  )}
+                </div>
+              )}
+
               {/* Parte de trabajo vinculado */}
               {selectedParteToken && (
                 <div className="space-y-2">
@@ -853,12 +922,12 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
                 )}
                 {(selectedInv.estado === 'Emitida' || selectedInv.estado === 'Pagada' || selectedInv.estado === 'Pendiente') && selectedInv.tipo_factura !== 'rectificativa' && (
                   <button
-                    onClick={() => handleCrearRectificadora(selectedInv)}
-                    disabled={!isLiveMode || rectificando === selectedInv.id}
+                    onClick={() => handleAbrirRectModal(selectedInv)}
+                    disabled={!isLiveMode}
                     className="flex-1 py-2 rounded-xl border border-orange-200 text-orange-600 bg-orange-50 hover:bg-orange-100 text-xs font-semibold disabled:opacity-50 cursor-pointer transition-colors flex items-center justify-center gap-1.5"
                   >
                     <AlertTriangle className="w-3 h-3" />
-                    {rectificando === selectedInv.id ? '...' : 'Rectificativa'}
+                    Rectificativa
                   </button>
                 )}
               </div>
@@ -990,6 +1059,116 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
               >
                 <Download className="w-4 h-4" />
                 Exportar CSV
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de rectificativa — selección de motivo */}
+      {showRectModal && rectModalInv && (
+        <div className="fixed inset-0 bg-black/50 z-[70] flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl w-full max-w-md border border-slate-200 shadow-2xl p-6 space-y-5">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-bold text-slate-900">Crear factura rectificativa</h3>
+                <p className="text-xs text-slate-400 mt-0.5">Factura original: {rectModalInv.numero}</p>
+              </div>
+              <button
+                onClick={() => { setShowRectModal(false); setRectModalInv(null); }}
+                className="text-slate-400 hover:text-slate-600 cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Resumen de la original */}
+            <div className="bg-slate-50 rounded-xl p-3 text-xs space-y-1">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Factura original</p>
+              <div className="flex justify-between">
+                <span className="text-slate-500">Número</span>
+                <span className="font-semibold text-slate-800">{rectModalInv.numero}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500">Importe total</span>
+                <span className="font-semibold text-slate-800">{fmt(rectModalInv.total)}</span>
+              </div>
+              {rectModalInv.razon_social_cliente && (
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Cliente</span>
+                  <span className="font-semibold text-slate-800">{rectModalInv.razon_social_cliente}</span>
+                </div>
+              )}
+            </div>
+
+            {/* Selección de motivo */}
+            <div className="space-y-2">
+              <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Motivo de rectificación</p>
+              {MOTIVOS_RECTIFICACION.map(m => (
+                <label
+                  key={m.id}
+                  className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-colors ${
+                    rectMotivoId === m.id
+                      ? 'border-red-400 bg-red-50'
+                      : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="rect-motivo"
+                    value={m.id}
+                    checked={rectMotivoId === m.id}
+                    onChange={() => {
+                      setRectMotivoId(m.id);
+                      setRectMotivoTexto('');
+                    }}
+                    className="mt-0.5 accent-red-600 cursor-pointer shrink-0"
+                  />
+                  <div>
+                    <p className={`text-sm font-semibold ${rectMotivoId === m.id ? 'text-red-800' : 'text-slate-700'}`}>
+                      {m.label}
+                    </p>
+                    <p className="text-xs text-slate-500 mt-0.5">{m.descripcion}</p>
+                    <p className="text-[10px] font-mono text-slate-400 mt-0.5">Cód. fiscal: {m.tipo_factura_vf}</p>
+                  </div>
+                </label>
+              ))}
+            </div>
+
+            {/* Detalle opcional */}
+            {rectMotivoId && (
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">
+                  Descripción adicional <span className="text-slate-300 font-normal">(opcional)</span>
+                </label>
+                <textarea
+                  value={rectMotivoTexto}
+                  onChange={e => setRectMotivoTexto(e.target.value)}
+                  placeholder={MOTIVOS_RECTIFICACION.find(m => m.id === rectMotivoId)?.descripcion}
+                  rows={2}
+                  className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-red-400 resize-none placeholder-slate-300"
+                />
+              </div>
+            )}
+
+            {/* Aviso */}
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-700">
+              La rectificativa se creará en estado <strong>Borrador</strong> con importes negativos. La factura original no se modifica. Deberás revisarla y emitirla como paso final.
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => { setShowRectModal(false); setRectModalInv(null); }}
+                className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm cursor-pointer hover:bg-slate-50"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleSubmitRectificativa}
+                disabled={!rectMotivoId || rectSubmitting}
+                className="flex-1 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-sm font-semibold disabled:opacity-40 cursor-pointer transition-colors"
+              >
+                {rectSubmitting ? 'Creando...' : 'Crear rectificativa'}
               </button>
             </div>
           </div>

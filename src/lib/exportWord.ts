@@ -9,6 +9,7 @@ import type { PartidaPresupuesto } from '../types';
 // ── Palette (hex without #) ───────────────────────────────────────────────────
 const C_BLUE   = '2563EB';
 const C_PURPLE = '7C3AED';
+const C_RED    = 'DC2626';
 const C_BLACK  = '0F172A';
 const C_SLATE  = '475569';
 const C_MUTED  = '94A3B8';
@@ -62,10 +63,14 @@ export interface DocExportOpts {
   iva: number;
   estado?: string;
   notas?: string;
+  esRectificativa?: boolean;
+  rectificaNumeroOriginal?: string;
+  rectificaFechaOriginal?: string;
+  motivo?: string;
 }
 
 export async function downloadAsWordDocx(opts: DocExportOpts, filename: string): Promise<void> {
-  const accent = opts.tipo === 'factura' ? C_PURPLE : C_BLUE;
+  const accent = opts.esRectificativa ? C_RED : opts.tipo === 'factura' ? C_PURPLE : C_BLUE;
   const esFactura = opts.tipo === 'factura';
   const totalIVA = opts.total * (opts.iva / 100);
   const totalConIVA = opts.total + totalIVA;
@@ -207,7 +212,7 @@ export async function downloadAsWordDocx(opts: DocExportOpts, filename: string):
         new Paragraph({ children: [new TextRun({ text: empresaLines.join('  ·  '), size: 18, color: C_SLATE })], spacing: { after: 240 } }),
         new Paragraph({
           children: [
-            new TextRun({ text: `${esFactura ? 'FACTURA' : 'PRESUPUESTO'}  `, bold: true, size: 28, color: accent }),
+            new TextRun({ text: `${opts.esRectificativa ? 'FACTURA RECTIFICATIVA' : esFactura ? 'FACTURA' : 'PRESUPUESTO'}  `, bold: true, size: 28, color: accent }),
             new TextRun({ text: opts.numero, bold: true, size: 36, font: 'Courier New', color: C_BLACK }),
           ],
           spacing: { after: 80 },
@@ -218,9 +223,30 @@ export async function downloadAsWordDocx(opts: DocExportOpts, filename: string):
             ...(opts.fechaVencimiento ? [new TextRun({ text: `   Vencimiento: ${opts.fechaVencimiento}`, size: 19, color: C_SLATE })] : []),
             ...(opts.estado ? [new TextRun({ text: `   Estado: ${opts.estado}`, size: 19, color: C_SLATE })] : []),
           ],
-          spacing: { after: 280 },
+          spacing: { after: opts.esRectificativa ? 120 : 280 },
         }),
-        new Paragraph({ border: { bottom: { style: BorderStyle.SINGLE, color: 'E2E8F0', size: 6 } }, spacing: { after: 200 }, children: [] }),
+        ...(opts.esRectificativa ? [
+          new Paragraph({
+            children: [
+              new TextRun({ text: 'Rectifica factura: ', bold: true, size: 19, color: C_RED }),
+              new TextRun({ text: opts.rectificaNumeroOriginal ?? '—', bold: true, size: 19, font: 'Courier New', color: C_BLACK }),
+              ...(opts.rectificaFechaOriginal ? [
+                new TextRun({ text: `   (${opts.rectificaFechaOriginal.split('T')[0]})`, size: 18, color: C_SLATE }),
+              ] : []),
+            ],
+            spacing: { after: 60 },
+          }),
+          ...(opts.motivo ? [
+            new Paragraph({
+              children: [
+                new TextRun({ text: 'Motivo: ', bold: true, size: 18, color: C_RED }),
+                new TextRun({ text: opts.motivo, size: 18, color: C_SLATE }),
+              ],
+              spacing: { after: 200 },
+            }),
+          ] : [new Paragraph({ spacing: { after: 200 }, children: [] })]),
+        ] : []),
+        new Paragraph({ border: { bottom: { style: BorderStyle.SINGLE, color: opts.esRectificativa ? 'FCA5A5' : 'E2E8F0', size: 6 } }, spacing: { after: 200 }, children: [] }),
         infoTable,
         new Paragraph({ spacing: { after: 200 }, children: [] }),
         ...(opts.notas ? [

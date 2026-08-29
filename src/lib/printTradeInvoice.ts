@@ -17,6 +17,7 @@ export function buildInvoiceHtml(
   inv: TradeInvoice & { trade_clients?: { nombre: string } | null },
   lines: TradeInvoiceLine[],
   org: OrgInfo,
+  numeroOriginal?: string,
 ): string {
   const esRectificativa = inv.tipo_factura === 'rectificativa';
   const accentColor = esRectificativa ? '#dc2626' : inv.serie === 'M' ? '#7c3aed' : '#2563eb';
@@ -120,7 +121,7 @@ export function buildInvoiceHtml(
       </div>
     </div>
 
-    ${esRectificativa ? `<div class="rectif-notice">⚠ Factura rectificativa de ${inv.rectifica_factura_id ? 'la factura original' : ''}. Anula y sustituye los importes de la factura original.</div>` : ''}
+    ${esRectificativa ? `<div class="rectif-notice">⚠ Factura rectificativa${numeroOriginal ? ` de ${numeroOriginal}` : (inv.rectifica_factura_id ? ' de la factura original' : '')}${inv.motivo_rectificacion ? ` · Motivo: ${inv.motivo_rectificacion}` : ''}</div>` : ''}
 
     <div class="info-grid">
       <div class="info-box">
@@ -226,8 +227,9 @@ export function printTradeInvoice(
   inv: TradeInvoice & { trade_clients?: { nombre: string } | null },
   lines: TradeInvoiceLine[],
   org: OrgInfo,
+  numeroOriginal?: string,
 ) {
-  const html = buildInvoiceHtml(inv, lines, org);
+  const html = buildInvoiceHtml(inv, lines, org, numeroOriginal);
   const win = window.open('', '_blank', 'width=900,height=700');
   if (!win) return;
   win.document.write(html);
