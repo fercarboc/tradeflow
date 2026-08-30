@@ -28,6 +28,22 @@ Deno.serve(async (req: Request) => {
     return new Response('Method Not Allowed', { status: 405 });
   }
 
+  // Auth gate: verify_jwt=true (infra) garantiza firma válida.
+  // Adicionalmente: solo service_role puede invocar el worker.
+  const token = (req.headers.get('Authorization') ?? '').replace(/^Bearer\s+/i, '');
+  if (!token) {
+    return new Response('Unauthorized', { status: 401 });
+  }
+  try {
+    const [, b64] = token.split('.');
+    const payload = JSON.parse(atob(b64.replace(/-/g, '+').replace(/_/g, '/')));
+    if (payload?.role !== 'service_role') {
+      return new Response('Forbidden', { status: 403 });
+    }
+  } catch {
+    return new Response('Unauthorized', { status: 401 });
+  }
+
   const supabase = createClient(SUPABASE_URL, SERVICE_KEY, {
     auth: { persistSession: false },
   });
