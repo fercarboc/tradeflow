@@ -809,6 +809,36 @@ export async function createInvoiceFromJob(
   const ivaImporte = Math.round(subtotal * ivaPct) / 100;
   const total = subtotal + ivaImporte;
 
+  // Snapshot fiscal: clientId → consultar trade_clients → construir snapshot completo.
+  // Fallback a opts solo si no hay clientId (compatibilidad callers legacy).
+  let snap = {
+    razon_social_cliente: razonSocial ?? null as string | null,
+    nif_cliente: nifCliente ?? null as string | null,
+    direccion_cliente: direccionCliente ?? null as string | null,
+    localidad_cliente: null as string | null,
+    cp_cliente: null as string | null,
+    provincia_cliente: null as string | null,
+    pais_cliente: null as string | null,
+  };
+  if (clientId) {
+    const { data: cli } = await supabase
+      .from('trade_clients')
+      .select('nombre, apellidos, tipo_cliente, nif, direccion, localidad, cp, provincia, pais')
+      .eq('id', clientId)
+      .single();
+    if (cli) {
+      snap = {
+        razon_social_cliente: getClientDisplayName(cli),
+        nif_cliente: cli.nif ? normalizaNif(cli.nif) : null,
+        direccion_cliente: cli.direccion ?? null,
+        localidad_cliente: cli.localidad ?? null,
+        cp_cliente: cli.cp ?? null,
+        provincia_cliente: cli.provincia ?? null,
+        pais_cliente: cli.pais ?? null,
+      };
+    }
+  }
+
   // Borrador: sin número definitivo todavía (se asigna al emitir)
   const tempNumero = `BORRADOR-${Date.now()}`;
 
@@ -830,9 +860,7 @@ export async function createInvoiceFromJob(
       serie,
       tipo_factura,
       metodo_pago: metodoPago ?? null,
-      razon_social_cliente: razonSocial ?? null,
-      nif_cliente: nifCliente ?? null,
-      direccion_cliente: direccionCliente ?? null,
+      ...snap,
     })
     .select()
     .single();
@@ -1317,38 +1345,6 @@ export const MOTIVOS_RECTIFICACION = [
   },
 ] as const;
 
-// Construye el input del hash, separable para tests deterministas.
-export function buildVeriFactuHashInput(
-  cif: string,
-  numero: string,
-  fechaDDMMYYYY: string,
-  tipoFactura: string,
-  cuotaIVA: number,
-  total: number,
-  hashAnterior: string,
-  generatedAt: string,
-): string {
-  return [
-    cif, numero, fechaDDMMYYYY, tipoFactura,
-    cuotaIVA.toFixed(2), total.toFixed(2), hashAnterior, generatedAt,
-  ].join(';');
-}
-
-export async function computeVeriFactuHash(
-  cif: string,
-  numero: string,
-  fechaDDMMYYYY: string,
-  tipoFactura: string,
-  cuotaIVA: number,
-  total: number,
-  hashAnterior: string,
-  generatedAt: string,
-): Promise<string> {
-  const input = buildVeriFactuHashInput(cif, numero, fechaDDMMYYYY, tipoFactura, cuotaIVA, total, hashAnterior, generatedAt);
-  const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(input));
-  return Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
-}
-
 export async function emitirFactura(id: string, orgId: string): Promise<TradeInvoice> {
   // Emisión atómica via RPC PostgreSQL con advisory lock.
   // La BD calcula el número, el hash y gestiona el encadenamiento.
@@ -1543,6 +1539,35 @@ export async function createMaintenanceInvoices(
 ): Promise<TradeInvoice[]> {
   const { cuotaMensual, ivaPct, periodoFacturacion, duracionMeses, diaVencimiento, nombreCliente, referencia } = opts;
 
+  // Snapshot fiscal del cliente — consultado una sola vez antes del bucle.
+  let snap = {
+    razon_social_cliente: null as string | null,
+    nif_cliente: null as string | null,
+    direccion_cliente: null as string | null,
+    localidad_cliente: null as string | null,
+    cp_cliente: null as string | null,
+    provincia_cliente: null as string | null,
+    pais_cliente: null as string | null,
+  };
+  if (opts.clientId) {
+    const { data: cli } = await supabase
+      .from('trade_clients')
+      .select('nombre, apellidos, tipo_cliente, nif, direccion, localidad, cp, provincia, pais')
+      .eq('id', opts.clientId)
+      .single();
+    if (cli) {
+      snap = {
+        razon_social_cliente: getClientDisplayName(cli),
+        nif_cliente: cli.nif ? normalizaNif(cli.nif) : null,
+        direccion_cliente: cli.direccion ?? null,
+        localidad_cliente: cli.localidad ?? null,
+        cp_cliente: cli.cp ?? null,
+        provincia_cliente: cli.provincia ?? null,
+        pais_cliente: cli.pais ?? null,
+      };
+    }
+  }
+
   // Determinar cuántas facturas y cuántos meses por factura
   const mesesPorFactura = periodoFacturacion === 'anual' ? 12 : periodoFacturacion === 'trimestral' ? 3 : 1;
   const numFacturas = Math.ceil(duracionMeses / mesesPorFactura);
@@ -1584,6 +1609,7 @@ export async function createMaintenanceInvoices(
       serie: 'M',
       tipo_factura: 'contrato_cuota',
       mes_facturacion: mesFacturacion.toISOString().split('T')[0],
+      ...snap,
     }).select().single();
     if (error) throw error;
     invoices.push(data as TradeInvoice);
