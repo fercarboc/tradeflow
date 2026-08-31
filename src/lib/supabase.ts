@@ -809,7 +809,18 @@ export async function createInvoiceFromJob(
   const ivaImporte = Math.round(subtotal * ivaPct) / 100;
   const total = subtotal + ivaImporte;
 
-  // Snapshot fiscal: clientId → consultar trade_clients → construir snapshot completo.
+  // Verificar que el trabajo pertenece a la organización antes de crear la factura.
+  if (jobId) {
+    const { data: jobRow } = await supabase
+      .from('trade_jobs')
+      .select('id')
+      .eq('id', jobId)
+      .eq('org_id', orgId)
+      .maybeSingle();
+    if (!jobRow) throw new Error(`Job ${jobId} no pertenece a la organización ${orgId}`);
+  }
+
+  // Snapshot fiscal: clientId → consultar trade_clients (org_id verificado) → snapshot.
   // Fallback a opts solo si no hay clientId (compatibilidad callers legacy).
   let snap = {
     razon_social_cliente: razonSocial ?? null as string | null,
@@ -825,6 +836,7 @@ export async function createInvoiceFromJob(
       .from('trade_clients')
       .select('nombre, apellidos, tipo_cliente, nif, direccion, localidad, cp, provincia, pais')
       .eq('id', clientId)
+      .eq('org_id', orgId)
       .single();
     if (cli) {
       snap = {
@@ -1539,7 +1551,9 @@ export async function createMaintenanceInvoices(
 ): Promise<TradeInvoice[]> {
   const { cuotaMensual, ivaPct, periodoFacturacion, duracionMeses, diaVencimiento, nombreCliente, referencia } = opts;
 
-  // Snapshot fiscal del cliente — consultado una sola vez antes del bucle.
+  // Snapshot fiscal: lookup interno desde trade_contracts (org_id verificado)
+  // para obtener client_id auditado, luego trade_clients con org_id filter.
+  // opts.clientId se ignora — la fuente de verdad es el contrato en BD.
   let snap = {
     razon_social_cliente: null as string | null,
     nif_cliente: null as string | null,
@@ -1549,22 +1563,32 @@ export async function createMaintenanceInvoices(
     provincia_cliente: null as string | null,
     pais_cliente: null as string | null,
   };
-  if (opts.clientId) {
-    const { data: cli } = await supabase
-      .from('trade_clients')
-      .select('nombre, apellidos, tipo_cliente, nif, direccion, localidad, cp, provincia, pais')
-      .eq('id', opts.clientId)
-      .single();
-    if (cli) {
-      snap = {
-        razon_social_cliente: getClientDisplayName(cli),
-        nif_cliente: cli.nif ? normalizaNif(cli.nif) : null,
-        direccion_cliente: cli.direccion ?? null,
-        localidad_cliente: cli.localidad ?? null,
-        cp_cliente: cli.cp ?? null,
-        provincia_cliente: cli.provincia ?? null,
-        pais_cliente: cli.pais ?? null,
-      };
+  {
+    const { data: contractRow } = await supabase
+      .from('trade_contracts')
+      .select('client_id')
+      .eq('id', contractId)
+      .eq('org_id', orgId)
+      .maybeSingle();
+    const resolvedClientId = contractRow?.client_id ?? null;
+    if (resolvedClientId) {
+      const { data: cli } = await supabase
+        .from('trade_clients')
+        .select('nombre, apellidos, tipo_cliente, nif, direccion, localidad, cp, provincia, pais')
+        .eq('id', resolvedClientId)
+        .eq('org_id', orgId)
+        .single();
+      if (cli) {
+        snap = {
+          razon_social_cliente: getClientDisplayName(cli),
+          nif_cliente: cli.nif ? normalizaNif(cli.nif) : null,
+          direccion_cliente: cli.direccion ?? null,
+          localidad_cliente: cli.localidad ?? null,
+          cp_cliente: cli.cp ?? null,
+          provincia_cliente: cli.provincia ?? null,
+          pais_cliente: cli.pais ?? null,
+        };
+      }
     }
   }
 
@@ -3963,6 +3987,7 @@ export async function convertPresupuestoToContrato(
     .from('trade_contracts')
     .insert({
       org_id: presupuesto.org_id,
+      client_id: presupuesto.client_id ?? null,
       referencia,
       oficio: presupuesto.oficio,
       estado: 'firmado',
