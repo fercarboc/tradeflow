@@ -1535,112 +1535,6 @@ export async function updateWorker(id: string, updates: Partial<Omit<TradeWorker
   if (error) throw error;
 }
 
-export async function createMaintenanceInvoices(
-  orgId: string,
-  contractId: string,
-  opts: {
-    clientId?: string | null;
-    cuotaMensual: number;
-    ivaPct: number;
-    periodoFacturacion: 'mensual' | 'trimestral' | 'anual';
-    duracionMeses: number;
-    diaVencimiento: number;
-    nombreCliente: string;
-    referencia: string;
-  },
-): Promise<TradeInvoice[]> {
-  const { cuotaMensual, ivaPct, periodoFacturacion, duracionMeses, diaVencimiento, nombreCliente, referencia } = opts;
-
-  // Snapshot fiscal: lookup interno desde trade_contracts (org_id verificado)
-  // para obtener client_id auditado, luego trade_clients con org_id filter.
-  // opts.clientId se ignora — la fuente de verdad es el contrato en BD.
-  let snap = {
-    razon_social_cliente: null as string | null,
-    nif_cliente: null as string | null,
-    direccion_cliente: null as string | null,
-    localidad_cliente: null as string | null,
-    cp_cliente: null as string | null,
-    provincia_cliente: null as string | null,
-    pais_cliente: null as string | null,
-  };
-  {
-    const { data: contractRow } = await supabase
-      .from('trade_contracts')
-      .select('client_id')
-      .eq('id', contractId)
-      .eq('org_id', orgId)
-      .maybeSingle();
-    const resolvedClientId = contractRow?.client_id ?? null;
-    if (resolvedClientId) {
-      const { data: cli } = await supabase
-        .from('trade_clients')
-        .select('nombre, apellidos, tipo_cliente, nif, direccion, localidad, cp, provincia, pais')
-        .eq('id', resolvedClientId)
-        .eq('org_id', orgId)
-        .single();
-      if (cli) {
-        snap = {
-          razon_social_cliente: getClientDisplayName(cli),
-          nif_cliente: cli.nif ? normalizaNif(cli.nif) : null,
-          direccion_cliente: cli.direccion ?? null,
-          localidad_cliente: cli.localidad ?? null,
-          cp_cliente: cli.cp ?? null,
-          provincia_cliente: cli.provincia ?? null,
-          pais_cliente: cli.pais ?? null,
-        };
-      }
-    }
-  }
-
-  // Determinar cuántas facturas y cuántos meses por factura
-  const mesesPorFactura = periodoFacturacion === 'anual' ? 12 : periodoFacturacion === 'trimestral' ? 3 : 1;
-  const numFacturas = Math.ceil(duracionMeses / mesesPorFactura);
-  const subtotalFactura = cuotaMensual * mesesPorFactura;
-  const ivaImporte = Math.round(subtotalFactura * ivaPct * 100) / 10000;
-  const totalFactura = subtotalFactura + ivaImporte;
-
-  // Contar facturas existentes para numeración
-  const { count } = await supabase.from('trade_invoices').select('*', { count: 'exact', head: true }).eq('org_id', orgId);
-  let contador = (count ?? 0) + 1;
-
-  const hoy = new Date();
-  const invoices: TradeInvoice[] = [];
-
-  for (let i = 0; i < numFacturas; i++) {
-    const mesFacturacion = new Date(hoy);
-    mesFacturacion.setMonth(mesFacturacion.getMonth() + i * mesesPorFactura);
-    mesFacturacion.setDate(1);
-
-    const periodo = periodoFacturacion === 'mensual'
-      ? mesFacturacion.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })
-      : periodoFacturacion === 'trimestral'
-        ? `T${Math.ceil((mesFacturacion.getMonth() + 1) / 3)} ${mesFacturacion.getFullYear()}`
-        : `Año ${mesFacturacion.getFullYear()}`;
-
-    // Facturas de contrato se crean como BORRADOR — solo se emiten cuando llega su mes
-    const tempNumero = `BORRADOR-M-${Date.now()}-${i}`;
-
-    const { data, error } = await supabase.from('trade_invoices').insert({
-      org_id: orgId,
-      client_id: opts.clientId ?? null,
-      contract_id: contractId,
-      numero: tempNumero,
-      fecha: mesFacturacion.toISOString().split('T')[0],
-      estado: 'Borrador',
-      subtotal: subtotalFactura,
-      iva_pct: ivaPct,
-      concepto: `Mantenimiento ${referencia} — ${nombreCliente} — ${periodo}`,
-      serie: 'M',
-      tipo_factura: 'contrato_cuota',
-      mes_facturacion: mesFacturacion.toISOString().split('T')[0],
-      ...snap,
-    }).select().single();
-    if (error) throw error;
-    invoices.push(data as TradeInvoice);
-  }
-  return invoices;
-}
-
 // ── Presupuestos ──────────────────────────────────────────────────────────
 
 export async function updateQuoteStatus(
@@ -4043,20 +3937,6 @@ export async function convertPresupuestoToContrato(
     .from('trade_contracts')
     .update({ mantenimiento_id: data.id })
     .eq('id', tradeContract.id);
-
-  // Create invoices (12 months)
-  if (cuotaMensual > 0) {
-    await createMaintenanceInvoices(presupuesto.org_id, tradeContract.id, {
-      clientId: presupuesto.client_id,
-      cuotaMensual,
-      ivaPct,
-      periodoFacturacion: presupuesto.tipo_facturacion,
-      duracionMeses: 12,
-      diaVencimiento: 5,
-      nombreCliente: presupuesto.nombre_cliente ?? 'Cliente',
-      referencia,
-    });
-  }
 
   // Mark presupuesto as converted
   await supabase

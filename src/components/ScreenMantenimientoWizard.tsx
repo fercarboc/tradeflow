@@ -32,6 +32,7 @@ const SECTORES = [
   { icon: '🅿️', label: 'Parking y Garajes',           sla: '1h acceso',    cobertura: 'personalizada', criticidad: 'Alta' },
   { icon: '🏗️', label: 'Obras y Construcción',        sla: '4h',           cobertura: 'personalizada', criticidad: 'Alta' },
   { icon: '📡', label: 'Telecomunicaciones',           sla: '1h red',       cobertura: '24/7',         criticidad: 'Muy alta' },
+  { icon: '🌿', label: 'Jardinería',                   sla: '4h',           cobertura: '8/5',          criticidad: 'Normal' },
 ];
 
 // ── Interfaces ────────────────────────────────────────────────────────────────
@@ -112,6 +113,8 @@ const EQUIPOS_TIPICOS: Record<string, string> = {
     'Equipos instalados típicos: grúas torre (Liebherr, Potain, Jaso) con cuadro de maniobras, montacargas de obra y plataformas elevadoras (GEDA, Alimak), instalaciones eléctricas provisionales de obra (cuadros ICT, generales y secundarios), grupos electrógenos de obra (400V trifásico), bombas de agua para achique y hormigonado, hormigoneras y camiones bomba (no incluidos), compresores de aire para herramienta neumática, maquinaria de corte y rozadora (no incluidas), instalaciones de alumbrado provisional.',
   'Telecomunicaciones':
     'Equipos instalados típicos: torres de telecomunicación autoportantes y arriostradas (Rohn, Comesa), mástiles en cubierta con pararrayos, equipos de radio BTS/NodeB/eNodeB/gNodeB (Ericsson, Nokia, Huawei, ZTE), sistemas de energía de telecomunicación (rectificadores 48V, baterías AGM/Gel/LFP), sistemas de vigilancia remota NOC (SNMP, NetAct), shelter y abrigos climatizados, líneas de transmisión y sistemas de antenas (RRU, AAU), equipos de microondas PDH/SDH, sistemas fibra óptica y DWDM.',
+  'Jardinería':
+    'Elementos a mantener típicos: césped y praderas (corte, aireado, escarificado, abonado), setos y arbustos (poda, formación, control fitosanitario), árboles ornamentales y de porte (poda de mantenimiento, revisión de anclajes, tratamiento preventivo), plantas de temporada y maceteros, sistemas de riego automático por goteo y aspersión (programadores, electroválvulas, tuberías), alumbrado de jardín y zonas verdes (luminarias, detectores), pavimentos exteriores y caminos de jardín, fuentes y elementos de agua ornamentales.',
 };
 
 // ── Opciones típicas por sector (chips seleccionables en fase voz) ─────────────
@@ -330,6 +333,18 @@ const ITEMS_POR_SECTOR: Record<string, Array<{ label: string; checked: boolean }
     { label: 'Líneas transmisión / antenas', checked: false },
     { label: 'Monitorización NOC', checked: false },
   ],
+  'Jardinería': [
+    { label: 'Cesped (corte y mantenimiento)', checked: true },
+    { label: 'Setos y arbustos (poda)', checked: true },
+    { label: 'Árboles ornamentales', checked: true },
+    { label: 'Sistema de riego automático', checked: true },
+    { label: 'Plantas de temporada', checked: false },
+    { label: 'Alumbrado exterior jardín', checked: false },
+    { label: 'Fuente ornamental', checked: false },
+    { label: 'Pavimentos y caminos', checked: false },
+    { label: 'Control fitosanitario', checked: false },
+    { label: 'Maceteros y jardineras', checked: false },
+  ],
 };
 
 // ── Mapas sector → códigos de BD ─────────────────────────────────────────────
@@ -357,6 +372,7 @@ const SECTOR_OFICIO_MAP: Record<string, string> = {
   'Parking y Garajes': 'electricidad',
   'Obras y Construcción': 'obra_civil',
   'Telecomunicaciones': 'telecomunicaciones',
+  'Jardinería': 'jardineria',
 };
 
 const SECTOR_CODE_MAP: Record<string, string> = {
@@ -383,6 +399,7 @@ const SECTOR_CODE_MAP: Record<string, string> = {
   'Parking y Garajes': 'parking',
   'Obras y Construcción': 'obras',
   'Telecomunicaciones': 'telecomunicaciones',
+  'Jardinería': 'jardineria',
 };
 
 const CRITICIDAD_SLA_MAP: Record<string, string> = {

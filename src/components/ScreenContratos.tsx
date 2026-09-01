@@ -8,7 +8,7 @@ import { downloadContractAsDocx } from '../lib/exportWord';
 import type { TradeOrganization, TradeContract, MaintenancePresupuesto } from '../lib/supabase';
 import {
   loadContracts, createContract, updateContract, signContract, deleteContract,
-  loadMaintenancePresupuestos, saveMaintenanceContrato, createMaintenanceInvoices,
+  loadMaintenancePresupuestos, saveMaintenanceContrato,
   updateMaintenancePresupuesto,
 } from '../lib/supabase';
 import { buildContractHTML, defaultContractVars } from '../lib/contractTemplates';
@@ -293,27 +293,13 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
         renovacion_automatica: true,
         preaviso_cancelacion_dias: 30,
         dia_facturacion: diaVenc,
-        proxima_factura: null,
+        proxima_factura: fechaInicio.toISOString().split('T')[0],
         ultima_factura: null,
         notas: `Generado desde contrato ${vars.referencia}`,
         contract_id: editingId,
       });
 
-      // Generar facturas según período
-      if (cuotaMensual > 0) {
-        await createMaintenanceInvoices(orgId, editingId, {
-          clientId: null,
-          cuotaMensual,
-          ivaPct,
-          periodoFacturacion: vars.periodo_facturacion,
-          duracionMeses,
-          diaVencimiento: diaVenc,
-          nombreCliente: vars.nombre_cliente,
-          referencia: vars.referencia,
-        });
-      }
-
-      showToast(`Contrato firmado ✓ — Mantenimiento ${mantContrato.numero} activado y facturas generadas`, 'success');
+      showToast(`Contrato firmado ✓ — Mantenimiento ${mantContrato.numero} activado`, 'success');
     } catch (e: unknown) {
       showToast('Error: ' + (e instanceof Error ? e.message : String(e)), 'error');
     } finally {
