@@ -67,7 +67,7 @@ export function buildInvoiceHtml(
     <style>
       *{box-sizing:border-box;margin:0;padding:0}
       body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#0f172a;background:#fff;padding:48px 56px;max-width:800px;margin:auto;font-size:12px}
-      @media print{body{padding:24px 32px}button{display:none!important}}
+      @media print{body{padding:24px 32px}button{display:none!important}tr{break-inside:avoid;page-break-inside:avoid}.totals-box{break-inside:avoid;page-break-inside:avoid}.verifactu-block{break-inside:avoid;page-break-inside:avoid}thead{display:table-header-group}}
       .print-btn{position:fixed;top:16px;right:16px;background:${accentColor};color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2)}
       .top-bar{height:6px;background:linear-gradient(90deg,${accentColor},${esRectificativa ? '#f87171' : accentColor === '#7c3aed' ? '#a855f7' : '#06b6d4'});margin:-48px -56px 40px}
       @media print{.top-bar{margin:-24px -32px 32px}}
@@ -171,7 +171,7 @@ export function buildInvoiceHtml(
 
     ${inv.verifactu_hash ? `
     <!-- SECCIÓN VERIFACTU -->
-    <div style="margin-top:20px;border-top:2px solid #e2e8f0;padding-top:16px">
+    <div class="verifactu-block" style="margin-top:20px;border-top:2px solid #e2e8f0;padding-top:16px">
       <div style="display:flex;align-items:flex-start;gap:16px">
         <!-- QR code (requiere conexión) -->
         <div style="flex-shrink:0;text-align:center">
