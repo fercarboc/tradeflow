@@ -144,7 +144,6 @@ Te adjunto el presupuesto nº *{{numero_presupuesto}}* de *{{nombre_empresa}}* p
 _Descripción del trabajo:_
 {{resumen_trabajo_ia}}
 {{/if}}
-📄 Ver presupuesto: {{enlace_pdf}}
 ✅ Para aceptarlo: {{enlace_aceptacion}}
 
 Validez: {{validez_presupuesto}}
@@ -224,6 +223,15 @@ Pago a 30 días desde la fecha de factura.
 } as const;
 
 export type DefaultTemplateKey = keyof typeof DEFAULT_TEMPLATES;
+
+// ── Acceptance URL guarantee ──────────────────────────────────────────────────
+// Appends the acceptance URL to a resolved message if it is not already present.
+// Defensive guard: legacy or custom templates that lack {{enlace_aceptacion}}
+// must not silently discard the public acceptance link.
+export function ensureAcceptanceUrl(message: string, acceptanceUrl: string | undefined): string {
+  if (!acceptanceUrl || message.includes(acceptanceUrl)) return message;
+  return `${message}\n\n✅ Para aceptarlo: ${acceptanceUrl}`;
+}
 
 // ── Variable catalog (doc sección 3) ─────────────────────────────────────────
 

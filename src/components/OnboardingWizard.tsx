@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { supabase, importCatalogItems, saveOrgTemplate, uploadOrgLogo } from '../lib/supabase';
 import type { TemplateType } from '../lib/supabase';
+import { DEFAULT_TEMPLATES as ENGINE_TEMPLATES } from '../lib/templateEngine';
 import { useSession } from '../context/SessionContext';
 import {
   loadWorkCalendar, saveWorkCalendar, DAY_NAMES, FESTIVOS_NACIONALES,
@@ -142,8 +143,8 @@ const DEFAULT_TEMPLATES: { tipo: TemplateType; nombre: string; contenido: string
   {
     tipo: 'whatsapp_presupuesto',
     nombre: 'WhatsApp — Envío presupuesto',
-    contenido: 'Hola {nombre},\n\nAdjunto el presupuesto {numero} por importe de {total}€.\n\n¿Podría confirmarnos si está de acuerdo para proceder?\n\nQuedamos a su disposición para cualquier duda.\n\nSaludos,\n{empresa}',
-    preview: 'Hola Juan García,\n\nAdjunto el presupuesto P-2026-0042 por importe de 485,00€.\n\n¿Podría confirmarnos si está de acuerdo para proceder?\n\nQuedamos a su disposición para cualquier duda.\n\nSaludos,\nInstalaciones García',
+    contenido: ENGINE_TEMPLATES.whatsapp_presupuesto,
+    preview: 'Hola Juan García,\n\nTe adjunto el presupuesto nº *P-2026-0042* de *Instalaciones García SL* por importe de *1.452,30 €*.\n\n✅ Para aceptarlo: https://trabflow.com/p/abc123\n\nValidez: 30 días\n\nGracias. Instalaciones García SL · 600 123 456',
   },
   {
     tipo: 'email_presupuesto',

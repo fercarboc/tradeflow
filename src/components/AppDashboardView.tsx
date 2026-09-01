@@ -106,7 +106,7 @@ import ScreenContratos from './ScreenContratos';
 import ScreenSubcontratas from './ScreenSubcontratas';
 import ScreenValoraciones from './ScreenValoraciones';
 import ScreenAsistenteTecnico from './ScreenAsistenteTecnico';
-import { resolveTemplate, buildTemplateVars, DEFAULT_TEMPLATES, VARIABLE_GROUPS } from '../lib/templateEngine';
+import { resolveTemplate, buildTemplateVars, DEFAULT_TEMPLATES, VARIABLE_GROUPS, ensureAcceptanceUrl } from '../lib/templateEngine';
 import {
   loadWorkCalendar, saveWorkCalendar, isWorkingDay,
   DAY_NAMES, FESTIVOS_NACIONALES,
@@ -1906,7 +1906,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         enlaceAceptacion: acceptanceUrl,
         enlacePdf: pdfUrl,
       });
-      return resolveTemplate(savedTemplate, vars);
+      return ensureAcceptanceUrl(resolveTemplate(savedTemplate, vars), acceptanceUrl);
     }
 
     const lines = q.partidas.map(p =>
