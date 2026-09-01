@@ -248,3 +248,37 @@ describe('OnboardingWizard canonical alignment', () => {
     }
   });
 });
+
+// ── Acceptance URL exactly-once guarantee ─────────────────────────────────────
+
+describe('Acceptance URL appears exactly once — both scenarios', () => {
+  const VARS_WITH_URL = {
+    ...BASE_VARS,
+    enlace_aceptacion: ACCEPTANCE_URL,
+  };
+
+  it('Scenario A — canonical template: URL is in resolved message exactly once', () => {
+    const resolved = resolveTemplate(DEFAULT_TEMPLATES.whatsapp_presupuesto, VARS_WITH_URL);
+    const guarded  = ensureAcceptanceUrl(resolved, ACCEPTANCE_URL);
+    const count    = (guarded.split(ACCEPTANCE_URL).length - 1);
+    expect(count).toBe(1);
+  });
+
+  it('Scenario B — legacy/custom template without {{enlace_aceptacion}}: ensureAcceptanceUrl appends exactly once', () => {
+    const legacyTemplate = 'Hola {nombre},\n\nTe envío el presupuesto. Importe: {total}.\n\nGracias.';
+    const resolved = resolveTemplate(legacyTemplate, VARS_WITH_URL);
+    expect(resolved).not.toContain(ACCEPTANCE_URL);
+    const guarded = ensureAcceptanceUrl(resolved, ACCEPTANCE_URL);
+    const count   = (guarded.split(ACCEPTANCE_URL).length - 1);
+    expect(count).toBe(1);
+  });
+
+  it('Scenario B — calling ensureAcceptanceUrl twice does not duplicate the URL', () => {
+    const legacyTemplate = 'Hola, tu presupuesto está listo.';
+    const resolved  = resolveTemplate(legacyTemplate, {});
+    const once      = ensureAcceptanceUrl(resolved, ACCEPTANCE_URL);
+    const twice     = ensureAcceptanceUrl(once, ACCEPTANCE_URL);
+    const count     = (twice.split(ACCEPTANCE_URL).length - 1);
+    expect(count).toBe(1);
+  });
+});
