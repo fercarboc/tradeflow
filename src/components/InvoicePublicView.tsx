@@ -15,9 +15,9 @@ export default function InvoicePublicView({ token }: Props) {
   useEffect(() => {
     if (!token) { setError('Enlace no válido.'); setLoading(false); return; }
     getInvoiceByViewToken(token)
-      .then(data => {
+      .then(async data => {
         if (!data) { setError('Factura no encontrada o enlace caducado.'); return; }
-        const { invoice, org } = data;
+        const { invoice, org, fiscalSnapshot } = data;
         const lines = invoice.trade_invoice_lines ?? [];
         const invForPrint = {
           ...invoice,
@@ -36,7 +36,7 @@ export default function InvoicePublicView({ token }: Props) {
           email: org.email,
           logo_url: org.logo_url,
         };
-        setHtml(buildInvoiceHtml(invForPrint, lines, orgForPrint));
+        setHtml(await buildInvoiceHtml(invForPrint, lines, orgForPrint, undefined, fiscalSnapshot ?? null));
       })
       .catch(() => setError('No se pudo cargar la factura.'))
       .finally(() => setLoading(false));

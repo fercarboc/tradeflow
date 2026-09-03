@@ -190,6 +190,16 @@ export interface TradeFiscalRecord {
   created_at: string;
 }
 
+// Snapshot fiscal mínimo para construcción del QR AEAT (RD 1007/2023).
+// Los valores proceden de trade_fiscal_records y son inmutables post-emisión.
+// fecha_expedicion_vf: DD-MM-YYYY tal como almacenado en el ledger fiscal.
+export interface FiscalSnapshot {
+  nif_emisor: string;
+  numero_factura: string;
+  fecha_expedicion_vf: string;
+  importe_total: number;
+}
+
 export interface TradeInvoiceLine {
   id: string;
   factura_id: string;
@@ -3985,6 +3995,7 @@ export interface InvoicePublicData {
     nombre?: string; razon_social?: string; nif?: string;
     direccion?: string; ciudad?: string; telefono?: string; email?: string; logo_url?: string;
   };
+  fiscalSnapshot?: FiscalSnapshot | null;
 }
 
 export async function getInvoiceByViewToken(token: string): Promise<InvoicePublicData | null> {

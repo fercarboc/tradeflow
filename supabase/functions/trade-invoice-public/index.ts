@@ -66,7 +66,18 @@ Deno.serve(async (req: Request) => {
     .eq('id', inv.org_id)
     .maybeSingle();
 
-  return new Response(JSON.stringify({ invoice: inv, org: org ?? {} }), {
+  // Fetch fiscal snapshot for QR AEAT (service_role bypasses RLS on fiscal ledger)
+  let fiscalSnapshot = null;
+  if (inv.fiscal_record_id) {
+    const { data: fr } = await adminClient
+      .from('trade_fiscal_records')
+      .select('nif_emisor, numero_factura, fecha_expedicion_vf, importe_total')
+      .eq('id', inv.fiscal_record_id)
+      .maybeSingle();
+    fiscalSnapshot = fr ?? null;
+  }
+
+  return new Response(JSON.stringify({ invoice: inv, org: org ?? {}, fiscalSnapshot }), {
     headers: { ...cors(req), 'Content-Type': 'application/json' },
   });
 });

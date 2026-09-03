@@ -1,4 +1,5 @@
-import type { TradeInvoice, TradeInvoiceLine } from './supabase';
+import QRCode from 'qrcode';
+import type { TradeInvoice, TradeInvoiceLine, FiscalSnapshot } from './supabase';
 
 interface OrgInfo {
   nombre?: string;
@@ -13,12 +14,13 @@ interface OrgInfo {
   iva_default?: number;
 }
 
-export function buildInvoiceHtml(
+export async function buildInvoiceHtml(
   inv: TradeInvoice & { trade_clients?: { nombre: string } | null },
   lines: TradeInvoiceLine[],
   org: OrgInfo,
   numeroOriginal?: string,
-): string {
+  fiscalSnapshot?: FiscalSnapshot | null,
+): Promise<string> {
   const esRectificativa = inv.tipo_factura === 'rectificativa';
   const accentColor = esRectificativa ? '#dc2626' : inv.serie === 'M' ? '#7c3aed' : '#2563eb';
   const tipoLabel = esRectificativa ? 'Factura Rectificativa' : 'Factura';
@@ -61,6 +63,40 @@ export function buildInvoiceHtml(
     if (e === 'Borrador') return `<span class="badge badge-draft">Borrador</span>`;
     return `<span class="badge badge-pending">${e}</span>`;
   };
+
+  // ── QR AEAT: fuente autoritativa = snapshot fiscal (trade_fiscal_records) ──
+  // Fail-closed: si snapshot ausente o numserie no coincide → omitir QR.
+  // Nunca usar org.nif como fallback para NIF del emisor en un QR fiscal oficial.
+  let qrSvgBlock: string | null = null;
+  if (inv.fiscal_record_id) {
+    if (fiscalSnapshot) {
+      if (fiscalSnapshot.numero_factura !== (inv.numero ?? '')) {
+        // Mismatch entre serial en factura y en ledger fiscal → no generar QR
+        console.error(
+          '[VF-QR] FAIL_CLOSED: fiscal_record.numero_factura !== invoice.numero',
+          { fiscal: fiscalSnapshot.numero_factura, invoice: inv.numero },
+        );
+      } else {
+        const aeatUrl = [
+          'https://www2.agenciatributaria.es/wlpl/TIKE-CONT/ValidarQR',
+          `?nif=${encodeURIComponent(fiscalSnapshot.nif_emisor)}`,
+          `&numserie=${encodeURIComponent(fiscalSnapshot.numero_factura)}`,
+          // fecha_expedicion_vf ya está en DD-MM-YYYY (formato AEAT); no reconvertir
+          `&fecha=${encodeURIComponent(fiscalSnapshot.fecha_expedicion_vf)}`,
+          `&importe=${encodeURIComponent(fiscalSnapshot.importe_total.toFixed(2))}`,
+        ].join('');
+        qrSvgBlock = await QRCode.toString(aeatUrl, { type: 'svg', width: 96, margin: 1 });
+      }
+    } else {
+      // fiscal_record_id presente pero sin snapshot → fail closed, QR omitido
+      console.warn('[VF-QR] FAIL_CLOSED: fiscal_record_id present but fiscalSnapshot not provided — QR omitted');
+    }
+  }
+
+  // Valores de display en bloque VeriFactu: priorizar snapshot fiscal (inmutable)
+  const displayNifEmisora = fiscalSnapshot?.nif_emisor ?? empresaCif ?? '—';
+  const displayFechaEmision = fiscalSnapshot?.fecha_expedicion_vf
+    ?? (inv.fecha_emision ?? inv.fecha ?? '').split('T')[0];
 
   const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
     <title>${tipoLabel} ${inv.numero}</title>
@@ -169,25 +205,17 @@ export function buildInvoiceHtml(
       Documento generado el ${new Date().toLocaleDateString('es-ES')}
     </div>
 
-    ${inv.verifactu_hash ? `
+    ${inv.fiscal_record_id ? `
     <!-- SECCIÓN VERIFACTU -->
     <div class="verifactu-block" style="margin-top:20px;border-top:2px solid #e2e8f0;padding-top:16px">
       <div style="display:flex;align-items:flex-start;gap:16px">
-        <!-- QR code (requiere conexión) -->
+        ${qrSvgBlock ? `<!-- QR code AEAT (generado localmente, fuente: ledger fiscal) -->
         <div style="flex-shrink:0;text-align:center">
-          <img
-            src="https://chart.googleapis.com/chart?chs=96x96&cht=qr&chl=${encodeURIComponent(`VERIFACTU:${inv.numero};${inv.verifactu_hash};${empresaCif}`)}&choe=UTF-8"
-            alt="QR VeriFactu"
-            width="96" height="96"
-            style="display:block;border:1px solid #e2e8f0;border-radius:6px"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-          />
-          <!-- Fallback si no hay internet -->
-          <div style="display:none;width:96px;height:96px;border:1px solid #e2e8f0;border-radius:6px;align-items:center;justify-content:center;background:#f8fafc">
-            <span style="font-size:9px;color:#94a3b8;text-align:center;padding:8px">Sin<br>conexión</span>
+          <div style="display:inline-block;border:1px solid #e2e8f0;border-radius:6px;overflow:hidden;width:96px;height:96px">
+            ${qrSvgBlock}
           </div>
           <p style="font-size:8px;color:#94a3b8;margin-top:4px;text-align:center">Verificar</p>
-        </div>
+        </div>` : ''}
         <!-- Datos VeriFactu -->
         <div style="flex:1;min-width:0">
           <p style="font-size:9px;font-weight:800;color:#475569;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">
@@ -195,8 +223,8 @@ export function buildInvoiceHtml(
           </p>
           <p style="font-size:8.5px;color:#64748b;line-height:1.7;margin-bottom:4px">
             <span style="font-weight:700;color:#334155">Nº Factura:</span> ${inv.numero}<br>
-            <span style="font-weight:700;color:#334155">Fecha emisión:</span> ${(inv.fecha_emision ?? inv.fecha ?? '').split('T')[0]}<br>
-            <span style="font-weight:700;color:#334155">Emisor CIF:</span> ${empresaCif ?? '—'}<br>
+            <span style="font-weight:700;color:#334155">Fecha emisión:</span> ${displayFechaEmision}<br>
+            <span style="font-weight:700;color:#334155">Emisor CIF:</span> ${displayNifEmisora}<br>
             ${inv.verifactu_hash_anterior ? `<span style="font-weight:700;color:#334155">Encadenamiento:</span> Sí<br>` : ''}
           </p>
           <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:6px 10px;margin-top:4px">
@@ -223,13 +251,14 @@ export function buildInvoiceHtml(
   return html;
 }
 
-export function printTradeInvoice(
+export async function printTradeInvoice(
   inv: TradeInvoice & { trade_clients?: { nombre: string } | null },
   lines: TradeInvoiceLine[],
   org: OrgInfo,
   numeroOriginal?: string,
+  fiscalSnapshot?: FiscalSnapshot | null,
 ) {
-  const html = buildInvoiceHtml(inv, lines, org, numeroOriginal);
+  const html = await buildInvoiceHtml(inv, lines, org, numeroOriginal, fiscalSnapshot);
   const win = window.open('', '_blank', 'width=900,height=700');
   if (!win) return;
   win.document.write(html);

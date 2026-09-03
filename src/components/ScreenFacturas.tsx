@@ -9,7 +9,7 @@ import {
   loadAllInvoices, emitirFactura, markInvoicePaid,
   loadInvoiceLines, anularPago, crearFacturaRectificativaRPC, markInvoicePendiente,
   TradeInvoice, TradeInvoiceLine, loadJobPhotos, TradeJobPhoto,
-  MOTIVOS_RECTIFICACION,
+  MOTIVOS_RECTIFICACION, FiscalSnapshot,
 } from '../lib/supabase';
 import { printTradeInvoice } from '../lib/printTradeInvoice';
 import { downloadAsWordDocx } from '../lib/exportWord';
@@ -290,12 +290,21 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
     }
   }
 
-  function handlePrintInvoice(inv: InvoiceWithClient, lines: TradeInvoiceLine[]) {
+  async function handlePrintInvoice(inv: InvoiceWithClient, lines: TradeInvoiceLine[]) {
     if (!org) return;
+    let fiscalSnapshot: FiscalSnapshot | null = null;
+    if (inv.fiscal_record_id) {
+      const { data: fr } = await supabase
+        .from('trade_fiscal_records')
+        .select('nif_emisor, numero_factura, fecha_expedicion_vf, importe_total')
+        .eq('id', inv.fiscal_record_id)
+        .maybeSingle();
+      fiscalSnapshot = fr ?? null;
+    }
     const originalNumero = inv.tipo_factura === 'rectificativa'
       ? (selectedInvOriginal?.numero ?? undefined)
       : undefined;
-    printTradeInvoice(inv, lines, {
+    await printTradeInvoice(inv, lines, {
       nombre: (org as unknown as Record<string,unknown>).razon_social as string ?? org.nombre,
       cif: (org as unknown as Record<string,unknown>).cif as string ?? org.nif,
       nif: org.nif,
@@ -304,7 +313,7 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
       telefono: org.telefono,
       email: org.email,
       logo_url: org.logo_url,
-    }, originalNumero);
+    }, originalNumero, fiscalSnapshot);
   }
 
   function handleWordDownload(inv: InvoiceWithClient, lines: TradeInvoiceLine[]) {

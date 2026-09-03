@@ -78,7 +78,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
 import { supabase, loadDashboard, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, updateClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, emitirFactura, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote, getOrgActiveOrders, loadInvoiceLines, updateDraftInvoice, normalizaNif, getClientDisplayName } from '../lib/supabase';
-import type { TradeSubcontractor, TradeSubcontrata, ActiveSupplierCatalog, TradeClient } from '../lib/supabase';
+import type { TradeSubcontractor, TradeSubcontrata, ActiveSupplierCatalog, TradeClient, FiscalSnapshot } from '../lib/supabase';
 import { printTradeInvoice } from '../lib/printTradeInvoice';
 import { savePurchaseContext } from '../lib/marketplace/purchase-context';
 import { geocodeAddress } from '../lib/geocoder';
@@ -805,7 +805,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // CRM Mobile detail active
   const [expandedClientMobileId, setExpandedClientMobileId] = useState<string | null>(null);
-  const [crmClientInvoices, setCrmClientInvoices] = useState<Record<string, { id: string; numero: string; fecha: string; total: number; estado: string; concepto?: string | null }[]>>({});
+  const [crmClientInvoices, setCrmClientInvoices] = useState<Record<string, { id: string; numero: string; fecha: string; total: number; estado: string; concepto?: string | null; fiscal_record_id?: string | null }[]>>({});
   // CRM desktop side panel
   const [crmPanelClientId, setCrmPanelClientId] = useState<string | null>(null);
   const [crmPanelTab, setCrmPanelTab] = useState<'facturas' | 'presupuestos' | 'trabajos' | 'partes'>('facturas');
@@ -4980,7 +4980,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   if (!crmClientInvoices[c.id] && isLiveMode && orgId) {
                     supabase
                       .from('trade_invoices')
-                      .select('id, numero, fecha, total, estado, concepto')
+                      .select('id, numero, fecha, total, estado, concepto, fiscal_record_id')
                       .eq('org_id', orgId)
                       .eq('client_id', c.id)
                       .order('fecha', { ascending: false })
@@ -7200,7 +7200,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     emailCliente: cli?.email || ''
                   }));
                 }}
-                className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-855 focus:outline-none"
+                className="flex-1 min-w-0 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-855 focus:outline-none"
               >
                 <option value="">-- Seleccionar cliente --</option>
                 {clientes.map(c => (
@@ -8270,7 +8270,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       if (!crmClientInvoices[clientId] && isLiveMode && orgId) {
         supabase
           .from('trade_invoices')
-          .select('id, numero, fecha, total, estado, concepto')
+          .select('id, numero, fecha, total, estado, concepto, fiscal_record_id')
           .eq('org_id', orgId)
           .eq('client_id', clientId)
           .order('fecha', { ascending: false })
@@ -8559,10 +8559,21 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                                   onClick={async () => {
                                     try {
                                       const lines = await loadInvoiceLines(inv.id);
-                                      printTradeInvoice(
+                                      let fiscalSnapshot: FiscalSnapshot | null = null;
+                                      if (inv.fiscal_record_id) {
+                                        const { data: fr } = await supabase
+                                          .from('trade_fiscal_records')
+                                          .select('nif_emisor, numero_factura, fecha_expedicion_vf, importe_total')
+                                          .eq('id', inv.fiscal_record_id)
+                                          .maybeSingle();
+                                        fiscalSnapshot = fr ?? null;
+                                      }
+                                      await printTradeInvoice(
                                         { ...inv, numero: inv.numero ?? '' } as Parameters<typeof printTradeInvoice>[0],
                                         lines,
                                         { nombre: orgData?.nombre, nif: orgData?.nif, direccion: orgData?.direccion, ciudad: (orgData as unknown as Record<string, unknown>)?.ciudad as string, telefono: orgData?.telefono, email: orgData?.email, logo_url: orgData?.logo_url },
+                                        undefined,
+                                        fiscalSnapshot,
                                       );
                                     } catch { showToast('Error al cargar líneas de la factura', 'error'); }
                                   }}
