@@ -81,16 +81,52 @@ Deno.serve(async (req: Request) => {
         periodoFin.setDate(periodoFin.getDate() - 1);
         const periodoFinStr = periodoFin.toISOString().split('T')[0];
 
+        // ── Economic data — hoisted so both create and heal paths share it ────
+        const cuotaBase  = Number(contrato.cuota_mensual) * multiplier;
+        const ivaPct     = contrato.iva_pct ?? 21;
+        // iva_importe and total are GENERATED columns in trade_invoices —
+        // DB computes them from subtotal + iva_pct. Only used here for email display.
+        const ivaImporte = Math.round(cuotaBase * ivaPct) / 100;
+        const total      = cuotaBase + ivaImporte;
+
+        const periodoDate = new Date(periodoInicio);
+        const periodo = multiplier === 12
+          ? `Año ${periodoDate.getFullYear()}`
+          : multiplier === 3
+            ? `T${Math.ceil((periodoDate.getMonth() + 1) / 3)} ${periodoDate.getFullYear()}`
+            : periodoDate.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+
+        // Single source of truth for the invoice_line payload — used in both
+        // the normal create path and the self-healing repair path.
+        const linePayload = {
+          descripcion:     `Cuota de mantenimiento — ${contrato.numero} — ${periodo}`,
+          cantidad:        1,
+          precio_unitario: cuotaBase,
+          subtotal:        cuotaBase,
+          tipo:            'mano_de_obra',
+          orden:           0,
+        };
+
         // ── Idempotency check + self-healing ──────────────────────────────────
         // Idempotency key: (org_id, mantenimiento_id, mes_facturacion).
-        // Requires migration 20260901200000 to be applied first (adds
-        // mantenimiento_id column + uq_invoices_mant_period unique index).
+        // Requires migration 20260901200000 (mantenimiento_id column +
+        // uq_invoices_mant_period unique index).
         //
-        // Self-healing: if the invoice was created in a previous run but the
-        // UPDATE of proxima_factura failed (or the cron crashed between the two
-        // operations), the contract stays blocked at the same period. When the
-        // cron re-runs, it detects the existing invoice and advances
-        // proxima_factura — unblocking the contract without creating a duplicate.
+        // Self-healing covers two failure modes:
+        //   1. Invoice created but invoice_line insert silently failed.
+        //      Detected when invoice exists with 0 lines.
+        //      Resolution: insert the missing line, then advance proxima_factura.
+        //   2. Invoice + line exist but proxima_factura update was lost (crash).
+        //      Detected when invoice exists with 1 line and proxima_factura still
+        //      points to periodoInicio.
+        //      Resolution: advance proxima_factura.
+        //
+        // Concurrency note: trade_invoice_lines has no UNIQUE constraint on
+        // (factura_id). Two concurrent cron runs (extremely unlikely — pg_cron
+        // is sequential) could both detect 0 lines and both insert one. The
+        // nLines > 1 guard on the next run surfaces this as an error without
+        // touching proxima_factura. A future UNIQUE(factura_id, orden) migration
+        // would fully prevent this race.
         const { data: existing } = await sb
           .from('trade_invoices')
           .select('id')
@@ -100,8 +136,39 @@ Deno.serve(async (req: Request) => {
           .maybeSingle();
 
         if (existing) {
-          // Invoice exists. If proxima_factura still points to this period,
-          // the UPDATE was lost — advance it now to unblock the contract.
+          // Invoice exists — verify line count before healing proxima_factura.
+          const { data: existingLines } = await sb
+            .from('trade_invoice_lines')
+            .select('id')
+            .eq('factura_id', existing.id);
+
+          const nLines = existingLines?.length ?? 0;
+
+          if (nLines > 1) {
+            // Unexpected: multiple lines. Do not modify automatically.
+            results.errors.push(
+              `invoice ${existing.id}: unexpected ${nLines} lines (mantenimiento_id=${contrato.id})`
+            );
+            continue;
+          }
+
+          if (nLines === 0) {
+            // Line is missing — repair before advancing the date.
+            const { error: lineErr } = await sb
+              .from('trade_invoice_lines')
+              .insert({ factura_id: existing.id, ...linePayload });
+
+            if (lineErr) {
+              // Cannot confirm line is present — do NOT advance proxima_factura.
+              results.errors.push(
+                `invoice ${existing.id}: line repair failed — ${String(lineErr)}`
+              );
+              continue;
+            }
+          }
+
+          // Line confirmed present (was already there, or just repaired).
+          // Advance proxima_factura only if still blocked at this period.
           const { data: healed } = await sb
             .from('trade_maintenance_contratos')
             .update({
@@ -115,7 +182,7 @@ Deno.serve(async (req: Request) => {
             .maybeSingle();
 
           if (healed) results.healed++;
-          else         results.skipped++;
+          else         results.skipped++; // proxima_factura already advanced by another run
           continue;
         }
 
@@ -131,7 +198,7 @@ Deno.serve(async (req: Request) => {
         };
         const { data: cli } = await sb
           .from('trade_clients')
-          .select('nombre, apellidos, tipo_cliente, nif, direccion, localidad, cp, provincia, pais')
+          .select('nombre, apellidos, tipo_cliente, nif, direccion, ciudad, cp, provincia, pais')
           .eq('id', contrato.client_id)
           .eq('org_id', contrato.org_id)
           .maybeSingle();
@@ -143,27 +210,12 @@ Deno.serve(async (req: Request) => {
             razon_social_cliente: displayName || null,
             nif_cliente:          cli.nif     || null,
             direccion_cliente:    cli.direccion || null,
-            localidad_cliente:    cli.localidad || null,
+            localidad_cliente:    cli.ciudad    || null,
             cp_cliente:           cli.cp        || null,
             provincia_cliente:    cli.provincia || null,
             pais_cliente:         cli.pais      || null,
           };
         }
-
-        // ── Amounts ───────────────────────────────────────────────────────────
-        const cuotaBase   = Number(contrato.cuota_mensual) * multiplier;
-        const ivaPct      = contrato.iva_pct ?? 21;
-        // iva_importe and total are GENERATED columns in trade_invoices —
-        // DB computes them from subtotal + iva_pct. Only used here for email display.
-        const ivaImporte  = Math.round(cuotaBase * ivaPct) / 100;
-        const total       = cuotaBase + ivaImporte;
-
-        const periodoDate = new Date(periodoInicio);
-        const periodo = multiplier === 12
-          ? `Año ${periodoDate.getFullYear()}`
-          : multiplier === 3
-            ? `T${Math.ceil((periodoDate.getMonth() + 1) / 3)} ${periodoDate.getFullYear()}`
-            : periodoDate.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
 
         const cliente    = (contrato.nombre_cliente as string) ?? snap.razon_social_cliente ?? '—';
         const tempNumero = `BORRADOR-M-${(contrato.contract_id ?? contrato.id).slice(0, 8)}-${periodoInicio}`;
@@ -172,19 +224,19 @@ Deno.serve(async (req: Request) => {
         const { data: newInvoice, error: insertError } = await sb
           .from('trade_invoices')
           .insert({
-            org_id:          contrato.org_id,
-            client_id:       contrato.client_id,
-            contract_id:     contrato.contract_id ?? null,
+            org_id:           contrato.org_id,
+            client_id:        contrato.client_id,
+            contract_id:      contrato.contract_id ?? null,
             mantenimiento_id: contrato.id,
-            numero:          tempNumero,
-            fecha:           periodoInicio,
-            estado:          'Borrador',
-            subtotal:        cuotaBase,
-            iva_pct:         ivaPct,
-            concepto:        `Mantenimiento ${contrato.numero} — ${cliente} — ${periodo}`,
-            serie:           'M',
-            tipo_factura:    'contrato_cuota',
-            mes_facturacion: periodoInicio,
+            numero:           tempNumero,
+            fecha:            periodoInicio,
+            estado:           'Borrador',
+            subtotal:         cuotaBase,
+            iva_pct:          ivaPct,
+            concepto:         `Mantenimiento ${contrato.numero} — ${cliente} — ${periodo}`,
+            serie:            'M',
+            tipo_factura:     'contrato_cuota',
+            mes_facturacion:  periodoInicio,
             ...snap,
           })
           .select('id')
@@ -195,17 +247,15 @@ Deno.serve(async (req: Request) => {
         // ── INSERT 1 invoice line for UI display ──────────────────────────────
         // fn_emitir_factura uses the header subtotal for the VeriFactu hash,
         // not lines. Lines are for user display only. Best-effort: a failure
-        // here does not roll back the invoice.
+        // here does not roll back the invoice — the self-healing path detects
+        // and repairs a missing line on the next cron run.
         if (newInvoice?.id) {
-          await sb.from('trade_invoice_lines').insert({
-            factura_id:      newInvoice.id,
-            descripcion:     `Cuota de mantenimiento — ${contrato.numero} — ${periodo}`,
-            cantidad:        1,
-            precio_unitario: cuotaBase,
-            subtotal:        cuotaBase,
-            tipo:            'mano_de_obra',
-            orden:           0,
-          }).catch(() => { /* best-effort — does not affect invoice validity */ });
+          try {
+            await sb.from('trade_invoice_lines').insert({
+              factura_id: newInvoice.id,
+              ...linePayload,
+            });
+          } catch (_e) { /* detected and repaired by self-healing on next run */ }
         }
 
         // ── Advance proxima_factura — only after successful INSERT ─────────────
