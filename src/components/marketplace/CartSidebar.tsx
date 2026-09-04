@@ -71,10 +71,10 @@ export default function CartSidebar({
   return (
     <>
       {isOpen && (
-        <div className="fixed inset-0 bg-black/40 z-40 lg:hidden" onClick={onClose} aria-hidden />
+        <div className="fixed inset-0 bg-black/40 z-40 xl:hidden" onClick={onClose} aria-hidden />
       )}
       <div
-        className={`fixed right-0 top-0 h-full w-80 bg-white border-l border-gray-200 shadow-xl z-50 flex flex-col transform transition-transform duration-300 lg:hidden ${
+        className={`fixed right-0 top-0 h-full w-80 bg-white border-l border-gray-200 shadow-xl z-50 flex flex-col transform transition-transform duration-300 xl:hidden ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
         role="dialog"

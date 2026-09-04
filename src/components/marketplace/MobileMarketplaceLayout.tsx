@@ -123,7 +123,7 @@ function CartFAB({ count, onClick }: { count: number; onClick: () => void }) {
     <button
       onClick={onClick}
       aria-label={`Ver carrito — ${count} artículo${count !== 1 ? 's' : ''}`}
-      className="fixed bottom-5 right-4 z-30 lg:hidden flex items-center gap-2 bg-[#1A5A96] hover:bg-[#154d82] text-white font-bold text-sm pl-4 pr-5 py-3 rounded-2xl shadow-lg shadow-[#1A5A96]/30 transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A5A96] focus-visible:ring-offset-2"
+      className="fixed bottom-5 right-4 z-30 xl:hidden flex items-center gap-2 bg-[#1A5A96] hover:bg-[#154d82] text-white font-bold text-sm pl-4 pr-5 py-3 rounded-2xl shadow-lg shadow-[#1A5A96]/30 transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A5A96] focus-visible:ring-offset-2"
     >
       <span className="relative">
         <ShoppingCart className="w-5 h-5" />
@@ -216,7 +216,7 @@ export default function MobileMarketplaceLayout({
   const cartCount = cartItems.length;
 
   return (
-    <div className="lg:hidden flex-1 flex flex-col min-h-0 overflow-hidden">
+    <div className="xl:hidden flex-1 flex flex-col min-h-0 overflow-hidden">
       {/* Chips de categoría */}
       <CategoryChips oficio={oficio} onOficio={onOficio} />
 

@@ -111,7 +111,7 @@ export default function DesktopMarketplaceLayout({
   const catalogBannerCampaign = getCatalogCampaign('MARKET_CATALOG_HERO') ?? DEMO_CATALOG_BANNER;
 
   return (
-    <div className="hidden lg:flex flex-1 min-h-0 overflow-hidden">
+    <div className="hidden xl:flex flex-1 min-h-0 overflow-hidden">
       {/* Filtros — 240px */}
       <MarketplaceFilters
         familias={familias}
