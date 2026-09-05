@@ -11,7 +11,7 @@ import {
   loadMaintenancePresupuestos, saveMaintenanceContrato,
   updateMaintenancePresupuesto,
 } from '../lib/supabase';
-import { buildContractHTML, defaultContractVars } from '../lib/contractTemplates';
+import { buildContractHTML, defaultContractVars, formatPostalAddress } from '../lib/contractTemplates';
 import type { ContractVars } from '../lib/contractTemplates';
 
 interface Props {
@@ -123,7 +123,7 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
     ...base,
     empresa: orgData.nombre ?? '',
     cif_empresa: (orgData as any).nif ?? '',
-    direccion_empresa: [orgData.direccion, (orgData as any).localidad, (orgData as any).provincia].filter(Boolean).join(', '),
+    direccion_empresa: formatPostalAddress(orgData.direccion, (orgData as any).cp, (orgData as any).localidad, (orgData as any).provincia),
     telefono_empresa: (orgData as any).telefono_movil ?? orgData.telefono ?? '',
     email_empresa: orgData.email ?? '',
     logo_url: orgData.logo_url ?? undefined,
@@ -148,7 +148,12 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
       ...base,
       nombre_cliente: nombreCliente,
       cif_cliente: cliente ? (cliente as any).nif ?? '' : '',
-      direccion_cliente: m.direccion_instalacion ?? cliente?.direccion ?? '',
+      direccion_cliente: formatPostalAddress(
+        m.direccion_instalacion ?? cliente?.direccion,
+        (cliente as any)?.cp,
+        (cliente as any)?.ciudad,
+        (cliente as any)?.provincia,
+      ),
       telefono_cliente: cliente?.telefono ?? '',
       email_cliente: cliente?.email ?? '',
       descripcion_instalaciones: m.descripcion_servicios ?? '',

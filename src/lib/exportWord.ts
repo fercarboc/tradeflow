@@ -708,7 +708,7 @@ export async function downloadContractAsDocx(vars: ContractVars, oficio: string,
         cGap(300),
 
         // ══ EXPOSITIVO ═══════════════════════════════════════════════════════
-        cPara(`En ${vars.ciudad_firma || '[ CIUDAD ]'}, a ${vars.fecha_inicio || '[ DD/MM/AAAA ]'}.`),
+        cPara(vars.ciudad_firma ? `En ${vars.ciudad_firma}, a ${vars.fecha_inicio || '[ DD/MM/AAAA ]'}.` : `A ${vars.fecha_inicio || '[ DD/MM/AAAA ]'}.`),
         cPara(`De una parte, ${vars.empresa}, con CIF ${vars.cif_empresa}, domiciliada en ${vars.direccion_empresa}, en adelante "EL PRESTADOR".`),
         cPara(`De otra parte, ${vars.nombre_cliente}, con CIF/NIF ${vars.cif_cliente}, domiciliada en ${vars.direccion_cliente}, representada en este acto por ${vars.representante_cliente}, con cargo de ${vars.cargo_representante}, en adelante "EL CLIENTE".`),
         cPara('Ambas partes se reconocen mutuamente plena capacidad legal para suscribir el presente contrato y, a tal efecto,'),
@@ -843,7 +843,7 @@ export async function downloadContractAsDocx(vars: ContractVars, oficio: string,
         // ══ FIRMAS ═══════════════════════════════════════════════════════════
         cGap(160),
         cPara(`En prueba de conformidad, ambas partes suscriben el presente contrato en dos ejemplares originales de igual valor y efecto, en el lugar y fecha indicados.`),
-        cPara(`En ${vars.ciudad_firma || '[ CIUDAD ]'}, a ${vars.fecha_inicio || '[ DD/MM/AAAA ]'}.`),
+        cPara(vars.ciudad_firma ? `En ${vars.ciudad_firma}, a ${vars.fecha_inicio || '[ DD/MM/AAAA ]'}.` : `A ${vars.fecha_inicio || '[ DD/MM/AAAA ]'}.`),
         cGap(120),
         new Table({
           width: { size: 100, type: WidthType.PERCENTAGE },

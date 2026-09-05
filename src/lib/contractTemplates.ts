@@ -507,6 +507,20 @@ function esc(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
 }
 
+export function formatPostalAddress(
+  street?: string | null,
+  cp?: string | null,
+  localidad?: string | null,
+  provincia?: string | null,
+): string {
+  const s = (street ?? '').trim();
+  const c = (cp ?? '').trim();
+  const l = (localidad ?? '').trim();
+  const p = (provincia ?? '').trim();
+  const cpLocalidad = [c, l].filter(Boolean).join(' ');
+  return [s, cpLocalidad, p].filter(Boolean).join(', ');
+}
+
 function listItems(items: string[]): string {
   return items.map(i => `<li>${esc(i)}</li>`).join('');
 }
@@ -690,7 +704,7 @@ export function buildContractHTML(v: ContractVars, oficio: string, sector?: stri
 
 <div class="section page-break">
   <p><strong>EXPOSITIVO</strong></p>
-  <p>En ${esc(v.ciudad_firma || '[ CIUDAD ]')}, a ${esc(v.fecha_inicio || '[ DD/MM/AAAA ]')}.</p>
+  <p>${v.ciudad_firma ? `En ${esc(v.ciudad_firma)}, a ${esc(v.fecha_inicio || '[ DD/MM/AAAA ]')}.` : `A ${esc(v.fecha_inicio || '[ DD/MM/AAAA ]')}.`}</p>
   <p>De una parte, <strong>${esc(v.empresa)}</strong>, con CIF <strong>${esc(v.cif_empresa)}</strong>, domiciliada en ${esc(v.direccion_empresa)}, en adelante <em>"EL PRESTADOR"</em>.</p>
   <p>De otra parte, <strong>${esc(v.nombre_cliente)}</strong>, con CIF/NIF <strong>${esc(v.cif_cliente)}</strong>, domiciliada en ${esc(v.direccion_cliente)}, representada en este acto por <strong>${esc(v.representante_cliente)}</strong>, con cargo de <strong>${esc(v.cargo_representante)}</strong>, en adelante <em>"EL CLIENTE"</em>.</p>
   <p>Ambas partes se reconocen mutuamente plena capacidad legal para suscribir el presente contrato y, a tal efecto,</p>
@@ -836,7 +850,7 @@ ${sector ? (getSectorClauseHTML(sector) ?? '') : ''}
 <!-- Signatures -->
 <div class="section">
   <p>En prueba de conformidad, ambas partes suscriben el presente contrato en dos ejemplares originales de igual valor y efecto, en el lugar y fecha indicados.</p>
-  <p><strong>En ${esc(v.ciudad_firma || '[ CIUDAD ]')}, a ${esc(v.fecha_inicio || '[ DD/MM/AAAA ]')}</strong></p>
+  <p><strong>${v.ciudad_firma ? `En ${esc(v.ciudad_firma)}, a ${esc(v.fecha_inicio || '[ DD/MM/AAAA ]')}` : `A ${esc(v.fecha_inicio || '[ DD/MM/AAAA ]')}`}</strong></p>
   <div class="sig-block">
     <div class="sig-cell">
       <div class="sig-cell-header">EL PRESTADOR</div>
