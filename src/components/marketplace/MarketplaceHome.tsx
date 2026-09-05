@@ -424,7 +424,7 @@ export default function MarketplaceHome({
             </div>
 
             {/* Columna central — contenido editorial */}
-            <div className="space-y-5">
+            <div className="space-y-5 min-w-0">
               <MarketplaceHeroCarousel
                 slides={heroSlides}
                 onGoToCatalog={onGoToCatalog}
