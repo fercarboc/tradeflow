@@ -17,7 +17,7 @@ import type { ContractVars } from '../lib/contractTemplates';
 interface Props {
   orgId: string;
   orgData: TradeOrganization;
-  clientes: Array<{ id: string; nombre: string; cif?: string; direccion?: string; telefono?: string; email?: string }>;
+  clientes: Array<{ id: string; nombre: string; cif?: string; direccion?: string; telefono?: string; email?: string; cp?: string; ciudad?: string; provincia?: string }>;
   oficio?: string;
   plan?: string;
 }
@@ -150,9 +150,9 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
       cif_cliente: cliente ? (cliente as any).nif ?? '' : '',
       direccion_cliente: formatPostalAddress(
         m.direccion_instalacion ?? cliente?.direccion,
-        (cliente as any)?.cp,
-        (cliente as any)?.ciudad,
-        (cliente as any)?.provincia,
+        cliente?.cp,
+        cliente?.ciudad,
+        cliente?.provincia,
       ),
       telefono_cliente: cliente?.telefono ?? '',
       email_cliente: cliente?.email ?? '',

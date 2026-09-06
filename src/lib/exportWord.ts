@@ -837,7 +837,8 @@ export async function downloadContractAsDocx(vars: ContractVars, oficio: string,
 
         // 14. Jurisdicción
         clauseHead('Cláusula 14. Jurisdicción y Legislación Aplicable'),
-        cPara(`El presente contrato se rige por la legislación española. Para la resolución de cualquier controversia que pudiera surgir en relación con la interpretación, cumplimiento o ejecución del presente contrato, ambas partes, con renuncia a su fuero propio, se someten expresamente a los Juzgados y Tribunales de ${vars.ciudad_jurisdiccion || vars.ciudad_firma || '[ CIUDAD ]'}.`),
+        // LEGAL_REVIEW_REQUIRED: jurisdiction clause locality policy — populate ciudad_firma from org.localidad
+        cPara(`El presente contrato se rige por la legislación española. Para la resolución de cualquier controversia que pudiera surgir en relación con la interpretación, cumplimiento o ejecución del presente contrato, ambas partes, con renuncia a su fuero propio, se someten expresamente a los ${(vars.ciudad_jurisdiccion || vars.ciudad_firma) ? `Juzgados y Tribunales de ${vars.ciudad_jurisdiccion || vars.ciudad_firma}` : `Juzgados y Tribunales competentes`}.`),
         cPara('Con carácter previo a cualquier actuación judicial, las partes se comprometen a intentar una resolución amistosa de la controversia mediante mediación conforme a la Ley 5/2012 de Mediación en Asuntos Civiles y Mercantiles.'),
 
         // ══ FIRMAS ═══════════════════════════════════════════════════════════

@@ -3904,7 +3904,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <ScreenContratos
               orgId={orgId}
               orgData={orgData}
-              clientes={clientes.map(c => ({ id: c.id, nombre: c.nombre, direccion: c.direccion, telefono: c.telefono, email: c.email }))}
+              clientes={clientes.map(c => ({ id: c.id, nombre: c.nombre, direccion: c.direccion, telefono: c.telefono, email: c.email, cp: c.cp, ciudad: c.ciudad, provincia: c.provincia }))}
               oficio={orgData.oficio}
               plan={subscription?.plan ?? orgData?.plan ?? 'basico'}
             />
@@ -6453,7 +6453,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <ScreenContratos
                     orgId={orgId}
                     orgData={orgData}
-                    clientes={clientes.map(c => ({ id: c.id, nombre: c.nombre, direccion: c.direccion, telefono: c.telefono, email: c.email }))}
+                    clientes={clientes.map(c => ({ id: c.id, nombre: c.nombre, direccion: c.direccion, telefono: c.telefono, email: c.email, cp: c.cp, ciudad: c.ciudad, provincia: c.provincia }))}
                     oficio={orgData.oficio}
                     plan={subscription?.plan ?? orgData?.plan ?? 'basico'}
                   />
