@@ -12,6 +12,7 @@ import {
   loadMaintenanceCatalogs, loadMaintenancePresupuestos, loadMaintenanceContratos,
   loadMaintenanceIncidencias, detectMaintenanceContract, saveMaintenancePresupuesto,
   updateMaintenancePresupuesto, deleteMaintenancePresupuesto,
+  updateMaintenanceContrato,
   generateMaintenanceDocument, convertPresupuestoToContrato,
   loadMaintenanceModelos, saveMaintenanceModelo, deleteMaintenanceModelo, useMaintenanceModelo,
   loadMaintenanceInvoicesByOrg, markInvoicePaid, sendMaintenanceNotification,
@@ -464,6 +465,7 @@ interface PresupuestoDetalleModalProps {
   onClose: () => void;
   onEdit: () => void;
   onConvert: () => void;
+  onViewContrato?: (() => void) | null;
 }
 
 interface ClausulaItem {
@@ -475,7 +477,7 @@ interface ClausulaItem {
   total: number;
 }
 
-function PresupuestoDetalleModal({ presupuesto, onClose, onEdit, onConvert }: PresupuestoDetalleModalProps) {
+function PresupuestoDetalleModal({ presupuesto, onClose, onEdit, onConvert, onViewContrato }: PresupuestoDetalleModalProps) {
   const iaJson = presupuesto.ia_json as Record<string, unknown> | null;
   const clausulas: ClausulaItem[] = (iaJson?.clausulas as ClausulaItem[] | undefined) ?? [];
   const total = clausulas.reduce((s, c) => s + c.precioUnitario * c.cantidad, 0);
@@ -624,10 +626,17 @@ function PresupuestoDetalleModal({ presupuesto, onClose, onEdit, onConvert }: Pr
               className="py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold flex items-center justify-center gap-2 cursor-pointer hover:bg-blue-700">
               <Edit2 className="w-3.5 h-3.5" /> Editar partidas
             </button>
-            <button onClick={() => { onClose(); onConvert(); }}
-              className="py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold flex items-center justify-center gap-2 cursor-pointer hover:bg-blue-700">
-              <ArrowRight className="w-3.5 h-3.5" /> Crear contrato
-            </button>
+            {presupuesto.estado === 'convertido' ? (
+              <button onClick={() => { onClose(); onViewContrato?.(); }}
+                className="py-2.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold flex items-center justify-center gap-2 cursor-pointer hover:bg-slate-200">
+                <Eye className="w-3.5 h-3.5" /> Ver contrato
+              </button>
+            ) : (
+              <button onClick={() => { onClose(); onConvert(); }}
+                className="py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold flex items-center justify-center gap-2 cursor-pointer hover:bg-blue-700">
+                <ArrowRight className="w-3.5 h-3.5" /> Crear contrato
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -1499,6 +1508,7 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
   const [contratoDocItem, setContratoDocItem] = useState<MaintenanceContrato | null>(null);
   const [guardarModelo, setGuardarModelo] = useState<MaintenancePresupuesto | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [cancellingId, setCancellingId] = useState<string | null>(null);
   const [usandoModelo, setUsandoModelo] = useState<string | null>(null);
   const [orgMembers, setOrgMembers] = useState<OrgMember[]>([]);
   const [showNuevaIncidencia, setShowNuevaIncidencia] = useState(false);
@@ -1551,6 +1561,11 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
   const pendienteCobro = facturas.filter(f => f.estado === 'Pendiente' || f.estado === 'Vencida').reduce((s, f) => s + Number(f.total), 0);
 
   const handleDeletePresup = async (id: string) => {
+    const presup = presupuestos.find(p => p.id === id);
+    if (presup?.estado === 'convertido') {
+      showToast('No se puede eliminar: ya tiene un contrato activo. Cancela el contrato primero.', 'error');
+      return;
+    }
     setDeletingId(id);
     try {
       await deleteMaintenancePresupuesto(id);
@@ -1558,6 +1573,16 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
       showToast('Presupuesto eliminado', 'info');
     } catch { showToast('Error al eliminar', 'error'); }
     finally { setDeletingId(null); }
+  };
+
+  const handleCancelContrato = async (id: string) => {
+    setCancellingId(id);
+    try {
+      await updateMaintenanceContrato(id, { estado: 'cancelado' });
+      setContratos(prev => prev.map(c => c.id === id ? { ...c, estado: 'cancelado' as const } : c));
+      showToast('Contrato cancelado', 'info');
+    } catch { showToast('Error al cancelar el contrato', 'error'); }
+    finally { setCancellingId(null); }
   };
 
   const handleEstadoChange = async (id: string, estado: MaintenancePresupuesto['estado']) => {
@@ -1770,6 +1795,17 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
                           <ArrowRight className="w-3 h-3" />Contrato
                         </button>
                       )}
+                      {p.estado === 'convertido' && (
+                        <button
+                          onClick={() => {
+                            const c = contratos.find(ct => ct.presupuesto_id === p.id);
+                            if (c) setContratoDocItem(c);
+                          }}
+                          className="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 text-[10px] font-bold hover:bg-slate-200 cursor-pointer flex items-center gap-1"
+                        >
+                          <Eye className="w-3 h-3" />Ver contrato
+                        </button>
+                      )}
                       {/* Iconos: guardar modelo, ver doc, editar, eliminar */}
                       <button onClick={() => setGuardarModelo(p)} title="Guardar como modelo" className="p-1.5 rounded-lg text-slate-300 hover:text-amber-500 hover:bg-amber-50 cursor-pointer">
                         <BookmarkPlus className="w-3.5 h-3.5" />
@@ -1780,9 +1816,11 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
                       <button onClick={() => setEditPresup(p)} title="Editar" className="p-1.5 rounded-lg text-slate-300 hover:text-slate-600 hover:bg-slate-50 cursor-pointer">
                         <Edit2 className="w-3.5 h-3.5" />
                       </button>
-                      <button onClick={() => handleDeletePresup(p.id)} disabled={deletingId === p.id} className="p-1.5 rounded-lg text-slate-300 hover:text-red-500 hover:bg-red-50 cursor-pointer disabled:opacity-40">
-                        {deletingId === p.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <XCircle className="w-3.5 h-3.5" />}
-                      </button>
+                      {p.estado !== 'convertido' && (
+                        <button onClick={() => handleDeletePresup(p.id)} disabled={deletingId === p.id} className="p-1.5 rounded-lg text-slate-300 hover:text-red-500 hover:bg-red-50 cursor-pointer disabled:opacity-40">
+                          {deletingId === p.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <XCircle className="w-3.5 h-3.5" />}
+                        </button>
+                      )}
                     </div>
                   </div>
                 );
@@ -1851,6 +1889,16 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
                       >
                         {sendingEmail === c.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
                       </button>
+                      {c.estado === 'activo' && (
+                        <button
+                          onClick={() => void handleCancelContrato(c.id)}
+                          disabled={cancellingId === c.id}
+                          title="Cancelar contrato"
+                          className="p-1.5 rounded-lg text-slate-300 hover:text-red-500 hover:bg-red-50 cursor-pointer disabled:opacity-40 transition-colors"
+                        >
+                          {cancellingId === c.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <XCircle className="w-3.5 h-3.5" />}
+                        </button>
+                      )}
                     </div>
                   </div>
                 );
@@ -2108,6 +2156,10 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
           onClose={() => setDetallePresup(null)}
           onEdit={() => setEditPresup(detallePresup)}
           onConvert={() => setConvertPresup(detallePresup)}
+          onViewContrato={detallePresup.estado === 'convertido' ? () => {
+            const c = contratos.find(ct => ct.presupuesto_id === detallePresup.id);
+            if (c) { setDetallePresup(null); setContratoDocItem(c); }
+          } : null}
         />
       )}
 

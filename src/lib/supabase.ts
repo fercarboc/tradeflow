@@ -3804,6 +3804,14 @@ export async function generateMaintenanceDocument(presupuestoId: string, forceRe
 export async function convertPresupuestoToContrato(
   presupuesto: MaintenancePresupuesto,
 ): Promise<MaintenanceContrato> {
+  // Idempotency guard: return existing contract if this presupuesto was already converted
+  const { data: existingContrato } = await supabase
+    .from('trade_maintenance_contratos')
+    .select('*')
+    .eq('presupuesto_id', presupuesto.id)
+    .maybeSingle();
+  if (existingContrato) return existingContrato as MaintenanceContrato;
+
   const fechaInicio = new Date();
   const fechaFin = new Date(fechaInicio);
   fechaFin.setMonth(fechaFin.getMonth() + 12);
