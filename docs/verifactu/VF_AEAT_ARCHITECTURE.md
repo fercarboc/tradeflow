@@ -58,10 +58,10 @@ TrabFlow actúa como **Sistema Informático de Facturación (SIF)** para múltip
 | NombreSistemaInformatico | TrabFlow | Max 30 chars |
 | IdSistemaInformatico | TF | Único por productor, 2 chars |
 | Version | 1.0 | Max 50 chars |
-| NumeroInstalacion | PENDIENTE | **Consulta enviada a verifactu@correo.aeat.es** (SaaS cloud ≠ instalación física) |
+| NumeroInstalacion | PENDIENTE VALOR | **CLOSED (concepto) — AEAT confirmó 2026-09-06: instalación SaaS usa un único NumeroInstalacion.** Valor real: GATED — obtener post-empresa (company formation → registro AEAT → número asignado). No es pregunta técnica abierta. |
 | TipoUsoPosibleSoloVerifactu | S | TrabFlow solo opera en modo VF |
-| TipoUsoPosibleMultiOT | S | Multiples OT confirmado por AEAT |
-| IndicadorMultiplesOT | S | **PENDIENTE confirmación AEAT** para SaaS |
+| TipoUsoPosibleMultiOT | S | Multiples OT confirmado por AEAT. Campo estático en Cabecera/SistemaInformatico. |
+| IndicadorMultiplesOT | S | **CLOSED — AEAT CONFIRMED 2026-09-06** — valor "S" para instalación SaaS multi-OT. Campo estático en Cabecera/SistemaInformatico (NO por-factura). DB: `multiple_ot_indicator` pendiente set `'S'` cuando se autorice. |
 
 ---
 
@@ -148,11 +148,15 @@ v_hash_input :=
 - `authenticated` no tiene INSERT/UPDATE/DELETE — solo SELECT vía RLS por org.
 - INSERT solo por `fn_emitir_factura` (SECURITY DEFINER).
 
-### 7.3 Multi-OT — cadena independiente por org
-- AEAT confirma: cada OT tiene su propia cadena independiente.
-- El primer registro de cada OT tiene `Huella=` vacío.
+### 7.3 Multi-OT — cadena independiente por org — AEAT CONFIRMED 2026-09-06
+
+> **Confirmación explícita AEAT (2026-09-06):** *"el encadenamiento de registros debe mantenerse de forma completamente INDEPENDIENTE para cada obligado tributario (NIF emisor). El primer registro generado para el Obligado Tributario B (NIF B) NUNCA debe referenciar la huella del último registro generado para el Obligado Tributario A (NIF A), aunque ambos compartan la misma infraestructura Cloud e instalación."*
+
+- Cada OT tiene su propia cadena independiente — **AEAT CONFIRMED**.
+- El primer registro de cada OT tiene `Huella=` vacío (`<sum:PrimerRegistro>S</sum:PrimerRegistro>`).
 - Diferente serie de facturas entre OTs es **obligatoria** para evitar rechazo por duplicado.
 - No se requiere comunicación especial a la AEAT al añadir un nuevo OT.
+- Implementado: migration `20260901084437` — UNIQUE INDEX por NIF normalizado + trigger inmutabilidad (VF-CHAIN-NIF). **PRODUCTION APPLIED.**
 
 ---
 
@@ -165,7 +169,27 @@ Si un OT usa TrabFlow + otro SIF simultáneamente:
 
 ---
 
-## 9. QR oficial AEAT — GAP DETECTADO
+## 9. QR oficial AEAT — ESTADO ACTUAL: CLOSED ✓
+
+> **⚠️ ESTADO HISTÓRICO (pre-`965f692`):** Las secciones 9.2 y 9.3 describen la implementación ANTERIOR. La descripción como "GAP DETECTADO" quedó obsoleta con el commit `965f692`. El estado actual es VF-QR-OFFICIAL = CLOSED.
+
+### 9.0 Estado actual verificado (HEAD `131c264`, código `printTradeInvoice.ts`)
+
+```typescript
+// Implementación actual — CORRECTA — usa formato URL oficial AEAT:
+const aeatUrl = [
+  'https://www2.agenciatributaria.es/wlpl/TIKE-CONT/ValidarQR',
+  `?nif=${encodeURIComponent(fiscalSnapshot.nif_emisor)}`,
+  `&numserie=${encodeURIComponent(fiscalSnapshot.numero_factura)}`,
+  `&fecha=${encodeURIComponent(fiscalSnapshot.fecha_expedicion_vf)}`,
+  `&importe=${encodeURIComponent(fiscalSnapshot.importe_total.toFixed(2))}`,
+].join('');
+```
+
+- Fuente: `trade_fiscal_records` (snapshot inmutable, fail-closed).
+- QR generado con librería `qrcode` local — sin dependencia `chart.googleapis.com`.
+- **QR NO depende de NumeroInstalacion** — el URL no incluye ese campo.
+- Fixed en commit `965f692` "fix(verifactu): harden fiscal chain and invoice QR".
 
 ### 9.1 Formato oficial (Orden HAC/1177/2024)
 ```
@@ -173,17 +197,16 @@ https://www2.agenciatributaria.es/wlpl/TIKE-CONT/ValidarQR?nif=<NIF>&numserie=<S
 ```
 El QR **no incluye el hash** — solo identifica la factura para que la AEAT muestre su estado.
 
-### 9.2 Implementación actual TrabFlow — INCORRECTA ⚠️
+### 9.2 — HISTÓRICO — Implementación pre-965f692 (SUPERSEDED)
 ```
 VERIFACTU:{numero};{hash};{cif}
 ```
-Adicionalmente usa `chart.googleapis.com` (externo, no funciona offline).
+Formato propietario anterior — ya no corresponde al código actual. Adicionalmente usaba `chart.googleapis.com` (externo). Ambos problemas corregidos en `965f692`.
 
-### 9.3 GAP: VF-QR-OFFICIAL
-- Estado: **PENDIENTE corrección**
-- Impacto: el QR actual no permite verificación en el portal de la AEAT
-- Requiere: URL oficial AEAT + generación QR nativa (sin dependencia externa)
-- No implementar hasta VF-2 o superior (requiere NumeroInstalacion confirmado)
+### 9.3 — HISTÓRICO — GAP VF-QR-OFFICIAL (CLOSED)
+- Estado histórico: PENDIENTE corrección
+- Estado actual: **CLOSED — FIXED en `965f692`**
+- La afirmación "requiere NumeroInstalacion confirmado" era incorrecta — el URL del QR no usa NumeroInstalacion.
 
 ---
 
@@ -270,7 +293,7 @@ Si cualquiera falla → retorna `TRANSMISSION_DISABLED` sin contactar la AEAT.
 - [ ] Acuerdo Tipo 17 firmado con AEAT (`comunicacion.sepri@correo.aeat.es`)
 - [ ] Sello Electrónico Cualificado emitido por FNMT
 - [ ] Declaración responsable presentada en Sede Electrónica
-- [ ] NumeroInstalacion confirmado por AEAT (`verifactu@correo.aeat.es`)
+- [x] NumeroInstalacion — **AEAT confirmó concepto 2026-09-06**: SaaS usa un único NumeroInstalacion. **Obtener valor real** post-empresa (company formation → registro AEAT → número asignado)
 - [ ] `transmission_enabled = true` en `trade_verifactu_system_config` (actualmente BLOQUEADO)
 
 ### No bloqueantes para infraestructura (VF-1)
@@ -283,7 +306,7 @@ Si cualquiera falla → retorna `TRANSMISSION_DISABLED` sin contactar la AEAT.
 - [ ] XML builder buildVerifactuXml() (VF-1)
 - [ ] VerifactuTransport interface + stub (VF-1)
 - [ ] Admin UI VeriFactu (VF-1)
-- [ ] QR oficial AEAT (VF-QR-OFFICIAL — VF-2+)
+- [x] QR oficial AEAT — **CLOSED** — implementado en `printTradeInvoice.ts` desde `965f692`. Formato oficial ValidarQR URL.
 
 ---
 
