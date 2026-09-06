@@ -3139,6 +3139,66 @@ export interface MaintenancePlantilla {
   clausulas_adicionales: string | null;
 }
 
+// ── Client service locations ──────────────────────────────────────────────────
+export interface ClientLocation {
+  id: string;
+  org_id: string;
+  client_id: string;
+  nombre: string;
+  direccion: string | null;
+  ciudad: string | null;
+  cp: string | null;
+  provincia: string | null;
+  pais: string;
+  notas: string | null;
+  activa: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export async function loadClientLocations(
+  orgId: string,
+  clientId?: string,
+): Promise<ClientLocation[]> {
+  let q = supabase
+    .from('trade_client_locations')
+    .select('*')
+    .eq('org_id', orgId)
+    .eq('activa', true)
+    .order('nombre');
+  if (clientId) q = q.eq('client_id', clientId);
+  const { data, error } = await q;
+  if (error) throw error;
+  return (data ?? []) as ClientLocation[];
+}
+
+export async function saveClientLocation(
+  draft: Omit<ClientLocation, 'id' | 'created_at' | 'updated_at'>,
+): Promise<ClientLocation> {
+  const { data, error } = await supabase
+    .from('trade_client_locations')
+    .insert(draft)
+    .select()
+    .single();
+  if (error) throw error;
+  return data as ClientLocation;
+}
+
+export async function deactivateClientLocation(id: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_client_locations')
+    .update({ activa: false, updated_at: new Date().toISOString() })
+    .eq('id', id);
+  if (error) throw error;
+}
+
+export class ActiveContractExistsError extends Error {
+  constructor(public readonly contrato: MaintenanceContrato) {
+    super('ACTIVE_CONTRACT_EXISTS');
+    this.name = 'ActiveContractExistsError';
+  }
+}
+
 export interface MaintenancePresupuesto {
   id: string;
   org_id: string;
@@ -3149,6 +3209,7 @@ export interface MaintenancePresupuesto {
   oficio: string;
   sector: string | null;
   nombre_cliente: string | null;
+  location_id?: string | null;
   direccion_instalacion: string | null;
   descripcion_servicios: string | null;
   cuota_mensual: number | null;
@@ -3185,6 +3246,7 @@ export interface MaintenanceContrato {
   oficio: string;
   sector: string | null;
   nombre_cliente: string | null;
+  location_id?: string | null;
   direccion_instalacion: string | null;
   descripcion_servicios: string | null;
   cuota_mensual: number;
@@ -3804,13 +3866,28 @@ export async function generateMaintenanceDocument(presupuestoId: string, forceRe
 export async function convertPresupuestoToContrato(
   presupuesto: MaintenancePresupuesto,
 ): Promise<MaintenanceContrato> {
-  // Idempotency guard: return existing contract if this presupuesto was already converted
+  // Guard 1: Idempotency — return existing contract if presupuesto already converted
   const { data: existingContrato } = await supabase
     .from('trade_maintenance_contratos')
     .select('*')
     .eq('presupuesto_id', presupuesto.id)
     .maybeSingle();
   if (existingContrato) return existingContrato as MaintenanceContrato;
+
+  // Guard 2: HARD BLOCK — check active contract for same client+location
+  if (presupuesto.client_id && presupuesto.location_id) {
+    const { data: conflictingContrato } = await supabase
+      .from('trade_maintenance_contratos')
+      .select('*')
+      .eq('org_id', presupuesto.org_id)
+      .eq('client_id', presupuesto.client_id)
+      .eq('location_id', presupuesto.location_id)
+      .eq('estado', 'activo')
+      .maybeSingle();
+    if (conflictingContrato) {
+      throw new ActiveContractExistsError(conflictingContrato as MaintenanceContrato);
+    }
+  }
 
   const fechaInicio = new Date();
   const fechaFin = new Date(fechaInicio);
@@ -3831,17 +3908,11 @@ export async function convertPresupuestoToContrato(
       : Promise.resolve({ data: null }),
   ]);
 
-  // Generate next TF-MANT reference
-  const { data: existingContracts } = await supabase
-    .from('trade_contracts')
-    .select('referencia')
-    .eq('org_id', presupuesto.org_id);
-  const year = new Date().getFullYear();
-  const nums = (existingContracts ?? [])
-    .map((c: { referencia: string }) => parseInt(c.referencia.split('-').at(-1) ?? '0', 10))
-    .filter((n: number) => !isNaN(n));
-  const nextNum = nums.length > 0 ? Math.max(...nums) + 1 : 1;
-  const referencia = `TF-MANT-${year}-${String(nextNum).padStart(4, '0')}`;
+  // Generate next TF-MANT reference via monotonic counter RPC
+  const { data: referenciaData, error: rpcError } = await supabase
+    .rpc('next_maintenance_contract_number', { p_org_id: presupuesto.org_id });
+  if (rpcError) throw rpcError;
+  const referencia = referenciaData as string;
 
   // Build ContractVars from presupuesto + org data
   const iaJson = presupuesto.ia_json as Record<string, unknown> | null;
@@ -3920,10 +3991,11 @@ export async function convertPresupuestoToContrato(
       presupuesto_id:         presupuesto.id,
       plantilla_id:           presupuesto.plantilla_id,
       numero:                 referencia,
+      location_id:            presupuesto.location_id ?? null,   // snapshot identity
       oficio:                 presupuesto.oficio,
       sector:                 presupuesto.sector,
       nombre_cliente:         presupuesto.nombre_cliente,
-      direccion_instalacion:  presupuesto.direccion_instalacion,
+      direccion_instalacion:  presupuesto.direccion_instalacion, // snapshot text
       descripcion_servicios:  presupuesto.descripcion_servicios,
       cuota_mensual:          cuotaMensual,
       tipo_facturacion:       presupuesto.tipo_facturacion,
@@ -3948,7 +4020,37 @@ export async function convertPresupuestoToContrato(
     })
     .select()
     .single();
-  if (error) throw error;
+
+  if (error) {
+    if ((error as { code?: string }).code === '23505') {
+      // Distinguish which constraint fired:
+
+      // Race on presupuesto_id → idempotency: return the existing contrato
+      const { data: byPresup } = await supabase
+        .from('trade_maintenance_contratos')
+        .select('*')
+        .eq('presupuesto_id', presupuesto.id)
+        .maybeSingle();
+      if (byPresup) return byPresup as MaintenanceContrato;
+
+      // Race on active client+location → HARD BLOCK
+      if (presupuesto.client_id && presupuesto.location_id) {
+        const { data: byLoc } = await supabase
+          .from('trade_maintenance_contratos')
+          .select('*')
+          .eq('org_id', presupuesto.org_id)
+          .eq('client_id', presupuesto.client_id)
+          .eq('location_id', presupuesto.location_id)
+          .eq('estado', 'activo')
+          .maybeSingle();
+        if (byLoc) throw new ActiveContractExistsError(byLoc as MaintenanceContrato);
+      }
+
+      // Duplicate referencia/numero — unexpected with counter, fail closed
+      throw new Error(`DUPLICATE_REFERENCE: ${referencia}. Inconsistencia detectada — contacta con soporte.`);
+    }
+    throw error;
+  }
 
   // Update trade_contracts with mantenimiento_id back-reference
   await supabase

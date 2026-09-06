@@ -18,12 +18,13 @@ import {
   loadMaintenanceInvoicesByOrg, markInvoicePaid, sendMaintenanceNotification,
   saveMaintenanceIncidencia, updateMaintenanceIncidencia, sendParteTrabajo,
   loadOrgMembers, loadTradeContractById,
+  loadClientLocations, saveClientLocation, ActiveContractExistsError,
 } from '../lib/supabase';
 import type {
   MaintenancePlantilla, MaintenancePresupuesto, MaintenanceContrato,
   MaintenanceIncidencia, MaintenanceDetectResult, MaintenanceDocumento,
   MaintenanceSLA, MaintenanceSector, MaintenanceOficio, MaintenanceModelo,
-  TradeInvoice, OrgMember, TradeContract,
+  TradeInvoice, OrgMember, TradeContract, ClientLocation,
 } from '../lib/supabase';
 
 interface Props {
@@ -310,12 +311,13 @@ interface EditPresupuestoModalProps {
   slaList: MaintenanceSLA[];
   sectores: MaintenanceSector[];
   oficios: MaintenanceOficio[];
+  orgId: string;
   onClose: () => void;
   onSaved: (p: MaintenancePresupuesto) => void;
   showToast: Props['showToast'];
 }
 
-function EditPresupuestoModal({ presupuesto, slaList, sectores, oficios, onClose, onSaved, showToast }: EditPresupuestoModalProps) {
+function EditPresupuestoModal({ presupuesto, slaList, sectores, oficios, orgId, onClose, onSaved, showToast }: EditPresupuestoModalProps) {
   const [form, setForm] = useState({
     nombre_cliente:        presupuesto.nombre_cliente ?? '',
     direccion_instalacion: presupuesto.direccion_instalacion ?? '',
@@ -332,6 +334,47 @@ function EditPresupuestoModal({ presupuesto, slaList, sectores, oficios, onClose
   });
   const [saving, setSaving] = useState(false);
 
+  const [locationId, setLocationId] = useState<string | null>(presupuesto.location_id ?? null);
+  const [locations, setLocations] = useState<ClientLocation[]>([]);
+  const [locationsLoading, setLocationsLoading] = useState(false);
+  const [creatingLocation, setCreatingLocation] = useState(false);
+  const [newLocNombre, setNewLocNombre] = useState('');
+  const [newLocDireccion, setNewLocDireccion] = useState('');
+  const [savingLocation, setSavingLocation] = useState(false);
+
+  useEffect(() => {
+    if (!presupuesto.client_id) return;
+    setLocationsLoading(true);
+    loadClientLocations(orgId, presupuesto.client_id)
+      .then(locs => setLocations(locs))
+      .catch(() => {})
+      .finally(() => setLocationsLoading(false));
+  }, [orgId, presupuesto.client_id]);
+
+  const handleCreateLocation = async () => {
+    if (!newLocNombre.trim() || !presupuesto.client_id) return;
+    setSavingLocation(true);
+    try {
+      const loc = await saveClientLocation({
+        org_id: orgId,
+        client_id: presupuesto.client_id,
+        nombre: newLocNombre.trim(),
+        direccion: newLocDireccion.trim() || null,
+        ciudad: null, cp: null, provincia: null,
+        pais: 'ES', notas: null, activa: true,
+      });
+      setLocations(prev => [...prev, loc]);
+      setLocationId(loc.id);
+      setCreatingLocation(false);
+      setNewLocNombre('');
+      setNewLocDireccion('');
+    } catch (e) {
+      showToast(errMsg(e), 'error');
+    } finally {
+      setSavingLocation(false);
+    }
+  };
+
   const set = <K extends keyof typeof form>(k: K, v: typeof form[K]) => setForm(f => ({ ...f, [k]: v }));
 
   const handleSave = async () => {
@@ -341,8 +384,9 @@ function EditPresupuestoModal({ presupuesto, slaList, sectores, oficios, onClose
         ...form,
         cuota_mensual: Number(form.cuota_mensual),
         num_visitas_preventivo: Number(form.num_visitas_preventivo),
+        location_id: locationId,
       });
-      onSaved({ ...presupuesto, ...form, cuota_mensual: Number(form.cuota_mensual) });
+      onSaved({ ...presupuesto, ...form, cuota_mensual: Number(form.cuota_mensual), location_id: locationId });
       showToast('Presupuesto actualizado', 'success');
     } catch (e) {
       showToast(errMsg(e), 'error');
@@ -391,6 +435,74 @@ function EditPresupuestoModal({ presupuesto, slaList, sectores, oficios, onClose
             <label className={labelCls}>Dirección del servicio</label>
             <input type="text" value={form.direccion_instalacion} onChange={e => set('direccion_instalacion', e.target.value)} placeholder="Calle, número, ciudad" className={inputCls} />
           </div>
+
+          {presupuesto.client_id && (
+            <div>
+              <label className={labelCls}>Ubicación de servicio</label>
+              {locationsLoading ? (
+                <div className="flex items-center gap-2 text-xs text-slate-400 py-2">
+                  <Loader2 className="w-3 h-3 animate-spin" /> Cargando ubicaciones…
+                </div>
+              ) : creatingLocation ? (
+                <div className="space-y-2 rounded-xl border border-blue-200 bg-blue-50 p-3">
+                  <input
+                    type="text"
+                    value={newLocNombre}
+                    onChange={e => setNewLocNombre(e.target.value)}
+                    placeholder="Nombre (ej: Planta baja, Oficina central)"
+                    className={inputCls}
+                  />
+                  <input
+                    type="text"
+                    value={newLocDireccion}
+                    onChange={e => setNewLocDireccion(e.target.value)}
+                    placeholder="Dirección (opcional)"
+                    className={inputCls}
+                  />
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => { setCreatingLocation(false); setNewLocNombre(''); setNewLocDireccion(''); }}
+                      className="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-white cursor-pointer"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => void handleCreateLocation()}
+                      disabled={!newLocNombre.trim() || savingLocation}
+                      className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white text-xs font-bold flex items-center gap-1 cursor-pointer"
+                    >
+                      {savingLocation ? <Loader2 className="w-3 h-3 animate-spin" /> : <Check className="w-3 h-3" />}
+                      Crear ubicación
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex gap-2">
+                  <select
+                    value={locationId ?? ''}
+                    onChange={e => setLocationId(e.target.value || null)}
+                    className={inputCls}
+                  >
+                    <option value="">— Sin ubicación —</option>
+                    {locations.map(l => (
+                      <option key={l.id} value={l.id}>
+                        {l.nombre}{l.direccion ? ` · ${l.direccion}` : ''}
+                      </option>
+                    ))}
+                  </select>
+                  <button
+                    type="button"
+                    onClick={() => setCreatingLocation(true)}
+                    className="shrink-0 px-3 py-2 rounded-xl border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-slate-50 cursor-pointer flex items-center gap-1"
+                  >
+                    <Plus className="w-3 h-3" /> Nueva
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
 
           <div className="grid grid-cols-2 gap-3">
             <div>
@@ -877,10 +989,11 @@ interface ConvertirModalProps {
   presupuesto: MaintenancePresupuesto;
   onClose: () => void;
   onConverted: (c: MaintenanceContrato, updatedPresup: MaintenancePresupuesto) => void;
+  onActiveContractConflict: (contrato: MaintenanceContrato) => void;
   showToast: Props['showToast'];
 }
 
-function ConvertirModal({ presupuesto, onClose, onConverted, showToast }: ConvertirModalProps) {
+function ConvertirModal({ presupuesto, onClose, onConverted, onActiveContractConflict, showToast }: ConvertirModalProps) {
   const [converting, setConverting] = useState(false);
 
   const handleConvert = async () => {
@@ -890,6 +1003,11 @@ function ConvertirModal({ presupuesto, onClose, onConverted, showToast }: Conver
       showToast('¡Contrato creado y activado!', 'success');
       onConverted(contrato, { ...presupuesto, estado: 'convertido' });
     } catch (e) {
+      if (e instanceof ActiveContractExistsError) {
+        onClose();
+        onActiveContractConflict(e.contrato);
+        return;
+      }
       showToast(errMsg(e), 'error');
     } finally {
       setConverting(false);
@@ -927,6 +1045,60 @@ function ConvertirModal({ presupuesto, onClose, onConverted, showToast }: Conver
           >
             {converting ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle className="w-4 h-4" />}
             Activar contrato
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Modal: Bloqueo contrato activo ────────────────────────────────────────────
+
+interface ActiveContractBlockModalProps {
+  presupuesto: MaintenancePresupuesto;
+  contrato: MaintenanceContrato;
+  onClose: () => void;
+  onViewContrato: () => void;
+}
+
+function ActiveContractBlockModal({ presupuesto, contrato, onClose, onViewContrato }: ActiveContractBlockModalProps) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 space-y-5">
+        <div className="text-center">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-red-50 border border-red-100 mb-4">
+            <AlertTriangle className="w-7 h-7 text-red-600" />
+          </div>
+          <h2 className="font-black text-slate-900 text-lg">Contrato activo existente</h2>
+          <p className="text-slate-500 text-sm mt-2">
+            Ya existe un contrato de mantenimiento activo para este cliente en esta ubicación.
+          </p>
+        </div>
+
+        <div className="rounded-xl bg-red-50 border border-red-100 p-4 space-y-2 text-xs text-slate-700">
+          <p><span className="font-bold">Cliente:</span> {presupuesto.nombre_cliente ?? '—'}</p>
+          {contrato.numero && <p><span className="font-bold">Contrato nº:</span> {contrato.numero}</p>}
+          <p><span className="font-bold">Estado:</span> <span className="font-semibold text-emerald-700">Activo</span></p>
+          {contrato.fecha_inicio && <p><span className="font-bold">Inicio:</span> {fmtDate(contrato.fecha_inicio)}</p>}
+        </div>
+
+        <p className="text-[11px] text-slate-400 text-center">
+          Cancela el contrato activo antes de crear uno nuevo para la misma ubicación.
+        </p>
+
+        <div className="flex gap-2">
+          <button
+            onClick={onClose}
+            className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-50 cursor-pointer"
+          >
+            Cancelar
+          </button>
+          <button
+            onClick={onViewContrato}
+            className="flex-1 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm flex items-center justify-center gap-2 cursor-pointer transition-colors"
+          >
+            <Eye className="w-4 h-4" />
+            Ver contrato
           </button>
         </div>
       </div>
@@ -1505,6 +1677,10 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
   const [editPresup, setEditPresup] = useState<MaintenancePresupuesto | null>(null);
   const [detallePresup, setDetallePresup] = useState<MaintenancePresupuesto | null>(null);
   const [convertPresup, setConvertPresup] = useState<MaintenancePresupuesto | null>(null);
+  const [activeContractConflict, setActiveContractConflict] = useState<{
+    presupuesto: MaintenancePresupuesto;
+    contrato: MaintenanceContrato;
+  } | null>(null);
   const [contratoDocItem, setContratoDocItem] = useState<MaintenanceContrato | null>(null);
   const [guardarModelo, setGuardarModelo] = useState<MaintenancePresupuesto | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -2144,7 +2320,7 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
 
       {editPresup && (
         <EditPresupuestoModal
-          presupuesto={editPresup} slaList={slaList} sectores={sectores} oficios={oficios} showToast={showToast}
+          presupuesto={editPresup} slaList={slaList} sectores={sectores} oficios={oficios} orgId={orgId} showToast={showToast}
           onClose={() => setEditPresup(null)}
           onSaved={updated => { setPresupuestos(prev => prev.map(p => p.id === updated.id ? updated : p)); setEditPresup(null); }}
         />
@@ -2181,6 +2357,22 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
             setConvertPresup(null);
             setTab('contratos');
             void sendMaintenanceNotification('contrato_activado', c.id);
+          }}
+          onActiveContractConflict={conflictContrato => {
+            setActiveContractConflict({ presupuesto: convertPresup, contrato: conflictContrato });
+            setConvertPresup(null);
+          }}
+        />
+      )}
+
+      {activeContractConflict && (
+        <ActiveContractBlockModal
+          presupuesto={activeContractConflict.presupuesto}
+          contrato={activeContractConflict.contrato}
+          onClose={() => setActiveContractConflict(null)}
+          onViewContrato={() => {
+            setTab('contratos');
+            setActiveContractConflict(null);
           }}
         />
       )}
