@@ -88,7 +88,7 @@ Deno.serve(async (req: Request) => {
   }
 
   if (action === 'accept' || action === 'reject') {
-    // Obtener datos del token antes de actualizar (para la notificación)
+    // ── 1. Leer token (confirmar que está pendiente) ──────────────────────────
     const { data: tokenRow } = await adminClient
       .from('trade_quote_tokens')
       .select('org_id, quote_numero, client_name')
@@ -96,7 +96,50 @@ Deno.serve(async (req: Request) => {
       .eq('status', 'pending')
       .maybeSingle();
 
-    const { error } = await adminClient
+    if (!tokenRow) {
+      // Token inexistente, ya procesado o expirado — respuesta idempotente.
+      return new Response(JSON.stringify({ ok: true, already_processed: true }), {
+        headers: { ...cors(req), 'Content-Type': 'application/json' },
+      });
+    }
+
+    // ── 2. Para 'accept': validar estado del presupuesto ANTES de mutar nada ─
+    // Estados terminales incompatibles: Rechazado, Expirado, Facturado.
+    // El token NO se marca accepted si el quote no puede avanzar.
+    const ACCEPT_ALLOWED = ['Borrador', 'Enviado', 'Aceptado'];
+    if (action === 'accept') {
+      const { data: quoteRow, error: quoteReadError } = await adminClient
+        .from('trade_quotes')
+        .select('estado')
+        .eq('org_id', tokenRow.org_id)
+        .eq('numero', tokenRow.quote_numero)
+        .maybeSingle();
+
+      if (quoteReadError) {
+        return new Response(JSON.stringify({ error: 'error_reading_quote' }), {
+          status: 500,
+          headers: { ...cors(req), 'Content-Type': 'application/json' },
+        });
+      }
+
+      if (!quoteRow) {
+        return new Response(JSON.stringify({ error: 'quote_not_found' }), {
+          status: 404,
+          headers: { ...cors(req), 'Content-Type': 'application/json' },
+        });
+      }
+
+      if (!ACCEPT_ALLOWED.includes(quoteRow.estado)) {
+        // Quote en estado terminal incompatible: no escribir nada.
+        return new Response(JSON.stringify({ error: 'quote_state_incompatible', quote_estado: quoteRow.estado }), {
+          status: 409,
+          headers: { ...cors(req), 'Content-Type': 'application/json' },
+        });
+      }
+    }
+
+    // ── 3. Actualizar token (quote validado o acción = reject) ────────────────
+    const { error: tokenError } = await adminClient
       .from('trade_quote_tokens')
       .update({
         status: action === 'accept' ? 'accepted' : 'rejected',
@@ -105,28 +148,38 @@ Deno.serve(async (req: Request) => {
       .eq('token', token)
       .eq('status', 'pending');
 
-    if (error) {
-      return new Response(JSON.stringify({ error: error.message }), {
+    if (tokenError) {
+      return new Response(JSON.stringify({ error: tokenError.message }), {
         status: 500,
         headers: { ...cors(req), 'Content-Type': 'application/json' },
       });
     }
 
-    // Sincronizar trade_quotes.estado cuando el cliente acepta.
-    // Guard: solo avanzar desde estados no terminales (Borrador, Enviado, Aceptado).
-    // Rechazado y Expirado no se sobreescriben — requieren acción manual del staff.
-    if (action === 'accept' && tokenRow?.org_id && tokenRow.quote_numero) {
-      await adminClient
+    // ── 4. Sincronizar trade_quotes.estado (solo para accept) ─────────────────
+    // ATOMIC DB TRANSACTION: NO — dos writes secuenciales sin RPC transaccional.
+    // Si este write falla, el token ya está accepted pero el quote no avanza:
+    // se devuelve error (no { ok: true }) para que el cliente sea consciente.
+    // La inconsistencia queda visible y corregible manualmente o por soporte.
+    if (action === 'accept') {
+      const { error: quoteUpdateError } = await adminClient
         .from('trade_quotes')
         .update({ estado: 'Aceptado' })
         .eq('org_id', tokenRow.org_id)
         .eq('numero', tokenRow.quote_numero)
-        .in('estado', ['Borrador', 'Enviado', 'Aceptado']);
-      // Aceptado → no-op idempotente. Rechazado/Expirado → sin cambio.
-    }
+        .in('estado', ACCEPT_ALLOWED);
 
-    // Notificar al org si el cliente aceptó
-    if (action === 'accept' && tokenRow?.org_id) {
+      if (quoteUpdateError) {
+        console.error(`[${requestId}] INCONSISTENCY: token accepted but quote update failed`, {
+          org_id: tokenRow.org_id,
+          quote_numero: tokenRow.quote_numero,
+          error: quoteUpdateError.message,
+        });
+        return new Response(JSON.stringify({ error: 'quote_update_failed', detail: quoteUpdateError.message }), {
+          status: 500,
+          headers: { ...cors(req), 'Content-Type': 'application/json' },
+        });
+      }
+
       notifyOrgQuoteAccepted(tokenRow.org_id, tokenRow.quote_numero, tokenRow.client_name);
     }
 

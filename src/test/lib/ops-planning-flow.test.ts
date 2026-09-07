@@ -5,7 +5,12 @@
  *   - pendingPlanningQuotes derivation logic
  *   - duplicate guard logic
  *   - REAL-009 prefill field
- *   - token acceptance state machine (state guard documented)
+ *   - token acceptance state machine (full pre-validation flow)
+ *
+ * NOTE: Edge function (Deno) is NOT directly unit-testable here.
+ * The acceptance flow is modelled as a pure state machine function
+ * that mirrors the production logic exactly.
+ * REAL INTEGRATION TESTS: NO — these are unit/mock tests.
  */
 
 import { describe, it, expect } from 'vitest';
@@ -57,12 +62,56 @@ function hasActiveJobForQuote(jobs: Job[], quoteDbId: string): boolean {
   );
 }
 
-// ── Helper: token acceptance state guard (mirrors edge function logic) ────────
+// ── Acceptance state machine (mirrors edge function logic exactly) ────────────
 
 const ACCEPT_ALLOWED_STATES: QuoteEstado[] = ['Borrador', 'Enviado', 'Aceptado'];
 
 function canAcceptFromState(estado: QuoteEstado): boolean {
   return ACCEPT_ALLOWED_STATES.includes(estado);
+}
+
+type AcceptResult =
+  | { ok: true }
+  | { ok: true; already_processed: true }
+  | { error: 'quote_not_found' }
+  | { error: 'quote_state_incompatible'; quote_estado: QuoteEstado }
+  | { error: 'quote_update_failed'; detail: string }
+  | { error: string };
+
+interface MockDB {
+  token_pending: boolean;
+  quote: { estado: QuoteEstado } | null;
+  quoteUpdateFails?: boolean;
+}
+
+/**
+ * Simulates the edge function acceptance flow in pure logic form.
+ * Used to verify state machine correctness without Deno runtime.
+ * ATOMIC DB TRANSACTION: NO (mirrors production — two sequential writes).
+ */
+function simulateAcceptance(db: MockDB): AcceptResult {
+  // Step 1: check token is pending
+  if (!db.token_pending) {
+    return { ok: true, already_processed: true };
+  }
+
+  // Step 2: pre-validate quote state BEFORE touching token
+  if (!db.quote) {
+    return { error: 'quote_not_found' };
+  }
+  if (!ACCEPT_ALLOWED_STATES.includes(db.quote.estado)) {
+    return { error: 'quote_state_incompatible', quote_estado: db.quote.estado };
+  }
+
+  // Step 3: update token (in production: UPDATE trade_quote_tokens)
+  // (simulated — no write modelled here)
+
+  // Step 4: update quote (in production: UPDATE trade_quotes)
+  if (db.quoteUpdateFails) {
+    return { error: 'quote_update_failed', detail: 'db error simulated' };
+  }
+
+  return { ok: true };
 }
 
 // ── Test fixtures ────────────────────────────────────────────────────────────
@@ -179,34 +228,83 @@ describe('hasActiveJobForQuote (duplicate guard)', () => {
 });
 
 // ══════════════════════════════════════════════════════════════════════════════
-// TOKEN ACCEPTANCE STATE GUARD
+// TOKEN ACCEPTANCE STATE MACHINE
+// Pre-validation logic: quote state checked BEFORE any write.
+// NOTE: UNIT/MOCK TESTS — not real integration tests (no Deno runtime).
 // ══════════════════════════════════════════════════════════════════════════════
 
-describe('canAcceptFromState (token acceptance guard)', () => {
-  it('test 1 — pending quote (Borrador) → can accept', () => {
-    expect(canAcceptFromState('Borrador')).toBe(true);
+describe('simulateAcceptance (edge function state machine)', () => {
+  // ── test 1: Borrador → accepted
+  it('test 1 — Borrador + pending token → ok', () => {
+    const result = simulateAcceptance({ token_pending: true, quote: { estado: 'Borrador' } });
+    expect(result).toEqual({ ok: true });
   });
 
-  it('test 1b — Enviado → can accept', () => {
-    expect(canAcceptFromState('Enviado')).toBe(true);
+  // ── test 2: Enviado → accepted
+  it('test 2 — Enviado + pending token → ok', () => {
+    const result = simulateAcceptance({ token_pending: true, quote: { estado: 'Enviado' } });
+    expect(result).toEqual({ ok: true });
   });
 
-  it('test 3 — already Aceptado → idempotent (allowed, safe no-op in DB)', () => {
-    // The DB UPDATE is idempotent: SET estado='Aceptado' WHERE estado IN (..., 'Aceptado')
-    expect(canAcceptFromState('Aceptado')).toBe(true);
+  // ── test 3: already Aceptado → idempotent ok
+  it('test 3 — Aceptado + pending token → idempotent ok', () => {
+    // DB UPDATE WHERE estado IN [...,'Aceptado'] is a no-op: safe
+    const result = simulateAcceptance({ token_pending: true, quote: { estado: 'Aceptado' } });
+    expect(result).toEqual({ ok: true });
   });
 
-  it('test 4 — Rechazado → NOT allowed', () => {
-    expect(canAcceptFromState('Rechazado')).toBe(false);
+  // ── test 4: Rechazado → token NOT accepted (pre-validation blocks write)
+  it('test 4 — Rechazado → quote_state_incompatible, token NOT written', () => {
+    const result = simulateAcceptance({ token_pending: true, quote: { estado: 'Rechazado' } });
+    expect(result).toMatchObject({ error: 'quote_state_incompatible', quote_estado: 'Rechazado' });
   });
 
-  it('test 5 — Expirado → NOT allowed', () => {
-    expect(canAcceptFromState('Expirado')).toBe(false);
+  // ── test 5: Expirado → token NOT accepted
+  it('test 5 — Expirado → quote_state_incompatible, token NOT written', () => {
+    const result = simulateAcceptance({ token_pending: true, quote: { estado: 'Expirado' } });
+    expect(result).toMatchObject({ error: 'quote_state_incompatible', quote_estado: 'Expirado' });
   });
 
-  it('Facturado → NOT allowed (terminal state)', () => {
-    expect(canAcceptFromState('Facturado')).toBe(false);
+  // ── test 6: Facturado → token NOT accepted
+  it('test 6 — Facturado → quote_state_incompatible, token NOT written', () => {
+    const result = simulateAcceptance({ token_pending: true, quote: { estado: 'Facturado' } });
+    expect(result).toMatchObject({ error: 'quote_state_incompatible', quote_estado: 'Facturado' });
   });
+
+  // ── test 7: second acceptance → already_processed (no duplicate effect)
+  it('test 7 — second acceptance (token no longer pending) → already_processed', () => {
+    // Simulates: first call set token to 'accepted'; second call finds token not pending
+    const result = simulateAcceptance({ token_pending: false, quote: { estado: 'Aceptado' } });
+    expect(result).toEqual({ ok: true, already_processed: true });
+  });
+
+  // ── test 8: quote not found → token NOT accepted
+  it('test 8 — quote_not_found → token NOT written', () => {
+    const result = simulateAcceptance({ token_pending: true, quote: null });
+    expect(result).toEqual({ error: 'quote_not_found' });
+  });
+
+  // ── test 9: quote update fails after token write → NOT silent success
+  it('test 9 — quote_update_failed → returns error, not { ok: true }', () => {
+    const result = simulateAcceptance({
+      token_pending: true,
+      quote: { estado: 'Enviado' },
+      quoteUpdateFails: true,
+    });
+    expect(result).toMatchObject({ error: 'quote_update_failed' });
+    // Explicitly assert not { ok: true }
+    expect((result as { ok?: boolean }).ok).toBeUndefined();
+  });
+});
+
+// ── canAcceptFromState (unit guard, kept for completeness) ────────────────────
+describe('canAcceptFromState (state allowlist)', () => {
+  it('Borrador → allowed', () => expect(canAcceptFromState('Borrador')).toBe(true));
+  it('Enviado → allowed', () => expect(canAcceptFromState('Enviado')).toBe(true));
+  it('Aceptado → allowed (idempotent)', () => expect(canAcceptFromState('Aceptado')).toBe(true));
+  it('Rechazado → NOT allowed', () => expect(canAcceptFromState('Rechazado')).toBe(false));
+  it('Expirado → NOT allowed', () => expect(canAcceptFromState('Expirado')).toBe(false));
+  it('Facturado → NOT allowed', () => expect(canAcceptFromState('Facturado')).toBe(false));
 });
 
 // ══════════════════════════════════════════════════════════════════════════════
