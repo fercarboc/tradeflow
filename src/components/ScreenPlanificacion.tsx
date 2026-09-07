@@ -1123,11 +1123,22 @@ export default function ScreenPlanificacion({
     if (!triggerNew || triggerNew === triggerNewRef.current) return;
     triggerNewRef.current = triggerNew;
     if (prefillJobFromQuote) {
+      const activeJob = jobs.find(j =>
+        j.quote_id === prefillJobFromQuote.dbId &&
+        j.estado !== 'cancelado' &&
+        j.estado !== 'no_realizado'
+      );
+      if (activeJob) {
+        showToast('Este presupuesto ya tiene un trabajo programado.', 'info');
+        onPrefillConsumed?.();
+        return;
+      }
       setEditingJob(null);
       setDraft({
         ...EMPTY_DRAFT(),
         fecha_inicio: selectedDate,
         titulo: prefillJobFromQuote.descripcion.slice(0, 80) || `Trabajo — ${prefillJobFromQuote.nombreCliente}`,
+        descripcion: prefillJobFromQuote.descripcion ?? '',
         client_id: prefillJobFromQuote.client_id ?? null,
         quote_id: prefillJobFromQuote.dbId ?? null,
         prioridad: 'normal',
@@ -1544,11 +1555,21 @@ export default function ScreenPlanificacion({
                   key={p.id}
                   className="bg-white border border-emerald-200 rounded-lg px-3 py-2 flex items-center justify-between gap-2 cursor-pointer hover:border-emerald-400 transition-colors"
                   onClick={() => {
+                    const activeJob = jobs.find(j =>
+                      j.quote_id === p.dbId &&
+                      j.estado !== 'cancelado' &&
+                      j.estado !== 'no_realizado'
+                    );
+                    if (activeJob) {
+                      showToast('Este presupuesto ya tiene un trabajo programado.', 'info');
+                      return;
+                    }
                     setEditingJob(null);
                     setDraft({
                       ...EMPTY_DRAFT(),
                       fecha_inicio: selectedDate,
                       titulo: p.descripcion.slice(0, 80) || `Trabajo — ${p.nombreCliente}`,
+                      descripcion: p.descripcion ?? '',
                       client_id: p.client_id ?? null,
                       quote_id: p.dbId ?? null,
                       prioridad: 'normal',

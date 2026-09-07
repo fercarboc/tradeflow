@@ -2683,6 +2683,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setIsClientModalOpen(false);
   };
 
+  const pendingPlanningQuotes = presupuestos.filter(p =>
+    p.estado === 'Aceptado' &&
+    !jobs.some(j =>
+      j.quote_id === p.dbId &&
+      j.estado !== 'cancelado' &&
+      j.estado !== 'no_realizado'
+    )
+  );
+
   return (
     <div data-testid="dashboard" className={`font-sans ${
       isNativeDevice
@@ -6374,8 +6383,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     orgId={orgId}
                     isLiveMode={isLiveMode}
                     isDarkMode={isDarkMode}
-                    presupuestosAceptados={presupuestos
-                      .filter(p => p.estado === 'Aceptado')
+                    presupuestosAceptados={pendingPlanningQuotes
                       .map(p => ({ id: p.id, dbId: p.dbId, nombreCliente: p.nombreCliente, descripcion: p.descripcion, total: p.total ?? 0, client_id: p.clientId ?? null }))
                     }
                     onCreateJob={async (job) => {
@@ -6642,6 +6650,31 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             >
               <RotateCcw className="w-4 h-4" />
               Configurar con el asistente paso a paso
+            </button>
+          </div>
+        )}
+
+        {/* ── Banner: presupuestos pendientes de planificación ─────────── */}
+        {pendingPlanningQuotes.length > 0 && (
+          <div className="bg-emerald-50 border border-emerald-300 rounded-2xl p-4 flex items-center justify-between gap-4">
+            <div className="flex items-start gap-3">
+              <div className="w-9 h-9 bg-emerald-100 rounded-xl flex items-center justify-center shrink-0">
+                <FileText className="w-5 h-5 text-emerald-600" />
+              </div>
+              <div>
+                <p className="font-bold text-emerald-900 text-sm">
+                  {pendingPlanningQuotes.length} trabajo{pendingPlanningQuotes.length !== 1 ? 's' : ''} pendiente{pendingPlanningQuotes.length !== 1 ? 's' : ''} de planificación
+                </p>
+                <p className="text-xs text-emerald-700 mt-0.5">
+                  Tienes presupuestos aceptados que todavía no tienen fecha o trabajo programado.
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => setActiveTab('planificacion')}
+              className="shrink-0 flex items-center gap-1.5 text-[11px] font-bold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 px-4 py-2 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
+            >
+              Ver y programar <ChevronRight className="w-3.5 h-3.5" />
             </button>
           </div>
         )}

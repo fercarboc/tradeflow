@@ -112,6 +112,19 @@ Deno.serve(async (req: Request) => {
       });
     }
 
+    // Sincronizar trade_quotes.estado cuando el cliente acepta.
+    // Guard: solo avanzar desde estados no terminales (Borrador, Enviado, Aceptado).
+    // Rechazado y Expirado no se sobreescriben — requieren acción manual del staff.
+    if (action === 'accept' && tokenRow?.org_id && tokenRow.quote_numero) {
+      await adminClient
+        .from('trade_quotes')
+        .update({ estado: 'Aceptado' })
+        .eq('org_id', tokenRow.org_id)
+        .eq('numero', tokenRow.quote_numero)
+        .in('estado', ['Borrador', 'Enviado', 'Aceptado']);
+      // Aceptado → no-op idempotente. Rechazado/Expirado → sin cambio.
+    }
+
     // Notificar al org si el cliente aceptó
     if (action === 'accept' && tokenRow?.org_id) {
       notifyOrgQuoteAccepted(tokenRow.org_id, tokenRow.quote_numero, tokenRow.client_name);
