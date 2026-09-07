@@ -95,6 +95,7 @@ import { generateExportWorkbook, generateTemplateWorkbook, downloadWorkbook } fr
 import ScreenPlanificacion from './ScreenPlanificacion';
 import ScreenRutaDia from './ScreenRutaDia';
 import ScreenParteTrabajo from './ScreenParteTrabajo';
+import OperationsHub, { type HubSubTab } from './OperationsHub';
 import ScreenPresupuestoFoto from './ScreenPresupuestoFoto';
 import ScreenPresupuestoIncremental from './ScreenPresupuestoIncremental';
 import ScreenMantenimientoWizard from './ScreenMantenimientoWizard';
@@ -713,15 +714,35 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [activeTab, setActiveTab] = useState<string>(() => {
     try {
       const navSignal = sessionStorage.getItem('tf:nav:tab');
-      if (navSignal) { sessionStorage.removeItem('tf:nav:tab'); return navSignal; }
+      if (navSignal) {
+        sessionStorage.removeItem('tf:nav:tab');
+        // Coerce legacy hub tabs to planificacion
+        if (navSignal === 'ruta_dia' || navSignal === 'partes') return 'planificacion';
+        return navSignal;
+      }
       const stored = localStorage.getItem('trabflow_app_tab');
-      if (stored) return stored;
+      if (stored) {
+        // Coerce legacy sidebar items into unified hub
+        if (stored === 'ruta_dia' || stored === 'partes') return 'planificacion';
+        return stored;
+      }
     } catch {}
     return rol === 'tecnico' ? 'planificacion' : 'dashboard';
   });
   useEffect(() => {
     try { localStorage.setItem('trabflow_app_tab', activeTab); } catch {}
   }, [activeTab]);
+
+  // Hub sub-tab — used for deep-linking into specific tabs of the unified hub.
+  // Initialized once from localStorage coercion (ruta_dia → agenda, partes → partes).
+  const [planificacionSubTab, setPlanificacionSubTab] = useState<HubSubTab | undefined>(() => {
+    try {
+      const stored = localStorage.getItem('trabflow_app_tab');
+      if (stored === 'ruta_dia') return 'agenda';
+      if (stored === 'partes') return 'partes';
+    } catch {}
+    return undefined;
+  });
   const [newJobTrigger, setNewJobTrigger] = useState(0);
   const [prefillJobFromQuote, setPrefillJobFromQuote] = useState<import('../types').Presupuesto | null>(null);
 
@@ -3810,15 +3831,41 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             />
           )}
           {mobileTab === 'trabajos' && (
-            <ScreenPlanificacion
+            <OperationsHub
               jobs={rol === 'tecnico' && workerProfile
                 ? jobs.filter(j => j.trade_job_workers?.some(jw => jw.worker_id === workerProfile.id))
                 : jobs}
               workers={trabajadores}
-              clientes={clientes.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono }))}
+              clientes={clientes.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono, email: c.email }))}
               orgId={orgId}
               isLiveMode={isLiveMode}
               isDarkMode={isDarkMode}
+              pendingPlanningQuotes={pendingPlanningQuotes.map(p => ({
+                id: p.id,
+                dbId: p.dbId,
+                nombreCliente: p.nombreCliente,
+                descripcion: p.descripcion,
+                total: p.total ?? 0,
+                client_id: p.clientId ?? null,
+              }))}
+              presupuestosPorId={Object.fromEntries(presupuestos.map(p => [p.id, { id: p.id, descripcion: p.descripcion, total: p.total, estado: p.estado, fecha: p.fecha, iva_pct: p.iva_pct }]))}
+              tarifas={tarifas}
+              startLocation={
+                orgBaseGeo ??
+                (orgData?.direccion
+                  ? `${orgData.direccion}${(orgData as unknown as Record<string, unknown>).ciudad ? `, ${(orgData as unknown as Record<string, unknown>).ciudad}` : ''}`.trim()
+                  : 'Oficina')
+              }
+              workerProfileId={workerProfile?.id ?? null}
+              prefillJobFromQuote={prefillJobFromQuote ? {
+                id: prefillJobFromQuote.id,
+                dbId: prefillJobFromQuote.dbId,
+                nombreCliente: prefillJobFromQuote.nombreCliente,
+                descripcion: prefillJobFromQuote.descripcion,
+                total: prefillJobFromQuote.total ?? 0,
+                client_id: prefillJobFromQuote.clientId ?? null,
+              } : null}
+              onPrefillConsumed={() => setPrefillJobFromQuote(null)}
               onCreateJob={async (job) => {
                 if (!orgId) throw new Error('Sin organizacion');
                 const saved = await createJob(orgId, job);
@@ -3842,37 +3889,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 await removeWorkerFromJob(jobId, workerId);
                 await loadJobs(orgId!).then(setJobs);
               }}
-              onOpenParte={async (job) => {
-                setParteJob(job);
-                setParteMantenimiento(null);
-                setParteJobInvoices([]);
-
-                const [mantenimientoInfo, jobInvoices] = await Promise.all([
-                  (isLiveMode && orgId && job.client_id)
-                    ? checkClientMaintenanceContract(orgId, job.client_id).catch(() => null)
-                    : Promise.resolve(null),
-                  isLiveMode
-                    ? loadInvoicesByJobId(job.id).catch(() => [] as import('../lib/supabase').TradeInvoice[])
-                    : Promise.resolve([] as import('../lib/supabase').TradeInvoice[]),
-                ]);
-
-                setParteMantenimiento(mantenimientoInfo);
-                setParteJobInvoices(jobInvoices);
-
-                const isCompleted = job.estado === 'completado';
-                const hasInvoice = jobInvoices.length > 0;
-                const isMant = mantenimientoInfo?.activo ?? false;
-
-                if (!isCompleted) {
-                  setParteMode('edit');
-                } else if (hasInvoice) {
-                  setParteMode('supplement');
-                } else if (isMant) {
-                  setParteMode('view');
-                } else {
-                  setParteMode('view');
-                }
-              }}
               onCreatePresupuesto={(job) => {
                 const cliente = clientes.find(c => c.id === job.client_id);
                 const nombreCliente = job.trade_clients?.nombre ?? cliente?.nombre ?? '';
@@ -3880,24 +3896,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 const emailCliente = cliente?.email ?? '';
                 setPendingPresupuestoJobId(job.id);
                 setEditingQuote({
-                  id: 'P-NEW',
-                  nombreCliente,
-                  telefonoCliente,
-                  emailCliente,
+                  id: 'P-NEW', nombreCliente, telefonoCliente, emailCliente,
                   descripcion: job.titulo,
                   fecha: new Date().toISOString().split('T')[0],
-                  estado: 'Borrador',
-                  partidas: [],
-                  total: 0,
+                  estado: 'Borrador', partidas: [], total: 0,
                 });
                 setWizardStep(1);
                 setWizardActive(true);
               }}
-              presupuestosPorId={Object.fromEntries(presupuestos.map(p => [p.id, { id: p.id, descripcion: p.descripcion, total: p.total, estado: p.estado, fecha: p.fecha, iva_pct: p.iva_pct }]))}
               showToast={showToast}
               triggerNew={newJobTrigger}
-              prefillJobFromQuote={prefillJobFromQuote ? { id: prefillJobFromQuote.id, dbId: prefillJobFromQuote.dbId, nombreCliente: prefillJobFromQuote.nombreCliente, descripcion: prefillJobFromQuote.descripcion, total: prefillJobFromQuote.total ?? 0, client_id: prefillJobFromQuote.clientId ?? null } : null}
-              onPrefillConsumed={() => setPrefillJobFromQuote(null)}
             />
           )}
           {mobileTab === 'mantenimiento' && orgId && (
@@ -6119,9 +6127,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('clients.manage') && SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes CRM' })}
             {can('invoices.manage') && SidebarBtn({ id: 'invoices', icon: <Receipt className="w-4 h-4" />, label: 'Facturas' })}
             {can('catalog.manage') && SidebarBtn({ id: 'catalog', icon: <Package className="w-4 h-4" />, label: 'Catálogo' })}
-            {can('jobs.view') && SidebarBtn({ id: 'planificacion', icon: <Calendar className="w-4 h-4" />, label: 'Planificación' })}
-            {can('jobs.view') && SidebarBtn({ id: 'ruta_dia', icon: <Navigation className="w-4 h-4" />, label: 'Ruta del Día' })}
-            {can('jobs.view') && SidebarBtn({ id: 'partes', icon: <FileCheck className="w-4 h-4" />, label: 'Partes Firmados' })}
+            {can('jobs.view') && SidebarBtn({
+              id: 'planificacion',
+              icon: <Calendar className="w-4 h-4" />,
+              label: 'Planificación',
+              badge: pendingPlanningQuotes.length > 0 ? pendingPlanningQuotes.length : undefined,
+            })}
             {can('ingresos.view') && SidebarBtn({ id: 'ingresos', icon: <BarChart2 className="w-4 h-4" />, label: 'Ingresos/Gastos' })}
             {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? ctxPlan) || subscription?.status === 'trial') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
@@ -6211,8 +6222,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'crm' && 'Clientes CRM'}
                 {activeTab === 'invoices' && 'Gestión de Facturas'}
                 {activeTab === 'catalog' && 'Catálogo de Productos'}
-                {activeTab === 'planificacion' && 'Planificación de Trabajos'}
-                {activeTab === 'ruta_dia' && 'Ruta del Día'}
+                {activeTab === 'planificacion' && 'Planificación'}
                 {activeTab === 'ingresos' && 'Ingresos, Gastos y Rentabilidad'}
                 {activeTab === 'facturas' && 'Gestión de Facturas'}
                 {activeTab === 'equipo' && 'Equipo y Trabajadores'}
@@ -6221,7 +6231,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'suppliers' && 'Catálogos de Proveedores'}
                 {activeTab === 'pedidos_material' && 'Mis pedidos'}
                 {activeTab === 'asistente' && 'Asistente Técnico de Normativa'}
-                {activeTab === 'partes' && 'Partes de Trabajo Firmados'}
                 {activeTab === 'valoraciones' && 'Valoraciones de Clientes'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
@@ -6371,21 +6380,46 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'ai_scan' && ScreenAIScan()}
                 {activeTab === 'crm' && ScreenCRM()}
                 {activeTab === 'invoices' && <ScreenFacturas showToast={showToast} isLiveMode={isLiveMode} />}
-                {activeTab === 'partes' && ScreenPartesPC()}
                 {activeTab === 'catalog' && ScreenCatalog()}
                 {activeTab === 'planificacion' && (
-                  <ScreenPlanificacion
+                  <OperationsHub
                     jobs={rol === 'tecnico' && workerProfile
                       ? jobs.filter(j => j.trade_job_workers?.some(jw => jw.worker_id === workerProfile.id))
                       : jobs}
                     workers={trabajadores}
-                    clientes={clientes.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono }))}
+                    clientes={clientes.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono, email: c.email }))}
                     orgId={orgId}
                     isLiveMode={isLiveMode}
                     isDarkMode={isDarkMode}
-                    presupuestosAceptados={pendingPlanningQuotes
-                      .map(p => ({ id: p.id, dbId: p.dbId, nombreCliente: p.nombreCliente, descripcion: p.descripcion, total: p.total ?? 0, client_id: p.clientId ?? null }))
+                    pendingPlanningQuotes={pendingPlanningQuotes.map(p => ({
+                      id: p.id,
+                      dbId: p.dbId,
+                      nombreCliente: p.nombreCliente,
+                      descripcion: p.descripcion,
+                      total: p.total ?? 0,
+                      client_id: p.clientId ?? null,
+                    }))}
+                    presupuestosPorId={Object.fromEntries(
+                      presupuestos.map(p => [p.id, { id: p.id, descripcion: p.descripcion, total: p.total, estado: p.estado, fecha: p.fecha, iva_pct: p.iva_pct }])
+                    )}
+                    tarifas={tarifas}
+                    startLocation={
+                      orgBaseGeo ??
+                      (orgData?.direccion
+                        ? `${orgData.direccion}${(orgData as unknown as Record<string, unknown>).ciudad ? `, ${(orgData as unknown as Record<string, unknown>).ciudad}` : ''}`.trim()
+                        : 'Oficina')
                     }
+                    workerProfileId={workerProfile?.id ?? null}
+                    initialSubTab={planificacionSubTab}
+                    prefillJobFromQuote={prefillJobFromQuote ? {
+                      id: prefillJobFromQuote.id,
+                      dbId: prefillJobFromQuote.dbId,
+                      nombreCliente: prefillJobFromQuote.nombreCliente,
+                      descripcion: prefillJobFromQuote.descripcion,
+                      total: prefillJobFromQuote.total ?? 0,
+                      client_id: prefillJobFromQuote.clientId ?? null,
+                    } : null}
+                    onPrefillConsumed={() => setPrefillJobFromQuote(null)}
                     onCreateJob={async (job) => {
                       if (!orgId) throw new Error('Sin organización');
                       const saved = await createJob(orgId, job);
@@ -6409,37 +6443,23 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       await removeWorkerFromJob(jobId, workerId);
                       await loadJobs(orgId!).then(setJobs);
                     }}
-                    onViewRoute={() => setActiveTab('ruta_dia')}
-                    showToast={showToast}
-                    triggerNew={newJobTrigger}
-                    prefillJobFromQuote={prefillJobFromQuote ? { id: prefillJobFromQuote.id, dbId: prefillJobFromQuote.dbId, nombreCliente: prefillJobFromQuote.nombreCliente, descripcion: prefillJobFromQuote.descripcion, total: prefillJobFromQuote.total ?? 0, client_id: prefillJobFromQuote.clientId ?? null } : null}
-                    onPrefillConsumed={() => setPrefillJobFromQuote(null)}
-                  />
-                )}
-                {activeTab === 'ruta_dia' && orgId && (
-                  <ScreenRutaDia
-                    jobs={jobs.filter(j => {
-                      const hoy = new Date().toISOString().slice(0, 10);
-                      const isToday = j.fecha_inicio === hoy || !j.fecha_inicio;
-                      if (rol === 'tecnico' && workerProfile) {
-                        return isToday && j.trade_job_workers?.some(jw => jw.worker_id === workerProfile.id);
-                      }
-                      return isToday;
-                    })}
-                    orgId={orgId}
-                    startLocation={
-                      orgBaseGeo ??
-                      (orgData?.direccion
-                        ? `${orgData.direccion}${(orgData as unknown as Record<string, unknown>).ciudad ? `, ${(orgData as unknown as Record<string, unknown>).ciudad}` : ''}`.trim()
-                        : 'Oficina')
-                    }
-                    horaInicio="08:00"
-                    onUpdateJob={async (id, updates) => {
-                      await updateJob(id, updates);
-                      setJobs(prev => prev.map(j => j.id === id ? { ...j, ...updates } : j));
+                    onCreatePresupuesto={(job) => {
+                      const cliente = clientes.find(c => c.id === job.client_id);
+                      const nombreCliente = job.trade_clients?.nombre ?? cliente?.nombre ?? '';
+                      const telefonoCliente = job.trade_clients?.telefono ?? cliente?.telefono ?? '';
+                      const emailCliente = cliente?.email ?? '';
+                      setPendingPresupuestoJobId(job.id);
+                      setEditingQuote({
+                        id: 'P-NEW', nombreCliente, telefonoCliente, emailCliente,
+                        descripcion: job.titulo,
+                        fecha: new Date().toISOString().split('T')[0],
+                        estado: 'Borrador', partidas: [], total: 0,
+                      });
+                      setWizardStep(1);
+                      setWizardActive(true);
                     }}
                     showToast={showToast}
-                    onClose={() => setActiveTab('planificacion')}
+                    triggerNew={newJobTrigger}
                   />
                 )}
                 {activeTab === 'ingresos' && (
@@ -6549,7 +6569,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       </React.Fragment>
     );
 
-    function SidebarBtn({ id, icon, label }: { id: string; icon: React.ReactNode; label: string }) {
+    function SidebarBtn({ id, icon, label, badge }: { id: string; icon: React.ReactNode; label: string; badge?: number }) {
       const isActive = activeTab === id || (id === 'quotes' && (activeTab === 'create_quote' || activeTab === 'preview'));
       return (
         <button
@@ -6562,7 +6582,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           }`}
         >
           {icon}
-          <span>{label}</span>
+          <span className="flex-1 text-left">{label}</span>
+          {badge != null && badge > 0 && !isActive && (
+            <span className="inline-flex items-center justify-center min-w-[16px] h-4 px-1 rounded-full bg-emerald-500 text-white text-[9px] font-black">
+              {badge > 99 ? '99+' : badge}
+            </span>
+          )}
           {isActive && (
             <span className="absolute right-2 w-1.5 h-1.5 bg-white rounded-full" />
           )}
@@ -6671,7 +6696,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </div>
             </div>
             <button
-              onClick={() => setActiveTab('planificacion')}
+              onClick={() => { setPlanificacionSubTab('pendientes'); setActiveTab('planificacion'); }}
               className="shrink-0 flex items-center gap-1.5 text-[11px] font-bold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 px-4 py-2 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
             >
               Ver y programar <ChevronRight className="w-3.5 h-3.5" />
