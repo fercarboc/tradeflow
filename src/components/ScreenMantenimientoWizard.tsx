@@ -2,10 +2,13 @@ import { useState, useRef, useEffect } from 'react';
 import {
   Mic, MicOff, X, Loader2, CheckCircle, Sparkles, ChevronLeft,
   ShieldCheck, Clock, Wrench, AlertTriangle, Plus, Trash2,
-  Search, UserPlus, Building2, User,
+  Search, UserPlus, Building2, User, MapPin,
 } from 'lucide-react';
-import { saveMaintenancePresupuesto, loadClients, addClient } from '../lib/supabase';
-import type { TradeClient } from '../lib/supabase';
+import {
+  saveMaintenancePresupuesto, loadClients, addClient,
+  loadClientLocations, saveClientLocation, buildDireccionSnapshot, loadClientMaintenanceHistory,
+} from '../lib/supabase';
+import type { TradeClient, ClientLocation, ClientMaintenanceHistorialItem } from '../lib/supabase';
 
 // ── Sectores ──────────────────────────────────────────────────────────────────
 const SECTORES = [
@@ -484,6 +487,20 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
   const [searchCliente, setSearchCliente]     = useState('');
   const [clienteId, setClienteId]             = useState<string | null>(null);
   const [clienteNombre, setClienteNombre]     = useState('');
+
+  // ── Estado de ubicación ───────────────────────────────────────────────────
+  const [wizardLocations, setWizardLocations]             = useState<ClientLocation[]>([]);
+  const [wizardLocationId, setWizardLocationId]           = useState<string | null>(null);
+  const [wizardLoadingLocations, setWizardLoadingLocations] = useState(false);
+  const [wizardCreatingLocation, setWizardCreatingLocation] = useState(false);
+  const [wizardNewLocNombre, setWizardNewLocNombre]       = useState('');
+  const [wizardNewLocCiudad, setWizardNewLocCiudad]       = useState('');
+  const [wizardNewLocDireccion, setWizardNewLocDireccion] = useState('');
+  const [wizardNewLocCp, setWizardNewLocCp]               = useState('');
+  const [wizardSavingLocation, setWizardSavingLocation]   = useState(false);
+
+  // ── First Confirmation (cliente con historial) ─────────────────────────────
+  const [wizardFirstConfirm, setWizardFirstConfirm] = useState<ClientMaintenanceHistorialItem[] | null>(null);
   const [clienteCif, setClienteCif]           = useState('');
   const [clienteTelefono, setClienteTelefono] = useState('');
   const [clienteEmail, setClienteEmail]       = useState('');
@@ -499,6 +516,15 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
       .catch(() => {})
       .finally(() => setLoadingClientes(false));
   }, [orgId]);
+
+  useEffect(() => {
+    if (!clienteId) { setWizardLocations([]); setWizardLocationId(null); return; }
+    setWizardLoadingLocations(true);
+    loadClientLocations(orgId, clienteId)
+      .then(locs => setWizardLocations(locs.filter(l => l.activa)))
+      .catch(() => {})
+      .finally(() => setWizardLoadingLocations(false));
+  }, [orgId, clienteId]);
 
   function selectCliente(c: TradeClient) {
     setClienteId(c.id);
@@ -620,6 +646,39 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
     }
   }
 
+  const handleClienteContinue = async () => {
+    if (clienteId) {
+      try {
+        const historial = await loadClientMaintenanceHistory(orgId, clienteId);
+        if (historial.length > 0) { setWizardFirstConfirm(historial); return; }
+      } catch { /* non-critical */ }
+    }
+    setPhase('sector');
+  };
+
+  const handleWizardCreateLocation = async () => {
+    const resolvedClientId = clienteId;
+    if (!resolvedClientId || !wizardNewLocNombre.trim()) return;
+    if (!wizardNewLocCiudad.trim()) { showToast('Zona / Municipio es obligatorio.', 'error'); return; }
+    setWizardSavingLocation(true);
+    try {
+      const loc = await saveClientLocation({
+        org_id: orgId, client_id: resolvedClientId,
+        nombre: wizardNewLocNombre.trim(),
+        direccion: wizardNewLocDireccion.trim() || null,
+        ciudad: wizardNewLocCiudad.trim(),
+        cp: wizardNewLocCp.trim() || null,
+        provincia: null, pais: 'ES', notas: null, activa: true,
+      });
+      setWizardLocations(prev => [...prev, loc]);
+      setWizardLocationId(loc.id);
+      setWizardCreatingLocation(false);
+      setWizardNewLocNombre(''); setWizardNewLocCiudad('');
+      setWizardNewLocDireccion(''); setWizardNewLocCp('');
+    } catch (e) { showToast(String(e), 'error'); }
+    finally { setWizardSavingLocation(false); }
+  };
+
   async function handleSaveDirectly() {
     if (!sector || !orgId) return;
     setSaving(true);
@@ -638,6 +697,21 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
         finalClientId = newClient.id;
       }
 
+      // Validate location if client is set
+      const finalLoc = finalClientId
+        ? (wizardLocations.find(l => l.id === wizardLocationId) ?? null)
+        : null;
+      if (finalClientId && !finalLoc) {
+        showToast('Selecciona una ubicación para este cliente', 'error');
+        setSaving(false);
+        return;
+      }
+      if (finalLoc && !finalLoc.ciudad?.trim()) {
+        showToast('La ubicación debe tener Zona / Municipio', 'error');
+        setSaving(false);
+        return;
+      }
+
       const chips = Object.entries(selectedItems).filter(([, v]) => v).map(([k]) => k);
       const oficio = SECTOR_OFICIO_MAP[sector.label] ?? 'mantenimiento';
       const sectorCode = SECTOR_CODE_MAP[sector.label] ?? 'industrial_general';
@@ -649,10 +723,11 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
         : `Mantenimiento ${sector.label}`;
       await saveMaintenancePresupuesto(orgId, {
         client_id: finalClientId,
+        location_id: finalLoc?.id ?? null,
         oficio,
         sector: sectorCode,
         nombre_cliente: clienteNombre.trim() || null,
-        direccion_instalacion: clienteDireccion.trim() || null,
+        direccion_instalacion: finalLoc ? (buildDireccionSnapshot(finalLoc) || null) : (clienteDireccion.trim() || null),
         sla_nivel: slaLevel,
         cuota_mensual: cuotaAnual / 12,
         cuota_anual: cuotaAnual,
@@ -1184,6 +1259,68 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
               </div>
             )}
 
+            {/* Ubicación (obligatoria si hay cliente) */}
+            {clienteId && (
+              <div className="space-y-2">
+                <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
+                  <MapPin className="w-3 h-3 text-blue-600" /> Ubicación de la instalación *
+                </p>
+                {wizardLoadingLocations ? (
+                  <div className="text-xs text-gray-400 flex items-center gap-1.5"><Loader2 className="w-3.5 h-3.5 animate-spin" /> Cargando…</div>
+                ) : wizardCreatingLocation ? (
+                  <div className="bg-white border border-gray-200 rounded-2xl p-3 space-y-2.5">
+                    <input
+                      value={wizardNewLocNombre} onChange={e => setWizardNewLocNombre(e.target.value)}
+                      placeholder="Nombre / referencia *"
+                      className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    />
+                    <input
+                      value={wizardNewLocCiudad} onChange={e => setWizardNewLocCiudad(e.target.value)}
+                      placeholder="Zona / Municipio *"
+                      className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    />
+                    <input
+                      value={wizardNewLocDireccion} onChange={e => setWizardNewLocDireccion(e.target.value)}
+                      placeholder="Dirección (opcional)"
+                      className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    />
+                    <div className="flex gap-2">
+                      <button onClick={() => setWizardCreatingLocation(false)} className="flex-1 py-2 rounded-xl border border-gray-200 text-gray-600 text-xs font-semibold cursor-pointer">Cancelar</button>
+                      <button
+                        onClick={() => void handleWizardCreateLocation()}
+                        disabled={wizardSavingLocation || !wizardNewLocNombre.trim() || !wizardNewLocCiudad.trim()}
+                        className="flex-1 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold cursor-pointer disabled:opacity-40 flex items-center justify-center gap-1"
+                      >
+                        {wizardSavingLocation ? <Loader2 className="w-3 h-3 animate-spin" /> : <Plus className="w-3 h-3" />} Guardar
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="space-y-1.5">
+                    {wizardLocations.map(loc => (
+                      <button
+                        key={loc.id} onClick={() => setWizardLocationId(loc.id)}
+                        className={`w-full text-left px-3 py-2.5 rounded-xl border text-xs cursor-pointer transition-colors ${
+                          wizardLocationId === loc.id
+                            ? 'border-blue-600 bg-blue-50 text-blue-700 font-bold'
+                            : 'border-gray-200 bg-white text-gray-700 hover:border-blue-400'
+                        }`}
+                      >
+                        <span className="font-medium">{loc.nombre}</span>
+                        {loc.ciudad && <span className="text-gray-400 ml-1.5">· {loc.ciudad}</span>}
+                      </button>
+                    ))}
+                    <button
+                      onClick={() => setWizardCreatingLocation(true)}
+                      className="flex items-center gap-1 text-xs text-blue-600 font-semibold cursor-pointer hover:underline"
+                    >
+                      <Plus className="w-3 h-3" /> Nueva ubicación
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Total */}
             <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3 flex items-center justify-between shadow-sm">
               <span className="text-xs text-gray-400 font-bold uppercase tracking-wide">Total estimado</span>
@@ -1202,12 +1339,50 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
         )}
       </div>
 
+      {/* First Confirmation overlay */}
+      {wizardFirstConfirm !== null && (
+        <div className="absolute inset-0 z-10 bg-white flex flex-col">
+          <div className="flex items-center gap-3 px-4 pt-5 pb-4 border-b border-gray-200 shrink-0">
+            <button onClick={() => setWizardFirstConfirm(null)} className="p-1.5 rounded-lg hover:bg-gray-100 cursor-pointer">
+              <ChevronLeft className="w-4 h-4 text-gray-500" />
+            </button>
+            <span className="text-sm font-bold text-gray-900">Cliente con historial</span>
+          </div>
+          <div className="flex-1 flex flex-col items-center justify-center px-6 gap-5">
+            <div className="w-12 h-12 rounded-full bg-amber-50 flex items-center justify-center">
+              <AlertTriangle className="w-6 h-6 text-amber-500" />
+            </div>
+            <div className="text-center space-y-2">
+              <p className="font-bold text-gray-900">Historial de mantenimiento</p>
+              <p className="text-sm text-gray-500">
+                {clienteNombre} ya tiene {wizardFirstConfirm.length} registro{wizardFirstConfirm.length > 1 ? 's' : ''} de mantenimiento.
+              </p>
+              <p className="text-sm text-gray-500">¿Deseas crear un nuevo presupuesto igualmente?</p>
+            </div>
+            <div className="w-full space-y-2">
+              <button
+                onClick={() => { setWizardFirstConfirm(null); setPhase('sector'); }}
+                className="w-full py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm cursor-pointer"
+              >
+                Sí, continuar →
+              </button>
+              <button
+                onClick={() => setWizardFirstConfirm(null)}
+                className="w-full py-2.5 rounded-2xl border border-gray-200 text-gray-600 text-sm font-semibold cursor-pointer hover:bg-gray-50"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Footer: fase cliente */}
       {phase === 'cliente' && (
         <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-gray-50 to-transparent space-y-2">
           {(clienteId || (modoNuevo && clienteNombre.trim())) && (
             <button
-              onClick={() => setPhase('sector')}
+              onClick={() => void handleClienteContinue()}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer"
               style={{ boxShadow: '0 4px 24px rgba(37,99,235,0.4)' }}
             >

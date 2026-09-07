@@ -3192,10 +3192,83 @@ export async function deactivateClientLocation(id: string): Promise<void> {
   if (error) throw error;
 }
 
+export async function loadClientLocation(id: string): Promise<ClientLocation | null> {
+  const { data } = await supabase
+    .from('trade_client_locations')
+    .select('*')
+    .eq('id', id)
+    .maybeSingle();
+  return data as ClientLocation | null;
+}
+
+// Builds a multi-line snapshot string from a ClientLocation.
+// ciudad is the canonical Zona/Municipio field.
+export function buildDireccionSnapshot(loc: ClientLocation): string {
+  const parts: string[] = [
+    loc.direccion ?? '',
+    [loc.cp, loc.ciudad].filter(Boolean).join(' '),
+    loc.provincia ?? '',
+  ].filter(s => s.trim() !== '');
+  return parts.join('\n');
+}
+
+export interface ClientMaintenanceHistorialItem {
+  type: 'presupuesto' | 'contrato';
+  id: string;
+  numero: string | null;
+  estado: string;
+  direccion_instalacion: string | null;
+  location_id: string | null;
+  oficio: string;
+}
+
+export async function loadClientMaintenanceHistory(
+  orgId: string,
+  clientId: string,
+): Promise<ClientMaintenanceHistorialItem[]> {
+  const [{ data: presups }, { data: contratos }] = await Promise.all([
+    supabase
+      .from('trade_maintenance_presupuestos')
+      .select('id, numero, estado, direccion_instalacion, location_id, oficio')
+      .eq('org_id', orgId)
+      .eq('client_id', clientId),
+    supabase
+      .from('trade_maintenance_contratos')
+      .select('id, numero, estado, direccion_instalacion, location_id, oficio')
+      .eq('org_id', orgId)
+      .eq('client_id', clientId),
+  ]);
+  return [
+    ...(presups ?? []).map(p => ({ ...(p as Record<string, unknown>), type: 'presupuesto' as const })),
+    ...(contratos ?? []).map(c => ({ ...(c as Record<string, unknown>), type: 'contrato' as const })),
+  ] as ClientMaintenanceHistorialItem[];
+}
+
 export class ActiveContractExistsError extends Error {
   constructor(public readonly contrato: MaintenanceContrato) {
     super('ACTIVE_CONTRACT_EXISTS');
     this.name = 'ActiveContractExistsError';
+  }
+}
+
+export class MissingClientError extends Error {
+  constructor() {
+    super('MISSING_CLIENT');
+    this.name = 'MissingClientError';
+  }
+}
+
+export class MissingLocationError extends Error {
+  constructor() {
+    super('MISSING_LOCATION');
+    this.name = 'MissingLocationError';
+  }
+}
+
+export class MissingLocationMunicipalityError extends Error {
+  constructor() {
+    super('MISSING_LOCATION_MUNICIPALITY');
+    this.name = 'MissingLocationMunicipalityError';
   }
 }
 
@@ -3422,6 +3495,20 @@ export async function updateMaintenanceContrato(id: string, updates: Partial<Mai
   if (error) throw error;
 }
 
+export async function loadClientContratos(
+  orgId: string,
+  clientId: string,
+): Promise<MaintenanceContrato[]> {
+  const { data, error } = await supabase
+    .from('trade_maintenance_contratos')
+    .select('*')
+    .eq('org_id', orgId)
+    .eq('client_id', clientId)
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as MaintenanceContrato[];
+}
+
 // ── Facturas de mantenimiento ──────────────────────────────────────────────────
 
 export interface MaintenanceFactura {
@@ -3531,6 +3618,28 @@ export interface MaintenanceModelo {
   created_at: string;
 }
 
+export interface MaintenancePresupuestoDraft {
+  oficio: string;
+  sector?: string | null;
+  plantilla_id?: string | null;
+  nombre_cliente?: string | null;
+  direccion_instalacion?: string | null;
+  descripcion_servicios?: string | null;
+  cuota_mensual?: number | null;
+  cuota_anual?: number | null;
+  tipo_facturacion?: 'mensual' | 'trimestral' | 'anual';
+  sla_nivel?: string | null;
+  incluye_preventivos?: boolean;
+  num_visitas_preventivo?: number;
+  incluye_guardia?: boolean;
+  materiales_incluidos?: boolean;
+  texto_libre?: string | null;
+  ia_json?: Record<string, unknown> | null;
+  generado_por_ia?: boolean;
+  notas?: string | null;
+  estado?: 'borrador' | 'enviado' | 'aceptado' | 'rechazado' | 'convertido';
+}
+
 export async function loadMaintenanceModelos(orgId: string): Promise<MaintenanceModelo[]> {
   const { data, error } = await supabase
     .from('trade_maintenance_modelos')
@@ -3567,6 +3676,32 @@ export async function deleteMaintenanceModelo(id: string): Promise<void> {
     .update({ activo: false })
     .eq('id', id);
   if (error) throw error;
+}
+
+export function buildPresupuestoFromModelo(modelo: MaintenanceModelo): MaintenancePresupuestoDraft {
+  const d = modelo.datos_json ?? {};
+  return {
+    oficio:                 (d.oficio as string) ?? 'fontaneria',
+    sector:                 (d.sector as string) ?? null,
+    sla_nivel:              (d.sla_nivel as string) ?? null,
+    cuota_mensual:          (d.cuota_mensual as number) ?? null,
+    tipo_facturacion:       ((d.tipo_facturacion as string) ?? 'mensual') as 'mensual' | 'trimestral' | 'anual',
+    incluye_preventivos:    (d.incluye_preventivos as boolean) ?? false,
+    num_visitas_preventivo: (d.num_visitas_preventivo as number) ?? 0,
+    incluye_guardia:        (d.incluye_guardia as boolean) ?? false,
+    descripcion_servicios:  (d.descripcion_servicios as string) ?? null,
+    plantilla_id:           (d.plantilla_id as string) ?? null,
+    notas:                  (d.notas as string) ?? null,
+    estado:                 'borrador',
+    generado_por_ia:        false,
+  };
+}
+
+export function touchMaintenanceModeloUsage(modeloId: string, newCount: number): void {
+  void supabase
+    .from('trade_maintenance_modelos')
+    .update({ veces_usado: newCount })
+    .eq('id', modeloId);
 }
 
 export async function useMaintenanceModelo(
@@ -3874,19 +4009,25 @@ export async function convertPresupuestoToContrato(
     .maybeSingle();
   if (existingContrato) return existingContrato as MaintenanceContrato;
 
-  // Guard 2: HARD BLOCK — check active contract for same client+location
-  if (presupuesto.client_id && presupuesto.location_id) {
-    const { data: conflictingContrato } = await supabase
-      .from('trade_maintenance_contratos')
-      .select('*')
-      .eq('org_id', presupuesto.org_id)
-      .eq('client_id', presupuesto.client_id)
-      .eq('location_id', presupuesto.location_id)
-      .eq('estado', 'activo')
-      .maybeSingle();
-    if (conflictingContrato) {
-      throw new ActiveContractExistsError(conflictingContrato as MaintenanceContrato);
-    }
+  // Guard 0A: client_id required for new conversions
+  if (!presupuesto.client_id) throw new MissingClientError();
+  // Guard 0B: location_id required for new conversions
+  if (!presupuesto.location_id) throw new MissingLocationError();
+  // Guard 0C: location ciudad (municipio) must be non-empty
+  const location = await loadClientLocation(presupuesto.location_id);
+  if (!location || !location.ciudad?.trim()) throw new MissingLocationMunicipalityError();
+
+  // Guard 2: HARD BLOCK — active contract at same org + client + location (unconditional)
+  const { data: conflictingContrato } = await supabase
+    .from('trade_maintenance_contratos')
+    .select('*')
+    .eq('org_id', presupuesto.org_id)
+    .eq('client_id', presupuesto.client_id)
+    .eq('location_id', presupuesto.location_id)
+    .eq('estado', 'activo')
+    .maybeSingle();
+  if (conflictingContrato) {
+    throw new ActiveContractExistsError(conflictingContrato as MaintenanceContrato);
   }
 
   const fechaInicio = new Date();
@@ -3935,7 +4076,7 @@ export async function convertPresupuestoToContrato(
     logo_url: (orgRow as Record<string, unknown> | null)?.logo_url as string ?? '',
     nombre_cliente: presupuesto.nombre_cliente ?? (clientRow as Record<string, unknown> | null)?.nombre as string ?? '',
     cif_cliente: (clientRow as Record<string, unknown> | null)?.nif as string ?? '',
-    direccion_cliente: presupuesto.direccion_instalacion ?? '',
+    direccion_cliente: buildDireccionSnapshot(location) || (presupuesto.direccion_instalacion ?? ''),
     telefono_cliente: (clientRow as Record<string, unknown> | null)?.telefono as string ?? '',
     email_cliente: (clientRow as Record<string, unknown> | null)?.email as string ?? '',
     representante_cliente: (iaJson?.representante_cliente as string | null) ?? '',
@@ -3995,7 +4136,7 @@ export async function convertPresupuestoToContrato(
       oficio:                 presupuesto.oficio,
       sector:                 presupuesto.sector,
       nombre_cliente:         presupuesto.nombre_cliente,
-      direccion_instalacion:  presupuesto.direccion_instalacion, // snapshot text
+      direccion_instalacion:  buildDireccionSnapshot(location) || presupuesto.direccion_instalacion, // snapshot
       descripcion_servicios:  presupuesto.descripcion_servicios,
       cuota_mensual:          cuotaMensual,
       tipo_facturacion:       presupuesto.tipo_facturacion,
@@ -4033,18 +4174,16 @@ export async function convertPresupuestoToContrato(
         .maybeSingle();
       if (byPresup) return byPresup as MaintenanceContrato;
 
-      // Race on active client+location → HARD BLOCK
-      if (presupuesto.client_id && presupuesto.location_id) {
-        const { data: byLoc } = await supabase
-          .from('trade_maintenance_contratos')
-          .select('*')
-          .eq('org_id', presupuesto.org_id)
-          .eq('client_id', presupuesto.client_id)
-          .eq('location_id', presupuesto.location_id)
-          .eq('estado', 'activo')
-          .maybeSingle();
-        if (byLoc) throw new ActiveContractExistsError(byLoc as MaintenanceContrato);
-      }
+      // Race on active client+location → HARD BLOCK (client_id + location_id guaranteed non-null)
+      const { data: byLoc } = await supabase
+        .from('trade_maintenance_contratos')
+        .select('*')
+        .eq('org_id', presupuesto.org_id)
+        .eq('client_id', presupuesto.client_id)
+        .eq('location_id', presupuesto.location_id)
+        .eq('estado', 'activo')
+        .maybeSingle();
+      if (byLoc) throw new ActiveContractExistsError(byLoc as MaintenanceContrato);
 
       // Duplicate referencia/numero — unexpected with counter, fail closed
       throw new Error(`DUPLICATE_REFERENCE: ${referencia}. Inconsistencia detectada — contacta con soporte.`);

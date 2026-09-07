@@ -14,18 +14,23 @@ import {
   updateMaintenancePresupuesto, deleteMaintenancePresupuesto,
   updateMaintenanceContrato,
   generateMaintenanceDocument, convertPresupuestoToContrato,
-  loadMaintenanceModelos, saveMaintenanceModelo, deleteMaintenanceModelo, useMaintenanceModelo,
+  loadMaintenanceModelos, saveMaintenanceModelo, deleteMaintenanceModelo,
+  buildPresupuestoFromModelo, touchMaintenanceModeloUsage,
   loadMaintenanceInvoicesByOrg, markInvoicePaid, sendMaintenanceNotification,
   saveMaintenanceIncidencia, updateMaintenanceIncidencia, sendParteTrabajo,
   loadOrgMembers, loadTradeContractById,
-  loadClientLocations, saveClientLocation, ActiveContractExistsError,
+  loadClientLocations, saveClientLocation, loadClientLocation,
+  loadClientContratos, loadClientMaintenanceHistory, buildDireccionSnapshot,
+  ActiveContractExistsError, MissingClientError, MissingLocationError, MissingLocationMunicipalityError,
 } from '../lib/supabase';
 import type {
   MaintenancePlantilla, MaintenancePresupuesto, MaintenanceContrato,
   MaintenanceIncidencia, MaintenanceDetectResult, MaintenanceDocumento,
   MaintenanceSLA, MaintenanceSector, MaintenanceOficio, MaintenanceModelo,
-  TradeInvoice, OrgMember, TradeContract, ClientLocation,
+  MaintenancePresupuestoDraft,
+  TradeInvoice, OrgMember, TradeContract, ClientLocation, ClientMaintenanceHistorialItem,
 } from '../lib/supabase';
+import MaintenancePresupuestoFinalizeStep from './MaintenancePresupuestoFinalizeStep';
 
 interface Props {
   orgId: string;
@@ -101,9 +106,10 @@ function NuevoContratoModal({ plantillas, onClose, onSaved, orgId, showToast, in
   const [texto, setTexto] = useState(initialText ?? '');
   const [detecting, setDetecting] = useState(false);
   const [result, setResult] = useState<MaintenanceDetectResult | null>(null);
-  const [saving, setSaving] = useState(false);
   const [listening, setListening] = useState(false);
   const recognitionRef = useRef<{ stop: () => void } | null>(null);
+  const [phase, setPhase] = useState<'detect' | 'finalize'>('detect');
+  const [detectedDraft, setDetectedDraft] = useState<MaintenancePresupuestoDraft | null>(null);
 
   const toggleVoice = () => {
     if (listening) {
@@ -151,38 +157,44 @@ function NuevoContratoModal({ plantillas, onClose, onSaved, orgId, showToast, in
     }
   };
 
-  const handleSave = async () => {
+  const handleContinue = () => {
     if (!result) return;
-    setSaving(true);
-    try {
-      const plantilla = plantillas.find(p => p.codigo === result.plantilla_codigo) ?? null;
-      const saved = await saveMaintenancePresupuesto(orgId, {
-        oficio: result.oficio ?? 'mantenimiento',
-        sector: result.sector,
-        plantilla_id: plantilla?.id ?? null,
-        nombre_cliente: result.nombre_cliente,
-        direccion_instalacion: result.direccion_instalacion,
-        descripcion_servicios: result.descripcion_servicios,
-        cuota_mensual: result.cuota_mensual_sugerida,
-        tipo_facturacion: result.tipo_facturacion,
-        sla_nivel: result.sla_nivel,
-        incluye_preventivos: result.incluye_preventivos,
-        num_visitas_preventivo: result.num_visitas_preventivo,
-        incluye_guardia: result.incluye_guardia,
-        materiales_incluidos: false,
-        texto_libre: texto,
-        ia_json: result as unknown as Record<string, unknown>,
-        generado_por_ia: true,
-        estado: 'borrador',
-      });
-      showToast('Presupuesto guardado como borrador', 'success');
-      onSaved(saved);
-    } catch (e) {
-      showToast(errMsg(e), 'error');
-    } finally {
-      setSaving(false);
-    }
+    const plantilla = plantillas.find(p => p.codigo === result.plantilla_codigo) ?? null;
+    const draft: MaintenancePresupuestoDraft = {
+      oficio: result.oficio ?? 'mantenimiento',
+      sector: result.sector,
+      plantilla_id: plantilla?.id ?? null,
+      nombre_cliente: result.nombre_cliente,
+      direccion_instalacion: result.direccion_instalacion,
+      descripcion_servicios: result.descripcion_servicios,
+      cuota_mensual: result.cuota_mensual_sugerida,
+      tipo_facturacion: result.tipo_facturacion,
+      sla_nivel: result.sla_nivel,
+      incluye_preventivos: result.incluye_preventivos,
+      num_visitas_preventivo: result.num_visitas_preventivo,
+      incluye_guardia: result.incluye_guardia,
+      materiales_incluidos: false,
+      texto_libre: texto,
+      ia_json: result as unknown as Record<string, unknown>,
+      generado_por_ia: true,
+      estado: 'borrador',
+    };
+    setDetectedDraft(draft);
+    setPhase('finalize');
   };
+
+  if (phase === 'finalize' && detectedDraft) {
+    return (
+      <MaintenancePresupuestoFinalizeStep
+        draft={detectedDraft}
+        orgId={orgId}
+        title="Nuevo contrato — cliente y ubicación"
+        onCancel={() => setPhase('detect')}
+        onSaved={saved => { showToast('Presupuesto guardado como borrador', 'success'); onSaved(saved); }}
+        showToast={showToast}
+      />
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 backdrop-blur-sm p-4">
@@ -291,12 +303,12 @@ function NuevoContratoModal({ plantillas, onClose, onSaved, orgId, showToast, in
             Cancelar
           </button>
           <button
-            onClick={handleSave}
-            disabled={!result || saving}
+            onClick={handleContinue}
+            disabled={!result}
             className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-sm flex items-center justify-center gap-2 cursor-pointer transition-colors"
           >
-            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
-            Guardar borrador
+            <Check className="w-4 h-4" />
+            Continuar →
           </button>
         </div>
       </div>
@@ -308,6 +320,10 @@ function NuevoContratoModal({ plantillas, onClose, onSaved, orgId, showToast, in
 
 interface EditPresupuestoModalProps {
   presupuesto: MaintenancePresupuesto;
+  /** true only when the presupuesto was JUST created (model/AI path) and client+location
+   *  haven't been confirmed yet. Enables FIRST CONFIRMATION check. Never inferred from
+   *  presupuesto.location_id — must be set explicitly by the caller. */
+  isNew: boolean;
   slaList: MaintenanceSLA[];
   sectores: MaintenanceSector[];
   oficios: MaintenanceOficio[];
@@ -317,10 +333,9 @@ interface EditPresupuestoModalProps {
   showToast: Props['showToast'];
 }
 
-function EditPresupuestoModal({ presupuesto, slaList, sectores, oficios, orgId, onClose, onSaved, showToast }: EditPresupuestoModalProps) {
+function EditPresupuestoModal({ presupuesto, isNew, slaList, sectores, oficios, orgId, onClose, onSaved, showToast }: EditPresupuestoModalProps) {
   const [form, setForm] = useState({
     nombre_cliente:        presupuesto.nombre_cliente ?? '',
-    direccion_instalacion: presupuesto.direccion_instalacion ?? '',
     oficio:                presupuesto.oficio,
     sector:                presupuesto.sector ?? '',
     sla_nivel:             presupuesto.sla_nivel ?? 'normal',
@@ -340,7 +355,12 @@ function EditPresupuestoModal({ presupuesto, slaList, sectores, oficios, orgId, 
   const [creatingLocation, setCreatingLocation] = useState(false);
   const [newLocNombre, setNewLocNombre] = useState('');
   const [newLocDireccion, setNewLocDireccion] = useState('');
+  const [newLocCiudad, setNewLocCiudad] = useState('');
+  const [newLocCp, setNewLocCp] = useState('');
+  const [newLocProvincia, setNewLocProvincia] = useState('');
   const [savingLocation, setSavingLocation] = useState(false);
+  const [firstConfirmChecking, setFirstConfirmChecking] = useState(false);
+  const [firstConfirmState, setFirstConfirmState] = useState<ClientMaintenanceHistorialItem[] | null>(null);
 
   useEffect(() => {
     if (!presupuesto.client_id) return;
@@ -353,6 +373,10 @@ function EditPresupuestoModal({ presupuesto, slaList, sectores, oficios, orgId, 
 
   const handleCreateLocation = async () => {
     if (!newLocNombre.trim() || !presupuesto.client_id) return;
+    if (!newLocCiudad.trim()) {
+      showToast('Zona / Municipio es obligatorio.', 'error');
+      return;
+    }
     setSavingLocation(true);
     try {
       const loc = await saveClientLocation({
@@ -360,14 +384,15 @@ function EditPresupuestoModal({ presupuesto, slaList, sectores, oficios, orgId, 
         client_id: presupuesto.client_id,
         nombre: newLocNombre.trim(),
         direccion: newLocDireccion.trim() || null,
-        ciudad: null, cp: null, provincia: null,
+        ciudad: newLocCiudad.trim(),
+        cp: newLocCp.trim() || null,
+        provincia: newLocProvincia.trim() || null,
         pais: 'ES', notas: null, activa: true,
       });
       setLocations(prev => [...prev, loc]);
       setLocationId(loc.id);
       setCreatingLocation(false);
-      setNewLocNombre('');
-      setNewLocDireccion('');
+      setNewLocNombre(''); setNewLocDireccion(''); setNewLocCiudad(''); setNewLocCp(''); setNewLocProvincia('');
     } catch (e) {
       showToast(errMsg(e), 'error');
     } finally {
@@ -377,22 +402,65 @@ function EditPresupuestoModal({ presupuesto, slaList, sectores, oficios, orgId, 
 
   const set = <K extends keyof typeof form>(k: K, v: typeof form[K]) => setForm(f => ({ ...f, [k]: v }));
 
-  const handleSave = async () => {
+  const doSave = async () => {
     setSaving(true);
     try {
+      const selectedLoc = locationId ? locations.find(l => l.id === locationId) : null;
+      const direccionSnapshot = selectedLoc ? buildDireccionSnapshot(selectedLoc) : null;
       await updateMaintenancePresupuesto(presupuesto.id, {
         ...form,
         cuota_mensual: Number(form.cuota_mensual),
         num_visitas_preventivo: Number(form.num_visitas_preventivo),
         location_id: locationId,
+        ...(direccionSnapshot ? { direccion_instalacion: direccionSnapshot } : {}),
       });
-      onSaved({ ...presupuesto, ...form, cuota_mensual: Number(form.cuota_mensual), location_id: locationId });
+      onSaved({
+        ...presupuesto, ...form,
+        cuota_mensual: Number(form.cuota_mensual),
+        location_id: locationId,
+        ...(direccionSnapshot ? { direccion_instalacion: direccionSnapshot } : {}),
+      });
       showToast('Presupuesto actualizado', 'success');
     } catch (e) {
       showToast(errMsg(e), 'error');
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleSave = async () => {
+    // Validation: when client is set, location + ciudad are required
+    if (presupuesto.client_id) {
+      if (!locationId) {
+        showToast('Selecciona o crea una ubicación de servicio.', 'error');
+        return;
+      }
+      const selectedLoc = locations.find(l => l.id === locationId);
+      if (!selectedLoc?.ciudad?.trim()) {
+        showToast('Zona / Municipio es obligatorio en la ubicación seleccionada.', 'error');
+        return;
+      }
+    }
+
+    // First confirmation: NEW presupuesto (not a subsequent edit) + client has existing history.
+    // isNew is set by the caller — never inferred from presupuesto.location_id.
+    if (isNew && presupuesto.client_id && locationId) {
+      setFirstConfirmChecking(true);
+      try {
+        const historial = await loadClientMaintenanceHistory(orgId, presupuesto.client_id);
+        const relevant = historial.filter(h => h.id !== presupuesto.id);
+        if (relevant.length > 0) {
+          setFirstConfirmState(relevant);
+          return;
+        }
+      } catch {
+        // Non-critical: proceed with save on error
+      } finally {
+        setFirstConfirmChecking(false);
+      }
+    }
+
+    await doSave();
   };
 
   const inputCls = 'w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-400 focus:outline-none transition-all';
@@ -431,14 +499,11 @@ function EditPresupuestoModal({ presupuesto, slaList, sectores, oficios, orgId, 
             <input type="text" value={form.nombre_cliente} onChange={e => set('nombre_cliente', e.target.value)} placeholder="Nombre del cliente" className={inputCls} />
           </div>
 
-          <div>
-            <label className={labelCls}>Dirección del servicio</label>
-            <input type="text" value={form.direccion_instalacion} onChange={e => set('direccion_instalacion', e.target.value)} placeholder="Calle, número, ciudad" className={inputCls} />
-          </div>
-
           {presupuesto.client_id && (
             <div>
-              <label className={labelCls}>Ubicación de servicio</label>
+              <label className={labelCls}>
+                Ubicación de servicio <span className="text-red-500">*</span>
+              </label>
               {locationsLoading ? (
                 <div className="flex items-center gap-2 text-xs text-slate-400 py-2">
                   <Loader2 className="w-3 h-3 animate-spin" /> Cargando ubicaciones…
@@ -459,10 +524,33 @@ function EditPresupuestoModal({ presupuesto, slaList, sectores, oficios, orgId, 
                     placeholder="Dirección (opcional)"
                     className={inputCls}
                   />
+                  <input
+                    type="text"
+                    value={newLocCiudad}
+                    onChange={e => setNewLocCiudad(e.target.value)}
+                    placeholder="Zona / Municipio *"
+                    className={inputCls}
+                  />
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="text"
+                      value={newLocCp}
+                      onChange={e => setNewLocCp(e.target.value)}
+                      placeholder="CP (opcional)"
+                      className={inputCls}
+                    />
+                    <input
+                      type="text"
+                      value={newLocProvincia}
+                      onChange={e => setNewLocProvincia(e.target.value)}
+                      placeholder="Provincia (opcional)"
+                      className={inputCls}
+                    />
+                  </div>
                   <div className="flex gap-2">
                     <button
                       type="button"
-                      onClick={() => { setCreatingLocation(false); setNewLocNombre(''); setNewLocDireccion(''); }}
+                      onClick={() => { setCreatingLocation(false); setNewLocNombre(''); setNewLocDireccion(''); setNewLocCiudad(''); setNewLocCp(''); setNewLocProvincia(''); }}
                       className="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-white cursor-pointer"
                     >
                       Cancelar
@@ -470,7 +558,7 @@ function EditPresupuestoModal({ presupuesto, slaList, sectores, oficios, orgId, 
                     <button
                       type="button"
                       onClick={() => void handleCreateLocation()}
-                      disabled={!newLocNombre.trim() || savingLocation}
+                      disabled={!newLocNombre.trim() || !newLocCiudad.trim() || savingLocation}
                       className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white text-xs font-bold flex items-center gap-1 cursor-pointer"
                     >
                       {savingLocation ? <Loader2 className="w-3 h-3 animate-spin" /> : <Check className="w-3 h-3" />}
@@ -479,26 +567,36 @@ function EditPresupuestoModal({ presupuesto, slaList, sectores, oficios, orgId, 
                   </div>
                 </div>
               ) : (
-                <div className="flex gap-2">
-                  <select
-                    value={locationId ?? ''}
-                    onChange={e => setLocationId(e.target.value || null)}
-                    className={inputCls}
-                  >
-                    <option value="">— Sin ubicación —</option>
-                    {locations.map(l => (
-                      <option key={l.id} value={l.id}>
-                        {l.nombre}{l.direccion ? ` · ${l.direccion}` : ''}
-                      </option>
-                    ))}
-                  </select>
-                  <button
-                    type="button"
-                    onClick={() => setCreatingLocation(true)}
-                    className="shrink-0 px-3 py-2 rounded-xl border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-slate-50 cursor-pointer flex items-center gap-1"
-                  >
-                    <Plus className="w-3 h-3" /> Nueva
-                  </button>
+                <div className="space-y-1.5">
+                  <div className="flex gap-2">
+                    <select
+                      value={locationId ?? ''}
+                      onChange={e => setLocationId(e.target.value || null)}
+                      className={inputCls}
+                    >
+                      <option value="">— Selecciona una ubicación —</option>
+                      {locations.map(l => (
+                        <option key={l.id} value={l.id}>
+                          {l.nombre}{l.ciudad ? ` · ${l.ciudad}` : ''}{l.direccion ? ` · ${l.direccion}` : ''}
+                        </option>
+                      ))}
+                    </select>
+                    <button
+                      type="button"
+                      onClick={() => setCreatingLocation(true)}
+                      className="shrink-0 px-3 py-2 rounded-xl border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-slate-50 cursor-pointer flex items-center gap-1"
+                    >
+                      <Plus className="w-3 h-3" /> Nueva
+                    </button>
+                  </div>
+                  {locationId && (() => {
+                    const sel = locations.find(l => l.id === locationId);
+                    return sel && !sel.ciudad?.trim() ? (
+                      <p className="text-[11px] text-amber-600 font-semibold">
+                        ⚠ Esta ubicación no tiene Zona / Municipio. Es obligatorio.
+                      </p>
+                    ) : null;
+                  })()}
                 </div>
               )}
             </div>
@@ -554,17 +652,43 @@ function EditPresupuestoModal({ presupuesto, slaList, sectores, oficios, orgId, 
           </div>
         </div>
 
-        <div className="p-4 border-t border-slate-100 flex gap-2">
-          <button onClick={onClose} className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-50 cursor-pointer">Cancelar</button>
-          <button
-            onClick={handleSave}
-            disabled={saving}
-            className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white font-bold text-sm flex items-center justify-center gap-2 cursor-pointer transition-colors"
-          >
-            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
-            Guardar cambios
-          </button>
-        </div>
+        {firstConfirmState ? (
+          <div className="p-4 border-t border-amber-100 bg-amber-50 space-y-3">
+            <p className="text-xs font-bold text-amber-800">Este cliente ya tiene mantenimiento registrado</p>
+            <div className="space-y-1 max-h-28 overflow-y-auto">
+              {firstConfirmState.map(h => (
+                <div key={h.id} className="flex items-center gap-2 text-[11px] text-slate-700">
+                  <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${h.type === 'contrato' ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700'}`}>
+                    {h.type === 'contrato' ? 'Contrato' : 'Presupuesto'}
+                  </span>
+                  <span className="truncate">{h.numero ?? h.estado} · {h.direccion_instalacion ?? h.oficio}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-[11px] text-amber-700">¿Confirmas que quieres crear un nuevo presupuesto de mantenimiento para este cliente?</p>
+            <div className="flex gap-2">
+              <button onClick={() => setFirstConfirmState(null)} className="flex-1 py-2 rounded-lg border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-white cursor-pointer">
+                Cancelar
+              </button>
+              <button onClick={() => void doSave()} disabled={saving} className="flex-1 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white text-xs font-bold flex items-center justify-center gap-1 cursor-pointer">
+                {saving ? <Loader2 className="w-3 h-3 animate-spin" /> : <Check className="w-3 h-3" />}
+                Confirmar y guardar
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="p-4 border-t border-slate-100 flex gap-2">
+            <button onClick={onClose} className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-50 cursor-pointer">Cancelar</button>
+            <button
+              onClick={() => void handleSave()}
+              disabled={saving || firstConfirmChecking}
+              className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white font-bold text-sm flex items-center justify-center gap-2 cursor-pointer transition-colors"
+            >
+              {(saving || firstConfirmChecking) ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
+              Guardar cambios
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -990,15 +1114,48 @@ interface ConvertirModalProps {
   onClose: () => void;
   onConverted: (c: MaintenanceContrato, updatedPresup: MaintenancePresupuesto) => void;
   onActiveContractConflict: (contrato: MaintenanceContrato) => void;
+  onMissingLocation: () => void;
+  onSecondConfirmationRequired: (otherContratos: MaintenanceContrato[]) => void;
   showToast: Props['showToast'];
 }
 
-function ConvertirModal({ presupuesto, onClose, onConverted, onActiveContractConflict, showToast }: ConvertirModalProps) {
+function ConvertirModal({ presupuesto, onClose, onConverted, onActiveContractConflict, onMissingLocation, onSecondConfirmationRequired, showToast }: ConvertirModalProps) {
   const [converting, setConverting] = useState(false);
 
   const handleConvert = async () => {
     setConverting(true);
     try {
+      // Pre-check 1: location required
+      if (!presupuesto.location_id) {
+        onClose();
+        onMissingLocation();
+        return;
+      }
+
+      // Pre-check 2: client contratos — same-location HARD BLOCK + other-location SECOND CONFIRMATION
+      if (presupuesto.client_id) {
+        const clientContratos = await loadClientContratos(presupuesto.org_id, presupuesto.client_id);
+
+        const sameLocActive = clientContratos.find(
+          c => c.location_id === presupuesto.location_id && c.estado === 'activo',
+        );
+        if (sameLocActive) {
+          onClose();
+          onActiveContractConflict(sameLocActive);
+          return;
+        }
+
+        const otherLocs = clientContratos.filter(
+          c => c.location_id !== presupuesto.location_id &&
+               !['cancelado', 'vencido'].includes(c.estado),
+        );
+        if (otherLocs.length > 0) {
+          onClose();
+          onSecondConfirmationRequired(otherLocs);
+          return;
+        }
+      }
+
       const contrato = await convertPresupuestoToContrato(presupuesto);
       showToast('¡Contrato creado y activado!', 'success');
       onConverted(contrato, { ...presupuesto, estado: 'convertido' });
@@ -1006,6 +1163,11 @@ function ConvertirModal({ presupuesto, onClose, onConverted, onActiveContractCon
       if (e instanceof ActiveContractExistsError) {
         onClose();
         onActiveContractConflict(e.contrato);
+        return;
+      }
+      if (e instanceof MissingLocationError || e instanceof MissingClientError || e instanceof MissingLocationMunicipalityError) {
+        onClose();
+        onMissingLocation();
         return;
       }
       showToast(errMsg(e), 'error');
@@ -1099,6 +1261,119 @@ function ActiveContractBlockModal({ presupuesto, contrato, onClose, onViewContra
           >
             <Eye className="w-4 h-4" />
             Ver contrato
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Modal: Ubicación requerida para conversión ────────────────────────────────
+
+interface MissingLocationBlockModalProps {
+  presupuesto: MaintenancePresupuesto;
+  onClose: () => void;
+  onEditPresupuesto: () => void;
+}
+
+function MissingLocationBlockModal({ presupuesto, onClose, onEditPresupuesto }: MissingLocationBlockModalProps) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 space-y-5">
+        <div className="text-center">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-amber-50 border border-amber-100 mb-4">
+            <AlertTriangle className="w-7 h-7 text-amber-600" />
+          </div>
+          <h2 className="font-black text-slate-900 text-lg">Ubicación requerida</h2>
+          <p className="text-slate-500 text-sm mt-2">
+            Para crear un contrato debes asignar una <strong>Ubicación de servicio</strong> con Zona&nbsp;/&nbsp;Municipio al presupuesto.
+          </p>
+        </div>
+        <div className="rounded-xl bg-amber-50 border border-amber-100 p-4 text-xs text-slate-700 space-y-1">
+          <p><span className="font-bold">Cliente:</span> {presupuesto.nombre_cliente ?? '—'}</p>
+          {presupuesto.direccion_instalacion && (
+            <p><span className="font-bold">Dirección actual:</span> {presupuesto.direccion_instalacion}</p>
+          )}
+        </div>
+        <p className="text-[11px] text-slate-400 text-center">
+          La ubicación identifica la instalación e impide contratos duplicados.
+        </p>
+        <div className="flex gap-2">
+          <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-50 cursor-pointer">
+            Cancelar
+          </button>
+          <button onClick={onEditPresupuesto} className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm flex items-center justify-center gap-2 cursor-pointer transition-colors">
+            <Edit2 className="w-4 h-4" />
+            Editar presupuesto
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Modal: Segunda confirmación (cliente con contratos en otras ubicaciones) ───
+
+interface SecondConfirmationModalProps {
+  presupuesto: MaintenancePresupuesto;
+  otherContratos: MaintenanceContrato[];
+  confirming: boolean;
+  onCancel: () => void;
+  onConfirm: () => void;
+}
+
+function SecondConfirmationModal({ presupuesto, otherContratos, confirming, onCancel, onConfirm }: SecondConfirmationModalProps) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 space-y-5">
+        <div className="text-center">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-50 border border-blue-100 mb-4">
+            <AlertTriangle className="w-7 h-7 text-blue-600" />
+          </div>
+          <h2 className="font-black text-slate-900 text-lg">Cliente con contratos existentes</h2>
+          <p className="text-slate-500 text-sm mt-2">
+            Este cliente ya tiene otros contratos de mantenimiento en diferentes ubicaciones.
+          </p>
+        </div>
+
+        <div className="rounded-xl bg-blue-50 border border-blue-100 p-4 space-y-1 text-xs text-slate-700">
+          <p className="font-bold text-slate-800">Nueva ubicación:</p>
+          <p>{presupuesto.nombre_cliente ?? '—'}</p>
+          {presupuesto.direccion_instalacion && (
+            <p className="text-slate-500 whitespace-pre-line">{presupuesto.direccion_instalacion}</p>
+          )}
+        </div>
+
+        <div className="space-y-2">
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+            Contratos existentes ({otherContratos.length})
+          </p>
+          <div className="space-y-1.5 max-h-40 overflow-y-auto">
+            {otherContratos.map(c => (
+              <div key={c.id} className="rounded-lg bg-slate-50 border border-slate-200 p-2.5 text-xs flex items-start gap-2">
+                <div className="flex-1 min-w-0">
+                  {c.numero && <p className="font-bold text-slate-800">{c.numero}</p>}
+                  <p className="text-slate-500 truncate">{c.direccion_instalacion ?? c.sector ?? c.oficio}</p>
+                </div>
+                <span className={`shrink-0 px-2 py-0.5 rounded-full text-[10px] font-bold ${c.estado === 'activo' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-600'}`}>
+                  {c.estado}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <p className="text-xs text-slate-500 text-center">
+          ¿Confirmas que quieres crear otro contrato para este cliente en esta nueva ubicación?
+        </p>
+
+        <div className="flex gap-2">
+          <button onClick={onCancel} disabled={confirming} className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-50 cursor-pointer disabled:opacity-40">
+            Cancelar
+          </button>
+          <button onClick={onConfirm} disabled={confirming} className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white font-bold text-sm flex items-center justify-center gap-2 cursor-pointer transition-colors">
+            {confirming ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
+            Confirmar contrato
           </button>
         </div>
       </div>
@@ -1675,12 +1950,19 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
 
   const [showNuevoModal, setShowNuevoModal] = useState(false);
   const [editPresup, setEditPresup] = useState<MaintenancePresupuesto | null>(null);
+  const [pendingDraft, setPendingDraft] = useState<MaintenancePresupuestoDraft | null>(null);
   const [detallePresup, setDetallePresup] = useState<MaintenancePresupuesto | null>(null);
   const [convertPresup, setConvertPresup] = useState<MaintenancePresupuesto | null>(null);
   const [activeContractConflict, setActiveContractConflict] = useState<{
     presupuesto: MaintenancePresupuesto;
     contrato: MaintenanceContrato;
   } | null>(null);
+  const [missingLocationPresup, setMissingLocationPresup] = useState<MaintenancePresupuesto | null>(null);
+  const [secondConfirmData, setSecondConfirmData] = useState<{
+    presupuesto: MaintenancePresupuesto;
+    otherContratos: MaintenanceContrato[];
+  } | null>(null);
+  const [secondConfirmConverting, setSecondConfirmConverting] = useState(false);
   const [contratoDocItem, setContratoDocItem] = useState<MaintenanceContrato | null>(null);
   const [guardarModelo, setGuardarModelo] = useState<MaintenancePresupuesto | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -1729,6 +2011,30 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
   }, [orgId, showToast]);
 
   useEffect(() => { void loadData(); }, [loadData]);
+
+  const handleSecondConfirmConvert = async () => {
+    if (!secondConfirmData) return;
+    const { presupuesto } = secondConfirmData;
+    setSecondConfirmConverting(true);
+    try {
+      const contrato = await convertPresupuestoToContrato(presupuesto);
+      setContratos(prev => [contrato, ...prev]);
+      setPresupuestos(prev => prev.map(p => p.id === presupuesto.id ? { ...p, estado: 'convertido' } : p));
+      setSecondConfirmData(null);
+      setTab('contratos');
+      void sendMaintenanceNotification('contrato_activado', contrato.id);
+      showToast('¡Contrato creado y activado!', 'success');
+    } catch (e) {
+      if (e instanceof ActiveContractExistsError) {
+        setActiveContractConflict({ presupuesto, contrato: e.contrato });
+        setSecondConfirmData(null);
+      } else {
+        showToast(errMsg(e), 'error');
+      }
+    } finally {
+      setSecondConfirmConverting(false);
+    }
+  };
 
   const contratosActivos = contratos.filter(c => c.estado === 'activo').length;
   const mrrContratos = contratos.filter(c => c.estado === 'activo').reduce((s, c) => s + (c.cuota_mensual ?? 0), 0);
@@ -1790,20 +2096,14 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
     finally { setSendingEmail(null); }
   };
 
-  const handleUsarModelo = async (modelo: MaintenanceModelo) => {
-    setUsandoModelo(modelo.id);
-    try {
-      const saved = await useMaintenanceModelo(modelo, orgId);
-      setModelos(prev => prev.map(m => m.id === modelo.id ? { ...m, veces_usado: m.veces_usado + 1 } : m));
-      setPresupuestos(prev => [saved, ...prev]);
-      setTab('presupuestos');
-      setEditPresup(saved);
-      showToast('Presupuesto creado desde modelo', 'success');
-    } catch (e) {
-      showToast(errMsg(e), 'error');
-    } finally {
-      setUsandoModelo(null);
-    }
+  const handleUsarModelo = (modelo: MaintenanceModelo) => {
+    // Optimistic UI + fire-and-forget DB counter update
+    setModelos(prev => prev.map(m => m.id === modelo.id ? { ...m, veces_usado: m.veces_usado + 1 } : m));
+    touchMaintenanceModeloUsage(modelo.id, modelo.veces_usado + 1);
+    // Build draft in memory — no INSERT until client+location confirmed in FinalizeStep
+    setPendingDraft(buildPresupuestoFromModelo(modelo));
+    setTab('presupuestos');
+    setUsandoModelo(null);
   };
 
   const handleDeleteModelo = async (id: string) => {
@@ -2314,13 +2614,32 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
           plantillas={plantillas} orgId={orgId} showToast={showToast}
           initialText={nuevoModalInitialText}
           onClose={() => { setShowNuevoModal(false); setNuevoModalInitialText(''); }}
-          onSaved={saved => { setPresupuestos(prev => [saved, ...prev]); setShowNuevoModal(false); setNuevoModalInitialText(''); }}
+          onSaved={saved => {
+            setPresupuestos(prev => [saved, ...prev]);
+            setShowNuevoModal(false);
+            setNuevoModalInitialText('');
+          }}
+        />
+      )}
+
+      {pendingDraft && (
+        <MaintenancePresupuestoFinalizeStep
+          draft={pendingDraft}
+          orgId={orgId}
+          title="Desde modelo — cliente y ubicación"
+          onCancel={() => setPendingDraft(null)}
+          onSaved={saved => {
+            setPresupuestos(prev => [saved, ...prev]);
+            setPendingDraft(null);
+            showToast('Presupuesto creado desde modelo', 'success');
+          }}
+          showToast={showToast}
         />
       )}
 
       {editPresup && (
         <EditPresupuestoModal
-          presupuesto={editPresup} slaList={slaList} sectores={sectores} oficios={oficios} orgId={orgId} showToast={showToast}
+          presupuesto={editPresup} isNew={false} slaList={slaList} sectores={sectores} oficios={oficios} orgId={orgId} showToast={showToast}
           onClose={() => setEditPresup(null)}
           onSaved={updated => { setPresupuestos(prev => prev.map(p => p.id === updated.id ? updated : p)); setEditPresup(null); }}
         />
@@ -2362,6 +2681,14 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
             setActiveContractConflict({ presupuesto: convertPresup, contrato: conflictContrato });
             setConvertPresup(null);
           }}
+          onMissingLocation={() => {
+            setMissingLocationPresup(convertPresup);
+            setConvertPresup(null);
+          }}
+          onSecondConfirmationRequired={otherContratos => {
+            setSecondConfirmData({ presupuesto: convertPresup!, otherContratos });
+            setConvertPresup(null);
+          }}
         />
       )}
 
@@ -2374,6 +2701,27 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
             setTab('contratos');
             setActiveContractConflict(null);
           }}
+        />
+      )}
+
+      {missingLocationPresup && (
+        <MissingLocationBlockModal
+          presupuesto={missingLocationPresup}
+          onClose={() => setMissingLocationPresup(null)}
+          onEditPresupuesto={() => {
+            setEditPresup(missingLocationPresup);
+            setMissingLocationPresup(null);
+          }}
+        />
+      )}
+
+      {secondConfirmData && (
+        <SecondConfirmationModal
+          presupuesto={secondConfirmData.presupuesto}
+          otherContratos={secondConfirmData.otherContratos}
+          confirming={secondConfirmConverting}
+          onCancel={() => setSecondConfirmData(null)}
+          onConfirm={() => void handleSecondConfirmConvert()}
         />
       )}
 
