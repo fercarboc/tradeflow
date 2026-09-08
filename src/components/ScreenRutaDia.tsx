@@ -221,7 +221,7 @@ export default function ScreenRutaDia({
 
       {/* ── Cabecera ─────────────────────────────────────────────────────── */}
       <div className="shrink-0 bg-white border-b border-slate-200 px-4 py-3">
-        <div className="flex items-start justify-between gap-3">
+        <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
           <div>
             <div className="flex items-center gap-2 mb-0.5">
               <Route className="w-4 h-4 text-blue-600" />
@@ -238,7 +238,7 @@ export default function ScreenRutaDia({
           </div>
 
           {/* Botones de acción */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex flex-wrap items-center gap-1.5">
             {onClose && (
               <button
                 onClick={onClose}

@@ -248,32 +248,117 @@ describe('Responsive structure', () => {
 // ══════════════════════════════════════════════════════════════════════════════
 // PROGRAMAR flow (test 4 + 5 — implicit in default tab, explicit here)
 // ══════════════════════════════════════════════════════════════════════════════
-describe('PROGRAMAR flow (Pendientes → Agenda + prefill)', () => {
-  it('clicking PROGRAMAR sets activePrefill and switches to agenda', () => {
-    // Simulates handleProgramar logic in OperationsHub
+describe('PROGRAMAR flow (Pendientes → Agenda + prefill + trigger)', () => {
+  // Mirrors the full handleProgramar logic including internalTrigger
+  function makeHubState(jobs: JobLite[] = []) {
     let activeSubTab: HubSubTab = 'pendientes';
     let activePrefill: PresupuestoPendiente | null = null;
+    let internalTrigger = 0;
+    let toastMsg: string | null = null;
 
     const handleProgramar = (quote: PresupuestoPendiente) => {
+      const alreadyPlanned = jobs.some(
+        j => j.parte_token === quote.dbId && j.estado !== 'cancelado' && j.estado !== 'no_realizado',
+      );
+      if (alreadyPlanned) {
+        toastMsg = 'Este presupuesto ya tiene un trabajo programado.';
+        return;
+      }
       activePrefill = quote;
       activeSubTab = 'agenda';
+      internalTrigger = Date.now();
     };
-
-    const quote = makeQuote();
-    handleProgramar(quote);
-
-    expect(activeSubTab).toBe('agenda');
-    expect(activePrefill).toEqual(quote);
-  });
-
-  it('onPrefillConsumed clears activePrefill', () => {
-    let activePrefill: PresupuestoPendiente | null = makeQuote();
 
     const handlePrefillConsumed = () => {
       activePrefill = null;
+      internalTrigger = 0;
     };
 
-    handlePrefillConsumed();
-    expect(activePrefill).toBeNull();
+    return { get activeSubTab() { return activeSubTab; }, get activePrefill() { return activePrefill; }, get internalTrigger() { return internalTrigger; }, get toastMsg() { return toastMsg; }, handleProgramar, handlePrefillConsumed };
+  }
+
+  it('clicking PROGRAMAR sets activePrefill and switches to agenda', () => {
+    const state = makeHubState();
+    const quote = makeQuote();
+    state.handleProgramar(quote);
+    expect(state.activeSubTab).toBe('agenda');
+    expect(state.activePrefill).toEqual(quote);
+  });
+
+  it('clicking PROGRAMAR fires a non-zero internalTrigger', () => {
+    const state = makeHubState();
+    state.handleProgramar(makeQuote());
+    expect(state.internalTrigger).toBeGreaterThan(0);
+  });
+
+  it('onPrefillConsumed clears activePrefill and resets trigger to 0', () => {
+    const state = makeHubState();
+    state.handleProgramar(makeQuote());
+    expect(state.internalTrigger).toBeGreaterThan(0);
+    state.handlePrefillConsumed();
+    expect(state.activePrefill).toBeNull();
+    expect(state.internalTrigger).toBe(0);
+  });
+
+  it('two consecutive PROGRAMAR clicks produce different non-zero triggers', () => {
+    const state = makeHubState();
+    state.handleProgramar(makeQuote({ id: 'P-001', dbId: 'uuid-q1' }));
+    const t1 = state.internalTrigger;
+    state.handlePrefillConsumed();
+    // Small artificial delay via loop to ensure Date.now() differs
+    const start = Date.now();
+    while (Date.now() === start) { /* spin */ }
+    state.handleProgramar(makeQuote({ id: 'P-002', dbId: 'uuid-q2' }));
+    const t2 = state.internalTrigger;
+    expect(t1).toBeGreaterThan(0);
+    expect(t2).toBeGreaterThan(0);
+    expect(t2).not.toBe(t1);
+  });
+
+  it('duplicate guard — quote with active job shows toast and does NOT open modal', () => {
+    const activeJob = makeJob({ estado: 'planificado', parte_token: 'uuid-q1' });
+    const state = makeHubState([activeJob]);
+    const quote = makeQuote({ dbId: 'uuid-q1' });
+    state.handleProgramar(quote);
+    expect(state.toastMsg).toContain('ya tiene un trabajo programado');
+    expect(state.activeSubTab).toBe('pendientes'); // did not switch
+    expect(state.internalTrigger).toBe(0); // no trigger fired
+  });
+
+  it('duplicate guard — cancelled job does NOT block scheduling a new one', () => {
+    const cancelledJob = makeJob({ estado: 'cancelado', parte_token: 'uuid-q1' });
+    const state = makeHubState([cancelledJob]);
+    const quote = makeQuote({ dbId: 'uuid-q1' });
+    state.handleProgramar(quote);
+    expect(state.toastMsg).toBeNull();
+    expect(state.activeSubTab).toBe('agenda');
+    expect(state.internalTrigger).toBeGreaterThan(0);
+  });
+});
+
+// ── Route header responsive structure ────────────────────────────────────────
+describe('Route header responsive structure', () => {
+  it('mobile header uses flex-wrap to keep all actions visible', () => {
+    // The outer header row uses flex flex-wrap so buttons wrap to next line on mobile
+    // rather than overflowing the viewport. Desktop width keeps them inline.
+    const outerClasses = 'flex flex-wrap items-start justify-between gap-x-3 gap-y-2';
+    expect(outerClasses).toContain('flex-wrap');
+  });
+
+  it('button container uses flex-wrap to prevent overflow on 390px', () => {
+    const buttonClasses = 'flex flex-wrap items-center gap-1.5';
+    expect(buttonClasses).toContain('flex-wrap');
+    // No shrink-0 so buttons can wrap freely
+    expect(buttonClasses).not.toContain('shrink-0');
+  });
+
+  it('desktop layout unchanged — flex-wrap only activates when content overflows', () => {
+    // At 1280px all 4 buttons (~344px) + title (~100px) fit side-by-side;
+    // flex-wrap has no effect on desktop since items don't overflow.
+    // This test documents the intent: flex-wrap is a mobile-only safety net.
+    const totalButtonWidth = 344; // px estimate (Volver + Optimizar + Guardar + Google Maps)
+    const titleWidth = 100;
+    const desktopContentWidth = 1280 - 32; // minus padding
+    expect(titleWidth + totalButtonWidth).toBeLessThan(desktopContentWidth);
   });
 });

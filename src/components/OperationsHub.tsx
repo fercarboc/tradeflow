@@ -396,7 +396,14 @@ export default function OperationsHub(props: OperationsHubProps) {
   );
   const prevExtPrefillId = useRef<string | null | undefined>(props.prefillJobFromQuote?.dbId);
 
-  // Sync external prefill changes (new quote programmed from outside the hub while hub is mounted)
+  // Single trigger counter passed to ScreenPlanificacion to open the modal.
+  // Uses Date.now() so every Programar click produces a unique non-zero value.
+  // Reset to 0 (sentinel = no pending trigger) after consumption to prevent
+  // stale-trigger reopening when AgendaTab remounts.
+  const [internalTrigger, setInternalTrigger] = useState<number>(0);
+  const prevExtTriggerRef = useRef<number | undefined>(undefined);
+
+  // Sync external prefill + trigger changes (PROGRAMAR from Presupuestos screen)
   const extPrefill = props.prefillJobFromQuote;
   if (extPrefill?.dbId !== prevExtPrefillId.current) {
     prevExtPrefillId.current = extPrefill?.dbId ?? null;
@@ -405,14 +412,28 @@ export default function OperationsHub(props: OperationsHubProps) {
       setActiveSubTab('agenda');
     }
   }
+  if (props.triggerNew !== undefined && props.triggerNew !== prevExtTriggerRef.current) {
+    prevExtTriggerRef.current = props.triggerNew;
+    setInternalTrigger(Date.now());
+  }
 
   const handleProgramar = (quote: PresupuestoPendiente) => {
+    // Duplicate guard: if quote already has an active job, toast and abort
+    const alreadyPlanned = props.jobs.some(
+      j => j.quote_id === quote.dbId && j.estado !== 'cancelado' && j.estado !== 'no_realizado',
+    );
+    if (alreadyPlanned) {
+      props.showToast('Este presupuesto ya tiene un trabajo programado.', 'info');
+      return;
+    }
     setActivePrefill(quote);
     setActiveSubTab('agenda');
+    setInternalTrigger(Date.now()); // fires ScreenPlanificacion to open modal immediately
   };
 
   const handlePrefillConsumed = () => {
     setActivePrefill(null);
+    setInternalTrigger(0); // reset sentinel so AgendaTab remount won't retrigger
     props.onPrefillConsumed?.();
   };
 
@@ -533,7 +554,7 @@ export default function OperationsHub(props: OperationsHubProps) {
             onOpenParte={handleOpenParte}
             onCreatePresupuesto={props.onCreatePresupuesto}
             showToast={props.showToast}
-            triggerNew={props.triggerNew}
+            triggerNew={internalTrigger}
           />
         </div>
       )}
