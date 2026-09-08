@@ -897,7 +897,7 @@ export default function ScreenParteTrabajo({
           </div>}
 
           {/* Firma guardada */}
-          {phase === 'done' && savedFirmaUrl && (
+          {(phase === 'done' || isReadonly) && savedFirmaUrl && (
             <div className="bg-white border border-gray-100 shadow-sm rounded-2xl p-3">
               <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Firma del cliente</p>
               <img src={savedFirmaUrl} alt="Firma" className="w-full max-h-24 object-contain rounded-xl border border-gray-100 bg-gray-50" />
@@ -1234,8 +1234,8 @@ export default function ScreenParteTrabajo({
           </div>
         )}
 
-        {/* Fotos — solo en edit y view */}
-        {mode !== 'supplement' && (
+        {/* Fotos del trabajo — en supplement se muestran en read-only si existen */}
+        {(mode !== 'supplement' || photos.length > 0) && (
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Fotos del trabajo</p>
