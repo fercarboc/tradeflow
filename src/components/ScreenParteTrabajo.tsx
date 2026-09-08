@@ -111,6 +111,7 @@ export default function ScreenParteTrabajo({
   const [customLinePrice, setCustomLinePrice] = useState('');
   const [customLineCant, setCustomLineCant] = useState('1');
   const [showSupplementForm, setShowSupplementForm] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   // Manual invoice form (when no materials and no linked quote)
   const [manualConcepto, setManualConcepto] = useState('');
@@ -157,6 +158,17 @@ export default function ScreenParteTrabajo({
     if (!isLiveMode) return;
     loadJobPhotos(job.id).then(setPhotos).catch(() => {});
   }, [job.id, isLiveMode]);
+
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightboxIndex(null);
+      else if (e.key === 'ArrowRight') setLightboxIndex(i => i !== null && i < photos.length - 1 ? i + 1 : i);
+      else if (e.key === 'ArrowLeft') setLightboxIndex(i => i !== null && i > 0 ? i - 1 : i);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [lightboxIndex, photos.length]);
 
   // ── Voice recording ────────────────────────────────────────────────────────
   function startWave() {
@@ -1079,9 +1091,56 @@ export default function ScreenParteTrabajo({
     ? { label: 'Parte completado', color: 'text-emerald-600' }
     : { label: 'Parte de trabajo', color: 'text-blue-600' };
 
+  const showFirmaPanel = isReadonly || (mode === 'view' && isCompleted);
+  const showPhotosPanel = mode !== 'supplement' || photos.length > 0;
+
   return (
     <div className="fixed inset-0 z-50 bg-gray-50 flex flex-col overflow-hidden">
-      {/* Header */}
+
+      {/* ── Lightbox ── */}
+      {lightboxIndex !== null && photos.length > 0 && (
+        <div
+          className="fixed inset-0 z-[60] bg-black/90 flex items-center justify-center"
+          onClick={() => setLightboxIndex(null)}
+        >
+          {lightboxIndex > 0 && (
+            <button
+              type="button"
+              onClick={e => { e.stopPropagation(); setLightboxIndex(i => (i ?? 1) - 1); }}
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center cursor-pointer z-10"
+            >
+              <ChevronLeft className="w-6 h-6 text-white" />
+            </button>
+          )}
+          <img
+            src={photos[lightboxIndex].photo_url}
+            alt=""
+            className="max-w-[90vw] max-h-[85vh] object-contain rounded-xl select-none"
+            onClick={e => e.stopPropagation()}
+          />
+          {lightboxIndex < photos.length - 1 && (
+            <button
+              type="button"
+              onClick={e => { e.stopPropagation(); setLightboxIndex(i => (i ?? 0) + 1); }}
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center cursor-pointer z-10"
+            >
+              <ChevronRight className="w-6 h-6 text-white" />
+            </button>
+          )}
+          <div className="absolute top-4 right-4 flex items-center gap-3">
+            <span className="text-white/50 text-xs font-mono">{lightboxIndex + 1} / {photos.length}</span>
+            <button
+              type="button"
+              onClick={() => setLightboxIndex(null)}
+              className="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center cursor-pointer"
+            >
+              <X className="w-5 h-5 text-white" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── Header ── */}
       <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-gray-200 shrink-0">
         <button onClick={onClose} className="flex items-center gap-1 text-[11px] font-bold text-gray-500 hover:text-gray-700 active:text-gray-900 cursor-pointer shrink-0 -ml-1">
           <ChevronLeft className="w-4 h-4" />
@@ -1094,495 +1153,586 @@ export default function ScreenParteTrabajo({
         <div className="w-12 shrink-0" />
       </div>
 
-      <div className="flex-1 overflow-y-auto overscroll-contain px-5 py-4 space-y-5">
+      {/* ── Scrollable body ── */}
+      <div className="flex-1 overflow-y-auto overscroll-contain">
+        <div className="max-w-[1400px] mx-auto px-5 py-4 space-y-5">
 
-        {/* Job info */}
-        <div className="bg-white border border-gray-100 shadow-sm rounded-2xl p-4 space-y-2">
-          {clienteNombre && <div className="flex items-center gap-2.5 text-sm text-gray-600"><User className="w-4 h-4 text-gray-400 shrink-0" /><span className="font-semibold">{clienteNombre}</span></div>}
-          {(job.direccion || job.localidad) && <div className="flex items-center gap-2.5 text-sm text-gray-400"><MapPin className="w-4 h-4 text-gray-400 shrink-0" /><span>{[job.direccion, job.localidad].filter(Boolean).join(', ')}</span></div>}
-          {job.hora_inicio && <div className="flex items-center gap-2.5 text-sm text-gray-400">
-            <Clock className="w-4 h-4 text-gray-400 shrink-0" />
-            <span>{job.hora_inicio}{job.hora_fin ? ` → ${job.hora_fin}` : ''}</span>
-          </div>}
-        </div>
-
-        {/* Banner mantenimiento */}
-        {mantenimiento?.activo && (
-          <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-2xl px-4 py-3">
-            <Wrench className="w-4 h-4 text-blue-600 mt-0.5 shrink-0" />
-            <div>
-              <p className="text-xs font-bold text-blue-700">Trabajo de mantenimiento</p>
-              <p className="text-[11px] text-blue-600/70 mt-0.5">
-                {mantenimiento.materialesIncluidos ? 'Materiales incluidos en el contrato.' : 'Los materiales se facturarán al cliente.'}
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* Facturas existentes */}
-        {existingInvoices.length > 0 && (
-          <div className="space-y-2">
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Facturación de este trabajo</p>
-            {existingInvoices.map(inv => (
-              <div key={inv.id} className="bg-white border border-gray-200 rounded-xl px-4 py-3 flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2 min-w-0">
-                  <ReceiptText className="w-4 h-4 text-gray-400 shrink-0" />
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-sm font-bold text-gray-900">{inv.numero}</span>
-                      <StatusBadge inv={inv} />
-                    </div>
-                    {inv.concepto && <p className="text-[10px] text-gray-400 truncate">{inv.concepto}</p>}
-                  </div>
-                </div>
-                <div className="text-right shrink-0">
-                  <p className="text-sm font-bold text-gray-900 font-mono">{fmtEur(inv.total)}</p>
-                  <p className="text-[10px] text-gray-400">{inv.estado}</p>
-                </div>
+          {/* Mantenimiento banner — full width */}
+          {mantenimiento?.activo && (
+            <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-2xl px-4 py-3">
+              <Wrench className="w-4 h-4 text-blue-600 mt-0.5 shrink-0" />
+              <div>
+                <p className="text-xs font-bold text-blue-700">Trabajo de mantenimiento</p>
+                <p className="text-[11px] text-blue-600/70 mt-0.5">
+                  {mantenimiento.materialesIncluidos ? 'Materiales incluidos en el contrato.' : 'Los materiales se facturarán al cliente.'}
+                </p>
               </div>
-            ))}
-          </div>
-        )}
-
-        {/* Locked notice for supplement mode */}
-        {mode === 'supplement' && (
-          <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-2xl px-4 py-3">
-            <Lock className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
-            <div>
-              <p className="text-xs font-bold text-amber-700">Parte cerrado y facturado</p>
-              <p className="text-[11px] text-amber-600/70 mt-0.5">
-                Añade el material que faltó. Se generará una factura suplementaria con referencia al trabajo original.
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* IA Voice — solo en edit y supplement */}
-        {(mode === 'edit' || mode === 'supplement') && (
-          <div className="space-y-3">
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-              {isTecnico ? 'Nota de campo por voz' : mode === 'supplement' ? 'Dictar material olvidado' : 'Dictar parte con IA'}
-            </p>
-
-            {recording === 'idle' && (
-              <button onClick={startRecording}
-                className="w-full flex items-center justify-center gap-3 bg-blue-600 active:bg-blue-700 text-white font-bold text-sm py-4 rounded-2xl cursor-pointer"
-                style={{ boxShadow: '0 4px 24px rgba(37,99,235,0.4)' }}>
-                <Mic className="w-5 h-5" />
-                {isTecnico ? 'Dictar nota de campo' : mode === 'supplement' ? 'Dictar material olvidado' : 'Dictar materiales y notas'}
-              </button>
-            )}
-            {recording === 'recording' && (
-              <button onClick={stopRecordingAndProcess}
-                className="w-full flex flex-col items-center gap-3 bg-red-600 active:bg-red-700 text-white font-bold py-4 rounded-2xl cursor-pointer"
-                style={{ boxShadow: '0 4px 24px rgba(220,38,38,0.5)' }}>
-                <div className="flex items-center gap-0.5 h-8">
-                  {waveHeights.map((h, i) => <div key={i} className="w-1 bg-white/80 rounded-full transition-all duration-100" style={{ height: `${h}px` }} />)}
-                </div>
-                <div className="flex items-center gap-2 text-sm"><Square className="w-4 h-4" />Parar y procesar con IA</div>
-              </button>
-            )}
-            {recording === 'processing' && (
-              <div className="w-full flex items-center justify-center gap-3 bg-gray-100 text-gray-600 font-semibold text-sm py-4 rounded-2xl">
-                <Loader2 className="w-5 h-5 animate-spin text-blue-600" />
-                <span>Procesando con IA…</span>
-              </div>
-            )}
-            {!isTecnico && transcripcion && recording === 'idle' && (
-              <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3">
-                <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-1">Transcripción</p>
-                <p className="text-sm text-gray-600 leading-relaxed">{transcripcion}</p>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Campo de nota de campo — solo técnico en edit */}
-        {isTecnico && mode === 'edit' && (
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <StickyNote className="w-3.5 h-3.5 text-amber-600" />
-              <p className="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Nota para oficina</p>
-            </div>
-            {/* Tipo selector */}
-            <div className="flex gap-1.5 flex-wrap">
-              {([
-                { key: 'presupuesto_requerido', label: 'Presupuesto' },
-                { key: 'material_necesario', label: 'Material' },
-                { key: 'incidencia', label: 'Incidencia' },
-                { key: 'consulta', label: 'Consulta' },
-                { key: 'otro', label: 'Otro' },
-              ] as const).map(({ key, label }) => (
-                <button
-                  key={key}
-                  onClick={() => setFieldNoteTipo(key)}
-                  className={`text-[10px] font-bold px-3 py-1.5 rounded-full transition-colors cursor-pointer ${fieldNoteTipo === key ? 'bg-amber-600 text-white' : 'bg-gray-100 text-gray-400'}`}
-                >{label}</button>
-              ))}
-            </div>
-            <textarea
-              rows={3}
-              value={fieldNoteText}
-              onChange={e => setFieldNoteText(e.target.value)}
-              placeholder="Describe la incidencia, material necesario o presupuesto requerido…"
-              className="w-full bg-gray-50 border border-amber-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-amber-500 resize-none"
-            />
-            <button
-              onClick={handleSaveFieldNote}
-              disabled={!fieldNoteText.trim() || savingFieldNote}
-              className="w-full flex items-center justify-center gap-2 bg-amber-600 active:bg-amber-700 disabled:opacity-40 text-white font-bold text-sm py-3 rounded-xl cursor-pointer"
-            >
-              {savingFieldNote ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
-              {savingFieldNote ? 'Guardando…' : 'Enviar nota a oficina'}
-            </button>
-          </div>
-        )}
-
-        {/* Fotos del trabajo — en supplement se muestran en read-only si existen */}
-        {/* Fotos + Firma — desktop: side by side; mobile: stacked */}
-        <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-4 md:items-start space-y-4 md:space-y-0">
-          {/* Fotos */}
-          {(mode !== 'supplement' || photos.length > 0) && (
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Fotos del trabajo</p>
-                <span className="text-[10px] text-gray-400">{photos.length} foto{photos.length !== 1 ? 's' : ''}</span>
-              </div>
-              <div className="grid grid-cols-3 gap-2">
-                {photos.map(p => (
-                  <div key={p.id} className="relative aspect-square rounded-xl overflow-hidden bg-white border border-gray-100 shadow-sm group">
-                    <img src={p.photo_url} alt="" className="w-full h-full object-cover" />
-                    {mode === 'edit' && (
-                      <button onClick={() => deletePhoto(p)} className="absolute top-1 right-1 w-6 h-6 bg-red-600/80 rounded-full flex items-center justify-center opacity-0 group-active:opacity-100 cursor-pointer">
-                        <Trash2 className="w-3 h-3 text-white" />
-                      </button>
-                    )}
-                  </div>
-                ))}
-                {mode === 'edit' && (
-                  <button onClick={() => fileInputRef.current?.click()} disabled={uploading}
-                    className="aspect-square rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center gap-1 active:border-blue-500 cursor-pointer">
-                    {uploading ? <Loader2 className="w-5 h-5 text-gray-400 animate-spin" /> : <><Camera className="w-5 h-5 text-gray-400" /><span className="text-[9px] text-gray-400 font-semibold">Foto</span></>}
-                  </button>
-                )}
-              </div>
-              <input ref={fileInputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handlePhotoUpload} />
             </div>
           )}
 
-          {/* Firma — visible en supplement y view (completado) */}
-          {(isReadonly || (mode === 'view' && isCompleted)) && (
-            <div className="space-y-2">
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Firma del cliente</p>
-              {savedFirmaUrl ? (
-                <div className="bg-white border border-gray-100 shadow-sm rounded-2xl p-3">
-                  <img src={savedFirmaUrl} alt="Firma" className="max-h-28 w-full object-contain rounded-xl border border-gray-100 bg-gray-50" />
+          {/* ── ROW 1: Cliente/Trabajo | Facturación ── */}
+          <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-4 items-start">
+            {/* LEFT: client & job info */}
+            <div className="bg-white border border-gray-100 shadow-sm rounded-2xl p-4 space-y-2.5">
+              <p className="text-[9px] font-bold uppercase tracking-widest text-gray-400">Trabajo · Cliente</p>
+              {clienteNombre && (
+                <div className="flex items-center gap-2.5">
+                  <User className="w-4 h-4 text-gray-400 shrink-0" />
+                  <span className="text-sm font-bold text-gray-900">{clienteNombre}</span>
+                  {clienteTelefono && (
+                    <a href={`tel:${clienteTelefono}`} className="text-xs text-blue-500 underline ml-auto shrink-0">{clienteTelefono}</a>
+                  )}
                 </div>
-              ) : (
-                <div className="bg-gray-50 border border-dashed border-gray-200 rounded-2xl px-3 py-4 text-center">
-                  <p className="text-xs text-gray-400">Sin firma registrada</p>
+              )}
+              {(job.direccion || job.localidad) && (
+                <div className="flex items-center gap-2.5 text-sm text-gray-500">
+                  <MapPin className="w-4 h-4 text-gray-400 shrink-0" />
+                  <span>{[job.direccion, job.localidad].filter(Boolean).join(', ')}</span>
+                </div>
+              )}
+              {job.hora_inicio && (
+                <div className="flex items-center gap-2.5 text-sm text-gray-500">
+                  <Clock className="w-4 h-4 text-gray-400 shrink-0" />
+                  <span>{job.hora_inicio}{job.hora_fin ? ` → ${job.hora_fin}` : ''}</span>
+                </div>
+              )}
+            </div>
+
+            {/* RIGHT: billing card */}
+            {existingInvoices.length > 0 ? (
+              <div className="bg-white border border-gray-100 shadow-sm rounded-2xl p-4 space-y-3">
+                <p className="text-[9px] font-bold uppercase tracking-widest text-gray-400">Facturación</p>
+                {existingInvoices.map((inv, idx) => (
+                  <div key={inv.id} className={idx < existingInvoices.length - 1 ? 'border-b border-gray-100 pb-3' : ''}>
+                    <div className="flex items-center gap-2 mb-1">
+                      <StatusBadge inv={inv} />
+                      <span className={`text-[9px] font-bold uppercase ${
+                        inv.estado === 'Pagada' ? 'text-emerald-600' :
+                        inv.estado === 'Emitida' ? 'text-blue-600' :
+                        'text-gray-400'
+                      }`}>{inv.estado}</span>
+                    </div>
+                    <p className="text-[10px] text-gray-400 font-mono truncate">{inv.numero}</p>
+                    <p className="text-xl font-black text-gray-900 font-mono mt-0.5">{fmtEur(inv.total)}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div />
+            )}
+          </div>
+
+          {/* ── ROW 2 (supplement only): Locked notice | Material action ── */}
+          {mode === 'supplement' && (
+            <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-4 items-start">
+              {/* Left: locked notice */}
+              <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-2xl px-4 py-3">
+                <Lock className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-xs font-bold text-amber-700">Parte cerrado y facturado</p>
+                  <p className="text-[11px] text-amber-600/70 mt-0.5">
+                    Añade el material que faltó. Se generará una factura suplementaria con referencia al trabajo original.
+                  </p>
+                </div>
+              </div>
+              {/* Right: material action card */}
+              <div className="bg-white border border-gray-100 shadow-sm rounded-2xl p-4 space-y-3">
+                <p className="text-[9px] font-bold uppercase tracking-widest text-gray-400">Material olvidado</p>
+                <button
+                  type="button"
+                  onClick={() => setShowSupplementForm(v => !v)}
+                  className="w-full flex items-center justify-center gap-2 border border-dashed border-amber-300 text-amber-600 text-sm font-semibold py-2.5 rounded-xl cursor-pointer hover:border-amber-400 transition-colors"
+                >
+                  <Plus className="w-4 h-4" />
+                  {showSupplementForm ? 'Cerrar buscador' : 'Añadir material olvidado'}
+                </button>
+                {recording === 'idle' && (
+                  <button type="button" onClick={startRecording}
+                    className="w-full flex items-center justify-center gap-2 bg-gray-100 active:bg-gray-200 text-gray-600 font-semibold text-sm py-2.5 rounded-xl cursor-pointer">
+                    <Mic className="w-4 h-4" />Dictar material olvidado
+                  </button>
+                )}
+                {recording === 'recording' && (
+                  <button type="button" onClick={stopRecordingAndProcess}
+                    className="w-full flex flex-col items-center gap-2 bg-red-600 active:bg-red-700 text-white font-bold py-3 rounded-xl cursor-pointer"
+                    style={{ boxShadow: '0 4px 20px rgba(220,38,38,0.4)' }}>
+                    <div className="flex items-center gap-0.5 h-6">
+                      {waveHeights.map((h, i) => <div key={i} className="w-1 bg-white/80 rounded-full transition-all duration-100" style={{ height: `${Math.min(h, 22)}px` }} />)}
+                    </div>
+                    <div className="flex items-center gap-1.5 text-xs"><Square className="w-3 h-3" />Parar y procesar</div>
+                  </button>
+                )}
+                {recording === 'processing' && (
+                  <div className="w-full flex items-center justify-center gap-2 bg-gray-100 text-gray-600 text-sm py-3 rounded-xl">
+                    <Loader2 className="w-4 h-4 animate-spin text-blue-600" /><span className="font-semibold">Procesando…</span>
+                  </div>
+                )}
+                {transcripcion && recording === 'idle' && (
+                  <div className="bg-blue-50 border border-blue-200 rounded-xl px-3 py-2">
+                    <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-0.5">Transcripción</p>
+                    <p className="text-xs text-gray-600 leading-relaxed line-clamp-3">{transcripcion}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Supplement search form — full width when open */}
+          {mode === 'supplement' && showSupplementForm && (
+            <div className="space-y-3">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                <input value={materialSearch}
+                  onChange={e => { setMaterialSearch(e.target.value); setShowMaterialPicker(true); }}
+                  onFocus={() => setShowMaterialPicker(true)}
+                  placeholder="Buscar material olvidado…"
+                  className="w-full bg-gray-50 border border-amber-200 rounded-xl pl-8 pr-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-amber-500" />
+              </div>
+              {showMaterialPicker && filteredTarifas.length > 0 && (
+                <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                  {filteredTarifas.map((t, i) => (
+                    <button key={t.id} onClick={() => addMaterial(t, false)}
+                      className={`w-full flex items-center justify-between px-4 py-3 text-left active:bg-gray-100 cursor-pointer ${i < filteredTarifas.length - 1 ? 'border-b border-gray-100' : ''}`}>
+                      <p className="text-sm font-semibold text-gray-900 truncate">{t.descripcion}</p>
+                      <span className="text-sm font-bold text-amber-600 shrink-0">{t.precioBase.toFixed(0)} €</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+              <div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Motivo (opcional)</p>
+                <input value={supplementReason} onChange={e => setSupplementReason(e.target.value)}
+                  placeholder="Ej: No se incluyó en el presupuesto inicial"
+                  className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-amber-500" />
+              </div>
+            </div>
+          )}
+
+          {/* IA Voice — edit mode, full width */}
+          {mode === 'edit' && (
+            <div className="space-y-3">
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                {isTecnico ? 'Nota de campo por voz' : 'Dictar parte con IA'}
+              </p>
+              {recording === 'idle' && (
+                <button onClick={startRecording}
+                  className="w-full flex items-center justify-center gap-3 bg-blue-600 active:bg-blue-700 text-white font-bold text-sm py-4 rounded-2xl cursor-pointer"
+                  style={{ boxShadow: '0 4px 24px rgba(37,99,235,0.4)' }}>
+                  <Mic className="w-5 h-5" />
+                  {isTecnico ? 'Dictar nota de campo' : 'Dictar materiales y notas'}
+                </button>
+              )}
+              {recording === 'recording' && (
+                <button onClick={stopRecordingAndProcess}
+                  className="w-full flex flex-col items-center gap-3 bg-red-600 active:bg-red-700 text-white font-bold py-4 rounded-2xl cursor-pointer"
+                  style={{ boxShadow: '0 4px 24px rgba(220,38,38,0.5)' }}>
+                  <div className="flex items-center gap-0.5 h-8">
+                    {waveHeights.map((h, i) => <div key={i} className="w-1 bg-white/80 rounded-full transition-all duration-100" style={{ height: `${h}px` }} />)}
+                  </div>
+                  <div className="flex items-center gap-2 text-sm"><Square className="w-4 h-4" />Parar y procesar con IA</div>
+                </button>
+              )}
+              {recording === 'processing' && (
+                <div className="w-full flex items-center justify-center gap-3 bg-gray-100 text-gray-600 font-semibold text-sm py-4 rounded-2xl">
+                  <Loader2 className="w-5 h-5 animate-spin text-blue-600" />
+                  <span>Procesando con IA…</span>
+                </div>
+              )}
+              {!isTecnico && transcripcion && recording === 'idle' && (
+                <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3">
+                  <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-1">Transcripción</p>
+                  <p className="text-sm text-gray-600 leading-relaxed">{transcripcion}</p>
                 </div>
               )}
             </div>
           )}
-        </div>
 
-        {/* Materiales (normales o post-cierre) */}
-        {mode !== 'supplement' && !isTecnico && (
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Materiales</p>
-              {materialesNormales.length > 0 && <span className="text-[10px] font-bold text-blue-600">{fmtEur(subtotalNormal)}</span>}
-            </div>
-
-            {/* Add from catalog (edit or view+maintenance+not invoiced) */}
-            {(mode === 'edit' || (mode === 'view' && mantenimiento?.activo && existingInvoices.length === 0)) && (
-              <>
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
-                  <input value={materialSearch}
-                    onChange={e => { setMaterialSearch(e.target.value); setShowMaterialPicker(true); }}
-                    onFocus={() => setShowMaterialPicker(true)}
-                    placeholder="Añadir material del catálogo…"
-                    className="w-full bg-white border border-gray-200 rounded-xl pl-8 pr-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500" />
-                </div>
-                {showMaterialPicker && filteredTarifas.length > 0 && (
-                  <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-                    {filteredTarifas.map((t, i) => (
-                      <button key={t.id} onClick={() => addMaterial(t, mode === 'view')}
-                        className={`w-full flex items-center justify-between px-4 py-3 text-left active:bg-gray-100 cursor-pointer ${i < filteredTarifas.length - 1 ? 'border-b border-gray-100' : ''}`}>
-                        <div className="min-w-0 pr-2">
-                          <p className="text-sm font-semibold text-gray-900 truncate">{t.descripcion}</p>
-                          <p className="text-[10px] text-gray-400 font-mono">{t.codigo}</p>
-                        </div>
-                        <span className="text-sm font-bold text-blue-600 shrink-0">{t.precioBase.toFixed(0)} €</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </>
-            )}
-
-            {/* Lista materiales normales */}
-            {materialesNormales.length > 0 && (
-              <div className="bg-white border border-gray-100 shadow-sm rounded-xl overflow-hidden">
-                {materialesNormales.map((m, i) => (
-                  <div key={i} className={`flex items-center gap-3 px-4 py-3 ${i < materialesNormales.length - 1 ? 'border-b border-gray-100' : ''}`}>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-gray-900 truncate">{m.descripcion}</p>
-                      <div className="flex items-center gap-1 flex-wrap">
-                        {mode === 'edit' && editingPriceId === m.id ? (
-                          <input
-                            type="number"
-                            step="0.01"
-                            value={editingPriceVal}
-                            onChange={e => setEditingPriceVal(e.target.value)}
-                            onBlur={() => commitEditPrice(m.id)}
-                            onKeyDown={e => e.key === 'Enter' && commitEditPrice(m.id)}
-                            autoFocus
-                            className="w-20 bg-white border border-blue-500 rounded px-2 py-0.5 text-xs text-gray-900"
-                          />
-                        ) : (
-                          <button
-                            onClick={mode === 'edit' ? () => startEditPrice(m) : undefined}
-                            className={`text-[10px] ${mode === 'edit' ? 'text-blue-600 underline decoration-dotted cursor-pointer' : 'text-gray-400'}`}
-                          >
-                            {m.precioBase.toFixed(2)} €
-                          </button>
-                        )}
-                        <span className="text-[10px] text-gray-400">× {m.cantidad} = </span>
-                        <span className="text-[10px] text-blue-600 font-bold">{fmtEur(m.precioBase * m.cantidad)}</span>
-                      </div>
-                    </div>
-                    {mode === 'edit' && (
-                      <div className="flex items-center gap-2 shrink-0">
-                        <button onClick={() => changeCantidad(m.id, false, -1)} className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer"><Minus className="w-3 h-3 text-gray-600" /></button>
-                        <span className="text-sm font-bold text-gray-900 w-5 text-center">{m.cantidad}</span>
-                        <button onClick={() => changeCantidad(m.id, false, 1)} className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center cursor-pointer"><Plus className="w-3 h-3 text-white" /></button>
-                      </div>
-                    )}
-                    {mode === 'view' && <span className="text-sm font-bold text-gray-900 shrink-0 font-mono">{fmtEur(m.precioBase * m.cantidad)}</span>}
-                  </div>
+          {/* Field note — tecnico, edit mode */}
+          {isTecnico && mode === 'edit' && (
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <StickyNote className="w-3.5 h-3.5 text-amber-600" />
+                <p className="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Nota para oficina</p>
+              </div>
+              <div className="flex gap-1.5 flex-wrap">
+                {([
+                  { key: 'presupuesto_requerido', label: 'Presupuesto' },
+                  { key: 'material_necesario', label: 'Material' },
+                  { key: 'incidencia', label: 'Incidencia' },
+                  { key: 'consulta', label: 'Consulta' },
+                  { key: 'otro', label: 'Otro' },
+                ] as const).map(({ key, label }) => (
+                  <button
+                    key={key}
+                    onClick={() => setFieldNoteTipo(key)}
+                    className={`text-[10px] font-bold px-3 py-1.5 rounded-full transition-colors cursor-pointer ${fieldNoteTipo === key ? 'bg-amber-600 text-white' : 'bg-gray-100 text-gray-400'}`}
+                  >{label}</button>
                 ))}
               </div>
-            )}
+              <textarea
+                rows={3}
+                value={fieldNoteText}
+                onChange={e => setFieldNoteText(e.target.value)}
+                placeholder="Describe la incidencia, material necesario o presupuesto requerido…"
+                className="w-full bg-gray-50 border border-amber-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-amber-500 resize-none"
+              />
+              <button
+                onClick={handleSaveFieldNote}
+                disabled={!fieldNoteText.trim() || savingFieldNote}
+                className="w-full flex items-center justify-center gap-2 bg-amber-600 active:bg-amber-700 disabled:opacity-40 text-white font-bold text-sm py-3 rounded-xl cursor-pointer"
+              >
+                {savingFieldNote ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                {savingFieldNote ? 'Guardando…' : 'Enviar nota a oficina'}
+              </button>
+            </div>
+          )}
 
-            {/* Añadir línea personalizada (mano de obra, desplazamiento…) */}
-            {mode === 'edit' && (
-              showCustomLine ? (
-                <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 space-y-2.5">
-                  <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">Línea personalizada</p>
-                  <input
-                    placeholder="Descripción (mano de obra, desplazamiento…)"
-                    value={customLineDesc}
-                    onChange={e => setCustomLineDesc(e.target.value)}
-                    className="w-full bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                  />
-                  <div className="flex gap-2">
-                    <input
-                      type="number"
-                      step="0.01"
-                      min="0"
-                      placeholder="Precio unit. (€)"
-                      value={customLinePrice}
-                      onChange={e => setCustomLinePrice(e.target.value)}
-                      className="flex-1 bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                    />
-                    <input
-                      type="number"
-                      min="1"
-                      placeholder="Cant."
-                      value={customLineCant}
-                      onChange={e => setCustomLineCant(e.target.value)}
-                      className="w-20 bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                    />
-                  </div>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={addCustomLine}
-                      disabled={!customLineDesc.trim() || !customLinePrice}
-                      className="flex-1 bg-blue-600 active:bg-blue-700 disabled:opacity-40 text-white font-bold text-sm py-2.5 rounded-xl cursor-pointer"
-                    >
-                      Añadir
-                    </button>
-                    <button
-                      onClick={() => setShowCustomLine(false)}
-                      className="px-5 bg-gray-100 active:bg-gray-200 text-gray-600 font-bold text-sm py-2.5 rounded-xl cursor-pointer"
-                    >
-                      Cancelar
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <button
-                  onClick={() => setShowCustomLine(true)}
-                  className="w-full flex items-center justify-center gap-2 border-2 border-dashed border-gray-300 active:border-blue-500 text-gray-400 active:text-blue-600 text-sm font-semibold py-3 rounded-xl cursor-pointer transition-colors"
-                >
-                  <Plus className="w-4 h-4" />
-                  Mano de obra / línea personalizada
-                </button>
-              )
-            )}
+          {/* ── ROW 3: Evidencias — Fotos | Firma (2-col desktop) ── */}
+          {(showPhotosPanel || showFirmaPanel) && (
+            <div>
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Evidencias del trabajo</p>
+              <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-4 items-start">
 
-            {/* Materiales post-cierre (mantenimiento) */}
-            {materialesPostCierre.length > 0 && (
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <PlusCircle className="w-3.5 h-3.5 text-amber-600" />
-                  <p className="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Añadidos tras el cierre</p>
-                </div>
-                <div className="bg-amber-50 border border-amber-200 rounded-xl overflow-hidden">
-                  {materialesPostCierre.map((m, i) => (
-                    <div key={i} className={`flex items-center gap-3 px-4 py-3 ${i < materialesPostCierre.length - 1 ? 'border-b border-gray-100' : ''}`}>
+                {/* Fotos */}
+                {showPhotosPanel && (
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Fotos del trabajo</p>
+                      <span className="text-[10px] text-gray-400">{photos.length} foto{photos.length !== 1 ? 's' : ''}</span>
+                    </div>
+                    {photos.length > 0 ? (
+                      <div className="grid grid-cols-3 md:grid-cols-4 gap-2">
+                        {photos.map((p, idx) => (
+                          <button
+                            key={p.id}
+                            type="button"
+                            className="relative aspect-square rounded-xl overflow-hidden bg-white border border-gray-100 shadow-sm group cursor-pointer"
+                            onClick={() => setLightboxIndex(idx)}
+                          >
+                            <img src={p.photo_url} alt="" className="w-full h-full object-cover" />
+                            {mode === 'edit' && (
+                              <button
+                                type="button"
+                                onClick={e => { e.stopPropagation(); deletePhoto(p); }}
+                                className="absolute top-1 right-1 w-6 h-6 bg-red-600/80 rounded-full flex items-center justify-center opacity-0 group-active:opacity-100 cursor-pointer"
+                              >
+                                <Trash2 className="w-3 h-3 text-white" />
+                              </button>
+                            )}
+                          </button>
+                        ))}
+                        {mode === 'edit' && (
+                          <button
+                            type="button"
+                            onClick={() => fileInputRef.current?.click()}
+                            disabled={uploading}
+                            className="aspect-square rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center gap-1 active:border-blue-500 cursor-pointer"
+                          >
+                            {uploading ? <Loader2 className="w-5 h-5 text-gray-400 animate-spin" /> : <><Camera className="w-5 h-5 text-gray-400" /><span className="text-[9px] text-gray-400 font-semibold">Foto</span></>}
+                          </button>
+                        )}
+                      </div>
+                    ) : (
+                      mode === 'edit' ? (
+                        <button
+                          type="button"
+                          onClick={() => fileInputRef.current?.click()}
+                          disabled={uploading}
+                          className="w-full flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-300 rounded-xl py-8 active:border-blue-500 cursor-pointer"
+                        >
+                          {uploading
+                            ? <Loader2 className="w-6 h-6 text-gray-400 animate-spin" />
+                            : <><Camera className="w-6 h-6 text-gray-400" /><span className="text-sm text-gray-400">Añadir foto</span></>
+                          }
+                        </button>
+                      ) : (
+                        <p className="text-xs text-gray-400">Sin fotos registradas</p>
+                      )
+                    )}
+                    <input ref={fileInputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handlePhotoUpload} />
+                  </div>
+                )}
+
+                {/* Firma */}
+                {showFirmaPanel && (
+                  <div className="space-y-2">
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Firma del cliente</p>
+                    {savedFirmaUrl ? (
+                      <div className="bg-white border border-gray-100 shadow-sm rounded-2xl p-4">
+                        <img src={savedFirmaUrl} alt="Firma" className="max-h-32 w-full object-contain rounded-xl border border-gray-100 bg-gray-50" />
+                      </div>
+                    ) : (
+                      <div className="bg-gray-50 border border-dashed border-gray-200 rounded-2xl px-3 py-6 text-center">
+                        <p className="text-xs text-gray-400">Sin firma registrada</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Materiales normales (non-supplement, non-tecnico) */}
+          {mode !== 'supplement' && !isTecnico && (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Materiales</p>
+                {materialesNormales.length > 0 && <span className="text-[10px] font-bold text-blue-600">{fmtEur(subtotalNormal)}</span>}
+              </div>
+
+              {(mode === 'edit' || (mode === 'view' && mantenimiento?.activo && existingInvoices.length === 0)) && (
+                <>
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                    <input value={materialSearch}
+                      onChange={e => { setMaterialSearch(e.target.value); setShowMaterialPicker(true); }}
+                      onFocus={() => setShowMaterialPicker(true)}
+                      placeholder="Añadir material del catálogo…"
+                      className="w-full bg-white border border-gray-200 rounded-xl pl-8 pr-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500" />
+                  </div>
+                  {showMaterialPicker && filteredTarifas.length > 0 && (
+                    <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                      {filteredTarifas.map((t, i) => (
+                        <button key={t.id} onClick={() => addMaterial(t, mode === 'view')}
+                          className={`w-full flex items-center justify-between px-4 py-3 text-left active:bg-gray-100 cursor-pointer ${i < filteredTarifas.length - 1 ? 'border-b border-gray-100' : ''}`}>
+                          <div className="min-w-0 pr-2">
+                            <p className="text-sm font-semibold text-gray-900 truncate">{t.descripcion}</p>
+                            <p className="text-[10px] text-gray-400 font-mono">{t.codigo}</p>
+                          </div>
+                          <span className="text-sm font-bold text-blue-600 shrink-0">{t.precioBase.toFixed(0)} €</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </>
+              )}
+
+              {materialesNormales.length > 0 && (
+                <div className="bg-white border border-gray-100 shadow-sm rounded-xl overflow-hidden">
+                  {materialesNormales.map((m, i) => (
+                    <div key={i} className={`flex items-center gap-3 px-4 py-3 ${i < materialesNormales.length - 1 ? 'border-b border-gray-100' : ''}`}>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold text-gray-900 truncate">{m.descripcion}</p>
-                        <p className="text-[10px] text-gray-400">{m.precioBase.toFixed(0)} € × {m.cantidad}</p>
+                        <div className="flex items-center gap-1 flex-wrap">
+                          {mode === 'edit' && editingPriceId === m.id ? (
+                            <input
+                              type="number"
+                              step="0.01"
+                              value={editingPriceVal}
+                              onChange={e => setEditingPriceVal(e.target.value)}
+                              onBlur={() => commitEditPrice(m.id)}
+                              onKeyDown={e => e.key === 'Enter' && commitEditPrice(m.id)}
+                              autoFocus
+                              className="w-20 bg-white border border-blue-500 rounded px-2 py-0.5 text-xs text-gray-900"
+                            />
+                          ) : (
+                            <button
+                              onClick={mode === 'edit' ? () => startEditPrice(m) : undefined}
+                              className={`text-[10px] ${mode === 'edit' ? 'text-blue-600 underline decoration-dotted cursor-pointer' : 'text-gray-400'}`}
+                            >
+                              {m.precioBase.toFixed(2)} €
+                            </button>
+                          )}
+                          <span className="text-[10px] text-gray-400">× {m.cantidad} = </span>
+                          <span className="text-[10px] text-blue-600 font-bold">{fmtEur(m.precioBase * m.cantidad)}</span>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2 shrink-0">
-                        <button onClick={() => changeCantidad(m.id, true, -1)} className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer"><Minus className="w-3 h-3 text-gray-600" /></button>
-                        <span className="text-sm font-bold text-gray-900 w-5 text-center">{m.cantidad}</span>
-                        <button onClick={() => changeCantidad(m.id, true, 1)} className="w-7 h-7 rounded-full bg-amber-600 flex items-center justify-center cursor-pointer"><Plus className="w-3 h-3 text-white" /></button>
-                      </div>
+                      {mode === 'edit' && (
+                        <div className="flex items-center gap-2 shrink-0">
+                          <button onClick={() => changeCantidad(m.id, false, -1)} className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer"><Minus className="w-3 h-3 text-gray-600" /></button>
+                          <span className="text-sm font-bold text-gray-900 w-5 text-center">{m.cantidad}</span>
+                          <button onClick={() => changeCantidad(m.id, false, 1)} className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center cursor-pointer"><Plus className="w-3 h-3 text-white" /></button>
+                        </div>
+                      )}
+                      {mode === 'view' && <span className="text-sm font-bold text-gray-900 shrink-0 font-mono">{fmtEur(m.precioBase * m.cantidad)}</span>}
                     </div>
                   ))}
                 </div>
-              </div>
-            )}
-          </div>
-        )}
+              )}
 
-        {/* SUPPLEMENT mode: materiales olvidados */}
-        {mode === 'supplement' && (
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <p className="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Material a facturar</p>
-              {supplementMateriales.length > 0 && <span className="text-[10px] font-bold text-amber-600">{fmtEur(totalSupp)}</span>}
-            </div>
-
-            {supplementMateriales.length > 0 && (
-              <div className="bg-amber-50 border border-amber-200 rounded-xl overflow-hidden">
-                {supplementMateriales.map((m, i) => (
-                  <div key={i} className={`flex items-center gap-3 px-4 py-3 ${i < supplementMateriales.length - 1 ? 'border-b border-gray-100' : ''}`}>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-gray-900 truncate">{m.descripcion}</p>
-                      <p className="text-[10px] text-gray-400">{m.precioBase.toFixed(0)} € × {m.cantidad} = <span className="text-amber-600 font-bold">{fmtEur(m.precioBase * m.cantidad)}</span></p>
+              {mode === 'edit' && (
+                showCustomLine ? (
+                  <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 space-y-2.5">
+                    <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">Línea personalizada</p>
+                    <input
+                      placeholder="Descripción (mano de obra, desplazamiento…)"
+                      value={customLineDesc}
+                      onChange={e => setCustomLineDesc(e.target.value)}
+                      className="w-full bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    />
+                    <div className="flex gap-2">
+                      <input
+                        type="number" step="0.01" min="0" placeholder="Precio unit. (€)"
+                        value={customLinePrice}
+                        onChange={e => setCustomLinePrice(e.target.value)}
+                        className="flex-1 bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                      />
+                      <input
+                        type="number" min="1" placeholder="Cant."
+                        value={customLineCant}
+                        onChange={e => setCustomLineCant(e.target.value)}
+                        className="w-20 bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                      />
                     </div>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <button onClick={() => changeCantidad(m.id, false, -1)} className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer"><Minus className="w-3 h-3 text-gray-600" /></button>
-                      <span className="text-sm font-bold text-gray-900 w-5 text-center">{m.cantidad}</span>
-                      <button onClick={() => changeCantidad(m.id, false, 1)} className="w-7 h-7 rounded-full bg-amber-600 flex items-center justify-center cursor-pointer"><Plus className="w-3 h-3 text-white" /></button>
+                    <div className="flex gap-2">
+                      <button onClick={addCustomLine} disabled={!customLineDesc.trim() || !customLinePrice}
+                        className="flex-1 bg-blue-600 active:bg-blue-700 disabled:opacity-40 text-white font-bold text-sm py-2.5 rounded-xl cursor-pointer">
+                        Añadir
+                      </button>
+                      <button onClick={() => setShowCustomLine(false)}
+                        className="px-5 bg-gray-100 active:bg-gray-200 text-gray-600 font-bold text-sm py-2.5 rounded-xl cursor-pointer">
+                        Cancelar
+                      </button>
                     </div>
                   </div>
-                ))}
-                <div className="border-t border-gray-200 px-4 py-3 space-y-1">
-                  <div className="flex justify-between text-xs text-gray-400"><span>Subtotal</span><span className="font-mono">{fmtEur(subtotalSupp)}</span></div>
-                  <div className="flex justify-between text-xs text-gray-400"><span>IVA 21%</span><span className="font-mono">{fmtEur(ivaSupp)}</span></div>
-                  <div className="flex justify-between text-sm font-black text-gray-900 pt-1 border-t border-gray-200"><span>Total</span><span className="font-mono">{fmtEur(totalSupp)}</span></div>
-                </div>
-              </div>
-            )}
+                ) : (
+                  <button
+                    onClick={() => setShowCustomLine(true)}
+                    className="w-full flex items-center justify-center gap-2 border-2 border-dashed border-gray-300 active:border-blue-500 text-gray-400 active:text-blue-600 text-sm font-semibold py-3 rounded-xl cursor-pointer transition-colors"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Mano de obra / línea personalizada
+                  </button>
+                )
+              )}
 
-            {showSupplementForm ? (
-              <div className="space-y-3">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
-                  <input value={materialSearch}
-                    onChange={e => { setMaterialSearch(e.target.value); setShowMaterialPicker(true); }}
-                    onFocus={() => setShowMaterialPicker(true)}
-                    placeholder="Buscar material olvidado…"
-                    className="w-full bg-gray-50 border border-amber-200 rounded-xl pl-8 pr-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-amber-500" />
-                </div>
-                {showMaterialPicker && filteredTarifas.length > 0 && (
-                  <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-                    {filteredTarifas.map((t, i) => (
-                      <button key={t.id} onClick={() => addMaterial(t, false)}
-                        className={`w-full flex items-center justify-between px-4 py-3 text-left active:bg-gray-100 cursor-pointer ${i < filteredTarifas.length - 1 ? 'border-b border-gray-100' : ''}`}>
-                        <p className="text-sm font-semibold text-gray-900 truncate">{t.descripcion}</p>
-                        <span className="text-sm font-bold text-amber-600 shrink-0">{t.precioBase.toFixed(0)} €</span>
-                      </button>
+              {materialesPostCierre.length > 0 && (
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <PlusCircle className="w-3.5 h-3.5 text-amber-600" />
+                    <p className="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Añadidos tras el cierre</p>
+                  </div>
+                  <div className="bg-amber-50 border border-amber-200 rounded-xl overflow-hidden">
+                    {materialesPostCierre.map((m, i) => (
+                      <div key={i} className={`flex items-center gap-3 px-4 py-3 ${i < materialesPostCierre.length - 1 ? 'border-b border-gray-100' : ''}`}>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-semibold text-gray-900 truncate">{m.descripcion}</p>
+                          <p className="text-[10px] text-gray-400">{m.precioBase.toFixed(0)} € × {m.cantidad}</p>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <button onClick={() => changeCantidad(m.id, true, -1)} className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer"><Minus className="w-3 h-3 text-gray-600" /></button>
+                          <span className="text-sm font-bold text-gray-900 w-5 text-center">{m.cantidad}</span>
+                          <button onClick={() => changeCantidad(m.id, true, 1)} className="w-7 h-7 rounded-full bg-amber-600 flex items-center justify-center cursor-pointer"><Plus className="w-3 h-3 text-white" /></button>
+                        </div>
+                      </div>
                     ))}
                   </div>
-                )}
-                <div>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Motivo (opcional)</p>
-                  <input value={supplementReason} onChange={e => setSupplementReason(e.target.value)}
-                    placeholder="Ej: No se incluyó en el presupuesto inicial"
-                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-amber-500" />
                 </div>
-                <button onClick={() => setShowSupplementForm(false)}
-                  className="w-full py-2 rounded-xl text-xs font-semibold text-gray-400 bg-gray-100 active:bg-gray-200 cursor-pointer">
-                  Cerrar
+              )}
+            </div>
+          )}
+
+          {/* ── ROW 4: Material a facturar (supplement) ── */}
+          {mode === 'supplement' && (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Material a facturar</p>
+                {supplementMateriales.length > 0 && <span className="text-[10px] font-bold text-amber-600">{fmtEur(totalSupp)}</span>}
+              </div>
+              {supplementMateriales.length > 0 ? (
+                <div className="bg-amber-50 border border-amber-200 rounded-xl overflow-hidden">
+                  {supplementMateriales.map((m, i) => (
+                    <div key={i} className={`flex items-center gap-3 px-4 py-3 ${i < supplementMateriales.length - 1 ? 'border-b border-gray-100' : ''}`}>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-gray-900 truncate">{m.descripcion}</p>
+                        <p className="text-[10px] text-gray-400">{m.precioBase.toFixed(0)} € × {m.cantidad} = <span className="text-amber-600 font-bold">{fmtEur(m.precioBase * m.cantidad)}</span></p>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <button onClick={() => changeCantidad(m.id, false, -1)} className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer"><Minus className="w-3 h-3 text-gray-600" /></button>
+                        <span className="text-sm font-bold text-gray-900 w-5 text-center">{m.cantidad}</span>
+                        <button onClick={() => changeCantidad(m.id, false, 1)} className="w-7 h-7 rounded-full bg-amber-600 flex items-center justify-center cursor-pointer"><Plus className="w-3 h-3 text-white" /></button>
+                      </div>
+                    </div>
+                  ))}
+                  <div className="border-t border-gray-200 px-4 py-3 space-y-1">
+                    <div className="flex justify-between text-xs text-gray-400"><span>Subtotal</span><span className="font-mono">{fmtEur(subtotalSupp)}</span></div>
+                    <div className="flex justify-between text-xs text-gray-400"><span>IVA 21%</span><span className="font-mono">{fmtEur(ivaSupp)}</span></div>
+                    <div className="flex justify-between text-sm font-black text-gray-900 pt-1 border-t border-gray-200"><span>Total</span><span className="font-mono">{fmtEur(totalSupp)}</span></div>
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-white border border-gray-100 shadow-sm rounded-xl px-4 py-6 text-center">
+                  <p className="text-sm text-gray-400">No hay material adicional pendiente.</p>
+                  <button
+                    type="button"
+                    onClick={() => setShowSupplementForm(true)}
+                    className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-amber-600 cursor-pointer"
+                  >
+                    <Plus className="w-4 h-4" /> Añadir material olvidado
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Notas del trabajo */}
+          {mode !== 'supplement' && (
+            <div className="space-y-2">
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Notas del trabajo</p>
+              {mode === 'edit' ? (
+                <textarea rows={3} value={notas} onChange={e => setNotas(e.target.value)}
+                  placeholder="La IA completará esto al dictar…"
+                  className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 resize-none" />
+              ) : (
+                notas
+                  ? <div className="bg-white border border-gray-100 shadow-sm rounded-xl px-4 py-3"><p className="text-sm text-gray-600 leading-relaxed">{notas}</p></div>
+                  : <p className="text-xs text-gray-400">Sin notas registradas</p>
+              )}
+            </div>
+          )}
+
+          {/* Aviso facturación — edit mode */}
+          {mode === 'edit' && !isTecnico && !mantenimiento?.activo && materialesNormales.length > 0 && (
+            <div className="flex items-start gap-2.5 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
+              <AlertCircle className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+              <p className="text-xs text-amber-700/80">Al completar se generará una factura por <span className="font-bold">{fmtEur(subtotalNormal * 1.21)}</span></p>
+            </div>
+          )}
+
+          <div className="h-4" />
+        </div>
+      </div>
+
+      {/* ── Footer — safe-area + desktop CTA hierarchy ── */}
+      <div className="border-t border-gray-200 shrink-0 bg-gray-50" style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}>
+        <div className="max-w-[1400px] mx-auto px-5 py-4">
+          {canComplete && phase !== 'completing' && (
+            <button onClick={handleComplete} disabled={recording !== 'idle'}
+              className="w-full flex items-center justify-center gap-2 bg-emerald-600 active:bg-emerald-700 disabled:opacity-50 text-white font-bold text-sm py-4 rounded-2xl cursor-pointer"
+              style={{ boxShadow: '0 4px 24px rgba(16,185,129,0.35)' }}>
+              <CheckCircle className="w-4 h-4" />Completar trabajo
+            </button>
+          )}
+          {phase === 'completing' && (
+            <div className="w-full flex items-center justify-center gap-3 py-4 text-gray-600">
+              <Loader2 className="w-5 h-5 animate-spin text-emerald-600" /><span className="text-sm font-semibold">Guardando…</span>
+            </div>
+          )}
+          {mode === 'view' && !canComplete && (
+            <button onClick={onClose} className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl text-sm font-bold text-gray-600 bg-gray-100 active:bg-gray-200 cursor-pointer">
+              <ChevronRight className="w-4 h-4" />Cerrar
+            </button>
+          )}
+          {mode === 'supplement' && (
+            supplementMateriales.length > 0 ? (
+              <div className="flex flex-col md:flex-row md:items-center md:justify-end gap-3">
+                <div className="md:text-right">
+                  <p className="text-[10px] text-gray-400 uppercase tracking-widest">Total adicional</p>
+                  <p className="text-lg font-black text-gray-900 font-mono">{fmtEur(totalSupp)}</p>
+                </div>
+                <button onClick={() => handleGenerarFactura(supplementMateriales, true)}
+                  className="flex items-center justify-center gap-2 bg-blue-600 active:bg-blue-700 text-white font-bold text-sm py-3.5 px-8 rounded-2xl cursor-pointer w-full md:w-auto"
+                  style={{ boxShadow: '0 4px 24px rgba(37,99,235,0.4)' }}>
+                  <ReceiptText className="w-4 h-4" />Generar factura suplementaria
                 </button>
               </div>
             ) : (
-              <button
-                onClick={() => setShowSupplementForm(true)}
-                className="w-full flex items-center justify-center gap-2 border-2 border-dashed border-amber-300 text-amber-600 text-sm font-semibold py-3 rounded-xl cursor-pointer hover:border-amber-400 transition-colors"
-              >
-                <Plus className="w-4 h-4" /> Añadir material olvidado
-              </button>
-            )}
-          </div>
-        )}
-
-        {/* Notas — solo en edit y view */}
-        {mode !== 'supplement' && (
-          <div className="space-y-2">
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Notas del trabajo</p>
-            {mode === 'edit' ? (
-              <textarea rows={3} value={notas} onChange={e => setNotas(e.target.value)}
-                placeholder="La IA completará esto al dictar…"
-                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 resize-none" />
-            ) : (
-              notas ? <div className="bg-white border border-gray-100 shadow-sm rounded-xl px-4 py-3"><p className="text-sm text-gray-600 leading-relaxed">{notas}</p></div>
-                    : <p className="text-xs text-gray-400">Sin notas registradas</p>
-            )}
-          </div>
-        )}
-
-        {/* Aviso facturación en edit mode */}
-        {mode === 'edit' && !isTecnico && !mantenimiento?.activo && materialesNormales.length > 0 && (
-          <div className="flex items-start gap-2.5 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
-            <AlertCircle className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
-            <p className="text-xs text-amber-700/80">Al completar se generará una factura por <span className="font-bold">{fmtEur((subtotalNormal) * 1.21)}</span></p>
-          </div>
-        )}
-
-        <div className="h-4" />
-      </div>
-
-      {/* Footer — safe-area-inset-bottom for mobile home bar */}
-      <div className="px-5 py-4 border-t border-gray-200 shrink-0 bg-gray-50" style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}>
-        {canComplete && phase !== 'completing' && (
-          <button onClick={handleComplete} disabled={recording !== 'idle'}
-            className="w-full flex items-center justify-center gap-2 bg-emerald-600 active:bg-emerald-700 disabled:opacity-50 text-white font-bold text-sm py-4 rounded-2xl cursor-pointer"
-            style={{ boxShadow: '0 4px 24px rgba(16,185,129,0.35)' }}>
-            <CheckCircle className="w-4 h-4" />Completar trabajo
-          </button>
-        )}
-        {phase === 'completing' && (
-          <div className="w-full flex items-center justify-center gap-3 py-4 text-gray-600">
-            <Loader2 className="w-5 h-5 animate-spin text-emerald-600" /><span className="text-sm font-semibold">Guardando…</span>
-          </div>
-        )}
-        {mode === 'view' && !canComplete && (
-          <button onClick={onClose} className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl text-sm font-bold text-gray-600 bg-gray-100 active:bg-gray-200 cursor-pointer">
-            <ChevronRight className="w-4 h-4" />Cerrar
-          </button>
-        )}
-        {mode === 'supplement' && (
-          supplementMateriales.length > 0 ? (
-            <button onClick={() => handleGenerarFactura(supplementMateriales, true)}
-              className="w-full flex items-center justify-center gap-2 bg-amber-600 active:bg-amber-700 text-white font-bold text-sm py-4 rounded-2xl cursor-pointer"
-              style={{ boxShadow: '0 4px 24px rgba(217,119,6,0.4)' }}>
-              <ReceiptText className="w-4 h-4" />Generar factura suplementaria
-            </button>
-          ) : (
-            <p className="text-center text-xs text-gray-400 py-1">
-              Añade material olvidado para generar una factura suplementaria
-            </p>
-          )
-        )}
+              <p className="text-center text-xs text-gray-400 py-1">
+                Añade material olvidado para generar una factura suplementaria
+              </p>
+            )
+          )}
+        </div>
       </div>
     </div>
   );
