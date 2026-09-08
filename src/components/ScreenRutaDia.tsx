@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   MapPin, Navigation, Clock, Zap, ChevronUp, ChevronDown,
   AlertTriangle, ExternalLink, Route, RefreshCw, Play,
-  CheckCircle2, Circle, ArrowDown,
+  CheckCircle2, Circle, ArrowDown, User,
 } from 'lucide-react';
 import type { TradeJob } from '../lib/supabase';
 import { updateJob } from '../lib/supabase';
@@ -474,19 +474,6 @@ export default function ScreenRutaDia({
                           </a>
                         )}
                       </div>
-                      {/* Badge de geolocalización */}
-                      <div className="mt-1">
-                        {hasCoords ? (
-                          <span className="inline-flex items-center gap-1 text-[9px] font-bold text-emerald-600 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded-full">
-                            <CheckCircle2 className="w-2.5 h-2.5" /> Geolocalizado
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1 text-[9px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded-full">
-                            <AlertTriangle className="w-2.5 h-2.5" /> Sin geolocalizar
-                          </span>
-                        )}
-                      </div>
-
                       {/* Descripción breve */}
                       {job.descripcion && (
                         <p className="text-[11px] text-slate-400 mt-1.5 line-clamp-2 leading-relaxed">
@@ -496,16 +483,24 @@ export default function ScreenRutaDia({
 
                       {/* Cliente */}
                       {job.trade_clients?.nombre && (
-                        <p className="text-[11px] text-slate-500 mt-1.5 font-semibold">
-                          👤 {job.trade_clients.nombre}
+                        <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
+                          <User className="w-3 h-3 text-slate-400 shrink-0" />
+                          <span className="text-[11px] text-slate-600 font-semibold">{job.trade_clients.nombre}</span>
                           {job.trade_clients.telefono && (
                             <a
                               href={`tel:${job.trade_clients.telefono}`}
-                              className="ml-2 text-blue-500 underline"
+                              className="text-[11px] text-blue-500 underline"
                             >
                               {job.trade_clients.telefono}
                             </a>
                           )}
+                        </div>
+                      )}
+
+                      {/* Sin geolocalizar — solo cuando no hay coords */}
+                      {!hasCoords && (
+                        <p className="flex items-center gap-1 text-[9px] text-amber-500 mt-1">
+                          <AlertTriangle className="w-2.5 h-2.5" /> Sin geolocalizar
                         </p>
                       )}
                     </div>
@@ -552,7 +547,7 @@ export default function ScreenRutaDia({
                   {endLocation
                     ? typeof endLocation === 'string'
                       ? endLocation
-                      : `${endLocation.lat}, ${endLocation.lng}`
+                      : 'Regreso a base'
                     : routeJobs[routeJobs.length - 1]
                       ? addressLine(routeJobs[routeJobs.length - 1])
                       : '—'}

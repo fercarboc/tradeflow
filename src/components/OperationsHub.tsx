@@ -64,29 +64,21 @@ function PendientesTab({ pendingPlanningQuotes, onProgramar, onViewAgenda }: Pen
           className="bg-white border border-slate-200 rounded-2xl p-4 flex items-start justify-between gap-4 hover:border-blue-200 hover:shadow-sm transition-all"
         >
           <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-              <span className="text-[9px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full shrink-0">
-                Aceptado
-              </span>
-              {quote.id && (
-                <span className="text-[9px] text-slate-400 font-mono truncate">{quote.id}</span>
-              )}
-            </div>
-            <p className="font-bold text-slate-900 text-sm leading-tight">{quote.nombreCliente}</p>
+            <p className="font-bold text-slate-900 text-base leading-tight">{quote.nombreCliente}</p>
             {quote.descripcion && (
-              <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">{quote.descripcion}</p>
+              <p className="text-sm text-slate-500 mt-1 line-clamp-2">{quote.descripcion}</p>
             )}
             {typeof quote.total === 'number' && (
-              <p className="text-xs font-bold text-slate-700 mt-1.5">
+              <p className="text-sm font-bold text-slate-700 mt-2">
                 {quote.total.toLocaleString('es-ES', { minimumFractionDigits: 2 })} €
               </p>
             )}
           </div>
           <button
             onClick={() => onProgramar(quote)}
-            className="shrink-0 flex items-center gap-1.5 text-[11px] font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 active:bg-blue-200 px-3.5 py-2 rounded-xl transition-colors cursor-pointer whitespace-nowrap border border-blue-200"
+            className="shrink-0 flex items-center gap-1.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
-            <Plus className="w-3.5 h-3.5" /> Programar
+            <Plus className="w-4 h-4" /> Programar
           </button>
         </div>
       ))}

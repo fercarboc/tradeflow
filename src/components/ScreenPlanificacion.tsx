@@ -1542,54 +1542,11 @@ export default function ScreenPlanificacion({
           );
         })()}
 
-        {/* Pipeline: presupuestos aceptados sin trabajo asignado */}
+        {/* Pipeline: compact notice — the full list lives in the Pendientes tab */}
         {presupuestosAceptados.length > 0 && (
-          <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 space-y-2">
-            <p className="text-[9px] font-bold uppercase tracking-wider text-emerald-700 flex items-center gap-1.5">
-              <FileText className="w-3 h-3" />
-              {presupuestosAceptados.length} presupuesto{presupuestosAceptados.length !== 1 ? 's' : ''} aceptado{presupuestosAceptados.length !== 1 ? 's' : ''} — pendiente de programar
-            </p>
-            <div className="space-y-1.5">
-              {presupuestosAceptados.map(p => (
-                <div
-                  key={p.id}
-                  className="bg-white border border-emerald-200 rounded-lg px-3 py-2 flex items-center justify-between gap-2 cursor-pointer hover:border-emerald-400 transition-colors"
-                  onClick={() => {
-                    const activeJob = jobs.find(j =>
-                      j.quote_id === p.dbId &&
-                      j.estado !== 'cancelado' &&
-                      j.estado !== 'no_realizado'
-                    );
-                    if (activeJob) {
-                      showToast('Este presupuesto ya tiene un trabajo programado.', 'info');
-                      return;
-                    }
-                    setEditingJob(null);
-                    setDraft({
-                      ...EMPTY_DRAFT(),
-                      fecha_inicio: selectedDate,
-                      titulo: p.descripcion.slice(0, 80) || `Trabajo — ${p.nombreCliente}`,
-                      descripcion: p.descripcion ?? '',
-                      client_id: p.client_id ?? null,
-                      quote_id: p.dbId ?? null,
-                      prioridad: 'normal',
-                    });
-                    setSelectedWorkerIds(new Set());
-                    setShowModal(true);
-                  }}
-                >
-                  <div className="min-w-0">
-                    <p className="text-[10px] font-semibold text-slate-800 truncate">{p.nombreCliente}</p>
-                    <p className="text-[9px] text-slate-500 truncate">{p.descripcion}</p>
-                  </div>
-                  <div className="shrink-0 flex items-center gap-2">
-                    <span className="font-mono text-[10px] font-bold text-emerald-700">{p.total.toFixed(0)}€</span>
-                    <span className="text-[8px] font-bold uppercase text-blue-600 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded-full whitespace-nowrap">+ Programar</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <p className="text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2 leading-snug">
+            {presupuestosAceptados.length} presupuesto{presupuestosAceptados.length !== 1 ? 's' : ''} pendiente{presupuestosAceptados.length !== 1 ? 's' : ''} de programar · Ve a la pestaña <span className="font-bold">Pendientes</span>
+          </p>
         )}
 
         {/* Demo notice */}

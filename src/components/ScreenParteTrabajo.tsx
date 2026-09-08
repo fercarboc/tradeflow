@@ -109,6 +109,7 @@ export default function ScreenParteTrabajo({
   const [customLineDesc, setCustomLineDesc] = useState('');
   const [customLinePrice, setCustomLinePrice] = useState('');
   const [customLineCant, setCustomLineCant] = useState('1');
+  const [showSupplementForm, setShowSupplementForm] = useState(false);
 
   // Manual invoice form (when no materials and no linked quote)
   const [manualConcepto, setManualConcepto] = useState('');
@@ -1263,6 +1264,20 @@ export default function ScreenParteTrabajo({
           </div>
         )}
 
+        {/* Firma — visible en supplement y view (completado) */}
+        {(isReadonly || (mode === 'view' && isCompleted)) && (
+          <div className="space-y-2">
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Firma del cliente</p>
+            {savedFirmaUrl ? (
+              <div className="bg-white border border-gray-100 shadow-sm rounded-2xl p-3">
+                <img src={savedFirmaUrl} alt="Firma" className="w-full max-h-24 object-contain rounded-xl border border-gray-100 bg-gray-50" />
+              </div>
+            ) : (
+              <p className="text-xs text-gray-400">Sin firma registrada</p>
+            )}
+          </div>
+        )}
+
         {/* Materiales (normales o post-cierre) */}
         {mode !== 'supplement' && !isTecnico && (
           <div className="space-y-3">
@@ -1434,25 +1449,7 @@ export default function ScreenParteTrabajo({
               <p className="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Material a facturar</p>
               {supplementMateriales.length > 0 && <span className="text-[10px] font-bold text-amber-600">{fmtEur(totalSupp)}</span>}
             </div>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
-              <input value={materialSearch}
-                onChange={e => { setMaterialSearch(e.target.value); setShowMaterialPicker(true); }}
-                onFocus={() => setShowMaterialPicker(true)}
-                placeholder="Buscar material olvidado…"
-                className="w-full bg-gray-50 border border-amber-200 rounded-xl pl-8 pr-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-amber-500" />
-            </div>
-            {showMaterialPicker && filteredTarifas.length > 0 && (
-              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-                {filteredTarifas.map((t, i) => (
-                  <button key={t.id} onClick={() => addMaterial(t, false)}
-                    className={`w-full flex items-center justify-between px-4 py-3 text-left active:bg-gray-100 cursor-pointer ${i < filteredTarifas.length - 1 ? 'border-b border-gray-100' : ''}`}>
-                    <p className="text-sm font-semibold text-gray-900 truncate">{t.descripcion}</p>
-                    <span className="text-sm font-bold text-amber-600 shrink-0">{t.precioBase.toFixed(0)} €</span>
-                  </button>
-                ))}
-              </div>
-            )}
+
             {supplementMateriales.length > 0 && (
               <div className="bg-amber-50 border border-amber-200 rounded-xl overflow-hidden">
                 {supplementMateriales.map((m, i) => (
@@ -1475,13 +1472,47 @@ export default function ScreenParteTrabajo({
                 </div>
               </div>
             )}
-            {/* Motivo del olvido */}
-            <div>
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Motivo (opcional)</p>
-              <input value={supplementReason} onChange={e => setSupplementReason(e.target.value)}
-                placeholder="Ej: No se incluyó en el presupuesto inicial"
-                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-amber-500" />
-            </div>
+
+            {showSupplementForm ? (
+              <div className="space-y-3">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                  <input value={materialSearch}
+                    onChange={e => { setMaterialSearch(e.target.value); setShowMaterialPicker(true); }}
+                    onFocus={() => setShowMaterialPicker(true)}
+                    placeholder="Buscar material olvidado…"
+                    className="w-full bg-gray-50 border border-amber-200 rounded-xl pl-8 pr-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-amber-500" />
+                </div>
+                {showMaterialPicker && filteredTarifas.length > 0 && (
+                  <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                    {filteredTarifas.map((t, i) => (
+                      <button key={t.id} onClick={() => addMaterial(t, false)}
+                        className={`w-full flex items-center justify-between px-4 py-3 text-left active:bg-gray-100 cursor-pointer ${i < filteredTarifas.length - 1 ? 'border-b border-gray-100' : ''}`}>
+                        <p className="text-sm font-semibold text-gray-900 truncate">{t.descripcion}</p>
+                        <span className="text-sm font-bold text-amber-600 shrink-0">{t.precioBase.toFixed(0)} €</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+                <div>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Motivo (opcional)</p>
+                  <input value={supplementReason} onChange={e => setSupplementReason(e.target.value)}
+                    placeholder="Ej: No se incluyó en el presupuesto inicial"
+                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-amber-500" />
+                </div>
+                <button onClick={() => setShowSupplementForm(false)}
+                  className="w-full py-2 rounded-xl text-xs font-semibold text-gray-400 bg-gray-100 active:bg-gray-200 cursor-pointer">
+                  Cerrar
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => setShowSupplementForm(true)}
+                className="w-full flex items-center justify-center gap-2 border-2 border-dashed border-amber-300 text-amber-600 text-sm font-semibold py-3 rounded-xl cursor-pointer hover:border-amber-400 transition-colors"
+              >
+                <Plus className="w-4 h-4" /> Añadir material olvidado
+              </button>
+            )}
           </div>
         )}
 
