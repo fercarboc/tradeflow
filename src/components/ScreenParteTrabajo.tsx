@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   X, Camera, CheckCircle, Plus, Minus, Search, MapPin, User,
   Clock, Trash2, Loader2, Mic, Square, Wrench,
-  MessageSquare, Mail, FileText, ChevronRight, AlertCircle,
+  MessageSquare, Mail, FileText, ChevronRight, ChevronLeft, AlertCircle,
   Lock, PlusCircle, ReceiptText, StickyNote, Send, Star, PenLine,
 } from 'lucide-react';
 import { supabase, uploadJobPhoto, deleteJobPhoto, loadJobPhotos, createInvoiceFromJob, markInvoicePaid, emitirFactura, createFieldAction, uploadJobSignature, saveJobSignature, createJobReviewToken } from '../lib/supabase';
@@ -51,6 +51,7 @@ export interface ScreenParteTrabajoProps {
   onClose: () => void;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   isLiveMode: boolean;
+  backLabel?: string;
 }
 
 type Phase =
@@ -82,7 +83,7 @@ function StatusBadge({ inv }: { inv: TradeInvoice }) {
 
 export default function ScreenParteTrabajo({
   job, orgId, tarifas, mode, clienteInfo, mantenimiento,
-  existingInvoices = [], onComplete, onInvoiceCreated, onClose, showToast, isLiveMode,
+  existingInvoices = [], onComplete, onInvoiceCreated, onClose, showToast, isLiveMode, backLabel,
 }: ScreenParteTrabajoProps) {
   const { rol, workerProfile } = useSession();
   const isTecnico = rol === 'tecnico';
@@ -1081,14 +1082,16 @@ export default function ScreenParteTrabajo({
   return (
     <div className="fixed inset-0 z-50 bg-gray-50 flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-gray-200 shrink-0">
-        <div className="flex-1 min-w-0 pr-3">
-          <p className={`text-[10px] font-bold uppercase tracking-widest mb-0.5 ${headerTag.color}`}>{headerTag.label}</p>
-          <h2 className="text-base font-black text-gray-900 leading-tight truncate">{job.titulo}</h2>
-        </div>
-        <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 active:bg-gray-200 text-gray-500 shrink-0 cursor-pointer">
-          <X className="w-4 h-4" />
+      <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-gray-200 shrink-0">
+        <button onClick={onClose} className="flex items-center gap-1 text-[11px] font-bold text-gray-500 hover:text-gray-700 active:text-gray-900 cursor-pointer shrink-0 -ml-1">
+          <ChevronLeft className="w-4 h-4" />
+          {backLabel ?? 'Volver'}
         </button>
+        <div className="min-w-0 px-3 text-right flex-1">
+          <p className={`text-[9px] font-bold uppercase tracking-widest mb-0.5 ${headerTag.color}`}>{headerTag.label}</p>
+          <h2 className="text-sm font-black text-gray-900 leading-tight truncate">{job.titulo}</h2>
+        </div>
+        <div className="w-12 shrink-0" />
       </div>
 
       <div className="flex-1 overflow-y-auto overscroll-contain px-5 py-4 space-y-5">
@@ -1236,47 +1239,53 @@ export default function ScreenParteTrabajo({
         )}
 
         {/* Fotos del trabajo — en supplement se muestran en read-only si existen */}
-        {(mode !== 'supplement' || photos.length > 0) && (
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Fotos del trabajo</p>
-              <span className="text-[10px] text-gray-400">{photos.length} foto{photos.length !== 1 ? 's' : ''}</span>
+        {/* Fotos + Firma — desktop: side by side; mobile: stacked */}
+        <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-4 md:items-start space-y-4 md:space-y-0">
+          {/* Fotos */}
+          {(mode !== 'supplement' || photos.length > 0) && (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Fotos del trabajo</p>
+                <span className="text-[10px] text-gray-400">{photos.length} foto{photos.length !== 1 ? 's' : ''}</span>
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                {photos.map(p => (
+                  <div key={p.id} className="relative aspect-square rounded-xl overflow-hidden bg-white border border-gray-100 shadow-sm group">
+                    <img src={p.photo_url} alt="" className="w-full h-full object-cover" />
+                    {mode === 'edit' && (
+                      <button onClick={() => deletePhoto(p)} className="absolute top-1 right-1 w-6 h-6 bg-red-600/80 rounded-full flex items-center justify-center opacity-0 group-active:opacity-100 cursor-pointer">
+                        <Trash2 className="w-3 h-3 text-white" />
+                      </button>
+                    )}
+                  </div>
+                ))}
+                {mode === 'edit' && (
+                  <button onClick={() => fileInputRef.current?.click()} disabled={uploading}
+                    className="aspect-square rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center gap-1 active:border-blue-500 cursor-pointer">
+                    {uploading ? <Loader2 className="w-5 h-5 text-gray-400 animate-spin" /> : <><Camera className="w-5 h-5 text-gray-400" /><span className="text-[9px] text-gray-400 font-semibold">Foto</span></>}
+                  </button>
+                )}
+              </div>
+              <input ref={fileInputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handlePhotoUpload} />
             </div>
-            <div className="grid grid-cols-3 gap-2">
-              {photos.map(p => (
-                <div key={p.id} className="relative aspect-square rounded-xl overflow-hidden bg-white border border-gray-100 shadow-sm group">
-                  <img src={p.photo_url} alt="" className="w-full h-full object-cover" />
-                  {mode === 'edit' && (
-                    <button onClick={() => deletePhoto(p)} className="absolute top-1 right-1 w-6 h-6 bg-red-600/80 rounded-full flex items-center justify-center opacity-0 group-active:opacity-100 cursor-pointer">
-                      <Trash2 className="w-3 h-3 text-white" />
-                    </button>
-                  )}
+          )}
+
+          {/* Firma — visible en supplement y view (completado) */}
+          {(isReadonly || (mode === 'view' && isCompleted)) && (
+            <div className="space-y-2">
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Firma del cliente</p>
+              {savedFirmaUrl ? (
+                <div className="bg-white border border-gray-100 shadow-sm rounded-2xl p-3">
+                  <img src={savedFirmaUrl} alt="Firma" className="max-h-28 w-full object-contain rounded-xl border border-gray-100 bg-gray-50" />
                 </div>
-              ))}
-              {mode === 'edit' && (
-                <button onClick={() => fileInputRef.current?.click()} disabled={uploading}
-                  className="aspect-square rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center gap-1 active:border-blue-500 cursor-pointer">
-                  {uploading ? <Loader2 className="w-5 h-5 text-gray-400 animate-spin" /> : <><Camera className="w-5 h-5 text-gray-400" /><span className="text-[9px] text-gray-400 font-semibold">Foto</span></>}
-                </button>
+              ) : (
+                <div className="bg-gray-50 border border-dashed border-gray-200 rounded-2xl px-3 py-4 text-center">
+                  <p className="text-xs text-gray-400">Sin firma registrada</p>
+                </div>
               )}
             </div>
-            <input ref={fileInputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handlePhotoUpload} />
-          </div>
-        )}
-
-        {/* Firma — visible en supplement y view (completado) */}
-        {(isReadonly || (mode === 'view' && isCompleted)) && (
-          <div className="space-y-2">
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Firma del cliente</p>
-            {savedFirmaUrl ? (
-              <div className="bg-white border border-gray-100 shadow-sm rounded-2xl p-3">
-                <img src={savedFirmaUrl} alt="Firma" className="w-full max-h-24 object-contain rounded-xl border border-gray-100 bg-gray-50" />
-              </div>
-            ) : (
-              <p className="text-xs text-gray-400">Sin firma registrada</p>
-            )}
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Materiales (normales o post-cierre) */}
         {mode !== 'supplement' && !isTecnico && (
@@ -1542,8 +1551,8 @@ export default function ScreenParteTrabajo({
         <div className="h-4" />
       </div>
 
-      {/* Footer */}
-      <div className="px-5 py-4 border-t border-gray-200 shrink-0 bg-gray-50">
+      {/* Footer — safe-area-inset-bottom for mobile home bar */}
+      <div className="px-5 py-4 border-t border-gray-200 shrink-0 bg-gray-50" style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}>
         {canComplete && phase !== 'completing' && (
           <button onClick={handleComplete} disabled={recording !== 'idle'}
             className="w-full flex items-center justify-center gap-2 bg-emerald-600 active:bg-emerald-700 disabled:opacity-50 text-white font-bold text-sm py-4 rounded-2xl cursor-pointer"
@@ -1562,12 +1571,17 @@ export default function ScreenParteTrabajo({
           </button>
         )}
         {mode === 'supplement' && (
-          <button onClick={() => handleGenerarFactura(supplementMateriales, true)}
-            disabled={supplementMateriales.length === 0}
-            className="w-full flex items-center justify-center gap-2 bg-amber-600 active:bg-amber-700 disabled:opacity-40 text-white font-bold text-sm py-4 rounded-2xl cursor-pointer"
-            style={{ boxShadow: '0 4px 24px rgba(217,119,6,0.4)' }}>
-            <ReceiptText className="w-4 h-4" />Generar factura suplementaria
-          </button>
+          supplementMateriales.length > 0 ? (
+            <button onClick={() => handleGenerarFactura(supplementMateriales, true)}
+              className="w-full flex items-center justify-center gap-2 bg-amber-600 active:bg-amber-700 text-white font-bold text-sm py-4 rounded-2xl cursor-pointer"
+              style={{ boxShadow: '0 4px 24px rgba(217,119,6,0.4)' }}>
+              <ReceiptText className="w-4 h-4" />Generar factura suplementaria
+            </button>
+          ) : (
+            <p className="text-center text-xs text-gray-400 py-1">
+              Añade material olvidado para generar una factura suplementaria
+            </p>
+          )
         )}
       </div>
     </div>

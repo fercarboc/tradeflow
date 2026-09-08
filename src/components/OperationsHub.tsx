@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Calendar, Navigation, FileCheck, CheckCircle, Clock, Activity,
   PenLine, ArrowRight, Plus, Eye, MapPin, User, ChevronRight,
@@ -436,12 +436,40 @@ export default function OperationsHub(props: OperationsHubProps) {
   const [hubParteMaint, setHubParteMaint] = useState<{
     activo: boolean; materialesIncluidos: boolean; nombre: string | null;
   } | null>(null);
+  const [hubParteOpenedFrom, setHubParteOpenedFrom] = useState<'partes' | 'agenda' | null>(null);
+  const hubParteJobRef = useRef<TradeJob | null>(null);
+  const closingProgrammatically = useRef(false);
+
+  // Sync ref so popstate handler can check without stale closure
+  useEffect(() => { hubParteJobRef.current = hubParteJob; }, [hubParteJob]);
+
+  // Browser / Android Back: closes the parte overlay instead of leaving TrabFlow
+  useEffect(() => {
+    const handlePopState = () => {
+      if (closingProgrammatically.current) {
+        closingProgrammatically.current = false;
+        return;
+      }
+      if (hubParteJobRef.current) {
+        setHubParteJob(null);
+        setHubParteMaint(null);
+        setHubParteInvoices([]);
+        setHubParteOpenedFrom(null);
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   const handleOpenParte = async (job: TradeJob) => {
+    const openedFrom = activeSubTab === 'partes' ? 'partes' : 'agenda';
+    setHubParteOpenedFrom(openedFrom);
     setHubParteJob(job);
     setHubParteMode('edit');
     setHubParteInvoices([]);
     setHubParteMaint(null);
+    // Push a history entry so browser/Android Back closes the parte
+    history.pushState({ parteOpen: true, jobId: job.id }, '');
 
     const [maint, invoices] = await Promise.all([
       props.isLiveMode && props.orgId && job.client_id
@@ -470,6 +498,12 @@ export default function OperationsHub(props: OperationsHubProps) {
     setHubParteJob(null);
     setHubParteMaint(null);
     setHubParteInvoices([]);
+    setHubParteOpenedFrom(null);
+    // Pop the history entry we pushed so browser history stays clean
+    if (history.state?.parteOpen) {
+      closingProgrammatically.current = true;
+      history.back();
+    }
   };
 
   // ── Render ──────────────────────────────────────────────────────────────────
@@ -594,6 +628,7 @@ export default function OperationsHub(props: OperationsHubProps) {
               onInvoiceCreated={inv => setHubParteInvoices(prev => [...prev, inv])}
               onClose={closeParteOverlay}
               showToast={props.showToast}
+              backLabel={hubParteOpenedFrom === 'partes' ? '← Volver a Partes' : hubParteOpenedFrom === 'agenda' ? '← Volver a Agenda' : '← Volver'}
             />
           </div>
         );
