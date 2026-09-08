@@ -401,7 +401,7 @@ export default function OperationsHub(props: OperationsHubProps) {
   // Reset to 0 (sentinel = no pending trigger) after consumption to prevent
   // stale-trigger reopening when AgendaTab remounts.
   const [internalTrigger, setInternalTrigger] = useState<number>(0);
-  const prevExtTriggerRef = useRef<number | undefined>(undefined);
+  const prevExtTriggerRef = useRef<number | undefined>(props.triggerNew);
 
   // Sync external prefill + trigger changes (PROGRAMAR from Presupuestos screen)
   const extPrefill = props.prefillJobFromQuote;
