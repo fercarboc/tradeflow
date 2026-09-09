@@ -71,6 +71,7 @@ Deno.serve(async (req: Request) => {
 
         const periodoInicio = contrato.proxima_factura as string;
         const multiplier    = contrato.tipo_facturacion === 'trimestral' ? 3
+          : contrato.tipo_facturacion === 'semestral' ? 6
           : contrato.tipo_facturacion === 'anual' ? 12 : 1;
 
         const nextDate = new Date(periodoInicio);
@@ -92,9 +93,11 @@ Deno.serve(async (req: Request) => {
         const periodoDate = new Date(periodoInicio);
         const periodo = multiplier === 12
           ? `Año ${periodoDate.getFullYear()}`
-          : multiplier === 3
-            ? `T${Math.ceil((periodoDate.getMonth() + 1) / 3)} ${periodoDate.getFullYear()}`
-            : periodoDate.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+          : multiplier === 6
+            ? `S${periodoDate.getMonth() < 6 ? 1 : 2} ${periodoDate.getFullYear()}`
+            : multiplier === 3
+              ? `T${Math.ceil((periodoDate.getMonth() + 1) / 3)} ${periodoDate.getFullYear()}`
+              : periodoDate.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
 
         // Single source of truth for the invoice_line payload — used in both
         // the normal create path and the self-healing repair path.
@@ -237,6 +240,7 @@ Deno.serve(async (req: Request) => {
             serie:            'M',
             tipo_factura:     'contrato_cuota',
             mes_facturacion:  periodoInicio,
+            metodo_pago:      contrato.metodo_pago ?? null,
             ...snap,
           })
           .select('id')

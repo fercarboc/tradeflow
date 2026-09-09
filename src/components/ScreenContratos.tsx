@@ -5,11 +5,11 @@ import {
   Building2, User, CalendarDays, DollarSign, Wrench, Shield,
 } from 'lucide-react';
 import { downloadContractAsDocx } from '../lib/exportWord';
-import type { TradeOrganization, TradeContract, MaintenancePresupuesto } from '../lib/supabase';
+import type { TradeOrganization, TradeContract, MaintenancePresupuesto, ClientLocation } from '../lib/supabase';
 import {
   loadContracts, createContract, updateContract, signContract, deleteContract,
   loadMaintenancePresupuestos, saveMaintenanceContrato,
-  updateMaintenancePresupuesto,
+  updateMaintenancePresupuesto, loadClientLocations,
 } from '../lib/supabase';
 import { buildContractHTML, defaultContractVars, formatPostalAddress } from '../lib/contractTemplates';
 import type { ContractVars } from '../lib/contractTemplates';
@@ -88,6 +88,113 @@ function ContractField({ field, label, type = 'text', placeholder = '', vars, is
   );
 }
 
+// ── SignClientPickerModal ─────────────────────────────────────────────────────
+// Shown before signing to capture client_id + location_id + metodo_pago.
+// Defined outside ScreenContratos to avoid re-mount on parent re-render.
+interface SignClientPickerModalProps {
+  clientes: Props['clientes'];
+  orgId: string;
+  onConfirm: (clientId: string, locationId: string, metodoPago: string) => void;
+  onClose: () => void;
+}
+
+const METODOS_PAGO = [
+  { value: 'transferencia', label: 'Transferencia bancaria' },
+  { value: 'domiciliacion', label: 'Domiciliación bancaria (SEPA)' },
+  { value: 'tarjeta', label: 'Tarjeta' },
+  { value: 'efectivo', label: 'Efectivo' },
+  { value: 'otro', label: 'Otro' },
+];
+
+function SignClientPickerModal({ clientes, orgId, onConfirm, onClose }: SignClientPickerModalProps) {
+  const [clientId, setClientId] = useState('');
+  const [locationId, setLocationId] = useState('');
+  const [metodoPago, setMetodoPago] = useState('transferencia');
+  const [locations, setLocations] = useState<ClientLocation[]>([]);
+  const [loadingLocs, setLoadingLocs] = useState(false);
+
+  useEffect(() => {
+    if (!clientId) { setLocations([]); setLocationId(''); return; }
+    setLoadingLocs(true);
+    loadClientLocations(orgId, clientId)
+      .then(locs => {
+        setLocations(locs);
+        if (locs.length === 1) setLocationId(locs[0].id);
+        else setLocationId('');
+      })
+      .finally(() => setLoadingLocs(false));
+  }, [clientId, orgId]);
+
+  const canConfirm = clientId && locationId;
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 space-y-4">
+        <h3 className="text-base font-bold text-gray-900">Antes de firmar</h3>
+        <p className="text-xs text-gray-500">Selecciona el cliente y la instalación para el seguimiento operativo y de facturación.</p>
+
+        <div className="space-y-3">
+          <div>
+            <label className="block text-[11px] font-semibold text-gray-500 uppercase tracking-wide mb-1">Cliente *</label>
+            <select
+              value={clientId}
+              onChange={e => setClientId(e.target.value)}
+              className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            >
+              <option value="">Selecciona cliente…</option>
+              {clientes.map(c => <option key={c.id} value={c.id}>{c.nombre}</option>)}
+            </select>
+          </div>
+
+          {clientId && (
+            <div>
+              <label className="block text-[11px] font-semibold text-gray-500 uppercase tracking-wide mb-1">Instalación / Ubicación *</label>
+              {loadingLocs ? (
+                <p className="text-xs text-gray-400 py-2">Cargando…</p>
+              ) : locations.length === 0 ? (
+                <p className="text-xs text-amber-600 bg-amber-50 rounded-xl px-3 py-2">
+                  Este cliente no tiene ubicaciones registradas. Añade una desde el módulo de Clientes antes de firmar.
+                </p>
+              ) : (
+                <select
+                  value={locationId}
+                  onChange={e => setLocationId(e.target.value)}
+                  className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                >
+                  <option value="">Selecciona instalación…</option>
+                  {locations.map(l => <option key={l.id} value={l.id}>{l.nombre} — {l.direccion}</option>)}
+                </select>
+              )}
+            </div>
+          )}
+
+          <div>
+            <label className="block text-[11px] font-semibold text-gray-500 uppercase tracking-wide mb-1">Forma de pago</label>
+            <select
+              value={metodoPago}
+              onChange={e => setMetodoPago(e.target.value)}
+              className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            >
+              {METODOS_PAGO.map(m => <option key={m.value} value={m.value}>{m.label}</option>)}
+            </select>
+          </div>
+        </div>
+
+        <div className="flex gap-2 justify-end pt-2">
+          <button onClick={onClose} className="px-4 py-2 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">Cancelar</button>
+          <button
+            onClick={() => canConfirm && onConfirm(clientId, locationId, metodoPago)}
+            disabled={!canConfirm}
+            className="px-5 py-2 rounded-xl bg-blue-600 text-white text-sm font-semibold disabled:opacity-40 cursor-pointer hover:bg-blue-700"
+          >
+            Continuar con la firma
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan }: Props) {
   const [contracts, setContracts] = useState<TradeContract[]>([]);
   const [mantenimientos, setMantenimientos] = useState<MaintenancePresupuesto[]>([]);
@@ -97,6 +204,7 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
   const [isSigned, setIsSigned] = useState(false);
   const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState<{ msg: string; type: 'success' | 'error' | 'info' } | null>(null);
+  const [showSignPicker, setShowSignPicker] = useState(false);
   const [openSection, setOpenSection] = useState<Section>('prestador');
   const [vars, setVars] = useState<ContractVars>({ ...defaultContractVars });
   const [selectedOficio, setSelectedOficio] = useState(oficio ?? orgData.oficio ?? 'fontaneria');
@@ -238,11 +346,14 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
     }
   };
 
-  const handleSign = async () => {
-    if (!editingId) {
-      showToast('Guarda el borrador primero', 'info');
-      return;
-    }
+  const handleSign = () => {
+    if (!editingId) { showToast('Guarda el borrador primero', 'info'); return; }
+    setShowSignPicker(true);
+  };
+
+  const handleSignWithClient = async (clientId: string, locationId: string, metodoPago: string) => {
+    if (!editingId) return;
+    setShowSignPicker(false);
     if (!confirm('¿Firmar y cerrar el contrato? Una vez firmado no podrá modificarse.')) return;
     setSaving(true);
     try {
@@ -254,13 +365,11 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
       ));
       setIsSigned(true);
 
-      // Crear registro en Mantenimientos
       const cuotaMensual = parseFloat((vars.cuota_mensual ?? '0').replace(',', '.')) || 0;
       const ivaPct = parseFloat(vars.iva_pct ?? '21') || 21;
       const duracionMeses = parseInt(vars.duracion_meses ?? '12', 10) || 12;
       const diaVenc = parseInt(vars.dia_vencimiento ?? '5', 10) || 5;
 
-      // Fecha inicio desde vars (dd/mm/yyyy) → ISO
       const parseDateES = (s: string) => {
         const parts = s.split('/');
         if (parts.length === 3) return new Date(`${parts[2]}-${parts[1].padStart(2,'0')}-${parts[0].padStart(2,'0')}`);
@@ -270,21 +379,24 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
       const fechaFin = new Date(fechaInicio);
       fechaFin.setMonth(fechaFin.getMonth() + duracionMeses);
 
+      const tipoFact = (vars.periodo_facturacion as 'mensual' | 'trimestral' | 'semestral' | 'anual') ?? 'mensual';
       const mantContrato = await saveMaintenanceContrato(orgId, {
         org_id: orgId,
-        client_id: null,
+        client_id: clientId,
+        location_id: locationId,
         presupuesto_id: null,
         plantilla_id: null,
         numero: vars.referencia,
-        estado: 'activo',
+        estado: 'pendiente_activacion',
         oficio: selectedOficio,
         sector: null,
         nombre_cliente: vars.nombre_cliente,
         direccion_instalacion: vars.direccion_cliente,
         descripcion_servicios: vars.descripcion_instalaciones,
         cuota_mensual: cuotaMensual,
-        tipo_facturacion: vars.periodo_facturacion,
+        tipo_facturacion: tipoFact,
         iva_pct: ivaPct,
+        metodo_pago: metodoPago,
         sla_nivel: null,
         tiempo_respuesta_h: null,
         incluye_preventivos: false,
@@ -304,7 +416,10 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
         contract_id: editingId,
       });
 
-      showToast(`Contrato firmado ✓ — Mantenimiento ${mantContrato.numero} activado`, 'success');
+      // Back-reference from document to operational contract
+      await updateContract(editingId, { maintenance_contract_id: mantContrato.id });
+
+      showToast(`Contrato firmado ✓ — Pendiente de activación en Mantenimientos`, 'success');
     } catch (e: unknown) {
       showToast('Error: ' + (e instanceof Error ? e.message : String(e)), 'error');
     } finally {
@@ -745,6 +860,15 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
             </div>
           ))}
         </div>
+      )}
+
+      {showSignPicker && (
+        <SignClientPickerModal
+          clientes={clientes}
+          orgId={orgId}
+          onConfirm={handleSignWithClient}
+          onClose={() => setShowSignPicker(false)}
+        />
       )}
 
       {toast && (

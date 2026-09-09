@@ -3288,7 +3288,7 @@ export interface MaintenancePresupuesto {
   cuota_mensual: number | null;
   cuota_anual: number | null;
   cuota_trimestral: number | null;
-  tipo_facturacion: 'mensual' | 'trimestral' | 'anual';
+  tipo_facturacion: 'mensual' | 'trimestral' | 'semestral' | 'anual';
   iva_pct: number;
   sla_nivel: string | null;
   tiempo_respuesta_h: number | null;
@@ -3315,7 +3315,7 @@ export interface MaintenanceContrato {
   presupuesto_id: string | null;
   plantilla_id: string | null;
   numero: string | null;
-  estado: 'activo' | 'pausado' | 'cancelado' | 'vencido' | 'renovando';
+  estado: 'activo' | 'pausado' | 'cancelado' | 'vencido' | 'renovando' | 'pendiente_activacion';
   oficio: string;
   sector: string | null;
   nombre_cliente: string | null;
@@ -3323,7 +3323,8 @@ export interface MaintenanceContrato {
   direccion_instalacion: string | null;
   descripcion_servicios: string | null;
   cuota_mensual: number;
-  tipo_facturacion: 'mensual' | 'trimestral' | 'anual';
+  tipo_facturacion: 'mensual' | 'trimestral' | 'semestral' | 'anual';
+  metodo_pago?: string | null;
   iva_pct: number;
   sla_nivel: string | null;
   tiempo_respuesta_h: number | null;
@@ -3383,7 +3384,7 @@ export interface MaintenanceDetectResult {
   cuota_mensual_sugerida: number | null;
   cuota_min: number | null;
   cuota_max: number | null;
-  tipo_facturacion: 'mensual' | 'trimestral' | 'anual';
+  tipo_facturacion: 'mensual' | 'trimestral' | 'semestral' | 'anual';
   incluye_preventivos: boolean;
   num_visitas_preventivo: number;
   frecuencia_preventivo: string;
@@ -3495,6 +3496,131 @@ export async function updateMaintenanceContrato(id: string, updates: Partial<Mai
   if (error) throw error;
 }
 
+export interface ActivateContractOptions {
+  client_id: string;
+  location_id: string;
+  metodo_pago: string;
+  proxima_factura: string;
+  cuota_mensual?: number;
+  tipo_facturacion?: MaintenanceContrato['tipo_facturacion'];
+}
+
+export async function activateMaintenanceContract(
+  id: string,
+  options: ActivateContractOptions,
+): Promise<MaintenanceContrato> {
+  if (!options.client_id) throw new Error('client_id es obligatorio para activar el contrato');
+  if (!options.location_id) throw new Error('location_id es obligatorio para activar el contrato');
+  if (!options.proxima_factura) throw new Error('proxima_factura es obligatorio para activar el contrato');
+
+  const updates: Partial<MaintenanceContrato> = {
+    estado: 'activo',
+    client_id: options.client_id,
+    location_id: options.location_id,
+    metodo_pago: options.metodo_pago,
+    proxima_factura: options.proxima_factura,
+  };
+  if (options.cuota_mensual != null) updates.cuota_mensual = options.cuota_mensual;
+  if (options.tipo_facturacion) updates.tipo_facturacion = options.tipo_facturacion;
+
+  const { data, error } = await supabase
+    .from('trade_maintenance_contratos')
+    .update({ ...updates, updated_at: new Date().toISOString() })
+    .eq('id', id)
+    .select()
+    .single();
+  if (error) throw error;
+  return data as MaintenanceContrato;
+}
+
+// Creates a Borrador maintenance invoice using the same invariants as the billing cron.
+// Safe to call when proxima_factura <= today. Returns the new invoice or throws on duplicate.
+export async function createMaintenanceDraftInvoice(
+  contrato: MaintenanceContrato,
+  orgId: string,
+): Promise<TradeInvoice> {
+  const { getFrequencyConfig, billingAmountForPeriod, formatPeriodLabel } = await import('./maintenanceBilling');
+  const config = getFrequencyConfig(contrato.tipo_facturacion ?? 'mensual');
+  const periodoInicio = contrato.proxima_factura!;
+  const cuotaBase = billingAmountForPeriod(contrato.cuota_mensual, contrato.tipo_facturacion ?? 'mensual');
+  const ivaPct = contrato.iva_pct ?? 21;
+  const periodo = formatPeriodLabel(periodoInicio, contrato.tipo_facturacion ?? 'mensual');
+
+  const nextDate = new Date(periodoInicio);
+  nextDate.setMonth(nextDate.getMonth() + config.intervalMonths);
+  const nextDateStr = nextDate.toISOString().split('T')[0];
+
+  // Fiscal snapshot from client
+  let snap: Record<string, string | null> = {};
+  if (contrato.client_id) {
+    const { data: clientRow } = await supabase
+      .from('trade_clients')
+      .select('nombre, apellidos, tipo_cliente, nif, direccion, ciudad, cp, provincia, pais')
+      .eq('id', contrato.client_id)
+      .single();
+    if (clientRow) {
+      const c = clientRow as Record<string, string | null>;
+      const nombre = c.tipo_cliente === 'empresa'
+        ? (c.nombre ?? '')
+        : [c.nombre, c.apellidos].filter(Boolean).join(' ');
+      snap = {
+        razon_social_cliente: nombre || null,
+        nif_cliente: c.nif ?? null,
+        direccion_cliente: c.direccion ?? null,
+        cp_cliente: c.cp ?? null,
+        localidad_cliente: c.ciudad ?? null,
+        provincia_cliente: c.provincia ?? null,
+        pais_cliente: c.pais ?? 'ES',
+      };
+    }
+  }
+
+  const conceptoCliente = contrato.nombre_cliente ?? snap.razon_social_cliente ?? '—';
+  const tempNumero = `BORRADOR-M-${contrato.id.slice(0, 8)}-${periodoInicio}`;
+
+  const { data: newInvoice, error: insertError } = await supabase
+    .from('trade_invoices')
+    .insert({
+      org_id: orgId,
+      client_id: contrato.client_id,
+      contract_id: contrato.contract_id ?? null,
+      mantenimiento_id: contrato.id,
+      numero: tempNumero,
+      fecha: periodoInicio,
+      estado: 'Borrador',
+      subtotal: cuotaBase,
+      iva_pct: ivaPct,
+      concepto: `Mantenimiento ${contrato.numero ?? ''} — ${conceptoCliente} — ${periodo}`,
+      serie: 'M',
+      tipo_factura: 'contrato_cuota',
+      mes_facturacion: periodoInicio,
+      metodo_pago: contrato.metodo_pago ?? null,
+      ...snap,
+    })
+    .select()
+    .single();
+  if (insertError) throw insertError;
+
+  // Insert display line (best-effort)
+  try {
+    await supabase.from('trade_invoice_lines').insert({
+      factura_id: newInvoice.id,
+      descripcion: `Cuota de mantenimiento — ${contrato.numero ?? ''} — ${periodo}`,
+      cantidad: 1,
+      precio_unitario: cuotaBase,
+      orden: 1,
+    });
+  } catch (_) { /* non-blocking */ }
+
+  // Advance proxima_factura
+  await supabase
+    .from('trade_maintenance_contratos')
+    .update({ proxima_factura: nextDateStr, ultima_factura: new Date().toISOString().split('T')[0], updated_at: new Date().toISOString() })
+    .eq('id', contrato.id);
+
+  return newInvoice as TradeInvoice;
+}
+
 export async function loadClientContratos(
   orgId: string,
   clientId: string,
@@ -3551,24 +3677,24 @@ export async function markFacturaPagada(id: string): Promise<void> {
   if (error) throw error;
 }
 
-// Loads trade_invoices linked to any maintenance contrato for this org
+// Loads trade_invoices linked to any maintenance contrato for this org.
+// Uses mantenimiento_id (direct FK) — more robust than the previous two-hop via contract_id.
 export async function loadMaintenanceInvoicesByOrg(orgId: string): Promise<TradeInvoice[]> {
   const { data: contratos, error: err1 } = await supabase
     .from('trade_maintenance_contratos')
-    .select('contract_id')
-    .eq('org_id', orgId)
-    .not('contract_id', 'is', null);
+    .select('id')
+    .eq('org_id', orgId);
   if (err1) throw err1;
 
-  const contractIds = (contratos ?? []).map((c: { contract_id: string | null }) => c.contract_id).filter(Boolean) as string[];
-  if (contractIds.length === 0) return [];
+  const contratoIds = (contratos ?? []).map((c: { id: string }) => c.id);
+  if (contratoIds.length === 0) return [];
 
   const { data, error } = await supabase
     .from('trade_invoices')
     .select('*')
     .eq('org_id', orgId)
-    .in('contract_id', contractIds)
-    .order('fecha_vencimiento', { ascending: true });
+    .in('mantenimiento_id', contratoIds)
+    .order('mes_facturacion', { ascending: false });
   if (error) throw error;
   return (data ?? []) as TradeInvoice[];
 }
@@ -3627,7 +3753,7 @@ export interface MaintenancePresupuestoDraft {
   descripcion_servicios?: string | null;
   cuota_mensual?: number | null;
   cuota_anual?: number | null;
-  tipo_facturacion?: 'mensual' | 'trimestral' | 'anual';
+  tipo_facturacion?: 'mensual' | 'trimestral' | 'semestral' | 'anual';
   sla_nivel?: string | null;
   incluye_preventivos?: boolean;
   num_visitas_preventivo?: number;
@@ -3685,7 +3811,7 @@ export function buildPresupuestoFromModelo(modelo: MaintenanceModelo): Maintenan
     sector:                 (d.sector as string) ?? null,
     sla_nivel:              (d.sla_nivel as string) ?? null,
     cuota_mensual:          (d.cuota_mensual as number) ?? null,
-    tipo_facturacion:       ((d.tipo_facturacion as string) ?? 'mensual') as 'mensual' | 'trimestral' | 'anual',
+    tipo_facturacion:       ((d.tipo_facturacion as string) ?? 'mensual') as 'mensual' | 'trimestral' | 'semestral' | 'anual',
     incluye_preventivos:    (d.incluye_preventivos as boolean) ?? false,
     num_visitas_preventivo: (d.num_visitas_preventivo as number) ?? 0,
     incluye_guardia:        (d.incluye_guardia as boolean) ?? false,
@@ -4017,14 +4143,14 @@ export async function convertPresupuestoToContrato(
   const location = await loadClientLocation(presupuesto.location_id);
   if (!location || !location.ciudad?.trim()) throw new MissingLocationMunicipalityError();
 
-  // Guard 2: HARD BLOCK — active contract at same org + client + location (unconditional)
+  // Guard 2: HARD BLOCK — active or pending-activation contract at same org + client + location
   const { data: conflictingContrato } = await supabase
     .from('trade_maintenance_contratos')
     .select('*')
     .eq('org_id', presupuesto.org_id)
     .eq('client_id', presupuesto.client_id)
     .eq('location_id', presupuesto.location_id)
-    .eq('estado', 'activo')
+    .in('estado', ['activo', 'pendiente_activacion'])
     .maybeSingle();
   if (conflictingContrato) {
     throw new ActiveContractExistsError(conflictingContrato as MaintenanceContrato);
@@ -4155,7 +4281,7 @@ export async function convertPresupuestoToContrato(
       preaviso_cancelacion_dias: 30,
       dia_facturacion:        1,
       proxima_factura:        proxima.toISOString().split('T')[0],
-      estado:                 'activo',
+      estado:                 'pendiente_activacion',
       contract_id:            tradeContract.id,
       updated_at:             new Date().toISOString(),
     })
@@ -4191,10 +4317,10 @@ export async function convertPresupuestoToContrato(
     throw error;
   }
 
-  // Update trade_contracts with mantenimiento_id back-reference
+  // Update trade_contracts with the correct operational contract reference
   await supabase
     .from('trade_contracts')
-    .update({ mantenimiento_id: data.id })
+    .update({ maintenance_contract_id: data.id })
     .eq('id', tradeContract.id);
 
   // Mark presupuesto as converted
@@ -4353,6 +4479,7 @@ export interface TradeContract {
   org_id: string;
   client_id?: string;
   mantenimiento_id?: string;
+  maintenance_contract_id?: string | null;
   referencia: string;
   oficio: string;
   estado: 'borrador' | 'firmado';
@@ -4401,7 +4528,7 @@ export async function createContract(
 
 export async function updateContract(
   id: string,
-  payload: Partial<Pick<TradeContract, 'variables' | 'contenido_html' | 'estado' | 'firmado_at'>>,
+  payload: Partial<Pick<TradeContract, 'variables' | 'contenido_html' | 'estado' | 'firmado_at' | 'maintenance_contract_id'>>,
 ): Promise<void> {
   const { error } = await supabase
     .from('trade_contracts')
