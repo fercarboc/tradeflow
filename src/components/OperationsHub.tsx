@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
   Calendar, Navigation, FileCheck, CheckCircle, Clock, Activity,
-  PenLine, ArrowRight, Plus, Eye, MapPin, User, ChevronRight, Star,
+  PenLine, ArrowRight, Plus, Eye, MapPin, User, ChevronRight, Star, Layers,
 } from 'lucide-react';
 import ScreenPlanificacion, {
   type PresupuestoPendiente,
@@ -10,6 +10,7 @@ import ScreenPlanificacion, {
 import ScreenRutaDia from './ScreenRutaDia';
 import ScreenParteTrabajo from './ScreenParteTrabajo';
 import ScreenValoraciones from './ScreenValoraciones';
+import ScreenSubcontratas from './ScreenSubcontratas';
 import type { TradeJob, TradeInvoice } from '../lib/supabase';
 import { loadInvoicesByJobId, checkClientMaintenanceContract } from '../lib/supabase';
 import type { GeoLocation } from '../lib/routeOptimizer';
@@ -26,7 +27,7 @@ interface TarifaLike {
 interface WorkerRef { id: string; nombre: string; rol: string; activo: boolean; }
 interface ClienteLike { id: string; nombre: string; telefono: string; email?: string | null; }
 
-export type HubSubTab = 'pendientes' | 'agenda' | 'partes' | 'valoraciones';
+export type HubSubTab = 'pendientes' | 'agenda' | 'partes' | 'externalizados' | 'valoraciones';
 
 // ── PENDIENTES TAB ─────────────────────────────────────────────────────────────
 
@@ -373,8 +374,9 @@ export interface OperationsHubProps {
 const TAB_CFG: Array<{ id: HubSubTab; icon: React.ReactNode; label: string }> = [
   { id: 'pendientes',   icon: <Clock className="w-3.5 h-3.5" />,    label: 'Pendientes' },
   { id: 'agenda',       icon: <Calendar className="w-3.5 h-3.5" />, label: 'Agenda' },
-  { id: 'partes',       icon: <FileCheck className="w-3.5 h-3.5" />, label: 'Partes' },
-  { id: 'valoraciones', icon: <Star className="w-3.5 h-3.5" />,     label: 'Valoraciones' },
+  { id: 'partes',         icon: <FileCheck className="w-3.5 h-3.5" />, label: 'Partes' },
+  { id: 'externalizados', icon: <Layers className="w-3.5 h-3.5" />,   label: 'Externalizados' },
+  { id: 'valoraciones',   icon: <Star className="w-3.5 h-3.5" />,     label: 'Valoraciones' },
 ];
 
 export default function OperationsHub(props: OperationsHubProps) {
@@ -593,6 +595,18 @@ export default function OperationsHub(props: OperationsHubProps) {
             jobs={props.jobs}
             onOpenParte={handleOpenParte}
           />
+        </div>
+      )}
+
+      {activeSubTab === 'externalizados' && (
+        <div className="flex-1 overflow-y-auto min-h-0">
+          {props.orgId ? (
+            <ScreenSubcontratas orgId={props.orgId} showToast={props.showToast} />
+          ) : (
+            <div className="flex items-center justify-center h-40">
+              <p className="text-sm text-slate-400">Sin organización activa.</p>
+            </div>
+          )}
         </div>
       )}
 

@@ -104,7 +104,6 @@ import ScreenIngresos from './ScreenIngresos';
 import ScreenMantenimiento from './ScreenMantenimiento';
 import ScreenFacturas from './ScreenFacturas';
 import ScreenContratos from './ScreenContratos';
-import ScreenSubcontratas from './ScreenSubcontratas';
 import ScreenAsistenteTecnico from './ScreenAsistenteTecnico';
 import { resolveTemplate, buildTemplateVars, DEFAULT_TEMPLATES, VARIABLE_GROUPS, ensureAcceptanceUrl } from '../lib/templateEngine';
 import {
@@ -725,6 +724,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         if (stored === 'ruta_dia' || stored === 'partes' || stored === 'valoraciones') return 'planificacion';
         if (stored === 'contratos') return 'mantenimiento';
         if (stored === 'catalog') return 'suppliers';
+        if (stored === 'subcontratas') return 'planificacion';
         return stored;
       }
     } catch {}
@@ -742,6 +742,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       if (stored === 'ruta_dia') return 'agenda';
       if (stored === 'partes') return 'partes';
       if (stored === 'valoraciones') return 'valoraciones';
+      if (stored === 'subcontratas') return 'externalizados';
     } catch {}
     return undefined;
   });
@@ -3631,12 +3632,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 mantenimientos: 'mantenimiento',
                 planificacion: 'trabajos',
                 catalogo: 'suppliers',
+                externalizados: 'trabajos',
+                subcontratas: 'trabajos',
               };
               const t = mobilePageMap[page];
               if (t) {
                 setMobileTab(t);
                 if (page === 'catalogo') setMobileSuppliersSubTab('catalogo');
                 else setMobileSuppliersSubTab('proveedores');
+                if (page === 'externalizados' || page === 'subcontratas') setPlanificacionSubTab('externalizados');
               }
             } else {
               const desktopPageMap: Record<string, string> = {
@@ -3647,12 +3651,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 mantenimientos: 'mantenimiento',
                 planificacion: 'planificacion',
                 catalogo: 'suppliers',
+                externalizados: 'planificacion',
+                subcontratas: 'planificacion',
               };
               const t = desktopPageMap[page];
               if (t) {
                 setActiveTab(t);
                 if (page === 'catalogo') setSuppliersSubTab('catalogo');
                 else setSuppliersSubTab('proveedores');
+                if (page === 'externalizados' || page === 'subcontratas') setPlanificacionSubTab('externalizados');
               }
             }
           }}
@@ -3904,6 +3911,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   : 'Oficina')
               }
               workerProfileId={workerProfile?.id ?? null}
+              initialSubTab={planificacionSubTab}
               prefillJobFromQuote={prefillJobFromQuote ? {
                 id: prefillJobFromQuote.id,
                 dbId: prefillJobFromQuote.dbId,
@@ -6158,7 +6166,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('ingresos.view') && SidebarBtn({ id: 'ingresos', icon: <BarChart2 className="w-4 h-4" />, label: 'Ingresos/Gastos' })}
             {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? ctxPlan) || subscription?.status === 'trial') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
-            {can('jobs.view') && orgId && SidebarBtn({ id: 'subcontratas', icon: <Layers className="w-4 h-4" />, label: 'Externalizados' })}
             {can('catalog.manage') && orgId && SidebarBtn({ id: 'suppliers', icon: <Truck className="w-4 h-4" />, label: 'Proveedores' })}
             {SidebarBtn({ id: 'asistente', icon: <BookOpen className="w-4 h-4" />, label: 'Asistente Técnico' })}
             {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
@@ -6246,7 +6253,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'facturas' && 'Gestión de Facturas'}
                 {activeTab === 'equipo' && 'Equipo y Trabajadores'}
                 {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
-                {activeTab === 'subcontratas' && 'Trabajos Externalizados'}
                 {activeTab === 'suppliers' && 'Proveedores y Catálogos'}
                 {activeTab === 'pedidos_material' && 'Mis pedidos'}
                 {activeTab === 'asistente' && 'Asistente Técnico de Normativa'}
@@ -6495,9 +6501,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     onNavigateToFacturas={(id) => { setFacturaMantenimientoContext(id ?? null); setActiveTab('invoices'); }}
                     onOpenContratos={() => setShowContratosOverlay(true)}
                   />
-                )}
-                {activeTab === 'subcontratas' && orgId && (
-                  <ScreenSubcontratas orgId={orgId} showToast={showToast} />
                 )}
                 {activeTab === 'suppliers' && orgId && (
                   <div className="h-full flex flex-col">
@@ -7992,7 +7995,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                         <p className="font-mono font-bold text-slate-700">{s.precio_cliente.toFixed(2)}€</p>
                         <p className="text-[9px] text-slate-400">Coste: {s.coste.toFixed(2)}€ · Margen: {mg}%</p>
                       </div>
-                      <button onClick={() => { setActiveTab('subcontratas'); }} className="text-violet-400 hover:text-violet-700 cursor-pointer shrink-0" title="Ver en Externalizados">
+                      <button onClick={() => { setPlanificacionSubTab('externalizados'); setActiveTab('planificacion'); }} className="text-violet-400 hover:text-violet-700 cursor-pointer shrink-0" title="Ver en Externalizados">
                         <ChevronRight className="w-4 h-4" />
                       </button>
                     </div>
@@ -8024,7 +8027,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <option value="">— Selecciona proveedor —</option>
                     {previewProveedores.map(p => <option key={p.id} value={p.id}>{p.nombre}{p.especialidad ? ` · ${p.especialidad}` : ''}</option>)}
                   </select>
-                  {previewProveedores.length === 0 && <p className="text-[10px] text-amber-600 mt-1">Sin proveedores — ve a Externalizados › Proveedores para añadir uno</p>}
+                  {previewProveedores.length === 0 && <p className="text-[10px] text-amber-600 mt-1">Sin proveedores — ve a Planificación › Externalizados › Proveedores para añadir uno</p>}
                 </div>
                 <div>
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Descripción del trabajo *</p>
