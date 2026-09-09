@@ -724,6 +724,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         // Coerce legacy sidebar items into unified hub
         if (stored === 'ruta_dia' || stored === 'partes' || stored === 'valoraciones') return 'planificacion';
         if (stored === 'contratos') return 'mantenimiento';
+        if (stored === 'catalog') return 'suppliers';
         return stored;
       }
     } catch {}
@@ -744,6 +745,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     } catch {}
     return undefined;
   });
+
+  // Suppliers hub sub-tab. Defaults to 'proveedores'. Set to 'catalogo' only on explicit intent
+  // (legacy 'catalog' localStorage, internal nav CTAs, chatbot). Sidebar click always resets to 'proveedores'.
+  const [suppliersSubTab, setSuppliersSubTab] = useState<'proveedores' | 'catalogo'>(() => {
+    try {
+      const stored = localStorage.getItem('trabflow_app_tab');
+      if (stored === 'catalog') return 'catalogo';
+    } catch {}
+    return 'proveedores';
+  });
+
+  // Mobile suppliers hub sub-tab
+  const [mobileSuppliersSubTab, setMobileSuppliersSubTab] = useState<'proveedores' | 'catalogo'>('proveedores');
   const [newJobTrigger, setNewJobTrigger] = useState(0);
   const [prefillJobFromQuote, setPrefillJobFromQuote] = useState<import('../types').Presupuesto | null>(null);
 
@@ -764,7 +778,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }, [initialMobile]);
 
   // Tabs de navegación móvil
-  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo' | 'mantenimiento' | 'ruta' | 'asistente' | 'partes'>(rol === 'tecnico' ? 'trabajos' : 'inicio');
+  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'suppliers' | 'mantenimiento' | 'ruta' | 'asistente' | 'partes'>(rol === 'tecnico' ? 'trabajos' : 'inicio');
   // Fix timing: session carga async, rol llega tarde — forzar tab correcto cuando cambia
   useEffect(() => {
     if (rol === 'tecnico') {
@@ -3616,10 +3630,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 ajustes: 'ajustes',
                 mantenimientos: 'mantenimiento',
                 planificacion: 'trabajos',
-                catalogo: 'catalogo',
+                catalogo: 'suppliers',
               };
               const t = mobilePageMap[page];
-              if (t) setMobileTab(t);
+              if (t) {
+                setMobileTab(t);
+                if (page === 'catalogo') setMobileSuppliersSubTab('catalogo');
+                else setMobileSuppliersSubTab('proveedores');
+              }
             } else {
               const desktopPageMap: Record<string, string> = {
                 presupuestos: 'quotes',
@@ -3628,10 +3646,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 ajustes: 'settings',
                 mantenimientos: 'mantenimiento',
                 planificacion: 'planificacion',
-                catalogo: 'catalogo',
+                catalogo: 'suppliers',
               };
               const t = desktopPageMap[page];
-              if (t) setActiveTab(t);
+              if (t) {
+                setActiveTab(t);
+                if (page === 'catalogo') setSuppliersSubTab('catalogo');
+                else setSuppliersSubTab('proveedores');
+              }
             }
           }}
         />
@@ -3798,16 +3820,38 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               showToast={showToast}
             />
           )}
-          {mobileTab === 'catalogo' && (
-            <MobileCatalogScreen
-              tarifas={tarifas}
-              isLiveMode={isLiveMode}
-              onUpdatePrice={async (id, price) => {
-                if (isLiveMode) await updateTarifaPrice(id, price);
-                setTarifas(prev => prev.map(t => t.id === id ? { ...t, precioBase: price } : t));
-              }}
-              showToast={showToast}
-            />
+          {mobileTab === 'suppliers' && (
+            <div className="h-full flex flex-col overflow-hidden">
+              <div className="flex shrink-0 border-b border-slate-200 bg-white">
+                {(['proveedores', 'catalogo'] as const).map(sub => (
+                  <button
+                    key={sub}
+                    onClick={() => setMobileSuppliersSubTab(sub)}
+                    className={`flex-1 py-2.5 text-xs font-bold border-b-2 transition-colors cursor-pointer ${
+                      mobileSuppliersSubTab === sub ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500'
+                    }`}
+                  >
+                    {sub === 'proveedores' ? 'Proveedores' : 'Catálogos'}
+                  </button>
+                ))}
+              </div>
+              {mobileSuppliersSubTab === 'proveedores' && orgId && (
+                <div className="flex-1 overflow-y-auto min-h-0">
+                  <ScreenProveedoresCliente orgId={orgId} showToast={showToast} />
+                </div>
+              )}
+              {mobileSuppliersSubTab === 'catalogo' && (
+                <MobileCatalogScreen
+                  tarifas={tarifas}
+                  isLiveMode={isLiveMode}
+                  onUpdatePrice={async (id, price) => {
+                    if (isLiveMode) await updateTarifaPrice(id, price);
+                    setTarifas(prev => prev.map(t => t.id === id ? { ...t, precioBase: price } : t));
+                  }}
+                  showToast={showToast}
+                />
+              )}
+            </div>
           )}
           {mobileTab === 'ruta' && orgId && (
             <ScreenRutaDia
@@ -4360,17 +4404,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
           </button>
 
-          {/* Catálogo */}
+          {/* Proveedores */}
           <button
-            onClick={() => setMobileTab('catalogo')}
+            onClick={() => { setMobileSuppliersSubTab('proveedores'); setMobileTab('suppliers'); setShowFloatingMenu(false); }}
             className="border-2 border-amber-200 rounded-2xl p-4 flex flex-col gap-3 bg-white active:scale-95 transition-transform text-left"
           >
             <div className="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center">
-              <Package className="w-5 h-5 text-amber-600" />
+              <Truck className="w-5 h-5 text-amber-600" />
             </div>
             <div>
-              <p className="text-sm font-bold text-gray-900 leading-tight">Catálogo</p>
-              <p className="text-xs text-gray-400 mt-0.5">Material y precios</p>
+              <p className="text-sm font-bold text-gray-900 leading-tight">Proveedores</p>
+              <p className="text-xs text-gray-400 mt-0.5">Catálogos y precios</p>
             </div>
           </button>
 
@@ -6105,7 +6149,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('catalog.manage') && orgId && SidebarBtn({ id: 'pedidos_material', icon: <ShoppingCart className="w-4 h-4" />, label: 'Mis pedidos' })}
             {can('clients.manage') && SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes CRM' })}
             {can('invoices.manage') && SidebarBtn({ id: 'invoices', icon: <Receipt className="w-4 h-4" />, label: 'Facturas' })}
-            {can('catalog.manage') && SidebarBtn({ id: 'catalog', icon: <Package className="w-4 h-4" />, label: 'Catálogo' })}
             {can('jobs.view') && SidebarBtn({
               id: 'planificacion',
               icon: <Calendar className="w-4 h-4" />,
@@ -6198,14 +6241,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'ai_scan' && 'Escáner Fotográfico IA'}
                 {activeTab === 'crm' && 'Clientes CRM'}
                 {activeTab === 'invoices' && 'Gestión de Facturas'}
-                {activeTab === 'catalog' && 'Catálogo de Productos'}
                 {activeTab === 'planificacion' && 'Planificación'}
                 {activeTab === 'ingresos' && 'Ingresos, Gastos y Rentabilidad'}
                 {activeTab === 'facturas' && 'Gestión de Facturas'}
                 {activeTab === 'equipo' && 'Equipo y Trabajadores'}
                 {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
                 {activeTab === 'subcontratas' && 'Trabajos Externalizados'}
-                {activeTab === 'suppliers' && 'Catálogos de Proveedores'}
+                {activeTab === 'suppliers' && 'Proveedores y Catálogos'}
                 {activeTab === 'pedidos_material' && 'Mis pedidos'}
                 {activeTab === 'asistente' && 'Asistente Técnico de Normativa'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
@@ -6356,7 +6398,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'ai_scan' && ScreenAIScan()}
                 {activeTab === 'crm' && ScreenCRM()}
                 {activeTab === 'invoices' && <ScreenFacturas showToast={showToast} isLiveMode={isLiveMode} initialMantenimientoId={facturaMantenimientoContext} />}
-                {activeTab === 'catalog' && ScreenCatalog()}
                 {activeTab === 'planificacion' && (
                   <OperationsHub
                     jobs={rol === 'tecnico' && workerProfile
@@ -6459,7 +6500,35 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <ScreenSubcontratas orgId={orgId} showToast={showToast} />
                 )}
                 {activeTab === 'suppliers' && orgId && (
-                  <ScreenProveedoresCliente orgId={orgId} showToast={showToast} />
+                  <div className="h-full flex flex-col">
+                    <div className="flex shrink-0 px-5 pt-4 border-b border-slate-200 bg-white">
+                      {([
+                        { id: 'proveedores' as const, label: 'Proveedores', icon: <Truck className="w-3.5 h-3.5" /> },
+                        { id: 'catalogo' as const, label: 'Catálogos', icon: <Package className="w-3.5 h-3.5" /> },
+                      ]).map(tab => {
+                        const isActive = suppliersSubTab === tab.id;
+                        return (
+                          <button key={tab.id} onClick={() => setSuppliersSubTab(tab.id)}
+                            className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-bold whitespace-nowrap border-b-2 -mb-px transition-colors cursor-pointer ${
+                              isActive ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
+                            }`}
+                          >
+                            {tab.icon}{tab.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    {suppliersSubTab === 'proveedores' && (
+                      <div className="flex-1 overflow-y-auto min-h-0">
+                        <ScreenProveedoresCliente orgId={orgId} showToast={showToast} />
+                      </div>
+                    )}
+                    {suppliersSubTab === 'catalogo' && (
+                      <div className="flex-1 min-h-0">
+                        {ScreenCatalog()}
+                      </div>
+                    )}
+                  </div>
                 )}
                 {activeTab === 'pedidos_material' && (
                   <ScreenMisPedidos />
@@ -6540,7 +6609,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       return (
         <button
           data-testid={`nav-${id}`}
-          onClick={() => { if (id === 'invoices') setFacturaMantenimientoContext(null); setActiveTab(id); }}
+          onClick={() => { if (id === 'invoices') setFacturaMantenimientoContext(null); if (id === 'suppliers') setSuppliersSubTab('proveedores'); setActiveTab(id); }}
           className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[11px] font-semibold transition-all cursor-pointer relative ${
             isActive
               ? 'bg-blue-600 text-white shadow-md shadow-blue-500/10'
@@ -6598,7 +6667,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         pendingSetup.push({ label: 'Logo para presupuestos y facturas', action: 'Subir logo', onClick: () => setActiveTab('settings') });
       }
       if (tarifas.length === 0) {
-        pendingSetup.push({ label: 'Catálogo de productos/servicios (sin catálogo la IA no funciona bien)', action: 'Ir a Catálogo', onClick: () => setActiveTab('catalog') });
+        pendingSetup.push({ label: 'Catálogo de productos/servicios (sin catálogo la IA no funciona bien)', action: 'Ir a Catálogo', onClick: () => { setSuppliersSubTab('catalogo'); setActiveTab('suppliers'); } });
       }
     }
 
@@ -10376,7 +10445,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </p>
             </div>
             <button
-              onClick={() => setActiveTab('catalog')}
+              onClick={() => { setSuppliersSubTab('catalogo'); setActiveTab('suppliers'); }}
               className="shrink-0 flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white text-[9px] font-bold uppercase tracking-wider px-3 py-2 rounded-lg cursor-pointer transition-colors"
             >
               Ir al catálogo →
