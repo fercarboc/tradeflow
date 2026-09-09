@@ -626,7 +626,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       // Always replace demo clients with real data (even if empty list)
       setClientes(data.clients.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono ?? '', email: c.email ?? '', direccion: c.direccion ?? '', nif: c.nif ?? undefined, ciudad: c.ciudad ?? undefined, cp: c.cp ?? undefined, provincia: c.provincia ?? undefined, pais: c.pais ?? undefined, obrasActivas: c.obras_activas, totalFacturado: c.total_facturado })));
       setPresupuestos(data.quotes.map(q => ({ id: q.numero, dbId: q.id, clientId: q.client_id ?? null, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total, familia: i.familia ?? undefined })), total: q.total_neto, iva_pct: q.iva_pct, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '', kbActuaciones: q.kb_actuaciones ?? undefined })));
-      setFacturas(data.invoices.map(f => ({ id: f.id, numeroFactura: f.numero, nombreCliente: f.client_id ? (data.clients.find(c => c.id === f.client_id)?.nombre ?? '') : (f.concepto?.split('—')[1]?.trim() ?? ''), idPresupuesto: f.quote_id ?? '', job_id: f.job_id ?? null, importe: f.subtotal, iva_pct: f.iva_pct, fecha: f.fecha, fechaVencimiento: f.fecha_vencimiento ?? '', estado: f.estado as any, concepto: f.concepto ?? undefined, esMantenimineto: !!f.contract_id })));
+      setFacturas(data.invoices.map(f => ({ id: f.id, numeroFactura: f.numero, nombreCliente: f.client_id ? (data.clients.find(c => c.id === f.client_id)?.nombre ?? '') : (f.concepto?.split('—')[1]?.trim() ?? ''), idPresupuesto: f.quote_id ?? '', job_id: f.job_id ?? null, importe: f.subtotal, iva_pct: f.iva_pct, fecha: f.fecha, fechaVencimiento: f.fecha_vencimiento ?? '', estado: f.estado as any, concepto: f.concepto ?? undefined, esMantenimineto: !!f.contract_id, mantenimientoId: f.mantenimiento_id ?? null })));
       if (org) {
         setOrgId(org.id);
         setOrgData(org);
@@ -724,6 +724,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       if (stored) {
         // Coerce legacy sidebar items into unified hub
         if (stored === 'ruta_dia' || stored === 'partes') return 'planificacion';
+        if (stored === 'contratos') return 'mantenimiento';
         return stored;
       }
     } catch {}
@@ -763,7 +764,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }, [initialMobile]);
 
   // Tabs de navegación móvil
-  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo' | 'mantenimiento' | 'contratos' | 'ruta' | 'asistente' | 'valoraciones' | 'partes'>(rol === 'tecnico' ? 'trabajos' : 'inicio');
+  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo' | 'mantenimiento' | 'ruta' | 'asistente' | 'valoraciones' | 'partes'>(rol === 'tecnico' ? 'trabajos' : 'inicio');
   // Fix timing: session carga async, rol llega tarde — forzar tab correcto cuando cambia
   useEffect(() => {
     if (rol === 'tecnico') {
@@ -784,6 +785,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [showPresupuestoIncremental, setShowPresupuestoIncremental] = useState(false);
   const [showMantenimientoWizard, setShowMantenimientoWizard] = useState(false);
   const [mantenimientoReloadKey, setMantenimientoReloadKey] = useState(0);
+  const [showContratosOverlay, setShowContratosOverlay] = useState(false);
+  const [facturaMantenimientoContext, setFacturaMantenimientoContext] = useState<string | null>(null);
   const [pendingPresupuestoJobId, setPendingPresupuestoJobId] = useState<string | null>(null);
 
   // Pasos del Asistente Móvil (Wizard)
@@ -3915,15 +3918,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               showToast={showToast}
               initialText={mantenimientoInitialText}
               onInitialTextConsumed={() => setMantenimientoInitialText('')}
-            />
-          )}
-          {mobileTab === 'contratos' && orgId && orgData && (
-            <ScreenContratos
-              orgId={orgId}
-              orgData={orgData}
-              clientes={clientes.map(c => ({ id: c.id, nombre: c.nombre, direccion: c.direccion, telefono: c.telefono, email: c.email, cp: c.cp, ciudad: c.ciudad, provincia: c.provincia }))}
-              oficio={orgData.oficio}
-              plan={subscription?.plan ?? orgData?.plan ?? 'basico'}
+              onNavigateToFacturas={(id) => { setFacturaMantenimientoContext(id ?? null); setMobileTab('facturas'); }}
+              onOpenContratos={() => setShowContratosOverlay(true)}
             />
           )}
           {mobileTab === 'valoraciones' && orgId && (
@@ -4272,7 +4268,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       const isActive = mobileTab === tab;
       return (
         <button
-          onClick={() => { setMobileTab(tab as typeof mobileTab); setShowFloatingMenu(false); }}
+          onClick={() => { if (tab === 'facturas') setFacturaMantenimientoContext(null); setMobileTab(tab as typeof mobileTab); setShowFloatingMenu(false); }}
           className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2 px-1 cursor-pointer transition-all active:scale-95 relative"
         >
           {isActive && (
@@ -4392,20 +4388,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <div>
               <p className="text-sm font-bold text-gray-900 leading-tight">Normativa</p>
               <p className="text-xs text-gray-400 mt-0.5">REBT · RITE · GAS</p>
-            </div>
-          </button>
-
-          {/* Contratos */}
-          <button
-            onClick={() => setMobileTab('contratos')}
-            className="border-2 border-indigo-200 rounded-2xl p-4 flex flex-col gap-3 bg-white active:scale-95 transition-transform text-left"
-          >
-            <div className="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center">
-              <FileText className="w-5 h-5 text-indigo-600" />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-gray-900 leading-tight">Contratos</p>
-              <p className="text-xs text-gray-400 mt-0.5">Mantenimiento activo</p>
             </div>
           </button>
 
@@ -5060,7 +5042,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     const currentMonthEnd   = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
     // Exclude future maintenance invoices (months 2–12); they live in Mantenimientos
-    const facturasFacturacion = facturas.filter(f => {
+    const facturasBase = facturas.filter(f => {
       if (!f.esMantenimineto) return true;
       if (f.estado === 'Vencida' || f.estado === 'Devuelta' || f.estado === 'Pagada') return true;
       if (f.estado === 'Pendiente' && f.fechaVencimiento) {
@@ -5069,6 +5051,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       }
       return false;
     });
+    const facturasFacturacion = facturaMantenimientoContext
+      ? facturasBase.filter(f => f.mantenimientoId === facturaMantenimientoContext)
+      : facturasBase;
 
     const proximas = facturasFacturacion
       .filter(f => f.estado === 'Pendiente' && f.fechaVencimiento)
@@ -5097,6 +5082,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
     return (
       <div className="space-y-3">
+        {facturaMantenimientoContext && (
+          <div className="flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-2xl px-3 py-2.5">
+            <span className="text-xs font-semibold text-blue-700 flex-1">Facturas de este contrato</span>
+            <button
+              onClick={() => setFacturaMantenimientoContext(null)}
+              className="text-[10px] font-bold text-blue-500 flex items-center gap-1 cursor-pointer"
+            >
+              × Todas
+            </button>
+          </div>
+        )}
         {/* Stats row */}
         <div className="grid grid-cols-3 gap-2">
           <div className="bg-white border border-gray-100 rounded-2xl p-3 text-center shadow-sm">
@@ -6136,7 +6132,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('ingresos.view') && SidebarBtn({ id: 'ingresos', icon: <BarChart2 className="w-4 h-4" />, label: 'Ingresos/Gastos' })}
             {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? ctxPlan) || subscription?.status === 'trial') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
-            {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? ctxPlan) || subscription?.status === 'trial') && SidebarBtn({ id: 'contratos', icon: <FileText className="w-4 h-4" />, label: 'Contratos' })}
             {can('jobs.view') && orgId && SidebarBtn({ id: 'subcontratas', icon: <Layers className="w-4 h-4" />, label: 'Externalizados' })}
             {can('catalog.manage') && orgId && SidebarBtn({ id: 'suppliers', icon: <Truck className="w-4 h-4" />, label: 'Proveedores' })}
             {SidebarBtn({ id: 'asistente', icon: <BookOpen className="w-4 h-4" />, label: 'Asistente Técnico' })}
@@ -6379,7 +6374,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'create_quote' && ScreenCreateQuote()}
                 {activeTab === 'ai_scan' && ScreenAIScan()}
                 {activeTab === 'crm' && ScreenCRM()}
-                {activeTab === 'invoices' && <ScreenFacturas showToast={showToast} isLiveMode={isLiveMode} />}
+                {activeTab === 'invoices' && <ScreenFacturas showToast={showToast} isLiveMode={isLiveMode} initialMantenimientoId={facturaMantenimientoContext} />}
                 {activeTab === 'catalog' && ScreenCatalog()}
                 {activeTab === 'planificacion' && (
                   <OperationsHub
@@ -6475,15 +6470,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     showToast={showToast}
                     initialText={mantenimientoInitialText}
                     onInitialTextConsumed={() => setMantenimientoInitialText('')}
-                  />
-                )}
-                {activeTab === 'contratos' && orgId && orgData && (
-                  <ScreenContratos
-                    orgId={orgId}
-                    orgData={orgData}
-                    clientes={clientes.map(c => ({ id: c.id, nombre: c.nombre, direccion: c.direccion, telefono: c.telefono, email: c.email, cp: c.cp, ciudad: c.ciudad, provincia: c.provincia }))}
-                    oficio={orgData.oficio}
-                    plan={subscription?.plan ?? orgData?.plan ?? 'basico'}
+                    onNavigateToFacturas={(id) => { setFacturaMantenimientoContext(id ?? null); setActiveTab('invoices'); }}
+                    onOpenContratos={() => setShowContratosOverlay(true)}
                   />
                 )}
                 {activeTab === 'subcontratas' && orgId && (
@@ -6574,7 +6562,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       return (
         <button
           data-testid={`nav-${id}`}
-          onClick={() => setActiveTab(id)}
+          onClick={() => { if (id === 'invoices') setFacturaMantenimientoContext(null); setActiveTab(id); }}
           className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[11px] font-semibold transition-all cursor-pointer relative ${
             isActive
               ? 'bg-blue-600 text-white shadow-md shadow-blue-500/10'
@@ -11337,6 +11325,27 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               )}
             </div>
           </div>
+        </div>
+      )}
+
+      {/* ── Overlay: ScreenContratos (desde hub de mantenimiento) ── */}
+      {showContratosOverlay && orgData && (
+        <div className="fixed inset-0 z-50 flex flex-col bg-white overflow-y-auto">
+          <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-200 bg-white sticky top-0 z-10">
+            <button
+              onClick={() => setShowContratosOverlay(false)}
+              className="p-1.5 rounded-lg text-slate-500 hover:bg-slate-100 cursor-pointer transition-colors"
+              title="Cerrar"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
+            <span className="text-sm font-bold text-slate-800">Contratos de mantenimiento</span>
+          </div>
+          <ScreenContratos
+            orgId={orgId ?? ''}
+            orgData={orgData}
+            clientes={clientes.map(c => ({ id: c.id, nombre: c.nombre, cif: c.nif, direccion: c.direccion, telefono: c.telefono, email: c.email, cp: c.cp, ciudad: c.ciudad, provincia: c.provincia }))}
+          />
         </div>
       )}
 

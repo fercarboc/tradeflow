@@ -168,6 +168,7 @@ fechaVencimiento: string;
 estado: 'Borrador' | 'Emitida' | 'Pagada' | 'Pendiente' | 'Vencida' | 'Devuelta';
 concepto?: string;
 esMantenimineto?: boolean;
+mantenimientoId?: string | null;
 }
 
 export interface Cliente {

@@ -138,6 +138,7 @@ export interface TradeInvoice {
   devuelta_at?: string | null;
   devuelta_motivo?: string | null;
   // Nuevos campos (análisis facturación)
+  mantenimiento_id?: string | null;
   tipo_factura?: 'contrato_cuota' | 'contrato_extra' | 'trabajo_puntual' | 'rectificativa';
   serie?: 'F' | 'M' | 'R' | null;
   mes_facturacion?: string | null;
