@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import {
   loadSubcontractors, saveSubcontractor, deleteSubcontractor,
-  loadSubcontratas, saveSubcontrata, deleteSubcontrata,
+  loadSubcontratas, saveSubcontrata, removeSubcontrataSafely,
   updateSubcontrataEstado, loadSubcontrataNotes,
   addSubcontrataNota, deleteSubcontrataNota,
   loadJobs, loadContracts, addSubcontrataToJobQuote,
@@ -241,13 +241,34 @@ export default function ScreenSubcontratas({ orgId, showToast }: Props) {
     setSaving(false);
   }
 
-  async function handleDelete(s: TradeSubcontrata) {
-    if (!confirm(`¿Eliminar "${s.descripcion}"?`)) return;
+  async function handleRemove(s: TradeSubcontrata) {
+    const locallyEligible =
+      s.estado === 'pendiente' &&
+      !s.quote_id &&
+      !s.job_id &&
+      !s.contract_id &&
+      s.importe_factura_recibida == null &&
+      !s.pagado &&
+      !s.pagado_at;
+
+    if (locallyEligible) {
+      if (!confirm('¿Eliminar este trabajo externalizado?\nEs un borrador sin actividad y se eliminará definitivamente.')) return;
+    } else {
+      if (!confirm('Este trabajo tiene actividad o información asociada y no puede eliminarse sin perder trazabilidad.\n\n¿Quieres cancelarlo?')) return;
+    }
+
     try {
-      await deleteSubcontrata(s.id);
-      setSubcontratas(prev => prev.filter(x => x.id !== s.id));
-      if (selected?.id === s.id) { setSelected(null); setView('list'); }
-      showToast('Eliminado');
+      const result = await removeSubcontrataSafely(s.id, orgId);
+      if (result.action === 'deleted') {
+        setSubcontratas(prev => prev.filter(x => x.id !== s.id));
+        if (selected?.id === s.id) { setSelected(null); setView('list'); }
+        showToast('Trabajo eliminado');
+      } else {
+        const updated = { ...s, estado: 'cancelado' as EstadoKey };
+        setSubcontratas(prev => prev.map(x => x.id === s.id ? updated : x));
+        if (selected?.id === s.id) setSelected(updated);
+        showToast('Trabajo cancelado — historial conservado', 'info');
+      }
     } catch (e: unknown) { showToast('Error: ' + (e as Error).message, 'error'); }
   }
 
@@ -562,7 +583,15 @@ export default function ScreenSubcontratas({ orgId, showToast }: Props) {
     const prov = selected.trade_subcontractors;
     const cfg = ESTADO_CFG[selected.estado] ?? ESTADO_CFG.pendiente;
     const estadoIdx = ESTADOS_ORDEN.indexOf(selected.estado);
-    const bloqueado = selected.pagado || selected.estado === 'pagado';
+    const bloqueado = selected.pagado || selected.estado === 'pagado' || selected.estado === 'cancelado';
+    const puedeEliminar =
+      selected.estado === 'pendiente' &&
+      !selected.quote_id &&
+      !selected.job_id &&
+      !selected.contract_id &&
+      selected.importe_factura_recibida == null &&
+      !selected.pagado &&
+      !selected.pagado_at;
 
     return (
       <div className="space-y-4">
@@ -580,7 +609,7 @@ export default function ScreenSubcontratas({ orgId, showToast }: Props) {
           {!bloqueado && (
             <div className="ml-auto flex gap-2">
               <button onClick={() => openEdit(selected)} className="flex items-center gap-1.5 border border-slate-200 text-slate-600 hover:border-slate-400 font-bold text-xs uppercase px-3 py-1.5 rounded-xl cursor-pointer"><Edit2 className="w-3 h-3" /> Editar</button>
-              <button onClick={() => handleDelete(selected)} className="flex items-center gap-1.5 border border-red-200 text-red-500 hover:bg-red-50 font-bold text-xs uppercase px-3 py-1.5 rounded-xl cursor-pointer"><Trash2 className="w-3 h-3" /> Eliminar</button>
+              <button onClick={() => handleRemove(selected)} className="flex items-center gap-1.5 border border-red-200 text-red-500 hover:bg-red-50 font-bold text-xs uppercase px-3 py-1.5 rounded-xl cursor-pointer"><Trash2 className="w-3 h-3" /> {puedeEliminar ? 'Eliminar' : 'Cancelar'}</button>
             </div>
           )}
         </div>
@@ -893,7 +922,9 @@ export default function ScreenSubcontratas({ orgId, showToast }: Props) {
                     <td className="px-2 py-3" onClick={e => e.stopPropagation()}>
                       <div className="flex items-center gap-1">
                         <button onClick={() => openEdit(s)} className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 cursor-pointer"><Edit2 className="w-3.5 h-3.5" /></button>
-                        <button onClick={() => handleDelete(s)} className="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 cursor-pointer"><Trash2 className="w-3.5 h-3.5" /></button>
+                        {s.estado !== 'cancelado' && (
+                          <button onClick={() => handleRemove(s)} className="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 cursor-pointer"><Trash2 className="w-3.5 h-3.5" /></button>
+                        )}
                         <ChevronRight className="w-3.5 h-3.5 text-slate-300" />
                       </div>
                     </td>

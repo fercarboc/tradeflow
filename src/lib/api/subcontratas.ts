@@ -136,9 +136,56 @@ export async function saveSubcontrata(
   return data as TradeSubcontrata;
 }
 
-export async function deleteSubcontrata(id: string): Promise<void> {
-  const { error } = await supabase.from('trade_subcontratas').delete().eq('id', id);
+async function deleteSubcontrata(id: string, orgId: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_subcontratas')
+    .delete()
+    .eq('id', id)
+    .eq('org_id', orgId);
   if (error) throw error;
+}
+
+export type RemoveSubcontrataResult = { action: 'deleted' } | { action: 'cancelled' };
+
+export async function removeSubcontrataSafely(
+  id: string,
+  orgId: string,
+): Promise<RemoveSubcontrataResult> {
+  const { data: rec, error: loadErr } = await supabase
+    .from('trade_subcontratas')
+    .select('estado, quote_id, job_id, contract_id, importe_factura_recibida, pagado, pagado_at')
+    .eq('id', id)
+    .eq('org_id', orgId)
+    .single();
+  if (loadErr || !rec) throw loadErr ?? new Error('Registro no encontrado');
+
+  const { count: notaCount } = await supabase
+    .from('trade_subcontrata_notas')
+    .select('*', { count: 'exact', head: true })
+    .eq('subcontrata_id', id);
+
+  const eligible =
+    rec.estado === 'pendiente' &&
+    !rec.quote_id &&
+    !rec.job_id &&
+    !rec.contract_id &&
+    rec.importe_factura_recibida == null &&
+    !rec.pagado &&
+    !rec.pagado_at &&
+    (notaCount ?? 0) === 0;
+
+  if (eligible) {
+    await deleteSubcontrata(id, orgId);
+    return { action: 'deleted' };
+  }
+
+  const { error: cancelErr } = await supabase
+    .from('trade_subcontratas')
+    .update({ estado: 'cancelado', updated_at: new Date().toISOString() })
+    .eq('id', id)
+    .eq('org_id', orgId);
+  if (cancelErr) throw cancelErr;
+  return { action: 'cancelled' };
 }
 
 export async function updateSubcontrataEstado(
