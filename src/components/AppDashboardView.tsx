@@ -115,7 +115,6 @@ import PlanUpgradeModal from './PlanUpgradeModal';
 import OnboardingWizard from './OnboardingWizard';
 import ChatbotWidget from './ChatbotWidget';
 import ScreenProveedoresCliente from './ScreenProveedoresCliente';
-import ScreenMisPedidos from './marketplace/ScreenMisPedidos';
 import ScreenPostConfirm from './ScreenPostConfirm';
 import type { TradeOrganization, TradeQuote } from '../lib/supabase';
 
@@ -6154,7 +6153,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <span>Marketplace</span>
               </button>
             )}
-            {can('catalog.manage') && orgId && SidebarBtn({ id: 'pedidos_material', icon: <ShoppingCart className="w-4 h-4" />, label: 'Mis pedidos' })}
             {can('clients.manage') && SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes CRM' })}
             {can('invoices.manage') && SidebarBtn({ id: 'invoices', icon: <Receipt className="w-4 h-4" />, label: 'Facturas' })}
             {can('jobs.view') && SidebarBtn({
@@ -6254,7 +6252,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'equipo' && 'Equipo y Trabajadores'}
                 {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
                 {activeTab === 'suppliers' && 'Proveedores y Catálogos'}
-                {activeTab === 'pedidos_material' && 'Mis pedidos'}
                 {activeTab === 'asistente' && 'Asistente Técnico de Normativa'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
@@ -6357,7 +6354,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   )}
                   {isLiveMode && mktPendingCount > 0 && (
                     <button
-                      onClick={() => setActiveTab('pedidos_material')}
+                      onClick={() => setCurrentPage(ActivePage.Marketplace)}
                       className="relative bg-white border border-gray-200 hover:border-[#1A5A96] text-gray-600 hover:text-[#1A5A96] font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl flex items-center gap-1.5 cursor-pointer transition-colors"
                     >
                       <Truck className="w-3.5 h-3.5" />
@@ -6532,9 +6529,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       </div>
                     )}
                   </div>
-                )}
-                {activeTab === 'pedidos_material' && (
-                  <ScreenMisPedidos />
                 )}
                 {activeTab === 'asistente' && (
                   <ScreenAsistenteTecnico

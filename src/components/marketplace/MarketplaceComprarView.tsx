@@ -522,8 +522,8 @@ export default function MarketplaceComprarView({ setCurrentPage, session }: Prop
             </button>
             <button
               onClick={() => {
-                sessionStorage.setItem('tf:nav:tab', 'pedidos_material');
-                setCurrentPage(ActivePage.AppDashboard);
+                sessionStorage.setItem('tf:mkt:view', 'pedidos');
+                setCurrentPage(ActivePage.Marketplace);
               }}
               className="rounded-lg border border-[#1A5A96] px-6 py-2.5 text-sm font-medium text-[#1A5A96] hover:bg-[#1A5A96]/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A5A96]"
             >

@@ -29,6 +29,8 @@ import MarketplaceProductSlideOver from './MarketplaceProductSlideOver';
 import DesktopMarketplaceLayout    from './DesktopMarketplaceLayout';
 import MobileMarketplaceLayout     from './MobileMarketplaceLayout';
 import MarketplaceHome             from './MarketplaceHome';
+import MarketplaceTopNav           from './MarketplaceTopNav';
+import ScreenMisPedidos            from './ScreenMisPedidos';
 
 // ─── Toast ────────────────────────────────────────────────────────────────────
 
@@ -351,9 +353,14 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
 
   // ── Vista: home (entrada comercial) o catalog (búsqueda/filtros) ───────────
   // Si existe purchaseCtx en sessionStorage, se va directo al catálogo sin pasar por home.
-  const [view, setView] = useState<'home' | 'catalog'>(() =>
-    loadPurchaseContext() != null ? 'catalog' : 'home',
-  );
+  const [view, setView] = useState<'home' | 'catalog' | 'pedidos'>(() => {
+    const mktView = sessionStorage.getItem('tf:mkt:view');
+    if (mktView === 'pedidos') {
+      sessionStorage.removeItem('tf:mkt:view');
+      return 'pedidos';
+    }
+    return loadPurchaseContext() != null ? 'catalog' : 'home';
+  });
   const [actorIdsWithPickup, setActorIdsWithPickup] = useState<Set<string>>(new Set());
 
   // ── Contexto de compra (llega desde presupuesto) ───────────────────────────
@@ -745,7 +752,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         query={query}
         onQueryChange={setQuery}
         orgName={org?.nombre}
-        onGoHome={view === 'catalog' ? () => setView('home') : undefined}
+        onGoHome={view === 'catalog' || view === 'pedidos' ? () => setView('home') : undefined}
         hideSearch={view === 'home'}
       />
 
@@ -780,7 +787,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
           onOpenCart={openMobileCart}
           location={location}
           onChangeLocation={() => setLocationModalOpen(true)}
-          onMisPedidos={() => setCurrentPage(ActivePage.SeguimientoMaterial)}
+          onMisPedidos={() => setView('pedidos')}
           onDocumentos={mode === 'professional' ? () => setCurrentPage(ActivePage.DocumentosMarketplace) : undefined}
           onGoToProveedores={mode === 'public' ? () => setCurrentPage(ActivePage.Proveedores) : undefined}
         />
@@ -864,6 +871,21 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
             onCloseMobileCart={closeMobileCart}
           />
         </>
+      )}
+
+      {/* Vista Mis Pedidos */}
+      {view === 'pedidos' && (
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <MarketplaceTopNav
+            activeTab="pedidos"
+            onGoHome={() => setView('home')}
+            onGoToCatalog={handleGoToCatalog}
+            onMisPedidos={() => {}}
+          />
+          <div className="flex-1 overflow-y-auto">
+            <ScreenMisPedidos />
+          </div>
+        </div>
       )}
 
       {/* SlideOver — común a ambos layouts (z-50) */}
