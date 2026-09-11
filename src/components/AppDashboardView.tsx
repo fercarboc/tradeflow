@@ -6354,7 +6354,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   )}
                   {isLiveMode && mktPendingCount > 0 && (
                     <button
-                      onClick={() => setCurrentPage(ActivePage.Marketplace)}
+                      onClick={() => {
+                        sessionStorage.setItem('tf:mkt:view', 'pedidos');
+                        setCurrentPage(ActivePage.Marketplace);
+                      }}
                       className="relative bg-white border border-gray-200 hover:border-[#1A5A96] text-gray-600 hover:text-[#1A5A96] font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl flex items-center gap-1.5 cursor-pointer transition-colors"
                     >
                       <Truck className="w-3.5 h-3.5" />
