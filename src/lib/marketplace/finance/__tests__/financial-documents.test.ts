@@ -164,10 +164,10 @@ describe('getBuyerDocuments (QUERY-04..06)', () => {
     expect(result).toEqual(FAKE_PAGINATED_EMPTY)
   })
 
-  it('QUERY-05: buyer B intenta ver PS de org A → servidor lanza P0001 → wrapper propaga', async () => {
+  it('QUERY-05: buyer B intenta ver PS de org A → servidor lanza P0001 → wrapper propaga mensaje amigable', async () => {
     const sb = err(`GET_BUYER_DOCS: no autorizado para org ${FAKE_ORG_A}. ERRCODE=P0001`)
     await expect(getBuyerDocuments(sb, FAKE_ORG_A)).rejects.toThrow(
-      `getBuyerDocuments failed for org ${FAKE_ORG_A}`,
+      'No tienes permiso para acceder a estos documentos.',
     )
   })
 
@@ -420,10 +420,10 @@ describe('listProviderDocRefs (REF-05, REF-07..08)', () => {
     expect(result.items).toHaveLength(1)
   })
 
-  it('REF-06: buyer ajeno no puede ver ref → servidor deniega → wrapper propaga', async () => {
+  it('REF-06: buyer ajeno no puede ver ref → servidor deniega → wrapper propaga mensaje amigable', async () => {
     const sb = err(`LIST_BUYER_REFS: no autorizado para org ${FAKE_ORG_A}. ERRCODE=P0001`)
     await expect(listBuyerDocRefs(sb, FAKE_ORG_A)).rejects.toThrow(
-      `listBuyerDocRefs failed for org ${FAKE_ORG_A}`,
+      'No tienes permiso para acceder a estos documentos.',
     )
   })
 

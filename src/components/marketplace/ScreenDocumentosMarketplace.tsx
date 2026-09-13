@@ -1,4 +1,4 @@
-// MP-FIN-5C — Pantalla Documentos del Marketplace (buyer).
+// MP-FIN-5C — Pantalla Documentos del Marketplace (buyer). Light UI.
 // Archivo documental del instalador: resúmenes de compra + refs de proveedor.
 // Requiere sesión autenticada con org_id.
 import type { Session } from '@supabase/supabase-js'
@@ -22,30 +22,30 @@ export default function ScreenDocumentosMarketplace({ setCurrentPage, session }:
 
   if (!session || !org?.id) {
     return (
-      <div className="min-h-screen bg-[#020B16] flex items-center justify-center">
-        <p className="text-slate-500 text-sm">Cargando…</p>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <p className="text-gray-400 text-sm">Cargando…</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-[#020B16]">
+    <div className="min-h-screen bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 py-6 space-y-5">
         {/* Header */}
         <div className="flex items-center gap-3">
           <button
             onClick={() => setCurrentPage(ActivePage.Marketplace)}
             aria-label="Volver al Marketplace"
-            className="h-8 w-8 flex items-center justify-center rounded-lg border border-slate-700 hover:bg-slate-800 cursor-pointer transition-colors text-slate-400 hover:text-slate-200"
+            className="h-8 w-8 flex items-center justify-center rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors text-gray-400 hover:text-gray-600"
           >
             <ArrowLeft className="h-4 w-4" />
           </button>
           <div className="flex items-center gap-2">
             <FileText className="h-5 w-5 text-[#1A5A96]" />
-            <h1 className="text-lg font-bold text-slate-100">Documentos</h1>
+            <h1 className="text-lg font-bold text-gray-900">Documentos</h1>
           </div>
         </div>
-        <p className="text-xs text-slate-500 -mt-2 ml-11">
+        <p className="text-xs text-gray-400 -mt-2 ml-11">
           Resúmenes de compra y documentos registrados por tus proveedores.
         </p>
 

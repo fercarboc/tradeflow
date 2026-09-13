@@ -195,9 +195,11 @@ export async function getBuyerDocuments(
   )
 
   if (error) {
-    throw new Error(
-      `getBuyerDocuments failed for org ${orgId}: ${error.message}`,
-    )
+    console.error(`getBuyerDocuments org=${orgId}`, error)
+    if (error.code === 'P0001' || error.message?.includes('no autorizado')) {
+      throw new Error('No tienes permiso para acceder a estos documentos.')
+    }
+    throw new Error('Error al cargar los documentos. Inténtalo de nuevo.')
   }
 
   return data as PaginatedResult<FinDocListItem>
@@ -273,9 +275,11 @@ export async function listBuyerDocRefs(
   )
 
   if (error) {
-    throw new Error(
-      `listBuyerDocRefs failed for org ${orgId}: ${error.message}`,
-    )
+    console.error(`listBuyerDocRefs org=${orgId}`, error)
+    if (error.code === 'P0001' || error.message?.includes('no autorizado')) {
+      throw new Error('No tienes permiso para acceder a estos documentos.')
+    }
+    throw new Error('Error al cargar las referencias documentales. Inténtalo de nuevo.')
   }
 
   return data as PaginatedResult<BuyerDocRef>

@@ -31,6 +31,7 @@ import MobileMarketplaceLayout     from './MobileMarketplaceLayout';
 import MarketplaceHome             from './MarketplaceHome';
 import MarketplaceTopNav           from './MarketplaceTopNav';
 import ScreenMisPedidos            from './ScreenMisPedidos';
+import BuyerDocuments              from './BuyerDocuments';
 
 // ─── Toast ────────────────────────────────────────────────────────────────────
 
@@ -353,7 +354,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
 
   // ── Vista: home (entrada comercial) o catalog (búsqueda/filtros) ───────────
   // Si existe purchaseCtx en sessionStorage, se va directo al catálogo sin pasar por home.
-  const [view, setView] = useState<'home' | 'catalog' | 'pedidos'>(() => {
+  const [view, setView] = useState<'home' | 'catalog' | 'pedidos' | 'documentos'>(() => {
     const mktView = sessionStorage.getItem('tf:mkt:view');
     if (mktView === 'pedidos') {
       sessionStorage.removeItem('tf:mkt:view');
@@ -752,7 +753,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
         query={query}
         onQueryChange={setQuery}
         orgName={org?.nombre}
-        onGoHome={view === 'catalog' || view === 'pedidos' ? () => setView('home') : undefined}
+        onGoHome={view === 'catalog' || view === 'pedidos' || view === 'documentos' ? () => setView('home') : undefined}
         hideSearch={view === 'home'}
       />
 
@@ -788,7 +789,7 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
           location={location}
           onChangeLocation={() => setLocationModalOpen(true)}
           onMisPedidos={() => setView('pedidos')}
-          onDocumentos={mode === 'professional' ? () => setCurrentPage(ActivePage.DocumentosMarketplace) : undefined}
+          onDocumentos={mode === 'professional' ? () => setView('documentos') : undefined}
           onGoToProveedores={mode === 'public' ? () => setCurrentPage(ActivePage.Proveedores) : undefined}
         />
       )}
@@ -881,9 +882,32 @@ export default function ScreenMarketplace({ setCurrentPage, mode = 'professional
             onGoHome={() => setView('home')}
             onGoToCatalog={handleGoToCatalog}
             onMisPedidos={() => {}}
+            onDocumentos={() => setView('documentos')}
           />
           <div className="flex-1 overflow-y-auto">
             <ScreenMisPedidos />
+          </div>
+        </div>
+      )}
+
+      {/* Vista Documentos */}
+      {view === 'documentos' && (
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <MarketplaceTopNav
+            activeTab="documentos"
+            onGoHome={() => setView('home')}
+            onGoToCatalog={handleGoToCatalog}
+            onMisPedidos={() => setView('pedidos')}
+            onDocumentos={() => {}}
+          />
+          <div className="flex-1 overflow-y-auto bg-gray-50 p-4">
+            {org?.id ? (
+              <BuyerDocuments orgId={org.id} />
+            ) : (
+              <div className="flex items-center justify-center py-16">
+                <p className="text-gray-400 text-sm">Cargando…</p>
+              </div>
+            )}
           </div>
         </div>
       )}

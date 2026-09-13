@@ -1,4 +1,4 @@
-// MP-FIN-5C — Layout de dos bloques para documentos del comprador.
+// MP-FIN-5C — Layout de dos bloques para documentos del comprador (light UI).
 // Gestiona búsqueda con debounce 300ms compartido entre ambos bloques.
 // No inner components — todos definidos a nivel de módulo.
 import { useState, useEffect, useRef } from 'react'
@@ -11,21 +11,21 @@ import BuyerDocRefList from './BuyerDocRefList'
 function SearchBar({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   return (
     <div className="relative">
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-500 pointer-events-none" />
+      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400 pointer-events-none" />
       <input
         type="text"
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder="Buscar por documento, pedido o proveedor…"
-        className="w-full pl-9 pr-8 py-2 text-sm bg-slate-800/60 border border-slate-700 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-[#1A5A96]/60 focus:border-[#1A5A96]/40 transition-colors"
+        className="w-full pl-9 pr-8 py-2 text-sm bg-white border border-gray-200 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-[#1A5A96]/30 focus:border-[#1A5A96] transition-colors"
       />
       {value && (
         <button
           onClick={() => onChange('')}
           aria-label="Limpiar búsqueda"
-          className="absolute right-2 top-1/2 -translate-y-1/2 h-5 w-5 flex items-center justify-center rounded hover:bg-slate-700 cursor-pointer transition-colors"
+          className="absolute right-2 top-1/2 -translate-y-1/2 h-5 w-5 flex items-center justify-center rounded hover:bg-gray-100 cursor-pointer transition-colors"
         >
-          <X className="h-3.5 w-3.5 text-slate-400" />
+          <X className="h-3.5 w-3.5 text-gray-400" />
         </button>
       )}
     </div>
@@ -39,8 +39,8 @@ interface Props {
 }
 
 export default function BuyerDocuments({ orgId }: Props) {
-  const [query, setQuery]           = useState('')
-  const [debouncedQuery, setDebouncedQuery] = useState('')
+  const [query, setQuery]                       = useState('')
+  const [debouncedQuery, setDebouncedQuery]     = useState('')
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
@@ -55,12 +55,12 @@ export default function BuyerDocuments({ orgId }: Props) {
       <SearchBar value={query} onChange={setQuery} />
 
       {/* Bloque A — Resúmenes de compra */}
-      <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-4">
+      <div className="bg-white border border-gray-200 rounded-xl p-4">
         <BuyerDocList orgId={orgId} search={debouncedQuery} />
       </div>
 
       {/* Bloque B — Documentos de proveedores */}
-      <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-4">
+      <div className="bg-white border border-gray-200 rounded-xl p-4">
         <BuyerDocRefList orgId={orgId} search={debouncedQuery} />
       </div>
     </div>
