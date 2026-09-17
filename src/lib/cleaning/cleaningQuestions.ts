@@ -241,3 +241,14 @@ export function getMissingQuestions(
 
   return result;
 }
+
+// Extrae los campos requeridos faltantes de la metadata de un presupuesto.
+// Devuelve [] para presupuestos no-cleaning o metadata vacía (legado).
+// Usado en saveCurrentQuote para bloquear PDF si el intake cleaning es incompleto.
+export function getCleaningRequiredMissing(
+  metadata?: Record<string, unknown> | null,
+): ActiveQuestion[] {
+  if (metadata?.['vertical'] !== 'cleaning') return [];
+  const intake = ((metadata['intake'] ?? {}) as Partial<CleaningQuoteIntake>);
+  return getMissingQuestions(intake).filter(q => q.priority === 'required');
+}

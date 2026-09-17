@@ -154,6 +154,7 @@ estado: 'Borrador' | 'Enviado' | 'Aceptado' | 'Facturado';
 telefonoCliente?: string;
 emailCliente?: string;
 kbActuaciones?: string[];
+metadata?: Record<string, unknown> | null;
 }
 
 export interface Factura {

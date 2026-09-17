@@ -433,6 +433,7 @@ export function buildCleaningPromptText(intake: Partial<CleaningQuoteIntake>, ex
 
   lines.push('');
   lines.push('Proponer partidas de limpieza necesarias para este servicio. El profesional aplica sus propias tarifas — dejar precio_unitario 0 y requiere_revision: true en TODAS las partidas. NO asumir ningún importe automático. Los consumibles también con precio 0.');
+  lines.push('NO incluir partidas de gestión o retirada de residuos de obra ni alquiler de contenedor — eso es responsabilidad del contratista de reforma, no del servicio de limpieza.');
 
   return lines.join('\n');
 }

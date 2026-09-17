@@ -94,8 +94,8 @@ export default function CleaningIntakePanel({ onConfirm, showToast }: CleaningIn
   const missing = analyzed ? getMissingQuestions(intake) : [];
   const { personHours, estimatedDuration } = calculatePersonHours(intake);
 
-  // Mínimo para confirmar: al menos spaceType o algún dato relevante.
-  const canConfirm = analyzed && (!!intake.spaceType || !!intake.serviceType || rawText.trim().length > 5);
+  // Requiere que todos los campos marcados como required estén respondidos.
+  const canConfirm = analyzed && !missing.some(q => q.priority === 'required');
 
   // Resumen de campos detectados para mostrar al usuario.
   const detectedFields: { label: string; value: string }[] = [];
@@ -296,6 +296,25 @@ export default function CleaningIntakePanel({ onConfirm, showToast }: CleaningIn
                   className="w-full bg-[#111827] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/25 focus:outline-none focus:border-amber-500/70 transition-colors"
                 />
               )}
+
+              {/* Chips Sí / No para campos booleanos */}
+              {(q.key === 'windows' || q.key === 'garage' || q.key === 'terrace' || q.key === 'blinds' || q.key === 'escaparates') && (
+                <div className="flex gap-2">
+                  {[{ v: true, l: 'Sí' }, { v: false, l: 'No' }].map(({ v, l }) => (
+                    <button
+                      key={l}
+                      onClick={() => setField(q.key as any, v as any)}
+                      className={`flex-1 py-2.5 rounded-xl text-[11px] font-bold cursor-pointer transition-colors ${
+                        intake[q.key as keyof CleaningQuoteIntake] === v
+                          ? 'bg-amber-500 text-white'
+                          : 'bg-white/8 text-white/50 hover:bg-white/12'
+                      }`}
+                    >
+                      {l}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -313,6 +332,13 @@ export default function CleaningIntakePanel({ onConfirm, showToast }: CleaningIn
             <p className="text-base font-bold text-white/60">≈ {estimatedDuration} h</p>
           </div>
         </div>
+      )}
+
+      {/* Aviso cuando faltan campos requeridos */}
+      {analyzed && missing.some(q => q.priority === 'required') && (
+        <p className="text-center text-[10px] text-amber-400/70">
+          Completa los campos marcados con * para generar las partidas
+        </p>
       )}
 
       {/* Botón confirmar */}

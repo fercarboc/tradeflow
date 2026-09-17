@@ -711,11 +711,11 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              {CATEGORIAS.map(cat => (
+              {CATEGORIAS.map((cat, idx) => (
                 <button
                   key={cat.label}
                   onClick={() => pickCategoria(cat.label)}
-                  className="bg-[#111827] border border-white/8 hover:border-amber-500/50 hover:bg-[#1a2235] rounded-2xl p-4 flex flex-col items-center gap-3 cursor-pointer active:scale-95 text-center transition-all"
+                  className={`bg-[#111827] border border-white/8 hover:border-amber-500/50 hover:bg-[#1a2235] rounded-2xl p-4 flex flex-col items-center gap-3 cursor-pointer active:scale-95 text-center transition-all${idx === CATEGORIAS.length - 1 && CATEGORIAS.length % 2 !== 0 ? ' col-span-2' : ''}`}
                 >
                   <span className="text-3xl">{cat.icon}</span>
                   <span className="text-sm font-bold text-white/85 leading-tight">{cat.label}</span>

@@ -89,6 +89,7 @@ import { usePermissions } from '../hooks/usePermissions';
 import { useSession } from '../context/SessionContext';
 import { downloadAsWordDocx } from '../lib/exportWord';
 import { detectSugerencias, type SugCategory, type SugOption } from '../lib/suggestionsTemplates';
+import { getCleaningRequiredMissing } from '../lib/cleaning/cleaningQuestions';
 import CatalogImportModal from './CatalogImportModal';
 import GlobalCatalogModal from './GlobalCatalogModal';
 import { generateExportWorkbook, generateTemplateWorkbook, downloadWorkbook } from '../lib/catalogExcel';
@@ -622,7 +623,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       const data = await loadDashboard(org.id);
       // Always replace demo clients with real data (even if empty list)
       setClientes(data.clients.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono ?? '', email: c.email ?? '', direccion: c.direccion ?? '', nif: c.nif ?? undefined, ciudad: c.ciudad ?? undefined, cp: c.cp ?? undefined, provincia: c.provincia ?? undefined, pais: c.pais ?? undefined, obrasActivas: c.obras_activas, totalFacturado: c.total_facturado })));
-      setPresupuestos(data.quotes.map(q => ({ id: q.numero, dbId: q.id, clientId: q.client_id ?? null, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total, familia: i.familia ?? undefined })), total: q.total_neto, iva_pct: q.iva_pct, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '', kbActuaciones: q.kb_actuaciones ?? undefined })));
+      setPresupuestos(data.quotes.map(q => ({ id: q.numero, dbId: q.id, clientId: q.client_id ?? null, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total, familia: i.familia ?? undefined })), total: q.total_neto, iva_pct: q.iva_pct, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '', kbActuaciones: q.kb_actuaciones ?? undefined, metadata: q.metadata ?? null })));
       setFacturas(data.invoices.map(f => ({ id: f.id, numeroFactura: f.numero, nombreCliente: f.client_id ? (data.clients.find(c => c.id === f.client_id)?.nombre ?? '') : (f.concepto?.split('—')[1]?.trim() ?? ''), idPresupuesto: f.quote_id ?? '', job_id: f.job_id ?? null, importe: f.subtotal, iva_pct: f.iva_pct, fecha: f.fecha, fechaVencimiento: f.fecha_vencimiento ?? '', estado: f.estado as any, concepto: f.concepto ?? undefined, esMantenimineto: !!f.contract_id, mantenimientoId: f.mantenimiento_id ?? null })));
       if (org) {
         setOrgId(org.id);
@@ -2417,6 +2418,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   const handleOpenSugerencias = (srcPartidas?: PartidaPresupuesto[], srcTitulo?: string, target: 'desktop' | 'mobile' = 'desktop') => {
     setSugTarget(target);
+    // Cleaning quotes use their own catalog — detectSugerencias doesn't apply
+    const isCleaningQuote = editingQuote.metadata?.['vertical'] === 'cleaning'
+      || pendingQuoteMetadata.current?.['vertical'] === 'cleaning';
+    if (isCleaningQuote) {
+      showToast('Presupuesto de limpieza — revisa y ajusta los precios de las partidas propuestas.', 'info');
+      return;
+    }
     const ctx = detectSugerencias(
       srcPartidas ?? editingQuote.partidas,
       srcTitulo ?? editingQuote.descripcion ?? ''
@@ -2546,6 +2554,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     if (savingQuoteRef.current) return;
     if (!editingQuote.nombreCliente) { showToast('Selecciona un cliente', 'error'); return; }
     if (editingQuote.partidas.length === 0) { showToast('Añade al menos una partida', 'error'); return; }
+    // Cleaning intake guard: PDF/save requires all REQUIRED intake fields answered.
+    // Recommended fields can remain pending. Legacy (non-cleaning) quotes pass through.
+    const cleaningMeta = pendingQuoteMetadata.current ?? editingQuote.metadata;
+    const cleaningRequired = getCleaningRequiredMissing(cleaningMeta);
+    if (cleaningRequired.length > 0) {
+      const labels = cleaningRequired.map(q => q.label).join(', ');
+      showToast(`Completa el intake de limpieza antes de guardar — faltan: ${labels}`, 'error');
+      return;
+    }
     savingQuoteRef.current = true;
     try {
       const isEditing = !!editingQuoteId;
