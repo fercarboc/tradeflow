@@ -443,3 +443,19 @@ export function toCleaningQuoteMetadata(intake: Partial<CleaningQuoteIntake>): R
   const meta: CleaningQuoteMetadata = { vertical: 'cleaning', schemaVersion: 1, intake };
   return meta as unknown as Record<string, unknown>;
 }
+
+// ─── Utilidad de parseo para inputs numéricos del intake ──────────────────────
+// 0 es un valor válido para baños, plantas y habitaciones (p. ej. trastero sin aseos).
+// Para superficie, operarios y horas, 0 no es significativo → devuelve undefined.
+const ZERO_ALLOWED_NUMERIC_KEYS = new Set([
+  'bathrooms', 'floors', 'rooms', 'elevators', 'portals', 'kitchens',
+]);
+
+export function parseNumericField(key: string, raw: string): number | undefined {
+  const trimmed = raw.replace(',', '.').trim();
+  if (trimmed === '') return undefined;
+  const n = parseFloat(trimmed);
+  if (isNaN(n) || n < 0) return undefined;
+  if (n === 0 && !ZERO_ALLOWED_NUMERIC_KEYS.has(key)) return undefined;
+  return n;
+}

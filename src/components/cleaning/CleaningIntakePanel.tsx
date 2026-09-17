@@ -1,6 +1,11 @@
 import { useState, useRef } from 'react';
 import { Mic, MicOff, Sparkles, CheckCircle, ChevronDown, ChevronUp } from 'lucide-react';
-import { parseCleaningIntake, CleaningQuoteIntake, calculatePersonHours } from '../../lib/cleaning/cleaningIntake';
+import {
+  parseCleaningIntake,
+  CleaningQuoteIntake,
+  calculatePersonHours,
+  parseNumericField,
+} from '../../lib/cleaning/cleaningIntake';
 import { getMissingQuestions } from '../../lib/cleaning/cleaningQuestions';
 
 export interface CleaningIntakePanelProps {
@@ -20,7 +25,6 @@ const SERVICE_LABELS: Record<string, string> = {
   limpieza_profunda: 'Limpieza profunda', cambio_inquilino: 'Cambio de inquilino', otro: 'Otro',
 };
 
-// Chips de respuesta rápida para preguntas clave.
 const SPACE_OPTIONS = Object.entries(SPACE_LABELS).map(([v, l]) => ({ value: v, label: l }));
 const SERVICE_OPTIONS = Object.entries(SERVICE_LABELS).map(([v, l]) => ({ value: v, label: l }));
 const RECURRENCE_OPTIONS = [
@@ -34,12 +38,31 @@ const FURNISHING_OPTIONS = [
   { value: 'equipado', label: 'Equipado' },
 ];
 
+const BOOLEAN_FIELD_KEYS: Array<keyof CleaningQuoteIntake> = [
+  'windows', 'garage', 'terrace', 'blinds', 'escaparates',
+];
+
+const NUMERIC_INTAKE_KEYS: Array<keyof CleaningQuoteIntake> = [
+  'surfaceM2', 'rooms', 'bathrooms', 'floors', 'portals', 'elevators',
+  'workers', 'estimatedHoursPerWorker', 'visitsPerWeek', 'visitsPerMonth',
+];
+
+interface DetectedField {
+  key: keyof CleaningQuoteIntake | null; // null = valor calculado, no editable directamente
+  label: string;
+  value: string;
+}
+
 export default function CleaningIntakePanel({ onConfirm, showToast }: CleaningIntakePanelProps) {
   const [rawText, setRawText] = useState('');
   const [recording, setRecording] = useState(false);
   const [analyzed, setAnalyzed] = useState(false);
   const [intake, setIntake] = useState<Partial<CleaningQuoteIntake>>({});
   const [showDetected, setShowDetected] = useState(true);
+  // Raw text acumulado en los inputs numéricos.
+  // No se consolida en intake hasta blur/Enter para evitar que el campo
+  // desaparezca mientras el usuario escribe (p. ej. "8" al escribir "88").
+  const [numericDrafts, setNumericDrafts] = useState<Record<string, string>>({});
   const recognitionRef = useRef<unknown>(null);
 
   const SpeechAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
@@ -71,6 +94,7 @@ export default function CleaningIntakePanel({ onConfirm, showToast }: CleaningIn
     if (!text) { showToast('Describe primero qué hay que limpiar', 'info'); return; }
     const parsed = parseCleaningIntake(text);
     setIntake(parsed);
+    setNumericDrafts({});
     setAnalyzed(true);
     setShowDetected(true);
   }
@@ -86,43 +110,58 @@ export default function CleaningIntakePanel({ onConfirm, showToast }: CleaningIn
     });
   }
 
-  function parseNumber(val: string): number | undefined {
-    const n = parseFloat(val.replace(',', '.'));
-    return isNaN(n) || n <= 0 ? undefined : n;
+  // Consolida el draft numérico en intake y limpia el draft.
+  function commitNumericDraft(key: string) {
+    const raw = numericDrafts[key] ?? '';
+    const n = parseNumericField(key, raw);
+    setField(key as keyof CleaningQuoteIntake, n as any);
+    setNumericDrafts(prev => { const next = { ...prev }; delete next[key]; return next; });
+  }
+
+  // Al pulsar "editar" en un campo detectado:
+  // — pre-rellena el draft con el valor actual (para campos numéricos)
+  // — elimina el valor del intake → el campo reaparece en la sección de pendientes
+  function handleEditDetectedField(key: keyof CleaningQuoteIntake) {
+    const current = intake[key];
+    if (current != null && typeof current === 'number') {
+      setNumericDrafts(prev => ({ ...prev, [key]: String(current) }));
+    }
+    setField(key, undefined);
   }
 
   const missing = analyzed ? getMissingQuestions(intake) : [];
   const { personHours, estimatedDuration } = calculatePersonHours(intake);
 
-  // Requiere que todos los campos marcados como required estén respondidos.
   const canConfirm = analyzed && !missing.some(q => q.priority === 'required');
 
-  // Resumen de campos detectados para mostrar al usuario.
-  const detectedFields: { label: string; value: string }[] = [];
-  if (intake.spaceType) detectedFields.push({ label: 'Espacio', value: SPACE_LABELS[intake.spaceType] ?? intake.spaceType });
-  if (intake.serviceType) detectedFields.push({ label: 'Servicio', value: SERVICE_LABELS[intake.serviceType] ?? intake.serviceType });
-  if (intake.recurrence) detectedFields.push({ label: 'Modalidad', value: intake.recurrence === 'one_off' ? 'Puntual' : 'Recurrente' });
-  if (intake.surfaceM2) detectedFields.push({ label: 'Superficie', value: `${intake.surfaceM2} m²` });
-  if (intake.rooms) detectedFields.push({ label: 'Habitaciones', value: String(intake.rooms) });
-  if (intake.bathrooms) detectedFields.push({ label: 'Baños/aseos', value: String(intake.bathrooms) });
-  if (intake.floors) detectedFields.push({ label: 'Plantas', value: String(intake.floors) });
-  if (intake.elevators) detectedFields.push({ label: 'Ascensores', value: String(intake.elevators) });
-  if (intake.workers) detectedFields.push({ label: 'Operarios', value: String(intake.workers) });
-  if (intake.estimatedHoursPerWorker) detectedFields.push({ label: 'Horas/operario', value: `${intake.estimatedHoursPerWorker} h` });
-  if (personHours != null) detectedFields.push({ label: 'Horas-persona', value: `${personHours} h` });
-  if (estimatedDuration != null && (intake.workers ?? 1) > 1) detectedFields.push({ label: 'Duración estimada', value: `${estimatedDuration} h` });
-  if (intake.visitsPerWeek) detectedFields.push({ label: 'Visitas/semana', value: String(intake.visitsPerWeek) });
-  if (intake.visitsPerMonth) detectedFields.push({ label: 'Visitas/mes', value: String(intake.visitsPerMonth) });
-  if (intake.garage) detectedFields.push({ label: 'Garaje', value: 'Sí' });
-  if (intake.terrace) detectedFields.push({ label: 'Terraza', value: 'Sí' });
-  if (intake.windows) detectedFields.push({ label: 'Cristales', value: 'Sí' });
-  if (intake.blinds) detectedFields.push({ label: 'Persianas', value: 'Sí' });
-  if (intake.escaparates) detectedFields.push({ label: 'Escaparates', value: 'Sí' });
-  if (intake.furnishingState) detectedFields.push({ label: 'Estado', value: FURNISHING_OPTIONS.find(o => o.value === intake.furnishingState)?.label ?? intake.furnishingState });
+  // Campos detectados — incluyen la clave para soportar edición.
+  const detectedFields: DetectedField[] = [];
+  if (intake.spaceType) detectedFields.push({ key: 'spaceType', label: 'Espacio', value: SPACE_LABELS[intake.spaceType] ?? intake.spaceType });
+  if (intake.serviceType) detectedFields.push({ key: 'serviceType', label: 'Servicio', value: SERVICE_LABELS[intake.serviceType] ?? intake.serviceType });
+  if (intake.recurrence) detectedFields.push({ key: 'recurrence', label: 'Modalidad', value: intake.recurrence === 'one_off' ? 'Puntual' : 'Recurrente' });
+  if (intake.surfaceM2) detectedFields.push({ key: 'surfaceM2', label: 'Superficie', value: `${intake.surfaceM2} m²` });
+  if (intake.rooms) detectedFields.push({ key: 'rooms', label: 'Habitaciones', value: String(intake.rooms) });
+  // bathrooms: 0 es válido → usar != null en lugar de comprobación de veracidad
+  if (intake.bathrooms != null) detectedFields.push({ key: 'bathrooms', label: 'Baños/aseos', value: String(intake.bathrooms) });
+  if (intake.floors != null) detectedFields.push({ key: 'floors', label: 'Plantas', value: String(intake.floors) });
+  if (intake.elevators) detectedFields.push({ key: 'elevators', label: 'Ascensores', value: String(intake.elevators) });
+  if (intake.workers) detectedFields.push({ key: 'workers', label: 'Operarios', value: String(intake.workers) });
+  if (intake.estimatedHoursPerWorker) detectedFields.push({ key: 'estimatedHoursPerWorker', label: 'Horas/operario', value: `${intake.estimatedHoursPerWorker} h` });
+  if (personHours != null) detectedFields.push({ key: null, label: 'Horas-persona', value: `${personHours} h` });
+  if (estimatedDuration != null && (intake.workers ?? 1) > 1) detectedFields.push({ key: null, label: 'Duración estimada', value: `${estimatedDuration} h` });
+  if (intake.visitsPerWeek) detectedFields.push({ key: 'visitsPerWeek', label: 'Visitas/semana', value: String(intake.visitsPerWeek) });
+  if (intake.visitsPerMonth) detectedFields.push({ key: 'visitsPerMonth', label: 'Visitas/mes', value: String(intake.visitsPerMonth) });
+  // Booleanos: mostrar aunque sean false (el profesional puede haberlos respondido explícitamente)
+  if (intake.garage !== undefined) detectedFields.push({ key: 'garage', label: 'Garaje', value: intake.garage ? 'Sí' : 'No' });
+  if (intake.terrace !== undefined) detectedFields.push({ key: 'terrace', label: 'Terraza', value: intake.terrace ? 'Sí' : 'No' });
+  if (intake.windows !== undefined) detectedFields.push({ key: 'windows', label: 'Cristales', value: intake.windows ? 'Sí' : 'No' });
+  if (intake.blinds !== undefined) detectedFields.push({ key: 'blinds', label: 'Persianas', value: intake.blinds ? 'Sí' : 'No' });
+  if (intake.escaparates !== undefined) detectedFields.push({ key: 'escaparates', label: 'Escaparates', value: intake.escaparates ? 'Sí' : 'No' });
+  if (intake.furnishingState) detectedFields.push({ key: 'furnishingState', label: 'Estado', value: FURNISHING_OPTIONS.find(o => o.value === intake.furnishingState)?.label ?? intake.furnishingState });
   if (intake.frequencies && intake.frequencies.length > 0) {
     intake.frequencies.forEach(f => {
       const freq = f.timesPerWeek != null ? `${f.timesPerWeek}×/semana` : `${f.timesPerMonth}×/mes`;
-      detectedFields.push({ label: f.task, value: freq });
+      detectedFields.push({ key: null, label: f.task, value: freq });
     });
   }
 
@@ -169,7 +208,7 @@ export default function CleaningIntakePanel({ onConfirm, showToast }: CleaningIn
         </div>
       </div>
 
-      {/* Resumen de campos detectados */}
+      {/* Resumen de campos detectados — editables */}
       {analyzed && (
         <div className="bg-[#0f1a2e] border border-white/8 rounded-2xl overflow-hidden">
           <button
@@ -185,11 +224,39 @@ export default function CleaningIntakePanel({ onConfirm, showToast }: CleaningIn
             {showDetected ? <ChevronUp className="w-3.5 h-3.5 text-white/30" /> : <ChevronDown className="w-3.5 h-3.5 text-white/30" />}
           </button>
           {showDetected && detectedFields.length > 0 && (
-            <div className="px-4 pb-3 grid grid-cols-2 gap-x-4 gap-y-1.5">
-              {detectedFields.map(({ label, value }) => (
-                <div key={label} className="flex justify-between gap-1">
+            <div className="px-4 pb-3 flex flex-col gap-1.5">
+              {detectedFields.map(({ key, label, value }) => (
+                <div key={label} className="flex items-center justify-between gap-2">
                   <span className="text-[10px] text-white/35 shrink-0">{label}</span>
-                  <span className="text-[10px] font-semibold text-white/70 text-right truncate">{value}</span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[10px] font-semibold text-white/70">{value}</span>
+                    {/* Booleanos: toggle Sí/No inline */}
+                    {key && BOOLEAN_FIELD_KEYS.includes(key) ? (
+                      <div className="flex gap-1">
+                        {[{ v: true, l: 'Sí' }, { v: false, l: 'No' }].map(({ v, l }) => (
+                          <button
+                            key={l}
+                            onClick={() => setField(key, v as any)}
+                            className={`px-1.5 py-0.5 rounded text-[9px] cursor-pointer transition-colors ${
+                              (intake[key] as boolean | undefined) === v
+                                ? 'bg-amber-500 text-white'
+                                : 'bg-white/8 text-white/30 hover:bg-white/12'
+                            }`}
+                          >
+                            {l}
+                          </button>
+                        ))}
+                      </div>
+                    ) : key ? (
+                      /* Enum/numéricos: "editar" limpia el campo y lo envía a la sección de pendientes */
+                      <button
+                        onClick={() => handleEditDetectedField(key)}
+                        className="text-[9px] text-amber-400/40 hover:text-amber-400 cursor-pointer transition-colors"
+                      >
+                        editar
+                      </button>
+                    ) : null}
+                  </div>
                 </div>
               ))}
             </div>
@@ -281,31 +348,30 @@ export default function CleaningIntakePanel({ onConfirm, showToast }: CleaningIn
                 </div>
               )}
 
-              {/* Inputs numéricos */}
-              {(q.key === 'surfaceM2' || q.key === 'rooms' || q.key === 'bathrooms' || q.key === 'floors' || q.key === 'portals' || q.key === 'elevators' || q.key === 'workers' || q.key === 'estimatedHoursPerWorker' || q.key === 'visitsPerWeek' || q.key === 'visitsPerMonth') && (
+              {/* Inputs numéricos — draft state: onChange acumula texto, blur/Enter consolida */}
+              {NUMERIC_INTAKE_KEYS.includes(q.key) && (
                 <input
                   type="number"
                   min="0"
                   step={q.key === 'estimatedHoursPerWorker' || q.key === 'surfaceM2' ? '0.5' : '1'}
                   placeholder={q.key === 'surfaceM2' ? 'Ej: 80' : q.key === 'estimatedHoursPerWorker' ? 'Ej: 3' : 'Número'}
-                  value={(intake[q.key] as number | undefined) ?? ''}
-                  onChange={e => {
-                    const n = parseNumber(e.target.value);
-                    setField(q.key as any, n as any);
-                  }}
+                  value={numericDrafts[q.key] ?? ''}
+                  onChange={e => setNumericDrafts(prev => ({ ...prev, [q.key]: e.target.value }))}
+                  onBlur={() => commitNumericDraft(q.key)}
+                  onKeyDown={e => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur(); }}
                   className="w-full bg-[#111827] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/25 focus:outline-none focus:border-amber-500/70 transition-colors"
                 />
               )}
 
               {/* Chips Sí / No para campos booleanos */}
-              {(q.key === 'windows' || q.key === 'garage' || q.key === 'terrace' || q.key === 'blinds' || q.key === 'escaparates') && (
+              {BOOLEAN_FIELD_KEYS.includes(q.key) && (
                 <div className="flex gap-2">
                   {[{ v: true, l: 'Sí' }, { v: false, l: 'No' }].map(({ v, l }) => (
                     <button
                       key={l}
                       onClick={() => setField(q.key as any, v as any)}
                       className={`flex-1 py-2.5 rounded-xl text-[11px] font-bold cursor-pointer transition-colors ${
-                        intake[q.key as keyof CleaningQuoteIntake] === v
+                        (intake[q.key as keyof CleaningQuoteIntake] as boolean | undefined) === v
                           ? 'bg-amber-500 text-white'
                           : 'bg-white/8 text-white/50 hover:bg-white/12'
                       }`}
