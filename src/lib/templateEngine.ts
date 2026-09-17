@@ -143,9 +143,9 @@ Te adjunto el presupuesto nº *{{numero_presupuesto}}* de *{{nombre_empresa}}* p
 {{#if resumen_trabajo_ia}}
 _Descripción del trabajo:_
 {{resumen_trabajo_ia}}
-{{/if}}
+{{/if}}{{#if enlace_aceptacion}}
 ✅ Para aceptarlo: {{enlace_aceptacion}}
-
+{{/if}}
 Validez: {{validez_presupuesto}}
 
 Gracias. {{nombre_empresa}} · {{telefono_empresa}}`,

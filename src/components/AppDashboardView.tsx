@@ -106,7 +106,8 @@ import ScreenMantenimiento from './ScreenMantenimiento';
 import ScreenFacturas from './ScreenFacturas';
 import ScreenContratos from './ScreenContratos';
 import ScreenAsistenteTecnico from './ScreenAsistenteTecnico';
-import { resolveTemplate, buildTemplateVars, DEFAULT_TEMPLATES, VARIABLE_GROUPS, ensureAcceptanceUrl } from '../lib/templateEngine';
+import { resolveTemplate, buildTemplateVars, DEFAULT_TEMPLATES, VARIABLE_GROUPS } from '../lib/templateEngine';
+import { buildQuoteWhatsAppMessage, buildWaUrl } from '../lib/whatsappQuote';
 import {
   loadWorkCalendar, saveWorkCalendar, isWorkingDay,
   DAY_NAMES, FESTIVOS_NACIONALES,
@@ -1915,62 +1916,23 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   };
 
   // Construir URL wa.me con mensaje pre-rellenado
-  const buildWaLink = (phone: string | undefined | null, text: string) => {
-    const clean = (phone ?? '').replace(/[\s\-\(\)]/g, '').replace(/^\+/, '');
-    const num = clean ? (clean.startsWith('34') ? clean : `34${clean}`) : '';
-    return num
-      ? `https://wa.me/${num}?text=${encodeURIComponent(text)}`
-      : `https://wa.me/?text=${encodeURIComponent(text)}`;
-  };
+  const buildWaLink = buildWaUrl;
 
-  const buildQuoteMessage = (q: Presupuesto, acceptanceUrl?: string, pdfUrl?: string) => {
-    // ?? 21: registros históricos sin iva_pct; NO usar ivaDefault (sería el default ACTUAL, no el del documento)
-    const iva = q.iva_pct ?? 21;
-    const ivaAmt = q.total * (iva / 100);
-    const totalConIVA = q.total + ivaAmt;
-
-    const savedTemplate = orgTemplates['whatsapp_presupuesto'];
-    if (savedTemplate) {
-      const vars = buildTemplateVars({
-        empresa: {
-          nombre: empresaAjustes.nombre,
-          telefono: empresaAjustes.telefonoMovil,
-          email: empresaAjustes.email,
-          nif: empresaAjustes.nif,
-          direccion: empresaAjustes.direccion,
-        },
-        cliente: { nombre: q.nombreCliente, telefono: q.telefonoCliente },
-        presupuesto: {
-          numero: q.id,
-          fecha: q.fecha,
-          total: q.total,
-          iva,
-        },
-        enlaceAceptacion: acceptanceUrl,
-        enlacePdf: pdfUrl,
-      });
-      return ensureAcceptanceUrl(resolveTemplate(savedTemplate, vars), acceptanceUrl);
-    }
-
-    const lines = q.partidas.map(p =>
-      `• ${p.descripcion}: ${p.cantidad} × ${p.precioUnitario.toFixed(2)}€ = *${p.total.toFixed(2)}€*`
-    );
-    return [
-      `Hola ${q.nombreCliente}, te envío el presupuesto *${q.id}*.`,
-      `_${q.descripcion}_`,
-      '',
-      ...lines,
-      '',
-      `Base imponible: ${q.total.toFixed(2)}€`,
-      `IVA (${iva}%): ${ivaAmt.toFixed(2)}€`,
-      `*TOTAL: ${totalConIVA.toFixed(2)}€*`,
-      '',
-      ...(acceptanceUrl ? [`✅ *Acepta el presupuesto aquí:*\n${acceptanceUrl}`, ''] : []),
-      'Quedo a tu disposición para cualquier consulta.',
-      ...(empresaAjustes.nombre ? [empresaAjustes.nombre] : []),
-      ...(empresaAjustes.telefonoMovil ? [empresaAjustes.telefonoMovil] : []),
-    ].join('\n');
-  };
+  // ?? 21: registros históricos sin iva_pct; NO usar ivaDefault (sería el default ACTUAL, no el del documento)
+  const buildQuoteMessage = (q: Presupuesto, acceptanceUrl?: string, pdfUrl?: string) =>
+    buildQuoteWhatsAppMessage({
+      quote: { id: q.id, nombreCliente: q.nombreCliente, total: q.total, iva_pct: q.iva_pct, fecha: q.fecha },
+      empresa: {
+        nombre: empresaAjustes.nombre,
+        telefonoMovil: empresaAjustes.telefonoMovil,
+        email: empresaAjustes.email,
+        nif: empresaAjustes.nif,
+        direccion: empresaAjustes.direccion,
+      },
+      customTemplate: orgTemplates['whatsapp_presupuesto'],
+      acceptanceUrl,
+      pdfUrl,
+    });
 
   const handleSendWhatsAppNow = async () => {
     if (!targetQuoteForWhatsApp) return;
