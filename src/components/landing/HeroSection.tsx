@@ -73,8 +73,8 @@ export default function HeroSection({ setCurrentPage }: HeroSectionProps) {
         }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6 pb-0 lg:pt-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
+      <div className="relative mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-10 pt-6 pb-0 lg:pt-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-4 lg:gap-8 items-start">
 
           {/* Left */}
           <motion.div
@@ -207,15 +207,14 @@ export default function HeroSection({ setCurrentPage }: HeroSectionProps) {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.65, delay: 0.1 }}
-            className="relative flex justify-center lg:justify-end items-start overflow-hidden pb-0 lg:pt-2"
+            className="relative flex justify-center lg:justify-end items-start overflow-hidden pb-0"
           >
-            <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-[#020B16] to-transparent z-10 pointer-events-none" />
-            <div className="absolute top-0 left-0 inset-y-0 w-20 bg-gradient-to-r from-[#020B16] to-transparent z-10 pointer-events-none hidden lg:block" />
+            <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#020B16] to-transparent z-10 pointer-events-none" />
+            <div className="absolute top-0 left-0 inset-y-0 w-28 bg-gradient-to-r from-[#020B16] to-transparent z-10 pointer-events-none hidden lg:block" />
             <img
               src="/portadaoficios.png"
               alt="TrabFlow para profesionales de distintos sectores"
-              className="w-full max-w-3xl object-contain object-top"
-              style={{ maxHeight: '720px' }}
+              className="w-full h-auto object-contain object-top"
             />
           </motion.div>
 
