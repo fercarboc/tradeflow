@@ -1,252 +1,225 @@
-import { CheckCircle2, ArrowRight, Smartphone } from 'lucide-react';
+import { CheckCircle, ArrowRight, Download, Share2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { motion } from 'motion/react';
 import { ActivePage } from '../../types';
 
 interface HeroSectionProps {
   setCurrentPage: (page: ActivePage) => void;
 }
 
-const CHECKS = [
-  'Presupuestos PDF en minutos con IA de voz',
-  'Marketplace de materiales integrado con tu trabajo',
-  'Parte de campo, fotos y firma digital del cliente',
-  'Control total: planificación, equipo, rutas y facturación',
-];
-
-const BUDGET_ITEMS = [
-  { desc: 'Mano de obra (8h × 45 €/h)', precio: '360,00 €' },
-  { desc: 'Desmontaje y retirada bañera', precio: '80,00 €' },
-  { desc: 'Plato ducha antidesliz. 80×80', precio: '320,00 €' },
-  { desc: 'Mampara cristal templado 6mm', precio: '280,00 €' },
-  { desc: 'Grifería termoestática', precio: '195,00 €' },
-  { desc: 'Materiales e instalación', precio: '85,00 €' },
-  { desc: 'Desplazamiento', precio: '35,00 €' },
-];
-
-function PresupuestoCard() {
-  return (
-    <div className="bg-white rounded-2xl shadow-2xl border border-gray-100/80 overflow-hidden text-sm backdrop-blur-sm">
-      {/* Titlebar */}
-      <div className="bg-[#1C2535] px-3.5 py-2.5 flex items-center justify-between">
-        <div className="flex items-center gap-1.5">
-          <div className="w-2 h-2 rounded-full bg-red-400" />
-          <div className="w-2 h-2 rounded-full bg-yellow-400" />
-          <div className="w-2 h-2 rounded-full bg-green-400" />
-        </div>
-        <span className="text-[9px] text-white/35 font-medium tracking-wide">TradeFlow · Presupuesto</span>
-        <div className="w-8" />
-      </div>
-
-      {/* Doc header */}
-      <div className="px-4 py-2.5 bg-[#F5F6F8] border-b border-gray-200">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-[9px] text-gray-400 font-semibold uppercase tracking-wider leading-none mb-0.5">Presupuesto</p>
-            <p className="font-black text-[#1C2535] text-sm leading-tight">#P-2025-0247</p>
-          </div>
-          <span className="text-[9px] font-bold bg-[#4A6741]/12 text-[#4A6741] px-2 py-1 rounded-full border border-[#4A6741]/20">
-            ✓ Enviado
-          </span>
-        </div>
-      </div>
-
-      {/* Client */}
-      <div className="px-4 pt-2.5 pb-2 border-b border-gray-100">
-        <p className="text-[9px] text-gray-400 uppercase font-semibold tracking-wider mb-0.5">Cliente</p>
-        <p className="font-bold text-[#1C2535] text-xs leading-tight">María García</p>
-        <p className="text-[9px] text-gray-400">622 451 890 · C/ Valencia 245</p>
-        <p className="text-[9px] text-[#1A5A96] font-semibold mt-1">
-          Cambio de bañera por plato de ducha
-        </p>
-      </div>
-
-      {/* Items */}
-      <div className="px-4 py-2.5">
-        <div className="space-y-1.5">
-          {BUDGET_ITEMS.map(({ desc, precio }) => (
-            <div key={desc} className="flex justify-between items-baseline gap-1">
-              <span className="text-[9px] text-gray-500 flex-1 truncate">{desc}</span>
-              <span className="text-[9px] font-semibold text-[#1C2535] shrink-0 tabular-nums">{precio}</span>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-2.5 pt-2 border-t border-gray-200 space-y-1">
-          <div className="flex justify-between text-[9px] text-gray-400">
-            <span>Base imponible</span>
-            <span className="tabular-nums">1.355,00 €</span>
-          </div>
-          <div className="flex justify-between text-[9px] text-gray-400">
-            <span>IVA (10% reforma)</span>
-            <span className="tabular-nums">135,50 €</span>
-          </div>
-          <div className="flex justify-between font-black text-[#1C2535] text-xs pt-1.5 border-t border-gray-200">
-            <span>TOTAL</span>
-            <span className="tabular-nums text-sm">1.490,50 €</span>
-          </div>
-        </div>
-
-        <div className="mt-3 space-y-1.5">
-          <button className="w-full bg-[#25D366] text-white text-[9px] font-bold py-2 rounded-lg flex items-center justify-center gap-1.5">
-            <Smartphone className="w-3 h-3" />
-            Enviar por WhatsApp
-          </button>
-          <button className="w-full bg-[#1A5A96] text-white text-[9px] font-bold py-2 rounded-lg">
-            Descargar PDF
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+interface BeforeInstallPromptEvent extends Event {
+  prompt(): Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
 }
 
+const BENEFITS = [
+  'Presupuestos profesionales en minutos',
+  'Materiales y proveedores integrados',
+  'Partes de trabajo con fotos y firma',
+  'Control total: planificación, equipo y facturación',
+];
+
+const SECTOR_BADGES = ['Reformas', 'Instalaciones', 'Jardinería', 'Limpieza', 'y más oficios'];
+
 export default function HeroSection({ setCurrentPage }: HeroSectionProps) {
+  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [isPWAInstalled, setIsPWAInstalled] = useState(false);
+  const [showIOSInstructions, setShowIOSInstructions] = useState(false);
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+  useEffect(() => {
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      setIsPWAInstalled(true);
+      return;
+    }
+    const handler = (e: Event) => {
+      e.preventDefault();
+      setInstallPrompt(e as BeforeInstallPromptEvent);
+    };
+    window.addEventListener('beforeinstallprompt', handler);
+    return () => window.removeEventListener('beforeinstallprompt', handler);
+  }, []);
+
+  const handleInstallAndroid = async () => {
+    if (!installPrompt) return;
+    await installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setIsPWAInstalled(true);
+      setInstallPrompt(null);
+    }
+  };
+
+  const handleVerComoFunciona = () => {
+    const el = document.getElementById('landing-como-funciona');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      setCurrentPage(ActivePage.ComoFunciona);
+    }
+  };
+
   return (
-    <section className="bg-white pt-6 pb-10 lg:pt-8 lg:pb-12">
-      <div className="max-w-[1480px] mx-auto px-6 lg:px-10 xl:px-14">
+    <section
+      className="relative bg-[#020B16] overflow-hidden"
+      style={{ background: 'radial-gradient(ellipse 100% 90% at 75% 50%, #0b1e3a 0%, #020B16 60%)' }}
+    >
+      {/* subtle grid */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.035]"
+        style={{
+          backgroundImage: 'linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)',
+          backgroundSize: '48px 48px',
+        }}
+      />
 
-        {/* Desktop: 2-column layout */}
-        <div className="hidden lg:grid lg:grid-cols-[34%_66%] gap-0 items-center">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6 pb-0 lg:pt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-end">
 
-          {/* Col 1: Text */}
-          <div className="pr-4 xl:pr-6">
-            <div className="inline-flex items-center gap-2 bg-[#1A5A96]/8 text-[#1A5A96] text-xs font-bold px-3 py-1.5 rounded-full mb-5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#1A5A96] animate-pulse" />
-              Acceso anticipado — Empieza gratis hoy
+          {/* Left */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55 }}
+            className="space-y-5 text-center lg:text-left pb-12 lg:pb-20 lg:pt-8"
+          >
+            {/* eyebrow */}
+            <div className="flex justify-center lg:justify-start">
+              <span className="inline-block text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-[#00CFE8] border border-[#00CFE8]/30 bg-[#00CFE8]/8 rounded-full px-4 py-1.5">
+                La plataforma todo en uno para profesionales
+              </span>
             </div>
 
-            <h1 className="text-4xl xl:text-5xl font-black text-[#1C2535] leading-[1.05] mb-4 tracking-tight">
-              El sistema operativo del{' '}
-              <span className="text-[#1A5A96]">instalador profesional</span>
+            {/* headline */}
+            <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-black leading-[1.05] tracking-tight">
+              <span className="text-white block">Tu trabajo más fácil.</span>
+              <span className="text-[#00CFE8] block">En cualquier sector.</span>
             </h1>
 
-            <p className="text-sm xl:text-base text-[#1C2535]/55 leading-relaxed mb-6">
-              Presupuesta con IA, compra materiales, ejecuta el trabajo, firma y cobra. Todo conectado en una sola plataforma.
+            {/* subtitle */}
+            <p className="text-white/60 text-base sm:text-lg leading-relaxed max-w-md mx-auto lg:mx-0">
+              Presupuestos, materiales, partes de trabajo, fotos, firma y facturación. Todo conectado, con la ayuda de la IA.
             </p>
 
-            <ul className="space-y-2.5 mb-8">
-              {CHECKS.map((text) => (
-                <li key={text} className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4.5 h-4.5 text-[#4A6741] shrink-0" />
-                  <span className="text-sm font-medium text-[#1C2535]/75">{text}</span>
+            {/* benefits */}
+            <ul className="space-y-2.5 text-sm text-white/80 max-w-md mx-auto lg:mx-0">
+              {BENEFITS.map(b => (
+                <li key={b} className="flex items-start gap-2.5">
+                  <CheckCircle className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                  {b}
                 </li>
               ))}
             </ul>
 
-            <div className="flex gap-3">
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
               <button
                 onClick={() => setCurrentPage(ActivePage.Registro)}
-                className="flex items-center gap-2 bg-[#1A5A96] text-white font-bold text-sm px-6 py-3 rounded-xl hover:bg-[#1A5A96]/90 transition-all shadow-lg cursor-pointer"
+                className="group flex items-center justify-center gap-2 rounded-lg bg-[#FFC400] px-6 py-3.5 text-sm font-black uppercase tracking-widest text-[#020B16] hover:brightness-110 transition-all shadow-xl shadow-[#FFC400]/20 cursor-pointer"
               >
                 Empezar gratis
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </button>
               <button
-                onClick={() => setCurrentPage(ActivePage.ComoFunciona)}
-                className="flex items-center text-[#1C2535] font-semibold text-sm px-6 py-3 rounded-xl border border-[#1C2535]/15 hover:bg-gray-50 transition-colors cursor-pointer"
+                onClick={handleVerComoFunciona}
+                className="flex items-center justify-center gap-2 rounded-lg border border-white/25 bg-white/5 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/10 transition-all cursor-pointer"
               >
                 Ver cómo funciona
               </button>
             </div>
-
-            <p className="mt-3 text-xs text-[#1C2535]/35">
+            <p className="text-[11px] text-white/35 text-center lg:text-left">
               Sin tarjeta de crédito · Prueba gratuita 3 meses
             </p>
-          </div>
 
-          {/* Col 2: Large photo + floating card */}
-          <div className="relative">
-            {/* Installer photo — full size, dominant */}
-            <div className="rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/8">
-              <img
-                src="/instaladorportada.png"
-                alt="Instalador profesional"
-                className="w-full block"
-                style={{
-                  height: '630px',
-                  objectFit: 'cover',
-                  objectPosition: '60% 12%',
-                }}
-              />
-              {/* Gradient: transparent left → dark right, for card readability */}
-              <div
-                className="absolute inset-0 pointer-events-none rounded-3xl"
-                style={{
-                  background:
-                    'linear-gradient(to right, transparent 30%, rgba(10, 14, 28, 0.72) 100%)',
-                }}
-              />
-            </div>
+            {/* PWA install */}
+            {!isPWAInstalled && (
+              <div className="flex flex-col gap-2">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-white/30 text-center lg:text-left">
+                  Instala la app gratis — sin tiendas
+                </span>
+                <div className="flex flex-wrap gap-2.5 justify-center lg:justify-start">
+                  {installPrompt ? (
+                    <button
+                      onClick={handleInstallAndroid}
+                      className="flex items-center gap-3 rounded-xl border border-[#00CFE8]/40 bg-[#00CFE8]/10 px-4 py-2.5 hover:bg-[#00CFE8]/20 transition-all cursor-pointer"
+                    >
+                      <Download className="h-5 w-5 text-[#00CFE8] shrink-0" />
+                      <div className="text-left leading-tight">
+                        <div className="text-[9px] text-white/45 uppercase tracking-wider">Android / Chrome</div>
+                        <div className="text-sm font-black text-white">Instalar app gratis</div>
+                      </div>
+                    </button>
+                  ) : !isIOS && (
+                    <div className="flex items-center gap-3 rounded-xl border border-white/15 bg-white/5 px-4 py-2.5">
+                      <Download className="h-5 w-5 text-white/40 shrink-0" />
+                      <div className="text-left leading-tight">
+                        <div className="text-[9px] text-white/30 uppercase tracking-wider">Android / Chrome</div>
+                        <div className="text-sm font-black text-white/50">Instalar app gratis</div>
+                      </div>
+                    </div>
+                  )}
+                  {isIOS && (
+                    <button
+                      onClick={() => setShowIOSInstructions(v => !v)}
+                      className="flex items-center gap-3 rounded-xl border border-white/20 bg-white/5 px-4 py-2.5 hover:bg-white/10 transition-all cursor-pointer"
+                    >
+                      <Share2 className="h-5 w-5 text-white/60 shrink-0" />
+                      <div className="text-left leading-tight">
+                        <div className="text-[9px] text-white/40 uppercase tracking-wider">iPhone / iPad</div>
+                        <div className="text-sm font-black text-white">Instalar en iPhone</div>
+                      </div>
+                    </button>
+                  )}
+                </div>
+                {showIOSInstructions && (
+                  <div className="rounded-xl border border-white/15 bg-white/5 px-4 py-3 space-y-1.5 text-xs text-white/65 max-w-xs">
+                    <p className="font-bold text-white/80 text-[11px] uppercase tracking-wider mb-2">Cómo instalar en iPhone / iPad:</p>
+                    <p className="flex items-start gap-2"><Share2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-[#00CFE8]" /> Pulsa <strong className="text-white">Compartir</strong> en Safari</p>
+                    <p className="flex items-start gap-2"><span className="h-3.5 w-3.5 shrink-0 text-[#00CFE8] text-center font-black">+</span> Selecciona <strong className="text-white">"Añadir a pantalla de inicio"</strong></p>
+                    <p className="flex items-start gap-2"><CheckCircle className="h-3.5 w-3.5 shrink-0 mt-0.5 text-[#00CFE8]" /> Pulsa <strong className="text-white">Añadir</strong></p>
+                  </div>
+                )}
+              </div>
+            )}
+            {isPWAInstalled && (
+              <div className="flex items-center gap-2 text-xs text-emerald-400 font-bold">
+                <CheckCircle className="h-4 w-4" />
+                App instalada en tu dispositivo
+              </div>
+            )}
 
-            {/* Presupuesto card — floats over right edge of photo, bleeds out */}
-            <div
-              className="absolute z-10"
-              style={{
-                top: '50%',
-                transform: 'translateY(-50%)',
-                right: '-64px',
-                width: '290px',
-              }}
-            >
-              <PresupuestoCard />
+            {/* sector badges */}
+            <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
+              {SECTOR_BADGES.map(label => (
+                <span
+                  key={label}
+                  className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white/55"
+                >
+                  <span className="h-1 w-1 rounded-full bg-[#00CFE8] shrink-0" />
+                  {label}
+                </span>
+              ))}
             </div>
-          </div>
+          </motion.div>
+
+          {/* Right — portadaoficios.png */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.65, delay: 0.1 }}
+            className="relative flex justify-center lg:justify-end items-end overflow-hidden pb-0"
+          >
+            <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-[#020B16] to-transparent z-10 pointer-events-none" />
+            <div className="absolute top-0 left-0 inset-y-0 w-20 bg-gradient-to-r from-[#020B16] to-transparent z-10 pointer-events-none hidden lg:block" />
+            <img
+              src="/portadaoficios.png"
+              alt="TrabFlow para profesionales de distintos sectores"
+              className="w-full max-w-2xl object-contain object-center"
+              style={{ maxHeight: '600px' }}
+            />
+          </motion.div>
+
         </div>
-
-        {/* Mobile / Tablet: stacked */}
-        <div className="lg:hidden flex flex-col gap-7">
-          <div>
-            <div className="inline-flex items-center gap-2 bg-[#1A5A96]/8 text-[#1A5A96] text-xs font-bold px-3 py-1.5 rounded-full mb-5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#1A5A96] animate-pulse" />
-              Acceso anticipado — Empieza gratis hoy
-            </div>
-            <h1 className="text-3xl sm:text-4xl font-black text-[#1C2535] leading-[1.1] mb-4">
-              El sistema operativo del{' '}
-              <span className="text-[#1A5A96]">instalador profesional</span>
-            </h1>
-            <p className="text-base text-[#1C2535]/55 leading-relaxed mb-6">
-              Presupuesta con IA, compra materiales, ejecuta el trabajo, firma y cobra. Todo conectado.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <button
-                onClick={() => setCurrentPage(ActivePage.Registro)}
-                className="flex items-center justify-center gap-2 bg-[#1A5A96] text-white font-bold text-sm px-6 py-3 rounded-xl shadow-lg cursor-pointer"
-              >
-                Empezar gratis <ArrowRight className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setCurrentPage(ActivePage.ComoFunciona)}
-                className="flex items-center justify-center text-[#1C2535] font-semibold text-sm px-6 py-3 rounded-xl border border-[#1C2535]/15 cursor-pointer"
-              >
-                Ver cómo funciona
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile: photo with floating card */}
-          <div className="relative">
-            <div className="rounded-2xl overflow-hidden shadow-xl">
-              <img
-                src="/instaladorportada.png"
-                alt="Instalador profesional"
-                className="w-full block"
-                style={{ height: '320px', objectFit: 'cover', objectPosition: 'center 12%' }}
-              />
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background: 'linear-gradient(to right, transparent 20%, rgba(10,14,28,0.75) 100%)',
-                }}
-              />
-            </div>
-            <div
-              className="absolute z-10"
-              style={{ top: '50%', transform: 'translateY(-50%)', right: '12px', width: '200px' }}
-            >
-              <PresupuestoCard />
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
   );
