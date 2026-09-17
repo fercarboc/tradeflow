@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle, MessageCircle, CreditCard, Wrench, ShoppingCart, FileText, X, Pencil } from 'lucide-react';
+import { CheckCircle, MessageCircle, CreditCard, Wrench, ShoppingCart, FileText, X, Pencil, Camera } from 'lucide-react';
 import type { Presupuesto } from '../types';
 
 interface Props {
@@ -11,6 +11,7 @@ interface Props {
   onVerPresupuesto: () => void;
   onEditar: () => void;
   onClose: () => void;
+  onFotos?: () => void;
 }
 
 interface ActionBtn {
@@ -23,7 +24,7 @@ interface ActionBtn {
 }
 
 export default function ScreenPostConfirm({
-  quote, onWhatsApp, onCobrar, onCrearTrabajo, onComprarMateriales, onVerPresupuesto, onEditar, onClose,
+  quote, onWhatsApp, onCobrar, onCrearTrabajo, onComprarMateriales, onVerPresupuesto, onEditar, onClose, onFotos,
 }: Props) {
   // ?? 21: fallback para registros históricos sin iva_pct almacenado en trade_quotes
   const totalConIva = ((quote.total ?? 0) * (1 + (quote.iva_pct ?? 21) / 100)).toFixed(2);
@@ -37,6 +38,14 @@ export default function ScreenPostConfirm({
       className: 'bg-emerald-500 hover:bg-emerald-400 text-white',
       shadow: '0 8px 24px rgba(16,185,129,0.45)',
     },
+    ...(onFotos ? [{
+      icon: <Camera className="w-6 h-6" />,
+      label: 'Fotos de referencia',
+      sublabel: 'Añade fotos de la zona o elementos',
+      onClick: onFotos,
+      className: 'bg-orange-500 hover:bg-orange-400 text-white',
+      shadow: '0 8px 24px rgba(249,115,22,0.45)',
+    }] : []),
     {
       icon: <CreditCard className="w-6 h-6" />,
       label: 'Cobrar ahora',

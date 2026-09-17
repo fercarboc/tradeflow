@@ -118,6 +118,7 @@ import OnboardingWizard from './OnboardingWizard';
 import ChatbotWidget from './ChatbotWidget';
 import ScreenProveedoresCliente from './ScreenProveedoresCliente';
 import ScreenPostConfirm from './ScreenPostConfirm';
+import QuotePhotosPanel from './QuotePhotosPanel';
 import type { TradeOrganization, TradeQuote } from '../lib/supabase';
 
 const InvoiceIcon = FileText;
@@ -2171,6 +2172,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [mktCartLoading, setMktCartLoading] = useState(false);
   const [mktPendingCount, setMktPendingCount] = useState(0);
   const [postConfirmQuote, setPostConfirmQuote] = useState<Presupuesto | null>(null);
+  const [showMobilePhotos, setShowMobilePhotos] = useState(false);
   const [editingQuoteId, setEditingQuoteId] = useState<string | null>(null); // null = crear nuevo, string = editar existente
   const savingQuoteRef = useRef(false);
   const convertingInvoiceRef = useRef(false);
@@ -4146,7 +4148,31 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               setWizardViewOnly(false);
               setWizardActive(true);
             }}
+            onFotos={postConfirmQuote?.dbId ? () => setShowMobilePhotos(true) : undefined}
           />
+        )}
+
+        {/* Quote Photos overlay (mobile) */}
+        {showMobilePhotos && postConfirmQuote && orgId && (
+          <div className="fixed inset-0 z-[60] flex flex-col bg-slate-50">
+            <div className="flex items-center justify-between px-4 pt-5 pb-3 bg-white border-b border-slate-100 shrink-0">
+              <button
+                onClick={() => setShowMobilePhotos(false)}
+                className="w-9 h-9 flex items-center justify-center rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 cursor-pointer"
+                aria-label="Volver"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+              <span className="font-black text-sm text-slate-800">{postConfirmQuote.nombreCliente || 'Presupuesto'}</span>
+              <div className="w-9 h-9" />
+            </div>
+            <div className="flex-1 overflow-y-auto p-4">
+              <QuotePhotosPanel
+                quoteId={postConfirmQuote.dbId ?? null}
+                orgId={orgId}
+              />
+            </div>
+          </div>
         )}
 
         {/* Mantenimiento Wizard overlay (mobile) */}
@@ -8083,6 +8109,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </div>
             </div>
           </div>
+        )}
+
+        {/* Quote Photos Panel — visible cuando el presupuesto tiene dbId (ya guardado) */}
+        {orgId && (
+          <QuotePhotosPanel
+            quoteId={selectedQuoteForPreview.dbId ?? null}
+            orgId={orgId}
+          />
         )}
 
         <div className="bg-white text-slate-900 p-8 rounded-2xl max-w-2xl mx-auto border shadow-sm">
