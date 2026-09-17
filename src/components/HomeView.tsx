@@ -174,26 +174,35 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
               {/* tagline chip */}
               <div className="flex justify-center lg:justify-start">
                 <span className="inline-block text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-[#00CFE8] border border-[#00CFE8]/30 bg-[#00CFE8]/8 rounded-full px-4 py-1.5">
-                  Presupuesto · Suministro · Ejecución — para gremios e instaladores
+                  La plataforma todo en uno para profesionales
                 </span>
               </div>
 
               {/* headline */}
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black uppercase leading-[1.0] tracking-tight">
-                <span className="text-white block">DICTAS.</span>
-                <span className="text-[#FFC400] block underline decoration-[#00CFE8] decoration-4 underline-offset-4">TRABFLOW</span>
-                <span className="text-white block">HACE EL RESTO.</span>
+              <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-black leading-[1.05] tracking-tight">
+                <span className="text-white block">Tu trabajo más fácil.</span>
+                <span className="text-[#00CFE8] block">En cualquier sector.</span>
               </h1>
 
               {/* subtitle */}
-              <p className="text-white/55 text-base sm:text-lg leading-relaxed max-w-md mx-auto lg:mx-0">
-                Menos escribir. Más trabajar. Más clientes.<br />Más tiempo para ti.
+              <p className="text-white/60 text-base sm:text-lg leading-relaxed max-w-md mx-auto lg:mx-0">
+                Presupuestos, materiales, partes de trabajo, fotos, firma y facturación. Todo conectado, con la ayuda de la IA.
               </p>
 
-              {/* feature description */}
-              <p className="text-white/40 text-sm leading-relaxed max-w-md mx-auto lg:mx-0 border-l-2 border-[#00CFE8]/40 pl-3">
-                La IA te prepara el presupuesto con todos los precios de tus tarifas y mano de obra — o súbele una foto y te lo prepara por partidas. Cuando lo confirmas, se envía automáticamente por WhatsApp al cliente.
-              </p>
+              {/* benefits */}
+              <ul className="space-y-2.5 text-sm text-white/80 max-w-md mx-auto lg:mx-0">
+                {[
+                  'Presupuestos profesionales en minutos',
+                  'Materiales y proveedores integrados',
+                  'Partes de trabajo con fotos y firma',
+                  'Control total: planificación, equipo y facturación',
+                ].map(b => (
+                  <li key={b} className="flex items-start gap-2.5">
+                    <CheckCircle className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                    {b}
+                  </li>
+                ))}
+              </ul>
 
               {/* CTA buttons */}
               <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
@@ -202,10 +211,19 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
                   className="group flex items-center justify-center gap-2 rounded-lg bg-[#FFC400] px-6 py-3.5 text-sm font-black uppercase tracking-widest text-[#020B16] hover:brightness-110 transition-all shadow-xl shadow-[#FFC400]/20 cursor-pointer"
                   id="hero-cta-register"
                 >
-                  Prueba gratis 15 días
+                  Empezar gratis
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </button>
+                <button
+                  onClick={() => document.getElementById('steps-section')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="flex items-center justify-center gap-2 rounded-lg border border-white/25 bg-white/5 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/10 transition-all cursor-pointer"
+                >
+                  Ver cómo funciona
+                </button>
               </div>
+              <p className="text-[11px] text-white/35 text-center lg:text-left">
+                Sin tarjeta de crédito · Prueba gratuita 3 meses
+              </p>
 
               {/* PWA install buttons */}
               {!isPWAInstalled && (
@@ -284,14 +302,14 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
                 </div>
               )}
 
-              {/* badges row — text only */}
-              <div className="flex flex-wrap gap-5 justify-center lg:justify-start">
-                {['Fácil de usar', 'Ahorra tiempo', 'Más clientes'].map((label) => (
+              {/* sector badges */}
+              <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
+                {['Reformas', 'Instalaciones', 'Jardinería', 'Limpieza', 'y más oficios'].map((label) => (
                   <span
                     key={label}
-                    className="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-bold uppercase tracking-widest text-white/65"
+                    className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white/55"
                   >
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#00CFE8] shrink-0" />
+                    <span className="h-1 w-1 rounded-full bg-[#00CFE8] shrink-0" />
                     {label}
                   </span>
                 ))}
@@ -310,11 +328,11 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
               {/* blend left edge on desktop */}
               <div className="absolute top-0 left-0 inset-y-0 w-20 bg-gradient-to-r from-[#020B16] to-transparent z-10 pointer-events-none hidden lg:block" />
               <img
-                src="/instalador.png"
-                alt="TRABFLOW en acción"
-                className="w-full max-w-2xl object-contain object-bottom"
+                src="/portadaoficios.png"
+                alt="TrabFlow para profesionales de distintos sectores"
+                className="w-full max-w-2xl object-contain object-center"
                 style={{ maxHeight: '600px' }}
-                id="hero-instalador-img"
+                id="hero-portada-img"
               />
             </motion.div>
 
