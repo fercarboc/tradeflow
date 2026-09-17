@@ -90,6 +90,7 @@ export interface TradeQuote {
   voice_note_url?: string;
   whatsapp_sent_at?: string;
   kb_actuaciones?: string[] | null;
+  metadata?: Record<string, unknown> | null;
   created_at: string;
   updated_at: string;
   trade_quote_items?: TradeQuoteItem[];
@@ -104,6 +105,7 @@ export interface TradeQuoteItem {
   precio_unitario: number;
   total: number;
   posicion: number;
+  unidad?: string | null;
   supplier_key?: string | null;
   supplier_name?: string | null;
   supplier_ref?: string | null;
@@ -674,9 +676,10 @@ export async function saveQuote(
   orgId: string,
   clientId: string,
   descripcion: string,
-  items: Pick<TradeQuoteItem, 'descripcion' | 'tipo' | 'cantidad' | 'precio_unitario' | 'precio_material' | 'supplier_key' | 'supplier_name' | 'supplier_ref' | 'catalog_variant_id' | 'familia' | 'global_catalog_id' | 'universal_product_id' | 'universal_variant_id'>[],
+  items: Pick<TradeQuoteItem, 'descripcion' | 'tipo' | 'cantidad' | 'precio_unitario' | 'precio_material' | 'unidad' | 'supplier_key' | 'supplier_name' | 'supplier_ref' | 'catalog_variant_id' | 'familia' | 'global_catalog_id' | 'universal_product_id' | 'universal_variant_id'>[],
   kbActuaciones?: string[],
   ivaPct?: number,
+  metadata?: Record<string, unknown>,
 ): Promise<TradeQuote> {
   const { count } = await supabase
     .from('trade_quotes')
@@ -689,6 +692,7 @@ export async function saveQuote(
   const insertPayload: Record<string, unknown> = { org_id: orgId, client_id: clientId, numero, descripcion, total_neto: totalNeto };
   if (ivaPct !== undefined) insertPayload.iva_pct = ivaPct;
   if (kbActuaciones && kbActuaciones.length > 0) insertPayload.kb_actuaciones = kbActuaciones;
+  if (metadata) insertPayload.metadata = metadata;
 
   const { data: quote, error: qErr } = await supabase
     .from('trade_quotes')

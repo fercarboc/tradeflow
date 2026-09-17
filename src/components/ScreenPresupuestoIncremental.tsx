@@ -5,6 +5,9 @@ import {
   ArrowUpDown, Check, RefreshCw,
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import CleaningIntakePanel from './cleaning/CleaningIntakePanel';
+import { buildCleaningPromptText, toCleaningQuoteMetadata, CleaningQuoteIntake } from '../lib/cleaning/cleaningIntake';
+import { proposeLineItems } from '../lib/cleaning/cleaningLineItems';
 
 const CATEGORIAS = [
   { icon: '🏠', label: 'Mudanza de casa' },
@@ -15,6 +18,7 @@ const CATEGORIAS = [
   { icon: '❄️', label: 'Climatización' },
   { icon: '🌐', label: 'Red informática' },
   { icon: '🏗️', label: 'Reforma integral' },
+  { icon: '🧹', label: 'Limpieza' },
 ];
 
 interface PartidaItem {
@@ -117,14 +121,14 @@ function buildRedInformaticaTexto(r: RedInformaticaDetalles, categoria: string):
 }
 
 export interface ScreenPresupuestoIncrementalProps {
-  onConfirm: (q: { descripcion: string; partidas: PartidaItem[] }) => void;
+  onConfirm: (q: { descripcion: string; partidas: PartidaItem[]; metadata?: Record<string, unknown> }) => void;
   onClose: () => void;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   orgId?: string;
   ivaDefault?: number;
 }
 
-type Phase = 'categoria' | 'mudanza_detalles' | 'red_detalles' | 'clima_detalles' | 'acumulando' | 'resultado';
+type Phase = 'categoria' | 'mudanza_detalles' | 'red_detalles' | 'clima_detalles' | 'limpieza_detalles' | 'acumulando' | 'resultado';
 
 const DEFAULT_MUDANZA: MudanzaDetalles = {
   fecha_mudanza: '',
@@ -180,6 +184,7 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
   const [mudanza, setMudanza]           = useState<MudanzaDetalles>(DEFAULT_MUDANZA);
   const [red, setRed]                   = useState<RedInformaticaDetalles>(DEFAULT_RED);
   const [clima, setClima]               = useState<ClimatizacionDetalles>(DEFAULT_CLIMA);
+  const [limpiezaIntake, setLimpiezaIntake] = useState<Partial<CleaningQuoteIntake> | null>(null);
   const recognitionRef                  = useRef<unknown>(null);
 
   interface CompareRow {
@@ -360,9 +365,10 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
   };
 
   const SpeechAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-  const isMudanza = categoria.toLowerCase().includes('mudanza');
-  const isRed     = categoria.toLowerCase().includes('red') || categoria.toLowerCase().includes('inform') || categoria.toLowerCase().includes('network');
-  const isClima   = categoria.toLowerCase().includes('climat') || categoria.toLowerCase().includes('aire') || categoria.toLowerCase().includes('split');
+  const isMudanza  = categoria.toLowerCase().includes('mudanza');
+  const isRed      = categoria.toLowerCase().includes('red') || categoria.toLowerCase().includes('inform') || categoria.toLowerCase().includes('network');
+  const isClima    = categoria.toLowerCase().includes('climat') || categoria.toLowerCase().includes('aire') || categoria.toLowerCase().includes('split');
+  const isLimpieza = categoria.toLowerCase().includes('limpieza') || categoria.toLowerCase().includes('limpie');
 
   function pickCategoria(label: string) {
     setCategoria(label);
@@ -376,6 +382,9 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
     } else if (k.includes('climat') || k.includes('aire') || k.includes('split')) {
       setClima(DEFAULT_CLIMA);
       setPhase('clima_detalles');
+    } else if (k.includes('limpieza') || k.includes('limpie')) {
+      setLimpiezaIntake(null);
+      setPhase('limpieza_detalles');
     } else {
       setPhase('acumulando');
     }
@@ -521,6 +530,35 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
     }
   }
 
+  async function addPartidasFromLimpiezaIntake(intake: Partial<CleaningQuoteIntake>) {
+    setLimpiezaIntake(intake);
+    setProcessing(true);
+    try {
+      const texto = buildCleaningPromptText(intake);
+      const aiPartidas = await callAI(texto);
+      // Propuesta determinista del catálogo de limpieza — sin precios.
+      const catalogPartidas = proposeLineItems(intake).map(item => ({
+        descripcion: item.descripcion,
+        cantidad: item.cantidad,
+        unidad: item.unidad,
+        tipo: item.tipo,
+        precioUnitario: 0,
+        total: 0,
+      }));
+      // AI partidas toman precedencia; el catálogo añade las que la IA no generó.
+      const aiIds = new Set(aiPartidas.map(p => p.descripcion.toLowerCase().trim().slice(0, 30)));
+      const catalogExtra = catalogPartidas.filter(p => !aiIds.has(p.descripcion.toLowerCase().trim().slice(0, 30)));
+      const combined = [...aiPartidas, ...catalogExtra];
+      setPartidas(combined);
+      setPhase('acumulando');
+      showToast(`${combined.length} partidas propuestas — revisa y ajusta precios`, 'success');
+    } catch {
+      showToast('Error al generar partidas. Inténtalo de nuevo.', 'error');
+    } finally {
+      setProcessing(false);
+    }
+  }
+
   async function addPartidas() {
     const texto = textInput.trim();
     if (!texto) return;
@@ -539,11 +577,12 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
   }
 
   function handleBack() {
-    if (phase === 'mudanza_detalles' || phase === 'red_detalles' || phase === 'clima_detalles') { setPhase('categoria'); return; }
+    if (phase === 'mudanza_detalles' || phase === 'red_detalles' || phase === 'clima_detalles' || phase === 'limpieza_detalles') { setPhase('categoria'); return; }
     if (phase === 'acumulando') {
       if (isMudanza) { setPhase('mudanza_detalles'); }
       else if (isRed) { setPhase('red_detalles'); }
       else if (isClima) { setPhase('clima_detalles'); }
+      else if (isLimpieza) { setPhase('limpieza_detalles'); }
       else { setPhase('categoria'); }
       return;
     }
@@ -556,10 +595,11 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
     mudanza_detalles: 'Detalles mudanza',
     red_detalles: 'Detalles red',
     clima_detalles: 'Detalles climatización',
+    limpieza_detalles: 'Datos del servicio',
     acumulando: 'Describir trabajo',
     resultado: 'Revisar partidas',
   };
-  const allSteps = (['categoria', isMudanza ? 'mudanza_detalles' : isRed ? 'red_detalles' : isClima ? 'clima_detalles' : null, 'acumulando', 'resultado'] as (Phase | null)[]).filter(Boolean) as Phase[];
+  const allSteps = (['categoria', isMudanza ? 'mudanza_detalles' : isRed ? 'red_detalles' : isClima ? 'clima_detalles' : isLimpieza ? 'limpieza_detalles' : null, 'acumulando', 'resultado'] as (Phase | null)[]).filter(Boolean) as Phase[];
   const currentStepIdx = allSteps.indexOf(phase);
 
   const hasGlobalSupplier = partidas.some(p => p.supplier_key && p.supplier_key !== 'propio');
@@ -1536,6 +1576,16 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
           </div>
           );
         })()}
+
+        {/* ── FASE: DETALLES LIMPIEZA ── */}
+        {phase === 'limpieza_detalles' && (
+          <div className="px-4 py-5 pb-32">
+            <CleaningIntakePanel
+              onConfirm={addPartidasFromLimpiezaIntake}
+              showToast={showToast}
+            />
+          </div>
+        )}
       </div>
 
       {/* Footer: generar partidas base (red / clima / mudanza) */}
@@ -1591,7 +1641,7 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
               </div>
             )}
             <button
-              onClick={() => onConfirm({ descripcion: categoria, partidas })}
+              onClick={() => onConfirm({ descripcion: categoria, partidas, metadata: limpiezaIntake ? toCleaningQuoteMetadata(limpiezaIntake) : undefined })}
               className="w-full bg-amber-500 hover:bg-amber-400 text-white font-black py-5 rounded-2xl flex items-center justify-center gap-2.5 text-base cursor-pointer transition-colors"
               style={{ boxShadow: '0 8px 32px rgba(245,158,11,0.5)' }}
             >

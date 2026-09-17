@@ -808,6 +808,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [wizardStep, setWizardStep] = useState<number>(1);
   const [wizardOrigin, setWizardOrigin] = useState<'voz' | 'foto' | 'manual'>('manual');
   const [wizardViewOnly, setWizardViewOnly] = useState<boolean>(false);
+  const pendingQuoteMetadata = useRef<Record<string, unknown> | null>(null);
   const [wizardQuote, setWizardQuote] = useState<Partial<Presupuesto>>({
     id: '',
     nombreCliente: '',
@@ -1774,6 +1775,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             supplier_ref: p.supplier_ref ?? null,
             catalog_variant_id: p.catalog_variant_id ?? null,
             familia: p.familia ?? null,
+            unidad: (p as any).unidad ?? null,
           }));
           if (editingQuoteId) {
             // Edit: no inner catch — error bubbles to outer catch to keep wizard open
@@ -1788,7 +1790,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 itemsPayload,
                 kbActuacionesSaved.length > 0 ? kbActuacionesSaved : undefined,
                 empresaAjustes.ivaDefault,
+                pendingQuoteMetadata.current ?? undefined,
               );
+              pendingQuoteMetadata.current = null;
               savedQuote = { ...finalQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], kbActuaciones: dbQuote.kb_actuaciones ?? undefined };
             } catch (e) { console.error('Error guardando presupuesto:', e); }
           }
@@ -2557,6 +2561,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         supplier_ref: p.supplier_ref ?? null,
         catalog_variant_id: p.catalog_variant_id ?? null,
         familia: p.familia ?? null,
+        unidad: (p as any).unidad ?? null,
       }));
 
       if (isLiveMode && orgId) {
@@ -2566,7 +2571,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           const dbQuote = await updateQuote(editingQuoteId, client.id, editingQuote.descripcion, partidasPayload, editingQuote.iva_pct);
           saved = { ...editingQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'] };
         } else {
-          const dbQuote = await saveQuote(orgId, client.id, editingQuote.descripcion, partidasPayload, undefined, editingQuote.iva_pct ?? empresaAjustes.ivaDefault);
+          const dbQuote = await saveQuote(orgId, client.id, editingQuote.descripcion, partidasPayload, undefined, editingQuote.iva_pct ?? empresaAjustes.ivaDefault, pendingQuoteMetadata.current ?? undefined);
+          pendingQuoteMetadata.current = null;
           saved = { id: dbQuote.numero, dbId: dbQuote.id, nombreCliente: editingQuote.nombreCliente, descripcion: dbQuote.descripcion ?? '', partidas: editingQuote.partidas, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], telefonoCliente: editingQuote.telefonoCliente, emailCliente: editingQuote.emailCliente };
         }
       } else {
@@ -4059,13 +4065,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             onClose={() => setShowPresupuestoIncremental(false)}
             onConfirm={(q) => {
               setShowPresupuestoIncremental(false);
+              pendingQuoteMetadata.current = q.metadata ?? null;
               const partidasMobile = q.partidas.map(p => {
                 if (p.supplier_key && p.precioUnitario > 0) {
-                  return { descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: p.precioUnitario, total: p.precioUnitario * p.cantidad, supplier_key: p.supplier_key, supplier_name: p.supplier_name, supplier_ref: p.supplier_ref, familia: p.familia };
+                  return { descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: p.precioUnitario, total: p.precioUnitario * p.cantidad, supplier_key: p.supplier_key, supplier_name: p.supplier_name, supplier_ref: p.supplier_ref, familia: p.familia, unidad: p.unidad };
                 }
                 const match = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
                 const pu = match ? match.variant.precio_venta * (1 + empresaAjustes.margenMateriales / 100) : p.precioUnitario;
-                return { descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: pu, total: pu * p.cantidad, familia: p.familia };
+                return { descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: pu, total: pu * p.cantidad, familia: p.familia, unidad: p.unidad };
               });
               setWizardQuote({
                 id: '',
@@ -6557,13 +6564,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             onClose={() => setShowPresupuestoIncremental(false)}
             onConfirm={(q) => {
               setShowPresupuestoIncremental(false);
+              pendingQuoteMetadata.current = q.metadata ?? null;
               const partidasDesktop = q.partidas.map(p => {
                 if (p.supplier_key && p.precioUnitario > 0) {
-                  return { descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: p.precioUnitario, total: p.precioUnitario * p.cantidad, supplier_key: p.supplier_key, supplier_name: p.supplier_name, supplier_ref: p.supplier_ref, familia: p.familia };
+                  return { descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: p.precioUnitario, total: p.precioUnitario * p.cantidad, supplier_key: p.supplier_key, supplier_name: p.supplier_name, supplier_ref: p.supplier_ref, familia: p.familia, unidad: p.unidad };
                 }
                 const match = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
                 const pu = match ? match.variant.precio_venta * (1 + empresaAjustes.margenMateriales / 100) : p.precioUnitario;
-                return { descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: pu, total: pu * p.cantidad, familia: p.familia };
+                return { descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: pu, total: pu * p.cantidad, familia: p.familia, unidad: p.unidad };
               });
               const quoteBase = {
                 id: '',

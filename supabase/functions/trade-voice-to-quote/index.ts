@@ -122,6 +122,14 @@ GUÍA GENERAL:
 - Paneles solares fotovoltaicos, aerotermia → energia_solar | Climatización, splits → climatizacion
 - CCTV, alarmas intrusión, control acceso → instalador_cctv | Vehículos → mecanica
 
+REGLAS ESPECÍFICAS — SECTOR LIMPIEZA:
+• NUNCA apliques tarifa de 20€/h automáticamente para limpieza.
+• Cualquier partida de mano_de_obra del oficio "limpieza" SIEMPRE: precio_unitario=0, requiere_revision=true, origen="sugerida_ia".
+• El profesional de limpieza fija sus propias tarifas — la IA solo estructura las partidas.
+• Tipos de espacio limpieza: vivienda | oficina | despacho | local_comercial | comunidad | garaje | nave | edificio | otro
+• Tipos de servicio limpieza: limpieza_integral | limpieza_general | mantenimiento | puntual | fin_de_obra | cristales | limpieza_profunda | cambio_inquilino | otro
+• Unidades válidas para limpieza: hora | m2 | unidad | visita | jornada | mes
+
 FORMATO DE SALIDA: JSON válido, sin markdown, sin texto fuera del JSON.
 {
   "resumen": { "texto_original": "", "tipo_presupuesto": "reforma|mantenimiento_recurrente|servicio", "requiere_revision_general": false, "alertas": [] },

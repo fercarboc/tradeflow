@@ -126,6 +126,7 @@ tipo: 'material' | 'mano_de_obra';
 cantidad: number;
 precioUnitario: number;
 total: number;
+unidad?: string;
 requiere_precio?: boolean;
 aviso?: string;
 supplier_key?: string;
