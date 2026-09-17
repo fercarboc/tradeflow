@@ -1,10 +1,23 @@
 import {
-  Document, Packer, Paragraph, Table, TableRow, TableCell, TextRun,
+  Document, Packer, Paragraph, Table, TableRow, TableCell, TextRun, ImageRun,
   AlignmentType, WidthType, BorderStyle, ShadingType,
 } from 'docx';
 import type { ContractVars } from './contractTemplates';
 import { getOficioContent } from './contractTemplates';
 import type { PartidaPresupuesto } from '../types';
+import type { PreparedWordPhoto } from './quotePhotos';
+
+// ── Aspect-ratio helper (pure, testeable) ─────────────────────────────────────
+// srcW/srcH: imagen original. maxW/maxH: límites del documento (en píxeles a 96dpi).
+// Si srcW/srcH son 0 (jsdom/fallback), devuelve maxW × 0.75 (ratio 4:3 razonable).
+export function scaleToFit(
+  srcW: number, srcH: number,
+  maxW: number, maxH: number,
+): { width: number; height: number } {
+  if (srcW <= 0 || srcH <= 0) return { width: maxW, height: Math.round(maxW * 0.75) };
+  const scale = Math.min(1, maxW / srcW, maxH / srcH);
+  return { width: Math.round(srcW * scale), height: Math.round(srcH * scale) };
+}
 
 // ── Palette (hex without #) ───────────────────────────────────────────────────
 const C_BLUE   = '2563EB';
@@ -67,6 +80,7 @@ export interface DocExportOpts {
   rectificaNumeroOriginal?: string;
   rectificaFechaOriginal?: string;
   motivo?: string;
+  photos?: PreparedWordPhoto[];
 }
 
 export async function downloadAsWordDocx(opts: DocExportOpts, filename: string): Promise<void> {
@@ -263,6 +277,7 @@ export async function downloadAsWordDocx(opts: DocExportOpts, filename: string):
         new Paragraph({ spacing: { after: 120 }, children: [] }),
         totalsWrapper,
         new Paragraph({ spacing: { after: 240 }, children: [] }),
+        ...(opts.photos && opts.photos.length > 0 ? buildWordPhotosSection(opts.photos) : []),
         new Paragraph({
           children: [new TextRun({ text: `Generado con TradeFlow AI · ${opts.empresa.nombre || ''}`, size: 16, color: C_MUTED })],
           alignment: AlignmentType.CENTER,
@@ -275,6 +290,49 @@ export async function downloadAsWordDocx(opts: DocExportOpts, filename: string):
 
   const blob = await Packer.toBlob(doc);
   saveBlob(blob, `${filename}.docx`);
+}
+
+function buildWordPhotosSection(photos: PreparedWordPhoto[]): Paragraph[] {
+  const result: Paragraph[] = [
+    new Paragraph({
+      children: [new TextRun({ text: 'FOTOGRAFÍAS DE REFERENCIA', bold: true, size: 20, color: C_SLATE, allCaps: true })],
+      border: { bottom: { style: BorderStyle.SINGLE, color: 'E2E8F0', size: 4 } },
+      spacing: { before: 80, after: 160 },
+    }),
+  ];
+  for (const p of photos) {
+    // Map MIME → ImageRun type. WebP is excluded: technically embeds but unsupported in older Word.
+    const mimeToDocxType: Record<string, 'jpg' | 'png'> = {
+      'image/jpeg': 'jpg',
+      'image/jpg':  'jpg',
+      'image/png':  'png',
+    };
+    const docxType = mimeToDocxType[p.mimeType];
+    if (!docxType) {
+      console.warn(`[Word] Foto omitida: MIME no soportado en Word (${p.mimeType})`);
+      continue;
+    }
+    const dims = scaleToFit(p.naturalWidth, p.naturalHeight, 460, 340);
+    result.push(
+      new Paragraph({
+        children: [new ImageRun({ data: p.arrayBuffer, transformation: { width: dims.width, height: dims.height }, type: docxType })],
+        spacing: { after: p.area_label || p.caption ? 60 : 120 },
+      }),
+    );
+    if (p.area_label) {
+      result.push(new Paragraph({
+        children: [new TextRun({ text: p.area_label, bold: true, size: 18, color: C_SLATE })],
+        spacing: { after: p.caption ? 40 : 120 },
+      }));
+    }
+    if (p.caption) {
+      result.push(new Paragraph({
+        children: [new TextRun({ text: p.caption, size: 17, color: C_MUTED })],
+        spacing: { after: 120 },
+      }));
+    }
+  }
+  return result;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════

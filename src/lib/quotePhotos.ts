@@ -131,6 +131,70 @@ export async function loadQuotePhotos(quoteId: string): Promise<TradeQuotePhoto[
   return (data ?? []) as TradeQuotePhoto[];
 }
 
+// ── Document photo types ──────────────────────────────────────────────────────
+
+export interface PreparedDocumentPhoto {
+  storage_path: string;
+  area_label: string | null;
+  caption: string | null;
+  dataUrl: string;
+}
+
+export interface PreparedWordPhoto {
+  storage_path: string;
+  area_label: string | null;
+  caption: string | null;
+  arrayBuffer: ArrayBuffer;
+  mimeType: string;
+  naturalWidth: number;
+  naturalHeight: number;
+}
+
+export async function loadQuoteDocumentPhotos(quoteId: string): Promise<TradeQuotePhoto[]> {
+  const { data, error } = await supabase
+    .from('trade_quote_photos')
+    .select('*')
+    .eq('quote_id', quoteId)
+    .eq('include_in_document', true)
+    .order('display_order', { ascending: true })
+    .order('created_at', { ascending: true })
+    .limit(MAX_QUOTE_DOCUMENT_PHOTOS);
+  if (error) throw error;
+  return (data ?? []) as TradeQuotePhoto[];
+}
+
+export async function getQuotePhotoAsDataUrl(storagePath: string): Promise<string> {
+  const { data, error } = await supabase.storage.from(BUCKET).download(storagePath);
+  if (error || !data) throw error ?? new Error('No se pudo descargar la foto');
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const result = reader.result;
+      if (typeof result === 'string' && result.startsWith('data:')) {
+        resolve(result);
+      } else {
+        reject(new Error('FileReader no devolvió un data URL válido'));
+      }
+    };
+    reader.onerror = () => reject(new Error('Error al leer la imagen'));
+    reader.readAsDataURL(data);
+  });
+}
+
+export async function getQuotePhotoAsArrayBuffer(storagePath: string): Promise<ArrayBuffer> {
+  const { data, error } = await supabase.storage.from(BUCKET).download(storagePath);
+  if (error || !data) throw error ?? new Error('No se pudo descargar la foto');
+  return data.arrayBuffer();
+}
+
+export async function downloadQuotePhotoRaw(storagePath: string): Promise<{ arrayBuffer: ArrayBuffer; mimeType: string }> {
+  const { data, error } = await supabase.storage.from(BUCKET).download(storagePath);
+  if (error || !data) throw error ?? new Error('No se pudo descargar la foto');
+  const mimeType = data.type || 'image/jpeg';
+  const arrayBuffer = await data.arrayBuffer();
+  return { arrayBuffer, mimeType };
+}
+
 export async function getQuotePhotoSignedUrl(storagePath: string): Promise<string> {
   const { data, error } = await supabase.storage
     .from(BUCKET)

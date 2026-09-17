@@ -120,6 +120,13 @@ import ScreenProveedoresCliente from './ScreenProveedoresCliente';
 import ScreenPostConfirm from './ScreenPostConfirm';
 import QuotePhotosPanel from './QuotePhotosPanel';
 import type { TradeOrganization, TradeQuote } from '../lib/supabase';
+import {
+  loadQuoteDocumentPhotos,
+  getQuotePhotoAsDataUrl,
+  downloadQuotePhotoRaw,
+  type PreparedDocumentPhoto,
+  type PreparedWordPhoto,
+} from '../lib/quotePhotos';
 
 const InvoiceIcon = FileText;
 
@@ -2571,7 +2578,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       setActiveTab('preview');
       showToast(isEditing ? 'Presupuesto actualizado' : 'Presupuesto guardado');
       if (!isEditing) { setShowConfetti(true); setTimeout(() => setShowConfetti(false), 3000); }
-      setTimeout(() => printQuote(saved), 600);
+      setTimeout(() => { printQuote(saved).catch(err => console.warn('[saveCurrentQuote] printQuote error:', err)); }, 600);
     } catch (e: any) {
       showToast('Error al guardar: ' + (e?.message ?? 'Error desconocido'), 'error');
     } finally {
@@ -7803,8 +7810,26 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               PDF
             </button>
             <button
-              onClick={() => {
+              onClick={async () => {
                 const cliente = clientes.find(c => c.nombre === selectedQuoteForPreview.nombreCliente);
+                let wordPhotos: PreparedWordPhoto[] = [];
+                try {
+                  const docPhotos = await loadQuoteDocumentPhotos(selectedQuoteForPreview.id);
+                  const results = await Promise.allSettled(
+                    docPhotos.map(async p => {
+                      const { arrayBuffer, mimeType } = await downloadQuotePhotoRaw(p.storage_path);
+                      const dims = await getImageNaturalDimensions(arrayBuffer, mimeType);
+                      return { storage_path: p.storage_path, area_label: p.area_label, caption: p.caption, arrayBuffer, mimeType, naturalWidth: dims.w, naturalHeight: dims.h } satisfies PreparedWordPhoto;
+                    }),
+                  );
+                  wordPhotos = results
+                    .filter((r): r is PromiseFulfilledResult<PreparedWordPhoto> => r.status === 'fulfilled')
+                    .map(r => r.value);
+                  const failCount = results.filter(r => r.status === 'rejected').length;
+                  if (failCount > 0) console.warn(`[Word] ${failCount} foto(s) no cargaron y se omitieron`);
+                } catch (err) {
+                  console.warn('[Word] No se pudieron cargar fotos del documento:', err);
+                }
                 downloadAsWordDocx({
                   tipo: 'presupuesto',
                   numero: selectedQuoteForPreview.id,
@@ -7818,6 +7843,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   total: selectedQuoteForPreview.total,
                   iva: selectedQuoteForPreview.iva_pct ?? 21, // ?? 21: registros históricos; NO usar ivaDefault
                   estado: selectedQuoteForPreview.estado,
+                  photos: wordPhotos.length > 0 ? wordPhotos : undefined,
                 }, selectedQuoteForPreview.id);
               }}
               className="flex items-center gap-1.5 bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer"
@@ -8868,6 +8894,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     iva: number;
     estado?: string;
     notas?: string;
+    photos?: PreparedDocumentPhoto[];
   }) {
     const totalIVA = opts.total * (opts.iva / 100);
     const totalConIVA = opts.total + totalIVA;
@@ -9011,10 +9038,49 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         <div class="totals-row final"><span>TOTAL</span><span>${totalConIVA.toFixed(2)}€</span></div>
       </div>
 
+      ${opts.photos && opts.photos.length > 0 ? buildPhotosHtml(opts.photos) : ''}
+
       <div class="footer">
         Generado con TradeFlow AI · ${opts.empresa.nombre || ''}${opts.empresa.email ? ` · ${opts.empresa.email}` : ''}
       </div>
     </body></html>`;
+  }
+
+  function buildPhotosHtml(photos: PreparedDocumentPhoto[]): string {
+    const n = photos.length;
+    const colStyle = n === 1
+      ? 'display:block;margin:0 auto;max-width:480px'
+      : `display:grid;grid-template-columns:repeat(${n},1fr);gap:16px`;
+    const figures = photos.map(p => {
+      const labelHtml = [
+        p.area_label ? `<div style="font-size:10.5px;font-weight:700;color:#475569;margin-top:6px">${p.area_label}</div>` : '',
+        p.caption    ? `<div style="font-size:10px;color:#94a3b8;margin-top:2px">${p.caption}</div>` : '',
+      ].join('');
+      return `<figure style="margin:0;break-inside:avoid;page-break-inside:avoid">
+        <img src="${p.dataUrl}" alt="" style="width:100%;height:180px;object-fit:cover;border-radius:6px;display:block" />
+        ${labelHtml ? `<figcaption style="text-align:center">${labelHtml}</figcaption>` : ''}
+      </figure>`;
+    }).join('');
+    return `<div style="margin:32px 0 24px">
+      <div style="font-size:9px;text-transform:uppercase;color:#94a3b8;font-weight:800;letter-spacing:1.2px;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid #e2e8f0">Fotografías de referencia</div>
+      <div style="${colStyle}">${figures}</div>
+    </div>`;
+  }
+
+  async function getImageNaturalDimensions(arrayBuffer: ArrayBuffer, mimeType = 'image/jpeg'): Promise<{ w: number; h: number }> {
+    return new Promise(resolve => {
+      const blob = new Blob([arrayBuffer], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const img = new Image();
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        const w = img.naturalWidth;
+        const h = img.naturalHeight;
+        resolve(w > 0 && h > 0 ? { w, h } : { w: 400, h: 300 });
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); resolve({ w: 400, h: 300 }); };
+      img.src = url;
+    });
   }
 
   function printDocument(html: string) {
@@ -9026,8 +9092,25 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setTimeout(() => win.print(), 500);
   }
 
-  function printQuote(presupuesto: Presupuesto) {
+  async function printQuote(presupuesto: Presupuesto) {
     const cliente = clientes.find(c => c.nombre === presupuesto.nombreCliente);
+    let photos: PreparedDocumentPhoto[] = [];
+    try {
+      const docPhotos = await loadQuoteDocumentPhotos(presupuesto.id);
+      const results = await Promise.allSettled(
+        docPhotos.map(async p => {
+          const dataUrl = await getQuotePhotoAsDataUrl(p.storage_path);
+          return { storage_path: p.storage_path, area_label: p.area_label, caption: p.caption, dataUrl } satisfies PreparedDocumentPhoto;
+        }),
+      );
+      photos = results
+        .filter((r): r is PromiseFulfilledResult<PreparedDocumentPhoto> => r.status === 'fulfilled')
+        .map(r => r.value);
+      const failCount = results.filter(r => r.status === 'rejected').length;
+      if (failCount > 0) console.warn(`[printQuote] ${failCount} foto(s) no cargaron y se omitieron`);
+    } catch (err) {
+      console.warn('[printQuote] No se pudieron cargar fotos del documento:', err);
+    }
     const html = buildDocumentHTML({
       tipo: 'presupuesto',
       numero: presupuesto.id,
@@ -9042,6 +9125,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       total: presupuesto.total,
       iva: presupuesto.iva_pct ?? 21, // ?? 21: registros históricos sin iva_pct; NO usar ivaDefault (sería el default ACTUAL, no el del documento)
       estado: presupuesto.estado,
+      photos: photos.length > 0 ? photos : undefined,
     });
     printDocument(html);
   }
