@@ -7814,7 +7814,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 const cliente = clientes.find(c => c.nombre === selectedQuoteForPreview.nombreCliente);
                 let wordPhotos: PreparedWordPhoto[] = [];
                 try {
-                  const docPhotos = await loadQuoteDocumentPhotos(selectedQuoteForPreview.id);
+                  const docPhotos = selectedQuoteForPreview.dbId
+                    ? await loadQuoteDocumentPhotos(selectedQuoteForPreview.dbId)
+                    : [];
                   const results = await Promise.allSettled(
                     docPhotos.map(async p => {
                       const { arrayBuffer, mimeType } = await downloadQuotePhotoRaw(p.storage_path);
@@ -9096,7 +9098,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     const cliente = clientes.find(c => c.nombre === presupuesto.nombreCliente);
     let photos: PreparedDocumentPhoto[] = [];
     try {
-      const docPhotos = await loadQuoteDocumentPhotos(presupuesto.id);
+      const docPhotos = presupuesto.dbId
+        ? await loadQuoteDocumentPhotos(presupuesto.dbId)
+        : [];
       const results = await Promise.allSettled(
         docPhotos.map(async p => {
           const dataUrl = await getQuotePhotoAsDataUrl(p.storage_path);

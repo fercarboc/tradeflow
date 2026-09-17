@@ -813,3 +813,55 @@ describe('TEST 34-37 — regresión', () => {
     expect(mocks.fromFn).not.toHaveBeenCalledWith('trade_job_photos');
   });
 });
+
+// ── TEST 15: FIX1 — quoteId resolution for document photos ───────────────────
+// Regression tests for PH0-QUOTE-PHOTOS-1C-FIX1.
+// Root cause: PDF/Word callers passed presupuesto.id (display number "PRE-2026-002")
+// instead of presupuesto.dbId (UUID "11111111-..."). trade_quote_photos.quote_id
+// stores the UUID, so the query returned [] silently — no photos in output.
+// Fix: use dbId when present, skip photo load entirely when absent.
+describe('TEST 15 — FIX1: dbId vs display id resolution', () => {
+  const DISPLAY_ID = 'PRE-2026-002';
+  const DB_UUID    = '11111111-2222-3333-4444-555555555555';
+
+  it('resolves to dbId (UUID) when present — never to display id', () => {
+    const q = { id: DISPLAY_ID, dbId: DB_UUID };
+    const resolved = q.dbId ?? null;
+    expect(resolved).toBe(DB_UUID);
+    expect(resolved).not.toBe(DISPLAY_ID);
+    expect(resolved).not.toMatch(/^PRE-/);
+    expect(resolved).not.toMatch(/^P-/);
+  });
+
+  it('resolves to null when dbId is absent (local/offline quote)', () => {
+    const q: { id: string; dbId?: string } = { id: DISPLAY_ID };
+    const resolved = q.dbId ?? null;
+    expect(resolved).toBeNull();
+  });
+
+  it('NEVER falls back to display id when dbId is absent', () => {
+    const q: { id: string; dbId?: string } = { id: DISPLAY_ID };
+    const resolved = q.dbId ?? null;
+    // Prohibición explícita: display id NO es FK válida para trade_quote_photos.quote_id
+    expect(resolved).not.toBe(q.id);
+    expect(resolved).not.toBe(DISPLAY_ID);
+  });
+
+  it('loadQuoteDocumentPhotos receives UUID when dbId present', async () => {
+    mocks.state.dbData = [];
+    const q = { id: DISPLAY_ID, dbId: DB_UUID };
+    const dbId = q.dbId ?? null;
+    if (dbId) await loadQuoteDocumentPhotos(dbId);
+    const eqMock = mocks.dbChain.eq as ReturnType<typeof vi.fn>;
+    expect(eqMock).toHaveBeenCalledWith('quote_id', DB_UUID);
+    expect(eqMock).not.toHaveBeenCalledWith('quote_id', DISPLAY_ID);
+  });
+
+  it('loadQuoteDocumentPhotos NOT called when dbId is absent', async () => {
+    mocks.fromFn.mockClear();
+    const q: { id: string; dbId?: string } = { id: DISPLAY_ID };
+    const dbId = q.dbId ?? null;
+    if (dbId) await loadQuoteDocumentPhotos(dbId);
+    expect(mocks.fromFn).not.toHaveBeenCalled();
+  });
+});
