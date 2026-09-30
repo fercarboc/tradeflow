@@ -7,7 +7,7 @@ interface Props {
   onWhatsApp: () => void;
   onCobrar: () => void;
   onCrearTrabajo: () => void;
-  onComprarMateriales: () => void;
+  onComprarMateriales?: () => void;
   onVerPresupuesto: () => void;
   onEditar: () => void;
   onClose: () => void;
@@ -62,14 +62,14 @@ export default function ScreenPostConfirm({
       className: 'bg-violet-500 hover:bg-violet-400 text-white',
       shadow: '0 8px 24px rgba(139,92,246,0.45)',
     },
-    {
+    ...(onComprarMateriales ? [{
       icon: <ShoppingCart className="w-6 h-6" />,
       label: 'Comprar materiales',
       sublabel: 'Busca y compara en el marketplace',
       onClick: onComprarMateriales,
       className: 'bg-emerald-600 hover:bg-emerald-500 text-white',
       shadow: '0 8px 24px rgba(5,150,105,0.45)',
-    },
+    }] : []),
     {
       icon: <Pencil className="w-6 h-6" />,
       label: 'Editar presupuesto',

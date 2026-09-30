@@ -21,7 +21,7 @@ import {
   clearRememberedWorkspace,
 } from './lib/workspaceResolver';
 import type { ResolvedWorkspaces } from './lib/workspaceResolver';
-import { ADMIN_EMAIL } from './lib/constants';
+import { ADMIN_EMAIL, MARKETPLACE_ENABLED } from './lib/constants';
 import Header from './components/Header';
 import HomeView from './components/HomeView';
 import LandingPage from './pages/LandingPage';
@@ -284,6 +284,15 @@ export default function App() {
     if (checkoutSuccess) return ActivePage.AppDashboard;
     if (initialAuthRoute) return initialAuthRoute;
     const fromUrl = pathToPage(window.location.pathname);
+    // Bloque 1: cuando el marketplace está desactivado, cualquier URL de marketplace
+    // redirige al dashboard (o Home si no es PWA) sin intentar cargar esas vistas.
+    const MARKETPLACE_PAGES = new Set([
+      ActivePage.Marketplace, ActivePage.MarketplacePublico, ActivePage.MarketplaceComprar,
+      ActivePage.SeguimientoMaterial, ActivePage.DocumentosMarketplace,
+    ]);
+    if (!MARKETPLACE_ENABLED && fromUrl && MARKETPLACE_PAGES.has(fromUrl)) {
+      return pwa ? ActivePage.AppDashboard : ActivePage.Home;
+    }
     // [RC1-C1D] Si la URL del historial del navegador es /marketplace/comprar pero NO hay
     // un contexto de compra fresco, redirigir al catálogo en lugar de abrir el wizard.
     if (fromUrl === ActivePage.MarketplaceComprar) {
@@ -549,7 +558,17 @@ export default function App() {
   }, [routeSession, pwa]);
 
   const renderActiveView = () => {
-    switch (currentPage) {
+    // Bloque 1: redirigir páginas de marketplace al dashboard cuando están desactivadas.
+    // No llama a setCurrentPage para evitar efectos secundarios durante el render.
+    const MARKETPLACE_PAGES = new Set([
+      ActivePage.Marketplace, ActivePage.MarketplacePublico, ActivePage.MarketplaceComprar,
+      ActivePage.SeguimientoMaterial, ActivePage.DocumentosMarketplace,
+    ]);
+    const effectivePage = (!MARKETPLACE_ENABLED && MARKETPLACE_PAGES.has(currentPage))
+      ? ActivePage.AppDashboard
+      : currentPage;
+
+    switch (effectivePage) {
       // Auth flow
       case ActivePage.Login:
         return <LoginView setCurrentPage={setCurrentPage} />;
@@ -776,11 +795,24 @@ export default function App() {
     );
   }
 
+  const isLocalEnv = import.meta.env.VITE_ENV_NAME === 'local';
+
   return (
     <ErrorBoundary>
       <CookieConsentProvider>
       <SessionProvider user={session?.user ?? null} sessionChecked={sessionChecked}>
       <CarritoProvider>
+      {isLocalEnv && (
+        <div style={{ position: 'fixed', top: 8, right: 8, zIndex: 9999, pointerEvents: 'none' }}>
+          <span style={{
+            background: '#f59e0b', color: '#000', fontSize: '10px', fontWeight: 700,
+            padding: '2px 8px', borderRadius: '4px', letterSpacing: '0.05em',
+            boxShadow: '0 1px 4px rgba(0,0,0,0.4)',
+          }}>
+            LOCAL
+          </span>
+        </div>
+      )}
       <div className="min-h-screen flex flex-col bg-[#020B16]">
         {!isAppView && !isAuthView && (
           <Header

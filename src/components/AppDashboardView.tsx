@@ -75,7 +75,7 @@ import {
   Store,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ADMIN_EMAIL } from '../lib/constants';
+import { ADMIN_EMAIL, MARKETPLACE_ENABLED } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
 import { supabase, loadDashboard, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, updateClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, emitirFactura, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote, getOrgActiveOrders, loadInvoiceLines, updateDraftInvoice, normalizaNif, getClientDisplayName } from '../lib/supabase';
 import type { TradeSubcontractor, TradeSubcontrata, ActiveSupplierCatalog, TradeClient, FiscalSnapshot } from '../lib/supabase';
@@ -3991,7 +3991,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presupuestos' })}
                 {MobileTabButton({ tab: 'facturas',     icon: <Receipt  className="w-5 h-5" />, label: 'Facturas' })}
                 {MobileTabButton({ tab: 'trabajos',     icon: <Briefcase className="w-5 h-5" />, label: 'Trabajos' })}
-                {can('catalog.manage')
+                {MARKETPLACE_ENABLED && can('catalog.manage')
                   ? (
                     <button
                       onClick={() => setCurrentPage(ActivePage.Marketplace)}
@@ -4102,7 +4102,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               setMobileTab('trabajos');
               setNewJobTrigger(t => t + 1);
             }}
-            onComprarMateriales={async () => {
+            onComprarMateriales={MARKETPLACE_ENABLED ? async () => {
               const q = postConfirmQuote;
               setPostConfirmQuote(null);
               if (!q?.dbId) return;
@@ -4136,7 +4136,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               } finally {
                 setMktCartLoading(false);
               }
-            }}
+            } : undefined}
             onVerPresupuesto={() => {
               const q = postConfirmQuote;
               setPostConfirmQuote(null);
@@ -6162,7 +6162,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           <nav className="flex-grow p-4 space-y-1 overflow-y-auto min-h-0 scrollbar-hide">
             {!isTecnico && SidebarBtn({ id: 'dashboard', icon: <TrendingUp className="w-4 h-4" />, label: 'Panel Control' })}
             {can('quotes.create') && SidebarBtn({ id: 'quotes', icon: <FileText className="w-4 h-4" />, label: 'Presupuestos' })}
-            {can('catalog.manage') && (
+            {MARKETPLACE_ENABLED && can('catalog.manage') && (
               <button
                 data-testid="nav-marketplace"
                 onClick={() => setCurrentPage(ActivePage.Marketplace)}
@@ -6330,7 +6330,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   >
                     ← Presupuestos
                   </button>
-                  {isLiveMode && selectedQuoteForPreview.dbId && (
+                  {MARKETPLACE_ENABLED && isLiveMode && selectedQuoteForPreview.dbId && (
                     <button
                       disabled={mktCartLoading}
                       onClick={async () => {
@@ -6371,7 +6371,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       <span>{mktCartLoading ? 'Preparando...' : 'Comprar materiales'}</span>
                     </button>
                   )}
-                  {isLiveMode && mktPendingCount > 0 && (
+                  {MARKETPLACE_ENABLED && isLiveMode && mktPendingCount > 0 && (
                     <button
                       onClick={() => {
                         sessionStorage.setItem('tf:mkt:view', 'pedidos');

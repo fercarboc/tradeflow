@@ -4,6 +4,7 @@ import {
   ToggleLeft, ToggleRight, Upload, FileSpreadsheet, Download, X, Plus, Search, TrendingUp,
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import { MARKETPLACE_ENABLED } from '../lib/constants';
 
 interface ActorRow {
   id: string;
@@ -184,7 +185,8 @@ export default function ScreenProveedoresCliente({ orgId, showToast }: Props) {
         if (propioRes.data) {
           allCatalogs.push({ ...propioRes.data, productos: countMap.get(propioRes.data.id) ?? 0 });
         }
-        allCatalogs.push(...globalRows);
+        // Solo mostrar catálogos de proveedores marketplace cuando el marketplace está activo
+        if (MARKETPLACE_ENABLED) allCatalogs.push(...globalRows);
         setCatalogs(allCatalogs);
 
         const sMap: Record<string, OrgSetting> = {};
