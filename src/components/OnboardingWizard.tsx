@@ -690,9 +690,9 @@ export default function OnboardingWizard({ onComplete, showToast }: Props) {
                 </div>
                 <div className="space-y-3">
                   {[
-                    { plan: 'Básico', price: 'Gratis', features: ['Presupuestos y trabajos ilimitados', 'Facturación', 'Catálogo y clientes CRM', 'Sin miembros del equipo'], color: 'border-slate-200' },
-                    { plan: 'Empresa', price: '49€/mes', features: ['Todo lo del Básico', 'Hasta 5 miembros del equipo', 'Contratos de mantenimiento', 'Ingresos y rentabilidad'], color: 'border-blue-200 bg-blue-50' },
-                    { plan: 'Empresa+', price: '89€/mes', features: ['Todo lo de Empresa', 'Hasta 15 miembros', 'Módulos avanzados', 'Soporte prioritario'], color: 'border-purple-200 bg-purple-50' },
+                    { plan: 'Básico', price: '29€/mes', features: ['Hasta 30 presupuestos/mes', 'Facturas ilimitadas', 'Catálogo de tarifas propio', 'Soporte estándar'], color: 'border-slate-200' },
+                    { plan: 'Profesional', price: '49€/mes', features: ['Presupuestos ilimitados', 'Foto IA ilimitada', 'Catálogo ilimitado', 'Soporte prioritario'], color: 'border-blue-200 bg-blue-50' },
+                    { plan: 'Empresa', price: '89€/mes', features: ['Todo lo anterior', 'Hasta 5 usuarios en equipo', 'Roles y permisos', 'Soporte VIP'], color: 'border-purple-200 bg-purple-50' },
                   ].map(p => (
                     <div key={p.plan} className={`border-2 rounded-xl p-4 ${p.color}`}>
                       <div className="flex justify-between items-center mb-2">

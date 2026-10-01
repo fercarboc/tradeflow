@@ -10622,10 +10622,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           <h3 className={secTitle}>Suscripción</h3>
           {subscription ? (() => {
             const PLAN_META: Record<string, { label: string; price_monthly: number; price_yearly: number; colorText: string; colorBg: string; colorBorder: string; badgeBg: string }> = {
-              basico:       { label: 'Básico',      price_monthly: 29,  price_yearly: 23,  colorText: 'text-slate-700',  colorBg: 'bg-slate-50',   colorBorder: 'border-slate-200', badgeBg: 'bg-slate-100 text-slate-600' },
-              profesional:  { label: 'Profesional', price_monthly: 49,  price_yearly: 39,  colorText: 'text-blue-700',   colorBg: 'bg-blue-50',    colorBorder: 'border-blue-200',  badgeBg: 'bg-blue-100 text-blue-700' },
-              empresa:      { label: 'Empresa',     price_monthly: 89,  price_yearly: 71,  colorText: 'text-purple-700', colorBg: 'bg-purple-50',  colorBorder: 'border-purple-200',badgeBg: 'bg-purple-100 text-purple-700' },
-              empresa_plus: { label: 'Empresa+',    price_monthly: 179, price_yearly: 143, colorText: 'text-amber-700',  colorBg: 'bg-amber-50',   colorBorder: 'border-amber-200', badgeBg: 'bg-amber-100 text-amber-700' },
+              basico:       { label: 'Básico',      price_monthly: 29,  price_yearly: 24,  colorText: 'text-slate-700',  colorBg: 'bg-slate-50',   colorBorder: 'border-slate-200', badgeBg: 'bg-slate-100 text-slate-600' },
+              profesional:  { label: 'Profesional', price_monthly: 49,  price_yearly: 41,  colorText: 'text-blue-700',   colorBg: 'bg-blue-50',    colorBorder: 'border-blue-200',  badgeBg: 'bg-blue-100 text-blue-700' },
+              empresa:      { label: 'Empresa',     price_monthly: 89,  price_yearly: 74,  colorText: 'text-purple-700', colorBg: 'bg-purple-50',  colorBorder: 'border-purple-200',badgeBg: 'bg-purple-100 text-purple-700' },
+              empresa_plus: { label: 'Empresa+',    price_monthly: 179, price_yearly: 149, colorText: 'text-amber-700',  colorBg: 'bg-amber-50',   colorBorder: 'border-amber-200', badgeBg: 'bg-amber-100 text-amber-700' },
             };
             const STATUS_CFG: Record<string, { label: string; cls: string }> = {
               trial:     { label: 'Prueba',    cls: 'bg-blue-100 text-blue-700' },
@@ -10661,7 +10661,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       <span className={`text-[9px] font-bold uppercase px-2 py-0.5 rounded-full ${cfg.cls}`}>{cfg.label}</span>
                     </div>
                     <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${meta.badgeBg}`}>
-                      {isYearly ? 'Facturación anual (-20%)' : 'Facturación mensual'}
+                      {isYearly ? 'Facturación anual (2 meses gratis)' : 'Facturación mensual'}
                     </span>
                   </div>
                   <div className="text-right shrink-0">
@@ -10669,7 +10669,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       <span className={`text-2xl font-black ${meta.colorText}`}>{price}€</span>
                       <span className="text-[10px] text-slate-400">/mes</span>
                     </div>
-                    {isYearly && <p className="text-[10px] text-slate-400">{price * 12}€/año</p>}
+                    {isYearly && <p className="text-[10px] text-slate-400">{meta.price_monthly * 10}€/año</p>}
                   </div>
                 </div>
 
@@ -10693,7 +10693,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <div className="flex justify-between items-center px-3 py-2">
                       <span className="text-[11px] text-slate-500">Importe a cobrar</span>
                       <span className="text-[11px] font-bold text-slate-700">
-                        {isYearly ? `${price * 12}€` : `${price}€`}
+                        {isYearly ? `${meta.price_monthly * 10}€` : `${price}€`}
                       </span>
                     </div>
                   )}

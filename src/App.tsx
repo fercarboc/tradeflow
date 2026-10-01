@@ -622,7 +622,7 @@ export default function App() {
       case ActivePage.IADisclaimer:
         return (
           <LegalViews
-            page={currentPage}
+            page={effectivePage}
             setCurrentPage={setCurrentPage}
           />
         );
