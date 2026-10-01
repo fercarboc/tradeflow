@@ -14,6 +14,24 @@ interface PreciosViewProps {
 
 const PLANS = [
   {
+    key: 'basico',
+    name: 'Básico',
+    monthlyPrice: 29,
+    users: '1 usuario',
+    desc: 'Para el instalador autónomo que quiere organizar su negocio sin papel.',
+    features: [
+      'Hasta 30 presupuestos/mes',
+      'Clientes ilimitados',
+      'Facturas ilimitadas',
+      'Planificación de trabajos',
+      'Catálogo de tarifas propio',
+      'Soporte estándar',
+    ],
+    popular: false,
+    highlight: false,
+    cta: 'Activar Básico',
+  },
+  {
     key: 'profesional',
     name: 'Profesional',
     monthlyPrice: 49,
@@ -48,27 +66,8 @@ const PLANS = [
       'Soporte VIP',
     ],
     popular: false,
-    highlight: false,
-    cta: 'Activar Empresa',
-  },
-  {
-    key: 'empresa_plus',
-    name: 'Empresa+',
-    monthlyPrice: 179,
-    users: 'Hasta 15 usuarios',
-    desc: 'Para la empresa instaladora consolidada que necesita mantenimientos y gestión avanzada.',
-    features: [
-      'Todo lo del plan Empresa',
-      'Hasta 15 usuarios en equipo',
-      'Módulo Contratos y mantenimientos',
-      'Trabajos externalizados avanzado + dashboard',
-      'Panel financiero avanzado',
-      'Soporte dedicado 1-on-1',
-      'Onboarding personalizado',
-    ],
-    popular: false,
     highlight: true,
-    cta: 'Activar Empresa+',
+    cta: 'Activar Empresa',
     badges: ['Sin permanencia', 'Actualizaciones incluidas', 'Soporte cercano'],
   },
 ];

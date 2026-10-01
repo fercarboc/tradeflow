@@ -44,10 +44,19 @@ const TRADE_OPTIONS = [
 
 const PLANS = [
   {
+    id: 'basico' as const,
+    name: 'Plan Básico',
+    monthlyPrice: 29,
+    annualTotal: 290,
+    desc: 'Para el instalador autónomo que quiere organizar su negocio sin papel.',
+    features: ['Hasta 30 presupuestos/mes', 'Facturas ilimitadas', 'Planificación de trabajos', 'Soporte estándar'],
+    popular: false,
+  },
+  {
     id: 'profesional' as const,
     name: 'Plan Profesional',
     monthlyPrice: 49,
-    yearlyPrice: 39,
+    annualTotal: 490,
     desc: 'Para autónomos serios de alto volumen.',
     features: ['Presupuestos y facturas ilimitados', 'Voz + foto IA ilimitada', 'Planificación de trabajos', 'Soporte prioritario'],
     popular: true,
@@ -56,17 +65,10 @@ const PLANS = [
     id: 'empresa' as const,
     name: 'Plan Empresa',
     monthlyPrice: 89,
-    yearlyPrice: 71,
+    annualTotal: 890,
     desc: 'Para microempresas con hasta 5 técnicos.',
     features: ['Todo lo del Plan Profesional', 'Hasta 5 usuarios en equipo', 'Roles y permisos', 'Soporte VIP'],
-  },
-  {
-    id: 'empresa_plus' as const,
-    name: 'Plan Empresa+',
-    monthlyPrice: 179,
-    yearlyPrice: 143,
-    desc: 'Para empresas consolidadas con hasta 15 técnicos.',
-    features: ['Todo lo del Plan Empresa', 'Hasta 15 usuarios', 'Módulo mantenimientos', 'Soporte 1-on-1 dedicado'],
+    popular: false,
   },
 ];
 
@@ -79,7 +81,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
   const [step, setStep] = useState<Step>(1);
   const [selectedTrades, setSelectedTrades] = useState<string[]>([]);
   const [businessType, setBusinessType] = useState<'autonomo' | 'empresa'>('autonomo');
-  const [selectedPlan, setSelectedPlan] = useState<'profesional' | 'empresa' | 'empresa_plus'>('profesional');
+  const [selectedPlan, setSelectedPlan] = useState<'basico' | 'profesional' | 'empresa'>('profesional');
   const [billingCycle] = useState<'monthly' | 'yearly'>('monthly');
   const [form, setForm] = useState({
     fullName: '',
@@ -356,7 +358,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
             {PLANS.map(plan => {
               const selected = selectedPlan === plan.id;
-              const isTop = plan.id === 'empresa_plus';
+              const isTop = plan.id === 'empresa';
               return (
                 <button
                   key={plan.id}

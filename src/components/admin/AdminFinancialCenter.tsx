@@ -613,11 +613,11 @@ function AdSpaceSection({ summary }: { summary: FinancialSummary }) {
 // ── Analytics: SaaS por plan ──────────────────────────────────────────────
 
 const PLAN_PRICES_MAP: Record<string, { monthly: number; yearly: number }> = {
-  basico:       { monthly: 29, yearly: 23 },
-  pro:          { monthly: 49, yearly: 39 },
-  empresa:      { monthly: 89, yearly: 71 },
-  empresa_plus: { monthly: 149, yearly: 119 },
-  profesional:  { monthly: 69, yearly: 55 },
+  basico:       { monthly: 29,  yearly: 24  },
+  pro:          { monthly: 49,  yearly: 41  },
+  profesional:  { monthly: 49,  yearly: 41  },
+  empresa:      { monthly: 89,  yearly: 74  },
+  empresa_plus: { monthly: 179, yearly: 149 },
 };
 
 function SaasPlansSection({ summary }: { summary: FinancialSummary }) {

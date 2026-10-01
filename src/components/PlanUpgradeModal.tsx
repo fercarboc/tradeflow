@@ -23,37 +23,50 @@ interface Props {
   onUpgraded?: (plan: string, billingCycle: string) => void;
 }
 
-const PLANS = [
+const ALL_PLANS = [
   {
-    id: 'profesional',
+    id: 'basico' as const,
+    label: 'Básico',
+    tier: 0,
+    monthlyPrice: 29,
+    annualTotal: 290,
+    annualMonthlyEquiv: 24,
+    color: 'slate' as const,
+    features: ['Hasta 30 presupuestos/mes', 'Facturas ilimitadas', 'Planificación de trabajos', 'Soporte estándar'],
+  },
+  {
+    id: 'profesional' as const,
     label: 'Profesional',
     tier: 1,
-    monthly: 49,
-    yearly: 39,
+    monthlyPrice: 49,
+    annualTotal: 490,
+    annualMonthlyEquiv: 41,
     color: 'blue' as const,
     features: ['Presupuestos ilimitados', 'Voz + foto IA ilimitada', 'Planificación de trabajos', 'Soporte prioritario'],
   },
   {
-    id: 'empresa',
+    id: 'empresa' as const,
     label: 'Empresa',
     tier: 2,
-    monthly: 89,
-    yearly: 71,
+    monthlyPrice: 89,
+    annualTotal: 890,
+    annualMonthlyEquiv: 74,
     color: 'purple' as const,
     features: ['Todo lo de Profesional', 'Hasta 5 técnicos en equipo', 'Roles y permisos', 'Soporte VIP'],
   },
   {
-    id: 'empresa_plus',
+    id: 'empresa_plus' as const,
     label: 'Empresa+',
     tier: 3,
-    monthly: 179,
-    yearly: 143,
+    monthlyPrice: 179,
+    annualTotal: 1790,
+    annualMonthlyEquiv: 149,
     color: 'amber' as const,
     features: ['Todo lo de Empresa', 'Hasta 15 técnicos', 'Módulo mantenimientos', 'Soporte 1-on-1 dedicado'],
   },
-] as const;
+];
 
-type PlanId = (typeof PLANS)[number]['id'];
+type PlanId = (typeof ALL_PLANS)[number]['id'];
 
 const TIER: Record<string, number> = { basico: 0, profesional: 1, empresa: 2, empresa_plus: 3 };
 
@@ -78,7 +91,9 @@ export default function PlanUpgradeModal({ orgId, subscription, platformInvoices
 
   const currentPlan = (subscription?.plan ?? 'basico') as string;
   const currentTier = TIER[currentPlan] ?? 0;
-  const hasWorkers  = currentTier >= 2; // empresa o empresa_plus tiene/puede tener técnicos
+  const hasWorkers  = currentTier >= 2;
+  // Show Empresa+ only for users already on that plan (legacy); public offer is 3 plans
+  const PLANS = currentTier >= 3 ? ALL_PLANS : ALL_PLANS.filter(p => p.tier <= 2);
 
   async function handlePlanClick(planId: PlanId) {
     const targetTier = TIER[planId];
@@ -311,7 +326,7 @@ export default function PlanUpgradeModal({ orgId, subscription, platformInvoices
                   >
                     {c === 'monthly' ? 'Mensual' : 'Anual'}
                     {c === 'yearly' && (
-                      <span className="text-[9px] font-black bg-emerald-500 text-white px-1.5 py-0.5 rounded-full uppercase">-20%</span>
+                      <span className="text-[9px] font-black bg-emerald-500 text-white px-1.5 py-0.5 rounded-full uppercase">2 meses gratis</span>
                     )}
                   </button>
                 ))}
@@ -360,12 +375,19 @@ export default function PlanUpgradeModal({ orgId, subscription, platformInvoices
                           </span>
                         )}
                       </div>
-                      <div className="flex items-baseline gap-0.5">
-                        <span className="text-2xl font-black text-white">{plan[cycle]}€</span>
-                        <span className="text-slate-400 text-xs ml-0.5">/mes</span>
-                      </div>
-                      {cycle === 'yearly' && (
-                        <p className="text-[10px] text-emerald-400 mt-0.5">{plan.yearly * 12}€/año</p>
+                      {cycle === 'monthly' ? (
+                        <div className="flex items-baseline gap-0.5">
+                          <span className="text-2xl font-black text-white">{plan.monthlyPrice}€</span>
+                          <span className="text-slate-400 text-xs ml-0.5">/mes</span>
+                        </div>
+                      ) : (
+                        <div>
+                          <div className="flex items-baseline gap-0.5">
+                            <span className="text-2xl font-black text-white">{plan.annualTotal}€</span>
+                            <span className="text-slate-400 text-xs ml-0.5">/año</span>
+                          </div>
+                          <p className="text-[10px] text-emerald-400 mt-0.5">equiv. {plan.annualMonthlyEquiv}€/mes</p>
+                        </div>
                       )}
                     </div>
 

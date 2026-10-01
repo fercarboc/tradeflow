@@ -54,9 +54,11 @@ import {
 } from '../lib/api/actuaciones';
 
 const PLAN_PRICES: Record<string, { monthly: number; yearly: number }> = {
-  basico: { monthly: 29, yearly: 23 },
-  pro: { monthly: 49, yearly: 39 },
-  empresa: { monthly: 89, yearly: 71 },
+  basico:       { monthly: 29,  yearly: 24  },
+  pro:          { monthly: 49,  yearly: 41  },
+  profesional:  { monthly: 49,  yearly: 41  },
+  empresa:      { monthly: 89,  yearly: 74  },
+  empresa_plus: { monthly: 179, yearly: 149 },
 };
 
 const OFICIOS = ['Fontanería', 'Electricidad', 'HVAC / Climatización', 'Construcción', 'Pintura', 'Carpintería', 'Cerrajería', 'Reformas', 'Otros'];
@@ -2370,11 +2372,13 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                     ) : subsOrgs.map(org => {
                       const sub = org.subscription!;
                       const planCls: Record<string, string> = {
-                        basico:  'bg-blue-900/40 text-blue-300 border-blue-800',
-                        pro:     'bg-purple-900/40 text-purple-300 border-purple-800',
-                        empresa: 'bg-emerald-900/40 text-emerald-300 border-emerald-800',
+                        basico:       'bg-blue-900/40 text-blue-300 border-blue-800',
+                        pro:          'bg-purple-900/40 text-purple-300 border-purple-800',
+                        profesional:  'bg-purple-900/40 text-purple-300 border-purple-800',
+                        empresa:      'bg-emerald-900/40 text-emerald-300 border-emerald-800',
+                        empresa_plus: 'bg-amber-900/40 text-amber-300 border-amber-800',
                       };
-                      const planLabel: Record<string, string> = { basico: 'Básico', pro: 'Pro', empresa: 'Empresa' };
+                      const planLabel: Record<string, string> = { basico: 'Básico', pro: 'Profesional', profesional: 'Profesional', empresa: 'Empresa', empresa_plus: 'Empresa+' };
                       const orgMrr = sub.status === 'active' ? (PLAN_PRICES[sub.plan]?.[sub.billing_cycle] ?? 0) : 0;
                       const trialDaysLeft = sub.status === 'trial'
                         ? Math.ceil((new Date(sub.trial_end).getTime() - Date.now()) / 86400000)
