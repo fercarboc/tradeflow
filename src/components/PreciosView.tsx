@@ -138,7 +138,6 @@ export default function PreciosView({ setCurrentPage }: PreciosViewProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
           {PLANS.map((plan) => {
             const annualTotal = plan.monthlyPrice * 10;
-            const monthlyEquiv = Math.round(annualTotal / 12);
 
             return (
               <div
@@ -180,7 +179,7 @@ export default function PreciosView({ setCurrentPage }: PreciosViewProps) {
                         </span>
                       </div>
                       <p className={`text-xs mt-1.5 font-medium ${plan.highlight ? 'text-[#020B16]/60' : 'text-white/45'}`}>
-                        {monthlyEquiv}€/mes · facturado anualmente
+                        Un único pago anual · 2 meses gratis
                       </p>
                     </div>
                   ) : (

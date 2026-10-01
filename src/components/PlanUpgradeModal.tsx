@@ -386,7 +386,7 @@ export default function PlanUpgradeModal({ orgId, subscription, platformInvoices
                             <span className="text-2xl font-black text-white">{plan.annualTotal}€</span>
                             <span className="text-slate-400 text-xs ml-0.5">/año</span>
                           </div>
-                          <p className="text-[10px] text-emerald-400 mt-0.5">equiv. {plan.annualMonthlyEquiv}€/mes</p>
+                          <p className="text-[10px] text-emerald-400 mt-0.5">Un único pago anual</p>
                         </div>
                       )}
                     </div>
