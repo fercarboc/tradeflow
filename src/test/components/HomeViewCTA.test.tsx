@@ -1,5 +1,8 @@
 /**
- * HomeView — CTAs Demo y Vídeo de Presentación
+ * DemoCTAStrip — CTAs Demo y Vídeo de Presentación
+ *
+ * Nota: el componente producción se muestra en LandingPage (la Home pública real).
+ * Se testea DemoCTAStrip directamente para evitar el coste de montar LandingPage completa.
  *
  * HOME-CTA-1: botón "Ver demo guiada" existe
  * HOME-CTA-2: click → setCurrentPage(ActivePage.PartnerDemo) (/demo-socios)
@@ -10,46 +13,16 @@
 
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
-import HomeView from '../../components/HomeView';
+import DemoCTAStrip from '../../components/landing/DemoCTAStrip';
 import { ActivePage } from '../../types';
 
-// motion/react uses browser animation APIs not available in jsdom — replace with plain HTML
-vi.mock('motion/react', async () => {
-  const React = await import('react');
-  const makeEl = (tag: string) =>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ({ children, ...rest }: any) => React.createElement(tag, rest, children);
-  return {
-    motion: { div: makeEl('div'), section: makeEl('section'), span: makeEl('span'), p: makeEl('p') },
-    AnimatePresence: makeEl('div'),
-  };
-});
-
-// Minimal mocks required for HomeView to render in jsdom
-beforeEach(() => {
-  Object.defineProperty(window, 'matchMedia', {
-    writable: true,
-    value: vi.fn().mockImplementation((query: string) => ({
-      matches: false,
-      media: query,
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn(),
-    })),
-  });
-  window.scrollTo = vi.fn() as unknown as typeof window.scrollTo;
-});
-
-describe('HomeView — Demo & Vídeo CTA strip (#demo-cta-strip)', () => {
+describe('DemoCTAStrip — Demo & Vídeo CTA strip (#demo-cta-strip)', () => {
   let mockSetCurrentPage: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     mockSetCurrentPage = vi.fn();
-    render(
-      <HomeView
-        setCurrentPage={mockSetCurrentPage}
-        setPreselectedTrade={vi.fn()}
-      />,
-    );
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    render(<DemoCTAStrip setCurrentPage={mockSetCurrentPage as any} />);
   });
 
   // HOME-CTA-1

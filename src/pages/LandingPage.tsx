@@ -6,6 +6,7 @@ import FuncionesSection from '../components/landing/FuncionesSection';
 import EcosistemaSection from '../components/landing/EcosistemaSection';
 import DashboardSection from '../components/landing/DashboardSection';
 import ProveedoresStrip from '../components/landing/ProveedoresStrip';
+import DemoCTAStrip from '../components/landing/DemoCTAStrip';
 import PartnerDemoStrip from '../components/landing/PartnerDemoStrip';
 import PartnersSection from '../components/landing/PartnersSection';
 import BetaSection from '../components/landing/BetaSection';
@@ -20,6 +21,7 @@ export default function LandingPage({ setCurrentPage }: LandingPageProps) {
     <div className="min-h-screen bg-white">
       <Navbar setCurrentPage={setCurrentPage} />
       <HeroSection setCurrentPage={setCurrentPage} />
+      <DemoCTAStrip setCurrentPage={setCurrentPage} />
       <PlanificacionSection />
       <FuncionesSection />
       <EcosistemaSection />
