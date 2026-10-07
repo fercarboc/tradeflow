@@ -1,4 +1,4 @@
-import { CheckCircle, ArrowRight, Download, Share2 } from 'lucide-react';
+import { CheckCircle, ArrowRight, Download, Share2, Play } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { ActivePage } from '../../types';
@@ -202,20 +202,51 @@ export default function HeroSection({ setCurrentPage }: HeroSectionProps) {
             </div>
           </motion.div>
 
-          {/* Right — portadaoficios.png */}
+          {/* Right — portadaoficios.png + demo CTAs */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.65, delay: 0.1 }}
-            className="relative flex justify-center lg:justify-end items-start overflow-hidden pb-0"
+            className="flex flex-col pb-6"
           >
-            <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#020B16] to-transparent z-10 pointer-events-none" />
-            <div className="absolute top-0 left-0 inset-y-0 w-28 bg-gradient-to-r from-[#020B16] to-transparent z-10 pointer-events-none hidden lg:block" />
-            <img
-              src="/portadaoficios.png"
-              alt="TrabFlow para profesionales de distintos sectores"
-              className="w-full h-auto object-contain object-top"
-            />
+            {/* image with gradient overlays */}
+            <div className="relative overflow-hidden">
+              <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#020B16] to-transparent z-10 pointer-events-none" />
+              <div className="absolute top-0 left-0 inset-y-0 w-28 bg-gradient-to-r from-[#020B16] to-transparent z-10 pointer-events-none hidden lg:block" />
+              <img
+                src="/portadaoficios.png"
+                alt="TrabFlow para profesionales de distintos sectores"
+                className="w-full h-auto object-contain object-top"
+              />
+            </div>
+
+            {/* CTAs immediately below the hero image */}
+            <div id="demo-cta-strip" className="pt-5 px-2 lg:px-0">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-white/35 mb-3 text-center lg:text-right">
+                Conoce TrabFlow en acción
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-end">
+                <button
+                  id="demo-cta-strip-demo"
+                  onClick={() => setCurrentPage(ActivePage.PartnerDemo)}
+                  className="flex items-center justify-center gap-2.5 rounded-xl bg-[#1A5A96] hover:bg-[#1868B0] px-6 py-3 text-sm font-bold text-white transition-all shadow-lg shadow-[#1A5A96]/25 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00CFE8] focus-visible:ring-offset-2 focus-visible:ring-offset-[#020B16]"
+                  aria-label="Ver demo guiada de TrabFlow — 5 minutos"
+                >
+                  <Play className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  Ver demo guiada
+                </button>
+                <a
+                  id="demo-cta-strip-video"
+                  href="/trabflow.mp4"
+                  download
+                  className="flex items-center justify-center gap-2.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 px-6 py-3 text-sm font-bold text-white/70 hover:text-white transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020B16]"
+                  aria-label="Descargar vídeo de presentación de TrabFlow"
+                >
+                  <Download className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  Descargar vídeo de presentación
+                </a>
+              </div>
+            </div>
           </motion.div>
 
         </div>
