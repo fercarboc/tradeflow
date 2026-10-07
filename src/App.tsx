@@ -22,6 +22,7 @@ import {
 } from './lib/workspaceResolver';
 import type { ResolvedWorkspaces } from './lib/workspaceResolver';
 import { ADMIN_EMAIL, MARKETPLACE_ENABLED } from './lib/constants';
+import { canAccessMarketplaceV2 } from './lib/marketplaceV2Preview';
 import Header from './components/Header';
 import HomeView from './components/HomeView';
 import LandingPage from './pages/LandingPage';
@@ -55,6 +56,7 @@ const ScreenDocumentosMarketplace      = lazy(() => import('./components/marketp
 const WorkspaceSelectorView              = lazy(() => import('./components/workspace/WorkspaceSelectorView'));
 const MarketplaceInvitationAcceptView    = lazy(() => import('./components/auth/MarketplaceInvitationAcceptView'));
 const ScreenMarketplace                  = lazy(() => import('./components/marketplace/ScreenMarketplace'));
+const MarketplaceComingSoonView          = lazy(() => import('./components/marketplace/MarketplaceComingSoonView'));
 const ProveedoresView                    = lazy(() => import('./components/landing/ProveedoresView'));
 const FinDocPublicView                   = lazy(() => import('./pages/FinDocPublicView'));
 
@@ -286,8 +288,9 @@ export default function App() {
     const fromUrl = pathToPage(window.location.pathname);
     // Bloque 1: cuando el marketplace está desactivado, cualquier URL de marketplace
     // redirige al dashboard (o Home si no es PWA) sin intentar cargar esas vistas.
+    // MarketplacePublico excluido: muestra "coming soon" en lugar de redirigir.
     const MARKETPLACE_PAGES = new Set([
-      ActivePage.Marketplace, ActivePage.MarketplacePublico, ActivePage.MarketplaceComprar,
+      ActivePage.Marketplace, ActivePage.MarketplaceComprar,
       ActivePage.SeguimientoMaterial, ActivePage.DocumentosMarketplace,
     ]);
     if (!MARKETPLACE_ENABLED && fromUrl && MARKETPLACE_PAGES.has(fromUrl)) {
@@ -560,11 +563,14 @@ export default function App() {
   const renderActiveView = () => {
     // Bloque 1: redirigir páginas de marketplace al dashboard cuando están desactivadas.
     // No llama a setCurrentPage para evitar efectos secundarios durante el render.
+    // MarketplacePublico excluido: se gestiona directamente en su case (coming-soon vs real).
+    const userEmail = session?.user?.email ?? null;
+    const v2Access = canAccessMarketplaceV2(userEmail);
     const MARKETPLACE_PAGES = new Set([
-      ActivePage.Marketplace, ActivePage.MarketplacePublico, ActivePage.MarketplaceComprar,
+      ActivePage.Marketplace, ActivePage.MarketplaceComprar,
       ActivePage.SeguimientoMaterial, ActivePage.DocumentosMarketplace,
     ]);
-    const effectivePage = (!MARKETPLACE_ENABLED && MARKETPLACE_PAGES.has(currentPage))
+    const effectivePage = (!MARKETPLACE_ENABLED && !v2Access && MARKETPLACE_PAGES.has(currentPage))
       ? ActivePage.AppDashboard
       : currentPage;
 
@@ -730,6 +736,8 @@ export default function App() {
         return <ScreenMarketplace setCurrentPage={setCurrentPage} mode="professional" />;
 
       case ActivePage.MarketplacePublico:
+        if (!MARKETPLACE_ENABLED && !v2Access)
+          return <MarketplaceComingSoonView setCurrentPage={setCurrentPage} />;
         return <ScreenMarketplace setCurrentPage={setCurrentPage} mode="public" />;
 
       case ActivePage.Proveedores:
