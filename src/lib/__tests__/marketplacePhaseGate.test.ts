@@ -181,6 +181,102 @@ describe('Contrato trg_marketplace_phase_gate (simulado)', () => {
 });
 
 // ════════════════════════════════════════════════════════════════════════════
+// VISIBILIDAD SIDEBAR Y NAVEGACIÓN
+// Verifica la condición booleana usada en AppDashboardView para mostrar/ocultar
+// el acceso a Marketplace en el sidebar y móvil.
+//
+// Condición aplicada (MARKETPLACE_ENABLED || canAccessMarketplaceV2(email)):
+//   — MARKETPLACE_ENABLED = false en producción actual
+//   — true para legal@inmostay.com vía canAccessMarketplaceV2
+//   — false para cualquier otro usuario
+// ════════════════════════════════════════════════════════════════════════════
+
+// Simula la condición exacta del sidebar:
+// (MARKETPLACE_ENABLED || canAccessMarketplaceV2(email)) && can('catalog.manage')
+function sidebarShowsMarketplace(opts: {
+  marketplaceEnabled: boolean;
+  email: string | null;
+  canCatalogManage: boolean;
+}): boolean {
+  return (opts.marketplaceEnabled || canAccessMarketplaceV2(opts.email)) && opts.canCatalogManage;
+}
+
+describe('Visibilidad Marketplace en sidebar (NAV-*)', () => {
+  const ENABLED = true;
+  const DISABLED = false;
+  const CAN = true;
+
+  // NAV-1: usuario normal + global desactivado → NO ve Marketplace en sidebar
+  it('NAV-1: usuario normal + MARKETPLACE_ENABLED=false → sidebar oculto', () => {
+    expect(sidebarShowsMarketplace({ marketplaceEnabled: DISABLED, email: 'normal@empresa.com', canCatalogManage: CAN })).toBe(false);
+  });
+
+  // NAV-2: usuario preview + global desactivado → SÍ ve Marketplace en sidebar
+  it('NAV-2: legal@inmostay.com + MARKETPLACE_ENABLED=false → sidebar visible', () => {
+    expect(sidebarShowsMarketplace({ marketplaceEnabled: DISABLED, email: PREVIEW_EMAIL, canCatalogManage: CAN })).toBe(true);
+  });
+
+  // NAV-3: cualquier usuario + global activado → ve Marketplace en sidebar
+  it('NAV-3: MARKETPLACE_ENABLED=true → sidebar visible para cualquier usuario', () => {
+    expect(sidebarShowsMarketplace({ marketplaceEnabled: ENABLED, email: 'normal@empresa.com', canCatalogManage: CAN })).toBe(true);
+  });
+
+  // NAV-4: usuario preview sin permisos de catálogo → no aplica (el permiso sigue necesario)
+  it('NAV-4: preview user sin catalog.manage → sidebar oculto', () => {
+    expect(sidebarShowsMarketplace({ marketplaceEnabled: DISABLED, email: PREVIEW_EMAIL, canCatalogManage: false })).toBe(false);
+  });
+
+  // NAV-5: email null (no autenticado) → no ve Marketplace
+  it('NAV-5: email null → sidebar oculto aunque MARKETPLACE_ENABLED=false', () => {
+    expect(sidebarShowsMarketplace({ marketplaceEnabled: DISABLED, email: null, canCatalogManage: CAN })).toBe(false);
+  });
+
+  // NAV-6: email de admin plataforma → no obtiene acceso preview (diferente identidad)
+  it('NAV-6: fercarboc@gmail.com → sidebar oculto cuando global desactivado', () => {
+    expect(sidebarShowsMarketplace({ marketplaceEnabled: DISABLED, email: 'fercarboc@gmail.com', canCatalogManage: CAN })).toBe(false);
+  });
+
+  // NAV-7: preview user en mayúsculas → normalizado a misma identidad → sidebar visible
+  it('NAV-7: LEGAL@INMOSTAY.COM → misma identidad Auth → sidebar visible', () => {
+    expect(sidebarShowsMarketplace({ marketplaceEnabled: DISABLED, email: 'LEGAL@INMOSTAY.COM', canCatalogManage: CAN })).toBe(true);
+  });
+
+  // NAV-8: CTA "Comprar materiales" en ficha presupuesto — misma condición
+  it('NAV-8: CTA Comprar materiales visible para preview user', () => {
+    const isLiveMode = true;
+    const hasQuoteId = true;
+    const ctaVisible = sidebarShowsMarketplace({ marketplaceEnabled: DISABLED, email: PREVIEW_EMAIL, canCatalogManage: true })
+      && isLiveMode && hasQuoteId;
+    expect(ctaVisible).toBe(true);
+  });
+
+  // NAV-9: CTA "Comprar materiales" oculta para usuario normal
+  it('NAV-9: CTA Comprar materiales oculta para usuario normal', () => {
+    const isLiveMode = true;
+    const hasQuoteId = true;
+    const ctaVisible = sidebarShowsMarketplace({ marketplaceEnabled: DISABLED, email: 'normal@empresa.com', canCatalogManage: true })
+      && isLiveMode && hasQuoteId;
+    expect(ctaVisible).toBe(false);
+  });
+
+  // NAV-10: badge "Ver pedidos" visible para preview user si hay pedidos pendientes
+  it('NAV-10: badge Ver pedidos visible para preview user con pedidos pendientes', () => {
+    const mktPendingCount = 2;
+    const isLiveMode = true;
+    const badgeVisible = (DISABLED || canAccessMarketplaceV2(PREVIEW_EMAIL)) && isLiveMode && mktPendingCount > 0;
+    expect(badgeVisible).toBe(true);
+  });
+
+  // NAV-11: badge "Ver pedidos" oculto para usuario normal
+  it('NAV-11: badge Ver pedidos oculto para usuario normal aunque tenga pedidos', () => {
+    const mktPendingCount = 5;
+    const isLiveMode = true;
+    const badgeVisible = (DISABLED || canAccessMarketplaceV2('normal@empresa.com')) && isLiveMode && mktPendingCount > 0;
+    expect(badgeVisible).toBe(false);
+  });
+});
+
+// ════════════════════════════════════════════════════════════════════════════
 // FLUJO PRESUPUESTO → MARKETPLACE (contrato de integración)
 // ════════════════════════════════════════════════════════════════════════════
 

@@ -3992,7 +3992,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presupuestos' })}
                 {MobileTabButton({ tab: 'facturas',     icon: <Receipt  className="w-5 h-5" />, label: 'Facturas' })}
                 {MobileTabButton({ tab: 'trabajos',     icon: <Briefcase className="w-5 h-5" />, label: 'Trabajos' })}
-                {MARKETPLACE_ENABLED && can('catalog.manage')
+                {(MARKETPLACE_ENABLED || canAccessMarketplaceV2(user?.email)) && can('catalog.manage')
                   ? (
                     <button
                       onClick={() => setCurrentPage(ActivePage.Marketplace)}
@@ -6163,7 +6163,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           <nav className="flex-grow p-4 space-y-1 overflow-y-auto min-h-0 scrollbar-hide">
             {!isTecnico && SidebarBtn({ id: 'dashboard', icon: <TrendingUp className="w-4 h-4" />, label: 'Panel Control' })}
             {can('quotes.create') && SidebarBtn({ id: 'quotes', icon: <FileText className="w-4 h-4" />, label: 'Presupuestos' })}
-            {MARKETPLACE_ENABLED && can('catalog.manage') && (
+            {(MARKETPLACE_ENABLED || canAccessMarketplaceV2(user?.email)) && can('catalog.manage') && (
               <button
                 data-testid="nav-marketplace"
                 onClick={() => setCurrentPage(ActivePage.Marketplace)}
@@ -6331,7 +6331,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   >
                     ← Presupuestos
                   </button>
-                  {MARKETPLACE_ENABLED && isLiveMode && selectedQuoteForPreview.dbId && (
+                  {(MARKETPLACE_ENABLED || canAccessMarketplaceV2(user?.email)) && isLiveMode && selectedQuoteForPreview.dbId && (
                     <button
                       disabled={mktCartLoading}
                       onClick={async () => {
@@ -6372,7 +6372,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       <span>{mktCartLoading ? 'Preparando...' : 'Comprar materiales'}</span>
                     </button>
                   )}
-                  {MARKETPLACE_ENABLED && isLiveMode && mktPendingCount > 0 && (
+                  {(MARKETPLACE_ENABLED || canAccessMarketplaceV2(user?.email)) && isLiveMode && mktPendingCount > 0 && (
                     <button
                       onClick={() => {
                         sessionStorage.setItem('tf:mkt:view', 'pedidos');
