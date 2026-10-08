@@ -1,6 +1,6 @@
 import { ActivePage } from '../types';
 import {
-  BookOpen, Shield, Zap, CheckCircle, ArrowRight, Lock,
+  BookOpen, Shield, Zap, ArrowRight,
   Wrench, FlameKindling, Droplets, Wind, Building2, Sun,
 } from 'lucide-react';
 import { motion } from 'motion/react';
@@ -19,33 +19,6 @@ const NORMATIVAS = [
   { icon: <Sun className="w-5 h-5" />, id: 'GUIAS', name: 'Guías IDAE', full: 'Guías técnicas IDAE eficiencia energética', plan: 'Empresa Plus', color: 'text-amber-400', bg: 'bg-amber-400/10 border-amber-400/20', chunks: 408 },
 ];
 
-const PLAN_FEATURES = [
-  {
-    plan: 'Básico',
-    price: '29€/mes',
-    color: 'border-slate-600',
-    headerColor: 'bg-slate-800',
-    categories: ['OFICIOS', 'REBT'],
-    queries: '5 consultas/día',
-  },
-  {
-    plan: 'Empresa',
-    price: '89€/mes',
-    color: 'border-blue-600/40',
-    headerColor: 'bg-blue-900/30',
-    categories: ['OFICIOS', 'REBT', 'RITE'],
-    queries: '30 consultas/día',
-  },
-  {
-    plan: 'Empresa Plus',
-    price: '129€/mes',
-    color: 'border-violet-500/40',
-    headerColor: 'bg-violet-900/30',
-    categories: ['OFICIOS', 'REBT', 'RITE', 'CTE', 'GAS', 'ACS', 'GUIAS'],
-    queries: 'Ilimitadas',
-    highlight: true,
-  },
-];
 
 const EXAMPLE_QUESTIONS = [
   { q: '¿Qué sección mínima necesita un cable monofásico de 20A en instalación empotrada?', cat: 'REBT', icon: <Zap className="w-3.5 h-3.5" /> },
@@ -208,46 +181,6 @@ export default function AsistenteTecnicoPublicView({ setCurrentPage }: Props) {
                 <div>
                   <p className="font-bold text-white text-sm">{item.title}</p>
                   <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Planes */}
-      <section className="py-16 px-6 bg-slate-900/40">
-        <div className="max-w-4xl mx-auto space-y-10">
-          <div className="text-center space-y-2">
-            <h2 className="text-2xl font-black text-white">Acceso por plan</h2>
-            <p className="text-slate-400 text-sm">El Asistente Técnico está incluido en todos los planes de TrabFlow</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-4">
-            {PLAN_FEATURES.map((p) => (
-              <div key={p.plan} className={`rounded-2xl border p-5 space-y-4 ${p.color} ${p.highlight ? 'ring-1 ring-violet-500/40' : ''}`}>
-                <div className={`rounded-xl px-3 py-2 ${p.headerColor}`}>
-                  <p className="font-black text-white text-sm">{p.plan}</p>
-                  <p className="text-[#00CFE8] text-xs font-bold">{p.price}</p>
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Normativa accesible</p>
-                  <div className="space-y-1.5">
-                    {NORMATIVAS.map(n => {
-                      const hasAccess = p.categories.includes(n.id);
-                      return (
-                        <div key={n.id} className={`flex items-center gap-2 text-xs ${hasAccess ? 'text-slate-200' : 'text-slate-600'}`}>
-                          {hasAccess
-                            ? <CheckCircle className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                            : <Lock className="w-3.5 h-3.5 shrink-0" />
-                          }
-                          {n.name}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-                <div className="pt-1 border-t border-slate-700/40">
-                  <p className="text-xs text-slate-400">Consultas: <span className="font-bold text-slate-200">{p.queries}</span></p>
                 </div>
               </div>
             ))}
