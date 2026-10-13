@@ -293,9 +293,11 @@ export interface AdminOrgRow extends TradeOrganization {
   email_confirmed?: boolean;
   last_sign_in?: string;
   user_created_at?: string;
-  quotes_count?: number;
-  clients_count?: number;
+  // null = RPC falló (mostrar error en UI, no asumir 0)
+  quotes_count?: number | null;
+  clients_count?: number | null;
   last_quote_at?: string | null;
+  activity_error?: boolean;
   churn_risk?: boolean;
   vip?: boolean;
   internal_notes?: string | null;
@@ -541,15 +543,15 @@ export async function createOrgForExistingUser(params: {
 }
 
 export async function getAdminOrgs(): Promise<AdminOrgRow[]> {
-  const [orgsRes, authRes, quotesRes, clientsRes, lastQuoteRes] = await Promise.all([
+  const [orgsRes, authRes, activityRes] = await Promise.all([
     supabase
       .from('trade_organizations')
       .select('*, trade_subscriptions(*)')
       .order('created_at', { ascending: false }),
     supabase.rpc('admin_get_trade_users'),
-    supabase.from('trade_quotes').select('org_id'),
-    supabase.from('trade_clients').select('org_id'),
-    supabase.from('trade_quotes').select('org_id, created_at').order('created_at', { ascending: false }),
+    // RPC SECURITY DEFINER — evita que RLS de trade_quotes/trade_clients
+    // devuelva 0 cuando el admin no es owner de la org inspeccionada.
+    supabase.rpc('admin_get_activity_summary'),
   ]);
 
   const authMap = new Map<string, { auth_email: string; email_confirmed: boolean; last_sign_in: string | null; user_created_at: string }>();
@@ -557,32 +559,33 @@ export async function getAdminOrgs(): Promise<AdminOrgRow[]> {
     authMap.set(row.org_id, row);
   }
 
-  const quotesCount = new Map<string, number>();
-  for (const row of (quotesRes.data ?? []) as Array<{ org_id: string }>) {
-    quotesCount.set(row.org_id, (quotesCount.get(row.org_id) ?? 0) + 1);
-  }
-  const clientsCount = new Map<string, number>();
-  for (const row of (clientsRes.data ?? []) as Array<{ org_id: string }>) {
-    clientsCount.set(row.org_id, (clientsCount.get(row.org_id) ?? 0) + 1);
-  }
-  // Primer resultado por org_id ya es el más reciente (orden DESC)
-  const lastQuoteMap = new Map<string, string>();
-  for (const row of (lastQuoteRes.data ?? []) as Array<{ org_id: string; created_at: string }>) {
-    if (!lastQuoteMap.has(row.org_id)) lastQuoteMap.set(row.org_id, row.created_at);
+  // Si la RPC falla, propagamos el error en cada fila (no convertimos en 0)
+  const activityFailed = !!activityRes.error;
+  const activityMap = new Map<string, { quotes_count: number; last_quote_at: string | null; clients_count: number }>();
+  if (!activityFailed) {
+    for (const row of (activityRes.data ?? []) as Array<{ org_id: string; quotes_count: number; last_quote_at: string | null; clients_count: number }>) {
+      activityMap.set(row.org_id, {
+        quotes_count:  Number(row.quotes_count),
+        last_quote_at: row.last_quote_at ?? null,
+        clients_count: Number(row.clients_count),
+      });
+    }
   }
 
   return (orgsRes.data ?? []).map((row: TradeOrganization & { trade_subscriptions?: TradeSubscription[] }) => {
-    const auth = authMap.get(row.id);
+    const auth     = authMap.get(row.id);
+    const activity = activityMap.get(row.id);
     return {
       ...row,
-      subscription: row.trade_subscriptions?.[0],
-      auth_email: auth?.auth_email,
+      subscription:   row.trade_subscriptions?.[0],
+      auth_email:     auth?.auth_email,
       email_confirmed: auth?.email_confirmed,
-      last_sign_in: auth?.last_sign_in ?? undefined,
+      last_sign_in:   auth?.last_sign_in ?? undefined,
       user_created_at: auth?.user_created_at,
-      quotes_count: quotesCount.get(row.id) ?? 0,
-      clients_count: clientsCount.get(row.id) ?? 0,
-      last_quote_at: lastQuoteMap.get(row.id) ?? null,
+      activity_error:  activityFailed,
+      quotes_count:   activityFailed ? null : (activity?.quotes_count  ?? 0),
+      clients_count:  activityFailed ? null : (activity?.clients_count ?? 0),
+      last_quote_at:  activityFailed ? null : (activity?.last_quote_at ?? null),
     };
   }) as AdminOrgRow[];
 }

@@ -61,6 +61,18 @@ const PLAN_PRICES: Record<string, { monthly: number; yearly: number }> = {
   empresa_plus: { monthly: 179, yearly: 149 },
 };
 
+// Etiquetas legibles para todos los planes conocidos
+const PLAN_LABELS: Record<string, string> = {
+  basico:       'Básico',
+  pro:          'Pro',
+  profesional:  'Profesional',
+  empresa:      'Empresa',
+  empresa_plus: 'Empresa Plus',
+};
+
+// Planes que se pueden asignar manualmente desde el selector del admin
+const ASSIGNABLE_PLANS = ['basico', 'pro', 'empresa'] as const;
+
 const OFICIOS = ['Fontanería', 'Electricidad', 'HVAC / Climatización', 'Construcción', 'Pintura', 'Carpintería', 'Cerrajería', 'Reformas', 'Otros'];
 
 const ESTADO_CFG: Record<WaitlistEstado, { label: string; cls: string }> = {
@@ -100,6 +112,8 @@ function PlanSelect({ org, onUpdate }: { org: AdminOrgRow; onUpdate: () => void 
   const [updating, setUpdating] = useState(false);
   const currentPlan = org.subscription?.plan ?? (org.plan as TradeSubscription['plan']) ?? 'pro';
   const currentCycle = org.subscription?.billing_cycle ?? 'monthly';
+  const planLabel = PLAN_LABELS[currentPlan] ?? currentPlan; // nunca muestra "Básico" por defecto
+  const isAssignable = (ASSIGNABLE_PLANS as readonly string[]).includes(currentPlan);
 
   const handleChange = async (plan: TradeSubscription['plan']) => {
     setUpdating(true);
@@ -108,6 +122,16 @@ function PlanSelect({ org, onUpdate }: { org: AdminOrgRow; onUpdate: () => void 
     onUpdate();
     setUpdating(false);
   };
+
+  // Planes no asignables manualmente (ej. empresa_plus) se muestran como
+  // etiqueta de solo lectura para no permitir asignación accidental.
+  if (!isAssignable) {
+    return (
+      <span className="inline-block text-xs text-slate-300 bg-slate-700 border border-slate-600 rounded px-2 py-1 whitespace-nowrap">
+        {planLabel}
+      </span>
+    );
+  }
 
   return (
     <div className="relative inline-flex items-center">
@@ -834,11 +858,11 @@ function OrgDetailPanel({ org, adminEmail, onClose, onFlagChanged, toast }: OrgD
         <div className="px-5 py-3 border-b border-slate-800 shrink-0">
           <div className="grid grid-cols-2 gap-y-1.5 gap-x-3 text-xs mb-3">
             <div><span className="text-slate-500">Oficio:</span> <span className="text-slate-300">{org.oficio || '—'}</span></div>
-            <div><span className="text-slate-500">Plan:</span> <span className="text-slate-300">{sub?.plan ?? '—'} / {sub?.billing_cycle ?? '—'}</span></div>
+            <div><span className="text-slate-500">Plan:</span> <span className="text-slate-300">{sub?.plan ? (PLAN_LABELS[sub.plan] ?? sub.plan) : '—'} / {sub?.billing_cycle ?? '—'}</span></div>
             <div className="flex items-center gap-1.5"><span className="text-slate-500">Estado:</span> <StatusBadge sub={sub} /></div>
             <div><span className="text-slate-500">Alta:</span> <span className="text-slate-300">{new Date(org.created_at).toLocaleDateString('es-ES')}</span></div>
-            <div><span className="text-slate-500">Presupuestos:</span> <span className="text-slate-300">{org.quotes_count ?? 0}</span></div>
-            <div><span className="text-slate-500">Clientes:</span> <span className="text-slate-300">{org.clients_count ?? 0}</span></div>
+            <div><span className="text-slate-500">Presupuestos:</span> <span className={`${org.activity_error ? 'text-slate-500 italic' : 'text-slate-300'}`}>{org.activity_error ? 'No disp.' : (org.quotes_count ?? 0)}</span></div>
+            <div><span className="text-slate-500">Clientes:</span> <span className={`${org.activity_error ? 'text-slate-500 italic' : 'text-slate-300'}`}>{org.activity_error ? 'No disp.' : (org.clients_count ?? 0)}</span></div>
           </div>
           <div className="flex gap-2">
             <button onClick={() => handleToggleFlag('vip')} disabled={flagLoading === 'vip'}
@@ -1285,13 +1309,13 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
       Nombre: o.nombre,
       Email: o.auth_email ?? o.email ?? '',
       Oficio: o.oficio ?? '',
-      Plan: o.subscription?.plan ?? '',
+      Plan: o.subscription?.plan ? (PLAN_LABELS[o.subscription.plan] ?? o.subscription.plan) : '',
       Estado: o.subscription?.status ?? '',
       'Fecha alta': new Date(o.created_at).toLocaleDateString('es-ES'),
       'Último acceso': o.last_sign_in ? new Date(o.last_sign_in).toLocaleDateString('es-ES') : 'Nunca',
-      'Último presupuesto': o.last_quote_at ? new Date(o.last_quote_at).toLocaleDateString('es-ES') : 'Nunca',
-      Presupuestos: o.quotes_count ?? 0,
-      Clientes: o.clients_count ?? 0,
+      'Último presupuesto': o.activity_error ? 'No disponible' : (o.last_quote_at ? new Date(o.last_quote_at).toLocaleDateString('es-ES') : 'Nunca'),
+      Presupuestos: o.activity_error ? 'No disponible' : (o.quotes_count ?? 0),
+      Clientes: o.activity_error ? 'No disponible' : (o.clients_count ?? 0),
       'Email confirmado': o.email_confirmed ? 'Sí' : 'No',
     }));
     exportToCsv(rows, `tradeflow_clientes_${new Date().toISOString().slice(0, 10)}`);
@@ -1440,13 +1464,13 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
         Nombre: o.nombre,
         Email: o.auth_email ?? o.email ?? '',
         Oficio: o.oficio ?? '',
-        Plan: o.subscription?.plan ?? '',
+        Plan: o.subscription?.plan ? (PLAN_LABELS[o.subscription.plan] ?? o.subscription.plan) : '',
         Estado: o.subscription?.status ?? '',
         'Fecha alta': new Date(o.created_at).toLocaleDateString('es-ES'),
         'Último acceso': o.last_sign_in ? new Date(o.last_sign_in).toLocaleDateString('es-ES') : 'Nunca',
-        'Último presupuesto': o.last_quote_at ? new Date(o.last_quote_at).toLocaleDateString('es-ES') : 'Nunca',
-        Presupuestos: o.quotes_count ?? 0,
-        Clientes: o.clients_count ?? 0,
+        'Último presupuesto': o.activity_error ? 'No disponible' : (o.last_quote_at ? new Date(o.last_quote_at).toLocaleDateString('es-ES') : 'Nunca'),
+        Presupuestos: o.activity_error ? 'No disponible' : (o.quotes_count ?? 0),
+        Clientes: o.activity_error ? 'No disponible' : (o.clients_count ?? 0),
         VIP: o.vip ? 'Sí' : 'No',
         'Riesgo churn': o.churn_risk ? 'Sí' : 'No',
       }));
@@ -1884,8 +1908,8 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                         <td className="px-3 py-1.5"><span className="text-slate-300 text-xs">{org.oficio || '—'}</span></td>
                         <td className="px-3 py-1.5">
                           <div className="flex items-center gap-2">
-                            <span className="flex items-center gap-0.5 text-xs text-slate-400" title="Presupuestos"><FileText className="h-3 w-3 text-slate-500" />{org.quotes_count ?? 0}</span>
-                            <span className="flex items-center gap-0.5 text-xs text-slate-400" title="Clientes"><Contact className="h-3 w-3 text-slate-500" />{org.clients_count ?? 0}</span>
+                            <span className="flex items-center gap-0.5 text-xs text-slate-400" title="Presupuestos"><FileText className="h-3 w-3 text-slate-500" />{org.activity_error ? <span className="italic text-slate-600">—</span> : (org.quotes_count ?? 0)}</span>
+                            <span className="flex items-center gap-0.5 text-xs text-slate-400" title="Clientes"><Contact className="h-3 w-3 text-slate-500" />{org.activity_error ? <span className="italic text-slate-600">—</span> : (org.clients_count ?? 0)}</span>
                           </div>
                         </td>
                         <td className="px-3 py-1.5">
@@ -1899,7 +1923,9 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                             return (
                               <div className="flex flex-col gap-0.5">
                                 <span className="text-xs text-slate-400 font-mono whitespace-nowrap">
-                                  {lastQuote ?? <span className="text-slate-600 italic">Ninguno</span>}
+                                  {org.activity_error
+                                    ? <span className="text-slate-600 italic">No disp.</span>
+                                    : lastQuote ?? <span className="text-slate-600 italic">Ninguno</span>}
                                 </span>
                                 {(daysSinceLogin === null || daysSinceLogin > 30) && (
                                   <span className="inline-flex items-center gap-0.5 text-[9px] font-bold uppercase px-1 py-px rounded bg-red-900/30 border border-red-800 text-red-400 w-fit">
@@ -2493,7 +2519,8 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                         const actLabel = daysSince === null ? 'Nunca' :
                           daysSince === 0 ? 'Hoy' :
                           daysSince === 1 ? 'Ayer' : `${daysSince}d`;
-                        const noQuotes = (org.quotes_count ?? 0) === 0;
+                        // noQuotes solo es significativo cuando los datos se cargaron correctamente
+                        const noQuotes = !org.activity_error && (org.quotes_count ?? 0) === 0;
                         return (
                           <tr key={org.id} className={`border-b border-slate-700/50 transition-colors ${noQuotes ? 'bg-yellow-900/5 hover:bg-yellow-900/10' : 'hover:bg-slate-800/60'}`}>
                             <td className="px-3 py-1.5 max-w-[160px]">
@@ -2506,20 +2533,20 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                               )}
                             </td>
                             <td className="px-3 py-1.5">
-                              <span className="text-xs text-slate-400">{org.subscription?.plan ?? '—'}</span>
+                              <span className="text-xs text-slate-400">{org.subscription?.plan ? (PLAN_LABELS[org.subscription.plan] ?? org.subscription.plan) : '—'}</span>
                             </td>
                             <td className="px-3 py-1.5">
                               <div className="flex items-center gap-1.5">
-                                <span className={`text-sm font-bold ${(org.quotes_count ?? 0) >= 10 ? 'text-purple-300' : 'text-slate-300'}`}>
-                                  {org.quotes_count ?? 0}
+                                <span className={`text-sm font-bold ${!org.activity_error && (org.quotes_count ?? 0) >= 10 ? 'text-purple-300' : 'text-slate-300'}`}>
+                                  {org.activity_error ? <span className="text-xs text-slate-600 italic">—</span> : (org.quotes_count ?? 0)}
                                 </span>
-                                {(org.quotes_count ?? 0) >= 10 && (
+                                {!org.activity_error && (org.quotes_count ?? 0) >= 10 && (
                                   <span className="text-[8px] font-black uppercase px-1 py-px rounded bg-purple-900/40 border border-purple-800 text-purple-300">Power</span>
                                 )}
                               </div>
                             </td>
                             <td className="px-3 py-1.5">
-                              <span className="text-xs text-slate-400">{org.clients_count ?? 0}</span>
+                              <span className="text-xs text-slate-400">{org.activity_error ? <span className="italic text-slate-600">—</span> : (org.clients_count ?? 0)}</span>
                             </td>
                             <td className="px-3 py-1.5">
                               <span className="text-xs text-slate-400 font-mono whitespace-nowrap">
@@ -2530,9 +2557,11 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                             </td>
                             <td className="px-3 py-1.5">
                               <span className="text-xs text-slate-400 font-mono whitespace-nowrap">
-                                {org.last_quote_at
-                                  ? new Date(org.last_quote_at).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' })
-                                  : <span className="text-slate-600 italic">—</span>}
+                                {org.activity_error
+                                  ? <span className="text-slate-600 italic">—</span>
+                                  : org.last_quote_at
+                                    ? new Date(org.last_quote_at).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' })
+                                    : <span className="text-slate-600 italic">—</span>}
                               </span>
                             </td>
                             <td className="px-3 py-1.5">
