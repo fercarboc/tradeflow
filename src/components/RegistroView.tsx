@@ -170,7 +170,8 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
         if (orgErr) { setError(orgErr); return; }
         setNeedsConfirmation(false);
         setStep(4);
-        sendTrabflowEmail({ type: 'welcome', nombre: displayName, email: form.email.trim() });
+        // Pasamos el token para que la Edge Function pueda verificar la sesión
+        sendTrabflowEmail({ type: 'welcome', nombre: displayName, email: form.email.trim() }, data.session?.access_token);
         return;
       }
 
@@ -199,7 +200,8 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
       setNeedsConfirmation(nc);
       setStep(4);
       if (!nc) {
-        sendTrabflowEmail({ type: 'welcome', nombre: displayName, email: form.email.trim() });
+        const { data: { session: regSession } } = await supabase.auth.getSession();
+        sendTrabflowEmail({ type: 'welcome', nombre: displayName, email: form.email.trim() }, regSession?.access_token);
       }
     } finally {
       setLoading(false);

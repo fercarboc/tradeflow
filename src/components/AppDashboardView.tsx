@@ -327,15 +327,18 @@ interface SendEmailModalProps {
   cliente: Cliente;
   empresa: { nombre: string; nif: string; email: string; telefono: string };
   orgTemplates: Partial<Record<TemplateType, string>>;
+  orgId: string;
+  accessToken: string;
   onClose: () => void;
   onSent: () => void;
 }
 
-function SendEmailModal({ cliente, empresa, orgTemplates, onClose, onSent }: SendEmailModalProps) {
+function SendEmailModal({ cliente, empresa, orgTemplates, orgId, accessToken, onClose, onSent }: SendEmailModalProps) {
   const [selectedTipo, setSelectedTipo] = useState<TemplateType | null>(null);
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
   const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
 
   const vars = buildTemplateVars({
     empresa: { nombre: empresa.nombre, nif: empresa.nif, telefono: empresa.telefono, email: empresa.email },
@@ -353,14 +356,16 @@ function SendEmailModal({ cliente, empresa, orgTemplates, onClose, onSent }: Sen
   async function handleSend() {
     if (!selectedTipo || !cliente.email || !subject.trim() || !body.trim()) return;
     setSending(true);
+    setSendError(null);
     try {
-      await sendClientEmail(cliente.email, subject, body);
+      await sendClientEmail(cliente.id, orgId, accessToken, subject, body);
       onSent();
       onClose();
-    } catch {
-      onSent();
+    } catch (e) {
+      setSendError(e instanceof Error ? e.message : 'Error al enviar email');
+    } finally {
+      setSending(false);
     }
-    setSending(false);
   }
 
   return (
@@ -379,6 +384,12 @@ function SendEmailModal({ cliente, empresa, orgTemplates, onClose, onSent }: Sen
           {!cliente.email && (
             <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-3 text-xs text-amber-700 dark:text-amber-400">
               Este cliente no tiene email guardado. Añade su email en el CRM antes de enviar.
+            </div>
+          )}
+
+          {sendError && (
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-3 text-xs text-red-700 dark:text-red-400">
+              {sendError}
             </div>
           )}
 
@@ -3152,7 +3163,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       telefono: empresaAjustes.telefonoMovil,
                       oficio: supportAsunto,
                       ciudad: supportMsg,
-                    });
+                    }, session?.access_token ?? undefined);
                     showToast('Mensaje enviado al soporte ✓', 'success');
                     setShowSupportModal(false);
                     setSupportMsg('');
@@ -3182,6 +3193,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             telefono: empresaAjustes.telefonoMovil,
           }}
           orgTemplates={orgTemplates}
+          orgId={orgId ?? ''}
+          accessToken={session?.access_token ?? ''}
           onClose={() => setEmailModalCliente(null)}
           onSent={() => showToast('Email enviado ✓', 'success')}
         />

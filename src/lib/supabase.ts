@@ -1716,7 +1716,7 @@ export async function updateCatalogVariant(
 // ── Email via Resend (Edge Function trade-email) ──────────────────────────────
 
 export async function sendTrabflowEmail(payload: {
-  type: 'waitlist_admin' | 'waitlist_confirm' | 'welcome' | 'contact_admin' | 'support_admin' | 'auth_confirm' | 'provider_admin' | 'provider_confirm';
+  type: 'waitlist_admin' | 'waitlist_confirm' | 'welcome' | 'contact_admin' | 'support_admin' | 'provider_admin' | 'provider_confirm';
   nombre?: string;
   email?: string;
   telefono?: string;
@@ -1731,20 +1731,32 @@ export async function sendTrabflowEmail(payload: {
   interests?: string[];
   advertising_interest?: boolean;
   founding_provider_interest?: boolean;
-}): Promise<void> {
+}, accessToken?: string): Promise<void> {
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+  if (accessToken) headers['Authorization'] = `Bearer ${accessToken}`;
   await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/trade-email`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers,
     body: JSON.stringify(payload),
   });
   // Fire-and-forget: no lanzamos error si el email falla, para no bloquear el flujo UX
 }
 
-export async function sendClientEmail(to: string, subject: string, text: string): Promise<void> {
+// clientId y orgId se verifican server-side; el email del destinatario lo obtiene la Edge Function de BD.
+export async function sendClientEmail(
+  clientId: string,
+  orgId: string,
+  accessToken: string,
+  subject: string,
+  body: string,
+): Promise<void> {
   const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/trade-email`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ type: 'send_to_client', to, subject, text }),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({ type: 'send_to_client', client_id: clientId, org_id: orgId, subject, body }),
   });
   if (!res.ok) {
     const err = await res.text();
