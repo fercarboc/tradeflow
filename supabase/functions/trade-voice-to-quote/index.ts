@@ -180,6 +180,7 @@ function applyOficioRules(transcript: string, quote: Record<string, unknown>): v
 interface Partida {
   concepto?: string;
   descripcion?: string;
+  oficio?: string;         // canonical oficio assigned by AI (fontaneria|pintura|electricidad…)
   tipo_partida?: string;
   origen?: string;
   requiere_revision?: boolean;
@@ -254,6 +255,59 @@ async function resolveMarketplaceIds(
   return result;
 }
 
+// ── Price resolution — mirrors src/lib/catalogPriceResolution.ts ─────────────
+// Deno cannot import from src/lib, so the logic is inlined here.
+// Keep both files in sync if this algorithm changes.
+function prExtractKeywords(text: string): string[] {
+  return text.toLowerCase().split(/[\s,+()\/\-]+/).filter(w => w.length > 4);
+}
+const PR_GENERIC = new Set(['oficial', 'primera', 'segunda', 'tercera', 'jornada', 'trabajo', 'laboral']);
+const PR_OFICIO_LABEL_WORDS: Record<string, readonly string[]> = {
+  fontaneria:    ['fontanería', 'fontanero', 'plomería'],
+  electricidad:  ['electricidad', 'electricista'],
+  pintura:       ['pintura', 'pintor'],
+  albanileria:   ['albañilería', 'albañil'],
+  carpinteria:   ['carpintería', 'carpintero'],
+  cerrajeria:    ['cerrajería', 'cerrajero'],
+  climatizacion: ['climatización', 'calefacción'],
+};
+const PR_WORD_TO_OFICIO = new Map<string, string>(
+  Object.entries(PR_OFICIO_LABEL_WORDS).flatMap(([o, ws]) => ws.map(w => [w, o] as [string, string])),
+);
+function prIsOficioCompatible(tarifaDesc: string, conceptOficio?: string): boolean {
+  if (!conceptOficio || !PR_OFICIO_LABEL_WORDS[conceptOficio]) return true;
+  const words = tarifaDesc.toLowerCase().split(/[\s,+()\/\-]+/);
+  for (const word of words) {
+    const tOf = PR_WORD_TO_OFICIO.get(word);
+    if (tOf && tOf !== conceptOficio) return false;
+  }
+  return true;
+}
+function prFilterCompatible<T extends { descripcion: string }>(items: T[], conceptOficio?: string): T[] {
+  if (!conceptOficio || !PR_OFICIO_LABEL_WORDS[conceptOficio]) return items;
+  return items.filter(item => prIsOficioCompatible(item.descripcion, conceptOficio));
+}
+function prFindBestMatch<T extends { descripcion: string }>(keywords: string[], items: T[]): T | null {
+  if (!keywords.length || !items.length) return null;
+  let bestScore = 0; let bestMatch: T | null = null; let tieCount = 0;
+  for (const item of items) {
+    const desc = item.descripcion.toLowerCase();
+    const score = keywords.filter(kw => desc.includes(kw)).length;
+    if (score > bestScore) { bestScore = score; bestMatch = item; tieCount = 1; }
+    else if (score > 0 && score === bestScore) { tieCount++; }
+  }
+  if (bestScore === 0) return null;
+  const allGeneric = (match: T) => {
+    const d = match.descripcion.toLowerCase();
+    const mKws = keywords.filter(kw => d.includes(kw));
+    return mKws.length > 0 && mKws.every(kw => PR_GENERIC.has(kw));
+  };
+  if (bestScore >= 2) return (bestMatch && allGeneric(bestMatch)) ? null : bestMatch;
+  if (tieCount !== 1 || !bestMatch) return null;
+  return allGeneric(bestMatch) ? null : bestMatch;
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 async function enrichWithCatalogPrices(
   supabase: ReturnType<typeof createClient>,
   orgId: string,
@@ -262,8 +316,8 @@ async function enrichWithCatalogPrices(
   const partidas = quote.partidas as Partida[] | undefined;
   if (!partidas || partidas.length === 0) return;
 
-  // Cargar tarifas del instalador (primero) y catálogo global (fallback)
-  const [{ data: tarifas }, { data: globalItems }] = await Promise.all([
+  // Cargar en paralelo: tarifas del instalador, catálogo global y productos propios
+  const [{ data: tarifas }, { data: globalItems }, { data: ownProducts }] = await Promise.all([
     supabase
       .from('trade_tarifas')
       .select('descripcion, precio_base, unidad, codigo')
@@ -273,15 +327,43 @@ async function enrichWithCatalogPrices(
       .from('trade_global_catalog')
       .select('id, descripcion, precio_referencia, unidad, codigo, oficio')
       .eq('activo', true)
-      .gt('precio_referencia', 0),  // solo items con precio de referencia real
+      .gt('precio_referencia', 0),
+    supabase
+      .from('trade_catalog_products')
+      .select('id, nombre_generico, unidad')
+      .eq('org_id', orgId)
+      .eq('activo', true),
   ]);
 
-  const allItems = [
-    ...(tarifas ?? []).map((t: Record<string, unknown>) => ({ ...t, precio: t.precio_base, fuente: 'tarifa_instalador' })),
-    ...(globalItems ?? []).map((g: Record<string, unknown>) => ({ ...g, precio: g.precio_referencia, fuente: 'catalogo_global' })),
-  ] as Array<{ descripcion: string; precio: number; unidad: string; codigo: string; fuente: string }>;
+  // Construir lista de precios del catálogo propio (variante preferida por producto).
+  // F1-FIX: usar precio_venta generado por PostgreSQL en lugar de recalcular.
+  // F7-FIX: desempate por created_at DESC para variantes sin is_preferred.
+  type OwnItem = { descripcion: string; precio: number; unidad: string };
+  const ownCatalogItems: OwnItem[] = [];
+  if (ownProducts && (ownProducts as unknown[]).length > 0) {
+    const productIds = (ownProducts as Array<{ id: string }>).map(p => p.id);
+    const { data: variants } = await supabase
+      .from('trade_catalog_variants')
+      .select('product_id, precio_venta')
+      .eq('org_id', orgId)
+      .eq('activo', true)
+      .in('product_id', productIds)
+      .order('is_preferred', { ascending: false })
+      .order('created_at', { ascending: false })
+      .order('id', { ascending: true });
+    const seenProducts = new Set<string>();
+    for (const v of (variants ?? []) as Array<{ product_id: string; precio_venta: number }>) {
+      if (seenProducts.has(v.product_id)) continue;
+      seenProducts.add(v.product_id);
+      const product = (ownProducts as Array<{ id: string; nombre_generico: string; unidad: string }>)
+        .find(p => p.id === v.product_id);
+      if (!product) continue;
+      const precioVenta = Number(v.precio_venta);
+      if (precioVenta > 0) ownCatalogItems.push({ descripcion: product.nombre_generico, precio: precioVenta, unidad: product.unidad });
+    }
+  }
 
-  if (allItems.length === 0) return;
+  if (!tarifas?.length && !ownCatalogItems.length && !globalItems?.length) return;
 
   let recalculated = false;
 
@@ -290,31 +372,31 @@ async function enrichWithCatalogPrices(
     // No tocar partidas de materiales marcadas requiere_revision (precio=0 pendiente)
     if (partida.requiere_revision && (partida.precio_unitario ?? 0) === 0) continue;
 
-    const concepto = (partida.concepto ?? '').toLowerCase();
-    // Extraer palabras clave de más de 4 letras del concepto
-    const keywords = concepto
-      .split(/[\s,+()\/\-]+/)
-      .filter((w: string) => w.length > 4);
-
+    // F3/F8-FIX: extraer keywords y usar findBestMatch para evitar matches entre oficios
+    const keywords = prExtractKeywords(partida.concepto ?? '');
     if (keywords.length === 0) continue;
 
-    // Buscar mejor coincidencia: tarifa instalador primero, luego catálogo global
-    const instaladorMatch = (tarifas ?? []).find((t: Record<string, unknown>) => {
-      const desc = String(t.descripcion ?? '').toLowerCase();
-      return keywords.some((kw: string) => desc.includes(kw));
-    });
+    // Prioridad: tarifa instalador → catálogo propio → catálogo global
+    // Filtrar tarifas incompatibles por oficio ANTES del matching (usa partida.oficio de la IA)
+    const tarifaItems = (tarifas ?? []) as Array<{ descripcion: string; precio_base: number; codigo: string }>;
+    const compatibleTarifas = prFilterCompatible(tarifaItems, partida.oficio);
+    const instaladorMatch = prFindBestMatch(keywords, compatibleTarifas);
 
-    const globalMatch = !instaladorMatch
-      ? (globalItems ?? []).find((g: Record<string, unknown>) => {
-          const desc = String(g.descripcion ?? '').toLowerCase();
-          return keywords.some((kw: string) => desc.includes(kw));
-        })
+    const ownMatch = !instaladorMatch
+      ? prFindBestMatch(keywords, ownCatalogItems)
+      : null;
+
+    const globalItems2 = (globalItems ?? []) as Array<{ id: string; descripcion: string; precio_referencia: number; codigo: string }>;
+    const globalMatch = !instaladorMatch && !ownMatch
+      ? prFindBestMatch(keywords, globalItems2)
       : null;
 
     const match = instaladorMatch
-      ? { descripcion: instaladorMatch.descripcion, precio: Number(instaladorMatch.precio_base), codigo: String(instaladorMatch.codigo), fuente: 'tarifa_instalador', gcId: null as string | null }
+      ? { descripcion: instaladorMatch.descripcion, precio: Number(instaladorMatch.precio_base), codigo: String(instaladorMatch.codigo ?? ''), fuente: 'tarifa_instalador', gcId: null as string | null }
+      : ownMatch
+      ? { descripcion: (ownMatch as OwnItem).descripcion, precio: (ownMatch as OwnItem).precio, codigo: '', fuente: 'catalogo_propio', gcId: null as string | null }
       : globalMatch
-      ? { descripcion: globalMatch.descripcion, precio: Number(globalMatch.precio_referencia), codigo: String(globalMatch.codigo), fuente: 'catalogo_global', gcId: String(globalMatch.id) }
+      ? { descripcion: globalMatch.descripcion, precio: Number(globalMatch.precio_referencia), codigo: String(globalMatch.codigo ?? ''), fuente: 'catalogo_global', gcId: String(globalMatch.id) }
       : null;
 
     if (match && match.precio > 0) {

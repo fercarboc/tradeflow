@@ -3020,12 +3020,14 @@ export async function learnPriceToCatalog(
     productId = created.id;
   }
 
-  // Añadir variante con precio. margen_pct=0 → precio_venta = precio_material
+  // precio_venta (GENERATED) = precio_material + precio_mano_obra * (1 + margen_pct/100)
+  // Para mano_de_obra: precio_material=0, precio_mano_obra=precioVenta → precio_venta=precioVenta
+  // Para material:     precio_material=precioVenta, precio_mano_obra=0  → precio_venta=precioVenta
   await supabase.from('trade_catalog_variants').insert({
     product_id: productId,
     org_id: orgId,
     marca: 'Manual',
-    precio_material: precioVenta,
+    precio_material: tipo === 'mano_de_obra' ? 0 : precioVenta,
     precio_mano_obra: tipo === 'mano_de_obra' ? precioVenta : 0,
     margen_pct: 0,
     calidad: 'medio' as const,

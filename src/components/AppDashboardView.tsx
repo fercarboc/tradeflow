@@ -90,6 +90,7 @@ import { usePermissions } from '../hooks/usePermissions';
 import { useSession } from '../context/SessionContext';
 import { downloadAsWordDocx } from '../lib/exportWord';
 import { detectSugerencias, type SugCategory, type SugOption } from '../lib/suggestionsTemplates';
+import { resolveOptPrice as resolveOptPriceLib } from '../lib/catalogPriceResolution';
 import { getCleaningRequiredMissing } from '../lib/cleaning/cleaningQuestions';
 import CatalogImportModal from './CatalogImportModal';
 import GlobalCatalogModal from './GlobalCatalogModal';
@@ -2412,7 +2413,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       srcPartidas ?? editingQuote.partidas,
       srcTitulo ?? editingQuote.descripcion ?? ''
     );
-    if (!ctx) { showToast('No se detectó el tipo de trabajo. Añade más partidas primero.', 'error'); return; }
+    if (!ctx) { showToast('No se detectó el tipo de trabajo. Añade partidas más descriptivas (p.ej. "pintar paredes", "reforma baño", "instalación eléctrica").', 'info'); return; }
     setSugRoomLabel(ctx.template.label + ' ' + ctx.template.icon);
     setSugMissing(ctx.missing);
     const initQty: Record<string, number> = {};
@@ -2438,14 +2439,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         cat.options.forEach(opt => {
           if (sugMultiOn[opt.id]) {
             const qty = sugQuantities[opt.id] ?? 1;
+            const precio = resolveOptPriceLib(opt, tarifas, cat.oficio);
             newPartidas.push({
               descripcion: opt.descripcion,
               tipo: opt.tipo,
               cantidad: qty,
-              precioUnitario: opt.precio,
+              precioUnitario: precio,
               precioCoste: opt.precioCoste,
-              total: opt.precio * qty,
+              total: precio * qty,
               familia: opt.familia,
+              ...(precio === 0 ? { requiere_precio: true } : {}),
             });
           }
         });
@@ -2454,14 +2457,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         if (!selId) return;
         const opt = cat.options.find(o => o.id === selId);
         if (!opt) return;
+        const precio = resolveOptPriceLib(opt, tarifas, cat.oficio);
         newPartidas.push({
           descripcion: opt.descripcion,
           tipo: opt.tipo,
           cantidad: 1,
-          precioUnitario: opt.precio,
+          precioUnitario: precio,
           precioCoste: opt.precioCoste,
-          total: opt.precio,
+          total: precio,
           familia: opt.familia,
+          ...(precio === 0 ? { requiere_precio: true } : {}),
         });
       }
     });
@@ -5797,7 +5802,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                         type="text"
                         value={part.descripcion}
                         onChange={e => handleUpdateWizardItem(idx, { descripcion: e.target.value })}
-                        className={`flex-1 border rounded-lg px-2.5 py-1.5 text-xs text-gray-900 focus:outline-none ${
+                        className={`flex-1 min-w-0 border rounded-lg px-2.5 py-1.5 text-xs text-gray-900 focus:outline-none ${
                           part.origen === 'sugerida_ia' ? 'bg-amber-50 border-amber-200 focus:border-amber-400' :
                           part.origen === 'proveedor' ? 'bg-blue-50 border-blue-200 focus:border-blue-400' :
                           'bg-gray-50 border-gray-200 focus:border-blue-500'
@@ -5832,12 +5837,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     )}
 
                     {/* Controles cantidad / precio / total */}
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       {part.tipo === 'mano_de_obra' ? (
                         <>
                           <div className="flex items-center bg-amber-50 border border-amber-200 rounded-lg overflow-hidden">
                             <button
-                              onClick={() => handleUpdateWizardItem(idx, { cantidad: Math.max(0.5, Math.round((part.cantidad - 0.5) * 2) / 2), precioUnitario: empresaAjustes.valorHoraOperario })}
+                              onClick={() => handleUpdateWizardItem(idx, {
+                                cantidad: Math.max(0.5, Math.round((part.cantidad - 0.5) * 2) / 2),
+                                // Inicializa la tarifa solo si todavía no hay precio fijado
+                                ...(part.precioUnitario === 0 ? { precioUnitario: empresaAjustes.valorHoraOperario } : {}),
+                              })}
                               className="w-7 h-8 flex items-center justify-center text-amber-600 font-bold text-base cursor-pointer hover:bg-amber-100 active:scale-90 transition-transform shrink-0"
                             >−</button>
                             <input
@@ -5847,22 +5856,28 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                               value={part.cantidad}
                               onChange={e => handleUpdateWizardItem(idx, {
                                 cantidad: parseFloat(e.target.value) || 1,
-                                precioUnitario: empresaAjustes.valorHoraOperario,
+                                ...(part.precioUnitario === 0 ? { precioUnitario: empresaAjustes.valorHoraOperario } : {}),
                               })}
                               className="w-10 bg-transparent text-center text-xs font-bold text-amber-700 focus:outline-none"
                             />
                             <button
-                              onClick={() => handleUpdateWizardItem(idx, { cantidad: Math.round((part.cantidad + 0.5) * 2) / 2, precioUnitario: empresaAjustes.valorHoraOperario })}
+                              onClick={() => handleUpdateWizardItem(idx, {
+                                cantidad: Math.round((part.cantidad + 0.5) * 2) / 2,
+                                ...(part.precioUnitario === 0 ? { precioUnitario: empresaAjustes.valorHoraOperario } : {}),
+                              })}
                               className="w-7 h-8 flex items-center justify-center text-amber-600 font-bold text-base cursor-pointer hover:bg-amber-100 active:scale-90 transition-transform shrink-0"
                             >+</button>
                           </div>
-                          <span className="text-[9px] text-amber-600 font-mono whitespace-nowrap">h × {empresaAjustes.valorHoraOperario}€/h</span>
-                          <span className="text-[9px] text-gray-400">o manual:</span>
+                          {/* Muestra la tarifa activa (manual si fue editada, configurada si no) */}
+                          <span className="text-[9px] text-amber-600 font-mono whitespace-nowrap">
+                            h × {part.precioUnitario > 0 ? part.precioUnitario : empresaAjustes.valorHoraOperario}€/h
+                          </span>
+                          <span className="text-[9px] text-gray-400">€/h:</span>
                           <input
                             type="number"
                             step="0.01"
                             value={part.precioUnitario || ''}
-                            placeholder="€/h"
+                            placeholder={String(empresaAjustes.valorHoraOperario)}
                             onChange={e => handleUpdateWizardItem(idx, { precioUnitario: parseFloat(e.target.value) || 0 })}
                             onBlur={() => handleLearnPrice(idx)}
                             className="w-16 bg-gray-50 border border-gray-200 rounded-lg px-2 py-1.5 text-right text-xs font-mono text-gray-900 focus:outline-none focus:border-blue-500"
@@ -5935,8 +5950,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                                 <button
                                   key={i}
                                   onClick={() => {
+                                    // No sobrescribir el precio de venta si el instalador ya fijó uno
                                     handleUpdateWizardItem(idx, {
-                                      precioUnitario: opt.precio_venta,
+                                      ...(part.precioUnitario === 0 ? { precioUnitario: opt.precio_venta } : {}),
                                       supplier_key: opt.catalog_key,
                                       supplier_name: opt.supplier_name,
                                       supplier_ref: opt.ref_proveedor ?? undefined,
@@ -5961,8 +5977,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                                         {opt.es_preferido && <span className="text-[8px] font-bold text-amber-600">★</span>}
                                       </div>
                                       <span className="text-blue-600 block truncate">{opt.descripcion}</span>
+                                      {opt.precio_coste > 0 && (
+                                        <span className="text-[9px] text-gray-400">
+                                          Coste: {opt.precio_coste.toFixed(2)}€/{opt.unidad}
+                                        </span>
+                                      )}
                                     </div>
-                                    <span className="font-black text-blue-900 whitespace-nowrap shrink-0">{opt.precio_venta.toFixed(2)}€/{opt.unidad}</span>
+                                    <div className="shrink-0 text-right">
+                                      <span className="font-black text-blue-900 whitespace-nowrap block">{opt.precio_venta.toFixed(2)}€/{opt.unidad}</span>
+                                      {part.precioUnitario > 0 && (
+                                        <span className="text-[9px] text-gray-400 whitespace-nowrap block">Tu precio: {part.precioUnitario.toFixed(2)}€</span>
+                                      )}
+                                    </div>
                                   </div>
                                 </button>
                               ))
