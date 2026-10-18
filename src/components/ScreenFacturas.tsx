@@ -1102,8 +1102,8 @@ export default function ScreenFacturas({ showToast, isLiveMode, initialMantenimi
       {/* Modal de rectificativa — selección de motivo */}
       {showRectModal && rectModalInv && (
         <div className="fixed inset-0 bg-black/50 z-[70] flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl w-full max-w-md border border-slate-200 shadow-2xl p-6 space-y-5">
-            <div className="flex items-center justify-between">
+          <div className="bg-white rounded-2xl w-full max-w-md border border-slate-200 shadow-2xl flex flex-col max-h-[90vh]">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 shrink-0">
               <div>
                 <h3 className="font-bold text-slate-900">Crear factura rectificativa</h3>
                 <p className="text-xs text-slate-400 mt-0.5">Factura original: {rectModalInv.numero}</p>
@@ -1116,6 +1116,7 @@ export default function ScreenFacturas({ showToast, isLiveMode, initialMantenimi
               </button>
             </div>
 
+            <div className="overflow-y-auto flex-1 min-h-0 px-6 py-5 space-y-5">
             {/* Resumen de la original */}
             <div className="bg-slate-50 rounded-xl p-3 text-xs space-y-1">
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Factura original</p>
@@ -1190,7 +1191,9 @@ export default function ScreenFacturas({ showToast, isLiveMode, initialMantenimi
               La rectificativa se creará en estado <strong>Borrador</strong> con importes negativos. La factura original no se modifica. Deberás revisarla y emitirla como paso final.
             </div>
 
-            <div className="flex gap-3">
+            </div>
+
+            <div className="flex gap-3 px-6 py-4 border-t border-slate-100 shrink-0">
               <button
                 onClick={() => { setShowRectModal(false); setRectModalInv(null); }}
                 className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm cursor-pointer hover:bg-slate-50"
