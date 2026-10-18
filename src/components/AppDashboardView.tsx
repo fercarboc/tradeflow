@@ -76,6 +76,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL, MARKETPLACE_ENABLED } from '../lib/constants';
+import { useIsMobile } from '../hooks/useIsMobile';
 import { canAccessMarketplaceV2 } from '../lib/marketplaceV2Preview';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
 import { supabase, loadDashboard, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, updateClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, emitirFactura, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote, getOrgActiveOrders, loadInvoiceLines, updateDraftInvoice, normalizaNif, getClientDisplayName } from '../lib/supabase';
@@ -784,16 +785,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [newJobTrigger, setNewJobTrigger] = useState(0);
   const [prefillJobFromQuote, setPrefillJobFromQuote] = useState<import('../types').Presupuesto | null>(null);
 
-  // Detectar si estamos en un dispositivo móvil real (PWA instalada o teléfono)
-  const isNativeDevice = (() => {
-    if (typeof window === 'undefined') return false;
-    const params = new URLSearchParams(window.location.search);
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches
-      || (window.navigator as unknown as { standalone?: boolean }).standalone === true;
-    const isPWAParam = params.get('app') === 'true';
-    const isTouchPhone = window.innerWidth < 500 && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
-    return isStandalone || isPWAParam || isTouchPhone;
-  })();
+  // Layout nativo móvil cuando el viewport es de teléfono/tablet (< 768 px).
+  // Usa useIsMobile (matchMedia) para reaccionar a redimensionados sin recargar.
+  // No depende de display-mode ni ?app=true: una PWA de Windows tiene viewport
+  // ancho y debe mostrar escritorio aunque standalone=true.
+  const isNativeDevice = useIsMobile();
 
   // Sincronizar prop con estado del simulador
   useEffect(() => {
