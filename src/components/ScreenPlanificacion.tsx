@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import {
   Plus, ChevronLeft, ChevronRight, MapPin, User, Users,
   CheckCircle, Play, Trash2, Edit3, Navigation, CalendarDays,
@@ -1011,6 +1011,419 @@ function JobCard({ job, onIniciar, onPause, onQuickStatus, onEdit, onDelete, onO
   );
 }
 
+// ── JobCardCompact ────────────────────────────────────────────────────────────
+interface JobCardCompactProps {
+  job: TradeJob;
+  isSelected: boolean;
+  onClick: () => void;
+  linkedPresupuesto?: LinkedPresupuesto;
+}
+
+function JobCardCompact({ job, isSelected, onClick, linkedPresupuesto }: JobCardCompactProps) {
+  const est = ESTADO_CFG[job.estado];
+  const pri = PRIORIDAD_CFG[job.prioridad];
+  const isVisita = job.tipo === 'visita';
+
+  const accentColor =
+    isVisita                            ? 'border-l-violet-400'  :
+    job.estado === 'en_curso'           ? 'border-l-amber-400'   :
+    job.estado === 'completado'         ? 'border-l-emerald-400' :
+    job.estado === 'cancelado'          ? 'border-l-red-400'     :
+    job.estado === 'pendiente_material' ? 'border-l-orange-400'  :
+                                          'border-l-blue-400';
+
+  const timeColor =
+    job.estado === 'en_curso'   ? 'text-amber-600' :
+    job.estado === 'completado' ? 'text-emerald-600' : 'text-blue-600';
+
+  return (
+    <button
+      onClick={onClick}
+      className={`w-full text-left bg-white border border-slate-200 border-l-4 ${accentColor} rounded-xl overflow-hidden transition-all cursor-pointer ${
+        isSelected ? 'ring-2 ring-blue-500 ring-offset-1 shadow-md' : 'hover:shadow-sm hover:border-slate-300'
+      } ${job.estado === 'completado' ? 'opacity-60' : ''}`}
+    >
+      <div className="px-3 py-2.5 flex items-start gap-3">
+        <div className="shrink-0 min-w-[42px]">
+          {job.hora_inicio ? (
+            <span className={`text-xs font-bold ${timeColor}`}>{job.hora_inicio}</span>
+          ) : (
+            <span className="text-xs text-slate-300">—</span>
+          )}
+          {job.duracion_horas && (
+            <p className="text-[9px] text-slate-400 font-mono leading-none mt-0.5">{job.duracion_horas}h</p>
+          )}
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className={`text-sm font-bold leading-tight truncate ${job.estado === 'completado' ? 'line-through text-slate-400' : 'text-slate-900'}`}>
+            {job.titulo}
+          </p>
+          {job.trade_clients?.nombre && (
+            <p className="text-[11px] text-slate-500 truncate mt-0.5">{job.trade_clients.nombre}</p>
+          )}
+          {(job.trade_job_workers?.length ?? 0) > 0 && (
+            <p className="text-[10px] text-slate-400 truncate mt-0.5">
+              {job.trade_job_workers!.map(jw => jw.trade_workers?.nombre ?? '—').join(', ')}
+            </p>
+          )}
+          {(job.direccion || job.localidad) && (
+            <p className="text-[10px] text-slate-400 truncate mt-0.5">
+              {[job.direccion, job.localidad].filter(Boolean).join(', ')}
+            </p>
+          )}
+        </div>
+        <div className="shrink-0 flex flex-col items-end gap-1 pt-0.5">
+          {isVisita && <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full bg-violet-100 text-violet-700">Visita</span>}
+          {pri && <span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full ${pri.cls}`}>{pri.label}</span>}
+          <span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full ${est.cls}`}>{est.label}</span>
+          {linkedPresupuesto?.estado === 'Aceptado' && (
+            <span className="text-[8px] font-bold uppercase px-1 py-0.5 rounded-full bg-emerald-100 text-emerald-700">Presup. ✓</span>
+          )}
+        </div>
+      </div>
+    </button>
+  );
+}
+
+// ── JobDetailPanel ────────────────────────────────────────────────────────────
+interface JobDetailPanelProps {
+  job: TradeJob;
+  linkedPresupuesto?: LinkedPresupuesto;
+  onIniciar: (job: TradeJob) => void;
+  onPause: (job: TradeJob) => void;
+  onQuickStatus: (job: TradeJob, estado: TradeJob['estado']) => void;
+  onEdit: (job: TradeJob) => void;
+  onDelete: (job: TradeJob) => void;
+  onOpenParte?: (job: TradeJob) => void;
+  onCreatePresupuesto?: (job: TradeJob) => void;
+  onClose?: () => void;
+}
+
+function JobDetailPanel({ job, linkedPresupuesto, onIniciar, onPause, onQuickStatus, onEdit, onDelete, onOpenParte, onCreatePresupuesto, onClose }: JobDetailPanelProps) {
+  const est = ESTADO_CFG[job.estado];
+  const pri = PRIORIDAD_CFG[job.prioridad];
+  const isVisita = job.tipo === 'visita';
+
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    [job.direccion, job.localidad, job.cp].filter(Boolean).join(', '),
+  )}`;
+  const waUrl = job.trade_clients?.telefono
+    ? `https://wa.me/${job.trade_clients.telefono.replace(/\D/g, '')}?text=${encodeURIComponent(`Hola ${job.trade_clients.nombre ?? ''}, te confirmo tu cita: ${job.titulo}`)}`
+    : null;
+  const callUrl = job.trade_clients?.telefono
+    ? `tel:${job.trade_clients.telefono.replace(/\s/g, '')}`
+    : null;
+  const timeLabel = job.hora_inicio
+    ? `${job.hora_inicio}${job.duracion_horas ? ` — ${addHoursToTime(job.hora_inicio, job.duracion_horas)}` : ''}`
+    : null;
+
+  return (
+    <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+      {/* Header */}
+      <div className="px-5 pt-4 pb-3 border-b border-slate-100">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-1.5 flex-wrap mb-1.5">
+              {isVisita && <span className="text-[9px] font-bold uppercase px-2 py-0.5 rounded-full bg-violet-100 text-violet-700">Visita</span>}
+              {pri && <span className={`text-[9px] font-bold uppercase px-2 py-0.5 rounded-full ${pri.cls}`}>{pri.label}</span>}
+              <span className={`text-[10px] font-bold uppercase px-2.5 py-1 rounded-full ${est.cls}`}>{est.label}</span>
+            </div>
+            <h3 className="text-base font-black text-slate-900 leading-snug">{job.titulo}</h3>
+          </div>
+          {onClose && (
+            <button onClick={onClose} className="p-1.5 text-slate-400 hover:text-slate-700 cursor-pointer rounded-lg hover:bg-slate-100 shrink-0 lg:hidden">
+              <X className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="px-5 py-4 space-y-4">
+        {/* Fecha y horario */}
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <p className="text-[9px] font-mono uppercase text-slate-400 mb-0.5">Fecha</p>
+            <p className="text-sm font-semibold text-slate-800">
+              {job.fecha_inicio
+                ? new Date(job.fecha_inicio + 'T12:00:00').toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'short' })
+                : '—'}
+            </p>
+          </div>
+          <div>
+            <p className="text-[9px] font-mono uppercase text-slate-400 mb-0.5">Horario</p>
+            <p className="text-sm font-semibold text-slate-800">{timeLabel ?? '—'}</p>
+            {job.duracion_horas && (
+              <p className="text-[10px] text-slate-400">{job.duracion_horas}h estimadas</p>
+            )}
+          </div>
+        </div>
+
+        {/* Cliente + dirección */}
+        {(job.trade_clients?.nombre || job.direccion || job.localidad) && (
+          <div className="space-y-2.5">
+            {job.trade_clients?.nombre && (
+              <div className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
+                  <User className="w-3.5 h-3.5 text-slate-500" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-slate-800">{job.trade_clients.nombre}</p>
+                  {job.trade_clients.telefono && (
+                    <p className="text-[11px] text-blue-500">{job.trade_clients.telefono}</p>
+                  )}
+                </div>
+              </div>
+            )}
+            {(job.direccion || job.localidad) && (
+              <div className="flex items-start gap-2.5">
+                <div className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center shrink-0 mt-0.5">
+                  <MapPin className="w-3.5 h-3.5 text-slate-500" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm text-slate-700 leading-snug">
+                    {[job.direccion, job.localidad, job.cp].filter(Boolean).join(', ')}
+                  </p>
+                  <a href={mapsUrl} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 hover:text-blue-800 mt-1">
+                    <Navigation className="w-3 h-3" /> Cómo llegar
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Técnicos */}
+        {(job.trade_job_workers?.length ?? 0) > 0 && (
+          <div className="flex items-start gap-2.5">
+            <div className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center shrink-0 mt-0.5">
+              <Users className="w-3.5 h-3.5 text-slate-500" />
+            </div>
+            <div>
+              <p className="text-[9px] font-mono uppercase text-slate-400 mb-0.5">Técnicos</p>
+              <p className="text-sm text-slate-700">{job.trade_job_workers!.map(jw => jw.trade_workers?.nombre ?? '—').join(', ')}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Descripción */}
+        {job.descripcion && (
+          <div className="bg-slate-50 rounded-xl px-3 py-2.5">
+            <p className="text-[9px] font-mono uppercase text-slate-400 mb-1">Observaciones</p>
+            <p className="text-xs text-slate-700 leading-relaxed whitespace-pre-wrap">{job.descripcion}</p>
+          </div>
+        )}
+
+        {/* Presupuesto vinculado */}
+        {linkedPresupuesto && (() => {
+          const p = linkedPresupuesto;
+          const isAceptado  = p.estado === 'Aceptado';
+          const isFacturado = p.estado === 'Facturado';
+          return (
+            <div className={`rounded-xl px-3 py-2.5 border text-xs space-y-1 ${
+              isAceptado  ? 'bg-emerald-50 border-emerald-300' :
+              isFacturado ? 'bg-slate-100 border-slate-200' :
+                            'bg-violet-50 border-violet-200'
+            }`}>
+              <div className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-slate-500 mb-1">
+                <Receipt className="w-3 h-3" /> Presupuesto vinculado
+              </div>
+              {isAceptado && (
+                <div className="flex items-center gap-1.5 text-emerald-700 font-bold text-[10px]">
+                  <CheckCircle className="w-3.5 h-3.5 shrink-0" />
+                  Aceptado — {p.fecha}
+                </div>
+              )}
+              <div className="flex items-center justify-between gap-2">
+                <span className={`truncate font-medium ${isAceptado ? 'text-emerald-800' : 'text-slate-700'}`}>
+                  {p.descripcion || 'Presupuesto vinculado'}
+                </span>
+                <span className={`font-mono font-bold shrink-0 ${isAceptado ? 'text-emerald-700' : 'text-violet-700'}`}>
+                  {(p.total * (1 + (p.iva_pct ?? 21) / 100)).toFixed(0)}€
+                </span>
+              </div>
+              {!isAceptado && !isFacturado && (
+                <span className={`inline-block text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full border ${
+                  p.estado === 'Enviado' ? 'bg-amber-50 text-amber-600 border-amber-300' : 'bg-slate-100 text-slate-500 border-slate-300'
+                }`}>{p.estado}</span>
+              )}
+              {isFacturado && (
+                <span className="inline-block text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full bg-slate-200 text-slate-500 border border-slate-300">Facturado</span>
+              )}
+            </div>
+          );
+        })()}
+
+        {/* Badges estados especiales */}
+        {(job.estado === 'pausado_continua' || job.estado === 'bloqueado_espera_material' || job.estado === 'no_realizado') && (
+          <div className="flex flex-wrap gap-2">
+            {job.estado === 'pausado_continua' && (
+              <span className="flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-1.5 bg-violet-100 text-violet-700 rounded-xl">
+                <PauseCircle className="w-3.5 h-3.5" /> Retoma mañana
+              </span>
+            )}
+            {job.estado === 'bloqueado_espera_material' && (
+              <span className="flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-1.5 bg-rose-100 text-rose-700 rounded-xl">
+                <Package className="w-3.5 h-3.5" /> {job.material_pendiente ? job.material_pendiente.slice(0, 32) : 'Material pendiente'}
+              </span>
+            )}
+            {job.estado === 'no_realizado' && (
+              <span className="flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-1.5 bg-slate-100 text-slate-500 rounded-xl">
+                <Ban className="w-3.5 h-3.5" /> No realizado
+              </span>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Acciones */}
+      <div className="px-4 py-3 border-t border-slate-100 space-y-2">
+        <div className="flex flex-wrap gap-2">
+          {/* VISITA planificada */}
+          {isVisita && job.estado === 'planificado' && (
+            <>
+              {onCreatePresupuesto && (
+                <button onClick={() => onCreatePresupuesto(job)}
+                  className="flex items-center gap-1.5 bg-violet-50 border border-violet-200 text-violet-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer active:bg-violet-100 transition-colors">
+                  <Receipt className="w-3.5 h-3.5" /> Presupuesto
+                </button>
+              )}
+              {onOpenParte && (
+                <button onClick={() => onOpenParte(job)}
+                  className="flex items-center gap-1.5 bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer active:bg-blue-100 transition-colors">
+                  <FileText className="w-3.5 h-3.5" /> Parte
+                </button>
+              )}
+              <button onClick={() => onIniciar(job)}
+                className="flex items-center gap-1.5 bg-violet-600 active:bg-violet-700 text-white text-xs font-bold px-4 py-2 rounded-xl cursor-pointer transition-colors">
+                <Play className="w-3.5 h-3.5" /> Iniciar
+              </button>
+            </>
+          )}
+          {/* VISITA en curso */}
+          {isVisita && job.estado === 'en_curso' && (
+            <>
+              {onCreatePresupuesto && !linkedPresupuesto && (
+                <button onClick={() => onCreatePresupuesto(job)}
+                  className="flex items-center gap-1.5 bg-violet-50 border border-violet-200 text-violet-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer active:bg-violet-100 transition-colors">
+                  <Receipt className="w-3.5 h-3.5" /> Presupuesto
+                </button>
+              )}
+              {onOpenParte && (
+                <button onClick={() => onOpenParte(job)}
+                  className="flex items-center gap-1.5 bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer active:bg-blue-100 transition-colors">
+                  <FileText className="w-3.5 h-3.5" /> Parte
+                </button>
+              )}
+              <button onClick={() => onPause(job)}
+                className="flex items-center gap-1.5 bg-violet-100 border border-violet-300 text-violet-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer active:bg-violet-200 transition-colors">
+                <PauseCircle className="w-3.5 h-3.5" /> Pausar
+              </button>
+              <button onClick={() => onQuickStatus(job, 'completado')}
+                className="flex items-center gap-1.5 bg-emerald-600 active:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors">
+                <CheckCircle className="w-3.5 h-3.5" /> Completar
+              </button>
+            </>
+          )}
+          {/* TRABAJO normal */}
+          {!isVisita && (
+            <>
+              {job.estado === 'planificado' && !linkedPresupuesto && (
+                <button onClick={() => onIniciar(job)}
+                  className="flex items-center gap-1.5 bg-amber-500 active:bg-amber-600 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors">
+                  <Play className="w-3.5 h-3.5" /> Iniciar trabajo
+                </button>
+              )}
+              {job.estado === 'planificado' && linkedPresupuesto?.estado === 'Aceptado' && (
+                <button onClick={() => onIniciar(job)}
+                  className="flex items-center gap-1.5 bg-emerald-600 active:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors shadow-sm">
+                  <Play className="w-3.5 h-3.5" /> Iniciar trabajo
+                </button>
+              )}
+              {job.estado === 'en_curso' && (
+                <>
+                  <button onClick={() => onPause(job)}
+                    className="flex items-center gap-1.5 bg-violet-100 border border-violet-300 text-violet-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer active:bg-violet-200 transition-colors">
+                    <PauseCircle className="w-3.5 h-3.5" /> Pausar
+                  </button>
+                  <button onClick={() => onOpenParte ? onOpenParte(job) : onQuickStatus(job, 'completado')}
+                    className="flex items-center gap-1.5 bg-emerald-600 active:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors">
+                    <CheckCircle className="w-3.5 h-3.5" /> Completar
+                  </button>
+                </>
+              )}
+              {onCreatePresupuesto && job.estado !== 'cancelado' && job.estado !== 'completado' && !linkedPresupuesto && (
+                <button onClick={() => onCreatePresupuesto(job)}
+                  className="flex items-center gap-1.5 bg-violet-50 border border-violet-200 text-violet-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer active:bg-violet-100 transition-colors">
+                  <Receipt className="w-3.5 h-3.5" /> Presupuesto
+                </button>
+              )}
+              {onCreatePresupuesto && job.estado !== 'cancelado' && job.estado !== 'completado' && linkedPresupuesto && (
+                <button onClick={() => onCreatePresupuesto(job)}
+                  className="flex items-center gap-1.5 bg-white border border-violet-200 text-violet-500 text-[10px] font-bold px-2.5 py-1.5 rounded-xl cursor-pointer active:bg-violet-50 transition-colors">
+                  <Receipt className="w-3 h-3" /> Nuevo pres.
+                </button>
+              )}
+              {onOpenParte && job.estado !== 'cancelado' && (
+                <button onClick={() => onOpenParte(job)}
+                  className={`flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors ${
+                    linkedPresupuesto?.estado === 'Aceptado'
+                      ? 'bg-blue-600 text-white active:bg-blue-700 shadow-sm'
+                      : 'bg-blue-50 border border-blue-200 text-blue-700 active:bg-blue-100'
+                  }`}>
+                  <FileText className="w-3.5 h-3.5" /> Parte
+                </button>
+              )}
+            </>
+          )}
+        </div>
+
+        {/* Contacto + editar/borrar */}
+        <div className="flex items-center gap-2 flex-wrap">
+          {waUrl ? (
+            <a href={waUrl} target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold px-3 py-2 rounded-xl cursor-pointer hover:bg-slate-100 transition-colors">
+              <span className="text-sm leading-none">💬</span> WhatsApp
+            </a>
+          ) : (
+            <span className="flex items-center gap-1.5 bg-slate-50 border border-slate-100 text-slate-300 text-xs px-3 py-2 rounded-xl opacity-50">
+              <span className="text-sm leading-none">💬</span> WhatsApp
+            </span>
+          )}
+          {callUrl ? (
+            <a href={callUrl}
+              className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold px-3 py-2 rounded-xl cursor-pointer hover:bg-slate-100 transition-colors">
+              <Phone className="w-3.5 h-3.5" /> Llamar
+            </a>
+          ) : (
+            <span className="flex items-center gap-1.5 bg-slate-50 border border-slate-100 text-slate-300 text-xs px-3 py-2 rounded-xl opacity-50">
+              <Phone className="w-3.5 h-3.5" /> Llamar
+            </span>
+          )}
+          {(job.direccion || job.localidad) ? (
+            <a href={mapsUrl} target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold px-3 py-2 rounded-xl cursor-pointer hover:bg-slate-100 transition-colors">
+              <Navigation className="w-3.5 h-3.5" /> GPS
+            </a>
+          ) : (
+            <span className="flex items-center gap-1.5 bg-slate-50 border border-slate-100 text-slate-300 text-xs px-3 py-2 rounded-xl opacity-50">
+              <Navigation className="w-3.5 h-3.5" /> GPS
+            </span>
+          )}
+          <div className="ml-auto flex items-center gap-1">
+            <button onClick={() => onEdit(job)} className="p-2 text-slate-400 hover:text-blue-500 cursor-pointer transition-colors rounded-xl hover:bg-blue-50">
+              <Edit3 className="w-4 h-4" />
+            </button>
+            <button onClick={() => onDelete(job)} className="p-2 text-slate-400 hover:text-red-500 cursor-pointer transition-colors rounded-xl hover:bg-red-50">
+              <Trash2 className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Main component ────────────────────────────────────────────────────────────
 export default function ScreenPlanificacion({
   jobs: propJobs, workers, clientes, isLiveMode,
@@ -1032,6 +1445,7 @@ export default function ScreenPlanificacion({
   const [saving, setSaving]                       = useState(false);
   const [selectedWorkerIds, setSelectedWorkerIds] = useState<Set<string>>(new Set());
   const [geoStatus, setGeoStatus]                 = useState<GeoStatus>('idle');
+  const [selectedJobId, setSelectedJobId]         = useState<string | null>(null);
   const autoRescheduledRef                        = useRef(false);
 
   // Modal: visitas anteriores sin resolver
@@ -1105,11 +1519,23 @@ export default function ScreenPlanificacion({
     'todos', 'planificado', 'en_curso', 'pausado_continua', 'bloqueado_espera_material', 'pendiente_material', 'no_realizado', 'completado', 'cancelado',
   ];
 
-  const filtered = filterEstado === 'todos'
-    ? dayJobs
-    : filterEstado === 'materiales_pendientes'
-      ? []
-      : dayJobs.filter(j => j.estado === filterEstado);
+  const filtered = useMemo(
+    () => filterEstado === 'todos'
+      ? dayJobs
+      : filterEstado === 'materiales_pendientes'
+        ? []
+        : dayJobs.filter(j => j.estado === filterEstado),
+    [dayJobs, filterEstado],
+  );
+
+  const selectedJob = filtered.find(j => j.id === selectedJobId) ?? null;
+
+  // Clear selection when selected job is no longer in the visible set
+  useEffect(() => {
+    if (selectedJobId !== null && !filtered.some(j => j.id === selectedJobId)) {
+      setSelectedJobId(null);
+    }
+  }, [filtered, selectedJobId]);
 
   const openCreate = () => {
     setEditingJob(null);
@@ -1359,6 +1785,7 @@ export default function ScreenPlanificacion({
   const handleSelectDate = (date: string) => {
     setSelectedDate(date);
     setFilterEstado('todos');
+    setSelectedJobId(null);
   };
 
   return (
@@ -1377,8 +1804,8 @@ export default function ScreenPlanificacion({
         }}
       />
 
-      {/* ── Contenido ── */}
-      <div className="flex-1 overflow-y-auto overscroll-contain px-4 pt-3 space-y-3" style={{ paddingBottom: 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)' }}>
+      {/* ── Bloques ancho completo ── */}
+      <div className="shrink-0 px-4 pt-3 pb-3 space-y-3">
 
         {/* Filtros de estado + botones acción */}
         <div className="flex items-center gap-1.5 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
@@ -1388,7 +1815,7 @@ export default function ScreenPlanificacion({
             return (
               <button
                 key={f}
-                onClick={() => setFilterEstado(f)}
+                onClick={() => { setFilterEstado(f); setSelectedJobId(null); }}
                 className={`shrink-0 text-[9px] font-bold uppercase px-2.5 py-1 rounded-full border cursor-pointer transition-all ${
                   filterEstado === f
                     ? 'bg-blue-600 text-white border-transparent'
@@ -1403,7 +1830,7 @@ export default function ScreenPlanificacion({
           {/* Botón especial: Materiales pendientes (cross-date) */}
           {materialesPendientes.length > 0 && (
             <button
-              onClick={() => setFilterEstado(prev => prev === 'materiales_pendientes' ? 'todos' : 'materiales_pendientes')}
+              onClick={() => { setFilterEstado(prev => prev === 'materiales_pendientes' ? 'todos' : 'materiales_pendientes'); setSelectedJobId(null); }}
               className={`shrink-0 flex items-center gap-1 text-[9px] font-bold uppercase px-2.5 py-1 rounded-full border cursor-pointer transition-all ${
                 filterEstado === 'materiales_pendientes'
                   ? 'bg-rose-700 text-white border-transparent'
@@ -1557,6 +1984,15 @@ export default function ScreenPlanificacion({
           </div>
         )}
 
+      </div>
+
+      {/* ── Grid lista + detalle ── */}
+      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2">
+
+        {/* Columna izquierda — lista de trabajos */}
+        <div className={`overflow-y-auto overscroll-contain lg:border-r lg:border-slate-100 ${selectedJob ? 'hidden lg:block' : ''}`} style={{ paddingBottom: 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)' }}>
+        <div className="px-4 pt-3 space-y-3">
+
         {/* Sección: Materiales pendientes (cross-date) */}
         {filterEstado === 'materiales_pendientes' && (
           <div className="space-y-3">
@@ -1616,20 +2052,43 @@ export default function ScreenPlanificacion({
           </div>
         ) : (
           filtered.map(job => (
-            <JobCard
+            <JobCardCompact
               key={job.id}
               job={job}
-              onIniciar={handleIniciar}
-              onPause={setPausingJob}
-              onQuickStatus={handleQuickStatus}
-              onEdit={openEdit}
-              onDelete={handleDelete}
-              onOpenParte={onOpenParte}
-              onCreatePresupuesto={onCreatePresupuesto}
+              isSelected={selectedJobId === job.id}
+              onClick={() => setSelectedJobId(job.id)}
               linkedPresupuesto={job.quote_id ? presupuestosPorId[job.quote_id] : undefined}
             />
           ))
         ))}
+        </div>
+        </div>
+
+        {/* Columna derecha — panel de detalle */}
+        <div className={`overflow-y-auto min-h-0 ${selectedJob ? 'block' : 'hidden lg:block'}`} style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 16px)' }}>
+          {selectedJob ? (
+            <div className="px-4 pt-3 pb-4">
+              <JobDetailPanel
+                job={selectedJob}
+                linkedPresupuesto={selectedJob.quote_id ? presupuestosPorId[selectedJob.quote_id] : undefined}
+                onIniciar={handleIniciar}
+                onPause={setPausingJob}
+                onQuickStatus={handleQuickStatus}
+                onEdit={openEdit}
+                onDelete={handleDelete}
+                onOpenParte={onOpenParte}
+                onCreatePresupuesto={onCreatePresupuesto}
+                onClose={() => setSelectedJobId(null)}
+              />
+            </div>
+          ) : (
+            <div className="hidden lg:flex flex-col items-center justify-center h-full py-16 text-center">
+              <CalendarDays className="w-12 h-12 text-slate-200 mb-3" />
+              <p className="text-sm font-semibold text-slate-300">Selecciona un trabajo</p>
+              <p className="text-xs text-slate-300 mt-1">El detalle aparecerá aquí</p>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Modales: visitas anteriores + pausa + create/edit */}
