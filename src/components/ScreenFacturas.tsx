@@ -418,7 +418,10 @@ export default function ScreenFacturas({ showToast, isLiveMode, initialMantenimi
 
       {/* Cabecera */}
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Gestión de facturas</p>
+        <div>
+          <h1 className="text-xl font-bold text-slate-900">Gestión de facturas</h1>
+          <p className="text-xs text-slate-400 mt-0.5">Consulta, filtra y gestiona todas tus facturas en un solo lugar.</p>
+        </div>
         <div className="flex items-center gap-2">
           <button
             onClick={() => setShowGestoria(true)}
@@ -449,17 +452,22 @@ export default function ScreenFacturas({ showToast, isLiveMode, initialMantenimi
       )}
 
       {/* KPI strip */}
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          { label: 'Borrador', value: counts.borrador, color: 'text-slate-600' },
-          { label: 'Emitida',  value: counts.emitida,  color: 'text-blue-600' },
-          { label: 'Pagada',   value: counts.pagada,   color: 'text-emerald-600' },
-          { label: 'Vencida',  value: counts.vencida,  color: 'text-red-600' },
+          { label: 'Borrador', value: counts.borrador, color: 'text-slate-600', bg: 'bg-white', border: 'border-slate-200', sub: 'Facturas sin emitir', filter: 'Borrador' as EstadoFilter },
+          { label: 'Emitida',  value: counts.emitida,  color: 'text-blue-600',  bg: 'bg-white', border: 'border-blue-100',  sub: 'Facturas emitidas',  filter: 'Emitida' as EstadoFilter },
+          { label: 'Pagada',   value: counts.pagada,   color: 'text-emerald-600', bg: 'bg-white', border: 'border-emerald-100', sub: 'Totalmente cobradas', filter: 'Pagada' as EstadoFilter },
+          { label: 'Vencida',  value: counts.vencida,  color: 'text-red-600',   bg: 'bg-white', border: 'border-red-100',   sub: 'Fuera de plazo',    filter: 'Vencida' as EstadoFilter },
         ].map(k => (
-          <div key={k.label} className="bg-white border border-slate-200 rounded-xl p-3 text-center">
-            <p className={`text-lg font-black ${k.color}`}>{k.value}</p>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">{k.label}</p>
-          </div>
+          <button
+            key={k.label}
+            onClick={() => setFilterEstado(filterEstado === k.filter ? 'todos' : k.filter)}
+            className={`${k.bg} border ${k.border} rounded-xl p-4 text-left transition-all cursor-pointer hover:shadow-sm ${filterEstado === k.filter ? 'ring-2 ring-offset-1 ring-blue-400 shadow-sm' : ''}`}
+          >
+            <p className={`text-2xl font-black ${k.color}`}>{k.value}</p>
+            <p className="text-[11px] font-bold text-slate-700 mt-1">{k.label}</p>
+            <p className="text-[10px] text-slate-400 mt-0.5">{k.sub}</p>
+          </button>
         ))}
       </div>
 
@@ -513,79 +521,85 @@ export default function ScreenFacturas({ showToast, isLiveMode, initialMantenimi
         );
       })()}
 
-      {/* Filtros */}
-      <div className="flex flex-wrap gap-2 items-center">
-        <div className="relative flex-1 min-w-[160px]">
-          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
-          <input
-            type="text"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder="Buscar factura..."
-            className="w-full pl-8 pr-3 py-1.5 text-xs bg-white border border-slate-200 rounded-lg focus:outline-none focus:border-blue-400"
-          />
-        </div>
-        {/* Estado */}
-        <div className="flex bg-slate-100 rounded-lg p-0.5 gap-0.5 flex-wrap">
-          {(['todos', 'Borrador', 'Emitida', 'Pendiente', 'Pagada', 'Vencida'] as EstadoFilter[]).map(f => (
-            <button
-              key={f}
-              onClick={() => setFilterEstado(f)}
-              className={`text-[10px] font-semibold px-2.5 py-1 rounded-md transition-colors cursor-pointer ${filterEstado === f ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
-            >
-              {f === 'todos' ? 'Todos' : f}
-            </button>
-          ))}
-        </div>
-        {/* Serie */}
-        <div className="flex bg-slate-100 rounded-lg p-0.5 gap-0.5">
-          {([['todos', 'Todo'], ['F', 'F-'], ['M', 'M-']] as [string, string][]).map(([v, l]) => (
-            <button
-              key={v}
-              onClick={() => setFilterSerie(v as typeof filterSerie)}
-              className={`text-[10px] font-semibold px-2.5 py-1 rounded-md transition-colors cursor-pointer ${filterSerie === v ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
-            >
-              {l}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Filtro de fechas + ordenación */}
-      <div className="flex flex-wrap gap-2 items-center">
-        <CalendarRange className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-        <input
-          type="date"
-          value={dateFrom}
-          onChange={e => setDateFrom(e.target.value)}
-          title="Desde"
-          className="text-xs bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-blue-400 text-slate-600"
-        />
-        <span className="text-xs text-slate-400">—</span>
-        <input
-          type="date"
-          value={dateTo}
-          onChange={e => setDateTo(e.target.value)}
-          title="Hasta"
-          className="text-xs bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-blue-400 text-slate-600"
-        />
-        {(dateFrom || dateTo) && (
-          <button
-            onClick={() => { setDateFrom(''); setDateTo(''); }}
-            className="text-[10px] text-red-500 hover:text-red-700 font-semibold cursor-pointer flex items-center gap-1"
-          >
-            <X className="w-3 h-3" />Limpiar
-          </button>
-        )}
-        <div className="ml-auto flex items-center">
+      {/* Zona de filtros */}
+      <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-3">
+        {/* Fila 1: búsqueda + sort */}
+        <div className="flex gap-2 items-center">
+          <div className="relative flex-1">
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+            <input
+              type="text"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Buscar por número, cliente o concepto..."
+              className="w-full pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-400 focus:bg-white transition-colors"
+            />
+          </div>
           <button
             onClick={() => setSortDir(d => d === 'desc' ? 'asc' : 'desc')}
-            className="flex items-center gap-1.5 text-[10px] font-semibold text-slate-500 hover:text-blue-600 bg-slate-100 hover:bg-blue-50 px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer"
-            title="Ordenar por fecha"
+            className="flex items-center gap-1.5 text-[10px] font-semibold text-slate-500 hover:text-blue-600 bg-slate-100 hover:bg-blue-50 px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer shrink-0"
           >
             <ArrowUpDown className="w-3 h-3" />
             Fecha {sortDir === 'desc' ? '↓ reciente' : '↑ antigua'}
           </button>
+        </div>
+
+        {/* Fila 2: accesos rápidos de período */}
+        <div className="flex flex-wrap gap-1.5 items-center">
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider shrink-0 mr-1">Período</span>
+          {([
+            { label: 'Hoy', action: () => { const d = new Date().toISOString().split('T')[0]; setDateFrom(d); setDateTo(d); } },
+            { label: 'Este mes', action: () => { const n = new Date(); setDateFrom(`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-01`); setDateTo(new Date(n.getFullYear(), n.getMonth()+1, 0).toISOString().split('T')[0]); } },
+            { label: 'Mes pasado', action: () => { const n = new Date(); const m = n.getMonth() === 0 ? 11 : n.getMonth()-1; const y = n.getMonth() === 0 ? n.getFullYear()-1 : n.getFullYear(); setDateFrom(`${y}-${String(m+1).padStart(2,'0')}-01`); setDateTo(new Date(y, m+1, 0).toISOString().split('T')[0]); } },
+            { label: 'Últimos 30 días', action: () => { const n = new Date(); const from = new Date(n); from.setDate(from.getDate()-30); setDateFrom(from.toISOString().split('T')[0]); setDateTo(n.toISOString().split('T')[0]); } },
+            { label: 'Este año', action: () => { const y = new Date().getFullYear(); setDateFrom(`${y}-01-01`); setDateTo(`${y}-12-31`); } },
+            { label: 'Todas', action: () => { setDateFrom(''); setDateTo(''); } },
+          ] as { label: string; action: () => void }[]).map(p => (
+            <button
+              key={p.label}
+              onClick={p.action}
+              className="text-[10px] font-semibold px-2.5 py-1 rounded-md border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-colors cursor-pointer text-slate-600"
+            >
+              {p.label}
+            </button>
+          ))}
+          {(dateFrom || dateTo) && (
+            <div className="flex items-center gap-1 ml-1 text-[10px] text-blue-700 bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-md">
+              <CalendarRange className="w-3 h-3 shrink-0" />
+              {dateFrom && <span>{new Date(dateFrom+'T12:00:00').toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit'})}</span>}
+              {dateFrom && dateTo && <span className="mx-0.5">—</span>}
+              {dateTo && <span>{new Date(dateTo+'T12:00:00').toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit'})}</span>}
+              <button onClick={() => { setDateFrom(''); setDateTo(''); }} className="ml-1 text-blue-400 hover:text-blue-700 cursor-pointer"><X className="w-2.5 h-2.5" /></button>
+            </div>
+          )}
+        </div>
+
+        {/* Fila 3: estado + tipo */}
+        <div className="flex flex-wrap gap-2 items-center">
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider shrink-0">Estado</span>
+          <div className="flex bg-slate-100 rounded-lg p-0.5 gap-0.5 flex-wrap">
+            {(['todos', 'Borrador', 'Emitida', 'Pendiente', 'Pagada', 'Vencida'] as EstadoFilter[]).map(f => (
+              <button
+                key={f}
+                onClick={() => setFilterEstado(f)}
+                className={`text-[10px] font-semibold px-2.5 py-1 rounded-md transition-colors cursor-pointer ${filterEstado === f ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+              >
+                {f === 'todos' ? 'Todo' : f}
+              </button>
+            ))}
+          </div>
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider shrink-0 ml-2">Tipo</span>
+          <div className="flex bg-slate-100 rounded-lg p-0.5 gap-0.5">
+            {([['todos', 'Todo'], ['F', 'F-'], ['M', 'M-']] as [string, string][]).map(([v, l]) => (
+              <button
+                key={v}
+                onClick={() => setFilterSerie(v as typeof filterSerie)}
+                className={`text-[10px] font-semibold px-2.5 py-1 rounded-md transition-colors cursor-pointer ${filterSerie === v ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -699,23 +713,28 @@ export default function ScreenFacturas({ showToast, isLiveMode, initialMantenimi
       {selectedInv && (
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl w-full max-w-lg border border-slate-200 shadow-2xl flex flex-col max-h-[90vh]">
-            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-              <div>
-                <p className="text-sm font-bold text-slate-900">
-                  {selectedInv.estado === 'Borrador' ? 'Borrador de factura' : selectedInv.numero}
-                </p>
-                <p className="text-xs text-slate-400 mt-0.5">{selectedInv.trade_clients?.nombre ?? '—'}</p>
+            <div className="flex items-start justify-between px-6 py-5 border-b border-slate-100">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center shrink-0">
+                  <FileText className="w-4 h-4 text-slate-500" />
+                </div>
+                <div>
+                  <p className="text-base font-bold text-slate-900">
+                    {selectedInv.estado === 'Borrador' ? 'Borrador de factura' : selectedInv.numero}
+                  </p>
+                  <p className="text-xs text-slate-400 mt-0.5">{selectedInv.trade_clients?.nombre ?? '—'}</p>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 shrink-0">
                 {(() => {
                   const cfg = estadoCfg(selectedInv.estado);
                   return (
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${cfg.bg} ${cfg.text} ${cfg.border}`}>
+                    <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${cfg.bg} ${cfg.text} ${cfg.border}`}>
                       {cfg.label}
                     </span>
                   );
                 })()}
-                <button onClick={() => setSelectedInv(null)} className="text-slate-400 hover:text-slate-700 cursor-pointer">
+                <button onClick={() => setSelectedInv(null)} className="text-slate-400 hover:text-slate-700 cursor-pointer p-1 hover:bg-slate-100 rounded-lg transition-colors">
                   <X className="w-5 h-5" />
                 </button>
               </div>

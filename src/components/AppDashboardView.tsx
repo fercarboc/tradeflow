@@ -8032,57 +8032,66 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           )}
         </div>
 
-        {/* Trabajos externalizados vinculados al presupuesto */}
-        {orgId && selectedQuoteForPreview.dbId && (
-          <div className="bg-white border border-violet-200 rounded-xl p-4 space-y-3">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xs font-black uppercase tracking-wider text-violet-600 flex items-center gap-1.5">
-                <Layers className="w-3.5 h-3.5" />
-                Trabajos externalizados ({previewSubcontratas.length})
-              </h3>
-              {selectedQuoteForPreview.estado !== 'Facturado' && (
-                <button
-                  onClick={() => { setDraftSubcontrata({ subcontractor_id: '', descripcion: '', coste: 0, precio_cliente: 0 }); setShowAddSubcontrataModal(true); }}
-                  className="flex items-center gap-1 text-[10px] font-bold text-violet-700 border border-violet-200 px-3 py-1.5 rounded-lg hover:bg-violet-50 cursor-pointer"
-                >
-                  <Plus className="w-3 h-3" /> Añadir trabajo externalizado
-                </button>
-              )}
-            </div>
-            {previewSubcontratas.length === 0 ? (
-              <p className="text-xs text-slate-400 italic">{selectedQuoteForPreview.estado === 'Facturado' ? 'Presupuesto ya facturado — sin trabajos externalizados vinculados.' : 'Sin trabajos externalizados en este presupuesto. Añade uno si vas a delegar alguna parte a un proveedor.'}</p>
-            ) : (
-              <div className="space-y-2">
-                {previewSubcontratas.map(s => {
-                  const mg = s.precio_cliente > 0 ? ((s.precio_cliente - s.coste) / s.precio_cliente * 100).toFixed(1) : '0';
-                  return (
-                    <div key={s.id} className="flex items-center justify-between bg-violet-50 border border-violet-100 rounded-xl px-3 py-2.5 text-xs gap-3">
-                      <div className="flex-1 min-w-0">
-                        <p className="font-bold text-slate-800 truncate">{s.descripcion}</p>
-                        <p className="text-slate-500 flex items-center gap-1 mt-0.5">
-                          <Building2 className="w-2.5 h-2.5" />
-                          {s.trade_subcontractors?.nombre ?? '—'}
-                          {s.numero && <span className="font-mono text-violet-500 ml-1">{s.numero}</span>}
-                        </p>
-                      </div>
-                      <div className="text-right shrink-0">
-                        <p className="font-mono font-bold text-slate-700">{s.precio_cliente.toFixed(2)}€</p>
-                        <p className="text-[9px] text-slate-400">Coste: {s.coste.toFixed(2)}€ · Margen: {mg}%</p>
-                      </div>
-                      <button onClick={() => { setPlanificacionSubTab('externalizados'); setActiveTab('planificacion'); }} className="text-violet-400 hover:text-violet-700 cursor-pointer shrink-0" title="Ver en Externalizados">
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-                    </div>
-                  );
-                })}
-                <div className="flex justify-between pt-1 text-xs text-slate-500 border-t border-violet-100">
-                  <span>Total externalizado (tu coste)</span>
-                  <span className="font-bold text-red-600">−{previewSubcontratas.reduce((a, s) => a + s.coste, 0).toFixed(2)}€</span>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+          <div className="space-y-4">
+            {orgId && (
+              <QuotePhotosPanel
+                quoteId={selectedQuoteForPreview.dbId ?? null}
+                orgId={orgId}
+              />
+            )}
+            {/* Trabajos externalizados vinculados al presupuesto */}
+            {orgId && selectedQuoteForPreview.dbId && (
+              <div className="bg-white border border-violet-200 rounded-xl p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xs font-black uppercase tracking-wider text-violet-600 flex items-center gap-1.5">
+                    <Layers className="w-3.5 h-3.5" />
+                    Trabajos externalizados ({previewSubcontratas.length})
+                  </h3>
+                  {selectedQuoteForPreview.estado !== 'Facturado' && (
+                    <button
+                      onClick={() => { setDraftSubcontrata({ subcontractor_id: '', descripcion: '', coste: 0, precio_cliente: 0 }); setShowAddSubcontrataModal(true); }}
+                      className="flex items-center gap-1 text-[10px] font-bold text-violet-700 border border-violet-200 px-3 py-1.5 rounded-lg hover:bg-violet-50 cursor-pointer"
+                    >
+                      <Plus className="w-3 h-3" /> Añadir trabajo externalizado
+                    </button>
+                  )}
                 </div>
+                {previewSubcontratas.length === 0 ? (
+                  <p className="text-xs text-slate-400 italic">{selectedQuoteForPreview.estado === 'Facturado' ? 'Presupuesto ya facturado — sin trabajos externalizados vinculados.' : 'Sin trabajos externalizados en este presupuesto. Añade uno si vas a delegar alguna parte a un proveedor.'}</p>
+                ) : (
+                  <div className="space-y-2">
+                    {previewSubcontratas.map(s => {
+                      const mg = s.precio_cliente > 0 ? ((s.precio_cliente - s.coste) / s.precio_cliente * 100).toFixed(1) : '0';
+                      return (
+                        <div key={s.id} className="flex items-center justify-between bg-violet-50 border border-violet-100 rounded-xl px-3 py-2.5 text-xs gap-3">
+                          <div className="flex-1 min-w-0">
+                            <p className="font-bold text-slate-800 truncate">{s.descripcion}</p>
+                            <p className="text-slate-500 flex items-center gap-1 mt-0.5">
+                              <Building2 className="w-2.5 h-2.5" />
+                              {s.trade_subcontractors?.nombre ?? '—'}
+                              {s.numero && <span className="font-mono text-violet-500 ml-1">{s.numero}</span>}
+                            </p>
+                          </div>
+                          <div className="text-right shrink-0">
+                            <p className="font-mono font-bold text-slate-700">{s.precio_cliente.toFixed(2)}€</p>
+                            <p className="text-[9px] text-slate-400">Coste: {s.coste.toFixed(2)}€ · Margen: {mg}%</p>
+                          </div>
+                          <button onClick={() => { setPlanificacionSubTab('externalizados'); setActiveTab('planificacion'); }} className="text-violet-400 hover:text-violet-700 cursor-pointer shrink-0" title="Ver en Externalizados">
+                            <ChevronRight className="w-4 h-4" />
+                          </button>
+                        </div>
+                      );
+                    })}
+                    <div className="flex justify-between pt-1 text-xs text-slate-500 border-t border-violet-100">
+                      <span>Total externalizado (tu coste)</span>
+                      <span className="font-bold text-red-600">−{previewSubcontratas.reduce((a, s) => a + s.coste, 0).toFixed(2)}€</span>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
-        )}
 
         {/* Modal añadir trabajo externalizado desde presupuesto */}
         {showAddSubcontrataModal && orgId && selectedQuoteForPreview?.dbId && (
@@ -8175,62 +8184,57 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         )}
 
-        {/* Quote Photos Panel — visible cuando el presupuesto tiene dbId (ya guardado) */}
-        {orgId && (
-          <QuotePhotosPanel
-            quoteId={selectedQuoteForPreview.dbId ?? null}
-            orgId={orgId}
-          />
-        )}
-
-        <div className="bg-white text-slate-900 p-8 rounded-2xl max-w-2xl mx-auto border shadow-sm">
-          <h3 className="font-bold text-sm uppercase text-slate-900 mb-4">{empresaAjustes.nombre}</h3>
-          <p className="text-xs text-slate-500 font-mono">Presupuesto {selectedQuoteForPreview.id}</p>
-          <div className="h-px bg-slate-200 my-4" />
-          <p className="text-xs font-bold text-slate-805">Cliente: {selectedQuoteForPreview.nombreCliente}</p>
-          <p className="text-[11px] text-slate-500 mt-2">{selectedQuoteForPreview.descripcion}</p>
-          <table className="w-full text-xs text-left border-collapse mt-4">
-            <thead>
-              <tr className="border-b border-slate-200 font-mono text-[9px] uppercase text-slate-400">
-                <th className="py-2">Concepto</th>
-                <th className="py-2 text-right w-16">Cant.</th>
-                <th className="py-2 text-right w-20">P. Unit.</th>
-                <th className="py-2 text-right w-20">Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {selectedQuoteForPreview.partidas.map((item, idx) => (
-                <tr key={idx} className="border-b border-slate-100 text-slate-700">
-                  <td className="py-2.5">{item.descripcion}</td>
-                  <td className="py-2.5 text-right font-mono text-slate-500">{item.cantidad}</td>
-                  <td className="py-2.5 text-right font-mono text-slate-500">{Number(item.precioUnitario).toFixed(2)}€</td>
-                  <td className="py-2.5 text-right font-mono font-bold text-slate-900">{Number(item.total).toFixed(2)}€</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {(() => {
-            const ivaPct = selectedQuoteForPreview.iva_pct ?? 21;
-            const base = selectedQuoteForPreview.total;
-            const ivaImporte = Math.round(base * ivaPct) / 100;
-            const totalConIva = Math.round((base + ivaImporte) * 100) / 100;
-            return (
-              <div className="mt-6 border-t border-slate-200 pt-4 space-y-1 text-xs font-mono">
-                <div className="flex justify-between text-slate-500">
-                  <span>Base imponible</span>
-                  <span>{base.toFixed(2)}€</span>
-                </div>
-                <div className="flex justify-between text-slate-500">
-                  <span>IVA {ivaPct}%</span>
-                  <span>{ivaImporte.toFixed(2)}€</span>
-                </div>
-                <div className="flex justify-between font-bold text-slate-900 text-sm pt-1 border-t border-slate-200">
-                  <span>TOTAL</span>
-                  <span>{totalConIva.toFixed(2)}€</span>
-                </div>
-              </div>
-            );
-          })()}
+          <div>
+            <div className="bg-white text-slate-900 p-6 rounded-2xl border border-slate-200 shadow-sm sticky top-4">
+              <h3 className="font-bold text-sm uppercase text-slate-900 mb-1">{empresaAjustes.nombre}</h3>
+              <p className="text-xs text-slate-400 font-mono mb-4">Presupuesto {selectedQuoteForPreview.id}</p>
+              <div className="h-px bg-slate-100 mb-4" />
+              <p className="text-xs font-semibold text-slate-700">Cliente: {selectedQuoteForPreview.nombreCliente}</p>
+              <p className="text-[11px] text-slate-500 mt-1.5 mb-4">{selectedQuoteForPreview.descripcion}</p>
+              <table className="w-full text-xs text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-slate-200 font-mono text-[9px] uppercase text-slate-400">
+                    <th className="py-2">Concepto</th>
+                    <th className="py-2 text-right w-16">Cant.</th>
+                    <th className="py-2 text-right w-20">P. Unit.</th>
+                    <th className="py-2 text-right w-20">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {selectedQuoteForPreview.partidas.map((item, idx) => (
+                    <tr key={idx} className="border-b border-slate-100 text-slate-700">
+                      <td className="py-2.5">{item.descripcion}</td>
+                      <td className="py-2.5 text-right font-mono text-slate-500">{item.cantidad}</td>
+                      <td className="py-2.5 text-right font-mono text-slate-500">{Number(item.precioUnitario).toFixed(2)}€</td>
+                      <td className="py-2.5 text-right font-mono font-bold text-slate-900">{Number(item.total).toFixed(2)}€</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {(() => {
+                const ivaPct = selectedQuoteForPreview.iva_pct ?? 21;
+                const base = selectedQuoteForPreview.total;
+                const ivaImporte = Math.round(base * ivaPct) / 100;
+                const totalConIva = Math.round((base + ivaImporte) * 100) / 100;
+                return (
+                  <div className="mt-5 border-t border-slate-200 pt-4 space-y-1.5 text-xs font-mono bg-slate-50 rounded-xl p-3">
+                    <div className="flex justify-between text-slate-500">
+                      <span>Base imponible</span>
+                      <span>{base.toFixed(2)}€</span>
+                    </div>
+                    <div className="flex justify-between text-slate-500">
+                      <span>IVA {ivaPct}%</span>
+                      <span>{ivaImporte.toFixed(2)}€</span>
+                    </div>
+                    <div className="flex justify-between font-bold text-slate-900 text-sm pt-1.5 border-t border-slate-200">
+                      <span>TOTAL</span>
+                      <span>{totalConIva.toFixed(2)}€</span>
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+          </div>
         </div>
 
         {/* Modal enviar presupuesto al cliente */}
