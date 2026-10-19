@@ -4,6 +4,7 @@ import {
   AlertTriangle, ExternalLink, Route, RefreshCw, Play,
   CheckCircle2, Circle, ArrowDown, User,
 } from 'lucide-react';
+import RouteMap from './RouteMap';
 import type { TradeJob } from '../lib/supabase';
 import { updateJob } from '../lib/supabase';
 import {
@@ -340,8 +341,14 @@ export default function ScreenRutaDia({
         )}
       </div>
 
-      {/* ── Cuerpo: itinerario con línea de tiempo ───────────────────────── */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-0">
+      {/* ── Cuerpo: 2 columnas (itinerario + mapa) ───────────────────────── */}
+      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2">
+
+        {/* Columna izquierda — itinerario (order-2 en móvil: aparece debajo del mapa) */}
+        <div
+          className="order-2 lg:order-1 overflow-y-auto overscroll-contain lg:border-r lg:border-slate-100 px-4 py-4 space-y-0"
+          style={{ paddingBottom: 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)' }}
+        >
 
         {routeJobs.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">
@@ -559,40 +566,51 @@ export default function ScreenRutaDia({
             </div>
           </>
         )}
-      </div>
+        </div>{/* fin columna izquierda */}
 
-      {/* ── Barra de resumen inferior ────────────────────────────────────── */}
-      {routeJobs.length > 0 && (
-        <div className="shrink-0 bg-white border-t border-slate-200 px-4 py-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="text-center">
-                <p className="text-lg font-black text-slate-800">{routeJobs.length}</p>
-                <p className="text-[9px] text-slate-400 uppercase tracking-widest">Paradas</p>
-              </div>
-              <div className="h-8 w-px bg-slate-200" />
-              <div className="text-center">
-                <p className="text-lg font-black text-slate-800">{totalHours}h</p>
-                <p className="text-[9px] text-slate-400 uppercase tracking-widest">Total</p>
-              </div>
-              <div className="h-8 w-px bg-slate-200" />
-              <div className="text-center">
-                <p className="text-lg font-black text-slate-800">
-                  {routeJobs.filter(j => j.prioridad === 'urgente').length}
-                </p>
-                <p className="text-[9px] text-slate-400 uppercase tracking-widest">Urgentes</p>
+        {/* Columna derecha — mapa (order-1 en móvil: aparece arriba) + resumen */}
+        <div className="order-1 lg:order-2 flex flex-col min-h-0 lg:overflow-hidden">
+          <div className="h-56 lg:flex-1 lg:min-h-0 p-3">
+            <RouteMap
+              routeJobs={routeJobs}
+              startLocation={startLocation}
+              className="h-full"
+            />
+          </div>
+          {routeJobs.length > 0 && (
+            <div className="shrink-0 bg-white border-t border-slate-200 px-4 py-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="text-center">
+                    <p className="text-lg font-black text-slate-800">{routeJobs.length}</p>
+                    <p className="text-[9px] text-slate-400 uppercase tracking-widest">Paradas</p>
+                  </div>
+                  <div className="h-8 w-px bg-slate-200" />
+                  <div className="text-center">
+                    <p className="text-lg font-black text-slate-800">{totalHours}h</p>
+                    <p className="text-[9px] text-slate-400 uppercase tracking-widest">Total</p>
+                  </div>
+                  <div className="h-8 w-px bg-slate-200" />
+                  <div className="text-center">
+                    <p className="text-lg font-black text-slate-800">
+                      {routeJobs.filter(j => j.prioridad === 'urgente').length}
+                    </p>
+                    <p className="text-[9px] text-slate-400 uppercase tracking-widest">Urgentes</p>
+                  </div>
+                </div>
+                <button
+                  onClick={handleOpenMaps}
+                  className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors cursor-pointer"
+                >
+                  <Navigation className="w-3.5 h-3.5" />
+                  Abrir ruta completa
+                </button>
               </div>
             </div>
-            <button
-              onClick={handleOpenMaps}
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors cursor-pointer"
-            >
-              <Navigation className="w-3.5 h-3.5" />
-              Abrir ruta completa
-            </button>
-          </div>
-        </div>
-      )}
+          )}
+        </div>{/* fin columna derecha */}
+
+      </div>{/* fin grid */}
     </div>
   );
 }
