@@ -58,21 +58,35 @@ function toRad(deg: number): number {
  * 3. Los trabajos sin coordenadas se añaden al final, respetando su
  *    prioridad relativa entre ellos.
  *
+ * Cuando `startLocation` es `null` (origen sin GPS), no se usa nearest-neighbor:
+ * todos los trabajos se ordenan por prioridad y, como desempate, por hora de inicio.
+ *
  * @param jobs          Trabajos del día (cualquier orden).
- * @param startLocation Coordenadas de inicio del técnico / empresa.
+ * @param startLocation Coordenadas de inicio, o null si el origen no está geocodificado.
  * @returns             Array ordenado con `orden_ruta` asignado (1-based).
  */
 export function optimizeDailyRoute(
   jobs: TradeJob[],
-  startLocation: GeoLocation,
+  startLocation: GeoLocation | null,
 ): RouteJob[] {
   if (jobs.length === 0) return [];
 
+  // Sin GPS de origen: ordenar por prioridad + hora de inicio (determinista, sin Null Island)
+  if (!startLocation) {
+    const sorted = [...jobs].sort((a, b) => {
+      const pd = PRIORITY_ORDER[a.prioridad] - PRIORITY_ORDER[b.prioridad];
+      if (pd !== 0) return pd;
+      return (a.hora_inicio ?? '23:59').localeCompare(b.hora_inicio ?? '23:59');
+    });
+    return sorted.map((job, i) => ({ ...job, orden_ruta: i + 1 }) as RouteJob);
+  }
+
+  // Con GPS de origen: nearest-neighbor completo
   // Separa trabajos con y sin coordenadas
   const withCoords  = jobs.filter(j => j.latitud != null && j.longitud != null);
   const noCoords    = jobs.filter(j => j.latitud == null || j.longitud == null);
 
-  // ── Fase 1: urgentes geolocalizable primero ──────────────────────────────
+  // ── Fase 1: urgentes geolocalizados primero ──────────────────────────────
   const urgentWithCoords  = withCoords.filter(j => j.prioridad === 'urgente');
   const restWithCoords    = withCoords.filter(j => j.prioridad !== 'urgente');
 

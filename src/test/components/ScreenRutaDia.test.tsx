@@ -248,6 +248,58 @@ describe('RouteMap — coordinate filtering', () => {
   });
 });
 
+// ── RouteMap — no valid coordinates (no Madrid fallback) ─────────────────────
+
+describe('RouteMap — no valid coordinates', () => {
+  it('TEST-NOCOORDS-1 shows no-geocode state when all jobs lack coords (key present)', async () => {
+    vi.stubEnv('VITE_CARTO_BASEMAP_API_KEY', 'test-key');
+    vi.resetModules();
+    const { default: RM } = await import('../../components/RouteMap');
+    const jobs: RouteJob[] = [
+      makeRouteJob({ latitud: null, longitud: null }, 1),
+      makeRouteJob({ latitud: null, longitud: null }, 2),
+    ];
+    render(<RM routeJobs={jobs} startLocation="Santander, Cantabria" />);
+    expect(screen.queryByTestId('map-container')).toBeNull();
+    expect(screen.getByText(/sin ubicaciones geolocalizadas/i)).toBeTruthy();
+    vi.unstubAllEnvs();
+    vi.resetModules();
+  });
+
+  it('TEST-NOCOORDS-2 no MapContainer when all jobs have no coords — no Madrid centered map', async () => {
+    vi.stubEnv('VITE_CARTO_BASEMAP_API_KEY', 'test-key');
+    vi.resetModules();
+    const { default: RM } = await import('../../components/RouteMap');
+    const jobs: RouteJob[] = [makeRouteJob({ latitud: null, longitud: null }, 1)];
+    render(<RM routeJobs={jobs} startLocation="Barcenilla, Cantabria" />);
+    expect(screen.queryByTestId('map-container')).toBeNull();
+    vi.unstubAllEnvs();
+    vi.resetModules();
+  });
+
+  it('TEST-NOCOORDS-3 renders map when at least one job has valid coords', async () => {
+    vi.stubEnv('VITE_CARTO_BASEMAP_API_KEY', 'test-key');
+    vi.resetModules();
+    const { default: RM } = await import('../../components/RouteMap');
+    const jobs: RouteJob[] = [makeRouteJob({ latitud: 43.46, longitud: -3.81 }, 1)];
+    render(<RM routeJobs={jobs} startLocation="Santander" />);
+    expect(screen.getByTestId('map-container')).toBeTruthy();
+    vi.unstubAllEnvs();
+    vi.resetModules();
+  });
+
+  it('TEST-NOCOORDS-4 renders map when GeoLocation start present even with no job coords', async () => {
+    vi.stubEnv('VITE_CARTO_BASEMAP_API_KEY', 'test-key');
+    vi.resetModules();
+    const { default: RM } = await import('../../components/RouteMap');
+    const jobs: RouteJob[] = [makeRouteJob({ latitud: null, longitud: null }, 1)];
+    render(<RM routeJobs={jobs} startLocation={{ lat: 43.46, lng: -3.81, label: 'Oficina Santander' }} />);
+    expect(screen.getByTestId('map-container')).toBeTruthy();
+    vi.unstubAllEnvs();
+    vi.resetModules();
+  });
+});
+
 // ── ScreenRutaDia operational integrity ──────────────────────────────────────
 describe('ScreenRutaDia — operational integrity', () => {
   const baseProps = {

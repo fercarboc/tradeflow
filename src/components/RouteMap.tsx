@@ -88,7 +88,7 @@ export default function RouteMap({ routeJobs, startLocation, className = '' }: R
     return pts;
   }, [geoJobs, startGeo]);
 
-  const defaultCenter: [number, number] = allPoints[0] ?? [40.4168, -3.7038];
+  // allPoints[0] is always defined here (guarded by the allPoints.length === 0 early return below)
   const noGeoCount = routeJobs.length - geoJobs.length;
 
   if (routeJobs.length === 0) {
@@ -109,6 +109,19 @@ export default function RouteMap({ routeJobs, startLocation, className = '' }: R
       </div>
     );
   }
+
+  // No valid coordinates at all (no geocoded jobs and no geocoded start): never center on a default city
+  if (allPoints.length === 0) {
+    return (
+      <div className={`flex flex-col items-center justify-center bg-slate-100 rounded-2xl gap-1 ${className}`}>
+        <MapPin className="w-8 h-8 text-slate-300 mb-1" />
+        <p className="text-xs text-slate-400 font-semibold text-center px-4">Sin ubicaciones geolocalizadas</p>
+        <p className="text-[10px] text-slate-400 text-center px-4">Edita los trabajos en Planificación para añadir su dirección</p>
+      </div>
+    );
+  }
+
+  const defaultCenter: [number, number] = allPoints[0]!;
 
   return (
     <div className={`relative overflow-hidden rounded-2xl ${className}`}>

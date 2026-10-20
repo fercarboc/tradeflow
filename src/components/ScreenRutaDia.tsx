@@ -169,15 +169,21 @@ export default function ScreenRutaDia({
 
   // ── Optimizar ruta ────────────────────────────────────────────────────────
   function handleOptimize() {
-    const geoStart: GeoLocation =
-      typeof startLocation === 'string'
-        ? { lat: 0, lng: 0, label: startLocation } // sin coords reales, nearest neighbor usará orden de prioridad
-        : startLocation;
+    // Null when startLocation is a text address without GPS coords.
+    // optimizeDailyRoute handles null by sorting on priority + hora_inicio
+    // instead of running nearest-neighbor from a bogus (0,0) origin.
+    const geoStart: GeoLocation | null =
+      typeof startLocation === 'string' ? null : startLocation;
 
     const optimized = optimizeDailyRoute(routeJobs, geoStart);
     setRouteJobs(optimized);
     setOptimized(true);
-    showToast('Ruta optimizada — guarda para persistir el orden', 'success');
+    showToast(
+      geoStart
+        ? 'Ruta optimizada por distancia — guarda para persistir el orden'
+        : 'Trabajos ordenados por prioridad y hora — sin GPS de origen no se optimiza por distancia',
+      'success',
+    );
   }
 
   // ── Guardar orden en BD ────────────────────────────────────────────────────
