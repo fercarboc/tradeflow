@@ -299,16 +299,17 @@ interface DayCarouselProps {
   weekOffset: number;
   onSelectDate: (d: string) => void;
   onChangeWeek: (delta: number) => void;
+  className?: string;
 }
 
-function DayCarousel({ jobs, selectedDate, weekOffset, onSelectDate, onChangeWeek }: DayCarouselProps) {
+function DayCarousel({ jobs, selectedDate, weekOffset, onSelectDate, onChangeWeek, className }: DayCarouselProps) {
   const today    = new Date().toISOString().split('T')[0];
   const weekDays = getWeekDays(weekOffset);
   const from = new Date(weekDays[0] + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
   const to   = new Date(weekDays[6] + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
 
   return (
-    <div className="bg-white border-b border-slate-100 px-3 pt-2 pb-3 space-y-2 sticky top-0 z-10">
+    <div className={className ?? 'bg-white border-b border-slate-100 px-3 pt-2 pb-3 space-y-2 sticky top-0 z-10'}>
       {/* Semana nav */}
       <div className="flex items-center justify-between">
         <button
@@ -342,7 +343,7 @@ function DayCarousel({ jobs, selectedDate, weekOffset, onSelectDate, onChangeWee
             <button
               key={date}
               onClick={() => onSelectDate(date)}
-              className={`flex flex-col items-center py-2 rounded-xl transition-colors cursor-pointer ${
+              className={`flex flex-col items-center py-1.5 rounded-xl transition-colors cursor-pointer ${
                 isSelected
                   ? 'bg-blue-600'
                   : isToday
@@ -1788,24 +1789,95 @@ export default function ScreenPlanificacion({
     setSelectedJobId(null);
   };
 
+  const hasDispatchBoard = workers.filter(w => w.activo).length > 0 && dayJobs.length > 0;
+
   return (
     <div className="h-full flex flex-col">
-      {/* ── Carrusel de días (oscuro, pegado al header) ── */}
-      <DayCarousel
-        jobs={jobs}
-        selectedDate={selectedDate}
-        weekOffset={weekOffset}
-        onSelectDate={handleSelectDate}
-        onChangeWeek={delta => {
-          const newOffset = weekOffset + delta;
-          setWeekOffset(newOffset);
-          const days = getWeekDays(newOffset);
-          if (!days.includes(selectedDate)) handleSelectDate(days[0]);
-        }}
-      />
+      {/* ── Cabecera 2 columnas: calendario + carga del equipo ── */}
+      <div className="shrink-0 sticky top-0 z-10 bg-white border-b border-slate-100 grid grid-cols-1 lg:grid-cols-2">
+        <div className={hasDispatchBoard ? 'lg:border-r border-slate-100' : ''}>
+          <DayCarousel
+            jobs={jobs}
+            selectedDate={selectedDate}
+            weekOffset={weekOffset}
+            onSelectDate={handleSelectDate}
+            onChangeWeek={delta => {
+              const newOffset = weekOffset + delta;
+              setWeekOffset(newOffset);
+              const days = getWeekDays(newOffset);
+              if (!days.includes(selectedDate)) handleSelectDate(days[0]);
+            }}
+            className="bg-white px-3 pt-1.5 pb-2 space-y-1"
+          />
+        </div>
+        {hasDispatchBoard && (
+          <div className="max-h-[160px] overflow-y-auto px-3 py-2 space-y-1.5">
+            <p className="text-[9px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+              <Users className="w-3 h-3" />
+              Carga del equipo — {new Date(selectedDate + 'T12:00:00').toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'short' })}
+            </p>
+            <div className="space-y-1">
+              {workers.filter(w => w.activo).map(w => {
+                const workerJobs = dayJobs.filter(j =>
+                  j.trade_job_workers?.some(jw => jw.worker_id === w.id) &&
+                  j.estado !== 'cancelado'
+                );
+                const maxJobs = 6;
+                const pct = Math.min((workerJobs.length / maxJobs) * 100, 100);
+                const barColor = pct >= 85 ? 'bg-red-400' : pct >= 60 ? 'bg-amber-400' : 'bg-emerald-400';
+                return (
+                  <div key={w.id} className="flex items-center gap-2">
+                    <div className="w-5 h-5 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold text-[9px] shrink-0">
+                      {w.nombre.slice(0,2).toUpperCase()}
+                    </div>
+                    <div className="flex-grow min-w-0">
+                      <div className="flex items-center justify-between mb-0.5">
+                        <span className="text-[10px] font-semibold text-slate-700 truncate">{w.nombre}</span>
+                        <span className={`text-[9px] font-bold ml-2 shrink-0 ${workerJobs.length >= maxJobs ? 'text-red-500' : 'text-slate-400'}`}>
+                          {workerJobs.length}/{maxJobs}
+                        </span>
+                      </div>
+                      <div className="h-1 bg-slate-100 rounded-full overflow-hidden">
+                        <div className={`h-full ${barColor} rounded-full transition-all`} style={{ width: `${pct}%` }} />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+              {(() => {
+                const unassigned = dayJobs.filter(j =>
+                  j.estado !== 'cancelado' && (!j.trade_job_workers || j.trade_job_workers.length === 0)
+                );
+                if (!unassigned.length) return null;
+                return (
+                  <div className="pt-1 border-t border-slate-100 space-y-1">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-5 h-5 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
+                        <AlertTriangle className="w-3 h-3 text-amber-500" />
+                      </div>
+                      <span className="text-[10px] text-amber-600 font-semibold">{unassigned.length} trabajo{unassigned.length !== 1 ? 's' : ''} sin asignar</span>
+                    </div>
+                    {unassigned.map(j => (
+                      <div key={j.id} className="ml-7 flex items-center justify-between gap-2">
+                        <span className="text-[9px] text-slate-500 truncate">{j.titulo}</span>
+                        <button
+                          onClick={() => openEdit(j)}
+                          className="shrink-0 text-[8px] font-bold uppercase text-blue-600 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded-full hover:bg-blue-100 cursor-pointer whitespace-nowrap"
+                        >
+                          Asignar →
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()}
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* ── Bloques ancho completo ── */}
-      <div className="shrink-0 px-4 pt-3 pb-3 space-y-3">
+      <div className="shrink-0 px-4 pt-2 pb-2 space-y-2">
 
         {/* Filtros de estado + botones acción */}
         <div className="flex items-center gap-1.5 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
@@ -1867,71 +1939,6 @@ export default function ScreenPlanificacion({
           </button>
         </div>
 
-        {/* ── Panel de carga del equipo (Dispatch Board) ───────────────────────── */}
-        {workers.filter(w => w.activo).length > 0 && dayJobs.length > 0 && (
-          <div className="bg-white border border-slate-200 rounded-xl p-3 space-y-2">
-            <p className="text-[9px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-              <Users className="w-3 h-3" />
-              Carga del equipo — {new Date(selectedDate + 'T12:00:00').toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'short' })}
-            </p>
-            <div className="space-y-1.5">
-              {workers.filter(w => w.activo).map(w => {
-                const workerJobs = dayJobs.filter(j =>
-                  j.trade_job_workers?.some(jw => jw.worker_id === w.id) &&
-                  j.estado !== 'cancelado'
-                );
-                const maxJobs = 6;
-                const pct = Math.min((workerJobs.length / maxJobs) * 100, 100);
-                const barColor = pct >= 85 ? 'bg-red-400' : pct >= 60 ? 'bg-amber-400' : 'bg-emerald-400';
-                return (
-                  <div key={w.id} className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold text-[9px] shrink-0">
-                      {w.nombre.slice(0,2).toUpperCase()}
-                    </div>
-                    <div className="flex-grow min-w-0">
-                      <div className="flex items-center justify-between mb-0.5">
-                        <span className="text-[10px] font-semibold text-slate-700 truncate">{w.nombre}</span>
-                        <span className={`text-[9px] font-bold ml-2 shrink-0 ${workerJobs.length >= maxJobs ? 'text-red-500' : 'text-slate-400'}`}>
-                          {workerJobs.length}/{maxJobs}
-                        </span>
-                      </div>
-                      <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                        <div className={`h-full ${barColor} rounded-full transition-all`} style={{ width: `${pct}%` }} />
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-              {(() => {
-                const unassigned = dayJobs.filter(j =>
-                  j.estado !== 'cancelado' && (!j.trade_job_workers || j.trade_job_workers.length === 0)
-                );
-                if (!unassigned.length) return null;
-                return (
-                  <div className="pt-1 border-t border-slate-100 space-y-1">
-                    <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
-                        <AlertTriangle className="w-3 h-3 text-amber-500" />
-                      </div>
-                      <span className="text-[10px] text-amber-600 font-semibold">{unassigned.length} trabajo{unassigned.length !== 1 ? 's' : ''} sin asignar</span>
-                    </div>
-                    {unassigned.map(j => (
-                      <div key={j.id} className="ml-8 flex items-center justify-between gap-2">
-                        <span className="text-[9px] text-slate-500 truncate">{j.titulo}</span>
-                        <button
-                          onClick={() => openEdit(j)}
-                          className="shrink-0 text-[8px] font-bold uppercase text-blue-600 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded-full hover:bg-blue-100 cursor-pointer whitespace-nowrap"
-                        >
-                          Asignar →
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                );
-              })()}
-            </div>
-          </div>
-        )}
 
         {/* Visitas pendientes (todas las fechas excepto el día seleccionado, que ya aparece abajo) */}
         {(() => {
