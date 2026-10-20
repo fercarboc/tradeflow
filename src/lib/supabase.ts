@@ -26,6 +26,10 @@ export interface TradeOrganization {
   telefono?: string;
   oficio: string;
   ciudad?: string;
+  localidad?: string | null;
+  cp?: string | null;
+  provincia?: string | null;
+  pais?: string | null;
   iva_default: number;
   plan: string;
   logo_url?: string;

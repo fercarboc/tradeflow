@@ -83,7 +83,8 @@ import { supabase, loadDashboard, getOwnOrg, loadOrgById, loadWorkers, loadTarif
 import type { TradeSubcontractor, TradeSubcontrata, ActiveSupplierCatalog, TradeClient, FiscalSnapshot } from '../lib/supabase';
 import { printTradeInvoice } from '../lib/printTradeInvoice';
 import { savePurchaseContext } from '../lib/marketplace/purchase-context';
-import { geocodeAddress } from '../lib/geocoder';
+import { geocodeAddress, buildOrgGeocodeParams, orgAddressChanged, createGeoScheduler } from '../lib/geocoder';
+import type { GeoScheduler } from '../lib/geocoder';
 import type { GeoLocation } from '../lib/routeOptimizer';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription, TemplateType } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
@@ -1015,23 +1016,38 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [jobs, setJobs] = useState<TradeJob[]>([]);
   const [orgBaseGeo, setOrgBaseGeo] = useState<GeoLocation | null>(null);
 
-  // Geocodificar la dirección base de la organización una sola vez
+  // Geocodificar la dirección base de la organización al cargar sesión.
+  // orgLoadedKey es null hasta que tanto orgId como orgData estén disponibles,
+  // momento en que toma el valor de orgId. No cambia cuando orgData se actualiza
+  // posteriormente (p.ej. tras handleSaveFiscal), lo que evita la doble geocodificación.
+  // Si por algún edge case orgId llegase antes que orgData, el efecto se dispara
+  // cuando orgData aparece porque orgLoadedKey pasa de null a orgId.
+  const orgLoadedKey = orgId && orgData ? orgId : null;
+
   useEffect(() => {
     if (!orgId || !orgData) return;
+
+    // R1: cancelar cualquier petición pendiente antes de decidir qué hacer.
+    // Cubre el caso de cambiar a una org con coordenadas ya almacenadas.
+    geoSchedulerRef.current.cancel();
+
     if (orgData.base_latitud != null && orgData.base_longitud != null) {
       setOrgBaseGeo({ lat: orgData.base_latitud, lng: orgData.base_longitud });
       return;
     }
-    const dir = orgData.direccion;
-    const ciu = (orgData as unknown as Record<string, unknown>).ciudad as string | undefined;
-    if (!dir && !ciu) return;
-    void geocodeAddress({ direccion: dir, localidad: ciu }).then(geo => {
-      if (!geo) return;
+
+    const params = buildOrgGeocodeParams(orgData);
+    if (!params.direccion && !params.localidad) return;
+
+    geoSchedulerRef.current.schedule(params, geo => {
       setOrgBaseGeo({ lat: geo.latitud, lng: geo.longitud });
       void updateOrgGeocoords(orgId, geo.latitud, geo.longitud).catch(() => {});
     });
+
+    // R3: desmontaje — invalida cualquier petición pendiente
+    return () => { geoSchedulerRef.current.cancel(); };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orgId]);
+  }, [orgLoadedKey]);
 
   const [showCatalogImport, setShowCatalogImport] = useState(false);
   const [showGlobalCatalog, setShowGlobalCatalog] = useState(false);
@@ -2192,6 +2208,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [editingQuoteId, setEditingQuoteId] = useState<string | null>(null); // null = crear nuevo, string = editar existente
   const savingQuoteRef = useRef(false);
   const convertingInvoiceRef = useRef(false);
+  const geoSchedulerRef = useRef<GeoScheduler>(createGeoScheduler());
   const [convertingInvoice, setConvertingInvoice] = useState(false);
   // Subcontratas vinculadas al presupuesto en preview
   const [previewSubcontratas, setPreviewSubcontratas] = useState<TradeSubcontrata[]>([]);
@@ -10149,6 +10166,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
     const handleSaveFiscal = async () => {
       if (!isLiveMode || !orgId) { showToast('Datos guardados (demo)', 'success'); return; }
+
+      // Detectar si cambió la dirección postal (incluye pais; excluye campos fiscales)
+      const geoInvalidated = orgAddressChanged(
+        { direccion: empresaAjustes.direccion, localidad: empresaAjustes.localidad, cp: empresaAjustes.cp, provincia: empresaAjustes.provincia, pais: empresaAjustes.pais },
+        orgData,
+      );
+
       const { error } = await supabase.from('trade_organizations').update({
         nombre: empresaAjustes.nombre,
         nif: empresaAjustes.nif,
@@ -10164,14 +10188,42 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         iban: empresaAjustes.iban || null,
         banco: empresaAjustes.banco || null,
         titular_cuenta: empresaAjustes.titularCuenta || null,
+        // Si la dirección cambió, invalidar coordenadas para forzar re-geocodificación
+        ...(geoInvalidated ? { base_latitud: null, base_longitud: null } : {}),
       }).eq('id', orgId);
       if (error) { showToast('Error al guardar: ' + error.message, 'error'); return; }
+
+      // Actualizar orgData en estado con los nuevos valores de dirección y coords invalidadas
       setOrgData(prev => prev ? {
         ...prev,
-        iban: empresaAjustes.iban || null,
-        banco: empresaAjustes.banco || null,
+        iban:           empresaAjustes.iban || null,
+        banco:          empresaAjustes.banco || null,
         titular_cuenta: empresaAjustes.titularCuenta || null,
+        direccion:      empresaAjustes.direccion || undefined,
+        localidad:      empresaAjustes.localidad || null,
+        cp:             empresaAjustes.cp || null,
+        provincia:      empresaAjustes.provincia || null,
+        pais:           empresaAjustes.pais || null,
+        ...(geoInvalidated ? { base_latitud: null, base_longitud: null } : {}),
       } as typeof prev : prev);
+
+      if (geoInvalidated) {
+        setOrgBaseGeo(null);
+        const newParams = buildOrgGeocodeParams({
+          direccion: empresaAjustes.direccion,
+          localidad: empresaAjustes.localidad,
+          cp: empresaAjustes.cp,
+          provincia: empresaAjustes.provincia,
+          pais: empresaAjustes.pais,
+        });
+        if (newParams.direccion || newParams.localidad) {
+          geoSchedulerRef.current.schedule(newParams, geo => {
+            setOrgBaseGeo({ lat: geo.latitud, lng: geo.longitud });
+            void updateOrgGeocoords(orgId, geo.latitud, geo.longitud).catch(() => {});
+          });
+        }
+      }
+
       showToast('Datos fiscales y bancarios guardados ✓', 'success');
     };
 
