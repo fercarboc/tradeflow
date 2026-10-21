@@ -1618,12 +1618,43 @@ export async function updateOrgGeocoords(
   orgId: string,
   lat: number,
   lng: number,
-): Promise<void> {
-  const { error } = await supabase
+  addressSnapshot: {
+    direccion?: string | null;
+    localidad?: string | null;
+    cp?: string | null;
+    provincia?: string | null;
+    pais?: string | null;
+  },
+): Promise<{ applied: boolean }> {
+  // Conditional update: only write coords if the address fields in the DB still
+  // match the snapshot captured at geocoding time. Prevents stale geocoding
+  // results (GEO-STALE-WRITE) from overwriting coordinates for a newer address.
+  // Uses IS NULL for null/empty snapshot values; eq() for non-empty values.
+  // 0 rows affected → address changed → applied = false.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let q: any = supabase
     .from('trade_organizations')
-    .update({ base_latitud: lat, base_longitud: lng })
+    .update({ base_latitud: lat, base_longitud: lng }, { count: 'exact' })
     .eq('id', orgId);
+
+  const checks: [string, string | null | undefined][] = [
+    ['direccion', addressSnapshot.direccion],
+    ['localidad', addressSnapshot.localidad],
+    ['cp',        addressSnapshot.cp],
+    ['provincia', addressSnapshot.provincia],
+    ['pais',      addressSnapshot.pais],
+  ];
+
+  for (const [col, val] of checks) {
+    // null/undefined → IS NULL; any string (including '') → exact eq match.
+    // Treats '' and null as distinct DB states — consistent with how the client
+    // saves address fields (raw form values, not normalized to null).
+    q = (val == null) ? q.is(col, null) : q.eq(col, val);
+  }
+
+  const { error, count } = await q;
   if (error) throw error;
+  return { applied: (count ?? 0) > 0 };
 }
 
 // ── Catálogo de productos con variantes ───────────────────────────────────────

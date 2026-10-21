@@ -1039,9 +1039,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     const params = buildOrgGeocodeParams(orgData);
     if (!params.direccion && !params.localidad) return;
 
+    const snapshot = {
+      direccion: orgData.direccion,
+      localidad: orgData.localidad,
+      cp:        orgData.cp,
+      provincia: orgData.provincia,
+      pais:      orgData.pais,
+    };
     geoSchedulerRef.current.schedule(params, geo => {
-      setOrgBaseGeo({ lat: geo.latitud, lng: geo.longitud });
-      void updateOrgGeocoords(orgId, geo.latitud, geo.longitud).catch(() => {});
+      void updateOrgGeocoords(orgId, geo.latitud, geo.longitud, snapshot)
+        .then(({ applied }) => { if (applied) setOrgBaseGeo({ lat: geo.latitud, lng: geo.longitud }); })
+        .catch(() => {});
     });
 
     // R3: desmontaje — invalida cualquier petición pendiente
@@ -10217,9 +10225,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           pais: empresaAjustes.pais,
         });
         if (newParams.direccion || newParams.localidad) {
+          const newSnapshot = {
+            direccion: empresaAjustes.direccion,
+            localidad: empresaAjustes.localidad,
+            cp:        empresaAjustes.cp,
+            provincia: empresaAjustes.provincia,
+            pais:      empresaAjustes.pais,
+          };
           geoSchedulerRef.current.schedule(newParams, geo => {
-            setOrgBaseGeo({ lat: geo.latitud, lng: geo.longitud });
-            void updateOrgGeocoords(orgId, geo.latitud, geo.longitud).catch(() => {});
+            void updateOrgGeocoords(orgId, geo.latitud, geo.longitud, newSnapshot)
+              .then(({ applied }) => { if (applied) setOrgBaseGeo({ lat: geo.latitud, lng: geo.longitud }); })
+              .catch(() => {});
           });
         }
       }

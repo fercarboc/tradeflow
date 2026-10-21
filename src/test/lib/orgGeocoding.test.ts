@@ -23,6 +23,19 @@
  *   TEST-SCHED-9   Org con coords ya almacenadas → scheduler no se invoca (early return)
  *   TEST-SCHED-10  Ventana de race: cancel() después de onSuccess ejecutado → escritura DB en curso
  *
+ * CONDITIONAL WRITE (simula updateOrgGeocoords condicional):
+ *   TEST-COND-1  Snapshot coincide con DB → write applied
+ *   TEST-COND-2  Dirección cambió antes de escribir → write rechazado
+ *   TEST-COND-3  A completa, B guarda antes, A intenta escribir → A rechazada, B applied
+ *   TEST-COND-4  B guarda antes que A → A rechazada, B escribe
+ *   TEST-COND-5  Misma dirección geocodificada dos veces → ambas applied (idempotente)
+ *   TEST-COND-6  Campos null en snapshot coinciden con null en DB → applied
+ *   TEST-COND-7  Campo vacío en snapshot, DB tiene valor → write rechazado
+ *   TEST-COND-8  Cambio de org en curso → callId cancela, write de org anterior no ocurre
+ *   TEST-COND-9  Cambio de domicilio con localidad null (org legacy ciudad) → handled
+ *   TEST-COND-1b Snapshot '' coincide con DB '' → applied ('' ≠ null post fix #1)
+ *   TEST-COND-2b Snapshot '', DB null → rechazado ('' ≠ null post fix #1)
+ *
  * TEST-ORG-GEO-12  Ruta del Día: startLocation null no usa (0,0)
  */
 
@@ -427,6 +440,191 @@ describe('createGeoScheduler — integración real', () => {
     // La escritura sigue su curso; no hay forma de detenerla desde el scheduler.
     // Si justo después llega una nueva dirección B, ambas escrituras compiten.
     // La última en llegar gana (last-write-wins en Supabase).
+  });
+});
+
+// ── CONDITIONAL WRITE: simula la lógica de updateOrgGeocoords condicional ────
+//
+// updateOrgGeocoords hace un UPDATE con WHERE address_fields = snapshot.
+// Aquí se simula esa lógica con una función pura que usa orgAddressChanged.
+// "applied" = true cuando el snapshot coincide con el estado actual del DB.
+//
+// La equivalencia entre "WHERE address_fields = snapshot" (DB) y
+// "!orgAddressChanged(snapshot, dbState)" (cliente) se garantiza siempre
+// que los valores no sean empty-string vs null (residual documentado).
+
+function conditionalWrite(
+  snapshot: OrgAddressFields,
+  dbCurrentAddress: OrgAddressFields,
+): boolean {
+  // Simulates the WHERE clause of updateOrgGeocoords (fix #1):
+  //   - null/undefined in snapshot → IS NULL → only matches DB null, NOT ''
+  //   - ''  in snapshot → eq('') → only matches DB '', NOT null
+  //   - 'x' in snapshot → eq('x') → exact match
+  // Does NOT use orgAddressChanged to avoid the ciudad fallback asymmetry.
+  const checks: [string | null | undefined, string | null | undefined][] = [
+    [snapshot.direccion, dbCurrentAddress.direccion],
+    [snapshot.localidad, dbCurrentAddress.localidad],
+    [snapshot.cp,        dbCurrentAddress.cp],
+    [snapshot.provincia, dbCurrentAddress.provincia],
+    [snapshot.pais,      dbCurrentAddress.pais],
+  ];
+  for (const [snapVal, dbVal] of checks) {
+    // undefined → null; '' stays '' (distinct from null)
+    const s = snapVal ?? null;
+    const d = dbVal  ?? null;
+    if (s !== d) return false;
+  }
+  return true;
+}
+
+describe('Conditional write — updateOrgGeocoords semántica', () => {
+
+  it('TEST-COND-1 snapshot coincide con DB → write applied', () => {
+    const db = makeOrg({ direccion: 'Calle Mayor 5', localidad: 'Santander', cp: '39001', provincia: 'Cantabria', pais: 'España' });
+    const snapshot = makeOrg({ direccion: 'Calle Mayor 5', localidad: 'Santander', cp: '39001', provincia: 'Cantabria', pais: 'España' });
+    expect(conditionalWrite(snapshot, db)).toBe(true);
+  });
+
+  it('TEST-COND-2 dirección cambió antes de escribir → write rechazado', () => {
+    const snapshot = makeOrg({ direccion: 'Calle Vieja 1', localidad: 'Santander' });
+    const dbAfterChange = makeOrg({ direccion: 'Calle Nueva 22', localidad: 'Santander' });
+    expect(conditionalWrite(snapshot, dbAfterChange)).toBe(false);
+  });
+
+  /**
+   * TEST-COND-3
+   * Geocoding A completa → usuario guarda dirección B antes de que A escriba
+   * → A intenta escribir con snapshot antiguo → rechazada.
+   * B geocodifica y escribe con snapshot correcto → applied.
+   */
+  it('TEST-COND-3 A completa, B ya guardó → A rechazada, B applied', () => {
+    const snapshotA = makeOrg({ direccion: 'Calle Alpha 1', localidad: 'Bilbao' });
+    const dbAfterBSave = makeOrg({ direccion: 'Calle Beta 2', localidad: 'Madrid' });
+    const snapshotB = makeOrg({ direccion: 'Calle Beta 2', localidad: 'Madrid' });
+
+    expect(conditionalWrite(snapshotA, dbAfterBSave)).toBe(false); // A rechazada
+    expect(conditionalWrite(snapshotB, dbAfterBSave)).toBe(true);  // B applied
+  });
+
+  /**
+   * TEST-COND-4
+   * B guarda antes que A geocodifica. A completa después de que B ya escribió.
+   * A debe ser rechazada porque el snapshot de A no coincide con el estado DB.
+   */
+  it('TEST-COND-4 B guarda primero → A stale rechazada', async () => {
+    const dA = deferred<GeocodeResult | null>();
+    const dB = deferred<GeocodeResult | null>();
+    const writesA: GeocodeResult[] = [];
+    const writesB: GeocodeResult[] = [];
+
+    let dbAddress = makeOrg({ direccion: 'Calle Alpha 1', localidad: 'Bilbao' });
+
+    let callCount = 0;
+    const geocodeFn = () => { callCount++; return callCount === 1 ? dA.promise : dB.promise; };
+    const scheduler = createGeoScheduler(geocodeFn);
+
+    // A schedule con snapshot inicial
+    const snapshotA = { ...dbAddress };
+    scheduler.schedule(buildOrgGeocodeParams(snapshotA), geo => {
+      if (conditionalWrite(snapshotA, dbAddress)) writesA.push(geo);
+    });
+
+    // Mientras A está en vuelo, usuario guarda B → DB cambia
+    dbAddress = makeOrg({ direccion: 'Calle Beta 2', localidad: 'Madrid' });
+    scheduler.cancel(); // cancel A (simulate handleSaveFiscal cancel)
+    const snapshotB = { ...dbAddress };
+    scheduler.schedule(buildOrgGeocodeParams(snapshotB), geo => {
+      if (conditionalWrite(snapshotB, dbAddress)) writesB.push(geo);
+    });
+
+    // A resuelve tardíamente (ya fue cancelada por callId, onSuccess no se llama)
+    dA.resolve(makeGeo(43.26, -2.93));
+    await dA.promise;
+
+    // B resuelve
+    dB.resolve(makeGeo(40.42, -3.70));
+    await dB.promise;
+
+    expect(writesA).toHaveLength(0); // A cancelada por scheduler
+    expect(writesB).toHaveLength(1); // B escrita correctamente
+    expect(writesB[0].latitud).toBe(40.42);
+  });
+
+  it('TEST-COND-5 misma dirección geocodificada dos veces → ambas applied (idempotente)', () => {
+    const db = makeOrg({ direccion: 'Avenida X', localidad: 'Oviedo', cp: '33001' });
+    const snapshot1 = makeOrg({ direccion: 'Avenida X', localidad: 'Oviedo', cp: '33001' });
+    const snapshot2 = makeOrg({ direccion: 'Avenida X', localidad: 'Oviedo', cp: '33001' });
+    expect(conditionalWrite(snapshot1, db)).toBe(true);
+    expect(conditionalWrite(snapshot2, db)).toBe(true);
+  });
+
+  it('TEST-COND-6 campos null en snapshot coinciden con null en DB → applied', () => {
+    const db = makeOrg({ direccion: 'Paseo del Norte', localidad: null, cp: null, provincia: null, pais: null });
+    const snapshot = makeOrg({ direccion: 'Paseo del Norte', localidad: null, cp: null, provincia: null, pais: null });
+    expect(conditionalWrite(snapshot, db)).toBe(true);
+  });
+
+  it('TEST-COND-7 campo vacío en snapshot, DB tiene valor → write rechazado', () => {
+    const snapshot = makeOrg({ localidad: null, cp: null });      // snapshot: localidad vacía
+    const dbChanged = makeOrg({ localidad: 'Valencia', cp: '46001' }); // DB: localidad rellenada
+    expect(conditionalWrite(snapshot, dbChanged)).toBe(false);
+  });
+
+  /**
+   * TEST-COND-8
+   * Cambio de org durante geocodificación:
+   * callId ya cancela onSuccess de org A → no llega al write condicional.
+   * Verifica que el scheduler basta para este escenario (write condicional es redundante).
+   */
+  it('TEST-COND-8 cambio de org → callId cancela onSuccess antes del write', async () => {
+    const { promise, resolve } = deferred<GeocodeResult | null>();
+    const writesOrgA: GeocodeResult[] = [];
+
+    const snapshotA = makeOrg({ localidad: 'OrgA', cp: '11111' });
+    const scheduler = createGeoScheduler(() => promise);
+
+    scheduler.schedule(buildOrgGeocodeParams(snapshotA), geo => {
+      writesOrgA.push(geo); // si llegara aquí podría aplicar conditionalWrite
+    });
+
+    // Cambio de org: cancel antes de que resuelva
+    scheduler.cancel();
+
+    resolve(makeGeo(43.46, -3.81));
+    await promise;
+
+    // onSuccess nunca fue llamado → sin write
+    expect(writesOrgA).toHaveLength(0);
+  });
+
+  /**
+   * TEST-COND-9
+   * Org legacy: solo tiene ciudad, localidad = null.
+   * buildOrgGeocodeParams usa ciudad como fallback.
+   * El snapshot tiene localidad = null.
+   * Si el DB también tiene localidad = null, la condición IS NULL debe pasar.
+   */
+  it('TEST-COND-9 org legacy ciudad sin localidad → snapshot null coincide con DB null', () => {
+    const dbLegacy = makeOrg({ direccion: 'Calle Real 1', ciudad: 'Santander', localidad: null, cp: '39001' });
+    const snapshotLegacy = makeOrg({ direccion: 'Calle Real 1', localidad: null, cp: '39001' });
+    expect(conditionalWrite(snapshotLegacy, dbLegacy)).toBe(true);
+  });
+
+  // ── Comportamiento null vs '' (post fix #1) ──────────────────────────────────
+
+  it('TEST-COND-1b snapshot con empty string coincide con DB empty string → applied', () => {
+    // Raw '' guardado en DB y capturado en snapshot: eq('') debe coincidir con DB ''
+    const db = makeOrg({ localidad: '', cp: '' });
+    const snapshot = makeOrg({ localidad: '', cp: '' });
+    expect(conditionalWrite(snapshot, db)).toBe(true);
+  });
+
+  it('TEST-COND-2b snapshot con empty string no coincide con DB null → rechazado', () => {
+    // DB tiene null pero snapshot tiene '': IS NULL != eq(''); write debe rechazarse
+    const db = makeOrg({ localidad: null });
+    const snapshot = makeOrg({ localidad: '' });
+    expect(conditionalWrite(snapshot, db)).toBe(false);
   });
 });
 
