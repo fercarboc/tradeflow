@@ -5,17 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import { MapPin, AlertTriangle } from 'lucide-react';
 import type { RouteJob, GeoLocation } from '../lib/routeOptimizer';
 import type { TradeJob } from '../lib/supabase';
-
-// ── Tile provider: CARTO Basemaps (commercial use OK with API key + attribution) ─
-// Key obtained free at https://carto.com/basemaps/apikey/ — no card required.
-// Commercial free tier: 1M tile requests/month. Must be restricted by domain in CARTO dashboard.
-// Variable is VITE_- prefixed so Vite embeds it in the client bundle; restrict by domain, not by secrecy.
-const CARTO_KEY: string | undefined = import.meta.env.VITE_CARTO_BASEMAP_API_KEY as string | undefined;
-const CARTO_URL = CARTO_KEY
-  ? `https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=${CARTO_KEY}`
-  : '';
-const CARTO_ATTR =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+import { CARTO_KEY, CARTO_URL, CARTO_ATTR } from '../lib/cartoConfig';
 
 const ESTADO_DONE: Set<TradeJob['estado']> = new Set(['completado', 'cancelado']);
 
