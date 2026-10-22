@@ -1805,10 +1805,31 @@ export async function updateJobGeoAuto(
   return { applied: (count ?? 0) > 0 };
 }
 
-// Clears geo fields only when geo_source IS DISTINCT FROM 'manual'. Used when an address
-// change invalidates existing auto (or null-source) coords without risking a concurrent
-// manual confirmation for the new address. A stale manual for the old address will survive
-// this call — it becomes stale but is not lost; the user can re-confirm.
+// Atomically updates the address of a job and clears ALL geo metadata (including manual
+// confirmations) in a single PostgreSQL transaction. Uses a snapshot WHERE guard to reject
+// stale operations: if the current DB address differs from oldSnapshot, applied=false is
+// returned and nothing is modified.
+// Requires migration 20261022100000_rpc_change_job_address_clear_geo.sql to be deployed.
+export async function changeJobAddressClearGeo(
+  jobId: string,
+  oldSnapshot: JobGeoAddressSnapshot,
+  newAddress:  JobGeoAddressSnapshot,
+): Promise<{ applied: boolean }> {
+  const { data, error } = await supabase.rpc('change_job_address_clear_geo', {
+    p_job_id:        jobId,
+    p_old_direccion: oldSnapshot.direccion ?? null,
+    p_old_localidad: oldSnapshot.localidad ?? null,
+    p_old_cp:        oldSnapshot.cp        ?? null,
+    p_new_direccion: newAddress.direccion  ?? null,
+    p_new_localidad: newAddress.localidad  ?? null,
+    p_new_cp:        newAddress.cp         ?? null,
+  });
+  if (error) throw error;
+  return { applied: (data as { applied: boolean } | null)?.applied ?? false };
+}
+
+// Clears geo fields only when geo_source IS DISTINCT FROM 'manual'. Retained as a utility;
+// the primary geo-invalidation path now uses changeJobAddressClearGeo (atomic RPC).
 export async function clearJobGeoIfNotManual(jobId: string): Promise<{ applied: boolean }> {
   const { error, count } = await supabase
     .from('trade_jobs')
