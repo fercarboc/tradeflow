@@ -1686,19 +1686,24 @@ export interface JobGeoAddressSnapshot {
  * Stores manually confirmed coordinates for an organization.
  * Uses the same address-snapshot WHERE as updateOrgGeocoords; does NOT check
  * geo_source — manual can always overwrite manual (user is re-pinning).
- * Returns { applied: false } if the address changed since the picker was opened.
+ * Returns { applied: false, confirmedAt: null } if the address changed since the picker was opened.
+ * Throws if coordinates are outside valid ranges.
  */
 export async function updateOrgGeoManual(
   orgId: string,
   lat: number,
   lng: number,
   addressSnapshot: GeoAddressSnapshot,
-): Promise<{ applied: boolean }> {
+): Promise<{ applied: boolean; confirmedAt: string | null }> {
+  if (!Number.isFinite(lat) || !Number.isFinite(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+    throw new Error(`Coordenadas inválidas: lat=${lat}, lng=${lng}`);
+  }
+  const confirmedAt = new Date().toISOString();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let q: any = supabase
     .from('trade_organizations')
     .update(
-      { base_latitud: lat, base_longitud: lng, geo_source: 'manual', geo_confirmed_at: new Date().toISOString() },
+      { base_latitud: lat, base_longitud: lng, geo_source: 'manual', geo_confirmed_at: confirmedAt },
       { count: 'exact' },
     )
     .eq('id', orgId);
@@ -1716,7 +1721,8 @@ export async function updateOrgGeoManual(
 
   const { error, count } = await q;
   if (error) throw error;
-  return { applied: (count ?? 0) > 0 };
+  const applied = (count ?? 0) > 0;
+  return { applied, confirmedAt: applied ? confirmedAt : null };
 }
 
 /**

@@ -79,12 +79,14 @@ import { ADMIN_EMAIL, MARKETPLACE_ENABLED } from '../lib/constants';
 import { useIsMobile } from '../hooks/useIsMobile';
 import { canAccessMarketplaceV2 } from '../lib/marketplaceV2Preview';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, updateClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, emitirFactura, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote, getOrgActiveOrders, loadInvoiceLines, updateDraftInvoice, normalizaNif, getClientDisplayName } from '../lib/supabase';
-import type { TradeSubcontractor, TradeSubcontrata, ActiveSupplierCatalog, TradeClient, FiscalSnapshot } from '../lib/supabase';
+import { supabase, loadDashboard, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, updateClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, emitirFactura, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, updateOrgGeoManual, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote, getOrgActiveOrders, loadInvoiceLines, updateDraftInvoice, normalizaNif, getClientDisplayName } from '../lib/supabase';
+import type { TradeSubcontractor, TradeSubcontrata, ActiveSupplierCatalog, TradeClient, FiscalSnapshot, GeoAddressSnapshot } from '../lib/supabase';
 import { printTradeInvoice } from '../lib/printTradeInvoice';
 import { savePurchaseContext } from '../lib/marketplace/purchase-context';
 import { geocodeAddress, buildOrgGeocodeParams, orgAddressChanged, createGeoScheduler } from '../lib/geocoder';
 import type { GeoScheduler } from '../lib/geocoder';
+import LocationPicker from './LocationPicker';
+import { isValidLatLng } from './RouteMap';
 import type { GeoLocation } from '../lib/routeOptimizer';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription, TemplateType } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
@@ -919,6 +921,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   const [orgId, setOrgId] = useState<string | null>(null);
   const [orgData, setOrgData] = useState<TradeOrganization | null>(null);
+  // Always reflects the current orgId — used to guard against stale closures after async operations.
+  const orgIdRef = useRef<string | null>(null);
+  orgIdRef.current = orgId;
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [orgTemplates, setOrgTemplates] = useState<Partial<Record<TemplateType, string>>>({});
   const [savingTemplate, setSavingTemplate] = useState<TemplateType | null>(null);
@@ -1015,6 +1020,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [activeSupplierCatalogs, setActiveSupplierCatalogs] = useState<ActiveSupplierCatalog[]>([]);
   const [jobs, setJobs] = useState<TradeJob[]>([]);
   const [orgBaseGeo, setOrgBaseGeo] = useState<GeoLocation | null>(null);
+  const [orgPickerOpen, setOrgPickerOpen] = useState(false);
+  const [orgPickerSnapshot, setOrgPickerSnapshot] = useState<GeoAddressSnapshot | null>(null);
+  const [orgPickerOrgId, setOrgPickerOrgId] = useState<string | null>(null);
 
   // Geocodificar la dirección base de la organización al cargar sesión.
   // orgLoadedKey es null hasta que tanto orgId como orgData estén disponibles,
@@ -10184,6 +10192,65 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       t.codigo.toLowerCase().includes(tarifaFilter.toLowerCase())
     );
 
+    const openOrgLocationPicker = () => {
+      if (!orgId) return;
+      // Guard: if draft address differs from persisted orgData, require saving first.
+      // The snapshot must correspond to the address actually in the DB.
+      const draftAddressChanged = orgAddressChanged(
+        { direccion: empresaAjustes.direccion, localidad: empresaAjustes.localidad, cp: empresaAjustes.cp, provincia: empresaAjustes.provincia, pais: empresaAjustes.pais },
+        orgData,
+      );
+      if (draftAddressChanged) {
+        showToast('Guarda primero los cambios de dirección para verificar la ubicación', 'info');
+        return;
+      }
+      // Snapshot captured from persisted orgData — not from the editable draft
+      setOrgPickerSnapshot({
+        direccion: orgData?.direccion ?? null,
+        localidad: orgData?.localidad ?? null,
+        cp:        orgData?.cp ?? null,
+        provincia: orgData?.provincia ?? null,
+        pais:      orgData?.pais ?? null,
+      });
+      setOrgPickerOrgId(orgId);
+      setOrgPickerOpen(true);
+    };
+
+    const handleOrgLocationConfirm = async (lat: number, lng: number): Promise<void> => {
+      if (!isValidLatLng(lat, lng)) {
+        throw new Error('Coordenadas inválidas — selecciona un punto en el mapa');
+      }
+      if (!isLiveMode) {
+        setOrgPickerOpen(false);
+        showToast('Activa el modo real para guardar la ubicación', 'info');
+        return;
+      }
+      if (!orgPickerOrgId || orgPickerOrgId !== orgId || !orgPickerSnapshot) {
+        throw new Error('La organización cambió mientras el selector estaba abierto');
+      }
+      const { applied, confirmedAt } = await updateOrgGeoManual(orgPickerOrgId, lat, lng, orgPickerSnapshot);
+      // Post-await org guard via ref — prevents stale closure contaminating a different org's state.
+      // The DB write already committed for orgPickerOrgId; this only controls the React state update.
+      if (orgIdRef.current !== orgPickerOrgId) {
+        setOrgPickerOpen(false);
+        return;
+      }
+      if (!applied) {
+        throw new Error('La dirección cambió mientras el selector estaba abierto. Guarda primero los datos y vuelve a verificar la ubicación.');
+      }
+      // State-only update — DB write already done by updateOrgGeoManual
+      setOrgData(prev => prev ? {
+        ...prev,
+        base_latitud:     lat,
+        base_longitud:    lng,
+        geo_source:       'manual',
+        geo_confirmed_at: confirmedAt,
+      } as typeof prev : prev);
+      setOrgBaseGeo({ lat, lng });
+      setOrgPickerOpen(false);
+      showToast('Ubicación de empresa confirmada', 'success');
+    };
+
     const handleSaveFiscal = async () => {
       if (!isLiveMode || !orgId) { showToast('Datos guardados (demo)', 'success'); return; }
 
@@ -10417,6 +10484,28 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               <input type="text" className={inp} value={empresaAjustes.pais}
                 onChange={e => setEmpresaAjustes(p => ({ ...p, pais: e.target.value }))} />
             </div>
+          </div>
+          {/* ── Verificación de ubicación en mapa ── */}
+          <div className="mt-3 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={openOrgLocationPicker}
+              className="flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              Verificar ubicación en el mapa
+            </button>
+            {orgData?.geo_source === 'manual' && (
+              <span className="text-[10px] text-emerald-600 font-medium flex items-center gap-1">
+                <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                Ubicación confirmada manualmente
+              </span>
+            )}
           </div>
           <button onClick={handleSaveFiscal}
             className="mt-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-lg transition-colors cursor-pointer">
@@ -11625,6 +11714,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         </div>
       )}
 
+      {/* ── LocationPicker overlay: verificación manual de ubicación de empresa ── */}
+      {orgPickerOpen && orgPickerSnapshot && (
+        <LocationPicker
+          addressLabel={orgData?.nombre || empresaAjustes.nombre || 'Empresa'}
+          initialLat={orgBaseGeo?.lat ?? orgData?.base_latitud ?? undefined}
+          initialLng={orgBaseGeo?.lng ?? orgData?.base_longitud ?? undefined}
+          onConfirm={handleOrgLocationConfirm}
+          onCancel={() => setOrgPickerOpen(false)}
+        />
+      )}
       </div>
     );
   }
