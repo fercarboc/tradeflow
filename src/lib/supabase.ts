@@ -1805,6 +1805,23 @@ export async function updateJobGeoAuto(
   return { applied: (count ?? 0) > 0 };
 }
 
+// Clears geo fields only when geo_source IS DISTINCT FROM 'manual'. Used when an address
+// change invalidates existing auto (or null-source) coords without risking a concurrent
+// manual confirmation for the new address. A stale manual for the old address will survive
+// this call — it becomes stale but is not lost; the user can re-confirm.
+export async function clearJobGeoIfNotManual(jobId: string): Promise<{ applied: boolean }> {
+  const { error, count } = await supabase
+    .from('trade_jobs')
+    .update(
+      { latitud: null, longitud: null, direccion_normalizada: null, geo_source: null, geo_confirmed_at: null },
+      { count: 'exact' },
+    )
+    .eq('id', jobId)
+    .or('geo_source.is.null,geo_source.neq.manual');
+  if (error) throw error;
+  return { applied: (count ?? 0) > 0 };
+}
+
 // ── Catálogo de productos con variantes ───────────────────────────────────────
 
 export interface TradeCatalogProduct {

@@ -6,7 +6,7 @@ import {
   Loader2, PauseCircle, Package, Clock, Ban, ChevronDown,
 } from 'lucide-react';
 import type { TradeJob } from '../lib/supabase';
-import { updateJobGeoManual, type JobGeoAddressSnapshot } from '../lib/supabase';
+import { updateJobGeoManual, updateJobGeoAuto, clearJobGeoIfNotManual, type JobGeoAddressSnapshot } from '../lib/supabase';
 import { loadWorkCalendar, getNextWorkingDay } from '../lib/workCalendar';
 import { geocodeAddress, addressChanged, type GeoStatus } from '../lib/geocoder';
 import LocationPicker from './LocationPicker';
@@ -1692,14 +1692,33 @@ export default function ScreenPlanificacion({
       const finalDraft = { ...draft, ...geoExtras };
 
       if (editingJob) {
-        // Strip geo fields from draft before writing to DB. This prevents a stale draft (opened
-        // before a LocationPicker confirmation in another session) from overwriting the newer
-        // manual geo stored in DB. Only explicitly recomputed geo (geoExtras) is written.
-        // In demo mode, geoExtras can only be {} or null-clearing (never new API coordinates),
-        // so including it here does not persist new geocoding results in demo mode.
+        // Strip geo fields from draft before writing to DB. Explicitly recomputed geo (geoExtras)
+        // is applied separately: null-clearing goes in the main write; auto-geocoded coords go
+        // through updateJobGeoAuto which adds IS DISTINCT FROM 'manual' — preventing a concurrent
+        // manual confirmation from being overwritten by a geocoding result from a stale session.
         const { latitud: _l, longitud: _lg, direccion_normalizada: _dn, geo_source: _gs, geo_confirmed_at: _gca, ...nonGeoFields } = draft;
-        const dbUpdate: Partial<TradeJob> = { ...nonGeoFields, ...geoExtras };
-        await onUpdateJob(editingJob.id, dbUpdate);
+        const autoLat = geoExtras.latitud;
+        const autoLng = geoExtras.longitud;
+        if (autoLat != null && autoLng != null) {
+          // Two protected writes: non-geo fields first (includes any address change), then
+          // auto-geocoded coords via updateJobGeoAuto. After the first write the address in DB
+          // matches the snapshot used for geocoding, so the WHERE check in updateJobGeoAuto
+          // succeeds for the address match and fails only when geo_source is already 'manual'.
+          await onUpdateJob(editingJob.id, nonGeoFields);
+          const geoSnapshot: JobGeoAddressSnapshot = { direccion: draft.direccion ?? null, localidad: draft.localidad ?? null, cp: draft.cp ?? null };
+          await updateJobGeoAuto(editingJob.id, autoLat, autoLng, geoExtras.direccion_normalizada ?? '', geoSnapshot);
+        } else {
+          // Non-geo save (geoExtras = {}) or address-changed null-clearing.
+          // Non-geo fields (including any address change) are written first.
+          // For null-clearing (geoExtras has geo keys set to null): a separate protected write
+          // uses IS DISTINCT FROM 'manual' to avoid wiping a concurrent manual confirmation for
+          // the new address. A stale manual for the old address may survive — it is stale but
+          // not lost; the user can re-confirm via the location picker.
+          await onUpdateJob(editingJob.id, nonGeoFields);
+          if (Object.keys(geoExtras).length > 0) {
+            await clearJobGeoIfNotManual(editingJob.id);
+          }
+        }
         const prevIds  = new Set(editingJob.trade_job_workers?.map(jw => jw.worker_id) ?? []);
         const toAdd    = [...selectedWorkerIds].filter(id => !prevIds.has(id));
         const toRemove = [...prevIds].filter(id => !selectedWorkerIds.has(id));
