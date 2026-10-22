@@ -41,6 +41,8 @@ export interface TradeOrganization {
   titular_cuenta?: string;
   base_latitud?: number | null;
   base_longitud?: number | null;
+  geo_source?: 'auto' | 'manual' | null;
+  geo_confirmed_at?: string | null;
   timezone?: string;
   created_at: string;
   updated_at: string;
@@ -1634,7 +1636,7 @@ export async function updateOrgGeocoords(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let q: any = supabase
     .from('trade_organizations')
-    .update({ base_latitud: lat, base_longitud: lng }, { count: 'exact' })
+    .update({ base_latitud: lat, base_longitud: lng, geo_source: 'auto' }, { count: 'exact' })
     .eq('id', orgId);
 
   const checks: [string, string | null | undefined][] = [
@@ -1651,6 +1653,140 @@ export async function updateOrgGeocoords(
     // saves address fields (raw form values, not normalized to null).
     q = (val == null) ? q.is(col, null) : q.eq(col, val);
   }
+
+  // IS DISTINCT FROM 'manual': auto-geocoding must never overwrite manual confirmations.
+  // PostgREST does not expose IS DISTINCT FROM directly; express as OR (NULL or != 'manual').
+  // .neq alone would exclude NULL rows, which must remain eligible for auto-geocoding.
+  q = q.or('geo_source.is.null,geo_source.neq.manual');
+
+  const { error, count } = await q;
+  if (error) throw error;
+  return { applied: (count ?? 0) > 0 };
+}
+
+// ── Confirmación manual de coordenadas ───────────────────────────────────────
+
+/** Shared address-snapshot type for conditional geo writes. */
+export interface GeoAddressSnapshot {
+  direccion?: string | null;
+  localidad?: string | null;
+  cp?: string | null;
+  provincia?: string | null;
+  pais?: string | null;
+}
+
+/** Shared job address-snapshot type (3-field subset used for job geo). */
+export interface JobGeoAddressSnapshot {
+  direccion?: string | null;
+  localidad?: string | null;
+  cp?: string | null;
+}
+
+/**
+ * Stores manually confirmed coordinates for an organization.
+ * Uses the same address-snapshot WHERE as updateOrgGeocoords; does NOT check
+ * geo_source — manual can always overwrite manual (user is re-pinning).
+ * Returns { applied: false } if the address changed since the picker was opened.
+ */
+export async function updateOrgGeoManual(
+  orgId: string,
+  lat: number,
+  lng: number,
+  addressSnapshot: GeoAddressSnapshot,
+): Promise<{ applied: boolean }> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let q: any = supabase
+    .from('trade_organizations')
+    .update(
+      { base_latitud: lat, base_longitud: lng, geo_source: 'manual', geo_confirmed_at: new Date().toISOString() },
+      { count: 'exact' },
+    )
+    .eq('id', orgId);
+
+  const checks: [string, string | null | undefined][] = [
+    ['direccion', addressSnapshot.direccion],
+    ['localidad', addressSnapshot.localidad],
+    ['cp',        addressSnapshot.cp],
+    ['provincia', addressSnapshot.provincia],
+    ['pais',      addressSnapshot.pais],
+  ];
+  for (const [col, val] of checks) {
+    q = (val == null) ? q.is(col, null) : q.eq(col, val);
+  }
+
+  const { error, count } = await q;
+  if (error) throw error;
+  return { applied: (count ?? 0) > 0 };
+}
+
+/**
+ * Stores manually confirmed coordinates for a job.
+ * Snapshot WHERE covers direccion, localidad, cp.
+ * Does not check geo_source — manual can overwrite manual.
+ * Returns { applied: false } if the job address changed since the picker was opened.
+ */
+export async function updateJobGeoManual(
+  jobId: string,
+  lat: number,
+  lng: number,
+  addressSnapshot: JobGeoAddressSnapshot,
+): Promise<{ applied: boolean }> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let q: any = supabase
+    .from('trade_jobs')
+    .update(
+      { latitud: lat, longitud: lng, geo_source: 'manual', geo_confirmed_at: new Date().toISOString() },
+      { count: 'exact' },
+    )
+    .eq('id', jobId);
+
+  const checks: [string, string | null | undefined][] = [
+    ['direccion', addressSnapshot.direccion],
+    ['localidad', addressSnapshot.localidad],
+    ['cp',        addressSnapshot.cp],
+  ];
+  for (const [col, val] of checks) {
+    q = (val == null) ? q.is(col, null) : q.eq(col, val);
+  }
+
+  const { error, count } = await q;
+  if (error) throw error;
+  return { applied: (count ?? 0) > 0 };
+}
+
+/**
+ * Stores auto-geocoded coordinates for a job.
+ * Rejects if: (a) the job address changed since geocoding started, OR
+ *             (b) the current coordinates were confirmed manually (geo_source = 'manual').
+ * Returns { applied: false } in both rejection cases.
+ */
+export async function updateJobGeoAuto(
+  jobId: string,
+  lat: number,
+  lng: number,
+  direccionNormalizada: string,
+  addressSnapshot: JobGeoAddressSnapshot,
+): Promise<{ applied: boolean }> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let q: any = supabase
+    .from('trade_jobs')
+    .update(
+      { latitud: lat, longitud: lng, direccion_normalizada: direccionNormalizada, geo_source: 'auto' },
+      { count: 'exact' },
+    )
+    .eq('id', jobId);
+
+  const checks: [string, string | null | undefined][] = [
+    ['direccion', addressSnapshot.direccion],
+    ['localidad', addressSnapshot.localidad],
+    ['cp',        addressSnapshot.cp],
+  ];
+  for (const [col, val] of checks) {
+    q = (val == null) ? q.is(col, null) : q.eq(col, val);
+  }
+
+  // IS DISTINCT FROM 'manual': same pattern as updateOrgGeocoords.
+  q = q.or('geo_source.is.null,geo_source.neq.manual');
 
   const { error, count } = await q;
   if (error) throw error;
@@ -1988,6 +2124,8 @@ export interface TradeJob {
   cp?: string | null;
   latitud?: number | null;
   longitud?: number | null;
+  geo_source?: 'auto' | 'manual' | null;
+  geo_confirmed_at?: string | null;
   completado_por?: string | null;
   completado_at?: string | null;
   notas_cierre?: string | null;

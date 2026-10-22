@@ -10196,8 +10196,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         iban: empresaAjustes.iban || null,
         banco: empresaAjustes.banco || null,
         titular_cuenta: empresaAjustes.titularCuenta || null,
-        // Si la dirección cambió, invalidar coordenadas para forzar re-geocodificación
-        ...(geoInvalidated ? { base_latitud: null, base_longitud: null } : {}),
+        // Si la dirección cambió, invalidar coordenadas (y fuente) para forzar re-geocodificación
+        ...(geoInvalidated ? { base_latitud: null, base_longitud: null, geo_source: null, geo_confirmed_at: null } : {}),
       }).eq('id', orgId);
       if (error) { showToast('Error al guardar: ' + error.message, 'error'); return; }
 
@@ -10212,7 +10212,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         cp:             empresaAjustes.cp || null,
         provincia:      empresaAjustes.provincia || null,
         pais:           empresaAjustes.pais || null,
-        ...(geoInvalidated ? { base_latitud: null, base_longitud: null } : {}),
+        ...(geoInvalidated ? { base_latitud: null, base_longitud: null, geo_source: null, geo_confirmed_at: null } : {}),
       } as typeof prev : prev);
 
       if (geoInvalidated) {

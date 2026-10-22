@@ -1595,7 +1595,7 @@ export default function ScreenPlanificacion({
     try {
       const geo = await geocodeAddress({ direccion: draft.direccion, localidad: draft.localidad, cp: draft.cp });
       if (geo) {
-        setDraft(d => ({ ...d, latitud: geo.latitud, longitud: geo.longitud, direccion_normalizada: geo.formatted_address }));
+        setDraft(d => ({ ...d, latitud: geo.latitud, longitud: geo.longitud, direccion_normalizada: geo.formatted_address, geo_source: 'auto', geo_confirmed_at: null }));
         setGeoStatus('ok');
       } else {
         setGeoStatus('not_found');
@@ -1619,19 +1619,30 @@ export default function ScreenPlanificacion({
         setGeoStatus('loading');
         const geo = await geocodeAddress({ direccion: draft.direccion, localidad: draft.localidad, cp: draft.cp });
         if (geo) {
-          geoExtras = { latitud: geo.latitud, longitud: geo.longitud, direccion_normalizada: geo.formatted_address };
+          geoExtras = { latitud: geo.latitud, longitud: geo.longitud, direccion_normalizada: geo.formatted_address, geo_source: 'auto', geo_confirmed_at: null };
           setGeoStatus('ok');
         } else {
           setGeoStatus('not_found');
           // Si la dirección cambió, borrar coords obsoletas
-          if (addressChanged(draft, editingJob)) geoExtras = { latitud: null, longitud: null, direccion_normalizada: null };
+          if (addressChanged(draft, editingJob)) geoExtras = { latitud: null, longitud: null, direccion_normalizada: null, geo_source: null, geo_confirmed_at: null };
         }
+      } else if (needsGeocode && !isLiveMode && addressChanged(draft, editingJob)) {
+        // demo mode + address changed: invalidate stale manual confirmation in both draft and DB.
+        // geoExtras contains only nulls (never new API coordinates), so writing it to DB is safe.
+        geoExtras = { latitud: null, longitud: null, direccion_normalizada: null, geo_source: null, geo_confirmed_at: null };
       }
 
       const finalDraft = { ...draft, ...geoExtras };
 
       if (editingJob) {
-        await onUpdateJob(editingJob.id, finalDraft);
+        // Strip geo fields from draft before writing to DB. This prevents a stale draft (opened
+        // before a LocationPicker confirmation in another session) from overwriting the newer
+        // manual geo stored in DB. Only explicitly recomputed geo (geoExtras) is written.
+        // In demo mode, geoExtras can only be {} or null-clearing (never new API coordinates),
+        // so including it here does not persist new geocoding results in demo mode.
+        const { latitud: _l, longitud: _lg, direccion_normalizada: _dn, geo_source: _gs, geo_confirmed_at: _gca, ...nonGeoFields } = draft;
+        const dbUpdate: Partial<TradeJob> = { ...nonGeoFields, ...geoExtras };
+        await onUpdateJob(editingJob.id, dbUpdate);
         const prevIds  = new Set(editingJob.trade_job_workers?.map(jw => jw.worker_id) ?? []);
         const toAdd    = [...selectedWorkerIds].filter(id => !prevIds.has(id));
         const toRemove = [...prevIds].filter(id => !selectedWorkerIds.has(id));
