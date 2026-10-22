@@ -1723,19 +1723,24 @@ export async function updateOrgGeoManual(
  * Stores manually confirmed coordinates for a job.
  * Snapshot WHERE covers direccion, localidad, cp.
  * Does not check geo_source — manual can overwrite manual.
- * Returns { applied: false } if the job address changed since the picker was opened.
+ * Returns { applied: false, confirmedAt: null } if the job address changed since the picker was opened.
+ * Throws if coordinates are outside valid ranges.
  */
 export async function updateJobGeoManual(
   jobId: string,
   lat: number,
   lng: number,
   addressSnapshot: JobGeoAddressSnapshot,
-): Promise<{ applied: boolean }> {
+): Promise<{ applied: boolean; confirmedAt: string | null }> {
+  if (!Number.isFinite(lat) || !Number.isFinite(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+    throw new Error(`Coordenadas inválidas: lat=${lat}, lng=${lng}`);
+  }
+  const confirmedAt = new Date().toISOString();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let q: any = supabase
     .from('trade_jobs')
     .update(
-      { latitud: lat, longitud: lng, geo_source: 'manual', geo_confirmed_at: new Date().toISOString() },
+      { latitud: lat, longitud: lng, geo_source: 'manual', geo_confirmed_at: confirmedAt },
       { count: 'exact' },
     )
     .eq('id', jobId);
@@ -1751,7 +1756,8 @@ export async function updateJobGeoManual(
 
   const { error, count } = await q;
   if (error) throw error;
-  return { applied: (count ?? 0) > 0 };
+  const applied = (count ?? 0) > 0;
+  return { applied, confirmedAt: applied ? confirmedAt : null };
 }
 
 /**

@@ -6,8 +6,11 @@ import {
   Loader2, PauseCircle, Package, Clock, Ban, ChevronDown,
 } from 'lucide-react';
 import type { TradeJob } from '../lib/supabase';
+import { updateJobGeoManual, type JobGeoAddressSnapshot } from '../lib/supabase';
 import { loadWorkCalendar, getNextWorkingDay } from '../lib/workCalendar';
 import { geocodeAddress, addressChanged, type GeoStatus } from '../lib/geocoder';
+import LocationPicker from './LocationPicker';
+import { isValidLatLng } from './RouteMap';
 
 interface Worker { id: string; nombre: string; rol: string; activo: boolean; }
 interface Cliente { id: string; nombre: string; telefono: string; }
@@ -40,6 +43,8 @@ export interface ScreenPlanificacionProps {
   presupuestosPorId?: Record<string, LinkedPresupuesto>;
   onCreateJob: (job: Omit<TradeJob, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_clients' | 'trade_job_workers'>) => Promise<TradeJob>;
   onUpdateJob: (id: string, updates: Partial<TradeJob>) => Promise<void>;
+  /** Called after a successful manual geo confirmation — updates local state only, no DB write. */
+  onJobGeoConfirmed?: (jobId: string, lat: number, lng: number, confirmedAt: string) => void;
   onDeleteJob: (id: string) => Promise<void>;
   onAssignWorker: (jobId: string, workerId: string, rol: string) => Promise<void>;
   onRemoveWorker: (jobId: string, workerId: string) => Promise<void>;
@@ -1098,9 +1103,10 @@ interface JobDetailPanelProps {
   onOpenParte?: (job: TradeJob) => void;
   onCreatePresupuesto?: (job: TradeJob) => void;
   onClose?: () => void;
+  onAdjustLocation?: (job: TradeJob) => void;
 }
 
-function JobDetailPanel({ job, linkedPresupuesto, onIniciar, onPause, onQuickStatus, onEdit, onDelete, onOpenParte, onCreatePresupuesto, onClose }: JobDetailPanelProps) {
+function JobDetailPanel({ job, linkedPresupuesto, onIniciar, onPause, onQuickStatus, onEdit, onDelete, onOpenParte, onCreatePresupuesto, onClose, onAdjustLocation }: JobDetailPanelProps) {
   const est = ESTADO_CFG[job.estado];
   const pri = PRIORIDAD_CFG[job.prioridad];
   const isVisita = job.tipo === 'visita';
@@ -1184,10 +1190,17 @@ function JobDetailPanel({ job, linkedPresupuesto, onIniciar, onPause, onQuickSta
                   <p className="text-sm text-slate-700 leading-snug">
                     {[job.direccion, job.localidad, job.cp].filter(Boolean).join(', ')}
                   </p>
-                  <a href={mapsUrl} target="_blank" rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 hover:text-blue-800 mt-1">
-                    <Navigation className="w-3 h-3" /> Cómo llegar
-                  </a>
+                  <div className="flex items-center gap-3 mt-1">
+                    <a href={mapsUrl} target="_blank" rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 hover:text-blue-800">
+                      <Navigation className="w-3 h-3" /> Cómo llegar
+                    </a>
+                    {job.geo_source === 'manual' && (
+                      <span className="inline-flex items-center gap-0.5 text-[9px] font-bold text-emerald-600 uppercase tracking-wide">
+                        <MapPin className="w-2.5 h-2.5" /> Confirmada
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
             )}
@@ -1411,6 +1424,19 @@ function JobDetailPanel({ job, linkedPresupuesto, onIniciar, onPause, onQuickSta
               <Navigation className="w-3.5 h-3.5" /> GPS
             </span>
           )}
+          {onAdjustLocation && (
+            <button
+              onClick={() => onAdjustLocation(job)}
+              aria-label="Ajustar ubicación en mapa"
+              className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl cursor-pointer transition-colors ${
+                job.geo_source === 'manual'
+                  ? 'bg-emerald-50 border border-emerald-200 text-emerald-700 hover:bg-emerald-100'
+                  : 'bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100'
+              }`}
+            >
+              <MapPin className="w-3.5 h-3.5" /> Ubicación
+            </button>
+          )}
           <div className="ml-auto flex items-center gap-1">
             <button onClick={() => onEdit(job)} className="p-2 text-slate-400 hover:text-blue-500 cursor-pointer transition-colors rounded-xl hover:bg-blue-50">
               <Edit3 className="w-4 h-4" />
@@ -1432,7 +1458,7 @@ export default function ScreenPlanificacion({
   presupuestosPorId = {},
   onCreateJob, onUpdateJob, onDeleteJob, onAssignWorker, onRemoveWorker,
   onOpenParte, onCreatePresupuesto, onViewRoute, showToast, triggerNew,
-  prefillJobFromQuote, onPrefillConsumed,
+  prefillJobFromQuote, onPrefillConsumed, onJobGeoConfirmed,
 }: ScreenPlanificacionProps) {
   const jobs  = isLiveMode ? propJobs : DEMO_JOBS;
   const today = new Date().toISOString().split('T')[0];
@@ -1447,6 +1473,8 @@ export default function ScreenPlanificacion({
   const [selectedWorkerIds, setSelectedWorkerIds] = useState<Set<string>>(new Set());
   const [geoStatus, setGeoStatus]                 = useState<GeoStatus>('idle');
   const [selectedJobId, setSelectedJobId]         = useState<string | null>(null);
+  const [locationPickerJob, setLocationPickerJob] = useState<TradeJob | null>(null);
+  const [locationPickerSnapshot, setLocationPickerSnapshot] = useState<JobGeoAddressSnapshot | null>(null);
   const autoRescheduledRef                        = useRef(false);
 
   // Modal: visitas anteriores sin resolver
@@ -1588,6 +1616,35 @@ export default function ScreenPlanificacion({
     setSelectedWorkerIds(new Set(job.trade_job_workers?.map(jw => jw.worker_id) ?? []));
     setShowModal(true);
   };
+
+  function openLocationPicker(job: TradeJob) {
+    setLocationPickerSnapshot({ direccion: job.direccion ?? null, localidad: job.localidad ?? null, cp: job.cp ?? null });
+    setLocationPickerJob(job);
+  }
+
+  async function handleLocationConfirm(lat: number, lng: number): Promise<void> {
+    if (!locationPickerJob || !locationPickerSnapshot) {
+      throw new Error('Estado inconsistente — cierra y vuelve a intentarlo');
+    }
+    if (!isValidLatLng(lat, lng)) {
+      throw new Error('Coordenadas inválidas — selecciona un punto en el mapa');
+    }
+    if (!isLiveMode) {
+      setLocationPickerJob(null);
+      setLocationPickerSnapshot(null);
+      showToast('Activa el modo real para guardar la ubicación', 'info');
+      return;
+    }
+    const { applied, confirmedAt } = await updateJobGeoManual(locationPickerJob.id, lat, lng, locationPickerSnapshot);
+    if (!applied) {
+      throw new Error('La dirección cambió mientras el selector estaba abierto. Cierra y vuelve a abrir para usar la dirección actual.');
+    }
+    // Update local state only — DB write was already done by updateJobGeoManual.
+    onJobGeoConfirmed?.(locationPickerJob.id, lat, lng, confirmedAt!);
+    setLocationPickerJob(null);
+    setLocationPickerSnapshot(null);
+    showToast('Ubicación confirmada', 'success');
+  }
 
   const handleGeolocate = async () => {
     if (!draft.direccion && !draft.localidad && !draft.cp) return;
@@ -2097,6 +2154,7 @@ export default function ScreenPlanificacion({
                 onOpenParte={onOpenParte}
                 onCreatePresupuesto={onCreatePresupuesto}
                 onClose={() => setSelectedJobId(null)}
+                onAdjustLocation={openLocationPicker}
               />
             </div>
           ) : (
@@ -2131,6 +2189,20 @@ export default function ScreenPlanificacion({
           />
         );
       })()}
+
+      {/* LocationPicker — confirmación manual de coordenadas */}
+      {locationPickerJob && (
+        <LocationPicker
+          addressLabel={
+            [locationPickerJob.direccion, locationPickerJob.localidad, locationPickerJob.cp].filter(Boolean).join(', ')
+            || locationPickerJob.titulo
+          }
+          initialLat={locationPickerJob.latitud}
+          initialLng={locationPickerJob.longitud}
+          onConfirm={handleLocationConfirm}
+          onCancel={() => { setLocationPickerJob(null); setLocationPickerSnapshot(null); }}
+        />
+      )}
 
       {/* Modal crear/editar */}
       {showModal && (

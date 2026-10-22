@@ -114,6 +114,7 @@ interface AgendaTabProps {
   onCreatePresupuesto?: (job: TradeJob) => void;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   triggerNew?: number;
+  onJobGeoConfirmed?: (jobId: string, lat: number, lng: number, confirmedAt: string) => void;
 }
 
 function AgendaTab(props: AgendaTabProps) {
@@ -177,6 +178,7 @@ function AgendaTab(props: AgendaTabProps) {
             onViewRoute={() => setAgendaView('ruta')}
             showToast={props.showToast}
             triggerNew={props.triggerNew}
+            onJobGeoConfirmed={props.onJobGeoConfirmed}
           />
         )}
         {agendaView === 'ruta' && props.orgId && (
@@ -369,6 +371,7 @@ export interface OperationsHubProps {
   onCreatePresupuesto?: (job: TradeJob) => void;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   triggerNew?: number;
+  onJobGeoConfirmed?: (jobId: string, lat: number, lng: number, confirmedAt: string) => void;
 }
 
 const TAB_CFG: Array<{ id: HubSubTab; icon: React.ReactNode; label: string }> = [
@@ -585,6 +588,7 @@ export default function OperationsHub(props: OperationsHubProps) {
             onCreatePresupuesto={props.onCreatePresupuesto}
             showToast={props.showToast}
             triggerNew={internalTrigger}
+            onJobGeoConfirmed={props.onJobGeoConfirmed}
           />
         </div>
       )}
