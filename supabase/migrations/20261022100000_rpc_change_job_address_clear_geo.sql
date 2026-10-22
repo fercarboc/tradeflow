@@ -64,6 +64,8 @@ BEGIN
 END;
 $$;
 
--- Grant execute to authenticated users only; anon cannot call this RPC.
-GRANT EXECUTE ON FUNCTION public.change_job_address_clear_geo(uuid, text, text, text, text, text, text) TO authenticated;
+-- Restrict execution: remove PUBLIC default, deny anon, allow authenticated only.
+-- Pattern matches 20260527130753_security_revoke_dangerous_functions_from_public.sql.
+REVOKE EXECUTE ON FUNCTION public.change_job_address_clear_geo(uuid, text, text, text, text, text, text) FROM PUBLIC;
 REVOKE EXECUTE ON FUNCTION public.change_job_address_clear_geo(uuid, text, text, text, text, text, text) FROM anon;
+GRANT EXECUTE ON FUNCTION public.change_job_address_clear_geo(uuid, text, text, text, text, text, text) TO authenticated;
