@@ -555,7 +555,7 @@ export default function OperationsHub(props: OperationsHubProps) {
 
       {/* Tab content */}
       {activeSubTab === 'pendientes' && (
-        <div className="flex-1 overflow-y-auto min-h-0">
+        <div data-testid="hub-pendientes-scroll" className="flex-1 overflow-y-auto min-h-0" style={{ paddingBottom: 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)' }}>
           <PendientesTab
             pendingPlanningQuotes={props.pendingPlanningQuotes}
             onProgramar={handleProgramar}
@@ -594,7 +594,7 @@ export default function OperationsHub(props: OperationsHubProps) {
       )}
 
       {activeSubTab === 'partes' && (
-        <div className="flex-1 overflow-y-auto min-h-0">
+        <div data-testid="hub-partes-scroll" className="flex-1 overflow-y-auto min-h-0" style={{ paddingBottom: 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)' }}>
           <PartesTab
             jobs={props.jobs}
             onOpenParte={handleOpenParte}
@@ -603,7 +603,7 @@ export default function OperationsHub(props: OperationsHubProps) {
       )}
 
       {activeSubTab === 'externalizados' && (
-        <div className="flex-1 overflow-y-auto min-h-0">
+        <div className="flex-1 overflow-y-auto min-h-0" style={{ paddingBottom: 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)' }}>
           {props.orgId ? (
             <ScreenSubcontratas orgId={props.orgId} showToast={props.showToast} />
           ) : (
@@ -615,7 +615,7 @@ export default function OperationsHub(props: OperationsHubProps) {
       )}
 
       {activeSubTab === 'valoraciones' && (
-        <div className="flex-1 overflow-y-auto min-h-0">
+        <div className="flex-1 overflow-y-auto min-h-0" style={{ paddingBottom: 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)' }}>
           <ScreenValoraciones showToast={props.showToast} />
         </div>
       )}

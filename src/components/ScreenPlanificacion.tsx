@@ -2174,7 +2174,7 @@ export default function ScreenPlanificacion({
         </div>
 
         {/* Columna derecha — panel de detalle */}
-        <div className={`overflow-y-auto min-h-0 ${selectedJob ? 'block' : 'hidden lg:block'}`} style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 16px)' }}>
+        <div data-testid="planif-detail-scroll" className={`overflow-y-auto min-h-0 ${selectedJob ? 'block' : 'hidden lg:block'}`} style={{ paddingBottom: 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)' }}>
           {selectedJob ? (
             <div className="px-4 pt-3 pb-4">
               <JobDetailPanel
