@@ -74,6 +74,8 @@ import {
   Eye,
   Store,
   Bus,
+  LayoutDashboard,
+  CalendarDays,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL, MARKETPLACE_ENABLED } from '../lib/constants';
@@ -113,6 +115,8 @@ import ScreenMantenimiento from './ScreenMantenimiento';
 import ScreenTransporteVehiculos from './ScreenTransporteVehiculos';
 import ScreenTransporteConductores from './ScreenTransporteConductores';
 import ScreenTransporteServicios from './ScreenTransporteServicios';
+import ScreenTransportePanel from './ScreenTransportePanel';
+import ScreenTransporteAgenda from './ScreenTransporteAgenda';
 import ScreenFacturas from './ScreenFacturas';
 import ScreenContratos from './ScreenContratos';
 import ScreenAsistenteTecnico from './ScreenAsistenteTecnico';
@@ -6322,8 +6326,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('catalog.manage') && orgId && SidebarBtn({ id: 'suppliers', icon: <Truck className="w-4 h-4" />, label: 'Proveedores' })}
             {orgData?.transport_enabled && can('team.manage') && (
               <>
+                {SidebarBtn({ id: 'transporte_panel',      icon: <LayoutDashboard className="w-4 h-4" />, label: 'Panel' })}
                 {SidebarBtn({ id: 'transporte_servicios',  icon: <Calendar className="w-4 h-4" />, label: 'Servicios' })}
-                {SidebarBtn({ id: 'transporte_vehiculos',  icon: <Bus  className="w-4 h-4" />, label: 'Flota de Vehículos' })}
+                {SidebarBtn({ id: 'transporte_agenda',     icon: <CalendarDays className="w-4 h-4" />, label: 'Agenda' })}
+                {SidebarBtn({ id: 'transporte_vehiculos',  icon: <Bus  className="w-4 h-4" />, label: 'Flota' })}
                 {SidebarBtn({ id: 'transporte_conductores', icon: <UserPlus className="w-4 h-4" />, label: 'Conductores' })}
               </>
             )}
@@ -6414,7 +6420,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'equipo' && 'Equipo y Trabajadores'}
                 {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
                 {activeTab === 'suppliers' && 'Proveedores y Catálogos'}
+                {activeTab === 'transporte_panel'      && 'Transporte · Panel'}
                 {activeTab === 'transporte_servicios' && 'Transporte · Servicios'}
+                {activeTab === 'transporte_agenda'    && 'Transporte · Agenda Semanal'}
                 {activeTab === 'transporte_vehiculos' && 'Transporte · Flota de Vehículos'}
                 {activeTab === 'transporte_conductores' && 'Transporte · Conductores'}
                 {activeTab === 'asistente' && 'Asistente Técnico de Normativa'}
@@ -6710,9 +6718,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     )}
                   </div>
                 )}
+                {activeTab === 'transporte_panel' && orgId && (
+                  <div className="flex-1 overflow-y-auto min-h-0">
+                    <ScreenTransportePanel orgId={orgId} showToast={showToast} onNavigate={setActiveTab} />
+                  </div>
+                )}
                 {activeTab === 'transporte_servicios' && orgId && (
                   <div className="flex-1 overflow-y-auto min-h-0">
                     <ScreenTransporteServicios orgId={orgId} showToast={showToast} />
+                  </div>
+                )}
+                {activeTab === 'transporte_agenda' && orgId && (
+                  <div className="flex-1 overflow-y-auto min-h-0">
+                    <ScreenTransporteAgenda orgId={orgId} showToast={showToast} />
                   </div>
                 )}
                 {activeTab === 'transporte_vehiculos' && orgId && (

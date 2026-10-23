@@ -275,6 +275,49 @@ export async function loadServicesForDay(
 }
 
 /**
+ * Carga todos los servicios que se solapan con el día indicado.
+ * Incluye servicios que empezaron antes y terminan ese día (viajes nocturnos).
+ * Condición: fecha_inicio <= fin_del_día AND (fecha_fin >= inicio_del_día OR fecha_fin IS NULL)
+ */
+export async function loadServicesOverlappingDay(
+  orgId: string,
+  date: string,   // "YYYY-MM-DD"
+): Promise<TradeTransportService[]> {
+  const dayStart = `${date}T00:00:00`;
+  const dayEnd   = `${date}T23:59:59`;
+  const { data, error } = await supabase
+    .from('trade_transport_services')
+    .select('*')
+    .eq('org_id', orgId)
+    .lte('fecha_inicio', dayEnd)
+    .or(`fecha_fin.gte.${dayStart},fecha_fin.is.null`)
+    .order('fecha_inicio', { ascending: true });
+  if (error) throw error;
+  return (data ?? []) as TradeTransportService[];
+}
+
+/**
+ * Carga todos los servicios que se solapan con el rango indicado.
+ * Incluye servicios nocturnos que cruzan los límites del rango.
+ * Condición: fecha_inicio <= hasta AND (fecha_fin >= desde OR fecha_fin IS NULL)
+ */
+export async function loadServicesOverlappingRange(
+  orgId: string,
+  desde: string,   // ISO datetime, inicio del rango
+  hasta: string,   // ISO datetime, fin del rango
+): Promise<TradeTransportService[]> {
+  const { data, error } = await supabase
+    .from('trade_transport_services')
+    .select('*')
+    .eq('org_id', orgId)
+    .lte('fecha_inicio', hasta)
+    .or(`fecha_fin.gte.${desde},fecha_fin.is.null`)
+    .order('fecha_inicio', { ascending: true });
+  if (error) throw error;
+  return (data ?? []) as TradeTransportService[];
+}
+
+/**
  * Comprueba disponibilidad de vehículo y conductor para un intervalo dado.
  * Retorna la lista de servicios confirmados/en_curso que solapan.
  * Esta comprobación es informativa (capa de aplicación); la protección
