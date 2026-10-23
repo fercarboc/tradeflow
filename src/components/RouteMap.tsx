@@ -32,6 +32,15 @@ function createStartIcon(): L.DivIcon {
   return L.divIcon({ html, className: '', iconSize: [28, 28], iconAnchor: [14, 14] });
 }
 
+// ── Child: calls invalidateSize after mount so Leaflet knows container dimensions ─
+function MapSizeInvalidator() {
+  const map = useMap();
+  useEffect(() => {
+    map.invalidateSize();
+  }, [map]);
+  return null;
+}
+
 // ── Child: fits map bounds whenever the point set changes ─────────────────────
 function MapBoundsFitter({ points }: { points: [number, number][] }) {
   const map = useMap();
@@ -124,6 +133,7 @@ export default function RouteMap({ routeJobs, startLocation, className = '' }: R
       >
         <TileLayer url={CARTO_URL} attribution={CARTO_ATTR} />
         <MapBoundsFitter points={allPoints} />
+        <MapSizeInvalidator />
 
         {startGeo && (
           <Marker position={[startGeo.lat, startGeo.lng]} icon={createStartIcon()}>

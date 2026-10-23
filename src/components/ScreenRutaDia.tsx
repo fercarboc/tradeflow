@@ -347,12 +347,82 @@ export default function ScreenRutaDia({
         )}
       </div>
 
-      {/* ── Cuerpo: 2 columnas (itinerario + mapa) ───────────────────────── */}
-      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2">
+      {/* ── Stats bar — sólo móvil (header → stats → mapa → itinerario) ─── */}
+      {routeJobs.length > 0 && (
+        <div className="lg:hidden shrink-0 flex items-center gap-3 bg-white border-b border-slate-100 px-4 py-2.5">
+          <div className="text-center">
+            <p className="text-base font-black text-slate-800">{routeJobs.length}</p>
+            <p className="text-[9px] text-slate-400 uppercase tracking-widest">Paradas</p>
+          </div>
+          <div className="h-6 w-px bg-slate-200" />
+          <div className="text-center">
+            <p className="text-base font-black text-slate-800">{totalHours}h</p>
+            <p className="text-[9px] text-slate-400 uppercase tracking-widest">Total</p>
+          </div>
+          <div className="h-6 w-px bg-slate-200" />
+          <div className="text-center">
+            <p className="text-base font-black text-slate-800">
+              {routeJobs.filter(j => j.prioridad === 'urgente').length}
+            </p>
+            <p className="text-[9px] text-slate-400 uppercase tracking-widest">Urgentes</p>
+          </div>
+          <button
+            onClick={handleOpenMaps}
+            className="ml-auto flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-3 py-1.5 rounded-xl transition-colors cursor-pointer"
+          >
+            <Navigation className="w-3.5 h-3.5" />
+            Abrir ruta
+          </button>
+        </div>
+      )}
 
-        {/* Columna izquierda — itinerario (order-2 en móvil: aparece debajo del mapa) */}
+      {/* ── Cuerpo: flex-col en móvil (mapa arriba, itinerario scroll), grid en desktop ── */}
+      <div className="flex-1 min-h-0 flex flex-col lg:grid lg:grid-cols-2">
+
+        {/* Columna derecha en desktop / sección SUPERIOR en móvil — mapa (DOM primero → top en flex-col) */}
+        <div className="shrink-0 lg:flex lg:flex-col lg:min-h-0 lg:overflow-hidden lg:order-2">
+          <div className="h-[300px] lg:flex-1 p-3">
+            <RouteMap
+              routeJobs={routeJobs}
+              startLocation={startLocation}
+              className="h-full"
+            />
+          </div>
+          {/* Stats bar — sólo desktop (en móvil ya aparece en la barra superior) */}
+          {routeJobs.length > 0 && (
+            <div className="hidden lg:flex shrink-0 bg-white border-t border-slate-200 px-4 py-3 items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="text-center">
+                  <p className="text-lg font-black text-slate-800">{routeJobs.length}</p>
+                  <p className="text-[9px] text-slate-400 uppercase tracking-widest">Paradas</p>
+                </div>
+                <div className="h-8 w-px bg-slate-200" />
+                <div className="text-center">
+                  <p className="text-lg font-black text-slate-800">{totalHours}h</p>
+                  <p className="text-[9px] text-slate-400 uppercase tracking-widest">Total</p>
+                </div>
+                <div className="h-8 w-px bg-slate-200" />
+                <div className="text-center">
+                  <p className="text-lg font-black text-slate-800">
+                    {routeJobs.filter(j => j.prioridad === 'urgente').length}
+                  </p>
+                  <p className="text-[9px] text-slate-400 uppercase tracking-widest">Urgentes</p>
+                </div>
+              </div>
+              <button
+                onClick={handleOpenMaps}
+                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors cursor-pointer"
+              >
+                <Navigation className="w-3.5 h-3.5" />
+                Abrir ruta completa
+              </button>
+            </div>
+          )}
+        </div>{/* fin columna mapa */}
+
+        {/* Columna izquierda en desktop / sección INFERIOR en móvil — itinerario */}
         <div
-          className="order-2 lg:order-1 overflow-y-auto overscroll-contain lg:border-r lg:border-slate-100 px-4 py-4 space-y-0"
+          className="flex-1 min-h-0 overflow-y-auto overscroll-contain lg:order-1 lg:border-r lg:border-slate-100 px-4 py-4 space-y-0"
           style={{ paddingBottom: 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)' }}
         >
 
@@ -574,49 +644,7 @@ export default function ScreenRutaDia({
         )}
         </div>{/* fin columna izquierda */}
 
-        {/* Columna derecha — mapa (order-1 en móvil: aparece arriba) + resumen */}
-        <div className="order-1 lg:order-2 flex flex-col min-h-0 lg:overflow-hidden">
-          <div className="h-56 lg:flex-1 lg:min-h-0 p-3">
-            <RouteMap
-              routeJobs={routeJobs}
-              startLocation={startLocation}
-              className="h-full"
-            />
-          </div>
-          {routeJobs.length > 0 && (
-            <div className="shrink-0 bg-white border-t border-slate-200 px-4 py-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="text-center">
-                    <p className="text-lg font-black text-slate-800">{routeJobs.length}</p>
-                    <p className="text-[9px] text-slate-400 uppercase tracking-widest">Paradas</p>
-                  </div>
-                  <div className="h-8 w-px bg-slate-200" />
-                  <div className="text-center">
-                    <p className="text-lg font-black text-slate-800">{totalHours}h</p>
-                    <p className="text-[9px] text-slate-400 uppercase tracking-widest">Total</p>
-                  </div>
-                  <div className="h-8 w-px bg-slate-200" />
-                  <div className="text-center">
-                    <p className="text-lg font-black text-slate-800">
-                      {routeJobs.filter(j => j.prioridad === 'urgente').length}
-                    </p>
-                    <p className="text-[9px] text-slate-400 uppercase tracking-widest">Urgentes</p>
-                  </div>
-                </div>
-                <button
-                  onClick={handleOpenMaps}
-                  className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors cursor-pointer"
-                >
-                  <Navigation className="w-3.5 h-3.5" />
-                  Abrir ruta completa
-                </button>
-              </div>
-            </div>
-          )}
-        </div>{/* fin columna derecha */}
-
-      </div>{/* fin grid */}
+      </div>{/* fin cuerpo */}
     </div>
   );
 }

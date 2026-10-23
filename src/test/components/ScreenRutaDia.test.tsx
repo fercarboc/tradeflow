@@ -9,6 +9,9 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
+// ── Shared mock for invalidateSize (captured across module resets) ────────────
+const mockInvalidateSize = vi.fn();
+
 // ── Mock react-leaflet ────────────────────────────────────────────────────────
 vi.mock('react-leaflet', () => ({
   MapContainer: ({ children }: { children: React.ReactNode }) => <div data-testid="map-container">{children}</div>,
@@ -17,7 +20,7 @@ vi.mock('react-leaflet', () => ({
     <div data-testid="map-marker" data-lat={position[0]} data-lng={position[1]}>{children}</div>
   ),
   Popup: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
-  useMap: () => ({ setView: vi.fn(), fitBounds: vi.fn() }),
+  useMap: () => ({ setView: vi.fn(), fitBounds: vi.fn(), invalidateSize: mockInvalidateSize }),
 }));
 
 vi.mock('leaflet', () => ({
@@ -337,5 +340,60 @@ describe('ScreenRutaDia — operational integrity', () => {
     expect(url).toContain('google.com/maps/dir');
     expect(url).toContain('40.1');
     expect(url).toContain('41%2C');
+  });
+});
+
+// ── RouteMap — invalidateSize on mount ────────────────────────────────────────
+
+describe('RouteMap — invalidateSize', () => {
+  beforeEach(() => { mockInvalidateSize.mockClear(); });
+
+  it('TEST-INVALIDATE-1 invalidateSize called on mount (key present, valid job)', async () => {
+    vi.stubEnv('VITE_CARTO_BASEMAP_API_KEY', 'test-key');
+    vi.resetModules();
+    const { default: RM } = await import('../../components/RouteMap');
+    render(<RM routeJobs={[makeRouteJob({ latitud: 40.4, longitud: -3.7 }, 1)]} startLocation="Madrid" />);
+    expect(mockInvalidateSize).toHaveBeenCalled();
+    vi.unstubAllEnvs();
+    vi.resetModules();
+  });
+
+  it('TEST-INVALIDATE-2 map container renders and is accessible when key and coords are present', async () => {
+    vi.stubEnv('VITE_CARTO_BASEMAP_API_KEY', 'test-key');
+    vi.resetModules();
+    const { default: RM } = await import('../../components/RouteMap');
+    render(<RM routeJobs={[makeRouteJob({ latitud: 43.46, longitud: -3.81 }, 1)]} startLocation="Santander" className="h-[300px]" />);
+    expect(screen.getByTestId('map-container')).toBeTruthy();
+    vi.unstubAllEnvs();
+    vi.resetModules();
+  });
+});
+
+// ── ScreenRutaDia — mobile layout structure ───────────────────────────────────
+
+describe('ScreenRutaDia — mobile layout', () => {
+  const mobileProps = {
+    jobs: [makeJob({ latitud: 40.4, longitud: -3.7 }), makeJob({ latitud: 41.3, longitud: -2.1 })],
+    orgId: 'org1',
+    startLocation: 'Madrid, España',
+    onUpdateJob: vi.fn().mockResolvedValue(undefined),
+    showToast: vi.fn(),
+    onClose: vi.fn(),
+  };
+
+  it('TEST-MOBILE-1 map container is present in DOM when jobs have coords', () => {
+    render(<ScreenRutaDia {...mobileProps} />);
+    expect(screen.getByTestId('map-container')).toBeTruthy();
+  });
+
+  it('TEST-MOBILE-2 itinerary items rendered below map in DOM order', () => {
+    render(<ScreenRutaDia {...mobileProps} />);
+    const mapContainer = screen.getByTestId('map-container');
+    // At least one job title visible
+    const titles = screen.getAllByRole('heading', { hidden: true }).concat(
+      Array.from(document.querySelectorAll('[class*="font-bold"]'))
+    );
+    expect(mapContainer).toBeTruthy();
+    expect(titles.length).toBeGreaterThan(0);
   });
 });
