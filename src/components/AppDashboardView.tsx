@@ -3978,6 +3978,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   : j,
                 ));
               }}
+              onJobGeoAuto={(jobId, lat, lng, normAddress) => {
+                setJobs(prev => prev.map(j => j.id === jobId
+                  ? { ...j, latitud: lat, longitud: lng, geo_source: 'auto' as const, geo_confirmed_at: null, direccion_normalizada: normAddress }
+                  : j,
+                ));
+              }}
               onDeleteJob={async (id) => {
                 await deleteJob(id);
                 setJobs(prev => prev.filter(j => j.id !== id));
@@ -6550,6 +6556,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     onJobGeoConfirmed={(jobId, lat, lng, confirmedAt) => {
                       setJobs(prev => prev.map(j => j.id === jobId
                         ? { ...j, latitud: lat, longitud: lng, geo_source: 'manual' as const, geo_confirmed_at: confirmedAt }
+                        : j,
+                      ));
+                    }}
+                    onJobGeoAuto={(jobId, lat, lng, normAddress) => {
+                      setJobs(prev => prev.map(j => j.id === jobId
+                        ? { ...j, latitud: lat, longitud: lng, geo_source: 'auto' as const, geo_confirmed_at: null, direccion_normalizada: normAddress }
                         : j,
                       ));
                     }}

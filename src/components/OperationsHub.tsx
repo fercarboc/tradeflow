@@ -115,6 +115,7 @@ interface AgendaTabProps {
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   triggerNew?: number;
   onJobGeoConfirmed?: (jobId: string, lat: number, lng: number, confirmedAt: string) => void;
+  onJobGeoAuto?: (jobId: string, lat: number, lng: number, normAddress: string) => void;
 }
 
 function AgendaTab(props: AgendaTabProps) {
@@ -179,6 +180,7 @@ function AgendaTab(props: AgendaTabProps) {
             showToast={props.showToast}
             triggerNew={props.triggerNew}
             onJobGeoConfirmed={props.onJobGeoConfirmed}
+            onJobGeoAuto={props.onJobGeoAuto}
           />
         )}
         {agendaView === 'ruta' && props.orgId && (
@@ -372,6 +374,7 @@ export interface OperationsHubProps {
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   triggerNew?: number;
   onJobGeoConfirmed?: (jobId: string, lat: number, lng: number, confirmedAt: string) => void;
+  onJobGeoAuto?: (jobId: string, lat: number, lng: number, normAddress: string) => void;
 }
 
 const TAB_CFG: Array<{ id: HubSubTab; icon: React.ReactNode; label: string }> = [
@@ -589,6 +592,7 @@ export default function OperationsHub(props: OperationsHubProps) {
             showToast={props.showToast}
             triggerNew={internalTrigger}
             onJobGeoConfirmed={props.onJobGeoConfirmed}
+            onJobGeoAuto={props.onJobGeoAuto}
           />
         </div>
       )}

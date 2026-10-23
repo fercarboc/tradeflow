@@ -15,6 +15,14 @@ export interface GeocodeResult {
   latitud: number;
   longitud: number;
   formatted_address: string;
+  // Validation metadata forwarded from the edge function (GEO-AUTO-1)
+  provider?: 'google' | 'nominatim';
+  location_type?: string;
+  country_code?: string;
+  locality?: string;
+  postal_code?: string;
+  route?: string;
+  house_number?: string;
 }
 
 export interface GeocodeAddressParams {
@@ -42,6 +50,13 @@ export async function geocodeAddress(
     latitud: number | null;
     longitud: number | null;
     formatted_address: string | null;
+    provider?: string;
+    location_type?: string;
+    country_code?: string;
+    locality?: string;
+    postal_code?: string;
+    route?: string;
+    house_number?: string;
   }>('trade-geocode-address', {
     body: {
       direccion: params.direccion ?? undefined,
@@ -58,7 +73,78 @@ export async function geocodeAddress(
     latitud: data.latitud,
     longitud: data.longitud!,
     formatted_address: data.formatted_address ?? '',
+    provider: data.provider as 'google' | 'nominatim' | undefined,
+    location_type: data.location_type,
+    country_code: data.country_code,
+    locality: data.locality,
+    postal_code: data.postal_code,
+    route: data.route,
+    house_number: data.house_number,
   };
+}
+
+// ── Validación territorial ─────────────────────────────────────────────────────
+
+/**
+ * Returns true if params contain at least one locatable field.
+ * Mirrors the threshold the edge function applies server-side (pais is always included).
+ */
+export function hasSufficientAddress(params: GeocodeAddressParams): boolean {
+  return !!(params.direccion?.trim() || params.localidad?.trim() || params.cp?.trim());
+}
+
+/**
+ * Validates a geocoding result against the expected address fields.
+ *
+ * GEO-AUTO-1 conservatism: requires POSITIVE EVIDENCE, not just absence of contradiction.
+ * If the edge function returns no metadata (old deployment), the result is rejected.
+ *
+ * Rules:
+ *  1. country_code MUST be present and equal 'ES' — required positive evidence.
+ *  2. At least one of (result.locality, result.postal_code) MUST be present.
+ *  3. If params.localidad is non-empty: result.locality MUST be present and substring-match.
+ *  4. If both params.cp and result.postal_code are non-empty: they MUST be equal.
+ *  5. If params.direccion is non-empty AND result.location_type is 'GEOMETRIC_CENTER' or
+ *     'APPROXIMATE' (Google), reject — the provider resolved to a city/area center rather
+ *     than the specific address. Nominatim (no location_type) defers precision to GEO-AUTO-2.
+ *
+ * Compatible with old edge function (no metadata) → all results rejected until edge function
+ * is updated. This is the safer behavior for a staggered deployment.
+ */
+export function validateGeoResult(
+  result: GeocodeResult,
+  params: Pick<GeocodeAddressParams, 'localidad' | 'cp' | 'direccion'>,
+): boolean {
+  // Rule 1: country must be Spain — fail if absent or wrong
+  if (!result.country_code) return false;
+  if (result.country_code.toUpperCase() !== 'ES') return false;
+
+  // Rule 2: at least one territorial field must be present
+  if (!result.locality?.trim() && !result.postal_code?.trim()) return false;
+
+  // Rule 3: localidad must be verifiable when provided
+  if (params.localidad?.trim()) {
+    if (!result.locality?.trim()) return false; // can't validate localidad without returned locality
+    const norm = (s: string) =>
+      s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const expected = norm(params.localidad);
+    const got = norm(result.locality);
+    if (!got.includes(expected) && !expected.includes(got)) return false;
+  }
+
+  // Rule 4: postal_code must match when both are present
+  if (params.cp?.trim() && result.postal_code?.trim()) {
+    if (result.postal_code.trim() !== params.cp.trim()) return false;
+  }
+
+  // Rule 5: when a street address was requested, reject locality-level Google results.
+  // GEOMETRIC_CENTER / APPROXIMATE indicate the provider resolved to a city/area center,
+  // not the specific address. Precision check for Nominatim is deferred to GEO-AUTO-2.
+  if (params.direccion?.trim() && result.location_type) {
+    if (result.location_type === 'GEOMETRIC_CENTER' || result.location_type === 'APPROXIMATE') return false;
+  }
+
+  return true;
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────

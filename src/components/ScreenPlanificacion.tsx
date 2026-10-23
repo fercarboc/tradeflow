@@ -8,7 +8,7 @@ import {
 import type { TradeJob } from '../lib/supabase';
 import { updateJobGeoManual, updateJobGeoAuto, changeJobAddressClearGeo, type JobGeoAddressSnapshot } from '../lib/supabase';
 import { loadWorkCalendar, getNextWorkingDay } from '../lib/workCalendar';
-import { geocodeAddress, addressChanged, type GeoStatus } from '../lib/geocoder';
+import { geocodeAddress, addressChanged, hasSufficientAddress, validateGeoResult, type GeoStatus } from '../lib/geocoder';
 import LocationPicker from './LocationPicker';
 import { isValidLatLng } from './RouteMap';
 
@@ -45,6 +45,8 @@ export interface ScreenPlanificacionProps {
   onUpdateJob: (id: string, updates: Partial<TradeJob>) => Promise<void>;
   /** Called after a successful manual geo confirmation — updates local state only, no DB write. */
   onJobGeoConfirmed?: (jobId: string, lat: number, lng: number, confirmedAt: string) => void;
+  /** Called after a successful auto geocoding write — updates local state only, no DB write. */
+  onJobGeoAuto?: (jobId: string, lat: number, lng: number, normAddress: string) => void;
   onDeleteJob: (id: string) => Promise<void>;
   onAssignWorker: (jobId: string, workerId: string, rol: string) => Promise<void>;
   onRemoveWorker: (jobId: string, workerId: string) => Promise<void>;
@@ -1458,7 +1460,7 @@ export default function ScreenPlanificacion({
   presupuestosPorId = {},
   onCreateJob, onUpdateJob, onDeleteJob, onAssignWorker, onRemoveWorker,
   onOpenParte, onCreatePresupuesto, onViewRoute, showToast, triggerNew,
-  prefillJobFromQuote, onPrefillConsumed, onJobGeoConfirmed,
+  prefillJobFromQuote, onPrefillConsumed, onJobGeoConfirmed, onJobGeoAuto,
 }: ScreenPlanificacionProps) {
   const jobs  = isLiveMode ? propJobs : DEMO_JOBS;
   const today = new Date().toISOString().split('T')[0];
@@ -1666,9 +1668,11 @@ export default function ScreenPlanificacion({
     if (!draft.titulo?.trim()) { showToast('El título es obligatorio', 'error'); return; }
     setSaving(true);
     try {
-      // Geocodificar si la dirección cambió o el trabajo aún no tiene coordenadas
+      // Geocodificar si la dirección cambió o el trabajo aún no tiene coordenadas.
+      // Solo para EDICIÓN: para creación la geocodificación se dispara en background post-save.
       const needsGeocode =
-        (draft.direccion || draft.localidad || draft.cp) &&
+        !!editingJob &&
+        !!(draft.direccion || draft.localidad || draft.cp) &&
         (draft.latitud == null || addressChanged(draft, editingJob));
 
       let geoExtras: Partial<TradeJob> = {};
@@ -1743,9 +1747,29 @@ export default function ScreenPlanificacion({
         ]);
         showToast('Trabajo actualizado ✓', 'success');
       } else {
-        const saved = await onCreateJob(finalDraft as Omit<TradeJob, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_clients' | 'trade_job_workers'>);
+        // Strip geo fields from creation payload — geocoding happens post-save in background.
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { latitud: _l, longitud: _lg, direccion_normalizada: _dn, geo_source: _gs, geo_confirmed_at: _gca, ...draftWithoutGeo } = finalDraft;
+        const saved = await onCreateJob(draftWithoutGeo as Omit<TradeJob, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_clients' | 'trade_job_workers'>);
         await Promise.all([...selectedWorkerIds].map(id => onAssignWorker(saved.id, id, 'asignado')));
         showToast('Trabajo creado ✓', 'success');
+
+        // Background geocoding — does not block modal close.
+        // Uses updateJobGeoAuto snapshot guard: stale responses and manual confirmations are rejected.
+        if (isLiveMode && hasSufficientAddress({ direccion: saved.direccion, localidad: saved.localidad, cp: saved.cp })) {
+          const addrSnapshot: JobGeoAddressSnapshot = { direccion: saved.direccion ?? null, localidad: saved.localidad ?? null, cp: saved.cp ?? null };
+          void (async () => {
+            try {
+              const geo = await geocodeAddress({ direccion: saved.direccion, localidad: saved.localidad, cp: saved.cp });
+              if (!geo || !validateGeoResult(geo, { direccion: saved.direccion, localidad: saved.localidad, cp: saved.cp })) return;
+              const { applied } = await updateJobGeoAuto(saved.id, geo.latitud, geo.longitud, geo.formatted_address, addrSnapshot);
+              // Local state update only — DB was already written by updateJobGeoAuto.
+              if (applied) onJobGeoAuto?.(saved.id, geo.latitud, geo.longitud, geo.formatted_address);
+            } catch (err) {
+              console.error('[GEO-AUTO] Background geocoding failed for new job:', err);
+            }
+          })();
+        }
       }
       setShowModal(false);
     } catch (e: unknown) {

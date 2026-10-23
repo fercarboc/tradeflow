@@ -27,6 +27,13 @@ interface GeocodeResult {
   formatted_address: string;
   status: 'ok' | 'not_found';
   provider: 'google' | 'nominatim';
+  // Validation metadata — GEO-AUTO-1
+  location_type?: string;   // Google: ROOFTOP | RANGE_INTERPOLATED | GEOMETRIC_CENTER | APPROXIMATE
+  country_code?: string;    // ISO 3166-1 alpha-2 lowercase ('es', 'fr', …)
+  locality?: string;        // city / town / village
+  postal_code?: string;
+  route?: string;           // street name
+  house_number?: string;
 }
 
 // ── Google Geocoding API ───────────────────────────────────────────────────────
@@ -43,19 +50,29 @@ async function geocodeGoogle(query: string): Promise<GeocodeResult | null> {
     status: string;
     results: Array<{
       formatted_address: string;
-      geometry: { location: { lat: number; lng: number } };
+      geometry: { location: { lat: number; lng: number }; location_type: string };
+      address_components: Array<{ long_name: string; short_name: string; types: string[] }>;
     }>;
   };
 
   if (data.status !== 'OK' || !data.results.length) return null;
 
   const r = data.results[0];
+  const getComp = (type: string) => r.address_components.find(c => c.types.includes(type))?.long_name;
+  const getShort = (type: string) => r.address_components.find(c => c.types.includes(type))?.short_name;
+
   return {
     latitud: r.geometry.location.lat,
     longitud: r.geometry.location.lng,
     formatted_address: r.formatted_address,
     status: 'ok',
     provider: 'google',
+    location_type: r.geometry.location_type,
+    country_code: getShort('country')?.toLowerCase(),
+    locality: getComp('locality') ?? getComp('administrative_area_level_3'),
+    postal_code: getComp('postal_code'),
+    route: getComp('route'),
+    house_number: getComp('street_number'),
   };
 }
 
@@ -65,7 +82,7 @@ async function geocodeGoogle(query: string): Promise<GeocodeResult | null> {
 async function geocodeNominatim(query: string): Promise<GeocodeResult | null> {
   const url =
     `https://nominatim.openstreetmap.org/search` +
-    `?format=json&q=${encodeURIComponent(query)}&limit=1&countrycodes=es&addressdetails=0`;
+    `?format=json&q=${encodeURIComponent(query)}&limit=1&countrycodes=es&addressdetails=1`;
 
   const res = await fetch(url, {
     headers: {
@@ -80,16 +97,31 @@ async function geocodeNominatim(query: string): Promise<GeocodeResult | null> {
     lat: string;
     lon: string;
     display_name: string;
+    address: {
+      house_number?: string;
+      road?: string;
+      city?: string;
+      town?: string;
+      village?: string;
+      postcode?: string;
+      country_code?: string;
+    };
   }>;
 
   if (!data.length) return null;
 
+  const item = data[0];
   return {
-    latitud: parseFloat(data[0].lat),
-    longitud: parseFloat(data[0].lon),
-    formatted_address: data[0].display_name,
+    latitud: parseFloat(item.lat),
+    longitud: parseFloat(item.lon),
+    formatted_address: item.display_name,
     status: 'ok',
     provider: 'nominatim',
+    country_code: item.address.country_code,
+    locality: item.address.city ?? item.address.town ?? item.address.village,
+    postal_code: item.address.postcode,
+    route: item.address.road,
+    house_number: item.address.house_number,
   };
 }
 
