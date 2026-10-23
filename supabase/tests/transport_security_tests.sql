@@ -179,9 +179,12 @@ EXCEPTION WHEN raise_exception THEN
 END $$;
 
 -- ─────────────────────────────────────────────────────────────────────
--- 8. Procedimiento administrativo (service_role) puede activar transport_enabled
+-- 8. Procedimiento administrativo (service_role o postgres) puede activar transport_enabled
 -- ─────────────────────────────────────────────────────────────────────
--- auth.uid() IS NULL cuando la operación viene del service_role (Studio / script admin)
+-- La doble condición del trigger: auth.uid() IS NOT NULL OR current_user = 'anon'
+-- Solo pasa cuando auth.uid() IS NULL Y current_user != 'anon'
+-- → service_role: auth.uid() IS NULL, current_user = 'service_role' → PASS
+-- → postgres: auth.uid() IS NULL, current_user = 'postgres' → PASS
 
 RESET role;  -- volver a service_role (sin JWT)
 RESET "request.jwt.claims";

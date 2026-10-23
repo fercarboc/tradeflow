@@ -44,16 +44,23 @@ ALTER TABLE public.trade_organizations
   ADD COLUMN IF NOT EXISTS transport_enabled boolean NOT NULL DEFAULT false;
 
 -- ── Protección de transport_enabled ──────────────────────────────────
--- Bloquea cualquier cambio a transport_enabled realizado por un usuario
--- autenticado (owner, admin, etc.). Solo el service_role (auth.uid() IS NULL)
--- puede modificarlo, lo que equivale al panel de administración de Supabase
--- o a un script autorizado del equipo de TrabFlow.
+-- Bloquea cualquier cambio a transport_enabled por usuarios autenticados
+-- o por el rol anon. Solo service_role (Studio) o postgres (acceso directo)
+-- pueden modificarlo.
+--
+-- Por qué doble condición:
+--   - auth.uid() IS NOT NULL → usuario autenticado (JWT presente).
+--     Funciona TAMBIÉN dentro de funciones SECURITY DEFINER llamadas por
+--     usuarios autenticados: los JWT claims son settings de sesión y siguen
+--     accesibles desde cualquier contexto de ejecución.
+--   - current_user = 'anon' → petición sin autenticar. auth.uid() IS NULL
+--     igual que service_role, así que distinguir por rol es necesario.
 --
 -- Procedimiento autorizado para habilitar transporte en una org:
 --   UPDATE public.trade_organizations
 --   SET transport_enabled = true
 --   WHERE id = '<org_id>';
--- Ejecutar desde Supabase Studio (service_role) o script de admin con service key.
+-- Ejecutar desde Supabase Studio (service_role) o psql directo (postgres).
 
 CREATE OR REPLACE FUNCTION public._protect_transport_enabled()
 RETURNS trigger
@@ -63,8 +70,8 @@ SET search_path TO 'public'
 AS $$
 BEGIN
   IF NEW.transport_enabled IS DISTINCT FROM OLD.transport_enabled THEN
-    -- auth.uid() IS NOT NULL → solicitud de usuario autenticado → bloquear
-    IF auth.uid() IS NOT NULL THEN
+    -- (a) JWT presente → usuario autenticado; (b) rol anon → sin autenticar
+    IF auth.uid() IS NOT NULL OR current_user = 'anon' THEN
       RAISE EXCEPTION 'TRANSPORT_ENABLED_PROTECTED: solo el equipo de TrabFlow puede habilitar o deshabilitar el módulo de transporte';
     END IF;
   END IF;
