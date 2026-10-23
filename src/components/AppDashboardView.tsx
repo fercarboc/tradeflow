@@ -117,6 +117,7 @@ import ScreenTransporteConductores from './ScreenTransporteConductores';
 import ScreenTransporteServicios from './ScreenTransporteServicios';
 import ScreenTransportePanel from './ScreenTransportePanel';
 import ScreenTransporteAgenda from './ScreenTransporteAgenda';
+import ScreenTransporteParteTrabajo from './ScreenTransporteParteTrabajo';
 import ScreenFacturas from './ScreenFacturas';
 import ScreenContratos from './ScreenContratos';
 import ScreenAsistenteTecnico from './ScreenAsistenteTecnico';
@@ -795,6 +796,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [mobileSuppliersSubTab, setMobileSuppliersSubTab] = useState<'proveedores' | 'catalogo'>('proveedores');
   // Mobile transport sub-tab
   const [transporteMobileSubTab, setTransporteMobileSubTab] = useState<'vehiculos' | 'conductores'>('vehiculos');
+  // Transport parte virtual tab
+  const [transporteParteId, setTransporteParteId] = useState<string | null>(null);
   const [newJobTrigger, setNewJobTrigger] = useState(0);
   const [prefillJobFromQuote, setPrefillJobFromQuote] = useState<import('../types').Presupuesto | null>(null);
 
@@ -6425,6 +6428,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'transporte_agenda'    && 'Transporte · Agenda Semanal'}
                 {activeTab === 'transporte_vehiculos' && 'Transporte · Flota de Vehículos'}
                 {activeTab === 'transporte_conductores' && 'Transporte · Conductores'}
+                {activeTab === 'transporte_parte'     && 'Transporte · Parte de Servicio'}
                 {activeTab === 'asistente' && 'Asistente Técnico de Normativa'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
@@ -6725,12 +6729,34 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 )}
                 {activeTab === 'transporte_servicios' && orgId && (
                   <div className="flex-1 overflow-y-auto min-h-0">
-                    <ScreenTransporteServicios orgId={orgId} showToast={showToast} />
+                    <ScreenTransporteServicios
+                      orgId={orgId}
+                      showToast={showToast}
+                      onOpenParte={(id) => { setTransporteParteId(id); setActiveTab('transporte_parte'); }}
+                    />
                   </div>
                 )}
                 {activeTab === 'transporte_agenda' && orgId && (
                   <div className="flex-1 overflow-y-auto min-h-0">
-                    <ScreenTransporteAgenda orgId={orgId} showToast={showToast} />
+                    <ScreenTransporteAgenda
+                      orgId={orgId}
+                      showToast={showToast}
+                      onOpenParte={(id) => { setTransporteParteId(id); setActiveTab('transporte_parte'); }}
+                    />
+                  </div>
+                )}
+                {activeTab === 'transporte_parte' && orgId && transporteParteId && (
+                  <div className="flex-1 overflow-y-auto min-h-0">
+                    <ScreenTransporteParteTrabajo
+                      orgId={orgId}
+                      serviceId={transporteParteId}
+                      showToast={showToast}
+                      onClose={(refreshed) => {
+                        setTransporteParteId(null);
+                        setActiveTab('transporte_servicios');
+                        if (refreshed) showToast('Servicio actualizado', 'success');
+                      }}
+                    />
                   </div>
                 )}
                 {activeTab === 'transporte_vehiculos' && orgId && (

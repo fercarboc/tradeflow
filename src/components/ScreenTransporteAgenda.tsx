@@ -45,19 +45,21 @@ interface Props {
   orgId: string;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   onSelectService?: (svc: TradeTransportService) => void;
+  onOpenParte?: (svcId: string) => void;
 }
 
 // ── Service detail panel ──────────────────────────────────────────────────────
 
 interface DetailPanelProps {
   svc: TradeTransportService;
-  vehicleMap: Map<string, TradeVehicle>;
-  workerMap:  Map<string, TradeWorker>;
-  clientMap:  Map<string, string>;
-  onClose:    () => void;
+  vehicleMap:  Map<string, TradeVehicle>;
+  workerMap:   Map<string, TradeWorker>;
+  clientMap:   Map<string, string>;
+  onClose:     () => void;
+  onOpenParte?: (svcId: string) => void;
 }
 
-function DetailPanel({ svc, vehicleMap, workerMap, clientMap, onClose }: DetailPanelProps) {
+function DetailPanel({ svc, vehicleMap, workerMap, clientMap, onClose, onOpenParte }: DetailPanelProps) {
   const vehicle   = svc.vehicle_id   ? vehicleMap.get(svc.vehicle_id)  : undefined;
   const conductor = svc.conductor_id ? workerMap.get(svc.conductor_id) : undefined;
   const client    = svc.client_id    ? clientMap.get(svc.client_id)    : undefined;
@@ -126,6 +128,19 @@ function DetailPanel({ svc, vehicleMap, workerMap, clientMap, onClose }: DetailP
           </Row>
         )}
       </div>
+
+      {onOpenParte && (svc.estado === 'en_curso' || svc.estado === 'completado') && (
+        <button
+          onClick={() => onOpenParte(svc.id)}
+          className={`w-full mt-2 px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors ${
+            svc.estado === 'en_curso'
+              ? 'bg-purple-600 hover:bg-purple-700 text-white'
+              : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+          }`}
+        >
+          {svc.estado === 'en_curso' ? 'Cerrar parte de servicio' : 'Ver parte de servicio'}
+        </button>
+      )}
     </div>
   );
 }
@@ -207,7 +222,7 @@ function AgendaItem({ svc, vehicleMap, workerMap, clientMap, selected, onClick }
 
 // ── Main component ────────────────────────────────────────────────────────────
 
-export default function ScreenTransporteAgenda({ orgId, showToast }: Props) {
+export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte }: Props) {
   const [weekStart, setWeekStart]   = useState(() => startOfWeek(new Date()));
   const [services,  setServices]    = useState<TradeTransportService[]>([]);
   const [vehicles,  setVehicles]    = useState<TradeVehicle[]>([]);
@@ -464,6 +479,7 @@ export default function ScreenTransporteAgenda({ orgId, showToast }: Props) {
               workerMap={workerMap}
               clientMap={clientMap}
               onClose={() => setSelected(null)}
+              onOpenParte={onOpenParte}
             />
           </div>
         )}

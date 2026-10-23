@@ -63,8 +63,25 @@ export interface TradeTransportService {
   conductor_id?: string | null;
   precio_acordado?: number | null;
   observaciones?: string | null;
+  // ── Campos del parte de servicio (T1-C) ────────────────────────────────────
+  hora_real_salida?: string | null;
+  hora_real_llegada?: string | null;
+  km_reales?: number | null;
+  incidencias?: string | null;
+  observaciones_cierre?: string | null;
+  cerrado_at?: string | null;
+  cerrado_por?: string | null;   // auth.uid()
   created_at: string;
   updated_at: string;
+}
+
+/** Input para cierre de servicio (parte real). */
+export interface TradeTransportParteInput {
+  hora_real_salida?: string | null;     // ISO timestamptz
+  hora_real_llegada?: string | null;    // ISO timestamptz
+  km_reales?: number | null;
+  incidencias?: string | null;
+  observaciones_cierre?: string | null;
 }
 
 export type TradeTransportServiceInput = Omit<
@@ -366,4 +383,48 @@ export async function checkAvailability(
   ]);
 
   return conflicts;
+}
+
+/**
+ * Carga un servicio por ID. Verifica pertenencia a org (multitenancy).
+ * Retorna null si no existe o no pertenece a la org.
+ */
+export async function loadServiceById(
+  id: string,
+  orgId: string,
+): Promise<TradeTransportService | null> {
+  const { data, error } = await supabase
+    .from('trade_transport_services')
+    .select('*')
+    .eq('id', id)
+    .eq('org_id', orgId)
+    .single();
+  if (error) {
+    if (error.code === 'PGRST116') return null;   // no rows
+    throw error;
+  }
+  return data as TradeTransportService;
+}
+
+/**
+ * Cierra un servicio en_curso de forma atómica a través de la RPC segura.
+ * Registra los datos reales del parte (horarios, kilómetros, incidencias).
+ * Retorna { ok: true, cerrado_at: string } o lanza un error.
+ */
+export async function completeTransportService(
+  id: string,
+  orgId: string,
+  parte: TradeTransportParteInput,
+): Promise<{ ok: boolean; cerrado_at?: string }> {
+  const { data, error } = await supabase.rpc('complete_transport_service', {
+    p_service_id:           id,
+    p_org_id:               orgId,
+    p_hora_real_salida:     parte.hora_real_salida     ?? null,
+    p_hora_real_llegada:    parte.hora_real_llegada    ?? null,
+    p_km_reales:            parte.km_reales            ?? null,
+    p_incidencias:          parte.incidencias          ?? null,
+    p_observaciones_cierre: parte.observaciones_cierre ?? null,
+  });
+  if (error) throw error;
+  return data as { ok: boolean; cerrado_at?: string };
 }

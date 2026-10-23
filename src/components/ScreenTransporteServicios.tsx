@@ -527,13 +527,13 @@ interface ServicioRowProps {
   onCancel: () => void;
   onConfirm: () => void;
   onIniciar: () => void;
-  onCompletar: () => void;
+  onOpenParte: (svcId: string) => void;
   canWrite: boolean;
 }
 
 function ServicioRow({
   s, clients, vehicles, workers,
-  onEdit, onCancel, onConfirm, onIniciar, onCompletar, canWrite,
+  onEdit, onCancel, onConfirm, onIniciar, onOpenParte, canWrite,
 }: ServicioRowProps) {
   const client   = clients.find(c => c.id === s.client_id);
   const vehicle  = vehicles.find(v => v.id === s.vehicle_id);
@@ -607,9 +607,15 @@ function ServicioRow({
                 </button>
               )}
               {s.estado === 'en_curso' && (
-                <button onClick={onCompletar}
+                <button onClick={() => onOpenParte(s.id)}
                   className="px-2 py-1 text-[11px] font-semibold bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 rounded-md cursor-pointer">
-                  Completar
+                  Cerrar parte
+                </button>
+              )}
+              {s.estado === 'completado' && canWrite && (
+                <button onClick={() => onOpenParte(s.id)}
+                  className="px-2 py-1 text-[11px] font-semibold bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100 rounded-md cursor-pointer">
+                  Ver parte
                 </button>
               )}
               <button onClick={onEdit}
@@ -633,11 +639,12 @@ function ServicioRow({
 interface Props {
   orgId: string;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
+  onOpenParte?: (svcId: string) => void;
 }
 
 // ── Componente principal ──────────────────────────────────────────────────────
 
-export default function ScreenTransporteServicios({ orgId, showToast }: Props) {
+export default function ScreenTransporteServicios({ orgId, showToast, onOpenParte }: Props) {
   const { rol } = useSession();
   const canWrite = rol === 'owner' || rol === 'admin';
 
@@ -827,7 +834,7 @@ export default function ScreenTransporteServicios({ orgId, showToast }: Props) {
               onCancel={() => setCanceling(s)}
               onConfirm={() => handleConfirm(s)}
               onIniciar={() => handleEstado(s, 'en_curso')}
-              onCompletar={() => handleEstado(s, 'completado')}
+              onOpenParte={(id) => onOpenParte?.(id)}
             />
           ))}
         </div>

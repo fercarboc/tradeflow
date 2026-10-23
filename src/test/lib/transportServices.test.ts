@@ -7,10 +7,12 @@ import {
   cancelTransportService,
   confirmTransportService,
   loadTransportServices,
+  loadServiceById,
+  completeTransportService,
   TIPO_SERVICIO_OPTIONS,
   SERVICIO_ESTADOS,
 } from '../../lib/transportServices';
-import type { TradeTransportServiceInput } from '../../lib/transportServices';
+import type { TradeTransportServiceInput, TradeTransportService, TradeTransportParteInput } from '../../lib/transportServices';
 
 // ── Mock Supabase ────────────────────────────────────────────────────────────
 
@@ -513,6 +515,112 @@ describe('guard operacional — trigger DB en UPDATE directo', () => {
   });
 });
 
+// ── loadServiceById ──────────────────────────────────────────────────────────
+
+describe('loadServiceById', () => {
+  it('devuelve el servicio cuando lo encuentra', async () => {
+    const fakeSvc: Partial<TradeTransportService> = {
+      id: SVC_ID, org_id: ORG_A, titulo: 'Test', estado: 'en_curso',
+    };
+    mockFrom.mockImplementation(() => makeChain({ data: fakeSvc, error: null }));
+    const result = await loadServiceById(SVC_ID, ORG_A);
+    expect(result?.id).toBe(SVC_ID);
+    expect(result?.estado).toBe('en_curso');
+  });
+
+  it('devuelve null cuando Supabase retorna PGRST116 (not found)', async () => {
+    mockFrom.mockImplementation(() => makeChain({ data: null, error: { code: 'PGRST116', message: 'not found' } }));
+    const result = await loadServiceById(SVC_ID, ORG_A);
+    expect(result).toBeNull();
+  });
+
+  it('propaga error diferente de PGRST116', async () => {
+    mockFrom.mockImplementation(() => makeChain({ data: null, error: { code: '42501', message: 'permission denied' } }));
+    await expect(loadServiceById(SVC_ID, ORG_A)).rejects.toMatchObject({ message: 'permission denied' });
+  });
+});
+
+// ── completeTransportService ─────────────────────────────────────────────────
+
+describe('completeTransportService', () => {
+  const PARTE: TradeTransportParteInput = {
+    hora_real_salida:     '2026-10-23T09:05:00Z',
+    hora_real_llegada:    '2026-10-23T17:45:00Z',
+    km_reales:            125.5,
+    incidencias:          'Desvío por obras en A-8',
+    observaciones_cierre: 'Cliente satisfecho',
+  };
+
+  it('llama a RPC complete_transport_service con los parámetros correctos', async () => {
+    mockRpc.mockResolvedValueOnce({
+      data: { ok: true, cerrado_at: '2026-10-23T17:46:00Z' },
+      error: null,
+    });
+    const result = await completeTransportService(SVC_ID, ORG_A, PARTE);
+    expect(result.ok).toBe(true);
+    expect(result.cerrado_at).toBe('2026-10-23T17:46:00Z');
+    expect(mockRpc).toHaveBeenCalledWith('complete_transport_service', {
+      p_service_id:           SVC_ID,
+      p_org_id:               ORG_A,
+      p_hora_real_salida:     PARTE.hora_real_salida,
+      p_hora_real_llegada:    PARTE.hora_real_llegada,
+      p_km_reales:            PARTE.km_reales,
+      p_incidencias:          PARTE.incidencias,
+      p_observaciones_cierre: PARTE.observaciones_cierre,
+    });
+  });
+
+  it('propaga TRANSPORT_STATE_INVALID cuando el servicio no está en_curso', async () => {
+    mockRpc.mockResolvedValueOnce({
+      data: null,
+      error: { message: 'TRANSPORT_STATE_INVALID: solo se puede cerrar un servicio en_curso (estado actual: completado)' },
+    });
+    await expect(completeTransportService(SVC_ID, ORG_A, {}))
+      .rejects.toMatchObject({ message: expect.stringContaining('TRANSPORT_STATE_INVALID') });
+  });
+
+  it('propaga TRANSPORT_INVALID cuando km_reales es negativo', async () => {
+    mockRpc.mockResolvedValueOnce({
+      data: null,
+      error: { message: 'TRANSPORT_INVALID: km_reales no puede ser negativo (recibido: -5)' },
+    });
+    await expect(completeTransportService(SVC_ID, ORG_A, { km_reales: -5 }))
+      .rejects.toMatchObject({ message: expect.stringContaining('TRANSPORT_INVALID') });
+  });
+
+  it('propaga TRANSPORT_INVALID cuando llegada <= salida', async () => {
+    mockRpc.mockResolvedValueOnce({
+      data: null,
+      error: { message: 'TRANSPORT_INVALID: hora_real_llegada debe ser posterior a hora_real_salida' },
+    });
+    await expect(completeTransportService(SVC_ID, ORG_A, {
+      hora_real_salida:  '2026-10-23T10:00:00Z',
+      hora_real_llegada: '2026-10-23T09:00:00Z',
+    })).rejects.toMatchObject({ message: expect.stringContaining('TRANSPORT_INVALID') });
+  });
+
+  it('envía null para campos opcionales no proporcionados', async () => {
+    mockRpc.mockResolvedValueOnce({ data: { ok: true }, error: null });
+    await completeTransportService(SVC_ID, ORG_A, {});
+    expect(mockRpc).toHaveBeenCalledWith('complete_transport_service', expect.objectContaining({
+      p_hora_real_salida:     null,
+      p_hora_real_llegada:    null,
+      p_km_reales:            null,
+      p_incidencias:          null,
+      p_observaciones_cierre: null,
+    }));
+  });
+
+  it('propaga TRANSPORT_IMMUTABLE si el trigger bloquea el cierre en completado', async () => {
+    mockRpc.mockResolvedValueOnce({
+      data: null,
+      error: { message: 'TRANSPORT_IMMUTABLE: un servicio completado no puede modificarse directamente' },
+    });
+    await expect(completeTransportService(SVC_ID, ORG_A, PARTE))
+      .rejects.toMatchObject({ message: expect.stringContaining('TRANSPORT_IMMUTABLE') });
+  });
+});
+
 // ── Escenario 20: no regresión del módulo de instaladores ───────────────────
 
 describe('no regresión módulo instaladores', () => {
@@ -527,5 +635,7 @@ describe('no regresión módulo instaladores', () => {
     expect(typeof mod.checkAvailability).toBe('function');
     expect(typeof mod.validateStops).toBe('function');
     expect(typeof mod.validateServiceInput).toBe('function');
+    expect(typeof mod.loadServiceById).toBe('function');
+    expect(typeof mod.completeTransportService).toBe('function');
   });
 });
