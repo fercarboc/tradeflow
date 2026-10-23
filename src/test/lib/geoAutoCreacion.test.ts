@@ -27,6 +27,9 @@
  *   GAC-P20 validateGeoResult — pueblo + CP sin portal (sin direccion) → acepta (Rules 1-4 solo)
  *   GAC-P21 validateGeoResult — barrio rural sin route, con direccion → rechaza (Rule 5)
  *   GAC-P22 validateGeoResult — calle coincidente, CP contradictorio → rechaza (Rule 4)
+ *   GAC-P23 validateGeoResult — Nominatim calle+portal, sin house_number en resultado → rechaza (Rule 6)
+ *   GAC-P24 validateGeoResult — número en CP pero no en dirección → sin disparo Rule 6 → acepta
+ *   GAC-P25 validateGeoResult — barrio rural sin portal en params, con route → acepta
  *
  * Tests del flujo de creación (simulación):
  *   GAC-1   Alta con dirección completa → geocodificación lanzada, updateJobGeoAuto llamado
@@ -119,11 +122,12 @@ describe('validateGeoResult', () => {
     )).toBe(false);
   });
 
-  it('GAC-P12: calle + ROOFTOP → acepta (precisión domicilio confirmada, Rule 5 no dispara)', () => {
+  it('GAC-P12: Google ROOFTOP + route pero sin house_number, portal solicitado → rechaza (Rule 6)', () => {
+    // ROOFTOP identificó la zona pero no acreditó el portal "1" → insuficiente
     expect(validateGeoResult(
-      makeResult({ location_type: 'ROOFTOP' }),
+      makeResult({ location_type: 'ROOFTOP', route: 'Calle Mayor' }),  // no house_number
       { direccion: 'Calle Mayor 1', localidad: 'Santander' },
-    )).toBe(true);
+    )).toBe(false);
   });
 
   it('GAC-P13: calle + GEOMETRIC_CENTER → rechaza (proveedor devolvió centro de localidad, Rule 5)', () => {
@@ -214,6 +218,30 @@ describe('validateGeoResult', () => {
       makeResult({ route: 'Calle Mayor', house_number: '1', postal_code: '48001' }),  // Bilbao CP
       { direccion: 'Calle Mayor 1', localidad: 'Santander', cp: '39001' },
     )).toBe(false);
+  });
+
+  it('GAC-P23: Nominatim calle+portal solicitados, sin house_number en resultado → rechaza (Rule 6)', () => {
+    // Nominatim identificó la calle pero no devolvió portal → no se puede confirmar el domicilio
+    expect(validateGeoResult(
+      makeResult({ route: 'Calle Mayor' }),  // route presente, house_number ausente
+      { direccion: 'Calle Mayor 1', localidad: 'Santander' },
+    )).toBe(false);
+  });
+
+  it('GAC-P24: número en CP pero no en dirección → Rule 6 no dispara → acepta', () => {
+    // params.direccion = 'Calle Mayor' sin portal, cp tiene dígitos → no se confunden con portal
+    expect(validateGeoResult(
+      makeResult({ route: 'Calle Mayor', postal_code: '39001' }),  // sin house_number
+      { direccion: 'Calle Mayor', localidad: 'Santander', cp: '39001' },  // sin portal
+    )).toBe(true);
+  });
+
+  it('GAC-P25: barrio rural sin portal en params, con route → acepta (sin Rule 6)', () => {
+    // Nombre de barrio sin número: extractPortalNumber → null → Rule 6 no aplica
+    expect(validateGeoResult(
+      makeResult({ route: 'Barrio El Prao', locality: 'La Lomba' }),  // locality coherente con params
+      { direccion: 'Barrio El Prao', localidad: 'La Lomba' },
+    )).toBe(true);
   });
 });
 

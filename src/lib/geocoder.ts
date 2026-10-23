@@ -110,9 +110,10 @@ export function hasSufficientAddress(params: GeocodeAddressParams): boolean {
  *       GEOMETRIC_CENTER and APPROXIMATE are city/area centroids — all rejected.
  *     - Nominatim (no location_type): result.route MUST be present (street identified).
  *       Locality-only Nominatim results when a street was requested are rejected.
- *  6. If result.house_number is present AND params.direccion is non-empty:
- *     the house number MUST appear as a token in params.direccion.
- *     Guards against ROOFTOP at a neighboring number.
+ *  6. If params.direccion contains a portal number (rightmost standalone digit token):
+ *     - result.house_number MUST be present (provider must have identified the door).
+ *     - result.house_number leading digits MUST equal the requested portal.
+ *     ROOFTOP without a confirmed house_number is insufficient when a portal was given.
  *
  * Compatible with old edge function (no metadata) → all results rejected until edge function
  * is updated. This is the safer behavior for a staggered deployment.
@@ -154,10 +155,27 @@ export function validateGeoResult(
     }
   }
 
-  // Rule 6: when provider returns a house number, it must appear as a token in the requested address.
-  if (result.house_number?.trim() && params.direccion?.trim()) {
-    const hn = result.house_number.trim();
-    if (!params.direccion.split(/[\s,/\-]+/).includes(hn)) return false;
+  // Rule 6: when params.direccion contains a portal number, the provider must return a
+  // matching house_number. A result that found the street but not the specific door is
+  // rejected — ROOFTOP at an unverified address is not sufficient.
+  //
+  // Portal detection: find the rightmost standalone numeric token in the address.
+  //   "Calle Mayor 1"       → portal "1"
+  //   "Calle Mayor 5B"      → portal "5"  (leading digits of token)
+  //   "Barrio La Lomba"     → null (no trailing number — skips Rule 6)
+  //   "Calle del 5 de Oct"  → null ("5" is not the rightmost token since "Oct" follows)
+  if (params.direccion?.trim()) {
+    const tokens = params.direccion.trim().split(/\s+/);
+    let portalRequested: string | null = null;
+    for (let i = tokens.length - 1; i >= 0; i--) {
+      const m = tokens[i].match(/^(\d+)[A-Za-z]?$/);
+      if (m) { portalRequested = m[1]; break; }
+    }
+    if (portalRequested !== null) {
+      if (!result.house_number?.trim()) return false; // provider didn't identify the door
+      const resultPortal = result.house_number.trim().match(/^(\d+)/)?.[1] ?? '';
+      if (resultPortal !== portalRequested) return false; // wrong door
+    }
   }
 
   return true;
