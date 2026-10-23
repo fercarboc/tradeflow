@@ -11,11 +11,13 @@ import {
   deactivateVehicle,
   setVehicleEstado,
   validateMatricula,
+  needsPassengerCapacity,
   VEHICLE_TIPOS,
   VEHICLE_ESTADOS,
+  VEHICLE_MODALIDADES,
 } from '../lib/transport';
 import { useSession } from '../context/SessionContext';
-import type { TradeVehicle, TradeVehicleInput, VehicleEstado } from '../lib/transport';
+import type { TradeVehicle, TradeVehicleInput, VehicleEstado, VehicleModalidad } from '../lib/transport';
 
 // ── Constantes ────────────────────────────────────────────────────────────────
 
@@ -35,14 +37,20 @@ function emptyForm(): TradeVehicleInput {
     nombre: '',
     matricula: '',
     tipo: 'furgoneta',
+    modalidad: 'viajeros',
     capacidad_viajeros: 8,
+    capacidad_carga_kg: null,
     estado: 'disponible',
-    marca: '',
-    modelo_vehiculo: '',
+    marca: null,
+    modelo_vehiculo: null,
     anno: null,
-    color: '',
-    notas: '',
+    color: null,
+    notas: null,
   };
+}
+
+function modalidadCfg(modalidad: VehicleModalidad) {
+  return VEHICLE_MODALIDADES.find(m => m.value === modalidad) ?? VEHICLE_MODALIDADES[0];
 }
 
 function estadoCfg(estado: VehicleEstado) {
@@ -81,13 +89,15 @@ function VehicleFormModal({ vehicle, onClose, onSaved, orgId, showToast }: Vehic
           nombre: vehicle.nombre,
           matricula: vehicle.matricula,
           tipo: vehicle.tipo,
+          modalidad: vehicle.modalidad,
           capacidad_viajeros: vehicle.capacidad_viajeros,
+          capacidad_carga_kg: vehicle.capacidad_carga_kg,
           estado: vehicle.estado,
-          marca: vehicle.marca ?? '',
-          modelo_vehiculo: vehicle.modelo_vehiculo ?? '',
+          marca: vehicle.marca ?? null,
+          modelo_vehiculo: vehicle.modelo_vehiculo ?? null,
           anno: vehicle.anno ?? null,
-          color: vehicle.color ?? '',
-          notas: vehicle.notas ?? '',
+          color: vehicle.color ?? null,
+          notas: vehicle.notas ?? null,
         }
       : emptyForm(),
   );
@@ -99,6 +109,19 @@ function VehicleFormModal({ vehicle, onClose, onSaved, orgId, showToast }: Vehic
     if (key === 'matricula') setMatriculaError('');
   }
 
+  function handleModalidadChange(val: VehicleModalidad) {
+    setForm(prev => ({
+      ...prev,
+      modalidad: val,
+      capacidad_viajeros: (val === 'viajeros' || val === 'mixto')
+        ? (prev.capacidad_viajeros ?? 8)
+        : null,
+      capacidad_carga_kg: (val === 'mercancias' || val === 'reparto' || val === 'mixto')
+        ? (prev.capacidad_carga_kg ?? null)
+        : null,
+    }));
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!form.nombre.trim()) { showToast('El nombre es obligatorio', 'error'); return; }
@@ -106,8 +129,14 @@ function VehicleFormModal({ vehicle, onClose, onSaved, orgId, showToast }: Vehic
       setMatriculaError('Matrícula inválida (mínimo 4 caracteres, solo letras y números)');
       return;
     }
-    if (form.capacidad_viajeros < 1 || form.capacidad_viajeros > 90) {
-      showToast('La capacidad debe estar entre 1 y 90 viajeros', 'error');
+    if (needsPassengerCapacity(form.modalidad)) {
+      if (!form.capacidad_viajeros || form.capacidad_viajeros < 1 || form.capacidad_viajeros > 90) {
+        showToast('La capacidad de viajeros debe estar entre 1 y 90', 'error');
+        return;
+      }
+    }
+    if (form.capacidad_carga_kg != null && (form.capacidad_carga_kg < 1 || form.capacidad_carga_kg > 50000)) {
+      showToast('La capacidad de carga debe estar entre 1 y 50.000 kg', 'error');
       return;
     }
     setSaving(true);
@@ -184,7 +213,7 @@ function VehicleFormModal({ vehicle, onClose, onSaved, orgId, showToast }: Vehic
             )}
           </div>
 
-          {/* Tipo + Capacidad */}
+          {/* Tipo + Modalidad */}
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
@@ -205,18 +234,64 @@ function VehicleFormModal({ vehicle, onClose, onSaved, orgId, showToast }: Vehic
             </div>
             <div>
               <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
-                Capacidad (viajeros)
+                Modalidad *
               </label>
-              <input
-                type="number"
-                min={1}
-                max={90}
-                value={form.capacidad_viajeros}
-                onChange={e => set('capacidad_viajeros', Number(e.target.value))}
-                className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
-              />
+              <div className="relative">
+                <select
+                  value={form.modalidad}
+                  onChange={e => handleModalidadChange(e.target.value as VehicleModalidad)}
+                  className="w-full appearance-none border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white pr-8"
+                >
+                  {VEHICLE_MODALIDADES.map(m => (
+                    <option key={m.value} value={m.value}>{m.label}</option>
+                  ))}
+                </select>
+                <ChevronDown size={14} className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+              </div>
             </div>
           </div>
+
+          {/* Capacidades — condicionales según modalidad */}
+          {(needsPassengerCapacity(form.modalidad) || form.modalidad === 'mercancias' || form.modalidad === 'reparto') && (
+            <div className={`grid gap-3 ${
+              form.modalidad === 'mixto'
+                ? 'grid-cols-2'
+                : 'grid-cols-1'
+            }`}>
+              {needsPassengerCapacity(form.modalidad) && (
+                <div>
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                    Capacidad de viajeros *
+                  </label>
+                  <input
+                    type="number"
+                    min={1}
+                    max={90}
+                    value={form.capacidad_viajeros ?? ''}
+                    onChange={e => set('capacidad_viajeros', e.target.value ? Number(e.target.value) : null)}
+                    className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
+                    placeholder="Ej: 20"
+                  />
+                </div>
+              )}
+              {(form.modalidad === 'mercancias' || form.modalidad === 'reparto' || form.modalidad === 'mixto') && (
+                <div>
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                    Carga máx. (kg)
+                  </label>
+                  <input
+                    type="number"
+                    min={1}
+                    max={50000}
+                    value={form.capacidad_carga_kg ?? ''}
+                    onChange={e => set('capacidad_carga_kg', e.target.value ? Number(e.target.value) : null)}
+                    className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
+                    placeholder="Ej: 3500"
+                  />
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Estado */}
           <div>
@@ -529,8 +604,8 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
                   <tr className="bg-gray-50 dark:bg-gray-800 text-left">
                     <th className="px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Vehículo</th>
                     <th className="px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Matrícula</th>
-                    <th className="px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Tipo</th>
-                    <th className="px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide text-center">Plazas</th>
+                    <th className="px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Tipo / Modalidad</th>
+                    <th className="px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide text-center">Capacidad</th>
                     <th className="px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Estado</th>
                     <th className="px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide"></th>
                   </tr>
@@ -547,8 +622,23 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
                           )}
                         </td>
                         <td className="px-4 py-3 font-mono text-sm text-gray-700 dark:text-gray-300">{v.matricula}</td>
-                        <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{tipoLabel(v.tipo)}</td>
-                        <td className="px-4 py-3 text-center text-gray-700 dark:text-gray-300 font-medium">{v.capacidad_viajeros}</td>
+                        <td className="px-4 py-3">
+                          <div className="text-gray-600 dark:text-gray-400 text-sm">{tipoLabel(v.tipo)}</div>
+                          <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium border mt-0.5 ${modalidadCfg(v.modalidad).color}`}>
+                            {modalidadCfg(v.modalidad).label}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 text-center text-gray-700 dark:text-gray-300 text-xs space-y-0.5">
+                          {v.capacidad_viajeros != null && (
+                            <div className="font-medium">{v.capacidad_viajeros} plz.</div>
+                          )}
+                          {v.capacidad_carga_kg != null && (
+                            <div className="text-gray-500">{v.capacidad_carga_kg} kg</div>
+                          )}
+                          {v.capacidad_viajeros == null && v.capacidad_carga_kg == null && (
+                            <span className="text-gray-400">—</span>
+                          )}
+                        </td>
                         <td className="px-4 py-3">
                           {v.activo ? (
                             canWrite ? (
@@ -628,13 +718,18 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
                         {v.activo ? ec.label : 'Baja'}
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 mb-3">
+                    <div className="flex items-center flex-wrap gap-2 text-xs text-gray-500 dark:text-gray-400 mb-2">
                       <span>{tipoLabel(v.tipo)}</span>
-                      <span>·</span>
-                      <span>{v.capacidad_viajeros} plazas</span>
+                      <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium border ${modalidadCfg(v.modalidad).color}`}>
+                        {modalidadCfg(v.modalidad).label}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-3">
+                      {v.capacidad_viajeros != null && <span>{v.capacidad_viajeros} plazas</span>}
+                      {v.capacidad_carga_kg != null && <span>{v.capacidad_carga_kg} kg carga</span>}
                       {(v.marca || v.anno) && (
                         <>
-                          <span>·</span>
+                          {(v.capacidad_viajeros != null || v.capacidad_carga_kg != null) && <span>·</span>}
                           <span>{[v.marca, v.anno].filter(Boolean).join(' ')}</span>
                         </>
                       )}

@@ -4,6 +4,9 @@
 -- ══════════════════════════════════════════════════════════════════════
 
 -- ── Tabla de vehículos ────────────────────────────────────────────────
+-- Soporta flota multimodal: viajeros, mercancías, reparto y uso mixto.
+-- Un vehículo con plazas no implica autorización para transporte de viajeros:
+-- la modalidad se declara explícitamente.
 
 CREATE TABLE public.trade_vehicles (
   id                 uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -11,9 +14,16 @@ CREATE TABLE public.trade_vehicles (
   nombre             text        NOT NULL,
   matricula          text        NOT NULL,
   tipo               text        NOT NULL DEFAULT 'furgoneta'
-                                 CHECK (tipo IN ('furgoneta','microbus','autocar','sedan','minivan','otro')),
-  capacidad_viajeros int         NOT NULL DEFAULT 8
-                                 CHECK (capacidad_viajeros > 0 AND capacidad_viajeros <= 90),
+                                 CHECK (tipo IN ('furgoneta','microbus','autocar','sedan','minivan',
+                                                  'camion_rigido','cabeza_tractora','otro')),
+  modalidad          text        NOT NULL DEFAULT 'viajeros'
+                                 CHECK (modalidad IN ('viajeros','mercancias','reparto','mixto')),
+  -- Nullable: solo obligatorio cuando modalidad = 'viajeros' | 'mixto'
+  capacidad_viajeros int         CHECK (capacidad_viajeros IS NULL OR
+                                        (capacidad_viajeros > 0 AND capacidad_viajeros <= 90)),
+  -- Opcional: relevante para mercancías, reparto y mixto
+  capacidad_carga_kg int         CHECK (capacidad_carga_kg IS NULL OR
+                                        (capacidad_carga_kg > 0 AND capacidad_carga_kg <= 50000)),
   estado             text        NOT NULL DEFAULT 'disponible'
                                  CHECK (estado IN ('disponible','en_servicio','en_mantenimiento','baja')),
   marca              text,
@@ -27,8 +37,9 @@ CREATE TABLE public.trade_vehicles (
   UNIQUE(org_id, matricula)
 );
 
-CREATE INDEX idx_trade_vehicles_org   ON public.trade_vehicles(org_id, activo);
-CREATE INDEX idx_trade_vehicles_estado ON public.trade_vehicles(org_id, estado) WHERE activo = true;
+CREATE INDEX idx_trade_vehicles_org      ON public.trade_vehicles(org_id, activo);
+CREATE INDEX idx_trade_vehicles_estado   ON public.trade_vehicles(org_id, estado)   WHERE activo = true;
+CREATE INDEX idx_trade_vehicles_modalidad ON public.trade_vehicles(org_id, modalidad) WHERE activo = true;
 
 -- ── Extensión de trade_workers: identificar conductores ──────────────
 -- Solo marca que un trabajador puede actuar como conductor.

@@ -1,6 +1,7 @@
 /**
- * transport.ts — Módulo de Transporte de Viajeros
- * TRANSPORT-CORE-1A: flota de vehículos por organización.
+ * transport.ts — Módulo de Transporte Multimodal
+ * TRANSPORT-CORE-1A/1C: flota de vehículos por organización.
+ * Soporta viajeros, mercancías, reparto y uso mixto.
  * Sin rutas recurrentes, sin fiscal, sin contratos.
  */
 
@@ -9,23 +10,33 @@ import { supabase } from './supabase';
 // ── Catálogos ─────────────────────────────────────────────────────────────────
 
 export const VEHICLE_TIPOS = [
-  { value: 'furgoneta',  label: 'Furgoneta' },
-  { value: 'microbus',   label: 'Microbús' },
-  { value: 'autocar',    label: 'Autocar' },
-  { value: 'sedan',      label: 'Turismo/Sedan' },
-  { value: 'minivan',    label: 'Monovolumen' },
-  { value: 'otro',       label: 'Otro' },
+  { value: 'furgoneta',       label: 'Furgoneta' },
+  { value: 'microbus',        label: 'Microbús' },
+  { value: 'autocar',         label: 'Autocar/Autobús' },
+  { value: 'sedan',           label: 'Turismo/Sedán' },
+  { value: 'minivan',         label: 'Monovolumen' },
+  { value: 'camion_rigido',   label: 'Camión rígido' },
+  { value: 'cabeza_tractora', label: 'Cabeza tractora' },
+  { value: 'otro',            label: 'Otro' },
 ] as const;
 
 export const VEHICLE_ESTADOS = [
-  { value: 'disponible',       label: 'Disponible',      color: 'bg-emerald-100 text-emerald-700 border-emerald-200' },
-  { value: 'en_servicio',      label: 'En servicio',     color: 'bg-blue-100 text-blue-700 border-blue-200' },
+  { value: 'disponible',       label: 'Disponible',       color: 'bg-emerald-100 text-emerald-700 border-emerald-200' },
+  { value: 'en_servicio',      label: 'En servicio',      color: 'bg-blue-100 text-blue-700 border-blue-200' },
   { value: 'en_mantenimiento', label: 'En mantenimiento', color: 'bg-amber-100 text-amber-700 border-amber-200' },
-  { value: 'baja',             label: 'Baja',            color: 'bg-red-100 text-red-700 border-red-200' },
+  { value: 'baja',             label: 'Baja',             color: 'bg-red-100 text-red-700 border-red-200' },
 ] as const;
 
-export type VehicleTipo   = typeof VEHICLE_TIPOS[number]['value'];
-export type VehicleEstado = typeof VEHICLE_ESTADOS[number]['value'];
+export const VEHICLE_MODALIDADES = [
+  { value: 'viajeros',   label: 'Transporte de viajeros',   color: 'bg-indigo-100 text-indigo-700 border-indigo-200' },
+  { value: 'mercancias', label: 'Transporte de mercancías', color: 'bg-amber-100 text-amber-700 border-amber-200' },
+  { value: 'reparto',    label: 'Reparto y distribución',   color: 'bg-emerald-100 text-emerald-700 border-emerald-200' },
+  { value: 'mixto',      label: 'Uso mixto',                color: 'bg-purple-100 text-purple-700 border-purple-200' },
+] as const;
+
+export type VehicleTipo      = typeof VEHICLE_TIPOS[number]['value'];
+export type VehicleEstado    = typeof VEHICLE_ESTADOS[number]['value'];
+export type VehicleModalidad = typeof VEHICLE_MODALIDADES[number]['value'];
 
 // ── Tipos ─────────────────────────────────────────────────────────────────────
 
@@ -35,7 +46,11 @@ export interface TradeVehicle {
   nombre: string;
   matricula: string;
   tipo: VehicleTipo;
-  capacidad_viajeros: number;
+  modalidad: VehicleModalidad;
+  /** Requerido cuando modalidad = 'viajeros' | 'mixto'; null para mercancías/reparto puros. */
+  capacidad_viajeros: number | null;
+  /** Opcional para mercancías, reparto y mixto; null para viajeros puros. */
+  capacidad_carga_kg: number | null;
   estado: VehicleEstado;
   marca?: string | null;
   modelo_vehiculo?: string | null;
@@ -53,7 +68,7 @@ export type TradeVehicleInput = Omit<TradeVehicle, 'id' | 'org_id' | 'activo' | 
 
 /** Valida una matrícula española. Acepta formatos comunes: "1234-ABC", "1234 ABC", "1234ABC",
  *  matrículas antiguas provinciales ("B-1234-CD") y matrículas especiales (PMM, etc.).
- *  Mínimo 5 caracteres, máximo 10, solo letras, números y guión/espacio. */
+ *  Mínimo 4 caracteres, máximo 10, solo letras y números. */
 export function validateMatricula(matricula: string): boolean {
   if (!matricula.trim()) return false;
   const clean = matricula.trim().toUpperCase().replace(/[\s-]/g, '');
@@ -64,6 +79,12 @@ export function validateMatricula(matricula: string): boolean {
 /** Normaliza la matrícula a mayúsculas sin espacios extra. */
 export function normalizeMatricula(matricula: string): string {
   return matricula.trim().toUpperCase();
+}
+
+/** True cuando la modalidad incluye transporte de personas,
+ *  lo que hace obligatoria la capacidad_viajeros. */
+export function needsPassengerCapacity(modalidad: VehicleModalidad): boolean {
+  return modalidad === 'viajeros' || modalidad === 'mixto';
 }
 
 // ── CRUD ──────────────────────────────────────────────────────────────────────
@@ -100,8 +121,15 @@ export async function createVehicle(
   if (!validateMatricula(input.matricula)) {
     throw new Error('Matrícula inválida');
   }
-  if (input.capacidad_viajeros < 1 || input.capacidad_viajeros > 90) {
-    throw new Error('La capacidad debe estar entre 1 y 90 viajeros');
+  if (needsPassengerCapacity(input.modalidad)) {
+    if (input.capacidad_viajeros == null || input.capacidad_viajeros < 1 || input.capacidad_viajeros > 90) {
+      throw new Error('La capacidad de viajeros debe estar entre 1 y 90 para esta modalidad');
+    }
+  }
+  if (input.capacidad_carga_kg != null) {
+    if (input.capacidad_carga_kg < 1 || input.capacidad_carga_kg > 50000) {
+      throw new Error('La capacidad de carga debe estar entre 1 y 50.000 kg');
+    }
   }
   const { data, error } = await supabase
     .from('trade_vehicles')
@@ -126,9 +154,13 @@ export async function updateVehicle(
   if (updates.matricula !== undefined && !validateMatricula(updates.matricula)) {
     throw new Error('Matrícula inválida');
   }
-  if (updates.capacidad_viajeros !== undefined &&
+  if (updates.capacidad_viajeros !== undefined && updates.capacidad_viajeros !== null &&
       (updates.capacidad_viajeros < 1 || updates.capacidad_viajeros > 90)) {
-    throw new Error('La capacidad debe estar entre 1 y 90 viajeros');
+    throw new Error('La capacidad de viajeros debe estar entre 1 y 90');
+  }
+  if (updates.capacidad_carga_kg !== undefined && updates.capacidad_carga_kg !== null &&
+      (updates.capacidad_carga_kg < 1 || updates.capacidad_carga_kg > 50000)) {
+    throw new Error('La capacidad de carga debe estar entre 1 y 50.000 kg');
   }
   const patch: Record<string, unknown> = { ...updates, updated_at: new Date().toISOString() };
   if (updates.matricula) patch.matricula = normalizeMatricula(updates.matricula);

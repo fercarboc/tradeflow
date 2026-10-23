@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import {
   validateMatricula,
   normalizeMatricula,
+  needsPassengerCapacity,
   createVehicle,
   updateVehicle,
   deactivateVehicle,
@@ -11,6 +12,7 @@ import {
   loadVehiclesAll,
   VEHICLE_TIPOS,
   VEHICLE_ESTADOS,
+  VEHICLE_MODALIDADES,
 } from '../../lib/transport';
 import type { TradeVehicleInput } from '../../lib/transport';
 
@@ -46,7 +48,9 @@ function makeVehicle(overrides: Partial<TradeVehicleInput> = {}) {
     nombre: 'Bus 1',
     matricula: '1234ABC',
     tipo: 'microbus' as const,
+    modalidad: 'viajeros' as const,
     capacidad_viajeros: 20,
+    capacidad_carga_kg: null,
     estado: 'disponible' as const,
     marca: 'Mercedes',
     modelo_vehiculo: 'Sprinter',
@@ -130,8 +134,8 @@ describe('normalizeMatricula', () => {
 // ── Catálogos ────────────────────────────────────────────────────────────────
 
 describe('VEHICLE_TIPOS', () => {
-  it('contiene exactamente 6 tipos', () => {
-    expect(VEHICLE_TIPOS).toHaveLength(6);
+  it('contiene exactamente 8 tipos (incluye camion_rigido y cabeza_tractora)', () => {
+    expect(VEHICLE_TIPOS).toHaveLength(8);
   });
 
   it('incluye furgoneta, microbus, autocar', () => {
@@ -139,6 +143,12 @@ describe('VEHICLE_TIPOS', () => {
     expect(values).toContain('furgoneta');
     expect(values).toContain('microbus');
     expect(values).toContain('autocar');
+  });
+
+  it('incluye tipos de vehículos de carga: camion_rigido y cabeza_tractora', () => {
+    const values = VEHICLE_TIPOS.map(t => t.value);
+    expect(values).toContain('camion_rigido');
+    expect(values).toContain('cabeza_tractora');
   });
 });
 
@@ -296,6 +306,173 @@ describe('loadVehiclesAll', () => {
 
     const result = await loadVehiclesAll(ORG_A);
     expect(result).toHaveLength(2);
+  });
+});
+
+// ── VEHICLE_MODALIDADES ───────────────────────────────────────────────────────
+
+describe('VEHICLE_MODALIDADES', () => {
+  it('contiene exactamente 4 modalidades', () => {
+    expect(VEHICLE_MODALIDADES).toHaveLength(4);
+  });
+
+  it('incluye viajeros, mercancias, reparto y mixto', () => {
+    const values = VEHICLE_MODALIDADES.map(m => m.value);
+    expect(values).toContain('viajeros');
+    expect(values).toContain('mercancias');
+    expect(values).toContain('reparto');
+    expect(values).toContain('mixto');
+  });
+
+  it('cada modalidad tiene color definido', () => {
+    for (const m of VEHICLE_MODALIDADES) {
+      expect(m.color.length).toBeGreaterThan(0);
+    }
+  });
+});
+
+// ── needsPassengerCapacity ───────────────────────────────────────────────────
+
+describe('needsPassengerCapacity', () => {
+  it('true para viajeros y mixto', () => {
+    expect(needsPassengerCapacity('viajeros')).toBe(true);
+    expect(needsPassengerCapacity('mixto')).toBe(true);
+  });
+
+  it('false para mercancias y reparto', () => {
+    expect(needsPassengerCapacity('mercancias')).toBe(false);
+    expect(needsPassengerCapacity('reparto')).toBe(false);
+  });
+});
+
+// ── createVehicle — validaciones multimodal ──────────────────────────────────
+
+describe('createVehicle — multimodal', () => {
+  beforeEach(() => { vi.clearAllMocks(); });
+
+  it('mercancías sin capacidad_viajeros es válido', async () => {
+    const dbRow = { id: 'uuid-m1', org_id: ORG_A, activo: true,
+      ...makeVehicle({ tipo: 'camion_rigido', modalidad: 'mercancias',
+                       capacidad_viajeros: null, capacidad_carga_kg: 10000 }) };
+    const chain = makeChain({ data: dbRow, error: null });
+    const { supabase } = await import('../../lib/supabase');
+    vi.mocked(supabase.from).mockReturnValueOnce(chain as unknown as ReturnType<typeof supabase.from>);
+    await expect(
+      createVehicle(ORG_A, makeVehicle({ tipo: 'camion_rigido', modalidad: 'mercancias',
+                                         capacidad_viajeros: null, capacidad_carga_kg: 10000 })),
+    ).resolves.toBeDefined();
+  });
+
+  it('mercancías con capacidad_viajeros = null no lanza error de capacidad', async () => {
+    await expect(
+      createVehicle(ORG_A, makeVehicle({ modalidad: 'mercancias', capacidad_viajeros: null })),
+    ).resolves.toBeDefined().catch(() => { /* sí lanzará por mock, no por capacidad */ });
+    // Solo verificamos que NO lanza por capacidad — el mock de supabase puede lanzar
+    try {
+      await createVehicle(ORG_A, makeVehicle({ modalidad: 'mercancias', capacidad_viajeros: null }));
+    } catch (e) {
+      expect(e instanceof Error && e.message).not.toMatch(/capacidad.*viajeros/);
+    }
+  });
+
+  it('viajeros con capacidad_viajeros = null lanza error de capacidad', async () => {
+    await expect(
+      createVehicle(ORG_A, makeVehicle({ modalidad: 'viajeros', capacidad_viajeros: null })),
+    ).rejects.toThrow('capacidad');
+  });
+
+  it('mixto requiere capacidad_viajeros (no null)', async () => {
+    await expect(
+      createVehicle(ORG_A, makeVehicle({ modalidad: 'mixto', capacidad_viajeros: null })),
+    ).rejects.toThrow('capacidad');
+  });
+
+  it('mixto con ambas capacidades informadas es válido', async () => {
+    const dbRow = { id: 'uuid-m2', org_id: ORG_A, activo: true,
+      ...makeVehicle({ modalidad: 'mixto', capacidad_viajeros: 8, capacidad_carga_kg: 800 }) };
+    const chain = makeChain({ data: dbRow, error: null });
+    const { supabase } = await import('../../lib/supabase');
+    vi.mocked(supabase.from).mockReturnValueOnce(chain as unknown as ReturnType<typeof supabase.from>);
+    await expect(
+      createVehicle(ORG_A, makeVehicle({ modalidad: 'mixto',
+                                         capacidad_viajeros: 8, capacidad_carga_kg: 800 })),
+    ).resolves.toBeDefined();
+  });
+
+  it('capacidad_carga_kg > 50000 lanza error', async () => {
+    await expect(
+      createVehicle(ORG_A, makeVehicle({ modalidad: 'mercancias',
+                                         capacidad_viajeros: null, capacidad_carga_kg: 60000 })),
+    ).rejects.toThrow('carga');
+  });
+
+  it('capacidad_carga_kg = 50000 es válido (límite máximo)', async () => {
+    const dbRow = { id: 'uuid-m3', org_id: ORG_A, activo: true,
+      ...makeVehicle({ modalidad: 'mercancias',
+                       capacidad_viajeros: null, capacidad_carga_kg: 50000 }) };
+    const chain = makeChain({ data: dbRow, error: null });
+    const { supabase } = await import('../../lib/supabase');
+    vi.mocked(supabase.from).mockReturnValueOnce(chain as unknown as ReturnType<typeof supabase.from>);
+    await expect(
+      createVehicle(ORG_A, makeVehicle({ modalidad: 'mercancias',
+                                         capacidad_viajeros: null, capacidad_carga_kg: 50000 })),
+    ).resolves.toBeDefined();
+  });
+});
+
+// ── Flota mixta (empresa con diferentes modalidades) ────────────────────────
+
+describe('flota mixta multitenant', () => {
+  beforeEach(() => { vi.clearAllMocks(); });
+
+  it('loadVehicles devuelve vehículos de diferentes modalidades bajo la misma org', async () => {
+    const data = [
+      { id: 'v1', org_id: ORG_A, modalidad: 'viajeros',   nombre: 'Bus Escolar',  activo: true },
+      { id: 'v2', org_id: ORG_A, modalidad: 'mercancias',  nombre: 'Camión 1',     activo: true },
+      { id: 'v3', org_id: ORG_A, modalidad: 'reparto',     nombre: 'Furgon 1',     activo: true },
+    ];
+    const chain: Record<string, unknown> = {};
+    chain.select = vi.fn(() => chain);
+    chain.eq     = vi.fn(() => chain);
+    chain.order  = vi.fn(() => Promise.resolve({ data, error: null }));
+    const { supabase } = await import('../../lib/supabase');
+    vi.mocked(supabase.from).mockReturnValueOnce(chain as unknown as ReturnType<typeof supabase.from>);
+    const result = await loadVehicles(ORG_A);
+    expect(result).toHaveLength(3);
+    const modalidades = result.map(v => (v as { modalidad: string }).modalidad);
+    expect(modalidades).toContain('viajeros');
+    expect(modalidades).toContain('mercancias');
+    expect(modalidades).toContain('reparto');
+  });
+
+  it('vehículos de dos orgs distintas no se mezclan (aislamiento)', async () => {
+    const orgAData = [{ id: 'v1', org_id: ORG_A, modalidad: 'viajeros', activo: true }];
+    const { chain, captured } = makeCaptureChain('org_id', { data: orgAData, error: null });
+    chain.order = vi.fn(() => Promise.resolve({ data: orgAData, error: null }));
+    const { supabase } = await import('../../lib/supabase');
+    vi.mocked(supabase.from).mockReturnValueOnce(chain as unknown as ReturnType<typeof supabase.from>);
+    const result = await loadVehicles(ORG_A);
+    expect(captured.value).toBe(ORG_A);
+    expect(result.every(v => (v as { org_id: string }).org_id !== ORG_B)).toBe(true);
+  });
+});
+
+// ── updateVehicle — validación de capacidad_carga_kg ────────────────────────
+
+describe('updateVehicle — capacidad_carga_kg', () => {
+  it('lanza error si capacidad_carga_kg > 50000', async () => {
+    await expect(
+      updateVehicle('id-1', ORG_A, { capacidad_carga_kg: 60000 }),
+    ).rejects.toThrow('carga');
+  });
+
+  it('permite capacidad_carga_kg = null (limpiar campo)', async () => {
+    const chain = makeChain({ data: { id: 'id-1' }, error: null });
+    const { supabase } = await import('../../lib/supabase');
+    vi.mocked(supabase.from).mockReturnValueOnce(chain as unknown as ReturnType<typeof supabase.from>);
+    await expect(
+      updateVehicle('id-1', ORG_A, { capacidad_carga_kg: null }),
+    ).resolves.toBeDefined();
   });
 });
 
