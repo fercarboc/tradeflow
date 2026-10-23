@@ -44,6 +44,7 @@ export interface TradeOrganization {
   geo_source?: 'auto' | 'manual' | null;
   geo_confirmed_at?: string | null;
   timezone?: string;
+  transport_enabled?: boolean;
   created_at: string;
   updated_at: string;
   // Internal admin-only fields — not displayed in normal installer UI
@@ -1041,6 +1042,7 @@ export interface TradeWorker {
   estado_actual?: 'disponible' | 'ocupado' | 'libre' | 'inactivo';
   horario_inicio?: string;
   horario_fin?: string;
+  es_conductor?: boolean;
   created_at: string;
   updated_at: string;
 }

@@ -73,6 +73,7 @@ import {
   MapPin,
   Eye,
   Store,
+  Bus,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL, MARKETPLACE_ENABLED } from '../lib/constants';
@@ -109,6 +110,8 @@ import ScreenMantenimientoWizard from './ScreenMantenimientoWizard';
 import ScreenEquipo from './ScreenEquipo';
 import ScreenIngresos from './ScreenIngresos';
 import ScreenMantenimiento from './ScreenMantenimiento';
+import ScreenTransporteVehiculos from './ScreenTransporteVehiculos';
+import ScreenTransporteConductores from './ScreenTransporteConductores';
 import ScreenFacturas from './ScreenFacturas';
 import ScreenContratos from './ScreenContratos';
 import ScreenAsistenteTecnico from './ScreenAsistenteTecnico';
@@ -785,6 +788,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // Mobile suppliers hub sub-tab
   const [mobileSuppliersSubTab, setMobileSuppliersSubTab] = useState<'proveedores' | 'catalogo'>('proveedores');
+  // Mobile transport sub-tab
+  const [transporteMobileSubTab, setTransporteMobileSubTab] = useState<'vehiculos' | 'conductores'>('vehiculos');
   const [newJobTrigger, setNewJobTrigger] = useState(0);
   const [prefillJobFromQuote, setPrefillJobFromQuote] = useState<import('../types').Presupuesto | null>(null);
 
@@ -800,7 +805,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }, [initialMobile]);
 
   // Tabs de navegación móvil
-  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'suppliers' | 'mantenimiento' | 'ruta' | 'asistente' | 'partes'>(rol === 'tecnico' ? 'trabajos' : 'inicio');
+  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'suppliers' | 'mantenimiento' | 'ruta' | 'asistente' | 'partes' | 'transporte'>(rol === 'tecnico' ? 'trabajos' : 'inicio');
   // Fix timing: session carga async, rol llega tarde — forzar tab correcto cuando cambia
   useEffect(() => {
     if (rol === 'tecnico') {
@@ -4028,6 +4033,39 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             />
           )}
           {mobileTab === 'partes' && MobileScreenPartes()}
+          {mobileTab === 'transporte' && orgId && (
+            <div className="absolute inset-0 overflow-y-auto bg-gray-50">
+              {/* Sub-tabs: Vehículos / Conductores */}
+              <div className="sticky top-0 z-10 bg-white border-b border-gray-200 flex">
+                <button
+                  onClick={() => setTransporteMobileSubTab('vehiculos')}
+                  className={`flex-1 py-3 text-xs font-bold flex items-center justify-center gap-1.5 border-b-2 transition-colors ${
+                    transporteMobileSubTab === 'vehiculos'
+                      ? 'border-blue-600 text-blue-600'
+                      : 'border-transparent text-gray-500'
+                  }`}
+                >
+                  <Bus className="w-3.5 h-3.5" /> Vehículos
+                </button>
+                <button
+                  onClick={() => setTransporteMobileSubTab('conductores')}
+                  className={`flex-1 py-3 text-xs font-bold flex items-center justify-center gap-1.5 border-b-2 transition-colors ${
+                    transporteMobileSubTab === 'conductores'
+                      ? 'border-indigo-600 text-indigo-600'
+                      : 'border-transparent text-gray-500'
+                  }`}
+                >
+                  <UserPlus className="w-3.5 h-3.5" /> Conductores
+                </button>
+              </div>
+              {transporteMobileSubTab === 'vehiculos' && (
+                <ScreenTransporteVehiculos orgId={orgId} showToast={showToast} />
+              )}
+              {transporteMobileSubTab === 'conductores' && (
+                <ScreenTransporteConductores orgId={orgId} showToast={showToast} />
+              )}
+            </div>
+          )}
         </div>
 
         {/* BOTTOM TAB BAR */}
@@ -4517,6 +4555,22 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               <p className="text-xs text-gray-400 mt-0.5">REBT · RITE · GAS</p>
             </div>
           </button>
+
+          {/* Transporte (solo si habilitado para la org) */}
+          {orgData?.transport_enabled && (
+            <button
+              onClick={() => { setMobileTab('transporte'); setShowFloatingMenu(false); }}
+              className="border-2 border-blue-200 rounded-2xl p-4 flex flex-col gap-3 bg-white active:scale-95 transition-transform text-left"
+            >
+              <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
+                <Bus className="w-5 h-5 text-blue-600" />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-gray-900 leading-tight">Transporte</p>
+                <p className="text-xs text-gray-400 mt-0.5">Flota y conductores</p>
+              </div>
+            </button>
+          )}
 
           {/* Partes firmados */}
           <button
@@ -6265,6 +6319,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? ctxPlan) || subscription?.status === 'trial') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
             {can('catalog.manage') && orgId && SidebarBtn({ id: 'suppliers', icon: <Truck className="w-4 h-4" />, label: 'Proveedores' })}
+            {orgData?.transport_enabled && can('team.manage') && (
+              <>
+                {SidebarBtn({ id: 'transporte_vehiculos',  icon: <Bus  className="w-4 h-4" />, label: 'Flota de Vehículos' })}
+                {SidebarBtn({ id: 'transporte_conductores', icon: <UserPlus className="w-4 h-4" />, label: 'Conductores' })}
+              </>
+            )}
             {SidebarBtn({ id: 'asistente', icon: <BookOpen className="w-4 h-4" />, label: 'Asistente Técnico' })}
             {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
@@ -6352,6 +6412,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'equipo' && 'Equipo y Trabajadores'}
                 {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
                 {activeTab === 'suppliers' && 'Proveedores y Catálogos'}
+                {activeTab === 'transporte_vehiculos' && 'Transporte · Flota de Vehículos'}
+                {activeTab === 'transporte_conductores' && 'Transporte · Conductores'}
                 {activeTab === 'asistente' && 'Asistente Técnico de Normativa'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
@@ -6643,6 +6705,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                         {ScreenCatalog()}
                       </div>
                     )}
+                  </div>
+                )}
+                {activeTab === 'transporte_vehiculos' && orgId && (
+                  <div className="flex-1 overflow-y-auto min-h-0">
+                    <ScreenTransporteVehiculos orgId={orgId} showToast={showToast} />
+                  </div>
+                )}
+                {activeTab === 'transporte_conductores' && orgId && (
+                  <div className="flex-1 overflow-y-auto min-h-0">
+                    <ScreenTransporteConductores orgId={orgId} showToast={showToast} />
                   </div>
                 )}
                 {activeTab === 'asistente' && (
