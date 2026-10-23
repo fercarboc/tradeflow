@@ -18,7 +18,15 @@
  *   GAC-P11 validateGeoResult — locality y postal_code ausentes → rechaza (Rule 2)
  *   GAC-P12 validateGeoResult — calle + ROOFTOP → acepta (Rule 5 no dispara)
  *   GAC-P13 validateGeoResult — calle + GEOMETRIC_CENTER → rechaza (Rule 5)
- *   GAC-P14 validateGeoResult — calle + Nominatim sin route → acepta (Rule 5 solo aplica a Google)
+ *   GAC-P14 validateGeoResult — calle + Nominatim sin route → rechaza (Rule 5 Nominatim path)
+ *   GAC-P15 validateGeoResult — Google ROOFTOP + calle + portal coincidente → acepta
+ *   GAC-P16 validateGeoResult — Google ROOFTOP + portal distinto → rechaza (Rule 6)
+ *   GAC-P17 validateGeoResult — Google RANGE_INTERPOLATED → rechaza (Rule 5: solo ROOFTOP)
+ *   GAC-P18 validateGeoResult — Google APPROXIMATE → rechaza (Rule 5)
+ *   GAC-P19 validateGeoResult — Nominatim con route + portal coincidente → acepta
+ *   GAC-P20 validateGeoResult — pueblo + CP sin portal (sin direccion) → acepta (Rules 1-4 solo)
+ *   GAC-P21 validateGeoResult — barrio rural sin route, con direccion → rechaza (Rule 5)
+ *   GAC-P22 validateGeoResult — calle coincidente, CP contradictorio → rechaza (Rule 4)
  *
  * Tests del flujo de creación (simulación):
  *   GAC-1   Alta con dirección completa → geocodificación lanzada, updateJobGeoAuto llamado
@@ -34,6 +42,7 @@
  *   GAC-11  Reintento posterior → hasSufficientAddress permite nuevo intento
  *   GAC-12  No regresión del flujo de edición: geo vars importadas sin conflicto
  *   GAC-13  applied=true → onJobGeoAutoFn llamado (local state), exactamente una escritura DB
+ *   GAC-14  no regresión: escritura única y protección manual tras PRECISION-GUARD-FIX
  *   GAC-ORG-1 cambio de organización durante IIFE → updateJobGeoAuto applied=false (DB protección), sin callback
  */
 import { describe, it, expect, vi } from 'vitest';
@@ -124,18 +133,87 @@ describe('validateGeoResult', () => {
     )).toBe(false);
   });
 
-  it('GAC-P14: calle + Nominatim sin location_type → acepta (precisión de domicilio diferida a GEO-AUTO-2)', () => {
-    // Nominatim no retorna location_type; Rule 5 solo dispara si location_type está presente
-    const nominatimResult: GeocodeResult = {
+  it('GAC-P14: calle + Nominatim sin route → rechaza (Rule 5 Nominatim path: calle no identificada)', () => {
+    const nominatimNoRoute: GeocodeResult = {
       latitud: 43.46, longitud: -3.81,
-      formatted_address: 'Calle Mayor, Santander, España',
+      formatted_address: 'Santander, Cantabria, España',
       provider: 'nominatim', country_code: 'es', locality: 'Santander',
-      // no location_type, no route — valid for GEO-AUTO-1; precision checked in GEO-AUTO-2
+      // no location_type, no route → Nominatim solo identificó localidad, no la calle
     };
     expect(validateGeoResult(
-      nominatimResult,
+      nominatimNoRoute,
+      { direccion: 'Calle Mayor 1', localidad: 'Santander' },
+    )).toBe(false);
+  });
+
+  it('GAC-P15: Google ROOFTOP + calle + portal coincidente → acepta', () => {
+    expect(validateGeoResult(
+      makeResult({ location_type: 'ROOFTOP', route: 'Calle Mayor', house_number: '1' }),
       { direccion: 'Calle Mayor 1', localidad: 'Santander' },
     )).toBe(true);
+  });
+
+  it('GAC-P16: Google ROOFTOP + portal distinto → rechaza (Rule 6: proveedor devolvió portal vecino)', () => {
+    expect(validateGeoResult(
+      makeResult({ location_type: 'ROOFTOP', route: 'Calle Mayor', house_number: '3' }),
+      { direccion: 'Calle Mayor 1', localidad: 'Santander' },
+    )).toBe(false);
+  });
+
+  it('GAC-P17: Google RANGE_INTERPOLATED → rechaza (Rule 5: solo ROOFTOP es precisión suficiente)', () => {
+    expect(validateGeoResult(
+      makeResult({ location_type: 'RANGE_INTERPOLATED', route: 'Calle Mayor' }),
+      { direccion: 'Calle Mayor 1', localidad: 'Santander' },
+    )).toBe(false);
+  });
+
+  it('GAC-P18: Google APPROXIMATE → rechaza (Rule 5: area aproximada, no domicilio)', () => {
+    expect(validateGeoResult(
+      makeResult({ location_type: 'APPROXIMATE' }),
+      { direccion: 'Calle Mayor 1', localidad: 'Santander' },
+    )).toBe(false);
+  });
+
+  it('GAC-P19: Nominatim con route + portal coincidente → acepta', () => {
+    const nominatimPrecise: GeocodeResult = {
+      latitud: 43.46, longitud: -3.81,
+      formatted_address: 'Calle Mayor 1, Santander, España',
+      provider: 'nominatim', country_code: 'es', locality: 'Santander',
+      route: 'Calle Mayor', house_number: '1',
+    };
+    expect(validateGeoResult(
+      nominatimPrecise,
+      { direccion: 'Calle Mayor 1', localidad: 'Santander' },
+    )).toBe(true);
+  });
+
+  it('GAC-P20: pueblo + CP sin portal (sin direccion) → acepta (Rules 1-4 únicamente)', () => {
+    // Sin direccion: Rules 5 y 6 no aplican. Solo se verifica país + ancla territorial.
+    expect(validateGeoResult(
+      makeResult({ postal_code: '39001' }),
+      { localidad: 'Santander', cp: '39001' },  // sin direccion
+    )).toBe(true);
+  });
+
+  it('GAC-P21: barrio rural sin route con direccion → rechaza (Rule 5 Nominatim path)', () => {
+    // Resultado ambiguo: Nominatim identificó localidad pero no la vía
+    const ambiguous: GeocodeResult = {
+      latitud: 43.2, longitud: -3.9,
+      formatted_address: 'Barrio La Lomba, Cantabria, España',
+      provider: 'nominatim', country_code: 'es', locality: 'La Lomba',
+      // no route → no se identificó la vía solicitada
+    };
+    expect(validateGeoResult(
+      ambiguous,
+      { direccion: 'Barrio La Lomba 3', localidad: 'La Lomba' },
+    )).toBe(false);
+  });
+
+  it('GAC-P22: Nominatim calle identificada pero CP contradictorio → rechaza (Rule 4)', () => {
+    expect(validateGeoResult(
+      makeResult({ route: 'Calle Mayor', house_number: '1', postal_code: '48001' }),  // Bilbao CP
+      { direccion: 'Calle Mayor 1', localidad: 'Santander', cp: '39001' },
+    )).toBe(false);
   });
 });
 
@@ -179,6 +257,7 @@ const GEO_OK: GeocodeResult = {
   latitud: 43.46, longitud: -3.81,
   formatted_address: 'Calle Mayor 1, Santander, España',
   provider: 'nominatim', country_code: 'es', locality: 'Santander',
+  route: 'Calle Mayor', house_number: '1',
 };
 const ADDR = { direccion: 'Calle Mayor 1', localidad: 'Santander', cp: '39001' };
 
@@ -344,6 +423,28 @@ describe('Flujo background geocoding — creación de trabajo', () => {
     expect(cbLat).toBeCloseTo(43.46);
     expect(cbLng).toBeCloseTo(-3.81);
     expect(cbAddr).toBe(GEO_OK.formatted_address);
+  });
+
+  it('GAC-14: no regresión PRECISION-GUARD-FIX — escritura única y protección manual intactas', async () => {
+    // GEO_OK ahora incluye route+house_number; la validación sigue aceptando resultados precisos.
+    const geoAuto   = makeGeoAuto(true);
+    const geoAutoFn = makeJobGeoAutoCallback();
+    await runBackgroundGeo({
+      jobId: JOB_ID, savedJob: ADDR, isLiveMode: true,
+      geocodeFn: async () => GEO_OK,
+      updateJobGeoAutoFn: geoAuto.fn, onJobGeoAutoFn: geoAutoFn.fn,
+    });
+    expect(geoAuto.calls).toHaveLength(1);   // exactamente una escritura DB
+    expect(geoAutoFn.calls).toHaveLength(1); // un callback local
+    // Confirmación manual (applied=false) sigue bloqueando el callback
+    const geoAutoBlocked   = makeGeoAuto(false);
+    const geoAutoFnBlocked = makeJobGeoAutoCallback();
+    await runBackgroundGeo({
+      jobId: JOB_ID, savedJob: ADDR, isLiveMode: true,
+      geocodeFn: async () => GEO_OK,
+      updateJobGeoAutoFn: geoAutoBlocked.fn, onJobGeoAutoFn: geoAutoFnBlocked.fn,
+    });
+    expect(geoAutoFnBlocked.calls).toHaveLength(0); // protección manual intacta
   });
 
   it('GAC-ORG-1: cambio de org durante IIFE → updateJobGeoAuto applied=false (RLS/snapshot guard), sin callback local', async () => {

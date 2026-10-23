@@ -104,9 +104,15 @@ export function hasSufficientAddress(params: GeocodeAddressParams): boolean {
  *  2. At least one of (result.locality, result.postal_code) MUST be present.
  *  3. If params.localidad is non-empty: result.locality MUST be present and substring-match.
  *  4. If both params.cp and result.postal_code are non-empty: they MUST be equal.
- *  5. If params.direccion is non-empty AND result.location_type is 'GEOMETRIC_CENTER' or
- *     'APPROXIMATE' (Google), reject — the provider resolved to a city/area center rather
- *     than the specific address. Nominatim (no location_type) defers precision to GEO-AUTO-2.
+ *  5. If params.direccion is non-empty:
+ *     - Google (location_type present): only 'ROOFTOP' accepted.
+ *       RANGE_INTERPOLATED is an interpolation on a route (deferred to GEO-AUTO-2).
+ *       GEOMETRIC_CENTER and APPROXIMATE are city/area centroids — all rejected.
+ *     - Nominatim (no location_type): result.route MUST be present (street identified).
+ *       Locality-only Nominatim results when a street was requested are rejected.
+ *  6. If result.house_number is present AND params.direccion is non-empty:
+ *     the house number MUST appear as a token in params.direccion.
+ *     Guards against ROOFTOP at a neighboring number.
  *
  * Compatible with old edge function (no metadata) → all results rejected until edge function
  * is updated. This is the safer behavior for a staggered deployment.
@@ -137,11 +143,21 @@ export function validateGeoResult(
     if (result.postal_code.trim() !== params.cp.trim()) return false;
   }
 
-  // Rule 5: when a street address was requested, reject locality-level Google results.
-  // GEOMETRIC_CENTER / APPROXIMATE indicate the provider resolved to a city/area center,
-  // not the specific address. Precision check for Nominatim is deferred to GEO-AUTO-2.
-  if (params.direccion?.trim() && result.location_type) {
-    if (result.location_type === 'GEOMETRIC_CENTER' || result.location_type === 'APPROXIMATE') return false;
+  // Rule 5: when a street address was requested, require address-level precision.
+  // Google (location_type present): only ROOFTOP accepted; all other types rejected.
+  // Nominatim (no location_type): route must be identified.
+  if (params.direccion?.trim()) {
+    if (result.location_type) {
+      if (result.location_type !== 'ROOFTOP') return false;
+    } else {
+      if (!result.route?.trim()) return false;
+    }
+  }
+
+  // Rule 6: when provider returns a house number, it must appear as a token in the requested address.
+  if (result.house_number?.trim() && params.direccion?.trim()) {
+    const hn = result.house_number.trim();
+    if (!params.direccion.split(/[\s,/\-]+/).includes(hn)) return false;
   }
 
   return true;
