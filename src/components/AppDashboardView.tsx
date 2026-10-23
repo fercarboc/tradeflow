@@ -112,6 +112,7 @@ import ScreenIngresos from './ScreenIngresos';
 import ScreenMantenimiento from './ScreenMantenimiento';
 import ScreenTransporteVehiculos from './ScreenTransporteVehiculos';
 import ScreenTransporteConductores from './ScreenTransporteConductores';
+import ScreenTransporteServicios from './ScreenTransporteServicios';
 import ScreenFacturas from './ScreenFacturas';
 import ScreenContratos from './ScreenContratos';
 import ScreenAsistenteTecnico from './ScreenAsistenteTecnico';
@@ -6321,6 +6322,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('catalog.manage') && orgId && SidebarBtn({ id: 'suppliers', icon: <Truck className="w-4 h-4" />, label: 'Proveedores' })}
             {orgData?.transport_enabled && can('team.manage') && (
               <>
+                {SidebarBtn({ id: 'transporte_servicios',  icon: <Calendar className="w-4 h-4" />, label: 'Servicios' })}
                 {SidebarBtn({ id: 'transporte_vehiculos',  icon: <Bus  className="w-4 h-4" />, label: 'Flota de Vehículos' })}
                 {SidebarBtn({ id: 'transporte_conductores', icon: <UserPlus className="w-4 h-4" />, label: 'Conductores' })}
               </>
@@ -6412,6 +6414,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'equipo' && 'Equipo y Trabajadores'}
                 {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
                 {activeTab === 'suppliers' && 'Proveedores y Catálogos'}
+                {activeTab === 'transporte_servicios' && 'Transporte · Servicios'}
                 {activeTab === 'transporte_vehiculos' && 'Transporte · Flota de Vehículos'}
                 {activeTab === 'transporte_conductores' && 'Transporte · Conductores'}
                 {activeTab === 'asistente' && 'Asistente Técnico de Normativa'}
@@ -6705,6 +6708,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                         {ScreenCatalog()}
                       </div>
                     )}
+                  </div>
+                )}
+                {activeTab === 'transporte_servicios' && orgId && (
+                  <div className="flex-1 overflow-y-auto min-h-0">
+                    <ScreenTransporteServicios orgId={orgId} showToast={showToast} />
                   </div>
                 )}
                 {activeTab === 'transporte_vehiculos' && orgId && (
