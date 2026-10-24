@@ -13,14 +13,17 @@ CREATE EXTENSION IF NOT EXISTS btree_gist;
 -- La restricción es siempre cierta (id es PK global) y añade un índice
 -- que también acelera consultas filtradas por org_id.
 
-ALTER TABLE public.trade_workers
-  ADD CONSTRAINT trade_workers_org_id_id_key UNIQUE (org_id, id);
+DO $$ BEGIN
+  ALTER TABLE public.trade_workers  ADD CONSTRAINT trade_workers_org_id_id_key  UNIQUE (org_id, id);
+EXCEPTION WHEN duplicate_table THEN NULL; END $$;
 
-ALTER TABLE public.trade_vehicles
-  ADD CONSTRAINT trade_vehicles_org_id_id_key UNIQUE (org_id, id);
+DO $$ BEGIN
+  ALTER TABLE public.trade_vehicles ADD CONSTRAINT trade_vehicles_org_id_id_key UNIQUE (org_id, id);
+EXCEPTION WHEN duplicate_table THEN NULL; END $$;
 
-ALTER TABLE public.trade_quotes
-  ADD CONSTRAINT trade_quotes_org_id_id_key UNIQUE (org_id, id);
+DO $$ BEGIN
+  ALTER TABLE public.trade_quotes   ADD CONSTRAINT trade_quotes_org_id_id_key   UNIQUE (org_id, id);
+EXCEPTION WHEN duplicate_table THEN NULL; END $$;
 
 -- trade_clients ya tiene ADD CONSTRAINT trade_clients_org_id_id_key
 -- desde migration 20260906132829_client_locations_m1.sql
@@ -105,23 +108,31 @@ CREATE INDEX idx_tts_client       ON public.trade_transport_services(org_id, cli
 -- Impide que dos servicios confirmados/en_curso compartan vehículo o conductor
 -- en el mismo intervalo. Aplica también a cambios de vehicle_id/conductor_id
 -- post-confirmación. Require btree_gist para indexar UUID con '=' en GiST.
--- COALESCE(fecha_fin, fecha_inicio + 4h): duración mínima si fecha_fin es NULL.
+--
+-- DISEÑO: se usa tstzrange(fecha_inicio, fecha_fin, '[)') sin COALESCE.
+-- La expresión `timestamptz + interval` es STABLE (no IMMUTABLE) en PostgreSQL 17,
+-- lo que impediría crear el índice GiST. En su lugar se exige fecha_fin explícita
+-- para todo servicio confirmado/en_curso que tenga recursos asignados.
+-- La cláusula WHERE filtra solo filas con fecha_fin IS NOT NULL, garantizando
+-- que el índice nunca indexa rangos abiertos ni llama a funciones STABLE.
+-- Los servicios sin vehículo ni conductor pueden tener fecha_fin NULL (sin reserva
+-- efectiva de recurso, no generan exclusión).
 
 ALTER TABLE public.trade_transport_services
   ADD CONSTRAINT tts_no_vehicle_overlap
   EXCLUDE USING gist (
     vehicle_id   WITH =,
-    tstzrange(fecha_inicio, COALESCE(fecha_fin, fecha_inicio + interval '4 hours'), '[)') WITH &&
+    tstzrange(fecha_inicio, fecha_fin, '[)') WITH &&
   )
-  WHERE (vehicle_id IS NOT NULL AND estado IN ('confirmado','en_curso'));
+  WHERE (vehicle_id IS NOT NULL AND estado IN ('confirmado','en_curso') AND fecha_fin IS NOT NULL);
 
 ALTER TABLE public.trade_transport_services
   ADD CONSTRAINT tts_no_conductor_overlap
   EXCLUDE USING gist (
     conductor_id WITH =,
-    tstzrange(fecha_inicio, COALESCE(fecha_fin, fecha_inicio + interval '4 hours'), '[)') WITH &&
+    tstzrange(fecha_inicio, fecha_fin, '[)') WITH &&
   )
-  WHERE (conductor_id IS NOT NULL AND estado IN ('confirmado','en_curso'));
+  WHERE (conductor_id IS NOT NULL AND estado IN ('confirmado','en_curso') AND fecha_fin IS NOT NULL);
 
 -- ── Trigger: updated_at ───────────────────────────────────────────────
 
@@ -273,6 +284,13 @@ BEGIN
      WHERE id = NEW.org_id AND transport_enabled = true
   ) THEN
     RAISE EXCEPTION 'TRANSPORT_FORBIDDEN: módulo de transporte no activado para esta organización';
+  END IF;
+
+  -- fecha_fin obligatoria cuando hay recursos asignados en estado confirmado/en_curso.
+  -- Garantiza que los EXCLUDE constraints (que usan tstzrange(fecha_inicio, fecha_fin, '[)'))
+  -- siempre operen sobre rangos cerrados y nunca indexen un extremo abierto.
+  IF (NEW.vehicle_id IS NOT NULL OR NEW.conductor_id IS NOT NULL) AND NEW.fecha_fin IS NULL THEN
+    RAISE EXCEPTION 'TRANSPORT_INVALID: se requiere fecha_fin para confirmar un servicio con vehículo o conductor asignados';
   END IF;
 
   -- Validez del vehículo asignado
@@ -459,6 +477,11 @@ BEGIN
     IF v_worker.activo IS NOT DISTINCT FROM false THEN
       RAISE EXCEPTION 'TRANSPORT_INVALID: el conductor asignado no está activo';
     END IF;
+  END IF;
+
+  -- 4c. fecha_fin obligatoria cuando hay recursos asignados
+  IF (v_svc.vehicle_id IS NOT NULL OR v_svc.conductor_id IS NOT NULL) AND v_svc.fecha_fin IS NULL THEN
+    RAISE EXCEPTION 'TRANSPORT_INVALID: se requiere fecha_fin para confirmar un servicio con vehículo o conductor asignados';
   END IF;
 
   -- 5. Detección informativa de conflictos de vehículo

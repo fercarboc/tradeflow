@@ -35,8 +35,8 @@ BEGIN
   VALUES (v_org_id, 'Empresa Test T1C', v_owner_id, true);
 
   -- Vehículo
-  INSERT INTO public.trade_vehicles(id, org_id, nombre, matricula, modalidad, tipo_vehiculo, activo, estado)
-  VALUES (v_vehicle_id, v_org_id, 'Bus Test', 'TEST-001', 'viajeros', 'autobus', true, 'disponible');
+  INSERT INTO public.trade_vehicles(id, org_id, nombre, matricula, modalidad, tipo, activo, estado)
+  VALUES (v_vehicle_id, v_org_id, 'Bus Test', 'TEST-001', 'viajeros', 'autocar', true, 'disponible');
 
   -- Trabajador conductor
   INSERT INTO public.trade_workers(id, org_id, nombre, es_conductor, activo)
@@ -47,7 +47,7 @@ BEGIN
     org_id, titulo, tipo_servicio, fecha_inicio, fecha_fin,
     vehicle_id, conductor_id, num_viajeros, estado
   ) VALUES (
-    v_org_id, 'Servicio T1C Test', 'traslado',
+    v_org_id, 'Servicio T1C Test', 'traslado_privado',
     now() - interval '2h', now() + interval '1h',
     v_vehicle_id, v_conductor_id, 30, 'en_curso'
   ) RETURNING id INTO v_svc_id;
@@ -58,7 +58,7 @@ BEGIN
     vehicle_id, conductor_id, num_viajeros, estado,
     hora_real_salida, hora_real_llegada, km_reales, cerrado_at, cerrado_por
   ) VALUES (
-    v_org_id, 'Servicio Completado T1C', 'traslado',
+    v_org_id, 'Servicio Completado T1C', 'traslado_privado',
     now() - interval '5h', now() - interval '3h',
     v_vehicle_id, v_conductor_id, 25, 'completado',
     now() - interval '4h45m', now() - interval '3h15m', 45.5, now(), v_owner_id
@@ -68,7 +68,7 @@ BEGIN
   INSERT INTO public.trade_transport_services(
     org_id, titulo, tipo_servicio, fecha_inicio, fecha_fin, estado
   ) VALUES (
-    v_org_id, 'Servicio Borrador T1C', 'traslado',
+    v_org_id, 'Servicio Borrador T1C', 'traslado_privado',
     now() + interval '1d', now() + interval '1d' + interval '3h', 'borrador'
   ) RETURNING id INTO v_svc_borrador;
 
@@ -211,7 +211,7 @@ BEGIN
   INSERT INTO public.trade_transport_services(
     org_id, titulo, tipo_servicio, fecha_inicio, estado
   ) VALUES (
-    v_org_id, 'Svc horas iguales', 'traslado', now(), 'en_curso'
+    v_org_id, 'Svc horas iguales', 'traslado_privado', now(), 'en_curso'
   ) RETURNING id INTO v_svc_id;
 
   BEGIN

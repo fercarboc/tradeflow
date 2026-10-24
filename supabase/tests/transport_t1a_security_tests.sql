@@ -36,6 +36,12 @@
 
 BEGIN;
 
+-- Las FK compuestas (tts_client_org_fk, tts_vehicle_org_fk, tts_conductor_org_fk) son
+-- DEFERRABLE INITIALLY DEFERRED. En un bloque BEGIN/ROLLBACK sin COMMIT, los checks
+-- diferidos nunca se ejecutan a menos que se fuercen explícitamente. E4, E5 y E6
+-- prueban el aislamiento multitenant vía FK compuesta; forzamos la comprobación inmediata.
+SET CONSTRAINTS tts_client_org_fk, tts_vehicle_org_fk, tts_conductor_org_fk IMMEDIATE;
+
 DO $$
 DECLARE
   v_org_a      uuid := gen_random_uuid();
@@ -441,9 +447,9 @@ BEGIN
   -- ── E24: INSERT directo con vehículo inactivo + estado=confirmado ──────────
   BEGIN
     INSERT INTO public.trade_transport_services(
-      org_id, titulo, tipo_servicio, fecha_inicio, estado, vehicle_id
+      org_id, titulo, tipo_servicio, fecha_inicio, fecha_fin, estado, vehicle_id
     ) VALUES (
-      v_org_guard, 'Servicio E24', 'excursion', now(), 'confirmado', v_veh_inactive
+      v_org_guard, 'Servicio E24', 'excursion', now(), now() + interval '8 hours', 'confirmado', v_veh_inactive
     );
     RAISE EXCEPTION 'E24 FAIL: INSERT en confirmado con vehículo inactivo debería fallar';
   EXCEPTION WHEN raise_exception THEN
@@ -453,9 +459,9 @@ BEGIN
   -- ── E25: INSERT directo con vehículo de mercancías + estado=confirmado ──────
   BEGIN
     INSERT INTO public.trade_transport_services(
-      org_id, titulo, tipo_servicio, fecha_inicio, estado, vehicle_id
+      org_id, titulo, tipo_servicio, fecha_inicio, fecha_fin, estado, vehicle_id
     ) VALUES (
-      v_org_guard, 'Servicio E25', 'excursion', now(), 'confirmado', v_veh_mercancias
+      v_org_guard, 'Servicio E25', 'excursion', now(), now() + interval '8 hours', 'confirmado', v_veh_mercancias
     );
     RAISE EXCEPTION 'E25 FAIL: INSERT en confirmado con vehículo mercancias debería fallar';
   EXCEPTION WHEN raise_exception THEN
@@ -465,10 +471,10 @@ BEGIN
   -- ── E26: UPDATE num_viajeros supera capacidad en servicio confirmado ─────────
   -- Primero crear y confirmar un servicio válido, luego intentar subir num_viajeros
   INSERT INTO public.trade_transport_services(
-    org_id, titulo, tipo_servicio, fecha_inicio, estado, vehicle_id, num_viajeros
+    org_id, titulo, tipo_servicio, fecha_inicio, fecha_fin, estado, vehicle_id, num_viajeros
   ) VALUES (
     v_org_guard, 'Servicio E26', 'excursion',
-    '2026-12-01T09:00:00Z', 'confirmado', v_veh_small, 4
+    '2026-12-01T09:00:00Z', '2026-12-01T18:00:00Z', 'confirmado', v_veh_small, 4
   ) RETURNING id INTO v_svc_id;
 
   BEGIN
@@ -482,10 +488,10 @@ BEGIN
 
   -- ── E27: UPDATE vehicle_id → vehículo inactivo en servicio confirmado ────────
   INSERT INTO public.trade_transport_services(
-    org_id, titulo, tipo_servicio, fecha_inicio, estado, vehicle_id
+    org_id, titulo, tipo_servicio, fecha_inicio, fecha_fin, estado, vehicle_id
   ) VALUES (
     v_org_guard, 'Servicio E27', 'excursion',
-    '2026-12-02T09:00:00Z', 'confirmado', v_veh_active
+    '2026-12-02T09:00:00Z', '2026-12-02T18:00:00Z', 'confirmado', v_veh_active
   ) RETURNING id INTO v_svc_id;
 
   BEGIN
@@ -499,10 +505,10 @@ BEGIN
 
   -- ── E28a: UPDATE conductor_id → conductor inactivo en servicio confirmado ────
   INSERT INTO public.trade_transport_services(
-    org_id, titulo, tipo_servicio, fecha_inicio, estado, vehicle_id, conductor_id
+    org_id, titulo, tipo_servicio, fecha_inicio, fecha_fin, estado, vehicle_id, conductor_id
   ) VALUES (
     v_org_guard, 'Servicio E28a', 'excursion',
-    '2026-12-03T09:00:00Z', 'confirmado', v_veh_active, v_cond_ok
+    '2026-12-03T09:00:00Z', '2026-12-03T18:00:00Z', 'confirmado', v_veh_active, v_cond_ok
   ) RETURNING id INTO v_svc_id;
 
   BEGIN
@@ -516,10 +522,10 @@ BEGIN
 
   -- ── E28b: UPDATE conductor_id → conductor sin es_conductor en confirmado ──────
   INSERT INTO public.trade_transport_services(
-    org_id, titulo, tipo_servicio, fecha_inicio, estado, vehicle_id, conductor_id
+    org_id, titulo, tipo_servicio, fecha_inicio, fecha_fin, estado, vehicle_id, conductor_id
   ) VALUES (
     v_org_guard, 'Servicio E28b', 'excursion',
-    '2026-12-04T09:00:00Z', 'confirmado', v_veh_active, v_cond_ok
+    '2026-12-04T09:00:00Z', '2026-12-04T18:00:00Z', 'confirmado', v_veh_active, v_cond_ok
   ) RETURNING id INTO v_svc_id;
 
   BEGIN
