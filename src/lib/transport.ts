@@ -218,17 +218,18 @@ export async function setVehicleEstado(
 
 // ── Vehicle image assets ──────────────────────────────────────────────────────
 
-export const VEHICLE_IMAGES: Record<string, string> = {
+// null → no photo available; caller should render a neutral icon placeholder
+export const VEHICLE_IMAGES: Record<string, string | null> = {
   autocar:         '/autocar.png',
   microbus:        '/minibus.png',
   furgoneta:       '/furgonetatrabajo.png',
-  sedan:           '/furgonetatrabajo.png',
+  sedan:           null,   // no matching photo — show neutral icon
   minivan:         '/minibus.png',
   camion_rigido:   '/camionreparto.png',
   cabeza_tractora: '/camionarticulado.png',
-  otro:            '/autocar.png',
+  otro:            null,   // catch-all — show neutral icon
 };
 
-export function getVehicleImage(tipo: string): string {
-  return VEHICLE_IMAGES[tipo] ?? '/autocar.png';
+export function getVehicleImage(tipo: string): string | null {
+  return (tipo in VEHICLE_IMAGES) ? VEHICLE_IMAGES[tipo] : null;
 }

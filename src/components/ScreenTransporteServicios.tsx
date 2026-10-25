@@ -323,6 +323,12 @@ function ServicioModal({
               <div>
                 <label className={labelCls}>Tipo de servicio</label>
                 <select value={form.tipo_servicio} onChange={e => set('tipo_servicio', e.target.value)} className={inputCls}>
+                  {/* Legacy option: visible solo al editar un servicio con valor no reconocido en el catálogo activo */}
+                  {!TIPO_SERVICIO_OPTIONS.find(t => t.value === (form.tipo_servicio as string)) && (
+                    <option value={form.tipo_servicio as string}>
+                      {(form.tipo_servicio as string) === 'traslado_empresa' ? 'Traslado empresa (heredado)' : (form.tipo_servicio as string)}
+                    </option>
+                  )}
                   {TIPO_SERVICIO_OPTIONS.map(t => (
                     <option key={t.value} value={t.value}>{t.label}</option>
                   ))}

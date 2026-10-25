@@ -10,6 +10,7 @@ import {
   setWorkerConductor,
   loadVehicles,
   loadVehiclesAll,
+  getVehicleImage,
   VEHICLE_TIPOS,
   VEHICLE_ESTADOS,
   VEHICLE_MODALIDADES,
@@ -514,5 +515,32 @@ describe('setWorkerConductor', () => {
 
     await setWorkerConductor('worker-1', ORG_A, false);
     expect((capturedUpdate as Record<string, unknown>).es_conductor).toBe(false);
+  });
+});
+
+
+// ── getVehicleImage ───────────────────────────────────────────────────────────
+
+describe('getVehicleImage', () => {
+  it('devuelve ruta de imagen para tipos con foto', () => {
+    expect(getVehicleImage('autocar')).toBe('/autocar.png');
+    expect(getVehicleImage('microbus')).toBe('/minibus.png');
+    expect(getVehicleImage('furgoneta')).toBe('/furgonetatrabajo.png');
+    expect(getVehicleImage('minivan')).toBe('/minibus.png');
+    expect(getVehicleImage('camion_rigido')).toBe('/camionreparto.png');
+    expect(getVehicleImage('cabeza_tractora')).toBe('/camionarticulado.png');
+  });
+
+  it('devuelve null para sedan (sin foto correcta disponible)', () => {
+    expect(getVehicleImage('sedan')).toBeNull();
+  });
+
+  it('devuelve null para otro (catch-all sin foto específica)', () => {
+    expect(getVehicleImage('otro')).toBeNull();
+  });
+
+  it('devuelve null para tipo desconocido', () => {
+    expect(getVehicleImage('tipo_inexistente')).toBeNull();
+    expect(getVehicleImage('')).toBeNull();
   });
 });

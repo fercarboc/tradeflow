@@ -426,9 +426,10 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
                           <td className="px-3 py-3 hidden lg:table-cell">
                             {vehicle ? (
                               <div className="flex items-center gap-2">
-                                <img src={getVehicleImage(vehicle.tipo)} alt={vehicle.tipo}
-                                  className="w-6 h-6 object-contain rounded"
-                                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                                {getVehicleImage(vehicle.tipo)
+                                  ? <img src={getVehicleImage(vehicle.tipo)!} alt={vehicle.tipo} className="w-6 h-6 object-contain rounded" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                                  : <div className="w-6 h-6 rounded bg-slate-100 flex items-center justify-center shrink-0"><Bus className="w-3.5 h-3.5 text-slate-400" /></div>
+                                }
                                 <div className="flex flex-col">
                                   <span className="text-xs font-semibold text-slate-700 leading-tight">{vehicle.nombre}</span>
                                   <span className="text-[10px] text-slate-400">{vehicle.matricula}</span>
@@ -503,9 +504,10 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
                     const assignedCond = assignedSvc?.conductor_id ? workerMap.get(assignedSvc.conductor_id) : undefined;
                     return (
                       <div key={v.id} className={`rounded-2xl border p-3 flex flex-col gap-2 ${cfg.card}`}>
-                        <img src={getVehicleImage(v.tipo)} alt={v.nombre}
-                          className="w-full h-16 object-contain"
-                          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                        {getVehicleImage(v.tipo)
+                          ? <img src={getVehicleImage(v.tipo)!} alt={v.nombre} className="w-full h-16 object-contain" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                          : <div className="w-full h-16 bg-slate-100/60 rounded-lg flex items-center justify-center"><Bus className="w-8 h-8 text-slate-300" /></div>
+                        }
                         <div>
                           <p className="text-xs font-bold text-slate-800 leading-tight truncate">{v.nombre}</p>
                           <p className="text-[10px] text-slate-500">{v.matricula}</p>

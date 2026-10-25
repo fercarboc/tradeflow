@@ -114,6 +114,22 @@ describe('catálogos', () => {
       'borrador', 'confirmado', 'en_curso', 'completado', 'cancelado',
     ]);
   });
+
+  it('los 12 tipos activos pasan validateServiceInput', () => {
+    const newTypes = [
+      'circuito','viaje_multidia','transporte_trabajadores','lanzadera',
+      'congreso_evento','servicio_deportivo','asociacion_grupo',
+    ];
+    for (const tipo of newTypes) {
+      expect(() => validateServiceInput(makeInput({ tipo_servicio: tipo as TradeTransportServiceInput['tipo_servicio'] }))).not.toThrow();
+    }
+  });
+
+  it('traslado_empresa heredado pasa validateServiceInput sin lanzar error', () => {
+    // El valor heredado puede existir en servicios ya guardados; la validación
+    // de aplicación no debe rechazarlo (el CHECK de DB lo acepta).
+    expect(() => validateServiceInput(makeInput({ tipo_servicio: 'traslado_empresa' as TradeTransportServiceInput['tipo_servicio'] }))).not.toThrow();
+  });
 });
 
 // ── validateStops ────────────────────────────────────────────────────────────
