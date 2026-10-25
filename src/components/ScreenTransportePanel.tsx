@@ -216,8 +216,10 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
   const countByStatus = (s: FleetStatus) => fleetStatuses.filter(f => f.status === s).length;
   const assignedCount     = countByStatus('en_servicio') + countByStatus('programado');
   const availableCount    = countByStatus('sin_asignacion');
-  const maintenanceVehicles = vehicles.filter(v => v.estado === 'en_mantenimiento' || v.estado === 'baja');
-  const maintenanceCount  = maintenanceVehicles.length;
+  const maintenanceVehicles    = vehicles.filter(v => v.estado === 'en_mantenimiento' || v.estado === 'baja');
+  const maintenanceCount       = maintenanceVehicles.length;
+  const enMantenimientoCount   = vehicles.filter(v => v.estado === 'en_mantenimiento').length;
+  const enBajaCount            = vehicles.filter(v => v.estado === 'baja').length;
 
   const conductorWorkers   = workers.filter(w => w.es_conductor);
   const assignedConductors = conductorWorkers.filter(w => kpis.assignedConductorIds.has(w.id));
@@ -307,15 +309,15 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
         <KpiCard
           icon={<FileText className="w-4 h-4" />}
           label="Contratos recurrentes"
-          value={0}
-          sub="módulo próximamente"
+          value="—"
+          sub="Módulo TQ-1C"
           accent="purple"
         />
         <KpiCard
           icon={<Wrench className="w-4 h-4" />}
-          label="Incidencias"
+          label="No disponibles"
           value={maintenanceCount}
-          sub={maintenanceCount > 0 ? 'vehículos no operativos' : 'flota operativa'}
+          sub={maintenanceCount === 0 ? 'flota operativa' : enBajaCount > 0 ? `${enMantenimientoCount} mant. · ${enBajaCount} baja` : 'en mantenimiento'}
           accent={maintenanceCount > 0 ? 'amber' : 'slate'}
         />
       </div>
