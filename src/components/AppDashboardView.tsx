@@ -938,16 +938,23 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // Derived capabilities — pure function of orgData, recomputed when org loads
   const caps = useMemo(() => getOrgCapabilities(orgData), [orgData]);
 
-  // When org loads and is a transport-only org, redirect from installer defaults to transport panel
+  // Sync navigation with org capabilities when org data resolves:
+  //   - Transport-only org: redirect away from installer defaults toward transport panel.
+  //   - No-transport org: redirect away from transport tabs (e.g. stale localStorage).
   useEffect(() => {
-    if (!caps.isTransportOrg) return;
-    if (activeTab === 'dashboard') setActiveTab('transporte_panel');
-    if (mobileTab === 'inicio') {
-      setMobileTab('transporte');
-      setTransporteMobileSubTab('panel');
+    if (caps.isTransportOrg) {
+      if (activeTab === 'dashboard') setActiveTab('transporte_panel');
+      if (mobileTab === 'inicio') {
+        setMobileTab('transporte');
+        setTransporteMobileSubTab('panel');
+      }
+    } else if (!caps.hasTransport) {
+      // Org has no transport module — clear any stale transport navigation
+      if (typeof activeTab === 'string' && activeTab.startsWith('transporte')) setActiveTab('dashboard');
+      if (mobileTab === 'transporte') setMobileTab('inicio');
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [caps.isTransportOrg]);
+  }, [caps.isTransportOrg, caps.hasTransport]);
 
   // Always reflects the current orgId — used to guard against stale closures after async operations.
   const orgIdRef = useRef<string | null>(null);
@@ -4056,7 +4063,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             />
           )}
           {mobileTab === 'partes' && MobileScreenPartes()}
-          {mobileTab === 'transporte' && orgId && (
+          {mobileTab === 'transporte' && orgId && caps.hasTransport && can('transport.view') && (
             <div className="absolute inset-0 flex flex-col bg-gray-50">
               {/* Sub-tabs: Panel / Servicios / Agenda / Flota / Conductores */}
               <div className="sticky top-0 z-10 bg-white border-b border-gray-200 flex overflow-x-auto scrollbar-hide shrink-0">
@@ -4630,8 +4637,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
           </button>
 
-          {/* Transporte (solo si habilitado para la org) */}
-          {orgData?.transport_enabled && (
+          {/* Transporte (solo si habilitado y autorizado) */}
+          {caps.hasTransport && can('transport.view') && (
             <button
               onClick={() => { setMobileTab('transporte'); setShowFloatingMenu(false); }}
               className="border-2 border-blue-200 rounded-2xl p-4 flex flex-col gap-3 bg-white active:scale-95 transition-transform text-left"
@@ -6815,12 +6822,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     )}
                   </div>
                 )}
-                {activeTab === 'transporte_panel' && orgId && (
+                {activeTab === 'transporte_panel' && orgId && caps.hasTransport && can('transport.view') && (
                   <div className="flex-1 overflow-y-auto min-h-0">
                     <ScreenTransportePanel orgId={orgId} showToast={showToast} onNavigate={setActiveTab} />
                   </div>
                 )}
-                {activeTab === 'transporte_servicios' && orgId && (
+                {activeTab === 'transporte_servicios' && orgId && caps.hasTransport && can('transport.view') && (
                   <div className="flex-1 overflow-y-auto min-h-0">
                     <ScreenTransporteServicios
                       orgId={orgId}
@@ -6829,7 +6836,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     />
                   </div>
                 )}
-                {activeTab === 'transporte_agenda' && orgId && (
+                {activeTab === 'transporte_agenda' && orgId && caps.hasTransport && can('transport.view') && (
                   <div className="flex-1 overflow-y-auto min-h-0">
                     <ScreenTransporteAgenda
                       orgId={orgId}
@@ -6838,7 +6845,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     />
                   </div>
                 )}
-                {activeTab === 'transporte_parte' && orgId && transporteParteId && (
+                {activeTab === 'transporte_parte' && orgId && transporteParteId && caps.hasTransport && can('transport.view') && (
                   <div className="flex-1 overflow-y-auto min-h-0">
                     <ScreenTransporteParteTrabajo
                       orgId={orgId}
@@ -6852,12 +6859,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     />
                   </div>
                 )}
-                {activeTab === 'transporte_vehiculos' && orgId && (
+                {activeTab === 'transporte_vehiculos' && orgId && caps.hasTransport && can('transport.view') && (
                   <div className="flex-1 overflow-y-auto min-h-0">
                     <ScreenTransporteVehiculos orgId={orgId} showToast={showToast} />
                   </div>
                 )}
-                {activeTab === 'transporte_conductores' && orgId && (
+                {activeTab === 'transporte_conductores' && orgId && caps.hasTransport && can('transport.view') && (
                   <div className="flex-1 overflow-y-auto min-h-0">
                     <ScreenTransporteConductores orgId={orgId} showToast={showToast} />
                   </div>
