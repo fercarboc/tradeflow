@@ -3,14 +3,14 @@ import {
   Bus, Users, Calendar, AlertTriangle,
   MapPin, ArrowRight, Loader2, RefreshCw, TrendingUp,
   Plane, Car, Star, BookOpen, Briefcase, Compass,
-  Wrench, UserCheck, Plus, ChevronRight, FileText,
+  Wrench, UserCheck, Plus, ChevronRight, FileText, Route,
 } from 'lucide-react';
 import {
   SERVICIO_ESTADOS,
   loadServicesOverlappingDay,
 } from '../lib/transportServices';
 import type { TradeTransportService, ServicioEstado } from '../lib/transportServices';
-import { loadVehiclesAll } from '../lib/transport';
+import { loadVehiclesAll, getVehicleImage } from '../lib/transport';
 import type { TradeVehicle } from '../lib/transport';
 import { loadClients, loadWorkers, getClientDisplayName } from '../lib/supabase';
 import type { TradeClient, TradeWorker } from '../lib/supabase';
@@ -67,20 +67,6 @@ function TipoIcon({ tipo }: { tipo: string }) {
   );
 }
 
-const VEHICLE_IMAGES: Record<string, string> = {
-  autocar:          '/autocar.png',
-  microbus:         '/minibus.png',
-  furgoneta:        '/furgonetatrabajo.png',
-  sedan:            '/furgonetatrabajo.png',
-  minivan:          '/minibus.png',
-  camion_rigido:    '/camionreparto.png',
-  cabeza_tractora:  '/camionarticulado.png',
-  otro:             '/autocar.png',
-};
-
-function getVehicleImage(tipo: string): string {
-  return VEHICLE_IMAGES[tipo] ?? '/autocar.png';
-}
 
 const FLEET_STATUS_CONFIG: Record<FleetStatus, { label: string; dot: string; card: string }> = {
   en_servicio:       { label: 'En servicio',   dot: 'bg-emerald-500 animate-pulse', card: 'border-emerald-200 bg-emerald-50'  },
@@ -322,6 +308,38 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
         />
       </div>
 
+      {/* Bloque mapa — placeholder hasta integración de rutas en T2 */}
+      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
+          <div className="flex items-center gap-2">
+            <Route className="w-4 h-4 text-blue-500" />
+            <h2 className="text-sm font-black text-slate-800 uppercase tracking-wide">Rutas del día</h2>
+          </div>
+          {onNavigate && (
+            <button onClick={() => onNavigate('transporte_rutas')}
+              className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 font-medium">
+              Ver rutas <ArrowRight className="w-3 h-3" />
+            </button>
+          )}
+        </div>
+        <div className="relative bg-slate-50 h-44 flex flex-col items-center justify-center gap-3">
+          {/* Fondo decorativo tipo mapa */}
+          <div className="absolute inset-0 opacity-[0.06]"
+            style={{ backgroundImage: 'radial-gradient(circle, #3b82f6 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+          <MapPin className="w-10 h-10 text-slate-300 relative z-10" />
+          <div className="relative z-10 text-center">
+            <p className="text-sm font-semibold text-slate-500">Sin rutas activas hoy</p>
+            <p className="text-xs text-slate-400 mt-0.5">La planificación de rutas se completará en la próxima fase</p>
+          </div>
+          {onNavigate && (
+            <button onClick={() => onNavigate('transporte_rutas')}
+              className="relative z-10 flex items-center gap-1.5 text-xs font-semibold text-blue-600 border border-blue-200 bg-white rounded-lg px-3 py-1.5 hover:bg-blue-50 transition-colors">
+              <Route className="w-3.5 h-3.5" /> Planificar rutas
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* 2-column layout: main content + sidebar */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6 items-start">
 
@@ -556,6 +574,12 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
                 icon={<UserCheck className="w-4 h-4" />}
                 label="Conductores"
                 onClick={() => onNavigate?.('transporte_conductores')}
+                disabled={!onNavigate}
+              />
+              <QuickAction
+                icon={<Route className="w-4 h-4" />}
+                label="Ver rutas"
+                onClick={() => onNavigate?.('transporte_rutas')}
                 disabled={!onNavigate}
               />
             </div>

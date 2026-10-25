@@ -84,16 +84,16 @@ export default function ScreenTransporteConductores({ orgId, showToast }: Props)
   const conductores = active.filter(w => w.es_conductor).length;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen bg-slate-50">
       {/* Header */}
-      <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-4 sm:px-6 py-4">
+      <div className="bg-white border-b border-slate-200 px-4 sm:px-6 py-4">
         <div className="max-w-3xl mx-auto flex items-center gap-3">
           <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-sm shrink-0">
             <User size={18} />
           </div>
           <div>
-            <h1 className="text-base font-bold text-gray-900 dark:text-white">Conductores</h1>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
+            <h1 className="text-base font-bold text-slate-900">Conductores</h1>
+            <p className="text-xs text-slate-500">
               {conductores} conductor{conductores !== 1 ? 'es' : ''} habilitado{conductores !== 1 ? 's' : ''} de {active.length} trabajador{active.length !== 1 ? 'es' : ''}
             </p>
           </div>
@@ -102,9 +102,9 @@ export default function ScreenTransporteConductores({ orgId, showToast }: Props)
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6">
         {/* Aviso informativo */}
-        <div className="mb-5 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 flex gap-3">
+        <div className="mb-5 bg-blue-50 border border-blue-200 rounded-xl p-4 flex gap-3">
           <AlertCircle size={16} className="text-blue-500 shrink-0 mt-0.5" />
-          <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
+          <p className="text-xs text-blue-700 leading-relaxed">
             Marcar un trabajador como conductor es solo informativo. TrabFlow no verifica
             habilitaciones CAP ni permisos de conducción. La validación de documentación
             es responsabilidad de la empresa.
@@ -113,9 +113,9 @@ export default function ScreenTransporteConductores({ orgId, showToast }: Props)
 
         {/* Aviso solo lectura para no-owner */}
         {!canEdit && (
-          <div className="mb-5 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4 flex gap-3">
+          <div className="mb-5 bg-amber-50 border border-amber-200 rounded-xl p-4 flex gap-3">
             <Lock size={16} className="text-amber-500 shrink-0 mt-0.5" />
-            <p className="text-xs text-amber-700 dark:text-amber-300 leading-relaxed">
+            <p className="text-xs text-amber-700 leading-relaxed">
               Solo el propietario de la organización puede habilitar o deshabilitar conductores.
               Estás en modo solo lectura.
             </p>
@@ -131,31 +131,29 @@ export default function ScreenTransporteConductores({ orgId, showToast }: Props)
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Buscar por nombre o email…"
-              className="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:text-white"
+              className="w-full pl-9 pr-4 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
         )}
 
         {loading && (
-          <div className="text-center py-16 text-sm text-gray-400">
+          <div className="text-center py-16 text-sm text-slate-400">
             Cargando trabajadores…
           </div>
         )}
 
         {!loading && active.length === 0 && (
           <div className="text-center py-20">
-            <Bus size={40} className="mx-auto text-gray-300 dark:text-gray-600 mb-3" />
-            <p className="text-gray-500 dark:text-gray-400 font-medium">
-              No hay trabajadores activos
-            </p>
-            <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">
+            <Bus size={40} className="mx-auto text-slate-300 mb-3" />
+            <p className="text-slate-500 font-medium">No hay trabajadores activos</p>
+            <p className="text-sm text-slate-400 mt-1">
               Añade trabajadores en la sección Equipo para habilitarlos como conductores.
             </p>
           </div>
         )}
 
         {!loading && active.length > 0 && filtered.length === 0 && (
-          <div className="text-center py-12 text-sm text-gray-400">
+          <div className="text-center py-12 text-sm text-slate-400">
             Ningún trabajador coincide con la búsqueda.
           </div>
         )}
@@ -172,17 +170,15 @@ export default function ScreenTransporteConductores({ orgId, showToast }: Props)
               return (
                 <div
                   key={worker.id}
-                  className={`bg-white dark:bg-gray-900 rounded-xl border px-4 py-3 flex items-center gap-4 transition-all ${
-                    isConductor
-                      ? 'border-indigo-200 dark:border-indigo-700'
-                      : 'border-gray-200 dark:border-gray-700'
+                  className={`bg-white rounded-xl border px-4 py-3 flex items-center gap-4 transition-all ${
+                    isConductor ? 'border-indigo-200' : 'border-slate-200'
                   }`}
                 >
-                  {/* Avatar */}
-                  <div className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
+                  {/* Avatar con iniciales */}
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
                     isConductor
-                      ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300'
-                      : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
+                      ? 'bg-indigo-100 text-indigo-700'
+                      : 'bg-slate-100 text-slate-500'
                   }`}>
                     {initials(worker.nombre)}
                   </div>
@@ -190,20 +186,20 @@ export default function ScreenTransporteConductores({ orgId, showToast }: Props)
                   {/* Info */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="font-medium text-gray-900 dark:text-white text-sm truncate">
+                      <span className="font-medium text-slate-900 text-sm truncate">
                         {worker.nombre}
                       </span>
                       {isConductor && (
-                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 shrink-0">
+                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-100 text-indigo-700 border border-indigo-200 shrink-0">
                           <Bus size={9} /> Conductor
                         </span>
                       )}
                     </div>
                     {worker.email && (
-                      <p className="text-xs text-gray-400 truncate">{worker.email}</p>
+                      <p className="text-xs text-slate-400 truncate">{worker.email}</p>
                     )}
                     {worker.rol && (
-                      <p className="text-xs text-gray-400 capitalize">{worker.rol}</p>
+                      <p className="text-xs text-slate-400 capitalize">{worker.rol}</p>
                     )}
                   </div>
 
@@ -215,10 +211,10 @@ export default function ScreenTransporteConductores({ orgId, showToast }: Props)
                       title={isConductor ? 'Quitar habilitación de conductor' : 'Habilitar como conductor'}
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all shrink-0 ${
                         isToggling
-                          ? 'opacity-50 cursor-not-allowed bg-gray-100 text-gray-400'
+                          ? 'opacity-50 cursor-not-allowed bg-slate-100 text-slate-400'
                           : isConductor
-                          ? 'bg-indigo-50 text-indigo-700 hover:bg-red-50 hover:text-red-600 dark:bg-indigo-900/30 dark:text-indigo-300 dark:hover:bg-red-900/30 dark:hover:text-red-400 border border-indigo-200 dark:border-indigo-700'
-                          : 'bg-gray-50 text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-indigo-900/30 dark:hover:text-indigo-300 border border-gray-200 dark:border-gray-700'
+                          ? 'bg-indigo-50 text-indigo-700 hover:bg-red-50 hover:text-red-600 border border-indigo-200'
+                          : 'bg-slate-50 text-slate-600 hover:bg-indigo-50 hover:text-indigo-700 border border-slate-200'
                       }`}
                     >
                       {isToggling ? (

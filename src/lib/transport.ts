@@ -215,3 +215,20 @@ export async function setVehicleEstado(
     .eq('org_id', orgId);
   if (error) throw error;
 }
+
+// ── Vehicle image assets ──────────────────────────────────────────────────────
+
+export const VEHICLE_IMAGES: Record<string, string> = {
+  autocar:         '/autocar.png',
+  microbus:        '/minibus.png',
+  furgoneta:       '/furgonetatrabajo.png',
+  sedan:           '/furgonetatrabajo.png',
+  minivan:         '/minibus.png',
+  camion_rigido:   '/camionreparto.png',
+  cabeza_tractora: '/camionarticulado.png',
+  otro:            '/autocar.png',
+};
+
+export function getVehicleImage(tipo: string): string {
+  return VEHICLE_IMAGES[tipo] ?? '/autocar.png';
+}
