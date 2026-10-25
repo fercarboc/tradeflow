@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Bus, Users, Calendar, Clock, AlertTriangle,
+  Bus, Users, Calendar, AlertTriangle,
   MapPin, ArrowRight, Loader2, RefreshCw, TrendingUp,
   Plane, Car, Star, BookOpen, Briefcase, Compass,
-  Wrench, UserCheck, Plus, ChevronRight,
+  Wrench, UserCheck, Plus, ChevronRight, FileText,
 } from 'lucide-react';
 import {
   SERVICIO_ESTADOS,
@@ -229,7 +229,7 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
     { key: 'en_servicio',    label: 'En servicio',   count: countByStatus('en_servicio')   },
     { key: 'programado',     label: 'Programados',   count: countByStatus('programado')    },
     { key: 'sin_asignacion', label: 'Disponibles',   count: availableCount                 },
-    { key: 'mantenimiento',  label: 'Mantenimiento', count: maintenanceCount               },
+    { key: 'mantenimiento',  label: 'En taller',     count: maintenanceCount               },
   ];
 
   const fleetTabVehicles: TradeVehicle[] = fleetTab === 'mantenimiento'
@@ -293,23 +293,23 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
         <KpiCard
           icon={<Bus className="w-4 h-4" />}
           label="Vehículos activos"
-          value={assignedCount}
-          sub={`de ${passengerVehicles.length} en flota`}
+          value={`${assignedCount} / ${passengerVehicles.length}`}
+          sub={assignedCount > 0 ? `${Math.round(assignedCount / Math.max(passengerVehicles.length, 1) * 100)}% en servicio` : 'sin asignaciones'}
           accent="emerald"
         />
         <KpiCard
           icon={<UserCheck className="w-4 h-4" />}
           label="Conductores disponibles"
-          value={disponibleConductores}
-          sub={`${assignedConductors.length} asignados hoy`}
+          value={`${disponibleConductores} / ${conductorWorkers.length}`}
+          sub={disponibleConductores > 0 ? 'disponibles' : 'todos asignados'}
           accent="slate"
         />
         <KpiCard
-          icon={<Clock className="w-4 h-4" />}
-          label="En curso ahora"
-          value={kpis.serviciosEnCurso}
-          sub={kpis.serviciosEnCurso > 0 ? 'servicio activo' : 'sin servicios activos'}
-          accent={kpis.serviciosEnCurso > 0 ? 'emerald' : 'slate'}
+          icon={<FileText className="w-4 h-4" />}
+          label="Contratos recurrentes"
+          value={0}
+          sub="módulo próximamente"
+          accent="purple"
         />
         <KpiCard
           icon={<Wrench className="w-4 h-4" />}
@@ -471,6 +471,9 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
                     const entry  = fleetStatuses.find(f => f.vehicle.id === v.id);
                     const status = entry?.status ?? 'fuera_de_servicio';
                     const cfg    = FLEET_STATUS_CONFIG[status as FleetStatus] ?? FLEET_STATUS_CONFIG.fuera_de_servicio;
+                    // Find conductor assigned to this vehicle today
+                    const assignedSvc  = services.find(s => s.vehicle_id === v.id && s.conductor_id && s.estado !== 'cancelado');
+                    const assignedCond = assignedSvc?.conductor_id ? workerMap.get(assignedSvc.conductor_id) : undefined;
                     return (
                       <div key={v.id} className={`rounded-2xl border p-3 flex flex-col gap-2 ${cfg.card}`}>
                         <img src={getVehicleImage(v.tipo)} alt={v.nombre}
@@ -489,6 +492,12 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
                           <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${cfg.dot}`} />
                           <span className="text-[10px] font-semibold text-slate-600">{cfg.label}</span>
                         </div>
+                        {assignedCond && (
+                          <div className="flex items-center gap-1 pt-1 border-t border-slate-100">
+                            <UserCheck className="w-3 h-3 text-slate-400 shrink-0" />
+                            <span className="text-[10px] text-slate-500 truncate">{assignedCond.nombre}</span>
+                          </div>
+                        )}
                       </div>
                     );
                   })}
