@@ -13,6 +13,12 @@ import {
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
+/**
+ * Reference limits for Transport Demo accounts.
+ * INFORMATIVE ONLY — not enforced server-side in this version.
+ * Do not present as contractual restrictions.
+ * Future plan: server-side CHECK on insert, 2 drivers/vehicle, 29€/vehicle/month.
+ */
 export const TRANSPORT_DEMO_LIMITS = {
   maxVehicles: 3,
   maxDrivers: 5,
@@ -135,13 +141,13 @@ export default function TransportOnboardingWizard({ onComplete, showToast }: Pro
   // Step 3 — tipos de servicio
   const [tiposServicio, setTiposServicio] = useState<Set<string>>(new Set());
 
-  // Step 4 — tarifas
+  // Step 4 — tarifas (start empty; only saved when user enters explicit values)
   const [tarifas, setTarifas] = useState({
-    precio_km:       0.90,
-    precio_hora:     45,
-    precio_jornada:  320,
-    precio_trayecto: 0,
-    iva_default:     10,
+    precio_km:       null as number | null,
+    precio_hora:     null as number | null,
+    precio_jornada:  null as number | null,
+    precio_trayecto: null as number | null,
+    iva_default:     null as number | null,
   });
 
   // Step 7 — calendario
@@ -166,9 +172,9 @@ export default function TransportOnboardingWizard({ onComplete, showToast }: Pro
     };
     const { error } = await supabase.from('trade_organizations').update(orgData).eq('id', orgId);
     if (error) console.error('[TransportOnboarding saveStep1]', error.message);
-    const stored = JSON.parse(localStorage.getItem('tf_biz_config') ?? '{}');
-    localStorage.setItem('tf_biz_config', JSON.stringify({
-      ...stored,
+    // Write to org-scoped key (prevents cross-org data bleed when switching accounts)
+    // Also write to legacy tf_biz_config for BC with billing/invoice generation readers
+    const bizData = {
       nombre:        empresa.nombre,
       nif:           empresa.nif,
       direccion:     empresa.direccion,
@@ -180,31 +186,57 @@ export default function TransportOnboardingWizard({ onComplete, showToast }: Pro
       iban:          empresa.iban,
       banco:         empresa.banco,
       titularCuenta: empresa.titular_cuenta,
-    }));
+    };
+    try {
+      const stored = JSON.parse(localStorage.getItem(`tf_biz_config_${orgId}`) ?? '{}');
+      localStorage.setItem(`tf_biz_config_${orgId}`, JSON.stringify({ ...stored, ...bizData }));
+      // BC: keep global key updated so invoice generation still works
+      const storedGlobal = JSON.parse(localStorage.getItem('tf_biz_config') ?? '{}');
+      localStorage.setItem('tf_biz_config', JSON.stringify({ ...storedGlobal, ...bizData }));
+    } catch { /* storage unavailable (private mode) — non-fatal */ }
   }
 
   async function saveStep2And3() {
     if (!orgId || !especialidad) return;
-    const specialties = [especialidad, ...Array.from(tiposServicio)];
+    // Store modalidad and service types in separate columns — not mixed in a single array
     await supabase.from('trade_organizations')
-      .update({ transport_specialties: specialties } as Record<string, unknown>)
+      .update({
+        transport_modalidad:     especialidad,
+        transport_service_types: Array.from(tiposServicio),
+      } as Record<string, unknown>)
       .eq('id', orgId);
   }
 
   async function saveStep4() {
     if (!orgId) return;
-    const stored = JSON.parse(localStorage.getItem('tf_biz_config') ?? '{}');
-    localStorage.setItem('tf_biz_config', JSON.stringify({
-      ...stored,
-      precioKm:         tarifas.precio_km,
-      valorHoraOperario: tarifas.precio_hora,
-      precioJornada:    tarifas.precio_jornada,
-      precioTrayecto:   tarifas.precio_trayecto,
-      ivaDefault:       tarifas.iva_default,
-    }));
-    await supabase.from('trade_organizations')
-      .update({ iva_default: tarifas.iva_default })
-      .eq('id', orgId);
+    // Build rate object with only non-null values — do not save empty placeholders
+    const rates: Record<string, number> = {};
+    if (tarifas.precio_km !== null)       rates.precio_km = tarifas.precio_km;
+    if (tarifas.precio_hora !== null)     rates.precio_hora = tarifas.precio_hora;
+    if (tarifas.precio_jornada !== null)  rates.precio_jornada = tarifas.precio_jornada;
+    if (tarifas.precio_trayecto !== null) rates.precio_trayecto = tarifas.precio_trayecto;
+
+    // Persist to DB: device-independent storage (transport_rates JSONB + iva_default)
+    if (Object.keys(rates).length > 0) {
+      await supabase.from('trade_organizations')
+        .update({ transport_rates: rates } as Record<string, unknown>)
+        .eq('id', orgId);
+    }
+    if (tarifas.iva_default !== null) {
+      await supabase.from('trade_organizations')
+        .update({ iva_default: tarifas.iva_default })
+        .eq('id', orgId);
+    }
+
+    // Org-scoped localStorage (transport-specific config, separate from installer config)
+    try {
+      const stored = JSON.parse(localStorage.getItem(`tf_transport_config_${orgId}`) ?? '{}');
+      localStorage.setItem(`tf_transport_config_${orgId}`, JSON.stringify({
+        ...stored,
+        rates,
+        iva_default: tarifas.iva_default,
+      }));
+    } catch { /* storage unavailable — rates already persisted to DB */ }
   }
 
   // ── Navigation ────────────────────────────────────────────────────────────
@@ -475,16 +507,23 @@ export default function TransportOnboardingWizard({ onComplete, showToast }: Pro
             {step === 4 && (
               <>
                 <div>
-                  <h2 className="text-xl font-black text-slate-900">Tarifas base</h2>
-                  <p className="text-sm text-slate-500 mt-1">Define las tarifas estándar de tu empresa. La plataforma las usará como referencia para presupuestos y partes de servicio.</p>
+                  <h2 className="text-xl font-black text-slate-900">Tarifas comerciales</h2>
+                  <p className="text-sm text-slate-500 mt-1">
+                    Configura las tarifas reales de tu empresa. Los campos vacíos no se guardarán.
+                    Puedes completarlos ahora o más tarde desde Ajustes.
+                  </p>
+                </div>
+                <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 text-xs text-blue-800 mb-1">
+                  <strong>Ejemplos orientativos (no se guardan automáticamente):</strong>{' '}
+                  €/km: 0,90 · €/h: 45 · €/jornada: 320
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    { label: 'Precio por kilómetro',  key: 'precio_km',       suffix: '€/km',     color: 'blue',    hint: 'Tarifa base para servicios por distancia.' },
-                    { label: 'Precio por hora',        key: 'precio_hora',     suffix: '€/h',      color: 'amber',   hint: 'Tarifa base para servicios por tiempo.' },
-                    { label: 'Precio por jornada',     key: 'precio_jornada',  suffix: '€/jornada', color: 'emerald', hint: 'Jornada completa (8-10h). Referencia para contrataciones diarias.' },
-                    { label: 'Precio por trayecto',    key: 'precio_trayecto', suffix: '€/trayecto', color: 'purple',  hint: 'Precio fijo por ruta o trayecto definido (0 = no usar).' },
-                    { label: 'IVA por defecto',        key: 'iva_default',     suffix: '%',         color: 'slate',   hint: 'El transporte de viajeros tributa al 10%. Mercancías al 21%.' },
+                    { label: 'Precio por kilómetro',  key: 'precio_km',       suffix: '€/km',      color: 'blue',    step: 0.01, placeholder: 'Ej. 0,90', hint: 'Tarifa base para servicios por distancia.' },
+                    { label: 'Precio por hora',        key: 'precio_hora',     suffix: '€/h',       color: 'amber',   step: 1,    placeholder: 'Ej. 45',   hint: 'Tarifa base para servicios por tiempo.' },
+                    { label: 'Precio por jornada',     key: 'precio_jornada',  suffix: '€/jornada',  color: 'emerald', step: 1,    placeholder: 'Ej. 320',  hint: 'Jornada completa (8-10h). Solo si aplica a tu modelo.' },
+                    { label: 'Precio por trayecto',    key: 'precio_trayecto', suffix: '€/trayecto', color: 'purple',  step: 1,    placeholder: 'Opcional', hint: 'Precio fijo por ruta definida. Dejar vacío si no aplica.' },
+                    { label: 'IVA por defecto',        key: 'iva_default',     suffix: '%',          color: 'slate',   step: 1,    placeholder: '10 ó 21',  hint: 'Viajeros: 10%. Mercancías: 21%. Confirmar con asesor fiscal.' },
                   ].map(f => (
                     <div key={f.key} className={`bg-${f.color}-50 border border-${f.color}-100 rounded-xl p-4`}>
                       <label className={`text-xs font-bold text-${f.color}-600 uppercase tracking-wider block mb-2`}>{f.label}</label>
@@ -492,10 +531,14 @@ export default function TransportOnboardingWizard({ onComplete, showToast }: Pro
                         <input
                           type="number"
                           min={0}
-                          step={f.key === 'precio_km' ? 0.01 : 1}
-                          value={tarifas[f.key as keyof typeof tarifas]}
-                          onChange={e => setTarifas(p => ({ ...p, [f.key]: parseFloat(e.target.value) || 0 }))}
-                          className={`flex-1 bg-white border border-${f.color}-200 rounded-lg px-3 py-2 text-xl font-bold text-slate-900 focus:outline-none focus:border-${f.color}-500`}
+                          step={f.step}
+                          value={tarifas[f.key as keyof typeof tarifas] ?? ''}
+                          placeholder={f.placeholder}
+                          onChange={e => setTarifas(p => ({
+                            ...p,
+                            [f.key]: e.target.value === '' ? null : parseFloat(e.target.value),
+                          }))}
+                          className={`flex-1 bg-white border border-${f.color}-200 rounded-lg px-3 py-2 text-xl font-bold text-slate-900 focus:outline-none focus:border-${f.color}-500 placeholder:text-slate-300`}
                         />
                         <span className="text-slate-500 font-semibold text-sm">{f.suffix}</span>
                       </div>
@@ -680,9 +723,9 @@ export default function TransportOnboardingWizard({ onComplete, showToast }: Pro
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
-                      { icon: <Truck className="w-4 h-4" />,  label: `Hasta ${TRANSPORT_DEMO_LIMITS.maxVehicles} vehículos` },
-                      { icon: <Users className="w-4 h-4" />,  label: `Hasta ${TRANSPORT_DEMO_LIMITS.maxDrivers} conductores` },
-                      { icon: <MapPin className="w-4 h-4" />, label: 'Partes de servicio ilimitados' },
+                      { icon: <Truck className="w-4 h-4" />,  label: `~${TRANSPORT_DEMO_LIMITS.maxVehicles} vehículos (referencia)` },
+                      { icon: <Users className="w-4 h-4" />,  label: `~${TRANSPORT_DEMO_LIMITS.maxDrivers} conductores (referencia)` },
+                      { icon: <MapPin className="w-4 h-4" />, label: 'Partes de servicio' },
                       { icon: <Clock className="w-4 h-4" />,  label: 'Agenda y ruta del día' },
                       { icon: <Star className="w-4 h-4" />,   label: 'Presupuestos y facturas' },
                       { icon: <Shield className="w-4 h-4" />, label: 'Soporte incluido' },

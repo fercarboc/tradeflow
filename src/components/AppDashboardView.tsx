@@ -975,8 +975,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [urgentContratosCount, setUrgentContratosCount] = useState(0);
   const [pushLoading, setPushLoading] = useState(false);
   const [subscription, setSubscription] = useState<TradeSubscription | null>(null);
-  // Transport Demo: transport org on trial with no Stripe customer (manually-provisioned demo)
-  const isTransportDemo = caps.hasTransport && !!subscription && !subscription.stripe_customer_id && subscription.status === 'trial';
   const [stripeLoading, setStripeLoading] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [mantenimientoInitialText, setMantenimientoInitialText] = useState<string>('');
@@ -6378,7 +6376,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               ) : (
                 <>
                   <span className="font-bold text-xs text-white block uppercase tracking-wide truncate">{empresaAjustes.nombre}</span>
-                  {isTransportDemo
+                  {caps.isTransportDemo
                     ? <span className="text-[10px] text-amber-400 block truncate font-bold">Transporte Demo</span>
                     : caps.isTransportOrg
                       ? <span className="text-[10px] text-blue-400 block truncate">Transporte</span>

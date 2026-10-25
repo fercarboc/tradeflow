@@ -45,7 +45,12 @@ export interface TradeOrganization {
   geo_confirmed_at?: string | null;
   timezone?: string;
   transport_enabled?: boolean;
-  transport_specialties?: string[];
+  transport_modalidad?: string | null;
+  transport_service_types?: string[];
+  /** Explicit entitlement level. Set only by admin. Values: none | demo | pilot | production */
+  transport_license?: string;
+  /** Per-org commercial rates persisted to DB for device-independent access */
+  transport_rates?: Record<string, number>;
   created_at: string;
   updated_at: string;
   // Internal admin-only fields — not displayed in normal installer UI
