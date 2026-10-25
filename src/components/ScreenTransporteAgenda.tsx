@@ -329,9 +329,14 @@ export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte }
 
       {/* Header + week navigation */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-xl font-black text-slate-900 uppercase tracking-tight">Agenda Semanal</h1>
-          <p className="text-xs text-slate-400 mt-0.5 capitalize">{fmtMonthYear(weekStart)}</p>
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm shrink-0">
+            <Calendar className="w-5 h-5" />
+          </div>
+          <div>
+            <h1 className="text-lg font-black text-slate-900 leading-tight">Agenda Semanal</h1>
+            <p className="text-xs text-slate-400 capitalize">{fmtMonthYear(weekStart)}</p>
+          </div>
         </div>
 
         <div className="flex items-center gap-2">

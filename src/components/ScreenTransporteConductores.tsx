@@ -88,8 +88,8 @@ export default function ScreenTransporteConductores({ orgId, showToast }: Props)
       {/* Header */}
       <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-4 sm:px-6 py-4">
         <div className="max-w-3xl mx-auto flex items-center gap-3">
-          <div className="w-9 h-9 bg-indigo-100 dark:bg-indigo-900/40 rounded-lg flex items-center justify-center">
-            <User size={18} className="text-indigo-600 dark:text-indigo-400" />
+          <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-sm shrink-0">
+            <User size={18} />
           </div>
           <div>
             <h1 className="text-base font-bold text-gray-900 dark:text-white">Conductores</h1>

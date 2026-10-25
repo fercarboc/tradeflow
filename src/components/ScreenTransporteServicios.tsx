@@ -755,9 +755,14 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
     <div className="p-6 space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-lg font-black text-slate-900">Servicios de transporte</h2>
-          <p className="text-xs text-slate-500 mt-0.5">Gestión de servicios puntuales de viajeros</p>
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm shrink-0">
+            <Calendar className="w-5 h-5" />
+          </div>
+          <div>
+            <h2 className="text-lg font-black text-slate-900 leading-tight">Servicios de transporte</h2>
+            <p className="text-xs text-slate-400">Gestión de servicios puntuales de viajeros</p>
+          </div>
         </div>
         {canWrite && (
           <button

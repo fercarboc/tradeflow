@@ -202,11 +202,16 @@ export default function ScreenTransporteParteTrabajo({ orgId, serviceId, onClose
         >
           <ArrowLeft className="w-4 h-4" /> Volver a Servicios
         </button>
-        <div className="min-w-0">
-          <h1 className="text-xl font-black text-slate-900 uppercase tracking-tight truncate">
-            Parte de servicio
-          </h1>
-          <p className="text-xs text-slate-400 truncate">{svc.titulo}</p>
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm shrink-0">
+            <FileText className="w-4 h-4" />
+          </div>
+          <div className="min-w-0">
+            <h1 className="text-lg font-black text-slate-900 leading-tight truncate">
+              Parte de servicio
+            </h1>
+            <p className="text-xs text-slate-400 truncate">{svc.titulo}</p>
+          </div>
         </div>
         <div className="ml-auto shrink-0">
           <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold border ${estadoCfg?.color ?? ''}`}>
