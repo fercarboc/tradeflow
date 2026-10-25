@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   Bus, Plus, X, Edit2, Trash2, Save, AlertCircle,
   CheckCircle2, Wrench, AlertTriangle, CircleOff,
@@ -351,6 +351,7 @@ function VehicleFormModal({ vehicle, onClose, onSaved, orgId, showToast }: Vehic
                   src={getVehicleDisplayImage(form.tipo, form.image_path)!}
                   alt="Vista previa"
                   className="w-20 h-12 object-contain rounded border border-slate-200 bg-slate-50"
+                  onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
                 />
               ) : (
                 <div className="w-20 h-12 rounded border border-slate-200 bg-slate-100 flex items-center justify-center text-slate-300">
@@ -391,7 +392,8 @@ function VehicleFormModal({ vehicle, onClose, onSaved, orgId, showToast }: Vehic
                       : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'
                   }`}
                 >
-                  <img src={img.path} alt={img.label} className="w-10 h-6 object-contain" />
+                  <img src={img.path} alt={img.label} className="w-10 h-6 object-contain"
+                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                 </button>
               ))}
             </div>
@@ -468,17 +470,22 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
   const [deactivating, setDeactivating] = useState<TradeVehicle | null>(null);
   const [deactivateLoading, setDeactivateLoading] = useState(false);
 
+  // Ref estable para showToast — evita que useCallback de load cambie cada vez
+  // que el padre re-renderiza al mostrar un toast (causa del bucle de carga).
+  const showToastRef = useRef(showToast);
+  useEffect(() => { showToastRef.current = showToast; });
+
   const load = useCallback(async () => {
     setLoading(true);
     try {
       const data = await loadVehiclesAll(orgId);
       setVehicles(data);
     } catch (e) {
-      showToast(errMsg(e), 'error');
+      showToastRef.current(errMsg(e), 'error');
     } finally {
       setLoading(false);
     }
-  }, [orgId, showToast]);
+  }, [orgId]); // showToast excluido: ref estable evita reload innecesario
 
   useEffect(() => { void load(); }, [load]);
 
@@ -629,19 +636,15 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
                         <td className="px-4 py-3">
                           {v.activo ? (
                             canWrite ? (
-                              <div className="relative group">
-                                <button className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium border ${ec.color}`}>
-                                  {ESTADO_ICON[v.estado]}{ec.label}<ChevronDown size={10} />
-                                </button>
-                                <div className="absolute left-0 top-full mt-1 bg-white rounded-lg shadow-lg border border-slate-200 py-1 z-10 hidden group-hover:block min-w-[160px]">
-                                  {VEHICLE_ESTADOS.map(s => (
-                                    <button key={s.value} onClick={() => handleEstadoChange(v, s.value)}
-                                      className={`w-full text-left px-3 py-1.5 text-xs hover:bg-slate-50 flex items-center gap-2 ${v.estado === s.value ? 'font-semibold' : ''}`}>
-                                      {ESTADO_ICON[s.value]}{s.label}
-                                    </button>
-                                  ))}
-                                </div>
-                              </div>
+                              <select
+                                value={v.estado}
+                                onChange={e => handleEstadoChange(v, e.target.value as VehicleEstado)}
+                                className={`cursor-pointer px-2 py-1 rounded-full text-xs font-medium border focus:outline-none focus:ring-2 focus:ring-blue-500 ${ec.color}`}
+                              >
+                                {VEHICLE_ESTADOS.map(s => (
+                                  <option key={s.value} value={s.value}>{s.label}</option>
+                                ))}
+                              </select>
                             ) : (
                               <span className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium border ${ec.color}`}>
                                 {ESTADO_ICON[v.estado]}{ec.label}
