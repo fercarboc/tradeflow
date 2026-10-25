@@ -45,6 +45,7 @@ export interface TradeOrganization {
   geo_confirmed_at?: string | null;
   timezone?: string;
   transport_enabled?: boolean;
+  transport_specialties?: string[];
   created_at: string;
   updated_at: string;
   // Internal admin-only fields — not displayed in normal installer UI

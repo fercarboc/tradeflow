@@ -20,6 +20,7 @@ export const ROL_PERMISOS: Record<Rol, string[]> = {
     'mantenimiento.view',
     'settings.manage',
     'subscription.manage',
+    'transport.view',
   ],
   // Admin: todo igual que owner, sin gestión de suscripción
   admin: [
@@ -33,6 +34,7 @@ export const ROL_PERMISOS: Record<Rol, string[]> = {
     'mantenimiento.view',
     'settings.manage',
     'field_notes.create',
+    'transport.view',
   ],
   // Oficina: todo excepto ajustes de empresa
   oficina: [
@@ -44,6 +46,7 @@ export const ROL_PERMISOS: Record<Rol, string[]> = {
     'team.manage',
     'ingresos.view',
     'mantenimiento.view',
+    'transport.view',
   ],
   // Comercial: presupuestos + clientes, sin facturas ni contratos
   comercial: [

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { 
   Mic, 
   Image as ImageIcon, 
@@ -118,6 +118,7 @@ import ScreenTransporteServicios from './ScreenTransporteServicios';
 import ScreenTransportePanel from './ScreenTransportePanel';
 import ScreenTransporteAgenda from './ScreenTransporteAgenda';
 import ScreenTransporteParteTrabajo from './ScreenTransporteParteTrabajo';
+import { getOrgCapabilities } from '../lib/orgCapabilities';
 import ScreenFacturas from './ScreenFacturas';
 import ScreenContratos from './ScreenContratos';
 import ScreenAsistenteTecnico from './ScreenAsistenteTecnico';
@@ -795,7 +796,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // Mobile suppliers hub sub-tab
   const [mobileSuppliersSubTab, setMobileSuppliersSubTab] = useState<'proveedores' | 'catalogo'>('proveedores');
   // Mobile transport sub-tab
-  const [transporteMobileSubTab, setTransporteMobileSubTab] = useState<'vehiculos' | 'conductores'>('vehiculos');
+  const [transporteMobileSubTab, setTransporteMobileSubTab] = useState<'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores'>('vehiculos');
   // Transport parte virtual tab
   const [transporteParteId, setTransporteParteId] = useState<string | null>(null);
   const [newJobTrigger, setNewJobTrigger] = useState(0);
@@ -934,6 +935,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   const [orgId, setOrgId] = useState<string | null>(null);
   const [orgData, setOrgData] = useState<TradeOrganization | null>(null);
+  // Derived capabilities — pure function of orgData, recomputed when org loads
+  const caps = useMemo(() => getOrgCapabilities(orgData), [orgData]);
+
+  // When org loads and is a transport-only org, redirect from installer defaults to transport panel
+  useEffect(() => {
+    if (!caps.isTransportOrg) return;
+    if (activeTab === 'dashboard') setActiveTab('transporte_panel');
+    if (mobileTab === 'inicio') {
+      setMobileTab('transporte');
+      setTransporteMobileSubTab('panel');
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [caps.isTransportOrg]);
+
   // Always reflects the current orgId — used to guard against stale closures after async operations.
   const orgIdRef = useRef<string | null>(null);
   orgIdRef.current = orgId;
@@ -4042,36 +4057,62 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           )}
           {mobileTab === 'partes' && MobileScreenPartes()}
           {mobileTab === 'transporte' && orgId && (
-            <div className="absolute inset-0 overflow-y-auto bg-gray-50">
-              {/* Sub-tabs: Vehículos / Conductores */}
-              <div className="sticky top-0 z-10 bg-white border-b border-gray-200 flex">
-                <button
-                  onClick={() => setTransporteMobileSubTab('vehiculos')}
-                  className={`flex-1 py-3 text-xs font-bold flex items-center justify-center gap-1.5 border-b-2 transition-colors ${
-                    transporteMobileSubTab === 'vehiculos'
-                      ? 'border-blue-600 text-blue-600'
-                      : 'border-transparent text-gray-500'
-                  }`}
-                >
-                  <Bus className="w-3.5 h-3.5" /> Vehículos
-                </button>
-                <button
-                  onClick={() => setTransporteMobileSubTab('conductores')}
-                  className={`flex-1 py-3 text-xs font-bold flex items-center justify-center gap-1.5 border-b-2 transition-colors ${
-                    transporteMobileSubTab === 'conductores'
-                      ? 'border-indigo-600 text-indigo-600'
-                      : 'border-transparent text-gray-500'
-                  }`}
-                >
-                  <UserPlus className="w-3.5 h-3.5" /> Conductores
-                </button>
+            <div className="absolute inset-0 flex flex-col bg-gray-50">
+              {/* Sub-tabs: Panel / Servicios / Agenda / Flota / Conductores */}
+              <div className="sticky top-0 z-10 bg-white border-b border-gray-200 flex overflow-x-auto scrollbar-hide shrink-0">
+                {([
+                  { id: 'panel',       icon: <LayoutDashboard className="w-3.5 h-3.5" />, label: 'Panel',      color: 'blue' },
+                  { id: 'servicios',   icon: <Calendar className="w-3.5 h-3.5" />,        label: 'Servicios',  color: 'blue' },
+                  { id: 'agenda',      icon: <CalendarDays className="w-3.5 h-3.5" />,    label: 'Agenda',     color: 'blue' },
+                  { id: 'vehiculos',   icon: <Bus className="w-3.5 h-3.5" />,             label: 'Flota',      color: 'blue' },
+                  { id: 'conductores', icon: <UserPlus className="w-3.5 h-3.5" />,        label: 'Conductores',color: 'indigo' },
+                ] as const).map(tab => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setTransporteMobileSubTab(tab.id)}
+                    className={`flex-1 min-w-[72px] py-3 text-[10px] font-bold flex items-center justify-center gap-1 border-b-2 transition-colors whitespace-nowrap ${
+                      transporteMobileSubTab === tab.id
+                        ? 'border-blue-600 text-blue-600'
+                        : 'border-transparent text-gray-500'
+                    }`}
+                  >
+                    {tab.icon}{tab.label}
+                  </button>
+                ))}
               </div>
-              {transporteMobileSubTab === 'vehiculos' && (
-                <ScreenTransporteVehiculos orgId={orgId} showToast={showToast} />
-              )}
-              {transporteMobileSubTab === 'conductores' && (
-                <ScreenTransporteConductores orgId={orgId} showToast={showToast} />
-              )}
+              <div className="flex-1 overflow-y-auto min-h-0">
+                {transporteMobileSubTab === 'panel' && (
+                  <ScreenTransportePanel
+                    orgId={orgId}
+                    showToast={showToast}
+                    onNavigate={(tab) => {
+                      const map: Record<string, 'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores'> = {
+                        transporte_servicios: 'servicios',
+                        transporte_agenda: 'agenda',
+                        transporte_vehiculos: 'vehiculos',
+                        transporte_conductores: 'conductores',
+                      };
+                      if (map[tab]) setTransporteMobileSubTab(map[tab]);
+                    }}
+                  />
+                )}
+                {transporteMobileSubTab === 'servicios' && (
+                  <ScreenTransporteServicios
+                    orgId={orgId}
+                    showToast={showToast}
+                    onOpenParte={(id) => { setTransporteParteId(id); setMobileTab('partes'); }}
+                  />
+                )}
+                {transporteMobileSubTab === 'agenda' && (
+                  <ScreenTransporteAgenda orgId={orgId} showToast={showToast} onOpenParte={(id) => { setTransporteParteId(id); setMobileTab('partes'); }} />
+                )}
+                {transporteMobileSubTab === 'vehiculos' && (
+                  <ScreenTransporteVehiculos orgId={orgId} showToast={showToast} />
+                )}
+                {transporteMobileSubTab === 'conductores' && (
+                  <ScreenTransporteConductores orgId={orgId} showToast={showToast} />
+                )}
+              </div>
             </div>
           )}
         </div>
@@ -4091,7 +4132,32 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {MobileTabButton({ tab: 'ruta',     icon: <Navigation className="w-5 h-5" />, label: 'Mi Ruta' })}
                 {MobileTabButton({ tab: 'asistente',icon: <BookOpen   className="w-5 h-5" />, label: 'Normativa' })}
               </>
+            ) : caps.isTransportOrg ? (
+              /* ── BARRA MÓVIL TRANSPORTE ─────────────────────── */
+              <>
+                {([
+                  { subtab: 'panel'       as const, icon: <LayoutDashboard className="w-5 h-5" />, label: 'Panel' },
+                  { subtab: 'servicios'   as const, icon: <Calendar        className="w-5 h-5" />, label: 'Servicios' },
+                  { subtab: 'agenda'      as const, icon: <CalendarDays    className="w-5 h-5" />, label: 'Agenda' },
+                  { subtab: 'vehiculos'   as const, icon: <Bus             className="w-5 h-5" />, label: 'Flota' },
+                  { subtab: 'conductores' as const, icon: <UserPlus        className="w-5 h-5" />, label: 'Equipo' },
+                ]).map(btn => (
+                  <button
+                    key={btn.subtab}
+                    onClick={() => { setMobileTab('transporte'); setTransporteMobileSubTab(btn.subtab); setShowFloatingMenu(false); }}
+                    className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors ${
+                      mobileTab === 'transporte' && transporteMobileSubTab === btn.subtab
+                        ? 'text-blue-600'
+                        : 'text-[#1C2535]/45'
+                    }`}
+                  >
+                    {btn.icon}
+                    <span>{btn.label}</span>
+                  </button>
+                ))}
+              </>
             ) : (
+              /* ── BARRA MÓVIL INSTALADORES (original intacta) ── */
               <>
                 {MobileTabButton({ tab: 'inicio',       icon: <Home     className="w-5 h-5" />, label: 'Inicio' })}
                 {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presupuestos' })}
@@ -6295,7 +6361,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               ) : (
                 <>
                   <span className="font-bold text-xs text-white block uppercase tracking-wide truncate">{empresaAjustes.nombre}</span>
-                  <span className="text-[10px] text-slate-500 block font-mono truncate">{empresaAjustes.nif}</span>
+                  {caps.isTransportOrg
+                    ? <span className="text-[10px] text-blue-400 block truncate">Transporte</span>
+                    : <span className="text-[10px] text-slate-500 block font-mono truncate">{empresaAjustes.nif}</span>
+                  }
                 </>
               )}
             </div>
@@ -6303,41 +6372,65 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
           {/* Enlaces sidebar */}
           <nav className="flex-grow p-4 space-y-1 overflow-y-auto min-h-0 scrollbar-hide">
-            {!isTecnico && SidebarBtn({ id: 'dashboard', icon: <TrendingUp className="w-4 h-4" />, label: 'Panel Control' })}
-            {can('quotes.create') && SidebarBtn({ id: 'quotes', icon: <FileText className="w-4 h-4" />, label: 'Presupuestos' })}
-            {(MARKETPLACE_ENABLED || canAccessMarketplaceV2(user?.email)) && can('catalog.manage') && (
-              <button
-                data-testid="nav-marketplace"
-                onClick={() => setCurrentPage(ActivePage.Marketplace)}
-                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[11px] font-semibold transition-all cursor-pointer text-slate-400 hover:text-white hover:bg-slate-800/40"
-              >
-                <Store className="w-4 h-4" />
-                <span>Marketplace</span>
-              </button>
-            )}
-            {can('clients.manage') && SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes CRM' })}
-            {can('invoices.manage') && SidebarBtn({ id: 'invoices', icon: <Receipt className="w-4 h-4" />, label: 'Facturas' })}
-            {can('jobs.view') && SidebarBtn({
-              id: 'planificacion',
-              icon: <Calendar className="w-4 h-4" />,
-              label: 'Planificación',
-              badge: pendingPlanningQuotes.length > 0 ? pendingPlanningQuotes.length : undefined,
-            })}
-            {can('ingresos.view') && SidebarBtn({ id: 'ingresos', icon: <BarChart2 className="w-4 h-4" />, label: 'Ingresos/Gastos' })}
-            {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
-            {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? ctxPlan) || subscription?.status === 'trial') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
-            {can('catalog.manage') && orgId && SidebarBtn({ id: 'suppliers', icon: <Truck className="w-4 h-4" />, label: 'Proveedores' })}
-            {orgData?.transport_enabled && can('team.manage') && (
+            {caps.isTransportOrg ? (
+              /* ── MENÚ TRANSPORTE PURO ──────────────────────── */
               <>
-                {SidebarBtn({ id: 'transporte_panel',      icon: <LayoutDashboard className="w-4 h-4" />, label: 'Panel' })}
-                {SidebarBtn({ id: 'transporte_servicios',  icon: <Calendar className="w-4 h-4" />, label: 'Servicios' })}
-                {SidebarBtn({ id: 'transporte_agenda',     icon: <CalendarDays className="w-4 h-4" />, label: 'Agenda' })}
-                {SidebarBtn({ id: 'transporte_vehiculos',  icon: <Bus  className="w-4 h-4" />, label: 'Flota' })}
-                {SidebarBtn({ id: 'transporte_conductores', icon: <UserPlus className="w-4 h-4" />, label: 'Conductores' })}
+                <p className="px-3 pt-1 pb-2 text-[9px] font-bold uppercase tracking-widest text-slate-500">Transporte</p>
+                {can('transport.view') && SidebarBtn({ id: 'transporte_panel',      icon: <LayoutDashboard className="w-4 h-4" />, label: 'Panel' })}
+                {can('transport.view') && SidebarBtn({ id: 'transporte_servicios',  icon: <Calendar className="w-4 h-4" />, label: 'Servicios' })}
+                {can('transport.view') && SidebarBtn({ id: 'transporte_agenda',     icon: <CalendarDays className="w-4 h-4" />, label: 'Agenda' })}
+                {can('transport.view') && SidebarBtn({ id: 'transporte_vehiculos',  icon: <Bus className="w-4 h-4" />, label: 'Flota' })}
+                {can('transport.view') && SidebarBtn({ id: 'transporte_conductores', icon: <UserPlus className="w-4 h-4" />, label: 'Conductores' })}
+                <div className="my-2 mx-1 border-t border-slate-800/60" />
+                <p className="px-3 pb-2 text-[9px] font-bold uppercase tracking-widest text-slate-500">Gestión</p>
+                {can('clients.manage') && SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes' })}
+                {can('quotes.create') && SidebarBtn({ id: 'quotes', icon: <FileText className="w-4 h-4" />, label: 'Presupuestos' })}
+                {can('invoices.manage') && SidebarBtn({ id: 'invoices', icon: <Receipt className="w-4 h-4" />, label: 'Facturación' })}
+                <div className="my-2 mx-1 border-t border-slate-800/60" />
+                {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes' })}
+              </>
+            ) : (
+              /* ── MENÚ INSTALADORES (original intacto) ───────── */
+              <>
+                {!isTecnico && SidebarBtn({ id: 'dashboard', icon: <TrendingUp className="w-4 h-4" />, label: 'Panel Control' })}
+                {can('quotes.create') && SidebarBtn({ id: 'quotes', icon: <FileText className="w-4 h-4" />, label: 'Presupuestos' })}
+                {(MARKETPLACE_ENABLED || canAccessMarketplaceV2(user?.email)) && can('catalog.manage') && (
+                  <button
+                    data-testid="nav-marketplace"
+                    onClick={() => setCurrentPage(ActivePage.Marketplace)}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[11px] font-semibold transition-all cursor-pointer text-slate-400 hover:text-white hover:bg-slate-800/40"
+                  >
+                    <Store className="w-4 h-4" />
+                    <span>Marketplace</span>
+                  </button>
+                )}
+                {can('clients.manage') && SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes CRM' })}
+                {can('invoices.manage') && SidebarBtn({ id: 'invoices', icon: <Receipt className="w-4 h-4" />, label: 'Facturas' })}
+                {can('jobs.view') && SidebarBtn({
+                  id: 'planificacion',
+                  icon: <Calendar className="w-4 h-4" />,
+                  label: 'Planificación',
+                  badge: pendingPlanningQuotes.length > 0 ? pendingPlanningQuotes.length : undefined,
+                })}
+                {can('ingresos.view') && SidebarBtn({ id: 'ingresos', icon: <BarChart2 className="w-4 h-4" />, label: 'Ingresos/Gastos' })}
+                {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
+                {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? ctxPlan) || subscription?.status === 'trial') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
+                {can('catalog.manage') && orgId && SidebarBtn({ id: 'suppliers', icon: <Truck className="w-4 h-4" />, label: 'Proveedores' })}
+                {caps.isMixedOrg && can('transport.view') && (
+                  <>
+                    <div className="my-2 mx-1 border-t border-slate-800/60" />
+                    <p className="px-3 pb-1 text-[9px] font-bold uppercase tracking-widest text-slate-500">Transporte</p>
+                    {SidebarBtn({ id: 'transporte_panel',      icon: <LayoutDashboard className="w-4 h-4" />, label: 'Panel' })}
+                    {SidebarBtn({ id: 'transporte_servicios',  icon: <Calendar className="w-4 h-4" />, label: 'Servicios' })}
+                    {SidebarBtn({ id: 'transporte_agenda',     icon: <CalendarDays className="w-4 h-4" />, label: 'Agenda' })}
+                    {SidebarBtn({ id: 'transporte_vehiculos',  icon: <Bus  className="w-4 h-4" />, label: 'Flota' })}
+                    {SidebarBtn({ id: 'transporte_conductores', icon: <UserPlus className="w-4 h-4" />, label: 'Conductores' })}
+                  </>
+                )}
+                {SidebarBtn({ id: 'asistente', icon: <BookOpen className="w-4 h-4" />, label: 'Asistente Técnico' })}
+                {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
               </>
             )}
-            {SidebarBtn({ id: 'asistente', icon: <BookOpen className="w-4 h-4" />, label: 'Asistente Técnico' })}
-            {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
 
           <div className="p-4 border-t border-slate-800 bg-slate-950/20 space-y-2">
