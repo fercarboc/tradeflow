@@ -57,6 +57,8 @@ export interface TradeVehicle {
   anno?: number | null;
   color?: string | null;
   notas?: string | null;
+  /** Ruta pública de imagen asignada explícitamente. Si null, se usa mapping automático por tipo. */
+  image_path?: string | null;
   activo: boolean;
   created_at: string;
   updated_at: string;
@@ -230,6 +232,26 @@ export const VEHICLE_IMAGES: Record<string, string | null> = {
   otro:            null,   // catch-all — show neutral icon
 };
 
+/** Todas las imágenes de vehículo disponibles en /public para selección manual. */
+export const VEHICLE_SELECTABLE_IMAGES = [
+  { path: '/autocar.png',           label: 'Autocar / Autobús' },
+  { path: '/autocarpremium.png',    label: 'Autocar premium' },
+  { path: '/minibus.png',           label: 'Microbús / Minibús' },
+  { path: '/busescolar.png',        label: 'Bus escolar' },
+  { path: '/furgonetatrabajo.png',  label: 'Furgoneta de trabajo' },
+  { path: '/furgonetareparto.png',  label: 'Furgoneta de reparto' },
+  { path: '/furgonetagranvolumen.png', label: 'Furgoneta gran volumen' },
+  { path: '/camionreparto.png',     label: 'Camión rígido / reparto' },
+  { path: '/camionarticulado.png',  label: 'Camión articulado' },
+  { path: '/camionobras.png',       label: 'Camión de obras' },
+] as const;
+
 export function getVehicleImage(tipo: string): string | null {
   return (tipo in VEHICLE_IMAGES) ? VEHICLE_IMAGES[tipo] : null;
+}
+
+/** Devuelve la imagen a mostrar: image_path explícita > mapping por tipo > null. */
+export function getVehicleDisplayImage(tipo: string, image_path?: string | null): string | null {
+  if (image_path) return image_path;
+  return getVehicleImage(tipo);
 }

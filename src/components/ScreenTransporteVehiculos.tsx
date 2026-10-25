@@ -12,7 +12,8 @@ import {
   setVehicleEstado,
   validateMatricula,
   needsPassengerCapacity,
-  getVehicleImage,
+  getVehicleDisplayImage,
+  VEHICLE_SELECTABLE_IMAGES,
   VEHICLE_TIPOS,
   VEHICLE_ESTADOS,
   VEHICLE_MODALIDADES,
@@ -47,6 +48,7 @@ function emptyForm(): TradeVehicleInput {
     anno: null,
     color: null,
     notas: null,
+    image_path: null,
   };
 }
 
@@ -99,6 +101,7 @@ function VehicleFormModal({ vehicle, onClose, onSaved, orgId, showToast }: Vehic
           anno: vehicle.anno ?? null,
           color: vehicle.color ?? null,
           notas: vehicle.notas ?? null,
+          image_path: vehicle.image_path ?? null,
         }
       : emptyForm(),
   );
@@ -336,6 +339,64 @@ function VehicleFormModal({ vehicle, onClose, onSaved, orgId, showToast }: Vehic
               className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none" />
           </div>
 
+          {/* Imagen del vehículo */}
+          <div>
+            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">
+              Imagen del vehículo
+            </label>
+            {/* Preview de imagen actual */}
+            <div className="flex items-center gap-3 mb-2">
+              {getVehicleDisplayImage(form.tipo, form.image_path) ? (
+                <img
+                  src={getVehicleDisplayImage(form.tipo, form.image_path)!}
+                  alt="Vista previa"
+                  className="w-20 h-12 object-contain rounded border border-slate-200 bg-slate-50"
+                />
+              ) : (
+                <div className="w-20 h-12 rounded border border-slate-200 bg-slate-100 flex items-center justify-center text-slate-300">
+                  <Bus size={22} />
+                </div>
+              )}
+              <div className="text-xs text-slate-500">
+                {form.image_path
+                  ? <span>Imagen personalizada</span>
+                  : <span className="italic">Automática según tipo</span>}
+              </div>
+            </div>
+            {/* Selector de imagen */}
+            <div className="grid grid-cols-5 gap-1.5">
+              {/* Opción: automática */}
+              <button
+                type="button"
+                onClick={() => set('image_path', null)}
+                className={`flex flex-col items-center p-1.5 rounded-lg border text-[10px] text-center cursor-pointer transition-all ${
+                  !form.image_path
+                    ? 'border-blue-400 bg-blue-50 text-blue-700 ring-1 ring-blue-400'
+                    : 'border-slate-200 text-slate-500 hover:border-slate-300 hover:bg-slate-50'
+                }`}
+              >
+                <Bus size={16} className="mb-0.5 opacity-60" />
+                Auto
+              </button>
+              {/* Opciones de imágenes disponibles */}
+              {VEHICLE_SELECTABLE_IMAGES.map(img => (
+                <button
+                  key={img.path}
+                  type="button"
+                  onClick={() => set('image_path', img.path)}
+                  title={img.label}
+                  className={`flex flex-col items-center p-1 rounded-lg border cursor-pointer transition-all ${
+                    form.image_path === img.path
+                      ? 'border-blue-400 bg-blue-50 ring-1 ring-blue-400'
+                      : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                  }`}
+                >
+                  <img src={img.path} alt={img.label} className="w-10 h-6 object-contain" />
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="flex justify-end gap-3 pt-2">
             <button type="button" onClick={onClose}
               className="px-4 py-2 text-sm text-slate-600 hover:text-slate-900 border border-slate-300 rounded-lg">
@@ -539,8 +600,8 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
                       <tr key={v.id} className={`hover:bg-slate-50 transition-colors ${!v.activo ? 'opacity-50' : ''}`}>
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-3">
-                            {getVehicleImage(v.tipo)
-                              ? <img src={getVehicleImage(v.tipo)!} alt={tipoLabel(v.tipo)} className="w-12 h-9 object-contain rounded shrink-0" onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                            {getVehicleDisplayImage(v.tipo, v.image_path)
+                              ? <img src={getVehicleDisplayImage(v.tipo, v.image_path)!} alt={tipoLabel(v.tipo)} className="w-12 h-9 object-contain rounded shrink-0" onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                               : <div className="w-12 h-9 rounded bg-slate-100 flex items-center justify-center shrink-0"><Bus className="w-5 h-5 text-slate-400" /></div>
                             }
                             <div>
@@ -625,8 +686,8 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
                   <div key={v.id} className={`bg-white rounded-xl border border-slate-200 overflow-hidden ${!v.activo ? 'opacity-50' : ''}`}>
                     {/* Imagen del vehículo */}
                     <div className="bg-slate-50 px-4 py-3 flex items-center gap-3 border-b border-slate-100">
-                      {getVehicleImage(v.tipo)
-                        ? <img src={getVehicleImage(v.tipo)!} alt={tipoLabel(v.tipo)} className="w-16 h-10 object-contain shrink-0" onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                      {getVehicleDisplayImage(v.tipo, v.image_path)
+                        ? <img src={getVehicleDisplayImage(v.tipo, v.image_path)!} alt={tipoLabel(v.tipo)} className="w-16 h-10 object-contain shrink-0" onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                         : <div className="w-16 h-10 rounded bg-slate-100 flex items-center justify-center shrink-0"><Bus className="w-6 h-6 text-slate-400" /></div>
                       }
                       <div className="flex-1 min-w-0">

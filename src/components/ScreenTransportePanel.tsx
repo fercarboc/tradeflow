@@ -10,7 +10,7 @@ import {
   loadServicesOverlappingDay,
 } from '../lib/transportServices';
 import type { TradeTransportService, ServicioEstado } from '../lib/transportServices';
-import { loadVehiclesAll, getVehicleImage } from '../lib/transport';
+import { loadVehiclesAll, getVehicleDisplayImage } from '../lib/transport';
 import type { TradeVehicle } from '../lib/transport';
 import { loadClients, loadWorkers, getClientDisplayName } from '../lib/supabase';
 import type { TradeClient, TradeWorker } from '../lib/supabase';
@@ -426,8 +426,8 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
                           <td className="px-3 py-3 hidden lg:table-cell">
                             {vehicle ? (
                               <div className="flex items-center gap-2">
-                                {getVehicleImage(vehicle.tipo)
-                                  ? <img src={getVehicleImage(vehicle.tipo)!} alt={vehicle.tipo} className="w-6 h-6 object-contain rounded" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                                {getVehicleDisplayImage(vehicle.tipo, vehicle.image_path)
+                                  ? <img src={getVehicleDisplayImage(vehicle.tipo, vehicle.image_path)!} alt={vehicle.tipo} className="w-6 h-6 object-contain rounded" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                                   : <div className="w-6 h-6 rounded bg-slate-100 flex items-center justify-center shrink-0"><Bus className="w-3.5 h-3.5 text-slate-400" /></div>
                                 }
                                 <div className="flex flex-col">
@@ -504,8 +504,8 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
                     const assignedCond = assignedSvc?.conductor_id ? workerMap.get(assignedSvc.conductor_id) : undefined;
                     return (
                       <div key={v.id} className={`rounded-2xl border p-3 flex flex-col gap-2 ${cfg.card}`}>
-                        {getVehicleImage(v.tipo)
-                          ? <img src={getVehicleImage(v.tipo)!} alt={v.nombre} className="w-full h-16 object-contain" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                        {getVehicleDisplayImage(v.tipo, v.image_path)
+                          ? <img src={getVehicleDisplayImage(v.tipo, v.image_path)!} alt={v.nombre} className="w-full h-16 object-contain" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                           : <div className="w-full h-16 bg-slate-100/60 rounded-lg flex items-center justify-center"><Bus className="w-8 h-8 text-slate-300" /></div>
                         }
                         <div>

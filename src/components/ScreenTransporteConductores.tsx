@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { User, UserCheck, UserX, Bus, Search, AlertCircle, Lock } from 'lucide-react';
 import { loadWorkers } from '../lib/supabase';
 import { setWorkerConductor } from '../lib/transport';
@@ -39,17 +39,22 @@ export default function ScreenTransporteConductores({ orgId, showToast }: Props)
   const [toggling, setToggling] = useState<string | null>(null);
   const [search, setSearch]     = useState('');
 
+  // Ref estable para showToast — evita que useCallback de load cambie cada vez
+  // que el padre re-renderiza al mostrar un toast (causa del flicker previo).
+  const showToastRef = useRef(showToast);
+  useEffect(() => { showToastRef.current = showToast; });
+
   const load = useCallback(async () => {
     setLoading(true);
     try {
       const data = await loadWorkers(orgId);
       setWorkers(data);
     } catch (e) {
-      showToast(errMsg(e), 'error');
+      showToastRef.current(errMsg(e), 'error');
     } finally {
       setLoading(false);
     }
-  }, [orgId, showToast]);
+  }, [orgId]); // showToast excluido: ref estable evita reload innecesario
 
   useEffect(() => { void load(); }, [load]);
 
