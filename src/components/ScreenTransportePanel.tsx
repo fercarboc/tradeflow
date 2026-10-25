@@ -48,14 +48,21 @@ function estadoLabel(estado: ServicioEstado): string {
 }
 
 const TIPO_ICONS: Partial<Record<string, React.ComponentType<{ className?: string }>>> = {
-  traslado_aeropuerto:  Plane,
-  transfer_privado:     Car,
-  boda_evento:          Star,
-  transporte_escolar:   BookOpen,
-  servicio_corporativo: Briefcase,
-  excursion:            Compass,
-  servicio_regular:     Bus,
-  lanzadera:            ChevronRight,
+  // Valores activos
+  excursion:               Compass,
+  circuito:                Compass,
+  viaje_multidia:          Calendar,
+  ruta_escolar:            BookOpen,
+  transporte_trabajadores: Briefcase,
+  traslado_privado:        Car,
+  aeropuerto:              Plane,
+  lanzadera:               ChevronRight,
+  congreso_evento:         Star,
+  servicio_deportivo:      TrendingUp,
+  asociacion_grupo:        Users,
+  otro:                    Bus,
+  // Valor heredado
+  traslado_empresa:        Briefcase,
 };
 
 function TipoIcon({ tipo }: { tipo: string }) {

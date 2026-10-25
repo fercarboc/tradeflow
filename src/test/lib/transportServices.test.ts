@@ -87,10 +87,25 @@ beforeEach(() => {
 // ── Catálogos ────────────────────────────────────────────────────────────────
 
 describe('catálogos', () => {
-  it('TIPO_SERVICIO_OPTIONS tiene los 6 tipos', () => {
-    expect(TIPO_SERVICIO_OPTIONS).toHaveLength(6);
-    expect(TIPO_SERVICIO_OPTIONS.map(t => t.value)).toContain('ruta_escolar');
-    expect(TIPO_SERVICIO_OPTIONS.map(t => t.value)).toContain('aeropuerto');
+  it('TIPO_SERVICIO_OPTIONS tiene los 12 tipos activos', () => {
+    expect(TIPO_SERVICIO_OPTIONS).toHaveLength(12);
+    const values = TIPO_SERVICIO_OPTIONS.map(t => t.value);
+    // Valores originales presentes
+    expect(values).toContain('ruta_escolar');
+    expect(values).toContain('excursion');
+    expect(values).toContain('traslado_privado');
+    expect(values).toContain('aeropuerto');
+    expect(values).toContain('otro');
+    // Valores nuevos presentes
+    expect(values).toContain('circuito');
+    expect(values).toContain('viaje_multidia');
+    expect(values).toContain('transporte_trabajadores');
+    expect(values).toContain('lanzadera');
+    expect(values).toContain('congreso_evento');
+    expect(values).toContain('servicio_deportivo');
+    expect(values).toContain('asociacion_grupo');
+    // Valor heredado NO debe aparecer en el selector
+    expect(values).not.toContain('traslado_empresa');
   });
 
   it('SERVICIO_ESTADOS tiene los 5 estados', () => {

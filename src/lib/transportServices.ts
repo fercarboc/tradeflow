@@ -8,13 +8,21 @@ import { supabase } from './supabase';
 
 // ── Catálogos ─────────────────────────────────────────────────────────────────
 
+// Catálogo activo (12 tipos comerciales). El valor 'traslado_empresa' es heredado:
+// válido en DB y renderizado en badges, pero no aparece en este selector de UI.
 export const TIPO_SERVICIO_OPTIONS = [
-  { value: 'ruta_escolar',      label: 'Ruta escolar' },
-  { value: 'excursion',         label: 'Excursión' },
-  { value: 'traslado_empresa',  label: 'Traslado empresa' },
-  { value: 'traslado_privado',  label: 'Traslado privado' },
-  { value: 'aeropuerto',        label: 'Aeropuerto' },
-  { value: 'otro',              label: 'Otro' },
+  { value: 'excursion',               label: 'Excursión' },
+  { value: 'circuito',                label: 'Circuito turístico' },
+  { value: 'viaje_multidia',          label: 'Viaje de varios días' },
+  { value: 'ruta_escolar',            label: 'Transporte escolar' },
+  { value: 'transporte_trabajadores', label: 'Transporte de trabajadores' },
+  { value: 'traslado_privado',        label: 'Traslado privado' },
+  { value: 'aeropuerto',              label: 'Aeropuerto / Estación / Puerto' },
+  { value: 'lanzadera',               label: 'Lanzadera' },
+  { value: 'congreso_evento',         label: 'Congresos y eventos' },
+  { value: 'servicio_deportivo',      label: 'Servicio deportivo' },
+  { value: 'asociacion_grupo',        label: 'Asociaciones y grupos' },
+  { value: 'otro',                    label: 'Otro' },
 ] as const;
 
 export const SERVICIO_ESTADOS = [
@@ -26,12 +34,21 @@ export const SERVICIO_ESTADOS = [
 ] as const;
 
 export const TIPO_SERVICIO_COLORS: Record<string, string> = {
-  ruta_escolar:     'bg-yellow-100 text-yellow-700 border-yellow-200',
-  excursion:        'bg-indigo-100 text-indigo-700 border-indigo-200',
-  traslado_empresa: 'bg-cyan-100 text-cyan-700 border-cyan-200',
-  traslado_privado: 'bg-pink-100 text-pink-700 border-pink-200',
-  aeropuerto:       'bg-violet-100 text-violet-700 border-violet-200',
-  otro:             'bg-gray-100 text-gray-600 border-gray-200',
+  // Valores activos
+  excursion:               'bg-indigo-100 text-indigo-700 border-indigo-200',
+  circuito:                'bg-blue-100 text-blue-700 border-blue-200',
+  viaje_multidia:          'bg-sky-100 text-sky-700 border-sky-200',
+  ruta_escolar:            'bg-yellow-100 text-yellow-700 border-yellow-200',
+  transporte_trabajadores: 'bg-cyan-100 text-cyan-700 border-cyan-200',
+  traslado_privado:        'bg-pink-100 text-pink-700 border-pink-200',
+  aeropuerto:              'bg-violet-100 text-violet-700 border-violet-200',
+  lanzadera:               'bg-teal-100 text-teal-700 border-teal-200',
+  congreso_evento:         'bg-amber-100 text-amber-700 border-amber-200',
+  servicio_deportivo:      'bg-emerald-100 text-emerald-700 border-emerald-200',
+  asociacion_grupo:        'bg-purple-100 text-purple-700 border-purple-200',
+  otro:                    'bg-gray-100 text-gray-600 border-gray-200',
+  // Valor heredado
+  traslado_empresa:        'bg-cyan-100 text-cyan-700 border-cyan-200',
 };
 
 export type TipoServicio   = typeof TIPO_SERVICIO_OPTIONS[number]['value'];
