@@ -18,27 +18,53 @@
 --   discrepancias de nombre entre entornos (dev, staging, prod).
 -- ══════════════════════════════════════════════════════════════════════════════
 
--- Buscar y eliminar el CHECK constraint existente de tipo_servicio
--- (PostgreSQL lo autogenera como trade_transport_services_tipo_servicio_check,
--- pero el DO garantiza que funcione aunque el nombre difiera).
+-- Buscar y eliminar el CHECK constraint existente de tipo_servicio.
+-- Usa pg_constraint + pg_get_constraintdef (catálogo de sistema) en lugar de
+-- information_schema para evitar falsos positivos y detectar ambigüedad.
+-- Falla explícitamente si hay >1 candidato; verifica que la constraint original
+-- contenga los valores conocidos antes de eliminarla.
 DO $$
 DECLARE
   v_constraint_name text;
+  v_check_def       text;
+  v_count           int;
 BEGIN
-  SELECT tc.constraint_name INTO v_constraint_name
-    FROM information_schema.table_constraints tc
-    JOIN information_schema.check_constraints cc
-      ON tc.constraint_name = cc.constraint_name
-   WHERE tc.table_schema    = 'public'
-     AND tc.table_name      = 'trade_transport_services'
-     AND tc.constraint_type = 'CHECK'
-     AND cc.check_clause    ILIKE '%tipo_servicio%'
-   LIMIT 1;
+  SELECT COUNT(*) INTO v_count
+    FROM pg_constraint c
+    JOIN pg_class      r ON r.oid = c.conrelid
+    JOIN pg_namespace  n ON n.oid = r.relnamespace
+   WHERE n.nspname = 'public'
+     AND r.relname = 'trade_transport_services'
+     AND c.contype = 'c'
+     AND pg_get_constraintdef(c.oid) LIKE '%tipo_servicio%';
 
-  IF v_constraint_name IS NOT NULL THEN
+  IF v_count > 1 THEN
+    RAISE EXCEPTION
+      'CATALOG_MIGRATION_AMBIGUOUS: % constraints CHECK contienen tipo_servicio en trade_transport_services. Revisar manualmente.',
+      v_count;
+  END IF;
+
+  IF v_count = 1 THEN
+    SELECT c.conname, pg_get_constraintdef(c.oid)
+      INTO v_constraint_name, v_check_def
+      FROM pg_constraint c
+      JOIN pg_class      r ON r.oid = c.conrelid
+      JOIN pg_namespace  n ON n.oid = r.relnamespace
+     WHERE n.nspname = 'public'
+       AND r.relname = 'trade_transport_services'
+       AND c.contype = 'c'
+       AND pg_get_constraintdef(c.oid) LIKE '%tipo_servicio%';
+
+    IF v_check_def NOT LIKE '%ruta_escolar%' OR v_check_def NOT LIKE '%excursion%' THEN
+      RAISE EXCEPTION
+        'CATALOG_MIGRATION_UNEXPECTED: constraint (%) no contiene los valores originales esperados. Verificar manualmente.',
+        v_constraint_name;
+    END IF;
+
     EXECUTE 'ALTER TABLE public.trade_transport_services DROP CONSTRAINT '
             || quote_ident(v_constraint_name);
   END IF;
+  -- v_count = 0: constraint no existe o ya fue eliminada; se continúa sin error.
 END;
 $$;
 
