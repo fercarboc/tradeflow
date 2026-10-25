@@ -131,6 +131,7 @@ import {
 } from '../lib/workCalendar';
 import PlanUpgradeModal from './PlanUpgradeModal';
 import OnboardingWizard from './OnboardingWizard';
+import TransportOnboardingWizard from './TransportOnboardingWizard';
 import ChatbotWidget from './ChatbotWidget';
 import ScreenProveedoresCliente from './ScreenProveedoresCliente';
 import ScreenPostConfirm from './ScreenPostConfirm';
@@ -974,6 +975,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [urgentContratosCount, setUrgentContratosCount] = useState(0);
   const [pushLoading, setPushLoading] = useState(false);
   const [subscription, setSubscription] = useState<TradeSubscription | null>(null);
+  // Transport Demo: transport org on trial with no Stripe customer (manually-provisioned demo)
+  const isTransportDemo = caps.hasTransport && !!subscription && !subscription.stripe_customer_id && subscription.status === 'trial';
   const [stripeLoading, setStripeLoading] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [mantenimientoInitialText, setMantenimientoInitialText] = useState<string>('');
@@ -3157,14 +3160,21 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
       {/* ================= ONBOARDING WIZARD — solo propietarios nuevos ================= */}
       {showOnboarding && rol === 'owner' && (
-        <OnboardingWizard
-          onComplete={() => {
-            setShowOnboarding(false);
-            // Reload after wizard: org now exists in DB → populate dashboard
-            if (session) loadLiveData(session);
-          }}
-          showToast={showToast}
-        />
+        caps.isTransportOrg
+          ? <TransportOnboardingWizard
+              onComplete={() => {
+                setShowOnboarding(false);
+                if (session) loadLiveData(session);
+              }}
+              showToast={showToast}
+            />
+          : <OnboardingWizard
+              onComplete={() => {
+                setShowOnboarding(false);
+                if (session) loadLiveData(session);
+              }}
+              showToast={showToast}
+            />
       )}
 
       {/* ================= MODAL UPGRADE PLAN ================= */}
@@ -6368,9 +6378,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               ) : (
                 <>
                   <span className="font-bold text-xs text-white block uppercase tracking-wide truncate">{empresaAjustes.nombre}</span>
-                  {caps.isTransportOrg
-                    ? <span className="text-[10px] text-blue-400 block truncate">Transporte</span>
-                    : <span className="text-[10px] text-slate-500 block font-mono truncate">{empresaAjustes.nif}</span>
+                  {isTransportDemo
+                    ? <span className="text-[10px] text-amber-400 block truncate font-bold">Transporte Demo</span>
+                    : caps.isTransportOrg
+                      ? <span className="text-[10px] text-blue-400 block truncate">Transporte</span>
+                      : <span className="text-[10px] text-slate-500 block font-mono truncate">{empresaAjustes.nif}</span>
                   }
                 </>
               )}
