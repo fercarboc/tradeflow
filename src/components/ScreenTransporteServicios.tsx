@@ -3,6 +3,7 @@ import {
   Plus, Calendar, MapPin, Users, ChevronDown, X, Edit2,
   AlertTriangle, CheckCircle, Clock, Truck, UserCheck,
   Euro, FileText, PlusCircle, Trash2, ArrowRight, Loader2,
+  ArrowUp, ArrowDown,
 } from 'lucide-react';
 import {
   TIPO_SERVICIO_OPTIONS,
@@ -30,6 +31,10 @@ import type { TradeClient, TradeWorker } from '../lib/supabase';
 import { loadVehiclesAll } from '../lib/transport';
 import type { TradeVehicle } from '../lib/transport';
 import { useSession } from '../context/SessionContext';
+import TransportLocationForm from './TransportLocationForm';
+import TransportContactForm from './TransportContactForm';
+import { locationToText, TIPO_OPERACION_OPTIONS } from '../lib/transportLocations';
+import type { TipoOperacionParada } from '../lib/transportLocations';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -116,43 +121,73 @@ function ConflictAlert({ conflicts }: ConflictAlertProps) {
 interface StopRowProps {
   stop: TransportStop;
   index: number;
+  total: number;
   onChange: (i: number, s: TransportStop) => void;
   onRemove: (i: number) => void;
+  onMoveUp: (i: number) => void;
+  onMoveDown: (i: number) => void;
 }
-function StopRow({ stop, index, onChange, onRemove }: StopRowProps) {
+function StopRow({ stop, index, total, onChange, onRemove, onMoveUp, onMoveDown }: StopRowProps) {
   return (
-    <div className="flex gap-2 items-start">
-      <div className="flex-1 grid grid-cols-3 gap-2">
-        <input
-          type="text"
-          placeholder="Nombre de la parada *"
-          value={stop.nombre}
-          onChange={e => onChange(index, { ...stop, nombre: e.target.value })}
-          className="col-span-1 px-2 py-1.5 text-xs border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
-        />
-        <input
-          type="text"
-          placeholder="Hora (HH:MM)"
-          value={stop.hora ?? ''}
-          onChange={e => onChange(index, { ...stop, hora: e.target.value || undefined })}
-          className="px-2 py-1.5 text-xs border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
-          maxLength={5}
-        />
-        <input
-          type="text"
-          placeholder="Dirección (opcional)"
-          value={stop.direccion ?? ''}
-          onChange={e => onChange(index, { ...stop, direccion: e.target.value || undefined })}
-          className="px-2 py-1.5 text-xs border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
-        />
+    <div className="border border-slate-200 rounded-lg p-2.5 space-y-2 bg-white">
+      <div className="flex gap-2 items-center">
+        <div className="flex flex-col gap-0.5 shrink-0">
+          <button type="button" onClick={() => onMoveUp(index)} disabled={index === 0}
+            className="p-0.5 text-slate-400 hover:text-slate-600 disabled:opacity-30 cursor-pointer disabled:cursor-default">
+            <ArrowUp className="w-3 h-3" />
+          </button>
+          <button type="button" onClick={() => onMoveDown(index)} disabled={index === total - 1}
+            className="p-0.5 text-slate-400 hover:text-slate-600 disabled:opacity-30 cursor-pointer disabled:cursor-default">
+            <ArrowDown className="w-3 h-3" />
+          </button>
+        </div>
+        <div className="flex-1 grid grid-cols-3 gap-2">
+          <input
+            type="text"
+            placeholder="Nombre de la parada *"
+            value={stop.nombre}
+            onChange={e => onChange(index, { ...stop, nombre: e.target.value })}
+            className="col-span-1 px-2 py-1.5 text-xs border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+          />
+          <input
+            type="text"
+            placeholder="Hora (HH:MM)"
+            value={stop.hora ?? ''}
+            onChange={e => onChange(index, { ...stop, hora: e.target.value || undefined })}
+            className="px-2 py-1.5 text-xs border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+            maxLength={5}
+          />
+          <select
+            value={stop.tipo_operacion ?? ''}
+            onChange={e => onChange(index, { ...stop, tipo_operacion: (e.target.value as TipoOperacionParada) || undefined })}
+            className="px-2 py-1.5 text-xs border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+          >
+            <option value="">Tipo (opcional)</option>
+            {TIPO_OPERACION_OPTIONS.map(t => (
+              <option key={t.value} value={t.value}>{t.label}</option>
+            ))}
+          </select>
+        </div>
+        <button
+          type="button"
+          onClick={() => onRemove(index)}
+          className="p-1.5 text-slate-400 hover:text-red-500 cursor-pointer shrink-0"
+        >
+          <Trash2 className="w-3.5 h-3.5" />
+        </button>
       </div>
-      <button
-        type="button"
-        onClick={() => onRemove(index)}
-        className="p-1.5 text-slate-400 hover:text-red-500 cursor-pointer"
-      >
-        <Trash2 className="w-3.5 h-3.5" />
-      </button>
+      <TransportLocationForm
+        label="Ubicación de la parada"
+        value={stop.location ?? null}
+        onChange={loc => onChange(index, { ...stop, location: loc ?? undefined })}
+        compact
+      />
+      <TransportContactForm
+        label="Responsable de esta parada"
+        value={stop.contacto ?? null}
+        onChange={c => onChange(index, { ...stop, contacto: c ?? undefined })}
+        compact
+      />
     </div>
   );
 }
@@ -185,6 +220,10 @@ function emptyForm(): TradeTransportServiceInput {
     precio_acordado: null,
     observaciones: '',
     quote_id: null,
+    origen_detalle: null,
+    destino_detalle: null,
+    contacto_principal: null,
+    instrucciones_conductor: null,
   };
 }
 
@@ -210,6 +249,13 @@ function ServicioModal({
           precio_acordado: servicio.precio_acordado ?? null,
           observaciones:   servicio.observaciones ?? '',
           quote_id:        servicio.quote_id ?? null,
+          // Migrate legacy text to nombre_lugar if no structured data yet
+          origen_detalle:  servicio.origen_detalle ??
+            (servicio.origen ? { nombre_lugar: servicio.origen } : null),
+          destino_detalle: servicio.destino_detalle ??
+            (servicio.destino ? { nombre_lugar: servicio.destino } : null),
+          contacto_principal:      servicio.contacto_principal ?? null,
+          instrucciones_conductor: servicio.instrucciones_conductor ?? null,
         }
       : emptyForm()
   );
@@ -256,6 +302,14 @@ function ServicioModal({
     setForm(f => { const p = [...f.paradas]; p[i] = s; return { ...f, paradas: p }; });
   const removeStop = (i: number) =>
     setForm(f => ({ ...f, paradas: f.paradas.filter((_, idx) => idx !== i) }));
+  const moveStopUp = (i: number) => setForm(f => {
+    if (i === 0) return f;
+    const p = [...f.paradas]; [p[i-1], p[i]] = [p[i], p[i-1]]; return { ...f, paradas: p };
+  });
+  const moveStopDown = (i: number) => setForm(f => {
+    if (i >= f.paradas.length - 1) return f;
+    const p = [...f.paradas]; [p[i], p[i+1]] = [p[i+1], p[i]]; return { ...f, paradas: p };
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -269,8 +323,8 @@ function ServicioModal({
         ...form,
         fecha_inicio: form.fecha_inicio ? fromLocalDT(form.fecha_inicio) : '',
         fecha_fin:    form.fecha_fin    ? fromLocalDT(form.fecha_fin)    : null,
-        origen:       form.origen       || null,
-        destino:      form.destino      || null,
+        origen:       locationToText(form.origen_detalle) || form.origen || null,
+        destino:      locationToText(form.destino_detalle) || form.destino || null,
         observaciones: form.observaciones || null,
       };
 
@@ -349,26 +403,16 @@ function ServicioModal({
 
             {/* Fila 3: Origen → Destino */}
             <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className={labelCls}>Origen</label>
-                <input
-                  type="text"
-                  value={form.origen ?? ''}
-                  onChange={e => set('origen', e.target.value)}
-                  placeholder="Ciudad o punto de salida"
-                  className={inputCls}
-                />
-              </div>
-              <div>
-                <label className={labelCls}>Destino</label>
-                <input
-                  type="text"
-                  value={form.destino ?? ''}
-                  onChange={e => set('destino', e.target.value)}
-                  placeholder="Ciudad o punto de llegada"
-                  className={inputCls}
-                />
-              </div>
+              <TransportLocationForm
+                label="Origen"
+                value={form.origen_detalle ?? null}
+                onChange={loc => setForm(f => ({ ...f, origen_detalle: loc }))}
+              />
+              <TransportLocationForm
+                label="Destino"
+                value={form.destino_detalle ?? null}
+                onChange={loc => setForm(f => ({ ...f, destino_detalle: loc }))}
+              />
             </div>
 
             {/* Paradas intermedias */}
@@ -385,10 +429,34 @@ function ServicioModal({
               )}
               <div className="space-y-2">
                 {form.paradas.map((s, i) => (
-                  <StopRow key={i} stop={s} index={i} onChange={updateStop} onRemove={removeStop} />
+                  <StopRow
+                    key={i} stop={s} index={i} total={form.paradas.length}
+                    onChange={updateStop} onRemove={removeStop}
+                    onMoveUp={moveStopUp} onMoveDown={moveStopDown}
+                  />
                 ))}
               </div>
               {stopError && <p className="text-xs text-red-600 mt-1">{stopError}</p>}
+            </div>
+
+            {/* Contacto principal del servicio */}
+            <TransportContactForm
+              label="Contacto y responsable del servicio"
+              value={form.contacto_principal ?? null}
+              onChange={c => setForm(f => ({ ...f, contacto_principal: c }))}
+              compact={false}
+            />
+
+            {/* Instrucciones para el conductor */}
+            <div>
+              <label className={labelCls}>Instrucciones para el conductor</label>
+              <textarea
+                rows={2}
+                value={form.instrucciones_conductor ?? ''}
+                onChange={e => setForm(f => ({ ...f, instrucciones_conductor: e.target.value || null }))}
+                placeholder="Acceso por puerta norte, aparcar en zona reservada, llamar al responsable 10 min antes…"
+                className={inputCls + ' resize-none'}
+              />
             </div>
 
             {/* Fechas y Viajeros */}

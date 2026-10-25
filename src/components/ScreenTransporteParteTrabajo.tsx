@@ -9,6 +9,7 @@ import {
   loadServiceById, completeTransportService,
 } from '../lib/transportServices';
 import type { TradeTransportService, TradeTransportParteInput } from '../lib/transportServices';
+import { phoneHref, locationToAddress, hasAddress, hasContact, TIPO_OPERACION_OPTIONS } from '../lib/transportLocations';
 import { loadVehiclesAll } from '../lib/transport';
 import type { TradeVehicle } from '../lib/transport';
 import { loadClients, loadWorkers, getClientDisplayName } from '../lib/supabase';
@@ -234,8 +235,17 @@ export default function ScreenTransporteParteTrabajo({ orgId, serviceId, onClose
             {client && <InfoRow icon={<Users />} label="Cliente" value={client} />}
             <InfoRow icon={<Calendar />} label="Inicio previsto" value={fmtDT(svc.fecha_inicio)} />
             {svc.fecha_fin && <InfoRow icon={<Calendar />} label="Fin previsto" value={fmtDT(svc.fecha_fin)} />}
-            {svc.origen  && <InfoRow icon={<MapPin />} label="Origen"  value={svc.origen} />}
-            {svc.destino && <InfoRow icon={<ChevronRight />} label="Destino" value={svc.destino} />}
+            {(svc.origen_detalle || svc.origen) && (
+              <InfoRow icon={<MapPin />} label="Origen"
+                value={hasAddress(svc.origen_detalle) ? locationToAddress(svc.origen_detalle) : (svc.origen ?? '')} />
+            )}
+            {(svc.destino_detalle || svc.destino) && (
+              <InfoRow icon={<ChevronRight />} label="Destino"
+                value={hasAddress(svc.destino_detalle) ? locationToAddress(svc.destino_detalle) : (svc.destino ?? '')} />
+            )}
+            {svc.instrucciones_conductor && (
+              <InfoRow icon={<FileText />} label="Instrucciones conductor" value={svc.instrucciones_conductor} />
+            )}
             {svc.num_viajeros != null && (
               <InfoRow icon={<Users />} label="Viajeros previstos" value={`${svc.num_viajeros} personas`} />
             )}
@@ -258,15 +268,69 @@ export default function ScreenTransporteParteTrabajo({ orgId, serviceId, onClose
           {svc.paradas.length > 0 && (
             <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
               <h2 className="text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Paradas previstas</h2>
-              <ol className="space-y-2 pl-3 border-l-2 border-slate-200">
-                {svc.paradas.map((p, i) => (
-                  <li key={i} className="text-sm text-slate-600">
-                    {p.hora && <span className="font-mono text-slate-400 mr-1.5">{p.hora}</span>}
-                    {p.nombre}
-                    {p.direccion && <span className="text-slate-400 ml-1">· {p.direccion}</span>}
-                  </li>
-                ))}
+              <ol className="space-y-3 pl-3 border-l-2 border-slate-200">
+                {svc.paradas.map((p, i) => {
+                  const tipoLabel = TIPO_OPERACION_OPTIONS.find(t => t.value === p.tipo_operacion)?.label;
+                  const addr = hasAddress(p.location) ? locationToAddress(p.location) : p.direccion;
+                  const tel = p.contacto?.telefono ? phoneHref(p.contacto.telefono) : null;
+                  return (
+                    <li key={i} className="text-sm text-slate-600 space-y-0.5">
+                      <div className="flex items-baseline gap-1.5 flex-wrap">
+                        {p.hora && <span className="font-mono text-slate-400">{p.hora}</span>}
+                        <span className="font-medium text-slate-800">{p.nombre}</span>
+                        {tipoLabel && (
+                          <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-500 font-medium">{tipoLabel}</span>
+                        )}
+                      </div>
+                      {addr && <p className="text-xs text-slate-400 pl-0.5">{addr}</p>}
+                      {hasContact(p.contacto) && (
+                        <div className="text-xs text-slate-500 pl-0.5 flex items-center gap-1.5 flex-wrap">
+                          {p.contacto?.nombre && <span>{p.contacto.nombre}</span>}
+                          {tel ? (
+                            <a href={tel} className="font-semibold text-blue-600 hover:underline">
+                              {p.contacto!.telefono}
+                            </a>
+                          ) : p.contacto?.telefono && (
+                            <span>{p.contacto.telefono}</span>
+                          )}
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
               </ol>
+            </div>
+          )}
+
+          {/* Contacto principal del servicio */}
+          {hasContact(svc.contacto_principal) && (
+            <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
+              <h2 className="text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Contacto del servicio</h2>
+              <div className="space-y-1">
+                {svc.contacto_principal?.nombre && (
+                  <p className="text-sm font-semibold text-slate-800">{svc.contacto_principal.nombre}</p>
+                )}
+                {svc.contacto_principal?.organizacion && (
+                  <p className="text-xs text-slate-500">{svc.contacto_principal.organizacion}</p>
+                )}
+                {svc.contacto_principal?.telefono && (() => {
+                  const href = phoneHref(svc.contacto_principal.telefono);
+                  return href ? (
+                    <a href={href}
+                      className="inline-flex items-center gap-1.5 mt-2 px-3 py-1.5 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+                      Llamar: {svc.contacto_principal.telefono}
+                    </a>
+                  ) : (
+                    <p className="text-sm text-slate-700">{svc.contacto_principal.telefono}</p>
+                  );
+                })()}
+                {svc.contacto_principal?.telefono_alt && (
+                  <p className="text-xs text-slate-500">Alt: {svc.contacto_principal.telefono_alt}</p>
+                )}
+                {svc.contacto_principal?.observaciones && (
+                  <p className="text-xs text-slate-400 mt-1 italic">{svc.contacto_principal.observaciones}</p>
+                )}
+              </div>
             </div>
           )}
         </div>

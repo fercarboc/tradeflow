@@ -5,6 +5,8 @@
  */
 
 import { supabase } from './supabase';
+import type { TransportLocation, TransportContact, TipoOperacionParada } from './transportLocations';
+export type { TransportLocation, TransportContact, TipoOperacionParada } from './transportLocations';
 
 // ── Catálogos ─────────────────────────────────────────────────────────────────
 
@@ -57,9 +59,14 @@ export type ServicioEstado = typeof SERVICIO_ESTADOS[number]['value'];
 // ── Tipos ─────────────────────────────────────────────────────────────────────
 
 export interface TransportStop {
-  nombre: string;
-  hora?: string;       // "HH:MM"
-  direccion?: string;
+  // Legacy fields — always present in existing records
+  nombre:    string;
+  hora?:     string;       // "HH:MM"
+  direccion?: string;      // Legacy simple address string
+  // Extended fields — optional; absent in old records (backward compatible)
+  tipo_operacion?: TipoOperacionParada;
+  location?: TransportLocation;
+  contacto?: TransportContact;
 }
 
 export interface TradeTransportService {
@@ -80,6 +87,11 @@ export interface TradeTransportService {
   conductor_id?: string | null;
   precio_acordado?: number | null;
   observaciones?: string | null;
+  // ── Campos de ubicación estructurada (ROUTE-ADDRESS-1) ────────────────────
+  origen_detalle?:          TransportLocation | null;
+  destino_detalle?:         TransportLocation | null;
+  contacto_principal?:      TransportContact  | null;
+  instrucciones_conductor?: string | null;
   // ── Campos del parte de servicio (T1-C) ────────────────────────────────────
   hora_real_salida?: string | null;
   hora_real_llegada?: string | null;
