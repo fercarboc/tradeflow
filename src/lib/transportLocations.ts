@@ -128,6 +128,12 @@ export function hasContact(c: TransportContact | null | undefined): boolean {
   return !!(c.nombre || c.telefono);
 }
 
+/** True si las coordenadas son válidas para representar en un mapa. */
+export function geoValid(lat: number | null | undefined, lng: number | null | undefined): boolean {
+  return lat != null && lng != null && Number.isFinite(lat) && Number.isFinite(lng) &&
+    lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180;
+}
+
 /** Genera un objeto vacío de TransportLocation. */
 export function emptyLocation(): TransportLocation {
   return {};

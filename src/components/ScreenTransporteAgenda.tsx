@@ -99,7 +99,7 @@ function AgendaServiceCard({ svc, vehicleMap, workerMap, clientMap, selected, on
   return (
     <button
       onClick={onClick}
-      className={`w-full text-left rounded-xl border border-l-4 px-2.5 py-2 transition-all ${LEFT_ACCENT[svc.estado]} ${
+      className={`w-full text-left rounded-xl border border-l-4 px-2 py-1.5 transition-all ${LEFT_ACCENT[svc.estado]} ${
         selected
           ? 'bg-blue-50 border-blue-200 shadow-md'
           : svc.estado === 'cancelado'
@@ -107,21 +107,25 @@ function AgendaServiceCard({ svc, vehicleMap, workerMap, clientMap, selected, on
             : 'bg-white border-slate-200 hover:shadow-sm hover:border-slate-300'
       }`}
     >
-      <div className="flex items-start justify-between gap-1.5">
-        <p className="text-xs font-bold text-slate-800 leading-tight break-words min-w-0">{svc.titulo}</p>
-        <span className={`shrink-0 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-semibold border ${statusCfg?.color}`}>
-          {svc.estado === 'en_curso' && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse" />}
-          {statusCfg?.label}
+      {/* Title: full card width, max 2 lines, no mid-word break */}
+      <p className="text-xs font-bold text-slate-800 leading-tight line-clamp-2">{svc.titulo}</p>
+      {/* Time */}
+      <p className="text-[10px] text-slate-400 font-mono mt-0.5 truncate">
+        {fmtTime(svc.fecha_inicio)}{svc.fecha_fin ? `–${fmtTime(svc.fecha_fin)}` : ''}
+      </p>
+      {/* State badge on its own line so it never competes with the title */}
+      <div className="mt-1">
+        <span className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-semibold border max-w-full truncate ${statusCfg?.color}`}>
+          {svc.estado === 'en_curso' && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />}
+          <span className="truncate">{statusCfg?.label}</span>
         </span>
       </div>
-      <p className="text-[10px] text-slate-400 font-mono mt-0.5">
-        {fmtTime(svc.fecha_inicio)}{svc.fecha_fin ? ` – ${fmtTime(svc.fecha_fin)}` : ''}
-      </p>
-      <div className="mt-1 flex flex-wrap gap-x-2 gap-y-0.5 text-[10px] text-slate-500">
-        {client    && <span className="flex items-center gap-0.5"><Users className="w-2.5 h-2.5" />{client}</span>}
-        {vehicle   && <span className="flex items-center gap-0.5"><Bus className="w-2.5 h-2.5" />{vehicle.nombre}</span>}
-        {conductor && <span className="flex items-center gap-0.5"><Users className="w-2.5 h-2.5" />{conductor.nombre}</span>}
-      </div>
+      {/* Optional vehicle / conductor — only rendered when they add context */}
+      {(vehicle || conductor) && (
+        <p className="mt-0.5 text-[10px] text-slate-500 truncate">
+          {[vehicle?.nombre, conductor?.nombre].filter(Boolean).join(' · ')}
+        </p>
+      )}
     </button>
   );
 }

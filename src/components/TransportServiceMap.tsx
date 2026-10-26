@@ -10,15 +10,8 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MapPin, AlertTriangle } from 'lucide-react';
 import type { TradeTransportService } from '../lib/transportServices';
-import { locationToText, locationToAddress } from '../lib/transportLocations';
+import { locationToText, locationToAddress, geoValid } from '../lib/transportLocations';
 import { CARTO_KEY, CARTO_URL, CARTO_ATTR } from '../lib/cartoConfig';
-
-// ── Helpers ───────────────────────────────────────────────────────────────────
-
-function geoValid(lat: number | null | undefined, lng: number | null | undefined): boolean {
-  return lat != null && lng != null && Number.isFinite(lat) && Number.isFinite(lng) &&
-    lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180;
-}
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 

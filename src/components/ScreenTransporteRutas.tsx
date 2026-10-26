@@ -12,7 +12,7 @@ import { loadVehiclesAll, getVehicleDisplayImage } from '../lib/transport';
 import type { TradeVehicle } from '../lib/transport';
 import { loadClients, loadWorkers, getClientDisplayName } from '../lib/supabase';
 import type { TradeClient, TradeWorker } from '../lib/supabase';
-import { locationToText, locationToAddress, hasContact } from '../lib/transportLocations';
+import { locationToText, locationToAddress, hasContact, geoValid } from '../lib/transportLocations';
 import { isoDate } from '../lib/transportPanelHelpers';
 import TransportServiceMap from './TransportServiceMap';
 
@@ -285,14 +285,21 @@ function RutaDetailPanel({ service, vehicleMap, workerMap, clientMap, onNavigate
 
       {/* Scrollable body */}
       <div className="flex-1 overflow-y-auto px-5 py-4 space-y-5">
-        {/* Map + itinerary */}
+        {/* Map — when no coordinates, this already renders the full text itinerary */}
         <TransportServiceMap service={service} />
 
-        {/* Itinerary (separate section with times) */}
-        <div>
-          <h3 className="text-[11px] font-black text-slate-500 uppercase tracking-wide mb-3">Itinerario</h3>
-          <ItinerarioSection service={service} />
-        </div>
+        {/* Itinerary with times — only shown when the map has actual points to display;
+            avoids duplicating the text itinerary that TransportServiceMap shows as fallback */}
+        {(
+          geoValid(service.origen_detalle?.lat, service.origen_detalle?.lng) ||
+          geoValid(service.destino_detalle?.lat, service.destino_detalle?.lng) ||
+          service.paradas.some(p => geoValid(p.location?.lat, p.location?.lng))
+        ) && (
+          <div>
+            <h3 className="text-[11px] font-black text-slate-500 uppercase tracking-wide mb-3">Itinerario</h3>
+            <ItinerarioSection service={service} />
+          </div>
+        )}
 
         {/* Vehicle + conductor */}
         {(vehicle || conductor || (!service.vehicle_id && !service.conductor_id)) && (
