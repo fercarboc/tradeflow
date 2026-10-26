@@ -157,7 +157,7 @@ function Row({ icon, label, children }: { icon: React.ReactNode; label: string; 
   );
 }
 
-// ── Agenda item ───────────────────────────────────────────────────────────────
+// ── Agenda item (vista semanal) ───────────────────────────────────────────────
 
 interface AgendaItemProps {
   svc: TradeTransportService;
@@ -223,16 +223,29 @@ function AgendaItem({ svc, vehicleMap, workerMap, clientMap, selected, onClick }
 // ── Main component ────────────────────────────────────────────────────────────
 
 export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte }: Props) {
-  const [weekStart, setWeekStart]   = useState(() => startOfWeek(new Date()));
-  const [services,  setServices]    = useState<TradeTransportService[]>([]);
-  const [vehicles,  setVehicles]    = useState<TradeVehicle[]>([]);
-  const [workers,   setWorkers]     = useState<TradeWorker[]>([]);
-  const [clientMap, setClientMap]   = useState<Map<string, string>>(new Map());
-  const [vehicleMap,setVehicleMap]  = useState<Map<string, TradeVehicle>>(new Map());
-  const [workerMap, setWorkerMap]   = useState<Map<string, TradeWorker>>(new Map());
-  const [loading,   setLoading]     = useState(true);
-  const [error,     setError]       = useState<string | null>(null);
-  const [selected,  setSelected]    = useState<TradeTransportService | null>(null);
+  const [viewMode,  setViewMode]   = useState<'weekly' | 'monthly'>('weekly');
+
+  // Vista semanal
+  const [weekStart, setWeekStart]  = useState(() => startOfWeek(new Date()));
+
+  // Vista mensual
+  const [monthStart, setMonthStart] = useState(() => {
+    const d = new Date();
+    return new Date(d.getFullYear(), d.getMonth(), 1);
+  });
+  const [monthServices,  setMonthServices]  = useState<TradeTransportService[]>([]);
+  const [monthLoading,   setMonthLoading]   = useState(false);
+
+  // Shared data
+  const [services,   setServices]   = useState<TradeTransportService[]>([]);
+  const [vehicles,   setVehicles]   = useState<TradeVehicle[]>([]);
+  const [workers,    setWorkers]    = useState<TradeWorker[]>([]);
+  const [clientMap,  setClientMap]  = useState<Map<string, string>>(new Map());
+  const [vehicleMap, setVehicleMap] = useState<Map<string, TradeVehicle>>(new Map());
+  const [workerMap,  setWorkerMap]  = useState<Map<string, TradeWorker>>(new Map());
+  const [loading,    setLoading]    = useState(true);
+  const [error,      setError]      = useState<string | null>(null);
+  const [selected,   setSelected]   = useState<TradeTransportService | null>(null);
 
   // Filters
   const [filterVehicle,   setFilterVehicle]   = useState('');
@@ -240,6 +253,7 @@ export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte }
 
   const weekEnd = addDays(weekStart, 6);
 
+  // ── Carga semanal + datos compartidos ──
   const load = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -253,7 +267,6 @@ export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte }
         loadClients(orgId),
       ]);
 
-      // Sort by fecha_inicio ascending
       svcs.sort((a, b) => a.fecha_inicio.localeCompare(b.fecha_inicio));
       setServices(svcs);
       setVehicles(vehs);
@@ -279,22 +292,64 @@ export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte }
     }
   }, [orgId, weekStart]);
 
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => { void load(); }, [load]);
 
-  // Apply filters
-  const filteredServices = services.filter(svc => {
-    if (filterVehicle   && svc.vehicle_id   !== filterVehicle)   return false;
-    if (filterConductor && svc.conductor_id !== filterConductor) return false;
-    return true;
-  });
+  // ── Carga mensual (solo servicios; reutiliza los maps del load semanal) ──
+  const loadMonth = useCallback(async () => {
+    setMonthLoading(true);
+    try {
+      const end   = new Date(monthStart.getFullYear(), monthStart.getMonth() + 1, 0);
+      const desde = isoDate(monthStart) + 'T00:00:00';
+      const hasta = isoDate(end)        + 'T23:59:59';
+      const svcs  = await loadServicesOverlappingRange(orgId, desde, hasta);
+      svcs.sort((a, b) => a.fecha_inicio.localeCompare(b.fecha_inicio));
+      setMonthServices(svcs);
+    } catch {
+      setMonthServices([]);
+    } finally {
+      setMonthLoading(false);
+    }
+  }, [orgId, monthStart]);
 
-  // Group by day, handling midnight-crossing services
+  useEffect(() => {
+    if (viewMode === 'monthly') void loadMonth();
+  }, [viewMode, loadMonth]);
+
+  // ── Filtros ──
+  const applyFilters = (svcs: TradeTransportService[]) =>
+    svcs.filter(svc => {
+      if (filterVehicle   && svc.vehicle_id   !== filterVehicle)   return false;
+      if (filterConductor && svc.conductor_id !== filterConductor) return false;
+      return true;
+    });
+
+  const filteredServices      = applyFilters(services);
+  const filteredMonthServices = applyFilters(monthServices);
+
+  // ── Días semana ──
   const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
 
   function getServicesForDay(day: Date): TradeTransportService[] {
     const dayStr = isoDate(day);
     return filteredServices.filter(svc => getServiceDays(svc).has(dayStr));
   }
+
+  function getMonthServicesForDay(day: Date): TradeTransportService[] {
+    const dayStr = isoDate(day);
+    return filteredMonthServices.filter(svc => getServiceDays(svc).has(dayStr));
+  }
+
+  // ── Mensual: celdas del grid ──
+  const monthYear     = monthStart.getFullYear();
+  const monthMonthIdx = monthStart.getMonth();
+  const monthLastDay  = new Date(monthYear, monthMonthIdx + 1, 0).getDate();
+  const monthFirstDow = (new Date(monthYear, monthMonthIdx, 1).getDay() + 6) % 7; // 0=lunes
+
+  const monthGridCells: (Date | null)[] = [
+    ...Array(monthFirstDow).fill(null),
+    ...Array.from({ length: monthLastDay }, (_, i) => new Date(monthYear, monthMonthIdx, i + 1)),
+  ];
+  while (monthGridCells.length % 7 !== 0) monthGridCells.push(null);
 
   const todayStr = isoDate(new Date());
   const passengerVehicles = vehicles.filter(
@@ -304,6 +359,16 @@ export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte }
 
   const clearFilters = () => { setFilterVehicle(''); setFilterConductor(''); };
   const hasFilters   = filterVehicle !== '' || filterConductor !== '';
+
+  const goToToday = () => {
+    if (viewMode === 'weekly') {
+      setWeekStart(startOfWeek(new Date()));
+    } else {
+      const d = new Date();
+      setMonthStart(new Date(d.getFullYear(), d.getMonth(), 1));
+    }
+    setSelected(null);
+  };
 
   if (loading) {
     return (
@@ -327,42 +392,92 @@ export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte }
   return (
     <div className="p-6 space-y-6 max-w-7xl mx-auto">
 
-      {/* Header + week navigation */}
+      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm shrink-0">
             <Calendar className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-lg font-black text-slate-900 leading-tight">Agenda Semanal</h1>
-            <p className="text-xs text-slate-400 capitalize">{fmtMonthYear(weekStart)}</p>
+            <h1 className="text-lg font-black text-slate-900 leading-tight">
+              {viewMode === 'weekly' ? 'Agenda Semanal' : 'Agenda Mensual'}
+            </h1>
+            <p className="text-xs text-slate-400 capitalize">
+              {viewMode === 'weekly' ? fmtMonthYear(weekStart) : fmtMonthYear(monthStart)}
+            </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          {/* Toggle Semanal / Mensual */}
+          <div className="flex rounded-lg border border-slate-200 overflow-hidden text-xs font-semibold">
+            <button
+              onClick={() => setViewMode('weekly')}
+              className={`px-3 py-2 transition-colors ${
+                viewMode === 'weekly' ? 'bg-blue-600 text-white' : 'text-slate-600 hover:bg-slate-100'
+              }`}
+            >
+              Semanal
+            </button>
+            <button
+              onClick={() => { setViewMode('monthly'); }}
+              className={`px-3 py-2 transition-colors ${
+                viewMode === 'monthly' ? 'bg-blue-600 text-white' : 'text-slate-600 hover:bg-slate-100'
+              }`}
+            >
+              Mensual
+            </button>
+          </div>
+
+          {/* Botón Hoy */}
           <button
-            onClick={() => { setWeekStart(startOfWeek(new Date())); setSelected(null); }}
+            onClick={goToToday}
             className="text-xs font-semibold text-blue-600 hover:text-blue-800 px-3 py-2 rounded-lg border border-blue-200 hover:bg-blue-50 transition-colors"
           >
             Hoy
           </button>
-          <div className="flex items-center gap-1 border border-slate-200 rounded-lg overflow-hidden">
-            <button
-              onClick={() => { setWeekStart(w => addDays(w, -7)); setSelected(null); }}
-              className="px-2.5 py-2 text-slate-600 hover:bg-slate-100 transition-colors"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <span className="px-3 text-xs font-semibold text-slate-700 whitespace-nowrap">
-              {fmtDayShort(weekStart)} – {fmtDayShort(weekEnd)}
-            </span>
-            <button
-              onClick={() => { setWeekStart(w => addDays(w, 7)); setSelected(null); }}
-              className="px-2.5 py-2 text-slate-600 hover:bg-slate-100 transition-colors"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
+
+          {/* Navegación semanal */}
+          {viewMode === 'weekly' && (
+            <div className="flex items-center gap-1 border border-slate-200 rounded-lg overflow-hidden">
+              <button
+                onClick={() => { setWeekStart(w => addDays(w, -7)); setSelected(null); }}
+                className="px-2.5 py-2 text-slate-600 hover:bg-slate-100 transition-colors"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <span className="px-3 text-xs font-semibold text-slate-700 whitespace-nowrap">
+                {fmtDayShort(weekStart)} – {fmtDayShort(weekEnd)}
+              </span>
+              <button
+                onClick={() => { setWeekStart(w => addDays(w, 7)); setSelected(null); }}
+                className="px-2.5 py-2 text-slate-600 hover:bg-slate-100 transition-colors"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+
+          {/* Navegación mensual */}
+          {viewMode === 'monthly' && (
+            <div className="flex items-center gap-1 border border-slate-200 rounded-lg overflow-hidden">
+              <button
+                onClick={() => setMonthStart(d => new Date(d.getFullYear(), d.getMonth() - 1, 1))}
+                className="px-2.5 py-2 text-slate-600 hover:bg-slate-100 transition-colors"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <span className="px-3 text-xs font-semibold text-slate-700 whitespace-nowrap capitalize">
+                {fmtMonthYear(monthStart)}
+              </span>
+              <button
+                onClick={() => setMonthStart(d => new Date(d.getFullYear(), d.getMonth() + 1, 1))}
+                className="px-2.5 py-2 text-slate-600 hover:bg-slate-100 transition-colors"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -405,90 +520,172 @@ export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte }
           </button>
         )}
 
-        {hasFilters && (
+        {hasFilters && viewMode === 'weekly' && (
           <span className="text-xs text-slate-400">
             {filteredServices.length} servicio{filteredServices.length !== 1 ? 's' : ''} filtrado{filteredServices.length !== 1 ? 's' : ''}
           </span>
         )}
       </div>
 
-      {/* Weekly grid + detail panel */}
-      <div className="flex gap-4">
-        {/* Grid */}
-        <div className="flex-1 min-w-0">
-          <div className="grid grid-cols-7 gap-2">
-            {days.map(day => {
-              const dayStr    = isoDate(day);
-              const isToday   = dayStr === todayStr;
-              const dayServices = getServicesForDay(day);
-              const isWeekend = day.getDay() === 0 || day.getDay() === 6;
+      {/* ── Vista semanal ── */}
+      {viewMode === 'weekly' && (
+        <div className="flex gap-4">
+          <div className="flex-1 min-w-0">
+            <div className="grid grid-cols-7 gap-2">
+              {days.map(day => {
+                const dayStr      = isoDate(day);
+                const isToday     = dayStr === todayStr;
+                const dayServices = getServicesForDay(day);
+                const isWeekend   = day.getDay() === 0 || day.getDay() === 6;
 
-              return (
-                <div key={dayStr} className={`min-h-[200px] flex flex-col gap-1`}>
-                  {/* Day header */}
-                  <div className={`px-2 py-1.5 rounded-lg text-center text-[11px] font-bold uppercase tracking-wide ${
-                    isToday
-                      ? 'bg-blue-600 text-white'
-                      : isWeekend
-                        ? 'bg-slate-100 text-slate-400'
-                        : 'bg-slate-50 text-slate-600'
-                  }`}>
-                    {fmtDayShort(day)}
-                    {dayServices.length > 0 && (
-                      <span className={`ml-1 text-[9px] px-1 py-0.5 rounded-full font-black ${
-                        isToday ? 'bg-white/20 text-white' : 'bg-blue-100 text-blue-700'
-                      }`}>
-                        {dayServices.length}
-                      </span>
-                    )}
-                  </div>
+                return (
+                  <div key={dayStr} className="min-h-[200px] flex flex-col gap-1">
+                    <div className={`px-2 py-1.5 rounded-lg text-center text-[11px] font-bold uppercase tracking-wide ${
+                      isToday
+                        ? 'bg-blue-600 text-white'
+                        : isWeekend
+                          ? 'bg-slate-100 text-slate-400'
+                          : 'bg-slate-50 text-slate-600'
+                    }`}>
+                      {fmtDayShort(day)}
+                      {dayServices.length > 0 && (
+                        <span className={`ml-1 text-[9px] px-1 py-0.5 rounded-full font-black ${
+                          isToday ? 'bg-white/20 text-white' : 'bg-blue-100 text-blue-700'
+                        }`}>
+                          {dayServices.length}
+                        </span>
+                      )}
+                    </div>
 
-                  {/* Service items */}
-                  <div className="flex flex-col gap-1">
-                    {dayServices.length === 0 ? (
-                      <div className={`flex-1 min-h-[60px] rounded-lg border-dashed border ${isWeekend ? 'border-slate-100' : 'border-slate-200'}`} />
-                    ) : (
-                      dayServices.map(svc => (
-                        <AgendaItem
-                          key={`${svc.id}-${dayStr}`}
-                          svc={svc}
-                          vehicleMap={vehicleMap}
-                          workerMap={workerMap}
-                          clientMap={clientMap}
-                          selected={selected?.id === svc.id}
-                          onClick={() => setSelected(s => s?.id === svc.id ? null : svc)}
-                        />
-                      ))
-                    )}
+                    <div className="flex flex-col gap-1">
+                      {dayServices.length === 0 ? (
+                        <div className={`flex-1 min-h-[60px] rounded-lg border-dashed border ${isWeekend ? 'border-slate-100' : 'border-slate-200'}`} />
+                      ) : (
+                        dayServices.map(svc => (
+                          <AgendaItem
+                            key={`${svc.id}-${dayStr}`}
+                            svc={svc}
+                            vehicleMap={vehicleMap}
+                            workerMap={workerMap}
+                            clientMap={clientMap}
+                            selected={selected?.id === svc.id}
+                            onClick={() => setSelected(s => s?.id === svc.id ? null : svc)}
+                          />
+                        ))
+                      )}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+
+            {filteredServices.length === 0 && !hasFilters && (
+              <div className="mt-6 bg-slate-50 border border-slate-200 border-dashed rounded-2xl p-10 flex flex-col items-center gap-3 text-slate-400">
+                <Calendar className="w-10 h-10 opacity-30" />
+                <p className="text-sm font-medium">Sin servicios esta semana</p>
+                <p className="text-xs opacity-70">Los servicios confirmados aparecerán aquí</p>
+              </div>
+            )}
           </div>
 
-          {filteredServices.length === 0 && !hasFilters && (
-            <div className="mt-6 bg-slate-50 border border-slate-200 border-dashed rounded-2xl p-10 flex flex-col items-center gap-3 text-slate-400">
-              <Calendar className="w-10 h-10 opacity-30" />
-              <p className="text-sm font-medium">Sin servicios esta semana</p>
-              <p className="text-xs opacity-70">Los servicios confirmados aparecerán aquí</p>
+          {selected && (
+            <div className="w-72 shrink-0 sticky top-4 self-start">
+              <DetailPanel
+                svc={selected}
+                vehicleMap={vehicleMap}
+                workerMap={workerMap}
+                clientMap={clientMap}
+                onClose={() => setSelected(null)}
+                onOpenParte={onOpenParte}
+              />
             </div>
           )}
         </div>
+      )}
 
-        {/* Detail panel */}
-        {selected && (
-          <div className="w-72 shrink-0 sticky top-4 self-start">
-            <DetailPanel
-              svc={selected}
-              vehicleMap={vehicleMap}
-              workerMap={workerMap}
-              clientMap={clientMap}
-              onClose={() => setSelected(null)}
-              onOpenParte={onOpenParte}
-            />
-          </div>
-        )}
-      </div>
+      {/* ── Vista mensual ── */}
+      {viewMode === 'monthly' && (
+        <div>
+          {monthLoading && (
+            <div className="flex justify-center py-8 text-slate-400 gap-2">
+              <Loader2 className="w-5 h-5 animate-spin" />
+              <span className="text-sm">Cargando mes...</span>
+            </div>
+          )}
+
+          {!monthLoading && (
+            <>
+              {/* Cabecera días */}
+              <div className="grid grid-cols-7 gap-1 mb-1">
+                {['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'].map(d => (
+                  <div key={d} className="text-center text-[11px] font-bold text-slate-400 py-2">{d}</div>
+                ))}
+              </div>
+
+              {/* Grid del mes */}
+              <div className="grid grid-cols-7 gap-1">
+                {monthGridCells.map((day, i) => {
+                  if (!day) return <div key={`empty-${i}`} className="min-h-[70px]" />;
+
+                  const dayStr       = isoDate(day);
+                  const isToday      = dayStr === todayStr;
+                  const dayServices  = getMonthServicesForDay(day);
+                  const isWeekend    = day.getDay() === 0 || day.getDay() === 6;
+
+                  return (
+                    <button
+                      key={dayStr}
+                      onClick={() => {
+                        setWeekStart(startOfWeek(day));
+                        setViewMode('weekly');
+                        setSelected(null);
+                      }}
+                      title={`Ver semana del ${day.toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })}`}
+                      className={`min-h-[70px] p-1 text-left rounded-lg border transition-colors cursor-pointer ${
+                        isToday
+                          ? 'border-blue-300 bg-blue-50 hover:border-blue-400'
+                          : isWeekend
+                            ? 'border-slate-100 bg-slate-50 hover:border-slate-300'
+                            : 'border-slate-100 bg-white hover:border-slate-300 hover:bg-slate-50'
+                      }`}
+                    >
+                      <span className={`block text-[11px] font-bold leading-tight ${
+                        isToday ? 'text-blue-600' : isWeekend ? 'text-slate-400' : 'text-slate-600'
+                      }`}>
+                        {day.getDate()}
+                      </span>
+
+                      {dayServices.slice(0, 2).map(svc => {
+                        const cfg = SERVICIO_ESTADOS.find(e => e.value === svc.estado);
+                        return (
+                          <div
+                            key={svc.id}
+                            className={`mt-0.5 text-[9px] truncate px-1 py-0.5 rounded border leading-tight ${cfg?.color ?? 'bg-gray-100 text-gray-600 border-gray-200'}`}
+                          >
+                            {svc.titulo}
+                          </div>
+                        );
+                      })}
+                      {dayServices.length > 2 && (
+                        <div className="mt-0.5 text-[9px] text-slate-400 pl-0.5">
+                          +{dayServices.length - 2} más
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {filteredMonthServices.length === 0 && (
+                <div className="mt-6 bg-slate-50 border border-slate-200 border-dashed rounded-2xl p-10 flex flex-col items-center gap-3 text-slate-400">
+                  <Calendar className="w-10 h-10 opacity-30" />
+                  <p className="text-sm font-medium">Sin servicios este mes</p>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 }

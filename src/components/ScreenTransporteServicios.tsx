@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
-  Plus, Calendar, MapPin, Users, ChevronDown, X, Edit2,
-  AlertTriangle, CheckCircle, Clock, Truck, UserCheck,
-  Euro, FileText, PlusCircle, Trash2, ArrowRight, Loader2,
+  Plus, Calendar, MapPin, Users, ChevronLeft, ChevronRight, X, Edit2,
+  AlertTriangle, CheckCircle, Clock, Truck, UserCheck, Bus,
+  PlusCircle, Trash2, ArrowRight, Loader2,
   ArrowUp, ArrowDown,
 } from 'lucide-react';
 import {
@@ -16,6 +16,8 @@ import {
   confirmTransportService,
   updateTransportEstado,
   loadTransportServices,
+  loadServicesOverlappingRange,
+  loadUpcomingServices,
   checkAvailability,
 } from '../lib/transportServices';
 import type {
@@ -28,18 +30,18 @@ import type {
 } from '../lib/transportServices';
 import { loadClients, loadWorkers, getClientDisplayName } from '../lib/supabase';
 import type { TradeClient, TradeWorker } from '../lib/supabase';
-import { loadVehiclesAll } from '../lib/transport';
+import { loadVehiclesAll, getVehicleDisplayImage } from '../lib/transport';
 import type { TradeVehicle } from '../lib/transport';
 import { useSession } from '../context/SessionContext';
 import TransportLocationForm from './TransportLocationForm';
 import TransportContactForm from './TransportContactForm';
 import { locationToText, TIPO_OPERACION_OPTIONS } from '../lib/transportLocations';
 import type { TipoOperacionParada } from '../lib/transportLocations';
+import { getServiceDays, isoDate } from '../lib/transportPanelHelpers';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function toLocalDT(iso: string): string {
-  // "2026-10-23T10:30:00+02:00" → "2026-10-23T10:30" para datetime-local
   if (!iso) return '';
   const d = new Date(iso);
   if (isNaN(d.getTime())) return '';
@@ -48,7 +50,6 @@ function toLocalDT(iso: string): string {
 }
 
 function fromLocalDT(local: string): string {
-  // "2026-10-23T10:30" → ISO string en zona local del navegador
   if (!local) return '';
   return new Date(local).toISOString();
 }
@@ -68,6 +69,11 @@ function fmtDate(iso: string): string {
 function fmtTime(iso: string): string {
   if (!iso) return '';
   return new Date(iso).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+}
+
+function fmtLongDate(iso: string): string {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' });
 }
 
 function errMsg(e: unknown): string {
@@ -192,6 +198,137 @@ function StopRow({ stop, index, total, onChange, onRemove, onMoveUp, onMoveDown 
   );
 }
 
+// ── Mini-calendario lateral ───────────────────────────────────────────────────
+
+const MONTH_NAMES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const DOW_NAMES   = ['L','M','X','J','V','S','D'];
+
+interface MiniCalendarProps {
+  year: number;
+  month: number; // 0-indexed
+  services: TradeTransportService[];
+  loading: boolean;
+  onNavigate: (year: number, month: number) => void;
+  onDayClick: (dateStr: string) => void;
+}
+
+function MiniCalendar({ year, month, services, loading, onNavigate, onDayClick }: MiniCalendarProps) {
+  const firstDay  = new Date(year, month, 1);
+  const lastDay   = new Date(year, month + 1, 0);
+  const startDow  = (firstDay.getDay() + 6) % 7; // 0 = lunes
+
+  // Mapa día → estados presentes (incluyendo servicios pluridiarios)
+  const dayMap = new Map<string, Set<ServicioEstado>>();
+  for (const svc of services) {
+    for (const d of getServiceDays(svc)) {
+      if (!dayMap.has(d)) dayMap.set(d, new Set());
+      dayMap.get(d)!.add(svc.estado as ServicioEstado);
+    }
+  }
+
+  const cells: (number | null)[] = [];
+  for (let i = 0; i < startDow; i++) cells.push(null);
+  for (let d = 1; d <= lastDay.getDate(); d++) cells.push(d);
+  while (cells.length % 7 !== 0) cells.push(null);
+
+  const todayStr = isoDate(new Date());
+
+  const prevMonth = () => month === 0  ? onNavigate(year - 1, 11)  : onNavigate(year, month - 1);
+  const nextMonth = () => month === 11 ? onNavigate(year + 1, 0)   : onNavigate(year, month + 1);
+
+  return (
+    <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-sm font-bold text-slate-900">Agenda mensual</h3>
+        <div className="flex items-center gap-0.5">
+          <button onClick={prevMonth} className="p-1 text-slate-400 hover:text-slate-700 cursor-pointer rounded">
+            <ChevronLeft className="w-3.5 h-3.5" />
+          </button>
+          <span className="text-xs font-semibold text-slate-700 w-32 text-center">
+            {MONTH_NAMES[month]} {year}
+          </span>
+          <button onClick={nextMonth} className="p-1 text-slate-400 hover:text-slate-700 cursor-pointer rounded">
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      </div>
+
+      {/* Cabecera días de la semana */}
+      <div className="grid grid-cols-7 mb-1">
+        {DOW_NAMES.map(d => (
+          <div key={d} className="text-center text-[10px] font-bold text-slate-400 py-0.5">{d}</div>
+        ))}
+      </div>
+
+      {/* Celdas del mes */}
+      <div className="grid grid-cols-7 gap-px">
+        {cells.map((day, i) => {
+          if (day === null) return <div key={`empty-${i}`} />;
+
+          const mm = String(month + 1).padStart(2, '0');
+          const dd = String(day).padStart(2, '0');
+          const dateStr = `${year}-${mm}-${dd}`;
+          const estados = dayMap.get(dateStr);
+          const isToday = dateStr === todayStr;
+
+          const hasProgramado = estados?.has('borrador') || estados?.has('confirmado');
+          const hasActive     = estados?.has('en_curso');
+          const hasCompleted  = estados?.has('completado');
+          const hasCanceled   = estados?.has('cancelado');
+
+          return (
+            <button
+              key={dateStr}
+              onClick={() => onDayClick(dateStr)}
+              className={`flex flex-col items-center py-1 rounded text-[11px] font-medium transition-colors cursor-pointer ${
+                isToday
+                  ? 'bg-blue-600 text-white'
+                  : estados
+                    ? 'hover:bg-blue-50 text-slate-800'
+                    : 'hover:bg-slate-50 text-slate-400'
+              }`}
+            >
+              <span>{day}</span>
+              {estados && (
+                <div className="flex gap-0.5 mt-0.5">
+                  {hasProgramado && <span className="w-1 h-1 rounded-full bg-blue-400" />}
+                  {hasActive     && <span className="w-1 h-1 rounded-full bg-emerald-500" />}
+                  {hasCompleted  && <span className="w-1 h-1 rounded-full bg-purple-400" />}
+                  {hasCanceled   && <span className="w-1 h-1 rounded-full bg-red-400" />}
+                </div>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {loading && (
+        <div className="flex justify-center mt-2">
+          <Loader2 className="w-3.5 h-3.5 animate-spin text-slate-300" />
+        </div>
+      )}
+
+      {/* Leyenda */}
+      <div className="mt-3 pt-3 border-t border-slate-100 flex flex-wrap gap-x-3 gap-y-1">
+        {[
+          { dot: 'bg-blue-400',    label: 'Programado' },
+          { dot: 'bg-emerald-500', label: 'En curso' },
+          { dot: 'bg-purple-400',  label: 'Completado' },
+          { dot: 'bg-red-400',     label: 'Cancelado' },
+        ].map(({ dot, label }) => (
+          <span key={label} className="flex items-center gap-1 text-[10px] text-slate-500">
+            <span className={`w-1.5 h-1.5 rounded-full ${dot}`} />
+            {label}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Modal crear/editar servicio ───────────────────────────────────────────────
+
 interface ServicioModalProps {
   servicio: TradeTransportService | null;
   orgId: string;
@@ -249,7 +386,6 @@ function ServicioModal({
           precio_acordado: servicio.precio_acordado ?? null,
           observaciones:   servicio.observaciones ?? '',
           quote_id:        servicio.quote_id ?? null,
-          // Migrate legacy text to nombre_lugar if no structured data yet
           origen_detalle:  servicio.origen_detalle ??
             (servicio.origen ? { nombre_lugar: servicio.origen } : null),
           destino_detalle: servicio.destino_detalle ??
@@ -260,15 +396,13 @@ function ServicioModal({
       : emptyForm()
   );
 
-  const [saving, setSaving]           = useState(false);
-  const [stopError, setStopError]     = useState('');
-  const [conflicts, setConflicts]     = useState<ConflictInfo[]>([]);
+  const [saving, setSaving]               = useState(false);
+  const [stopError, setStopError]         = useState('');
+  const [conflicts, setConflicts]         = useState<ConflictInfo[]>([]);
   const [checkingAvail, setCheckingAvail] = useState(false);
   const availDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Filtros de vehículos aptos (viajeros o mixto, activos)
   const aptVehicles = vehicles.filter(v => v.activo && (v.modalidad === 'viajeros' || v.modalidad === 'mixto'));
-  // Conductores habilitados y activos
   const aptWorkers  = workers.filter(w => w.es_conductor && w.activo !== false);
 
   const runAvailCheck = useCallback(() => {
@@ -350,7 +484,6 @@ function ServicioModal({
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 overflow-y-auto py-6 px-4">
       <div className="bg-white rounded-xl shadow-xl w-full max-w-3xl">
-        {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
           <h3 className="text-base font-bold text-slate-900">
             {servicio ? 'Editar servicio' : 'Nuevo servicio de transporte'}
@@ -362,7 +495,6 @@ function ServicioModal({
 
         <form onSubmit={handleSubmit}>
           <div className="px-6 py-5 space-y-5">
-            {/* Fila 1: Título + Tipo */}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className={labelCls}>Título *</label>
@@ -377,7 +509,6 @@ function ServicioModal({
               <div>
                 <label className={labelCls}>Tipo de servicio</label>
                 <select value={form.tipo_servicio} onChange={e => set('tipo_servicio', e.target.value)} className={inputCls}>
-                  {/* Legacy option: visible solo al editar un servicio con valor no reconocido en el catálogo activo */}
                   {!TIPO_SERVICIO_OPTIONS.find(t => t.value === (form.tipo_servicio as string)) && (
                     <option value={form.tipo_servicio as string}>
                       {(form.tipo_servicio as string) === 'traslado_empresa' ? 'Traslado empresa (heredado)' : (form.tipo_servicio as string)}
@@ -390,7 +521,6 @@ function ServicioModal({
               </div>
             </div>
 
-            {/* Fila 2: Cliente */}
             <div>
               <label className={labelCls}>Cliente (opcional)</label>
               <select value={form.client_id ?? ''} onChange={e => set('client_id', e.target.value || null)} className={inputCls}>
@@ -401,7 +531,6 @@ function ServicioModal({
               </select>
             </div>
 
-            {/* Fila 3: Origen → Destino */}
             <div className="grid grid-cols-2 gap-4">
               <TransportLocationForm
                 label="Origen"
@@ -415,7 +544,6 @@ function ServicioModal({
               />
             </div>
 
-            {/* Paradas intermedias */}
             <div>
               <div className="flex items-center justify-between mb-2">
                 <label className={labelCls + ' mb-0'}>Paradas intermedias</label>
@@ -439,7 +567,6 @@ function ServicioModal({
               {stopError && <p className="text-xs text-red-600 mt-1">{stopError}</p>}
             </div>
 
-            {/* Contacto principal del servicio */}
             <TransportContactForm
               label="Contacto y responsable del servicio"
               value={form.contacto_principal ?? null}
@@ -447,7 +574,6 @@ function ServicioModal({
               compact={false}
             />
 
-            {/* Instrucciones para el conductor */}
             <div>
               <label className={labelCls}>Instrucciones para el conductor</label>
               <textarea
@@ -459,7 +585,6 @@ function ServicioModal({
               />
             </div>
 
-            {/* Fechas y Viajeros */}
             <div className="grid grid-cols-3 gap-4">
               <div>
                 <label className={labelCls}>Salida *</label>
@@ -491,7 +616,6 @@ function ServicioModal({
               </div>
             </div>
 
-            {/* Vehículo + Conductor */}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className={labelCls}>Vehículo (aptos para viajeros)</label>
@@ -522,7 +646,6 @@ function ServicioModal({
               </div>
             </div>
 
-            {/* Conflictos */}
             {checkingAvail && (
               <div className="flex items-center gap-1.5 text-xs text-slate-500">
                 <Loader2 className="w-3.5 h-3.5 animate-spin" /> Verificando disponibilidad...
@@ -530,7 +653,6 @@ function ServicioModal({
             )}
             <ConflictAlert conflicts={conflicts} />
 
-            {/* Precio + Observaciones */}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className={labelCls}>Precio acordado (€)</label>
@@ -563,7 +685,6 @@ function ServicioModal({
             </div>
           </div>
 
-          {/* Footer */}
           <div className="px-6 py-4 border-t border-slate-200 flex justify-between items-center gap-3">
             <div>
               {conflicts.length > 0 && (
@@ -609,9 +730,10 @@ function ServicioRow({
   s, clients, vehicles, workers,
   onEdit, onCancel, onConfirm, onIniciar, onOpenParte, canWrite,
 }: ServicioRowProps) {
-  const client   = clients.find(c => c.id === s.client_id);
-  const vehicle  = vehicles.find(v => v.id === s.vehicle_id);
+  const client    = clients.find(c => c.id === s.client_id);
+  const vehicle   = vehicles.find(v => v.id === s.vehicle_id);
   const conductor = workers.find(w => w.id === s.conductor_id);
+  const vehicleImg = vehicle ? getVehicleDisplayImage(vehicle.tipo, vehicle.image_path) : null;
 
   const isTerminal = s.estado === 'completado' || s.estado === 'cancelado';
 
@@ -643,8 +765,19 @@ function ServicioRow({
           </div>
         </div>
 
-        {/* Columna derecha: asignaciones + precio + acciones */}
+        {/* Columna derecha: imagen vehículo + asignaciones + precio + acciones */}
         <div className="shrink-0 text-right space-y-1.5">
+          {/* Miniatura del vehículo */}
+          {vehicleImg && (
+            <div className="flex justify-end mb-1">
+              <img
+                src={vehicleImg}
+                alt={vehicle?.nombre}
+                className="h-10 w-auto max-w-[72px] object-contain rounded"
+                onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+              />
+            </div>
+          )}
           {vehicle && (
             <div className="flex items-center justify-end gap-1 text-xs text-slate-600">
               <Truck className="w-3.5 h-3.5" />
@@ -723,17 +856,26 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
   const canWrite = rol === 'owner' || rol === 'admin';
 
   // Data
-  const [services,  setServices]  = useState<TradeTransportService[]>([]);
-  const [clients,   setClients]   = useState<TradeClient[]>([]);
-  const [vehicles,  setVehicles]  = useState<TradeVehicle[]>([]);
-  const [workers,   setWorkers]   = useState<TradeWorker[]>([]);
+  const [services,       setServices]       = useState<TradeTransportService[]>([]);
+  const [clients,        setClients]        = useState<TradeClient[]>([]);
+  const [vehicles,       setVehicles]       = useState<TradeVehicle[]>([]);
+  const [workers,        setWorkers]        = useState<TradeWorker[]>([]);
+  const [futureServices, setFutureServices] = useState<TradeTransportService[]>([]);
+
+  // Mini-calendario lateral
+  const [calYear,     setCalYear]     = useState(() => new Date().getFullYear());
+  const [calMonth,    setCalMonth]    = useState(() => new Date().getMonth()); // 0-indexed
+  const [calServices, setCalServices] = useState<TradeTransportService[]>([]);
+  const [calLoading,  setCalLoading]  = useState(false);
+  const calInitRef = useRef(false); // solo inicializa una vez al primer load
 
   // UI state
-  const [loading,   setLoading]   = useState(true);
-  const [loadError, setLoadError] = useState('');
-  const [modal,     setModal]     = useState<'create' | 'edit' | null>(null);
-  const [editing,   setEditing]   = useState<TradeTransportService | null>(null);
-  const [canceling, setCanceling] = useState<TradeTransportService | null>(null);
+  const [loading,      setLoading]      = useState(true);
+  const [loadError,    setLoadError]    = useState('');
+  const [modal,        setModal]        = useState<'create' | 'edit' | null>(null);
+  const [editing,      setEditing]      = useState<TradeTransportService | null>(null);
+  const [canceling,    setCanceling]    = useState<TradeTransportService | null>(null);
+  const [recentlySaved, setRecentlySaved] = useState<TradeTransportService | null>(null);
 
   // Filtros
   const todayStr = new Date().toISOString().split('T')[0];
@@ -744,11 +886,34 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
   });
   const [filterEstado, setFilterEstado] = useState<ServicioEstado | ''>('');
 
+  // Carga mini-calendario cuando cambia el mes visualizado
+  const loadCalendarServices = useCallback(async () => {
+    setCalLoading(true);
+    try {
+      const start = new Date(calYear, calMonth, 1);
+      const end   = new Date(calYear, calMonth + 1, 0);
+      const svcs  = await loadServicesOverlappingRange(
+        orgId,
+        isoDate(start) + 'T00:00:00',
+        isoDate(end)   + 'T23:59:59',
+      );
+      setCalServices(svcs);
+    } catch {
+      // silencioso: los puntos del calendario son UI secundaria
+    } finally {
+      setCalLoading(false);
+    }
+  }, [orgId, calYear, calMonth]);
+
+  useEffect(() => { void loadCalendarServices(); }, [loadCalendarServices]);
+
+  // Carga principal de la lista de servicios
   const load = useCallback(async () => {
     setLoading(true);
     setLoadError('');
     try {
-      const [svcs, cls, vhs, wks] = await Promise.all([
+      const afterHasta = filterHasta ? `${filterHasta}T23:59:59` : new Date().toISOString();
+      const [svcs, cls, vhs, wks, upcoming] = await Promise.all([
         loadTransportServices(orgId, {
           desde:  filterDesde  ? `${filterDesde}T00:00:00`  : undefined,
           hasta:  filterHasta  ? `${filterHasta}T23:59:59`  : undefined,
@@ -757,11 +922,23 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
         loadClients(orgId),
         loadVehiclesAll(orgId),
         loadWorkers(orgId),
+        loadUpcomingServices(orgId, afterHasta),
       ]);
       setServices(svcs);
       setClients(cls);
       setVehicles(vhs);
       setWorkers(wks);
+      setFutureServices(upcoming);
+
+      // Primera carga: situar el calendario en el mes del primer servicio futuro
+      if (!calInitRef.current) {
+        calInitRef.current = true;
+        if (upcoming.length > 0) {
+          const d = new Date(upcoming[0].fecha_inicio);
+          setCalYear(d.getFullYear());
+          setCalMonth(d.getMonth());
+        }
+      }
     } catch (err) {
       setLoadError(errMsg(err));
     } finally {
@@ -769,13 +946,34 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
     }
   }, [orgId, filterDesde, filterHasta, filterEstado]);
 
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => { void load(); }, [load]);
 
   const handleSaved = (s: TradeTransportService) => {
-    setServices(prev => {
-      const idx = prev.findIndex(x => x.id === s.id);
-      return idx >= 0 ? prev.map((x, i) => i === idx ? s : x) : [s, ...prev];
-    });
+    const svcDateStr = s.fecha_inicio.split('T')[0];
+    const isInRange  = svcDateStr >= (filterDesde || '') && svcDateStr <= (filterHasta || '9999-12-31');
+
+    if (isInRange) {
+      setServices(prev => {
+        const idx = prev.findIndex(x => x.id === s.id);
+        return idx >= 0 ? prev.map((x, i) => i === idx ? s : x) : [s, ...prev];
+      });
+    } else {
+      // El servicio quedó fuera del rango → eliminar de la lista si estaba, mostrar notificación
+      setServices(prev => prev.filter(x => x.id !== s.id));
+      setRecentlySaved(s);
+      // Actualizar el banner de futuros
+      const afterHasta = filterHasta ? `${filterHasta}T23:59:59` : new Date().toISOString();
+      void loadUpcomingServices(orgId, afterHasta)
+        .then(svcs => setFutureServices(svcs))
+        .catch(() => {});
+    }
+
+    // Refrescar mini-calendario si el servicio cae en el mes visible
+    const savedDate = new Date(s.fecha_inicio);
+    if (savedDate.getFullYear() === calYear && savedDate.getMonth() === calMonth) {
+      void loadCalendarServices();
+    }
+
     setModal(null);
     setEditing(null);
   };
@@ -823,6 +1021,16 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
     }
   };
 
+  // Navegar filtros al primer servicio futuro
+  const handleShowFuture = () => {
+    if (!futureServices[0]) return;
+    const d = new Date(futureServices[0].fecha_inicio);
+    const desde = d.toISOString().split('T')[0];
+    const hastaD = new Date(d); hastaD.setDate(hastaD.getDate() + 30);
+    setFilterDesde(desde);
+    setFilterHasta(hastaD.toISOString().split('T')[0]);
+  };
+
   const inputCls = "px-3 py-1.5 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500";
 
   return (
@@ -848,76 +1056,180 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
         )}
       </div>
 
-      {/* Filtros */}
-      <div className="flex flex-wrap items-center gap-3 bg-white border border-slate-200 rounded-xl p-3">
-        <Calendar className="w-4 h-4 text-slate-400 shrink-0" />
-        <div className="flex items-center gap-2">
-          <input type="date" value={filterDesde} onChange={e => setFilterDesde(e.target.value)} className={inputCls} />
-          <ArrowRight className="w-3 h-3 text-slate-400" />
-          <input type="date" value={filterHasta} onChange={e => setFilterHasta(e.target.value)} className={inputCls} />
-        </div>
-        <select value={filterEstado} onChange={e => setFilterEstado(e.target.value as ServicioEstado | '')} className={inputCls}>
-          <option value="">Todos los estados</option>
-          {SERVICIO_ESTADOS.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
-        </select>
-      </div>
+      {/* Layout dos columnas: lista (izquierda) + mini-calendario (derecha, solo ≥xl) */}
+      <div className="flex gap-6 items-start">
 
-      {/* Contenido */}
-      {loading && (
-        <div className="flex items-center justify-center py-16 gap-2 text-slate-500">
-          <Loader2 className="w-5 h-5 animate-spin" />
-          <span className="text-sm">Cargando servicios...</span>
-        </div>
-      )}
+        {/* ── Columna principal ── */}
+        <div className="flex-1 min-w-0 space-y-4">
 
-      {!loading && loadError && (
-        <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex gap-2 items-start">
-          <AlertTriangle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
-          <div>
-            <p className="text-sm font-semibold text-red-800">Error al cargar servicios</p>
-            <p className="text-xs text-red-600 mt-1">{loadError}</p>
-            <button onClick={load} className="text-xs text-red-700 underline mt-2 cursor-pointer">Reintentar</button>
+          {/* Filtros */}
+          <div className="flex flex-wrap items-center gap-3 bg-white border border-slate-200 rounded-xl p-3">
+            <Calendar className="w-4 h-4 text-slate-400 shrink-0" />
+            <div className="flex items-center gap-2">
+              <input type="date" value={filterDesde} onChange={e => setFilterDesde(e.target.value)} className={inputCls} />
+              <ArrowRight className="w-3 h-3 text-slate-400" />
+              <input type="date" value={filterHasta} onChange={e => setFilterHasta(e.target.value)} className={inputCls} />
+            </div>
+            <select value={filterEstado} onChange={e => setFilterEstado(e.target.value as ServicioEstado | '')} className={inputCls}>
+              <option value="">Todos los estados</option>
+              {SERVICIO_ESTADOS.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+            </select>
           </div>
-        </div>
-      )}
 
-      {!loading && !loadError && services.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-20 gap-3 text-slate-400">
-          <div className="w-14 h-14 bg-slate-100 rounded-full flex items-center justify-center">
-            <Calendar className="w-7 h-7 text-slate-300" />
-          </div>
-          <p className="text-sm font-semibold text-slate-600">Sin servicios en el rango seleccionado</p>
-          <p className="text-xs text-slate-400">Prueba a cambiar las fechas o crea el primer servicio</p>
-          {canWrite && (
-            <button
-              onClick={() => { setEditing(null); setModal('create'); }}
-              className="mt-2 flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-xl cursor-pointer"
-            >
-              <Plus className="w-4 h-4" /> Nuevo servicio
-            </button>
+          {/* Banner de servicios futuros fuera del rango */}
+          {!loading && futureServices.length > 0 && (
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-start gap-3">
+              <Clock className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-blue-900">
+                  {futureServices.length === 1
+                    ? 'Hay 1 servicio programado fuera del intervalo actual'
+                    : `Hay ${futureServices.length} servicios programados fuera del intervalo actual`}
+                </p>
+                <p className="text-xs text-blue-700 mt-0.5">
+                  Próximo: {fmtLongDate(futureServices[0].fecha_inicio)} · {futureServices[0].titulo}
+                </p>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  onClick={handleShowFuture}
+                  className="px-3 py-1.5 text-xs font-semibold text-blue-700 bg-white border border-blue-200 rounded-lg hover:bg-blue-100 cursor-pointer"
+                >
+                  Ver programados
+                </button>
+                <button
+                  onClick={() => {
+                    const d = new Date(futureServices[0].fecha_inicio);
+                    setCalYear(d.getFullYear());
+                    setCalMonth(d.getMonth());
+                  }}
+                  title="Ir al mes en el mini-calendario"
+                  className="p-1.5 text-blue-500 hover:text-blue-700 cursor-pointer"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Notificación de servicio guardado fuera del rango */}
+          {recentlySaved && (
+            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 flex items-start gap-3">
+              <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-emerald-900">Servicio guardado fuera del rango actual</p>
+                <p className="text-xs text-emerald-700 mt-0.5">
+                  "{recentlySaved.titulo}" está programado para {fmtLongDate(recentlySaved.fecha_inicio)}
+                </p>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  onClick={() => {
+                    if (!recentlySaved) return;
+                    const d = new Date(recentlySaved.fecha_inicio);
+                    const desde = d.toISOString().split('T')[0];
+                    const hastaD = new Date(d); hastaD.setDate(hastaD.getDate() + 30);
+                    setFilterDesde(desde);
+                    setFilterHasta(hastaD.toISOString().split('T')[0]);
+                    setRecentlySaved(null);
+                  }}
+                  className="px-3 py-1.5 text-xs font-semibold text-emerald-700 bg-white border border-emerald-200 rounded-lg hover:bg-emerald-100 cursor-pointer"
+                >
+                  Ver servicio
+                </button>
+                <button onClick={() => setRecentlySaved(null)} className="p-1 text-slate-400 hover:text-slate-600 cursor-pointer">
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Cargando */}
+          {loading && (
+            <div className="flex items-center justify-center py-16 gap-2 text-slate-500">
+              <Loader2 className="w-5 h-5 animate-spin" />
+              <span className="text-sm">Cargando servicios...</span>
+            </div>
+          )}
+
+          {/* Error */}
+          {!loading && loadError && (
+            <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex gap-2 items-start">
+              <AlertTriangle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+              <div>
+                <p className="text-sm font-semibold text-red-800">Error al cargar servicios</p>
+                <p className="text-xs text-red-600 mt-1">{loadError}</p>
+                <button onClick={load} className="text-xs text-red-700 underline mt-2 cursor-pointer">Reintentar</button>
+              </div>
+            </div>
+          )}
+
+          {/* Sin resultados */}
+          {!loading && !loadError && services.length === 0 && (
+            <div className="flex flex-col items-center justify-center py-20 gap-3 text-slate-400">
+              <div className="w-14 h-14 bg-slate-100 rounded-full flex items-center justify-center">
+                <Calendar className="w-7 h-7 text-slate-300" />
+              </div>
+              <p className="text-sm font-semibold text-slate-600">Sin servicios en el rango seleccionado</p>
+              {futureServices.length > 0 ? (
+                <p className="text-xs text-slate-400">
+                  Hay servicios en otras fechas.{' '}
+                  <button onClick={handleShowFuture} className="text-blue-600 hover:underline cursor-pointer">
+                    Ver próximos servicios
+                  </button>
+                </p>
+              ) : (
+                <p className="text-xs text-slate-400">Prueba a cambiar las fechas o crea el primer servicio</p>
+              )}
+              {canWrite && (
+                <button
+                  onClick={() => { setEditing(null); setModal('create'); }}
+                  className="mt-2 flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-xl cursor-pointer"
+                >
+                  <Plus className="w-4 h-4" /> Nuevo servicio
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* Lista de servicios */}
+          {!loading && !loadError && services.length > 0 && (
+            <div className="space-y-3">
+              {services.map(s => (
+                <ServicioRow
+                  key={s.id}
+                  s={s}
+                  clients={clients}
+                  vehicles={vehicles}
+                  workers={workers}
+                  canWrite={canWrite}
+                  onEdit={() => { setEditing(s); setModal('edit'); }}
+                  onCancel={() => setCanceling(s)}
+                  onConfirm={() => handleConfirm(s)}
+                  onIniciar={() => handleEstado(s, 'en_curso')}
+                  onOpenParte={(id) => onOpenParte?.(id)}
+                />
+              ))}
+            </div>
           )}
         </div>
-      )}
 
-      {!loading && !loadError && services.length > 0 && (
-        <div className="space-y-3">
-          {services.map(s => (
-            <ServicioRow
-              key={s.id}
-              s={s}
-              clients={clients}
-              vehicles={vehicles}
-              workers={workers}
-              canWrite={canWrite}
-              onEdit={() => { setEditing(s); setModal('edit'); }}
-              onCancel={() => setCanceling(s)}
-              onConfirm={() => handleConfirm(s)}
-              onIniciar={() => handleEstado(s, 'en_curso')}
-              onOpenParte={(id) => onOpenParte?.(id)}
-            />
-          ))}
+        {/* ── Mini-calendario lateral (solo pantallas ≥1280px) ── */}
+        <div className="hidden xl:block w-64 shrink-0 sticky top-4 self-start">
+          <MiniCalendar
+            year={calYear}
+            month={calMonth}
+            services={calServices}
+            loading={calLoading}
+            onNavigate={(y, m) => { setCalYear(y); setCalMonth(m); }}
+            onDayClick={dateStr => {
+              setFilterDesde(dateStr);
+              setFilterHasta(dateStr);
+            }}
+          />
         </div>
-      )}
+
+      </div>
 
       {/* Modal Crear/Editar */}
       {modal && (

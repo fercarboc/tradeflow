@@ -457,3 +457,26 @@ export async function completeTransportService(
   if (error) throw error;
   return data as { ok: boolean; cerrado_at?: string };
 }
+
+/**
+ * Carga servicios activos (no cancelados ni completados) cuya fecha_inicio
+ * es estrictamente posterior a afterDate. Usado para el banner de servicios
+ * futuros fuera del intervalo de filtro activo.
+ */
+export async function loadUpcomingServices(
+  orgId: string,
+  afterDate: string,
+  limit = 10,
+): Promise<TradeTransportService[]> {
+  const { data, error } = await supabase
+    .from('trade_transport_services')
+    .select('*')
+    .eq('org_id', orgId)
+    .gt('fecha_inicio', afterDate)
+    .neq('estado', 'cancelado')
+    .neq('estado', 'completado')
+    .order('fecha_inicio', { ascending: true })
+    .limit(limit);
+  if (error) throw error;
+  return (data ?? []) as TradeTransportService[];
+}
