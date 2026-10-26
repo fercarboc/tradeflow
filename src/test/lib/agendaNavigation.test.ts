@@ -148,6 +148,68 @@ describe('initialServiceId — auto-selección en ScreenTransporteRutas', () => 
   });
 });
 
+// ── onConsumeInitialServiceId — selección consumible ─────────────────────────
+
+describe('onConsumeInitialServiceId — consumable selection', () => {
+  /** Simula la lógica del effect en Servicios y Rutas. */
+  function simulateConsumeEffect(
+    initialServiceId: string | null | undefined,
+    services: { id: string }[],
+    onConsume: () => void,
+  ): boolean /* consumed */ {
+    if (!initialServiceId || services.length === 0) return false;
+    const found = services.find(s => s.id === initialServiceId);
+    if (found) { onConsume(); return true; }
+    return false;
+  }
+
+  it('llama a onConsume cuando encuentra el servicio', () => {
+    let consumed = false;
+    const result = simulateConsumeEffect('svc-1', [{ id: 'svc-1' }], () => { consumed = true; });
+    expect(result).toBe(true);
+    expect(consumed).toBe(true);
+  });
+
+  it('NO llama a onConsume si la lista está vacía', () => {
+    let consumed = false;
+    simulateConsumeEffect('svc-1', [], () => { consumed = true; });
+    expect(consumed).toBe(false);
+  });
+
+  it('NO llama a onConsume si el ID no está en la lista', () => {
+    let consumed = false;
+    simulateConsumeEffect('svc-X', [{ id: 'svc-1' }], () => { consumed = true; });
+    expect(consumed).toBe(false);
+  });
+
+  it('NO llama a onConsume si initialServiceId es null', () => {
+    let consumed = false;
+    simulateConsumeEffect(null, [{ id: 'svc-1' }], () => { consumed = true; });
+    expect(consumed).toBe(false);
+  });
+
+  it('después de consumir, sidebar abre con null y no selecciona', () => {
+    let navServiceId: string | null = 'svc-1';
+    simulateConsumeEffect(navServiceId, [{ id: 'svc-1' }], () => { navServiceId = null; });
+    // Ahora la barra lateral abre Servicios con navServiceId=null
+    const result = simulateConsumeEffect(navServiceId, [{ id: 'svc-1' }], () => {});
+    expect(result).toBe(false);
+  });
+
+  it('segunda navegación desde Agenda selecciona correctamente tras consumo previo', () => {
+    let navServiceId: string | null = 'svc-1';
+    // Primera navegación: consume el ID
+    simulateConsumeEffect(navServiceId, [{ id: 'svc-1' }], () => { navServiceId = null; });
+    expect(navServiceId).toBeNull();
+    // Segunda navegación desde Agenda
+    navServiceId = 'svc-2';
+    let consumed = false;
+    simulateConsumeEffect(navServiceId, [{ id: 'svc-1' }, { id: 'svc-2' }], () => { consumed = true; navServiceId = null; });
+    expect(consumed).toBe(true);
+    expect(navServiceId).toBeNull();
+  });
+});
+
 // ── Navegación móvil (mobileMap) ──────────────────────────────────────────────
 
 describe('mobileMap — mapeo de tab keys a subtabs de transporte', () => {

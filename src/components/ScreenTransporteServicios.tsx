@@ -849,11 +849,12 @@ interface Props {
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   onOpenParte?: (svcId: string) => void;
   initialServiceId?: string | null;
+  onConsumeInitialServiceId?: () => void;
 }
 
 // ── Componente principal ──────────────────────────────────────────────────────
 
-export default function ScreenTransporteServicios({ orgId, showToast, onOpenParte, initialServiceId }: Props) {
+export default function ScreenTransporteServicios({ orgId, showToast, onOpenParte, initialServiceId, onConsumeInitialServiceId }: Props) {
   const { rol } = useSession();
   const canWrite = rol === 'owner' || rol === 'admin';
 
@@ -880,12 +881,15 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
   const [recentlySaved, setRecentlySaved] = useState<TradeTransportService | null>(null);
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
 
-  // Highlight service navigated from Agenda
+  // Highlight service navigated from Agenda; consume once found so sidebar nav starts clean
   useEffect(() => {
     if (!initialServiceId || services.length === 0) return;
     const found = services.find(s => s.id === initialServiceId);
-    if (found) setHighlightedId(initialServiceId);
-  }, [initialServiceId, services]);
+    if (found) {
+      setHighlightedId(initialServiceId);
+      onConsumeInitialServiceId?.();
+    }
+  }, [initialServiceId, services]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Auto-clear highlight after 3s
   useEffect(() => {

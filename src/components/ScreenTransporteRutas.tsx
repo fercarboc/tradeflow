@@ -25,6 +25,7 @@ interface Props {
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   onNavigate?: (tab: string) => void;
   initialServiceId?: string | null;
+  onConsumeInitialServiceId?: () => void;
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -417,7 +418,7 @@ function RutaDetailPanel({ service, vehicleMap, workerMap, clientMap, onNavigate
 
 // ── Main component ────────────────────────────────────────────────────────────
 
-export default function ScreenTransporteRutas({ orgId, showToast, onNavigate, initialServiceId }: Props) {
+export default function ScreenTransporteRutas({ orgId, showToast, onNavigate, initialServiceId, onConsumeInitialServiceId }: Props) {
   const showToastRef = useRef(showToast);
   showToastRef.current = showToast;
 
@@ -438,15 +439,16 @@ export default function ScreenTransporteRutas({ orgId, showToast, onNavigate, in
   // Mobile: show list or detail
   const [mobileView, setMobileView] = useState<'list' | 'detail'>('list');
 
-  // Auto-select service when navigating from Agenda
+  // Auto-select service when navigating from Agenda; consume once found so sidebar nav starts clean
   useEffect(() => {
     if (!initialServiceId || services.length === 0) return;
     const svc = services.find(s => s.id === initialServiceId);
     if (svc) {
       setSelected(svc);
       setMobileView('detail');
+      onConsumeInitialServiceId?.();
     }
-  }, [initialServiceId, services]);
+  }, [initialServiceId, services]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const load = useCallback(async () => {
     setLoading(true);

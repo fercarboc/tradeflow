@@ -4122,6 +4122,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     showToast={showToast}
                     onOpenParte={(id) => { setTransporteParteId(id); setMobileTab('partes'); }}
                     initialServiceId={transporteNavServiceId}
+                    onConsumeInitialServiceId={() => setTransporteNavServiceId(null)}
                   />
                 )}
                 {transporteMobileSubTab === 'agenda' && (
@@ -4149,6 +4150,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {transporteMobileSubTab === 'rutas' && (
                   <ScreenTransporteRutas orgId={orgId} showToast={showToast}
                     initialServiceId={transporteNavServiceId}
+                    onConsumeInitialServiceId={() => setTransporteNavServiceId(null)}
                     onNavigate={(tab) => {
                       const map: Record<string, 'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas'> = {
                         transporte_panel: 'panel',
@@ -6879,6 +6881,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       showToast={showToast}
                       onOpenParte={(id) => { setTransporteParteId(id); setActiveTab('transporte_parte'); }}
                       initialServiceId={transporteNavServiceId}
+                      onConsumeInitialServiceId={() => setTransporteNavServiceId(null)}
                     />
                   </div>
                 )}
@@ -6924,6 +6927,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <ScreenTransporteRutas orgId={orgId} showToast={showToast}
                       onNavigate={(tab) => setActiveTab(tab)}
                       initialServiceId={transporteNavServiceId}
+                      onConsumeInitialServiceId={() => setTransporteNavServiceId(null)}
                     />
                   </div>
                 )}
