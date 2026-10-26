@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import {
   Bus, Plus, X, Edit2, Trash2, Save, AlertCircle,
   CheckCircle2, Wrench, AlertTriangle, CircleOff,
@@ -18,6 +18,8 @@ import {
   VEHICLE_ESTADOS,
   VEHICLE_MODALIDADES,
 } from '../lib/transport';
+import { loadTransportServices } from '../lib/transportServices';
+import type { TradeTransportService } from '../lib/transportServices';
 import { useSession } from '../context/SessionContext';
 import type { TradeVehicle, TradeVehicleInput, VehicleEstado, VehicleModalidad } from '../lib/transport';
 
@@ -464,6 +466,7 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
   const canWrite = rol === 'owner' || rol === 'admin';
 
   const [vehicles, setVehicles] = useState<TradeVehicle[]>([]);
+  const [activeServices, setActiveServices] = useState<TradeTransportService[]>([]);
   const [loading, setLoading] = useState(true);
   const [showInactive, setShowInactive] = useState(false);
   const [editingVehicle, setEditingVehicle] = useState<TradeVehicle | null | undefined>(undefined);
@@ -478,8 +481,12 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const data = await loadVehiclesAll(orgId);
+      const [data, activeSvcs] = await Promise.all([
+        loadVehiclesAll(orgId),
+        loadTransportServices(orgId, { estado: 'en_curso' }),
+      ]);
       setVehicles(data);
+      setActiveServices(activeSvcs);
     } catch (e) {
       showToastRef.current(errMsg(e), 'error');
     } finally {
@@ -521,9 +528,17 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
     }
   }
 
-  const visible    = showInactive ? vehicles : vehicles.filter(v => v.activo);
-  const activos    = vehicles.filter(v => v.activo).length;
-  const disponibles = vehicles.filter(v => v.activo && v.estado === 'disponible').length;
+  const activeVehicleIds = useMemo(
+    () => new Set(activeServices.filter(s => s.vehicle_id).map(s => s.vehicle_id!)),
+    [activeServices],
+  );
+
+  const visible     = showInactive ? vehicles : vehicles.filter(v => v.activo);
+  const activos     = vehicles.filter(v => v.activo).length;
+  const disponibles = vehicles.filter(v => v.activo && v.estado === 'disponible' && !activeVehicleIds.has(v.id)).length;
+  const enCursoAhora = activeVehicleIds.size > 0
+    ? vehicles.filter(v => v.activo && activeVehicleIds.has(v.id)).length
+    : 0;
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -538,6 +553,12 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
               <h1 className="text-base font-bold text-slate-900">Flota de vehículos</h1>
               <p className="text-xs text-slate-500">
                 {activos} activo{activos !== 1 ? 's' : ''} · {disponibles} disponible{disponibles !== 1 ? 's' : ''}
+                {enCursoAhora > 0 && (
+                  <span className="ml-1 inline-flex items-center gap-0.5 text-emerald-600 font-medium">
+                    · <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse inline-block" />
+                    {enCursoAhora} en curso
+                  </span>
+                )}
               </p>
             </div>
           </div>
@@ -635,21 +656,29 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
                         </td>
                         <td className="px-4 py-3">
                           {v.activo ? (
-                            canWrite ? (
-                              <select
-                                value={v.estado}
-                                onChange={e => handleEstadoChange(v, e.target.value as VehicleEstado)}
-                                className={`cursor-pointer px-2 py-1 rounded-full text-xs font-medium border focus:outline-none focus:ring-2 focus:ring-blue-500 ${ec.color}`}
-                              >
-                                {VEHICLE_ESTADOS.map(s => (
-                                  <option key={s.value} value={s.value}>{s.label}</option>
-                                ))}
-                              </select>
-                            ) : (
-                              <span className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium border ${ec.color}`}>
-                                {ESTADO_ICON[v.estado]}{ec.label}
-                              </span>
-                            )
+                            <div className="space-y-1">
+                              {canWrite ? (
+                                <select
+                                  value={v.estado}
+                                  onChange={e => handleEstadoChange(v, e.target.value as VehicleEstado)}
+                                  className={`cursor-pointer px-2 py-1 rounded-full text-xs font-medium border focus:outline-none focus:ring-2 focus:ring-blue-500 ${ec.color}`}
+                                >
+                                  {VEHICLE_ESTADOS.map(s => (
+                                    <option key={s.value} value={s.value}>{s.label}</option>
+                                  ))}
+                                </select>
+                              ) : (
+                                <span className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium border ${ec.color}`}>
+                                  {ESTADO_ICON[v.estado]}{ec.label}
+                                </span>
+                              )}
+                              {activeVehicleIds.has(v.id) && (
+                                <div className="flex items-center gap-1 text-[11px] text-emerald-600 font-semibold">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                                  En curso ahora
+                                </div>
+                              )}
+                            </div>
                           ) : (
                             <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-500 border border-slate-200">
                               <CircleOff size={12} /> Baja
@@ -697,9 +726,17 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
                         <div className="font-semibold text-slate-900 truncate">{v.nombre}</div>
                         <div className="text-xs text-slate-500 font-mono">{v.matricula}</div>
                       </div>
-                      <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium border shrink-0 ${v.activo ? ec.color : 'bg-slate-100 text-slate-500 border-slate-200'}`}>
-                        {v.activo ? ESTADO_ICON[v.estado] : <CircleOff size={12} />}
-                        {v.activo ? ec.label : 'Baja'}
+                      <div className="flex flex-col items-end gap-1 shrink-0">
+                        <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium border ${v.activo ? ec.color : 'bg-slate-100 text-slate-500 border-slate-200'}`}>
+                          {v.activo ? ESTADO_ICON[v.estado] : <CircleOff size={12} />}
+                          {v.activo ? ec.label : 'Baja'}
+                        </div>
+                        {v.activo && activeVehicleIds.has(v.id) && (
+                          <div className="flex items-center gap-1 text-[10px] text-emerald-600 font-semibold">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            En curso
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div className="px-4 py-3">

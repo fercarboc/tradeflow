@@ -535,6 +535,12 @@ export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte, 
   const [monthStart,   setMonthStart]   = useState(() => { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), 1); });
   const [intervalFrom, setIntervalFrom] = useState(() => isoDate(new Date()));
   const [intervalTo,   setIntervalTo]   = useState(() => isoDate(addDays(new Date(), 6)));
+  // Mobile weekly day-picker: 0 = lunes … 6 = domingo; default = today's offset in current week
+  const [mobileDayIdx, setMobileDayIdx] = useState<number>(() => {
+    const today = new Date();
+    const ws = startOfWeek(today);
+    return Math.min(6, Math.round((today.getTime() - ws.getTime()) / 86400000));
+  });
 
   const [services,   setServices]   = useState<TradeTransportService[]>([]);
   const [vehicleMap, setVehicleMap] = useState<Map<string, TradeVehicle>>(new Map());
@@ -688,14 +694,21 @@ export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte, 
   // Navigation
   function goToToday() {
     const now = new Date();
-    if (viewMode === 'weekly') setWeekStart(startOfWeek(now));
-    else if (viewMode === 'monthly') setMonthStart(new Date(now.getFullYear(), now.getMonth(), 1));
-    else { setIntervalFrom(isoDate(now)); setIntervalTo(isoDate(addDays(now, 6))); }
+    if (viewMode === 'weekly') {
+      setWeekStart(startOfWeek(now));
+      const ws = startOfWeek(now);
+      setMobileDayIdx(Math.min(6, Math.round((now.getTime() - ws.getTime()) / 86400000)));
+    } else if (viewMode === 'monthly') {
+      setMonthStart(new Date(now.getFullYear(), now.getMonth(), 1));
+    } else {
+      setIntervalFrom(isoDate(now));
+      setIntervalTo(isoDate(addDays(now, 6)));
+    }
     setDetail({ kind: 'empty' });
   }
 
   function goPrev() {
-    if (viewMode === 'weekly')        setWeekStart(w => addDays(w, -7));
+    if (viewMode === 'weekly') { setWeekStart(w => addDays(w, -7)); setMobileDayIdx(0); }
     else if (viewMode === 'monthly')  setMonthStart(d => new Date(d.getFullYear(), d.getMonth() - 1, 1));
     else {
       const from = new Date(intervalFrom + 'T00:00:00');
@@ -707,7 +720,7 @@ export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte, 
   }
 
   function goNext() {
-    if (viewMode === 'weekly')        setWeekStart(w => addDays(w, 7));
+    if (viewMode === 'weekly') { setWeekStart(w => addDays(w, 7)); setMobileDayIdx(0); }
     else if (viewMode === 'monthly')  setMonthStart(d => new Date(d.getFullYear(), d.getMonth() + 1, 1));
     else {
       const from = new Date(intervalFrom + 'T00:00:00');
@@ -726,6 +739,7 @@ export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte, 
       setIntervalFrom(isoDate(ref));
       setIntervalTo(isoDate(addDays(ref, 6)));
     }
+    setMobileDayIdx(0);
     setViewMode(m);
     setDetail({ kind: 'empty' });
   }
@@ -887,44 +901,110 @@ export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte, 
 
             {/* Weekly */}
             {viewMode === 'weekly' && (
-              <div className="grid grid-cols-7 gap-1.5 min-w-0">
-                {days.map(day => {
-                  const dayStr      = isoDate(day);
-                  const isToday     = dayStr === todayStr;
-                  const dayServices = getServicesForDay(day);
-                  const isWeekend   = day.getDay() === 0 || day.getDay() === 6;
-                  return (
-                    <div key={dayStr} className="flex flex-col gap-1 min-w-0">
-                      <div className={`px-1 py-1 rounded-lg text-center text-[10px] font-bold uppercase tracking-wide leading-tight ${
-                        isToday ? 'bg-blue-600 text-white' : isWeekend ? 'bg-slate-100 text-slate-400' : 'bg-slate-50 text-slate-600'
-                      }`}>
-                        {fmtDayShort(day)}
-                        {dayServices.length > 0 && (
-                          <span className={`ml-0.5 text-[9px] px-1 rounded-full font-black ${isToday ? 'bg-white/20 text-white' : 'bg-blue-100 text-blue-700'}`}>
-                            {dayServices.length}
+              <>
+                {/* ── Móvil: day-picker + lista del día seleccionado ── */}
+                <div className="sm:hidden space-y-3">
+                  <div className="grid grid-cols-7 gap-1">
+                    {days.map((day, idx) => {
+                      const dayStr    = isoDate(day);
+                      const isToday   = dayStr === todayStr;
+                      const isSelected = idx === mobileDayIdx;
+                      const count     = getServicesForDay(day).length;
+                      const isWeekend = day.getDay() === 0 || day.getDay() === 6;
+                      return (
+                        <button
+                          key={dayStr}
+                          onClick={() => setMobileDayIdx(idx)}
+                          className={`flex flex-col items-center py-2 rounded-xl transition-colors ${
+                            isSelected
+                              ? 'bg-blue-600 text-white'
+                              : isToday
+                                ? 'bg-blue-50 text-blue-700'
+                                : isWeekend
+                                  ? 'bg-slate-50 text-slate-400'
+                                  : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+                          }`}
+                        >
+                          <span className="text-[9px] font-bold uppercase tracking-wide opacity-70">
+                            {day.toLocaleDateString('es-ES', { weekday: 'narrow' })}
                           </span>
-                        )}
+                          <span className="text-base font-black leading-tight">{day.getDate()}</span>
+                          {count > 0 && (
+                            <span className={`w-1.5 h-1.5 rounded-full mt-0.5 ${isSelected ? 'bg-white/70' : 'bg-blue-400'}`} />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {/* Servicios del día seleccionado */}
+                  <div className="space-y-2">
+                    {(() => {
+                      const selectedDay = days[mobileDayIdx];
+                      if (!selectedDay) return null;
+                      const daySvcs = getServicesForDay(selectedDay);
+                      if (daySvcs.length === 0) {
+                        return (
+                          <div className="flex flex-col items-center py-8 gap-2 text-slate-400">
+                            <Calendar className="w-6 h-6 opacity-30" />
+                            <p className="text-xs">Sin servicios este día</p>
+                          </div>
+                        );
+                      }
+                      return daySvcs.map(svc => (
+                        <AgendaServiceCard
+                          key={`${svc.id}-${isoDate(selectedDay)}`}
+                          svc={svc}
+                          vehicleMap={vehicleMap}
+                          workerMap={workerMap}
+                          clientMap={clientMap}
+                          selected={selectedSvcId === svc.id}
+                          onClick={() => selectService(svc)}
+                        />
+                      ));
+                    })()}
+                  </div>
+                </div>
+
+                {/* ── Desktop: grid 7 columnas ── */}
+                <div className="hidden sm:grid grid-cols-7 gap-1.5 min-w-0">
+                  {days.map(day => {
+                    const dayStr      = isoDate(day);
+                    const isToday     = dayStr === todayStr;
+                    const dayServices = getServicesForDay(day);
+                    const isWeekend   = day.getDay() === 0 || day.getDay() === 6;
+                    return (
+                      <div key={dayStr} className="flex flex-col gap-1 min-w-0">
+                        <div className={`px-1 py-1 rounded-lg text-center text-[10px] font-bold uppercase tracking-wide leading-tight ${
+                          isToday ? 'bg-blue-600 text-white' : isWeekend ? 'bg-slate-100 text-slate-400' : 'bg-slate-50 text-slate-600'
+                        }`}>
+                          {fmtDayShort(day)}
+                          {dayServices.length > 0 && (
+                            <span className={`ml-0.5 text-[9px] px-1 rounded-full font-black ${isToday ? 'bg-white/20 text-white' : 'bg-blue-100 text-blue-700'}`}>
+                              {dayServices.length}
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex flex-col gap-1 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 280px)' }}>
+                          {dayServices.length === 0
+                            ? <div className={`min-h-[48px] rounded-lg border-dashed border ${isWeekend ? 'border-slate-100' : 'border-slate-200'}`} />
+                            : dayServices.map(svc => (
+                                <AgendaServiceCard
+                                  key={`${svc.id}-${dayStr}`}
+                                  svc={svc}
+                                  vehicleMap={vehicleMap}
+                                  workerMap={workerMap}
+                                  clientMap={clientMap}
+                                  selected={selectedSvcId === svc.id}
+                                  onClick={() => selectService(svc)}
+                                />
+                              ))
+                          }
+                        </div>
                       </div>
-                      <div className="flex flex-col gap-1 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 280px)' }}>
-                        {dayServices.length === 0
-                          ? <div className={`min-h-[48px] rounded-lg border-dashed border ${isWeekend ? 'border-slate-100' : 'border-slate-200'}`} />
-                          : dayServices.map(svc => (
-                              <AgendaServiceCard
-                                key={`${svc.id}-${dayStr}`}
-                                svc={svc}
-                                vehicleMap={vehicleMap}
-                                workerMap={workerMap}
-                                clientMap={clientMap}
-                                selected={selectedSvcId === svc.id}
-                                onClick={() => selectService(svc)}
-                              />
-                            ))
-                        }
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+                    );
+                  })}
+                </div>
+              </>
             )}
 
             {/* Monthly */}
