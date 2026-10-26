@@ -180,6 +180,19 @@ Deno.serve(async (req: Request) => {
     cached_at:       new Date().toISOString(),
   }, { onConflict: 'org_id,address_hash' });
 
+  // Marcar la reserva como reconciliada: geocode consume exactamente 1 crédito (delta = 0).
+  // No bloqueante: un fallo aquí no afecta la respuesta al cliente.
+  // No se llama con actual=0 porque Geoapify ya procesó la solicitud.
+  const { error: reconcileErr } = await supabase.rpc('geo_reconcile', {
+    p_org_id:         org_id,
+    p_reservation_id: reservationId,
+    p_actual:         1,
+    p_waypoint_hash:  null,
+  });
+  if (reconcileErr) {
+    console.error('[geocode] geo_reconcile failed for reservation', reservationId, ':', reconcileErr.message);
+  }
+
   return Response.json({
     candidates,
     ambiguous: candidates.length > 1,
