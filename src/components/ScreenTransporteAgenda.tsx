@@ -708,7 +708,7 @@ export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte, 
   }
 
   function goPrev() {
-    if (viewMode === 'weekly') { setWeekStart(w => addDays(w, -7)); setMobileDayIdx(0); }
+    if (viewMode === 'weekly') setWeekStart(w => addDays(w, -7)); // mobileDayIdx preserved: same weekday in new week
     else if (viewMode === 'monthly')  setMonthStart(d => new Date(d.getFullYear(), d.getMonth() - 1, 1));
     else {
       const from = new Date(intervalFrom + 'T00:00:00');
@@ -720,7 +720,7 @@ export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte, 
   }
 
   function goNext() {
-    if (viewMode === 'weekly') { setWeekStart(w => addDays(w, 7)); setMobileDayIdx(0); }
+    if (viewMode === 'weekly') setWeekStart(w => addDays(w, 7)); // mobileDayIdx preserved: same weekday in new week
     else if (viewMode === 'monthly')  setMonthStart(d => new Date(d.getFullYear(), d.getMonth() + 1, 1));
     else {
       const from = new Date(intervalFrom + 'T00:00:00');

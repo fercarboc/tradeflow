@@ -465,6 +465,8 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
   const { rol } = useSession();
   const canWrite = rol === 'owner' || rol === 'admin';
 
+  const loadIdRef = useRef(0);
+
   const [vehicles, setVehicles] = useState<TradeVehicle[]>([]);
   const [activeServices, setActiveServices] = useState<TradeTransportService[]>([]);
   const [loading, setLoading] = useState(true);
@@ -479,18 +481,21 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
   useEffect(() => { showToastRef.current = showToast; });
 
   const load = useCallback(async () => {
+    const myId = ++loadIdRef.current;
     setLoading(true);
     try {
       const [data, activeSvcs] = await Promise.all([
         loadVehiclesAll(orgId),
         loadTransportServices(orgId, { estado: 'en_curso' }),
       ]);
+      if (loadIdRef.current !== myId) return; // discard stale response
       setVehicles(data);
       setActiveServices(activeSvcs);
     } catch (e) {
+      if (loadIdRef.current !== myId) return;
       showToastRef.current(errMsg(e), 'error');
     } finally {
-      setLoading(false);
+      if (loadIdRef.current === myId) setLoading(false);
     }
   }, [orgId]); // showToast excluido: ref estable evita reload innecesario
 
@@ -672,12 +677,20 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
                                   {ESTADO_ICON[v.estado]}{ec.label}
                                 </span>
                               )}
-                              {activeVehicleIds.has(v.id) && (
-                                <div className="flex items-center gap-1 text-[11px] text-emerald-600 font-semibold">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-                                  En curso ahora
-                                </div>
-                              )}
+                              {activeVehicleIds.has(v.id) && (() => {
+                                const isRestricted = v.estado === 'en_mantenimiento' || v.estado === 'baja';
+                                return isRestricted ? (
+                                  <div className="flex items-center gap-1 text-[11px] text-amber-600 font-semibold">
+                                    <AlertTriangle size={11} className="shrink-0" />
+                                    En curso (restringido)
+                                  </div>
+                                ) : (
+                                  <div className="flex items-center gap-1 text-[11px] text-emerald-600 font-semibold">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                                    En curso ahora
+                                  </div>
+                                );
+                              })()}
                             </div>
                           ) : (
                             <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-500 border border-slate-200">
@@ -731,12 +744,20 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
                           {v.activo ? ESTADO_ICON[v.estado] : <CircleOff size={12} />}
                           {v.activo ? ec.label : 'Baja'}
                         </div>
-                        {v.activo && activeVehicleIds.has(v.id) && (
-                          <div className="flex items-center gap-1 text-[10px] text-emerald-600 font-semibold">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                            En curso
-                          </div>
-                        )}
+                        {v.activo && activeVehicleIds.has(v.id) && (() => {
+                          const isRestricted = v.estado === 'en_mantenimiento' || v.estado === 'baja';
+                          return isRestricted ? (
+                            <div className="flex items-center gap-1 text-[10px] text-amber-600 font-semibold">
+                              <AlertTriangle size={10} />
+                              En curso (restringido)
+                            </div>
+                          ) : (
+                            <div className="flex items-center gap-1 text-[10px] text-emerald-600 font-semibold">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                              En curso
+                            </div>
+                          );
+                        })()}
                       </div>
                     </div>
                     <div className="px-4 py-3">

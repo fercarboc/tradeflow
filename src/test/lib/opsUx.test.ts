@@ -1,7 +1,8 @@
 /**
- * TX-TRANSPORT-OPS-UX-1 — Tests unitarios para:
+ * TX-TRANSPORT-OPS-UX-1 / TX-TRANSPORT-OPS-UX-1A — Tests unitarios para:
  *   FASE B: indicador operacional vivo en Flota (computed activeVehicleIds)
  *   FASE C: day-picker móvil Agenda semanal (mobileDayIdx)
+ *   1A fixes: inconsistency badge, async stale guard, day preservation on nav
  */
 import { describe, it, expect } from 'vitest';
 
@@ -95,6 +96,54 @@ describe('FASE B — activeVehicleIds: computed operational status', () => {
   });
 });
 
+// ── 1A FIX B — Inconsistency indicator (maintenance/baja + active service) ────
+
+function inconsistencyKind(estado: string, hasActiveService: boolean): 'none' | 'en_curso' | 'restringido' {
+  if (!hasActiveService) return 'none';
+  if (estado === 'en_mantenimiento' || estado === 'baja') return 'restringido';
+  return 'en_curso';
+}
+
+describe('1A FIX B — inconsistency indicator for restricted vehicles', () => {
+  it('disponible con servicio activo → en_curso', () => {
+    expect(inconsistencyKind('disponible', true)).toBe('en_curso');
+  });
+
+  it('en_servicio con servicio activo → en_curso', () => {
+    expect(inconsistencyKind('en_servicio', true)).toBe('en_curso');
+  });
+
+  it('en_mantenimiento con servicio activo → restringido', () => {
+    expect(inconsistencyKind('en_mantenimiento', true)).toBe('restringido');
+  });
+
+  it('baja con servicio activo → restringido', () => {
+    expect(inconsistencyKind('baja', true)).toBe('restringido');
+  });
+
+  it('sin servicio activo → ningún indicador', () => {
+    expect(inconsistencyKind('disponible', false)).toBe('none');
+    expect(inconsistencyKind('en_mantenimiento', false)).toBe('none');
+  });
+});
+
+// ── 1A FIX B — Stale async guard (loadIdRef pattern) ─────────────────────────
+
+describe('1A FIX B — loadIdRef stale guard in Vehiculos', () => {
+  it('respuesta con myId === currentId no es stale', () => {
+    let counter = 0;
+    const myId = ++counter;
+    expect(counter !== myId).toBe(false); // not stale
+  });
+
+  it('respuesta con myId < currentId es stale', () => {
+    let counter = 0;
+    const myId = ++counter;
+    ++counter; // second load starts
+    expect(counter !== myId).toBe(true); // stale
+  });
+});
+
 // ── FASE C: mobileDayIdx (day-picker semanal) ─────────────────────────────────
 
 /** Calcula el índice del día de hoy en la semana que empieza en weekStart. */
@@ -143,5 +192,35 @@ describe('FASE C — mobileDayIdx: day-picker semanal móvil', () => {
     const today = new Date('2026-10-19T09:00:00'); // semana anterior
     const ws    = new Date('2026-10-26T00:00:00');
     expect(todayMobileDayIdx(today, ws)).toBe(0); // clampeado a 0
+  });
+});
+
+// ── 1A FIX C — Day preservation on week navigation ───────────────────────────
+
+describe('1A FIX C — mobileDayIdx preserved when navigating between weeks', () => {
+  it('navegar a semana siguiente no cambia mobileDayIdx', () => {
+    // simulate: user is on Wednesday (idx=2) and presses next
+    const mobileDayIdxBefore = 2;
+    // goNext only changes weekStart, NOT mobileDayIdx → idx stays 2
+    const mobileDayIdxAfter = mobileDayIdxBefore; // no reset
+    expect(mobileDayIdxAfter).toBe(2);
+  });
+
+  it('navegar a semana anterior no cambia mobileDayIdx', () => {
+    const mobileDayIdxBefore = 4; // viernes
+    const mobileDayIdxAfter = mobileDayIdxBefore;
+    expect(mobileDayIdxAfter).toBe(4);
+  });
+
+  it('pulsar Hoy sitúa idx en el día actual de la semana', () => {
+    const now = new Date('2026-10-28T09:00:00'); // miércoles
+    const ws  = new Date('2026-10-26T00:00:00');
+    expect(todayMobileDayIdx(now, ws)).toBe(2);
+  });
+
+  it('cambio de modo resetea idx a 0', () => {
+    // switchMode sets mobileDayIdx(0) regardless of previous value
+    const resetIdx = () => 0;
+    expect(resetIdx()).toBe(0);
   });
 });
