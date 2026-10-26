@@ -14,6 +14,9 @@ import {
   normalizeAddressForSearch,
   MAX_DISTANCE_SURCHARGE_CAP,
   routeReservationCredits,
+  haversineKm,
+  totalRouteHaversineKm,
+  MAX_ROUTE_STRAIGHT_KM,
 } from '../../lib/geoCredits';
 import {
   geocodeAddress,
@@ -426,5 +429,85 @@ describe('credit reservation & reconciliation', () => {
     const reserved = geocodeCredits();
     const actual   = geocodeCredits();
     expect(reserved - actual).toBe(0);
+  });
+});
+
+// ── haversineKm ───────────────────────────────────────────────────────────────
+
+describe('haversineKm', () => {
+  it('same point = 0 km', () => {
+    expect(haversineKm(43.46, -3.80, 43.46, -3.80)).toBeCloseTo(0, 5);
+  });
+
+  it('Madrid–Barcelona ≈ 505 km (±5 km tolerance)', () => {
+    const d = haversineKm(40.4168, -3.7038, 41.3851, 2.1734);
+    expect(d).toBeGreaterThan(500);
+    expect(d).toBeLessThan(510);
+  });
+
+  it('Santander–Sevilla ≈ 700 km en línea recta (±10 km tolerance)', () => {
+    const d = haversineKm(43.4623, -3.8099, 37.3886, -5.9823);
+    expect(d).toBeGreaterThan(690);
+    expect(d).toBeLessThan(710);
+  });
+
+  it('symmetry: A→B = B→A', () => {
+    const d1 = haversineKm(40.4168, -3.7038, 41.3851, 2.1734);
+    const d2 = haversineKm(41.3851, 2.1734, 40.4168, -3.7038);
+    expect(d1).toBeCloseTo(d2, 5);
+  });
+});
+
+// ── totalRouteHaversineKm ─────────────────────────────────────────────────────
+
+describe('totalRouteHaversineKm', () => {
+  it('empty array = 0', () => {
+    expect(totalRouteHaversineKm([])).toBe(0);
+  });
+
+  it('single waypoint = 0', () => {
+    expect(totalRouteHaversineKm([{ lat: 43.46, lng: -3.80 }])).toBe(0);
+  });
+
+  it('two waypoints = haversine between them', () => {
+    const d = totalRouteHaversineKm([
+      { lat: 40.4168, lng: -3.7038 },
+      { lat: 41.3851, lng: 2.1734 },
+    ]);
+    expect(d).toBeCloseTo(haversineKm(40.4168, -3.7038, 41.3851, 2.1734), 5);
+  });
+
+  it('three waypoints = sum of both segments', () => {
+    const a = { lat: 43.46, lng: -3.80 };
+    const b = { lat: 40.42, lng: -3.70 };
+    const c = { lat: 37.39, lng: -5.98 };
+    const d = totalRouteHaversineKm([a, b, c]);
+    expect(d).toBeCloseTo(
+      haversineKm(a.lat, a.lng, b.lat, b.lng) + haversineKm(b.lat, b.lng, c.lat, c.lng),
+      5,
+    );
+  });
+
+  it('MAX_ROUTE_STRAIGHT_KM = 3000', () => {
+    expect(MAX_ROUTE_STRAIGHT_KM).toBe(3000);
+  });
+
+  it('typical Spanish bus route (Santander→Madrid→Barcelona ≈ 1 267 km) is within limit', () => {
+    const d = totalRouteHaversineKm([
+      { lat: 43.4623, lng: -3.8099 },  // Santander
+      { lat: 40.4168, lng: -3.7038 },  // Madrid
+      { lat: 41.3851, lng:  2.1734 },  // Barcelona
+    ]);
+    expect(d).toBeLessThan(MAX_ROUTE_STRAIGHT_KM);
+  });
+
+  it('extreme zigzag route exceeding 3 000 km is above limit', () => {
+    // Two endpoints at maximum Spain diagonal: ~1 250 km × 3 legs ≈ 3 750 km
+    const far: Array<{ lat: number; lng: number }> = [];
+    for (let i = 0; i < 5; i++) {
+      far.push(i % 2 === 0 ? { lat: 43.79, lng: -7.86 } : { lat: 36.01, lng: 4.49 });
+    }
+    const d = totalRouteHaversineKm(far);
+    expect(d).toBeGreaterThan(MAX_ROUTE_STRAIGHT_KM);
   });
 });

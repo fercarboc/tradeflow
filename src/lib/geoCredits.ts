@@ -61,6 +61,44 @@ export function routingCredits(
   return segments + distanceSurcharge + optionSurcharge;
 }
 
+const EARTH_RADIUS_KM = 6371;
+
+/** Distancia en km entre dos puntos lat/lng (fórmula de Haversine). */
+export function haversineKm(
+  lat1: number, lng1: number,
+  lat2: number, lng2: number,
+): number {
+  const toRad = (d: number) => d * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return EARTH_RADIUS_KM * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+/** Suma de distancias en línea recta entre waypoints consecutivos (km). */
+export function totalRouteHaversineKm(
+  waypoints: ReadonlyArray<{ lat: number; lng: number }>,
+): number {
+  if (waypoints.length < 2) return 0;
+  let total = 0;
+  for (let i = 0; i < waypoints.length - 1; i++) {
+    total += haversineKm(
+      waypoints[i].lat,     waypoints[i].lng,
+      waypoints[i + 1].lat, waypoints[i + 1].lng,
+    );
+  }
+  return total;
+}
+
+/**
+ * Distancia máxima en línea recta (km) que garantiza que el coste por
+ * carretera no supera MAX_DISTANCE_SURCHARGE_CAP.
+ * Factor carretera ≈ 1.3 → 4 000 km / 1.3 ≈ 3 077 km. Límite: 3 000 km.
+ */
+export const MAX_ROUTE_STRAIGHT_KM = 3000;
+
 /** Convierte coordenadas GeoJSON [lng, lat] a Leaflet [lat, lng]. */
 export function geojsonToLeaflet(
   coordinates: ReadonlyArray<[number, number]>

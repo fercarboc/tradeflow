@@ -21,9 +21,24 @@ import {
 
 const CACHE_TTL_DAYS = 30;
 // Coste máximo de suplemento de distancia por ruta (4 000 km = floor(4000/500) = 8).
-// Cubre cualquier ruta real de transporte terrestre en España.
 // Se usa como techo conservador para la reserva previa a la llamada a Geoapify.
 const MAX_DISTANCE_SURCHARGE_CAP = 8;
+
+// Distancia máxima en línea recta (km) que garantiza que la distancia por
+// carretera ≤ 4 000 km (factor carretera ≈ 1.3 → 4000/1.3 ≈ 3077 km).
+// Rutas más largas no pueden acotarse con MAX_DISTANCE_SURCHARGE_CAP y son rechazadas.
+const MAX_ROUTE_STRAIGHT_KM = 3000;
+
+const EARTH_RADIUS_KM = 6371;
+function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const toRad = (d: number) => d * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return EARTH_RADIUS_KM * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
 
 function routeCacheKey(waypoints: RouteWaypoint[]): string {
   return JSON.stringify(
@@ -99,6 +114,22 @@ Deno.serve(async (req: Request) => {
   const validWaypoints: RouteWaypoint[] = rawWaypoints.filter(isValidWaypoint);
   if (validWaypoints.length < 2) {
     return Response.json(null); // Sin ruta — respuesta vacía normal
+  }
+
+  // Guarda de distancia: rechazo previo si la ruta no puede acotarse con el cap de créditos.
+  // Haversine (línea recta) × 1.3 (factor carretera) ≈ distancia real → 3 000 km límite.
+  {
+    let straightKm = 0;
+    for (let i = 0; i < validWaypoints.length - 1; i++) {
+      const w1 = validWaypoints[i], w2 = validWaypoints[i + 1];
+      straightKm += haversineKm(w1.lat, w1.lng, w2.lat, w2.lng);
+    }
+    if (straightKm > MAX_ROUTE_STRAIGHT_KM) {
+      return Response.json(
+        { error: 'GEO_PARAMS_DISTANCE: ruta demasiado larga; distancia en línea recta supera 3 000 km' },
+        { status: 400 },
+      );
+    }
   }
 
   // Coste mínimo de créditos = segmentos (distancia aún desconocida)
