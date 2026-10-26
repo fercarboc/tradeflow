@@ -22,7 +22,6 @@ import {
 } from '../_shared/geoProviders.ts';
 
 const CACHE_TTL_DAYS = 180;
-const GLOBAL_RATE_MS = 1100; // 1.1s entre peticiones (margen frente al límite de 1/s)
 
 interface GeocodeRequest {
   address: string;
@@ -125,48 +124,22 @@ Deno.serve(async (req: Request) => {
     } satisfies GeocodeResponse);
   }
 
-  // Rate limit global — UPDATE atómico, sin TX abierta durante HTTP
-  const { count: rateLimitOk } = await supabase
-    .from('trade_geo_rate')
-    .update({ req_at: new Date().toISOString() })
-    .eq('provider', 'geoapify')
-    .or(`req_at.is.null,req_at.lt.${new Date(Date.now() - GLOBAL_RATE_MS).toISOString()}`)
-    .select('*', { count: 'exact', head: true });
+  // Reserva atómica de 1 crédito: kill switch + rate limit + presupuesto global + cuota org
+  const { data: reservation, error: reserveErr } = await supabase
+    .rpc('geo_reserve', { p_org_id: org_id, p_estimated: 1, p_waypoint_hash: null });
 
-  if ((rateLimitOk ?? 0) === 0) {
-    return Response.json({ error: 'GEO_RATE_GLOBAL: límite global alcanzado. Reintenta en 1 segundo.' }, { status: 429 });
+  if (reserveErr || !reservation?.ok) {
+    const err: string = reservation?.error ?? 'GEO_RESERVE_ERROR';
+    if (err === 'GEO_DISABLED')
+      return Response.json({ error: `${err}: servicio de geolocalización temporalmente desactivado.` }, { status: 503 });
+    if (err === 'GEO_RATE_GLOBAL')
+      return Response.json({ error: `${err}: límite global alcanzado. Reintenta en 1 segundo.` }, { status: 429 });
+    if (err === 'GEO_RATE_GLOBAL_BUDGET')
+      return Response.json({ error: `${err}: presupuesto diario de la plataforma agotado.` }, { status: 429 });
+    if (err === 'GEO_RATE_ORG')
+      return Response.json({ error: `${err}: cuota diaria de la organización agotada.` }, { status: 429 });
+    return Response.json({ error: err }, { status: 429 });
   }
-
-  // Cuota diaria por organización — incremento atómico con check de límite.
-  // Una UPDATE que solo afecta filas donde req_count < daily_limit, con upsert previo.
-  const today = new Date().toISOString().slice(0, 10);
-
-  // Asegurar fila del día (ignorar si ya existe)
-  await supabase.from('trade_geo_usage').upsert(
-    { org_id, date: today, req_count: 0, daily_limit: 100 },
-    { onConflict: 'org_id,date', ignoreDuplicates: true }
-  );
-
-  // Leer cuota actual
-  const { data: usageRow } = await supabase
-    .from('trade_geo_usage')
-    .select('req_count, daily_limit')
-    .eq('org_id', org_id)
-    .eq('date', today)
-    .single();
-
-  if (usageRow && usageRow.req_count >= usageRow.daily_limit) {
-    return Response.json({ error: 'GEO_RATE_ORG: cuota diaria de la organización agotada.' }, { status: 429 });
-  }
-
-  // Incremento con WHERE req_count < daily_limit — protege frente a race condition.
-  // Si dos instancias llegan simultáneamente, solo una puede superar el límite.
-  await supabase
-    .from('trade_geo_usage')
-    .update({ req_count: (usageRow?.req_count ?? 0) + 1 })
-    .eq('org_id', org_id)
-    .eq('date', today)
-    .lt('req_count', usageRow?.daily_limit ?? 100);
 
   // Llamada al proveedor (fuera de cualquier transacción DB)
   const apiKey = Deno.env.get('GEOAPIFY_API_KEY');
@@ -185,6 +158,8 @@ Deno.serve(async (req: Request) => {
     });
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'GEO_PROVIDER_ERROR';
+    // Geoapify no facturó — liberar el crédito reservado
+    await supabase.rpc('geo_reconcile', { p_org_id: org_id, p_reserved: 1, p_actual: 0, p_waypoint_hash: null });
     if (msg === 'GEO_QUOTA_EXCEEDED') {
       return Response.json({ error: msg }, { status: 402 });
     }

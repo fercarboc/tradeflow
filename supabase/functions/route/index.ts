@@ -20,7 +20,10 @@ import {
 } from '../_shared/geoProviders.ts';
 
 const CACHE_TTL_DAYS = 30;
-const GLOBAL_RATE_MS = 1100;
+// Coste máximo de suplemento de distancia por ruta (4 000 km = floor(4000/500) = 8).
+// Cubre cualquier ruta real de transporte terrestre en España.
+// Se usa como techo conservador para la reserva previa a la llamada a Geoapify.
+const MAX_DISTANCE_SURCHARGE_CAP = 8;
 
 function routeCacheKey(waypoints: RouteWaypoint[]): string {
   return JSON.stringify(
@@ -101,14 +104,15 @@ Deno.serve(async (req: Request) => {
   // Coste mínimo de créditos = segmentos (distancia aún desconocida)
   const segments = validWaypoints.length - 1;
 
-  // Cache lookup PRIMERO — una ruta cacheada no consume cuota ni llama al proveedor
+  // Cache lookup PRIMERO — ruta cacheada no consume cuota ni llama al proveedor.
+  // geometry IS NOT NULL filtra entradas pendientes (geometry=NULL mientras están en curso).
   const cacheKey = routeCacheKey(validWaypoints);
-  const today = new Date().toISOString().slice(0, 10);
-  const cutoff = new Date(Date.now() - CACHE_TTL_DAYS * 24 * 60 * 60 * 1000).toISOString();
+  const cutoff   = new Date(Date.now() - CACHE_TTL_DAYS * 24 * 60 * 60 * 1000).toISOString();
   const { data: cachedRoute } = await supabase
     .from('trade_route_cache')
     .select('geometry, distance_m, duration_s')
     .eq('waypoint_hash', cacheKey)
+    .not('geometry', 'is', null)
     .gte('cached_at', cutoff)
     .single();
 
@@ -122,39 +126,34 @@ Deno.serve(async (req: Request) => {
     } as RouteResult & { cached: boolean });
   }
 
-  // Cuota diaria — verificar reserva mínima de créditos (segmentos)
-  await supabase.from('trade_geo_usage').upsert(
-    { org_id, date: today, req_count: 0, daily_limit: 100 },
-    { onConflict: 'org_id,date', ignoreDuplicates: true }
-  );
-  const { data: routeUsageRow } = await supabase
-    .from('trade_geo_usage')
-    .select('req_count, daily_limit')
-    .eq('org_id', org_id)
-    .eq('date', today)
-    .single();
+  // Reserva conservadora: segmentos + techo de suplemento de distancia.
+  // El coste real (segmentos + floor(distance_m/500_000)) solo se conoce
+  // después de llamar a Geoapify; geo_reconcile libera la diferencia.
+  const estimatedCredits = segments + MAX_DISTANCE_SURCHARGE_CAP;
 
-  // Rechazar si no quedan suficientes créditos para el mínimo (segmentos)
-  const dailyLimit = routeUsageRow?.daily_limit ?? 100;
-  if (routeUsageRow && routeUsageRow.req_count + segments > dailyLimit) {
-    return Response.json({ error: 'GEO_RATE_ORG: cuota diaria de la organización agotada.' }, { status: 429 });
+  // Reserva atómica: kill switch + rate limit + presupuesto global + cuota org + dedup
+  const { data: reservation, error: reserveErr } = await supabase
+    .rpc('geo_reserve', { p_org_id: org_id, p_estimated: estimatedCredits, p_waypoint_hash: cacheKey });
+
+  if (reserveErr || !reservation?.ok) {
+    const err: string = reservation?.error ?? 'GEO_RESERVE_ERROR';
+    if (err === 'GEO_DISABLED')
+      return Response.json({ error: `${err}: servicio de geolocalización temporalmente desactivado.` }, { status: 503 });
+    if (err === 'GEO_RATE_GLOBAL')
+      return Response.json({ error: `${err}: límite global alcanzado. Reintenta en 1 segundo.` }, { status: 429 });
+    if (err === 'GEO_RATE_GLOBAL_BUDGET')
+      return Response.json({ error: `${err}: presupuesto diario de la plataforma agotado.` }, { status: 429 });
+    if (err === 'GEO_RATE_ORG')
+      return Response.json({ error: `${err}: cuota diaria de la organización agotada.` }, { status: 429 });
+    if (err === 'GEO_PENDING')
+      return Response.json({ error: `${err}: petición idéntica en curso. Reintenta en unos segundos.` }, { status: 409 });
+    return Response.json({ error: err }, { status: 429 });
   }
 
-  // Rate limit global
-  const { count: rateLimitOk } = await supabase
-    .from('trade_geo_rate')
-    .update({ req_at: new Date().toISOString() })
-    .eq('provider', 'geoapify')
-    .or(`req_at.is.null,req_at.lt.${new Date(Date.now() - GLOBAL_RATE_MS).toISOString()}`)
-    .select('*', { count: 'exact', head: true });
-
-  if ((rateLimitOk ?? 0) === 0) {
-    return Response.json({ error: 'GEO_RATE_GLOBAL: límite global alcanzado. Reintenta en 1 segundo.' }, { status: 429 });
-  }
-
-  // Llamada al proveedor
+  // Llamada al proveedor (la reserva ya está contabilizada)
   const apiKey = Deno.env.get('GEOAPIFY_API_KEY');
   if (!apiKey) {
+    await supabase.rpc('geo_reconcile', { p_org_id: org_id, p_reserved: estimatedCredits, p_actual: 0, p_waypoint_hash: cacheKey });
     return Response.json({ error: 'GEO_CONFIG: GEOAPIFY_API_KEY no configurada' }, { status: 503 });
   }
 
@@ -165,26 +164,30 @@ Deno.serve(async (req: Request) => {
     result = await provider.route(validWaypoints, 'bus');
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'GEO_PROVIDER_ERROR';
+    // Error de proveedor — Geoapify no facturó: liberar reserva completa
+    await supabase.rpc('geo_reconcile', { p_org_id: org_id, p_reserved: estimatedCredits, p_actual: 0, p_waypoint_hash: cacheKey });
     return Response.json({ error: msg }, { status: 502 });
   }
 
-  if (!result) return Response.json(null);
+  if (!result) {
+    // Sin ruta posible — liberar reserva completa
+    await supabase.rpc('geo_reconcile', { p_org_id: org_id, p_reserved: estimatedCredits, p_actual: 0, p_waypoint_hash: cacheKey });
+    return Response.json(null);
+  }
 
-  // Calcular créditos reales ahora que conocemos la distancia
-  // Fórmula Geoapify: segmentos + floor(km/500) de distancia
+  // Coste real = segmentos + suplemento de distancia (conocido ahora)
   const distSurcharge = Math.floor(result.distance_m / 500_000);
   const actualCredits = segments + distSurcharge;
 
-  // Incrementar cuota por créditos reales con WHERE guard atómico:
-  // req_count + actualCredits <= daily_limit
-  await supabase
-    .from('trade_geo_usage')
-    .update({ req_count: (routeUsageRow?.req_count ?? 0) + actualCredits })
-    .eq('org_id', org_id)
-    .eq('date', today)
-    .lte('req_count', dailyLimit - actualCredits);
+  // Liberar sobre-reserva (reserva - real) de global y org
+  await supabase.rpc('geo_reconcile', {
+    p_org_id:        org_id,
+    p_reserved:      estimatedCredits,
+    p_actual:        actualCredits,
+    p_waypoint_hash: cacheKey,
+  });
 
-  // Guardar en caché
+  // Guardar en caché; pending_at=null elimina la marca de dedup
   await supabase.from('trade_route_cache').upsert({
     waypoint_hash: cacheKey,
     geometry:      result.geometry,
@@ -192,6 +195,7 @@ Deno.serve(async (req: Request) => {
     duration_s:    result.duration_s,
     provider:      'geoapify',
     cached_at:     new Date().toISOString(),
+    pending_at:    null,
   }, { onConflict: 'waypoint_hash' });
 
   return Response.json({ ...result, cached: false });

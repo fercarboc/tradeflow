@@ -197,3 +197,169 @@ REVOKE ALL ON FUNCTION public.update_transport_stop_location(uuid, int, float8, 
   FROM PUBLIC, anon;
 GRANT EXECUTE ON FUNCTION public.update_transport_stop_location(uuid, int, float8, float8, text)
   TO authenticated;
+
+-- ── geo_reserve ───────────────────────────────────────────────────────────────
+-- Reserva atómica de créditos Geoapify antes de la llamada externa.
+-- Comprueba (en una sola transacción serializable):
+--   1. Kill switch (GEO_DISABLED)
+--   2. Rate limit de 1 req/1.1 s (GEO_RATE_GLOBAL)
+--   3. Presupuesto diario global (GEO_RATE_GLOBAL_BUDGET)
+--   4. Cuota diaria por organización (GEO_RATE_ORG)
+--   5. Dedup de rutas en curso (GEO_PENDING) — best-effort, no garantía estricta
+--
+-- Si falla el check de org, hace rollback del incremento global antes de retornar.
+-- Retorna jsonb: {ok: bool, error?: text, reserved?: int}
+-- Sólo invocable con service role key (REVOKE de public/anon/authenticated).
+
+CREATE OR REPLACE FUNCTION public.geo_reserve(
+  p_org_id        uuid,
+  p_estimated     int,
+  p_waypoint_hash text DEFAULT NULL
+)
+RETURNS jsonb
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+DECLARE
+  v_today        date        := CURRENT_DATE;
+  v_disabled     boolean;
+  v_req_at       timestamptz;
+  v_global_limit int;
+  v_global_used  int;
+  v_org_used     int;
+  v_org_limit    int;
+BEGIN
+  -- 1. Dedup: rechazar petición idéntica ya en curso (ventana 30 s)
+  IF p_waypoint_hash IS NOT NULL THEN
+    IF EXISTS (
+      SELECT 1 FROM public.trade_route_cache
+      WHERE waypoint_hash = p_waypoint_hash
+        AND pending_at    > now() - interval '30 seconds'
+        AND geometry      IS NULL
+    ) THEN
+      RETURN jsonb_build_object('ok', false, 'error', 'GEO_PENDING');
+    END IF;
+  END IF;
+
+  -- 2. Bloquear fila global con FOR UPDATE (serializa todos los checks siguientes)
+  SELECT is_disabled,
+         req_at,
+         daily_global_limit,
+         CASE WHEN global_used_date = v_today THEN global_used_today ELSE 0 END
+  INTO   v_disabled, v_req_at, v_global_limit, v_global_used
+  FROM   public.trade_geo_rate
+  WHERE  provider = 'geoapify'
+  FOR UPDATE;
+
+  -- Kill switch
+  IF v_disabled THEN
+    RETURN jsonb_build_object('ok', false, 'error', 'GEO_DISABLED');
+  END IF;
+
+  -- Rate limit 1 req/1.1 s
+  IF v_req_at IS NOT NULL AND v_req_at > now() - interval '1.1 seconds' THEN
+    RETURN jsonb_build_object('ok', false, 'error', 'GEO_RATE_GLOBAL');
+  END IF;
+
+  -- Presupuesto diario global
+  IF v_global_used + p_estimated > v_global_limit THEN
+    RETURN jsonb_build_object('ok', false, 'error', 'GEO_RATE_GLOBAL_BUDGET');
+  END IF;
+
+  -- Incrementar global + actualizar req_at (rate limit) en un solo UPDATE
+  UPDATE public.trade_geo_rate
+  SET global_used_today = v_global_used + p_estimated,
+      global_used_date  = v_today,
+      req_at            = now()
+  WHERE provider = 'geoapify';
+
+  -- 3. Asegurar fila de cuota para la organización hoy
+  INSERT INTO public.trade_geo_usage (org_id, date, req_count, daily_limit)
+  VALUES (p_org_id, v_today, 0, 100)
+  ON CONFLICT (org_id, date) DO NOTHING;
+
+  -- 4. Bloquear fila de org + verificar cuota
+  SELECT req_count, daily_limit
+  INTO   v_org_used, v_org_limit
+  FROM   public.trade_geo_usage
+  WHERE  org_id = p_org_id AND date = v_today
+  FOR UPDATE;
+
+  IF v_org_used + p_estimated > v_org_limit THEN
+    -- Rollback del incremento global (nada fue consumido externamente)
+    UPDATE public.trade_geo_rate
+    SET global_used_today = GREATEST(global_used_today - p_estimated, 0)
+    WHERE provider = 'geoapify';
+    RETURN jsonb_build_object('ok', false, 'error', 'GEO_RATE_ORG');
+  END IF;
+
+  UPDATE public.trade_geo_usage
+  SET req_count = v_org_used + p_estimated
+  WHERE org_id = p_org_id AND date = v_today;
+
+  -- 5. Marcar ruta como pendiente para dedup
+  IF p_waypoint_hash IS NOT NULL THEN
+    INSERT INTO public.trade_route_cache (waypoint_hash, pending_at)
+    VALUES (p_waypoint_hash, now())
+    ON CONFLICT (waypoint_hash) DO UPDATE
+      SET pending_at = EXCLUDED.pending_at
+      WHERE trade_route_cache.geometry IS NULL;
+  END IF;
+
+  RETURN jsonb_build_object('ok', true, 'reserved', p_estimated);
+END;
+$$;
+
+REVOKE ALL ON FUNCTION public.geo_reserve(uuid, int, text) FROM PUBLIC, anon, authenticated;
+
+-- ── geo_reconcile ─────────────────────────────────────────────────────────────
+-- Concilia la reserva de créditos tras la llamada a Geoapify.
+--
+--   p_reserved  créditos reservados por geo_reserve
+--   p_actual    créditos realmente consumidos:
+--               = segmentos + floor(distance_m/500_000)  en caso de éxito
+--               = 0  en caso de error del proveedor (Geoapify no facturó)
+--
+-- Libera (reserved - actual) créditos del presupuesto global y de la cuota de org.
+-- Si p_actual = p_reserved no hay liberación (reserva exacta).
+-- NEVER libera más créditos de los reservados — GREATEST(..., 0) protege el contador.
+-- Limpia pending_at de la entrada de caché (si la hay) en todos los casos.
+
+CREATE OR REPLACE FUNCTION public.geo_reconcile(
+  p_org_id        uuid,
+  p_reserved      int,
+  p_actual        int,
+  p_waypoint_hash text DEFAULT NULL
+)
+RETURNS void
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+DECLARE
+  v_today date := CURRENT_DATE;
+  v_delta int  := p_reserved - p_actual;
+BEGIN
+  -- Liberar sobre-reserva (o reserva completa si error de proveedor)
+  IF v_delta > 0 THEN
+    UPDATE public.trade_geo_usage
+    SET req_count = GREATEST(req_count - v_delta, 0)
+    WHERE org_id = p_org_id AND date = v_today;
+
+    -- Solo liberar del global si la fecha no ha cambiado (evitar desfase al pasar medianoche)
+    UPDATE public.trade_geo_rate
+    SET global_used_today = GREATEST(global_used_today - v_delta, 0)
+    WHERE provider = 'geoapify' AND global_used_date = v_today;
+  END IF;
+
+  -- Limpiar marca de pendiente (éxito o error — el slot queda libre)
+  IF p_waypoint_hash IS NOT NULL THEN
+    UPDATE public.trade_route_cache
+    SET pending_at = NULL
+    WHERE waypoint_hash = p_waypoint_hash AND geometry IS NULL;
+  END IF;
+END;
+$$;
+
+REVOKE ALL ON FUNCTION public.geo_reconcile(uuid, int, int, text) FROM PUBLIC, anon, authenticated;

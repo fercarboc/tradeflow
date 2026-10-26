@@ -12,6 +12,8 @@ import {
   geojsonToLeaflet,
   routeCacheKey,
   normalizeAddressForSearch,
+  MAX_DISTANCE_SURCHARGE_CAP,
+  routeReservationCredits,
 } from '../../lib/geoCredits';
 import {
   geocodeAddress,
@@ -302,7 +304,7 @@ describe('routeWaypoints', () => {
     expect(remaining < minCreditsNeeded).toBe(true); // should be rejected
   });
 
-  it('route does NOT increment quota on cache hit', async () => {
+  it('route does NOT increment quota on cache hit (EF returns cached without calling geo_reserve)', async () => {
     let invokerCalled = false;
     const invoker: FunctionInvoker = async () => {
       invokerCalled = true;
@@ -317,5 +319,112 @@ describe('routeWaypoints', () => {
     );
     expect(result).toBeNull();
     expect(invokerCalled).toBe(true); // frontend always calls EF; EF decides cache internally
+  });
+});
+
+// ── routeReservationCredits ───────────────────────────────────────────────────
+
+describe('routeReservationCredits', () => {
+  it('returns 0 for fewer than 2 waypoints', () => {
+    expect(routeReservationCredits(0)).toBe(0);
+    expect(routeReservationCredits(1)).toBe(0);
+  });
+
+  it('2-waypoint route reserves 1 segment + MAX_DISTANCE_SURCHARGE_CAP', () => {
+    expect(routeReservationCredits(2)).toBe(1 + MAX_DISTANCE_SURCHARGE_CAP);
+  });
+
+  it('4-waypoint route reserves 3 segments + MAX_DISTANCE_SURCHARGE_CAP', () => {
+    expect(routeReservationCredits(4)).toBe(3 + MAX_DISTANCE_SURCHARGE_CAP);
+  });
+
+  it('reservation is always >= actual cost (conservative guarantee)', () => {
+    for (let n = 2; n <= 25; n++) {
+      const reserved = routeReservationCredits(n);
+      const segments = n - 1;
+      // Worst case actual: segments + MAX_DISTANCE_SURCHARGE_CAP (e.g. 4000 km route)
+      const worstCaseActual = segments + MAX_DISTANCE_SURCHARGE_CAP;
+      expect(reserved).toBeGreaterThanOrEqual(worstCaseActual);
+    }
+  });
+
+  it('MAX_DISTANCE_SURCHARGE_CAP covers 4000 km (floor(4000000/500000)=8)', () => {
+    expect(MAX_DISTANCE_SURCHARGE_CAP).toBe(8);
+    expect(Math.floor(4_000_000 / 500_000)).toBe(8);
+    expect(MAX_DISTANCE_SURCHARGE_CAP).toBeGreaterThanOrEqual(Math.floor(4_000_000 / 500_000));
+  });
+});
+
+// ── Credit reservation and reconciliation logic ───────────────────────────────
+
+describe('credit reservation & reconciliation', () => {
+  it('delta = reserved - actual = credits to release after successful route', () => {
+    const reserved = routeReservationCredits(2); // 9
+    const actual = routingCredits(2, 100_000);    // 1 segment + 0 dist = 1
+    const delta = reserved - actual;
+    expect(delta).toBe(8);
+  });
+
+  it('full release when provider errors (actual = 0)', () => {
+    const reserved = routeReservationCredits(4); // 11
+    const actual = 0; // provider error — Geoapify did not bill
+    const delta = reserved - actual;
+    expect(delta).toBe(reserved); // release all
+  });
+
+  it('no release when reservation exactly matches actual cost', () => {
+    // A 2-waypoint route that happens to be exactly 4000 km
+    const reserved = routeReservationCredits(2); // 1 + 8 = 9
+    const actual = routingCredits(2, 4_000_000); // 1 + 8 = 9
+    expect(reserved - actual).toBe(0);
+  });
+
+  it('global budget: reserve rejected when used + estimated > global limit', () => {
+    const globalLimit = 2000;
+    const globalUsed  = 1995;
+    const estimated   = routeReservationCredits(2); // 9
+    expect(globalUsed + estimated > globalLimit).toBe(true); // 2004 > 2000 → rejected
+  });
+
+  it('global budget: reserve accepted when used + estimated = global limit (exact fit)', () => {
+    const globalLimit = 2000;
+    const globalUsed  = 1991;
+    const estimated   = routeReservationCredits(2); // 9
+    expect(globalUsed + estimated <= globalLimit).toBe(true); // 2000 <= 2000 → accepted
+  });
+
+  it('global budget: day rollover resets counter (used_date != today → 0)', () => {
+    // Simulates the CASE WHEN global_used_date = today THEN used ELSE 0 END logic
+    const usedYesterday = 1999;
+    const isToday = false; // date from DB is yesterday
+    const effectiveUsed = isToday ? usedYesterday : 0;
+    expect(effectiveUsed).toBe(0); // fresh day, any reservation passes
+  });
+
+  it('org quota: rejected with conservative estimate even if actual would fit', () => {
+    // Conservative reservation (9) rejected, even though actual cost (1) would fit
+    const orgLimit   = 100;
+    const orgUsed    = 95;
+    const estimated  = routeReservationCredits(2); // 9
+    expect(orgUsed + estimated > orgLimit).toBe(true);  // 104 > 100 → rejected
+    // actual cost would have been:
+    const actual = routingCredits(2, 100_000); // 1
+    expect(orgUsed + actual <= orgLimit).toBe(true);   // 96 <= 100 — would have fit
+    // This is the correct conservative behavior: better to reject than to over-spend
+  });
+
+  it('org quota: accepted with exact fit on conservative estimate', () => {
+    const orgLimit  = 100;
+    const orgUsed   = 91;
+    const estimated = routeReservationCredits(2); // 9
+    expect(orgUsed + estimated <= orgLimit).toBe(true); // 100 <= 100 → accepted
+  });
+
+  it('geocode always uses exactly 1 credit — no uncertainty', () => {
+    expect(geocodeCredits()).toBe(1);
+    // For geocode, reserved = actual = 1, so reconcile is always a no-op (delta=0)
+    const reserved = geocodeCredits();
+    const actual   = geocodeCredits();
+    expect(reserved - actual).toBe(0);
   });
 });

@@ -16,6 +16,25 @@ export function geocodeCredits(): number {
   return 1;
 }
 
+/**
+ * Techo conservador de suplemento de distancia por ruta.
+ * Cubre hasta 4 000 km totales (floor(4000/500) = 8) — suficiente
+ * para cualquier ruta de transporte terrestre en España.
+ * Se usa para la reserva previa a la llamada a Geoapify cuando la
+ * distancia real aún no se conoce.
+ */
+export const MAX_DISTANCE_SURCHARGE_CAP = 8;
+
+/**
+ * Créditos a reservar ANTES de llamar a Geoapify (coste máximo garantizado).
+ * = segmentos + MAX_DISTANCE_SURCHARGE_CAP
+ * La diferencia (reserva - real) se libera en geo_reconcile tras la respuesta.
+ */
+export function routeReservationCredits(waypointCount: number): number {
+  if (waypointCount < 2) return 0;
+  return (waypointCount - 1) + MAX_DISTANCE_SURCHARGE_CAP;
+}
+
 export interface RoutingCreditOptions {
   routeDetails?: boolean;
   elevation?:    boolean;

@@ -17,10 +17,18 @@
 -- Garantiza límite global a pesar de la naturaleza multi-instancia de las EF.
 
 CREATE TABLE IF NOT EXISTS public.trade_geo_rate (
-  provider    text PRIMARY KEY,
-  req_at      timestamptz,
-  req_count   int  NOT NULL DEFAULT 0,
-  CHECK (req_count >= 0)
+  provider           text     PRIMARY KEY,
+  req_at             timestamptz,
+  req_count          int      NOT NULL DEFAULT 0,
+  -- Presupuesto diario global compartido por todas las organizaciones
+  daily_global_limit int      NOT NULL DEFAULT 2000,   -- techo < 3 000 free tier Geoapify
+  global_used_date   date,
+  global_used_today  int      NOT NULL DEFAULT 0,
+  -- Kill switch: desactiva geocodificación/routing sin borrar datos
+  is_disabled        boolean  NOT NULL DEFAULT false,
+  CHECK (req_count          >= 0),
+  CHECK (daily_global_limit >= 1),
+  CHECK (global_used_today  >= 0)
 );
 
 INSERT INTO public.trade_geo_rate (provider, req_at)
@@ -72,11 +80,12 @@ CREATE INDEX IF NOT EXISTS idx_geo_cache_cached_at ON public.trade_geo_cache(cac
 
 CREATE TABLE IF NOT EXISTS public.trade_route_cache (
   waypoint_hash  text PRIMARY KEY,
-  geometry       jsonb NOT NULL,  -- GeoJSON LineString {type, coordinates}
+  geometry       jsonb,           -- GeoJSON LineString; NULL mientras la petición está pendiente
   distance_m     int,
   duration_s     int,
-  provider       text NOT NULL,
-  cached_at      timestamptz NOT NULL DEFAULT now()
+  provider       text,
+  cached_at      timestamptz NOT NULL DEFAULT now(),
+  pending_at     timestamptz      -- TTL de dedup: NULL cuando hay resultado; se limpia al guardar
 );
 
 CREATE INDEX IF NOT EXISTS idx_route_cache_cached_at ON public.trade_route_cache(cached_at);
