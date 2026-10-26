@@ -20,14 +20,26 @@ import {
 } from '../_shared/geoProviders.ts';
 
 const CACHE_TTL_DAYS = 30;
-// Coste máximo de suplemento de distancia por ruta (4 000 km = floor(4000/500) = 8).
-// Se usa como techo conservador para la reserva previa a la llamada a Geoapify.
-const MAX_DISTANCE_SURCHARGE_CAP = 8;
 
-// Distancia máxima en línea recta (km) que garantiza que la distancia por
-// carretera ≤ 4 000 km (factor carretera ≈ 1.3 → 4000/1.3 ≈ 3077 km).
-// Rutas más largas no pueden acotarse con MAX_DISTANCE_SURCHARGE_CAP y son rechazadas.
-const MAX_ROUTE_STRAIGHT_KM = 3000;
+// ── Límites operativos piloto ─────────────────────────────────────────────────
+// Reducidos respecto al teórico para acotar coste máximo antes de llamar a Geoapify.
+// Post-pilotos comerciales se pueden ampliar cambiando solo estas constantes.
+
+/** Máximo waypoints permitidos en el piloto (segmentos = PILOT_MAX_WAYPOINTS - 1 = 9). */
+const PILOT_MAX_WAYPOINTS = 10;
+
+/**
+ * Distancia máxima en línea recta (km) admitida en el piloto.
+ * Con factor carretera ≤ 1.875 → carretera ≤ 1 500 km → surcharge = floor(1500/500) = 3.
+ */
+const PILOT_MAX_ROUTE_STRAIGHT_KM = 800;
+
+/**
+ * Suplemento de distancia máximo reservado antes de llamar al proveedor.
+ * Cubre hasta 1 500 km de carretera (floor(1500/500) = 3).
+ * Nunca superado si PILOT_MAX_ROUTE_STRAIGHT_KM = 800 km y factor ≤ 1.875.
+ */
+const PILOT_MAX_DIST_SURCHARGE = 3;
 
 const EARTH_RADIUS_KM = 6371;
 function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
@@ -93,9 +105,12 @@ Deno.serve(async (req: Request) => {
   if (!org_id || !Array.isArray(rawWaypoints)) {
     return Response.json({ error: 'GEO_PARAMS: waypoints y org_id requeridos' }, { status: 400 });
   }
-  // Límite de waypoints: 25 puntos máximo → 24 segmentos → 24 créditos base
-  if (rawWaypoints.length > 25) {
-    return Response.json({ error: 'GEO_PARAMS: máximo 25 waypoints por solicitud' }, { status: 400 });
+  // Límite piloto de waypoints
+  if (rawWaypoints.length > PILOT_MAX_WAYPOINTS) {
+    return Response.json(
+      { error: `GEO_PARAMS: máximo ${PILOT_MAX_WAYPOINTS} waypoints por solicitud (piloto)` },
+      { status: 400 },
+    );
   }
 
   // Verificar pertenencia a org — cualquier miembro activo puede solicitar rutas (son datos públicos)
@@ -116,17 +131,18 @@ Deno.serve(async (req: Request) => {
     return Response.json(null); // Sin ruta — respuesta vacía normal
   }
 
-  // Guarda de distancia: rechazo previo si la ruta no puede acotarse con el cap de créditos.
-  // Haversine (línea recta) × 1.3 (factor carretera) ≈ distancia real → 3 000 km límite.
+  // Guarda de distancia piloto: rechazar antes de reservar créditos.
+  // Haversine (línea recta) ≤ PILOT_MAX_ROUTE_STRAIGHT_KM garantiza que el suplemento
+  // de distancia ≤ PILOT_MAX_DIST_SURCHARGE (factor carretera ≤ 1.875).
   {
     let straightKm = 0;
     for (let i = 0; i < validWaypoints.length - 1; i++) {
       const w1 = validWaypoints[i], w2 = validWaypoints[i + 1];
       straightKm += haversineKm(w1.lat, w1.lng, w2.lat, w2.lng);
     }
-    if (straightKm > MAX_ROUTE_STRAIGHT_KM) {
+    if (straightKm > PILOT_MAX_ROUTE_STRAIGHT_KM) {
       return Response.json(
-        { error: 'GEO_PARAMS_DISTANCE: ruta demasiado larga; distancia en línea recta supera 3 000 km' },
+        { error: `GEO_PARAMS_DISTANCE: ruta demasiado larga; distancia en línea recta supera ${PILOT_MAX_ROUTE_STRAIGHT_KM} km (piloto)` },
         { status: 400 },
       );
     }
@@ -157,10 +173,10 @@ Deno.serve(async (req: Request) => {
     } as RouteResult & { cached: boolean });
   }
 
-  // Reserva conservadora: segmentos + techo de suplemento de distancia.
+  // Reserva conservadora: segmentos + suplemento máximo piloto.
   // El coste real (segmentos + floor(distance_m/500_000)) solo se conoce
   // después de llamar a Geoapify; geo_reconcile libera la diferencia.
-  const estimatedCredits = segments + MAX_DISTANCE_SURCHARGE_CAP;
+  const estimatedCredits = segments + PILOT_MAX_DIST_SURCHARGE;
 
   // Reserva atómica: kill switch + rate limit + presupuesto global + cuota org + dedup
   const { data: reservation, error: reserveErr } = await supabase
@@ -181,10 +197,13 @@ Deno.serve(async (req: Request) => {
     return Response.json({ error: err }, { status: 429 });
   }
 
+  // reservation_id vincula esta reserva a su reconciliación (idempotencia)
+  const reservationId: string = reservation.reservation_id;
+
   // Llamada al proveedor (la reserva ya está contabilizada)
   const apiKey = Deno.env.get('GEOAPIFY_API_KEY');
   if (!apiKey) {
-    await supabase.rpc('geo_reconcile', { p_org_id: org_id, p_reserved: estimatedCredits, p_actual: 0, p_waypoint_hash: cacheKey });
+    await supabase.rpc('geo_reconcile', { p_org_id: org_id, p_reservation_id: reservationId, p_actual: 0, p_waypoint_hash: cacheKey });
     return Response.json({ error: 'GEO_CONFIG: GEOAPIFY_API_KEY no configurada' }, { status: 503 });
   }
 
@@ -196,13 +215,13 @@ Deno.serve(async (req: Request) => {
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'GEO_PROVIDER_ERROR';
     // Error de proveedor — Geoapify no facturó: liberar reserva completa
-    await supabase.rpc('geo_reconcile', { p_org_id: org_id, p_reserved: estimatedCredits, p_actual: 0, p_waypoint_hash: cacheKey });
+    await supabase.rpc('geo_reconcile', { p_org_id: org_id, p_reservation_id: reservationId, p_actual: 0, p_waypoint_hash: cacheKey });
     return Response.json({ error: msg }, { status: 502 });
   }
 
   if (!result) {
     // Sin ruta posible — liberar reserva completa
-    await supabase.rpc('geo_reconcile', { p_org_id: org_id, p_reserved: estimatedCredits, p_actual: 0, p_waypoint_hash: cacheKey });
+    await supabase.rpc('geo_reconcile', { p_org_id: org_id, p_reservation_id: reservationId, p_actual: 0, p_waypoint_hash: cacheKey });
     return Response.json(null);
   }
 
@@ -212,10 +231,10 @@ Deno.serve(async (req: Request) => {
 
   // Liberar sobre-reserva (reserva - real) de global y org
   await supabase.rpc('geo_reconcile', {
-    p_org_id:        org_id,
-    p_reserved:      estimatedCredits,
-    p_actual:        actualCredits,
-    p_waypoint_hash: cacheKey,
+    p_org_id:          org_id,
+    p_reservation_id:  reservationId,
+    p_actual:          actualCredits,
+    p_waypoint_hash:   cacheKey,
   });
 
   // Guardar en caché; pending_at=null elimina la marca de dedup

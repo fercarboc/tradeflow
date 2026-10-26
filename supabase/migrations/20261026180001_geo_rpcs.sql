@@ -208,7 +208,8 @@ GRANT EXECUTE ON FUNCTION public.update_transport_stop_location(uuid, int, float
 --   5. Dedup de rutas en curso (GEO_PENDING) — best-effort, no garantía estricta
 --
 -- Si falla el check de org, hace rollback del incremento global antes de retornar.
--- Retorna jsonb: {ok: bool, error?: text, reserved?: int}
+-- En caso de éxito inserta en trade_geo_reservations y devuelve reservation_id.
+-- Retorna jsonb: {ok: bool, error?: text, reserved?: int, reservation_id?: uuid}
 -- Sólo invocable con service role key (REVOKE de public/anon/authenticated).
 
 CREATE OR REPLACE FUNCTION public.geo_reserve(
@@ -222,13 +223,14 @@ SECURITY DEFINER
 SET search_path = public
 AS $$
 DECLARE
-  v_today        date        := CURRENT_DATE;
-  v_disabled     boolean;
-  v_req_at       timestamptz;
-  v_global_limit int;
-  v_global_used  int;
-  v_org_used     int;
-  v_org_limit    int;
+  v_today          date        := CURRENT_DATE;
+  v_disabled       boolean;
+  v_req_at         timestamptz;
+  v_global_limit   int;
+  v_global_used    int;
+  v_org_used       int;
+  v_org_limit      int;
+  v_reservation_id uuid;
 BEGIN
   -- 1. Dedup: rechazar petición idéntica ya en curso (ventana 30 s)
   IF p_waypoint_hash IS NOT NULL THEN
@@ -307,7 +309,12 @@ BEGIN
       WHERE trade_route_cache.geometry IS NULL;
   END IF;
 
-  RETURN jsonb_build_object('ok', true, 'reserved', p_estimated);
+  -- 6. Registrar reserva (permite idempotencia en geo_reconcile)
+  INSERT INTO public.trade_geo_reservations (org_id, estimated)
+  VALUES (p_org_id, p_estimated)
+  RETURNING id INTO v_reservation_id;
+
+  RETURN jsonb_build_object('ok', true, 'reserved', p_estimated, 'reservation_id', v_reservation_id);
 END;
 $$;
 
@@ -315,22 +322,27 @@ REVOKE ALL ON FUNCTION public.geo_reserve(uuid, int, text) FROM PUBLIC, anon, au
 
 -- ── geo_reconcile ─────────────────────────────────────────────────────────────
 -- Concilia la reserva de créditos tras la llamada a Geoapify.
+-- Identificada por reservation_id (no por importe) → idempotente y cross-org-safe.
 --
---   p_reserved  créditos reservados por geo_reserve
---   p_actual    créditos realmente consumidos:
---               = segmentos + floor(distance_m/500_000)  en caso de éxito
---               = 0  en caso de error del proveedor (Geoapify no facturó)
+--   p_reservation_id  UUID devuelto por geo_reserve
+--   p_actual          créditos realmente consumidos:
+--                     = segmentos + floor(distance_m/500_000)  en caso de éxito
+--                     = 0  en caso de error del proveedor (Geoapify no facturó)
 --
--- Libera (reserved - actual) créditos del presupuesto global y de la cuota de org.
--- Si p_actual = p_reserved no hay liberación (reserva exacta).
+-- Garantías:
+--   · Una segunda llamada con el mismo reservation_id no altera contadores (status='reconciled').
+--   · Intentar reconciliar desde otra org lanza excepción GEO_RECONCILE_ORG.
+--   · Si la reserva no existe, la función retorna sin error (reserva caducada/limpiada).
 -- NEVER libera más créditos de los reservados — GREATEST(..., 0) protege el contador.
--- Limpia pending_at de la entrada de caché (si la hay) en todos los casos.
+
+-- Eliminar firma anterior (parámetros distintos → no se puede CREATE OR REPLACE)
+DROP FUNCTION IF EXISTS public.geo_reconcile(uuid, int, int, text);
 
 CREATE OR REPLACE FUNCTION public.geo_reconcile(
-  p_org_id        uuid,
-  p_reserved      int,
-  p_actual        int,
-  p_waypoint_hash text DEFAULT NULL
+  p_org_id         uuid,
+  p_reservation_id uuid,
+  p_actual         int,
+  p_waypoint_hash  text DEFAULT NULL
 )
 RETURNS void
 LANGUAGE plpgsql
@@ -338,22 +350,58 @@ SECURITY DEFINER
 SET search_path = public
 AS $$
 DECLARE
-  v_today date := CURRENT_DATE;
-  v_delta int  := p_reserved - p_actual;
+  v_today    date := CURRENT_DATE;
+  v_reserved int;
+  v_delta    int;
+  v_status   text;
+  v_res_org  uuid;
 BEGIN
-  -- Liberar sobre-reserva (o reserva completa si error de proveedor)
+  -- 1. Bloquear fila de reserva — serializa llamadas concurrentes sobre el mismo id
+  SELECT estimated, status, org_id
+  INTO   v_reserved, v_status, v_res_org
+  FROM   public.trade_geo_reservations
+  WHERE  id = p_reservation_id
+  FOR UPDATE;
+
+  -- Reserva no encontrada: no hacer nada (pudo caducar o limpiarse)
+  IF NOT FOUND THEN
+    RETURN;
+  END IF;
+
+  -- 2. Verificación cross-org: la reserva debe pertenecer a la organización solicitante
+  IF v_res_org <> p_org_id THEN
+    RAISE EXCEPTION 'GEO_RECONCILE_ORG: la reserva % no pertenece a la organización %',
+      p_reservation_id, p_org_id;
+  END IF;
+
+  -- 3. Idempotencia: ya reconciliada o expirada → no-op
+  IF v_status <> 'pending' THEN
+    RETURN;
+  END IF;
+
+  -- 4. Marcar como reconciliada ANTES de liberar créditos
+  --    (si falla el UPDATE de créditos, la reserva queda marcada de todas formas
+  --     evitando doble liberación en un reintento posterior)
+  UPDATE public.trade_geo_reservations
+  SET status        = 'reconciled',
+      actual        = p_actual,
+      reconciled_at = now()
+  WHERE id = p_reservation_id;
+
+  -- 5. Liberar sobre-reserva
+  v_delta := v_reserved - p_actual;
   IF v_delta > 0 THEN
     UPDATE public.trade_geo_usage
     SET req_count = GREATEST(req_count - v_delta, 0)
     WHERE org_id = p_org_id AND date = v_today;
 
-    -- Solo liberar del global si la fecha no ha cambiado (evitar desfase al pasar medianoche)
+    -- Solo liberar del global si la fecha no cambió (evitar desfase en rollover de medianoche)
     UPDATE public.trade_geo_rate
     SET global_used_today = GREATEST(global_used_today - v_delta, 0)
     WHERE provider = 'geoapify' AND global_used_date = v_today;
   END IF;
 
-  -- Limpiar marca de pendiente (éxito o error — el slot queda libre)
+  -- 6. Limpiar marca de pendiente en caché de rutas
   IF p_waypoint_hash IS NOT NULL THEN
     UPDATE public.trade_route_cache
     SET pending_at = NULL
@@ -362,4 +410,4 @@ BEGIN
 END;
 $$;
 
-REVOKE ALL ON FUNCTION public.geo_reconcile(uuid, int, int, text) FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION public.geo_reconcile(uuid, uuid, int, text) FROM PUBLIC, anon, authenticated;

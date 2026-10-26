@@ -141,9 +141,13 @@ Deno.serve(async (req: Request) => {
     return Response.json({ error: err }, { status: 429 });
   }
 
+  // reservation_id vincula esta reserva a su reconciliación (idempotencia)
+  const reservationId: string = reservation.reservation_id;
+
   // Llamada al proveedor (fuera de cualquier transacción DB)
   const apiKey = Deno.env.get('GEOAPIFY_API_KEY');
   if (!apiKey) {
+    await supabase.rpc('geo_reconcile', { p_org_id: org_id, p_reservation_id: reservationId, p_actual: 0, p_waypoint_hash: null });
     return Response.json({ error: 'GEO_CONFIG: GEOAPIFY_API_KEY no configurada' }, { status: 503 });
   }
 
@@ -159,7 +163,7 @@ Deno.serve(async (req: Request) => {
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'GEO_PROVIDER_ERROR';
     // Geoapify no facturó — liberar el crédito reservado
-    await supabase.rpc('geo_reconcile', { p_org_id: org_id, p_reserved: 1, p_actual: 0, p_waypoint_hash: null });
+    await supabase.rpc('geo_reconcile', { p_org_id: org_id, p_reservation_id: reservationId, p_actual: 0, p_waypoint_hash: null });
     if (msg === 'GEO_QUOTA_EXCEEDED') {
       return Response.json({ error: msg }, { status: 402 });
     }

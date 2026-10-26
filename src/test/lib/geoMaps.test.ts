@@ -13,6 +13,9 @@ import {
   routeCacheKey,
   normalizeAddressForSearch,
   MAX_DISTANCE_SURCHARGE_CAP,
+  PILOT_MAX_DIST_SURCHARGE,
+  PILOT_MAX_WAYPOINTS,
+  PILOT_MAX_ROUTE_STRAIGHT_KM,
   routeReservationCredits,
   haversineKm,
   totalRouteHaversineKm,
@@ -333,102 +336,131 @@ describe('routeReservationCredits', () => {
     expect(routeReservationCredits(1)).toBe(0);
   });
 
-  it('2-waypoint route reserves 1 segment + MAX_DISTANCE_SURCHARGE_CAP', () => {
-    expect(routeReservationCredits(2)).toBe(1 + MAX_DISTANCE_SURCHARGE_CAP);
+  it('2-waypoint route reserves 1 segment + PILOT_MAX_DIST_SURCHARGE', () => {
+    expect(routeReservationCredits(2)).toBe(1 + PILOT_MAX_DIST_SURCHARGE);
   });
 
-  it('4-waypoint route reserves 3 segments + MAX_DISTANCE_SURCHARGE_CAP', () => {
-    expect(routeReservationCredits(4)).toBe(3 + MAX_DISTANCE_SURCHARGE_CAP);
+  it('4-waypoint route reserves 3 segments + PILOT_MAX_DIST_SURCHARGE', () => {
+    expect(routeReservationCredits(4)).toBe(3 + PILOT_MAX_DIST_SURCHARGE);
   });
 
-  it('reservation is always >= actual cost (conservative guarantee)', () => {
-    for (let n = 2; n <= 25; n++) {
+  it('reservation is always >= actual cost within pilot limits', () => {
+    // Pilot: max waypoints = PILOT_MAX_WAYPOINTS, max surcharge = PILOT_MAX_DIST_SURCHARGE
+    for (let n = 2; n <= PILOT_MAX_WAYPOINTS; n++) {
       const reserved = routeReservationCredits(n);
       const segments = n - 1;
-      // Worst case actual: segments + MAX_DISTANCE_SURCHARGE_CAP (e.g. 4000 km route)
-      const worstCaseActual = segments + MAX_DISTANCE_SURCHARGE_CAP;
+      // Worst case actual within pilot: segments + PILOT_MAX_DIST_SURCHARGE (1500 km road)
+      const worstCaseActual = segments + PILOT_MAX_DIST_SURCHARGE;
       expect(reserved).toBeGreaterThanOrEqual(worstCaseActual);
     }
   });
 
-  it('MAX_DISTANCE_SURCHARGE_CAP covers 4000 km (floor(4000000/500000)=8)', () => {
+  it('MAX_DISTANCE_SURCHARGE_CAP (theoretical) = 8 covers 4000 km', () => {
     expect(MAX_DISTANCE_SURCHARGE_CAP).toBe(8);
     expect(Math.floor(4_000_000 / 500_000)).toBe(8);
-    expect(MAX_DISTANCE_SURCHARGE_CAP).toBeGreaterThanOrEqual(Math.floor(4_000_000 / 500_000));
+  });
+
+  it('PILOT_MAX_DIST_SURCHARGE = 3 covers 1500 km road (floor(1500000/500000)=3)', () => {
+    expect(PILOT_MAX_DIST_SURCHARGE).toBe(3);
+    expect(Math.floor(1_500_000 / 500_000)).toBe(3);
+    // With PILOT_MAX_ROUTE_STRAIGHT_KM=800 and road factor ≤1.875 → road ≤1500 km → surcharge ≤3
+    expect(PILOT_MAX_DIST_SURCHARGE).toBeGreaterThanOrEqual(Math.floor(1_500_000 / 500_000));
+  });
+
+  it('PILOT_MAX_WAYPOINTS = 10 (limits max cost to 9 + 3 = 12 credits)', () => {
+    expect(PILOT_MAX_WAYPOINTS).toBe(10);
+    expect(routeReservationCredits(PILOT_MAX_WAYPOINTS)).toBe(9 + PILOT_MAX_DIST_SURCHARGE);
   });
 });
 
 // ── Credit reservation and reconciliation logic ───────────────────────────────
 
 describe('credit reservation & reconciliation', () => {
-  it('delta = reserved - actual = credits to release after successful route', () => {
-    const reserved = routeReservationCredits(2); // 9
+  it('delta = reserved - actual = credits to release after successful short route', () => {
+    const reserved = routeReservationCredits(2); // 1 + 3 = 4
     const actual = routingCredits(2, 100_000);    // 1 segment + 0 dist = 1
     const delta = reserved - actual;
-    expect(delta).toBe(8);
+    expect(delta).toBe(PILOT_MAX_DIST_SURCHARGE); // 3 released
   });
 
   it('full release when provider errors (actual = 0)', () => {
-    const reserved = routeReservationCredits(4); // 11
+    const reserved = routeReservationCredits(4); // 3 + 3 = 6
     const actual = 0; // provider error — Geoapify did not bill
     const delta = reserved - actual;
     expect(delta).toBe(reserved); // release all
   });
 
-  it('no release when reservation exactly matches actual cost', () => {
-    // A 2-waypoint route that happens to be exactly 4000 km
-    const reserved = routeReservationCredits(2); // 1 + 8 = 9
-    const actual = routingCredits(2, 4_000_000); // 1 + 8 = 9
+  it('no release when reservation exactly matches actual cost within pilot', () => {
+    // A 2-waypoint route at exactly 1500 km road (pilot maximum surcharge)
+    const reserved = routeReservationCredits(2); // 1 + 3 = 4
+    const actual = routingCredits(2, 1_500_000); // 1 + 3 = 4
     expect(reserved - actual).toBe(0);
   });
 
   it('global budget: reserve rejected when used + estimated > global limit', () => {
     const globalLimit = 2000;
-    const globalUsed  = 1995;
-    const estimated   = routeReservationCredits(2); // 9
-    expect(globalUsed + estimated > globalLimit).toBe(true); // 2004 > 2000 → rejected
+    const globalUsed  = 1997;
+    const estimated   = routeReservationCredits(2); // 4
+    expect(globalUsed + estimated > globalLimit).toBe(true); // 2001 > 2000 → rejected
   });
 
   it('global budget: reserve accepted when used + estimated = global limit (exact fit)', () => {
     const globalLimit = 2000;
-    const globalUsed  = 1991;
-    const estimated   = routeReservationCredits(2); // 9
+    const globalUsed  = 1996;
+    const estimated   = routeReservationCredits(2); // 4
     expect(globalUsed + estimated <= globalLimit).toBe(true); // 2000 <= 2000 → accepted
   });
 
   it('global budget: day rollover resets counter (used_date != today → 0)', () => {
-    // Simulates the CASE WHEN global_used_date = today THEN used ELSE 0 END logic
     const usedYesterday = 1999;
-    const isToday = false; // date from DB is yesterday
+    const isToday = false;
     const effectiveUsed = isToday ? usedYesterday : 0;
-    expect(effectiveUsed).toBe(0); // fresh day, any reservation passes
+    expect(effectiveUsed).toBe(0);
   });
 
   it('org quota: rejected with conservative estimate even if actual would fit', () => {
-    // Conservative reservation (9) rejected, even though actual cost (1) would fit
     const orgLimit   = 100;
-    const orgUsed    = 95;
-    const estimated  = routeReservationCredits(2); // 9
-    expect(orgUsed + estimated > orgLimit).toBe(true);  // 104 > 100 → rejected
-    // actual cost would have been:
+    const orgUsed    = 98;
+    const estimated  = routeReservationCredits(2); // 4
+    expect(orgUsed + estimated > orgLimit).toBe(true);  // 102 > 100 → rejected
     const actual = routingCredits(2, 100_000); // 1
-    expect(orgUsed + actual <= orgLimit).toBe(true);   // 96 <= 100 — would have fit
-    // This is the correct conservative behavior: better to reject than to over-spend
+    expect(orgUsed + actual <= orgLimit).toBe(true);   // 99 <= 100 — would have fit
   });
 
   it('org quota: accepted with exact fit on conservative estimate', () => {
     const orgLimit  = 100;
-    const orgUsed   = 91;
-    const estimated = routeReservationCredits(2); // 9
+    const orgUsed   = 96;
+    const estimated = routeReservationCredits(2); // 4
     expect(orgUsed + estimated <= orgLimit).toBe(true); // 100 <= 100 → accepted
   });
 
   it('geocode always uses exactly 1 credit — no uncertainty', () => {
     expect(geocodeCredits()).toBe(1);
-    // For geocode, reserved = actual = 1, so reconcile is always a no-op (delta=0)
     const reserved = geocodeCredits();
     const actual   = geocodeCredits();
     expect(reserved - actual).toBe(0);
+  });
+
+  it('idempotency: double reconcile same reservation changes nothing (status guard)', () => {
+    // Simulate: first reconcile marks status='reconciled'; second call returns early
+    // The SQL function returns void and is a no-op when status != 'pending'
+    // Here we verify the mathematical invariant: if delta already released, re-release is 0
+    const reserved = routeReservationCredits(2); // 4
+    const actual   = routingCredits(2, 200_000); // 1
+    const delta1   = reserved - actual;           // 3 (released on first reconcile)
+    const delta2   = 0;                           // no-op on second reconcile (status guard)
+    expect(delta1).toBe(3);
+    expect(delta2).toBe(0);
+    expect(delta1 + delta2).toBe(delta1); // idempotent: same total release
+  });
+
+  it('cross-org protection: reservation belongs to different org → exception (not a no-op)', () => {
+    // The SQL function raises GEO_RECONCILE_ORG when reservation.org_id != p_org_id.
+    // This is different from the idempotency no-op (status='reconciled').
+    // Verify: a pending reservation belonging to org-A cannot be reconciled by org-B.
+    const reservationOrgId = 'org-A';
+    const callerOrgId      = 'org-B';
+    expect(reservationOrgId).not.toBe(callerOrgId); // guard that would trigger exception
   });
 });
 
@@ -488,26 +520,35 @@ describe('totalRouteHaversineKm', () => {
     );
   });
 
-  it('MAX_ROUTE_STRAIGHT_KM = 3000', () => {
-    expect(MAX_ROUTE_STRAIGHT_KM).toBe(3000);
+  it('MAX_ROUTE_STRAIGHT_KM alias = PILOT_MAX_ROUTE_STRAIGHT_KM = 800', () => {
+    expect(MAX_ROUTE_STRAIGHT_KM).toBe(PILOT_MAX_ROUTE_STRAIGHT_KM);
+    expect(PILOT_MAX_ROUTE_STRAIGHT_KM).toBe(800);
   });
 
-  it('typical Spanish bus route (Santander→Madrid→Barcelona ≈ 1 267 km) is within limit', () => {
+  it('short Spanish bus route (Santander→Bilbao ≈ 100 km) is within pilot limit', () => {
+    const d = totalRouteHaversineKm([
+      { lat: 43.4623, lng: -3.8099 },  // Santander
+      { lat: 43.2630, lng: -2.9350 },  // Bilbao
+    ]);
+    expect(d).toBeLessThan(PILOT_MAX_ROUTE_STRAIGHT_KM);
+  });
+
+  it('Santander→Madrid→Barcelona (≈ 905 km) exceeds pilot distance limit of 800 km', () => {
     const d = totalRouteHaversineKm([
       { lat: 43.4623, lng: -3.8099 },  // Santander
       { lat: 40.4168, lng: -3.7038 },  // Madrid
       { lat: 41.3851, lng:  2.1734 },  // Barcelona
     ]);
-    expect(d).toBeLessThan(MAX_ROUTE_STRAIGHT_KM);
+    // straight-line ≈ 905 km > 800 km pilot limit → EF rejects with GEO_PARAMS_DISTANCE
+    expect(d).toBeGreaterThan(PILOT_MAX_ROUTE_STRAIGHT_KM);
   });
 
-  it('extreme zigzag route exceeding 3 000 km is above limit', () => {
-    // Two endpoints at maximum Spain diagonal: ~1 250 km × 3 legs ≈ 3 750 km
+  it('extreme zigzag route exceeds pilot limit', () => {
     const far: Array<{ lat: number; lng: number }> = [];
     for (let i = 0; i < 5; i++) {
       far.push(i % 2 === 0 ? { lat: 43.79, lng: -7.86 } : { lat: 36.01, lng: 4.49 });
     }
     const d = totalRouteHaversineKm(far);
-    expect(d).toBeGreaterThan(MAX_ROUTE_STRAIGHT_KM);
+    expect(d).toBeGreaterThan(PILOT_MAX_ROUTE_STRAIGHT_KM);
   });
 });

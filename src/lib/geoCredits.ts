@@ -17,22 +17,45 @@ export function geocodeCredits(): number {
 }
 
 /**
- * Techo conservador de suplemento de distancia por ruta.
- * Cubre hasta 4 000 km totales (floor(4000/500) = 8) — suficiente
- * para cualquier ruta de transporte terrestre en España.
- * Se usa para la reserva previa a la llamada a Geoapify cuando la
- * distancia real aún no se conoce.
+ * Techo teórico de suplemento de distancia (4 000 km totales).
+ * Conservado como referencia; el piloto usa PILOT_MAX_DIST_SURCHARGE.
  */
 export const MAX_DISTANCE_SURCHARGE_CAP = 8;
 
+// ── Límites operativos piloto ─────────────────────────────────────────────────
+// Permiten calcular el coste máximo admisible ANTES de llamar a Geoapify.
+// Todos son ampliables post-pilotos comerciales.
+
+/** Máximo de waypoints por petición en el piloto. */
+export const PILOT_MAX_WAYPOINTS = 10;
+
 /**
- * Créditos a reservar ANTES de llamar a Geoapify (coste máximo garantizado).
- * = segmentos + MAX_DISTANCE_SURCHARGE_CAP
+ * Distancia máxima en línea recta (km) para el piloto.
+ * Con factor carretera ≤ 1.5 → distancia real ≤ 1 200 km.
+ * PILOT_MAX_DIST_SURCHARGE = floor(1200/500) = 2 < 3 → margen adicional ×1.875.
+ */
+export const PILOT_MAX_ROUTE_STRAIGHT_KM = 800;
+
+/** Alias de compatibilidad. */
+export const MAX_ROUTE_STRAIGHT_KM = PILOT_MAX_ROUTE_STRAIGHT_KM;
+
+/**
+ * Suplemento de distancia máximo reservado antes de llamar al proveedor.
+ * Cubre hasta 1 500 km de carretera (floor(1500/500) = 3).
+ * Con PILOT_MAX_ROUTE_STRAIGHT_KM = 800 km y factor ≤ 1.875: nunca se supera.
  * La diferencia (reserva - real) se libera en geo_reconcile tras la respuesta.
+ */
+export const PILOT_MAX_DIST_SURCHARGE = 3;
+
+/**
+ * Créditos a reservar ANTES de llamar a Geoapify (coste máximo garantizado
+ * dentro de los límites piloto).
+ * = segmentos + PILOT_MAX_DIST_SURCHARGE
+ * La diferencia se libera en geo_reconcile.
  */
 export function routeReservationCredits(waypointCount: number): number {
   if (waypointCount < 2) return 0;
-  return (waypointCount - 1) + MAX_DISTANCE_SURCHARGE_CAP;
+  return (waypointCount - 1) + PILOT_MAX_DIST_SURCHARGE;
 }
 
 export interface RoutingCreditOptions {
@@ -91,13 +114,6 @@ export function totalRouteHaversineKm(
   }
   return total;
 }
-
-/**
- * Distancia máxima en línea recta (km) que garantiza que el coste por
- * carretera no supera MAX_DISTANCE_SURCHARGE_CAP.
- * Factor carretera ≈ 1.3 → 4 000 km / 1.3 ≈ 3 077 km. Límite: 3 000 km.
- */
-export const MAX_ROUTE_STRAIGHT_KM = 3000;
 
 /** Convierte coordenadas GeoJSON [lng, lat] a Leaflet [lat, lng]. */
 export function geojsonToLeaflet(

@@ -110,6 +110,34 @@ CREATE POLICY "geo_cache_select_own" ON public.trade_geo_cache
   FOR SELECT TO authenticated
   USING (org_id = ANY(public._user_org_ids()));
 
+-- ── trade_geo_reservations ────────────────────────────────────────────────────
+-- Registro de cada reserva de créditos Geoapify (una por llamada al proveedor).
+-- Garantiza idempotencia de geo_reconcile: la marca 'reconciled' impide un
+-- segundo descuento del mismo crédito.  expires_at = 2 h; los créditos de
+-- reservas caducadas no se liberan automáticamente — se absorben en el rollover
+-- diario (comportamiento conservador documentado).
+
+CREATE TABLE IF NOT EXISTS public.trade_geo_reservations (
+  id             uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id         uuid        NOT NULL REFERENCES public.trade_organizations(id) ON DELETE CASCADE,
+  estimated      int         NOT NULL CHECK (estimated > 0),
+  actual         int,
+  status         text        NOT NULL DEFAULT 'pending'
+                              CHECK (status IN ('pending', 'reconciled', 'expired')),
+  reserved_at    timestamptz NOT NULL DEFAULT now(),
+  expires_at     timestamptz NOT NULL DEFAULT now() + interval '2 hours',
+  reconciled_at  timestamptz
+);
+
+CREATE INDEX IF NOT EXISTS idx_geo_reservations_status
+  ON public.trade_geo_reservations(status, expires_at);
+CREATE INDEX IF NOT EXISTS idx_geo_reservations_org
+  ON public.trade_geo_reservations(org_id, reserved_at DESC);
+
+-- Solo accesible vía service role (Edge Functions)
+ALTER TABLE public.trade_geo_reservations ENABLE ROW LEVEL SECURITY;
+
 -- ── REVOKE acceso directo desde anon/authenticated ───────────────────────────
-REVOKE ALL ON TABLE public.trade_geo_rate    FROM PUBLIC, anon, authenticated;
-REVOKE ALL ON TABLE public.trade_route_cache FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON TABLE public.trade_geo_rate         FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON TABLE public.trade_route_cache      FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON TABLE public.trade_geo_reservations FROM PUBLIC, anon, authenticated;
