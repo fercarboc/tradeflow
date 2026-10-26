@@ -125,15 +125,16 @@ function ConflictAlert({ conflicts }: ConflictAlertProps) {
 }
 
 interface StopRowProps {
-  stop: TransportStop;
-  index: number;
-  total: number;
-  onChange: (i: number, s: TransportStop) => void;
-  onRemove: (i: number) => void;
-  onMoveUp: (i: number) => void;
+  stop:    TransportStop;
+  index:   number;
+  total:   number;
+  orgId?:  string;
+  onChange:   (i: number, s: TransportStop) => void;
+  onRemove:   (i: number) => void;
+  onMoveUp:   (i: number) => void;
   onMoveDown: (i: number) => void;
 }
-function StopRow({ stop, index, total, onChange, onRemove, onMoveUp, onMoveDown }: StopRowProps) {
+function StopRow({ stop, index, total, orgId, onChange, onRemove, onMoveUp, onMoveDown }: StopRowProps) {
   return (
     <div className="border border-slate-200 rounded-lg p-2.5 space-y-2 bg-white">
       <div className="flex gap-2 items-center">
@@ -187,6 +188,7 @@ function StopRow({ stop, index, total, onChange, onRemove, onMoveUp, onMoveDown 
         value={stop.location ?? null}
         onChange={loc => onChange(index, { ...stop, location: loc ?? undefined })}
         compact
+        orgId={orgId}
       />
       <TransportContactForm
         label="Responsable de esta parada"
@@ -536,11 +538,13 @@ function ServicioModal({
                 label="Origen"
                 value={form.origen_detalle ?? null}
                 onChange={loc => setForm(f => ({ ...f, origen_detalle: loc }))}
+                orgId={orgId}
               />
               <TransportLocationForm
                 label="Destino"
                 value={form.destino_detalle ?? null}
                 onChange={loc => setForm(f => ({ ...f, destino_detalle: loc }))}
+                orgId={orgId}
               />
             </div>
 
@@ -559,6 +563,7 @@ function ServicioModal({
                 {form.paradas.map((s, i) => (
                   <StopRow
                     key={i} stop={s} index={i} total={form.paradas.length}
+                    orgId={orgId}
                     onChange={updateStop} onRemove={removeStop}
                     onMoveUp={moveStopUp} onMoveDown={moveStopDown}
                   />

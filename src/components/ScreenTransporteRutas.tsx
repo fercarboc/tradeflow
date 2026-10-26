@@ -200,15 +200,16 @@ function ItinerarioSection({ service }: ItinerarioSectionProps) {
 // ── Detail panel ──────────────────────────────────────────────────────────────
 
 interface RutaDetailPanelProps {
-  service: TradeTransportService;
+  service:    TradeTransportService;
+  orgId:      string;
   vehicleMap: Record<string, TradeVehicle>;
-  workerMap: Record<string, TradeWorker>;
-  clientMap: Record<string, TradeClient>;
+  workerMap:  Record<string, TradeWorker>;
+  clientMap:  Record<string, TradeClient>;
   onNavigate?: (tab: string) => void;
   onBack?: () => void;   // mobile only
 }
 
-function RutaDetailPanel({ service, vehicleMap, workerMap, clientMap, onNavigate, onBack }: RutaDetailPanelProps) {
+function RutaDetailPanel({ service, orgId, vehicleMap, workerMap, clientMap, onNavigate, onBack }: RutaDetailPanelProps) {
   const vehicle   = service.vehicle_id   ? vehicleMap[service.vehicle_id]   : null;
   const conductor = service.conductor_id ? workerMap[service.conductor_id] : null;
   const client    = service.client_id    ? clientMap[service.client_id]    : null;
@@ -286,7 +287,7 @@ function RutaDetailPanel({ service, vehicleMap, workerMap, clientMap, onNavigate
       {/* Scrollable body */}
       <div className="flex-1 overflow-y-auto px-5 py-4 space-y-5">
         {/* Map — when no coordinates, this already renders the full text itinerary */}
-        <TransportServiceMap service={service} />
+        <TransportServiceMap service={service} orgId={orgId} />
 
         {/* Itinerary with times — only shown when the map has actual points to display;
             avoids duplicating the text itinerary that TransportServiceMap shows as fallback */}
@@ -669,6 +670,7 @@ export default function ScreenTransporteRutas({ orgId, showToast, onNavigate, in
             <RutaDetailPanel
               key={selected.id}
               service={selected}
+              orgId={orgId}
               vehicleMap={vehicleMap}
               workerMap={workerMap}
               clientMap={clientMap}

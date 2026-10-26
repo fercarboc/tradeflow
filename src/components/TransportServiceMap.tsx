@@ -4,11 +4,14 @@
  * Si no hay coordenadas válidas, renderiza el fallback textual de itinerario.
  */
 
-import React, { useEffect, useMemo } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import React, { useEffect, useMemo, useState, useCallback } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { MapPin, AlertTriangle } from 'lucide-react';
+import { MapPin, AlertTriangle, Route, Loader2, Bus } from 'lucide-react';
+import { routeWaypoints, formatDuration, formatDistance } from '../lib/geoApi';
+import type { RouteResult } from '../lib/geoApi';
+import { geojsonToLeaflet } from '../lib/geoCredits';
 import type { TradeTransportService } from '../lib/transportServices';
 import { locationToText, locationToAddress, geoValid } from '../lib/transportLocations';
 import { CARTO_KEY, CARTO_URL, CARTO_ATTR } from '../lib/cartoConfig';
@@ -112,13 +115,43 @@ function TextItinerary({ waypoints }: { waypoints: TextWaypoint[] }) {
 // ── Props ─────────────────────────────────────────────────────────────────────
 
 export interface TransportServiceMapProps {
-  service: TradeTransportService;
+  service:    TradeTransportService;
+  orgId?:     string;
   className?: string;
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export default function TransportServiceMap({ service, className = '' }: TransportServiceMapProps) {
+export default function TransportServiceMap({ service, orgId, className = '' }: TransportServiceMapProps) {
+  const [routeResult,  setRouteResult]  = useState<RouteResult | null>(null);
+  const [routeLoading, setRouteLoading] = useState(false);
+  const [routeError,   setRouteError]   = useState('');
+
+  const handleLoadRoute = useCallback(async () => {
+    if (!orgId) return;
+    setRouteLoading(true);
+    setRouteError('');
+    try {
+      // Build waypoints in route order: origin → stops → destination
+      const waypoints: { lat: number; lng: number }[] = [];
+      const od = service.origen_detalle;
+      if (od?.lat != null && od?.lng != null) waypoints.push({ lat: od.lat, lng: od.lng });
+      for (const p of service.paradas) {
+        if (p.location?.lat != null && p.location?.lng != null)
+          waypoints.push({ lat: p.location.lat, lng: p.location.lng });
+      }
+      const dd = service.destino_detalle;
+      if (dd?.lat != null && dd?.lng != null) waypoints.push({ lat: dd.lat, lng: dd.lng });
+
+      const result = await routeWaypoints(waypoints, orgId);
+      setRouteResult(result);
+      if (!result) setRouteError('No se pudo calcular la ruta.');
+    } catch (err) {
+      setRouteError(err instanceof Error ? err.message : 'Error al calcular la ruta');
+    } finally {
+      setRouteLoading(false);
+    }
+  }, [service, orgId]);
   // Count total location points (origin + every stop + destination)
   const totalLocations = 2 + service.paradas.length;
 
@@ -207,9 +240,61 @@ export default function TransportServiceMap({ service, className = '' }: Transpo
     );
   }
 
+  const routePolyline = useMemo<[number, number][] | null>(() => {
+    if (!routeResult) return null;
+    return geojsonToLeaflet(routeResult.geometry.coordinates);
+  }, [routeResult]);
+
+  const canRequestRoute = !!(orgId && geoPoints.length >= 2 && !routeResult && !routeLoading);
+
   // Map with valid points
   return (
     <div className={`bg-white border border-slate-200 rounded-xl overflow-hidden ${className}`}>
+      {/* Route info bar */}
+      {(routeResult || routeLoading || routeError || canRequestRoute) && (
+        <div className="flex items-center justify-between px-4 py-2 border-b border-slate-100 bg-slate-50/70 gap-2">
+          <div className="flex items-center gap-1.5 min-w-0">
+            <Bus className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            {routeResult && (
+              <span className="text-[11px] text-slate-600 font-semibold">
+                {formatDistance(routeResult.distance_m)} · {formatDuration(routeResult.duration_s)}
+              </span>
+            )}
+            {routeLoading && (
+              <span className="flex items-center gap-1 text-[11px] text-slate-500">
+                <Loader2 className="w-3 h-3 animate-spin" />
+                Calculando ruta...
+              </span>
+            )}
+            {routeError && !routeLoading && (
+              <span className="text-[11px] text-red-600 truncate">{routeError}</span>
+            )}
+            {routeResult && (
+              <span className="text-[10px] text-slate-400 ml-1">Powered by Geoapify · © OpenStreetMap</span>
+            )}
+          </div>
+          {canRequestRoute && (
+            <button
+              type="button"
+              onClick={handleLoadRoute}
+              className="flex items-center gap-1 text-[11px] font-semibold text-blue-600 hover:text-blue-800 border border-blue-200 px-2.5 py-1 rounded-full bg-blue-50 hover:bg-blue-100 transition-colors shrink-0 cursor-pointer"
+            >
+              <Route className="w-3 h-3" />
+              Ver ruta por carretera
+            </button>
+          )}
+          {routeError && !routeLoading && !routeResult && (
+            <button
+              type="button"
+              onClick={handleLoadRoute}
+              className="text-[11px] text-blue-600 hover:underline shrink-0 cursor-pointer"
+            >
+              Reintentar
+            </button>
+          )}
+        </div>
+      )}
+
       <div className="relative" style={{ height: 260 }}>
         <MapContainer
           center={allPoints[0]!}
@@ -221,6 +306,12 @@ export default function TransportServiceMap({ service, className = '' }: Transpo
           <TileLayer url={CARTO_URL} attribution={CARTO_ATTR} />
           <MapBoundsFitter points={allPoints} />
           <MapSizeInvalidator />
+          {routePolyline && (
+            <Polyline
+              positions={routePolyline}
+              pathOptions={{ color: '#2563eb', weight: 4, opacity: 0.75 }}
+            />
+          )}
           {geoPoints.map((pt, i) => (
             <Marker
               key={i}
