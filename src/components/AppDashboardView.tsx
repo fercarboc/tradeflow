@@ -801,6 +801,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [transporteMobileSubTab, setTransporteMobileSubTab] = useState<'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas'>('vehiculos');
   // Transport parte virtual tab
   const [transporteParteId, setTransporteParteId] = useState<string | null>(null);
+  // Service ID to navigate to from Agenda
+  const [transporteNavServiceId, setTransporteNavServiceId] = useState<string | null>(null);
   const [newJobTrigger, setNewJobTrigger] = useState(0);
   const [prefillJobFromQuote, setPrefillJobFromQuote] = useState<import('../types').Presupuesto | null>(null);
 
@@ -4119,10 +4121,24 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     orgId={orgId}
                     showToast={showToast}
                     onOpenParte={(id) => { setTransporteParteId(id); setMobileTab('partes'); }}
+                    initialServiceId={transporteNavServiceId}
                   />
                 )}
                 {transporteMobileSubTab === 'agenda' && (
-                  <ScreenTransporteAgenda orgId={orgId} showToast={showToast} onOpenParte={(id) => { setTransporteParteId(id); setMobileTab('partes'); }} />
+                  <ScreenTransporteAgenda
+                    orgId={orgId}
+                    showToast={showToast}
+                    onOpenParte={(id) => { setTransporteParteId(id); setMobileTab('partes'); }}
+                    onNavigate={(tab, serviceId) => {
+                      if (serviceId) setTransporteNavServiceId(serviceId);
+                      const mobileMap: Record<string, 'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas'> = {
+                        transporte_panel: 'panel',
+                        transporte_servicios: 'servicios',
+                        transporte_rutas: 'rutas',
+                      };
+                      if (mobileMap[tab]) setTransporteMobileSubTab(mobileMap[tab]);
+                    }}
+                  />
                 )}
                 {transporteMobileSubTab === 'vehiculos' && (
                   <ScreenTransporteVehiculos orgId={orgId} showToast={showToast} />
@@ -4132,6 +4148,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 )}
                 {transporteMobileSubTab === 'rutas' && (
                   <ScreenTransporteRutas orgId={orgId} showToast={showToast}
+                    initialServiceId={transporteNavServiceId}
                     onNavigate={(tab) => {
                       const map: Record<string, 'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas'> = {
                         transporte_panel: 'panel',
@@ -6861,15 +6878,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       orgId={orgId}
                       showToast={showToast}
                       onOpenParte={(id) => { setTransporteParteId(id); setActiveTab('transporte_parte'); }}
+                      initialServiceId={transporteNavServiceId}
                     />
                   </div>
                 )}
                 {activeTab === 'transporte_agenda' && orgId && caps.hasTransport && can('transport.view') && (
-                  <div className="flex-1 overflow-y-auto min-h-0">
+                  <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
                     <ScreenTransporteAgenda
                       orgId={orgId}
                       showToast={showToast}
                       onOpenParte={(id) => { setTransporteParteId(id); setActiveTab('transporte_parte'); }}
+                      onNavigate={(tab, serviceId) => {
+                        if (serviceId) setTransporteNavServiceId(serviceId);
+                        setActiveTab(tab);
+                      }}
                     />
                   </div>
                 )}
@@ -6901,6 +6923,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <div className="flex-1 overflow-y-auto min-h-0">
                     <ScreenTransporteRutas orgId={orgId} showToast={showToast}
                       onNavigate={(tab) => setActiveTab(tab)}
+                      initialServiceId={transporteNavServiceId}
                     />
                   </div>
                 )}

@@ -724,11 +724,12 @@ interface ServicioRowProps {
   onIniciar: () => void;
   onOpenParte: (svcId: string) => void;
   canWrite: boolean;
+  highlighted?: boolean;
 }
 
 function ServicioRow({
   s, clients, vehicles, workers,
-  onEdit, onCancel, onConfirm, onIniciar, onOpenParte, canWrite,
+  onEdit, onCancel, onConfirm, onIniciar, onOpenParte, canWrite, highlighted,
 }: ServicioRowProps) {
   const client    = clients.find(c => c.id === s.client_id);
   const vehicle   = vehicles.find(v => v.id === s.vehicle_id);
@@ -738,7 +739,7 @@ function ServicioRow({
   const isTerminal = s.estado === 'completado' || s.estado === 'cancelado';
 
   return (
-    <div className="bg-white border border-slate-200 rounded-xl p-4 hover:border-blue-200 hover:shadow-sm transition-all">
+    <div className={`bg-white border rounded-xl p-4 hover:border-blue-200 hover:shadow-sm transition-all ${highlighted ? 'border-blue-400 ring-2 ring-blue-400' : 'border-slate-200'}`}>
       <div className="flex items-start justify-between gap-3">
         {/* Columna izquierda: fecha + tipo + título */}
         <div className="flex gap-3 min-w-0">
@@ -847,11 +848,12 @@ interface Props {
   orgId: string;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   onOpenParte?: (svcId: string) => void;
+  initialServiceId?: string | null;
 }
 
 // ── Componente principal ──────────────────────────────────────────────────────
 
-export default function ScreenTransporteServicios({ orgId, showToast, onOpenParte }: Props) {
+export default function ScreenTransporteServicios({ orgId, showToast, onOpenParte, initialServiceId }: Props) {
   const { rol } = useSession();
   const canWrite = rol === 'owner' || rol === 'admin';
 
@@ -876,6 +878,21 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
   const [editing,      setEditing]      = useState<TradeTransportService | null>(null);
   const [canceling,    setCanceling]    = useState<TradeTransportService | null>(null);
   const [recentlySaved, setRecentlySaved] = useState<TradeTransportService | null>(null);
+  const [highlightedId, setHighlightedId] = useState<string | null>(null);
+
+  // Highlight service navigated from Agenda
+  useEffect(() => {
+    if (!initialServiceId || services.length === 0) return;
+    const found = services.find(s => s.id === initialServiceId);
+    if (found) setHighlightedId(initialServiceId);
+  }, [initialServiceId, services]);
+
+  // Auto-clear highlight after 3s
+  useEffect(() => {
+    if (!highlightedId) return;
+    const t = setTimeout(() => setHighlightedId(null), 3000);
+    return () => clearTimeout(t);
+  }, [highlightedId]);
 
   // Filtros
   const todayStr = new Date().toISOString().split('T')[0];
@@ -1203,6 +1220,7 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
                   vehicles={vehicles}
                   workers={workers}
                   canWrite={canWrite}
+                  highlighted={highlightedId === s.id}
                   onEdit={() => { setEditing(s); setModal('edit'); }}
                   onCancel={() => setCanceling(s)}
                   onConfirm={() => handleConfirm(s)}
