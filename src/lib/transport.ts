@@ -60,6 +60,9 @@ export interface TradeVehicle {
   /** Ruta pública de imagen asignada explícitamente. Si null, se usa mapping automático por tipo. */
   image_path?: string | null;
   activo: boolean;
+  /** Último km registrado (TX-FLEET-ODO-1). Calculado por trigger desde trade_vehicle_km_readings. */
+  km_actual?: number | null;
+  km_actualizado_at?: string | null;
   created_at: string;
   updated_at: string;
 }

@@ -598,6 +598,7 @@ describe('completeTransportService', () => {
       p_km_reales:            PARTE.km_reales,
       p_incidencias:          PARTE.incidencias,
       p_observaciones_cierre: PARTE.observaciones_cierre,
+      p_odometro_final:       null,
     });
   });
 

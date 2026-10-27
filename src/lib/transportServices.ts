@@ -100,8 +100,22 @@ export interface TradeTransportService {
   observaciones_cierre?: string | null;
   cerrado_at?: string | null;
   cerrado_por?: string | null;   // auth.uid()
+  // ── Campos de odómetro (TX-FLEET-ODO-1) ─────────────────────────────────
+  odometro_inicio?: number | null;
+  odometro_final?: number | null;
+  odometro_recorridos?: number | null;
+  hora_inicio_real?: string | null;
+  iniciado_por?: string | null;
+  obs_inicio?: string | null;
   created_at: string;
   updated_at: string;
+}
+
+/** Input para inicio de servicio (captura odómetro y hora real de salida). */
+export interface TradeTransportStartInput {
+  odometro_inicio?: number | null;
+  hora_inicio_real?: string | null;
+  obs_inicio?: string | null;
 }
 
 /** Input para cierre de servicio (parte real). */
@@ -111,6 +125,7 @@ export interface TradeTransportParteInput {
   km_reales?: number | null;
   incidencias?: string | null;
   observaciones_cierre?: string | null;
+  odometro_final?: number | null;
 }
 
 export type TradeTransportServiceInput = Omit<
@@ -467,6 +482,27 @@ export async function loadServiceById(
 }
 
 /**
+ * Inicia un servicio confirmado de forma atómica a través de la RPC segura.
+ * Captura odómetro de inicio y hora real de salida. Registra la lectura de km.
+ * Retorna { ok: true, iniciado_at: string } o lanza un error.
+ */
+export async function startTransportService(
+  id: string,
+  orgId: string,
+  inicio: TradeTransportStartInput = {},
+): Promise<{ ok: boolean; iniciado_at?: string; odometro_inicio?: number | null }> {
+  const { data, error } = await supabase.rpc('start_transport_service', {
+    p_service_id:       id,
+    p_org_id:           orgId,
+    p_odometro_inicio:  inicio.odometro_inicio  ?? null,
+    p_hora_inicio_real: inicio.hora_inicio_real ?? null,
+    p_obs_inicio:       inicio.obs_inicio       ?? null,
+  });
+  if (error) throw error;
+  return data as { ok: boolean; iniciado_at?: string; odometro_inicio?: number | null };
+}
+
+/**
  * Cierra un servicio en_curso de forma atómica a través de la RPC segura.
  * Registra los datos reales del parte (horarios, kilómetros, incidencias).
  * Retorna { ok: true, cerrado_at: string } o lanza un error.
@@ -484,6 +520,7 @@ export async function completeTransportService(
     p_km_reales:            parte.km_reales            ?? null,
     p_incidencias:          parte.incidencias          ?? null,
     p_observaciones_cierre: parte.observaciones_cierre ?? null,
+    p_odometro_final:       parte.odometro_final       ?? null,
   });
   if (error) throw error;
   return data as { ok: boolean; cerrado_at?: string };
