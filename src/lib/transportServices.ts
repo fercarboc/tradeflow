@@ -458,6 +458,47 @@ export async function completeTransportService(
   return data as { ok: boolean; cerrado_at?: string };
 }
 
+// ── Histórico de partes ───────────────────────────────────────────────────────
+
+export interface PartesFilter {
+  desde?: string;       // YYYY-MM-DD — filtra por cerrado_at
+  hasta?: string;       // YYYY-MM-DD
+  conductorId?: string;
+  vehicleId?: string;
+  search?: string;      // texto libre sobre titulo (client-side)
+}
+
+/**
+ * Carga todos los servicios de la org en estado completado (= tienen parte cerrado).
+ * Ordenados por cerrado_at desc. El filtro de texto se aplica en cliente.
+ */
+export async function loadPartesCompletados(
+  orgId: string,
+  filter: PartesFilter = {},
+): Promise<TradeTransportService[]> {
+  let q = supabase
+    .from('trade_transport_services')
+    .select('*')
+    .eq('org_id', orgId)
+    .eq('estado', 'completado')
+    .order('cerrado_at', { ascending: false });
+
+  if (filter.desde)       q = q.gte('cerrado_at', filter.desde);
+  if (filter.hasta)       q = q.lte('cerrado_at', `${filter.hasta}T23:59:59`);
+  if (filter.conductorId) q = q.eq('conductor_id', filter.conductorId);
+  if (filter.vehicleId)   q = q.eq('vehicle_id', filter.vehicleId);
+
+  const { data, error } = await q;
+  if (error) throw error;
+  let results = (data ?? []) as TradeTransportService[];
+
+  if (filter.search) {
+    const needle = filter.search.toLowerCase();
+    results = results.filter(s => s.titulo.toLowerCase().includes(needle));
+  }
+  return results;
+}
+
 /**
  * Carga servicios activos (no cancelados ni completados) cuya fecha_inicio
  * es estrictamente posterior a afterDate. Usado para el banner de servicios

@@ -115,6 +115,7 @@ import ScreenMantenimiento from './ScreenMantenimiento';
 import ScreenTransporteVehiculos from './ScreenTransporteVehiculos';
 import ScreenTransporteConductores from './ScreenTransporteConductores';
 import ScreenTransporteServicios from './ScreenTransporteServicios';
+import ScreenTransportePartes from './ScreenTransportePartes';
 import ScreenTransportePanel from './ScreenTransportePanel';
 import ScreenTransporteAgenda from './ScreenTransporteAgenda';
 import ScreenTransporteParteTrabajo from './ScreenTransporteParteTrabajo';
@@ -798,7 +799,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // Mobile suppliers hub sub-tab
   const [mobileSuppliersSubTab, setMobileSuppliersSubTab] = useState<'proveedores' | 'catalogo'>('proveedores');
   // Mobile transport sub-tab
-  const [transporteMobileSubTab, setTransporteMobileSubTab] = useState<'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas'>('vehiculos');
+  const [transporteMobileSubTab, setTransporteMobileSubTab] = useState<'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas' | 'partes'>('vehiculos');
   // Transport parte virtual tab
   const [transporteParteId, setTransporteParteId] = useState<string | null>(null);
   // Service ID to navigate to from Agenda
@@ -4085,6 +4086,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   { id: 'vehiculos',   icon: <Bus className="w-3.5 h-3.5" />,             label: 'Flota',      color: 'blue' },
                   { id: 'conductores', icon: <UserPlus className="w-3.5 h-3.5" />,        label: 'Conductores',color: 'indigo' },
                   { id: 'rutas',       icon: <Route className="w-3.5 h-3.5" />,           label: 'Rutas',      color: 'blue' },
+                  { id: 'partes',      icon: <FileCheck className="w-3.5 h-3.5" />,       label: 'Partes',     color: 'purple' },
                 ] as const).map(tab => (
                   <button
                     key={tab.id}
@@ -4152,13 +4154,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     initialServiceId={transporteNavServiceId}
                     onConsumeInitialServiceId={() => setTransporteNavServiceId(null)}
                     onNavigate={(tab) => {
-                      const map: Record<string, 'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas'> = {
+                      const map: Record<string, 'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas' | 'partes'> = {
                         transporte_panel: 'panel',
                         transporte_servicios: 'servicios',
                         transporte_vehiculos: 'vehiculos',
                       };
                       if (map[tab]) setTransporteMobileSubTab(map[tab]);
                     }}
+                  />
+                )}
+                {transporteMobileSubTab === 'partes' && orgId && (
+                  <ScreenTransportePartes
+                    orgId={orgId}
+                    onOpenParte={(id) => { setTransporteParteId(id); setMobileTab('partes'); }}
                   />
                 )}
               </div>
@@ -6433,6 +6441,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {can('transport.view') && SidebarBtn({ id: 'transporte_vehiculos',  icon: <Bus className="w-4 h-4" />, label: 'Flota' })}
                 {can('transport.view') && SidebarBtn({ id: 'transporte_conductores', icon: <UserPlus className="w-4 h-4" />, label: 'Conductores' })}
                 {can('transport.view') && SidebarBtn({ id: 'transporte_rutas',      icon: <Route className="w-4 h-4" />, label: 'Rutas' })}
+                {can('transport.view') && SidebarBtn({ id: 'transporte_partes',     icon: <FileCheck className="w-4 h-4" />, label: 'Partes' })}
                 <div className="my-2 mx-1 border-t border-slate-800/60" />
                 <p className="px-3 pb-2 text-[9px] font-bold uppercase tracking-widest text-slate-500">Gestión</p>
                 {can('clients.manage') && SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes' })}
@@ -6478,6 +6487,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     {SidebarBtn({ id: 'transporte_vehiculos',  icon: <Bus  className="w-4 h-4" />, label: 'Flota' })}
                     {SidebarBtn({ id: 'transporte_conductores', icon: <UserPlus className="w-4 h-4" />, label: 'Conductores' })}
                     {SidebarBtn({ id: 'transporte_rutas',      icon: <Route className="w-4 h-4" />, label: 'Rutas' })}
+                    {SidebarBtn({ id: 'transporte_partes',     icon: <FileCheck className="w-4 h-4" />, label: 'Partes' })}
                   </>
                 )}
                 {SidebarBtn({ id: 'asistente', icon: <BookOpen className="w-4 h-4" />, label: 'Asistente Técnico' })}
@@ -6576,6 +6586,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'transporte_conductores' && 'Transporte · Conductores'}
                 {activeTab === 'transporte_rutas'       && 'Transporte · Rutas'}
                 {activeTab === 'transporte_parte'     && 'Transporte · Parte de Servicio'}
+                {activeTab === 'transporte_partes'    && 'Transporte · Histórico de Partes'}
                 {activeTab === 'asistente' && 'Asistente Técnico de Normativa'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
@@ -6920,6 +6931,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'transporte_conductores' && orgId && caps.hasTransport && can('transport.view') && (
                   <div className="flex-1 overflow-y-auto min-h-0">
                     <ScreenTransporteConductores orgId={orgId} showToast={showToast} />
+                  </div>
+                )}
+                {activeTab === 'transporte_partes' && orgId && caps.hasTransport && can('transport.view') && (
+                  <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
+                    <ScreenTransportePartes
+                      orgId={orgId}
+                      onOpenParte={(id) => { setTransporteParteId(id); setActiveTab('transporte_parte'); }}
+                    />
                   </div>
                 )}
                 {activeTab === 'transporte_rutas' && orgId && caps.hasTransport && can('transport.view') && (
