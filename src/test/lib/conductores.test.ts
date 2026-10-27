@@ -141,18 +141,29 @@ describe('loadConductores', () => {
 // ── createConductor ───────────────────────────────────────────────────────────
 
 describe('createConductor', () => {
-  it('COND-8 — crea un conductor con es_conductor=true y activo=true', async () => {
-    const created = makeConductor({ nombre: 'Ana López' });
-    mockFrom.mockReturnValueOnce(makeChain({ data: created, error: null }));
+  it('COND-8 — crea un conductor con es_conductor=true, activo=true y rol=tecnico', async () => {
+    const created = makeConductor({ nombre: 'Ana López', rol: 'tecnico' });
+    const chain = makeChain({ data: created, error: null });
+    mockFrom.mockReturnValueOnce(chain);
     const result = await createConductor(ORG_A, { nombre: 'Ana López' });
     expect(result.nombre).toBe('Ana López');
     expect(result.es_conductor).toBe(true);
     expect(result.activo).toBe(true);
+    expect(result.rol).toBe('tecnico');
+    // Verifica que NO se insertó rol='conductor' (violaría CHECK constraint DB)
+    const insertCall = (chain.insert as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(insertCall).toMatchObject({ rol: 'tecnico', es_conductor: true });
+    expect(insertCall.rol).not.toBe('conductor');
   });
 
   it('COND-9 — lanza error si Supabase falla en alta', async () => {
     mockFrom.mockReturnValueOnce(makeChain({ data: null, error: { message: 'duplicate key' } }));
     await expect(createConductor(ORG_A, { nombre: 'Test' })).rejects.toMatchObject({ message: 'duplicate key' });
+  });
+
+  it('COND-31 — lanza error si Supabase falla en loadConductores (no silencia el error)', async () => {
+    mockFrom.mockReturnValueOnce(makeChain({ data: null, error: { message: 'permission denied for table trade_workers' } }));
+    await expect(loadConductores(ORG_A)).rejects.toMatchObject({ message: 'permission denied for table trade_workers' });
   });
 
   it('COND-10 — persiste categorías de permiso en el alta', async () => {

@@ -208,12 +208,13 @@ export async function setWorkerConductor(
 
 /** Carga todos los conductores (es_conductor=true) de la org, activos e inactivos. */
 export async function loadConductores(orgId: string): Promise<import('./supabase').TradeWorker[]> {
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from('trade_workers')
     .select('*')
     .eq('org_id', orgId)
     .eq('es_conductor', true)
     .order('nombre');
+  if (error) throw error;
   return (data ?? []) as import('./supabase').TradeWorker[];
 }
 
@@ -229,7 +230,7 @@ export async function createConductor(
 ): Promise<import('./supabase').TradeWorker> {
   const { data: row, error } = await supabase
     .from('trade_workers')
-    .insert({ org_id: orgId, rol: 'conductor', es_conductor: true, activo: true, ...payload })
+    .insert({ org_id: orgId, rol: 'tecnico', es_conductor: true, activo: true, ...payload })
     .select()
     .single();
   if (error) throw error;

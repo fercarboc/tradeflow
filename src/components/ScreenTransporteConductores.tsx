@@ -122,6 +122,7 @@ export default function ScreenTransporteConductores({ orgId, showToast }: Props)
 
   const [conductores, setConductores] = useState<TradeWorker[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [view, setView] = useState<View>('list');
   const [selected, setSelected] = useState<TradeWorker | null>(null);
   const [search, setSearch] = useState('');
@@ -130,15 +131,16 @@ export default function ScreenTransporteConductores({ orgId, showToast }: Props)
   // ── Load ──────────────────────────────────────────────────────────────────
   const load = useCallback(async () => {
     setLoading(true);
+    setLoadError(null);
     try {
       const data = await loadConductores(orgId);
       setConductores(data);
     } catch (e) {
-      showToast(errMsg(e), 'error');
+      setLoadError(errMsg(e));
     } finally {
       setLoading(false);
     }
-  }, [orgId, showToast]);
+  }, [orgId]);
 
   useEffect(() => { void load(); }, [load]);
 
@@ -276,7 +278,26 @@ export default function ScreenTransporteConductores({ orgId, showToast }: Props)
             </div>
           )}
 
-          {!loading && conductores.length === 0 && (
+          {!loading && loadError && (
+            <div className="mt-6 bg-red-50 border border-red-200 rounded-xl p-4 flex flex-col gap-3">
+              <div className="flex items-start gap-2">
+                <AlertTriangle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-semibold text-red-700">Error al cargar conductores</p>
+                  <p className="text-xs text-red-600 mt-0.5">{loadError}</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => { void load(); }}
+                className="self-start text-xs font-semibold text-red-700 border border-red-300 rounded-lg px-3 py-1.5 hover:bg-red-100 cursor-pointer"
+              >
+                Reintentar
+              </button>
+            </div>
+          )}
+
+          {!loading && !loadError && conductores.length === 0 && (
             <div className="flex flex-col items-center justify-center py-16 gap-3">
               <Bus className="w-10 h-10 text-slate-200" />
               <p className="text-sm font-semibold text-slate-500">No hay conductores todavía</p>
@@ -292,13 +313,13 @@ export default function ScreenTransporteConductores({ orgId, showToast }: Props)
             </div>
           )}
 
-          {!loading && conductores.length > 0 && filtered.length === 0 && (
+          {!loading && !loadError && conductores.length > 0 && filtered.length === 0 && (
             <div className="text-center py-12 text-sm text-slate-400">
               Ningún conductor coincide con la búsqueda.
             </div>
           )}
 
-          {!loading && filtered.length > 0 && (
+          {!loading && !loadError && filtered.length > 0 && (
             <div className="space-y-2 pt-1">
               {filtered.map(c => {
                 const isActive = c.activo !== false;
