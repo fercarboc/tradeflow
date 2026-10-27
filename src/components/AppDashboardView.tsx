@@ -802,6 +802,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [transporteMobileSubTab, setTransporteMobileSubTab] = useState<'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas' | 'partes'>('vehiculos');
   // Transport parte virtual tab
   const [transporteParteId, setTransporteParteId] = useState<string | null>(null);
+  const [transporteParteFromTab, setTransporteParteFromTab] = useState<string>('transporte_servicios');
   // Service ID to navigate to from Agenda
   const [transporteNavServiceId, setTransporteNavServiceId] = useState<string | null>(null);
   const [newJobTrigger, setNewJobTrigger] = useState(0);
@@ -6890,7 +6891,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <ScreenTransporteServicios
                       orgId={orgId}
                       showToast={showToast}
-                      onOpenParte={(id) => { setTransporteParteId(id); setActiveTab('transporte_parte'); }}
+                      onOpenParte={(id) => { setTransporteParteId(id); setTransporteParteFromTab('transporte_servicios'); setActiveTab('transporte_parte'); }}
                       initialServiceId={transporteNavServiceId}
                       onConsumeInitialServiceId={() => setTransporteNavServiceId(null)}
                     />
@@ -6901,7 +6902,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <ScreenTransporteAgenda
                       orgId={orgId}
                       showToast={showToast}
-                      onOpenParte={(id) => { setTransporteParteId(id); setActiveTab('transporte_parte'); }}
+                      onOpenParte={(id) => { setTransporteParteId(id); setTransporteParteFromTab('transporte_agenda'); setActiveTab('transporte_parte'); }}
                       onNavigate={(tab, serviceId) => {
                         if (serviceId) setTransporteNavServiceId(serviceId);
                         setActiveTab(tab);
@@ -6917,7 +6918,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       showToast={showToast}
                       onClose={(refreshed) => {
                         setTransporteParteId(null);
-                        setActiveTab('transporte_servicios');
+                        setActiveTab(transporteParteFromTab);
                         if (refreshed) showToast('Servicio actualizado', 'success');
                       }}
                     />
@@ -6937,7 +6938,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
                     <ScreenTransportePartes
                       orgId={orgId}
-                      onOpenParte={(id) => { setTransporteParteId(id); setActiveTab('transporte_parte'); }}
+                      onOpenParte={(id) => { setTransporteParteId(id); setTransporteParteFromTab('transporte_partes'); setActiveTab('transporte_parte'); }}
                     />
                   </div>
                 )}

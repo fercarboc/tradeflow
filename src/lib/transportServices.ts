@@ -460,31 +460,41 @@ export async function completeTransportService(
 
 // ── Histórico de partes ───────────────────────────────────────────────────────
 
+export const PARTES_PAGE_SIZE = 200;
+
 export interface PartesFilter {
-  desde?: string;       // YYYY-MM-DD — filtra por cerrado_at
+  desde?: string;       // YYYY-MM-DD — filtra por fecha_inicio (fecha del servicio)
   hasta?: string;       // YYYY-MM-DD
   conductorId?: string;
   vehicleId?: string;
   search?: string;      // texto libre sobre titulo (client-side)
 }
 
+export interface PartesResult {
+  partes: TradeTransportService[];
+  hasMore: boolean;
+}
+
 /**
  * Carga todos los servicios de la org en estado completado (= tienen parte cerrado).
+ * El filtro de fecha usa fecha_inicio (fecha del servicio), no cerrado_at.
  * Ordenados por cerrado_at desc. El filtro de texto se aplica en cliente.
+ * Máximo PARTES_PAGE_SIZE resultados; hasMore=true indica que existen más.
  */
 export async function loadPartesCompletados(
   orgId: string,
   filter: PartesFilter = {},
-): Promise<TradeTransportService[]> {
+): Promise<PartesResult> {
   let q = supabase
     .from('trade_transport_services')
     .select('*')
     .eq('org_id', orgId)
     .eq('estado', 'completado')
-    .order('cerrado_at', { ascending: false });
+    .order('cerrado_at', { ascending: false })
+    .limit(PARTES_PAGE_SIZE + 1);
 
-  if (filter.desde)       q = q.gte('cerrado_at', filter.desde);
-  if (filter.hasta)       q = q.lte('cerrado_at', `${filter.hasta}T23:59:59`);
+  if (filter.desde)       q = q.gte('fecha_inicio', filter.desde);
+  if (filter.hasta)       q = q.lte('fecha_inicio', `${filter.hasta}T23:59:59`);
   if (filter.conductorId) q = q.eq('conductor_id', filter.conductorId);
   if (filter.vehicleId)   q = q.eq('vehicle_id', filter.vehicleId);
 
@@ -496,7 +506,9 @@ export async function loadPartesCompletados(
     const needle = filter.search.toLowerCase();
     results = results.filter(s => s.titulo.toLowerCase().includes(needle));
   }
-  return results;
+
+  const hasMore = results.length > PARTES_PAGE_SIZE;
+  return { partes: results.slice(0, PARTES_PAGE_SIZE), hasMore };
 }
 
 /**

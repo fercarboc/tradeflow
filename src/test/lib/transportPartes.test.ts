@@ -7,7 +7,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import {
   loadPartesCompletados,
 } from '../../lib/transportServices';
-import type { TradeTransportService, PartesFilter } from '../../lib/transportServices';
+import type { TradeTransportService, PartesFilter, PartesResult } from '../../lib/transportServices';
 
 // ── Mock Supabase ─────────────────────────────────────────────────────────────
 
@@ -80,16 +80,17 @@ describe('loadPartesCompletados', () => {
   it('PARTES-1 — retorna lista vacía cuando no hay partes', async () => {
     mockFrom.mockReturnValueOnce(makeChain({ data: [], error: null }));
     const result = await loadPartesCompletados(ORG_A);
-    expect(result).toEqual([]);
+    expect(result.partes).toEqual([]);
+    expect(result.hasMore).toBe(false);
   });
 
   it('PARTES-2 — retorna partes completados del org', async () => {
     const parte = makeParte();
     mockFrom.mockReturnValueOnce(makeChain({ data: [parte], error: null }));
     const result = await loadPartesCompletados(ORG_A);
-    expect(result).toHaveLength(1);
-    expect(result[0].estado).toBe('completado');
-    expect(result[0].km_reales).toBe(320);
+    expect(result.partes).toHaveLength(1);
+    expect(result.partes[0].estado).toBe('completado');
+    expect(result.partes[0].km_reales).toBe(320);
   });
 
   it('PARTES-3 — lanza error si Supabase falla', async () => {
@@ -103,8 +104,8 @@ describe('loadPartesCompletados', () => {
     mockFrom.mockReturnValueOnce(makeChain({ data: [p1, p2], error: null }));
 
     const result = await loadPartesCompletados(ORG_A, { search: 'picos' });
-    expect(result).toHaveLength(1);
-    expect(result[0].titulo).toContain('Picos');
+    expect(result.partes).toHaveLength(1);
+    expect(result.partes[0].titulo).toContain('Picos');
   });
 
   it('PARTES-5 — búsqueda por texto es case-insensitive', async () => {
@@ -112,7 +113,7 @@ describe('loadPartesCompletados', () => {
     mockFrom.mockReturnValueOnce(makeChain({ data: [parte], error: null }));
 
     const result = await loadPartesCompletados(ORG_A, { search: 'NATURALEZA' });
-    expect(result).toHaveLength(1);
+    expect(result.partes).toHaveLength(1);
   });
 
   it('PARTES-6 — sin texto devuelve todos los resultados', async () => {
@@ -120,7 +121,7 @@ describe('loadPartesCompletados', () => {
     mockFrom.mockReturnValueOnce(makeChain({ data: partes, error: null }));
 
     const result = await loadPartesCompletados(ORG_A, { search: '' });
-    expect(result).toHaveLength(2);
+    expect(result.partes).toHaveLength(2);
   });
 
   it('PARTES-7 — aplica filtro conductorId en la query', async () => {
@@ -144,24 +145,24 @@ describe('loadPartesCompletados', () => {
     expect(eqCalls.some((c: unknown[]) => c[0] === 'vehicle_id' && c[1] === VEH_ID)).toBe(true);
   });
 
-  it('PARTES-9 — aplica filtro desde con gte', async () => {
+  it('PARTES-9 — aplica filtro desde por fecha_inicio (fecha del servicio)', async () => {
     const chain = makeChain({ data: [], error: null });
     mockFrom.mockReturnValueOnce(chain);
 
     await loadPartesCompletados(ORG_A, { desde: '2026-11-01' });
 
     const gteCalls = (chain.gte as ReturnType<typeof vi.fn>).mock.calls;
-    expect(gteCalls.some((c: unknown[]) => c[0] === 'cerrado_at')).toBe(true);
+    expect(gteCalls.some((c: unknown[]) => c[0] === 'fecha_inicio')).toBe(true);
   });
 
-  it('PARTES-10 — aplica filtro hasta con lte', async () => {
+  it('PARTES-10 — aplica filtro hasta por fecha_inicio (fecha del servicio)', async () => {
     const chain = makeChain({ data: [], error: null });
     mockFrom.mockReturnValueOnce(chain);
 
     await loadPartesCompletados(ORG_A, { hasta: '2026-11-30' });
 
     const lteCalls = (chain.lte as ReturnType<typeof vi.fn>).mock.calls;
-    expect(lteCalls.some((c: unknown[]) => c[0] === 'cerrado_at')).toBe(true);
+    expect(lteCalls.some((c: unknown[]) => c[0] === 'fecha_inicio')).toBe(true);
   });
 
   it('PARTES-11 — org_id se filtra siempre (aislamiento multiempresa)', async () => {
@@ -191,9 +192,9 @@ describe('loadPartesCompletados', () => {
     mockFrom.mockReturnValueOnce(makeChain({ data: [p3, p1, p2], error: null }));
 
     const result = await loadPartesCompletados(ORG_A);
-    expect(result[0].cerrado_at).toBe('2026-11-25T10:00:00.000Z');
-    expect(result[1].cerrado_at).toBe('2026-11-20T10:00:00.000Z');
-    expect(result[2].cerrado_at).toBe('2026-11-15T10:00:00.000Z');
+    expect(result.partes[0].cerrado_at).toBe('2026-11-25T10:00:00.000Z');
+    expect(result.partes[1].cerrado_at).toBe('2026-11-20T10:00:00.000Z');
+    expect(result.partes[2].cerrado_at).toBe('2026-11-15T10:00:00.000Z');
   });
 
   it('PARTES-14 — partes sin incidencias tienen incidencias=null', async () => {
@@ -201,7 +202,7 @@ describe('loadPartesCompletados', () => {
     mockFrom.mockReturnValueOnce(makeChain({ data: [parte], error: null }));
 
     const result = await loadPartesCompletados(ORG_A);
-    expect(result[0].incidencias).toBeNull();
+    expect(result.partes[0].incidencias).toBeNull();
   });
 
   it('PARTES-15 — parte con incidencia contiene el texto', async () => {
@@ -209,7 +210,7 @@ describe('loadPartesCompletados', () => {
     mockFrom.mockReturnValueOnce(makeChain({ data: [parte], error: null }));
 
     const result = await loadPartesCompletados(ORG_A);
-    expect(result[0].incidencias).toContain('Pinchazo');
+    expect(result.partes[0].incidencias).toContain('Pinchazo');
   });
 });
 
@@ -260,6 +261,15 @@ describe('KPI helpers (calculados desde partes)', () => {
 // ── Aislamiento multiempresa ──────────────────────────────────────────────────
 
 describe('Aislamiento multiempresa', () => {
+  it('PARTES-21 — hasMore es false cuando hay menos de PAGE_SIZE resultados', async () => {
+    const partes = [makeParte({ id: 'svc-001' }), makeParte({ id: 'svc-002' })];
+    mockFrom.mockReturnValueOnce(makeChain({ data: partes, error: null }));
+
+    const result: PartesResult = await loadPartesCompletados(ORG_A);
+    expect(result.hasMore).toBe(false);
+    expect(result.partes).toHaveLength(2);
+  });
+
   it('PARTES-20 — ORG_A no accede a partes de ORG_B', async () => {
     const parteB = makeParte({ org_id: ORG_B });
     // Supabase filtra por org_id en servidor; el mock simula que la query
@@ -267,7 +277,7 @@ describe('Aislamiento multiempresa', () => {
     mockFrom.mockReturnValueOnce(makeChain({ data: [], error: null }));
 
     const result = await loadPartesCompletados(ORG_A);
-    expect(result.filter(s => s.org_id === ORG_B)).toHaveLength(0);
+    expect(result.partes.filter(s => s.org_id === ORG_B)).toHaveLength(0);
     void parteB; // usado solo para documentar el escenario
   });
 });

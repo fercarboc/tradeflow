@@ -8,7 +8,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { FileCheck, Search, Filter, Loader2, AlertTriangle, ChevronRight, X, BarChart2 } from 'lucide-react';
 import { loadPartesCompletados, TIPO_SERVICIO_OPTIONS } from '../lib/transportServices';
 import type { TradeTransportService, PartesFilter } from '../lib/transportServices';
-import { loadWorkers, loadClients, getClientDisplayName } from '../lib/supabase';
+import { supabase, loadClients, getClientDisplayName } from '../lib/supabase';
 import type { TradeWorker, TradeClient } from '../lib/supabase';
 import { loadVehiclesAll } from '../lib/transport';
 import type { TradeVehicle } from '../lib/transport';
@@ -171,13 +171,21 @@ export default function ScreenTransportePartes({
 
   // ── Data ──────────────────────────────────────────────────────────────────
   const [partes,   setPartes]   = useState<TradeTransportService[]>([]);
+  const [hasMore,  setHasMore]  = useState(false);
   const [loading,  setLoading]  = useState(false);
   const [error,    setError]    = useState('');
 
-  // Load lookup data once
+  // Load lookup data once — conductores includes inactive to show in history
   useEffect(() => {
     if (!orgId) return;
-    loadWorkers(orgId).then(setWorkers).catch(() => {});
+    void Promise.resolve(
+      supabase
+        .from('trade_workers')
+        .select('*')
+        .eq('org_id', orgId)
+        .eq('es_conductor', true)
+        .order('nombre'),
+    ).then(({ data }) => setWorkers((data ?? []) as TradeWorker[])).catch(() => {});
     loadVehiclesAll(orgId).then(setVehicles).catch(() => {});
     loadClients(orgId).then(setClients).catch(() => {});
   }, [orgId]);
@@ -195,8 +203,9 @@ export default function ScreenTransportePartes({
         vehicleId:   vehicleFiltro   || undefined,
         search:      search          || undefined,
       };
-      const data = await loadPartesCompletados(orgId, filter);
-      setPartes(data);
+      const result = await loadPartesCompletados(orgId, filter);
+      setPartes(result.partes);
+      setHasMore(result.hasMore);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Error al cargar los partes');
     } finally {
@@ -342,6 +351,16 @@ export default function ScreenTransportePartes({
           <KpiCard label="Total partes" value={kpis.total} />
           <KpiCard label="Km totales" value={`${kpis.totalKm}`} sub="km recorridos" />
           <KpiCard label="Con incidencias" value={`${kpis.pctInc}%`} sub={`${partes.filter(s => s.incidencias).length} servicios`} />
+        </div>
+      )}
+
+      {/* Truncation notice */}
+      {!loading && hasMore && (
+        <div className="mx-4 sm:mx-6 mb-1 flex items-center gap-2 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 shrink-0">
+          <AlertTriangle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+          <p className="text-[11px] text-amber-800">
+            Mostrando los primeros 200 resultados. Ajusta los filtros para ver más.
+          </p>
         </div>
       )}
 
