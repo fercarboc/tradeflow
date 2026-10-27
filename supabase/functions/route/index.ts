@@ -70,17 +70,24 @@ function isValidWaypoint(w: unknown): w is RouteWaypoint {
   );
 }
 
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin':  '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+};
+
+function jsonRes(data: unknown, status = 200): Response {
+  return Response.json(data, { status, headers: CORS_HEADERS });
+}
+
 Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'authorization, content-type',
-    }});
+    return new Response(null, { status: 200, headers: CORS_HEADERS });
   }
 
   const authHeader = req.headers.get('Authorization');
   if (!authHeader) {
-    return Response.json({ error: 'GEO_AUTH: no authorization header' }, { status: 401 });
+    return jsonRes({ error: 'GEO_AUTH: no authorization header' }, 401);
   }
 
   const supabase = createClient(
@@ -96,20 +103,20 @@ Deno.serve(async (req: Request) => {
   );
   const { data: { user }, error: authError } = await userClient.auth.getUser();
   if (authError || !user) {
-    return Response.json({ error: 'GEO_AUTH: token inválido' }, { status: 401 });
+    return jsonRes({ error: 'GEO_AUTH: token inválido' }, 401);
   }
 
   const body = await req.json() as { waypoints: unknown[]; org_id: string };
   const { waypoints: rawWaypoints, org_id } = body;
 
   if (!org_id || !Array.isArray(rawWaypoints)) {
-    return Response.json({ error: 'GEO_PARAMS: waypoints y org_id requeridos' }, { status: 400 });
+    return jsonRes({ error: 'GEO_PARAMS: waypoints y org_id requeridos' }, 400);
   }
   // Límite piloto de waypoints
   if (rawWaypoints.length > PILOT_MAX_WAYPOINTS) {
-    return Response.json(
+    return jsonRes(
       { error: `GEO_PARAMS: máximo ${PILOT_MAX_WAYPOINTS} waypoints por solicitud (piloto)` },
-      { status: 400 },
+      400,
     );
   }
 
@@ -122,13 +129,13 @@ Deno.serve(async (req: Request) => {
     .eq('activo', true).single();
 
   if (!orgCheck && !memberCheck) {
-    return Response.json({ error: 'GEO_FORBIDDEN: sin acceso a esta organización' }, { status: 403 });
+    return jsonRes({ error: 'GEO_FORBIDDEN: sin acceso a esta organización' }, 403);
   }
 
   // Validar cada waypoint
   const validWaypoints: RouteWaypoint[] = rawWaypoints.filter(isValidWaypoint);
   if (validWaypoints.length < 2) {
-    return Response.json(null); // Sin ruta — respuesta vacía normal
+    return jsonRes(null); // Sin ruta — respuesta vacía normal
   }
 
   // Guarda de distancia piloto: rechazar antes de reservar créditos.
@@ -141,9 +148,9 @@ Deno.serve(async (req: Request) => {
       straightKm += haversineKm(w1.lat, w1.lng, w2.lat, w2.lng);
     }
     if (straightKm > PILOT_MAX_ROUTE_STRAIGHT_KM) {
-      return Response.json(
+      return jsonRes(
         { error: `GEO_PARAMS_DISTANCE: ruta demasiado larga; distancia en línea recta supera ${PILOT_MAX_ROUTE_STRAIGHT_KM} km (piloto)` },
-        { status: 400 },
+        400,
       );
     }
   }
@@ -164,7 +171,7 @@ Deno.serve(async (req: Request) => {
     .single();
 
   if (cachedRoute) {
-    return Response.json({
+    return jsonRes({
       geometry:   cachedRoute.geometry,
       distance_m: cachedRoute.distance_m,
       duration_s: cachedRoute.duration_s,
@@ -185,16 +192,16 @@ Deno.serve(async (req: Request) => {
   if (reserveErr || !reservation?.ok) {
     const err: string = reservation?.error ?? 'GEO_RESERVE_ERROR';
     if (err === 'GEO_DISABLED')
-      return Response.json({ error: `${err}: servicio de geolocalización temporalmente desactivado.` }, { status: 503 });
+      return jsonRes({ error: `${err}: servicio de geolocalización temporalmente desactivado.` }, 503);
     if (err === 'GEO_RATE_GLOBAL')
-      return Response.json({ error: `${err}: límite global alcanzado. Reintenta en 1 segundo.` }, { status: 429 });
+      return jsonRes({ error: `${err}: límite global alcanzado. Reintenta en 1 segundo.` }, 429);
     if (err === 'GEO_RATE_GLOBAL_BUDGET')
-      return Response.json({ error: `${err}: presupuesto diario de la plataforma agotado.` }, { status: 429 });
+      return jsonRes({ error: `${err}: presupuesto diario de la plataforma agotado.` }, 429);
     if (err === 'GEO_RATE_ORG')
-      return Response.json({ error: `${err}: cuota diaria de la organización agotada.` }, { status: 429 });
+      return jsonRes({ error: `${err}: cuota diaria de la organización agotada.` }, 429);
     if (err === 'GEO_PENDING')
-      return Response.json({ error: `${err}: petición idéntica en curso. Reintenta en unos segundos.` }, { status: 409 });
-    return Response.json({ error: err }, { status: 429 });
+      return jsonRes({ error: `${err}: petición idéntica en curso. Reintenta en unos segundos.` }, 409);
+    return jsonRes({ error: err }, 429);
   }
 
   // reservation_id vincula esta reserva a su reconciliación (idempotencia)
@@ -204,7 +211,7 @@ Deno.serve(async (req: Request) => {
   const apiKey = Deno.env.get('GEOAPIFY_API_KEY');
   if (!apiKey) {
     await supabase.rpc('geo_reconcile', { p_org_id: org_id, p_reservation_id: reservationId, p_actual: 0, p_waypoint_hash: cacheKey });
-    return Response.json({ error: 'GEO_CONFIG: GEOAPIFY_API_KEY no configurada' }, { status: 503 });
+    return jsonRes({ error: 'GEO_CONFIG: GEOAPIFY_API_KEY no configurada' }, 503);
   }
 
   const provider = new GeoapifyRoutingProvider(apiKey);
@@ -216,13 +223,13 @@ Deno.serve(async (req: Request) => {
     const msg = err instanceof Error ? err.message : 'GEO_PROVIDER_ERROR';
     // Error de proveedor — Geoapify no facturó: liberar reserva completa
     await supabase.rpc('geo_reconcile', { p_org_id: org_id, p_reservation_id: reservationId, p_actual: 0, p_waypoint_hash: cacheKey });
-    return Response.json({ error: msg }, { status: 502 });
+    return jsonRes({ error: msg }, 502);
   }
 
   if (!result) {
     // Sin ruta posible — liberar reserva completa
     await supabase.rpc('geo_reconcile', { p_org_id: org_id, p_reservation_id: reservationId, p_actual: 0, p_waypoint_hash: cacheKey });
-    return Response.json(null);
+    return jsonRes(null);
   }
 
   // Coste real = segmentos + suplemento de distancia (conocido ahora)
@@ -248,5 +255,5 @@ Deno.serve(async (req: Request) => {
     pending_at:    null,
   }, { onConflict: 'waypoint_hash' });
 
-  return Response.json({ ...result, cached: false });
+  return jsonRes({ ...result, cached: false });
 });

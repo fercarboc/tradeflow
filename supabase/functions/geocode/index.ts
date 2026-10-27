@@ -49,17 +49,24 @@ function hashString(s: string): string {
   return (h >>> 0).toString(16).padStart(8, '0');
 }
 
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin':  '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+};
+
+function jsonRes(data: unknown, status = 200): Response {
+  return Response.json(data, { status, headers: CORS_HEADERS });
+}
+
 Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'authorization, content-type',
-    }});
+    return new Response(null, { status: 200, headers: CORS_HEADERS });
   }
 
   const authHeader = req.headers.get('Authorization');
   if (!authHeader) {
-    return Response.json({ error: 'GEO_AUTH: no authorization header' }, { status: 401 });
+    return jsonRes({ error: 'GEO_AUTH: no authorization header' }, 401);
   }
 
   const supabase = createClient(
@@ -76,17 +83,17 @@ Deno.serve(async (req: Request) => {
   );
   const { data: { user }, error: authError } = await userClient.auth.getUser();
   if (authError || !user) {
-    return Response.json({ error: 'GEO_AUTH: token inválido' }, { status: 401 });
+    return jsonRes({ error: 'GEO_AUTH: token inválido' }, 401);
   }
 
   const body = await req.json() as GeocodeRequest;
   const { address, org_id } = body;
 
   if (!address?.trim() || !org_id) {
-    return Response.json({ error: 'GEO_PARAMS: address y org_id requeridos' }, { status: 400 });
+    return jsonRes({ error: 'GEO_PARAMS: address y org_id requeridos' }, 400);
   }
   if (address.length > 500) {
-    return Response.json({ error: 'GEO_PARAMS: dirección demasiado larga (máx 500 caracteres)' }, { status: 400 });
+    return jsonRes({ error: 'GEO_PARAMS: dirección demasiado larga (máx 500 caracteres)' }, 400);
   }
 
   // Verificar pertenencia a org (owner o admin)
@@ -98,7 +105,7 @@ Deno.serve(async (req: Request) => {
     .in('rol', ['owner', 'admin']).eq('activo', true).single();
 
   if (!orgCheck && !memberCheck) {
-    return Response.json({ error: 'GEO_FORBIDDEN: sin acceso a esta organización' }, { status: 403 });
+    return jsonRes({ error: 'GEO_FORBIDDEN: sin acceso a esta organización' }, 403);
   }
 
   const normalized = normalizeAddress(address);
@@ -116,7 +123,7 @@ Deno.serve(async (req: Request) => {
 
   if (cached) {
     const candidates = cached.candidates as GeocodingCandidate[];
-    return Response.json({
+    return jsonRes({
       candidates,
       ambiguous: candidates.length > 1,
       cached: true,
@@ -131,14 +138,14 @@ Deno.serve(async (req: Request) => {
   if (reserveErr || !reservation?.ok) {
     const err: string = reservation?.error ?? 'GEO_RESERVE_ERROR';
     if (err === 'GEO_DISABLED')
-      return Response.json({ error: `${err}: servicio de geolocalización temporalmente desactivado.` }, { status: 503 });
+      return jsonRes({ error: `${err}: servicio de geolocalización temporalmente desactivado.` }, 503);
     if (err === 'GEO_RATE_GLOBAL')
-      return Response.json({ error: `${err}: límite global alcanzado. Reintenta en 1 segundo.` }, { status: 429 });
+      return jsonRes({ error: `${err}: límite global alcanzado. Reintenta en 1 segundo.` }, 429);
     if (err === 'GEO_RATE_GLOBAL_BUDGET')
-      return Response.json({ error: `${err}: presupuesto diario de la plataforma agotado.` }, { status: 429 });
+      return jsonRes({ error: `${err}: presupuesto diario de la plataforma agotado.` }, 429);
     if (err === 'GEO_RATE_ORG')
-      return Response.json({ error: `${err}: cuota diaria de la organización agotada.` }, { status: 429 });
-    return Response.json({ error: err }, { status: 429 });
+      return jsonRes({ error: `${err}: cuota diaria de la organización agotada.` }, 429);
+    return jsonRes({ error: err }, 429);
   }
 
   // reservation_id vincula esta reserva a su reconciliación (idempotencia)
@@ -148,7 +155,7 @@ Deno.serve(async (req: Request) => {
   const apiKey = Deno.env.get('GEOAPIFY_API_KEY');
   if (!apiKey) {
     await supabase.rpc('geo_reconcile', { p_org_id: org_id, p_reservation_id: reservationId, p_actual: 0, p_waypoint_hash: null });
-    return Response.json({ error: 'GEO_CONFIG: GEOAPIFY_API_KEY no configurada' }, { status: 503 });
+    return jsonRes({ error: 'GEO_CONFIG: GEOAPIFY_API_KEY no configurada' }, 503);
   }
 
   const provider = new GeoapifyGeocodingProvider(apiKey);
@@ -165,9 +172,9 @@ Deno.serve(async (req: Request) => {
     // Geoapify no facturó — liberar el crédito reservado
     await supabase.rpc('geo_reconcile', { p_org_id: org_id, p_reservation_id: reservationId, p_actual: 0, p_waypoint_hash: null });
     if (msg === 'GEO_QUOTA_EXCEEDED') {
-      return Response.json({ error: msg }, { status: 402 });
+      return jsonRes({ error: msg }, 402);
     }
-    return Response.json({ error: msg }, { status: 502 });
+    return jsonRes({ error: msg }, 502);
   }
 
   // Guardar en caché
@@ -193,7 +200,7 @@ Deno.serve(async (req: Request) => {
     console.error('[geocode] geo_reconcile failed for reservation', reservationId, ':', reconcileErr.message);
   }
 
-  return Response.json({
+  return jsonRes({
     candidates,
     ambiguous: candidates.length > 1,
     cached: false,
