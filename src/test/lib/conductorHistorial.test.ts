@@ -10,7 +10,7 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { loadServiciosByConductor } from '../../lib/transportServices';
-import type { TradeTransportService } from '../../lib/transportServices';
+import type { TradeTransportService, TransportStop } from '../../lib/transportServices';
 
 // ── Mock Supabase ─────────────────────────────────────────────────────────────
 
@@ -66,7 +66,7 @@ function makeSvc(overrides: Partial<TradeTransportService> = {}): TradeTransport
     km_reales:    90,
     incidencias:  null,
     cerrado_at:   '2026-10-15T20:30:00.000Z',
-    notas:        null,
+    paradas:      [] as TransportStop[],
     created_at:   '2026-10-01T00:00:00.000Z',
     updated_at:   '2026-10-15T20:30:00.000Z',
     ...overrides,

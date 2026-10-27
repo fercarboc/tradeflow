@@ -3,7 +3,7 @@ import {
   Bus, Users, Calendar, AlertTriangle,
   MapPin, ArrowRight, Loader2, RefreshCw, TrendingUp,
   Plane, Car, Star, BookOpen, Briefcase, Compass,
-  Wrench, UserCheck, Plus, ChevronRight, FileText, Route,
+  Wrench, UserCheck, Plus, ChevronRight, Route,
 } from 'lucide-react';
 import {
   SERVICIO_ESTADOS,
@@ -17,6 +17,8 @@ import type { TradeClient, TradeWorker } from '../lib/supabase';
 import {
   computeKpis,
   getVehicleFleetStatus,
+  getProximasSalidas,
+  getSinItinerario,
   isVehiclePassenger,
   isoDate,
   type FleetStatus,
@@ -48,7 +50,6 @@ function estadoLabel(estado: ServicioEstado): string {
 }
 
 const TIPO_ICONS: Partial<Record<string, React.ComponentType<{ className?: string }>>> = {
-  // Valores activos
   excursion:               Compass,
   circuito:                Compass,
   viaje_multidia:          Calendar,
@@ -61,7 +62,6 @@ const TIPO_ICONS: Partial<Record<string, React.ComponentType<{ className?: strin
   servicio_deportivo:      TrendingUp,
   asociacion_grupo:        Users,
   otro:                    Bus,
-  // Valor heredado
   traslado_empresa:        Briefcase,
 };
 
@@ -73,7 +73,6 @@ function TipoIcon({ tipo }: { tipo: string }) {
     </div>
   );
 }
-
 
 const FLEET_STATUS_CONFIG: Record<FleetStatus, { label: string; dot: string; card: string }> = {
   en_servicio:       { label: 'En servicio',   dot: 'bg-emerald-500 animate-pulse', card: 'border-emerald-200 bg-emerald-50'  },
@@ -113,26 +112,98 @@ function KpiCard({ icon, label, value, sub, accent = 'blue' }: KpiCardProps) {
   );
 }
 
-// ── Quick Action Button ────────────────────────────────────────────────────────
+// ── Rutas y planificación (right panel) ───────────────────────────────────────
 
-interface QuickActionProps {
-  icon: React.ReactNode;
-  label: string;
-  onClick?: () => void;
-  disabled?: boolean;
+interface RutasPlanProps {
+  services: TradeTransportService[];
+  now: Date;
+  onNavigate?: (tab: string) => void;
 }
 
-function QuickAction({ icon, label, onClick, disabled }: QuickActionProps) {
+function RutasPlanificacion({ services, now, onNavigate }: RutasPlanProps) {
+  const proximas  = getProximasSalidas(services, now).slice(0, 4);
+  const sinItin   = getSinItinerario(services).slice(0, 3);
+  const hayAlerta = sinItin.length > 0;
+
   return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-sm font-semibold text-slate-700 transition-all text-left disabled:opacity-40 disabled:cursor-not-allowed"
-    >
-      <span className="text-blue-500 shrink-0">{icon}</span>
-      {label}
-      <ChevronRight className="w-3.5 h-3.5 ml-auto text-slate-300" />
-    </button>
+    <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs space-y-5">
+      <h3 className="text-xs font-black text-slate-700 uppercase tracking-wide">Rutas y planificación</h3>
+
+      {/* Próximas salidas */}
+      <div>
+        <div className="flex items-center justify-between mb-2.5">
+          <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Próximas salidas</span>
+          {proximas.length > 0 && (
+            <span className="text-[10px] font-bold text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded-full">
+              {proximas.length}
+            </span>
+          )}
+        </div>
+        {proximas.length === 0 ? (
+          <p className="text-xs text-slate-400 italic py-1">Sin salidas pendientes hoy</p>
+        ) : (
+          <div className="space-y-2.5">
+            {proximas.map(s => (
+              <div key={s.id} className="flex items-start gap-2">
+                <span className="text-xs font-mono font-semibold text-slate-600 w-11 shrink-0 pt-0.5">
+                  {fmtTime(s.fecha_inicio)}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-semibold text-slate-700 truncate leading-tight">{s.titulo}</p>
+                  {(s.origen || s.destino) && (
+                    <p className="text-[10px] text-slate-400 truncate mt-0.5">
+                      {[s.origen, s.destino].filter(Boolean).join(' → ')}
+                    </p>
+                  )}
+                </div>
+                <span className={`shrink-0 text-[10px] font-semibold px-1.5 py-0.5 rounded-full border ${estadoColor(s.estado as ServicioEstado)}`}>
+                  {estadoLabel(s.estado as ServicioEstado)}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Itinerario pendiente */}
+      {hayAlerta && (
+        <div>
+          <div className="flex items-center gap-1.5 mb-2.5">
+            <AlertTriangle className="w-3 h-3 text-amber-500 shrink-0" />
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex-1">Sin itinerario</span>
+            <span className="text-[10px] font-bold text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded-full">
+              {sinItin.length}
+            </span>
+          </div>
+          <div className="space-y-1.5">
+            {sinItin.map(s => (
+              <div key={s.id} className="flex items-center gap-2 px-2.5 py-1.5 bg-amber-50 rounded-lg border border-amber-100">
+                <p className="flex-1 text-xs font-medium text-slate-700 truncate">{s.titulo}</p>
+                <span className="text-[10px] text-amber-600 font-medium shrink-0">Ruta pendiente</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {!proximas.length && !hayAlerta && (
+        <p className="text-xs text-slate-400 italic text-center py-1">Planificación al día ✓</p>
+      )}
+
+      {/* Ver todas las rutas */}
+      {onNavigate && (
+        <button
+          onClick={() => onNavigate('transporte_rutas')}
+          className="w-full flex items-center justify-between px-3 py-2.5 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-200 rounded-xl text-xs font-semibold text-slate-700 hover:text-blue-700 transition-colors"
+        >
+          <div className="flex items-center gap-2">
+            <Route className="w-3.5 h-3.5 text-blue-500" />
+            Ver todas las rutas
+          </div>
+          <ArrowRight className="w-3 h-3 text-slate-400" />
+        </button>
+      )}
+    </div>
   );
 }
 
@@ -206,16 +277,16 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
     status:  getVehicleFleetStatus(v, services),
   }));
 
-  const countByStatus = (s: FleetStatus) => fleetStatuses.filter(f => f.status === s).length;
+  const countByStatus     = (s: FleetStatus) => fleetStatuses.filter(f => f.status === s).length;
   const assignedCount     = countByStatus('en_servicio') + countByStatus('programado');
   const availableCount    = countByStatus('sin_asignacion');
-  const maintenanceVehicles    = vehicles.filter(v => v.estado === 'en_mantenimiento' || v.estado === 'baja');
-  const maintenanceCount       = maintenanceVehicles.length;
-  const enMantenimientoCount   = vehicles.filter(v => v.estado === 'en_mantenimiento').length;
-  const enBajaCount            = vehicles.filter(v => v.estado === 'baja').length;
+  const maintenanceVehicles  = vehicles.filter(v => v.estado === 'en_mantenimiento' || v.estado === 'baja');
+  const maintenanceCount     = maintenanceVehicles.length;
+  const enMantenimientoCount = vehicles.filter(v => v.estado === 'en_mantenimiento').length;
+  const enBajaCount          = vehicles.filter(v => v.estado === 'baja').length;
 
-  const conductorWorkers   = workers.filter(w => w.es_conductor);
-  const assignedConductors = conductorWorkers.filter(w => kpis.assignedConductorIds.has(w.id));
+  const conductorWorkers     = workers.filter(w => w.es_conductor);
+  const assignedConductors   = conductorWorkers.filter(w => kpis.assignedConductorIds.has(w.id));
   const disponibleConductores = conductorWorkers.length - assignedConductors.length;
 
   const tableServices = services.filter(s => s.estado !== 'cancelado');
@@ -276,162 +347,101 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
         </button>
       </div>
 
-      {/* KPIs — 5 cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-4">
+      {/* KPIs — 4 cards
+          1. Servicios hoy:     tableServices.length (non-cancelled overlapping today)
+          2. Flota asignada:    (en_servicio + programado) / total passenger vehicles
+          3. Conductores:       disponibles / total conductores
+          4. No disponibles:    en_mantenimiento + baja (any activo value)
+      */}
+      <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
         <KpiCard
           icon={<Calendar className="w-4 h-4" />}
           label="Servicios hoy"
           value={kpis.totalActiveServices}
-          sub={`${kpis.serviciosConfirmados} confirmados`}
+          sub={kpis.serviciosEnCurso > 0 ? `${kpis.serviciosEnCurso} en curso` : `${kpis.serviciosConfirmados} confirmados`}
           accent="blue"
         />
         <KpiCard
           icon={<Bus className="w-4 h-4" />}
-          label="Vehículos activos"
+          label="Flota asignada"
           value={`${assignedCount} / ${passengerVehicles.length}`}
-          sub={assignedCount > 0 ? `${Math.round(assignedCount / Math.max(passengerVehicles.length, 1) * 100)}% en servicio` : 'sin asignaciones'}
+          sub={assignedCount > 0
+            ? `${Math.round(assignedCount / Math.max(passengerVehicles.length, 1) * 100)}% operativa`
+            : 'sin asignaciones'}
           accent="emerald"
         />
         <KpiCard
           icon={<UserCheck className="w-4 h-4" />}
-          label="Conductores disponibles"
+          label="Conductores libres"
           value={`${disponibleConductores} / ${conductorWorkers.length}`}
-          sub={disponibleConductores > 0 ? 'disponibles' : 'todos asignados'}
+          sub={disponibleConductores > 0 ? 'disponibles ahora' : conductorWorkers.length > 0 ? 'todos asignados' : 'sin conductores'}
           accent="slate"
-        />
-        <KpiCard
-          icon={<FileText className="w-4 h-4" />}
-          label="Contratos recurrentes"
-          value="—"
-          sub="Módulo TQ-1C"
-          accent="purple"
         />
         <KpiCard
           icon={<Wrench className="w-4 h-4" />}
           label="No disponibles"
           value={maintenanceCount}
-          sub={maintenanceCount === 0 ? 'flota operativa' : enBajaCount > 0 ? `${enMantenimientoCount} mant. · ${enBajaCount} baja` : 'en mantenimiento'}
+          sub={maintenanceCount === 0
+            ? 'flota operativa'
+            : enBajaCount > 0
+              ? `${enMantenimientoCount} mant. · ${enBajaCount} baja`
+              : 'en mantenimiento'}
           accent={maintenanceCount > 0 ? 'amber' : 'slate'}
         />
       </div>
 
-      {/* Rutas del día — servicios programados para hoy */}
-      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
-          <div className="flex items-center gap-2">
-            <Route className="w-4 h-4 text-blue-500" />
-            <h2 className="text-sm font-black text-slate-800 uppercase tracking-wide">Rutas del día</h2>
-            {tableServices.length > 0 && (
-              <span className="text-[10px] font-bold text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded-full">{tableServices.length}</span>
-            )}
-          </div>
-          {onNavigate && (
-            <button onClick={() => onNavigate('transporte_rutas')}
-              className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 font-medium">
-              Ver rutas <ArrowRight className="w-3 h-3" />
-            </button>
-          )}
-        </div>
-        {tableServices.length === 0 ? (
-          <div className="px-4 py-8 flex flex-col items-center gap-2 text-center">
-            <MapPin className="w-8 h-8 text-slate-200" />
-            <p className="text-sm font-semibold text-slate-400">Sin servicios hoy</p>
-            <p className="text-xs text-slate-400">Los servicios programados para hoy aparecerán aquí</p>
+      {/* Main 2-column: Servicios del día (left) + Rutas y planificación (right) */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
+
+        {/* ── Servicios del día ── */}
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-blue-500" />
+              <h2 className="text-sm font-black text-slate-800 uppercase tracking-wide">Servicios del día</h2>
+              {tableServices.length > 0 && (
+                <span className="text-[10px] font-bold text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded-full">
+                  {tableServices.length}
+                </span>
+              )}
+            </div>
             {onNavigate && (
-              <button onClick={() => onNavigate('transporte_servicios')}
-                className="mt-1 flex items-center gap-1.5 text-xs font-semibold text-blue-600 border border-blue-200 bg-white rounded-lg px-3 py-1.5 hover:bg-blue-50 transition-colors">
-                <Plus className="w-3.5 h-3.5" /> Crear servicio
+              <button
+                onClick={() => onNavigate('transporte_servicios')}
+                className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 font-medium"
+              >
+                Ver todos <ArrowRight className="w-3 h-3" />
               </button>
             )}
           </div>
-        ) : (
-          <div className="divide-y divide-slate-50">
-            {tableServices.slice(0, 5).map(svc => {
-              const vehicle   = svc.vehicle_id   ? vehicleMap.get(svc.vehicle_id)   : undefined;
-              const conductor = svc.conductor_id ? workerMap.get(svc.conductor_id) : undefined;
-              const isEnCurso = svc.estado === 'en_curso';
-              return (
-                <button
-                  key={svc.id}
-                  onClick={() => onNavigate?.('transporte_rutas')}
-                  className={`w-full text-left px-4 py-3 flex items-center gap-3 hover:bg-slate-50 transition-colors ${isEnCurso ? 'bg-emerald-50/30' : ''}`}
-                >
-                  <div className="shrink-0 w-14 text-center">
-                    <span className="text-xs font-mono font-semibold text-slate-700">{fmtTime(svc.fecha_inicio)}</span>
-                    {svc.fecha_fin && (
-                      <div className="text-[10px] text-slate-400">{fmtTime(svc.fecha_fin)}</div>
-                    )}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-slate-800 truncate leading-tight">{svc.titulo}</p>
-                    {(svc.origen || svc.destino) && (
-                      <p className="text-[11px] text-slate-400 truncate mt-0.5 flex items-center gap-1">
-                        <MapPin className="w-2.5 h-2.5 shrink-0" />
-                        {[svc.origen, svc.destino].filter(Boolean).join(' → ')}
-                      </p>
-                    )}
-                  </div>
-                  <div className="shrink-0 flex flex-col items-end gap-1">
-                    <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full border ${estadoColor(svc.estado as ServicioEstado)}`}>
-                      {isEnCurso && <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse" />}
-                      {estadoLabel(svc.estado as ServicioEstado)}
-                    </span>
-                    {(vehicle || conductor) && (
-                      <span className="text-[10px] text-slate-400 truncate max-w-[90px]">
-                        {vehicle?.nombre ?? conductor?.nombre ?? ''}
-                      </span>
-                    )}
-                  </div>
-                </button>
-              );
-            })}
-            {tableServices.length > 5 && (
-              <div className="px-4 py-2 text-center">
-                <button onClick={() => onNavigate?.('transporte_rutas')}
-                  className="text-xs text-blue-600 hover:text-blue-800 font-medium">
-                  Ver {tableServices.length - 5} más en Rutas
-                </button>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
 
-      {/* 2-column layout: main content + sidebar */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6 items-start">
-
-        {/* Left column: services table + fleet */}
-        <div className="space-y-6 min-w-0">
-
-          {/* Services table */}
-          <div>
-            <div className="flex items-center justify-between mb-3">
-              <h2 className="text-sm font-black text-slate-800 uppercase tracking-wide">Servicios del día</h2>
+          {tableServices.length === 0 ? (
+            <div className="bg-slate-50 border border-slate-200 border-dashed rounded-2xl p-10 flex flex-col items-center gap-3 text-slate-400">
+              <Calendar className="w-10 h-10 opacity-30" />
+              <p className="text-sm font-medium">Sin servicios para hoy</p>
+              <p className="text-xs opacity-70">Los servicios programados aparecerán aquí</p>
               {onNavigate && (
-                <button onClick={() => onNavigate('transporte_servicios')}
-                  className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 font-medium">
-                  Ver todos <ArrowRight className="w-3 h-3" />
+                <button
+                  onClick={() => onNavigate('transporte_servicios')}
+                  className="mt-1 flex items-center gap-1.5 text-xs font-semibold text-blue-600 border border-blue-200 bg-white rounded-lg px-3 py-1.5 hover:bg-blue-50 transition-colors"
+                >
+                  <Plus className="w-3.5 h-3.5" /> Crear servicio
                 </button>
               )}
             </div>
-
-            {tableServices.length === 0 ? (
-              <div className="bg-slate-50 border border-slate-200 border-dashed rounded-2xl p-10 flex flex-col items-center gap-3 text-slate-400">
-                <Calendar className="w-10 h-10 opacity-30" />
-                <p className="text-sm font-medium">Sin servicios para hoy</p>
-                <p className="text-xs opacity-70">Los servicios activos aparecerán aquí</p>
-              </div>
-            ) : (
-              <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-xs">
+          ) : (
+            <>
+              {/* Desktop table (md+) */}
+              <div className="hidden md:block overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-xs">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="bg-slate-50 border-b border-slate-100">
                       <th className="px-3 py-3 w-10" />
                       <th className="px-3 py-3 text-left text-[11px] font-bold text-slate-500 uppercase tracking-wide">Hora</th>
                       <th className="px-3 py-3 text-left text-[11px] font-bold text-slate-500 uppercase tracking-wide">Servicio</th>
-                      <th className="px-3 py-3 text-left text-[11px] font-bold text-slate-500 uppercase tracking-wide hidden md:table-cell">Ruta</th>
-                      <th className="px-3 py-3 text-left text-[11px] font-bold text-slate-500 uppercase tracking-wide hidden lg:table-cell">Vehículo</th>
-                      <th className="px-3 py-3 text-left text-[11px] font-bold text-slate-500 uppercase tracking-wide hidden lg:table-cell">Conductor</th>
+                      <th className="px-3 py-3 text-left text-[11px] font-bold text-slate-500 uppercase tracking-wide hidden lg:table-cell">Ruta</th>
+                      <th className="px-3 py-3 text-left text-[11px] font-bold text-slate-500 uppercase tracking-wide hidden xl:table-cell">Vehículo</th>
+                      <th className="px-3 py-3 text-left text-[11px] font-bold text-slate-500 uppercase tracking-wide hidden xl:table-cell">Conductor</th>
                       <th className="px-3 py-3 text-left text-[11px] font-bold text-slate-500 uppercase tracking-wide">Estado</th>
                     </tr>
                   </thead>
@@ -439,17 +449,22 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
                     {tableServices.map((svc, idx) => {
                       const vehicle   = svc.vehicle_id   ? vehicleMap.get(svc.vehicle_id)  : undefined;
                       const conductor = svc.conductor_id ? workerMap.get(svc.conductor_id) : undefined;
+                      const client    = svc.client_id    ? clientMap.get(svc.client_id)    : undefined;
                       const isEnCurso = svc.estado === 'en_curso';
                       return (
-                        <tr key={svc.id}
-                          className={`border-b border-slate-50 last:border-0 hover:bg-slate-50/50 transition-colors ${isEnCurso ? 'bg-emerald-50/40' : idx % 2 !== 0 ? 'bg-slate-50/20' : ''}`}
+                        <tr
+                          key={svc.id}
+                          onClick={() => onNavigate?.('transporte_servicios')}
+                          className={`border-b border-slate-50 last:border-0 hover:bg-slate-50/80 transition-colors cursor-pointer ${
+                            isEnCurso ? 'bg-emerald-50/40' : idx % 2 !== 0 ? 'bg-slate-50/20' : ''
+                          }`}
                         >
                           <td className="px-3 py-3">
                             <TipoIcon tipo={svc.tipo_servicio ?? ''} />
                           </td>
-                          <td className="px-3 py-3 font-mono text-sm whitespace-nowrap">
+                          <td className="px-3 py-3 font-mono whitespace-nowrap">
                             <div className="flex flex-col">
-                              <span className="font-semibold text-slate-700">{fmtTime(svc.fecha_inicio)}</span>
+                              <span className="font-semibold text-slate-700 text-sm">{fmtTime(svc.fecha_inicio)}</span>
                               {svc.fecha_fin && (
                                 <span className="text-[10px] text-slate-400">{fmtTime(svc.fecha_fin)}</span>
                               )}
@@ -457,7 +472,10 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
                           </td>
                           <td className="px-3 py-3">
                             <div className="flex flex-col gap-0.5">
-                              <span className="font-semibold text-slate-800 leading-tight">{svc.titulo}</span>
+                              <span className="font-semibold text-slate-800 leading-tight text-sm">{svc.titulo}</span>
+                              {client && (
+                                <span className="text-[11px] text-slate-500 truncate">{client}</span>
+                              )}
                               {svc.num_viajeros != null && (
                                 <span className="flex items-center gap-1 text-[11px] text-slate-400">
                                   <Users className="w-3 h-3" />{svc.num_viajeros} viajeros
@@ -465,36 +483,53 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
                               )}
                             </div>
                           </td>
-                          <td className="px-3 py-3 hidden md:table-cell">
+                          <td className="px-3 py-3 hidden lg:table-cell">
                             {svc.origen || svc.destino ? (
                               <div className="flex items-center gap-1 text-xs text-slate-500">
                                 <MapPin className="w-3 h-3 shrink-0 text-slate-300" />
-                                <span className="truncate max-w-[130px]">{svc.origen ?? '?'} → {svc.destino ?? '?'}</span>
+                                <span className="truncate max-w-[150px]">
+                                  {svc.origen ?? '?'} → {svc.destino ?? '?'}
+                                </span>
                               </div>
-                            ) : <span className="text-slate-300 text-xs">—</span>}
+                            ) : (
+                              <span className="text-xs text-amber-400 font-medium">Sin ruta</span>
+                            )}
                           </td>
-                          <td className="px-3 py-3 hidden lg:table-cell">
+                          <td className="px-3 py-3 hidden xl:table-cell">
                             {vehicle ? (
                               <div className="flex items-center gap-2">
                                 {getVehicleDisplayImage(vehicle.tipo, vehicle.image_path)
-                                  ? <img src={getVehicleDisplayImage(vehicle.tipo, vehicle.image_path)!} alt={vehicle.tipo} className="w-6 h-6 object-contain rounded" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-                                  : <div className="w-6 h-6 rounded bg-slate-100 flex items-center justify-center shrink-0"><Bus className="w-3.5 h-3.5 text-slate-400" /></div>
-                                }
+                                  ? (
+                                    <img
+                                      src={getVehicleDisplayImage(vehicle.tipo, vehicle.image_path)!}
+                                      alt={vehicle.tipo}
+                                      className="w-6 h-6 object-contain rounded"
+                                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                                    />
+                                  ) : (
+                                    <div className="w-6 h-6 rounded bg-slate-100 flex items-center justify-center shrink-0">
+                                      <Bus className="w-3.5 h-3.5 text-slate-400" />
+                                    </div>
+                                  )}
                                 <div className="flex flex-col">
                                   <span className="text-xs font-semibold text-slate-700 leading-tight">{vehicle.nombre}</span>
                                   <span className="text-[10px] text-slate-400">{vehicle.matricula}</span>
                                 </div>
                               </div>
-                            ) : <span className="text-xs text-amber-500 font-medium">Sin asignar</span>}
+                            ) : (
+                              <span className="text-xs text-amber-500 font-medium">Sin asignar</span>
+                            )}
                           </td>
-                          <td className="px-3 py-3 hidden lg:table-cell text-xs text-slate-600">
+                          <td className="px-3 py-3 hidden xl:table-cell text-xs text-slate-600">
                             {conductor
                               ? <span className="font-medium">{conductor.nombre}</span>
                               : <span className="text-amber-500 font-medium">Sin asignar</span>}
                           </td>
                           <td className="px-3 py-3">
                             <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold border ${estadoColor(svc.estado as ServicioEstado)}`}>
-                              {isEnCurso && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse" />}
+                              {isEnCurso && (
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse" />
+                              )}
                               {estadoLabel(svc.estado as ServicioEstado)}
                             </span>
                           </td>
@@ -504,169 +539,181 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
                   </tbody>
                 </table>
               </div>
+
+              {/* Mobile cards (< md) */}
+              <div className="md:hidden space-y-2">
+                {tableServices.map(svc => {
+                  const vehicle   = svc.vehicle_id   ? vehicleMap.get(svc.vehicle_id)  : undefined;
+                  const conductor = svc.conductor_id ? workerMap.get(svc.conductor_id) : undefined;
+                  const client    = svc.client_id    ? clientMap.get(svc.client_id)    : undefined;
+                  const isEnCurso = svc.estado === 'en_curso';
+                  return (
+                    <button
+                      key={svc.id}
+                      onClick={() => onNavigate?.('transporte_servicios')}
+                      className={`w-full text-left rounded-xl border p-3 space-y-1.5 transition-colors ${
+                        isEnCurso
+                          ? 'bg-emerald-50 border-emerald-200'
+                          : 'bg-white border-slate-200 hover:bg-slate-50'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <TipoIcon tipo={svc.tipo_servicio ?? ''} />
+                          <span className="text-xs font-mono font-semibold text-slate-600 truncate">
+                            {fmtTime(svc.fecha_inicio)}
+                            {svc.fecha_fin ? ` – ${fmtTime(svc.fecha_fin)}` : ''}
+                          </span>
+                        </div>
+                        <span className={`inline-flex items-center shrink-0 px-2 py-0.5 rounded-full text-[11px] font-semibold border ${estadoColor(svc.estado as ServicioEstado)}`}>
+                          {isEnCurso && (
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse" />
+                          )}
+                          {estadoLabel(svc.estado as ServicioEstado)}
+                        </span>
+                      </div>
+                      <p className="text-sm font-semibold text-slate-800 leading-tight">{svc.titulo}</p>
+                      {client && <p className="text-xs text-slate-500">{client}</p>}
+                      {(svc.origen || svc.destino) && (
+                        <p className="text-xs text-slate-400 flex items-center gap-1">
+                          <MapPin className="w-3 h-3 shrink-0" />
+                          {[svc.origen, svc.destino].filter(Boolean).join(' → ')}
+                        </p>
+                      )}
+                      {(vehicle || conductor) && (
+                        <div className="flex items-center gap-3 text-xs text-slate-500 pt-0.5 border-t border-slate-100">
+                          {vehicle && <span>{vehicle.nombre}</span>}
+                          {conductor && (
+                            <span className="flex items-center gap-1">
+                              <UserCheck className="w-3 h-3" />{conductor.nombre}
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* ── Rutas y planificación (right column) ── */}
+        <RutasPlanificacion
+          services={tableServices}
+          now={new Date()}
+          onNavigate={onNavigate}
+        />
+      </div>
+
+      {/* ── Flota operativa ── */}
+      {passengerVehicles.length > 0 && (
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-sm font-black text-slate-800 uppercase tracking-wide">Flota operativa</h2>
+            {onNavigate && (
+              <button
+                onClick={() => onNavigate('transporte_vehiculos')}
+                className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 font-medium"
+              >
+                Ver toda la flota <ArrowRight className="w-3 h-3" />
+              </button>
             )}
           </div>
 
-          {/* Fleet section with status tabs */}
-          {passengerVehicles.length > 0 && (
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <h2 className="text-sm font-black text-slate-800 uppercase tracking-wide">Flota operativa</h2>
-                {onNavigate && (
-                  <button onClick={() => onNavigate('transporte_vehiculos')}
-                    className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 font-medium">
-                    Ver toda la flota <ArrowRight className="w-3 h-3" />
-                  </button>
-                )}
-              </div>
-
-              <div className="flex gap-1 bg-slate-100 rounded-xl p-1 mb-4 overflow-x-auto">
-                {fleetTabDef.map(tab => (
-                  <button
-                    key={tab.key}
-                    onClick={() => setFleetTab(tab.key)}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
-                      fleetTab === tab.key
-                        ? 'bg-white text-slate-900 shadow-sm'
-                        : 'text-slate-500 hover:text-slate-700'
-                    }`}
-                  >
-                    {tab.label}
-                    <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
-                      fleetTab === tab.key ? 'bg-blue-100 text-blue-700' : 'bg-slate-200 text-slate-500'
-                    }`}>{tab.count}</span>
-                  </button>
-                ))}
-              </div>
-
-              {fleetTabVehicles.length === 0 ? (
-                <div className="bg-slate-50 border border-slate-200 border-dashed rounded-xl p-6 flex items-center justify-center text-slate-400 text-xs">
-                  Sin vehículos en esta categoría
-                </div>
-              ) : (
-                <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
-                  {fleetTabVehicles.slice(0, 8).map(v => {
-                    const entry  = fleetStatuses.find(f => f.vehicle.id === v.id);
-                    const status = entry?.status ?? 'fuera_de_servicio';
-                    const cfg    = FLEET_STATUS_CONFIG[status as FleetStatus] ?? FLEET_STATUS_CONFIG.fuera_de_servicio;
-                    // Find conductor assigned to this vehicle today
-                    const assignedSvc  = services.find(s => s.vehicle_id === v.id && s.conductor_id && s.estado !== 'cancelado');
-                    const assignedCond = assignedSvc?.conductor_id ? workerMap.get(assignedSvc.conductor_id) : undefined;
-                    return (
-                      <div key={v.id} className={`rounded-2xl border p-3 flex flex-col gap-2 ${cfg.card}`}>
-                        {getVehicleDisplayImage(v.tipo, v.image_path)
-                          ? <img src={getVehicleDisplayImage(v.tipo, v.image_path)!} alt={v.nombre} className="w-full h-16 object-contain" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-                          : <div className="w-full h-16 bg-slate-100/60 rounded-lg flex items-center justify-center"><Bus className="w-8 h-8 text-slate-300" /></div>
-                        }
-                        <div>
-                          <p className="text-xs font-bold text-slate-800 leading-tight truncate">{v.nombre}</p>
-                          <p className="text-[10px] text-slate-500">{v.matricula}</p>
-                          {v.capacidad_viajeros != null && (
-                            <p className="text-[10px] text-slate-400 flex items-center gap-0.5 mt-0.5">
-                              <Users className="w-2.5 h-2.5" /> {v.capacidad_viajeros} plazas
-                            </p>
-                          )}
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${cfg.dot}`} />
-                          <span className="text-[10px] font-semibold text-slate-600">{cfg.label}</span>
-                        </div>
-                        {assignedCond && (
-                          <div className="flex items-center gap-1 pt-1 border-t border-slate-100">
-                            <UserCheck className="w-3 h-3 text-slate-400 shrink-0" />
-                            <span className="text-[10px] text-slate-500 truncate">{assignedCond.nombre}</span>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Empty fleet prompt */}
-          {passengerVehicles.length === 0 && (
-            <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 flex items-start gap-4">
-              <TrendingUp className="w-6 h-6 text-blue-500 shrink-0 mt-0.5" />
-              <div>
-                <p className="text-sm font-semibold text-blue-800">Flota no configurada</p>
-                <p className="text-xs text-blue-600 mt-1">
-                  Añade vehículos con modalidad <em>viajeros</em> o <em>mixto</em> para ver los indicadores de flota.
-                </p>
-                {onNavigate && (
-                  <button onClick={() => onNavigate('transporte_vehiculos')}
-                    className="mt-3 flex items-center gap-1 text-xs font-semibold text-blue-700 hover:text-blue-900">
-                    Ir a Flota <ArrowRight className="w-3 h-3" />
-                  </button>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Right sidebar: quick actions + fleet summary */}
-        <div className="space-y-4">
-
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs">
-            <h3 className="text-xs font-black text-slate-700 uppercase tracking-wide mb-3">Acciones rápidas</h3>
-            <div className="space-y-2">
-              <QuickAction
-                icon={<Plus className="w-4 h-4" />}
-                label="Nuevo servicio"
-                onClick={() => onNavigate?.('transporte_servicios')}
-                disabled={!onNavigate}
-              />
-              <QuickAction
-                icon={<Calendar className="w-4 h-4" />}
-                label="Ver agenda"
-                onClick={() => onNavigate?.('transporte_agenda')}
-                disabled={!onNavigate}
-              />
-              <QuickAction
-                icon={<Bus className="w-4 h-4" />}
-                label="Gestionar flota"
-                onClick={() => onNavigate?.('transporte_vehiculos')}
-                disabled={!onNavigate}
-              />
-              <QuickAction
-                icon={<UserCheck className="w-4 h-4" />}
-                label="Conductores"
-                onClick={() => onNavigate?.('transporte_conductores')}
-                disabled={!onNavigate}
-              />
-              <QuickAction
-                icon={<Route className="w-4 h-4" />}
-                label="Ver rutas"
-                onClick={() => onNavigate?.('transporte_rutas')}
-                disabled={!onNavigate}
-              />
-            </div>
+          <div className="flex gap-1 bg-slate-100 rounded-xl p-1 mb-4 overflow-x-auto">
+            {fleetTabDef.map(tab => (
+              <button
+                key={tab.key}
+                onClick={() => setFleetTab(tab.key)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                  fleetTab === tab.key
+                    ? 'bg-white text-slate-900 shadow-sm'
+                    : 'text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                {tab.label}
+                <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
+                  fleetTab === tab.key ? 'bg-blue-100 text-blue-700' : 'bg-slate-200 text-slate-500'
+                }`}>{tab.count}</span>
+              </button>
+            ))}
           </div>
 
-          {passengerVehicles.length > 0 && (
-            <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs">
-              <h3 className="text-xs font-black text-slate-700 uppercase tracking-wide mb-3">Estado de flota</h3>
-              <div className="space-y-2.5">
-                {fleetTabDef.map(tab => (
-                  <div key={tab.key} className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className={`w-2 h-2 rounded-full shrink-0 ${
-                        tab.key === 'en_servicio'    ? 'bg-emerald-500' :
-                        tab.key === 'programado'     ? 'bg-blue-500'    :
-                        tab.key === 'sin_asignacion' ? 'bg-slate-400'   :
-                                                       'bg-amber-400'
-                      }`} />
-                      <span className="text-xs text-slate-600">{tab.label}</span>
+          {fleetTabVehicles.length === 0 ? (
+            <div className="bg-slate-50 border border-slate-200 border-dashed rounded-xl p-6 flex items-center justify-center text-slate-400 text-xs">
+              Sin vehículos en esta categoría
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
+              {fleetTabVehicles.slice(0, 8).map(v => {
+                const entry        = fleetStatuses.find(f => f.vehicle.id === v.id);
+                const status       = entry?.status ?? 'fuera_de_servicio';
+                const cfg          = FLEET_STATUS_CONFIG[status as FleetStatus] ?? FLEET_STATUS_CONFIG.fuera_de_servicio;
+                const assignedSvc  = services.find(s => s.vehicle_id === v.id && s.conductor_id && s.estado !== 'cancelado');
+                const assignedCond = assignedSvc?.conductor_id ? workerMap.get(assignedSvc.conductor_id) : undefined;
+                return (
+                  <div key={v.id} className={`rounded-2xl border p-3 flex flex-col gap-2 ${cfg.card}`}>
+                    {getVehicleDisplayImage(v.tipo, v.image_path)
+                      ? (
+                        <img
+                          src={getVehicleDisplayImage(v.tipo, v.image_path)!}
+                          alt={v.nombre}
+                          className="w-full h-16 object-contain"
+                          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                        />
+                      ) : (
+                        <div className="w-full h-16 bg-slate-100/60 rounded-lg flex items-center justify-center">
+                          <Bus className="w-8 h-8 text-slate-300" />
+                        </div>
+                      )}
+                    <div>
+                      <p className="text-xs font-bold text-slate-800 leading-tight truncate">{v.nombre}</p>
+                      <p className="text-[10px] text-slate-500">{v.matricula}</p>
+                      {v.capacidad_viajeros != null && (
+                        <p className="text-[10px] text-slate-400 flex items-center gap-0.5 mt-0.5">
+                          <Users className="w-2.5 h-2.5" /> {v.capacidad_viajeros} plazas
+                        </p>
+                      )}
                     </div>
-                    <span className="text-xs font-bold text-slate-800">{tab.count}</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${cfg.dot}`} />
+                      <span className="text-[10px] font-semibold text-slate-600">{cfg.label}</span>
+                    </div>
+                    {assignedCond && (
+                      <div className="flex items-center gap-1 pt-1 border-t border-slate-100">
+                        <UserCheck className="w-3 h-3 text-slate-400 shrink-0" />
+                        <span className="text-[10px] text-slate-500 truncate">{assignedCond.nombre}</span>
+                      </div>
+                    )}
                   </div>
-                ))}
-              </div>
+                );
+              })}
             </div>
           )}
         </div>
-      </div>
+      )}
+
+      {/* Prompt when no passenger fleet is configured */}
+      {passengerVehicles.length === 0 && (
+        <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 flex items-start gap-4">
+          <TrendingUp className="w-6 h-6 text-blue-500 shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm font-semibold text-blue-800">Flota no configurada</p>
+            <p className="text-xs text-blue-600 mt-1">
+              Añade vehículos con modalidad <em>viajeros</em> o <em>mixto</em> para ver los indicadores de flota.
+            </p>
+            {onNavigate && (
+              <button
+                onClick={() => onNavigate('transporte_vehiculos')}
+                className="mt-3 flex items-center gap-1 text-xs font-semibold text-blue-700 hover:text-blue-900"
+              >
+                Ir a Flota <ArrowRight className="w-3 h-3" />
+              </button>
+            )}
+          </div>
+        </div>
+      )}
 
     </div>
   );

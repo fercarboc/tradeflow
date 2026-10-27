@@ -13,6 +13,8 @@ export interface ServiceLike {
   num_viajeros?: number | null;
   vehicle_id?: string | null;
   conductor_id?: string | null;
+  origen?: string | null;
+  destino?: string | null;
 }
 
 export interface VehicleLike {
@@ -141,6 +143,37 @@ export function getServiceDays(
     iterations++;
   }
   return days;
+}
+
+// ── Panel derived lists ────────────────────────────────────────────────────────
+
+/**
+ * Services that haven't started yet: active, not en_curso, fecha_inicio > now.
+ * Returned sorted by fecha_inicio ascending (nearest first).
+ */
+export function getProximasSalidas<T extends ServiceLike>(services: T[], now: Date): T[] {
+  return services
+    .filter(
+      s =>
+        s.estado !== 'cancelado' &&
+        s.estado !== 'completado' &&
+        s.estado !== 'en_curso' &&
+        new Date(s.fecha_inicio) > now,
+    )
+    .sort((a, b) => new Date(a.fecha_inicio).getTime() - new Date(b.fecha_inicio).getTime());
+}
+
+/**
+ * Active services that are missing origen or destino.
+ * Excludes cancelado and completado.
+ */
+export function getSinItinerario<T extends ServiceLike>(services: T[]): T[] {
+  return services.filter(
+    s =>
+      s.estado !== 'cancelado' &&
+      s.estado !== 'completado' &&
+      (!s.origen || !s.destino),
+  );
 }
 
 // ── Date helpers ──────────────────────────────────────────────────────────────
