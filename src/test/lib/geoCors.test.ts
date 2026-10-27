@@ -104,9 +104,37 @@ describe('CORS preflight — geocode (live)', () => {
     expect(res.headers.get('access-control-allow-origin')).toBe('*');
   });
 
-  // Verify after redeploying geocode EF with CORS fix
-  it.todo('OPTIONS allows x-client-info header — requires redeploy');
-  it.todo('OPTIONS allows POST in Access-Control-Allow-Methods — requires redeploy');
+  it('OPTIONS allows x-client-info in Access-Control-Allow-Headers', async () => {
+    let res: Response;
+    try {
+      res = await fetch(`${SUPABASE_URL}/functions/v1/geocode`, {
+        method: 'OPTIONS',
+        headers: {
+          'Origin': 'https://www.trabflow.com',
+          'Access-Control-Request-Method': 'POST',
+          'Access-Control-Request-Headers': 'authorization, x-client-info, apikey, content-type',
+        },
+      });
+    } catch { return; }
+    const h = res.headers.get('access-control-allow-headers') ?? '';
+    expect(h).toContain('x-client-info');
+  });
+
+  it('OPTIONS allows POST in Access-Control-Allow-Methods', async () => {
+    let res: Response;
+    try {
+      res = await fetch(`${SUPABASE_URL}/functions/v1/geocode`, {
+        method: 'OPTIONS',
+        headers: {
+          'Origin': 'https://www.trabflow.com',
+          'Access-Control-Request-Method': 'POST',
+          'Access-Control-Request-Headers': 'authorization, x-client-info, apikey, content-type',
+        },
+      });
+    } catch { return; }
+    const h = res.headers.get('access-control-allow-methods') ?? '';
+    expect(h).toContain('POST');
+  });
 });
 
 describe('CORS preflight — route (live)', () => {
@@ -127,6 +155,19 @@ describe('CORS preflight — route (live)', () => {
     expect(res.headers.get('access-control-allow-origin')).toBe('*');
   });
 
-  // Verify after redeploying route EF with CORS fix
-  it.todo('OPTIONS allows x-client-info header — requires redeploy');
+  it('OPTIONS allows x-client-info in Access-Control-Allow-Headers', async () => {
+    let res: Response;
+    try {
+      res = await fetch(`${SUPABASE_URL}/functions/v1/route`, {
+        method: 'OPTIONS',
+        headers: {
+          'Origin': 'https://www.trabflow.com',
+          'Access-Control-Request-Method': 'POST',
+          'Access-Control-Request-Headers': 'authorization, x-client-info, apikey, content-type',
+        },
+      });
+    } catch { return; }
+    const h = res.headers.get('access-control-allow-headers') ?? '';
+    expect(h).toContain('x-client-info');
+  });
 });
