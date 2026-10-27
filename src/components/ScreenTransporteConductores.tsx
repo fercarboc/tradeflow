@@ -10,10 +10,20 @@ import {
   User, UserCheck, UserX, Bus, Search, AlertCircle, Lock,
   Plus, ChevronLeft, Edit2, Check, X, Save, Loader2, AlertTriangle,
   Calendar, Tag, Phone, Mail, ClipboardList, Info,
+  FileCheck, ChevronRight, Clock, Trash2, CalendarX,
 } from 'lucide-react';
-import { loadConductores, createConductor, updateWorker } from '../lib/transport';
+import { loadConductores, createConductor, updateWorker, loadVehiclesAll } from '../lib/transport';
+import type { TradeVehicle } from '../lib/transport';
 import { useSession } from '../context/SessionContext';
-import type { TradeWorker } from '../lib/supabase';
+import {
+  loadWorkerSchedules, loadWorkerExceptions, createWorkerException,
+  updateWorkerException, deleteWorkerException, loadClients, getClientDisplayName,
+} from '../lib/supabase';
+import type { TradeWorker, TradeWorkerSchedule, TradeWorkerException, TradeClient } from '../lib/supabase';
+import {
+  loadServiciosByConductor, checkAvailability, SERVICIO_ESTADOS, TIPO_SERVICIO_OPTIONS,
+} from '../lib/transportServices';
+import type { TradeTransportService, ConductorServiciosFilter, ServicioEstado } from '../lib/transportServices';
 
 // ── Catálogos ─────────────────────────────────────────────────────────────────
 
@@ -66,6 +76,7 @@ function ExpiryBadge({ label, date }: { label: string; date: string | null | und
 // ── Tipos de vista ────────────────────────────────────────────────────────────
 
 type View = 'list' | 'ficha' | 'nuevo';
+type ConductorTab = 'datos' | 'servicios' | 'disponibilidad';
 
 // ── Valores por defecto del formulario ───────────────────────────────────────
 
@@ -112,11 +123,13 @@ function workerToForm(w: TradeWorker): ConductorForm {
 interface Props {
   orgId: string;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
+  onOpenParte: (serviceId: string) => void;
+  onOpenAllPartes: (conductorId: string) => void;
 }
 
 // ── Componente principal ──────────────────────────────────────────────────────
 
-export default function ScreenTransporteConductores({ orgId, showToast }: Props) {
+export default function ScreenTransporteConductores({ orgId, showToast, onOpenParte, onOpenAllPartes }: Props) {
   const { rol } = useSession();
   const canEdit = rol === 'owner';
 
@@ -406,6 +419,8 @@ export default function ScreenTransporteConductores({ orgId, showToast }: Props)
         onBack={backToList}
         onSaved={afterSave}
         showToast={showToast}
+        onOpenParte={onOpenParte}
+        onOpenAllPartes={onOpenAllPartes}
       />
     );
   }
@@ -436,7 +451,7 @@ export default function ScreenTransporteConductores({ orgId, showToast }: Props)
 // ── Ficha (vista + modo edición) ──────────────────────────────────────────────
 
 function ConductorFicha({
-  conductor, orgId, canEdit, onBack, onSaved, showToast,
+  conductor, orgId, canEdit, onBack, onSaved, showToast, onOpenParte, onOpenAllPartes,
 }: {
   conductor: TradeWorker;
   orgId: string;
@@ -444,7 +459,10 @@ function ConductorFicha({
   onBack: () => void;
   onSaved: (c: TradeWorker, msg: string) => void;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
+  onOpenParte: (serviceId: string) => void;
+  onOpenAllPartes: (conductorId: string) => void;
 }) {
+  const [fichaTab, setFichaTab] = useState<ConductorTab>('datos');
   const [editing, setEditing] = useState(false);
   const [saving, setSaving]   = useState(false);
   const [form, setForm]       = useState<ConductorForm>(workerToForm(conductor));
@@ -531,7 +549,7 @@ function ConductorFicha({
             </span>
           )}
         </div>
-        {canEdit && !editing && (
+        {canEdit && !editing && fichaTab === 'datos' && (
           <button
             type="button"
             onClick={() => setEditing(true)}
@@ -541,7 +559,7 @@ function ConductorFicha({
             Editar
           </button>
         )}
-        {canEdit && editing && (
+        {canEdit && editing && fichaTab === 'datos' && (
           <div className="flex items-center gap-2">
             <button
               type="button"
@@ -565,6 +583,15 @@ function ConductorFicha({
         )}
       </div>
 
+      <ConductorTabBar
+        tab={fichaTab}
+        onChange={(t) => {
+          if (editing) { setForm(workerToForm(conductor)); setEditing(false); }
+          setFichaTab(t);
+        }}
+      />
+
+      {fichaTab === 'datos' && (
       <div className="flex-1 overflow-y-auto min-h-0 px-4 sm:px-6 py-4 space-y-4">
         {/* Aviso caducidades */}
         {!editing && (permisoSt === 'expired' || permisoSt === 'soon' || capSt === 'expired' || capSt === 'soon') && (
@@ -764,6 +791,25 @@ function ConductorFicha({
           </p>
         </div>
       </div>
+      )}
+
+      {fichaTab === 'servicios' && (
+        <ServiciosTab
+          conductor={conductor}
+          orgId={orgId}
+          onOpenParte={onOpenParte}
+          onOpenAllPartes={onOpenAllPartes}
+        />
+      )}
+
+      {fichaTab === 'disponibilidad' && (
+        <DisponibilidadTab
+          conductor={conductor}
+          orgId={orgId}
+          canEdit={canEdit}
+          showToast={showToast}
+        />
+      )}
     </div>
   );
 }
@@ -975,6 +1021,582 @@ function FieldRow({ label, children }: { label: string; children: React.ReactNod
     <div className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-3">
       <span className="text-[11px] font-semibold text-slate-400 sm:w-36 shrink-0 pt-0.5">{label}</span>
       <div className="flex-1 min-w-0">{children}</div>
+    </div>
+  );
+}
+
+// ── Tab bar ────────────────────────────────────────────────────────────────────
+
+function ConductorTabBar({
+  tab, onChange,
+}: {
+  tab: ConductorTab;
+  onChange: (t: ConductorTab) => void;
+}) {
+  const tabs: { id: ConductorTab; label: string }[] = [
+    { id: 'datos',          label: 'Datos' },
+    { id: 'servicios',      label: 'Servicios' },
+    { id: 'disponibilidad', label: 'Disponibilidad' },
+  ];
+  return (
+    <div className="bg-white border-b border-slate-200 flex shrink-0">
+      {tabs.map(t => (
+        <button
+          key={t.id}
+          type="button"
+          onClick={() => onChange(t.id)}
+          className={`flex-1 py-2.5 text-xs font-semibold border-b-2 transition-colors cursor-pointer ${
+            tab === t.id
+              ? 'border-indigo-600 text-indigo-700 bg-indigo-50/50'
+              : 'border-transparent text-slate-500 hover:text-slate-700 hover:bg-slate-50'
+          }`}
+        >
+          {t.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+// ── Servicios del conductor ────────────────────────────────────────────────────
+
+function ServiciosTab({
+  conductor, orgId, onOpenParte, onOpenAllPartes,
+}: {
+  conductor: TradeWorker;
+  orgId: string;
+  onOpenParte: (serviceId: string) => void;
+  onOpenAllPartes: (conductorId: string) => void;
+}) {
+  const [servicios, setServicios] = useState<TradeTransportService[]>([]);
+  const [hasMore, setHasMore]     = useState(false);
+  const [loading, setLoading]     = useState(false);
+  const [loadErr, setLoadErr]     = useState('');
+  const [vehicles, setVehicles]   = useState<TradeVehicle[]>([]);
+  const [clients, setClients]     = useState<TradeClient[]>([]);
+  const [desde, setDesde]         = useState('');
+  const [hasta, setHasta]         = useState('');
+  const [estadoFiltro, setEstadoFiltro] = useState<ServicioEstado | ''>('');
+
+  useEffect(() => {
+    loadVehiclesAll(orgId).then(setVehicles).catch(() => {});
+    loadClients(orgId).then(setClients).catch(() => {});
+  }, [orgId]);
+
+  const fetchServicios = useCallback(async () => {
+    setLoading(true);
+    setLoadErr('');
+    try {
+      const filter: ConductorServiciosFilter = {
+        desde: desde || undefined,
+        hasta: hasta || undefined,
+        estado: estadoFiltro || undefined,
+      };
+      const { servicios: data, hasMore: more } = await loadServiciosByConductor(orgId, conductor.id, filter);
+      setServicios(data);
+      setHasMore(more);
+    } catch (e) {
+      setLoadErr(errMsg(e));
+    } finally {
+      setLoading(false);
+    }
+  }, [orgId, conductor.id, desde, hasta, estadoFiltro]);
+
+  useEffect(() => { void fetchServicios(); }, [fetchServicios]);
+
+  const fmtDate = (iso: string) =>
+    new Date(iso).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  const fmtTime = (iso: string) =>
+    new Date(iso).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+  const hasFilters = !!(desde || hasta || estadoFiltro);
+
+  return (
+    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+      {/* Header */}
+      <div className="px-4 sm:px-6 py-2.5 bg-white border-b border-slate-100 shrink-0 flex items-center justify-between gap-2">
+        <span className="text-xs text-slate-500">
+          {servicios.length} servicio{servicios.length !== 1 ? 's' : ''}{hasMore ? '+' : ''}
+        </span>
+        <button
+          type="button"
+          onClick={() => onOpenAllPartes(conductor.id)}
+          className="flex items-center gap-1.5 text-[11px] font-semibold text-blue-600 hover:text-blue-800 border border-blue-200 px-2.5 py-1 rounded-full bg-blue-50 hover:bg-blue-100 transition-colors cursor-pointer"
+        >
+          <FileCheck className="w-3 h-3" />
+          Ver todos los partes
+        </button>
+      </div>
+
+      {/* Filters */}
+      <div className="px-4 sm:px-6 py-2 bg-slate-50 border-b border-slate-100 shrink-0 flex flex-wrap gap-2 items-center">
+        <input
+          type="date"
+          value={desde}
+          onChange={e => setDesde(e.target.value)}
+          className="text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white focus:ring-1 focus:ring-indigo-400 outline-none"
+          aria-label="Desde"
+        />
+        <span className="text-[11px] text-slate-400">–</span>
+        <input
+          type="date"
+          value={hasta}
+          onChange={e => setHasta(e.target.value)}
+          className="text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white focus:ring-1 focus:ring-indigo-400 outline-none"
+          aria-label="Hasta"
+        />
+        <select
+          value={estadoFiltro}
+          onChange={e => setEstadoFiltro(e.target.value as ServicioEstado | '')}
+          className="text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white focus:ring-1 focus:ring-indigo-400 outline-none"
+        >
+          <option value="">Todos los estados</option>
+          {SERVICIO_ESTADOS.map(e => (
+            <option key={e.value} value={e.value}>{e.label}</option>
+          ))}
+        </select>
+        {hasFilters && (
+          <button
+            type="button"
+            onClick={() => { setDesde(''); setHasta(''); setEstadoFiltro(''); }}
+            className="text-[11px] text-slate-500 hover:text-red-600 border border-slate-200 rounded-lg px-2 py-1 bg-white cursor-pointer"
+          >
+            Limpiar
+          </button>
+        )}
+      </div>
+
+      {/* List */}
+      <div className="flex-1 overflow-y-auto min-h-0 px-4 sm:px-6 py-3">
+        {loading && (
+          <div className="flex justify-center py-10">
+            <Loader2 className="w-5 h-5 text-indigo-500 animate-spin" />
+          </div>
+        )}
+        {!loading && loadErr && (
+          <div className="bg-red-50 border border-red-200 rounded-xl p-3 flex gap-2 text-xs text-red-700">
+            <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
+            {loadErr}
+          </div>
+        )}
+        {!loading && !loadErr && servicios.length === 0 && (
+          <p className="text-center py-10 text-sm text-slate-400">
+            {hasFilters ? 'Sin resultados para estos filtros.' : 'Sin servicios asignados.'}
+          </p>
+        )}
+        {!loading && !loadErr && servicios.length > 0 && (
+          <div className="space-y-2">
+            {servicios.map(s => {
+              const vehicle  = vehicles.find(v => v.id === s.vehicle_id);
+              const client   = clients.find(c => c.id === s.client_id);
+              const estInfo  = SERVICIO_ESTADOS.find(e => e.value === s.estado);
+              const tipoInfo = TIPO_SERVICIO_OPTIONS.find(o => o.value === s.tipo_servicio);
+              const futuro   = new Date(s.fecha_inicio) > new Date();
+              return (
+                <div key={s.id} className={`bg-white rounded-xl border p-3.5 ${futuro ? 'border-indigo-100' : 'border-slate-200'}`}>
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <div className="min-w-0">
+                      <p className="text-sm font-bold text-slate-800 leading-tight truncate">{s.titulo}</p>
+                      {tipoInfo && <p className="text-[10px] text-slate-400 mt-0.5">{tipoInfo.label}</p>}
+                    </div>
+                    {estInfo && (
+                      <span className={`text-[10px] font-semibold border rounded px-1.5 py-0.5 shrink-0 ${estInfo.color}`}>
+                        {estInfo.label}
+                      </span>
+                    )}
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[11px] text-slate-600 mb-2">
+                    <div>
+                      <span className="text-slate-400">Fecha: </span>
+                      {fmtDate(s.fecha_inicio)} <span className="text-slate-400 font-mono">{fmtTime(s.fecha_inicio)}</span>
+                    </div>
+                    {client && <div className="truncate"><span className="text-slate-400">Cliente: </span>{getClientDisplayName(client)}</div>}
+                    {(s.origen || s.destino) && (
+                      <div className="col-span-2 truncate">
+                        <span className="text-slate-400">Ruta: </span>
+                        {[s.origen, s.destino].filter(Boolean).join(' → ')}
+                      </div>
+                    )}
+                    {vehicle && <div><span className="text-slate-400">Vehículo: </span>{vehicle.matricula}</div>}
+                    {s.km_reales != null && <div><span className="text-slate-400">Km: </span><span className="font-mono font-semibold">{s.km_reales}</span></div>}
+                  </div>
+                  {s.estado === 'completado' && (
+                    <button
+                      type="button"
+                      onClick={() => onOpenParte(s.id)}
+                      className="w-full flex items-center justify-center gap-1.5 text-[11px] font-bold text-blue-600 bg-blue-50 border border-blue-200 hover:bg-blue-100 rounded-lg py-1.5 transition-colors cursor-pointer"
+                    >
+                      <FileCheck className="w-3 h-3" />
+                      Ver parte
+                    </button>
+                  )}
+                </div>
+              );
+            })}
+            {hasMore && (
+              <p className="text-center py-2 text-xs text-slate-400">
+                Primeros 100 resultados. Usa filtros para acotar.
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── Disponibilidad del conductor ───────────────────────────────────────────────
+
+const DIAS_SEMANA = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+const TIPOS_EXCEPCION = [
+  { value: 'vacaciones',    label: 'Vacaciones' },
+  { value: 'baja_medica',   label: 'Baja médica' },
+  { value: 'asunto_propio', label: 'Asunto propio' },
+  { value: 'formacion',     label: 'Formación' },
+  { value: 'otro',          label: 'Otro' },
+] as const;
+
+interface ExcepcionDraft {
+  fecha_inicio: string;
+  fecha_fin: string;
+  tipo: string;
+  motivo: string;
+}
+
+const EMPTY_EX: ExcepcionDraft = { fecha_inicio: '', fecha_fin: '', tipo: 'vacaciones', motivo: '' };
+
+function DisponibilidadTab({
+  conductor, orgId, canEdit, showToast,
+}: {
+  conductor: TradeWorker;
+  orgId: string;
+  canEdit: boolean;
+  showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
+}) {
+  const [schedules, setSchedules] = useState<TradeWorkerSchedule[]>([]);
+  const [exceptions, setExceptions] = useState<TradeWorkerException[]>([]);
+  const [loadingData, setLoadingData] = useState(true);
+  const [editingId, setEditingId]   = useState<string | null>(null);
+  const [addingEx, setAddingEx]     = useState(false);
+  const [exDraft, setExDraft]       = useState<ExcepcionDraft>(EMPTY_EX);
+  const [saving, setSaving]         = useState(false);
+  const [conflictWarning, setConflictWarning] = useState('');
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [showPast, setShowPast]     = useState(false);
+
+  const today = new Date().toISOString().split('T')[0];
+
+  useEffect(() => {
+    setLoadingData(true);
+    Promise.all([
+      loadWorkerSchedules(conductor.id),
+      loadWorkerExceptions(conductor.id, orgId),
+    ]).then(([sched, exc]) => {
+      setSchedules(sched);
+      setExceptions(exc);
+    }).catch(e => showToast(errMsg(e), 'error'))
+      .finally(() => setLoadingData(false));
+  }, [conductor.id, orgId]);
+
+  const futureEx = exceptions.filter(e => e.fecha_fin >= today);
+  const pastEx   = exceptions.filter(e => e.fecha_fin < today);
+
+  async function checkConflictsMsg(fi: string, ff: string): Promise<string> {
+    try {
+      const cs = await checkAvailability(orgId, {
+        conductorId: conductor.id,
+        fechaInicio: `${fi}T00:00:00`,
+        fechaFin:    `${ff}T23:59:59`,
+      });
+      if (!cs.length) return '';
+      const names = cs.slice(0, 2).map(c => c.titulo).join(', ');
+      const extra = cs.length > 2 ? ` y ${cs.length - 2} más` : '';
+      return `El conductor tiene ${cs.length} servicio(s) en este período: ${names}${extra}. Revisa antes de confirmar.`;
+    } catch { return ''; }
+  }
+
+  function startEdit(ex: TradeWorkerException) {
+    setExDraft({ fecha_inicio: ex.fecha_inicio, fecha_fin: ex.fecha_fin, tipo: ex.tipo ?? 'vacaciones', motivo: ex.motivo ?? '' });
+    setEditingId(ex.id);
+    setAddingEx(false);
+    setConflictWarning('');
+  }
+
+  function cancelForm() {
+    setExDraft(EMPTY_EX);
+    setEditingId(null);
+    setAddingEx(false);
+    setConflictWarning('');
+  }
+
+  async function handleSaveEx() {
+    if (!exDraft.fecha_inicio || !exDraft.fecha_fin) {
+      showToast('Las fechas son obligatorias', 'error'); return;
+    }
+    if (exDraft.fecha_fin < exDraft.fecha_inicio) {
+      showToast('Fecha fin debe ser igual o posterior a fecha inicio', 'error'); return;
+    }
+    setSaving(true);
+    try {
+      const warn = await checkConflictsMsg(exDraft.fecha_inicio, exDraft.fecha_fin);
+      setConflictWarning(warn);
+      const payload = {
+        fecha_inicio: exDraft.fecha_inicio,
+        fecha_fin:    exDraft.fecha_fin,
+        tipo:         exDraft.tipo || null,
+        motivo:       exDraft.motivo || null,
+      };
+      if (editingId) {
+        const updated = await updateWorkerException(editingId, orgId, payload);
+        setExceptions(prev => prev.map(e => e.id === editingId ? updated : e));
+        showToast('Ausencia actualizada', 'success');
+        setEditingId(null);
+      } else {
+        const created = await createWorkerException(orgId, conductor.id, payload);
+        setExceptions(prev => [created, ...prev]);
+        showToast('Ausencia registrada', 'success');
+        setAddingEx(false);
+      }
+      setExDraft(EMPTY_EX);
+    } catch (e) { showToast(errMsg(e), 'error'); }
+    finally { setSaving(false); }
+  }
+
+  async function handleDeleteEx(id: string) {
+    setSaving(true);
+    try {
+      await deleteWorkerException(id, orgId);
+      setExceptions(prev => prev.filter(e => e.id !== id));
+      showToast('Ausencia eliminada', 'success');
+      setDeletingId(null);
+    } catch (e) { showToast(errMsg(e), 'error'); }
+    finally { setSaving(false); }
+  }
+
+  const tipoLabel = (t: string | null) => TIPOS_EXCEPCION.find(x => x.value === t)?.label ?? (t ?? 'Ausencia');
+  const fmtDate   = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
+  const isFormOpen = addingEx || editingId !== null;
+
+  return (
+    <div className="flex-1 overflow-y-auto min-h-0 px-4 sm:px-6 py-4 space-y-4">
+      {loadingData && (
+        <div className="flex justify-center py-10">
+          <Loader2 className="w-5 h-5 text-indigo-500 animate-spin" />
+        </div>
+      )}
+      {!loadingData && (
+        <>
+          {/* Horario semanal */}
+          <Section title="Horario semanal" icon={<Clock className="w-3.5 h-3.5" />}>
+            {schedules.filter(s => s.activo).length === 0
+              ? <p className="text-sm text-slate-400 italic py-1">Sin horario registrado</p>
+              : (
+                <div className="space-y-1.5">
+                  {schedules
+                    .filter(s => s.activo)
+                    .sort((a, b) => a.dia_semana - b.dia_semana)
+                    .map(s => (
+                      <div key={s.id} className="flex items-center gap-3">
+                        <span className="w-20 shrink-0 text-[11px] font-semibold text-slate-500">
+                          {DIAS_SEMANA[s.dia_semana] ?? `Día ${s.dia_semana}`}
+                        </span>
+                        <span className="text-slate-700 font-mono text-xs">{s.hora_inicio} – {s.hora_fin}</span>
+                        {s.descanso_inicio && s.descanso_fin && (
+                          <span className="text-[10px] text-slate-400">(descanso {s.descanso_inicio}–{s.descanso_fin})</span>
+                        )}
+                      </div>
+                    ))
+                  }
+                </div>
+              )
+            }
+          </Section>
+
+          {/* Ausencias */}
+          <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+            <div className="flex items-center justify-between gap-2 px-4 py-2.5 bg-slate-50 border-b border-slate-100">
+              <div className="flex items-center gap-2">
+                <CalendarX className="w-3.5 h-3.5 text-slate-400" />
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Ausencias</span>
+              </div>
+              {canEdit && !isFormOpen && (
+                <button
+                  type="button"
+                  onClick={() => { setAddingEx(true); setConflictWarning(''); }}
+                  className="flex items-center gap-1 text-[11px] font-semibold text-indigo-600 hover:text-indigo-800 cursor-pointer"
+                >
+                  <Plus className="w-3 h-3" />
+                  Nueva ausencia
+                </button>
+              )}
+            </div>
+            <div className="px-4 py-3 space-y-3">
+              {/* Form */}
+              {isFormOpen && (
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 space-y-2">
+                  <p className="text-[11px] font-semibold text-slate-600">
+                    {editingId ? 'Editar ausencia' : 'Nueva ausencia'}
+                  </p>
+                  {conflictWarning && (
+                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-2 flex gap-1.5">
+                      <AlertTriangle className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
+                      <p className="text-[11px] text-amber-800">{conflictWarning}</p>
+                    </div>
+                  )}
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="text-[10px] font-semibold text-slate-400 block mb-0.5">Desde *</label>
+                      <input
+                        type="date"
+                        value={exDraft.fecha_inicio}
+                        onChange={e => setExDraft(d => ({ ...d, fecha_inicio: e.target.value }))}
+                        className={inputClass}
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-semibold text-slate-400 block mb-0.5">Hasta *</label>
+                      <input
+                        type="date"
+                        value={exDraft.fecha_fin}
+                        onChange={e => setExDraft(d => ({ ...d, fecha_fin: e.target.value }))}
+                        className={inputClass}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-semibold text-slate-400 block mb-0.5">Tipo</label>
+                    <select
+                      value={exDraft.tipo}
+                      onChange={e => setExDraft(d => ({ ...d, tipo: e.target.value }))}
+                      className={inputClass}
+                    >
+                      {TIPOS_EXCEPCION.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-semibold text-slate-400 block mb-0.5">Motivo (opcional)</label>
+                    <input
+                      type="text"
+                      value={exDraft.motivo}
+                      onChange={e => setExDraft(d => ({ ...d, motivo: e.target.value }))}
+                      placeholder="Descripción…"
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="flex gap-2 pt-1">
+                    <button
+                      type="button"
+                      onClick={handleSaveEx}
+                      disabled={saving}
+                      className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 cursor-pointer disabled:opacity-50"
+                    >
+                      {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+                      Guardar
+                    </button>
+                    <button
+                      type="button"
+                      onClick={cancelForm}
+                      disabled={saving}
+                      className="text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-slate-300 bg-white text-slate-600 cursor-pointer disabled:opacity-50"
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Empty state */}
+              {futureEx.length === 0 && pastEx.length === 0 && !isFormOpen && (
+                <p className="text-sm text-slate-400 italic">Sin ausencias registradas</p>
+              )}
+
+              {/* Future / current exceptions */}
+              {futureEx.map(ex => (
+                <div key={ex.id} className="flex items-start justify-between gap-2 py-2 border-b border-slate-100 last:border-0">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="text-[11px] font-semibold text-indigo-700 bg-indigo-50 border border-indigo-200 rounded px-1.5 py-0.5">
+                        {tipoLabel(ex.tipo)}
+                      </span>
+                      <span className="text-[11px] text-slate-600">{fmtDate(ex.fecha_inicio)} – {fmtDate(ex.fecha_fin)}</span>
+                    </div>
+                    {ex.motivo && <p className="text-[11px] text-slate-400 mt-0.5 truncate">{ex.motivo}</p>}
+                  </div>
+                  {canEdit && (
+                    <div className="flex gap-1 shrink-0">
+                      {deletingId === ex.id
+                        ? (
+                          <div className="flex gap-1 items-center">
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteEx(ex.id)}
+                              disabled={saving}
+                              className="text-[10px] font-semibold text-red-600 hover:text-red-800 cursor-pointer disabled:opacity-50"
+                            >
+                              {saving ? <Loader2 className="w-3 h-3 animate-spin" /> : 'Eliminar'}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setDeletingId(null)}
+                              className="text-[10px] text-slate-400 cursor-pointer"
+                            >
+                              Cancelar
+                            </button>
+                          </div>
+                        )
+                        : (
+                          <>
+                            <button
+                              type="button"
+                              onClick={() => startEdit(ex)}
+                              className="p-1 text-slate-400 hover:text-slate-600 cursor-pointer"
+                            >
+                              <Edit2 className="w-3 h-3" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setDeletingId(ex.id)}
+                              className="p-1 text-slate-400 hover:text-red-500 cursor-pointer"
+                            >
+                              <Trash2 className="w-3 h-3" />
+                            </button>
+                          </>
+                        )
+                      }
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              {/* Past exceptions (collapsible) */}
+              {pastEx.length > 0 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setShowPast(v => !v)}
+                    className="flex items-center gap-1 text-[11px] font-semibold text-slate-400 hover:text-slate-600 cursor-pointer"
+                  >
+                    <ChevronRight className={`w-3 h-3 transition-transform ${showPast ? 'rotate-90' : ''}`} />
+                    {pastEx.length} ausencia{pastEx.length !== 1 ? 's' : ''} pasada{pastEx.length !== 1 ? 's' : ''}
+                  </button>
+                  {showPast && pastEx.map(ex => (
+                    <div key={ex.id} className="flex items-start gap-2 py-1.5 opacity-60">
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span className="text-[11px] text-slate-500 bg-slate-100 border border-slate-200 rounded px-1.5 py-0.5">
+                            {tipoLabel(ex.tipo)}
+                          </span>
+                          <span className="text-[11px] text-slate-500">{fmtDate(ex.fecha_inicio)} – {fmtDate(ex.fecha_fin)}</span>
+                        </div>
+                        {ex.motivo && <p className="text-[11px] text-slate-400 mt-0.5 truncate">{ex.motivo}</p>}
+                      </div>
+                    </div>
+                  ))}
+                </>
+              )}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

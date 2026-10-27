@@ -310,6 +310,37 @@ export async function loadTransportServices(
   return (data ?? []) as TradeTransportService[];
 }
 
+export interface ConductorServiciosFilter {
+  desde?: string;
+  hasta?: string;
+  estado?: ServicioEstado;
+}
+
+const CONDUCTOR_SERVICIOS_PAGE = 100;
+
+export async function loadServiciosByConductor(
+  orgId: string,
+  conductorId: string,
+  filter: ConductorServiciosFilter = {},
+): Promise<{ servicios: TradeTransportService[]; hasMore: boolean }> {
+  let q = supabase
+    .from('trade_transport_services')
+    .select('*')
+    .eq('org_id', orgId)
+    .eq('conductor_id', conductorId)
+    .order('fecha_inicio', { ascending: false })
+    .limit(CONDUCTOR_SERVICIOS_PAGE + 1);
+
+  if (filter.desde) q = q.gte('fecha_inicio', `${filter.desde}T00:00:00`);
+  if (filter.hasta) q = q.lte('fecha_inicio', `${filter.hasta}T23:59:59`);
+  if (filter.estado) q = q.eq('estado', filter.estado);
+
+  const { data, error } = await q;
+  if (error) throw error;
+  const rows = (data ?? []) as TradeTransportService[];
+  return { servicios: rows.slice(0, CONDUCTOR_SERVICIOS_PAGE), hasMore: rows.length > CONDUCTOR_SERVICIOS_PAGE };
+}
+
 /** Carga los servicios del día indicado (por fecha_inicio). */
 export async function loadServicesForDay(
   orgId: string,

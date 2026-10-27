@@ -805,6 +805,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [transporteParteFromTab, setTransporteParteFromTab] = useState<string>('transporte_servicios');
   // Service ID to navigate to from Agenda
   const [transporteNavServiceId, setTransporteNavServiceId] = useState<string | null>(null);
+  const [transporteConductorPreselectId, setTransporteConductorPreselectId] = useState<string | null>(null);
   const [newJobTrigger, setNewJobTrigger] = useState(0);
   const [prefillJobFromQuote, setPrefillJobFromQuote] = useState<import('../types').Presupuesto | null>(null);
 
@@ -4148,7 +4149,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <ScreenTransporteVehiculos orgId={orgId} showToast={showToast} />
                 )}
                 {transporteMobileSubTab === 'conductores' && (
-                  <ScreenTransporteConductores orgId={orgId} showToast={showToast} />
+                  <ScreenTransporteConductores
+                    orgId={orgId}
+                    showToast={showToast}
+                    onOpenParte={(id) => { setTransporteParteId(id); setMobileTab('partes'); }}
+                    onOpenAllPartes={(cid) => { setTransporteConductorPreselectId(cid); setTransporteMobileSubTab('partes'); }}
+                  />
                 )}
                 {transporteMobileSubTab === 'rutas' && (
                   <ScreenTransporteRutas orgId={orgId} showToast={showToast}
@@ -4168,6 +4174,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <ScreenTransportePartes
                     orgId={orgId}
                     onOpenParte={(id) => { setTransporteParteId(id); setMobileTab('partes'); }}
+                    conductorId={transporteConductorPreselectId ?? undefined}
                   />
                 )}
               </div>
@@ -6931,7 +6938,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 )}
                 {activeTab === 'transporte_conductores' && orgId && caps.hasTransport && can('transport.view') && (
                   <div className="flex-1 overflow-y-auto min-h-0">
-                    <ScreenTransporteConductores orgId={orgId} showToast={showToast} />
+                    <ScreenTransporteConductores
+                      orgId={orgId}
+                      showToast={showToast}
+                      onOpenParte={(id) => { setTransporteParteId(id); setTransporteParteFromTab('transporte_conductores'); setActiveTab('transporte_parte'); }}
+                      onOpenAllPartes={(cid) => { setTransporteConductorPreselectId(cid); setActiveTab('transporte_partes'); }}
+                    />
                   </div>
                 )}
                 {activeTab === 'transporte_partes' && orgId && caps.hasTransport && can('transport.view') && (
@@ -6939,6 +6951,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <ScreenTransportePartes
                       orgId={orgId}
                       onOpenParte={(id) => { setTransporteParteId(id); setTransporteParteFromTab('transporte_partes'); setActiveTab('transporte_parte'); }}
+                      conductorId={transporteConductorPreselectId ?? undefined}
                     />
                   </div>
                 )}

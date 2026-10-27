@@ -1072,6 +1072,17 @@ export interface TradeWorkerSchedule {
   descanso_fin?: string | null;
 }
 
+export interface TradeWorkerException {
+  id: string;
+  worker_id: string;
+  org_id: string;
+  fecha_inicio: string;
+  fecha_fin: string;
+  tipo: string | null;
+  motivo: string | null;
+  created_at: string | null;
+}
+
 export interface TradeRoute {
   id: string;
   org_id: string;
@@ -1567,6 +1578,56 @@ export async function saveWorkerSchedules(
   if (!schedules.length) return;
   const rows = schedules.map(s => ({ ...s, worker_id: workerId, org_id: orgId }));
   const { error } = await supabase.from('trade_worker_schedules').insert(rows);
+  if (error) throw error;
+}
+
+export async function loadWorkerExceptions(workerId: string, orgId: string): Promise<TradeWorkerException[]> {
+  const { data, error } = await supabase
+    .from('trade_worker_exceptions')
+    .select('*')
+    .eq('worker_id', workerId)
+    .eq('org_id', orgId)
+    .order('fecha_inicio', { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as TradeWorkerException[];
+}
+
+export async function createWorkerException(
+  orgId: string,
+  workerId: string,
+  payload: Pick<TradeWorkerException, 'fecha_inicio' | 'fecha_fin' | 'tipo' | 'motivo'>,
+): Promise<TradeWorkerException> {
+  const { data, error } = await supabase
+    .from('trade_worker_exceptions')
+    .insert({ ...payload, org_id: orgId, worker_id: workerId })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as TradeWorkerException;
+}
+
+export async function updateWorkerException(
+  id: string,
+  orgId: string,
+  updates: Partial<Pick<TradeWorkerException, 'fecha_inicio' | 'fecha_fin' | 'tipo' | 'motivo'>>,
+): Promise<TradeWorkerException> {
+  const { data, error } = await supabase
+    .from('trade_worker_exceptions')
+    .update(updates)
+    .eq('id', id)
+    .eq('org_id', orgId)
+    .select()
+    .single();
+  if (error) throw error;
+  return data as TradeWorkerException;
+}
+
+export async function deleteWorkerException(id: string, orgId: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_worker_exceptions')
+    .delete()
+    .eq('id', id)
+    .eq('org_id', orgId);
   if (error) throw error;
 }
 
