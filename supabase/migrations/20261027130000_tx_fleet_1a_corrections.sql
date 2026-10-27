@@ -158,7 +158,8 @@ SECURITY DEFINER
 SET search_path TO 'public'
 AS $$
 DECLARE
-  v_svc public.trade_transport_services;
+  v_svc         public.trade_transport_services;
+  v_km_existente integer;
 BEGIN
   -- a. Módulo habilitado
   IF NOT EXISTS (
@@ -221,19 +222,27 @@ BEGIN
 
   -- h. Registrar lectura de odómetro con idempotencia explícita (FASE C corregida)
   --
-  -- El SELECT previo detecta el reintento legítimo de forma transparente.
-  -- Correspondencia vehículo/servicio garantizada por construcción: se usa
-  -- v_svc.vehicle_id (del servicio bloqueado y filtrado por org_id), nunca
-  -- un parámetro separado del llamador.
+  -- Se lee el km existente (si hay) y se compara con el solicitado:
+  --   · km idéntico  → reintento legítimo; omitir INSERT silenciosamente.
+  --   · km diferente → conflicto explícito TRANSPORT_KM_CONFLICT;
+  --                    el llamador debe usar correct_vehicle_km_reading.
+  -- El UNIQUE INDEX uq_vkr_svc_inicio actúa como backstop ante races que superen
+  -- el bloqueo FOR UPDATE del servicio.
   IF p_odometro_inicio IS NOT NULL AND v_svc.vehicle_id IS NOT NULL THEN
-    IF NOT EXISTS (
-      SELECT 1
-        FROM public.trade_vehicle_km_readings
-       WHERE vehicle_id  = v_svc.vehicle_id
-         AND servicio_id = p_service_id
-         AND tipo        = 'inicio_servicio'
-         AND corrige_id  IS NULL
-    ) THEN
+    SELECT km INTO v_km_existente
+      FROM public.trade_vehicle_km_readings
+     WHERE vehicle_id  = v_svc.vehicle_id
+       AND servicio_id = p_service_id
+       AND tipo        = 'inicio_servicio'
+       AND corrige_id  IS NULL;
+
+    IF FOUND THEN
+      IF v_km_existente <> p_odometro_inicio THEN
+        RAISE EXCEPTION 'TRANSPORT_KM_CONFLICT: ya existe lectura de inicio con km=% para este servicio; usa correct_vehicle_km_reading para corregirla',
+          v_km_existente;
+      END IF;
+      -- misma km: reintento idempotente → no hacer nada
+    ELSE
       INSERT INTO public.trade_vehicle_km_readings
         (org_id, vehicle_id, tipo, km, leido_en, servicio_id, fuente, created_by)
       VALUES
@@ -283,7 +292,8 @@ SECURITY DEFINER
 SET search_path TO 'public'
 AS $$
 DECLARE
-  v_svc public.trade_transport_services;
+  v_svc          public.trade_transport_services;
+  v_km_existente integer;
 BEGIN
   -- a. Módulo habilitado
   IF NOT EXISTS (
@@ -372,17 +382,24 @@ BEGIN
 
   -- i. Registrar lectura de odómetro final con idempotencia explícita (FASE C)
   --
-  -- SELECT explícito en lugar de ON CONFLICT ON CONSTRAINT (inválido para índices
-  -- parciales). Mismo razonamiento que en start_transport_service paso h.
+  -- Mismo patrón que start_transport_service (paso h):
+  --   · km idéntico  → reintento legítimo; omitir INSERT.
+  --   · km diferente → TRANSPORT_KM_CONFLICT explícito.
   IF p_odometro_final IS NOT NULL AND v_svc.vehicle_id IS NOT NULL THEN
-    IF NOT EXISTS (
-      SELECT 1
-        FROM public.trade_vehicle_km_readings
-       WHERE vehicle_id  = v_svc.vehicle_id
-         AND servicio_id = p_service_id
-         AND tipo        = 'final_servicio'
-         AND corrige_id  IS NULL
-    ) THEN
+    SELECT km INTO v_km_existente
+      FROM public.trade_vehicle_km_readings
+     WHERE vehicle_id  = v_svc.vehicle_id
+       AND servicio_id = p_service_id
+       AND tipo        = 'final_servicio'
+       AND corrige_id  IS NULL;
+
+    IF FOUND THEN
+      IF v_km_existente <> p_odometro_final THEN
+        RAISE EXCEPTION 'TRANSPORT_KM_CONFLICT: ya existe lectura de cierre con km=% para este servicio; usa correct_vehicle_km_reading para corregirla',
+          v_km_existente;
+      END IF;
+      -- misma km: reintento idempotente → no hacer nada
+    ELSE
       INSERT INTO public.trade_vehicle_km_readings
         (org_id, vehicle_id, tipo, km, leido_en, servicio_id, fuente, created_by)
       VALUES
