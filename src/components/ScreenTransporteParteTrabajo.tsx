@@ -10,6 +10,7 @@ import {
 } from '../lib/transportServices';
 import type { TradeTransportService, TradeTransportParteInput } from '../lib/transportServices';
 import { phoneHref, locationToAddress, hasAddress, hasContact, TIPO_OPERACION_OPTIONS } from '../lib/transportLocations';
+import { calcOdoEstimado, calcDistanciaOdo, validateOdometroFinal, fmtKm } from '../lib/odometroUtils';
 import { loadVehiclesAll } from '../lib/transport';
 import type { TradeVehicle } from '../lib/transport';
 import { loadClients, loadWorkers, getClientDisplayName } from '../lib/supabase';
@@ -91,6 +92,7 @@ export default function ScreenTransporteParteTrabajo({ orgId, serviceId, onClose
   const [odoFinal,      setOdoFinal]      = useState('');
   const [incidencias,   setIncidencias]   = useState('');
   const [obscierre,     setObscierre]     = useState('');
+  const [odoFinalFromEstimate, setOdoFinalFromEstimate] = useState(false);
 
   useEffect(() => {
     const fetch = async () => {
@@ -139,7 +141,22 @@ export default function ScreenTransporteParteTrabajo({ orgId, serviceId, onClose
     if (sal && lle && new Date(lle) <= new Date(sal)) {
       return 'La hora de llegada debe ser posterior a la hora de salida';
     }
+    const odoErrMsg = validateOdometroFinal(svc?.odometro_inicio, odoFinal);
+    if (odoErrMsg) return odoErrMsg;
     return null;
+  }
+
+  function handleKmChange(val: string) {
+    setKm(val);
+    if (odoFinalFromEstimate && svc?.odometro_inicio != null) {
+      const est = calcOdoEstimado(svc.odometro_inicio, val);
+      setOdoFinal(est != null ? String(est) : '');
+    }
+  }
+
+  function handleOdoFinalChange(val: string) {
+    setOdoFinal(val);
+    setOdoFinalFromEstimate(false);
   }
 
   // ── Submit (close service) ─────────────────────────────────────────────────
@@ -189,7 +206,10 @@ export default function ScreenTransporteParteTrabajo({ orgId, serviceId, onClose
     );
   }
 
-  const estadoCfg   = SERVICIO_ESTADOS.find(e => e.value === svc.estado);
+  const estimado      = calcOdoEstimado(svc.odometro_inicio, km);
+  const distanciaOdo  = calcDistanciaOdo(svc.odometro_inicio, odoFinal);
+  const odoErr        = validateOdometroFinal(svc.odometro_inicio, odoFinal);
+  const estadoCfg     = SERVICIO_ESTADOS.find(e => e.value === svc.estado);
   const tipoLabel   = TIPO_SERVICIO_OPTIONS.find(t => t.value === svc.tipo_servicio)?.label ?? svc.tipo_servicio;
   const isEnCurso   = svc.estado === 'en_curso';
   const isCompletado = svc.estado === 'completado';
@@ -417,36 +437,136 @@ export default function ScreenTransporteParteTrabajo({ orgId, serviceId, onClose
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-1">
-                      Km recorridos <span className="font-normal normal-case text-slate-400">(comercial)</span>
-                    </label>
-                    <input
-                      type="number"
-                      min="0"
-                      step="0.1"
-                      placeholder="0.0"
-                      value={km}
-                      onChange={e => setKm(e.target.value)}
-                      className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                {svc.odometro_inicio != null ? (
+                  /* ── Cuentakilómetros del vehículo (con lectura inicial) ─── */
+                  <div className="rounded-xl border border-blue-100 bg-blue-50/40 p-4 space-y-3">
+                    <h3 className="text-[11px] font-black text-blue-700 uppercase tracking-wide">
+                      Cuentakilómetros del vehículo
+                    </h3>
+
+                    {/* Km comerciales declarados */}
+                    <div>
+                      <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-1">
+                        Km recorridos <span className="font-normal normal-case text-slate-400">(comercial)</span>
+                      </label>
+                      <input
+                        type="number" min="0" step="0.1" placeholder="0.0"
+                        value={km} onChange={e => handleKmChange(e.target.value)}
+                        className="w-full px-3 py-2 text-sm border border-slate-200 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                    </div>
+
+                    {/* Inicio / Estimado */}
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-1">
+                          Cuentakilómetros al salir
+                        </p>
+                        <p className="text-sm font-mono text-slate-700 bg-white border border-slate-200 rounded-lg px-3 py-2">
+                          {fmtKm(svc.odometro_inicio)} km
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wide mb-1">
+                          Estimado al llegar
+                        </p>
+                        <p className={`text-sm font-mono rounded-lg px-3 py-2 border ${
+                          estimado != null
+                            ? 'text-blue-700 bg-blue-50 border-blue-200'
+                            : 'text-slate-400 bg-white border-slate-200'
+                        }`}>
+                          {estimado != null ? `${fmtKm(estimado)} km` : '—'}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Lectura real al llegar */}
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">
+                          Lectura real al llegar
+                        </label>
+                        {estimado != null && !odoFinalFromEstimate && (
+                          <button
+                            type="button"
+                            onClick={() => { setOdoFinal(String(estimado)); setOdoFinalFromEstimate(true); }}
+                            className="text-[10px] text-blue-600 hover:text-blue-800 font-semibold hover:underline shrink-0 ml-2"
+                          >
+                            Usar estimación ({fmtKm(estimado)} km)
+                          </button>
+                        )}
+                      </div>
+                      <input
+                        type="number" min="0" step="1"
+                        placeholder={`Ej. ${fmtKm(svc.odometro_inicio + 120)}`}
+                        value={odoFinal}
+                        onChange={e => handleOdoFinalChange(e.target.value)}
+                        className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                          odoErr ? 'border-red-300 bg-red-50' : 'border-slate-200 bg-white'
+                        }`}
+                      />
+                      {odoFinalFromEstimate && odoFinal !== '' && !odoErr && (
+                        <p className="text-[10px] text-blue-500 mt-1">
+                          Usando estimación. Si la lectura es diferente, escribe el valor real.
+                        </p>
+                      )}
+                      {odoErr && (
+                        <p className="text-[10px] text-red-600 mt-1 flex items-start gap-1">
+                          <span>⚠</span><span>{odoErr}</span>
+                        </p>
+                      )}
+                      {!odoFinal.trim() && !odoErr && (
+                        <p className="text-[10px] text-amber-600 mt-1">
+                          Sin lectura: el cuentakilómetros del vehículo no se actualizará en Flota.
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Diferencia por odómetro */}
+                    {distanciaOdo != null && (
+                      <div className="flex items-center justify-between bg-white border border-slate-200 rounded-lg px-3 py-2">
+                        <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">
+                          Diferencia por odómetro
+                        </span>
+                        <span className={`text-sm font-bold font-mono ${distanciaOdo >= 0 ? 'text-emerald-700' : 'text-red-600'}`}>
+                          {distanciaOdo >= 0 ? '+' : ''}{fmtKm(distanciaOdo)} km
+                        </span>
+                      </div>
+                    )}
                   </div>
-                  <div>
-                    <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-1">
-                      Odómetro final (km) <span className="font-normal normal-case text-slate-400">(opcional)</span>
-                    </label>
-                    <input
-                      type="number"
-                      min="0"
-                      step="1"
-                      placeholder={svc.odometro_inicio != null ? `Inicio: ${svc.odometro_inicio}` : 'Ej. 124850'}
-                      value={odoFinal}
-                      onChange={e => setOdoFinal(e.target.value)}
-                      className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                ) : (
+                  /* ── Cuentakilómetros del vehículo (sin lectura inicial) ─── */
+                  <div className="space-y-3">
+                    <div>
+                      <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-1">
+                        Km recorridos <span className="font-normal normal-case text-slate-400">(comercial)</span>
+                      </label>
+                      <input
+                        type="number" min="0" step="0.1" placeholder="0.0"
+                        value={km} onChange={e => handleKmChange(e.target.value)}
+                        className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-1">
+                        Lectura del cuentakilómetros <span className="font-normal normal-case text-slate-400">(opcional)</span>
+                      </label>
+                      <input
+                        type="number" min="0" step="1" placeholder="Ej. 124850"
+                        value={odoFinal} onChange={e => handleOdoFinalChange(e.target.value)}
+                        className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                          odoErr ? 'border-red-300 bg-red-50' : 'border-slate-200'
+                        }`}
+                      />
+                      {odoErr && (
+                        <p className="text-[10px] text-red-600 mt-1">{odoErr}</p>
+                      )}
+                      <p className="text-[10px] text-slate-400 mt-1">
+                        Sin lectura inicial registrada. Se guardará como lectura de cierre.
+                      </p>
+                    </div>
                   </div>
-                </div>
+                )}
 
                 <div>
                   <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-1">
