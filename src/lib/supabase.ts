@@ -1049,6 +1049,13 @@ export interface TradeWorker {
   horario_inicio?: string;
   horario_fin?: string;
   es_conductor?: boolean;
+  // Campos TX-COND-1A: habilitación profesional
+  identificador_interno?: string | null;
+  categorias_permiso?: string[];
+  permiso_caducidad?: string | null;
+  cap_caducidad?: string | null;
+  fecha_incorporacion?: string | null;
+  observaciones_profesionales?: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -1127,6 +1134,7 @@ export async function addWorker(
 export async function deleteWorker(id: string): Promise<void> {
   await supabase.from('trade_workers').update({ activo: false }).eq('id', id);
 }
+
 
 // ── Tarifas ───────────────────────────────────────────────────────────────
 
@@ -1562,7 +1570,7 @@ export async function saveWorkerSchedules(
   if (error) throw error;
 }
 
-export async function updateWorker(id: string, updates: Partial<Omit<TradeWorker, 'id' | 'org_id' | 'created_at' | 'updated_at'>>): Promise<void> {
+export async function updateWorkerFields(id: string, updates: Partial<Omit<TradeWorker, 'id' | 'org_id' | 'created_at' | 'updated_at'>>): Promise<void> {
   const { error } = await supabase.from('trade_workers').update(updates).eq('id', id);
   if (error) throw error;
 }

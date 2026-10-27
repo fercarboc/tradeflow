@@ -5,7 +5,7 @@ import {
   Save, ChevronDown, ChevronUp, Route, Send, Link2,
 } from 'lucide-react';
 import {
-  supabase, loadWorkers, addWorker, deleteWorker, updateWorker,
+  supabase, loadWorkers, addWorker, deleteWorker, updateWorkerFields as updateWorker,
   loadWorkerSchedules, saveWorkerSchedules,
 } from '../lib/supabase';
 import type { TradeWorker, TradeWorkerSchedule } from '../lib/supabase';

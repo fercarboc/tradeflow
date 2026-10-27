@@ -204,6 +204,55 @@ export async function setWorkerConductor(
   if (error) throw error;
 }
 
+// ── Conductor CRUD (TX-COND-1A) ───────────────────────────────────────────────
+
+/** Carga todos los conductores (es_conductor=true) de la org, activos e inactivos. */
+export async function loadConductores(orgId: string): Promise<import('./supabase').TradeWorker[]> {
+  const { data } = await supabase
+    .from('trade_workers')
+    .select('*')
+    .eq('org_id', orgId)
+    .eq('es_conductor', true)
+    .order('nombre');
+  return (data ?? []) as import('./supabase').TradeWorker[];
+}
+
+/** Crea un nuevo trabajador conductor en la organización. */
+export async function createConductor(
+  orgId: string,
+  payload: Pick<import('./supabase').TradeWorker, 'nombre'> &
+    Partial<Pick<import('./supabase').TradeWorker,
+      'telefono' | 'email' | 'identificador_interno' |
+      'categorias_permiso' | 'permiso_caducidad' | 'cap_caducidad' |
+      'fecha_incorporacion' | 'observaciones_profesionales'
+    >>,
+): Promise<import('./supabase').TradeWorker> {
+  const { data: row, error } = await supabase
+    .from('trade_workers')
+    .insert({ org_id: orgId, rol: 'conductor', es_conductor: true, activo: true, ...payload })
+    .select()
+    .single();
+  if (error) throw error;
+  return row as import('./supabase').TradeWorker;
+}
+
+/** Actualiza campos de un trabajador. Incluye org_id como filtro defensivo. */
+export async function updateWorker(
+  id: string,
+  orgId: string,
+  updates: Partial<Omit<import('./supabase').TradeWorker, 'id' | 'org_id' | 'created_at' | 'updated_at'>>,
+): Promise<import('./supabase').TradeWorker> {
+  const { data: row, error } = await supabase
+    .from('trade_workers')
+    .update({ ...updates, updated_at: new Date().toISOString() })
+    .eq('id', id)
+    .eq('org_id', orgId)
+    .select()
+    .single();
+  if (error) throw error;
+  return row as import('./supabase').TradeWorker;
+}
+
 /** Cambia el estado operativo de un vehículo. */
 export async function setVehicleEstado(
   id: string,

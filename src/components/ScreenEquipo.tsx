@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import {
   supabase, loadOrgMembers, updateMemberRol, revokeMember,
-  loadWorkers, addWorker, deleteWorker, updateWorker,
+  loadWorkers, addWorker, deleteWorker, updateWorkerFields as updateWorker,
   loadWorkerSchedules, saveWorkerSchedules,
 } from '../lib/supabase';
 import type { OrgMember, TradeWorker, TradeWorkerSchedule } from '../lib/supabase';
