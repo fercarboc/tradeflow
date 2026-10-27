@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import {
   Bus, Plus, X, Edit2, Trash2, Save, AlertCircle,
   CheckCircle2, Wrench, AlertTriangle, CircleOff,
-  ChevronDown,
+  ChevronDown, Gauge, Loader2, History,
 } from 'lucide-react';
 import {
   loadVehiclesAll,
@@ -20,6 +20,8 @@ import {
 } from '../lib/transport';
 import { loadTransportServices } from '../lib/transportServices';
 import type { TradeTransportService } from '../lib/transportServices';
+import { loadVehicleKmHistory } from '../lib/vehicleKm';
+import type { VehicleKmReadingWithAnulada } from '../lib/vehicleKm';
 import { useSession } from '../context/SessionContext';
 import type { TradeVehicle, TradeVehicleInput, VehicleEstado, VehicleModalidad } from '../lib/transport';
 
@@ -474,6 +476,9 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
   const [editingVehicle, setEditingVehicle] = useState<TradeVehicle | null | undefined>(undefined);
   const [deactivating, setDeactivating] = useState<TradeVehicle | null>(null);
   const [deactivateLoading, setDeactivateLoading] = useState(false);
+  const [kmPanelVehicle, setKmPanelVehicle] = useState<TradeVehicle | null>(null);
+  const [kmReadings, setKmReadings] = useState<VehicleKmReadingWithAnulada[]>([]);
+  const [kmLoading, setKmLoading] = useState(false);
 
   // Ref estable para showToast — evita que useCallback de load cambie cada vez
   // que el padre re-renderiza al mostrar un toast (causa del bucle de carga).
@@ -530,6 +535,20 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
       setVehicles(prev => prev.map(x => x.id === v.id ? { ...x, estado } : x));
     } catch (e) {
       showToast(errMsg(e), 'error');
+    }
+  }
+
+  async function handleOpenKmPanel(v: TradeVehicle) {
+    setKmPanelVehicle(v);
+    setKmReadings([]);
+    setKmLoading(true);
+    try {
+      const readings = await loadVehicleKmHistory(orgId, v.id);
+      setKmReadings(readings);
+    } catch (e) {
+      showToast(errMsg(e), 'error');
+    } finally {
+      setKmLoading(false);
     }
   }
 
@@ -699,22 +718,29 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
                           )}
                         </td>
                         <td className="px-4 py-3">
-                          {canWrite && (
-                            <div className="flex items-center gap-1 justify-end">
-                              <button onClick={() => setEditingVehicle(v)}
-                                className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded"
-                                title="Editar">
-                                <Edit2 size={14} />
-                              </button>
-                              {v.activo && (
-                                <button onClick={() => setDeactivating(v)}
-                                  className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded"
-                                  title="Dar de baja">
-                                  <Trash2 size={14} />
+                          <div className="flex items-center gap-1 justify-end">
+                            <button onClick={() => handleOpenKmPanel(v)}
+                              className="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded"
+                              title={v.km_actual != null ? `${v.km_actual.toLocaleString()} km` : 'Odómetro'}>
+                              <Gauge size={14} />
+                            </button>
+                            {canWrite && (
+                              <>
+                                <button onClick={() => setEditingVehicle(v)}
+                                  className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded"
+                                  title="Editar">
+                                  <Edit2 size={14} />
                                 </button>
-                              )}
-                            </div>
-                          )}
+                                {v.activo && (
+                                  <button onClick={() => setDeactivating(v)}
+                                    className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded"
+                                    title="Dar de baja">
+                                    <Trash2 size={14} />
+                                  </button>
+                                )}
+                              </>
+                            )}
+                          </div>
                         </td>
                       </tr>
                     );
@@ -808,6 +834,107 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
           </>
         )}
       </div>
+
+      {/* Panel de historial de kilómetros del vehículo */}
+      {kmPanelVehicle && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[80vh] flex flex-col">
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+                  <Gauge size={16} className="text-emerald-600" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-slate-900">{kmPanelVehicle.nombre}</h3>
+                  <p className="text-xs text-slate-400 font-mono">{kmPanelVehicle.matricula}</p>
+                </div>
+              </div>
+              <button onClick={() => setKmPanelVehicle(null)} className="text-slate-400 hover:text-slate-700 cursor-pointer">
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* km_actual summary */}
+            <div className="px-5 py-4 bg-slate-50 border-b border-slate-100 shrink-0">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Odómetro actual</p>
+                  {kmPanelVehicle.km_actual != null ? (
+                    <p className="text-2xl font-black text-emerald-700">
+                      {kmPanelVehicle.km_actual.toLocaleString('es-ES')} <span className="text-base font-semibold text-slate-500">km</span>
+                    </p>
+                  ) : (
+                    <p className="text-sm text-slate-400 italic">Sin lecturas registradas</p>
+                  )}
+                  {kmPanelVehicle.km_actualizado_at && (
+                    <p className="text-[11px] text-slate-400 mt-0.5">
+                      Actualizado: {new Date(kmPanelVehicle.km_actualizado_at).toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' })}
+                    </p>
+                  )}
+                </div>
+                <History size={20} className="text-slate-200" />
+              </div>
+            </div>
+
+            {/* Historial */}
+            <div className="flex-1 overflow-y-auto px-5 py-4">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Historial de lecturas</p>
+              {kmLoading ? (
+                <div className="flex items-center justify-center py-10 gap-2 text-slate-400">
+                  <Loader2 size={16} className="animate-spin" />
+                  <span className="text-sm">Cargando...</span>
+                </div>
+              ) : kmReadings.length === 0 ? (
+                <p className="text-sm text-slate-400 italic text-center py-8">
+                  No hay lecturas registradas para este vehículo
+                </p>
+              ) : (
+                <div className="space-y-2">
+                  {kmReadings.map(r => {
+                    const TIPO_LABELS: Record<string, string> = {
+                      inicio_servicio: 'Inicio de servicio',
+                      final_servicio:  'Final de servicio',
+                      manual:          'Manual',
+                      sustitucion:     'Sustitución odómetro',
+                      correccion:      'Corrección',
+                    };
+                    return (
+                      <div key={r.id}
+                        className={`flex items-start gap-3 p-3 rounded-xl border text-sm
+                          ${r.anulada ? 'bg-red-50 border-red-100 opacity-60' : 'bg-white border-slate-100'}`}>
+                        <div className={`w-2 h-2 rounded-full mt-1.5 shrink-0 ${r.anulada ? 'bg-red-400' : 'bg-emerald-400'}`} />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-baseline gap-2 flex-wrap">
+                            <span className="font-bold text-slate-800">{r.km.toLocaleString('es-ES')} km</span>
+                            <span className="text-[10px] px-1.5 py-0.5 bg-slate-100 text-slate-500 rounded font-medium">
+                              {TIPO_LABELS[r.tipo] ?? r.tipo}
+                            </span>
+                            {r.anulada && (
+                              <span className="text-[10px] px-1.5 py-0.5 bg-red-100 text-red-600 rounded font-medium">Anulada</span>
+                            )}
+                          </div>
+                          <p className="text-xs text-slate-400 mt-0.5">
+                            {new Date(r.leido_en).toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' })}
+                          </p>
+                          {r.notas && <p className="text-xs text-slate-500 mt-0.5 italic">{r.notas}</p>}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            <div className="px-5 py-3 border-t border-slate-100 shrink-0 flex justify-end">
+              <button onClick={() => setKmPanelVehicle(null)}
+                className="px-4 py-2 text-sm font-medium border border-slate-200 text-slate-600 rounded-lg cursor-pointer hover:bg-slate-50">
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {editingVehicle !== undefined && (
         <VehicleFormModal

@@ -14,6 +14,7 @@ import {
   updateTransportService,
   cancelTransportService,
   confirmTransportService,
+  startTransportService,
   updateTransportEstado,
   loadTransportServices,
   loadServicesOverlappingRange,
@@ -23,6 +24,7 @@ import {
 import type {
   TradeTransportService,
   TradeTransportServiceInput,
+  TradeTransportStartInput,
   TransportStop,
   ConflictInfo,
   TipoServicio,
@@ -883,6 +885,11 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
   const [modal,        setModal]        = useState<'create' | 'edit' | null>(null);
   const [editing,      setEditing]      = useState<TradeTransportService | null>(null);
   const [canceling,    setCanceling]    = useState<TradeTransportService | null>(null);
+  const [iniciando,    setIniciando]    = useState<TradeTransportService | null>(null);
+  const [odoInicio,    setOdoInicio]    = useState('');
+  const [horaInicioReal, setHoraInicioReal] = useState('');
+  const [obsInicio,    setObsInicio]    = useState('');
+  const [iniciandoLoading, setIniciandoLoading] = useState(false);
   const [recentlySaved, setRecentlySaved] = useState<TradeTransportService | null>(null);
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
 
@@ -1044,6 +1051,35 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
       showToast(errMsg(err), 'error');
     } finally {
       setCanceling(null);
+    }
+  };
+
+  const handleIniciarConfirm = async () => {
+    if (!iniciando) return;
+    setIniciandoLoading(true);
+    try {
+      const input: TradeTransportStartInput = {
+        odometro_inicio:  odoInicio     ? parseInt(odoInicio, 10) : null,
+        hora_inicio_real: horaInicioReal ? new Date(horaInicioReal).toISOString() : null,
+        obs_inicio:       obsInicio     || null,
+      };
+      await startTransportService(iniciando.id, orgId, input);
+      setServices(prev => prev.map(x =>
+        x.id === iniciando.id
+          ? { ...x, estado: 'en_curso' as ServicioEstado,
+              odometro_inicio: input.odometro_inicio ?? x.odometro_inicio,
+              hora_inicio_real: input.hora_inicio_real ?? x.hora_inicio_real }
+          : x,
+      ));
+      showToast('Servicio iniciado', 'success');
+    } catch (err) {
+      showToast(errMsg(err), 'error');
+    } finally {
+      setIniciandoLoading(false);
+      setIniciando(null);
+      setOdoInicio('');
+      setHoraInicioReal('');
+      setObsInicio('');
     }
   };
 
@@ -1233,7 +1269,7 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
                   onEdit={() => { setEditing(s); setModal('edit'); }}
                   onCancel={() => setCanceling(s)}
                   onConfirm={() => handleConfirm(s)}
-                  onIniciar={() => handleEstado(s, 'en_curso')}
+                  onIniciar={() => { setIniciando(s); setOdoInicio(''); setHoraInicioReal(''); setObsInicio(''); }}
                   onOpenParte={(id) => onOpenParte?.(id)}
                 />
               ))}
@@ -1289,6 +1325,64 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
               <button onClick={handleCancelConfirm}
                 className="px-4 py-2 text-sm font-semibold bg-red-600 text-white rounded-lg cursor-pointer hover:bg-red-700">
                 Sí, cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de inicio de servicio */}
+      {iniciando && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="bg-white rounded-xl shadow-xl p-6 max-w-sm w-full space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-base font-bold text-slate-900">Iniciar servicio</h3>
+              <button onClick={() => setIniciando(null)} className="text-slate-400 hover:text-slate-600 cursor-pointer">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <p className="text-sm text-slate-600">"{iniciando.titulo}"</p>
+            <div className="space-y-3">
+              <div>
+                <label className="block text-xs font-medium text-slate-700 mb-1">Odómetro de inicio (km) <span className="font-normal text-slate-400">— opcional</span></label>
+                <input
+                  type="number"
+                  min="0"
+                  placeholder="Ej. 124500"
+                  value={odoInicio}
+                  onChange={e => setOdoInicio(e.target.value)}
+                  className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-slate-700 mb-1">Hora real de salida <span className="font-normal text-slate-400">— opcional</span></label>
+                <input
+                  type="datetime-local"
+                  value={horaInicioReal}
+                  onChange={e => setHoraInicioReal(e.target.value)}
+                  className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-slate-700 mb-1">Observaciones de inicio <span className="font-normal text-slate-400">— opcional</span></label>
+                <textarea
+                  rows={2}
+                  placeholder="Notas al salir..."
+                  value={obsInicio}
+                  onChange={e => setObsInicio(e.target.value)}
+                  className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                />
+              </div>
+            </div>
+            <div className="flex gap-3 justify-end pt-1">
+              <button onClick={() => setIniciando(null)} disabled={iniciandoLoading}
+                className="px-4 py-2 text-sm font-medium border border-slate-200 text-slate-600 rounded-lg cursor-pointer disabled:opacity-50">
+                Cancelar
+              </button>
+              <button onClick={handleIniciarConfirm} disabled={iniciandoLoading}
+                className="flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-emerald-600 text-white rounded-lg cursor-pointer hover:bg-emerald-700 disabled:opacity-50">
+                {iniciandoLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : null}
+                Iniciar
               </button>
             </div>
           </div>

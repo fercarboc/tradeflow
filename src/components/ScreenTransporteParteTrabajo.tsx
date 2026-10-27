@@ -88,6 +88,7 @@ export default function ScreenTransporteParteTrabajo({ orgId, serviceId, onClose
   const [horaSalida,    setHoraSalida]    = useState('');
   const [horaLlegada,   setHoraLlegada]   = useState('');
   const [km,            setKm]            = useState('');
+  const [odoFinal,      setOdoFinal]      = useState('');
   const [incidencias,   setIncidencias]   = useState('');
   const [obscierre,     setObscierre]     = useState('');
 
@@ -113,8 +114,9 @@ export default function ScreenTransporteParteTrabajo({ orgId, serviceId, onClose
         // Pre-fill parte fields if already partially set (e.g. re-opening)
         if (s.hora_real_salida)  setHoraSalida(toLocalDT(s.hora_real_salida));
         if (s.hora_real_llegada) setHoraLlegada(toLocalDT(s.hora_real_llegada));
-        if (s.km_reales != null) setKm(String(s.km_reales));
-        if (s.incidencias)       setIncidencias(s.incidencias);
+        if (s.km_reales != null)    setKm(String(s.km_reales));
+        if (s.odometro_final != null) setOdoFinal(String(s.odometro_final));
+        if (s.incidencias)          setIncidencias(s.incidencias);
         if (s.observaciones_cierre) setObscierre(s.observaciones_cierre);
       } catch (e) {
         setError(errMsg(e));
@@ -152,6 +154,7 @@ export default function ScreenTransporteParteTrabajo({ orgId, serviceId, onClose
         hora_real_salida:    horaSalida  ? fromLocalDT(horaSalida)  : null,
         hora_real_llegada:   horaLlegada ? fromLocalDT(horaLlegada) : null,
         km_reales:           km.trim() !== '' ? parseFloat(km) : null,
+        odometro_final:      odoFinal.trim() !== '' ? parseInt(odoFinal, 10) : null,
         incidencias:         incidencias.trim() || null,
         observaciones_cierre: obscierre.trim() || null,
       };
@@ -359,10 +362,20 @@ export default function ScreenTransporteParteTrabajo({ orgId, serviceId, onClose
                   real={fmtDT(svc.hora_real_llegada)}
                 />
                 <DiffRow
-                  label="Kilómetros"
+                  label="Km recorridos"
                   previsto="—"
                   real={svc.km_reales != null ? `${svc.km_reales} km` : '—'}
                 />
+                {(svc.odometro_inicio != null || svc.odometro_final != null) && (
+                  <DiffRow
+                    label="Odómetro"
+                    previsto={svc.odometro_inicio != null ? `Inicio: ${svc.odometro_inicio.toLocaleString()} km` : '—'}
+                    real={svc.odometro_final != null
+                      ? `${svc.odometro_final.toLocaleString()} km${svc.odometro_recorridos != null ? ` (+${svc.odometro_recorridos})` : ''}`
+                      : '—'
+                    }
+                  />
+                )}
                 {svc.incidencias && (
                   <div className="mt-3 bg-amber-50 border border-amber-200 rounded-xl p-3">
                     <p className="text-[10px] font-bold text-amber-600 uppercase tracking-wide mb-1">Incidencias</p>
@@ -404,19 +417,35 @@ export default function ScreenTransporteParteTrabajo({ orgId, serviceId, onClose
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-1">
-                    Kilómetros recorridos
-                  </label>
-                  <input
-                    type="number"
-                    min="0"
-                    step="0.1"
-                    placeholder="0.0"
-                    value={km}
-                    onChange={e => setKm(e.target.value)}
-                    className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-1">
+                      Km recorridos <span className="font-normal normal-case text-slate-400">(comercial)</span>
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      step="0.1"
+                      placeholder="0.0"
+                      value={km}
+                      onChange={e => setKm(e.target.value)}
+                      className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-1">
+                      Odómetro final (km) <span className="font-normal normal-case text-slate-400">(opcional)</span>
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      step="1"
+                      placeholder={svc.odometro_inicio != null ? `Inicio: ${svc.odometro_inicio}` : 'Ej. 124850'}
+                      value={odoFinal}
+                      onChange={e => setOdoFinal(e.target.value)}
+                      className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
                 </div>
 
                 <div>
