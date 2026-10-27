@@ -10,6 +10,7 @@ import {
   geocodeCredits,
   routingCredits,
   geojsonToLeaflet,
+  geometryToLeaflet,
   routeCacheKey,
   normalizeAddressForSearch,
   MAX_DISTANCE_SURCHARGE_CAP,
@@ -603,5 +604,61 @@ describe('geocode reconcile invariants', () => {
     expect(deltaAfterRetry).toBe(0);
     // Total effect on counters: 0 + 0 = 0 (correct — geo_reserve already debited 1)
     expect(delta + deltaAfterRetry).toBe(0);
+  });
+});
+
+// ── geometryToLeaflet ─────────────────────────────────────────────────────────
+
+describe('geometryToLeaflet', () => {
+  it('converts LineString coordinates from [lng, lat] to [lat, lng]', () => {
+    const geom = {
+      type: 'LineString',
+      coordinates: [[-3.8, 43.4], [-3.75, 43.45], [-3.7, 43.5]] as [number, number][],
+    };
+    const result = geometryToLeaflet(geom);
+    expect(result).toEqual([[43.4, -3.8], [43.45, -3.75], [43.5, -3.7]]);
+  });
+
+  it('flattens MultiLineString into a single [lat, lng] array', () => {
+    const geom = {
+      type: 'MultiLineString',
+      coordinates: [
+        [[-3.8, 43.4], [-3.75, 43.45]],
+        [[-3.75, 43.45], [-3.7, 43.5]],
+      ] as [number, number][][],
+    };
+    const result = geometryToLeaflet(geom);
+    expect(result).toEqual([[43.4, -3.8], [43.45, -3.75], [43.45, -3.75], [43.5, -3.7]]);
+  });
+
+  it('handles empty LineString', () => {
+    expect(geometryToLeaflet({ type: 'LineString', coordinates: [] })).toEqual([]);
+  });
+
+  it('handles empty MultiLineString', () => {
+    expect(geometryToLeaflet({ type: 'MultiLineString', coordinates: [] })).toEqual([]);
+  });
+
+  it('handles MultiLineString with a single segment', () => {
+    const geom = {
+      type: 'MultiLineString',
+      coordinates: [[[-3.8, 43.4], [-3.7, 43.5]]] as [number, number][][],
+    };
+    const result = geometryToLeaflet(geom);
+    expect(result).toEqual([[43.4, -3.8], [43.5, -3.7]]);
+  });
+
+  it('produces valid Leaflet coords (lat in range -90..90, lng in range -180..180)', () => {
+    const geom = {
+      type: 'LineString',
+      coordinates: [[-3.8441, 43.4627], [-3.7938, 43.4637]] as [number, number][],
+    };
+    const pts = geometryToLeaflet(geom);
+    for (const [lat, lng] of pts) {
+      expect(lat).toBeGreaterThanOrEqual(-90);
+      expect(lat).toBeLessThanOrEqual(90);
+      expect(lng).toBeGreaterThanOrEqual(-180);
+      expect(lng).toBeLessThanOrEqual(180);
+    }
   });
 });

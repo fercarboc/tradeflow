@@ -32,8 +32,15 @@ export interface GeoJSONLineString {
   coordinates: [number, number][]; // [lng, lat] — convertir a [lat, lng] para Leaflet
 }
 
+export interface GeoJSONMultiLineString {
+  type: 'MultiLineString';
+  coordinates: [number, number][][]; // array de líneas, cada una [lng, lat][]
+}
+
+export type GeoJSONGeometry = GeoJSONLineString | GeoJSONMultiLineString;
+
 export interface RouteResult {
-  geometry:   GeoJSONLineString;
+  geometry:   GeoJSONGeometry;
   distance_m: number;
   duration_s: number;
   provider:   string;

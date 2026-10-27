@@ -123,6 +123,22 @@ export function geojsonToLeaflet(
 }
 
 /**
+ * Convierte geometría GeoJSON (LineString o MultiLineString) a array plano
+ * de posiciones [lat, lng] para Leaflet.
+ * MultiLineString se aplana concatenando todos los segmentos.
+ */
+export function geometryToLeaflet(
+  geometry: { type: string; coordinates: unknown }
+): [number, number][] {
+  if (geometry.type === 'MultiLineString') {
+    const mls = geometry.coordinates as [number, number][][];
+    return mls.flat(1).map(([lng, lat]) => [lat, lng]);
+  }
+  // LineString (o cualquier otro tipo que tenga coordinates planas)
+  return geojsonToLeaflet(geometry.coordinates as [number, number][]);
+}
+
+/**
  * Genera la clave de caché para una ruta.
  * Preserva el orden de los waypoints — cambiar el orden cambia la ruta.
  * Redondea a 6 decimales (~0.1 m) para absorber ruido de representación flotante.

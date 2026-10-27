@@ -11,7 +11,7 @@ import 'leaflet/dist/leaflet.css';
 import { MapPin, AlertTriangle, Route, Loader2, Bus } from 'lucide-react';
 import { routeWaypoints, formatDuration, formatDistance } from '../lib/geoApi';
 import type { RouteResult } from '../lib/geoApi';
-import { geojsonToLeaflet } from '../lib/geoCredits';
+import { geometryToLeaflet } from '../lib/geoCredits';
 import type { TradeTransportService } from '../lib/transportServices';
 import { locationToText, locationToAddress, geoValid } from '../lib/transportLocations';
 import { CARTO_KEY, CARTO_URL, CARTO_ATTR } from '../lib/cartoConfig';
@@ -242,7 +242,7 @@ export default function TransportServiceMap({ service, orgId, className = '' }: 
 
   const routePolyline = useMemo<[number, number][] | null>(() => {
     if (!routeResult) return null;
-    return geojsonToLeaflet(routeResult.geometry.coordinates);
+    return geometryToLeaflet(routeResult.geometry);
   }, [routeResult]);
 
   const canRequestRoute = !!(orgId && geoPoints.length >= 2 && !routeResult && !routeLoading);
@@ -338,11 +338,6 @@ export default function TransportServiceMap({ service, orgId, className = '' }: 
             </p>
           </div>
         )}
-      </div>
-
-      {/* Text itinerary below map — always useful for times and addresses */}
-      <div className="border-t border-slate-100">
-        <TextItinerary waypoints={textWaypoints} />
       </div>
     </div>
   );

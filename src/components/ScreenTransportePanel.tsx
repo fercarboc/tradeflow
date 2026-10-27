@@ -315,12 +315,15 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
         />
       </div>
 
-      {/* Bloque mapa — placeholder hasta integración de rutas en T2 */}
+      {/* Rutas del día — servicios programados para hoy */}
       <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
         <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
           <div className="flex items-center gap-2">
             <Route className="w-4 h-4 text-blue-500" />
             <h2 className="text-sm font-black text-slate-800 uppercase tracking-wide">Rutas del día</h2>
+            {tableServices.length > 0 && (
+              <span className="text-[10px] font-bold text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded-full">{tableServices.length}</span>
+            )}
           </div>
           {onNavigate && (
             <button onClick={() => onNavigate('transporte_rutas')}
@@ -329,22 +332,69 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
             </button>
           )}
         </div>
-        <div className="relative bg-slate-50 h-44 flex flex-col items-center justify-center gap-3">
-          {/* Fondo decorativo tipo mapa */}
-          <div className="absolute inset-0 opacity-[0.06]"
-            style={{ backgroundImage: 'radial-gradient(circle, #3b82f6 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
-          <MapPin className="w-10 h-10 text-slate-300 relative z-10" />
-          <div className="relative z-10 text-center">
-            <p className="text-sm font-semibold text-slate-500">Sin rutas activas hoy</p>
-            <p className="text-xs text-slate-400 mt-0.5">La planificación de rutas se completará en la próxima fase</p>
+        {tableServices.length === 0 ? (
+          <div className="px-4 py-8 flex flex-col items-center gap-2 text-center">
+            <MapPin className="w-8 h-8 text-slate-200" />
+            <p className="text-sm font-semibold text-slate-400">Sin servicios hoy</p>
+            <p className="text-xs text-slate-400">Los servicios programados para hoy aparecerán aquí</p>
+            {onNavigate && (
+              <button onClick={() => onNavigate('transporte_servicios')}
+                className="mt-1 flex items-center gap-1.5 text-xs font-semibold text-blue-600 border border-blue-200 bg-white rounded-lg px-3 py-1.5 hover:bg-blue-50 transition-colors">
+                <Plus className="w-3.5 h-3.5" /> Crear servicio
+              </button>
+            )}
           </div>
-          {onNavigate && (
-            <button onClick={() => onNavigate('transporte_rutas')}
-              className="relative z-10 flex items-center gap-1.5 text-xs font-semibold text-blue-600 border border-blue-200 bg-white rounded-lg px-3 py-1.5 hover:bg-blue-50 transition-colors">
-              <Route className="w-3.5 h-3.5" /> Planificar rutas
-            </button>
-          )}
-        </div>
+        ) : (
+          <div className="divide-y divide-slate-50">
+            {tableServices.slice(0, 5).map(svc => {
+              const vehicle   = svc.vehicle_id   ? vehicleMap.get(svc.vehicle_id)   : undefined;
+              const conductor = svc.conductor_id ? workerMap.get(svc.conductor_id) : undefined;
+              const isEnCurso = svc.estado === 'en_curso';
+              return (
+                <button
+                  key={svc.id}
+                  onClick={() => onNavigate?.('transporte_rutas')}
+                  className={`w-full text-left px-4 py-3 flex items-center gap-3 hover:bg-slate-50 transition-colors ${isEnCurso ? 'bg-emerald-50/30' : ''}`}
+                >
+                  <div className="shrink-0 w-14 text-center">
+                    <span className="text-xs font-mono font-semibold text-slate-700">{fmtTime(svc.fecha_inicio)}</span>
+                    {svc.fecha_fin && (
+                      <div className="text-[10px] text-slate-400">{fmtTime(svc.fecha_fin)}</div>
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-slate-800 truncate leading-tight">{svc.titulo}</p>
+                    {(svc.origen || svc.destino) && (
+                      <p className="text-[11px] text-slate-400 truncate mt-0.5 flex items-center gap-1">
+                        <MapPin className="w-2.5 h-2.5 shrink-0" />
+                        {[svc.origen, svc.destino].filter(Boolean).join(' → ')}
+                      </p>
+                    )}
+                  </div>
+                  <div className="shrink-0 flex flex-col items-end gap-1">
+                    <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full border ${estadoColor(svc.estado as ServicioEstado)}`}>
+                      {isEnCurso && <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse" />}
+                      {estadoLabel(svc.estado as ServicioEstado)}
+                    </span>
+                    {(vehicle || conductor) && (
+                      <span className="text-[10px] text-slate-400 truncate max-w-[90px]">
+                        {vehicle?.nombre ?? conductor?.nombre ?? ''}
+                      </span>
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+            {tableServices.length > 5 && (
+              <div className="px-4 py-2 text-center">
+                <button onClick={() => onNavigate?.('transporte_rutas')}
+                  className="text-xs text-blue-600 hover:text-blue-800 font-medium">
+                  Ver {tableServices.length - 5} más en Rutas
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* 2-column layout: main content + sidebar */}
