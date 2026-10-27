@@ -10,7 +10,7 @@ import {
 } from '../lib/transportServices';
 import type { TradeTransportService, TradeTransportParteInput } from '../lib/transportServices';
 import { phoneHref, locationToAddress, hasAddress, hasContact, TIPO_OPERACION_OPTIONS } from '../lib/transportLocations';
-import { calcOdoEstimado, calcDistanciaOdo, validateOdometroFinal, fmtKm } from '../lib/odometroUtils';
+import { calcOdoEstimado, calcDistanciaOdo, validateOdometroFinal, fmtKm, resolveOdometroFinal } from '../lib/odometroUtils';
 import { loadVehiclesAll } from '../lib/transport';
 import type { TradeVehicle } from '../lib/transport';
 import { loadClients, loadWorkers, getClientDisplayName } from '../lib/supabase';
@@ -92,7 +92,7 @@ export default function ScreenTransporteParteTrabajo({ orgId, serviceId, onClose
   const [odoFinal,      setOdoFinal]      = useState('');
   const [incidencias,   setIncidencias]   = useState('');
   const [obscierre,     setObscierre]     = useState('');
-  const [odoFinalFromEstimate, setOdoFinalFromEstimate] = useState(false);
+  const [odoConfirmado, setOdoConfirmado] = useState(false);
 
   useEffect(() => {
     const fetch = async () => {
@@ -148,15 +148,12 @@ export default function ScreenTransporteParteTrabajo({ orgId, serviceId, onClose
 
   function handleKmChange(val: string) {
     setKm(val);
-    if (odoFinalFromEstimate && svc?.odometro_inicio != null) {
-      const est = calcOdoEstimado(svc.odometro_inicio, val);
-      setOdoFinal(est != null ? String(est) : '');
-    }
+    // km changes update the estimate display only — never overwrite a confirmed reading
   }
 
   function handleOdoFinalChange(val: string) {
     setOdoFinal(val);
-    setOdoFinalFromEstimate(false);
+    setOdoConfirmado(false);
   }
 
   // ── Submit (close service) ─────────────────────────────────────────────────
@@ -171,7 +168,7 @@ export default function ScreenTransporteParteTrabajo({ orgId, serviceId, onClose
         hora_real_salida:    horaSalida  ? fromLocalDT(horaSalida)  : null,
         hora_real_llegada:   horaLlegada ? fromLocalDT(horaLlegada) : null,
         km_reales:           km.trim() !== '' ? parseFloat(km) : null,
-        odometro_final:      odoFinal.trim() !== '' ? parseInt(odoFinal, 10) : null,
+        odometro_final:      resolveOdometroFinal(odoFinal, odoConfirmado),
         incidencias:         incidencias.trim() || null,
         observaciones_cierre: obscierre.trim() || null,
       };
@@ -486,13 +483,22 @@ export default function ScreenTransporteParteTrabajo({ orgId, serviceId, onClose
                         <label className="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">
                           Lectura real al llegar
                         </label>
-                        {estimado != null && !odoFinalFromEstimate && (
+                        {estimado != null && !odoConfirmado && (
                           <button
                             type="button"
-                            onClick={() => { setOdoFinal(String(estimado)); setOdoFinalFromEstimate(true); }}
+                            onClick={() => setOdoFinal(String(estimado))}
                             className="text-[10px] text-blue-600 hover:text-blue-800 font-semibold hover:underline shrink-0 ml-2"
                           >
                             Usar estimación ({fmtKm(estimado)} km)
+                          </button>
+                        )}
+                        {odoConfirmado && (
+                          <button
+                            type="button"
+                            onClick={() => setOdoConfirmado(false)}
+                            className="text-[10px] text-slate-500 hover:text-slate-800 underline shrink-0 ml-2"
+                          >
+                            Editar
                           </button>
                         )}
                       </div>
@@ -500,14 +506,33 @@ export default function ScreenTransporteParteTrabajo({ orgId, serviceId, onClose
                         type="number" min="0" step="1"
                         placeholder={`Ej. ${fmtKm(svc.odometro_inicio + 120)}`}
                         value={odoFinal}
+                        readOnly={odoConfirmado}
                         onChange={e => handleOdoFinalChange(e.target.value)}
                         className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                          odoErr ? 'border-red-300 bg-red-50' : 'border-slate-200 bg-white'
+                          odoConfirmado
+                            ? 'bg-emerald-50 border-emerald-300 cursor-default'
+                            : odoErr
+                            ? 'border-red-300 bg-red-50'
+                            : 'border-slate-200 bg-white'
                         }`}
                       />
-                      {odoFinalFromEstimate && odoFinal !== '' && !odoErr && (
-                        <p className="text-[10px] text-blue-500 mt-1">
-                          Usando estimación. Si la lectura es diferente, escribe el valor real.
+                      {odoFinal.trim() !== '' && !odoErr && !odoConfirmado && (
+                        <label className="flex items-start gap-2 mt-2 cursor-pointer select-none">
+                          <input
+                            type="checkbox"
+                            checked={odoConfirmado}
+                            onChange={e => setOdoConfirmado(e.target.checked)}
+                            className="mt-0.5 w-3.5 h-3.5 accent-blue-600 shrink-0"
+                          />
+                          <span className="text-[11px] text-slate-600 leading-snug">
+                            Confirmo que <span className="font-semibold">{fmtKm(parseInt(odoFinal, 10))} km</span> es la lectura real del cuentakilómetros
+                          </span>
+                        </label>
+                      )}
+                      {odoConfirmado && (
+                        <p className="text-[10px] text-emerald-600 mt-1.5 flex items-center gap-1 font-semibold">
+                          <CheckCircle className="w-3 h-3 shrink-0" />
+                          Lectura confirmada — se registrará en Flota
                         </p>
                       )}
                       {odoErr && (

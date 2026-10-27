@@ -4,6 +4,7 @@ import {
   calcDistanciaOdo,
   validateOdometroFinal,
   fmtKm,
+  resolveOdometroFinal,
 } from '../../lib/odometroUtils';
 
 // ── ODO-1: calcOdoEstimado ────────────────────────────────────────────────────
@@ -177,16 +178,106 @@ describe('flujo combinado — escenario del bug reportado', () => {
     expect(validateOdometroFinal(INICIO, '175115')).toBeNull();
   });
 
-  it('ODO-5-E: km cambia de 115 a 200 mientras trackea estimación → nuevo estimado 175200', () => {
-    // Simula handleKmChange cuando odoFinalFromEstimate=true
+  it('ODO-5-E: km cambia de 115 a 200 → nuevo estimado 175200 (lectura confirmada no se toca)', () => {
     const nuevoKm = '200';
     const nuevoEstimado = calcOdoEstimado(INICIO, nuevoKm);
     expect(nuevoEstimado).toBe(175200);
+    // La lectura confirmada (175115) permanece — resolveOdometroFinal la sigue devolviendo
+    expect(resolveOdometroFinal('175115', true)).toBe(175115);
   });
 
-  it('ODO-5-F: km vacío mientras trackea estimación → estimado null → campo vacío', () => {
+  it('ODO-5-F: km vacío → estimado null (display muestra "—")', () => {
     const estimado = calcOdoEstimado(INICIO, '');
     expect(estimado).toBeNull();
+  });
+});
+
+// ── ODO-7: resolveOdometroFinal ───────────────────────────────────────────────
+
+describe('resolveOdometroFinal', () => {
+  it('ODO-7-A: confirmado + valor válido → retorna entero', () => {
+    expect(resolveOdometroFinal('175115', true)).toBe(175115);
+  });
+
+  it('ODO-7-B: no confirmado + valor válido → null (no enviar sin confirmación)', () => {
+    expect(resolveOdometroFinal('175115', false)).toBeNull();
+  });
+
+  it('ODO-7-C: confirmado + campo vacío → null', () => {
+    expect(resolveOdometroFinal('', true)).toBeNull();
+    expect(resolveOdometroFinal('  ', true)).toBeNull();
+  });
+
+  it('ODO-7-D: confirmado + valor no numérico → null', () => {
+    expect(resolveOdometroFinal('abc', true)).toBeNull();
+  });
+
+  it('ODO-7-E: confirmado + negativo → null', () => {
+    expect(resolveOdometroFinal('-1', true)).toBeNull();
+  });
+
+  it('ODO-7-F: no confirmado + campo vacío → null', () => {
+    expect(resolveOdometroFinal('', false)).toBeNull();
+  });
+
+  it('ODO-7-G: confirmado + cero → 0 (vehículo nuevo)', () => {
+    expect(resolveOdometroFinal('0', true)).toBe(0);
+  });
+});
+
+// ── ODO-8: flujo completo con confirmación explícita ─────────────────────────
+
+describe('flujo completo — confirmación explícita requerida', () => {
+  const INICIO = 175000;
+
+  it('ODO-8-A: "Usar estimación" copia el valor pero NO confirma automáticamente', () => {
+    const estimado = calcOdoEstimado(INICIO, '115')!; // 175115
+    // Simula click "Usar estimación": setOdoFinal(String(estimado)), odoConfirmado sigue false
+    const odoFinal = String(estimado);
+    expect(resolveOdometroFinal(odoFinal, false)).toBeNull(); // no confirmado aún
+    expect(resolveOdometroFinal(odoFinal, true)).toBe(175115);  // tras marcar checkbox
+  });
+
+  it('ODO-8-B: km cambia tras confirmación → estimado actualiza, lectura confirmada no cambia', () => {
+    const odoFinalConfirmado = '175115';
+    // km cambia a 200 → nuevo estimado 175200, pero la lectura confirmada es la del usuario
+    const nuevoEstimado = calcOdoEstimado(INICIO, '200'); // 175200
+    expect(nuevoEstimado).toBe(175200);
+    // La lectura confirmada sigue siendo 175115 — component no la toca
+    expect(resolveOdometroFinal(odoFinalConfirmado, true)).toBe(175115);
+  });
+
+  it('ODO-8-C: editar lectura invalida confirmación — nuevo valor no se envía hasta reconfirmar', () => {
+    const nuevaLectura = '175200';
+    // handleOdoFinalChange → setOdoConfirmado(false)
+    expect(resolveOdometroFinal(nuevaLectura, false)).toBeNull();
+    // Tras marcar checkbox de nuevo
+    expect(resolveOdometroFinal(nuevaLectura, true)).toBe(175200);
+  });
+
+  it('ODO-8-D: cierre sin confirmación → odometro_final = null (km_actual no se actualiza)', () => {
+    // El usuario rellena el campo pero no marca el checkbox
+    expect(resolveOdometroFinal('175115', false)).toBeNull();
+  });
+
+  it('ODO-8-E: cierre con confirmación → odometro_final enviado correctamente', () => {
+    expect(resolveOdometroFinal('175115', true)).toBe(175115);
+  });
+
+  it('ODO-8-F: campo vacío + confirmado = false → null en ambos casos', () => {
+    expect(resolveOdometroFinal('', false)).toBeNull();
+    expect(resolveOdometroFinal('', true)).toBeNull();
+  });
+
+  it('ODO-8-G: escenario bug original — usuario pone 115 (km viaje) en odómetro → validación bloquea antes de confirmar', () => {
+    // validateOdometroFinal rechaza el valor (< inicio)
+    const err = validateOdometroFinal(INICIO, '115');
+    expect(err).not.toBeNull();
+    // resolveOdometroFinal devuelve null incluso si confirmado (no llegaría a confirmarse por la validación)
+    // pero si llegara sin validar:
+    expect(resolveOdometroFinal('115', true)).toBe(115); // pasa resolveOdometroFinal solo
+    // la barrera real es validateOdometroFinal que bloquea el submit
+    expect(err).toContain('175.000');
   });
 });
 

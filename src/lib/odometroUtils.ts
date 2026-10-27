@@ -59,3 +59,19 @@ export function validateOdometroFinal(
 export function fmtKm(n: number): string {
   return n.toLocaleString('es-ES');
 }
+
+/**
+ * Determina el valor a enviar como odometro_final al completar el servicio.
+ * Solo retorna un valor numérico si el usuario confirmó expresamente la lectura.
+ * Si no está confirmada, retorna null aunque el campo tenga contenido.
+ */
+export function resolveOdometroFinal(
+  odoFinalStr: string,
+  confirmado: boolean,
+): number | null {
+  if (!confirmado) return null;
+  if (odoFinalStr.trim() === '') return null;
+  const val = parseInt(odoFinalStr, 10);
+  if (isNaN(val) || val < 0) return null;
+  return val;
+}
