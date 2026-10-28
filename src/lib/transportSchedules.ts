@@ -365,6 +365,31 @@ export function getExpectedOccurrences(
   return results;
 }
 
+export async function createException(
+  orgId: string,
+  input: Omit<TradeTransportScheduleException, 'id' | 'org_id' | 'created_at'>,
+): Promise<TradeTransportScheduleException> {
+  const { data, error } = await supabase
+    .from('trade_transport_schedule_exceptions')
+    .insert({ ...input, org_id: orgId })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as TradeTransportScheduleException;
+}
+
+export async function deleteException(
+  id: string,
+  orgId: string,
+): Promise<void> {
+  const { error } = await supabase
+    .from('trade_transport_schedule_exceptions')
+    .delete()
+    .eq('id', id)
+    .eq('org_id', orgId);
+  if (error) throw error;
+}
+
 /**
  * Valida que los overrides JSONB sean coherentes con el tipo de excepción.
  * Retorna null si son válidos, o un mensaje de error en caso contrario.
