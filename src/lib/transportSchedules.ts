@@ -248,6 +248,41 @@ export async function materializeOccurrence(
   return data as MaterializeResult;
 }
 
+// ── F2: Proyección de ocurrencias ────────────────────────────────────────────
+
+export type ProjectionStatus = 'pending' | 'materialized' | 'suspended' | 'no_circula';
+
+export interface ProjectionRow {
+  fecha: string;                      // date ISO YYYY-MM-DD
+  sentido: ScheduleSentido;
+  status: ProjectionStatus;
+  service_id: string | null;
+  exception_tipo: ScheduleExceptionTipo | null;
+  exception_motivo: string | null;
+  hora_salida: string;                // HH:MM:SS efectiva
+  hora_llegada: string | null;        // HH:MM:SS efectiva
+  conductor_id: string | null;        // efectivo
+  vehicle_id: string | null;          // efectivo
+  origen: Record<string, unknown>;
+  destino: Record<string, unknown>;
+}
+
+export async function getScheduleProjection(
+  orgId: string,
+  scheduleId: string,
+  desde: string,
+  hasta: string,
+): Promise<ProjectionRow[]> {
+  const { data, error } = await supabase.rpc('get_transport_schedule_projection', {
+    p_org_id:      orgId,
+    p_schedule_id: scheduleId,
+    p_desde:       desde,
+    p_hasta:       hasta,
+  });
+  if (error) throw error;
+  return (data ?? []) as ProjectionRow[];
+}
+
 export async function loadStopFavorites(orgId: string): Promise<TradeTransportStopFavorite[]> {
   const { data, error } = await supabase
     .from('trade_transport_stop_favorites')

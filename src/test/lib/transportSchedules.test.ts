@@ -11,6 +11,8 @@ import {
   type ScheduleEstado,
   type DiaSemanaISO,
   type TradeTransportSchedule,
+  type ProjectionStatus,
+  type ProjectionRow,
 } from '../../lib/transportSchedules';
 
 // ── Fixture de plantilla base ────────────────────────────────────────────────
@@ -486,5 +488,184 @@ describe('TS-6: Tipo modificado (E-GAP cerrado)', () => {
   it('TS-6-J: modificado con overrides vacío {} → válido (sin cambios explícitos)', () => {
     const result = validateExceptionOverrides('modificado', {});
     expect(result).toBeNull();
+  });
+});
+
+// ════════════════════════════════════════════════════════════════════════════
+// TS-7: Tipos de F2 — ProjectionStatus y ProjectionRow
+// ════════════════════════════════════════════════════════════════════════════
+
+describe('TS-7: Tipos F2 ProjectionRow', () => {
+  it('TS-7-A: ProjectionStatus acepta los 4 valores válidos en TypeScript', () => {
+    const statuses: ProjectionStatus[] = ['pending', 'materialized', 'suspended', 'no_circula'];
+    expect(statuses).toHaveLength(4);
+  });
+
+  it('TS-7-B: ProjectionRow con status pending tiene service_id null', () => {
+    const row: ProjectionRow = {
+      fecha:             '2026-10-28',
+      sentido:           'unico',
+      status:            'pending',
+      service_id:        null,
+      exception_tipo:    null,
+      exception_motivo:  null,
+      hora_salida:       '07:30:00',
+      hora_llegada:      '08:15:00',
+      conductor_id:      'wrk-001',
+      vehicle_id:        'veh-001',
+      origen:            { nombre_lugar: 'Origen' },
+      destino:           { nombre_lugar: 'Destino' },
+    };
+    expect(row.service_id).toBeNull();
+    expect(row.status).toBe('pending');
+  });
+
+  it('TS-7-C: ProjectionRow con status materialized puede tener service_id', () => {
+    const row: ProjectionRow = {
+      fecha:             '2026-10-28',
+      sentido:           'ida',
+      status:            'materialized',
+      service_id:        'srv-abc',
+      exception_tipo:    null,
+      exception_motivo:  null,
+      hora_salida:       '07:30:00',
+      hora_llegada:      null,
+      conductor_id:      null,
+      vehicle_id:        null,
+      origen:            {},
+      destino:           {},
+    };
+    expect(row.service_id).toBe('srv-abc');
+    expect(row.status).toBe('materialized');
+  });
+
+  it('TS-7-D: ProjectionRow con excepción suspendido tiene exception_tipo', () => {
+    const row: ProjectionRow = {
+      fecha:             '2026-10-28',
+      sentido:           'vuelta',
+      status:            'suspended',
+      service_id:        null,
+      exception_tipo:    'suspendido',
+      exception_motivo:  'Festivo local',
+      hora_salida:       '16:00:00',
+      hora_llegada:      null,
+      conductor_id:      null,
+      vehicle_id:        null,
+      origen:            {},
+      destino:           {},
+    };
+    expect(row.exception_tipo).toBe('suspendido');
+    expect(row.exception_motivo).toBe('Festivo local');
+    expect(row.status).toBe('suspended');
+  });
+
+  it('TS-7-E: ProjectionRow con status no_circula tiene exception_tipo', () => {
+    const row: ProjectionRow = {
+      fecha:             '2026-10-29',
+      sentido:           'unico',
+      status:            'no_circula',
+      service_id:        null,
+      exception_tipo:    'no_circula',
+      exception_motivo:  null,
+      hora_salida:       '07:30:00',
+      hora_llegada:      null,
+      conductor_id:      null,
+      vehicle_id:        null,
+      origen:            {},
+      destino:           {},
+    };
+    expect(row.status).toBe('no_circula');
+    expect(row.exception_tipo).toBe('no_circula');
+  });
+
+  it('TS-7-F: ProjectionRow acepta exception_tipo de cualquier ScheduleExceptionTipo', () => {
+    const tipos: ScheduleExceptionTipo[] = [
+      'no_circula', 'suspendido', 'cambio_horario',
+      'cambio_conductor', 'cambio_vehiculo', 'cambio_itinerario', 'modificado',
+    ];
+    tipos.forEach(tipo => {
+      const row: ProjectionRow = {
+        fecha:             '2026-10-28',
+        sentido:           'unico',
+        status:            'pending',
+        service_id:        null,
+        exception_tipo:    tipo,
+        exception_motivo:  null,
+        hora_salida:       '07:30:00',
+        hora_llegada:      null,
+        conductor_id:      null,
+        vehicle_id:        null,
+        origen:            {},
+        destino:           {},
+      };
+      expect(row.exception_tipo).toBe(tipo);
+    });
+  });
+
+  it('TS-7-G: ProjectionRow soporta todos los sentidos posibles', () => {
+    const sentidos: Array<'ida' | 'vuelta' | 'unico'> = ['ida', 'vuelta', 'unico'];
+    sentidos.forEach(s => {
+      const row: ProjectionRow = {
+        fecha:             '2026-10-28',
+        sentido:           s,
+        status:            'pending',
+        service_id:        null,
+        exception_tipo:    null,
+        exception_motivo:  null,
+        hora_salida:       '07:30:00',
+        hora_llegada:      null,
+        conductor_id:      null,
+        vehicle_id:        null,
+        origen:            {},
+        destino:           {},
+      };
+      expect(row.sentido).toBe(s);
+    });
+  });
+
+  it('TS-7-H: fecha tiene formato ISO YYYY-MM-DD', () => {
+    const row: ProjectionRow = {
+      fecha:             '2026-10-28',
+      sentido:           'unico',
+      status:            'pending',
+      service_id:        null,
+      exception_tipo:    null,
+      exception_motivo:  null,
+      hora_salida:       '07:30:00',
+      hora_llegada:      null,
+      conductor_id:      null,
+      vehicle_id:        null,
+      origen:            {},
+      destino:           {},
+    };
+    expect(row.fecha).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  });
+
+  it('TS-7-I: ProjectionRow con modificado tiene campos efectivos actualizados', () => {
+    const row: ProjectionRow = {
+      fecha:             '2026-10-28',
+      sentido:           'ida',
+      status:            'pending',
+      service_id:        null,
+      exception_tipo:    'modificado',
+      exception_motivo:  'Cambio de vehículo y horario',
+      hora_salida:       '08:00:00',    // override aplicado
+      hora_llegada:      '09:00:00',    // override aplicado
+      conductor_id:      'wrk-002',     // override aplicado
+      vehicle_id:        'veh-002',     // override aplicado
+      origen:            { nombre_lugar: 'Nueva parada origen' },
+      destino:           { nombre_lugar: 'IES Norte' },
+    };
+    expect(row.exception_tipo).toBe('modificado');
+    expect(row.conductor_id).toBe('wrk-002');
+    expect(row.vehicle_id).toBe('veh-002');
+    expect(row.hora_salida).toBe('08:00:00');
+  });
+
+  it('TS-7-J: la suma de statuses cubre el dominio completo (4 valores distintos)', () => {
+    const allStatuses = new Set<ProjectionStatus>([
+      'pending', 'materialized', 'suspended', 'no_circula',
+    ]);
+    expect(allStatuses.size).toBe(4);
   });
 });
