@@ -419,3 +419,48 @@ export function validateExceptionOverrides(
 
   return null;
 }
+
+// ── Helpers adicionales para Agenda unificada ─────────────────────────────────
+
+export async function loadSchedulesActive(orgId: string): Promise<TradeTransportSchedule[]> {
+  const { data, error } = await supabase
+    .from('trade_transport_schedules')
+    .select('*')
+    .eq('org_id', orgId)
+    .eq('estado', 'activo')
+    .order('nombre');
+  if (error) throw error;
+  return (data ?? []) as TradeTransportSchedule[];
+}
+
+export async function loadExceptionsForRange(
+  orgId: string,
+  desde: string,
+  hasta: string,
+): Promise<TradeTransportScheduleException[]> {
+  const { data, error } = await supabase
+    .from('trade_transport_schedule_exceptions')
+    .select('*')
+    .eq('org_id', orgId)
+    .gte('fecha', desde)
+    .lte('fecha', hasta)
+    .order('fecha');
+  if (error) throw error;
+  return (data ?? []) as TradeTransportScheduleException[];
+}
+
+export async function loadOccurrenceLinksForRange(
+  orgId: string,
+  desde: string,
+  hasta: string,
+): Promise<TradeTransportOccurrenceLink[]> {
+  const { data, error } = await supabase
+    .from('trade_transport_occurrence_links')
+    .select('*')
+    .eq('org_id', orgId)
+    .gte('fecha', desde)
+    .lte('fecha', hasta)
+    .order('fecha');
+  if (error) throw error;
+  return (data ?? []) as TradeTransportOccurrenceLink[];
+}
