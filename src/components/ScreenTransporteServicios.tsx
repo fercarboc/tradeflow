@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import ScheduleWizard from './ScheduleWizard';
 import {
   Plus, Calendar, MapPin, Users, ChevronLeft, ChevronRight, X, Edit2,
   AlertTriangle, CheckCircle, Clock, Truck, UserCheck, Bus,
@@ -883,6 +884,7 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
   const [loading,      setLoading]      = useState(true);
   const [loadError,    setLoadError]    = useState('');
   const [modal,        setModal]        = useState<'create' | 'edit' | null>(null);
+  const [showWizard,   setShowWizard]   = useState(false);
   const [editing,      setEditing]      = useState<TradeTransportService | null>(null);
   const [canceling,    setCanceling]    = useState<TradeTransportService | null>(null);
   const [iniciando,    setIniciando]    = useState<TradeTransportService | null>(null);
@@ -1109,12 +1111,20 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
           </div>
         </div>
         {canWrite && (
-          <button
-            onClick={() => { setEditing(null); setModal('create'); }}
-            className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl cursor-pointer transition-colors"
-          >
-            <Plus className="w-4 h-4" /> Nuevo servicio
-          </button>
+          <div className="flex items-center gap-2 flex-wrap justify-end">
+            <button
+              onClick={() => { setEditing(null); setModal('create'); }}
+              className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl cursor-pointer transition-colors"
+            >
+              <Plus className="w-4 h-4" /> Servicio puntual
+            </button>
+            <button
+              onClick={() => setShowWizard(true)}
+              className="flex items-center gap-1.5 px-4 py-2 border border-blue-600 text-blue-600 hover:bg-blue-50 text-sm font-semibold rounded-xl cursor-pointer transition-colors"
+            >
+              <Calendar className="w-4 h-4" /> Ruta recurrente
+            </button>
+          </div>
         )}
       </div>
 
@@ -1244,12 +1254,20 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
                 <p className="text-xs text-slate-400">Prueba a cambiar las fechas o crea el primer servicio</p>
               )}
               {canWrite && (
-                <button
-                  onClick={() => { setEditing(null); setModal('create'); }}
-                  className="mt-2 flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-xl cursor-pointer"
-                >
-                  <Plus className="w-4 h-4" /> Nuevo servicio
-                </button>
+                <div className="mt-2 flex items-center gap-2 flex-wrap justify-center">
+                  <button
+                    onClick={() => { setEditing(null); setModal('create'); }}
+                    className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-xl cursor-pointer"
+                  >
+                    <Plus className="w-4 h-4" /> Servicio puntual
+                  </button>
+                  <button
+                    onClick={() => setShowWizard(true)}
+                    className="flex items-center gap-1.5 px-4 py-2 border border-blue-600 text-blue-600 text-sm font-semibold rounded-xl cursor-pointer hover:bg-blue-50"
+                  >
+                    <Calendar className="w-4 h-4" /> Ruta recurrente
+                  </button>
+                </div>
               )}
             </div>
           )}
@@ -1305,6 +1323,21 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
           onClose={() => { setModal(null); setEditing(null); }}
           onSaved={handleSaved}
           showToast={showToast}
+        />
+      )}
+
+      {/* Wizard Ruta Recurrente */}
+      {showWizard && (
+        <ScheduleWizard
+          orgId={orgId}
+          clients={clients}
+          vehicles={vehicles}
+          workers={workers}
+          onClose={() => setShowWizard(false)}
+          onSaved={nombre => {
+            setShowWizard(false);
+            showToast(`Ruta "${nombre}" guardada como borrador`, 'success');
+          }}
         />
       )}
 

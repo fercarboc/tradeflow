@@ -11,9 +11,11 @@ import {
   type ScheduleEstado,
   type DiaSemanaISO,
   type TradeTransportSchedule,
+  type TradeTransportStopFavorite,
   type ProjectionStatus,
   type ProjectionRow,
 } from '../../lib/transportSchedules';
+import { isDuplicateStop } from '../../components/StopFavoriteSelector';
 
 // ── Fixture de plantilla base ────────────────────────────────────────────────
 
@@ -667,5 +669,98 @@ describe('TS-7: Tipos F2 ProjectionRow', () => {
       'pending', 'materialized', 'suspended', 'no_circula',
     ]);
     expect(allStatuses.size).toBe(4);
+  });
+});
+
+// ════════════════════════════════════════════════════════════════════════════
+// TS-8: Paradas favoritas — tipos, CRUD helpers y deduplicación
+// ════════════════════════════════════════════════════════════════════════════
+
+function makeFavorite(
+  overrides: Partial<TradeTransportStopFavorite> = {},
+): TradeTransportStopFavorite {
+  return {
+    id:         'fav-001',
+    org_id:     'org-001',
+    nombre:     'IES Norte',
+    tipo_lugar: 'colegio',
+    location:   { localidad: 'Santander', calle: 'Calle Mayor', numero: '1' },
+    activo:     true,
+    created_at: '2026-10-28T00:00:00Z',
+    updated_at: '2026-10-28T00:00:00Z',
+    ...overrides,
+  };
+}
+
+describe('TS-8: Paradas favoritas', () => {
+  it('TS-8-A: TradeTransportStopFavorite tiene los campos requeridos', () => {
+    const fav = makeFavorite();
+    expect(fav.id).toBeDefined();
+    expect(fav.org_id).toBeDefined();
+    expect(fav.nombre).toBeDefined();
+    expect(fav.location).toBeDefined();
+    expect(typeof fav.activo).toBe('boolean');
+  });
+
+  it('TS-8-B: TradeTransportStopFavorite acepta tipo_lugar null', () => {
+    const fav = makeFavorite({ tipo_lugar: null });
+    expect(fav.tipo_lugar).toBeNull();
+  });
+
+  it('TS-8-C: TradeTransportStopFavorite activo=false indica parada desactivada', () => {
+    const fav = makeFavorite({ activo: false });
+    expect(fav.activo).toBe(false);
+  });
+
+  it('TS-8-D: isDuplicateStop retorna true cuando nombre Y localidad coinciden', () => {
+    const favs = [makeFavorite()];
+    expect(isDuplicateStop(favs, 'IES Norte', 'Santander')).toBe(true);
+  });
+
+  it('TS-8-E: isDuplicateStop es insensible a mayúsculas y acentos', () => {
+    const favs = [makeFavorite()];
+    expect(isDuplicateStop(favs, 'ies norte', 'santander')).toBe(true);
+    expect(isDuplicateStop(favs, 'IÉS Nórte', 'Sántander')).toBe(true);
+  });
+
+  it('TS-8-F: isDuplicateStop retorna false si solo coincide el nombre', () => {
+    const favs = [makeFavorite()];
+    expect(isDuplicateStop(favs, 'IES Norte', 'Madrid')).toBe(false);
+  });
+
+  it('TS-8-G: isDuplicateStop retorna false si solo coincide la localidad', () => {
+    const favs = [makeFavorite()];
+    expect(isDuplicateStop(favs, 'CEIP Sur', 'Santander')).toBe(false);
+  });
+
+  it('TS-8-H: isDuplicateStop retorna false con lista vacía', () => {
+    expect(isDuplicateStop([], 'IES Norte', 'Santander')).toBe(false);
+  });
+
+  it('TS-8-I: isDuplicateStop retorna false cuando favorita no tiene localidad y query sí', () => {
+    const fav = makeFavorite({ location: {} });
+    expect(isDuplicateStop([fav], 'IES Norte', 'Santander')).toBe(false);
+  });
+
+  it('TS-8-J: isDuplicateStop con localidad vacía en query y favorita sin localidad retorna true', () => {
+    const fav = makeFavorite({ location: {} });
+    expect(isDuplicateStop([fav], 'IES Norte', '')).toBe(true);
+  });
+
+  it('TS-8-K: location JSONB es Record<string, unknown> compatible con TransportLocation', () => {
+    const fav = makeFavorite({
+      location: {
+        nombre_lugar: 'IES Norte',
+        calle:        'Calle Mayor',
+        numero:       '1',
+        cp:           '39001',
+        localidad:    'Santander',
+        lat:          43.4628,
+        lng:          -3.8050,
+        geo_source:   'confirmed',
+      },
+    });
+    expect((fav.location as Record<string, unknown>).lat).toBe(43.4628);
+    expect((fav.location as Record<string, unknown>).geo_source).toBe('confirmed');
   });
 });

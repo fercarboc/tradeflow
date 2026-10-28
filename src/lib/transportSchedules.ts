@@ -294,6 +294,37 @@ export async function loadStopFavorites(orgId: string): Promise<TradeTransportSt
   return (data ?? []) as TradeTransportStopFavorite[];
 }
 
+export async function createStopFavorite(
+  orgId: string,
+  input: { nombre: string; tipo_lugar?: string | null; location: Record<string, unknown> },
+): Promise<TradeTransportStopFavorite> {
+  const { data, error } = await supabase
+    .from('trade_transport_stop_favorites')
+    .insert({
+      org_id:     orgId,
+      nombre:     input.nombre.trim(),
+      tipo_lugar: input.tipo_lugar ?? null,
+      location:   input.location,
+      activo:     true,
+    })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as TradeTransportStopFavorite;
+}
+
+export async function deactivateStopFavorite(
+  id: string,
+  orgId: string,
+): Promise<void> {
+  const { error } = await supabase
+    .from('trade_transport_stop_favorites')
+    .update({ activo: false })
+    .eq('id', id)
+    .eq('org_id', orgId);
+  if (error) throw error;
+}
+
 // ── Helpers de cálculo de ocurrencias esperadas (cliente puro, sin side effects) ──
 
 /**
