@@ -380,4 +380,21 @@ describe('TS-5: Invariantes de seguridad de la migración', () => {
     });
     expect(result).not.toBeNull();
   });
+
+  it('TS-5-E: no existe tipo que permita cambiar conductor_id y vehicle_id simultáneamente (limitación documentada para F2)', () => {
+    // E-GAP documentado: cambio_conductor solo acepta conductor_id,
+    // cambio_vehiculo solo acepta vehicle_id, cambio_itinerario no acepta ninguno.
+    // Para cambiar ambos recursos se requiere actualizar la excepción en dos pasos.
+    const tipos: ScheduleExceptionTipo[] = ['cambio_conductor', 'cambio_vehiculo', 'cambio_itinerario', 'cambio_horario'];
+    const combinado = { conductor_id: 'wrk-002', vehicle_id: 'veh-002' };
+    tipos.forEach(tipo => {
+      const result = validateExceptionOverrides(tipo, combinado);
+      expect(result).not.toBeNull();
+    });
+  });
+
+  it('TS-5-F: cambio_itinerario no acepta conductor_id ni vehicle_id', () => {
+    expect(validateExceptionOverrides('cambio_itinerario', { conductor_id: 'wrk-002' })).not.toBeNull();
+    expect(validateExceptionOverrides('cambio_itinerario', { vehicle_id:   'veh-002' })).not.toBeNull();
+  });
 });
