@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   vehicleDocStoragePath,
+  assertStoragePathOwnership,
   VEHICLE_DOC_TIPO_LABELS,
   VEHICLE_DOCS_BUCKET,
   type VehicleDocTipo,
@@ -102,6 +103,53 @@ describe('VEHICLE_DOC_TIPO_LABELS', () => {
     Object.entries(VEHICLE_DOC_TIPO_LABELS).forEach(([, v]) => {
       expect(v).toBeTruthy();
     });
+  });
+});
+
+// ── VD-5: assertStoragePathOwnership ────────────────────────────────────────
+
+describe('assertStoragePathOwnership', () => {
+  const ORG = 'aaaa-org';
+  const VEH = 'bbbb-veh';
+
+  it('VD-5-A: ruta válida no lanza', () => {
+    expect(() => assertStoragePathOwnership(`${ORG}/${VEH}/doc.pdf`, ORG, VEH)).not.toThrow();
+  });
+
+  it('VD-5-B: org_id incorrecto lanza', () => {
+    expect(() => assertStoragePathOwnership(`otro-org/${VEH}/doc.pdf`, ORG, VEH)).toThrow('VEHICLE_DOCS_INVALID_PATH');
+  });
+
+  it('VD-5-C: vehicle_id incorrecto lanza', () => {
+    expect(() => assertStoragePathOwnership(`${ORG}/otro-veh/doc.pdf`, ORG, VEH)).toThrow('VEHICLE_DOCS_INVALID_PATH');
+  });
+
+  it('VD-5-D: solo dos segmentos lanza', () => {
+    expect(() => assertStoragePathOwnership(`${ORG}/${VEH}`, ORG, VEH)).toThrow('VEHICLE_DOCS_INVALID_PATH');
+  });
+
+  it('VD-5-E: tercer segmento vacío lanza', () => {
+    expect(() => assertStoragePathOwnership(`${ORG}/${VEH}/`, ORG, VEH)).toThrow('VEHICLE_DOCS_INVALID_PATH');
+  });
+
+  it('VD-5-F: un único segmento lanza', () => {
+    expect(() => assertStoragePathOwnership(ORG, ORG, VEH)).toThrow('VEHICLE_DOCS_INVALID_PATH');
+  });
+
+  it('VD-5-G: mensaje incluye ruta y org', () => {
+    try {
+      assertStoragePathOwnership('bad/path/file.pdf', ORG, VEH);
+    } catch (e) {
+      expect((e as Error).message).toContain('bad/path/file.pdf');
+      expect((e as Error).message).toContain(ORG);
+    }
+  });
+
+  it('VD-5-H: UUID reales válidos no lanzan', () => {
+    const org = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890';
+    const veh = '11223344-5566-7788-9900-aabbccddeeff';
+    const path = `${org}/${veh}/1700000000_abc.pdf`;
+    expect(() => assertStoragePathOwnership(path, org, veh)).not.toThrow();
   });
 });
 
