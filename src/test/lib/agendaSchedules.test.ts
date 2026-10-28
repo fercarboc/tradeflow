@@ -48,7 +48,7 @@ function makeException(overrides: Partial<TradeTransportScheduleException> = {})
     org_id: 'org-1',
     schedule_id: 'sched-1',
     fecha: '2026-11-03',
-    sentido: 'ida',
+    sentido: 'unico',
     tipo: 'no_circula',
     overrides: {},
     motivo: null,
@@ -64,7 +64,7 @@ function makeLink(overrides: Partial<TradeTransportOccurrenceLink> = {}): TradeT
     schedule_id: 'sched-1',
     service_id: 'svc-materialized',
     fecha: '2026-11-05',
-    sentido: 'ida',
+    sentido: 'unico',
     created_at: '2026-11-01T00:00:00Z',
     ...overrides,
   };
@@ -89,10 +89,10 @@ describe('AS-1 buildAgendaOccurrences basic', () => {
     expect(result.every(o => o.schedule.id === 'sched-1')).toBe(true);
   });
 
-  it('only generates ida sentido when vuelta_habilitada=false', () => {
+  it('only generates unico sentido when vuelta_habilitada=false', () => {
     const sched = makeSchedule({ vuelta_habilitada: false });
     const result = buildAgendaOccurrences([sched], [], [], DESDE, HASTA);
-    expect(result.every(o => o.sentido === 'ida')).toBe(true);
+    expect(result.every(o => o.sentido === 'unico')).toBe(true);
   });
 
   it('generates both sentidos when vuelta_habilitada=true', () => {
@@ -131,7 +131,7 @@ describe('AS-2 exception handling', () => {
     // Nov 3 = Monday
     const ex = makeException({ fecha: '2026-11-02', tipo: 'no_circula' });
     const result = buildAgendaOccurrences([sched], [ex], [], DESDE, HASTA);
-    const occ = result.find(o => o.fecha === '2026-11-02' && o.sentido === 'ida');
+    const occ = result.find(o => o.fecha === '2026-11-02' && o.sentido === 'unico');
     expect(occ).toBeDefined();
     expect(occ!.status).toBe('no_circula');
     expect(occ!.exception).not.toBeNull();
@@ -141,7 +141,7 @@ describe('AS-2 exception handling', () => {
     const sched = makeSchedule();
     const ex = makeException({ fecha: '2026-11-02', tipo: 'suspendido' });
     const result = buildAgendaOccurrences([sched], [ex], [], DESDE, HASTA);
-    const occ = result.find(o => o.fecha === '2026-11-02' && o.sentido === 'ida');
+    const occ = result.find(o => o.fecha === '2026-11-02' && o.sentido === 'unico');
     expect(occ!.status).toBe('suspended');
   });
 
@@ -153,7 +153,7 @@ describe('AS-2 exception handling', () => {
       overrides: { hora_salida: '10:00:00' },
     });
     const result = buildAgendaOccurrences([sched], [ex], [], DESDE, HASTA);
-    const occ = result.find(o => o.fecha === '2026-11-02' && o.sentido === 'ida');
+    const occ = result.find(o => o.fecha === '2026-11-02' && o.sentido === 'unico');
     expect(occ!.status).toBe('cambio_horario');
     expect(occ!.effectiveHoraSalida).toBe('10:00:00');
   });
@@ -182,15 +182,15 @@ describe('AS-2 exception handling', () => {
 describe('AS-3 occurrence links exclusion', () => {
   it('excludes occurrences that already have a link (materialized)', () => {
     const sched = makeSchedule();
-    const link = makeLink({ fecha: '2026-11-06', sentido: 'ida' }); // Friday
+    const link = makeLink({ fecha: '2026-11-06', sentido: 'unico' }); // Friday
     const result = buildAgendaOccurrences([sched], [], [link], DESDE, HASTA);
-    const found = result.find(o => o.fecha === '2026-11-06' && o.sentido === 'ida');
+    const found = result.find(o => o.fecha === '2026-11-06' && o.sentido === 'unico');
     expect(found).toBeUndefined();
   });
 
   it('keeps other occurrences when one is linked', () => {
     const sched = makeSchedule();
-    const link = makeLink({ fecha: '2026-11-06', sentido: 'ida' });
+    const link = makeLink({ fecha: '2026-11-06', sentido: 'unico' });
     const result = buildAgendaOccurrences([sched], [], [link], DESDE, HASTA);
     // Monday and Wednesday remain
     expect(result.find(o => o.fecha === '2026-11-02')).toBeDefined();

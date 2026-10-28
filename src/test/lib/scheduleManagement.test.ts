@@ -33,7 +33,7 @@ function makeException(
     org_id:      'org-1',
     schedule_id: 'sch-1',
     fecha:       '2025-01-06',
-    sentido:     'ida',
+    sentido:     'unico',
     tipo:        'no_circula',
     overrides:   {},
     motivo:      null,
@@ -51,7 +51,7 @@ function makeLink(
     schedule_id: 'sch-1',
     service_id:  'svc-1',
     fecha:       '2025-01-07',
-    sentido:     'ida',
+    sentido:     'unico',
     created_at:  '2025-01-01T00:00:00Z',
     ...overrides,
   };
@@ -89,11 +89,11 @@ describe('SM-1 buildCalendarProjection básico', () => {
     expect(result[0].exception).toBeNull();
   });
 
-  it('SM-1-D sentido ida cuando vuelta_habilitada=false', () => {
+  it('SM-1-D sentido unico cuando vuelta_habilitada=false', () => {
     const desde = new Date('2025-01-06T00:00:00');
     const hasta = new Date('2025-01-07T23:59:59');
     const result = buildCalendarProjection(BASE, [], [], desde, hasta);
-    expect(result.every(o => o.sentido === 'ida')).toBe(true);
+    expect(result.every(o => o.sentido === 'unico')).toBe(true);
   });
 
   it('SM-1-E array vacío si rango antes del período', () => {
@@ -249,7 +249,7 @@ describe('SM-3 buildCalendarProjection vuelta habilitada', () => {
 
 describe('SM-4 buildCalendarProjection con occurrence_links', () => {
   it('SM-4-A link convierte status a materialized', () => {
-    const lk = makeLink({ fecha: '2025-01-07', sentido: 'ida', service_id: 'svc-abc' });
+    const lk = makeLink({ fecha: '2025-01-07', sentido: 'unico', service_id: 'svc-abc' });
     const desde = new Date('2025-01-06T00:00:00');
     const hasta = new Date('2025-01-10T23:59:59');
     const result = buildCalendarProjection(BASE, [], [lk], desde, hasta);
@@ -259,8 +259,8 @@ describe('SM-4 buildCalendarProjection con occurrence_links', () => {
   });
 
   it('SM-4-B link gana sobre excepción (materializado aunque haya excepción)', () => {
-    const lk = makeLink({ fecha: '2025-01-06', sentido: 'ida', service_id: 'svc-1' });
-    const ex = makeException({ fecha: '2025-01-06', sentido: 'ida', tipo: 'cambio_conductor' });
+    const lk = makeLink({ fecha: '2025-01-06', sentido: 'unico', service_id: 'svc-1' });
+    const ex = makeException({ fecha: '2025-01-06', sentido: 'unico', tipo: 'cambio_conductor' });
     const desde = new Date('2025-01-06T00:00:00');
     const hasta = new Date('2025-01-06T23:59:59');
     const result = buildCalendarProjection(BASE, [ex], [lk], desde, hasta);
@@ -269,7 +269,7 @@ describe('SM-4 buildCalendarProjection con occurrence_links', () => {
   });
 
   it('SM-4-C link en fecha diferente no afecta otras fechas', () => {
-    const lk = makeLink({ fecha: '2025-01-08', sentido: 'ida' });
+    const lk = makeLink({ fecha: '2025-01-08', sentido: 'unico' });
     const desde = new Date('2025-01-06T00:00:00');
     const hasta = new Date('2025-01-10T23:59:59');
     const result = buildCalendarProjection(BASE, [], [lk], desde, hasta);

@@ -82,8 +82,7 @@ export function buildCalendarProjection(
 
   const result: CalendarOccurrence[] = [];
   for (const fecha of fechas) {
-    const sentidos: ScheduleSentido[] = ['ida'];
-    if (schedule.vuelta_habilitada) sentidos.push('vuelta');
+    const sentidos: ScheduleSentido[] = schedule.vuelta_habilitada ? ['ida', 'vuelta'] : ['unico'];
 
     for (const sentido of sentidos) {
       const key = `${fecha}:${sentido}`;

@@ -82,8 +82,7 @@ export function buildAgendaOccurrences(
     const exMap = new Map<string, TradeTransportScheduleException>();
     for (const ex of schedExceptions) exMap.set(`${ex.fecha}:${ex.sentido}`, ex);
 
-    const sentidos: ScheduleSentido[] = ['ida'];
-    if (schedule.vuelta_habilitada) sentidos.push('vuelta');
+    const sentidos: ScheduleSentido[] = schedule.vuelta_habilitada ? ['ida', 'vuelta'] : ['unico'];
 
     for (const fecha of fechas) {
       for (const sentido of sentidos) {
@@ -104,7 +103,7 @@ export function buildAgendaOccurrences(
         const overrides = ex?.overrides ?? {};
         const effectiveHoraSalida =
           (overrides.hora_salida as string | undefined) ??
-          (sentido === 'ida' ? schedule.hora_salida_ida : (schedule.hora_salida_vuelta ?? null));
+          (sentido === 'vuelta' ? (schedule.hora_salida_vuelta ?? null) : schedule.hora_salida_ida);
         const effectiveConductorId =
           (overrides.conductor_id as string | undefined) ?? schedule.conductor_id ?? null;
         const effectiveVehicleId =
@@ -150,6 +149,19 @@ export function detectConflicts(
       (occ.effectiveVehicleId   && s.vehicle_id   === occ.effectiveVehicleId) ||
       (occ.effectiveConductorId && s.conductor_id === occ.effectiveConductorId),
   );
+}
+
+// ── Helpers internos ─────────────────────────────────────────────────────────
+
+function isModuleNotDeployedError(e: unknown): boolean {
+  if (!e || typeof e !== 'object') return false;
+  const err = e as { code?: string; message?: string };
+  const code = err.code ?? '';
+  const msg  = err.message ?? '';
+  if (code === '42P01' || code === '42883') return true;
+  if (code === 'PGRST202' || code === 'PGRST116') return true;
+  if (msg.includes('does not exist')) return true;
+  return false;
 }
 
 // ── Tipos internos ─────────────────────────────────────────────────────────────
@@ -1088,12 +1100,18 @@ export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte, 
       setScheduleExceptions(excs);
       setScheduleLinks(lks);
       setSchedulesAvailable(true);
-    } catch {
-      // F1/F2 tables may not be deployed — degrade silently
-      setSchedules([]);
-      setScheduleExceptions([]);
-      setScheduleLinks([]);
-      setSchedulesAvailable(false);
+    } catch (e: unknown) {
+      if (isModuleNotDeployedError(e)) {
+        // F1/F2 tables not yet deployed — degrade silently
+        setSchedules([]);
+        setScheduleExceptions([]);
+        setScheduleLinks([]);
+        setSchedulesAvailable(false);
+      } else {
+        // Real error: network, permissions, query → notify user
+        const msg = (e as { message?: string })?.message ?? 'Error al cargar rutas recurrentes';
+        showToastRef.current(msg, 'error');
+      }
     }
   }, [orgId, desdeDateISO, hastaDateISO]);
 
