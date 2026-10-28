@@ -6,6 +6,7 @@ import {
   fmtDate,
   type VencimientoState,
 } from '../../lib/vencimientoUtils';
+// VencimientoState ahora incluye 'vence_hoy' diferenciado de 'vencido'
 
 // Fecha de referencia fija para tests deterministas
 const HOY = new Date(2026, 9, 28); // 28 de octubre de 2026
@@ -76,9 +77,21 @@ describe('getVencimientoState — proximo', () => {
 });
 
 describe('getVencimientoState — hoy mismo', () => {
-  it('VEN-5-A: fecha es hoy → vencido (expirado hoy = vencido)', () => {
+  it('VEN-5-A: fecha es hoy → vence_hoy (vence durante el día, sin afirmación jurídica)', () => {
     const hoy = isoFecha(2026, 10, 28);
-    expect(getVencimientoState(hoy, HOY)).toBe('vencido');
+    expect(getVencimientoState(hoy, HOY)).toBe('vence_hoy');
+  });
+  it('VEN-5-B: fecha es hoy NO es vencido', () => {
+    const hoy = isoFecha(2026, 10, 28);
+    expect(getVencimientoState(hoy, HOY)).not.toBe('vencido');
+  });
+  it('VEN-5-C: fecha ayer SÍ es vencido (ya superada)', () => {
+    const ayer = isoFecha(2026, 10, 27);
+    expect(getVencimientoState(ayer, HOY)).toBe('vencido');
+  });
+  it('VEN-5-D: fecha mañana NO es vence_hoy', () => {
+    const manana = isoFecha(2026, 10, 29);
+    expect(getVencimientoState(manana, HOY)).not.toBe('vence_hoy');
   });
 });
 
@@ -100,7 +113,7 @@ describe('getVencimientoState — umbral personalizado', () => {
 // ── VEN-7: VENCIMIENTO_DISPLAY — cobertura de todos los estados ──────────────
 
 describe('VENCIMIENTO_DISPLAY — configuración completa', () => {
-  const ESTADOS: VencimientoState[] = ['no_informado', 'vigente', 'proximo', 'vencido'];
+  const ESTADOS: VencimientoState[] = ['no_informado', 'vigente', 'proximo', 'vence_hoy', 'vencido'];
 
   it('VEN-7-A: todos los estados tienen label no vacío', () => {
     ESTADOS.forEach(s => {
@@ -130,6 +143,17 @@ describe('VENCIMIENTO_DISPLAY — configuración completa', () => {
 
   it('VEN-7-F: proximo usa ámbar (amber)', () => {
     expect(VENCIMIENTO_DISPLAY.proximo.colorClass).toContain('amber');
+  });
+
+  it('VEN-7-G: vence_hoy tiene label, colorClass y dotColorClass no vacíos', () => {
+    expect(VENCIMIENTO_DISPLAY.vence_hoy.label.length).toBeGreaterThan(0);
+    expect(VENCIMIENTO_DISPLAY.vence_hoy.colorClass).toContain('bg-');
+    expect(VENCIMIENTO_DISPLAY.vence_hoy.dotColorClass).toContain('bg-');
+  });
+
+  it('VEN-7-H: vence_hoy usa naranja (orange) para diferenciarse de proximo (amber)', () => {
+    expect(VENCIMIENTO_DISPLAY.vence_hoy.colorClass).toContain('orange');
+    expect(VENCIMIENTO_DISPLAY.proximo.colorClass).not.toContain('orange');
   });
 });
 

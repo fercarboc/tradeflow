@@ -8,7 +8,7 @@ import type { TradeVehicle, VehicleEstado } from '../lib/transport';
 import { updateVehicle, VEHICLE_TIPOS, VEHICLE_MODALIDADES, VEHICLE_ESTADOS, getVehicleDisplayImage } from '../lib/transport';
 import {
   loadVehicleDocs, createVehicleDoc, deleteVehicleDoc,
-  getVehicleDocSignedUrl, uploadVehicleDocFile, removeVehicleDocFile,
+  getVehicleDocSignedUrl, uploadVehicleDocFile, removeVehicleDocFileSafe,
   VEHICLE_DOC_TIPO_LABELS,
   type VehicleDoc, type VehicleDocTipo,
 } from '../lib/vehicleDocs';
@@ -215,17 +215,17 @@ export default function ScreenVehiculoFicha({
   async function handleAddDoc() {
     if (!newDocTitulo.trim()) { showToast('El título es obligatorio', 'error'); return; }
     setSavingDoc(true);
+    let uploadedPath: string | null = null;
     try {
-      let storagePath: string | null = null;
       if (newDocFile) {
-        storagePath = await uploadVehicleDocFile(orgId, vehicleLocal.id, newDocFile);
+        uploadedPath = await uploadVehicleDocFile(orgId, vehicleLocal.id, newDocFile);
       }
       const doc = await createVehicleDoc(orgId, vehicleLocal.id, {
-        tipo:             newDocTipo,
-        titulo:           newDocTitulo.trim(),
-        fecha_doc:        newDocFecha || null,
+        tipo:              newDocTipo,
+        titulo:            newDocTitulo.trim(),
+        fecha_doc:         newDocFecha || null,
         fecha_vencimiento: newDocVencimiento || null,
-        storage_path:     storagePath,
+        storage_path:      uploadedPath,
       });
       setDocs(prev => [doc, ...prev]);
       setAddingDoc(false);
@@ -236,6 +236,15 @@ export default function ScreenVehiculoFicha({
       setNewDocTipo('otro');
       showToast('Documento añadido', 'success');
     } catch (e) {
+      // Si el archivo se subió pero la inserción en BD falló, intentar limpiar
+      // el objeto huérfano de Storage para no dejar basura inasequible.
+      if (uploadedPath) {
+        try {
+          await removeVehicleDocFileSafe(uploadedPath, orgId, vehicleLocal.id);
+        } catch {
+          // Limpieza best-effort; el archivo huérfano puede eliminarse manualmente
+        }
+      }
       showToast(errMsg(e), 'error');
     } finally {
       setSavingDoc(false);
@@ -245,13 +254,27 @@ export default function ScreenVehiculoFicha({
   async function handleDeleteDoc(doc: VehicleDoc) {
     if (deletingDocConfirm !== doc.id) { setDeletingDocConfirm(doc.id); return; }
     setDeletingDocId(doc.id);
+    let storageWarning = false;
     try {
       if (doc.storage_path) {
-        await removeVehicleDocFile(doc.storage_path).catch(() => {});
+        try {
+          await removeVehicleDocFileSafe(doc.storage_path, orgId, vehicleLocal.id);
+        } catch {
+          // El archivo no se pudo eliminar de Storage (red, permisos, ya borrado).
+          // Se continúa para eliminar el registro de BD y se avisa al usuario.
+          storageWarning = true;
+        }
       }
       await deleteVehicleDoc(doc.id, orgId);
       setDocs(prev => prev.filter(d => d.id !== doc.id));
-      showToast('Documento eliminado', 'success');
+      if (storageWarning) {
+        showToast(
+          'Registro eliminado, pero el archivo adjunto no se pudo borrar del almacenamiento.',
+          'info',
+        );
+      } else {
+        showToast('Documento eliminado', 'success');
+      }
     } catch (e) {
       showToast(errMsg(e), 'error');
     } finally {
@@ -279,6 +302,7 @@ export default function ScreenVehiculoFicha({
       no_informado: HelpCircle,
       vigente:      CheckCircle,
       proximo:      AlertCircle,
+      vence_hoy:    Clock,
       vencido:      XCircle,
     };
     const Icon = IconMap[state];

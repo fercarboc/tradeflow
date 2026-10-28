@@ -58,6 +58,44 @@ export function vehicleDocStoragePath(
   return `${orgId}/${vehicleId}/${filename}`;
 }
 
+/**
+ * Verifica que un storage_path tenga el formato correcto y pertenezca
+ * a la organización y vehículo indicados.
+ * Lanza si no cumple (protección contra borrados/accesos fuera de scope).
+ */
+export function assertStoragePathOwnership(
+  storagePath: string,
+  orgId: string,
+  vehicleId: string,
+): void {
+  const parts = storagePath.split('/');
+  if (
+    parts.length < 3
+    || parts[0] !== orgId
+    || parts[1] !== vehicleId
+    || !parts[2]
+  ) {
+    throw new Error(
+      `VEHICLE_DOCS_INVALID_PATH: ruta "${storagePath}" no corresponde a ` +
+      `org "${orgId}" / vehículo "${vehicleId}"`,
+    );
+  }
+}
+
+/**
+ * Elimina el objeto de Storage verificando previamente que pertenece a la
+ * organización y vehículo autorizados.
+ * Lanza si la ruta es inválida o si la eliminación falla.
+ */
+export async function removeVehicleDocFileSafe(
+  storagePath: string,
+  orgId: string,
+  vehicleId: string,
+): Promise<void> {
+  assertStoragePathOwnership(storagePath, orgId, vehicleId);
+  await removeVehicleDocFile(storagePath);
+}
+
 export async function loadVehicleDocs(
   orgId: string,
   vehicleId: string,

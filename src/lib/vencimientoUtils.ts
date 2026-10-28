@@ -1,13 +1,14 @@
-export type VencimientoState = 'no_informado' | 'vigente' | 'proximo' | 'vencido';
+export type VencimientoState = 'no_informado' | 'vigente' | 'proximo' | 'vence_hoy' | 'vencido';
 
 export const VENCIMIENTO_UMBRAL_DIAS = 30;
 
 /**
  * Determina el estado de vencimiento a partir de una fecha ISO (YYYY-MM-DD).
  * - no_informado: fecha nula, vacía o no parseable
- * - vencido:  fecha <= hoy
- * - proximo:  hoy < fecha <= hoy + umbralDias
- * - vigente:  fecha > hoy + umbralDias
+ * - vencido:   fecha < hoy  (ya superada)
+ * - vence_hoy: fecha == hoy (vence durante el día de hoy; sin afirmación jurídica)
+ * - proximo:   hoy < fecha <= hoy + umbralDias
+ * - vigente:   fecha > hoy + umbralDias
  */
 export function getVencimientoState(
   fechaVencimiento: string | null | undefined,
@@ -18,7 +19,8 @@ export function getVencimientoState(
   const venc = new Date(fechaVencimiento + 'T00:00:00');
   if (isNaN(venc.getTime())) return 'no_informado';
   const hoyNorm = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
-  if (venc <= hoyNorm) return 'vencido';
+  if (venc < hoyNorm) return 'vencido';
+  if (venc.getTime() === hoyNorm.getTime()) return 'vence_hoy';
   const umbral = new Date(hoyNorm);
   umbral.setDate(umbral.getDate() + umbralDias);
   if (venc <= umbral) return 'proximo';
@@ -46,6 +48,11 @@ export const VENCIMIENTO_DISPLAY: Record<VencimientoState, VencimientoDisplay> =
     label: 'Próximo a vencer',
     colorClass: 'bg-amber-100 text-amber-700 border-amber-200',
     dotColorClass: 'bg-amber-500',
+  },
+  vence_hoy: {
+    label: 'Vence hoy',
+    colorClass: 'bg-orange-100 text-orange-700 border-orange-200',
+    dotColorClass: 'bg-orange-500',
   },
   vencido: {
     label: 'Vencido',
