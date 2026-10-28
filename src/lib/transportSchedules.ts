@@ -8,7 +8,8 @@ export type ScheduleExceptionTipo =
   | 'cambio_horario'
   | 'cambio_conductor'
   | 'cambio_vehiculo'
-  | 'cambio_itinerario';
+  | 'cambio_itinerario'
+  | 'modificado';
 
 export const SCHEDULE_EXCEPTION_TIPO_LABELS: Record<ScheduleExceptionTipo, string> = {
   no_circula:          'No circula',
@@ -17,6 +18,7 @@ export const SCHEDULE_EXCEPTION_TIPO_LABELS: Record<ScheduleExceptionTipo, strin
   cambio_conductor:    'Cambio de conductor',
   cambio_vehiculo:     'Cambio de vehículo',
   cambio_itinerario:   'Cambio de itinerario',
+  modificado:          'Modificado',
 };
 
 // ── Estado de la plantilla ───────────────────────────────────────────────────
@@ -120,6 +122,10 @@ export interface MaterializeResult {
   idempotent?: boolean;
   service_id?: string;
   error?: string;
+  /** Offset UTC en minutos del horario de verano (solo cuando error es TRANSPORT_DST_AMBIGUOUS) */
+  dst_offset_summer_minutes?: number;
+  /** Offset UTC en minutos del horario de invierno (solo cuando error es TRANSPORT_DST_AMBIGUOUS) */
+  dst_offset_winter_minutes?: number;
 }
 
 // ── Constantes de validación ─────────────────────────────────────────────────
@@ -131,6 +137,7 @@ export const SCHEDULE_EXCEPTION_OVERRIDES_ALLOWED: Record<ScheduleExceptionTipo,
   cambio_conductor:  ['conductor_id'],
   cambio_vehiculo:   ['vehicle_id'],
   cambio_itinerario: ['hora_salida', 'hora_llegada', 'paradas', 'origen', 'destino'],
+  modificado:        ['conductor_id', 'vehicle_id', 'hora_salida', 'hora_llegada', 'paradas', 'origen', 'destino'],
 };
 
 export const SCHEDULE_EXCEPTION_OVERRIDES_FORBIDDEN = [
@@ -225,13 +232,18 @@ export async function materializeOccurrence(
   scheduleId: string,
   fecha: string,
   sentido: ScheduleSentido,
+  utcOffsetMinutes?: number,
 ): Promise<MaterializeResult> {
-  const { data, error } = await supabase.rpc('materialize_transport_occurrence', {
+  const params: Record<string, unknown> = {
     p_org_id:      orgId,
     p_schedule_id: scheduleId,
     p_fecha:       fecha,
     p_sentido:     sentido,
-  });
+  };
+  if (utcOffsetMinutes !== undefined) {
+    params.p_utc_offset_minutes = utcOffsetMinutes;
+  }
+  const { data, error } = await supabase.rpc('materialize_transport_occurrence', params);
   if (error) throw error;
   return data as MaterializeResult;
 }

@@ -54,14 +54,15 @@ function makeSchedule(
 // ════════════════════════════════════════════════════════════════════════════
 
 describe('TS-1: Catálogos', () => {
-  it('TS-1-A: SCHEDULE_EXCEPTION_TIPO_LABELS tiene exactamente 6 entradas', () => {
-    expect(Object.keys(SCHEDULE_EXCEPTION_TIPO_LABELS)).toHaveLength(6);
+  it('TS-1-A: SCHEDULE_EXCEPTION_TIPO_LABELS tiene exactamente 7 entradas', () => {
+    expect(Object.keys(SCHEDULE_EXCEPTION_TIPO_LABELS)).toHaveLength(7);
   });
 
   it('TS-1-B: todos los tipos de excepción tienen etiqueta no vacía', () => {
     const tipos: ScheduleExceptionTipo[] = [
       'no_circula', 'suspendido', 'cambio_horario',
       'cambio_conductor', 'cambio_vehiculo', 'cambio_itinerario',
+      'modificado',
     ];
     tipos.forEach(t => {
       expect(SCHEDULE_EXCEPTION_TIPO_LABELS[t]).toBeTruthy();
@@ -381,10 +382,9 @@ describe('TS-5: Invariantes de seguridad de la migración', () => {
     expect(result).not.toBeNull();
   });
 
-  it('TS-5-E: no existe tipo que permita cambiar conductor_id y vehicle_id simultáneamente (limitación documentada para F2)', () => {
-    // E-GAP documentado: cambio_conductor solo acepta conductor_id,
-    // cambio_vehiculo solo acepta vehicle_id, cambio_itinerario no acepta ninguno.
-    // Para cambiar ambos recursos se requiere actualizar la excepción en dos pasos.
+  it('TS-5-E: los tipos legacy no permiten cambiar conductor_id y vehicle_id simultáneamente (cerrado con tipo modificado en F1-gaps)', () => {
+    // Los tipos originales siguen siendo restrictivos. El tipo 'modificado' (E-GAP cerrado)
+    // es el único que acepta la combinación — se verifica en TS-6-D.
     const tipos: ScheduleExceptionTipo[] = ['cambio_conductor', 'cambio_vehiculo', 'cambio_itinerario', 'cambio_horario'];
     const combinado = { conductor_id: 'wrk-002', vehicle_id: 'veh-002' };
     tipos.forEach(tipo => {
@@ -396,5 +396,95 @@ describe('TS-5: Invariantes de seguridad de la migración', () => {
   it('TS-5-F: cambio_itinerario no acepta conductor_id ni vehicle_id', () => {
     expect(validateExceptionOverrides('cambio_itinerario', { conductor_id: 'wrk-002' })).not.toBeNull();
     expect(validateExceptionOverrides('cambio_itinerario', { vehicle_id:   'veh-002' })).not.toBeNull();
+  });
+});
+
+// ════════════════════════════════════════════════════════════════════════════
+// TS-6: Tipo 'modificado' — E-GAP cerrado
+// ════════════════════════════════════════════════════════════════════════════
+
+describe('TS-6: Tipo modificado (E-GAP cerrado)', () => {
+  it('TS-6-A: modificado aparece en SCHEDULE_EXCEPTION_TIPO_LABELS', () => {
+    expect('modificado' in SCHEDULE_EXCEPTION_TIPO_LABELS).toBe(true);
+  });
+
+  it('TS-6-B: modificado tiene etiqueta no vacía', () => {
+    expect(SCHEDULE_EXCEPTION_TIPO_LABELS['modificado']).toBeTruthy();
+    expect(SCHEDULE_EXCEPTION_TIPO_LABELS['modificado'].length).toBeGreaterThan(0);
+  });
+
+  it('TS-6-C: modificado está en OVERRIDES_ALLOWED con al menos 7 claves', () => {
+    const allowed = SCHEDULE_EXCEPTION_OVERRIDES_ALLOWED['modificado'];
+    expect(allowed).toBeDefined();
+    expect(allowed.length).toBeGreaterThanOrEqual(7);
+    expect(allowed).toContain('conductor_id');
+    expect(allowed).toContain('vehicle_id');
+    expect(allowed).toContain('hora_salida');
+    expect(allowed).toContain('hora_llegada');
+    expect(allowed).toContain('paradas');
+    expect(allowed).toContain('origen');
+    expect(allowed).toContain('destino');
+  });
+
+  it('TS-6-D: modificado acepta conductor_id + vehicle_id combinados → null (E-GAP cerrado)', () => {
+    const result = validateExceptionOverrides('modificado', {
+      conductor_id: 'wrk-002',
+      vehicle_id:   'veh-002',
+    });
+    expect(result).toBeNull();
+  });
+
+  it('TS-6-E: modificado acepta hora_salida + hora_llegada + conductor_id + vehicle_id → null', () => {
+    const result = validateExceptionOverrides('modificado', {
+      conductor_id: 'wrk-002',
+      vehicle_id:   'veh-002',
+      hora_salida:  '08:00',
+      hora_llegada: '09:30',
+    });
+    expect(result).toBeNull();
+  });
+
+  it('TS-6-F: modificado acepta todos los campos permitidos combinados → null', () => {
+    const result = validateExceptionOverrides('modificado', {
+      conductor_id: 'wrk-002',
+      vehicle_id:   'veh-002',
+      hora_salida:  '08:00',
+      hora_llegada: '09:30',
+      paradas:      [{ nombre: 'Parada extra' }],
+      origen:       { nombre_lugar: 'Origen nuevo' },
+      destino:      { nombre_lugar: 'Destino nuevo' },
+    });
+    expect(result).toBeNull();
+  });
+
+  it('TS-6-G: modificado rechaza org_id (clave prohibida)', () => {
+    const result = validateExceptionOverrides('modificado', {
+      org_id: 'malicious-org',
+      conductor_id: 'wrk-002',
+    });
+    expect(result).not.toBeNull();
+    expect(result).toMatch(/org_id/);
+  });
+
+  it('TS-6-H: modificado rechaza schedule_id (clave prohibida)', () => {
+    const result = validateExceptionOverrides('modificado', {
+      schedule_id: 'sch-malicious',
+    });
+    expect(result).not.toBeNull();
+    expect(result).toMatch(/schedule_id/);
+  });
+
+  it('TS-6-I: modificado rechaza clave desconocida → error con nombre de clave', () => {
+    const result = validateExceptionOverrides('modificado', {
+      conductor_id: 'wrk-002',
+      campo_raro:   'valor',
+    });
+    expect(result).not.toBeNull();
+    expect(result).toMatch(/campo_raro/);
+  });
+
+  it('TS-6-J: modificado con overrides vacío {} → válido (sin cambios explícitos)', () => {
+    const result = validateExceptionOverrides('modificado', {});
+    expect(result).toBeNull();
   });
 });
