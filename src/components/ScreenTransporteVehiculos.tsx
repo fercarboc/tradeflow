@@ -2,8 +2,9 @@ import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import {
   Bus, Plus, X, Edit2, Trash2, Save, AlertCircle,
   CheckCircle2, Wrench, AlertTriangle, CircleOff,
-  ChevronDown, Gauge, Loader2, History,
+  ChevronDown, Gauge, Loader2, History, FileText,
 } from 'lucide-react';
+import ScreenVehiculoFicha from './ScreenVehiculoFicha';
 import {
   loadVehiclesAll,
   createVehicle,
@@ -476,6 +477,7 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
   const [editingVehicle, setEditingVehicle] = useState<TradeVehicle | null | undefined>(undefined);
   const [deactivating, setDeactivating] = useState<TradeVehicle | null>(null);
   const [deactivateLoading, setDeactivateLoading] = useState(false);
+  const [fichaVehicle, setFichaVehicle] = useState<TradeVehicle | null>(null);
   const [kmPanelVehicle, setKmPanelVehicle] = useState<TradeVehicle | null>(null);
   const [kmReadings, setKmReadings] = useState<VehicleKmReadingWithAnulada[]>([]);
   const [kmLoading, setKmLoading] = useState(false);
@@ -563,6 +565,31 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
   const enCursoAhora = activeVehicleIds.size > 0
     ? vehicles.filter(v => v.activo && activeVehicleIds.has(v.id)).length
     : 0;
+
+  if (fichaVehicle) {
+    return (
+      <>
+        <ScreenVehiculoFicha
+          vehicle={fichaVehicle}
+          orgId={orgId}
+          canWrite={canWrite}
+          onClose={() => setFichaVehicle(null)}
+          onVehicleUpdated={(v) => { setFichaVehicle(v); handleSaved(v); }}
+          onEditVehicle={(v) => setEditingVehicle(v)}
+          showToast={showToast}
+        />
+        {editingVehicle !== undefined && (
+          <VehicleFormModal
+            vehicle={editingVehicle}
+            onClose={() => setEditingVehicle(undefined)}
+            onSaved={(v) => { handleSaved(v); setFichaVehicle(prev => prev?.id === v.id ? v : prev); }}
+            orgId={orgId}
+            showToast={showToast}
+          />
+        )}
+      </>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -719,6 +746,11 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
                         </td>
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-1 justify-end">
+                            <button onClick={() => setFichaVehicle(v)}
+                              className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded"
+                              title="Ver ficha del vehículo">
+                              <FileText size={14} />
+                            </button>
                             <button onClick={() => handleOpenKmPanel(v)}
                               className="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded"
                               title={v.km_actual != null ? `${v.km_actual.toLocaleString()} km` : 'Odómetro'}>
@@ -811,20 +843,27 @@ export default function ScreenTransporteVehiculos({ orgId, showToast }: Props) {
                             ))}
                           </select>
                         )}
-                        {canWrite && (
-                          <div className="flex items-center gap-1 ml-auto">
-                            <button onClick={() => setEditingVehicle(v)}
-                              className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg">
-                              <Edit2 size={15} />
-                            </button>
-                            {v.activo && (
-                              <button onClick={() => setDeactivating(v)}
-                                className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg">
-                                <Trash2 size={15} />
+                        <div className="flex items-center gap-1 ml-auto">
+                          <button onClick={() => setFichaVehicle(v)}
+                            className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg"
+                            title="Ver ficha del vehículo">
+                            <FileText size={15} />
+                          </button>
+                          {canWrite && (
+                            <>
+                              <button onClick={() => setEditingVehicle(v)}
+                                className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg">
+                                <Edit2 size={15} />
                               </button>
-                            )}
-                          </div>
-                        )}
+                              {v.activo && (
+                                <button onClick={() => setDeactivating(v)}
+                                  className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg">
+                                  <Trash2 size={15} />
+                                </button>
+                              )}
+                            </>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
