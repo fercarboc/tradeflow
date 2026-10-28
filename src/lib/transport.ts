@@ -63,6 +63,12 @@ export interface TradeVehicle {
   /** Último km registrado (TX-FLEET-ODO-1). Calculado por trigger desde trade_vehicle_km_readings. */
   km_actual?: number | null;
   km_actualizado_at?: string | null;
+  /** TX-FLEET-2A: documentación del vehículo */
+  itv_fecha_ultima?: string | null;
+  itv_fecha_vencimiento?: string | null;
+  seguro_compania?: string | null;
+  seguro_referencia?: string | null;
+  seguro_vencimiento?: string | null;
   created_at: string;
   updated_at: string;
 }
