@@ -33,7 +33,8 @@ CREATE TABLE public.trade_transport_quotes (
   servicio_id         uuid        REFERENCES public.trade_transport_services(id) ON DELETE SET NULL,
   created_at          timestamptz NOT NULL DEFAULT now(),
   updated_at          timestamptz NOT NULL DEFAULT now(),
-  UNIQUE (org_id, numero_presupuesto)
+  UNIQUE (org_id, numero_presupuesto),
+  UNIQUE (servicio_id)   -- un presupuesto → a lo sumo un servicio
 );
 
 -- ── 2. Índices ────────────────────────────────────────────────────────────────
@@ -104,10 +105,11 @@ CREATE POLICY "Org accede a sus presupuestos de transporte"
 CREATE OR REPLACE FUNCTION public.approve_transport_quote(p_quote_id uuid)
 RETURNS uuid LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
 DECLARE
-  v_quote     public.trade_transport_quotes;
+  v_quote      public.trade_transport_quotes;
   v_service_id uuid;
-  v_fecha_ini timestamptz;
-  v_fecha_fin timestamptz;
+  v_fecha_ini  timestamptz;
+  v_fecha_fin  timestamptz;
+  v_caller_uid uuid := auth.uid();
 BEGIN
   -- Bloqueo exclusivo: evita doble aprobación concurrente
   SELECT * INTO v_quote
@@ -118,6 +120,18 @@ BEGIN
   IF NOT FOUND THEN
     RAISE EXCEPTION 'Presupuesto no encontrado: %', p_quote_id
       USING ERRCODE = 'P0002';
+  END IF;
+
+  -- Verificación explícita de permisos (SECURITY DEFINER bypasea RLS)
+  IF NOT EXISTS (
+    SELECT 1 FROM public.trade_organizations
+    WHERE id = v_quote.org_id AND owner_id = v_caller_uid
+    UNION ALL
+    SELECT 1 FROM public.trade_org_members
+    WHERE org_id = v_quote.org_id AND user_id = v_caller_uid
+  ) THEN
+    RAISE EXCEPTION 'Sin permisos para aprobar este presupuesto'
+      USING ERRCODE = 'P0003';
   END IF;
 
   IF v_quote.estado <> 'enviado' THEN
@@ -134,10 +148,12 @@ BEGIN
     v_fecha_fin := (v_quote.fecha_fin_servicio::text || ' 23:59:00')::timestamptz;
   END IF;
 
-  -- Crear servicio de transporte a partir del presupuesto
+  -- Crear servicio de transporte a partir del presupuesto.
+  -- Estado 'borrador': el operador confirma explícitamente antes de activarlo.
+  -- quote_id NO se rellena: ese FK apunta a trade_quotes (instaladores), no a
+  -- trade_transport_quotes. El enlace inverso está en trade_transport_quotes.servicio_id.
   INSERT INTO public.trade_transport_services (
     org_id,
-    quote_id,
     titulo,
     tipo_servicio,
     estado,
@@ -148,10 +164,9 @@ BEGIN
     precio_acordado
   ) VALUES (
     v_quote.org_id,
-    v_quote.id,
     v_quote.titulo,
     v_quote.tipo_servicio,
-    'confirmado',
+    'borrador',
     v_fecha_ini,
     v_fecha_fin,
     v_quote.num_viajeros,
