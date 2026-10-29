@@ -105,7 +105,7 @@ Antes de crear partida sugerida, considera sinónimos técnicos del sector:
 - "wallbox" = "punto de carga vehículo eléctrico", "cargador coche eléctrico"
 
 OFICIOS VÁLIDOS — usa EXACTAMENTE estos identificadores en el campo "oficio":
-fontaneria | electricidad | energia_solar | climatizacion | pintura | albanileria | carpinteria | cerrajeria | suelos_alicatados | suelos_tarimas | pladur_escayola | telecomunicaciones | informatica | instalador_cctv | mecanica | mecanica_especializada | jardineria | cristaleria | persianas | limpieza | contra_incendios | impermeabilizacion | tejados_cubiertas | fachadas | mantenimiento_general | reforma_integral | multiservicio | gestion_residuos | gestoria_tramites | cocina_amueblada
+fontaneria | electricidad | energia_solar | climatizacion | pintura | albanileria | carpinteria | cerrajeria | suelos_alicatados | suelos_tarimas | pladur_escayola | telecomunicaciones | informatica | instalador_cctv | mecanica | mecanica_especializada | jardineria | cristaleria | persianas | limpieza | contra_incendios | impermeabilizacion | tejados_cubiertas | fachadas | mantenimiento_general | reforma_integral | multiservicio | gestion_residuos | gestoria_tramites | cocina_amueblada | transporte
 
 REGLAS DE OFICIO — prioridad estricta, SOBREESCRIBEN la intuición general:
 • contra_incendios → SIEMPRE para: detectores humo/CO/gas, rociadores sprinklers, BIE (bocas incendio equipadas), extintores, central alarma incendios, puertas cortafuego RF, señalización evacuación, extractores humos industrial. AUNQUE el elemento sea eléctrico, de agua o metálico: si el SISTEMA es contraincendios → contra_incendios.
@@ -130,6 +130,22 @@ REGLAS ESPECÍFICAS — SECTOR LIMPIEZA:
 • Tipos de servicio limpieza: limpieza_integral | limpieza_general | mantenimiento | puntual | fin_de_obra | cristales | limpieza_profunda | cambio_inquilino | otro
 • Unidades válidas para limpieza: hora | m2 | unidad | visita | jornada | mes
 
+REGLAS ESPECÍFICAS — SECTOR TRANSPORTE DE VIAJEROS:
+• Usa "transporte" SOLO para servicios de transporte de personas: excursiones, traslados de viajeros/pasajeros, rutas escolares, transporte de trabajadores/empleados, circuitos turísticos, servicios discrecionales de autobús. NO lo uses si el contexto es mecánico ("reparar autobús") o de instalación eléctrica ("autobús de cableado").
+• Señales inequívocas de transporte de viajeros: "excursión", "traslado de viajeros/pasajeros", "ruta escolar", "transporte de trabajadores/empleados", "circuito turístico", "servicio discrecional de autobús", "servicio con autobús para X personas".
+• Tipos válidos (transport_intake.tipo_servicio): excursion | traslado_empresa | traslado_privado | ruta_escolar | transporte_trabajadores | circuito_turistico | aeropuerto | discrecional | recurrente
+• PRECIO DICTADO — REGLA CRÍTICA: Si el usuario menciona un precio:
+  "1.200 euros más IVA" / "sin IVA" / "más impuestos" → precio_base=1200, precio_incluye_iva=false, precio_origen="dictado_usuario".
+  "1.200 euros IVA incluido" / "todo incluido" → precio_base=1200, precio_incluye_iva=true, precio_origen="dictado_usuario".
+  Sin indicación explícita de IVA → precio_incluye_iva=false por defecto.
+  NUNCA sustituyas el precio dictado por una estimación propia.
+• Sin precio dictado: precio_base=null, precio_origen="pendiente". No inventes precios.
+• NUNCA inventes: fechas, kilómetros, ubicaciones exactas, conductores, matrículas ni paradas que no hayan sido mencionadas.
+• Datos ausentes del dictado: registra null y añade el nombre del campo a campos_pendientes.
+• Genera UNA partida principal tipo_partida="servicio": concepto descriptivo (ej: "Excursión Santander–Jaca 45 pax"). precio_unitario=precio_base si fue dictado y >0, si no 0 con requiere_revision=true. origen="dictado_usuario" o "sugerida_ia".
+• Viajes multidía: partida principal + partidas adicionales por servicios extra mencionados (hotel conductor, dietas) con precio=0, requiere_revision=true.
+• SIEMPRE rellena transport_intake cuando el oficio sea "transporte".
+
 FORMATO DE SALIDA: JSON válido, sin markdown, sin texto fuera del JSON.
 {
   "resumen": { "texto_original": "", "tipo_presupuesto": "reforma|mantenimiento_recurrente|servicio", "requiere_revision_general": false, "alertas": [] },
@@ -137,10 +153,12 @@ FORMATO DE SALIDA: JSON válido, sin markdown, sin texto fuera del JSON.
   "partidas": [{ "concepto": "", "descripcion": "", "oficio": "", "tipo_partida": "mano_obra", "unidad": "hora", "cantidad": 0, "precio_unitario": 0, "total": 0, "precio_origen": "catalogo", "origen": "catalogo", "requiere_revision": false, "motivo_revision": "" }],
   "calculos": { "subtotal": 0, "iva_porcentaje": 21, "iva": 0, "total": 0 },
   "sugerencias_catalogo": [],
-  "partidas_nuevas_detectadas": []
+  "partidas_nuevas_detectadas": [],
+  "transport_intake": null
 }
 tipo_partida: "mano_obra"|"material"|"servicio" — unidad: "hora"|"unidad"|"m2"|"m3"|"ml"|"mes"|"jornada"
-origen: "catalogo" (encontrado en Base Maestra/catálogo) | "sugerida_ia" (creada por IA, precio pendiente de revisión del instalador)`;
+origen: "catalogo" (encontrado en Base Maestra/catálogo) | "sugerida_ia" (creada por IA, precio pendiente de revisión del instalador) | "dictado_usuario" (precio dado explícitamente por el usuario)
+transport_intake (solo cuando oficio="transporte"): { "tipo_servicio": "excursion|...", "origen": "texto|null", "destino": "texto|null", "fecha_servicio": "YYYY-MM-DD|null", "fecha_fin_servicio": "YYYY-MM-DD|null", "num_viajeros": N|null, "precio_base": N|null, "precio_incluye_iva": false, "precio_origen": "dictado_usuario|pendiente", "itinerario": [], "condiciones_especiales": [], "campos_pendientes": [] }`;
 
 const EMPTY_QUOTE = {
   resumen: { texto_original: '', tipo_presupuesto: '', requiere_revision_general: true, alertas: ['No se pudo interpretar el dictado'] },
@@ -163,6 +181,13 @@ const OFICIO_KEYWORD_RULES: [RegExp, string][] = [
   [/\bcctv\b|videovigilancia|c[aá]maras?\s+de\s+seguridad/i,                            'telecomunicaciones'],
   [/\brj[\s-]?45\b|roseta\s+de\s+red|punto\s+de\s+red\s+rj/i,                         'telecomunicaciones'],
   [/\brf[-\s]?[369]0\b|\bei[-\s]?[36]0\b|puerta\s+cortafuego/i,                        'contra_incendios'],
+  // Transporte de viajeros — señales inequívocas
+  [/\bexcursi[oó]n\b/i,                                                                  'transporte'],
+  [/traslado\s+de\s+(viajeros|pasajeros)/i,                                              'transporte'],
+  [/ruta\s+escolar/i,                                                                    'transporte'],
+  [/transporte\s+de\s+(trabajadores|empleados)/i,                                        'transporte'],
+  [/servicio\s+discrecional/i,                                                           'transporte'],
+  [/circuito\s+tur[íi]stico/i,                                                           'transporte'],
 ];
 function applyOficioRules(transcript: string, quote: Record<string, unknown>): void {
   const oficios = quote.oficios_detectados as Array<{ oficio: string }> | undefined;
@@ -172,6 +197,45 @@ function applyOficioRules(transcript: string, quote: Record<string, unknown>): v
   for (const [re, oficio] of OFICIO_KEYWORD_RULES) {
     if (re.test(transcript)) { oficios[0].oficio = oficio; return; }
   }
+}
+
+function extractTransportIntake(quote: Record<string, unknown>): TransportIntake | null {
+  const oficios = quote.oficios_detectados as Array<{ oficio: string }> | undefined;
+  if (!oficios?.length || oficios[0].oficio !== 'transporte') return null;
+
+  const raw = (quote.transport_intake ?? {}) as Record<string, unknown>;
+
+  const VALID_TIPOS: TransportTipoServicio[] = [
+    'excursion','traslado_empresa','traslado_privado','ruta_escolar',
+    'transporte_trabajadores','circuito_turistico','aeropuerto','discrecional','recurrente',
+  ];
+
+  const tipo = VALID_TIPOS.includes(raw.tipo_servicio as TransportTipoServicio)
+    ? (raw.tipo_servicio as TransportTipoServicio)
+    : null;
+
+  const precioBase = typeof raw.precio_base === 'number' && raw.precio_base > 0
+    ? raw.precio_base
+    : null;
+
+  return {
+    schemaVersion: 1,
+    vertical: 'transporte',
+    intake: {
+      tipo_servicio:       tipo,
+      origen:              typeof raw.origen === 'string' ? raw.origen : null,
+      destino:             typeof raw.destino === 'string' ? raw.destino : null,
+      fecha_servicio:      typeof raw.fecha_servicio === 'string' ? raw.fecha_servicio : null,
+      fecha_fin_servicio:  typeof raw.fecha_fin_servicio === 'string' ? raw.fecha_fin_servicio : null,
+      num_viajeros:        typeof raw.num_viajeros === 'number' && raw.num_viajeros > 0 ? raw.num_viajeros : null,
+      precio_base:         precioBase,
+      precio_incluye_iva:  raw.precio_incluye_iva === true,
+      precio_origen:       precioBase !== null ? 'dictado_usuario' : 'pendiente',
+      itinerario:          Array.isArray(raw.itinerario) ? raw.itinerario.map(String) : [],
+      condiciones_especiales: Array.isArray(raw.condiciones_especiales) ? raw.condiciones_especiales.map(String) : [],
+      campos_pendientes:   Array.isArray(raw.campos_pendientes) ? raw.campos_pendientes.map(String) : [],
+    },
+  };
 }
 
 // ── Enriquece precios de partidas con tarifas del instalador ──────────────────
@@ -207,6 +271,36 @@ interface Calculos {
   iva_porcentaje: number;
   iva: number;
   total: number;
+}
+
+export type TransportTipoServicio =
+  | 'excursion'
+  | 'traslado_empresa'
+  | 'traslado_privado'
+  | 'ruta_escolar'
+  | 'transporte_trabajadores'
+  | 'circuito_turistico'
+  | 'aeropuerto'
+  | 'discrecional'
+  | 'recurrente';
+
+export interface TransportIntake {
+  schemaVersion: 1;
+  vertical: 'transporte';
+  intake: {
+    tipo_servicio: TransportTipoServicio | null;
+    origen: string | null;
+    destino: string | null;
+    fecha_servicio: string | null;       // YYYY-MM-DD
+    fecha_fin_servicio: string | null;   // YYYY-MM-DD
+    num_viajeros: number | null;
+    precio_base: number | null;
+    precio_incluye_iva: boolean;
+    precio_origen: 'dictado_usuario' | 'pendiente';
+    itinerario: string[];
+    condiciones_especiales: string[];
+    campos_pendientes: string[];
+  };
 }
 
 // ── Resolución batch de IDs del Marketplace (C-002) ──────────────────────────
@@ -816,6 +910,7 @@ Deno.serve(async (req: Request) => {
     }
 
     applyOficioRules(transcript, quote);
+    const transportIntake = extractTransportIntake(quote);
 
     // v58b: reclasificar partidas 'catalogo' con precio ≤ 0 antes del enriquecimiento
     // Aplica a TODOS los requests (incluyendo benchmarks con orgId=null)
@@ -857,11 +952,12 @@ Deno.serve(async (req: Request) => {
       JSON.stringify({
         transcript,
         quote,
+        transport_intake: transportIntake,
         actuacion_ids_matched: kbActuaciones.map(a => a.actuacion_id),
         kb_score: kbScore,
         web_search_used: webSearchUsed,
         _meta: {
-          prompt_version: 'v58b',
+          prompt_version: 'v59',
           stop_reason: claudeData.stop_reason ?? 'end_turn',
           tokens_in:  claudeData.usage?.input_tokens  ?? 0,
           tokens_out: claudeData.usage?.output_tokens ?? 0,
