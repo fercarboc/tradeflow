@@ -94,6 +94,58 @@ export function calcularPrecioConIva(
   return Math.round(intake.precio_base * (1 + ivaPct / 100) * 100) / 100;
 }
 
+// ── Partidas para el wizard de presupuesto ───────────────────────────────────
+
+/** Estructura mínima de partida compatible con PartidaPresupuesto de src/types.ts */
+export interface TransportPartida {
+  descripcion: string;
+  tipo: 'material' | 'mano_de_obra';
+  cantidad: number;
+  precioUnitario: number;
+  total: number;
+  unidad?: string;
+  requiere_precio?: boolean;
+  aviso?: string;
+  origen?: 'catalogo' | 'sugerida_ia' | 'proveedor';
+}
+
+/**
+ * Construye la lista de partidas del wizard a partir del intake de transporte.
+ * Genera siempre UNA partida principal de tipo servicio.
+ * Precio dictado → origen='catalogo'; sin precio → origen='sugerida_ia' + requiere_precio=true.
+ * NO aplica IVA — el precio_unitario es el importe tal como fue dictado.
+ */
+export function buildTransportPartidas(intake: TransportIntakeData): TransportPartida[] {
+  const partes = [intake.origen, intake.destino].filter(Boolean);
+  const tituloRuta = partes.length > 0 ? partes.join(' → ') : null;
+  const tipoLabel = intake.tipo_servicio ? getTipoLabel(intake.tipo_servicio) : null;
+
+  const descripcion = [tituloRuta, tipoLabel].filter(Boolean).join(' — ')
+    || 'Servicio de transporte de viajeros';
+
+  const precio = intake.precio_base;
+  const sinPrecio = precio === null;
+
+  let aviso: string | undefined;
+  if (sinPrecio) {
+    aviso = 'Precio no dictado — confirma el importe antes de enviar al cliente';
+  } else if (intake.precio_incluye_iva) {
+    aviso = 'Precio dictado con IVA incluido — confirma el tipo impositivo';
+  }
+
+  return [{
+    descripcion,
+    tipo: 'mano_de_obra',
+    cantidad: 1,
+    precioUnitario: precio ?? 0,
+    total: precio ?? 0,
+    unidad: 'servicio',
+    requiere_precio: sinPrecio,
+    aviso,
+    origen: sinPrecio ? 'sugerida_ia' : 'catalogo',
+  }];
+}
+
 /**
  * Construye un mapa de campos para prefill del formulario de presupuesto de transporte.
  * Solo incluye campos con valor no nulo.

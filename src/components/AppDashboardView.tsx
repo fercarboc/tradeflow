@@ -141,6 +141,12 @@ import ChatbotWidget from './ChatbotWidget';
 import ScreenProveedoresCliente from './ScreenProveedoresCliente';
 import ScreenPostConfirm from './ScreenPostConfirm';
 import QuotePhotosPanel from './QuotePhotosPanel';
+import TransportIntakeSummary from './TransportIntakeSummary';
+import {
+  isValidTransportIntake,
+  buildTransportPartidas,
+  type TransportIntake,
+} from '../lib/transportVoiceIntake';
 import type { TradeOrganization, TradeQuote } from '../lib/supabase';
 import {
   loadQuoteDocumentPhotos,
@@ -855,6 +861,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [wizardOrigin, setWizardOrigin] = useState<'voz' | 'foto' | 'manual'>('manual');
   const [wizardViewOnly, setWizardViewOnly] = useState<boolean>(false);
   const pendingQuoteMetadata = useRef<Record<string, unknown> | null>(null);
+  const [pendingTransportIntake, setPendingTransportIntake] = useState<TransportIntake | null>(null);
+
+  // Limpiar intake de transporte cuando el wizard se cierra
+  useEffect(() => {
+    if (!wizardActive) setPendingTransportIntake(null);
+  }, [wizardActive]);
+
   const [wizardQuote, setWizardQuote] = useState<Partial<Presupuesto>>({
     id: '',
     nombreCliente: '',
@@ -1344,6 +1357,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       fuente: string;
       motivo?: string;
     }>;
+    transport_intake?: TransportIntake | null;
   }
 
   const quoteToPartidas = (quote: AIQuote): PartidaPresupuesto[] => {
@@ -1398,6 +1412,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     actuacionIds: string[] = [],
     kbScore: number = 0,
     webSearchUsed: boolean = false,
+    transportIntakeRaw: TransportIntake | null = null,
   ) => {
     try {
       // Auto-detectar si es una solicitud de mantenimiento
@@ -1419,8 +1434,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         return;
       }
 
-      const partidas = quoteToPartidas(quote);
-      if (partidas.length === 0) {
+      // Validar y normalizar transport_intake si viene en la respuesta
+      const transportIntake = isValidTransportIntake(transportIntakeRaw) ? transportIntakeRaw : null;
+      const isTransport = transportIntake !== null;
+
+      let partidas = quoteToPartidas(quote);
+
+      if (partidas.length === 0 && !isTransport) {
         if (transcript && transcript.trim().length > 2) {
           setDesktopModalText(transcript.trim());
           showToast('La IA no generó partidas — transcripción copiada al texto, corrígela y pulsa "Enviar con IA"', 'error');
@@ -1431,6 +1451,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         mediaRecorderRef.current = null;
         audioChunksRef.current = [];
         return;
+      }
+
+      // Transporte: completar partidas desde intake si Claude no generó ninguna
+      if (isTransport && partidas.length === 0) {
+        partidas = buildTransportPartidas(transportIntake!.intake) as typeof partidas;
       }
 
       // Guardar datos para el sistema de aprendizaje
@@ -1448,12 +1473,30 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       setSavedActuacion(false);
 
       const total = quote.calculos?.total ?? partidas.reduce((s, p) => s + (p.total ?? 0), 0);
-      const desc = (
-        (typeof quote.resumen === 'string' ? quote.resumen : quote.resumen?.tipo_presupuesto || quote.resumen?.texto_original) || transcript
-      ).slice(0, 80);
+      const desc = isTransport
+        ? (() => {
+            const d = transportIntake!.intake;
+            const partes = [d.origen, d.destino].filter(Boolean);
+            return partes.length > 0 ? partes.join(' → ') : (transcript.slice(0, 80));
+          })()
+        : (
+            (typeof quote.resumen === 'string' ? quote.resumen : quote.resumen?.tipo_presupuesto || quote.resumen?.texto_original) || transcript
+          ).slice(0, 80);
+
+      // Para transporte: persistir intake en metadata antes del wizard
+      if (isTransport) {
+        pendingQuoteMetadata.current = {
+          ...(pendingQuoteMetadata.current ?? {}),
+          vertical: 'transporte',
+          transport_intake: transportIntake,
+        };
+        setPendingTransportIntake(transportIntake);
+      }
 
       // Informar fuente usada: Base Maestra > Web search > Solo IA
-      const toastMsg = actuacionIds.length > 0
+      const toastMsg = isTransport
+        ? 'Servicio de transporte detectado ✓ — revisa los datos y completa lo que falte'
+        : actuacionIds.length > 0
         ? `IA procesada ✓ — Base Maestra (${actuacionIds.length} actuación${actuacionIds.length > 1 ? 'es' : ''})`
         : webSearchUsed
         ? 'IA procesada ✓ — reforzada con búsqueda web'
@@ -1556,8 +1599,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         }
         throw new Error(err.error ?? `HTTP ${res.status}`);
       }
-      const result: { transcript: string; quote: AIQuote; actuacion_ids_matched?: string[]; kb_score?: number; web_search_used?: boolean } = await res.json();
-      handleVoiceResult(result.transcript, result.quote, result.actuacion_ids_matched ?? [], result.kb_score ?? 0, result.web_search_used ?? false);
+      const result: { transcript: string; quote: AIQuote; actuacion_ids_matched?: string[]; kb_score?: number; web_search_used?: boolean; transport_intake?: TransportIntake | null } = await res.json();
+      handleVoiceResult(result.transcript, result.quote, result.actuacion_ids_matched ?? [], result.kb_score ?? 0, result.web_search_used ?? false, result.transport_intake ?? null);
     } catch (e: any) {
       clearTimeout(fetchTimeout);
       const isAbort = e.name === 'AbortError';
@@ -1958,8 +2001,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           if (err.plan_restriction) { showToast(err.error ?? 'Tu plan no permite esta función', 'error'); setVoiceStep('idle'); setShowUpgradeModal(true); return; }
           throw new Error(err.error ?? `HTTP ${res.status}`);
         }
-        const result: { transcript: string; quote: AIQuote; actuacion_ids_matched?: string[]; kb_score?: number; web_search_used?: boolean } = await res.json();
-        handleVoiceResult(result.transcript || text, result.quote, result.actuacion_ids_matched ?? [], result.kb_score ?? 0, result.web_search_used ?? false);
+        const result: { transcript: string; quote: AIQuote; actuacion_ids_matched?: string[]; kb_score?: number; web_search_used?: boolean; transport_intake?: TransportIntake | null } = await res.json();
+        handleVoiceResult(result.transcript || text, result.quote, result.actuacion_ids_matched ?? [], result.kb_score ?? 0, result.web_search_used ?? false, result.transport_intake ?? null);
       } catch (e: unknown) {
         clearTimeout(textTimeout);
         const isAbort = (e as Error).name === 'AbortError';
@@ -5956,6 +5999,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <h3 className="text-sm font-display font-bold uppercase">Paso 4: Revisa el Presupuesto</h3>
                 <p className="text-[10.5px] text-gray-400 leading-relaxed font-sans">Añade o modifica cantidades y precios sugeridos de los componentes detectados.</p>
               </div>
+
+              {/* Resumen de transporte detectado por IA */}
+              {pendingTransportIntake && (
+                <TransportIntakeSummary
+                  intake={pendingTransportIntake}
+                  onDismiss={() => setPendingTransportIntake(null)}
+                />
+              )}
 
               {/* Botón sugerencia precio */}
               {showPricingSuggestion && empresaAjustes.valorHoraOperario < TARIFA_SUGERIDA && (
