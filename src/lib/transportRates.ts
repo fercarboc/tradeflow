@@ -153,11 +153,31 @@ export async function loadTransportRates(orgId: string): Promise<TransportRates>
   return parseTransportRates((data as { transport_rates: Record<string, unknown> | null }).transport_rates);
 }
 
-/** Persiste las tarifas de la organización en la BD. */
+/**
+ * Persiste las tarifas de la organización en la BD.
+ * Hace merge con claves existentes para no sobrescribir campos desconocidos del JSONB.
+ * Lanza si el update no afectó ninguna fila (RLS o orgId incorrecto).
+ */
 export async function saveTransportRates(orgId: string, rates: TransportRates): Promise<void> {
-  const { error } = await supabase
+  // Cargar claves existentes para hacer merge (preservar campos de otras fases)
+  const { data: current, error: loadErr } = await supabase
     .from('trade_organizations')
-    .update({ transport_rates: rates } as Record<string, unknown>)
-    .eq('id', orgId);
+    .select('transport_rates')
+    .eq('id', orgId)
+    .single();
+  if (loadErr) throw loadErr;
+
+  const existing = (current as { transport_rates: Record<string, unknown> | null }).transport_rates ?? {};
+  const merged = { ...existing, ...rates };
+
+  const { data, error } = await supabase
+    .from('trade_organizations')
+    .update({ transport_rates: merged } as Record<string, unknown>)
+    .eq('id', orgId)
+    .select('id');
   if (error) throw error;
+  // Sin filas devueltas = RLS bloqueó el update o el orgId no coincide
+  if (!data || data.length === 0) {
+    throw new Error('Sin permisos de escritura sobre esta organización');
+  }
 }

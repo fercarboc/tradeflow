@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   Settings, Save, Loader2, AlertTriangle, CheckCircle2,
-  ChevronDown, ChevronRight, HelpCircle, Euro,
+  ChevronDown, ChevronRight, HelpCircle,
   Fuel, User, Bed, Truck, BarChart2, Tag,
 } from 'lucide-react';
 import {
@@ -10,9 +10,7 @@ import {
   DEFAULT_TRANSPORT_RATES,
   TransportRates,
 } from '../lib/transportRates';
-import {
-  missingRateFields,
-} from '../lib/transportCostEngine';
+import { missingRateFields } from '../lib/transportCostEngine';
 
 // ── Props ─────────────────────────────────────────────────────────────────────
 
@@ -38,8 +36,8 @@ function fmtNum(v: number | null): string {
   return String(v);
 }
 
-// ── Sub-componente: un campo de tarifa ────────────────────────────────────────
-// IMPORTANTE: definido fuera del componente padre para evitar re-montajes
+// ── Sub-componente: campo de tarifa ───────────────────────────────────────────
+// Definido FUERA del padre para evitar re-montajes (ver feedback no_inner_components)
 
 interface RateFieldProps {
   label: string;
@@ -53,22 +51,24 @@ interface RateFieldProps {
 function RateField({ label, unit, hint, value, onChange, disabled }: RateFieldProps) {
   const [showHint, setShowHint] = useState(false);
   return (
-    <div className="flex flex-col gap-1">
-      <div className="flex items-center gap-1">
-        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">{label}</label>
+    <div className="flex flex-col gap-1.5">
+      <div className="flex items-center gap-1.5">
+        <label className="text-sm font-medium text-gray-900 dark:text-gray-100">{label}</label>
         {hint && (
           <button
             type="button"
             onClick={() => setShowHint(h => !h)}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-            aria-label="Más info"
+            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+            aria-label="Más información"
           >
             <HelpCircle className="w-3.5 h-3.5" />
           </button>
         )}
       </div>
       {showHint && hint && (
-        <p className="text-xs text-gray-500 dark:text-gray-400 bg-blue-50 dark:bg-blue-900/20 rounded px-2 py-1">{hint}</p>
+        <p className="text-xs text-blue-900 dark:text-blue-100 bg-blue-100 dark:bg-blue-900/40 rounded-md px-2.5 py-1.5 leading-relaxed">
+          {hint}
+        </p>
       )}
       <div className="relative flex items-center">
         <input
@@ -78,10 +78,10 @@ function RateField({ label, unit, hint, value, onChange, disabled }: RateFieldPr
           disabled={disabled}
           value={fmtNum(value)}
           onChange={e => onChange(parseNum(e.target.value))}
-          placeholder="—"
-          className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 pr-12 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+          placeholder="Sin configurar"
+          className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 pr-20 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
         />
-        <span className="absolute right-3 text-xs text-gray-400 dark:text-gray-500 pointer-events-none">{unit}</span>
+        <span className="absolute right-3 text-xs font-medium text-gray-500 dark:text-gray-400 pointer-events-none">{unit}</span>
       </div>
     </div>
   );
@@ -103,15 +103,15 @@ function Section({ title, icon, defaultOpen = true, children }: SectionProps) {
       <button
         type="button"
         onClick={() => setOpen(o => !o)}
-        className="w-full flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-gray-800/80 hover:bg-gray-100 dark:hover:bg-gray-700/80 transition-colors"
       >
-        <div className="flex items-center gap-2 text-sm font-semibold text-gray-800 dark:text-gray-200">
+        <div className="flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-gray-100">
           {icon}
           {title}
         </div>
         {open
-          ? <ChevronDown className="w-4 h-4 text-gray-400" />
-          : <ChevronRight className="w-4 h-4 text-gray-400" />
+          ? <ChevronDown className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+          : <ChevronRight className="w-4 h-4 text-gray-500 dark:text-gray-400" />
         }
       </button>
       {open && (
@@ -131,15 +131,32 @@ export default function ScreenTransporteTarifas({ orgId, showToast }: Props) {
   const [saving, setSaving] = useState(false);
   const [dirty, setDirty] = useState(false);
 
+  // Ref estable para showToast — evita que cambie la referencia en el efecto de carga
+  // (si showToast es inline en el padre, se crea nueva función en cada render;
+  // meterla en deps dispararía loadTransportRates en cada render del padre y
+  // sobrescribiría los valores que el usuario está editando)
+  const showToastRef = useRef(showToast);
+  useEffect(() => { showToastRef.current = showToast; }, [showToast]);
+
+  // Cargar tarifas solo cuando cambia orgId, nunca por cambio de showToast
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
+    setDirty(false);
     loadTransportRates(orgId)
-      .then(r => { if (!cancelled) { setRates(r); setDirty(false); } })
-      .catch(e => { if (!cancelled) showToast(errMsg(e), 'error'); })
+      .then(r => { if (!cancelled) setRates(r); })
+      .catch(e => { if (!cancelled) showToastRef.current(errMsg(e), 'error'); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, [orgId, showToast]);
+  }, [orgId]);
+
+  // Advertir si el usuario intenta cerrar la pestaña con cambios sin guardar
+  useEffect(() => {
+    if (!dirty) return;
+    const handler = (e: BeforeUnloadEvent) => { e.preventDefault(); };
+    window.addEventListener('beforeunload', handler);
+    return () => window.removeEventListener('beforeunload', handler);
+  }, [dirty]);
 
   const update = useCallback((field: keyof TransportRates, value: number | null) => {
     setRates(prev => ({ ...prev, [field]: value }));
@@ -152,9 +169,9 @@ export default function ScreenTransporteTarifas({ orgId, showToast }: Props) {
     try {
       await saveTransportRates(orgId, rates);
       setDirty(false);
-      showToast('Tarifas guardadas', 'success');
+      showToastRef.current('Tarifas guardadas correctamente', 'success');
     } catch (e) {
-      showToast(errMsg(e), 'error');
+      showToastRef.current(errMsg(e), 'error');
     } finally {
       setSaving(false);
     }
@@ -164,7 +181,7 @@ export default function ScreenTransporteTarifas({ orgId, showToast }: Props) {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-16 text-gray-400">
+      <div className="flex items-center justify-center py-16 text-gray-500 dark:text-gray-400">
         <Loader2 className="w-6 h-6 animate-spin mr-2" />
         Cargando tarifas…
       </div>
@@ -172,7 +189,7 @@ export default function ScreenTransporteTarifas({ orgId, showToast }: Props) {
   }
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6 flex flex-col gap-6">
+    <div className="max-w-2xl mx-auto px-4 py-6 flex flex-col gap-5">
 
       {/* Cabecera */}
       <div className="flex items-start justify-between gap-4">
@@ -181,7 +198,7 @@ export default function ScreenTransporteTarifas({ orgId, showToast }: Props) {
             <Settings className="w-5 h-5 text-blue-600" />
             Tarifas y costes
           </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+          <p className="text-sm text-gray-600 dark:text-gray-300 mt-0.5">
             Configura tus costes internos y tarifas de venta para generar presupuestos precisos.
           </p>
         </div>
@@ -189,7 +206,7 @@ export default function ScreenTransporteTarifas({ orgId, showToast }: Props) {
           type="button"
           onClick={handleSave}
           disabled={!dirty || saving}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors shrink-0"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 disabled:opacity-50 transition-colors shrink-0"
         >
           {saving
             ? <Loader2 className="w-4 h-4 animate-spin" />
@@ -199,141 +216,151 @@ export default function ScreenTransporteTarifas({ orgId, showToast }: Props) {
         </button>
       </div>
 
-      {/* Aviso de campos faltantes */}
-      {missing.length > 0 && (
-        <div className="flex items-start gap-2 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 px-4 py-3 text-sm text-amber-800 dark:text-amber-200">
-          <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
+      {/* Cambios pendientes */}
+      {dirty && !saving && (
+        <div className="flex items-center gap-2 rounded-lg bg-orange-50 dark:bg-orange-950 border border-orange-200 dark:border-orange-700 px-4 py-2.5 text-sm text-orange-900 dark:text-orange-100">
+          <AlertTriangle className="w-4 h-4 shrink-0 text-orange-600 dark:text-orange-400" />
+          <span>Hay cambios sin guardar. Pulsa <strong>Guardar</strong> antes de salir.</span>
+        </div>
+      )}
+
+      {/* Tarifas incompletas */}
+      {missing.length > 0 && !dirty && (
+        <div className="flex items-start gap-2.5 rounded-lg bg-yellow-50 dark:bg-yellow-950 border border-yellow-300 dark:border-yellow-700 px-4 py-3 text-sm text-yellow-900 dark:text-yellow-100">
+          <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0 text-yellow-700 dark:text-yellow-400" />
           <div>
-            <span className="font-medium">Tarifas incompletas.</span>{' '}
-            Faltan: {missing.join(', ')}. Sin ellas no se puede calcular precio automático.
+            <span className="font-semibold">Configuración incompleta.</span>{' '}
+            Sin estos datos el motor no puede calcular precios automáticamente:{' '}
+            {missing.join(', ')}.
           </div>
         </div>
       )}
 
+      {/* Todo configurado */}
       {missing.length === 0 && !dirty && (
-        <div className="flex items-center gap-2 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 px-4 py-2 text-sm text-green-700 dark:text-green-300">
-          <CheckCircle2 className="w-4 h-4 shrink-0" />
-          Tarifas completas — el motor puede calcular precios automáticamente.
+        <div className="flex items-center gap-2 rounded-lg bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-700 px-4 py-2.5 text-sm text-green-900 dark:text-green-100">
+          <CheckCircle2 className="w-4 h-4 shrink-0 text-green-600 dark:text-green-400" />
+          Configuración completa — el motor puede calcular precios automáticamente.
         </div>
       )}
 
-      {/* Sección: Costes por kilómetro */}
+      {/* ── Costes por kilómetro ──────────────────────────────────────────── */}
       <Section
         title="Costes por kilómetro"
         icon={<Fuel className="w-4 h-4 text-orange-500" />}
       >
         <RateField
-          label="Coste km comercial"
+          label="Coste por km (con viajeros)"
           unit="€/km"
-          hint="Coste por km cuando el cliente viaja en el vehículo. Si lo configuras aquí, NO añadas también combustible por separado (evita doble contabilización)."
+          hint="Coste total por kilómetro recorrido con el cliente a bordo. Si usas este campo, no configures también el combustible por separado: se contabilizaría dos veces."
           value={rates.coste_km_comercial}
           onChange={v => update('coste_km_comercial', v)}
         />
         <RateField
-          label="Coste km en vacío"
+          label="Coste por km en vacío"
           unit="€/km"
-          hint="Coste por km de desplazamiento sin viajeros (salida de cochera, retorno). Suele ser menor. Si no lo configuras, se estima al 70% del comercial."
+          hint="Coste por kilómetro sin viajeros: salida de cochera, regreso o reposicionamiento. Suele ser menor. Si no lo configuras, se estima al 70% del coste por km comercial."
           value={rates.coste_km_vacio}
           onChange={v => update('coste_km_vacio', v)}
         />
         <RateField
-          label="Consumo medio"
+          label="Consumo del vehículo"
           unit="L/100km"
-          hint="Alternativa a coste km directo: si configuras litros/100km + precio combustible, el motor calcula el coste por km automáticamente."
+          hint="Alternativa al coste km directo: si introduces litros/100km y precio del combustible, el motor calcula automáticamente el coste por kilómetro."
           value={rates.consumo_l_100km}
           onChange={v => update('consumo_l_100km', v)}
         />
         <RateField
-          label="Precio combustible"
+          label="Precio del combustible"
           unit="€/L"
-          hint="Precio actual del combustible. Úsalo junto con el consumo si no quieres un coste km fijo."
+          hint="Precio actual del combustible. Se usa junto al consumo si no tienes configurado un coste por km fijo."
           value={rates.precio_combustible}
           onChange={v => update('precio_combustible', v)}
         />
       </Section>
 
-      {/* Sección: Conductor */}
+      {/* ── Conductor ─────────────────────────────────────────────────────── */}
       <Section
         title="Conductor"
         icon={<User className="w-4 h-4 text-blue-500" />}
       >
         <RateField
-          label="Coste hora normal"
+          label="Coste conductor por hora"
           unit="€/h"
-          hint="Coste horario del conductor en jornada ordinaria (coste empresa: nómina + SS)."
+          hint="Coste hora en jornada ordinaria: incluye nómina bruta y cuota empresarial a la Seguridad Social."
           value={rates.coste_conductor_hora}
           onChange={v => update('coste_conductor_hora', v)}
         />
         <RateField
-          label="Coste hora extra"
+          label="Coste hora extra conductor"
           unit="€/h"
-          hint="Coste horario para horas fuera de jornada ordinaria (>8h/día). Si no se configura, no se calculan horas extra."
+          hint="Coste para horas fuera de jornada ordinaria (más de 8h diarias). Si no se configura, las horas extra no se calculan."
           value={rates.coste_conductor_hora_extra}
           onChange={v => update('coste_conductor_hora_extra', v)}
         />
         <RateField
-          label="Dieta diaria"
+          label="Dieta diaria por conductor"
           unit="€/día"
-          hint="Dieta del conductor por día fuera de su base. Solo aplica cuando hay pernoctaciones definidas en el viaje."
+          hint="Importe de la dieta por día de desplazamiento. Solo se aplica en viajes con pernoctaciones definidas."
           value={rates.dieta_conductor_dia}
           onChange={v => update('dieta_conductor_dia', v)}
         />
         <RateField
-          label="Alojamiento por noche"
+          label="Alojamiento por conductor/noche"
           unit="€/noche"
-          hint="Límite de alojamiento por noche a cargo de la empresa. Se usa como fallback si no se indica el importe real al crear el viaje."
+          hint="Importe máximo de alojamiento por noche a cargo de la empresa. Se usa como referencia cuando no se indica el importe real del hotel."
           value={rates.alojamiento_conductor_noche}
           onChange={v => update('alojamiento_conductor_noche', v)}
         />
       </Section>
 
-      {/* Sección: Vehículo */}
+      {/* ── Vehículo ──────────────────────────────────────────────────────── */}
       <Section
         title="Vehículo"
         icon={<Truck className="w-4 h-4 text-purple-500" />}
       >
         <RateField
-          label="Coste fijo por día"
+          label="Coste fijo del vehículo por día"
           unit="€/día"
-          hint="Coste diario del vehículo: amortización, seguro, revisiones periódicas. Se aplica por cada día del servicio."
+          hint="Coste diario del autobús o minibús: amortización, seguro, revisiones periódicas. Se aplica a todos los días del servicio."
           value={rates.coste_vehiculo_dia}
           onChange={v => update('coste_vehiculo_dia', v)}
         />
         <div />
       </Section>
 
-      {/* Sección: Gastos generales y margen */}
+      {/* ── Gastos generales y margen ──────────────────────────────────────── */}
       <Section
-        title="Gastos generales y margen"
-        icon={<BarChart2 className="w-4 h-4 text-green-500" />}
+        title="Gastos generales y margen comercial"
+        icon={<BarChart2 className="w-4 h-4 text-green-600" />}
       >
         <RateField
-          label="Overhead (%)"
+          label="Gastos generales (%)"
           unit="%"
-          hint="Gastos generales como porcentaje sobre el coste directo: administración, seguros, RRHH. Ej: 10% añade un 10% a todos los costes directos."
+          hint="Porcentaje aplicado sobre el coste directo para cubrir gastos indirectos: administración, seguros, RRHH. Ejemplo: 10% añade un 10% a todos los costes directos."
           value={rates.overhead_pct}
           onChange={v => update('overhead_pct', v)}
         />
         <RateField
           label="Margen comercial (%)"
           unit="%"
-          hint="Margen objetivo sobre precio de VENTA (no sobre coste). Ej: 20% → precio = coste / (1 - 0.20). Distinto de markup sobre coste."
+          hint="Margen objetivo sobre el precio de VENTA (no sobre el coste). Ejemplo: 20% → precio = coste / (1 − 0,20). Distinto de aplicar un incremento sobre el coste."
           value={rates.margin_pct}
           onChange={v => update('margin_pct', v)}
         />
       </Section>
 
-      {/* Sección: Tarifas de venta (heredadas del wizard) */}
+      {/* ── Tarifas de venta al cliente ────────────────────────────────────── */}
       <Section
         title="Tarifas de venta al cliente"
-        icon={<Tag className="w-4 h-4 text-gray-500" />}
+        icon={<Tag className="w-4 h-4 text-gray-600 dark:text-gray-400" />}
         defaultOpen={false}
       >
-        <div className="sm:col-span-2 text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 rounded-lg px-3 py-2">
-          Tarifas de venta directas (configuradas en el asistente inicial). Opcionales: el motor puede calcular el precio sugerido a partir de los costes internos y el margen.
+        <div className="sm:col-span-2 text-sm text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 rounded-lg px-3 py-2.5 leading-relaxed">
+          Tarifas de venta directas configuradas en el asistente inicial. Son opcionales: el motor puede calcular el precio sugerido a partir de los costes internos y el margen.
         </div>
         <RateField
-          label="Precio por km"
+          label="Precio por kilómetro"
           unit="€/km"
           value={rates.precio_km}
           onChange={v => update('precio_km', v)}
@@ -345,7 +372,7 @@ export default function ScreenTransporteTarifas({ orgId, showToast }: Props) {
           onChange={v => update('precio_hora', v)}
         />
         <RateField
-          label="Precio por jornada"
+          label="Precio por jornada completa"
           unit="€/jornada"
           value={rates.precio_jornada}
           onChange={v => update('precio_jornada', v)}
@@ -358,14 +385,14 @@ export default function ScreenTransporteTarifas({ orgId, showToast }: Props) {
         />
       </Section>
 
-      {/* Botón guardar inferior */}
+      {/* Botón guardar inferior (visible cuando hay cambios) */}
       {dirty && (
-        <div className="flex justify-end">
+        <div className="flex justify-end pt-1">
           <button
             type="button"
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 disabled:opacity-50 transition-colors"
           >
             {saving
               ? <Loader2 className="w-4 h-4 animate-spin" />
