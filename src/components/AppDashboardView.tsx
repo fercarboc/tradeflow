@@ -76,6 +76,7 @@ import {
   Bus,
   LayoutDashboard,
   CalendarDays,
+  Euro,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL, MARKETPLACE_ENABLED } from '../lib/constants';
@@ -120,6 +121,7 @@ import ScreenTransportePanel from './ScreenTransportePanel';
 import ScreenTransporteAgenda from './ScreenTransporteAgenda';
 import ScreenTransporteParteTrabajo from './ScreenTransporteParteTrabajo';
 import ScreenTransporteRutas from './ScreenTransporteRutas';
+import ScreenTransporteTarifas from './ScreenTransporteTarifas';
 import { getOrgCapabilities } from '../lib/orgCapabilities';
 import ScreenFacturas from './ScreenFacturas';
 import ScreenContratos from './ScreenContratos';
@@ -6450,6 +6452,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {can('transport.view') && SidebarBtn({ id: 'transporte_conductores', icon: <UserPlus className="w-4 h-4" />, label: 'Conductores' })}
                 {can('transport.view') && SidebarBtn({ id: 'transporte_rutas',      icon: <Route className="w-4 h-4" />, label: 'Rutas' })}
                 {can('transport.view') && SidebarBtn({ id: 'transporte_partes',     icon: <FileCheck className="w-4 h-4" />, label: 'Partes' })}
+                {can('transport.view') && SidebarBtn({ id: 'transporte_tarifas',   icon: <Euro className="w-4 h-4" />, label: 'Tarifas' })}
                 <div className="my-2 mx-1 border-t border-slate-800/60" />
                 <p className="px-3 pb-2 text-[9px] font-bold uppercase tracking-widest text-slate-500">Gestión</p>
                 {can('clients.manage') && SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes' })}
@@ -6496,6 +6499,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     {SidebarBtn({ id: 'transporte_conductores', icon: <UserPlus className="w-4 h-4" />, label: 'Conductores' })}
                     {SidebarBtn({ id: 'transporte_rutas',      icon: <Route className="w-4 h-4" />, label: 'Rutas' })}
                     {SidebarBtn({ id: 'transporte_partes',     icon: <FileCheck className="w-4 h-4" />, label: 'Partes' })}
+                    {SidebarBtn({ id: 'transporte_tarifas',   icon: <Euro className="w-4 h-4" />, label: 'Tarifas' })}
                   </>
                 )}
                 {SidebarBtn({ id: 'asistente', icon: <BookOpen className="w-4 h-4" />, label: 'Asistente Técnico' })}
@@ -6595,6 +6599,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'transporte_rutas'       && 'Transporte · Rutas'}
                 {activeTab === 'transporte_parte'     && 'Transporte · Parte de Servicio'}
                 {activeTab === 'transporte_partes'    && 'Transporte · Histórico de Partes'}
+                {activeTab === 'transporte_tarifas'   && 'Transporte · Tarifas y Costes'}
                 {activeTab === 'asistente' && 'Asistente Técnico de Normativa'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
@@ -6962,6 +6967,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       initialServiceId={transporteNavServiceId}
                       onConsumeInitialServiceId={() => setTransporteNavServiceId(null)}
                     />
+                  </div>
+                )}
+                {activeTab === 'transporte_tarifas' && orgId && caps.hasTransport && can('transport.view') && (
+                  <div className="flex-1 overflow-y-auto min-h-0">
+                    <ScreenTransporteTarifas orgId={orgId} showToast={showToast} />
                   </div>
                 )}
                 {activeTab === 'asistente' && (
