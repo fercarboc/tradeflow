@@ -121,6 +121,7 @@ export interface TransportPartida {
   precioUnitario: number;
   total: number;
   unidad?: string;
+  familia?: string;
   requiere_precio?: boolean;
   aviso?: string;
   origen?: 'catalogo' | 'sugerida_ia' | 'proveedor';
@@ -157,6 +158,7 @@ export function buildTransportPartidas(intake: TransportIntakeData): TransportPa
     precioUnitario: precio ?? 0,
     total: precio ?? 0,
     unidad: 'servicio',
+    familia: 'Transporte de viajeros',
     requiere_precio: sinPrecio,
     aviso,
     origen: sinPrecio ? 'sugerida_ia' : 'catalogo',

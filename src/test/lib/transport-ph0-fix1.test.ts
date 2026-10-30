@@ -256,6 +256,11 @@ describe('FIX-9 — tipo de partida de transporte', () => {
     expect(p.tipo).toBe('material');
     expect(p.tipo).not.toBe('mano_de_obra');
   });
+
+  it('familia = "Transporte de viajeros" (Word muestra sección correcta, no "Materiales")', () => {
+    const [p] = buildTransportPartidas(intake);
+    expect(p.familia).toBe('Transporte de viajeros');
+  });
 });
 
 // ── Test 10: Reapertura de metadata — transport_intake persiste ──────────────
@@ -307,7 +312,7 @@ describe('FIX-11 — lógica de highlight del botón Presupuestos en barra móvi
   });
 
   it('mobileTab="transporte" con subtab="panel" NO activa el botón Presupuestos', () => {
-    const mobileTab = 'transporte';
+    const mobileTab: string = 'transporte';
     const isPresupuestosActive = mobileTab === 'presupuestos';
     expect(isPresupuestosActive).toBe(false);
   });

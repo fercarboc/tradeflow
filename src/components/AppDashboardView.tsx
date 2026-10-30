@@ -6085,7 +6085,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               )}
 
               {/* Botón sugerencia precio */}
-              {showPricingSuggestion && empresaAjustes.valorHoraOperario < TARIFA_SUGERIDA && (
+              {showPricingSuggestion && !caps.isTransportOrg && empresaAjustes.valorHoraOperario < TARIFA_SUGERIDA && (
                 <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 text-[11px] flex justify-between items-center gap-2 text-left">
                   <div>
                     <span className="font-bold text-blue-600 block font-mono text-[8.5px] uppercase">Recomendación IA</span>

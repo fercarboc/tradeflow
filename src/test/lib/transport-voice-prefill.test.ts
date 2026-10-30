@@ -165,6 +165,10 @@ describe('buildTransportPartidas — excursión con precio dictado', () => {
     expect(partida.requiere_precio).toBeFalsy();
   });
 
+  it('familia = "Transporte de viajeros" (evita sección "Materiales" en Word)', () => {
+    expect(partida.familia).toBe('Transporte de viajeros');
+  });
+
   it('no hay aviso de IVA (precio sin IVA)', () => {
     expect(partida.aviso ?? '').not.toContain('IVA');
   });
