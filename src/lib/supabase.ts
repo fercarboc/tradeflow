@@ -1655,10 +1655,12 @@ export async function updateQuote(
   descripcion: string,
   items: Pick<TradeQuoteItem, 'descripcion' | 'tipo' | 'cantidad' | 'precio_unitario' | 'precio_material' | 'supplier_key' | 'supplier_name' | 'supplier_ref' | 'catalog_variant_id' | 'familia'>[],
   ivaPct?: number,
+  metadata?: Record<string, unknown>,
 ): Promise<TradeQuote> {
   const totalNeto = items.reduce((s, i) => s + i.cantidad * i.precio_unitario, 0);
   const updatePayload: Record<string, unknown> = { client_id: clientId, descripcion, total_neto: totalNeto };
   if (ivaPct !== undefined) updatePayload.iva_pct = ivaPct;
+  if (metadata !== undefined) updatePayload.metadata = metadata;
   const { data: quote, error: qErr } = await supabase
     .from('trade_quotes')
     .update(updatePayload)

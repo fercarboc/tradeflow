@@ -94,6 +94,23 @@ export function calcularPrecioConIva(
   return Math.round(intake.precio_base * (1 + ivaPct / 100) * 100) / 100;
 }
 
+// ── Fusión de metadata ────────────────────────────────────────────────────────
+
+/**
+ * Fusiona `pending` sobre `existing`, preservando todas las claves no relacionadas
+ * con transporte. Si no hay pending, devuelve existing sin modificar.
+ * Resultado undefined si ambas son vacías/null (para no enviar metadata vacía a la BD).
+ */
+export function mergeQuoteMetadata(
+  existing: Record<string, unknown> | null | undefined,
+  pending: Record<string, unknown> | null | undefined,
+): Record<string, unknown> | undefined {
+  if (!pending || Object.keys(pending).length === 0) {
+    return existing && Object.keys(existing).length > 0 ? existing : undefined;
+  }
+  return { ...(existing ?? {}), ...pending };
+}
+
 // ── Partidas para el wizard de presupuesto ───────────────────────────────────
 
 /** Estructura mínima de partida compatible con PartidaPresupuesto de src/types.ts */

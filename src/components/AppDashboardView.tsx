@@ -145,6 +145,7 @@ import TransportIntakeSummary from './TransportIntakeSummary';
 import {
   isValidTransportIntake,
   buildTransportPartidas,
+  mergeQuoteMetadata,
   type TransportIntake,
 } from '../lib/transportVoiceIntake';
 import type { TradeOrganization, TradeQuote } from '../lib/supabase';
@@ -1919,8 +1920,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           if (editingQuoteId) {
             // Edit: no inner catch — error bubbles to outer catch to keep wizard open
             const ivaPct = wizardQuote.iva_pct ?? empresaAjustes.ivaDefault;
-            const dbQuote = await updateQuote(editingQuoteId, clientId, finalQuote.descripcion ?? '', itemsPayload, ivaPct);
-            savedQuote = { ...finalQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'] };
+            // Protección: presupuesto de transporte aceptado no puede modificarse
+            if (wizardQuote.estado === 'Aceptado' && (wizardQuote.metadata?.['vertical'] === 'transporte' || pendingQuoteMetadata.current?.['vertical'] === 'transporte')) {
+              throw new Error('Este presupuesto está aceptado — no se pueden cambiar sus condiciones de transporte.');
+            }
+            const mergedMeta = mergeQuoteMetadata(wizardQuote.metadata, pendingQuoteMetadata.current);
+            const dbQuote = await updateQuote(editingQuoteId, clientId, finalQuote.descripcion ?? '', itemsPayload, ivaPct, mergedMeta);
+            pendingQuoteMetadata.current = null;
+            savedQuote = { ...finalQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], metadata: dbQuote.metadata ?? null };
           } else {
             // Create: swallow error, fall through with local copy (original behavior)
             try {
@@ -2690,8 +2697,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         const client = clientes.find(c => c.nombre === editingQuote.nombreCliente);
         if (!client) { showToast('Cliente no encontrado en CRM', 'error'); return; }
         if (isEditing) {
-          const dbQuote = await updateQuote(editingQuoteId, client.id, editingQuote.descripcion, partidasPayload, editingQuote.iva_pct);
-          saved = { ...editingQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'] };
+          if (editingQuote.estado === 'Aceptado' && (editingQuote.metadata?.['vertical'] === 'transporte' || pendingQuoteMetadata.current?.['vertical'] === 'transporte')) {
+            showToast('Este presupuesto está aceptado — no se pueden cambiar sus condiciones de transporte.', 'error');
+            return;
+          }
+          const mergedMetaDesktop = mergeQuoteMetadata(editingQuote.metadata, pendingQuoteMetadata.current);
+          const dbQuote = await updateQuote(editingQuoteId, client.id, editingQuote.descripcion, partidasPayload, editingQuote.iva_pct, mergedMetaDesktop);
+          pendingQuoteMetadata.current = null;
+          saved = { ...editingQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], metadata: dbQuote.metadata ?? null };
         } else {
           const dbQuote = await saveQuote(orgId, client.id, editingQuote.descripcion, partidasPayload, undefined, editingQuote.iva_pct ?? empresaAjustes.ivaDefault, pendingQuoteMetadata.current ?? undefined);
           pendingQuoteMetadata.current = null;
@@ -4433,6 +4446,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               setPostConfirmQuote(null);
               setEditingQuoteId(q.dbId ?? q.id);
               setEditingQuote({ ...q });
+              if (q.metadata?.['vertical'] === 'transporte' && isValidTransportIntake(q.metadata?.['transport_intake'])) {
+                pendingQuoteMetadata.current = q.metadata as Record<string, unknown>;
+                setPendingTransportIntake(q.metadata['transport_intake'] as TransportIntake);
+              }
               setWizardQuote(q);
               setWizardStep(4);
               setWizardViewOnly(false);
@@ -8353,7 +8370,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     total: q.total ?? 0,
                     estado: q.estado,
                     iva_pct: q.iva_pct,
+                    metadata: q.metadata ?? null,
                   });
+                  if (q.metadata?.['vertical'] === 'transporte' && isValidTransportIntake(q.metadata?.['transport_intake'])) {
+                    pendingQuoteMetadata.current = q.metadata as Record<string, unknown>;
+                    setPendingTransportIntake(q.metadata['transport_intake'] as TransportIntake);
+                  }
                   setActiveTab('create_quote');
                 }}
                 className="flex items-center gap-1.5 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer"
