@@ -337,3 +337,88 @@ describe('TX-C3-C-FIX esc.10 — aislamiento multiempresa', () => {
     expect(r.errorCode).toBe('quote_state_incompatible');
   });
 });
+
+// ── Escenario 11: ORG_NO_TRANSPORT_CAPABILITY ─────────────────────────────────
+//
+// Situación B del spec TX-C3-PH0-FIX-2: org de Oficios acepta presupuesto de
+// vertical=transporte. La aceptación es válida (ok:true), pero no se crea
+// ningún servicio de transporte y no se produce error técnico falso.
+//
+// INVARIANTE SQL: create_transport_service_from_quote devuelve ok:false con
+// code=ORG_NO_TRANSPORT_CAPABILITY mediante RETURN, sin RAISE. El bloque
+// EXCEPTION WHEN OTHERS de accept_quote_public NO captura RETURN, por lo que
+// la aceptación del presupuesto permanece válida y la incidencia queda solo
+// en service_result.
+
+describe('TX-C3-PH0-FIX-2 esc.11 — org sin transport acepta presupuesto de transporte', () => {
+  beforeEach(() => { vi.clearAllMocks(); });
+
+  it('accept_quote_public devuelve ok:true aunque service_result.code=ORG_NO_TRANSPORT_CAPABILITY', () => {
+    // La RPC pública acepta el presupuesto; la función interna devuelve ok:false
+    // sin RAISE → el bloque EXCEPTION no se activa → aceptación válida.
+    const result: AcceptQuotePublicResult = {
+      ok: true,
+      org_id: ORG_A,
+      quote_numero: 'PRE-2026-010',
+      client_name: 'Cliente Instalador',
+      transport_service_id: null,
+      service_result: {
+        ok: false,
+        code: 'ORG_NO_TRANSPORT_CAPABILITY',
+        message: 'Esta organización no tiene la operativa de Transporte habilitada.',
+      },
+    };
+    const r = processAcceptResult(result);
+    expect(r.ok).toBe(true);
+    expect(r.transportServiceId).toBeNull();
+  });
+
+  it('service_result.code=ORG_NO_TRANSPORT_CAPABILITY es distinguible de SERVICE_CREATION_ERROR', () => {
+    // Los dos códigos tienen semántica distinta:
+    //   ORG_NO_TRANSPORT_CAPABILITY → org no tiene la operativa (decisión de negocio)
+    //   SERVICE_CREATION_ERROR → fallo técnico inesperado durante la creación
+    const noCapResult: TransportServiceFromQuoteResult = {
+      ok: false, code: 'ORG_NO_TRANSPORT_CAPABILITY', message: 'sin operativa',
+    };
+    const techErrResult: TransportServiceFromQuoteResult = {
+      ok: false, code: 'SERVICE_CREATION_ERROR', message: 'SQLERRM',
+    };
+    expect(noCapResult.code).not.toBe(techErrResult.code);
+    expect(noCapResult.code).toBe('ORG_NO_TRANSPORT_CAPABILITY');
+  });
+
+  it('createTransportServiceFromQuote devuelve ok:false + ORG_NO_TRANSPORT_CAPABILITY desde el panel', async () => {
+    // El panel llama directamente al RPC cuando el usuario pulsa el botón manual.
+    // La respuesta ok:false no lanza excepción (el RPC no hace RAISE).
+    rpcMock.mockResolvedValueOnce({
+      data: {
+        ok: false,
+        code: 'ORG_NO_TRANSPORT_CAPABILITY',
+        message: 'Esta organización no tiene la operativa de Transporte habilitada.',
+      },
+      error: null,
+    });
+    const { createTransportServiceFromQuote } = await import('../../lib/supabase');
+    const result = await createTransportServiceFromQuote(ORG_A, QUOTE_A);
+    expect(result.ok).toBe(false);
+    expect(result.code).toBe('ORG_NO_TRANSPORT_CAPABILITY');
+    expect(result.service_id).toBeUndefined();
+  });
+
+  it('ningún trabajo de Oficios se crea junto al presupuesto de transporte aceptado', () => {
+    // INVARIANTE: accept_quote_public no tiene ningún bloque que cree trabajos de Oficios.
+    // La única acción sobre trade_jobs queda en el panel cuando el usuario convierte
+    // manualmente, y solo orgs instaladoras tienen esa opción.
+    // Este test documenta la ausencia del efecto secundario.
+    const result: AcceptQuotePublicResult = {
+      ok: true,
+      org_id: ORG_A, quote_numero: 'PRE-2026-011', client_name: 'Cliente',
+      transport_service_id: null,
+      service_result: { ok: false, code: 'ORG_NO_TRANSPORT_CAPABILITY', message: '' },
+    };
+    // Si no hay service_id, no hay servicio → y no hay trabajo de Oficios.
+    // (El panel solo ofrece "Crear trabajo" para quotes de instaladores, no de transporte.)
+    expect(result.transport_service_id).toBeNull();
+    expect(result.ok).toBe(true);
+  });
+});

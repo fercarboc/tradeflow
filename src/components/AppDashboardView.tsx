@@ -8468,7 +8468,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       Abrir servicio / Completar planificación
                     </button>
                   </>
-                ) : (
+                ) : caps.hasTransport ? (
                   <button
                     onClick={async () => {
                       if (!selectedQuoteForPreview.dbId) return;
@@ -8484,6 +8484,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                           showToast('Servicio de transporte creado', 'success');
                         } else if (result.code === 'RECURRENTE_DEFERRED') {
                           showToast('Servicio recurrente: créalo desde Rutas Recurrentes', 'info');
+                        } else if (result.code === 'ORG_NO_TRANSPORT_CAPABILITY') {
+                          showToast('Activa la operativa de Transporte para crear servicios automáticamente.', 'info');
                         }
                       } catch {
                         showToast('Error al crear el servicio de transporte', 'error');
@@ -8493,6 +8495,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   >
                     <Bus className="w-3 h-3" /> Crear servicio de transporte
                   </button>
+                ) : (
+                  <span className="text-[10px] text-slate-500 bg-slate-50 border border-slate-200 rounded-lg px-2 py-1">
+                    Operativa de Transporte no habilitada
+                  </span>
                 )}
               </div>
             )}
