@@ -68,6 +68,7 @@ Deno.serve(async (req: Request) => {
     });
   }
 
+  // ── GET ──────────────────────────────────────────────────────────────────────
   if (action === 'get') {
     const { data, error } = await adminClient
       .from('trade_quote_tokens')
@@ -87,8 +88,91 @@ Deno.serve(async (req: Request) => {
     });
   }
 
-  if (action === 'accept' || action === 'reject') {
-    // ── 1. Leer token (confirmar que está pendiente) ──────────────────────────
+  // ── ACCEPT (transaccional) ───────────────────────────────────────────────────
+  // Una única RPC PostgreSQL realiza de forma atómica:
+  //   1. SELECT FOR UPDATE en token (idempotencia concurrente)
+  //   2. SELECT FOR UPDATE en quote (estado, vertical)
+  //   3. UPDATE token → 'accepted'
+  //   4. UPDATE quote → 'Aceptado'
+  //   5. Si vertical='transporte': create_transport_service_from_quote (mismo TX)
+  //      Si el servicio falla: error en metadata.transport_service_error,
+  //      la aceptación permanece comprometida.
+  if (action === 'accept') {
+    const { data: acceptResult, error: acceptError } = await adminClient.rpc(
+      'accept_quote_public',
+      { p_token: token },
+    );
+
+    if (acceptError) {
+      console.error(`[${requestId}] accept_quote_public RPC error`, {
+        error: acceptError.message,
+      });
+      return new Response(JSON.stringify({ error: acceptError.message }), {
+        status: 500,
+        headers: { ...cors(req), 'Content-Type': 'application/json' },
+      });
+    }
+
+    if (!acceptResult) {
+      return new Response(JSON.stringify({ error: 'no_result_from_rpc' }), {
+        status: 500,
+        headers: { ...cors(req), 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Token ya procesado (idempotente)
+    if ((acceptResult as Record<string, unknown>)['already_processed']) {
+      return new Response(JSON.stringify({ ok: true, already_processed: true }), {
+        headers: { ...cors(req), 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Error de validación devuelto por la RPC (quote no encontrado, estado incompatible)
+    if ((acceptResult as Record<string, unknown>)['error']) {
+      const rpcError = (acceptResult as Record<string, unknown>)['error'] as string;
+      const status = rpcError === 'quote_not_found' ? 404
+                   : rpcError === 'quote_state_incompatible' ? 409
+                   : 500;
+      return new Response(JSON.stringify(acceptResult), {
+        status,
+        headers: { ...cors(req), 'Content-Type': 'application/json' },
+      });
+    }
+
+    const result = acceptResult as Record<string, unknown>;
+
+    // Notificación push (fire-and-forget — no bloquea la respuesta al cliente)
+    notifyOrgQuoteAccepted(
+      result['org_id'] as string,
+      result['quote_numero'] as string,
+      result['client_name'] as string | null,
+    );
+
+    // Loguear si la creación del servicio tuvo un error interno (para monitoring)
+    if (result['service_result']) {
+      const svcResult = result['service_result'] as Record<string, unknown>;
+      if (svcResult['ok'] === false) {
+        console.warn(`[${requestId}] transport service creation error recorded in metadata`, {
+          org_id:       result['org_id'],
+          quote_numero: result['quote_numero'],
+          code:         svcResult['code'],
+          message:      svcResult['message'],
+        });
+      }
+    }
+
+    return new Response(JSON.stringify({
+      ok: true,
+      transport_service_id: result['transport_service_id'] ?? null,
+    }), {
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
+    });
+  }
+
+  // ── REJECT ───────────────────────────────────────────────────────────────────
+  // Flujo simple: leer token pendiente → marcar rechazado.
+  // No toca trade_quotes (el presupuesto permanece en su estado previo).
+  if (action === 'reject') {
     const { data: tokenRow } = await adminClient
       .from('trade_quote_tokens')
       .select('org_id, quote_numero, client_name')
@@ -97,54 +181,14 @@ Deno.serve(async (req: Request) => {
       .maybeSingle();
 
     if (!tokenRow) {
-      // Token inexistente, ya procesado o expirado — respuesta idempotente.
       return new Response(JSON.stringify({ ok: true, already_processed: true }), {
         headers: { ...cors(req), 'Content-Type': 'application/json' },
       });
     }
 
-    // ── 2. Para 'accept': validar estado del presupuesto ANTES de mutar nada ─
-    // Estados terminales incompatibles: Rechazado, Expirado, Facturado.
-    // El token NO se marca accepted si el quote no puede avanzar.
-    const ACCEPT_ALLOWED = ['Borrador', 'Enviado', 'Aceptado'];
-    if (action === 'accept') {
-      const { data: quoteRow, error: quoteReadError } = await adminClient
-        .from('trade_quotes')
-        .select('id, estado, metadata, iva_pct')
-        .eq('org_id', tokenRow.org_id)
-        .eq('numero', tokenRow.quote_numero)
-        .maybeSingle();
-
-      if (quoteReadError) {
-        return new Response(JSON.stringify({ error: 'error_reading_quote' }), {
-          status: 500,
-          headers: { ...cors(req), 'Content-Type': 'application/json' },
-        });
-      }
-
-      if (!quoteRow) {
-        return new Response(JSON.stringify({ error: 'quote_not_found' }), {
-          status: 404,
-          headers: { ...cors(req), 'Content-Type': 'application/json' },
-        });
-      }
-
-      if (!ACCEPT_ALLOWED.includes(quoteRow.estado)) {
-        // Quote en estado terminal incompatible: no escribir nada.
-        return new Response(JSON.stringify({ error: 'quote_state_incompatible', quote_estado: quoteRow.estado }), {
-          status: 409,
-          headers: { ...cors(req), 'Content-Type': 'application/json' },
-        });
-      }
-    }
-
-    // ── 3. Actualizar token (quote validado o acción = reject) ────────────────
     const { error: tokenError } = await adminClient
       .from('trade_quote_tokens')
-      .update({
-        status: action === 'accept' ? 'accepted' : 'rejected',
-        accepted_at: action === 'accept' ? new Date().toISOString() : null,
-      })
+      .update({ status: 'rejected', accepted_at: null })
       .eq('token', token)
       .eq('status', 'pending');
 
@@ -155,64 +199,7 @@ Deno.serve(async (req: Request) => {
       });
     }
 
-    // ── 4. Sincronizar trade_quotes.estado (solo para accept) ─────────────────
-    // ATOMIC DB TRANSACTION: NO — dos writes secuenciales sin RPC transaccional.
-    // Si este write falla, el token ya está accepted pero el quote no avanza:
-    // se devuelve error (no { ok: true }) para que el cliente sea consciente.
-    // La inconsistencia queda visible y corregible manualmente o por soporte.
-    let transportServiceId: string | null = null;
-    if (action === 'accept') {
-      const { error: quoteUpdateError } = await adminClient
-        .from('trade_quotes')
-        .update({ estado: 'Aceptado' })
-        .eq('org_id', tokenRow.org_id)
-        .eq('numero', tokenRow.quote_numero)
-        .in('estado', ACCEPT_ALLOWED);
-
-      if (quoteUpdateError) {
-        console.error(`[${requestId}] INCONSISTENCY: token accepted but quote update failed`, {
-          org_id: tokenRow.org_id,
-          quote_numero: tokenRow.quote_numero,
-          error: quoteUpdateError.message,
-        });
-        return new Response(JSON.stringify({ error: 'quote_update_failed', detail: quoteUpdateError.message }), {
-          status: 500,
-          headers: { ...cors(req), 'Content-Type': 'application/json' },
-        });
-      }
-
-      notifyOrgQuoteAccepted(tokenRow.org_id, tokenRow.quote_numero, tokenRow.client_name);
-
-      // ── 5. Si el presupuesto es de transporte, crear servicio en borrador ─
-      // Fire-and-forget: el servicio es opcional respecto a la aceptación.
-      // Si falla, el presupuesto ya está aceptado y el gestor puede crear el
-      // servicio manualmente desde el panel de transporte.
-      if (
-        quoteRow.id &&
-        quoteRow.metadata &&
-        typeof quoteRow.metadata === 'object' &&
-        (quoteRow.metadata as Record<string, unknown>)['vertical'] === 'transporte'
-      ) {
-        try {
-          const { data: svcResult } = await adminClient.rpc(
-            'create_transport_service_from_quote',
-            { p_org_id: tokenRow.org_id, p_quote_id: quoteRow.id },
-          );
-          if (svcResult && svcResult.ok && svcResult.service_id) {
-            transportServiceId = svcResult.service_id as string;
-          }
-        } catch (svcErr) {
-          console.error(`[${requestId}] transport service creation failed`, {
-            org_id: tokenRow.org_id,
-            quote_id: quoteRow.id,
-            error: String(svcErr),
-          });
-          // Non-blocking: aceptación ya completada
-        }
-      }
-    }
-
-    return new Response(JSON.stringify({ ok: true, transport_service_id: transportServiceId }), {
+    return new Response(JSON.stringify({ ok: true, transport_service_id: null }), {
       headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
@@ -222,6 +209,3 @@ Deno.serve(async (req: Request) => {
     headers: { ...cors(req), 'Content-Type': 'application/json' },
   });
 });
-
-
-
