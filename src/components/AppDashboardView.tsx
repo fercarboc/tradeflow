@@ -144,6 +144,7 @@ import QuotePhotosPanel from './QuotePhotosPanel';
 import TransportIntakeSummary from './TransportIntakeSummary';
 import {
   isValidTransportIntake,
+  isTransportQuoteWithClosedPrice,
   buildTransportPartidas,
   mergeQuoteMetadata,
   type TransportIntake,
@@ -2792,22 +2793,27 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         orgId &&
         isLiveMode
       ) {
-        try {
-          const svcResult = await createTransportServiceFromQuote(orgId, quote.dbId);
-          if (svcResult.ok && svcResult.service_id) {
-            const updatedMeta = { ...(quote.metadata ?? {}), transport_service_id: svcResult.service_id };
-            setPresupuestos(prev => prev.map(p => p.id === quote.id ? { ...p, metadata: updatedMeta } : p));
-            if (selectedQuoteForPreview?.id === quote.id) {
-              setSelectedQuoteForPreview(prev => prev ? { ...prev, metadata: updatedMeta } : null);
-              setTransportServiceIdForPreview(svcResult.service_id!);
+        if (!caps.hasTransport) {
+          // Org sin operativa de Transporte: el presupuesto queda aceptado pero sin servicio automático.
+          showToast('Presupuesto aceptado. Esta organización no tiene la operativa de Transporte habilitada — actívala para crear servicios automáticamente.', 'info');
+        } else {
+          try {
+            const svcResult = await createTransportServiceFromQuote(orgId, quote.dbId);
+            if (svcResult.ok && svcResult.service_id) {
+              const updatedMeta = { ...(quote.metadata ?? {}), transport_service_id: svcResult.service_id };
+              setPresupuestos(prev => prev.map(p => p.id === quote.id ? { ...p, metadata: updatedMeta } : p));
+              if (selectedQuoteForPreview?.id === quote.id) {
+                setSelectedQuoteForPreview(prev => prev ? { ...prev, metadata: updatedMeta } : null);
+                setTransportServiceIdForPreview(svcResult.service_id!);
+              }
+              if (!svcResult.idempotent) showToast('Servicio de transporte creado en borrador ✓', 'success');
+            } else if (svcResult.code === 'RECURRENTE_DEFERRED') {
+              showToast('Servicio recurrente: crea la programación en el módulo de Rutas Recurrentes', 'info');
             }
-            if (!svcResult.idempotent) showToast('Servicio de transporte creado en borrador ✓', 'success');
-          } else if (svcResult.code === 'RECURRENTE_DEFERRED') {
-            showToast('Servicio recurrente: crea la programación en el módulo de Rutas Recurrentes', 'info');
+          } catch {
+            // No bloquear: el presupuesto ya está aceptado
+            showToast('Presupuesto aceptado. Crea el servicio manualmente desde el módulo de Transporte.', 'info');
           }
-        } catch {
-          // No bloquear: el presupuesto ya está aceptado
-          showToast('Presupuesto aceptado. Crea el servicio manualmente desde el módulo de Transporte.', 'info');
         }
       }
     } catch {
@@ -6085,7 +6091,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               )}
 
               {/* Botón sugerencia precio */}
-              {showPricingSuggestion && !caps.isTransportOrg && empresaAjustes.valorHoraOperario < TARIFA_SUGERIDA && (
+              {showPricingSuggestion && !caps.isTransportOrg && empresaAjustes.valorHoraOperario < TARIFA_SUGERIDA && !isTransportQuoteWithClosedPrice(pendingTransportIntake) && (
                 <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 text-[11px] flex justify-between items-center gap-2 text-left">
                   <div>
                     <span className="font-bold text-blue-600 block font-mono text-[8.5px] uppercase">Recomendación IA</span>

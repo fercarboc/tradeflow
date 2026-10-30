@@ -94,6 +94,18 @@ export function calcularPrecioConIva(
   return Math.round(intake.precio_base * (1 + ivaPct / 100) * 100) / 100;
 }
 
+// ── Evaluación de intake activo ───────────────────────────────────────────────
+
+/**
+ * True cuando hay un intake de transporte con precio cerrado (dictado por el usuario).
+ * Usar para suprimir el banner de sugerencia de tarifa horaria: si el presupuesto
+ * actual es de transporte con precio ya dictado, la recomendación €/h no aplica.
+ */
+export function isTransportQuoteWithClosedPrice(intake: TransportIntake | null): boolean {
+  if (!intake) return false;
+  return intake.intake.precio_origen === 'dictado_usuario';
+}
+
 // ── Fusión de metadata ────────────────────────────────────────────────────────
 
 /**
