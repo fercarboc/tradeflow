@@ -130,7 +130,8 @@ Deno.serve(async (req: Request) => {
     // Error de validación devuelto por la RPC (quote no encontrado, estado incompatible)
     if ((acceptResult as Record<string, unknown>)['error']) {
       const rpcError = (acceptResult as Record<string, unknown>)['error'] as string;
-      const status = rpcError === 'quote_not_found' ? 404
+      const status = rpcError === 'invalid_token' ? 404
+                   : rpcError === 'quote_not_found' ? 404
                    : rpcError === 'quote_state_incompatible' ? 409
                    : 500;
       return new Response(JSON.stringify(acceptResult), {
