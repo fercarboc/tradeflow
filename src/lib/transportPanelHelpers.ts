@@ -197,3 +197,145 @@ export function addDays(date: Date, days: number): Date {
 export function isoDate(d: Date): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }
+
+// ── Time-slot classification ──────────────────────────────────────────────────
+
+export type TimeSlot = 'manana' | 'tarde' | 'noche';
+
+/**
+ * Clasifica un timestamp ISO en franja horaria:
+ *  mañana  06:00–13:59
+ *  tarde   14:00–21:59
+ *  noche   22:00–05:59
+ */
+export function classifyTimeSlot(isoDatetime: string): TimeSlot {
+  const h = new Date(isoDatetime).getHours();
+  if (h >= 6  && h < 14) return 'manana';
+  if (h >= 14 && h < 22) return 'tarde';
+  return 'noche';
+}
+
+// ── Servicios por día ─────────────────────────────────────────────────────────
+
+export function getServicesForDay<T extends Pick<ServiceLike, 'fecha_inicio' | 'fecha_fin'>>(
+  services: T[],
+  dayStr: string,
+): T[] {
+  return services.filter(s => serviceOverlapsDay(s, dayStr));
+}
+
+// ── Alertas de vehículos ──────────────────────────────────────────────────────
+
+export interface VehicleAlertLike {
+  id: string;
+  nombre: string;
+  matricula: string;
+  estado: string;
+  activo: boolean;
+  itv_fecha_vencimiento?: string | null;
+  seguro_vencimiento?: string | null;
+}
+
+export type AlertSeverity = 'error' | 'warning';
+
+export type VehicleAlertType =
+  | 'itv_vencida'
+  | 'itv_proxima'
+  | 'seguro_vencido'
+  | 'seguro_proximo'
+  | 'en_mantenimiento'
+  | 'baja';
+
+export interface VehicleAlertItem {
+  vehicleId: string;
+  vehicleName: string;
+  matricula: string;
+  type: VehicleAlertType;
+  label: string;
+  detail: string;
+  fecha?: string;
+  severity: AlertSeverity;
+}
+
+/**
+ * Calcula alertas de vehículos: ITV/seguro próximos (≤ daysAhead días) o vencidos,
+ * en mantenimiento y dados de baja.
+ * Ordenadas: errores primero, luego warnings.
+ */
+export function computeVehicleAlerts(
+  vehicles: VehicleAlertLike[],
+  todayStr: string,
+  daysAhead = 30,
+): VehicleAlertItem[] {
+  const today  = new Date(`${todayStr}T00:00:00`);
+  const cutoff = new Date(today);
+  cutoff.setDate(cutoff.getDate() + daysAhead);
+
+  const alerts: VehicleAlertItem[] = [];
+
+  for (const v of vehicles) {
+    if (v.estado === 'baja') {
+      alerts.push({
+        vehicleId: v.id, vehicleName: v.nombre, matricula: v.matricula,
+        type: 'baja', label: 'Dado de baja',
+        detail: 'Vehículo fuera de servicio permanente', severity: 'error',
+      });
+      continue;
+    }
+
+    if (v.estado === 'en_mantenimiento') {
+      alerts.push({
+        vehicleId: v.id, vehicleName: v.nombre, matricula: v.matricula,
+        type: 'en_mantenimiento', label: 'En mantenimiento',
+        detail: 'No disponible hasta finalizar taller', severity: 'warning',
+      });
+    }
+
+    if (v.itv_fecha_vencimiento) {
+      const exp     = new Date(`${v.itv_fecha_vencimiento}T00:00:00`);
+      const diffMs  = exp.getTime() - today.getTime();
+      const diffDays = Math.ceil(diffMs / 86400000);
+      if (exp < today) {
+        alerts.push({
+          vehicleId: v.id, vehicleName: v.nombre, matricula: v.matricula,
+          type: 'itv_vencida', label: 'ITV vencida',
+          detail: `Venció el ${v.itv_fecha_vencimiento}`,
+          fecha: v.itv_fecha_vencimiento, severity: 'error',
+        });
+      } else if (exp <= cutoff) {
+        alerts.push({
+          vehicleId: v.id, vehicleName: v.nombre, matricula: v.matricula,
+          type: 'itv_proxima', label: `ITV vence en ${diffDays} día${diffDays !== 1 ? 's' : ''}`,
+          detail: `Próxima ITV: ${v.itv_fecha_vencimiento}`,
+          fecha: v.itv_fecha_vencimiento, severity: 'warning',
+        });
+      }
+    }
+
+    if (v.seguro_vencimiento) {
+      const exp     = new Date(`${v.seguro_vencimiento}T00:00:00`);
+      const diffMs  = exp.getTime() - today.getTime();
+      const diffDays = Math.ceil(diffMs / 86400000);
+      if (exp < today) {
+        alerts.push({
+          vehicleId: v.id, vehicleName: v.nombre, matricula: v.matricula,
+          type: 'seguro_vencido', label: 'Seguro vencido',
+          detail: `Venció el ${v.seguro_vencimiento}`,
+          fecha: v.seguro_vencimiento, severity: 'error',
+        });
+      } else if (exp <= cutoff) {
+        alerts.push({
+          vehicleId: v.id, vehicleName: v.nombre, matricula: v.matricula,
+          type: 'seguro_proximo', label: `Seguro vence en ${diffDays} día${diffDays !== 1 ? 's' : ''}`,
+          detail: `Vencimiento seguro: ${v.seguro_vencimiento}`,
+          fecha: v.seguro_vencimiento, severity: 'warning',
+        });
+      }
+    }
+  }
+
+  return alerts.sort((a, b) => {
+    const rank = (s: AlertSeverity) => (s === 'error' ? 0 : 1);
+    return rank(a.severity) - rank(b.severity);
+  });
+}

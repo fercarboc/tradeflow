@@ -1,28 +1,52 @@
-import React, { useState, useEffect } from 'react';
+/**
+ * ScreenTransportePanel — Centro de gestión de tráfico
+ * PH0-TX-DASHBOARD-REDESIGN-1: rediseño completo del panel de transporte.
+ *
+ * Datos reales de la organización autenticada. Sin valores ficticios.
+ * Reutiliza lógica de Agenda (buildAgendaOccurrences), helpers puros de
+ * transportPanelHelpers y los loaders existentes de transportServices/transport.
+ */
+
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import {
   Bus, Users, Calendar, AlertTriangle,
-  MapPin, ArrowRight, Loader2, RefreshCw, TrendingUp,
-  Plane, Car, Star, BookOpen, Briefcase, Compass,
-  Wrench, UserCheck, Plus, ChevronRight, Route,
+  MapPin, Loader2, RefreshCw, ChevronLeft, ChevronRight,
+  Wrench, UserCheck, Plus, ArrowRight, Clock, Route,
+  Shield, FileWarning, CheckCircle2, XCircle,
 } from 'lucide-react';
 import {
-  SERVICIO_ESTADOS,
-  loadServicesOverlappingDay,
+  SERVICIO_ESTADOS, TIPO_SERVICIO_COLORS,
+  loadServicesOverlappingRange,
 } from '../lib/transportServices';
 import type { TradeTransportService, ServicioEstado } from '../lib/transportServices';
-import { loadVehiclesAll, getVehicleDisplayImage } from '../lib/transport';
+import { loadVehiclesAll } from '../lib/transport';
 import type { TradeVehicle } from '../lib/transport';
-import { loadClients, loadWorkers, getClientDisplayName } from '../lib/supabase';
-import type { TradeClient, TradeWorker } from '../lib/supabase';
+import { loadWorkers } from '../lib/supabase';
+import type { TradeWorker } from '../lib/supabase';
 import {
   computeKpis,
   getVehicleFleetStatus,
   getProximasSalidas,
-  getSinItinerario,
   isVehiclePassenger,
+  isVehicleOutOfService,
+  startOfWeek,
+  addDays,
   isoDate,
+  classifyTimeSlot,
+  getServicesForDay,
+  computeVehicleAlerts,
   type FleetStatus,
+  type VehicleAlertItem,
 } from '../lib/transportPanelHelpers';
+import {
+  buildAgendaOccurrences,
+  type AgendaOccurrence,
+} from './ScreenTransporteAgenda';
+import {
+  loadSchedulesActive,
+  loadExceptionsForRange,
+  loadOccurrenceLinksForRange,
+} from '../lib/transportSchedules';
 
 // ── UI helpers ─────────────────────────────────────────────────────────────────
 
@@ -31,55 +55,234 @@ function fmtTime(iso: string): string {
   return new Date(iso).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
 }
 
-function fmtDateLong(): string {
-  return new Date().toLocaleDateString('es-ES', {
-    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
-  });
+function fmtDate(iso: string): string {
+  return new Date(iso).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
 }
 
 function errMsg(e: unknown): string {
   return e instanceof Error ? e.message : 'Error desconocido';
 }
 
-function estadoColor(estado: ServicioEstado): string {
-  return SERVICIO_ESTADOS.find(e => e.value === estado)?.color ?? 'bg-gray-100 text-gray-600 border-gray-200';
+function isModuleNotDeployed(e: unknown): boolean {
+  if (!e || typeof e !== 'object') return false;
+  const err = e as { code?: string; message?: string };
+  const code = err.code ?? '';
+  const msg  = err.message ?? '';
+  return ['42P01', '42883', 'PGRST202', 'PGRST116'].includes(code)
+    || msg.includes('does not exist');
 }
 
-function estadoLabel(estado: ServicioEstado): string {
+function estadoColor(estado: string): string {
+  return SERVICIO_ESTADOS.find(e => e.value === estado)?.color
+    ?? 'bg-slate-100 text-slate-600 border-slate-200';
+}
+function estadoLabel(estado: string): string {
   return SERVICIO_ESTADOS.find(e => e.value === estado)?.label ?? estado;
 }
 
-const TIPO_ICONS: Partial<Record<string, React.ComponentType<{ className?: string }>>> = {
-  excursion:               Compass,
-  circuito:                Compass,
-  viaje_multidia:          Calendar,
-  ruta_escolar:            BookOpen,
-  transporte_trabajadores: Briefcase,
-  traslado_privado:        Car,
-  aeropuerto:              Plane,
-  lanzadera:               ChevronRight,
-  congreso_evento:         Star,
-  servicio_deportivo:      TrendingUp,
-  asociacion_grupo:        Users,
-  otro:                    Bus,
-  traslado_empresa:        Briefcase,
-};
+const DAYS_ES  = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+const DAYS_FULL = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+const MONTHS_ES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 
-function TipoIcon({ tipo }: { tipo: string }) {
-  const Icon = TIPO_ICONS[tipo] ?? Bus;
+function fmtDayShort(d: Date): string {
+  return `${d.getDate()} ${MONTHS_ES[d.getMonth()]}`;
+}
+
+// ── Calendar service card ──────────────────────────────────────────────────────
+
+interface CalServiceCardProps {
+  svc: TradeTransportService;
+  vehicleMap: Map<string, TradeVehicle>;
+  workerMap: Map<string, TradeWorker>;
+  onClick?: () => void;
+}
+
+function CalServiceCard({ svc, vehicleMap, workerMap, onClick }: CalServiceCardProps) {
+  const vehicle   = svc.vehicle_id   ? vehicleMap.get(svc.vehicle_id)   : undefined;
+  const conductor = svc.conductor_id ? workerMap.get(svc.conductor_id)  : undefined;
+  const typeColor = TIPO_SERVICIO_COLORS[svc.tipo_servicio] ?? 'bg-slate-100 text-slate-700 border-slate-200';
+  const isEnCurso = svc.estado === 'en_curso';
+  const isCancelled = svc.estado === 'cancelado';
+
   return (
-    <div className="w-6 h-6 rounded-md bg-blue-50 flex items-center justify-center text-blue-500 shrink-0">
-      <Icon className="w-3.5 h-3.5" />
+    <button
+      onClick={onClick}
+      className={`w-full text-left rounded-lg border px-2 py-1.5 text-[10.5px] leading-tight transition-all hover:shadow-sm ${
+        isCancelled ? 'opacity-40 line-through bg-slate-50 border-slate-200' :
+        isEnCurso   ? 'bg-emerald-50 border-emerald-300 ring-1 ring-emerald-200' :
+                      `${typeColor} hover:opacity-90`
+      }`}
+    >
+      <div className="flex items-center justify-between gap-1 mb-0.5">
+        <span className="font-bold truncate">{fmtTime(svc.fecha_inicio)}</span>
+        {vehicle && (
+          <span className="font-semibold shrink-0 opacity-75">{vehicle.matricula}</span>
+        )}
+      </div>
+      <p className="font-semibold truncate text-[11px]">{svc.titulo}</p>
+      {(svc.origen || svc.destino) && (
+        <p className="truncate opacity-70 mt-0.5">
+          {[svc.origen, svc.destino].filter(Boolean).join(' → ')}
+        </p>
+      )}
+      {conductor && (
+        <p className="truncate opacity-70 flex items-center gap-0.5 mt-0.5">
+          <UserCheck className="w-2.5 h-2.5 shrink-0" />{conductor.nombre}
+        </p>
+      )}
+    </button>
+  );
+}
+
+// ── Occurrence card (recurring route) ─────────────────────────────────────────
+
+interface CalOccurrenceCardProps {
+  occ: AgendaOccurrence;
+  workerMap: Map<string, TradeWorker>;
+  vehicleMap: Map<string, TradeVehicle>;
+  onClick?: () => void;
+}
+
+function CalOccurrenceCard({ occ, workerMap, vehicleMap, onClick }: CalOccurrenceCardProps) {
+  const conductor = occ.effectiveConductorId ? workerMap.get(occ.effectiveConductorId) : undefined;
+  const vehicle   = occ.effectiveVehicleId   ? vehicleMap.get(occ.effectiveVehicleId)  : undefined;
+  const isSusp    = occ.status === 'suspended' || occ.status === 'no_circula';
+
+  return (
+    <button
+      onClick={onClick}
+      className={`w-full text-left rounded-lg border px-2 py-1.5 text-[10.5px] leading-tight transition-all hover:shadow-sm
+        ${isSusp ? 'opacity-35 line-through bg-slate-50 border-slate-200' : 'bg-teal-50 border-teal-200 text-teal-800 hover:bg-teal-100'}`}
+    >
+      <div className="flex items-center justify-between gap-1 mb-0.5">
+        <span className="font-bold truncate">{occ.effectiveHoraSalida ?? '—'}</span>
+        {vehicle && <span className="font-semibold shrink-0 opacity-75">{vehicle.matricula}</span>}
+      </div>
+      <p className="font-semibold truncate text-[11px]">{occ.schedule.nombre}</p>
+      {conductor && (
+        <p className="truncate opacity-70 flex items-center gap-0.5 mt-0.5">
+          <UserCheck className="w-2.5 h-2.5 shrink-0" />{conductor.nombre}
+        </p>
+      )}
+      <span className="text-[9px] opacity-60 uppercase tracking-wide">Ruta recurrente</span>
+    </button>
+  );
+}
+
+// ── Weekly calendar day column ─────────────────────────────────────────────────
+
+const SLOT_LABELS: Record<string, string> = {
+  manana: 'Mañana',
+  tarde:  'Tarde',
+  noche:  'Noche',
+};
+const SLOT_ORDER = ['manana', 'tarde', 'noche'] as const;
+
+interface DayColumnProps {
+  day: Date;
+  today: string;
+  services: TradeTransportService[];
+  occurrences: AgendaOccurrence[];
+  vehicleMap: Map<string, TradeVehicle>;
+  workerMap: Map<string, TradeWorker>;
+  onNavigate?: (tab: string) => void;
+}
+
+function DayColumn({ day, today, services, occurrences, vehicleMap, workerMap, onNavigate }: DayColumnProps) {
+  const dayStr   = isoDate(day);
+  const isToday  = dayStr === today;
+  const isPast   = dayStr < today;
+  const dayServices = getServicesForDay(services, dayStr);
+  const dayOccs    = occurrences.filter(o => o.fecha === dayStr);
+
+  // Group by slot
+  type SlotKey = 'manana' | 'tarde' | 'noche';
+  const slots: Record<SlotKey, TradeTransportService[]> = { manana: [], tarde: [], noche: [] };
+  for (const s of dayServices) {
+    const slot = classifyTimeSlot(s.fecha_inicio) as SlotKey;
+    slots[slot].push(s);
+  }
+  const occSlots: Record<SlotKey, AgendaOccurrence[]> = { manana: [], tarde: [], noche: [] };
+  for (const o of dayOccs) {
+    const hora = o.effectiveHoraSalida ?? '06:00';
+    const slot = classifyTimeSlot(`${o.fecha}T${hora}`) as SlotKey;
+    occSlots[slot].push(o);
+  }
+
+  const totalItems = dayServices.length + dayOccs.length;
+  const hasNoche   = slots.noche.length + occSlots.noche.length > 0;
+  const activeSlots = SLOT_ORDER.filter(s => s !== 'noche' || hasNoche);
+
+  return (
+    <div className={`min-w-0 flex flex-col border-r border-slate-100 last:border-r-0 ${isPast ? 'opacity-60' : ''}`}>
+      {/* Day header */}
+      <div className={`px-1.5 py-2 text-center border-b border-slate-100 ${isToday ? 'bg-blue-600 text-white' : 'bg-slate-50'}`}>
+        <p className={`text-[10px] font-bold uppercase tracking-wide ${isToday ? 'text-blue-100' : 'text-slate-500'}`}>
+          {DAYS_ES[day.getDay() === 0 ? 6 : day.getDay() - 1]}
+        </p>
+        <p className={`text-sm font-black ${isToday ? 'text-white' : 'text-slate-800'}`}>
+          {day.getDate()}
+        </p>
+        {totalItems > 0 && (
+          <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${
+            isToday ? 'bg-white/20 text-white' : 'bg-blue-100 text-blue-700'
+          }`}>
+            {totalItems}
+          </span>
+        )}
+      </div>
+
+      {/* Slots */}
+      <div className="flex-1 divide-y divide-slate-50">
+        {activeSlots.map(slotKey => {
+          const svcs = slots[slotKey];
+          const occs = occSlots[slotKey];
+          if (svcs.length === 0 && occs.length === 0) {
+            return (
+              <div key={slotKey} className="px-1 py-2 min-h-[52px]">
+                <p className="text-[9px] text-slate-300 uppercase tracking-wide mb-1">{SLOT_LABELS[slotKey]}</p>
+              </div>
+            );
+          }
+          return (
+            <div key={slotKey} className="px-1 py-1.5 space-y-1">
+              <p className="text-[9px] text-slate-400 uppercase tracking-wide">{SLOT_LABELS[slotKey]}</p>
+              {svcs.map(s => (
+                <CalServiceCard
+                  key={s.id}
+                  svc={s}
+                  vehicleMap={vehicleMap}
+                  workerMap={workerMap}
+                  onClick={() => onNavigate?.('transporte_servicios')}
+                />
+              ))}
+              {occs.map((o, i) => (
+                <CalOccurrenceCard
+                  key={`${o.schedule.id}-${o.sentido}-${i}`}
+                  occ={o}
+                  workerMap={workerMap}
+                  vehicleMap={vehicleMap}
+                  onClick={() => onNavigate?.('transporte_agenda')}
+                />
+              ))}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
 
-const FLEET_STATUS_CONFIG: Record<FleetStatus, { label: string; dot: string; card: string }> = {
-  en_servicio:       { label: 'En servicio',   dot: 'bg-emerald-500 animate-pulse', card: 'border-emerald-200 bg-emerald-50'  },
-  programado:        { label: 'Programado',    dot: 'bg-blue-500',                  card: 'border-blue-200 bg-blue-50'        },
-  sin_asignacion:    { label: 'Disponible',    dot: 'bg-slate-400',                 card: 'border-slate-200 bg-white'         },
-  fuera_de_servicio: { label: 'No disponible', dot: 'bg-amber-400',                 card: 'border-amber-200 bg-amber-50'      },
-};
+// ── Vehicle alert icon ─────────────────────────────────────────────────────────
+
+function AlertIcon({ type, severity }: { type: VehicleAlertItem['type']; severity: VehicleAlertItem['severity'] }) {
+  const cls = severity === 'error' ? 'text-red-500' : 'text-amber-500';
+  if (type === 'en_mantenimiento') return <Wrench className={`w-3.5 h-3.5 ${cls}`} />;
+  if (type === 'baja')             return <XCircle className={`w-3.5 h-3.5 ${cls}`} />;
+  if (type === 'itv_vencida' || type === 'itv_proxima')
+                                    return <FileWarning className={`w-3.5 h-3.5 ${cls}`} />;
+  return <Shield className={`w-3.5 h-3.5 ${cls}`} />;
+}
 
 // ── KPI Card ──────────────────────────────────────────────────────────────────
 
@@ -88,128 +291,51 @@ interface KpiCardProps {
   label: string;
   value: number | string;
   sub?: string;
+  badge?: string;
   accent?: string;
+  onClick?: () => void;
 }
 
-function KpiCard({ icon, label, value, sub, accent = 'blue' }: KpiCardProps) {
-  const accentMap: Record<string, string> = {
-    blue:    'from-blue-50 to-blue-100/60 border-blue-200 text-blue-700',
-    emerald: 'from-emerald-50 to-emerald-100/60 border-emerald-200 text-emerald-700',
-    amber:   'from-amber-50 to-amber-100/60 border-amber-200 text-amber-700',
-    purple:  'from-purple-50 to-purple-100/60 border-purple-200 text-purple-700',
-    slate:   'from-slate-50 to-slate-100/60 border-slate-200 text-slate-600',
+function KpiCard({ icon, label, value, sub, badge, accent = 'blue', onClick }: KpiCardProps) {
+  const accentCls: Record<string, string> = {
+    blue:    'from-blue-50 to-blue-100/60 border-blue-200',
+    emerald: 'from-emerald-50 to-emerald-100/60 border-emerald-200',
+    amber:   'from-amber-50 to-amber-100/60 border-amber-200',
+    purple:  'from-purple-50 to-purple-100/60 border-purple-200',
+    slate:   'from-slate-50 to-slate-100/60 border-slate-200',
+    red:     'from-red-50 to-red-100/60 border-red-200',
   };
-  const cls = accentMap[accent] ?? accentMap.blue;
+  const textCls: Record<string, string> = {
+    blue: 'text-blue-700', emerald: 'text-emerald-700', amber: 'text-amber-700',
+    purple: 'text-purple-700', slate: 'text-slate-600', red: 'text-red-700',
+  };
+  const bg  = accentCls[accent] ?? accentCls.blue;
+  const txt = textCls[accent]   ?? textCls.blue;
+
+  const Tag = onClick ? 'button' : 'div';
   return (
-    <div className={`bg-gradient-to-br ${cls} border rounded-2xl p-4 flex flex-col gap-1`}>
+    <Tag
+      {...(onClick ? { onClick } : {})}
+      className={`bg-gradient-to-br ${bg} border rounded-2xl p-4 flex flex-col gap-1 text-left w-full ${
+        onClick ? 'hover:shadow-md transition-shadow cursor-pointer' : ''
+      }`}
+    >
       <div className="flex items-center justify-between">
-        <span className="text-[11px] font-semibold uppercase tracking-wider opacity-70 leading-tight">{label}</span>
-        <span className="opacity-50">{icon}</span>
+        <span className={`text-[11px] font-semibold uppercase tracking-wider opacity-70 leading-tight ${txt}`}>{label}</span>
+        <span className={`opacity-50 ${txt}`}>{icon}</span>
       </div>
-      <span className="text-3xl font-black mt-1">{value}</span>
-      {sub && <span className="text-[11px] opacity-60 leading-tight">{sub}</span>}
-    </div>
-  );
-}
-
-// ── Rutas y planificación (right panel) ───────────────────────────────────────
-
-interface RutasPlanProps {
-  services: TradeTransportService[];
-  now: Date;
-  onNavigate?: (tab: string) => void;
-}
-
-function RutasPlanificacion({ services, now, onNavigate }: RutasPlanProps) {
-  const proximas  = getProximasSalidas(services, now).slice(0, 4);
-  const sinItin   = getSinItinerario(services).slice(0, 3);
-  const hayAlerta = sinItin.length > 0;
-
-  return (
-    <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs space-y-5">
-      <h3 className="text-xs font-black text-slate-700 uppercase tracking-wide">Rutas y planificación</h3>
-
-      {/* Próximas salidas */}
-      <div>
-        <div className="flex items-center justify-between mb-2.5">
-          <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Próximas salidas</span>
-          {proximas.length > 0 && (
-            <span className="text-[10px] font-bold text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded-full">
-              {proximas.length}
-            </span>
-          )}
-        </div>
-        {proximas.length === 0 ? (
-          <p className="text-xs text-slate-400 italic py-1">Sin salidas pendientes hoy</p>
-        ) : (
-          <div className="space-y-2.5">
-            {proximas.map(s => (
-              <div key={s.id} className="flex items-start gap-2">
-                <span className="text-xs font-mono font-semibold text-slate-600 w-11 shrink-0 pt-0.5">
-                  {fmtTime(s.fecha_inicio)}
-                </span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-semibold text-slate-700 truncate leading-tight">{s.titulo}</p>
-                  {(s.origen || s.destino) && (
-                    <p className="text-[10px] text-slate-400 truncate mt-0.5">
-                      {[s.origen, s.destino].filter(Boolean).join(' → ')}
-                    </p>
-                  )}
-                </div>
-                <span className={`shrink-0 text-[10px] font-semibold px-1.5 py-0.5 rounded-full border ${estadoColor(s.estado as ServicioEstado)}`}>
-                  {estadoLabel(s.estado as ServicioEstado)}
-                </span>
-              </div>
-            ))}
-          </div>
+      <div className="flex items-end gap-2 mt-1">
+        <span className={`text-3xl font-black ${txt}`}>{value}</span>
+        {badge && (
+          <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full mb-0.5 ${
+            accent === 'red' ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'
+          }`}>{badge}</span>
         )}
       </div>
-
-      {/* Itinerario pendiente */}
-      {hayAlerta && (
-        <div>
-          <div className="flex items-center gap-1.5 mb-2.5">
-            <AlertTriangle className="w-3 h-3 text-amber-500 shrink-0" />
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex-1">Sin itinerario</span>
-            <span className="text-[10px] font-bold text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded-full">
-              {sinItin.length}
-            </span>
-          </div>
-          <div className="space-y-1.5">
-            {sinItin.map(s => (
-              <div key={s.id} className="flex items-center gap-2 px-2.5 py-1.5 bg-amber-50 rounded-lg border border-amber-100">
-                <p className="flex-1 text-xs font-medium text-slate-700 truncate">{s.titulo}</p>
-                <span className="text-[10px] text-amber-600 font-medium shrink-0">Ruta pendiente</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {!proximas.length && !hayAlerta && (
-        <p className="text-xs text-slate-400 italic text-center py-1">Planificación al día ✓</p>
-      )}
-
-      {/* Ver todas las rutas */}
-      {onNavigate && (
-        <button
-          onClick={() => onNavigate('transporte_rutas')}
-          className="w-full flex items-center justify-between px-3 py-2.5 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-200 rounded-xl text-xs font-semibold text-slate-700 hover:text-blue-700 transition-colors"
-        >
-          <div className="flex items-center gap-2">
-            <Route className="w-3.5 h-3.5 text-blue-500" />
-            Ver todas las rutas
-          </div>
-          <ArrowRight className="w-3 h-3 text-slate-400" />
-        </button>
-      )}
-    </div>
+      {sub && <span className={`text-[11px] opacity-60 leading-tight ${txt}`}>{sub}</span>}
+    </Tag>
   );
 }
-
-// ── Fleet tab type ─────────────────────────────────────────────────────────────
-
-type FleetTab = FleetStatus | 'mantenimiento';
 
 // ── Props ─────────────────────────────────────────────────────────────────────
 
@@ -224,32 +350,43 @@ interface Props {
 export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: Props) {
   const today = isoDate(new Date());
 
-  const [loading,    setLoading]    = useState(true);
-  const [services,   setServices]   = useState<TradeTransportService[]>([]);
-  const [vehicles,   setVehicles]   = useState<TradeVehicle[]>([]);
-  const [workers,    setWorkers]    = useState<TradeWorker[]>([]);
-  const [clientMap,  setClientMap]  = useState<Map<string, string>>(new Map());
-  const [vehicleMap, setVehicleMap] = useState<Map<string, TradeVehicle>>(new Map());
-  const [workerMap,  setWorkerMap]  = useState<Map<string, TradeWorker>>(new Map());
-  const [error,      setError]      = useState<string | null>(null);
-  const [fleetTab,   setFleetTab]   = useState<FleetTab>('en_servicio');
+  // ── Week navigation ─────────────────────────────────────────────────────────
+  const [weekOffset, setWeekOffset] = useState(0);
 
-  const load = async () => {
+  const weekStart = useMemo(() => {
+    const base = startOfWeek(new Date());
+    return addDays(base, weekOffset * 7);
+  }, [weekOffset]);
+
+  const weekEnd   = useMemo(() => addDays(weekStart, 6), [weekStart]);
+  const weekDays  = useMemo(
+    () => Array.from({ length: 7 }, (_, i) => addDays(weekStart, i)),
+    [weekStart],
+  );
+
+  // ── Data state ──────────────────────────────────────────────────────────────
+  const [loading,      setLoading]      = useState(true);
+  const [weekLoading,  setWeekLoading]  = useState(false);
+  const [todayServices, setTodayServices] = useState<TradeTransportService[]>([]);
+  const [weekServices,  setWeekServices]  = useState<TradeTransportService[]>([]);
+  const [occurrences,   setOccurrences]   = useState<AgendaOccurrence[]>([]);
+  const [vehicles,      setVehicles]      = useState<TradeVehicle[]>([]);
+  const [workers,       setWorkers]       = useState<TradeWorker[]>([]);
+  const [vehicleMap,    setVehicleMap]    = useState<Map<string, TradeVehicle>>(new Map());
+  const [workerMap,     setWorkerMap]     = useState<Map<string, TradeWorker>>(new Map());
+  const [error,         setError]         = useState<string | null>(null);
+
+  // ── Initial load: vehicles + workers + today services ──────────────────────
+  const loadBase = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const [svcs, vehs, wrks, clients] = await Promise.all([
-        loadServicesOverlappingDay(orgId, today),
+      const [vehs, wrks] = await Promise.all([
         loadVehiclesAll(orgId),
         loadWorkers(orgId),
-        loadClients(orgId),
       ]);
-      setServices(svcs);
       setVehicles(vehs);
       setWorkers(wrks);
-      const cm = new Map<string, string>();
-      for (const c of clients as TradeClient[]) cm.set(c.id, getClientDisplayName(c));
-      setClientMap(cm);
       const vm = new Map<string, TradeVehicle>();
       for (const v of vehs) vm.set(v.id, v);
       setVehicleMap(vm);
@@ -263,46 +400,92 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
     } finally {
       setLoading(false);
     }
-  };
+  }, [orgId]);
 
-  useEffect(() => { load(); }, [orgId, today]);
+  // ── Week load: services + schedules for the week ────────────────────────────
+  const loadWeek = useCallback(async () => {
+    setWeekLoading(true);
+    try {
+      const desde = `${isoDate(weekStart)}T00:00:00`;
+      const hasta = `${isoDate(weekEnd)}T23:59:59`;
 
-  // ── Derived data ──────────────────────────────────────────────────────────────
+      const [svcs, todaySvcs, schedules, exceptions, links] = await Promise.all([
+        loadServicesOverlappingRange(orgId, desde, hasta),
+        weekOffset === 0
+          ? loadServicesOverlappingRange(orgId, `${today}T00:00:00`, `${today}T23:59:59`)
+          : Promise.resolve([] as TradeTransportService[]),
+        loadSchedulesActive(orgId).catch(e => isModuleNotDeployed(e) ? [] : Promise.reject(e)),
+        loadExceptionsForRange(orgId, isoDate(weekStart), isoDate(weekEnd)).catch(e => isModuleNotDeployed(e) ? [] : Promise.reject(e)),
+        loadOccurrenceLinksForRange(orgId, isoDate(weekStart), isoDate(weekEnd)).catch(e => isModuleNotDeployed(e) ? [] : Promise.reject(e)),
+      ]);
 
-  const kpis = computeKpis(services);
-  const passengerVehicles = vehicles.filter(v => v.activo && isVehiclePassenger(v));
+      setWeekServices(svcs);
+      if (weekOffset === 0) setTodayServices(todaySvcs);
 
-  const fleetStatuses = passengerVehicles.map(v => ({
-    vehicle: v,
-    status:  getVehicleFleetStatus(v, services),
-  }));
+      const occs = buildAgendaOccurrences(schedules, exceptions, links, weekStart, weekEnd);
+      setOccurrences(occs);
+    } catch (e) {
+      const msg = errMsg(e);
+      showToast(msg, 'error');
+    } finally {
+      setWeekLoading(false);
+    }
+  }, [orgId, weekStart, weekEnd, weekOffset, today]);
 
-  const countByStatus     = (s: FleetStatus) => fleetStatuses.filter(f => f.status === s).length;
-  const assignedCount     = countByStatus('en_servicio') + countByStatus('programado');
-  const availableCount    = countByStatus('sin_asignacion');
-  const maintenanceVehicles  = vehicles.filter(v => v.estado === 'en_mantenimiento' || v.estado === 'baja');
-  const maintenanceCount     = maintenanceVehicles.length;
-  const enMantenimientoCount = vehicles.filter(v => v.estado === 'en_mantenimiento').length;
-  const enBajaCount          = vehicles.filter(v => v.estado === 'baja').length;
+  useEffect(() => { loadBase(); }, [loadBase]);
+  useEffect(() => { if (!loading) loadWeek(); }, [loadWeek, loading]);
+
+  // ── Derived data ────────────────────────────────────────────────────────────
+
+  const passengerVehicles = useMemo(
+    () => vehicles.filter(v => v.activo && isVehiclePassenger(v)),
+    [vehicles],
+  );
+
+  const fleetStatuses = useMemo(
+    () => passengerVehicles.map(v => ({ vehicle: v, status: getVehicleFleetStatus(v, todayServices) })),
+    [passengerVehicles, todayServices],
+  );
+
+  const countByStatus = (s: FleetStatus) => fleetStatuses.filter(f => f.status === s).length;
+
+  const assignedCount    = countByStatus('en_servicio') + countByStatus('programado');
+  const availableCount   = countByStatus('sin_asignacion');
+  const maintenanceVehicles = vehicles.filter(v => v.estado === 'en_mantenimiento' || v.estado === 'baja');
 
   const conductorWorkers     = workers.filter(w => w.es_conductor);
+  const kpis                 = useMemo(() => computeKpis(todayServices), [todayServices]);
   const assignedConductors   = conductorWorkers.filter(w => kpis.assignedConductorIds.has(w.id));
   const disponibleConductores = conductorWorkers.length - assignedConductors.length;
 
-  const tableServices = services.filter(s => s.estado !== 'cancelado');
+  // Week services count (non-cancelled)
+  const weekServicesCount = weekServices.filter(s => s.estado !== 'cancelado').length;
 
-  const fleetTabDef: { key: FleetTab; label: string; count: number }[] = [
-    { key: 'en_servicio',    label: 'En servicio',   count: countByStatus('en_servicio')   },
-    { key: 'programado',     label: 'Programados',   count: countByStatus('programado')    },
-    { key: 'sin_asignacion', label: 'Disponibles',   count: availableCount                 },
-    { key: 'mantenimiento',  label: 'En taller',     count: maintenanceCount               },
-  ];
+  // Upcoming departures: from now, ascending
+  const now            = new Date();
+  const proximasSalidas = getProximasSalidas(weekServices, now).slice(0, 6);
 
-  const fleetTabVehicles: TradeVehicle[] = fleetTab === 'mantenimiento'
-    ? maintenanceVehicles
-    : fleetStatuses.filter(f => f.status === fleetTab).map(f => f.vehicle);
+  // Vehicle alerts
+  const vehicleAlerts = useMemo(
+    () => computeVehicleAlerts(vehicles, today),
+    [vehicles, today],
+  );
+  const alertCount = vehicleAlerts.length;
 
-  // ── Render ─────────────────────────────────────────────────────────────────────
+  // Week label
+  const weekLabel = (() => {
+    const s = weekStart;
+    const e = weekEnd;
+    const sm = MONTHS_ES[s.getMonth()];
+    const em = MONTHS_ES[e.getMonth()];
+    if (sm === em) return `${s.getDate()} – ${e.getDate()} ${em} ${e.getFullYear()}`;
+    return `${s.getDate()} ${sm} – ${e.getDate()} ${em} ${e.getFullYear()}`;
+  })();
+
+  // Mobile: selected day
+  const [mobileDay, setMobileDay] = useState(0); // index 0-6
+
+  // ── Render ──────────────────────────────────────────────────────────────────
 
   if (loading) {
     return (
@@ -318,7 +501,7 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
       <div className="flex flex-col items-center justify-center h-64 text-red-500 gap-3">
         <AlertTriangle className="w-8 h-8" />
         <p className="text-sm">{error}</p>
-        <button onClick={load} className="flex items-center gap-1.5 text-sm text-blue-600 hover:underline">
+        <button onClick={loadBase} className="flex items-center gap-1.5 text-sm text-blue-600 hover:underline">
           <RefreshCw className="w-3.5 h-3.5" /> Reintentar
         </button>
       </div>
@@ -326,395 +509,527 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
   }
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 space-y-5 max-w-[1440px] mx-auto">
 
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm shrink-0">
-            <Bus className="w-5 h-5" />
-          </div>
-          <div>
-            <h1 className="text-lg font-black text-slate-900 leading-tight">Transporte y Logística</h1>
-            <p className="text-xs text-slate-400 capitalize">{fmtDateLong()}</p>
-          </div>
+      {/* ── Header ─────────────────────────────────────────────────────────── */}
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div>
+          <h1 className="text-2xl font-black text-slate-900 leading-tight">
+            Centro de gestión de tráfico
+          </h1>
+          <p className="text-sm text-slate-500 mt-0.5">Planificación, flota y operativa en un solo lugar</p>
         </div>
-        <button
-          onClick={load}
-          className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-800 border border-slate-200 rounded-lg px-3 py-2 hover:bg-slate-50 transition-colors"
-        >
-          <RefreshCw className="w-3.5 h-3.5" /> Actualizar
-        </button>
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={loadBase}
+            className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-800 border border-slate-200 rounded-lg px-3 py-2 hover:bg-slate-50 transition-colors"
+            title="Actualizar datos"
+          >
+            <RefreshCw className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Actualizar</span>
+          </button>
+          <button
+            onClick={() => onNavigate?.('transporte_servicios')}
+            className="flex items-center gap-1.5 text-sm font-bold bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl shadow-sm transition-colors"
+          >
+            <Plus className="w-4 h-4" />
+            Programar servicio
+          </button>
+        </div>
       </div>
 
-      {/* KPIs — 4 cards
-          1. Servicios hoy:     tableServices.length (non-cancelled overlapping today)
-          2. Flota asignada:    (en_servicio + programado) / total passenger vehicles
-          3. Conductores:       disponibles / total conductores
-          4. No disponibles:    en_mantenimiento + baja (any activo value)
-      */}
-      <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
+      {/* ── KPI cards ──────────────────────────────────────────────────────── */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3">
         <KpiCard
           icon={<Calendar className="w-4 h-4" />}
           label="Servicios hoy"
           value={kpis.totalActiveServices}
-          sub={kpis.serviciosEnCurso > 0 ? `${kpis.serviciosEnCurso} en curso` : `${kpis.serviciosConfirmados} confirmados`}
+          badge={kpis.serviciosEnCurso > 0 ? `${kpis.serviciosEnCurso} en curso` : undefined}
+          sub={kpis.serviciosEnCurso === 0
+            ? (kpis.serviciosConfirmados > 0 ? `${kpis.serviciosConfirmados} confirmados` : 'Sin servicios activos')
+            : undefined}
           accent="blue"
+          onClick={() => onNavigate?.('transporte_servicios')}
+        />
+        <KpiCard
+          icon={<Route className="w-4 h-4" />}
+          label="Programados"
+          value={weekServicesCount}
+          sub="esta semana"
+          accent="purple"
+          onClick={() => onNavigate?.('transporte_agenda')}
         />
         <KpiCard
           icon={<Bus className="w-4 h-4" />}
-          label="Flota asignada"
-          value={`${assignedCount} / ${passengerVehicles.length}`}
-          sub={assignedCount > 0
-            ? `${Math.round(assignedCount / Math.max(passengerVehicles.length, 1) * 100)}% operativa`
-            : 'sin asignaciones'}
+          label="Vehículos disponibles"
+          value={`${availableCount} / ${passengerVehicles.length}`}
+          sub={passengerVehicles.length === 0 ? 'sin flota configurada' : `${assignedCount} asignados`}
           accent="emerald"
+          onClick={() => onNavigate?.('transporte_vehiculos')}
         />
         <KpiCard
           icon={<UserCheck className="w-4 h-4" />}
           label="Conductores libres"
           value={`${disponibleConductores} / ${conductorWorkers.length}`}
-          sub={disponibleConductores > 0 ? 'disponibles ahora' : conductorWorkers.length > 0 ? 'todos asignados' : 'sin conductores'}
+          sub={conductorWorkers.length === 0 ? 'sin conductores' : disponibleConductores > 0 ? 'disponibles hoy' : 'todos asignados hoy'}
           accent="slate"
+          onClick={() => onNavigate?.('transporte_conductores')}
         />
         <KpiCard
-          icon={<Wrench className="w-4 h-4" />}
-          label="No disponibles"
-          value={maintenanceCount}
-          sub={maintenanceCount === 0
-            ? 'flota operativa'
-            : enBajaCount > 0
-              ? `${enMantenimientoCount} mant. · ${enBajaCount} baja`
-              : 'en mantenimiento'}
-          accent={maintenanceCount > 0 ? 'amber' : 'slate'}
+          icon={<AlertTriangle className="w-4 h-4" />}
+          label="Alertas"
+          value={alertCount}
+          sub={alertCount === 0 ? 'sin incidencias' : 'requieren atención'}
+          accent={alertCount > 0 ? 'red' : 'slate'}
+          onClick={alertCount > 0 ? () => onNavigate?.('transporte_vehiculos') : undefined}
         />
       </div>
 
-      {/* Main 2-column: Servicios del día (left) + Rutas y planificación (right) */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
+      {/* ── Main area: calendario + columna derecha ─────────────────────────── */}
+      <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-5 items-start">
 
-        {/* ── Servicios del día ── */}
-        <div>
-          <div className="flex items-center justify-between mb-3">
+        {/* ── Planificación semanal ── */}
+        <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+
+          {/* Calendar header */}
+          <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-blue-500" />
-              <h2 className="text-sm font-black text-slate-800 uppercase tracking-wide">Servicios del día</h2>
-              {tableServices.length > 0 && (
-                <span className="text-[10px] font-bold text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded-full">
-                  {tableServices.length}
-                </span>
-              )}
+              <h2 className="text-sm font-black text-slate-800">Planificación semanal de servicios</h2>
             </div>
-            {onNavigate && (
+            <div className="flex items-center gap-2">
               <button
-                onClick={() => onNavigate('transporte_servicios')}
-                className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 font-medium"
+                onClick={() => setWeekOffset(0)}
+                className={`text-xs font-semibold px-2.5 py-1 rounded-lg border transition-colors ${
+                  weekOffset === 0
+                    ? 'bg-blue-600 text-white border-blue-600'
+                    : 'text-slate-600 border-slate-200 hover:bg-slate-50'
+                }`}
               >
-                Ver todos <ArrowRight className="w-3 h-3" />
+                Hoy
               </button>
-            )}
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => setWeekOffset(o => o - 1)}
+                  className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-500 transition-colors"
+                  aria-label="Semana anterior"
+                >
+                  <ChevronLeft className="w-3.5 h-3.5" />
+                </button>
+                <span className="text-xs font-semibold text-slate-600 min-w-[140px] text-center">{weekLabel}</span>
+                <button
+                  onClick={() => setWeekOffset(o => o + 1)}
+                  className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-500 transition-colors"
+                  aria-label="Semana siguiente"
+                >
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
           </div>
 
-          {tableServices.length === 0 ? (
-            <div className="bg-slate-50 border border-slate-200 border-dashed rounded-2xl p-10 flex flex-col items-center gap-3 text-slate-400">
-              <Calendar className="w-10 h-10 opacity-30" />
-              <p className="text-sm font-medium">Sin servicios para hoy</p>
-              <p className="text-xs opacity-70">Los servicios programados aparecerán aquí</p>
-              {onNavigate && (
-                <button
-                  onClick={() => onNavigate('transporte_servicios')}
-                  className="mt-1 flex items-center gap-1.5 text-xs font-semibold text-blue-600 border border-blue-200 bg-white rounded-lg px-3 py-1.5 hover:bg-blue-50 transition-colors"
-                >
-                  <Plus className="w-3.5 h-3.5" /> Crear servicio
-                </button>
-              )}
+          {weekLoading ? (
+            <div className="flex items-center justify-center py-12 text-slate-400 gap-2">
+              <Loader2 className="w-4 h-4 animate-spin" />
+              <span className="text-sm">Cargando semana...</span>
             </div>
           ) : (
             <>
-              {/* Desktop table (md+) */}
-              <div className="hidden md:block overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-xs">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="bg-slate-50 border-b border-slate-100">
-                      <th className="px-3 py-3 w-10" />
-                      <th className="px-3 py-3 text-left text-[11px] font-bold text-slate-500 uppercase tracking-wide">Hora</th>
-                      <th className="px-3 py-3 text-left text-[11px] font-bold text-slate-500 uppercase tracking-wide">Servicio</th>
-                      <th className="px-3 py-3 text-left text-[11px] font-bold text-slate-500 uppercase tracking-wide hidden lg:table-cell">Ruta</th>
-                      <th className="px-3 py-3 text-left text-[11px] font-bold text-slate-500 uppercase tracking-wide hidden xl:table-cell">Vehículo</th>
-                      <th className="px-3 py-3 text-left text-[11px] font-bold text-slate-500 uppercase tracking-wide hidden xl:table-cell">Conductor</th>
-                      <th className="px-3 py-3 text-left text-[11px] font-bold text-slate-500 uppercase tracking-wide">Estado</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {tableServices.map((svc, idx) => {
-                      const vehicle   = svc.vehicle_id   ? vehicleMap.get(svc.vehicle_id)  : undefined;
-                      const conductor = svc.conductor_id ? workerMap.get(svc.conductor_id) : undefined;
-                      const client    = svc.client_id    ? clientMap.get(svc.client_id)    : undefined;
-                      const isEnCurso = svc.estado === 'en_curso';
-                      return (
-                        <tr
-                          key={svc.id}
-                          onClick={() => onNavigate?.('transporte_servicios')}
-                          className={`border-b border-slate-50 last:border-0 hover:bg-slate-50/80 transition-colors cursor-pointer ${
-                            isEnCurso ? 'bg-emerald-50/40' : idx % 2 !== 0 ? 'bg-slate-50/20' : ''
-                          }`}
-                        >
-                          <td className="px-3 py-3">
-                            <TipoIcon tipo={svc.tipo_servicio ?? ''} />
-                          </td>
-                          <td className="px-3 py-3 font-mono whitespace-nowrap">
-                            <div className="flex flex-col">
-                              <span className="font-semibold text-slate-700 text-sm">{fmtTime(svc.fecha_inicio)}</span>
-                              {svc.fecha_fin && (
-                                <span className="text-[10px] text-slate-400">{fmtTime(svc.fecha_fin)}</span>
-                              )}
-                            </div>
-                          </td>
-                          <td className="px-3 py-3">
-                            <div className="flex flex-col gap-0.5">
-                              <span className="font-semibold text-slate-800 leading-tight text-sm">{svc.titulo}</span>
-                              {client && (
-                                <span className="text-[11px] text-slate-500 truncate">{client}</span>
-                              )}
-                              {svc.num_viajeros != null && (
-                                <span className="flex items-center gap-1 text-[11px] text-slate-400">
-                                  <Users className="w-3 h-3" />{svc.num_viajeros} viajeros
-                                </span>
-                              )}
-                            </div>
-                          </td>
-                          <td className="px-3 py-3 hidden lg:table-cell">
-                            {svc.origen || svc.destino ? (
-                              <div className="flex items-center gap-1 text-xs text-slate-500">
-                                <MapPin className="w-3 h-3 shrink-0 text-slate-300" />
-                                <span className="truncate max-w-[150px]">
-                                  {svc.origen ?? '?'} → {svc.destino ?? '?'}
-                                </span>
-                              </div>
-                            ) : (
-                              <span className="text-xs text-amber-400 font-medium">Sin ruta</span>
-                            )}
-                          </td>
-                          <td className="px-3 py-3 hidden xl:table-cell">
-                            {vehicle ? (
-                              <div className="flex items-center gap-2">
-                                {getVehicleDisplayImage(vehicle.tipo, vehicle.image_path)
-                                  ? (
-                                    <img
-                                      src={getVehicleDisplayImage(vehicle.tipo, vehicle.image_path)!}
-                                      alt={vehicle.tipo}
-                                      className="w-6 h-6 object-contain rounded"
-                                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                                    />
-                                  ) : (
-                                    <div className="w-6 h-6 rounded bg-slate-100 flex items-center justify-center shrink-0">
-                                      <Bus className="w-3.5 h-3.5 text-slate-400" />
-                                    </div>
-                                  )}
-                                <div className="flex flex-col">
-                                  <span className="text-xs font-semibold text-slate-700 leading-tight">{vehicle.nombre}</span>
-                                  <span className="text-[10px] text-slate-400">{vehicle.matricula}</span>
-                                </div>
-                              </div>
-                            ) : (
-                              <span className="text-xs text-amber-500 font-medium">Sin asignar</span>
-                            )}
-                          </td>
-                          <td className="px-3 py-3 hidden xl:table-cell text-xs text-slate-600">
-                            {conductor
-                              ? <span className="font-medium">{conductor.nombre}</span>
-                              : <span className="text-amber-500 font-medium">Sin asignar</span>}
-                          </td>
-                          <td className="px-3 py-3">
-                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold border ${estadoColor(svc.estado as ServicioEstado)}`}>
-                              {isEnCurso && (
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse" />
-                              )}
-                              {estadoLabel(svc.estado as ServicioEstado)}
-                            </span>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+              {/* Desktop: 7-column grid */}
+              <div className="hidden md:grid grid-cols-7 divide-x divide-slate-100 min-h-[280px]">
+                {weekDays.map((day, i) => (
+                  <DayColumn
+                    key={i}
+                    day={day}
+                    today={today}
+                    services={weekServices}
+                    occurrences={occurrences}
+                    vehicleMap={vehicleMap}
+                    workerMap={workerMap}
+                    onNavigate={onNavigate}
+                  />
+                ))}
               </div>
 
-              {/* Mobile cards (< md) */}
-              <div className="md:hidden space-y-2">
-                {tableServices.map(svc => {
-                  const vehicle   = svc.vehicle_id   ? vehicleMap.get(svc.vehicle_id)  : undefined;
-                  const conductor = svc.conductor_id ? workerMap.get(svc.conductor_id) : undefined;
-                  const client    = svc.client_id    ? clientMap.get(svc.client_id)    : undefined;
-                  const isEnCurso = svc.estado === 'en_curso';
-                  return (
-                    <button
-                      key={svc.id}
-                      onClick={() => onNavigate?.('transporte_servicios')}
-                      className={`w-full text-left rounded-xl border p-3 space-y-1.5 transition-colors ${
-                        isEnCurso
-                          ? 'bg-emerald-50 border-emerald-200'
-                          : 'bg-white border-slate-200 hover:bg-slate-50'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2 min-w-0">
-                          <TipoIcon tipo={svc.tipo_servicio ?? ''} />
-                          <span className="text-xs font-mono font-semibold text-slate-600 truncate">
-                            {fmtTime(svc.fecha_inicio)}
-                            {svc.fecha_fin ? ` – ${fmtTime(svc.fecha_fin)}` : ''}
-                          </span>
-                        </div>
-                        <span className={`inline-flex items-center shrink-0 px-2 py-0.5 rounded-full text-[11px] font-semibold border ${estadoColor(svc.estado as ServicioEstado)}`}>
-                          {isEnCurso && (
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse" />
-                          )}
-                          {estadoLabel(svc.estado as ServicioEstado)}
+              {/* Mobile: day tabs + list */}
+              <div className="md:hidden">
+                <div className="flex overflow-x-auto border-b border-slate-100 bg-slate-50">
+                  {weekDays.map((day, i) => {
+                    const ds    = isoDate(day);
+                    const count = getServicesForDay(weekServices, ds).length
+                                + occurrences.filter(o => o.fecha === ds).length;
+                    const isSelected = mobileDay === i;
+                    const isToday    = ds === today;
+                    return (
+                      <button
+                        key={i}
+                        onClick={() => setMobileDay(i)}
+                        className={`flex-1 min-w-[48px] py-2 px-1 flex flex-col items-center gap-0.5 text-center transition-colors ${
+                          isSelected ? 'bg-white border-b-2 border-blue-600' : 'hover:bg-slate-100'
+                        }`}
+                      >
+                        <span className={`text-[9px] font-bold uppercase ${isSelected ? 'text-blue-600' : 'text-slate-500'}`}>
+                          {DAYS_ES[i]}
                         </span>
+                        <span className={`text-sm font-black ${
+                          isToday ? 'w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center mx-auto' :
+                          isSelected ? 'text-blue-700' : 'text-slate-700'
+                        }`}>
+                          {day.getDate()}
+                        </span>
+                        {count > 0 && (
+                          <span className="text-[9px] font-bold bg-blue-100 text-blue-700 px-1.5 rounded-full">{count}</span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+                {/* Selected day detail */}
+                {(() => {
+                  const day    = weekDays[mobileDay];
+                  const dayStr = isoDate(day);
+                  const svcs   = getServicesForDay(weekServices, dayStr).filter(s => s.estado !== 'cancelado');
+                  const occs   = occurrences.filter(o => o.fecha === dayStr && o.status !== 'no_circula' && o.status !== 'suspended');
+                  if (svcs.length === 0 && occs.length === 0) {
+                    return (
+                      <div className="px-4 py-8 text-center text-slate-400">
+                        <Calendar className="w-8 h-8 mx-auto opacity-30 mb-2" />
+                        <p className="text-sm">Sin servicios el {DAYS_FULL[mobileDay]} {fmtDayShort(day)}</p>
                       </div>
-                      <p className="text-sm font-semibold text-slate-800 leading-tight">{svc.titulo}</p>
-                      {client && <p className="text-xs text-slate-500">{client}</p>}
-                      {(svc.origen || svc.destino) && (
-                        <p className="text-xs text-slate-400 flex items-center gap-1">
-                          <MapPin className="w-3 h-3 shrink-0" />
-                          {[svc.origen, svc.destino].filter(Boolean).join(' → ')}
-                        </p>
-                      )}
-                      {(vehicle || conductor) && (
-                        <div className="flex items-center gap-3 text-xs text-slate-500 pt-0.5 border-t border-slate-100">
-                          {vehicle && <span>{vehicle.nombre}</span>}
-                          {conductor && (
-                            <span className="flex items-center gap-1">
-                              <UserCheck className="w-3 h-3" />{conductor.nombre}
-                            </span>
-                          )}
-                        </div>
-                      )}
-                    </button>
+                    );
+                  }
+                  return (
+                    <div className="p-3 space-y-2">
+                      <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">
+                        {DAYS_FULL[mobileDay]}, {fmtDayShort(day)}
+                      </p>
+                      {svcs.map(s => (
+                        <CalServiceCard key={s.id} svc={s} vehicleMap={vehicleMap} workerMap={workerMap}
+                          onClick={() => onNavigate?.('transporte_servicios')} />
+                      ))}
+                      {occs.map((o, i) => (
+                        <CalOccurrenceCard key={i} occ={o} workerMap={workerMap} vehicleMap={vehicleMap}
+                          onClick={() => onNavigate?.('transporte_agenda')} />
+                      ))}
+                    </div>
                   );
-                })}
+                })()}
               </div>
             </>
           )}
         </div>
 
-        {/* ── Rutas y planificación (right column) ── */}
-        <RutasPlanificacion
-          services={tableServices}
-          now={new Date()}
-          onNavigate={onNavigate}
-        />
-      </div>
+        {/* ── Columna derecha ── */}
+        <div className="space-y-4">
 
-      {/* ── Flota operativa ── */}
-      {passengerVehicles.length > 0 && (
-        <div>
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-black text-slate-800 uppercase tracking-wide">Flota operativa</h2>
-            {onNavigate && (
+          {/* Próximas salidas */}
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-xs font-black text-slate-700 uppercase tracking-wide flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-blue-500" />
+                Próximas salidas
+              </h3>
               <button
-                onClick={() => onNavigate('transporte_vehiculos')}
-                className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 font-medium"
+                onClick={() => onNavigate?.('transporte_servicios')}
+                className="text-[10px] font-bold text-blue-600 hover:text-blue-800 flex items-center gap-0.5"
               >
-                Ver toda la flota <ArrowRight className="w-3 h-3" />
+                Ver todas <ArrowRight className="w-2.5 h-2.5" />
               </button>
+            </div>
+            {proximasSalidas.length === 0 ? (
+              <div className="flex items-center gap-2 py-3 text-slate-400">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <p className="text-xs">Sin salidas pendientes esta semana</p>
+              </div>
+            ) : (
+              <div className="space-y-2.5">
+                {proximasSalidas.map(s => {
+                  const conductor = s.conductor_id ? workerMap.get(s.conductor_id) : undefined;
+                  const vehicle   = s.vehicle_id   ? vehicleMap.get(s.vehicle_id)  : undefined;
+                  return (
+                    <button
+                      key={s.id}
+                      onClick={() => onNavigate?.('transporte_servicios')}
+                      className="w-full flex items-start gap-2 hover:bg-slate-50 rounded-lg p-1 -m-1 transition-colors group text-left"
+                    >
+                      <div className="flex flex-col items-center shrink-0 mt-0.5 w-10">
+                        <span className={`w-2 h-2 rounded-full shrink-0 ${
+                          s.estado === 'en_curso' ? 'bg-emerald-500 animate-pulse' :
+                          s.estado === 'confirmado' ? 'bg-blue-500' : 'bg-slate-300'
+                        }`} />
+                        <span className="text-[10px] font-mono font-bold text-slate-600 mt-0.5">{fmtTime(s.fecha_inicio)}</span>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-slate-800 truncate leading-tight group-hover:text-blue-700">
+                          {s.titulo}
+                        </p>
+                        {vehicle && (
+                          <p className="text-[10px] text-slate-500 flex items-center gap-1 mt-0.5">
+                            <Bus className="w-2.5 h-2.5 shrink-0" />
+                            {vehicle.matricula} · {vehicle.nombre}
+                          </p>
+                        )}
+                        {conductor && (
+                          <p className="text-[10px] text-slate-400 truncate mt-0.5 flex items-center gap-1">
+                            <UserCheck className="w-2.5 h-2.5 shrink-0" />{conductor.nombre}
+                          </p>
+                        )}
+                      </div>
+                      <div className="shrink-0">
+                        <span className="text-[9px] font-semibold text-slate-400">
+                          {fmtDate(s.fecha_inicio)}
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
             )}
           </div>
 
-          <div className="flex gap-1 bg-slate-100 rounded-xl p-1 mb-4 overflow-x-auto">
-            {fleetTabDef.map(tab => (
-              <button
-                key={tab.key}
-                onClick={() => setFleetTab(tab.key)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
-                  fleetTab === tab.key
-                    ? 'bg-white text-slate-900 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-700'
-                }`}
-              >
-                {tab.label}
-                <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
-                  fleetTab === tab.key ? 'bg-blue-100 text-blue-700' : 'bg-slate-200 text-slate-500'
-                }`}>{tab.count}</span>
-              </button>
-            ))}
+          {/* Vehículos que requieren atención */}
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-xs font-black text-slate-700 uppercase tracking-wide flex items-center gap-1.5">
+                <Wrench className="w-3.5 h-3.5 text-amber-500" />
+                Vehículos con atención
+              </h3>
+              {vehicleAlerts.length > 0 && (
+                <button
+                  onClick={() => onNavigate?.('transporte_vehiculos')}
+                  className="text-[10px] font-bold text-blue-600 hover:text-blue-800 flex items-center gap-0.5"
+                >
+                  Ver flota <ArrowRight className="w-2.5 h-2.5" />
+                </button>
+              )}
+            </div>
+
+            {vehicleAlerts.length === 0 ? (
+              <div className="flex items-center gap-2 py-2 text-slate-400">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <p className="text-xs">Flota en buen estado</p>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {vehicleAlerts.slice(0, 5).map((alert, i) => (
+                  <div
+                    key={i}
+                    className={`flex items-start gap-2 px-2.5 py-2 rounded-lg border ${
+                      alert.severity === 'error'
+                        ? 'bg-red-50 border-red-200'
+                        : 'bg-amber-50 border-amber-200'
+                    }`}
+                  >
+                    <AlertIcon type={alert.type} severity={alert.severity} />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-bold text-slate-800 leading-tight truncate">
+                        {alert.vehicleName}
+                        <span className="font-normal text-slate-500"> · {alert.matricula}</span>
+                      </p>
+                      <p className={`text-[10.5px] font-semibold mt-0.5 ${
+                        alert.severity === 'error' ? 'text-red-600' : 'text-amber-700'
+                      }`}>{alert.label}</p>
+                      <p className="text-[10px] text-slate-500 truncate">{alert.detail}</p>
+                    </div>
+                  </div>
+                ))}
+                {vehicleAlerts.length > 5 && (
+                  <button
+                    onClick={() => onNavigate?.('transporte_vehiculos')}
+                    className="text-[10px] text-blue-600 hover:text-blue-800 font-semibold w-full text-center py-1"
+                  >
+                    +{vehicleAlerts.length - 5} más → Ver flota
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Bloques inferiores ──────────────────────────────────────────────── */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        {/* Estado de la flota */}
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-xs font-black text-slate-700 uppercase tracking-wide flex items-center gap-1.5">
+              <Bus className="w-3.5 h-3.5 text-blue-500" />
+              Estado de la flota
+            </h3>
+            <button
+              onClick={() => onNavigate?.('transporte_vehiculos')}
+              className="text-[10px] font-bold text-blue-600 hover:text-blue-800"
+            >
+              Ver flota
+            </button>
           </div>
 
-          {fleetTabVehicles.length === 0 ? (
-            <div className="bg-slate-50 border border-slate-200 border-dashed rounded-xl p-6 flex items-center justify-center text-slate-400 text-xs">
-              Sin vehículos en esta categoría
-            </div>
+          {passengerVehicles.length === 0 ? (
+            <p className="text-xs text-slate-400 italic py-2">Sin vehículos de viajeros configurados</p>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
-              {fleetTabVehicles.slice(0, 8).map(v => {
-                const entry        = fleetStatuses.find(f => f.vehicle.id === v.id);
-                const status       = entry?.status ?? 'fuera_de_servicio';
-                const cfg          = FLEET_STATUS_CONFIG[status as FleetStatus] ?? FLEET_STATUS_CONFIG.fuera_de_servicio;
-                const assignedSvc  = services.find(s => s.vehicle_id === v.id && s.conductor_id && s.estado !== 'cancelado');
-                const assignedCond = assignedSvc?.conductor_id ? workerMap.get(assignedSvc.conductor_id) : undefined;
-                return (
-                  <div key={v.id} className={`rounded-2xl border p-3 flex flex-col gap-2 ${cfg.card}`}>
-                    {getVehicleDisplayImage(v.tipo, v.image_path)
-                      ? (
-                        <img
-                          src={getVehicleDisplayImage(v.tipo, v.image_path)!}
-                          alt={v.nombre}
-                          className="w-full h-16 object-contain"
-                          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                        />
-                      ) : (
-                        <div className="w-full h-16 bg-slate-100/60 rounded-lg flex items-center justify-center">
-                          <Bus className="w-8 h-8 text-slate-300" />
-                        </div>
-                      )}
-                    <div>
-                      <p className="text-xs font-bold text-slate-800 leading-tight truncate">{v.nombre}</p>
-                      <p className="text-[10px] text-slate-500">{v.matricula}</p>
-                      {v.capacidad_viajeros != null && (
-                        <p className="text-[10px] text-slate-400 flex items-center gap-0.5 mt-0.5">
-                          <Users className="w-2.5 h-2.5" /> {v.capacidad_viajeros} plazas
-                        </p>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${cfg.dot}`} />
-                      <span className="text-[10px] font-semibold text-slate-600">{cfg.label}</span>
-                    </div>
-                    {assignedCond && (
-                      <div className="flex items-center gap-1 pt-1 border-t border-slate-100">
-                        <UserCheck className="w-3 h-3 text-slate-400 shrink-0" />
-                        <span className="text-[10px] text-slate-500 truncate">{assignedCond.nombre}</span>
-                      </div>
-                    )}
+            <div className="space-y-2.5">
+              {[
+                { label: 'Disponible',  count: availableCount,              cls: 'bg-emerald-500', total: passengerVehicles.length },
+                { label: 'En servicio', count: countByStatus('en_servicio'),cls: 'bg-blue-500',    total: passengerVehicles.length },
+                { label: 'Programado',  count: countByStatus('programado'), cls: 'bg-sky-400',     total: passengerVehicles.length },
+                { label: 'No disponible',count: maintenanceVehicles.length, cls: 'bg-amber-400',   total: vehicles.filter(v => v.activo).length },
+              ].map(row => (
+                <div key={row.label}>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-[11px] text-slate-600 font-medium">{row.label}</span>
+                    <span className="text-[11px] font-bold text-slate-800">{row.count}</span>
                   </div>
-                );
-              })}
+                  <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                    <div
+                      className={`h-full rounded-full transition-all ${row.cls}`}
+                      style={{ width: `${Math.round((row.count / Math.max(row.total, 1)) * 100)}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+              <div className="pt-1 flex justify-between text-[10px] text-slate-400">
+                <span>{passengerVehicles.length} viajeros · {vehicles.filter(v => v.activo && !isVehiclePassenger(v)).length} carga</span>
+                <span>{vehicles.filter(v => v.activo).length} activos de {vehicles.length}</span>
+              </div>
             </div>
           )}
         </div>
-      )}
 
-      {/* Prompt when no passenger fleet is configured */}
-      {passengerVehicles.length === 0 && (
-        <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 flex items-start gap-4">
-          <TrendingUp className="w-6 h-6 text-blue-500 shrink-0 mt-0.5" />
-          <div>
-            <p className="text-sm font-semibold text-blue-800">Flota no configurada</p>
-            <p className="text-xs text-blue-600 mt-1">
-              Añade vehículos con modalidad <em>viajeros</em> o <em>mixto</em> para ver los indicadores de flota.
-            </p>
-            {onNavigate && (
-              <button
-                onClick={() => onNavigate('transporte_vehiculos')}
-                className="mt-3 flex items-center gap-1 text-xs font-semibold text-blue-700 hover:text-blue-900"
-              >
-                Ir a Flota <ArrowRight className="w-3 h-3" />
-              </button>
-            )}
+        {/* Conductores y asignaciones */}
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-xs font-black text-slate-700 uppercase tracking-wide flex items-center gap-1.5">
+              <Users className="w-3.5 h-3.5 text-purple-500" />
+              Conductores
+            </h3>
+            <button
+              onClick={() => onNavigate?.('transporte_conductores')}
+              className="text-[10px] font-bold text-blue-600 hover:text-blue-800"
+            >
+              Ver todos
+            </button>
           </div>
-        </div>
-      )}
 
+          {conductorWorkers.length === 0 ? (
+            <p className="text-xs text-slate-400 italic py-2">Sin conductores registrados</p>
+          ) : (
+            <div className="space-y-2">
+              {conductorWorkers.slice(0, 6).map(w => {
+                const count   = todayServices.filter(s => s.conductor_id === w.id && s.estado !== 'cancelado').length;
+                const isAssigned = count > 0;
+                return (
+                  <div key={w.id} className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center shrink-0">
+                      <span className="text-[9px] font-black text-purple-700">
+                        {w.nombre.split(' ').map((n: string) => n[0]).slice(0, 2).join('')}
+                      </span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-semibold text-slate-800 truncate leading-tight">{w.nombre}</p>
+                      <p className="text-[10px] text-slate-400">{count > 0 ? `${count} servicio${count !== 1 ? 's' : ''} hoy` : 'Libre hoy'}</p>
+                    </div>
+                    <span className={`w-2 h-2 rounded-full shrink-0 ${isAssigned ? 'bg-blue-500' : 'bg-slate-300'}`} />
+                  </div>
+                );
+              })}
+              {conductorWorkers.length > 6 && (
+                <p className="text-[10px] text-slate-400 text-center">+{conductorWorkers.length - 6} más</p>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Mantenimiento */}
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-xs font-black text-slate-700 uppercase tracking-wide flex items-center gap-1.5">
+              <Wrench className="w-3.5 h-3.5 text-amber-500" />
+              Mantenimiento
+            </h3>
+            <button
+              onClick={() => onNavigate?.('transporte_vehiculos')}
+              className="text-[10px] font-bold text-blue-600 hover:text-blue-800"
+            >
+              Ver mantenimiento
+            </button>
+          </div>
+
+          {(() => {
+            const itvProximas = vehicleAlerts.filter(a => a.type === 'itv_proxima' || a.type === 'itv_vencida');
+            const seguros     = vehicleAlerts.filter(a => a.type === 'seguro_proximo' || a.type === 'seguro_vencido');
+            const enTaller    = vehicleAlerts.filter(a => a.type === 'en_mantenimiento');
+            const averias     = vehicleAlerts.filter(a => a.type === 'baja');
+
+            return (
+              <div className="space-y-2">
+                {[
+                  {
+                    label: 'ITVs próximas',
+                    count: itvProximas.length,
+                    icon: <FileWarning className="w-3.5 h-3.5" />,
+                    cls: itvProximas.length > 0 ? 'text-amber-600' : 'text-slate-400',
+                    future: false,
+                  },
+                  {
+                    label: 'Revisiones',
+                    count: null,
+                    icon: <CheckCircle2 className="w-3.5 h-3.5" />,
+                    cls: 'text-slate-400',
+                    future: true,
+                  },
+                  {
+                    label: 'Reparaciones',
+                    count: enTaller.length + averias.length,
+                    icon: <Wrench className="w-3.5 h-3.5" />,
+                    cls: (enTaller.length + averias.length) > 0 ? 'text-red-500' : 'text-slate-400',
+                    future: false,
+                  },
+                  {
+                    label: 'Documentos',
+                    count: seguros.length,
+                    icon: <Shield className="w-3.5 h-3.5" />,
+                    cls: seguros.length > 0 ? 'text-amber-600' : 'text-slate-400',
+                    future: false,
+                  },
+                ].map(item => (
+                  <div key={item.label} className="flex items-center gap-2.5 py-1">
+                    <span className={item.cls}>{item.icon}</span>
+                    <span className="text-xs text-slate-700 flex-1">{item.label}</span>
+                    {item.future ? (
+                      <span className="text-[10px] text-slate-400 italic px-1.5 py-0.5 bg-slate-50 rounded border border-slate-100">
+                        Próximamente
+                      </span>
+                    ) : (
+                      <span className={`text-xs font-bold ${
+                        (item.count ?? 0) > 0 ? 'text-amber-600' : 'text-slate-400'
+                      }`}>
+                        {item.count}
+                      </span>
+                    )}
+                  </div>
+                ))}
+
+                {itvProximas.length > 0 && (
+                  <div className="mt-2 pt-2 border-t border-slate-100 space-y-1">
+                    {itvProximas.slice(0, 2).map((a, i) => (
+                      <p key={i} className="text-[10px] text-amber-600 flex items-center gap-1">
+                        <span className="font-semibold">{a.matricula}</span>
+                        <span className="text-slate-400">·</span>
+                        <span>{a.label}</span>
+                      </p>
+                    ))}
+                    {itvProximas.length > 2 && (
+                      <p className="text-[10px] text-slate-400">+{itvProximas.length - 2} más</p>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
+        </div>
+
+      </div>
     </div>
   );
 }

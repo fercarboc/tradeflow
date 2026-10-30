@@ -9,8 +9,11 @@ import {
   getVehicleFleetStatus,
   isVehiclePassenger,
   isVehicleOutOfService,
+  classifyTimeSlot,
+  getServicesForDay,
+  computeVehicleAlerts,
 } from '../../lib/transportPanelHelpers';
-import type { ServiceLike, VehicleLike } from '../../lib/transportPanelHelpers';
+import type { ServiceLike, VehicleLike, VehicleAlertLike } from '../../lib/transportPanelHelpers';
 
 // ── Helpers de test ───────────────────────────────────────────────────────────
 
@@ -302,5 +305,161 @@ describe('estado sin módulo de transporte activo', () => {
     for (const v of vehicles) {
       expect(getVehicleFleetStatus(v, [])).toBe('sin_asignacion');
     }
+  });
+});
+
+// ── PH0-TX-DASHBOARD-REDESIGN-1: nuevos helpers ───────────────────────────────
+
+// ── classifyTimeSlot ──────────────────────────────────────────────────────────
+
+describe('classifyTimeSlot', () => {
+  it('06:00 → mañana', () => {
+    expect(classifyTimeSlot('2026-10-23T06:00:00')).toBe('manana');
+  });
+  it('13:59 → mañana', () => {
+    expect(classifyTimeSlot('2026-10-23T13:59:00')).toBe('manana');
+  });
+  it('14:00 → tarde', () => {
+    expect(classifyTimeSlot('2026-10-23T14:00:00')).toBe('tarde');
+  });
+  it('21:59 → tarde', () => {
+    expect(classifyTimeSlot('2026-10-23T21:59:00')).toBe('tarde');
+  });
+  it('22:00 → noche', () => {
+    expect(classifyTimeSlot('2026-10-23T22:00:00')).toBe('noche');
+  });
+  it('03:00 → noche', () => {
+    expect(classifyTimeSlot('2026-10-23T03:00:00')).toBe('noche');
+  });
+  it('05:59 → noche', () => {
+    expect(classifyTimeSlot('2026-10-23T05:59:00')).toBe('noche');
+  });
+});
+
+// ── getServicesForDay ─────────────────────────────────────────────────────────
+
+describe('getServicesForDay', () => {
+  const WEEK_SVCS: ServiceLike[] = [
+    svc({ id: 'a', fecha_inicio: '2026-10-19T09:00:00', fecha_fin: '2026-10-19T17:00:00' }),  // lunes
+    svc({ id: 'b', fecha_inicio: '2026-10-20T08:00:00', fecha_fin: '2026-10-20T12:00:00' }),  // martes
+    svc({ id: 'c', fecha_inicio: '2026-10-19T22:00:00', fecha_fin: '2026-10-20T06:00:00' }),  // lunes+martes
+    svc({ id: 'd', fecha_inicio: '2026-10-21T10:00:00', fecha_fin: null }),                    // miércoles (sin fin)
+  ];
+
+  it('lunes: obtiene servicio del lunes y el nocturno', () => {
+    const r = getServicesForDay(WEEK_SVCS, '2026-10-19');
+    expect(r.map(s => s.id).sort()).toEqual(['a', 'c']);
+  });
+
+  it('martes: obtiene servicio del martes y el nocturno', () => {
+    const r = getServicesForDay(WEEK_SVCS, '2026-10-20');
+    expect(r.map(s => s.id).sort()).toEqual(['b', 'c']);
+  });
+
+  it('miércoles: obtiene solo el sin fecha_fin', () => {
+    const r = getServicesForDay(WEEK_SVCS, '2026-10-21');
+    expect(r.map(s => s.id)).toEqual(['d']);
+  });
+
+  it('jueves: ninguno', () => {
+    expect(getServicesForDay(WEEK_SVCS, '2026-10-22')).toHaveLength(0);
+  });
+});
+
+// ── computeVehicleAlerts ──────────────────────────────────────────────────────
+
+function vAlert(overrides: Partial<VehicleAlertLike> & { id: string }): VehicleAlertLike {
+  return {
+    nombre: `Bus ${overrides.id}`,
+    matricula: `B-${overrides.id}`,
+    estado: 'disponible',
+    activo: true,
+    itv_fecha_vencimiento: null,
+    seguro_vencimiento: null,
+    ...overrides,
+  };
+}
+
+const TODAY = '2026-10-30';
+
+describe('computeVehicleAlerts', () => {
+  it('flota OK — sin alertas', () => {
+    const vehs = [vAlert({ id: 'v1' }), vAlert({ id: 'v2' })];
+    expect(computeVehicleAlerts(vehs, TODAY)).toHaveLength(0);
+  });
+
+  it('vehículo en mantenimiento genera alerta warning', () => {
+    const vehs = [vAlert({ id: 'v1', estado: 'en_mantenimiento' })];
+    const alerts = computeVehicleAlerts(vehs, TODAY);
+    expect(alerts).toHaveLength(1);
+    expect(alerts[0].type).toBe('en_mantenimiento');
+    expect(alerts[0].severity).toBe('warning');
+  });
+
+  it('vehículo en baja genera alerta error y no genera más alertas', () => {
+    const vehs = [vAlert({ id: 'v1', estado: 'baja', itv_fecha_vencimiento: '2026-10-01' })];
+    const alerts = computeVehicleAlerts(vehs, TODAY);
+    expect(alerts).toHaveLength(1);
+    expect(alerts[0].type).toBe('baja');
+    expect(alerts[0].severity).toBe('error');
+  });
+
+  it('ITV vencida genera alerta error', () => {
+    const vehs = [vAlert({ id: 'v1', itv_fecha_vencimiento: '2026-10-01' })];
+    const alerts = computeVehicleAlerts(vehs, TODAY);
+    expect(alerts.some(a => a.type === 'itv_vencida')).toBe(true);
+    expect(alerts.find(a => a.type === 'itv_vencida')?.severity).toBe('error');
+  });
+
+  it('ITV vence en 10 días genera alerta warning', () => {
+    const vehs = [vAlert({ id: 'v1', itv_fecha_vencimiento: '2026-11-09' })];
+    const alerts = computeVehicleAlerts(vehs, TODAY, 30);
+    expect(alerts.some(a => a.type === 'itv_proxima')).toBe(true);
+    expect(alerts.find(a => a.type === 'itv_proxima')?.severity).toBe('warning');
+  });
+
+  it('ITV vence en 45 días no genera alerta con daysAhead=30', () => {
+    const vehs = [vAlert({ id: 'v1', itv_fecha_vencimiento: '2026-12-14' })];
+    const alerts = computeVehicleAlerts(vehs, TODAY, 30);
+    expect(alerts.some(a => a.type === 'itv_proxima' || a.type === 'itv_vencida')).toBe(false);
+  });
+
+  it('seguro vencido genera alerta error', () => {
+    const vehs = [vAlert({ id: 'v1', seguro_vencimiento: '2026-09-15' })];
+    const alerts = computeVehicleAlerts(vehs, TODAY);
+    expect(alerts.some(a => a.type === 'seguro_vencido')).toBe(true);
+  });
+
+  it('seguro próximo genera alerta warning', () => {
+    const vehs = [vAlert({ id: 'v1', seguro_vencimiento: '2026-11-20' })];
+    const alerts = computeVehicleAlerts(vehs, TODAY, 30);
+    expect(alerts.some(a => a.type === 'seguro_proximo')).toBe(true);
+  });
+
+  it('alertas error van antes que warning', () => {
+    const vehs = [
+      vAlert({ id: 'v1', itv_fecha_vencimiento: '2026-11-05' }),  // warning
+      vAlert({ id: 'v2', itv_fecha_vencimiento: '2026-09-01' }),  // error
+    ];
+    const alerts = computeVehicleAlerts(vehs, TODAY);
+    expect(alerts[0].severity).toBe('error');
+    expect(alerts[1].severity).toBe('warning');
+  });
+
+  it('vehículo con ITV y seguro ambos próximos genera 2 alertas', () => {
+    const vehs = [vAlert({ id: 'v1', itv_fecha_vencimiento: '2026-11-05', seguro_vencimiento: '2026-11-10' })];
+    const alerts = computeVehicleAlerts(vehs, TODAY, 30);
+    expect(alerts).toHaveLength(2);
+  });
+
+  it('vehículos de lista vacía → sin alertas', () => {
+    expect(computeVehicleAlerts([], TODAY)).toHaveLength(0);
+  });
+
+  // Aislamiento por organización — los helpers son puros, reciben los vehículos ya filtrados por org
+  it('con solo vehículos de una org: no hay datos de otras orgs (pureza de helpers)', () => {
+    const vehs = [vAlert({ id: 'v1', estado: 'en_mantenimiento' })];
+    const alerts = computeVehicleAlerts(vehs, TODAY);
+    expect(alerts.every(a => a.vehicleId === 'v1')).toBe(true);
   });
 });
