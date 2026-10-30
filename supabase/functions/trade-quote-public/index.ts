@@ -110,7 +110,7 @@ Deno.serve(async (req: Request) => {
     if (action === 'accept') {
       const { data: quoteRow, error: quoteReadError } = await adminClient
         .from('trade_quotes')
-        .select('estado')
+        .select('id, estado, metadata, iva_pct')
         .eq('org_id', tokenRow.org_id)
         .eq('numero', tokenRow.quote_numero)
         .maybeSingle();
@@ -160,6 +160,7 @@ Deno.serve(async (req: Request) => {
     // Si este write falla, el token ya está accepted pero el quote no avanza:
     // se devuelve error (no { ok: true }) para que el cliente sea consciente.
     // La inconsistencia queda visible y corregible manualmente o por soporte.
+    let transportServiceId: string | null = null;
     if (action === 'accept') {
       const { error: quoteUpdateError } = await adminClient
         .from('trade_quotes')
@@ -181,9 +182,37 @@ Deno.serve(async (req: Request) => {
       }
 
       notifyOrgQuoteAccepted(tokenRow.org_id, tokenRow.quote_numero, tokenRow.client_name);
+
+      // ── 5. Si el presupuesto es de transporte, crear servicio en borrador ─
+      // Fire-and-forget: el servicio es opcional respecto a la aceptación.
+      // Si falla, el presupuesto ya está aceptado y el gestor puede crear el
+      // servicio manualmente desde el panel de transporte.
+      if (
+        quoteRow.id &&
+        quoteRow.metadata &&
+        typeof quoteRow.metadata === 'object' &&
+        (quoteRow.metadata as Record<string, unknown>)['vertical'] === 'transporte'
+      ) {
+        try {
+          const { data: svcResult } = await adminClient.rpc(
+            'create_transport_service_from_quote',
+            { p_org_id: tokenRow.org_id, p_quote_id: quoteRow.id },
+          );
+          if (svcResult && svcResult.ok && svcResult.service_id) {
+            transportServiceId = svcResult.service_id as string;
+          }
+        } catch (svcErr) {
+          console.error(`[${requestId}] transport service creation failed`, {
+            org_id: tokenRow.org_id,
+            quote_id: quoteRow.id,
+            error: String(svcErr),
+          });
+          // Non-blocking: aceptación ya completada
+        }
+      }
     }
 
-    return new Response(JSON.stringify({ ok: true }), {
+    return new Response(JSON.stringify({ ok: true, transport_service_id: transportServiceId }), {
       headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }

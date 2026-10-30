@@ -83,7 +83,7 @@ import { ADMIN_EMAIL, MARKETPLACE_ENABLED } from '../lib/constants';
 import { useIsMobile } from '../hooks/useIsMobile';
 import { canAccessMarketplaceV2 } from '../lib/marketplaceV2Preview';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, updateClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, emitirFactura, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, updateOrgGeoManual, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote, getOrgActiveOrders, loadInvoiceLines, updateDraftInvoice, normalizaNif, getClientDisplayName } from '../lib/supabase';
+import { supabase, loadDashboard, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, updateClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, emitirFactura, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, updateOrgGeoManual, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote, getOrgActiveOrders, loadInvoiceLines, updateDraftInvoice, normalizaNif, getClientDisplayName, createTransportServiceFromQuote } from '../lib/supabase';
 import type { TradeSubcontractor, TradeSubcontrata, ActiveSupplierCatalog, TradeClient, FiscalSnapshot, GeoAddressSnapshot } from '../lib/supabase';
 import { printTradeInvoice } from '../lib/printTradeInvoice';
 import { savePurchaseContext } from '../lib/marketplace/purchase-context';
@@ -2312,6 +2312,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   } | null>(null);
   const [savedActuacion, setSavedActuacion] = useState<boolean>(false);
   const [selectedQuoteForPreview, setSelectedQuoteForPreview] = useState<Presupuesto | null>(null);
+  const [transportServiceIdForPreview, setTransportServiceIdForPreview] = useState<string | null>(null);
   const [mktCartLoading, setMktCartLoading] = useState(false);
   const [mktPendingCount, setMktPendingCount] = useState(0);
   const [postConfirmQuote, setPostConfirmQuote] = useState<Presupuesto | null>(null);
@@ -2348,6 +2349,28 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       loadSubcontractors(orgId).then(setPreviewProveedores).catch(() => {});
     }
   }, [selectedQuoteForPreview?.dbId]);
+
+  // Cargar service_id del servicio de transporte asociado a este presupuesto
+  useEffect(() => {
+    const q = selectedQuoteForPreview;
+    if (!q || q.metadata?.['vertical'] !== 'transporte' || q.estado !== 'Aceptado') {
+      setTransportServiceIdForPreview(null);
+      return;
+    }
+    const cached = q.metadata?.['transport_service_id'] as string | undefined;
+    if (cached) { setTransportServiceIdForPreview(cached); return; }
+    if (!q.dbId) return;
+    void (async () => {
+      try {
+        const { data } = await supabase
+          .from('trade_transport_services')
+          .select('id')
+          .eq('quote_id', q.dbId)
+          .maybeSingle();
+        setTransportServiceIdForPreview(data?.id ?? null);
+      } catch { /* no bloquear */ }
+    })();
+  }, [selectedQuoteForPreview?.id, selectedQuoteForPreview?.estado]);
 
   const [searchQuery, setSearchQuery] = useState<string>('');
   const filteredClientes = clientes.filter(c => {
@@ -2760,6 +2783,33 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       setPresupuestos(prev => prev.map(p => p.id === quote.id ? { ...p, estado: newEstado as Presupuesto['estado'] } : p));
       if (selectedQuoteForPreview?.id === quote.id) setSelectedQuoteForPreview(prev => prev ? { ...prev, estado: newEstado as Presupuesto['estado'] } : null);
       showToast(`Presupuesto marcado como ${newEstado} ✓`, 'success');
+
+      // TX-C3-C: Aceptación interna de presupuesto de transporte → crear servicio
+      if (
+        newEstado === 'Aceptado' &&
+        quote.metadata?.['vertical'] === 'transporte' &&
+        quote.dbId &&
+        orgId &&
+        isLiveMode
+      ) {
+        try {
+          const svcResult = await createTransportServiceFromQuote(orgId, quote.dbId);
+          if (svcResult.ok && svcResult.service_id) {
+            const updatedMeta = { ...(quote.metadata ?? {}), transport_service_id: svcResult.service_id };
+            setPresupuestos(prev => prev.map(p => p.id === quote.id ? { ...p, metadata: updatedMeta } : p));
+            if (selectedQuoteForPreview?.id === quote.id) {
+              setSelectedQuoteForPreview(prev => prev ? { ...prev, metadata: updatedMeta } : null);
+              setTransportServiceIdForPreview(svcResult.service_id!);
+            }
+            if (!svcResult.idempotent) showToast('Servicio de transporte creado en borrador ✓', 'success');
+          } else if (svcResult.code === 'RECURRENTE_DEFERRED') {
+            showToast('Servicio recurrente: crea la programación en el módulo de Rutas Recurrentes', 'info');
+          }
+        } catch {
+          // No bloquear: el presupuesto ya está aceptado
+          showToast('Presupuesto aceptado. Crea el servicio manualmente desde el módulo de Transporte.', 'info');
+        }
+      }
     } catch {
       showToast('Error al cambiar el estado', 'error');
     }
@@ -8383,6 +8433,53 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <Edit2 className="w-3.5 h-3.5" />
                 Editar
               </button>
+            )}
+            {/* TX-C3-C: Badge servicio de transporte para presupuestos aceptados */}
+            {selectedQuoteForPreview.metadata?.['vertical'] === 'transporte' &&
+             selectedQuoteForPreview.estado === 'Aceptado' && (
+              <div className="w-full flex flex-wrap items-center gap-2 mt-1">
+                {transportServiceIdForPreview ? (
+                  <>
+                    <span className="flex items-center gap-1 text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg px-2 py-1">
+                      <Bus className="w-3 h-3" /> Servicio de transporte creado
+                    </span>
+                    <button
+                      onClick={() => {
+                        setTransporteNavServiceId(transportServiceIdForPreview);
+                        setActiveTab('transporte_servicios');
+                      }}
+                      className="text-[10px] text-blue-700 bg-blue-50 border border-blue-200 rounded-lg px-2 py-1 hover:bg-blue-100 cursor-pointer"
+                    >
+                      Abrir servicio / Completar planificación
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={async () => {
+                      if (!selectedQuoteForPreview.dbId) return;
+                      if (!orgId) return;
+                      try {
+                        const result = await createTransportServiceFromQuote(orgId, selectedQuoteForPreview.dbId);
+                        if (result.ok && result.service_id) {
+                          setTransportServiceIdForPreview(result.service_id);
+                          setSelectedQuoteForPreview(prev => prev ? {
+                            ...prev,
+                            metadata: { ...(prev.metadata ?? {}), transport_service_id: result.service_id },
+                          } : null);
+                          showToast('Servicio de transporte creado', 'success');
+                        } else if (result.code === 'RECURRENTE_DEFERRED') {
+                          showToast('Servicio recurrente: créalo desde Rutas Recurrentes', 'info');
+                        }
+                      } catch {
+                        showToast('Error al crear el servicio de transporte', 'error');
+                      }
+                    }}
+                    className="flex items-center gap-1 text-[10px] text-blue-700 bg-blue-50 border border-blue-200 rounded-lg px-2 py-1 hover:bg-blue-100 cursor-pointer"
+                  >
+                    <Bus className="w-3 h-3" /> Crear servicio de transporte
+                  </button>
+                )}
+              </div>
             )}
             {selectedQuoteForPreview.estado !== 'Facturado' && (
               <button

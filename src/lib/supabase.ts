@@ -4730,6 +4730,28 @@ export async function respondQuoteToken(token: string, action: 'accepted' | 'rej
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
 }
 
+// ── TX-C3-C: Conversión presupuesto de transporte → servicio ──────────────────
+
+export interface TransportServiceFromQuoteResult {
+  ok: boolean;
+  service_id?: string;
+  idempotent?: boolean;
+  code?: string;
+  message?: string;
+}
+
+export async function createTransportServiceFromQuote(
+  orgId: string,
+  quoteDbId: string,
+): Promise<TransportServiceFromQuoteResult> {
+  const { data, error } = await supabase.rpc('create_transport_service_from_quote', {
+    p_org_id:   orgId,
+    p_quote_id: quoteDbId,
+  });
+  if (error) throw error;
+  return data as TransportServiceFromQuoteResult;
+}
+
 // ── Org templates ─────────────────────────────────────────────────────────────
 
 export type TemplateType =

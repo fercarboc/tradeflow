@@ -107,6 +107,9 @@ export interface TradeTransportService {
   hora_inicio_real?: string | null;
   iniciado_por?: string | null;
   obs_inicio?: string | null;
+  // ── TX-C3-C: campos añadidos en migración 20261030100000 ─────────────────
+  iva_pct?: number | null;
+  intake_data?: Record<string, unknown> | null;
   created_at: string;
   updated_at: string;
 }
