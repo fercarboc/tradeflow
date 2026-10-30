@@ -614,6 +614,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     } else {
       setIsLiveMode(false);
       loadedUserRef.current = null;
+      setPresupuestos([]);
+      setClientes([]);
+      setFacturas([]);
+      setJobs([]);
     }
     return () => {
       if (realtimeChannelRef.current) {
@@ -1365,7 +1369,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const quoteToPartidas = (quote: AIQuote): PartidaPresupuesto[] => {
     if (!Array.isArray(quote?.partidas)) return [];
     return quote.partidas.map(p => {
-      const tipo: PartidaPresupuesto['tipo'] = p.tipo_partida === 'material' ? 'material' : 'mano_de_obra';
+      const tipo: PartidaPresupuesto['tipo'] = (p.tipo_partida === 'material' || p.tipo_partida === 'servicio') ? 'material' : 'mano_de_obra';
 
       // Determinar origen: proveedor (enriquecido por edge fn) > sugerida_ia (IA sin catálogo) > catalogo
       const origen: PartidaPresupuesto['origen'] =
@@ -1474,7 +1478,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       });
       setSavedActuacion(false);
 
-      const total = quote.calculos?.total ?? partidas.reduce((s, p) => s + (p.total ?? 0), 0);
+      const total = isTransport
+        ? partidas.reduce((s, p) => s + (p.cantidad ?? 1) * (p.precioUnitario ?? 0), 0)
+        : (quote.calculos?.total ?? partidas.reduce((s, p) => s + (p.total ?? 0), 0));
       const desc = isTransport
         ? (() => {
             const d = transportIntake!.intake;
@@ -1940,7 +1946,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 pendingQuoteMetadata.current ?? undefined,
               );
               pendingQuoteMetadata.current = null;
-              savedQuote = { ...finalQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], kbActuaciones: dbQuote.kb_actuaciones ?? undefined };
+              savedQuote = { ...finalQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], kbActuaciones: dbQuote.kb_actuaciones ?? undefined, metadata: dbQuote.metadata ?? null };
             } catch (e) { console.error('Error guardando presupuesto:', e); }
           }
         }
@@ -2555,6 +2561,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       || pendingQuoteMetadata.current?.['vertical'] === 'cleaning';
     if (isCleaningQuote) {
       showToast('Presupuesto de limpieza — revisa y ajusta los precios de las partidas propuestas.', 'info');
+      return;
+    }
+    // Transport quotes are structured; detectSugerencias (for installation verticals) doesn't apply
+    const isTransportQuote = editingQuote.metadata?.['vertical'] === 'transporte'
+      || pendingQuoteMetadata.current?.['vertical'] === 'transporte';
+    if (isTransportQuote) {
+      showToast('Presupuesto de transporte — edita las partidas directamente para ajustar precio, fecha o número de viajeros.', 'info');
       return;
     }
     const ctx = detectSugerencias(
@@ -4981,6 +4994,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
     return (
       <div className="space-y-3">
+        {/* CTA nuevo presupuesto */}
+        <button
+          onClick={() => startWizard(2)}
+          className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white rounded-2xl py-3 text-sm font-bold shadow-sm active:bg-blue-700"
+        >
+          <Plus className="w-4 h-4" />
+          Nuevo presupuesto
+        </button>
+
         {/* Stats row */}
         <div className="grid grid-cols-3 gap-2">
           <div className="bg-white border border-gray-100 rounded-2xl p-3 text-center shadow-sm">
@@ -6087,6 +6109,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <TransportIntakeSummary
                   intake={pendingTransportIntake}
                   onDismiss={() => setPendingTransportIntake(null)}
+                  onDateChange={(fecha) => setPendingTransportIntake(prev => prev ? {
+                    ...prev,
+                    intake: { ...prev.intake, fecha_servicio: fecha },
+                  } : prev)}
                 />
               )}
 

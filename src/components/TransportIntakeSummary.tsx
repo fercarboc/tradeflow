@@ -13,9 +13,10 @@ import {
 interface TransportIntakeSummaryProps {
   intake: TransportIntake;
   onDismiss: () => void;
+  onDateChange?: (fecha: string) => void;
 }
 
-const TransportIntakeSummary: React.FC<TransportIntakeSummaryProps> = ({ intake, onDismiss }) => {
+const TransportIntakeSummary: React.FC<TransportIntakeSummaryProps> = ({ intake, onDismiss, onDateChange }) => {
   const { intake: d } = intake;
 
   const rows: { icon: React.ReactNode; label: string; value: string; missing?: boolean }[] = [];
@@ -44,23 +45,8 @@ const TransportIntakeSummary: React.FC<TransportIntakeSummaryProps> = ({ intake,
     });
   }
 
-  if (d.fecha_servicio) {
-    const fechaLabel = d.fecha_fin_servicio && d.fecha_fin_servicio !== d.fecha_servicio
-      ? `${d.fecha_servicio} → ${d.fecha_fin_servicio}`
-      : d.fecha_servicio;
-    rows.push({
-      icon: <Calendar className="w-3 h-3 text-blue-500" />,
-      label: 'Fecha',
-      value: fechaLabel,
-    });
-  } else {
-    rows.push({
-      icon: <Calendar className="w-3 h-3 text-amber-400" />,
-      label: 'Fecha',
-      value: 'No detectada',
-      missing: true,
-    });
-  }
+  // Fecha row is rendered separately below (editable when onDateChange is provided)
+  const fechaDetectada = d.fecha_servicio ?? null;
 
   if (d.num_viajeros !== null) {
     rows.push({
@@ -125,6 +111,29 @@ const TransportIntakeSummary: React.FC<TransportIntakeSummaryProps> = ({ intake,
             </span>
           </div>
         ))}
+        {/* Fecha — editable cuando se proporciona onDateChange */}
+        <div className="flex items-center gap-1 col-span-2">
+          {(fechaDetectada && !onDateChange)
+            ? <Calendar className="w-3 h-3 text-blue-500 shrink-0" />
+            : <Calendar className="w-3 h-3 text-amber-400 shrink-0" />}
+          <span className={fechaDetectada ? 'text-gray-600' : 'text-amber-600'}>
+            <span className="font-semibold">Fecha:</span>{' '}
+            {onDateChange ? (
+              <input
+                type="date"
+                defaultValue={fechaDetectada ?? ''}
+                onChange={e => onDateChange(e.target.value)}
+                className="border border-blue-300 rounded px-1 py-0.5 text-[10px] text-gray-800 focus:outline-none focus:border-blue-500"
+              />
+            ) : (
+              fechaDetectada
+                ? (d.fecha_fin_servicio && d.fecha_fin_servicio !== d.fecha_servicio
+                    ? `${d.fecha_servicio} → ${d.fecha_fin_servicio}`
+                    : d.fecha_servicio)
+                : 'No detectada'
+            )}
+          </span>
+        </div>
       </div>
 
       {d.condiciones_especiales.length > 0 && (
