@@ -139,10 +139,14 @@ REGLAS ESPECÍFICAS — SECTOR TRANSPORTE DE VIAJEROS:
   "1.200 euros IVA incluido" / "todo incluido" → precio_base=1200, precio_incluye_iva=true, precio_origen="dictado_usuario".
   Sin indicación explícita de IVA → precio_incluye_iva=false por defecto.
   NUNCA sustituyas el precio dictado por una estimación propia.
+  NUNCA calcules ni indiques el total con IVA si el usuario no especificó el porcentaje exacto.
+  NO incluyas en condiciones_especiales frases como "1.200€ + IVA (21%) = 1.452€ total" si el usuario solo dijo "más IVA" sin porcentaje.
+  En ese caso, condiciones_especiales puede incluir: "Precio: 1.200€ + IVA (porcentaje pendiente de confirmar)".
 • Sin precio dictado: precio_base=null, precio_origen="pendiente". No inventes precios.
 • NUNCA inventes: fechas, kilómetros, ubicaciones exactas, conductores, matrículas ni paradas que no hayan sido mencionadas.
 • Datos ausentes del dictado: registra null y añade el nombre del campo a campos_pendientes.
 • Genera UNA partida principal tipo_partida="servicio": concepto descriptivo (ej: "Excursión Santander–Jaca 45 pax"). precio_unitario=precio_base si fue dictado y >0, si no 0 con requiere_revision=true. origen="dictado_usuario" o "sugerida_ia".
+• fecha_fin_servicio: SOLO cuando el usuario mencione explícitamente una fecha de regreso, número de días ("viaje de 3 días"), pernoctaciones o jornadas múltiples. Para excursiones de un solo día (aunque sean "ida y vuelta" en el mismo día sin fecha de regreso mencionada): fecha_fin_servicio=null. Si hay duda: fecha_fin_servicio=null y añade "fecha_regreso" a campos_pendientes.
 • Viajes multidía: partida principal + partidas adicionales por servicios extra mencionados (hotel conductor, dietas) con precio=0, requiere_revision=true.
 • SIEMPRE rellena transport_intake cuando el oficio sea "transporte".
 
@@ -231,8 +235,22 @@ function extractTransportIntake(quote: Record<string, unknown>): TransportIntake
       precio_base:         precioBase,
       precio_incluye_iva:  raw.precio_incluye_iva === true,
       precio_origen:       precioBase !== null ? 'dictado_usuario' : 'pendiente',
-      itinerario:          Array.isArray(raw.itinerario) ? raw.itinerario.map(String) : [],
-      condiciones_especiales: Array.isArray(raw.condiciones_especiales) ? raw.condiciones_especiales.map(String) : [],
+      itinerario:          Array.isArray(raw.itinerario) ? raw.itinerario.map((item) => {
+        if (typeof item === 'string') return item;
+        if (typeof item === 'object' && item !== null) {
+          const o = item as Record<string, unknown>;
+          return String(o.ciudad ?? o.nombre ?? o.lugar ?? o.parada ?? '').trim();
+        }
+        return String(item);
+      }).filter((s): s is string => s.length > 0 && s !== '[object Object]') : [],
+      condiciones_especiales: Array.isArray(raw.condiciones_especiales) ? raw.condiciones_especiales.map((item) => {
+        if (typeof item === 'string') return item;
+        if (typeof item === 'object' && item !== null) {
+          const o = item as Record<string, unknown>;
+          return String(o.texto ?? o.descripcion ?? o.condicion ?? JSON.stringify(item)).trim();
+        }
+        return String(item);
+      }).filter((s): s is string => s.length > 0) : [],
       campos_pendientes:   Array.isArray(raw.campos_pendientes) ? raw.campos_pendientes.map(String) : [],
     },
   };
@@ -850,7 +868,7 @@ Deno.serve(async (req: Request) => {
         max_tokens: 8192,
         temperature: 0,
         system: AI_SYSTEM_PROMPT + kbContext + webContext,
-        messages: [{ role: 'user', content: `El profesional dice: "${transcript}"` }],
+        messages: [{ role: 'user', content: `[Fecha actual: ${new Date().toISOString().slice(0, 10)}]\nEl profesional dice: "${transcript}"` }],
       }),
     });
 
@@ -957,7 +975,7 @@ Deno.serve(async (req: Request) => {
         kb_score: kbScore,
         web_search_used: webSearchUsed,
         _meta: {
-          prompt_version: 'v59',
+          prompt_version: 'v60',
           stop_reason: claudeData.stop_reason ?? 'end_turn',
           tokens_in:  claudeData.usage?.input_tokens  ?? 0,
           tokens_out: claudeData.usage?.output_tokens ?? 0,

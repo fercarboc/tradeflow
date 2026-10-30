@@ -141,8 +141,8 @@ describe('buildTransportPartidas — excursión con precio dictado', () => {
     expect(partida.descripcion).toContain('Jaca');
   });
 
-  it('tipo es mano_de_obra', () => {
-    expect(partida.tipo).toBe('mano_de_obra');
+  it('tipo es material (servicio de transporte, no mano de obra de instalador)', () => {
+    expect(partida.tipo).toBe('material');
   });
 
   it('cantidad = 1', () => {
@@ -286,8 +286,8 @@ describe('buildPrefillFromIntake — escenario multidía con condiciones', () =>
     expect(prefill.notas).toContain('conductor');
   });
 
-  it('precio con IVA aplicado (21% por defecto)', () => {
-    expect(prefill.precio_final).toBe(3500 * 1.21);
+  it('precio_final = precio_base sin aplicar IVA (el wizard confirma el porcentaje)', () => {
+    expect(prefill.precio_final).toBe(3500);
   });
 });
 
@@ -302,8 +302,8 @@ describe('buildPrefillFromIntake — cliente no encontrado (sin client_id)', () 
 describe('buildPrefillFromIntake — precio sin indicación de IVA', () => {
   const prefill = buildPrefillFromIntake(INTAKE_EXCURSION);
 
-  it('aplica IVA 21% al precio base', () => {
-    expect(prefill.precio_final).toBe(1452);
+  it('precio_final = precio_base (sin IVA aplicado automáticamente)', () => {
+    expect(prefill.precio_final).toBe(1200);
   });
 });
 

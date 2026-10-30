@@ -170,9 +170,9 @@ describe('buildPrefillFromIntake', () => {
     expect(prefill.tipo_servicio).toBe('excursion');
   });
 
-  it('incluye precio_final con IVA aplicado', () => {
+  it('precio_final = precio_base (sin IVA automático; el wizard confirma el %)', () => {
     const prefill = buildPrefillFromIntake(INTAKE_EXCURSION);
-    expect(prefill.precio_final).toBe(1452);
+    expect(prefill.precio_final).toBe(1200);
   });
 
   it('mapea itinerario a array de paradas', () => {
@@ -215,8 +215,8 @@ const src = readFileSync(EDGE_FN_PATH, 'utf-8');
 
 describe('edge function TX-C3-A invariants', () => {
 
-  it('prompt_version es v59', () => {
-    expect(src).toContain("prompt_version: 'v59'");
+  it('prompt_version es v60', () => {
+    expect(src).toContain("prompt_version: 'v60'");
   });
 
   it('transport está en la lista de OFICIOS VÁLIDOS', () => {

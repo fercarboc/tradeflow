@@ -152,7 +152,7 @@ export function buildTransportPartidas(intake: TransportIntakeData): TransportPa
 
   return [{
     descripcion,
-    tipo: 'mano_de_obra',
+    tipo: 'material',
     cantidad: 1,
     precioUnitario: precio ?? 0,
     total: precio ?? 0,
@@ -192,8 +192,9 @@ export function buildPrefillFromIntake(
   if (intake.fecha_fin_servicio) result.fecha_fin_servicio = intake.fecha_fin_servicio;
   if (intake.num_viajeros !== null) result.num_viajeros = intake.num_viajeros;
 
-  const precioConIva = calcularPrecioConIva(intake);
-  if (precioConIva !== null) result.precio_final = precioConIva;
+  // Usar precio_base como precio_final sin aplicar IVA por defecto:
+  // el usuario confirma el % de IVA en el wizard.
+  if (intake.precio_base !== null) result.precio_final = intake.precio_base;
 
   if (intake.itinerario.length > 0) {
     result.itinerario = intake.itinerario.map(nombre => ({ nombre }));
