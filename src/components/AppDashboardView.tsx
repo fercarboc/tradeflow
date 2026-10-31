@@ -6616,7 +6616,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {can('transport.view') && SidebarBtn({ id: 'transporte_rutas',      icon: <Route className="w-4 h-4" />, label: 'Rutas' })}
                 {can('transport.view') && SidebarBtn({ id: 'transporte_partes',     icon: <FileCheck className="w-4 h-4" />, label: 'Partes' })}
                 {can('transport.view') && SidebarBtn({ id: 'transporte_tarifas',   icon: <Euro className="w-4 h-4" />, label: 'Tarifas' })}
-                {can('transport.view') && SidebarBtn({ id: 'transporte_presupuestos', icon: <FileText className="w-4 h-4" />, label: 'Presupuestos' })}
                 <div className="my-2 mx-1 border-t border-slate-800/60" />
                 <p className="px-3 pb-2 text-[9px] font-bold uppercase tracking-widest text-slate-500">Gestión</p>
                 {can('clients.manage') && SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes' })}
@@ -6691,7 +6690,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               const daysLeft = isTrialing && sub?.trial_end
                 ? Math.max(0, Math.ceil((new Date(sub.trial_end).getTime() - Date.now()) / 86400000))
                 : null;
-              const showUpgradeBtn = !sub || sub.status !== 'active' || (effectivePlan !== 'empresa' && effectivePlan !== 'empresa_plus');
+              const showUpgradeBtn = !caps.isTransportOrg && (!sub || sub.status !== 'active' || (effectivePlan !== 'empresa' && effectivePlan !== 'empresa_plus'));
               return (
                 <>
                   <div className="flex items-center justify-between">
