@@ -221,9 +221,9 @@ function DayColumn({ day, today, services, occurrences, vehicleMap, workerMap, o
   const activeSlots = SLOT_ORDER.filter(s => s !== 'noche' || hasNoche);
 
   return (
-    <div className={`min-w-0 flex flex-col border-r border-slate-100 last:border-r-0 h-full ${isPast ? 'opacity-60' : ''}`}>
+    <div className={`min-w-0 flex flex-col border-r border-slate-100 last:border-r-0 ${isPast ? 'opacity-60' : ''}`}>
       {/* Day header */}
-      <div className={`px-1 py-1 text-center border-b border-slate-100 ${isToday ? 'bg-blue-600 text-white' : 'bg-slate-50'}`}>
+      <div className={`sticky top-0 z-10 px-1 py-1 text-center border-b border-slate-100 ${isToday ? 'bg-blue-600 text-white' : 'bg-slate-50'}`}>
         <p className={`text-[9px] font-bold uppercase tracking-wide ${isToday ? 'text-blue-100' : 'text-slate-500'}`}>
           {DAYS_ES[day.getDay() === 0 ? 6 : day.getDay() - 1]}
         </p>
@@ -240,7 +240,7 @@ function DayColumn({ day, today, services, occurrences, vehicleMap, workerMap, o
       </div>
 
       {/* Slots */}
-      <div className="flex-1 divide-y divide-slate-100 overflow-hidden">
+      <div className="divide-y divide-slate-100">
         {activeSlots.map(slotKey => {
           const svcs = slots[slotKey];
           const occs = occSlots[slotKey];
@@ -652,7 +652,7 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
           ) : (
             <>
               {/* Desktop: 7-column grid */}
-              <div className="hidden md:grid grid-cols-7 divide-x divide-slate-100 h-[280px]">
+              <div className="hidden md:grid grid-cols-7 divide-x divide-slate-100 max-h-[300px] overflow-y-auto">
                 {weekDays.map((day, i) => (
                   <DayColumn
                     key={i}
