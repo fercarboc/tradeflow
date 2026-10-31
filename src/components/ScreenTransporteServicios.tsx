@@ -858,11 +858,12 @@ interface Props {
   onOpenParte?: (svcId: string) => void;
   initialServiceId?: string | null;
   onConsumeInitialServiceId?: () => void;
+  triggerNew?: number;
 }
 
 // ── Componente principal ──────────────────────────────────────────────────────
 
-export default function ScreenTransporteServicios({ orgId, showToast, onOpenParte, initialServiceId, onConsumeInitialServiceId }: Props) {
+export default function ScreenTransporteServicios({ orgId, showToast, onOpenParte, initialServiceId, onConsumeInitialServiceId, triggerNew }: Props) {
   const { rol } = useSession();
   const canWrite = rol === 'owner' || rol === 'admin';
 
@@ -904,6 +905,15 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
       onConsumeInitialServiceId?.();
     }
   }, [initialServiceId, services]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Abrir formulario de creación cuando el panel dispara "Programar servicio"
+  const triggerNewRef = useRef(0);
+  useEffect(() => {
+    if (!triggerNew || triggerNew === triggerNewRef.current) return;
+    triggerNewRef.current = triggerNew;
+    setEditing(null);
+    setModal('create');
+  }, [triggerNew]);
 
   // Auto-clear highlight after 3s
   useEffect(() => {

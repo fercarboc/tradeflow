@@ -820,6 +820,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [transporteParteFromTab, setTransporteParteFromTab] = useState<string>('transporte_servicios');
   // Service ID to navigate to from Agenda
   const [transporteNavServiceId, setTransporteNavServiceId] = useState<string | null>(null);
+  const [transporteTriggerNew, setTransporteTriggerNew] = useState(0);
   const [transporteConductorPreselectId, setTransporteConductorPreselectId] = useState<string | null>(null);
   const [newJobTrigger, setNewJobTrigger] = useState(0);
   const [prefillJobFromQuote, setPrefillJobFromQuote] = useState<import('../types').Presupuesto | null>(null);
@@ -4236,7 +4237,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <ScreenTransportePanel
                     orgId={orgId}
                     showToast={showToast}
-                    onNavigate={(tab) => {
+                    onNavigate={(tab, action) => {
+                      if (action === 'new') setTransporteTriggerNew(n => n + 1);
                       const map: Record<string, 'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas'> = {
                         transporte_servicios: 'servicios',
                         transporte_agenda: 'agenda',
@@ -4255,6 +4257,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     onOpenParte={(id) => { setTransporteParteId(id); setMobileTab('partes'); }}
                     initialServiceId={transporteNavServiceId}
                     onConsumeInitialServiceId={() => setTransporteNavServiceId(null)}
+                    triggerNew={transporteTriggerNew}
                   />
                 )}
                 {transporteMobileSubTab === 'agenda' && (
@@ -7058,7 +7061,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 )}
                 {activeTab === 'transporte_panel' && orgId && caps.hasTransport && can('transport.view') && (
                   <div className="flex-1 overflow-y-auto min-h-0">
-                    <ScreenTransportePanel orgId={orgId} showToast={showToast} onNavigate={setActiveTab} />
+                    <ScreenTransportePanel
+                      orgId={orgId}
+                      showToast={showToast}
+                      onNavigate={(tab, action) => {
+                        if (action === 'new') setTransporteTriggerNew(n => n + 1);
+                        setActiveTab(tab);
+                      }}
+                    />
                   </div>
                 )}
                 {activeTab === 'transporte_servicios' && orgId && caps.hasTransport && can('transport.view') && (
@@ -7069,6 +7079,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       onOpenParte={(id) => { setTransporteParteId(id); setTransporteParteFromTab('transporte_servicios'); setActiveTab('transporte_parte'); }}
                       initialServiceId={transporteNavServiceId}
                       onConsumeInitialServiceId={() => setTransporteNavServiceId(null)}
+                      triggerNew={transporteTriggerNew}
                     />
                   </div>
                 )}

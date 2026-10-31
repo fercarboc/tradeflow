@@ -35,8 +35,10 @@ import {
   classifyTimeSlot,
   getServicesForDay,
   computeVehicleAlerts,
+  getAssignedConductorIds,
   type FleetStatus,
   type VehicleAlertItem,
+  type OccurrenceForKpi,
 } from '../lib/transportPanelHelpers';
 import {
   buildAgendaOccurrences,
@@ -342,7 +344,7 @@ function KpiCard({ icon, label, value, sub, badge, accent = 'blue', onClick }: K
 interface Props {
   orgId: string;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
-  onNavigate?: (tab: string) => void;
+  onNavigate?: (tab: string, action?: string) => void;
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -453,10 +455,19 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
   const availableCount   = countByStatus('sin_asignacion');
   const maintenanceVehicles = vehicles.filter(v => v.estado === 'en_mantenimiento' || v.estado === 'baja');
 
-  const conductorWorkers     = workers.filter(w => w.es_conductor);
-  const kpis                 = useMemo(() => computeKpis(todayServices), [todayServices]);
-  const assignedConductors   = conductorWorkers.filter(w => kpis.assignedConductorIds.has(w.id));
-  const disponibleConductores = conductorWorkers.length - assignedConductors.length;
+  const conductorWorkers = workers.filter(w => w.es_conductor);
+  const kpis             = useMemo(() => computeKpis(todayServices), [todayServices]);
+
+  // Conductores asignados hoy: combina servicios puntuales + rutas recurrentes del día.
+  const assignedConductorIds = useMemo(
+    () => getAssignedConductorIds(
+      todayServices,
+      occurrences as OccurrenceForKpi[],
+      today,
+    ),
+    [todayServices, occurrences, today],
+  );
+  const sinAsignacionHoy = conductorWorkers.filter(w => !assignedConductorIds.has(w.id)).length;
 
   // Week services count (non-cancelled)
   const weekServicesCount = weekServices.filter(s => s.estado !== 'cancelado').length;
@@ -529,7 +540,7 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
             <span className="hidden sm:inline">Actualizar</span>
           </button>
           <button
-            onClick={() => onNavigate?.('transporte_servicios')}
+            onClick={() => onNavigate?.('transporte_servicios', 'new')}
             className="flex items-center gap-1.5 text-sm font-bold bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl shadow-sm transition-colors"
           >
             <Plus className="w-4 h-4" />
@@ -555,9 +566,9 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
           icon={<Route className="w-4 h-4" />}
           label="Programados"
           value={weekServicesCount}
-          sub="esta semana"
+          sub="servicios esta semana"
           accent="purple"
-          onClick={() => onNavigate?.('transporte_agenda')}
+          onClick={() => onNavigate?.('transporte_servicios')}
         />
         <KpiCard
           icon={<Bus className="w-4 h-4" />}
@@ -569,9 +580,9 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
         />
         <KpiCard
           icon={<UserCheck className="w-4 h-4" />}
-          label="Conductores libres"
-          value={`${disponibleConductores} / ${conductorWorkers.length}`}
-          sub={conductorWorkers.length === 0 ? 'sin conductores' : disponibleConductores > 0 ? 'disponibles hoy' : 'todos asignados hoy'}
+          label="Sin asignación hoy"
+          value={`${sinAsignacionHoy} / ${conductorWorkers.length}`}
+          sub={conductorWorkers.length === 0 ? 'sin conductores' : sinAsignacionHoy > 0 ? 'sin servicio hoy' : 'todos asignados hoy'}
           accent="slate"
           onClick={() => onNavigate?.('transporte_conductores')}
         />
@@ -870,10 +881,10 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
           ) : (
             <div className="space-y-2.5">
               {[
-                { label: 'Disponible',  count: availableCount,              cls: 'bg-emerald-500', total: passengerVehicles.length },
-                { label: 'En servicio', count: countByStatus('en_servicio'),cls: 'bg-blue-500',    total: passengerVehicles.length },
-                { label: 'Programado',  count: countByStatus('programado'), cls: 'bg-sky-400',     total: passengerVehicles.length },
-                { label: 'No disponible',count: maintenanceVehicles.length, cls: 'bg-amber-400',   total: vehicles.filter(v => v.activo).length },
+                { label: 'Disponible',   count: availableCount,              cls: 'bg-emerald-500', total: passengerVehicles.length },
+                { label: 'En servicio',  count: countByStatus('en_servicio'),cls: 'bg-blue-500',    total: passengerVehicles.length },
+                { label: 'Programado',   count: countByStatus('programado'), cls: 'bg-sky-400',     total: passengerVehicles.length },
+                { label: 'No disponible',count: maintenanceVehicles.length,  cls: 'bg-amber-400',   total: Math.max(vehicles.length, 1) },
               ].map(row => (
                 <div key={row.label}>
                   <div className="flex items-center justify-between mb-1">
@@ -883,7 +894,7 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
                   <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
                     <div
                       className={`h-full rounded-full transition-all ${row.cls}`}
-                      style={{ width: `${Math.round((row.count / Math.max(row.total, 1)) * 100)}%` }}
+                      style={{ width: `${Math.min(100, Math.round((row.count / row.total) * 100))}%` }}
                     />
                   </div>
                 </div>
@@ -916,8 +927,8 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
           ) : (
             <div className="space-y-2">
               {conductorWorkers.slice(0, 6).map(w => {
-                const count   = todayServices.filter(s => s.conductor_id === w.id && s.estado !== 'cancelado').length;
-                const isAssigned = count > 0;
+                const count      = todayServices.filter(s => s.conductor_id === w.id && s.estado !== 'cancelado').length;
+                const isAssigned = assignedConductorIds.has(w.id);
                 return (
                   <div key={w.id} className="flex items-center gap-2">
                     <div className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center shrink-0">
@@ -927,7 +938,10 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-semibold text-slate-800 truncate leading-tight">{w.nombre}</p>
-                      <p className="text-[10px] text-slate-400">{count > 0 ? `${count} servicio${count !== 1 ? 's' : ''} hoy` : 'Libre hoy'}</p>
+                      <p className="text-[10px] text-slate-400">
+                        {count > 0 ? `${count} servicio${count !== 1 ? 's' : ''} hoy` :
+                         isAssigned ? 'Ruta recurrente hoy' : 'Sin asignación hoy'}
+                      </p>
                     </div>
                     <span className={`w-2 h-2 rounded-full shrink-0 ${isAssigned ? 'bg-blue-500' : 'bg-slate-300'}`} />
                   </div>

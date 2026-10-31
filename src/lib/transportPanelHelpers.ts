@@ -257,6 +257,45 @@ export interface VehicleAlertItem {
   severity: AlertSeverity;
 }
 
+// ── Conductores asignados (servicios + rutas recurrentes) ─────────────────────
+
+/**
+ * Mínimo necesario de una ocurrencia para calcular asignaciones.
+ * Evita importar el tipo completo desde el fichero de componente.
+ */
+export interface OccurrenceForKpi {
+  fecha: string;
+  effectiveConductorId: string | null;
+  status?: string;
+}
+
+/**
+ * Devuelve el conjunto de IDs de conductores con alguna asignación en `dayStr`.
+ * Combina servicios puntuales y ocurrencias de rutas recurrentes sin duplicados.
+ * Excluye servicios cancelados y ocurrencias suspendidas/no_circula.
+ */
+export function getAssignedConductorIds(
+  services: Pick<ServiceLike, 'estado' | 'conductor_id'>[],
+  occurrences: OccurrenceForKpi[],
+  dayStr: string,
+): Set<string> {
+  const ids = new Set<string>();
+  for (const s of services) {
+    if (s.estado !== 'cancelado' && s.conductor_id) ids.add(s.conductor_id);
+  }
+  for (const o of occurrences) {
+    if (
+      o.fecha === dayStr &&
+      o.effectiveConductorId &&
+      o.status !== 'no_circula' &&
+      o.status !== 'suspended'
+    ) {
+      ids.add(o.effectiveConductorId);
+    }
+  }
+  return ids;
+}
+
 /**
  * Calcula alertas de vehículos: ITV/seguro próximos (≤ daysAhead días) o vencidos,
  * en mantenimiento y dados de baja.

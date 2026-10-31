@@ -12,8 +12,9 @@ import {
   classifyTimeSlot,
   getServicesForDay,
   computeVehicleAlerts,
+  getAssignedConductorIds,
 } from '../../lib/transportPanelHelpers';
-import type { ServiceLike, VehicleLike, VehicleAlertLike } from '../../lib/transportPanelHelpers';
+import type { ServiceLike, VehicleLike, VehicleAlertLike, OccurrenceForKpi } from '../../lib/transportPanelHelpers';
 
 // ── Helpers de test ───────────────────────────────────────────────────────────
 
@@ -461,5 +462,112 @@ describe('computeVehicleAlerts', () => {
     const vehs = [vAlert({ id: 'v1', estado: 'en_mantenimiento' })];
     const alerts = computeVehicleAlerts(vehs, TODAY);
     expect(alerts.every(a => a.vehicleId === 'v1')).toBe(true);
+  });
+});
+
+// ── getAssignedConductorIds ───────────────────────────────────────────────────
+
+function occ(overrides: Partial<OccurrenceForKpi> & { fecha: string }): OccurrenceForKpi {
+  return { effectiveConductorId: null, status: 'active', ...overrides };
+}
+
+describe('getAssignedConductorIds', () => {
+  const DAY = '2026-10-30';
+
+  it('sin servicios ni ocurrencias → conjunto vacío', () => {
+    expect(getAssignedConductorIds([], [], DAY).size).toBe(0);
+  });
+
+  it('servicio confirmado con conductor → incluido', () => {
+    const result = getAssignedConductorIds(
+      [svc({ id: 's1', conductor_id: 'c1', estado: 'confirmado' })],
+      [], DAY,
+    );
+    expect(result.has('c1')).toBe(true);
+  });
+
+  it('servicio cancelado → conductor excluido', () => {
+    const result = getAssignedConductorIds(
+      [svc({ id: 's1', conductor_id: 'c1', estado: 'cancelado' })],
+      [], DAY,
+    );
+    expect(result.has('c1')).toBe(false);
+  });
+
+  it('ocurrencia del mismo día con conductor → incluido', () => {
+    const result = getAssignedConductorIds(
+      [],
+      [occ({ fecha: DAY, effectiveConductorId: 'c2' })],
+      DAY,
+    );
+    expect(result.has('c2')).toBe(true);
+  });
+
+  it('ocurrencia de otro día → conductor excluido', () => {
+    const result = getAssignedConductorIds(
+      [],
+      [occ({ fecha: '2026-10-29', effectiveConductorId: 'c2' })],
+      DAY,
+    );
+    expect(result.has('c2')).toBe(false);
+  });
+
+  it('ocurrencia suspendida → conductor excluido', () => {
+    const result = getAssignedConductorIds(
+      [],
+      [occ({ fecha: DAY, effectiveConductorId: 'c2', status: 'suspended' })],
+      DAY,
+    );
+    expect(result.has('c2')).toBe(false);
+  });
+
+  it('ocurrencia no_circula → conductor excluido', () => {
+    const result = getAssignedConductorIds(
+      [],
+      [occ({ fecha: DAY, effectiveConductorId: 'c2', status: 'no_circula' })],
+      DAY,
+    );
+    expect(result.has('c2')).toBe(false);
+  });
+
+  it('mismo conductor en servicio puntual y ruta recurrente → sin duplicado', () => {
+    const result = getAssignedConductorIds(
+      [svc({ id: 's1', conductor_id: 'c1' })],
+      [occ({ fecha: DAY, effectiveConductorId: 'c1' })],
+      DAY,
+    );
+    expect(result.size).toBe(1);
+    expect(result.has('c1')).toBe(true);
+  });
+
+  it('conductores distintos en puntual y recurrente → ambos incluidos', () => {
+    const result = getAssignedConductorIds(
+      [svc({ id: 's1', conductor_id: 'c1' })],
+      [occ({ fecha: DAY, effectiveConductorId: 'c2' })],
+      DAY,
+    );
+    expect(result.size).toBe(2);
+    expect(result.has('c1')).toBe(true);
+    expect(result.has('c2')).toBe(true);
+  });
+
+  it('ocurrencia sin conductor asignado (null) → no añade undefined al set', () => {
+    const result = getAssignedConductorIds(
+      [],
+      [occ({ fecha: DAY, effectiveConductorId: null })],
+      DAY,
+    );
+    expect(result.size).toBe(0);
+  });
+
+  it('varios servicios puntuales mismo conductor → cuenta uno solo', () => {
+    const result = getAssignedConductorIds(
+      [
+        svc({ id: 's1', conductor_id: 'c1' }),
+        svc({ id: 's2', conductor_id: 'c1', fecha_inicio: '2026-10-30T14:00:00' }),
+      ],
+      [], DAY,
+    );
+    expect(result.size).toBe(1);
   });
 });
