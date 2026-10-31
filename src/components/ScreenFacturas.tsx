@@ -23,7 +23,10 @@ function fmt(n: number) {
 
 function fmtDate(d?: string | null) {
   if (!d) return '—';
-  return new Date(d + 'T12:00:00').toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  const datePart = d.split('T')[0];
+  const dt = new Date(datePart + 'T12:00:00');
+  if (isNaN(dt.getTime())) return '—';
+  return dt.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
 }
 
 type EstadoFilter = 'todos' | 'Borrador' | 'Emitida' | 'Pagada' | 'Vencida' | 'Pendiente';
