@@ -6775,9 +6775,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {/* Ticker zone — center of top bar, transport module status */}
             <div className="flex-1 flex justify-center">
               {activeTab.startsWith('transporte') && (
-                <div className="hidden lg:flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-full px-4 py-1.5 text-[11px] text-slate-500 max-w-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0 animate-pulse" />
-                  <span className="truncate font-medium">Módulo Transporte · Sistema operativo</span>
+                <div className="hidden lg:flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-full px-3 py-1 text-[11px] text-slate-400">
+                  <span className="truncate">Módulo de Transporte</span>
                 </div>
               )}
             </div>

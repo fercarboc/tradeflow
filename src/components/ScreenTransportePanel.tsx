@@ -240,7 +240,7 @@ function DayColumn({ day, today, services, occurrences, vehicleMap, workerMap, o
       </div>
 
       {/* Slots */}
-      <div className="flex-1 divide-y divide-slate-100 overflow-y-auto">
+      <div className="flex-1 divide-y divide-slate-100 overflow-hidden">
         {activeSlots.map(slotKey => {
           const svcs = slots[slotKey];
           const occs = occSlots[slotKey];
