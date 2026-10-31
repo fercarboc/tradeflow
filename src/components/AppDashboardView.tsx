@@ -6737,7 +6737,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         {/* CUERPO CENTRAL DE LA CONSOLA DESKTOP */}
         <div className="flex-grow flex flex-col min-w-0 bg-slate-50">
 
-          {/* Header de la sección */}
+          {/* Header de la sección — oculto para módulos de Transporte (cada screen lleva su propia cabecera) */}
+          {!activeTab.startsWith('transporte') && (
           <div className="bg-white border-b border-slate-200 px-6 py-4 flex items-center gap-4 shrink-0">
             <div className="flex-none">
               <span className="text-[9px] font-bold text-blue-600 uppercase tracking-widest block">
@@ -6756,29 +6757,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'equipo' && 'Equipo y Trabajadores'}
                 {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
                 {activeTab === 'suppliers' && 'Proveedores y Catálogos'}
-                {/* transporte_panel: title suppressed — panel renders its own h1 */}
-                {activeTab === 'transporte_servicios' && 'Transporte · Servicios'}
-                {activeTab === 'transporte_agenda'    && 'Transporte · Agenda Semanal'}
-                {activeTab === 'transporte_vehiculos' && 'Transporte · Flota de Vehículos'}
-                {activeTab === 'transporte_conductores' && 'Transporte · Conductores'}
-                {activeTab === 'transporte_rutas'       && 'Transporte · Rutas'}
-                {activeTab === 'transporte_parte'     && 'Transporte · Parte de Servicio'}
-                {activeTab === 'transporte_partes'    && 'Transporte · Histórico de Partes'}
-                {activeTab === 'transporte_tarifas'       && 'Transporte · Tarifas y Costes'}
-                {activeTab === 'transporte_presupuestos' && 'Transporte · Presupuestos'}
                 {activeTab === 'asistente' && 'Asistente Técnico de Normativa'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
               </h2>
-            </div>
-
-            {/* Ticker zone — center of top bar, transport module status */}
-            <div className="flex-1 flex justify-center">
-              {activeTab.startsWith('transporte') && (
-                <div className="hidden lg:flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-full px-3 py-1 text-[11px] text-slate-400">
-                  <span className="truncate">Módulo de Transporte</span>
-                </div>
-              )}
             </div>
 
             <div className="flex items-center gap-2 flex-none">
@@ -6909,6 +6891,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               )}
             </div>
           </div>
+          )}
 
           {/* Área de Pantallas - Con animación de transiciones fluidas */}
           <div className="flex-grow p-4 sm:p-6 overflow-y-auto">
