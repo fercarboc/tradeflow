@@ -4,6 +4,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 const SUPABASE_URL         = Deno.env.get('SUPABASE_URL') ?? '';
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 const RESEND_API_KEY       = Deno.env.get('RESEND_API_KEY') ?? '';
+const CRON_INVOICE_SECRET  = Deno.env.get('CRON_INVOICE_SECRET') ?? '';
 const FROM                 = 'TRABFLOW <contacto@trabflow.com>';
 
 const ALLOWED_ORIGINS = [
@@ -27,6 +28,29 @@ const fmtDate = (s: string) => new Date(s).toLocaleDateString('es-ES', { day: 'n
 Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors(req) });
 
+  // ── Auth guard — must run before any privileged operation ────────────────
+  if (!CRON_INVOICE_SECRET) {
+    return new Response(JSON.stringify({ error: 'misconfigured: CRON_INVOICE_SECRET not set' }), {
+      status: 500,
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
+    });
+  }
+
+  if (req.method !== 'POST') {
+    return new Response(JSON.stringify({ error: 'method not allowed' }), {
+      status: 405,
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
+    });
+  }
+
+  const incomingSecret = req.headers.get('x-cron-secret') ?? '';
+  if (!incomingSecret || incomingSecret !== CRON_INVOICE_SECRET) {
+    return new Response(JSON.stringify({ error: 'unauthorized' }), {
+      status: 401,
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
+    });
+  }
+
   try {
     const sb       = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
     const today    = new Date();
@@ -47,7 +71,7 @@ Deno.serve(async (req: Request) => {
       skipped: number;
       healed: number;
       errors: string[];
-      skippedNoClient: { maintenance_contract_id: string; org_id: string; numero: string | null; motivo: string }[];
+      skippedNoClient: { numero: string | null; motivo: string }[];
     } = { processed: 0, skipped: 0, healed: 0, errors: [], skippedNoClient: [] };
 
     for (const contrato of (contratos ?? [])) {
@@ -60,8 +84,6 @@ Deno.serve(async (req: Request) => {
         // Client guard: cannot create a valid invoice without client
         if (!contrato.client_id) {
           results.skippedNoClient.push({
-            maintenance_contract_id: contrato.id,
-            org_id:  contrato.org_id,
             numero:  contrato.numero ?? null,
             motivo:  'missing_client_id',
           });
