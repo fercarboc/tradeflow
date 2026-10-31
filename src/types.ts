@@ -88,6 +88,9 @@ FinDocPublic = 'fin-doc-public',
 
 // Documentos del comprador — Marketplace
 DocumentosMarketplace = 'marketplace-documentos',
+
+// Landing comercial — Transporte de Viajeros
+Transporte = 'transporte',
 }
 
 export type TradeType =

@@ -58,6 +58,7 @@ const MarketplaceInvitationAcceptView    = lazy(() => import('./components/auth/
 const ScreenMarketplace                  = lazy(() => import('./components/marketplace/ScreenMarketplace'));
 const MarketplaceComingSoonView          = lazy(() => import('./components/marketplace/MarketplaceComingSoonView'));
 const ProveedoresView                    = lazy(() => import('./components/landing/ProveedoresView'));
+const TransporteLandingView              = lazy(() => import('./components/landing/TransporteLandingView'));
 const FinDocPublicView                   = lazy(() => import('./pages/FinDocPublicView'));
 
 class ErrorBoundary extends React.Component<
@@ -151,6 +152,7 @@ const PAGE_PATHS: Partial<Record<ActivePage, string>> = {
   [ActivePage.Marketplace]:                 '/app/marketplace',
   [ActivePage.MarketplacePublico]:          '/marketplace',
   [ActivePage.Proveedores]:                 '/proveedores',
+  [ActivePage.Transporte]:                  '/transporte',
 };
 
 function pageToPath(page: ActivePage): string {
@@ -200,6 +202,7 @@ const PUBLIC_OR_AUTH_PAGES = new Set<ActivePage>([
   ActivePage.MarketplaceInvitationAccept,
   ActivePage.MarketplacePublico,
   ActivePage.Proveedores,
+  ActivePage.Transporte,
 ]);
 
 // Páginas de app donde el routing post-auth no debe redirigir si el usuario ya estaba ahí
@@ -742,6 +745,9 @@ export default function App() {
 
       case ActivePage.Proveedores:
         return <ProveedoresView setCurrentPage={setCurrentPage} />;
+
+      case ActivePage.Transporte:
+        return <TransporteLandingView setCurrentPage={setCurrentPage} />;
 
       case ActivePage.NoWorkspace:
         return (

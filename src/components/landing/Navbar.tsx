@@ -10,16 +10,17 @@ const NAV_LINKS = [
   { label: 'Funciones', page: ActivePage.ComoFunciona },
   { label: 'Marketplace', page: ActivePage.MarketplacePublico },
   { label: 'Proveedores', page: ActivePage.Proveedores },
-  { label: 'Precios', page: ActivePage.Precios },
+  { label: 'Transporte', page: ActivePage.Transporte },
   { label: 'Asistente IA', page: ActivePage.AsisTecnico },
   { label: 'Herramientas', page: ActivePage.Herramientas },
+  { label: 'Precios', page: ActivePage.Precios },
   { label: 'Contacto', page: ActivePage.Contacto },
 ];
 
 const MOBILE_MENU_ID = 'landing-mobile-menu';
 const FOCUS_RING = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A5A96] focus-visible:ring-offset-2';
 
-// La navegación completa (7 enlaces + 2 botones) necesita ~1250 px: por debajo
+// La navegación completa (8 enlaces + 2 botones) necesita ~1350 px: por debajo
 // de xl se usa el menú desplegable.
 export default function Navbar({ setCurrentPage }: NavbarProps) {
   const [open, setOpen] = useState(false);

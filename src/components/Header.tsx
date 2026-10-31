@@ -18,7 +18,7 @@ interface HeaderProps {
 const MOBILE_PANEL_ID = 'mobile-nav-panel';
 const FOCUS_RING = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A5A96] focus-visible:ring-offset-2';
 
-// La navegación completa (8 enlaces + acceso) necesita ~1150 px: por debajo de
+// La navegación completa (9 enlaces + acceso) necesita ~1280 px: por debajo de
 // xl se usa el menú desplegable. El eslogan del logo se oculta en xl (1280–1535)
 // para dejar sitio a los enlaces.
 export default function Header({ currentPage, setCurrentPage, setInitialMobile, setLoginOnMount }: HeaderProps) {
@@ -38,6 +38,7 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
     { name: 'Funciones', page: ActivePage.ComoFunciona },
     { name: 'Marketplace', page: ActivePage.MarketplacePublico },
     { name: 'Proveedores', page: ActivePage.Proveedores },
+    { name: 'Transporte', page: ActivePage.Transporte },
     { name: 'Asistente IA', page: ActivePage.AsisTecnico },
     { name: 'Herramientas', page: ActivePage.Herramientas },
     { name: 'Precios', page: ActivePage.Precios },

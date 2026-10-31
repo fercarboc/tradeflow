@@ -6,6 +6,7 @@ import FuncionesSection from '../components/landing/FuncionesSection';
 import EcosistemaSection from '../components/landing/EcosistemaSection';
 import DashboardSection from '../components/landing/DashboardSection';
 import ProveedoresStrip from '../components/landing/ProveedoresStrip';
+import TransporteStrip from '../components/landing/TransporteStrip';
 import PartnerDemoStrip from '../components/landing/PartnerDemoStrip';
 import PartnersSection from '../components/landing/PartnersSection';
 import BetaSection from '../components/landing/BetaSection';
@@ -24,6 +25,7 @@ export default function LandingPage({ setCurrentPage }: LandingPageProps) {
       <FuncionesSection />
       <EcosistemaSection />
       <ProveedoresStrip setCurrentPage={setCurrentPage} />
+      <TransporteStrip setCurrentPage={setCurrentPage} />
       <DashboardSection />
       <PartnerDemoStrip setCurrentPage={setCurrentPage} />
       <PartnersSection setCurrentPage={setCurrentPage} />

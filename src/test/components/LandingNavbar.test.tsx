@@ -49,7 +49,7 @@ describe('Navbar — menú desplegable', () => {
     expect(menuButton()).toHaveAccessibleName('Cerrar menú');
     const panel = document.getElementById(menuButton().getAttribute('aria-controls')!);
     expect(panel).not.toBeNull();
-    expect(within(panel!).getAllByRole('button')).toHaveLength(9); // 7 enlaces + login + registro
+    expect(within(panel!).getAllByRole('button')).toHaveLength(10); // 8 enlaces + login + registro
   });
 
   it('se cierra con el botón y con Escape', () => {

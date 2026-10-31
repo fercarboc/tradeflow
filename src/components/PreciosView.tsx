@@ -376,10 +376,10 @@ export default function PreciosView({ setCurrentPage }: PreciosViewProps) {
 
                 <button
                   type="button"
-                  onClick={() => go(ActivePage.Contacto)}
+                  onClick={() => go(ActivePage.Transporte)}
                   className={`flex w-full items-center justify-center gap-2 rounded-xl bg-[#FFC400] py-3.5 text-sm font-black text-[#020B16] transition-all hover:brightness-105 cursor-pointer focus-visible:ring-[#FFC400] ${FOCUS_RING}`}
                 >
-                  Solicitar información
+                  Ver Transporte Pro
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
