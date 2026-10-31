@@ -6738,8 +6738,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         <div className="flex-grow flex flex-col min-w-0 bg-slate-50">
 
           {/* Header de la sección */}
-          <div className="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between shrink-0">
-            <div>
+          <div className="bg-white border-b border-slate-200 px-6 py-4 flex items-center gap-4 shrink-0">
+            <div className="flex-none">
               <span className="text-[9px] font-bold text-blue-600 uppercase tracking-widest block">
                 TrabFlow AI Operating System
               </span>
@@ -6756,7 +6756,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'equipo' && 'Equipo y Trabajadores'}
                 {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
                 {activeTab === 'suppliers' && 'Proveedores y Catálogos'}
-                {activeTab === 'transporte_panel'      && 'Transporte · Panel'}
+                {/* transporte_panel: title suppressed — panel renders its own h1 */}
                 {activeTab === 'transporte_servicios' && 'Transporte · Servicios'}
                 {activeTab === 'transporte_agenda'    && 'Transporte · Agenda Semanal'}
                 {activeTab === 'transporte_vehiculos' && 'Transporte · Flota de Vehículos'}
@@ -6772,7 +6772,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </h2>
             </div>
 
-            <div className="flex items-center gap-2">
+            {/* Ticker zone — center of top bar, transport module status */}
+            <div className="flex-1 flex justify-center">
+              {activeTab.startsWith('transporte') && (
+                <div className="hidden lg:flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-full px-4 py-1.5 text-[11px] text-slate-500 max-w-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0 animate-pulse" />
+                  <span className="truncate font-medium">Módulo Transporte · Sistema operativo</span>
+                </div>
+              )}
+            </div>
+
+            <div className="flex items-center gap-2 flex-none">
               {activeTab === 'dashboard' && (
                 <button
                   onClick={() => setIsVoiceModalOpen(true)}

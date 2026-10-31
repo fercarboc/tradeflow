@@ -179,6 +179,11 @@ const SLOT_LABELS: Record<string, string> = {
   noche:  'Noche',
 };
 const SLOT_ORDER = ['manana', 'tarde', 'noche'] as const;
+const SLOT_BG: Record<string, string> = {
+  manana: 'bg-amber-50/50',
+  tarde:  'bg-sky-50/50',
+  noche:  '',
+};
 
 interface DayColumnProps {
   day: Date;
@@ -216,13 +221,13 @@ function DayColumn({ day, today, services, occurrences, vehicleMap, workerMap, o
   const activeSlots = SLOT_ORDER.filter(s => s !== 'noche' || hasNoche);
 
   return (
-    <div className={`min-w-0 flex flex-col border-r border-slate-100 last:border-r-0 ${isPast ? 'opacity-60' : ''}`}>
+    <div className={`min-w-0 flex flex-col border-r border-slate-100 last:border-r-0 h-full ${isPast ? 'opacity-60' : ''}`}>
       {/* Day header */}
-      <div className={`px-1.5 py-2 text-center border-b border-slate-100 ${isToday ? 'bg-blue-600 text-white' : 'bg-slate-50'}`}>
-        <p className={`text-[10px] font-bold uppercase tracking-wide ${isToday ? 'text-blue-100' : 'text-slate-500'}`}>
+      <div className={`px-1 py-1 text-center border-b border-slate-100 ${isToday ? 'bg-blue-600 text-white' : 'bg-slate-50'}`}>
+        <p className={`text-[9px] font-bold uppercase tracking-wide ${isToday ? 'text-blue-100' : 'text-slate-500'}`}>
           {DAYS_ES[day.getDay() === 0 ? 6 : day.getDay() - 1]}
         </p>
-        <p className={`text-sm font-black ${isToday ? 'text-white' : 'text-slate-800'}`}>
+        <p className={`text-xs font-black ${isToday ? 'text-white' : 'text-slate-800'}`}>
           {day.getDate()}
         </p>
         {totalItems > 0 && (
@@ -235,20 +240,20 @@ function DayColumn({ day, today, services, occurrences, vehicleMap, workerMap, o
       </div>
 
       {/* Slots */}
-      <div className="flex-1 divide-y divide-slate-50">
+      <div className="flex-1 divide-y divide-slate-100 overflow-y-auto">
         {activeSlots.map(slotKey => {
           const svcs = slots[slotKey];
           const occs = occSlots[slotKey];
           if (svcs.length === 0 && occs.length === 0) {
             return (
-              <div key={slotKey} className="px-1 py-2 min-h-[52px]">
-                <p className="text-[9px] text-slate-300 uppercase tracking-wide mb-1">{SLOT_LABELS[slotKey]}</p>
+              <div key={slotKey} className={`px-1 py-1.5 min-h-[36px] ${SLOT_BG[slotKey] ?? ''}`}>
+                <p className="text-[9px] text-slate-400 uppercase tracking-wide mb-1">{SLOT_LABELS[slotKey]}</p>
               </div>
             );
           }
           return (
-            <div key={slotKey} className="px-1 py-1.5 space-y-1">
-              <p className="text-[9px] text-slate-400 uppercase tracking-wide">{SLOT_LABELS[slotKey]}</p>
+            <div key={slotKey} className={`px-1 py-1 space-y-1 ${SLOT_BG[slotKey] ?? ''}`}>
+              <p className="text-[9px] text-slate-500 font-semibold uppercase tracking-wide">{SLOT_LABELS[slotKey]}</p>
               {svcs.map(s => (
                 <CalServiceCard
                   key={s.id}
@@ -318,23 +323,23 @@ function KpiCard({ icon, label, value, sub, badge, accent = 'blue', onClick }: K
   return (
     <Tag
       {...(onClick ? { onClick } : {})}
-      className={`bg-gradient-to-br ${bg} border rounded-2xl p-4 flex flex-col gap-1 text-left w-full ${
+      className={`bg-gradient-to-br ${bg} border rounded-xl p-3 flex flex-col gap-0.5 text-left w-full ${
         onClick ? 'hover:shadow-md transition-shadow cursor-pointer' : ''
       }`}
     >
       <div className="flex items-center justify-between">
-        <span className={`text-[11px] font-semibold uppercase tracking-wider opacity-70 leading-tight ${txt}`}>{label}</span>
+        <span className={`text-[10px] font-semibold uppercase tracking-wider opacity-70 leading-tight ${txt}`}>{label}</span>
         <span className={`opacity-50 ${txt}`}>{icon}</span>
       </div>
-      <div className="flex items-end gap-2 mt-1">
-        <span className={`text-3xl font-black ${txt}`}>{value}</span>
+      <div className="flex items-end gap-2 mt-0.5">
+        <span className={`text-2xl font-black ${txt}`}>{value}</span>
         {badge && (
           <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full mb-0.5 ${
             accent === 'red' ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'
           }`}>{badge}</span>
         )}
       </div>
-      {sub && <span className={`text-[11px] opacity-60 leading-tight ${txt}`}>{sub}</span>}
+      {sub && <span className={`text-[10px] opacity-60 leading-tight ${txt}`}>{sub}</span>}
     </Tag>
   );
 }
@@ -520,15 +525,15 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
   }
 
   return (
-    <div className="p-4 sm:p-6 space-y-5 max-w-[1440px] mx-auto">
+    <div className="p-3 sm:p-4 space-y-4 max-w-[1440px] mx-auto">
 
       {/* ── Header ─────────────────────────────────────────────────────────── */}
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 leading-tight">
+          <h1 className="text-xl font-black text-slate-900 leading-tight">
             Centro de gestión de tráfico
           </h1>
-          <p className="text-sm text-slate-500 mt-0.5">Planificación, flota y operativa en un solo lugar</p>
+          <p className="text-xs text-slate-500 mt-0.5">Planificación, flota y operativa en un solo lugar</p>
         </div>
         <div className="flex items-center gap-2 shrink-0">
           <button
@@ -597,7 +602,7 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
       </div>
 
       {/* ── Main area: calendario + columna derecha ─────────────────────────── */}
-      <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-5 items-start">
+      <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-4 items-start">
 
         {/* ── Planificación semanal ── */}
         <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
@@ -647,7 +652,7 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
           ) : (
             <>
               {/* Desktop: 7-column grid */}
-              <div className="hidden md:grid grid-cols-7 divide-x divide-slate-100 min-h-[280px]">
+              <div className="hidden md:grid grid-cols-7 divide-x divide-slate-100 h-[280px]">
                 {weekDays.map((day, i) => (
                   <DayColumn
                     key={i}
@@ -731,7 +736,7 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
         </div>
 
         {/* ── Columna derecha ── */}
-        <div className="space-y-4">
+        <div className="space-y-3">
 
           {/* Próximas salidas */}
           <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs">
@@ -859,7 +864,7 @@ export default function ScreenTransportePanel({ orgId, showToast, onNavigate }: 
       </div>
 
       {/* ── Bloques inferiores ──────────────────────────────────────────────── */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
 
         {/* Estado de la flota */}
         <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs">
