@@ -1,4 +1,4 @@
-const CACHE = 'tradeflow-v18';
+const CACHE = 'tradeflow-v19';
 
 const PRECACHE = [
   '/',
