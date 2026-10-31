@@ -88,8 +88,11 @@ const PLAN_IMAGES: Record<string, { src: string; alt: string }> = {
   empresa: { src: '/precios-empresa.webp', alt: 'Responsable de una empresa de servicios con su equipo y furgonetas' },
 };
 
-// Transporte Pro: vertical aún sin contratación online. Sin precio ni checkout:
-// el CTA lleva a Contacto. Solo funciones ya disponibles en el producto.
+// Transporte Pro: tarifa definida (29 €/vehículo/mes, hasta 2 conductores por
+// vehículo), solo mensual. La contratación online aún no está habilitada: sin
+// checkout, el CTA lleva a Contacto. Solo funciones ya disponibles en el producto.
+const TRANSPORT_PRICE_PER_VEHICLE = 29;
+const TRANSPORT_DRIVERS_PER_VEHICLE = 2;
 const TRANSPORT_FEATURES = [
   'Vehículos y conductores',
   'Rutas y agenda de servicios',
@@ -314,7 +317,7 @@ export default function PreciosView({ setCurrentPage }: PreciosViewProps) {
             <GroupHeading
               id="precios-transporte"
               title="Transporte y logística"
-              subtitle="Nueva vertical"
+              subtitle="Flotas y servicios de transporte"
               accent="yellow"
             />
 
@@ -325,7 +328,7 @@ export default function PreciosView({ setCurrentPage }: PreciosViewProps) {
             >
               <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap">
                 <span className="rounded-full bg-[#FFC400] px-4 py-1 text-[10px] font-black uppercase tracking-widest text-[#020B16]">
-                  Próximamente
+                  Nueva vertical
                 </span>
               </div>
 
@@ -348,10 +351,17 @@ export default function PreciosView({ setCurrentPage }: PreciosViewProps) {
                   Gestión de flota, conductores, rutas y servicios para empresas de transporte.
                 </p>
 
+                {/* Precio por vehículo, siempre mensual (no participa en el selector anual). */}
                 <div>
-                  <p className="text-xl font-black leading-tight text-[#FFC400]">Consultar disponibilidad</p>
+                  <div className="flex flex-wrap items-end gap-x-1.5">
+                    <span className="text-5xl font-black leading-none text-white">{`${TRANSPORT_PRICE_PER_VEHICLE}\u00A0€`}</span>
+                    <span className="mb-1 text-sm font-medium text-white/40">/ vehículo / mes</span>
+                  </div>
+                  <p className="mt-2 text-sm font-bold text-[#FFC400]">
+                    Incluye hasta {TRANSPORT_DRIVERS_PER_VEHICLE} conductores por vehículo
+                  </p>
                   <p className="mt-1.5 text-xs font-medium text-white/50">
-                    La contratación online de este plan todavía no está habilitada.
+                    La contratación online todavía no está habilitada: solicita información a nuestro equipo.
                   </p>
                 </div>
 
@@ -369,7 +379,7 @@ export default function PreciosView({ setCurrentPage }: PreciosViewProps) {
                   onClick={() => go(ActivePage.Contacto)}
                   className={`flex w-full items-center justify-center gap-2 rounded-xl bg-[#FFC400] py-3.5 text-sm font-black text-[#020B16] transition-all hover:brightness-105 cursor-pointer focus-visible:ring-[#FFC400] ${FOCUS_RING}`}
                 >
-                  Consultar disponibilidad
+                  Solicitar información
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>

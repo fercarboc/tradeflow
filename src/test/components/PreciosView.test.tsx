@@ -66,19 +66,33 @@ describe('PreciosView — planes de oficios', () => {
 });
 
 describe('PreciosView — Transporte Pro', () => {
-  it('se muestra como "Próximamente" y sin contratación online', () => {
+  it('muestra el nombre y la tarifa de 29 € por vehículo y mes', () => {
     const t = card('transporte');
     expect(within(t).getByText('Transporte Pro')).toBeInTheDocument();
-    expect(within(t).getByText(/próximamente/i)).toBeInTheDocument();
-    expect(within(t).getByText(/todavía no está habilitada/i)).toBeInTheDocument();
+    expect(within(t).getByText('29 €')).toBeInTheDocument();
+    expect(within(t).getByText('/ vehículo / mes')).toBeInTheDocument();
   });
 
-  it('no muestra ningún importe', () => {
-    expect(card('transporte').textContent).not.toMatch(/€/);
+  it('indica que incluye hasta 2 conductores por vehículo', () => {
+    expect(within(card('transporte')).getByText('Incluye hasta 2 conductores por vehículo')).toBeInTheDocument();
+  });
+
+  it('distingue tarifa definida de contratación online no habilitada', () => {
+    const text = card('transporte').textContent ?? '';
+    expect(text).toMatch(/contratación online todavía no está habilitada/i);
+    expect(text).not.toMatch(/próximamente|pendiente|consultar disponibilidad/i);
+  });
+
+  it('no cambia con el selector anual (no hay tarifa anual aprobada)', () => {
+    fireEvent.click(screen.getByRole('button', { name: /anual/i }));
+    const t = card('transporte');
+    expect(within(t).getByText('29 €')).toBeInTheDocument();
+    expect(within(t).getByText('/ vehículo / mes')).toBeInTheDocument();
+    expect(t.textContent).not.toMatch(/año|290/);
   });
 
   it('su CTA lleva a Contacto y no al registro', () => {
-    fireEvent.click(within(card('transporte')).getByRole('button', { name: /consultar disponibilidad/i }));
+    fireEvent.click(within(card('transporte')).getByRole('button', { name: /solicitar información/i }));
     expect(setCurrentPage).toHaveBeenCalledWith(ActivePage.Contacto);
     expect(setCurrentPage).not.toHaveBeenCalledWith(ActivePage.Registro);
   });
@@ -96,7 +110,6 @@ describe('PreciosView — afirmaciones comerciales', () => {
     const text = document.body.textContent ?? '';
     expect(text).not.toMatch(/miles de profesionales/i);
     expect(text).not.toMatch(/soporte telef[oó]nico/i);
-    expect(text).not.toMatch(/\/veh[ií]culo/i);
   });
 
   it('mantiene el bloque de facturación segura', () => {
