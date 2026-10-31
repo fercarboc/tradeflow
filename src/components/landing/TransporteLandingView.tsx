@@ -68,7 +68,7 @@ export default function TransporteLandingView({ setCurrentPage }: TransporteLand
         className="relative overflow-hidden"
         style={{
           background:
-            'radial-gradient(ellipse 110% 90% at 70% 50%, #1a1400 0%, #020B16 65%)',
+            'radial-gradient(ellipse 120% 100% at 85% 50%, #1a1400 0%, #020B16 60%)',
         }}
       >
         {/* subtle grid */}
@@ -81,46 +81,64 @@ export default function TransporteLandingView({ setCurrentPage }: TransporteLand
           }}
         />
 
-        <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            {/* eyebrow */}
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#FFC400]/30 bg-[#FFC400]/10 px-4 py-1.5">
-              <Bus className="h-3.5 w-3.5 text-[#FFC400]" aria-hidden="true" />
-              <span className="text-xs font-black uppercase tracking-widest text-[#FFC400]">
-                Transporte de Viajeros
-              </span>
+        <div className="relative mx-auto max-w-7xl px-4 pt-20 pb-16 sm:px-6 lg:px-8 lg:pt-24 lg:pb-20">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-10 lg:gap-14">
+
+            {/* ── Columna izquierda — contenido comercial ── */}
+            <div className="flex-1 min-w-0">
+              {/* eyebrow */}
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#FFC400]/30 bg-[#FFC400]/10 px-4 py-1.5">
+                <Bus className="h-3.5 w-3.5 text-[#FFC400]" aria-hidden="true" />
+                <span className="text-xs font-black uppercase tracking-widest text-[#FFC400]">
+                  Transporte de Viajeros
+                </span>
+              </div>
+
+              <h1 className="text-4xl font-black leading-[1.12] tracking-tight text-white sm:text-5xl lg:text-5xl xl:text-6xl">
+                Gestión digital para{' '}
+                <span className="text-[#FFC400]">empresas de transporte</span>
+              </h1>
+              <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/60">
+                Software específico para autobuses y autocares. Flota, conductores,
+                agenda de servicios, rutas y facturación — todo en una sola plataforma.
+              </p>
+
+              <div className="mt-10 flex flex-wrap gap-4">
+                <button
+                  type="button"
+                  onClick={() => go(ActivePage.Contacto)}
+                  className={`inline-flex items-center gap-2 rounded-xl bg-[#FFC400] px-7 py-3.5 text-sm font-black text-[#020B16] shadow-[0_0_32px_-8px_rgba(255,196,0,0.6)] transition hover:brightness-110 cursor-pointer ${FOCUS_RING}`}
+                >
+                  Solicitar acceso
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => go(ActivePage.Demo)}
+                  className={`inline-flex items-center gap-2 rounded-xl border border-white/15 px-7 py-3.5 text-sm font-bold text-white/80 transition hover:border-white/30 hover:text-white cursor-pointer ${FOCUS_RING}`}
+                >
+                  Ver demostración
+                </button>
+              </div>
+
+              <p className="mt-5 text-xs text-white/30">
+                Fase piloto activa · Activación bajo solicitud · Sin permanencia
+              </p>
             </div>
 
-            <h1 className="text-4xl font-black leading-[1.12] tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Gestión digital para{' '}
-              <span className="text-[#FFC400]">empresas de transporte</span>
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/60">
-              Software específico para autobuses y autocares. Flota, conductores,
-              agenda de servicios, rutas y facturación — todo en una sola plataforma.
-            </p>
-
-            <div className="mt-10 flex flex-wrap gap-4">
-              <button
-                type="button"
-                onClick={() => go(ActivePage.Contacto)}
-                className={`inline-flex items-center gap-2 rounded-xl bg-[#FFC400] px-7 py-3.5 text-sm font-black text-[#020B16] shadow-[0_0_32px_-8px_rgba(255,196,0,0.6)] transition hover:brightness-110 cursor-pointer ${FOCUS_RING}`}
-              >
-                Solicitar acceso
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                onClick={() => go(ActivePage.Demo)}
-                className={`inline-flex items-center gap-2 rounded-xl border border-white/15 px-7 py-3.5 text-sm font-bold text-white/80 transition hover:border-white/30 hover:text-white cursor-pointer ${FOCUS_RING}`}
-              >
-                Ver demostración
-              </button>
+            {/* ── Columna derecha — imagen del panel ── */}
+            <div className="w-full lg:w-[52%] shrink-0 min-w-0">
+              <img
+                src="/gestionpanel.png"
+                alt="Panel de gestión TrabFlow Transporte mostrando vista de servicios, rutas semanales y planificación de conductores en un autocar"
+                width={1456}
+                height={816}
+                loading="eager"
+                decoding="async"
+                className="w-full h-auto max-w-full rounded-2xl border border-white/10 shadow-[0_16px_64px_-12px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,196,0,0.08)]"
+              />
             </div>
 
-            <p className="mt-5 text-xs text-white/30">
-              Fase piloto activa · Activación bajo solicitud · Sin permanencia
-            </p>
           </div>
         </div>
       </section>
