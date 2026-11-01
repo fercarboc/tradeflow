@@ -443,3 +443,106 @@ describe('SC-26: after 23505 race condition, org has correct transport oficio', 
     expect(caps.hasTransport).toBe(false);
   });
 });
+
+// ── Scenario 27: isTransportSuspended — deactivated after onboarding ──────────
+describe('SC-27: isTransportSuspended guards against installer fallback after deactivation', () => {
+  it('Viajeros + transport_enabled=false + is_onboarded=true → isTransportSuspended=true', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Viajeros',
+      transport_enabled: false,
+      is_onboarded: true,
+    }));
+    expect(caps.isTransportSuspended).toBe(true);
+    expect(caps.isPendingTransport).toBe(false);
+    expect(caps.isInstallerOrg).toBe(true);
+  });
+
+  it('Mercancias + transport_enabled=false + is_onboarded=true → isTransportSuspended=true', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Mercancías',
+      transport_enabled: false,
+      is_onboarded: true,
+    }));
+    expect(caps.isTransportSuspended).toBe(true);
+    expect(caps.isPendingTransport).toBe(false);
+  });
+
+  it('Installer org (Fontaneria) + is_onboarded=true → isTransportSuspended=false', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Fontanería',
+      transport_enabled: false,
+      is_onboarded: true,
+    }));
+    expect(caps.isTransportSuspended).toBe(false);
+    expect(caps.isInstallerOrg).toBe(true);
+  });
+
+  it('Active transport org → isTransportSuspended=false even with is_onboarded=true', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Viajeros',
+      transport_enabled: true,
+      transport_modalidad: 'viajeros',
+      is_onboarded: true,
+    }));
+    expect(caps.isTransportSuspended).toBe(false);
+    expect(caps.isTransportOrg).toBe(true);
+    expect(caps.hasTransport).toBe(true);
+  });
+
+  it('null org → isTransportSuspended=false', () => {
+    const caps = getOrgCapabilities(null);
+    expect(caps.isTransportSuspended).toBe(false);
+  });
+});
+
+// ── Scenario 28: isPendingTransport and isTransportSuspended are mutually exclusive ─
+describe('SC-28: isPendingTransport and isTransportSuspended are mutually exclusive', () => {
+  const TRANSPORT_OFICIOS = ['Transporte de Viajeros', 'Transporte de Mercancías'];
+
+  for (const oficio of TRANSPORT_OFICIOS) {
+    it(`${oficio}: never both true simultaneously`, () => {
+      // is_onboarded=false → isPendingTransport
+      const pendingCaps = getOrgCapabilities(makeOrg({ oficio, transport_enabled: false, is_onboarded: false }));
+      expect(pendingCaps.isPendingTransport).toBe(true);
+      expect(pendingCaps.isTransportSuspended).toBe(false);
+
+      // is_onboarded=true → isTransportSuspended
+      const suspendedCaps = getOrgCapabilities(makeOrg({ oficio, transport_enabled: false, is_onboarded: true }));
+      expect(suspendedCaps.isPendingTransport).toBe(false);
+      expect(suspendedCaps.isTransportSuspended).toBe(true);
+
+      // transport_enabled=true → neither
+      const activeCaps = getOrgCapabilities(makeOrg({ oficio, transport_enabled: true, is_onboarded: true }));
+      expect(activeCaps.isPendingTransport).toBe(false);
+      expect(activeCaps.isTransportSuspended).toBe(false);
+    });
+  }
+});
+
+// ── Scenario 29: suspended org with explicit transport_modalidad (post-onboarding) ─
+describe('SC-29: suspended org with transport_modalidad set (post-onboarding state)', () => {
+  it('Viajeros + transport_modalidad=viajeros + transport_enabled=false + is_onboarded=true → isTransportSuspended', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Viajeros',
+      transport_modalidad: 'viajeros',
+      transport_enabled: false,
+      is_onboarded: true,
+    }));
+    expect(caps.isTransportSuspended).toBe(true);
+    expect(caps.hasTransport).toBe(false);
+    expect(caps.transportModalidad).toBe('viajeros');
+    expect(caps.isPendingTransport).toBe(false);
+  });
+
+  it('suspended org retains transport_license value from before deactivation', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Viajeros',
+      transport_enabled: false,
+      transport_license: 'pilot',
+      is_onboarded: true,
+    }));
+    expect(caps.isTransportSuspended).toBe(true);
+    // transport_license value is preserved in caps even when suspended
+    expect(caps.transportLicense).toBe('pilot');
+  });
+});

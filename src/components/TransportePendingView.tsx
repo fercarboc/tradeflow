@@ -3,13 +3,38 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Bus, Clock, Phone, Mail, LogOut, CheckCircle } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Bus, Clock, Phone, Mail, LogOut, CheckCircle, RefreshCw } from 'lucide-react';
 
 interface TransportePendingViewProps {
   onLogout: () => void;
+  /** Called when user clicks "Comprobar activación" or when polling detects change. */
+  onCheck?: () => void;
 }
 
-export default function TransportePendingView({ onLogout }: TransportePendingViewProps) {
+const POLL_INTERVAL_MS = 60_000;
+
+export default function TransportePendingView({ onLogout, onCheck }: TransportePendingViewProps) {
+  const [checking, setChecking] = useState(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    if (!onCheck) return;
+    intervalRef.current = setInterval(() => {
+      onCheck();
+    }, POLL_INTERVAL_MS);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [onCheck]);
+
+  const handleCheck = async () => {
+    if (!onCheck || checking) return;
+    setChecking(true);
+    try { onCheck(); }
+    finally { setTimeout(() => setChecking(false), 1500); }
+  };
+
   return (
     <div className="min-h-screen bg-[#020B16] flex flex-col items-center justify-center px-4 font-sans">
 
@@ -55,6 +80,19 @@ export default function TransportePendingView({ onLogout }: TransportePendingVie
             ))}
           </ul>
         </div>
+
+        {/* Check activation button */}
+        {onCheck && (
+          <button
+            type="button"
+            onClick={handleCheck}
+            disabled={checking}
+            className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#FFC400]/10 border border-[#FFC400]/30 px-5 py-2.5 text-sm font-bold text-[#FFC400] transition hover:bg-[#FFC400]/20 disabled:opacity-50 cursor-pointer mb-4"
+          >
+            <RefreshCw className={`h-4 w-4 ${checking ? 'animate-spin' : ''}`} aria-hidden="true" />
+            {checking ? 'Comprobando…' : 'Comprobar activación'}
+          </button>
+        )}
 
         {/* Contact */}
         <p className="text-xs text-white/40 mb-4">

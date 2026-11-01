@@ -83,7 +83,7 @@ import { ADMIN_EMAIL, MARKETPLACE_ENABLED } from '../lib/constants';
 import { useIsMobile } from '../hooks/useIsMobile';
 import { canAccessMarketplaceV2 } from '../lib/marketplaceV2Preview';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, updateClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, emitirFactura, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, updateOrgGeoManual, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote, getOrgActiveOrders, loadInvoiceLines, updateDraftInvoice, normalizaNif, getClientDisplayName, createTransportServiceFromQuote } from '../lib/supabase';
+import { supabase, loadDashboard, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, updateClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, emitirFactura, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, updateOrgGeoManual, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote, getOrgActiveOrders, loadInvoiceLines, updateDraftInvoice, normalizaNif, getClientDisplayName, createTransportServiceFromQuote, notifyTransportRegistration } from '../lib/supabase';
 import type { TradeSubcontractor, TradeSubcontrata, ActiveSupplierCatalog, TradeClient, FiscalSnapshot, GeoAddressSnapshot } from '../lib/supabase';
 import { printTradeInvoice } from '../lib/printTradeInvoice';
 import { savePurchaseContext } from '../lib/marketplace/purchase-context';
@@ -139,6 +139,7 @@ import OnboardingWizard from './OnboardingWizard';
 import TransportOnboardingWizard from './TransportOnboardingWizard';
 import TransportePendingView from './TransportePendingView';
 import TransporteOrgErrorView from './TransporteOrgErrorView';
+import TransporteSuspendedView from './TransporteSuspendedView';
 import ChatbotWidget from './ChatbotWidget';
 import ScreenProveedoresCliente from './ScreenProveedoresCliente';
 import ScreenPostConfirm from './ScreenPostConfirm';
@@ -688,6 +689,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 trial_end: betaTrialEnd,
               });
               org = transportOrg;
+              // Notify admin — fire-and-forget, idempotent via claim_transport_notification
+              notifyTransportRegistration().catch(e => console.warn('[loadLiveData] transport notify skipped:', e?.message));
             } else if ((createErr as { code?: string } | null)?.code === '23505') {
               // Race condition: concurrent tab already created the org — reuse it.
               org = await getOwnOrg();
@@ -731,7 +734,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       if (org) {
         setOrgId(org.id);
         setOrgData(org);
-        if (!org.is_onboarded && session?.user?.email !== ADMIN_EMAIL) setShowOnboarding(true);
+        if (!org.is_onboarded && s.user.email !== ADMIN_EMAIL) setShowOnboarding(true);
+        else if (
+          !org.transport_enabled &&
+          TRANSPORT_PENDING_OFICIOS.includes(org.oficio ?? '') &&
+          org.is_onboarded &&
+          s.user.email !== ADMIN_EMAIL
+        ) setShowOnboarding(true); // transport suspended: revoke access after onboarding
         isPushSubscribed().then(setPushEnabled).catch(() => {});
         // Cargar pedidos marketplace pendientes para badge
         getOrgActiveOrders({ orgId: org.id, limit: 1 })
@@ -3353,8 +3362,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               }}
               onLogout={handleLogout}
             />
+          : caps.isTransportSuspended
+            ? <TransporteSuspendedView onLogout={handleLogout} />
           : caps.isPendingTransport
-            ? <TransportePendingView onLogout={handleLogout} />
+            ? <TransportePendingView
+                onLogout={handleLogout}
+                onCheck={() => { if (session) loadLiveData(session); }}
+              />
             : caps.isTransportOrg
               ? <TransportOnboardingWizard
                   onComplete={() => {

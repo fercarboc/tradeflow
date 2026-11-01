@@ -19,6 +19,7 @@ import {
   loadInstallerNeeds, markNeedReviewed,
   adminLoadAIFeedback, adminMarkFeedbackApplied,
   applyActuacionLearning,
+  getTransportPendingOrgs, adminSetTransportEnabled,
   AdminOrgRow, TradeSubscription, TradePlatformInvoice, TradeWaitlistLead,
   WaitlistEstado, WaitlistPrioridad, LeadType, TradeCatalogSuggestion, AdminSupportNote, AdminActivityLog,
   AdminAutoConfig, TrialExpiringSoon, InstallerNeed, AIFeedbackRow,
@@ -1009,7 +1010,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [detailOrg, setDetailOrg]     = useState<AdminOrgRow | null>(null);
 
   // Sección activa
-  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs' | 'ai_feedback' | 'ia_normativa' | 'docs' | 'suppliers' | 'base_maestra' | 'ai_validation' | 'corp_docs' | 'repositorio' | 'mkt_ads' | 'mkt_finance' | 'verifactu'>('dashboard');
+  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs' | 'ai_feedback' | 'ia_normativa' | 'docs' | 'suppliers' | 'base_maestra' | 'ai_validation' | 'corp_docs' | 'repositorio' | 'mkt_ads' | 'mkt_finance' | 'verifactu' | 'transport'>('dashboard');
 
   // Necesidades instaladores (chatbot)
   const [needs, setNeeds]               = useState<InstallerNeed[]>([]);
@@ -1091,6 +1092,12 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [trialsLoading, setTrialsLoading]         = useState(false);
   const [runningChurn, setRunningChurn]           = useState(false);
 
+  // ── Transporte ────────────────────────────────────────────────────────
+  const [transportOrgs,        setTransportOrgs]        = useState<AdminOrgRow[]>([]);
+  const [transportLoading,     setTransportLoading]     = useState(false);
+  const [transportActionId,    setTransportActionId]    = useState<string | null>(null);
+  const [transportActionError, setTransportActionError] = useState<string | null>(null);
+
   const isAdmin = session?.user?.email === ADMIN_EMAIL;
   const { toasts, toast, dismiss } = useToast();
   const [confirmDelete, setConfirmDelete] = useState<TradeWaitlistLead | null>(null);
@@ -1129,8 +1136,16 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     finally { setSuggestionsLoading(false); }
   };
 
+  const loadTransportOrgs = async () => {
+    setTransportLoading(true);
+    try { setTransportOrgs(await getTransportPendingOrgs()); }
+    catch { setTransportOrgs([]); }
+    finally { setTransportLoading(false); }
+  };
+
   useEffect(() => { if (isAdmin) { loadOrgs(); loadWeeklyQuotes(); } }, [isAdmin]);
   useEffect(() => { if (isAdmin && section === 'leads') loadLeads(); }, [isAdmin, section]);
+  useEffect(() => { if (isAdmin && section === 'transport') loadTransportOrgs(); }, [isAdmin, section]);
   // Invoices loaded on-demand for exports section; AdminFinancialCenter manages its own data
   useEffect(() => { if (isAdmin && section === 'suggestions') loadSuggestions(); }, [isAdmin, section]);
   useEffect(() => {
@@ -1588,6 +1603,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     { id: 'mkt_ads'       as const, label: 'Publicidad Mkt',   Icon: Megaphone },
     { id: 'mkt_finance'  as const, label: 'Finanzas Mkt',    Icon: BarChart3 },
     { id: 'verifactu'    as const, label: 'VeriFactu',        Icon: ShieldCheck },
+    { id: 'transport'   as const, label: 'Transporte',        Icon: Truck,       badge: transportOrgs.filter(o => !o.transport_enabled).length || undefined },
   ];
 
   const reloadCurrent = () => {
@@ -1619,6 +1635,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     }
     else if (section === 'mkt_ads') { /* AdminMarketplaceAdsSection carga sus propios datos */ }
     else if (section === 'mkt_finance') { /* AdminMarketplaceFinanceSection carga sus propios datos */ }
+    else if (section === 'transport') loadTransportOrgs();
     else { loadOrgs(); loadWeeklyQuotes(); }
   };
 
@@ -3739,6 +3756,149 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
         ════════════════════════════════════════════════════════ */}
         {section === 'verifactu' && (
           <AdminVerifactuSection />
+        )}
+
+        {/* ════════════════════════════════════════════════════════
+            SECCIÓN: TRANSPORTE — Activación de acceso
+        ════════════════════════════════════════════════════════ */}
+        {section === 'transport' && (
+          <div className="space-y-5">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <div>
+                <h2 className="text-base font-black text-white">Transporte — Solicitudes de acceso</h2>
+                <p className="text-xs text-slate-400 mt-0.5">
+                  Activa o desactiva el acceso a TrabFlow Transporte para cada organización.
+                </p>
+              </div>
+              <button
+                onClick={loadTransportOrgs}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold border border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer transition-colors"
+              >
+                <RefreshCw className={`h-3 w-3 ${transportLoading ? 'animate-spin' : ''}`} />
+                Recargar
+              </button>
+            </div>
+
+            {transportActionError && (
+              <div className="flex items-center gap-2 px-4 py-3 rounded-lg bg-red-900/30 border border-red-700 text-red-300 text-xs">
+                <AlertTriangle className="h-4 w-4 shrink-0" />
+                {transportActionError}
+                <button onClick={() => setTransportActionError(null)} className="ml-auto text-red-400 hover:text-red-200 cursor-pointer"><X className="h-3 w-3" /></button>
+              </div>
+            )}
+
+            {transportLoading ? (
+              <div className="flex items-center justify-center h-32">
+                <RefreshCw className="h-5 w-5 text-slate-400 animate-spin" />
+              </div>
+            ) : transportOrgs.length === 0 ? (
+              <div className="flex items-center justify-center h-32 text-slate-500 text-sm">
+                No hay organizaciones de transporte registradas.
+              </div>
+            ) : (
+              <div className="overflow-x-auto rounded-xl border border-slate-800">
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="border-b border-slate-800 bg-slate-800/50">
+                      <th className="px-3 py-2.5 text-left font-semibold text-slate-400">Empresa</th>
+                      <th className="px-3 py-2.5 text-left font-semibold text-slate-400">Modalidad</th>
+                      <th className="px-3 py-2.5 text-left font-semibold text-slate-400">Ciudad</th>
+                      <th className="px-3 py-2.5 text-left font-semibold text-slate-400">Registrada</th>
+                      <th className="px-3 py-2.5 text-left font-semibold text-slate-400">Estado</th>
+                      <th className="px-3 py-2.5 text-left font-semibold text-slate-400">Licencia</th>
+                      <th className="px-3 py-2.5 text-left font-semibold text-slate-400">Acción</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {transportOrgs.map(org => {
+                      const isActive    = org.transport_enabled === true;
+                      const isOnboarded = org.is_onboarded === true;
+                      const isActing    = transportActionId === org.id;
+                      const statusLabel = isActive
+                        ? (isOnboarded ? 'ACTIVO' : 'ACTIVO — sin onboarding')
+                        : (isOnboarded ? 'SUSPENDIDO' : 'PENDIENTE');
+                      const statusCls = isActive
+                        ? 'bg-emerald-900/40 text-emerald-300 border-emerald-800'
+                        : isOnboarded
+                          ? 'bg-red-900/40 text-red-300 border-red-800'
+                          : 'bg-yellow-900/40 text-yellow-300 border-yellow-800';
+                      const licLabel = org.transport_license ?? 'none';
+                      const fecha = org.created_at
+                        ? new Date(org.created_at).toLocaleDateString('es-ES')
+                        : '—';
+
+                      const handleActivate = async () => {
+                        setTransportActionId(org.id);
+                        setTransportActionError(null);
+                        try {
+                          await adminSetTransportEnabled(org.id, 'activate', 'pilot');
+                          setTransportOrgs(prev => prev.map(o =>
+                            o.id === org.id ? { ...o, transport_enabled: true, transport_license: 'pilot' } : o,
+                          ));
+                          toast('success', `Acceso piloto activado para ${org.nombre}`);
+                        } catch (e: unknown) {
+                          setTransportActionError((e as Error).message ?? 'Error al activar');
+                        } finally { setTransportActionId(null); }
+                      };
+
+                      const handleDeactivate = async () => {
+                        if (!window.confirm(`¿Desactivar acceso de ${org.nombre}? El usuario verá la pantalla de acceso suspendido.`)) return;
+                        setTransportActionId(org.id);
+                        setTransportActionError(null);
+                        try {
+                          await adminSetTransportEnabled(org.id, 'deactivate');
+                          setTransportOrgs(prev => prev.map(o =>
+                            o.id === org.id ? { ...o, transport_enabled: false, transport_license: 'none' } : o,
+                          ));
+                          toast('success', `Acceso desactivado para ${org.nombre}`);
+                        } catch (e: unknown) {
+                          setTransportActionError((e as Error).message ?? 'Error al desactivar');
+                        } finally { setTransportActionId(null); }
+                      };
+
+                      return (
+                        <tr key={org.id} className="border-b border-slate-800/50 hover:bg-slate-800/20 transition-colors">
+                          <td className="px-3 py-2.5 font-semibold text-white">{org.nombre}</td>
+                          <td className="px-3 py-2.5 text-slate-300">
+                            {org.oficio === 'Transporte de Viajeros' ? 'Viajeros' : 'Mercancías'}
+                          </td>
+                          <td className="px-3 py-2.5 text-slate-400">{org.ciudad ?? '—'}</td>
+                          <td className="px-3 py-2.5 text-slate-400">{fecha}</td>
+                          <td className="px-3 py-2.5">
+                            <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-black uppercase border ${statusCls}`}>
+                              {statusLabel}
+                            </span>
+                          </td>
+                          <td className="px-3 py-2.5 text-slate-400 font-mono">{licLabel}</td>
+                          <td className="px-3 py-2.5">
+                            {isActive ? (
+                              <button
+                                onClick={handleDeactivate}
+                                disabled={isActing}
+                                className="flex items-center gap-1 px-2.5 py-1 rounded text-[10px] font-bold bg-red-900/40 border border-red-800 text-red-300 hover:bg-red-900/60 disabled:opacity-50 cursor-pointer transition-colors"
+                              >
+                                {isActing ? <RefreshCw className="h-3 w-3 animate-spin" /> : <BellOff className="h-3 w-3" />}
+                                Desactivar
+                              </button>
+                            ) : (
+                              <button
+                                onClick={handleActivate}
+                                disabled={isActing}
+                                className="flex items-center gap-1 px-2.5 py-1 rounded text-[10px] font-bold bg-emerald-900/40 border border-emerald-800 text-emerald-300 hover:bg-emerald-900/60 disabled:opacity-50 cursor-pointer transition-colors"
+                              >
+                                {isActing ? <RefreshCw className="h-3 w-3 animate-spin" /> : <PlayCircle className="h-3 w-3" />}
+                                Activar piloto
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
         )}
 
         {/* ════════════════════════════════════════════════════════

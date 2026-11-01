@@ -3045,6 +3045,37 @@ export async function adminLoadActivityLog(orgId: string): Promise<AdminActivity
 
 // ── Admin: flags de org ────────────────────────────────────────────────────
 
+// ── Admin: Transporte ─────────────────────────────────────────────────────
+
+const TRANSPORT_PENDING_OFICIOS_LOCAL = ['Transporte de Viajeros', 'Transporte de Mercancías'];
+
+export async function getTransportPendingOrgs(): Promise<AdminOrgRow[]> {
+  const { data } = await supabase
+    .from('trade_organizations')
+    .select('*, trade_subscriptions(*)')
+    .in('oficio', TRANSPORT_PENDING_OFICIOS_LOCAL)
+    .order('created_at', { ascending: false });
+  return (data ?? []) as AdminOrgRow[];
+}
+
+export async function adminSetTransportEnabled(
+  orgId: string,
+  action: 'activate' | 'deactivate',
+  license?: string,
+): Promise<void> {
+  const { data, error } = await supabase.functions.invoke('trade-admin-transport-activate', {
+    body: { org_id: orgId, action, license },
+  });
+  if (error) throw new Error(error.message);
+  if (data && !data.ok) throw new Error(data.error ?? 'Error al cambiar estado de transporte');
+}
+
+export async function notifyTransportRegistration(): Promise<void> {
+  await supabase.functions.invoke('trade-email', {
+    body: { type: 'transport_admin_notify' },
+  });
+}
+
 export async function adminSetOrgFlag(
   orgId: string,
   flag: 'churn_risk' | 'vip',

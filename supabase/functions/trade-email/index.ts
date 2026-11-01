@@ -40,7 +40,8 @@ interface EmailPayload {
     | 'support_admin'
     | 'provider_admin' | 'provider_confirm'
     | 'ad_document'
-    | 'send_to_client';
+    | 'send_to_client'
+    | 'transport_admin_notify';
   nombre?: string;
   email?: string;
   telefono?: string;
@@ -563,6 +564,102 @@ Deno.serve(async (req: Request) => {
         );
         console.log(`[trade-email] send_to_client sent to ${clientRow.email} org=${payload.org_id}`);
         break;
+      }
+
+      // ── transport_admin_notify: avisa al admin de nueva solicitud de transporte ──
+      // JWT obligatorio + verificación de propiedad de la org. Idempotente via
+      // claim_transport_notification (SECURITY DEFINER, service_role).
+
+      case 'transport_admin_notify': {
+        if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) return json503(req);
+
+        const user = await verifyJwt(req);
+        if (!user) return json401(req, 'No autorizado. Inicia sesión de nuevo.');
+
+        const adminDb = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY, {
+          auth: { autoRefreshToken: false, persistSession: false },
+        });
+
+        // Obtener la org del usuario (nunca confiar en org_id del payload)
+        const { data: orgRow } = await adminDb
+          .from('trade_organizations')
+          .select('id, nombre, oficio, ciudad, created_at, owner_id')
+          .eq('owner_id', user.userId)
+          .in('oficio', ['Transporte de Viajeros', 'Transporte de Mercancías'])
+          .order('created_at', { ascending: false })
+          .limit(1)
+          .maybeSingle();
+
+        if (!orgRow) {
+          console.log(`[trade-email] transport_admin_notify: no transport org for ${user.userId}`);
+          return new Response(JSON.stringify({ ok: true, skipped: true }), {
+            headers: { ...cors(req), 'Content-Type': 'application/json' },
+          });
+        }
+
+        // FSM atómico: claim primero, enviar después, marcar resultado.
+        // Estados: pending → sent | failed. Timeout 5 min para 'pending' (crash emisor).
+        const { data: claimResult, error: claimErr } = await adminDb
+          .rpc('claim_transport_notification', { p_org_id: orgRow.id });
+
+        if (claimErr) {
+          console.error('[trade-email] transport_admin_notify: claim error:', claimErr.message);
+          return new Response(JSON.stringify({ ok: false, error: 'Error al reclamar notificación' }), {
+            status: 500, headers: { ...cors(req), 'Content-Type': 'application/json' },
+          });
+        }
+
+        if (claimResult === 'already_sent') {
+          console.log(`[trade-email] transport_admin_notify: ya enviado para org=${orgRow.id}`);
+          return new Response(JSON.stringify({ ok: true, skipped: true, reason: 'already_sent' }), {
+            headers: { ...cors(req), 'Content-Type': 'application/json' },
+          });
+        }
+
+        if (claimResult === 'in_progress') {
+          console.log(`[trade-email] transport_admin_notify: otro envío en progreso para org=${orgRow.id}`);
+          return new Response(JSON.stringify({ ok: true, skipped: true, reason: 'in_progress' }), {
+            headers: { ...cors(req), 'Content-Type': 'application/json' },
+          });
+        }
+
+        // 'new_claim' o 'retry_claim' — claim obtenido, proceder a enviar.
+        const createdAt = new Date(orgRow.created_at).toLocaleString('es-ES', { timeZone: 'Europe/Madrid' });
+        const adminUrl  = 'https://trabflow.com/admin';
+
+        try {
+          await sendEmail(
+            ADMIN_EMAIL,
+            `Nueva solicitud de Transporte: ${orgRow.nombre ?? 'Sin nombre'}`,
+            emailWrap('Nueva solicitud de acceso — Transporte', `
+              <p style="color:#94a3b8;font-size:14px;line-height:1.7;margin-bottom:4px">
+                Nueva empresa solicita acceso a <strong style="color:#FFC400">TrabFlow Transporte</strong>.
+                Actívala desde el panel de administración.
+              </p>
+              <table style="border-collapse:collapse;width:100%;background:#0d1f38;border-radius:8px;overflow:hidden;margin:16px 0">
+                <tr><td style="padding:6px 12px;color:#94a3b8;font-size:13px;white-space:nowrap">Empresa</td><td style="padding:6px 12px;color:#f1f5f9;font-size:13px">${escapeHtml(orgRow.nombre ?? '')}</td></tr>
+                <tr><td style="padding:6px 12px;color:#94a3b8;font-size:13px">Modalidad</td><td style="padding:6px 12px;color:#f1f5f9;font-size:13px">${escapeHtml(orgRow.oficio)}</td></tr>
+                <tr><td style="padding:6px 12px;color:#94a3b8;font-size:13px">Ciudad</td><td style="padding:6px 12px;color:#f1f5f9;font-size:13px">${escapeHtml(orgRow.ciudad ?? '—')}</td></tr>
+                <tr><td style="padding:6px 12px;color:#94a3b8;font-size:13px">Registrada</td><td style="padding:6px 12px;color:#f1f5f9;font-size:13px">${escapeHtml(createdAt)}</td></tr>
+                <tr><td style="padding:6px 12px;color:#94a3b8;font-size:13px">Org ID</td><td style="padding:6px 12px;color:#f1f5f9;font-size:13px;font-family:monospace">${orgRow.id}</td></tr>
+              </table>
+              <a href="${adminUrl}" style="display:inline-block;background:#3b82f6;color:#fff;font-weight:700;text-decoration:none;padding:10px 24px;border-radius:8px;font-size:13px">
+                Ir al panel de admin →
+              </a>
+            `),
+          );
+          await adminDb.rpc('mark_transport_notification', { p_org_id: orgRow.id, p_status: 'sent' });
+          console.log(`[trade-email] transport_admin_notify sent (${claimResult}) for org=${orgRow.id}`);
+          return new Response(JSON.stringify({ ok: true, sent: true, claim: claimResult }), {
+            headers: { ...cors(req), 'Content-Type': 'application/json' },
+          });
+        } catch (sendErr: unknown) {
+          await adminDb.rpc('mark_transport_notification', { p_org_id: orgRow.id, p_status: 'failed' });
+          console.error('[trade-email] transport_admin_notify: Resend failed, marked failed:', (sendErr as Error).message);
+          return new Response(JSON.stringify({ ok: false, error: 'Error al enviar email de notificación' }), {
+            status: 500, headers: { ...cors(req), 'Content-Type': 'application/json' },
+          });
+        }
       }
 
       default:

@@ -62,6 +62,12 @@ export interface OrgCapabilities {
    * Detection uses EXACT string match, never keyword inference.
    */
   isPendingTransport: boolean;
+  /**
+   * Transport org whose access has been revoked AFTER completing onboarding.
+   * transport_enabled=false + is_onboarded=true + oficio in TRANSPORT_PENDING_OFICIOS.
+   * Prevents fallback to installer wizard; shows a "acceso suspendido" screen instead.
+   */
+  isTransportSuspended: boolean;
 }
 
 /**
@@ -94,6 +100,7 @@ export function getOrgCapabilities(org: TradeOrganization | null): OrgCapabiliti
       transportLicense: 'none',
       isTransportDemo: false,
       isPendingTransport: false,
+      isTransportSuspended: false,
     };
   }
 
@@ -109,7 +116,12 @@ export function getOrgCapabilities(org: TradeOrganization | null): OrgCapabiliti
 
   // Pending transport: registered via transport form (Viajeros or Mercancías), awaiting admin activation.
   // EXACT string match only — no keyword inference.
-  const isPendingTransport = !hasTransport && TRANSPORT_PENDING_OFICIOS.includes(org.oficio ?? '') && !org.is_onboarded;
+  const isTransportOficioCanonical = TRANSPORT_PENDING_OFICIOS.includes(org.oficio ?? '');
+  const isPendingTransport = !hasTransport && isTransportOficioCanonical && !org.is_onboarded;
+
+  // Suspended: transport was active (is_onboarded=true) but access was revoked (transport_enabled=false).
+  // Guards against installer wizard fallback after admin deactivation.
+  const isTransportSuspended = !hasTransport && isTransportOficioCanonical && org.is_onboarded === true;
 
   return {
     hasTransport,
@@ -122,6 +134,7 @@ export function getOrgCapabilities(org: TradeOrganization | null): OrgCapabiliti
     transportLicense: license,
     isTransportDemo: license === 'demo',
     isPendingTransport,
+    isTransportSuspended,
   };
 }
 
