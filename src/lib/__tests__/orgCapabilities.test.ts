@@ -213,3 +213,77 @@ describe('SC-12: Stripe-absence + trial status must NOT set isTransportDemo', ()
     // the function must not produce isTransportDemo=true without explicit license.
   });
 });
+
+// ── Scenario 13: isPendingTransport — pending activation ─────────────────────
+describe('SC-13: isPendingTransport — exact oficio + transport_enabled=false + not onboarded', () => {
+  it('isPendingTransport=true for transport registration awaiting admin activation', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Viajeros',
+      transport_enabled: false,
+      is_onboarded: false,
+    }));
+    expect(caps.isPendingTransport).toBe(true);
+    // Must NOT grant transport access yet
+    expect(caps.hasTransport).toBe(false);
+    expect(caps.isTransportOrg).toBe(false);
+    // Still shows as installer-capable? No — it's pending. isInstallerOrg is true but that's irrelevant
+    // because AppDashboardView short-circuits on isPendingTransport before checking isInstallerOrg.
+  });
+});
+
+// ── Scenario 14: isPendingTransport=false once transport_enabled=true ─────────
+describe('SC-14: isPendingTransport=false once admin activates transport', () => {
+  it('activated transport org is NOT pending', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Viajeros',
+      transport_enabled: true,
+      is_onboarded: false,
+    }));
+    expect(caps.isPendingTransport).toBe(false);
+    expect(caps.hasTransport).toBe(true);
+  });
+});
+
+// ── Scenario 15: normal installer org is NOT pending ─────────────────────────
+describe('SC-15: installer org is never isPendingTransport', () => {
+  it('Fontanería installer is NOT pending transport', () => {
+    const caps = getOrgCapabilities(makeOrg({ oficio: 'Fontanería', transport_enabled: false, is_onboarded: false }));
+    expect(caps.isPendingTransport).toBe(false);
+  });
+
+  it('null org is NOT pending transport', () => {
+    const caps = getOrgCapabilities(null);
+    expect(caps.isPendingTransport).toBe(false);
+  });
+});
+
+// ── Scenario 16: partial keyword match does NOT trigger isPendingTransport ────
+describe('SC-16: keyword/partial match does NOT set isPendingTransport', () => {
+  it('"transporte" (keyword) is NOT isPendingTransport — exact match required', () => {
+    const caps = getOrgCapabilities(makeOrg({ oficio: 'transporte', transport_enabled: false, is_onboarded: false }));
+    expect(caps.isPendingTransport).toBe(false);
+  });
+
+  it('"Transporte de Viajeros SL" (contains exact) is NOT isPendingTransport', () => {
+    // Not a contains match — must be === 'Transporte de Viajeros'
+    const caps = getOrgCapabilities(makeOrg({ oficio: 'Transporte de Viajeros SL', transport_enabled: false, is_onboarded: false }));
+    expect(caps.isPendingTransport).toBe(false);
+  });
+
+  it('"mudanzas" keyword is NOT isPendingTransport', () => {
+    const caps = getOrgCapabilities(makeOrg({ oficio: 'mudanzas', transport_enabled: false, is_onboarded: false }));
+    expect(caps.isPendingTransport).toBe(false);
+  });
+});
+
+// ── Scenario 17: already onboarded transport org is NOT pending ───────────────
+describe('SC-17: is_onboarded=true + pending oficio is NOT isPendingTransport', () => {
+  it('onboarded transport org is not pending even if transport_enabled=false', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Viajeros',
+      transport_enabled: false,
+      is_onboarded: true,
+    }));
+    expect(caps.isPendingTransport).toBe(false);
+  });
+});

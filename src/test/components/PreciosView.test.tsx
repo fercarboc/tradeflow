@@ -91,9 +91,9 @@ describe('PreciosView — Transporte Pro', () => {
     expect(t.textContent).not.toMatch(/año|290/);
   });
 
-  it('su CTA lleva a Contacto y no al registro', () => {
-    fireEvent.click(within(card('transporte')).getByRole('button', { name: /solicitar información/i }));
-    expect(setCurrentPage).toHaveBeenCalledWith(ActivePage.Contacto);
+  it('su CTA lleva a la landing de Transporte y no al registro directo', () => {
+    fireEvent.click(within(card('transporte')).getByRole('button', { name: /ver transporte pro/i }));
+    expect(setCurrentPage).toHaveBeenCalledWith(ActivePage.Transporte);
     expect(setCurrentPage).not.toHaveBeenCalledWith(ActivePage.Registro);
   });
 });

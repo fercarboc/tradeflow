@@ -137,6 +137,7 @@ import {
 import PlanUpgradeModal from './PlanUpgradeModal';
 import OnboardingWizard from './OnboardingWizard';
 import TransportOnboardingWizard from './TransportOnboardingWizard';
+import TransportePendingView from './TransportePendingView';
 import ChatbotWidget from './ChatbotWidget';
 import ScreenProveedoresCliente from './ScreenProveedoresCliente';
 import ScreenPostConfirm from './ScreenPostConfirm';
@@ -3293,21 +3294,23 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
       {/* ================= ONBOARDING WIZARD — solo propietarios nuevos ================= */}
       {showOnboarding && rol === 'owner' && (
-        caps.isTransportOrg
-          ? <TransportOnboardingWizard
-              onComplete={() => {
-                setShowOnboarding(false);
-                if (session) loadLiveData(session);
-              }}
-              showToast={showToast}
-            />
-          : <OnboardingWizard
-              onComplete={() => {
-                setShowOnboarding(false);
-                if (session) loadLiveData(session);
-              }}
-              showToast={showToast}
-            />
+        caps.isPendingTransport
+          ? <TransportePendingView onLogout={handleLogout} />
+          : caps.isTransportOrg
+            ? <TransportOnboardingWizard
+                onComplete={() => {
+                  setShowOnboarding(false);
+                  if (session) loadLiveData(session);
+                }}
+                showToast={showToast}
+              />
+            : <OnboardingWizard
+                onComplete={() => {
+                  setShowOnboarding(false);
+                  if (session) loadLiveData(session);
+                }}
+                showToast={showToast}
+              />
       )}
 
       {/* ================= MODAL UPGRADE PLAN ================= */}

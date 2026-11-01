@@ -2,6 +2,10 @@ import { useMemo } from 'react';
 import { useSession } from '../context/SessionContext';
 import type { TradeOrganization } from './supabase';
 
+// Exact oficio string set by registerUser() for transport registrations.
+// Must match exactly — no keyword inference allowed.
+const TRANSPORT_PENDING_OFICIO = 'Transporte de Viajeros';
+
 // Keywords that signal transport/logistics as the primary business activity.
 // Used as a fallback when transport_modalidad column is absent (pre-migration).
 const TRANSPORT_OFICIO_KEYS = [
@@ -42,6 +46,13 @@ export interface OrgCapabilities {
    * NOT derived from subscription.stripe_customer_id or trial status.
    */
   isTransportDemo: boolean;
+  /**
+   * Org submitted transport registration (oficio === 'Transporte de Viajeros', EXACT)
+   * but transport_enabled is still false — admin activation pending.
+   * Shows a pending-activation screen instead of the installer onboarding wizard.
+   * Detection uses EXACT string match, never keyword inference.
+   */
+  isPendingTransport: boolean;
 }
 
 /**
@@ -73,6 +84,7 @@ export function getOrgCapabilities(org: TradeOrganization | null): OrgCapabiliti
       transportServiceTypes: [],
       transportLicense: 'none',
       isTransportDemo: false,
+      isPendingTransport: false,
     };
   }
 
@@ -86,6 +98,10 @@ export function getOrgCapabilities(org: TradeOrganization | null): OrgCapabiliti
   const isTransportPrimary = hasTransport && (modalidad !== null || transportOficio);
   const isMixedOrg = hasTransport && !isTransportPrimary;
 
+  // Pending transport: registered via transport form, awaiting admin activation.
+  // EXACT string match only — no keyword inference.
+  const isPendingTransport = !hasTransport && org.oficio === TRANSPORT_PENDING_OFICIO && !org.is_onboarded;
+
   return {
     hasTransport,
     isTransportOrg: isTransportPrimary,
@@ -96,6 +112,7 @@ export function getOrgCapabilities(org: TradeOrganization | null): OrgCapabiliti
     transportServiceTypes: serviceTypes,
     transportLicense: license,
     isTransportDemo: license === 'demo',
+    isPendingTransport,
   };
 }
 

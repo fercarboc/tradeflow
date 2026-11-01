@@ -52,12 +52,13 @@ describe('Header — navegación de escritorio', () => {
     expect(setCurrentPage).toHaveBeenCalledWith(ActivePage.Home);
   });
 
-  it('mantiene los 8 enlaces y sus destinos', () => {
+  it('mantiene los 9 enlaces y sus destinos', () => {
     const expected: [string, ActivePage][] = [
       ['Inicio', ActivePage.Home],
       ['Funciones', ActivePage.ComoFunciona],
       ['Marketplace', ActivePage.MarketplacePublico],
       ['Proveedores', ActivePage.Proveedores],
+      ['Transporte', ActivePage.Transporte],
       ['Asistente IA', ActivePage.AsisTecnico],
       ['Herramientas', ActivePage.Herramientas],
       ['Precios', ActivePage.Precios],
@@ -92,11 +93,11 @@ describe('Header — menú móvil', () => {
     expect(panel()).toBeNull();
   });
 
-  it('se abre con los 8 enlaces y el acceso', () => {
+  it('se abre con los 9 enlaces y el acceso', () => {
     fireEvent.click(menuButton());
     expect(menuButton()).toHaveAttribute('aria-expanded', 'true');
     expect(menuButton()).toHaveAccessibleName('Cerrar menú');
-    expect(within(panel()!).getAllByRole('button')).toHaveLength(9);
+    expect(within(panel()!).getAllByRole('button')).toHaveLength(10);
   });
 
   it('se cierra con el botón y con Escape', () => {

@@ -12,6 +12,7 @@ import {
   Layers, Wrench, Building2, ChevronRight, ChevronLeft, Check,
   ArrowRight, Eye, EyeOff, User, Mail, Phone, Lock, Building, Gift, Shield,
   Thermometer, Camera, Sun, Leaf, Wifi, Car, Sparkles, ArrowUpDown, BatteryCharging,
+  Bus, Clock,
 } from 'lucide-react';
 
 interface RegistroViewProps {
@@ -101,6 +102,16 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
   const [resendLoading, setResendLoading] = useState(false);
   const [resendDone, setResendDone] = useState(false);
 
+  // Detect transport registration flow via ?vertical=transport URL param.
+  // Exact param match only — no inference.
+  const [isTransportRegistration] = useState<boolean>(() => {
+    try {
+      return new URLSearchParams(window.location.search).get('vertical') === 'transport';
+    } catch {
+      return false;
+    }
+  });
+
   // Email check state
   const [emailCheck, setEmailCheck] = useState<EmailCheckResult | null>(null);
   const [emailChecking, setEmailChecking] = useState(false);
@@ -131,7 +142,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
     }
   };
 
-  const canProceedStep1 = selectedTrades.length > 0;
+  const canProceedStep1 = isTransportRegistration || selectedTrades.length > 0;
   const canProceedStep3 = tecnicoMode || orphanMode
     ? form.fullName.trim().length > 0 && form.password.length >= 1 && form.acceptTerms && !ownerBlocked
     : form.fullName.trim().length > 0 &&
@@ -181,8 +192,8 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
         fullName: form.fullName.trim(),
         companyName: businessType === 'empresa' ? form.companyName.trim() : undefined,
         phone: form.phone.trim() || undefined,
-        tradeTypes: selectedTrades,
-        plan: selectedPlan,
+        tradeTypes: isTransportRegistration ? ['Transporte de Viajeros'] : selectedTrades,
+        plan: isTransportRegistration ? 'empresa' : selectedPlan,
         billingCycle,
       });
       if (regError) {
@@ -233,31 +244,125 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
           <span className="text-[#FFC400] font-black tracking-widest uppercase text-xs">TRABFLOW</span>
         </button>
         {step < 4 && (
-          <span className="text-xs text-white/30 font-mono uppercase tracking-widest">Paso {step} de 3</span>
+          <span className="text-xs text-white/30 font-mono uppercase tracking-widest">
+            {isTransportRegistration
+              ? `Paso ${step === 3 ? 2 : 1} de 2`
+              : `Paso ${step} de 3`}
+          </span>
         )}
       </div>
 
       {/* Progress bar */}
       {step < 4 && (
         <div className="w-full max-w-2xl mb-10">
-          <div className="h-1 bg-white/8 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-[#00CFE8] rounded-full transition-all duration-500 shadow-sm shadow-[#00CFE8]/40"
-              style={{ width: `${(step / 3) * 100}%` }}
-            />
-          </div>
-          <div className="flex justify-between mt-2">
-            {['Sector', 'Plan', 'Cuenta'].map((label, i) => (
-              <span key={label} className={`text-[10px] uppercase tracking-widest font-bold ${step > i ? 'text-[#00CFE8]' : 'text-white/25'}`}>
-                {label}
-              </span>
-            ))}
-          </div>
+          {isTransportRegistration ? (
+            <>
+              <div className="h-1 bg-white/8 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-[#FFC400] rounded-full transition-all duration-500 shadow-sm shadow-[#FFC400]/40"
+                  style={{ width: step === 3 ? '100%' : '50%' }}
+                />
+              </div>
+              <div className="flex justify-between mt-2">
+                {['Tipo', 'Cuenta'].map((label, i) => (
+                  <span key={label} className={`text-[10px] uppercase tracking-widest font-bold ${(step === 1 && i === 0) || (step === 3 && i <= 1) ? 'text-[#FFC400]' : 'text-white/25'}`}>
+                    {label}
+                  </span>
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="h-1 bg-white/8 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-[#00CFE8] rounded-full transition-all duration-500 shadow-sm shadow-[#00CFE8]/40"
+                  style={{ width: `${(step / 3) * 100}%` }}
+                />
+              </div>
+              <div className="flex justify-between mt-2">
+                {['Sector', 'Plan', 'Cuenta'].map((label, i) => (
+                  <span key={label} className={`text-[10px] uppercase tracking-widest font-bold ${step > i ? 'text-[#00CFE8]' : 'text-white/25'}`}>
+                    {label}
+                  </span>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       )}
 
-      {/* ── Step 1: Sector ── */}
-      {step === 1 && (
+      {/* ── Step 1: Tipo de operador (TRANSPORTE) ── */}
+      {step === 1 && isTransportRegistration && (
+        <div className="w-full max-w-md">
+          <div className="text-center mb-8">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-[#FFC400]/30 bg-[#FFC400]/10">
+              <Bus className="h-7 w-7 text-[#FFC400]" aria-hidden="true" />
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">Registro Transporte</h1>
+            <p className="text-white/40 mt-2 text-sm">Empresas de autobuses, autocares, rutas escolares y transporte de viajeros.</p>
+          </div>
+
+          {/* Pilot notice */}
+          <div className="mb-6 rounded-xl border border-[#FFC400]/20 bg-[#FFC400]/5 px-5 py-4 flex gap-3 items-start">
+            <Clock className="h-4 w-4 text-[#FFC400] shrink-0 mt-0.5" aria-hidden="true" />
+            <p className="text-xs text-white/55 leading-relaxed">
+              <span className="font-black text-[#FFC400]">Fase piloto activa.</span>{' '}
+              Tu acceso se activa de forma manual por el equipo TrabFlow en las próximas horas. Sin coste ni permanencia.
+            </p>
+          </div>
+
+          {/* Business type */}
+          <p className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-3">¿Cómo opera tu empresa?</p>
+          <div className="flex flex-col gap-3 mb-8">
+            {([
+              ['autonomo', 'Autónomo', User, 'Propietario-conductor, flota pequeña o vehículo único.'],
+              ['empresa', 'Empresa de autobuses', Building2, 'Sociedad con flota, varios conductores y gestión de servicios.'],
+            ] as const).map(([val, label, Icon, desc]) => (
+              <button
+                key={val}
+                onClick={() => setBusinessType(val)}
+                className={`flex items-center gap-4 px-5 py-4 rounded-xl text-left cursor-pointer transition-all border-2 ${
+                  businessType === val
+                    ? 'bg-[#FFC400]/10 border-[#FFC400] text-white'
+                    : 'bg-white/5 border-white/10 hover:border-white/30'
+                }`}
+              >
+                <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border ${
+                  businessType === val ? 'border-[#FFC400]/40 bg-[#FFC400]/15 text-[#FFC400]' : 'border-white/15 bg-white/5 text-white/50'
+                }`}>
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <div>
+                  <div className={`text-sm font-bold ${businessType === val ? 'text-white' : 'text-white/70'}`}>{label}</div>
+                  <div className="text-xs text-white/35 mt-0.5">{desc}</div>
+                </div>
+                {businessType === val && (
+                  <Check className="h-5 w-5 text-[#FFC400] ml-auto shrink-0" aria-hidden="true" />
+                )}
+              </button>
+            ))}
+          </div>
+
+          <button
+            onClick={() => setStep(3)}
+            disabled={!canProceedStep1}
+            className="w-full py-3.5 rounded-xl bg-[#FFC400] hover:brightness-110 disabled:opacity-30 disabled:cursor-not-allowed text-[#020B16] font-black uppercase tracking-widest text-sm flex items-center justify-center gap-2 cursor-pointer transition-all shadow-lg shadow-[#FFC400]/15"
+          >
+            Siguiente <ChevronRight className="h-4 w-4" />
+          </button>
+
+          <p className="text-center text-xs text-white/30 mt-4">
+            ¿Ya tienes cuenta?{' '}
+            <button onClick={() => setCurrentPage(ActivePage.AppDashboard)}
+              className="text-[#FFC400] hover:underline cursor-pointer font-bold">
+              Inicia sesión
+            </button>
+          </p>
+        </div>
+      )}
+
+      {/* ── Step 1: Sector (instaladores) ── */}
+      {step === 1 && !isTransportRegistration && (
         <div className="w-full max-w-2xl">
           <div className="text-center mb-8">
             <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">¿En qué sector trabajas?</h1>
@@ -618,7 +723,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
           </div>
 
           <div className="flex gap-3 mt-4">
-            <button onClick={() => { setStep(2); setEmailCheck(null); }}
+            <button onClick={() => { setStep(isTransportRegistration ? 1 : 2); setEmailCheck(null); }}
               className="px-6 py-3.5 rounded-xl border border-white/15 text-white/60 font-bold text-sm flex items-center gap-2 cursor-pointer hover:border-white/35 hover:text-white transition-colors">
               <ChevronLeft className="h-4 w-4" /> Atrás
             </button>
@@ -650,8 +755,62 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
         </div>
       )}
 
-      {/* ── Step 4: Success ── */}
-      {step === 4 && (
+      {/* ── Step 4: Success (transporte) ── */}
+      {step === 4 && isTransportRegistration && (
+        <div className="w-full max-w-md text-center">
+          <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-[#FFC400]/30 bg-[#FFC400]/10">
+            <Bus className="h-8 w-8 text-[#FFC400]" aria-hidden="true" />
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white mb-3">
+            Solicitud recibida
+          </h1>
+          <p className="text-white/45 text-sm leading-relaxed mb-2">
+            {needsConfirmation
+              ? <>Primero verifica tu email en <strong className="text-white">{form.email.trim()}</strong>. Después activaremos tu acceso a TrabFlow Transporte manualmente.</>
+              : <>Tu solicitud de acceso a <strong className="text-white">TrabFlow Transporte</strong> está siendo procesada. El equipo activará tu cuenta en las próximas horas.</>}
+          </p>
+          {needsConfirmation && (
+            <p className="text-white/30 text-xs mb-4">Si no ves el email, revisa la carpeta de spam.</p>
+          )}
+          <div className="rounded-2xl border border-[#FFC400]/20 bg-[#FFC400]/5 p-5 mb-6 text-left space-y-2.5">
+            <div className="flex items-center gap-2.5 text-xs text-white/55">
+              <Clock className="h-4 w-4 text-[#FFC400] shrink-0" />
+              Fase piloto · Activación manual en horas
+            </div>
+            <div className="flex items-center gap-2.5 text-xs text-white/55">
+              <Check className="h-4 w-4 text-[#FFC400] shrink-0" />
+              Sin coste ni permanencia durante el piloto
+            </div>
+          </div>
+          {needsConfirmation && (
+            <button
+              onClick={handleResend}
+              disabled={resendLoading || resendDone}
+              className="w-full mb-3 py-3.5 rounded-xl bg-white/8 hover:bg-white/12 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-sm flex items-center justify-center gap-2 cursor-pointer transition-all border border-white/10"
+            >
+              {resendLoading ? (
+                <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                </svg>
+              ) : resendDone ? (
+                <><Check className="h-4 w-4 text-emerald-400" /> Email reenviado</>
+              ) : (
+                <>Reenviar email de activación</>
+              )}
+            </button>
+          )}
+          <button
+            onClick={() => setCurrentPage(ActivePage.Home)}
+            className="w-full py-3 text-white/40 hover:text-white text-xs transition-colors cursor-pointer"
+          >
+            Volver al inicio
+          </button>
+        </div>
+      )}
+
+      {/* ── Step 4: Success (instaladores) ── */}
+      {step === 4 && !isTransportRegistration && (
         <div className="w-full max-w-md text-center">
           <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-[#00CFE8]/15 border border-[#00CFE8]/30 mb-6">
             {needsConfirmation ? <Mail className="h-8 w-8 text-[#00CFE8]" /> : <Check className="h-8 w-8 text-[#00CFE8]" />}
