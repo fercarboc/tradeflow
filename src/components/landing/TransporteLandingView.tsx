@@ -60,6 +60,14 @@ export default function TransporteLandingView({ setCurrentPage }: TransporteLand
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Navega a /registro?vertical=transport preservando el query param.
+  // pushState pone la URL primero; setCurrentPage detecta pathname coincidente y no lo sobreescribe.
+  const goTransportRegister = () => {
+    window.history.pushState({}, '', '/registro?vertical=transport');
+    setCurrentPage(ActivePage.Registro);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="font-sans bg-[#020B16]" id="transporte-landing">
 
@@ -106,10 +114,10 @@ export default function TransporteLandingView({ setCurrentPage }: TransporteLand
               <div className="mt-10 flex flex-wrap gap-4">
                 <button
                   type="button"
-                  onClick={() => go(ActivePage.Contacto)}
+                  onClick={goTransportRegister}
                   className={`inline-flex items-center gap-2 rounded-xl bg-[#FFC400] px-7 py-3.5 text-sm font-black text-[#020B16] shadow-[0_0_32px_-8px_rgba(255,196,0,0.6)] transition hover:brightness-110 cursor-pointer ${FOCUS_RING}`}
                 >
-                  Solicitar acceso
+                  Date de alta
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </button>
                 <button
@@ -222,15 +230,15 @@ export default function TransporteLandingView({ setCurrentPage }: TransporteLand
               </ul>
 
               <p className="mb-5 text-xs text-white/35">
-                La contratación online no está habilitada aún. Durante la fase piloto, el acceso se activa bajo solicitud.
+                El registro está disponible. La contratación y el checkout online aún no están habilitados — el acceso se activa de forma manual tras el alta.
               </p>
 
               <button
                 type="button"
-                onClick={() => go(ActivePage.Contacto)}
+                onClick={goTransportRegister}
                 className={`flex w-full items-center justify-center gap-2 rounded-xl bg-[#FFC400] py-3.5 text-sm font-black text-[#020B16] transition hover:brightness-110 cursor-pointer ${FOCUS_RING}`}
               >
-                Solicitar acceso
+                Date de alta
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </button>
             </div>

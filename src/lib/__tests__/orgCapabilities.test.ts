@@ -287,3 +287,57 @@ describe('SC-17: is_onboarded=true + pending oficio is NOT isPendingTransport', 
     expect(caps.isPendingTransport).toBe(false);
   });
 });
+
+// ── Scenario 18: Mercancías pending activation ────────────────────────────────
+describe('SC-18: isPendingTransport — Transporte de Mercancías awaiting activation', () => {
+  it('isPendingTransport=true for Mercancías registration with transport_enabled=false', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Mercancías',
+      transport_enabled: false,
+      is_onboarded: false,
+    }));
+    expect(caps.isPendingTransport).toBe(true);
+    expect(caps.hasTransport).toBe(false);
+    expect(caps.isTransportOrg).toBe(false);
+  });
+});
+
+// ── Scenario 19: Mercancías activated is NOT pending ─────────────────────────
+describe('SC-19: isPendingTransport=false once Mercancías is activated', () => {
+  it('activated Mercancías org is NOT pending', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Mercancías',
+      transport_enabled: true,
+      is_onboarded: false,
+    }));
+    expect(caps.isPendingTransport).toBe(false);
+    expect(caps.hasTransport).toBe(true);
+  });
+
+  it('onboarded Mercancías org is NOT pending', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Mercancías',
+      transport_enabled: false,
+      is_onboarded: true,
+    }));
+    expect(caps.isPendingTransport).toBe(false);
+  });
+});
+
+// ── Scenario 20: exact match required for Mercancías ─────────────────────────
+describe('SC-20: keyword/partial match does NOT trigger isPendingTransport for Mercancías', () => {
+  it('"transporte de mercancias" (lowercase, no tilde) is NOT isPendingTransport', () => {
+    const caps = getOrgCapabilities(makeOrg({ oficio: 'transporte de mercancias', transport_enabled: false, is_onboarded: false }));
+    expect(caps.isPendingTransport).toBe(false);
+  });
+
+  it('"Transporte de Mercancías SL" (contains) is NOT isPendingTransport', () => {
+    const caps = getOrgCapabilities(makeOrg({ oficio: 'Transporte de Mercancías SL', transport_enabled: false, is_onboarded: false }));
+    expect(caps.isPendingTransport).toBe(false);
+  });
+
+  it('"mercancías" keyword alone is NOT isPendingTransport', () => {
+    const caps = getOrgCapabilities(makeOrg({ oficio: 'mercancías', transport_enabled: false, is_onboarded: false }));
+    expect(caps.isPendingTransport).toBe(false);
+  });
+});

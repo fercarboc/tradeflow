@@ -7,6 +7,7 @@ import { useState, useRef } from 'react';
 import { ActivePage } from '../types';
 import { supabase, registerUser, sendTrabflowEmail, applyReferralCode, checkEmailForRegistration, createOrgForExistingUser } from '../lib/supabase';
 import type { EmailCheckResult } from '../lib/supabase';
+import { TRANSPORT_CANONICAL_OFICIOS } from '../lib/orgCapabilities';
 import {
   Droplets, Zap, Hammer, Wind, TreeDeciduous, KeyRound, Paintbrush,
   Layers, Wrench, Building2, ChevronRight, ChevronLeft, Check,
@@ -112,6 +113,10 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
     }
   });
 
+  // Modalidad seleccionada dentro del flujo transport: viajeros | mercancias.
+  // null = sin selección (bloquea avance en paso 1).
+  const [transportModalidad, setTransportModalidad] = useState<'viajeros' | 'mercancias' | null>(null);
+
   // Email check state
   const [emailCheck, setEmailCheck] = useState<EmailCheckResult | null>(null);
   const [emailChecking, setEmailChecking] = useState(false);
@@ -142,7 +147,9 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
     }
   };
 
-  const canProceedStep1 = isTransportRegistration || selectedTrades.length > 0;
+  const canProceedStep1 = isTransportRegistration
+    ? transportModalidad !== null
+    : selectedTrades.length > 0;
   const canProceedStep3 = tecnicoMode || orphanMode
     ? form.fullName.trim().length > 0 && form.password.length >= 1 && form.acceptTerms && !ownerBlocked
     : form.fullName.trim().length > 0 &&
@@ -192,7 +199,11 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
         fullName: form.fullName.trim(),
         companyName: businessType === 'empresa' ? form.companyName.trim() : undefined,
         phone: form.phone.trim() || undefined,
-        tradeTypes: isTransportRegistration ? ['Transporte de Viajeros'] : selectedTrades,
+        tradeTypes: isTransportRegistration
+          ? [transportModalidad === 'mercancias'
+              ? TRANSPORT_CANONICAL_OFICIOS.mercancias
+              : TRANSPORT_CANONICAL_OFICIOS.viajeros]
+          : selectedTrades,
         plan: isTransportRegistration ? 'empresa' : selectedPlan,
         billingCycle,
       });
@@ -299,7 +310,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
               <Bus className="h-7 w-7 text-[#FFC400]" aria-hidden="true" />
             </div>
             <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">Registro Transporte</h1>
-            <p className="text-white/40 mt-2 text-sm">Empresas de autobuses, autocares, rutas escolares y transporte de viajeros.</p>
+            <p className="text-white/40 mt-2 text-sm">Empresas de transporte por carretera — viajeros, mercancías y logística.</p>
           </div>
 
           {/* Pilot notice */}
@@ -311,12 +322,44 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
             </p>
           </div>
 
+          {/* Transport modalidad */}
+          <p className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-3">¿Qué tipo de transporte realizas?</p>
+          <div className="flex flex-col gap-3 mb-6">
+            {([
+              ['viajeros', 'Transporte de Viajeros', Bus, 'Autobuses, autocares, rutas escolares y discrecional.'],
+              ['mercancias', 'Transporte de Mercancías', Wrench, 'Camiones, furgonetas de carga y distribución.'],
+            ] as const).map(([val, label, Icon, desc]) => (
+              <button
+                key={val}
+                onClick={() => setTransportModalidad(val)}
+                className={`flex items-center gap-4 px-5 py-4 rounded-xl text-left cursor-pointer transition-all border-2 ${
+                  transportModalidad === val
+                    ? 'bg-[#FFC400]/10 border-[#FFC400] text-white'
+                    : 'bg-white/5 border-white/10 hover:border-white/30'
+                }`}
+              >
+                <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border ${
+                  transportModalidad === val ? 'border-[#FFC400]/40 bg-[#FFC400]/15 text-[#FFC400]' : 'border-white/15 bg-white/5 text-white/50'
+                }`}>
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <div>
+                  <div className={`text-sm font-bold ${transportModalidad === val ? 'text-white' : 'text-white/70'}`}>{label}</div>
+                  <div className="text-xs text-white/35 mt-0.5">{desc}</div>
+                </div>
+                {transportModalidad === val && (
+                  <Check className="h-5 w-5 text-[#FFC400] ml-auto shrink-0" aria-hidden="true" />
+                )}
+              </button>
+            ))}
+          </div>
+
           {/* Business type */}
           <p className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-3">¿Cómo opera tu empresa?</p>
           <div className="flex flex-col gap-3 mb-8">
             {([
               ['autonomo', 'Autónomo', User, 'Propietario-conductor, flota pequeña o vehículo único.'],
-              ['empresa', 'Empresa de autobuses', Building2, 'Sociedad con flota, varios conductores y gestión de servicios.'],
+              ['empresa', 'Empresa de transporte', Building2, 'Sociedad con flota, conductores y gestión de operaciones.'],
             ] as const).map(([val, label, Icon, desc]) => (
               <button
                 key={val}

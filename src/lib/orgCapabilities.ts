@@ -2,9 +2,18 @@ import { useMemo } from 'react';
 import { useSession } from '../context/SessionContext';
 import type { TradeOrganization } from './supabase';
 
-// Exact oficio string set by registerUser() for transport registrations.
-// Must match exactly — no keyword inference allowed.
-const TRANSPORT_PENDING_OFICIO = 'Transporte de Viajeros';
+/**
+ * Canonical oficio strings set by registerUser() for transport registrations.
+ * Exported so RegistroView can use the same values — no string duplication.
+ * Must match exactly — no keyword inference allowed.
+ */
+export const TRANSPORT_CANONICAL_OFICIOS = {
+  viajeros: 'Transporte de Viajeros',
+  mercancias: 'Transporte de Mercancías',
+} as const;
+
+/** All canonical transport oficios for pending-activation detection. */
+const TRANSPORT_PENDING_OFICIOS: string[] = Object.values(TRANSPORT_CANONICAL_OFICIOS);
 
 // Keywords that signal transport/logistics as the primary business activity.
 // Used as a fallback when transport_modalidad column is absent (pre-migration).
@@ -98,9 +107,9 @@ export function getOrgCapabilities(org: TradeOrganization | null): OrgCapabiliti
   const isTransportPrimary = hasTransport && (modalidad !== null || transportOficio);
   const isMixedOrg = hasTransport && !isTransportPrimary;
 
-  // Pending transport: registered via transport form, awaiting admin activation.
+  // Pending transport: registered via transport form (Viajeros or Mercancías), awaiting admin activation.
   // EXACT string match only — no keyword inference.
-  const isPendingTransport = !hasTransport && org.oficio === TRANSPORT_PENDING_OFICIO && !org.is_onboarded;
+  const isPendingTransport = !hasTransport && TRANSPORT_PENDING_OFICIOS.includes(org.oficio ?? '') && !org.is_onboarded;
 
   return {
     hasTransport,
