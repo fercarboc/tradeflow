@@ -123,7 +123,7 @@ import ScreenTransporteParteTrabajo from './ScreenTransporteParteTrabajo';
 import ScreenTransporteRutas from './ScreenTransporteRutas';
 import ScreenTransporteTarifas from './ScreenTransporteTarifas';
 import ScreenTransportePresupuestos from './ScreenTransportePresupuestos';
-import { getOrgCapabilities } from '../lib/orgCapabilities';
+import { getOrgCapabilities, TRANSPORT_PENDING_OFICIOS } from '../lib/orgCapabilities';
 import ScreenFacturas from './ScreenFacturas';
 import ScreenContratos from './ScreenContratos';
 import ScreenAsistenteTecnico from './ScreenAsistenteTecnico';
@@ -138,6 +138,7 @@ import PlanUpgradeModal from './PlanUpgradeModal';
 import OnboardingWizard from './OnboardingWizard';
 import TransportOnboardingWizard from './TransportOnboardingWizard';
 import TransportePendingView from './TransportePendingView';
+import TransporteOrgErrorView from './TransporteOrgErrorView';
 import ChatbotWidget from './ChatbotWidget';
 import ScreenProveedoresCliente from './ScreenProveedoresCliente';
 import ScreenPostConfirm from './ScreenPostConfirm';
@@ -651,9 +652,56 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             setCurrentPage(ActivePage.PortalProveedor);
             return;
           }
-          // No auto-crear org skeleton silenciosamente.
-          // El wizard crea la org real cuando el usuario completa el paso 1.
-          org = null;
+          // Transport registration via email-confirmation path: create org immediately
+          // with the correct oficio from user_metadata so isPendingTransport evaluates
+          // correctly before any wizard is shown. Supplier defense already ran above.
+          const tradeTypesRaw = ((s.user.user_metadata?.trade_types ?? '') as string);
+          const pendingOficio = tradeTypesRaw.split(',')[0]?.trim() ?? '';
+          if (TRANSPORT_PENDING_OFICIOS.includes(pendingOficio)) {
+            const betaTrialEnd = '2026-12-31T23:59:59.000Z';
+            const { data: transportOrg, error: createErr } = await supabase
+              .from('trade_organizations')
+              .insert({
+                owner_id: s.user.id,
+                nombre: (s.user.user_metadata?.company_name as string | undefined)
+                  || (s.user.user_metadata?.full_name as string | undefined)
+                  || s.user.email?.split('@')[0]
+                  || 'Mi empresa',
+                oficio: pendingOficio,
+                email: s.user.email,
+                telefono: (s.user.user_metadata?.phone as string | undefined) ?? null,
+                plan: 'empresa_plus',
+                is_onboarded: false,
+                force_password_change: false,
+              })
+              .select()
+              .single();
+            if (!createErr && transportOrg) {
+              // seed_org_catalog is REVOKED from authenticated and installs installer
+              // products that are irrelevant for transport orgs — skip intentionally.
+              await supabase.from('trade_subscriptions').insert({
+                org_id: transportOrg.id,
+                plan: 'empresa_plus',
+                billing_cycle: 'monthly',
+                status: 'trial',
+                trial_start: new Date().toISOString(),
+                trial_end: betaTrialEnd,
+              });
+              org = transportOrg;
+            } else if ((createErr as { code?: string } | null)?.code === '23505') {
+              // Race condition: concurrent tab already created the org — reuse it.
+              org = await getOwnOrg();
+            } else {
+              // Real DB error (not a race condition) — block the installer wizard.
+              // The user is a transport registrant; showing OnboardingWizard would set oficio='Otros'.
+              console.error('[loadLiveData] Error creating transport org:', createErr?.message);
+              setTransportCreateError(createErr?.message ?? 'Error al crear organización');
+              org = null;
+            }
+          } else {
+            // Installer without org — OnboardingWizard will create it on step 1.
+            org = null;
+          }
         }
       }
 
@@ -991,6 +1039,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const orgIdRef = useRef<string | null>(null);
   orgIdRef.current = orgId;
   const [showOnboarding, setShowOnboarding] = useState(false);
+  // Non-null when org creation failed for a transport user (not a 23505 race).
+  // Guards against showing the installer OnboardingWizard for transport registrations.
+  const [transportCreateError, setTransportCreateError] = useState<string | null>(null);
   const [orgTemplates, setOrgTemplates] = useState<Partial<Record<TemplateType, string>>>({});
   const [savingTemplate, setSavingTemplate] = useState<TemplateType | null>(null);
   const [uploadingLogo, setUploadingLogo] = useState(false);
@@ -3294,23 +3345,31 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
       {/* ================= ONBOARDING WIZARD — solo propietarios nuevos ================= */}
       {showOnboarding && rol === 'owner' && (
-        caps.isPendingTransport
-          ? <TransportePendingView onLogout={handleLogout} />
-          : caps.isTransportOrg
-            ? <TransportOnboardingWizard
-                onComplete={() => {
-                  setShowOnboarding(false);
-                  if (session) loadLiveData(session);
-                }}
-                showToast={showToast}
-              />
-            : <OnboardingWizard
-                onComplete={() => {
-                  setShowOnboarding(false);
-                  if (session) loadLiveData(session);
-                }}
-                showToast={showToast}
-              />
+        transportCreateError !== null
+          ? <TransporteOrgErrorView
+              onRetry={() => {
+                setTransportCreateError(null);
+                if (session) loadLiveData(session);
+              }}
+              onLogout={handleLogout}
+            />
+          : caps.isPendingTransport
+            ? <TransportePendingView onLogout={handleLogout} />
+            : caps.isTransportOrg
+              ? <TransportOnboardingWizard
+                  onComplete={() => {
+                    setShowOnboarding(false);
+                    if (session) loadLiveData(session);
+                  }}
+                  showToast={showToast}
+                />
+              : <OnboardingWizard
+                  onComplete={() => {
+                    setShowOnboarding(false);
+                    if (session) loadLiveData(session);
+                  }}
+                  showToast={showToast}
+                />
       )}
 
       {/* ================= MODAL UPGRADE PLAN ================= */}

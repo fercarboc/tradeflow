@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getOrgCapabilities } from '../orgCapabilities';
+import { getOrgCapabilities, TRANSPORT_PENDING_OFICIOS, TRANSPORT_CANONICAL_OFICIOS } from '../orgCapabilities';
 import type { TradeOrganization } from '../supabase';
 
 function makeOrg(overrides: Partial<TradeOrganization>): TradeOrganization {
@@ -339,5 +339,107 @@ describe('SC-20: keyword/partial match does NOT trigger isPendingTransport for M
   it('"mercancías" keyword alone is NOT isPendingTransport', () => {
     const caps = getOrgCapabilities(makeOrg({ oficio: 'mercancías', transport_enabled: false, is_onboarded: false }));
     expect(caps.isPendingTransport).toBe(false);
+  });
+});
+
+// ── Scenario 21: TRANSPORT_PENDING_OFICIOS export ────────────────────────────
+describe('SC-21: TRANSPORT_PENDING_OFICIOS is exported and complete', () => {
+  it('contains Transporte de Viajeros', () => {
+    expect(TRANSPORT_PENDING_OFICIOS).toContain(TRANSPORT_CANONICAL_OFICIOS.viajeros);
+  });
+  it('contains Transporte de Mercancías', () => {
+    expect(TRANSPORT_PENDING_OFICIOS).toContain(TRANSPORT_CANONICAL_OFICIOS.mercancias);
+  });
+  it('has exactly 2 entries', () => {
+    expect(TRANSPORT_PENDING_OFICIOS).toHaveLength(2);
+  });
+});
+
+// ── Scenario 22: admin-activated transport org routes to TransportOnboardingWizard
+describe('SC-22: admin-activated Viajeros org goes to TransportOnboardingWizard (not pending)', () => {
+  it('transport_enabled=true + is_onboarded=false → isTransportOrg=true, isPendingTransport=false', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Viajeros',
+      transport_enabled: true,
+      is_onboarded: false,
+    }));
+    expect(caps.isPendingTransport).toBe(false);
+    expect(caps.hasTransport).toBe(true);
+    expect(caps.isTransportOrg).toBe(true);
+  });
+});
+
+// ── Scenario 23: admin-activated Mercancías org routes to TransportOnboardingWizard
+describe('SC-23: admin-activated Mercancías org goes to TransportOnboardingWizard', () => {
+  it('transport_enabled=true + is_onboarded=false → isTransportOrg=true, isPendingTransport=false', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Mercancías',
+      transport_enabled: true,
+      is_onboarded: false,
+    }));
+    expect(caps.isPendingTransport).toBe(false);
+    expect(caps.hasTransport).toBe(true);
+    expect(caps.isTransportOrg).toBe(true);
+  });
+});
+
+// ── Scenario 24: installer regression — oficio='Otros' never triggers pending ─
+describe('SC-24: installer org (oficio=Otros) is never isPendingTransport', () => {
+  it('oficio=Otros + transport_enabled=false + is_onboarded=false is NOT pending', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Otros',
+      transport_enabled: false,
+      is_onboarded: false,
+    }));
+    expect(caps.isPendingTransport).toBe(false);
+    expect(caps.isInstallerOrg).toBe(true);
+  });
+});
+
+// ── Scenario 25: null org never distinguishes DB error from installer-without-org ─
+// INVARIANT: getOrgCapabilities(null) always returns isInstallerOrg=true regardless of
+// why org is null (missing registration, getOwnOrg failure, or transport create error).
+// The component MUST guard with transportCreateError state to prevent showing the
+// installer wizard to transport registrants when org creation fails.
+describe('SC-25: null org always produces installer caps (transport error guard must be external)', () => {
+  it('null org from getOwnOrg error → isPendingTransport=false, isInstallerOrg=true', () => {
+    const caps = getOrgCapabilities(null);
+    expect(caps.isPendingTransport).toBe(false);
+    expect(caps.isInstallerOrg).toBe(true);
+    expect(caps.isTransportOrg).toBe(false);
+  });
+
+  it('null org from transport create error → same installer caps (guard is external)', () => {
+    // Caps cannot distinguish these cases — transportCreateError state in the
+    // component is the only reliable guard. This test documents the invariant.
+    const capsCreate = getOrgCapabilities(null);
+    const capsGetOwn = getOrgCapabilities(null);
+    expect(capsCreate).toEqual(capsGetOwn);
+    expect(capsCreate.isPendingTransport).toBe(false);
+  });
+});
+
+// ── Scenario 26: 23505 recovery — org with correct transport oficio after race ─
+describe('SC-26: after 23505 race condition, org has correct transport oficio', () => {
+  it('Viajeros org recovered after race → isPendingTransport=true routes to pending screen', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: TRANSPORT_CANONICAL_OFICIOS.viajeros,
+      transport_enabled: false,
+      is_onboarded: false,
+    }));
+    // isPendingTransport=true ensures TransportePendingView is shown (not the installer wizard)
+    // even though isInstallerOrg is also true (transport not yet enabled).
+    expect(caps.isPendingTransport).toBe(true);
+    expect(caps.hasTransport).toBe(false);
+  });
+
+  it('Mercancías org recovered after race → isPendingTransport=true routes to pending screen', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: TRANSPORT_CANONICAL_OFICIOS.mercancias,
+      transport_enabled: false,
+      is_onboarded: false,
+    }));
+    expect(caps.isPendingTransport).toBe(true);
+    expect(caps.hasTransport).toBe(false);
   });
 });

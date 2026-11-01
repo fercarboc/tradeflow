@@ -13,7 +13,7 @@ export const TRANSPORT_CANONICAL_OFICIOS = {
 } as const;
 
 /** All canonical transport oficios for pending-activation detection. */
-const TRANSPORT_PENDING_OFICIOS: string[] = Object.values(TRANSPORT_CANONICAL_OFICIOS);
+export const TRANSPORT_PENDING_OFICIOS: string[] = Object.values(TRANSPORT_CANONICAL_OFICIOS);
 
 // Keywords that signal transport/logistics as the primary business activity.
 // Used as a fallback when transport_modalidad column is absent (pre-migration).
