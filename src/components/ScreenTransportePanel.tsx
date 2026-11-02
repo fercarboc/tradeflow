@@ -670,6 +670,8 @@ interface Props {
   isViajerosPrimary?: boolean;
   isMercanciasPrimary?: boolean;
   isCombinadaOrg?: boolean;
+  /** Legacy org with transport_enabled but no identifiable modality (e.g. oficio='mudanzas'). Shows informative banner. */
+  isLegacyTransport?: boolean;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   onNavigate?: (tab: string, action?: string) => void;
 }
@@ -681,6 +683,7 @@ export default function ScreenTransportePanel({
   isViajerosPrimary = true,
   isMercanciasPrimary = false,
   isCombinadaOrg = false,
+  isLegacyTransport = false,
   showToast,
   onNavigate,
 }: Props) {
@@ -1109,6 +1112,20 @@ export default function ScreenTransportePanel({
           ═══════════════════════════════════════════════════════════════════════ */}
       {panelTab === 'general' && (
         <>
+          {/* Legacy transport banner — org has transport enabled but modalidad not yet configured */}
+          {isLegacyTransport && (
+            <div className="mb-4 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+              <span className="mt-0.5 shrink-0 text-amber-500">⚠</span>
+              <div>
+                <p className="font-semibold">Modalidad de transporte pendiente de configurar o revisar</p>
+                <p className="mt-0.5 text-xs text-amber-700">
+                  Esta organización tiene el transporte activado pero no tiene una modalidad asignada (Viajeros, Mercancías o Combinada).
+                  Contacta con soporte o con el administrador para completar la configuración.
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* KPI cards — adapted to modalidad */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <KpiCard

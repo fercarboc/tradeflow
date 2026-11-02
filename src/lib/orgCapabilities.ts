@@ -85,6 +85,15 @@ export interface OrgCapabilities {
    * Prevents fallback to installer wizard; shows a "acceso suspendido" screen instead.
    */
   isTransportSuspended: boolean;
+  /**
+   * Transport is enabled and isTransportPrimary=true, but no specific modality can be
+   * determined (transport_modalidad=null AND oficio is a generic keyword like 'mudanzas',
+   * not a canonical 'Transporte de Viajeros'/'Transporte de Mercancías' value).
+   * These are legacy orgs created before the transport onboarding wizard existed.
+   * Shows an informative banner; does NOT grant Viajeros or Mercancías tab access.
+   * Fix: set transport_modalidad explicitly in the database.
+   */
+  isLegacyTransport: boolean;
 }
 
 /**
@@ -121,6 +130,7 @@ export function getOrgCapabilities(org: TradeOrganization | null): OrgCapabiliti
       isTransportDemo: false,
       isPendingTransport: false,
       isTransportSuspended: false,
+      isLegacyTransport: false,
     };
   }
 
@@ -158,6 +168,11 @@ export function getOrgCapabilities(org: TradeOrganization | null): OrgCapabiliti
   // Combinada: declared 'combinada' modality — runs both Viajeros and Mercancías.
   const isCombinadaOrg = hasTransport && modalidad === 'combinada';
 
+  // Legacy transport: transport is primary but no specific modality can be determined.
+  // Occurs in orgs created before transport_modalidad was introduced (e.g. oficio='mudanzas').
+  // These orgs need a data fix (SET transport_modalidad='viajeros'/'mercancias') to unlock tabs.
+  const isLegacyTransport = isTransportPrimary && !isViajerosPrimary && !isMercanciasPrimary && !isCombinadaOrg;
+
   return {
     hasTransport,
     isTransportOrg: isTransportPrimary,
@@ -173,6 +188,7 @@ export function getOrgCapabilities(org: TradeOrganization | null): OrgCapabiliti
     isTransportDemo: license === 'demo',
     isPendingTransport,
     isTransportSuspended,
+    isLegacyTransport,
   };
 }
 
