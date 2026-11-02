@@ -32,6 +32,23 @@ export interface OrgCapabilities {
   hasTransport: boolean;
   /** Transport is the primary or sole business activity — show transport-only UI. */
   isTransportOrg: boolean;
+  /**
+   * Org declared 'viajeros' modality (or oficio='Transporte de Viajeros' pre-onboarding).
+   * Show Viajeros-specific features: Servicios, Agenda, Rutas, Partes.
+   * Mutually exclusive with isMercanciasPrimary.
+   */
+  isViajerosPrimary: boolean;
+  /**
+   * Org declared 'mercancias' or 'reparto' modality (or oficio='Transporte de Mercancías' pre-onboarding).
+   * Show Mercancías-specific features: Viajes, Expediciones (placeholder until TX-MC-1+).
+   * Mutually exclusive with isViajerosPrimary.
+   */
+  isMercanciasPrimary: boolean;
+  /**
+   * Org declared 'combinada' modality — runs both Viajeros and Mercancías services.
+   * Show Viajeros working tabs AND Mercancías placeholders simultaneously.
+   */
+  isCombinadaOrg: boolean;
   /** Installer trade work is a primary activity — show installer modules. */
   isInstallerOrg: boolean;
   /** Org has both transport and installer activities active. */
@@ -94,6 +111,9 @@ export function getOrgCapabilities(org: TradeOrganization | null): OrgCapabiliti
       isTransportOrg: false,
       isInstallerOrg: true,
       isMixedOrg: false,
+      isViajerosPrimary: false,
+      isMercanciasPrimary: false,
+      isCombinadaOrg: false,
       transportSpecialties: [],
       transportModalidad: null,
       transportServiceTypes: [],
@@ -123,11 +143,29 @@ export function getOrgCapabilities(org: TradeOrganization | null): OrgCapabiliti
   // Guards against installer wizard fallback after admin deactivation.
   const isTransportSuspended = !hasTransport && isTransportOficioCanonical && org.is_onboarded === true;
 
+  // Viajeros-primary: explicitly declared 'viajeros' modality, or canonical viajeros oficio pre-onboarding.
+  const isViajerosPrimary = hasTransport && (
+    modalidad === 'viajeros' ||
+    (modalidad === null && org.oficio === TRANSPORT_CANONICAL_OFICIOS.viajeros)
+  );
+
+  // Mercancías-primary: explicitly declared 'mercancias'/'reparto' modality, or canonical mercancías oficio.
+  const isMercanciasPrimary = hasTransport && (
+    modalidad === 'mercancias' || modalidad === 'reparto' ||
+    (modalidad === null && org.oficio === TRANSPORT_CANONICAL_OFICIOS.mercancias)
+  );
+
+  // Combinada: declared 'combinada' modality — runs both Viajeros and Mercancías.
+  const isCombinadaOrg = hasTransport && modalidad === 'combinada';
+
   return {
     hasTransport,
     isTransportOrg: isTransportPrimary,
     isInstallerOrg: !isTransportPrimary || isMixedOrg,
     isMixedOrg,
+    isViajerosPrimary,
+    isMercanciasPrimary,
+    isCombinadaOrg,
     transportSpecialties: serviceTypes,
     transportModalidad: modalidad,
     transportServiceTypes: serviceTypes,

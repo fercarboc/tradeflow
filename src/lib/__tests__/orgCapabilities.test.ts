@@ -519,6 +519,149 @@ describe('SC-28: isPendingTransport and isTransportSuspended are mutually exclus
   }
 });
 
+// ── Scenario MC-1: isViajerosPrimary — explicit modalidad ────────────────────
+describe('SC-MC-1: isViajerosPrimary=true for modalidad=viajeros', () => {
+  it('transport_enabled + modalidad=viajeros → isViajerosPrimary=true, isMercanciasPrimary=false', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Viajeros',
+      transport_enabled: true,
+      transport_modalidad: 'viajeros',
+    }));
+    expect(caps.isViajerosPrimary).toBe(true);
+    expect(caps.isMercanciasPrimary).toBe(false);
+  });
+});
+
+// ── Scenario MC-2: isMercanciasPrimary — explicit modalidad ──────────────────
+describe('SC-MC-2: isMercanciasPrimary=true for modalidad=mercancias', () => {
+  it('transport_enabled + modalidad=mercancias → isMercanciasPrimary=true, isViajerosPrimary=false', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Mercancías',
+      transport_enabled: true,
+      transport_modalidad: 'mercancias',
+    }));
+    expect(caps.isMercanciasPrimary).toBe(true);
+    expect(caps.isViajerosPrimary).toBe(false);
+  });
+
+  it('modalidad=reparto → isMercanciasPrimary=true (reparto is mercancias family)', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      transport_enabled: true,
+      transport_modalidad: 'reparto',
+    }));
+    expect(caps.isMercanciasPrimary).toBe(true);
+    expect(caps.isViajerosPrimary).toBe(false);
+  });
+});
+
+// ── Scenario MC-3: pre-onboarding canonical oficio as source of truth ─────────
+describe('SC-MC-3: canonical oficio determines modality when transport_modalidad is null', () => {
+  it('oficio=Transporte de Viajeros + modalidad=null + transport_enabled → isViajerosPrimary=true', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Viajeros',
+      transport_enabled: true,
+      transport_modalidad: null,
+      is_onboarded: false,
+    }));
+    expect(caps.isViajerosPrimary).toBe(true);
+    expect(caps.isMercanciasPrimary).toBe(false);
+  });
+
+  it('oficio=Transporte de Mercancías + modalidad=null + transport_enabled → isMercanciasPrimary=true', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Mercancías',
+      transport_enabled: true,
+      transport_modalidad: null,
+      is_onboarded: false,
+    }));
+    expect(caps.isMercanciasPrimary).toBe(true);
+    expect(caps.isViajerosPrimary).toBe(false);
+  });
+});
+
+// ── Scenario MC-4: combinada — neither primary ────────────────────────────────
+describe('SC-MC-4: combinada modalidad → neither isViajerosPrimary nor isMercanciasPrimary', () => {
+  it('modalidad=combinada → both primary flags false', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      transport_enabled: true,
+      transport_modalidad: 'combinada',
+    }));
+    expect(caps.isViajerosPrimary).toBe(false);
+    expect(caps.isMercanciasPrimary).toBe(false);
+    expect(caps.isTransportOrg).toBe(true);
+  });
+});
+
+// ── Scenario MC-5: transport_enabled=false → both false regardless of modalidad ─
+describe('SC-MC-5: transport_enabled=false → isViajerosPrimary=false, isMercanciasPrimary=false', () => {
+  it('pending Viajeros org (not yet enabled) → both false', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Viajeros',
+      transport_enabled: false,
+      is_onboarded: false,
+    }));
+    expect(caps.isViajerosPrimary).toBe(false);
+    expect(caps.isMercanciasPrimary).toBe(false);
+  });
+
+  it('pending Mercancías org (not yet enabled) → both false', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Mercancías',
+      transport_enabled: false,
+      is_onboarded: false,
+    }));
+    expect(caps.isViajerosPrimary).toBe(false);
+    expect(caps.isMercanciasPrimary).toBe(false);
+  });
+});
+
+// ── Scenario MC-6: null org → both false ─────────────────────────────────────
+describe('SC-MC-6: null org → isViajerosPrimary=false, isMercanciasPrimary=false', () => {
+  it('null org returns false for both modality flags', () => {
+    const caps = getOrgCapabilities(null);
+    expect(caps.isViajerosPrimary).toBe(false);
+    expect(caps.isMercanciasPrimary).toBe(false);
+  });
+});
+
+// ── Scenario MC-7: mutual exclusivity ────────────────────────────────────────
+describe('SC-MC-7: isViajerosPrimary and isMercanciasPrimary are mutually exclusive', () => {
+  const cases: Array<{ modalidad: string; oficio: string }> = [
+    { modalidad: 'viajeros', oficio: 'Transporte de Viajeros' },
+    { modalidad: 'mercancias', oficio: 'Transporte de Mercancías' },
+    { modalidad: 'reparto', oficio: 'Transporte de Mercancías' },
+    { modalidad: 'combinada', oficio: 'Transporte de Viajeros' },
+  ];
+  for (const { modalidad, oficio } of cases) {
+    it(`modalidad=${modalidad}: never both true`, () => {
+      const caps = getOrgCapabilities(makeOrg({
+        oficio,
+        transport_enabled: true,
+        transport_modalidad: modalidad,
+      }));
+      expect(caps.isViajerosPrimary && caps.isMercanciasPrimary).toBe(false);
+    });
+  }
+});
+
+// ── Scenario MC-8: installer org regression ───────────────────────────────────
+describe('SC-MC-8: installer org (no transport) → both modality flags false', () => {
+  it('Fontanería installer → isViajerosPrimary=false, isMercanciasPrimary=false', () => {
+    const caps = getOrgCapabilities(makeOrg({ oficio: 'Fontanería', transport_enabled: false }));
+    expect(caps.isViajerosPrimary).toBe(false);
+    expect(caps.isMercanciasPrimary).toBe(false);
+    expect(caps.isInstallerOrg).toBe(true);
+  });
+
+  it('mudanzas keyword org (transport enabled) → isViajerosPrimary=false, isMercanciasPrimary=false', () => {
+    // keyword-detected transport org without explicit modalidad: neither primary
+    const caps = getOrgCapabilities(makeOrg({ oficio: 'mudanzas', transport_enabled: true }));
+    expect(caps.isViajerosPrimary).toBe(false);
+    expect(caps.isMercanciasPrimary).toBe(false);
+    expect(caps.isTransportOrg).toBe(true);
+  });
+});
+
 // ── Scenario 29: suspended org with explicit transport_modalidad (post-onboarding) ─
 describe('SC-29: suspended org with transport_modalidad set (post-onboarding state)', () => {
   it('Viajeros + transport_modalidad=viajeros + transport_enabled=false + is_onboarded=true → isTransportSuspended', () => {
@@ -544,5 +687,86 @@ describe('SC-29: suspended org with transport_modalidad set (post-onboarding sta
     expect(caps.isTransportSuspended).toBe(true);
     // transport_license value is preserved in caps even when suspended
     expect(caps.transportLicense).toBe('pilot');
+  });
+});
+
+// ── Scenario MC-9: isCombinadaOrg=true for modalidad=combinada ───────────────
+describe('SC-MC-9: isCombinadaOrg=true only for modalidad=combinada', () => {
+  it('transport_enabled + modalidad=combinada → isCombinadaOrg=true', () => {
+    const caps = getOrgCapabilities(makeOrg({ transport_enabled: true, transport_modalidad: 'combinada' }));
+    expect(caps.isCombinadaOrg).toBe(true);
+    expect(caps.isViajerosPrimary).toBe(false);
+    expect(caps.isMercanciasPrimary).toBe(false);
+    expect(caps.isTransportOrg).toBe(true);
+  });
+
+  it('combinada org also shows in isMixedOrg=false (it is transport primary)', () => {
+    const caps = getOrgCapabilities(makeOrg({ transport_enabled: true, transport_modalidad: 'combinada' }));
+    expect(caps.isMixedOrg).toBe(false);
+  });
+});
+
+// ── Scenario MC-10: isCombinadaOrg=false for all other modalidades ───────────
+describe('SC-MC-10: isCombinadaOrg=false for non-combinada modalidades', () => {
+  const cases: Array<string | null> = ['viajeros', 'mercancias', 'reparto', null];
+  cases.forEach(modalidad => {
+    it(`modalidad=${modalidad} → isCombinadaOrg=false`, () => {
+      const caps = getOrgCapabilities(makeOrg({
+        transport_enabled: true,
+        transport_modalidad: modalidad,
+      }));
+      expect(caps.isCombinadaOrg).toBe(false);
+    });
+  });
+});
+
+// ── Scenario MC-11: transport_enabled=false → isCombinadaOrg=false ───────────
+describe('SC-MC-11: transport_enabled=false → isCombinadaOrg=false', () => {
+  it('disabled transport with combinada modalidad → isCombinadaOrg=false', () => {
+    const caps = getOrgCapabilities(makeOrg({ transport_enabled: false, transport_modalidad: 'combinada' }));
+    expect(caps.isCombinadaOrg).toBe(false);
+    expect(caps.hasTransport).toBe(false);
+  });
+});
+
+// ── Scenario MC-12: null org → isCombinadaOrg=false ──────────────────────────
+describe('SC-MC-12: null org → isCombinadaOrg=false', () => {
+  it('null org returns false for isCombinadaOrg', () => {
+    const caps = getOrgCapabilities(null);
+    expect(caps.isCombinadaOrg).toBe(false);
+  });
+});
+
+// ── Scenario MC-13: mixed installer + Viajeros (no explicit modalidad) ───────
+describe('SC-MC-13: mixed installer + Viajeros org (keyword-detected, no explicit modalidad)', () => {
+  it('mudanzas keyword org with transport enabled → isMixedOrg=false (keyword IS transport primary)', () => {
+    // Transport keyword orgs are transport primary — isMixedOrg is for truly mixed installer+transport
+    const caps = getOrgCapabilities(makeOrg({ oficio: 'mudanzas', transport_enabled: true }));
+    expect(caps.isMixedOrg).toBe(false);
+    expect(caps.isTransportOrg).toBe(true);
+    expect(caps.isCombinadaOrg).toBe(false);
+  });
+
+  it('Viajeros canonical org (transport_enabled) → isTransportOrg=true, isMixedOrg=false', () => {
+    const caps = getOrgCapabilities(makeOrg({
+      oficio: 'Transporte de Viajeros',
+      transport_enabled: true,
+      transport_modalidad: 'viajeros',
+    }));
+    expect(caps.isTransportOrg).toBe(true);
+    expect(caps.isMixedOrg).toBe(false);
+    expect(caps.isViajerosPrimary).toBe(true);
+    expect(caps.isCombinadaOrg).toBe(false);
+  });
+});
+
+// ── Scenario MC-14: combinada shows placeholders (isCombinadaOrg guard) ──────
+describe('SC-MC-14: combinada org gets both Viajeros tabs and Mercancías placeholders', () => {
+  it('combinada → isCombinadaOrg=true, isMercanciasPrimary=false, isViajerosPrimary=false', () => {
+    const caps = getOrgCapabilities(makeOrg({ transport_enabled: true, transport_modalidad: 'combinada' }));
+    // Sidebar renders Viajeros tabs via !isMercanciasPrimary, AND Mercancías placeholders via isCombinadaOrg
+    expect(caps.isCombinadaOrg).toBe(true);
+    expect(caps.isMercanciasPrimary).toBe(false);
+    expect(caps.isViajerosPrimary).toBe(false);
   });
 });

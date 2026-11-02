@@ -123,6 +123,7 @@ import ScreenTransporteParteTrabajo from './ScreenTransporteParteTrabajo';
 import ScreenTransporteRutas from './ScreenTransporteRutas';
 import ScreenTransporteTarifas from './ScreenTransporteTarifas';
 import ScreenTransportePresupuestos from './ScreenTransportePresupuestos';
+import ScreenTransporteMercanciasComing from './ScreenTransporteMercanciasComing';
 import { getOrgCapabilities, TRANSPORT_PENDING_OFICIOS } from '../lib/orgCapabilities';
 import ScreenFacturas from './ScreenFacturas';
 import ScreenContratos from './ScreenContratos';
@@ -871,8 +872,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // Mobile suppliers hub sub-tab
   const [mobileSuppliersSubTab, setMobileSuppliersSubTab] = useState<'proveedores' | 'catalogo'>('proveedores');
-  // Mobile transport sub-tab
-  const [transporteMobileSubTab, setTransporteMobileSubTab] = useState<'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas' | 'partes'>('vehiculos');
+  // Mobile transport sub-tab (includes mercancías placeholders: viajes, expediciones)
+  const [transporteMobileSubTab, setTransporteMobileSubTab] = useState<'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas' | 'partes' | 'viajes' | 'expediciones'>('vehiculos');
   // Transport parte virtual tab
   const [transporteParteId, setTransporteParteId] = useState<string | null>(null);
   const [transporteParteFromTab, setTransporteParteFromTab] = useState<string>('transporte_servicios');
@@ -1029,7 +1030,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // Sync navigation with org capabilities when org data resolves:
   //   - Transport-only org: redirect away from installer defaults toward transport panel.
   //   - No-transport org: redirect away from transport tabs (e.g. stale localStorage).
+  //   - Mercancías org: redirect away from Viajeros-only tabs.
+  const VIAJEROS_ONLY_TABS = ['transporte_servicios', 'transporte_agenda', 'transporte_rutas', 'transporte_partes'];
   useEffect(() => {
+    if (caps.isMercanciasPrimary && VIAJEROS_ONLY_TABS.includes(activeTab)) {
+      setActiveTab('transporte_panel');
+    }
     if (caps.isTransportOrg) {
       if (activeTab === 'dashboard') setActiveTab('transporte_panel');
       if (mobileTab === 'inicio') {
@@ -4284,23 +4290,29 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           {mobileTab === 'partes' && MobileScreenPartes()}
           {mobileTab === 'transporte' && orgId && caps.hasTransport && can('transport.view') && (
             <div className="absolute inset-0 flex flex-col bg-gray-50">
-              {/* Sub-tabs: Panel / Servicios / Agenda / Flota / Conductores / Rutas */}
+              {/* Sub-tabs: varían según modalidad */}
               <div className="sticky top-0 z-10 bg-white border-b border-gray-200 flex overflow-x-auto scrollbar-hide shrink-0">
-                {([
-                  { id: 'panel',       icon: <LayoutDashboard className="w-3.5 h-3.5" />, label: 'Panel',      color: 'blue' },
-                  { id: 'servicios',   icon: <Calendar className="w-3.5 h-3.5" />,        label: 'Servicios',  color: 'blue' },
-                  { id: 'agenda',      icon: <CalendarDays className="w-3.5 h-3.5" />,    label: 'Agenda',     color: 'blue' },
-                  { id: 'vehiculos',   icon: <Bus className="w-3.5 h-3.5" />,             label: 'Flota',      color: 'blue' },
-                  { id: 'conductores', icon: <UserPlus className="w-3.5 h-3.5" />,        label: 'Conductores',color: 'indigo' },
-                  { id: 'rutas',       icon: <Route className="w-3.5 h-3.5" />,           label: 'Rutas',      color: 'blue' },
-                  { id: 'partes',      icon: <FileCheck className="w-3.5 h-3.5" />,       label: 'Partes',     color: 'purple' },
-                ] as const).map(tab => (
+                {(caps.isMercanciasPrimary ? [
+                  { id: 'panel',        icon: <LayoutDashboard className="w-3.5 h-3.5" />, label: 'Panel' },
+                  { id: 'vehiculos',    icon: <Truck className="w-3.5 h-3.5" />,           label: 'Flota' },
+                  { id: 'conductores',  icon: <UserPlus className="w-3.5 h-3.5" />,        label: 'Conductores' },
+                  { id: 'viajes',       icon: <Package className="w-3.5 h-3.5" />,         label: 'Viajes' },
+                  { id: 'expediciones', icon: <FileText className="w-3.5 h-3.5" />,        label: 'Expediciones' },
+                ] : [
+                  { id: 'panel',       icon: <LayoutDashboard className="w-3.5 h-3.5" />, label: 'Panel' },
+                  { id: 'servicios',   icon: <Calendar className="w-3.5 h-3.5" />,        label: 'Servicios' },
+                  { id: 'agenda',      icon: <CalendarDays className="w-3.5 h-3.5" />,    label: 'Agenda' },
+                  { id: 'vehiculos',   icon: <Bus className="w-3.5 h-3.5" />,             label: 'Flota' },
+                  { id: 'conductores', icon: <UserPlus className="w-3.5 h-3.5" />,        label: 'Conductores' },
+                  { id: 'rutas',       icon: <Route className="w-3.5 h-3.5" />,           label: 'Rutas' },
+                  { id: 'partes',      icon: <FileCheck className="w-3.5 h-3.5" />,       label: 'Partes' },
+                ] as { id: string; icon: React.ReactNode; label: string }[]).map(tab => (
                   <button
                     key={tab.id}
-                    onClick={() => setTransporteMobileSubTab(tab.id)}
+                    onClick={() => setTransporteMobileSubTab(tab.id as Parameters<typeof setTransporteMobileSubTab>[0])}
                     className={`flex-1 min-w-[72px] py-3 text-[10px] font-bold flex items-center justify-center gap-1 border-b-2 transition-colors whitespace-nowrap ${
                       transporteMobileSubTab === tab.id
-                        ? 'border-blue-600 text-blue-600'
+                        ? (caps.isMercanciasPrimary ? 'border-amber-500 text-amber-600' : 'border-blue-600 text-blue-600')
                         : 'border-transparent text-gray-500'
                     }`}
                   >
@@ -4363,7 +4375,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     onOpenAllPartes={(cid) => { setTransporteConductorPreselectId(cid); setTransporteMobileSubTab('partes'); }}
                   />
                 )}
-                {transporteMobileSubTab === 'rutas' && (
+                {transporteMobileSubTab === 'rutas' && !caps.isMercanciasPrimary && (
                   <ScreenTransporteRutas orgId={orgId} showToast={showToast}
                     initialServiceId={transporteNavServiceId}
                     onConsumeInitialServiceId={() => setTransporteNavServiceId(null)}
@@ -4377,11 +4389,42 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     }}
                   />
                 )}
-                {transporteMobileSubTab === 'partes' && orgId && (
+                {transporteMobileSubTab === 'partes' && orgId && !caps.isMercanciasPrimary && (
                   <ScreenTransportePartes
                     orgId={orgId}
                     onOpenParte={(id) => { setTransporteParteId(id); setMobileTab('partes'); }}
                     conductorId={transporteConductorPreselectId ?? undefined}
+                  />
+                )}
+                {/* Mercancías placeholders */}
+                {transporteMobileSubTab === 'viajes' && (
+                  <ScreenTransporteMercanciasComing
+                    feature="viajes"
+                    onNavigate={(tab) => {
+                      type MSubTab = 'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas' | 'partes' | 'viajes' | 'expediciones';
+                      const map: Record<string, MSubTab> = {
+                        transporte_panel: 'panel',
+                        transporte_vehiculos: 'vehiculos',
+                        transporte_conductores: 'conductores',
+                        transporte_tarifas: 'vehiculos',
+                      };
+                      if (map[tab]) setTransporteMobileSubTab(map[tab]);
+                    }}
+                  />
+                )}
+                {transporteMobileSubTab === 'expediciones' && (
+                  <ScreenTransporteMercanciasComing
+                    feature="expediciones"
+                    onNavigate={(tab) => {
+                      type MSubTab = 'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas' | 'partes' | 'viajes' | 'expediciones';
+                      const map: Record<string, MSubTab> = {
+                        transporte_panel: 'panel',
+                        transporte_vehiculos: 'vehiculos',
+                        transporte_conductores: 'conductores',
+                        transporte_tarifas: 'vehiculos',
+                      };
+                      if (map[tab]) setTransporteMobileSubTab(map[tab]);
+                    }}
                   />
                 )}
               </div>
@@ -4407,35 +4450,72 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             ) : caps.isTransportOrg ? (
               /* ── BARRA MÓVIL TRANSPORTE ─────────────────────── */
               <>
-                {([
-                  { subtab: 'panel'       as const, icon: <LayoutDashboard className="w-5 h-5" />, label: 'Panel' },
-                  { subtab: 'servicios'   as const, icon: <Calendar        className="w-5 h-5" />, label: 'Servicios' },
-                  { subtab: 'agenda'      as const, icon: <CalendarDays    className="w-5 h-5" />, label: 'Agenda' },
-                  { subtab: 'vehiculos'   as const, icon: <Bus             className="w-5 h-5" />, label: 'Flota' },
-                  { subtab: 'conductores' as const, icon: <UserPlus        className="w-5 h-5" />, label: 'Equipo' },
-                ]).map(btn => (
-                  <button
-                    key={btn.subtab}
-                    onClick={() => { setMobileTab('transporte'); setTransporteMobileSubTab(btn.subtab); setShowFloatingMenu(false); }}
-                    className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors ${
-                      mobileTab === 'transporte' && transporteMobileSubTab === btn.subtab
-                        ? 'text-blue-600'
-                        : 'text-[#1C2535]/45'
-                    }`}
-                  >
-                    {btn.icon}
-                    <span>{btn.label}</span>
-                  </button>
-                ))}
-                <button
-                  onClick={() => { setMobileTab('presupuestos'); setShowFloatingMenu(false); }}
-                  className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors ${
-                    mobileTab === 'presupuestos' ? 'text-blue-600' : 'text-[#1C2535]/45'
-                  }`}
-                >
-                  <FileText className="w-5 h-5" />
-                  <span>Presupuestos</span>
-                </button>
+                {caps.isMercanciasPrimary ? (
+                  /* Mercancías: Panel / Flota / Equipo / Viajes (próx) / Presupuestos */
+                  <>
+                    {([
+                      { subtab: 'panel'       as const, icon: <LayoutDashboard className="w-5 h-5" />, label: 'Panel' },
+                      { subtab: 'vehiculos'   as const, icon: <Truck           className="w-5 h-5" />, label: 'Flota' },
+                      { subtab: 'conductores' as const, icon: <UserPlus        className="w-5 h-5" />, label: 'Equipo' },
+                      { subtab: 'viajes'      as const, icon: <Package         className="w-5 h-5" />, label: 'Viajes' },
+                    ]).map(btn => (
+                      <button
+                        key={btn.subtab}
+                        onClick={() => { setMobileTab('transporte'); setTransporteMobileSubTab(btn.subtab); setShowFloatingMenu(false); }}
+                        className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors ${
+                          mobileTab === 'transporte' && transporteMobileSubTab === btn.subtab
+                            ? 'text-amber-600'
+                            : 'text-[#1C2535]/45'
+                        }`}
+                      >
+                        {btn.icon}
+                        <span>{btn.label}</span>
+                      </button>
+                    ))}
+                    <button
+                      onClick={() => { setMobileTab('presupuestos'); setShowFloatingMenu(false); }}
+                      className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors ${
+                        mobileTab === 'presupuestos' ? 'text-amber-600' : 'text-[#1C2535]/45'
+                      }`}
+                    >
+                      <FileText className="w-5 h-5" />
+                      <span>Presupuestos</span>
+                    </button>
+                  </>
+                ) : (
+                  /* Viajeros (y combinada): Panel / Servicios / Agenda / Flota / Equipo + Presupuestos */
+                  <>
+                    {([
+                      { subtab: 'panel'       as const, icon: <LayoutDashboard className="w-5 h-5" />, label: 'Panel' },
+                      { subtab: 'servicios'   as const, icon: <Calendar        className="w-5 h-5" />, label: 'Servicios' },
+                      { subtab: 'agenda'      as const, icon: <CalendarDays    className="w-5 h-5" />, label: 'Agenda' },
+                      { subtab: 'vehiculos'   as const, icon: <Bus             className="w-5 h-5" />, label: 'Flota' },
+                      { subtab: 'conductores' as const, icon: <UserPlus        className="w-5 h-5" />, label: 'Equipo' },
+                    ]).map(btn => (
+                      <button
+                        key={btn.subtab}
+                        onClick={() => { setMobileTab('transporte'); setTransporteMobileSubTab(btn.subtab); setShowFloatingMenu(false); }}
+                        className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors ${
+                          mobileTab === 'transporte' && transporteMobileSubTab === btn.subtab
+                            ? 'text-blue-600'
+                            : 'text-[#1C2535]/45'
+                        }`}
+                      >
+                        {btn.icon}
+                        <span>{btn.label}</span>
+                      </button>
+                    ))}
+                    <button
+                      onClick={() => { setMobileTab('presupuestos'); setShowFloatingMenu(false); }}
+                      className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors ${
+                        mobileTab === 'presupuestos' ? 'text-blue-600' : 'text-[#1C2535]/45'
+                      }`}
+                    >
+                      <FileText className="w-5 h-5" />
+                      <span>Presupuestos</span>
+                    </button>
+                  </>
+                )}
               </>
             ) : (
               /* ── BARRA MÓVIL INSTALADORES (original intacta) ── */
@@ -6685,13 +6765,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               <>
                 <p className="px-3 pt-1 pb-2 text-[9px] font-bold uppercase tracking-widest text-slate-500">Transporte</p>
                 {can('transport.view') && SidebarBtn({ id: 'transporte_panel',      icon: <LayoutDashboard className="w-4 h-4" />, label: 'Panel' })}
-                {can('transport.view') && SidebarBtn({ id: 'transporte_servicios',  icon: <Calendar className="w-4 h-4" />, label: 'Servicios' })}
-                {can('transport.view') && SidebarBtn({ id: 'transporte_agenda',     icon: <CalendarDays className="w-4 h-4" />, label: 'Agenda' })}
+                {/* Tabs comunes: Flota, Conductores, Tarifas */}
                 {can('transport.view') && SidebarBtn({ id: 'transporte_vehiculos',  icon: <Bus className="w-4 h-4" />, label: 'Flota' })}
                 {can('transport.view') && SidebarBtn({ id: 'transporte_conductores', icon: <UserPlus className="w-4 h-4" />, label: 'Conductores' })}
-                {can('transport.view') && SidebarBtn({ id: 'transporte_rutas',      icon: <Route className="w-4 h-4" />, label: 'Rutas' })}
-                {can('transport.view') && SidebarBtn({ id: 'transporte_partes',     icon: <FileCheck className="w-4 h-4" />, label: 'Partes' })}
                 {can('transport.view') && SidebarBtn({ id: 'transporte_tarifas',   icon: <Euro className="w-4 h-4" />, label: 'Tarifas' })}
+                {/* Viajeros: Servicios, Agenda, Rutas, Partes */}
+                {!caps.isMercanciasPrimary && can('transport.view') && SidebarBtn({ id: 'transporte_servicios',  icon: <Calendar className="w-4 h-4" />, label: 'Servicios' })}
+                {!caps.isMercanciasPrimary && can('transport.view') && SidebarBtn({ id: 'transporte_agenda',     icon: <CalendarDays className="w-4 h-4" />, label: 'Agenda' })}
+                {!caps.isMercanciasPrimary && can('transport.view') && SidebarBtn({ id: 'transporte_rutas',      icon: <Route className="w-4 h-4" />, label: 'Rutas' })}
+                {!caps.isMercanciasPrimary && can('transport.view') && SidebarBtn({ id: 'transporte_partes',     icon: <FileCheck className="w-4 h-4" />, label: 'Partes' })}
+                {/* Mercancías: Viajes y Expediciones (próximamente) — también en combinada */}
+                {(caps.isMercanciasPrimary || caps.isCombinadaOrg) && can('transport.view') && SidebarBtn({ id: 'transporte_viajes',      icon: <Truck className="w-4 h-4" />, label: 'Viajes' })}
+                {(caps.isMercanciasPrimary || caps.isCombinadaOrg) && can('transport.view') && SidebarBtn({ id: 'transporte_expediciones', icon: <Package className="w-4 h-4" />, label: 'Expediciones' })}
                 <div className="my-2 mx-1 border-t border-slate-800/60" />
                 <p className="px-3 pb-2 text-[9px] font-bold uppercase tracking-widest text-slate-500">Gestión</p>
                 {can('clients.manage') && SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes' })}
@@ -6732,13 +6817,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <div className="my-2 mx-1 border-t border-slate-800/60" />
                     <p className="px-3 pb-1 text-[9px] font-bold uppercase tracking-widest text-slate-500">Transporte</p>
                     {SidebarBtn({ id: 'transporte_panel',      icon: <LayoutDashboard className="w-4 h-4" />, label: 'Panel' })}
-                    {SidebarBtn({ id: 'transporte_servicios',  icon: <Calendar className="w-4 h-4" />, label: 'Servicios' })}
-                    {SidebarBtn({ id: 'transporte_agenda',     icon: <CalendarDays className="w-4 h-4" />, label: 'Agenda' })}
+                    {/* Tabs comunes a todas las modalidades */}
                     {SidebarBtn({ id: 'transporte_vehiculos',  icon: <Bus  className="w-4 h-4" />, label: 'Flota' })}
                     {SidebarBtn({ id: 'transporte_conductores', icon: <UserPlus className="w-4 h-4" />, label: 'Conductores' })}
-                    {SidebarBtn({ id: 'transporte_rutas',      icon: <Route className="w-4 h-4" />, label: 'Rutas' })}
-                    {SidebarBtn({ id: 'transporte_partes',     icon: <FileCheck className="w-4 h-4" />, label: 'Partes' })}
                     {SidebarBtn({ id: 'transporte_tarifas',   icon: <Euro className="w-4 h-4" />, label: 'Tarifas' })}
+                    {/* Viajeros: solo si no es mercancías primaria */}
+                    {!caps.isMercanciasPrimary && SidebarBtn({ id: 'transporte_servicios',  icon: <Calendar className="w-4 h-4" />, label: 'Servicios' })}
+                    {!caps.isMercanciasPrimary && SidebarBtn({ id: 'transporte_agenda',     icon: <CalendarDays className="w-4 h-4" />, label: 'Agenda' })}
+                    {!caps.isMercanciasPrimary && SidebarBtn({ id: 'transporte_rutas',      icon: <Route className="w-4 h-4" />, label: 'Rutas' })}
+                    {!caps.isMercanciasPrimary && SidebarBtn({ id: 'transporte_partes',     icon: <FileCheck className="w-4 h-4" />, label: 'Partes' })}
+                    {/* Mercancías: próximamente (también en combinada) */}
+                    {(caps.isMercanciasPrimary || caps.isCombinadaOrg) && SidebarBtn({ id: 'transporte_viajes',       icon: <Truck className="w-4 h-4" />, label: 'Viajes' })}
+                    {(caps.isMercanciasPrimary || caps.isCombinadaOrg) && SidebarBtn({ id: 'transporte_expediciones',  icon: <Package className="w-4 h-4" />, label: 'Expediciones' })}
                     {SidebarBtn({ id: 'transporte_presupuestos', icon: <FileText className="w-4 h-4" />, label: 'Presupuestos' })}
                   </>
                 )}
@@ -7218,6 +7308,22 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'transporte_presupuestos' && orgId && caps.hasTransport && can('transport.view') && (
                   <div className="flex-1 overflow-y-auto min-h-0">
                     <ScreenTransportePresupuestos orgId={orgId} showToast={showToast} />
+                  </div>
+                )}
+                {activeTab === 'transporte_viajes' && orgId && caps.hasTransport && (caps.isMercanciasPrimary || caps.isCombinadaOrg) && can('transport.view') && (
+                  <div className="flex-1 overflow-y-auto min-h-0">
+                    <ScreenTransporteMercanciasComing
+                      feature="viajes"
+                      onNavigate={(tab) => setActiveTab(tab)}
+                    />
+                  </div>
+                )}
+                {activeTab === 'transporte_expediciones' && orgId && caps.hasTransport && (caps.isMercanciasPrimary || caps.isCombinadaOrg) && can('transport.view') && (
+                  <div className="flex-1 overflow-y-auto min-h-0">
+                    <ScreenTransporteMercanciasComing
+                      feature="expediciones"
+                      onNavigate={(tab) => setActiveTab(tab)}
+                    />
                   </div>
                 )}
                 {activeTab === 'asistente' && (
