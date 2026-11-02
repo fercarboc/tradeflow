@@ -1,10 +1,12 @@
 import { useEffect, useMemo } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MapPin, AlertTriangle } from 'lucide-react';
 import type { RouteJob, GeoLocation } from '../lib/routeOptimizer';
 import type { TradeJob } from '../lib/supabase';
+import type { GeoJSONGeometry } from '../lib/geoApi';
+import { geometryToLeaflet } from '../lib/geoCredits';
 import { CARTO_KEY, CARTO_URL, CARTO_ATTR } from '../lib/cartoConfig';
 
 const ESTADO_DONE: Set<TradeJob['estado']> = new Set(['completado', 'cancelado']);
@@ -64,12 +66,14 @@ function MapBoundsFitter({ points }: { points: [number, number][] }) {
 export interface RouteMapProps {
   routeJobs: RouteJob[];
   startLocation: string | GeoLocation;
+  /** GeoJSON geometry from routeWaypoints() API — renders as a real road polyline when provided. */
+  geometry?: GeoJSONGeometry;
   className?: string;
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export default function RouteMap({ routeJobs, startLocation, className = '' }: RouteMapProps) {
+export default function RouteMap({ routeJobs, startLocation, geometry, className = '' }: RouteMapProps) {
   const geoJobs = useMemo(
     () => routeJobs.filter(j => isValidLatLng(j.latitud, j.longitud)),
     [routeJobs],
@@ -86,6 +90,11 @@ export default function RouteMap({ routeJobs, startLocation, className = '' }: R
     if (startGeo) pts.unshift([startGeo.lat, startGeo.lng]);
     return pts;
   }, [geoJobs, startGeo]);
+
+  const routePolyline = useMemo<[number, number][] | null>(() => {
+    if (!geometry) return null;
+    return geometryToLeaflet(geometry);
+  }, [geometry]);
 
   // allPoints[0] is always defined here (guarded by the allPoints.length === 0 early return below)
   const noGeoCount = routeJobs.length - geoJobs.length;
@@ -134,6 +143,13 @@ export default function RouteMap({ routeJobs, startLocation, className = '' }: R
         <TileLayer url={CARTO_URL} attribution={CARTO_ATTR} />
         <MapBoundsFitter points={allPoints} />
         <MapSizeInvalidator />
+
+        {routePolyline && (
+          <Polyline
+            positions={routePolyline}
+            pathOptions={{ color: '#2563eb', weight: 4, opacity: 0.75 }}
+          />
+        )}
 
         {startGeo && (
           <Marker position={[startGeo.lat, startGeo.lng]} icon={createStartIcon()}>

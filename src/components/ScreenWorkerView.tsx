@@ -1,28 +1,30 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import {
   MapPin, Clock, User, Navigation, CheckCircle, Play,
   LogOut, RefreshCw, AlertTriangle, Phone, ChevronDown, ChevronUp, X, Check,
   Plus, Camera, Loader2, CalendarDays, Edit2, Route, Users, Trash2,
-  ChevronLeft, ChevronRight, List, Bell, BellOff, Wrench, AlertCircle, FileText,
-  Eye, FileCheck, MessageSquare,
+  ChevronLeft, ChevronRight, Bell, BellOff, Wrench, AlertCircle, FileText,
+  Eye, FileCheck, MessageSquare, Mic,
 } from 'lucide-react';
 import ScreenParteTrabajo from './ScreenParteTrabajo';
+import RouteMap, { isValidLatLng } from './RouteMap';
+import { routeWaypoints, formatDistance, formatDuration } from '../lib/geoApi';
+import type { RouteResult } from '../lib/geoApi';
 import {
   supabase, loadWorkerJobs, workerSetJobStatus,
   loadJobPhotos, uploadJobPhoto, workerCreateJob, loadOrgClients,
   loadJobs, updateJob, loadOrgWorkers, assignWorkerToJob, removeWorkerFromJob,
   deleteJob, subscribePush, unsubscribePush, isPushSubscribed,
   loadWorkerIncidencias, updateMaintenanceIncidencia, sendParteTrabajo,
+  loadOrgById,
 } from '../lib/supabase';
 import type { WorkerProfile, TradeJob, TradeJobPhoto, TradeClient, TradeJobWorker, MaintenanceIncidencia } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
+import { buildGoogleMapsUrl } from '../lib/routeOptimizer';
+import type { RouteJob, GeoLocation } from '../lib/routeOptimizer';
 import { ActivePage } from '../types';
 
-interface Props {
-  workerProfile: WorkerProfile | null;
-  session: Session | null;
-  setCurrentPage: (p: ActivePage) => void;
-}
+// ── Constants ─────────────────────────────────────────────────────────────────
 
 const ESTADO_DOT: Record<TradeJob['estado'], string> = {
   planificado:               'bg-blue-500',
@@ -46,10 +48,6 @@ const ESTADO_LABEL: Record<TradeJob['estado'], string> = {
   bloqueado_espera_material: 'Espera material',
 };
 
-const FILTER_OPTIONS: Array<'todos' | TradeJob['estado']> = [
-  'todos', 'planificado', 'en_curso', 'pendiente_material', 'completado', 'cancelado',
-];
-
 const INC_PRIORIDAD_LABEL: Record<MaintenanceIncidencia['prioridad'], string> = {
   critica: 'Crítica', urgente: 'Urgente', normal: 'Normal', baja: 'Baja',
 };
@@ -62,6 +60,10 @@ const INC_ESTADO_LABEL: Record<MaintenanceIncidencia['estado'], string> = {
 const INC_ESTADO_DOT: Record<MaintenanceIncidencia['estado'], string> = {
   abierta: 'bg-red-500', en_curso: 'bg-amber-500', resuelta: 'bg-emerald-500', cerrada: 'bg-slate-500',
 };
+
+const DAY_ABBR = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
 
 function fmtDate(dateStr: string): string {
   const today = new Date().toISOString().split('T')[0];
@@ -77,80 +79,6 @@ function mapsUrl(job: TradeJob): string {
   )}`;
 }
 
-// ── TodaySummary ──────────────────────────────────────────────────────────────
-
-interface TodaySummaryProps {
-  jobs: TradeJob[];
-  onFocus: (jobId: string) => void;
-}
-
-function TodaySummary({ jobs, onFocus }: TodaySummaryProps) {
-  if (jobs.length === 0) return null;
-  const completed  = jobs.filter(j => j.estado === 'completado').length;
-  const totalHours = jobs.reduce((s, j) => s + (j.duracion_horas ?? 0), 0);
-  const nextJob    = jobs.find(j => j.estado !== 'completado' && j.estado !== 'cancelado');
-  const allDone    = completed === jobs.length;
-
-  return (
-    <div className="bg-slate-800/70 border border-blue-700/40 rounded-xl p-4 mb-1">
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <Route className="w-3.5 h-3.5 text-blue-400" />
-          <span className="text-xs font-bold text-white uppercase tracking-wide">Ruta de hoy</span>
-        </div>
-        {totalHours > 0 && (
-          <span className="text-[9px] text-slate-400 font-mono">~{totalHours}h estimadas</span>
-        )}
-      </div>
-
-      <div className="mb-3">
-        <div className="flex justify-between text-[9px] text-slate-500 mb-1.5">
-          <span>{completed} completados</span>
-          <span>{jobs.length} total</span>
-        </div>
-        <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-blue-500 rounded-full transition-all duration-500"
-            style={{ width: `${(completed / jobs.length) * 100}%` }}
-          />
-        </div>
-      </div>
-
-      {allDone ? (
-        <div className="flex items-center gap-2 text-emerald-400">
-          <CheckCircle className="w-3.5 h-3.5" />
-          <span className="text-xs font-bold">¡Todos los trabajos completados!</span>
-        </div>
-      ) : nextJob ? (
-        <button
-          onClick={() => onFocus(nextJob.id)}
-          className="w-full bg-slate-800/60 hover:bg-slate-800 rounded-lg px-3 py-2 text-left transition-colors cursor-pointer"
-        >
-          <p className="text-[9px] font-mono uppercase text-blue-400 mb-0.5">Próxima parada</p>
-          <p className="text-xs font-bold text-white leading-snug">{nextJob.titulo}</p>
-          <div className="flex items-center gap-3 mt-1 flex-wrap">
-            {nextJob.hora_inicio && (
-              <span className="flex items-center gap-1 text-[9px] text-slate-400 font-mono">
-                <Clock className="w-2.5 h-2.5" />{nextJob.hora_inicio}
-                {nextJob.duracion_horas ? ` · ${nextJob.duracion_horas}h` : ''}
-              </span>
-            )}
-            {nextJob.direccion && (
-              <span className="flex items-center gap-1 text-[9px] text-slate-400 truncate max-w-[180px]">
-                <MapPin className="w-2.5 h-2.5 shrink-0" />{nextJob.direccion}
-              </span>
-            )}
-          </div>
-        </button>
-      ) : null}
-    </div>
-  );
-}
-
-// ── WeekStrip ─────────────────────────────────────────────────────────────────
-
-const DAY_ABBR = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
-
 function getWeekDays(weekOffset: number): string[] {
   return Array.from({ length: 7 }, (_, i) => {
     const now = new Date();
@@ -163,7 +91,9 @@ function getWeekDays(weekOffset: number): string[] {
   });
 }
 
-interface WeekStripProps {
+// ── WeekCalendarGrid ──────────────────────────────────────────────────────────
+
+interface WeekCalendarGridProps {
   jobs: TradeJob[];
   selectedDate: string;
   weekOffset: number;
@@ -171,57 +101,155 @@ interface WeekStripProps {
   onChangeWeek: (delta: number) => void;
 }
 
-function WeekStrip({ jobs, selectedDate, weekOffset, onSelectDate, onChangeWeek }: WeekStripProps) {
+function WeekCalendarGrid({ jobs, selectedDate, weekOffset, onSelectDate, onChangeWeek }: WeekCalendarGridProps) {
   const today = new Date().toISOString().split('T')[0];
   const weekDays = getWeekDays(weekOffset);
-
   const from = new Date(weekDays[0] + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
   const to   = new Date(weekDays[6] + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
 
   return (
-    <div className="bg-slate-900 border-b border-slate-800 px-3 pt-2 pb-3 space-y-2">
-      <div className="flex items-center justify-between">
-        <button onClick={() => onChangeWeek(-1)} className="p-1.5 text-slate-400 hover:text-white transition cursor-pointer">
+    <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-800">
+        <button onClick={() => onChangeWeek(-1)} className="p-1.5 text-slate-400 hover:text-white cursor-pointer rounded-lg hover:bg-slate-800 transition-colors">
           <ChevronLeft className="w-4 h-4" />
         </button>
         <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
           {weekOffset === 0 ? 'Esta semana' : `${from} – ${to}`}
         </span>
-        <button onClick={() => onChangeWeek(1)} className="p-1.5 text-slate-400 hover:text-white transition cursor-pointer">
+        <button onClick={() => onChangeWeek(1)} className="p-1.5 text-slate-400 hover:text-white cursor-pointer rounded-lg hover:bg-slate-800 transition-colors">
           <ChevronRight className="w-4 h-4" />
         </button>
       </div>
-
-      <div className="grid grid-cols-7 gap-1">
+      <div className="grid grid-cols-7 divide-x divide-slate-800">
         {weekDays.map((date, i) => {
           const dayJobs = jobs.filter(j => j.fecha_inicio === date && j.estado !== 'cancelado');
           const isToday    = date === today;
           const isSelected = date === selectedDate;
           const dayNum = new Date(date + 'T12:00:00').getDate();
-          const hasActive  = dayJobs.some(j => j.estado === 'en_curso');
-          const hasPending = dayJobs.some(j => j.estado === 'planificado' || j.estado === 'pendiente_material');
-          const dotColor   = hasActive ? 'bg-amber-500' : hasPending ? 'bg-blue-500' : dayJobs.length > 0 ? 'bg-emerald-500' : '';
 
           return (
             <button
               key={date}
               onClick={() => onSelectDate(date)}
-              className={`flex flex-col items-center py-2 rounded-xl transition-colors cursor-pointer ${
-                isSelected ? 'bg-blue-600' : isToday ? 'bg-slate-800 ring-1 ring-blue-500/40' : 'hover:bg-slate-800'
+              className={`flex flex-col min-h-[90px] p-1.5 cursor-pointer transition-colors text-left ${
+                isSelected ? 'bg-blue-600/15' : isToday ? 'bg-slate-800/40' : 'hover:bg-slate-800/30'
               }`}
             >
-              <span className={`text-[9px] font-bold uppercase mb-0.5 ${isSelected ? 'text-blue-200' : 'text-slate-500'}`}>
-                {DAY_ABBR[i]}
-              </span>
-              <span className={`text-sm font-bold leading-none ${isSelected ? 'text-white' : isToday ? 'text-blue-400' : 'text-slate-300'}`}>
-                {dayNum}
-              </span>
-              <div className="h-1.5 mt-1 flex items-center justify-center">
-                {dotColor && <div className={`w-1.5 h-1.5 rounded-full ${dotColor}`} />}
+              <div className="flex flex-col items-center mb-1.5">
+                <span className={`text-[8px] font-bold uppercase ${isSelected ? 'text-blue-400' : 'text-slate-500'}`}>
+                  {DAY_ABBR[i]}
+                </span>
+                <span className={`text-sm font-bold leading-tight ${
+                  isToday
+                    ? 'bg-blue-600 text-white w-6 h-6 flex items-center justify-center rounded-full text-xs'
+                    : isSelected ? 'text-blue-400' : 'text-slate-300'
+                }`}>
+                  {dayNum}
+                </span>
+              </div>
+              <div className="flex flex-col gap-0.5 flex-1 overflow-hidden">
+                {dayJobs.slice(0, 2).map(job => (
+                  <div
+                    key={job.id}
+                    className={`rounded px-1 py-0.5 text-[7px] leading-tight font-medium truncate ${
+                      job.estado === 'completado' ? 'bg-emerald-900/40 text-emerald-400' :
+                      job.estado === 'en_curso'   ? 'bg-amber-900/40 text-amber-400' :
+                      'bg-blue-900/40 text-blue-400'
+                    }`}
+                  >
+                    {job.hora_inicio ? job.hora_inicio.substring(0, 5) + ' ' : ''}{job.titulo}
+                  </div>
+                ))}
+                {dayJobs.length > 2 && (
+                  <span className="text-[7px] text-slate-500 font-mono pl-1">+{dayJobs.length - 2}</span>
+                )}
               </div>
             </button>
           );
         })}
+      </div>
+    </div>
+  );
+}
+
+// ── KPICard ───────────────────────────────────────────────────────────────────
+
+interface KPICardProps {
+  label: string;
+  value: string | number;
+  sub?: string;
+  color?: string;
+  icon: React.ReactNode;
+}
+
+function KPICard({ label, value, sub, color = 'text-white', icon }: KPICardProps) {
+  return (
+    <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-[9px] font-bold uppercase tracking-wider text-slate-500">{label}</span>
+        <span className="text-slate-600">{icon}</span>
+      </div>
+      <span className={`text-2xl font-black ${color}`}>{value}</span>
+      {sub && <p className="text-[9px] text-slate-500 mt-1 leading-tight">{sub}</p>}
+    </div>
+  );
+}
+
+// ── TodayJobRow ───────────────────────────────────────────────────────────────
+
+interface TodayJobRowProps {
+  job: TradeJob;
+  onStart: () => void;
+  onComplete: () => void;
+  onExpand: () => void;
+}
+
+function TodayJobRow({ job, onStart, onComplete, onExpand }: TodayJobRowProps) {
+  return (
+    <div className={`flex items-center gap-3 px-4 py-3 ${
+      job.estado === 'completado' ? 'opacity-60' :
+      job.estado === 'en_curso'   ? 'bg-amber-900/10' : ''
+    }`}>
+      <div className="flex flex-col items-center min-w-[38px]">
+        {job.hora_inicio
+          ? <span className="text-xs font-bold text-slate-300 font-mono">{job.hora_inicio.substring(0, 5)}</span>
+          : <Clock className="w-3.5 h-3.5 text-slate-600" />
+        }
+        {job.duracion_horas
+          ? <span className="text-[8px] text-slate-500 font-mono">{job.duracion_horas}h</span>
+          : null
+        }
+      </div>
+      <button className="flex-1 min-w-0 text-left cursor-pointer" onClick={onExpand}>
+        <p className="text-xs font-bold text-white truncate">{job.titulo}</p>
+        {(job.trade_clients?.nombre || job.direccion) && (
+          <p className="text-[9px] text-slate-400 truncate">
+            {job.trade_clients?.nombre ?? job.direccion}
+          </p>
+        )}
+      </button>
+      <div className="flex items-center gap-1.5 shrink-0">
+        <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded ${
+          job.estado === 'completado' ? 'bg-emerald-900/50 text-emerald-400' :
+          job.estado === 'en_curso'   ? 'bg-amber-900/50 text-amber-400' :
+          'bg-slate-800 text-slate-400'
+        }`}>{ESTADO_LABEL[job.estado]}</span>
+        {job.estado === 'planificado' && (
+          <button onClick={onStart} className="p-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg cursor-pointer transition-colors">
+            <Play className="w-3 h-3" />
+          </button>
+        )}
+        {job.estado === 'en_curso' && (
+          <button onClick={onComplete} className="p-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg cursor-pointer transition-colors">
+            <CheckCircle className="w-3 h-3" />
+          </button>
+        )}
+        {(job.direccion || job.localidad) && (
+          <a href={mapsUrl(job)} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
+            className="p-1.5 text-blue-400 hover:text-blue-300 border border-blue-900/60 rounded-lg cursor-pointer transition-colors">
+            <Navigation className="w-3 h-3" />
+          </a>
+        )}
       </div>
     </div>
   );
@@ -242,11 +270,8 @@ function WorkerPickerModal({ job, orgWorkers, onToggle, onClose }: WorkerPickerM
 
   const handleToggle = async (worker: WorkerProfile) => {
     setLoadingId(worker.id);
-    try {
-      await onToggle(worker.id, assignedIds.has(worker.id));
-    } finally {
-      setLoadingId(null);
-    }
+    try { await onToggle(worker.id, assignedIds.has(worker.id)); }
+    finally { setLoadingId(null); }
   };
 
   return (
@@ -257,48 +282,33 @@ function WorkerPickerModal({ job, orgWorkers, onToggle, onClose }: WorkerPickerM
             <h3 className="font-bold text-sm text-white">Trabajadores asignados</h3>
             <p className="text-[10px] text-slate-400 truncate max-w-[260px]">{job.titulo}</p>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-white cursor-pointer">
-            <X className="w-4 h-4" />
-          </button>
+          <button onClick={onClose} className="text-slate-400 hover:text-white cursor-pointer"><X className="w-4 h-4" /></button>
         </div>
-
         <div className="overflow-y-auto flex-1 px-4 pb-5 space-y-1.5">
           {orgWorkers.length === 0 ? (
             <p className="text-xs text-slate-400 text-center py-6">No hay trabajadores en la organización.</p>
-          ) : (
-            orgWorkers.map(worker => {
-              const isAssigned = assignedIds.has(worker.id);
-              const isLoading  = loadingId === worker.id;
-              return (
-                <button
-                  key={worker.id}
-                  onClick={() => handleToggle(worker)}
-                  disabled={isLoading}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-colors text-left disabled:opacity-60 ${
-                    isAssigned
-                      ? 'bg-blue-600/20 border border-blue-600/40'
-                      : 'bg-slate-800/60 border border-transparent hover:bg-slate-800'
-                  }`}
-                >
-                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                    isAssigned ? 'bg-blue-600 text-white' : 'bg-slate-700 text-slate-300'
-                  }`}>
-                    {worker.nombre.charAt(0).toUpperCase()}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs font-bold text-white leading-tight">{worker.nombre}</p>
-                    <p className="text-[9px] text-slate-400 font-mono uppercase">{worker.rol}</p>
-                  </div>
-                  {isLoading
-                    ? <Loader2 className="w-4 h-4 text-blue-400 animate-spin shrink-0" />
-                    : isAssigned
-                      ? <Check className="w-4 h-4 text-blue-400 shrink-0" />
-                      : <Plus className="w-4 h-4 text-slate-500 shrink-0" />
-                  }
-                </button>
-              );
-            })
-          )}
+          ) : orgWorkers.map(worker => {
+            const isAssigned = assignedIds.has(worker.id);
+            const isLoading  = loadingId === worker.id;
+            return (
+              <button key={worker.id} onClick={() => handleToggle(worker)} disabled={isLoading}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-colors text-left disabled:opacity-60 ${
+                  isAssigned ? 'bg-blue-600/20 border border-blue-600/40' : 'bg-slate-800/60 border border-transparent hover:bg-slate-800'
+                }`}>
+                <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${isAssigned ? 'bg-blue-600 text-white' : 'bg-slate-700 text-slate-300'}`}>
+                  {worker.nombre.charAt(0).toUpperCase()}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-bold text-white leading-tight">{worker.nombre}</p>
+                  <p className="text-[9px] text-slate-400 font-mono uppercase">{worker.rol}</p>
+                </div>
+                {isLoading
+                  ? <Loader2 className="w-4 h-4 text-blue-400 animate-spin shrink-0" />
+                  : isAssigned ? <Check className="w-4 h-4 text-blue-400 shrink-0" /> : <Plus className="w-4 h-4 text-slate-500 shrink-0" />
+                }
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -329,8 +339,7 @@ function NewJobModal({ clientes, onSave, onClose }: NewJobModalProps) {
   const handleSubmit = async () => {
     if (!titulo.trim()) { setErr('El título es obligatorio'); return; }
     if (!fecha) { setErr('La fecha es obligatoria'); return; }
-    setErr('');
-    setSaving(true);
+    setErr(''); setSaving(true);
     try {
       await onSave({
         titulo: titulo.trim(), estado: 'planificado', prioridad: 'normal',
@@ -342,10 +351,7 @@ function NewJobModal({ clientes, onSave, onClose }: NewJobModalProps) {
         latitud: null, longitud: null, quote_id: null,
         completado_por: null, completado_at: null, notas_cierre: null,
       });
-    } catch (e: unknown) {
-      setErr((e as Error).message);
-      setSaving(false);
-    }
+    } catch (e: unknown) { setErr((e as Error).message); setSaving(false); }
   };
 
   return (
@@ -428,16 +434,12 @@ function EditJobModal({ job, onSave, onClose }: EditJobModalProps) {
     setSaving(true);
     try {
       await onSave(job.id, {
-        titulo: titulo.trim(),
-        fecha_inicio: fecha || null,
+        titulo: titulo.trim(), fecha_inicio: fecha || null,
         hora_inicio: hora || null,
         duracion_horas: duracion ? parseFloat(duracion) : null,
         descripcion: descripcion || null,
       });
-    } catch (e: unknown) {
-      setErr((e as Error).message);
-      setSaving(false);
-    }
+    } catch (e: unknown) { setErr((e as Error).message); setSaving(false); }
   };
 
   return (
@@ -511,13 +513,9 @@ function ResolveIncModal({ inc, onResolve, onClose }: ResolveIncModalProps) {
         <p className="text-xs text-slate-400 mb-3 line-clamp-2">{inc.titulo}</p>
         <div className="mb-4">
           <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1.5">Notas de resolución (opcional)</label>
-          <textarea
-            rows={3}
-            value={notes}
-            onChange={e => setNotes(e.target.value)}
+          <textarea rows={3} value={notes} onChange={e => setNotes(e.target.value)}
             placeholder="Ej: Solucionado. Sustituida la válvula de expansión..."
-            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 resize-none"
-          />
+            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 resize-none" />
         </div>
         <div className="flex gap-3">
           <button onClick={onClose} className="flex-1 py-3 border border-slate-700 rounded-xl text-xs font-bold text-slate-400 cursor-pointer hover:border-slate-500">Cancelar</button>
@@ -532,6 +530,12 @@ function ResolveIncModal({ inc, onResolve, onClose }: ResolveIncModalProps) {
 
 // ── Main component ────────────────────────────────────────────────────────────
 
+interface Props {
+  workerProfile: WorkerProfile | null;
+  session: Session | null;
+  setCurrentPage: (p: ActivePage) => void;
+}
+
 export default function ScreenWorkerView({ workerProfile, session, setCurrentPage }: Props) {
   const [jobs, setJobs]               = useState<TradeJob[]>([]);
   const [allJobs, setAllJobs]         = useState<TradeJob[]>([]);
@@ -539,36 +543,36 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
   const [filterEstado, setFilterEstado] = useState<'todos' | TradeJob['estado']>('todos');
   const [loading, setLoading]         = useState(true);
   const [expandedId, setExpandedId]   = useState<string | null>(null);
-  const [completeModal, setCompleteModal] = useState<TradeJob | null>(null);
-  const [parteJob, setParteJob]           = useState<TradeJob | null>(null);
+  const [parteJob, setParteJob]       = useState<TradeJob | null>(null);
   const [showPartesHoy, setShowPartesHoy] = useState(false);
   const [editModal, setEditModal]     = useState<TradeJob | null>(null);
   const [assigningJobId, setAssigningJobId] = useState<string | null>(null);
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
-  const [closeNotes, setCloseNotes]   = useState('');
-  const [saving, setSaving]           = useState(false);
   const [toast, setToast]             = useState<{ msg: string; type: 'success' | 'error' | 'info' } | null>(null);
   const [jobPhotos, setJobPhotos]     = useState<Record<string, TradeJobPhoto[]>>({});
   const [photoUploading, setPhotoUploading] = useState<string | null>(null);
   const [newJobOpen, setNewJobOpen]   = useState(false);
   const [clientes, setClientes]       = useState<TradeClient[]>([]);
   const [orgWorkers, setOrgWorkers]   = useState<WorkerProfile[]>([]);
-  const [calView, setCalView]         = useState<'lista' | 'semana'>('lista');
   const [weekOffset, setWeekOffset]   = useState(0);
   const [weekDay, setWeekDay]         = useState(() => new Date().toISOString().split('T')[0]);
-  const [pushEnabled, setPushEnabled] = useState(false);
-  const [pushLoading, setPushLoading] = useState(false);
+  const [pushEnabled, setPushEnabled]       = useState(false);
+  const [pushLoading, setPushLoading]       = useState(false);
+  const [orgBaseGeo, setOrgBaseGeo]         = useState<GeoLocation | null>(null);
+  const [routeResult, setRouteResult]       = useState<RouteResult | null>(null);
+  const [routeLoading, setRouteLoading]     = useState(false);
+  const [routeError, setRouteError]         = useState('');
   const photoInputRef                 = useRef<HTMLInputElement>(null);
   const activePhotoJobId              = useRef<string | null>(null);
-
-  const [mainTab, setMainTab]             = useState<'trabajos' | 'mantenimiento'>('trabajos');
-  const [incidencias, setIncidencias]     = useState<MaintenanceIncidencia[]>([]);
-  const [incLoading, setIncLoading]       = useState(false);
+  const [mainTab, setMainTab]         = useState<'trabajos' | 'mantenimiento'>('trabajos');
+  const [incidencias, setIncidencias] = useState<MaintenanceIncidencia[]>([]);
+  const [incLoading, setIncLoading]   = useState(false);
   const [expandedIncId, setExpandedIncId] = useState<string | null>(null);
-  const [resolveModal, setResolveModal]   = useState<MaintenanceIncidencia | null>(null);
-  const [incSending, setIncSending]       = useState<string | null>(null);
+  const [resolveModal, setResolveModal] = useState<MaintenanceIncidencia | null>(null);
+  const [incSending, setIncSending]   = useState<string | null>(null);
 
   const isAdmin = workerProfile?.rol === 'admin';
+  const today   = new Date().toISOString().split('T')[0];
 
   const showToast = (msg: string, type: 'success' | 'error' | 'info' = 'success') => {
     setToast({ msg, type });
@@ -600,56 +604,35 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
   }, [workerProfile]);
 
   useEffect(() => {
+    if (!workerProfile) return;
+    loadOrgById(workerProfile.org_id)
+      .then(org => {
+        if (isValidLatLng(org?.base_latitud, org?.base_longitud)) {
+          setOrgBaseGeo({ lat: org!.base_latitud!, lng: org!.base_longitud! });
+        }
+      })
+      .catch(() => {});
+  }, [workerProfile]);
+
+  useEffect(() => {
     if (!isAdmin || !workerProfile) return;
     loadOrgWorkers(workerProfile.org_id).then(setOrgWorkers).catch(() => {});
   }, [isAdmin, workerProfile]);
 
+  useEffect(() => { isPushSubscribed().then(setPushEnabled).catch(() => {}); }, []);
+
+  // Reset route result each new day (today value changes at midnight or remount)
   useEffect(() => {
-    isPushSubscribed().then(setPushEnabled).catch(() => {});
-  }, []);
+    setRouteResult(null);
+    setRouteError('');
+  }, [today]);
 
   useEffect(() => {
     if (!session) return;
     setIncLoading(true);
     loadWorkerIncidencias(session.user.id)
-      .then(setIncidencias)
-      .catch(() => {})
-      .finally(() => setIncLoading(false));
+      .then(setIncidencias).catch(() => {}).finally(() => setIncLoading(false));
   }, [session]);
-
-  const handleStartInc = async (inc: MaintenanceIncidencia) => {
-    try {
-      const now = new Date().toISOString();
-      await updateMaintenanceIncidencia(inc.id, { estado: 'en_curso', fecha_inicio_intervencion: now });
-      setIncidencias(prev => prev.map(i => i.id === inc.id ? { ...i, estado: 'en_curso' as const, fecha_inicio_intervencion: now } : i));
-      showToast('Intervención iniciada ✓');
-    } catch (e: unknown) {
-      showToast('Error: ' + (e as Error).message, 'error');
-    }
-  };
-
-  const handleResolveInc = async (inc: MaintenanceIncidencia, notes: string) => {
-    const now = new Date().toISOString();
-    await updateMaintenanceIncidencia(inc.id, {
-      estado: 'resuelta',
-      fecha_resolucion: now,
-      notas_resolucion: notes || null,
-    });
-    setIncidencias(prev => prev.map(i => i.id === inc.id ? { ...i, estado: 'resuelta' as const, fecha_resolucion: now, notas_resolucion: notes || null } : i));
-    setResolveModal(null);
-    showToast('Incidencia resuelta ✓');
-  };
-
-  const handleSendParte = async (inc: MaintenanceIncidencia) => {
-    setIncSending(inc.id);
-    try {
-      await sendParteTrabajo(inc.id);
-      showToast('Parte de intervención enviado ✓');
-    } catch (e: unknown) {
-      showToast('Error al enviar: ' + (e as Error).message, 'error');
-    }
-    setIncSending(null);
-  };
 
   const handleSetViewMode = (mode: 'mis' | 'todos') => {
     setViewMode(mode);
@@ -657,15 +640,23 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
     setExpandedId(null);
   };
 
-  const displayJobs = viewMode === 'todos' ? allJobs : jobs;
-
-  const baseJobs = calView === 'semana'
-    ? displayJobs.filter(j => j.fecha_inicio === weekDay)
-    : displayJobs;
-
-  const filteredJobs = filterEstado === 'todos'
-    ? baseJobs
-    : baseJobs.filter(j => j.estado === filterEstado);
+  const handleComputeRoute = useCallback(async (jobs: RouteJob[], baseGeo: GeoLocation | null, orgId: string) => {
+    const waypoints: { lat: number; lng: number }[] = [];
+    if (baseGeo) waypoints.push({ lat: baseGeo.lat, lng: baseGeo.lng });
+    waypoints.push(...jobs.map(j => ({ lat: j.latitud!, lng: j.longitud! })));
+    if (waypoints.length < 2) return;
+    setRouteLoading(true);
+    setRouteError('');
+    try {
+      const result = await routeWaypoints(waypoints, orgId);
+      setRouteResult(result);
+      if (!result) setRouteError('No se pudo calcular la ruta.');
+    } catch (e) {
+      setRouteError(e instanceof Error ? e.message : 'Error al calcular la ruta');
+    } finally {
+      setRouteLoading(false);
+    }
+  }, []);
 
   const handleExpand = async (jobId: string) => {
     const next = expandedId === jobId ? null : jobId;
@@ -684,7 +675,7 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
   };
 
   const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    const file  = e.target.files?.[0];
     const jobId = activePhotoJobId.current;
     if (!file || !jobId || !workerProfile) return;
     e.target.value = '';
@@ -707,24 +698,7 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
       const u = (prev: TradeJob[]) => prev.map(j => j.id === job.id ? { ...j, estado } : j);
       setJobs(u); setAllJobs(u);
       showToast(estado === 'en_curso' ? 'Trabajo iniciado ✓' : 'Estado actualizado ✓');
-    } catch (e: unknown) {
-      showToast('Error: ' + (e as Error).message, 'error');
-    }
-  };
-
-  const handleComplete = async () => {
-    if (!completeModal || !workerProfile) return;
-    setSaving(true);
-    try {
-      await workerSetJobStatus(completeModal.id, workerProfile.id, 'completado', closeNotes);
-      const u = (prev: TradeJob[]) => prev.map(j => j.id === completeModal.id ? { ...j, estado: 'completado' as const } : j);
-      setJobs(u); setAllJobs(u);
-      showToast('Trabajo completado ✓');
-      setCompleteModal(null); setCloseNotes('');
-    } catch (e: unknown) {
-      showToast('Error: ' + (e as Error).message, 'error');
-    }
-    setSaving(false);
+    } catch (e: unknown) { showToast('Error: ' + (e as Error).message, 'error'); }
   };
 
   const handleEditJob = async (id: string, updates: Partial<TradeJob>) => {
@@ -749,18 +723,12 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
       await assignWorkerToJob(jobId, workerId, 'asignado', jobTitulo);
       const worker = orgWorkers.find(w => w.id === workerId);
       const newJw: TradeJobWorker = {
-        id: `tmp-${Date.now()}`,
-        job_id: jobId,
-        worker_id: workerId,
-        rol: 'asignado',
-        notificado: false,
-        created_at: new Date().toISOString(),
+        id: `tmp-${Date.now()}`, job_id: jobId, worker_id: workerId,
+        rol: 'asignado', notificado: false, created_at: new Date().toISOString(),
         trade_workers: worker ? { nombre: worker.nombre, rol: worker.rol } : null,
       };
       const u = (prev: TradeJob[]) => prev.map(j =>
-        j.id === jobId
-          ? { ...j, trade_job_workers: [...(j.trade_job_workers ?? []), newJw] }
-          : j,
+        j.id === jobId ? { ...j, trade_job_workers: [...(j.trade_job_workers ?? []), newJw] } : j,
       );
       setAllJobs(u);
     }
@@ -790,9 +758,7 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
       if (expandedId === jobId) setExpandedId(null);
       setConfirmDeleteId(null);
       showToast('Trabajo eliminado');
-    } catch (e: unknown) {
-      showToast('Error al eliminar: ' + (e as Error).message, 'error');
-    }
+    } catch (e: unknown) { showToast('Error al eliminar: ' + (e as Error).message, 'error'); }
   };
 
   const handleLogout = async () => {
@@ -815,15 +781,76 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
         setPushEnabled(ok);
         showToast(ok ? 'Notificaciones activadas' : 'Error al activar notificaciones', ok ? 'success' : 'error');
       }
-    } catch {
-      showToast('Error con las notificaciones', 'error');
-    } finally {
-      setPushLoading(false);
-    }
+    } catch { showToast('Error con las notificaciones', 'error'); }
+    finally { setPushLoading(false); }
   };
 
-  const today = new Date().toISOString().split('T')[0];
+  const handleStartInc = async (inc: MaintenanceIncidencia) => {
+    try {
+      const now = new Date().toISOString();
+      await updateMaintenanceIncidencia(inc.id, { estado: 'en_curso', fecha_inicio_intervencion: now });
+      setIncidencias(prev => prev.map(i => i.id === inc.id ? { ...i, estado: 'en_curso' as const, fecha_inicio_intervencion: now } : i));
+      showToast('Intervención iniciada ✓');
+    } catch (e: unknown) { showToast('Error: ' + (e as Error).message, 'error'); }
+  };
 
+  const handleResolveInc = async (inc: MaintenanceIncidencia, notes: string) => {
+    const now = new Date().toISOString();
+    await updateMaintenanceIncidencia(inc.id, { estado: 'resuelta', fecha_resolucion: now, notas_resolucion: notes || null });
+    setIncidencias(prev => prev.map(i => i.id === inc.id ? { ...i, estado: 'resuelta' as const, fecha_resolucion: now, notas_resolucion: notes || null } : i));
+    setResolveModal(null);
+    showToast('Incidencia resuelta ✓');
+  };
+
+  const handleSendParte = async (inc: MaintenanceIncidencia) => {
+    setIncSending(inc.id);
+    try { await sendParteTrabajo(inc.id); showToast('Parte de intervención enviado ✓'); }
+    catch (e: unknown) { showToast('Error al enviar: ' + (e as Error).message, 'error'); }
+    setIncSending(null);
+  };
+
+  // ── Derived data ──────────────────────────────────────────────────────────────
+
+  const displayJobs = viewMode === 'todos' ? allJobs : jobs;
+  const thisWeekDays = getWeekDays(0);
+
+  const todayJobs = displayJobs
+    .filter(j => j.fecha_inicio === today && j.estado !== 'cancelado')
+    .sort((a, b) => (a.hora_inicio ?? '').localeCompare(b.hora_inicio ?? ''));
+
+  const selectedDayJobs = displayJobs
+    .filter(j => j.fecha_inicio === weekDay && j.estado !== 'cancelado')
+    .sort((a, b) => (a.hora_inicio ?? '').localeCompare(b.hora_inicio ?? ''));
+
+  const unscheduledJobs = displayJobs.filter(
+    j => !j.fecha_inicio && j.estado !== 'cancelado' && j.estado !== 'completado',
+  );
+
+  // Respect stored orden_ruta when all geo-jobs have it; otherwise keep time order
+  const todayRouteJobs: RouteJob[] = useMemo(() => {
+    const geoJobs = todayJobs.filter(j => isValidLatLng(j.latitud, j.longitud));
+    const allHaveOrder = geoJobs.length > 0 && geoJobs.every(j => j.orden_ruta != null);
+    if (allHaveOrder) {
+      return [...geoJobs]
+        .sort((a, b) => (a.orden_ruta ?? 99) - (b.orden_ruta ?? 99))
+        .map((j, i) => ({ ...j, orden_ruta: i + 1 }) as RouteJob);
+    }
+    return geoJobs.map((j, i) => ({ ...j, orden_ruta: i + 1 }) as RouteJob);
+  }, [todayJobs]);
+
+  // Google Maps navigation URL — uses org base geo as origin when available
+  const mapsNavUrl = useMemo(() => {
+    if (todayRouteJobs.length === 0) return null;
+    const origin: string | GeoLocation = orgBaseGeo ?? (todayJobs[0]?.direccion ?? '');
+    return buildGoogleMapsUrl(todayRouteJobs, origin);
+  }, [todayRouteJobs, orgBaseGeo, todayJobs]);
+
+  const kpiHoy       = todayJobs.length;
+  const kpiSemana    = displayJobs.filter(j => j.fecha_inicio && thisWeekDays.includes(j.fecha_inicio) && j.estado !== 'cancelado' && j.estado !== 'completado').length;
+  const kpiEnCurso   = displayJobs.filter(j => j.estado === 'en_curso').length;
+  const kpiMes       = displayJobs.filter(j => j.estado === 'completado' && (j.fecha_inicio ?? '').startsWith(today.substring(0, 7))).length;
+
+  const filteredJobs = filterEstado === 'todos' ? displayJobs : displayJobs.filter(j => j.estado === filterEstado);
   const grouped = filteredJobs.reduce<Record<string, TradeJob[]>>((acc, job) => {
     const key = job.fecha_inicio ?? 'sin_fecha';
     if (!acc[key]) acc[key] = [];
@@ -832,13 +859,10 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
   }, {});
   const sortedDates = Object.keys(grouped).sort();
 
-  const todayJobsForSummary = displayJobs
-    .filter(j => j.fecha_inicio === today)
-    .sort((a, b) => (a.hora_inicio ?? '').localeCompare(b.hora_inicio ?? ''));
-
-  const activeJobs = jobs.filter(j => j.estado !== 'completado' && j.fecha_inicio === today);
-
-  const assigningJob = assigningJobId ? allJobs.find(j => j.id === assigningJobId) ?? null : null;
+  const assigningJob  = assigningJobId ? allJobs.find(j => j.id === assigningJobId) ?? null : null;
+  const pendingInc    = incidencias.filter(i => i.estado === 'abierta' || i.estado === 'en_curso').length;
+  const partesHoy     = jobs.filter(j => j.parte_token && j.fecha_inicio === today);
+  const totalHorasHoy = todayJobs.reduce((s, j) => s + (j.duracion_horas ?? 0), 0);
 
   if (!workerProfile || !session) {
     return (
@@ -853,454 +877,496 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white flex flex-col max-w-md mx-auto relative">
-      {/* Header */}
-      <div className="bg-slate-900 border-b border-slate-800 px-4 py-3 flex items-center justify-between sticky top-0 z-10">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-blue-600 rounded-full flex items-center justify-center text-xs font-bold">
-            {workerProfile.nombre.charAt(0).toUpperCase()}
-          </div>
-          <div>
-            <p className="text-xs font-bold text-white leading-tight">{workerProfile.nombre}</p>
-            <p className="text-[9px] text-slate-400 font-mono uppercase">{workerProfile.rol}</p>
-          </div>
+    <div className="min-h-screen bg-slate-950 text-white">
+
+      {/* ── Header ── */}
+      <div className="bg-slate-900 border-b border-slate-800 px-4 lg:px-6 py-3 flex items-center justify-between sticky top-0 z-10">
+        <div>
+          <h1 className="text-sm font-black text-white tracking-tight">Panel de Control</h1>
+          <p className="text-[10px] text-slate-400 font-mono capitalize">
+            {new Date().toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' })}
+          </p>
         </div>
         <div className="flex items-center gap-2">
-          {activeJobs.length > 0 && viewMode === 'mis' && (
-            <span className="bg-amber-500 text-white text-[9px] font-bold px-2 py-0.5 rounded-full">
-              {activeJobs.length} pendiente{activeJobs.length > 1 ? 's' : ''}
-            </span>
+          {partesHoy.length > 0 && (
+            <button onClick={() => setShowPartesHoy(true)} className="flex items-center gap-1 text-[9px] font-bold bg-cyan-700 hover:bg-cyan-600 text-white px-2 py-0.5 rounded-full cursor-pointer transition-colors">
+              <FileCheck className="w-2.5 h-2.5" /> {partesHoy.length} parte{partesHoy.length !== 1 ? 's' : ''}
+            </button>
           )}
-          {(() => {
-            const partesHoy = jobs.filter(j => j.parte_token && j.fecha_inicio === today);
-            if (partesHoy.length === 0) return null;
-            return (
-              <button
-                onClick={() => setShowPartesHoy(true)}
-                className="flex items-center gap-1 text-[9px] font-bold bg-cyan-700 hover:bg-cyan-600 text-white px-2 py-0.5 rounded-full cursor-pointer transition-colors"
-              >
-                <FileCheck className="w-2.5 h-2.5" /> {partesHoy.length} parte{partesHoy.length !== 1 ? 's' : ''}
-              </button>
-            );
-          })()}
-          <button onClick={reload} className="p-1.5 text-slate-400 hover:text-white transition-colors cursor-pointer">
+          <button onClick={reload} className="p-1.5 text-slate-400 hover:text-white transition-colors cursor-pointer rounded-lg hover:bg-slate-800">
             <RefreshCw className="w-3.5 h-3.5" />
           </button>
-          <button
-            onClick={() => {
-              const next = calView === 'lista' ? 'semana' : 'lista';
-              setCalView(next);
-              if (next === 'semana') {
-                setWeekOffset(0);
-                setWeekDay(new Date().toISOString().split('T')[0]);
-              }
-            }}
-            className={`p-1.5 transition-colors cursor-pointer ${calView === 'semana' ? 'text-blue-400' : 'text-slate-400 hover:text-white'}`}
-          >
-            {calView === 'semana' ? <List className="w-3.5 h-3.5" /> : <CalendarDays className="w-3.5 h-3.5" />}
-          </button>
           {'Notification' in window && (
-            <button
-              onClick={handleTogglePush}
-              disabled={pushLoading}
-              title={pushEnabled ? 'Desactivar notificaciones' : 'Activar notificaciones'}
-              className={`p-1.5 transition-colors cursor-pointer disabled:opacity-40 ${pushEnabled ? 'text-amber-400' : 'text-slate-400 hover:text-white'}`}
-            >
+            <button onClick={handleTogglePush} disabled={pushLoading}
+              className={`p-1.5 transition-colors cursor-pointer disabled:opacity-40 rounded-lg hover:bg-slate-800 ${pushEnabled ? 'text-amber-400' : 'text-slate-400 hover:text-white'}`}>
               {pushEnabled ? <Bell className="w-3.5 h-3.5" /> : <BellOff className="w-3.5 h-3.5" />}
             </button>
           )}
-          <button onClick={handleLogout} className="p-1.5 text-slate-400 hover:text-red-400 transition-colors cursor-pointer">
-            <LogOut className="w-3.5 h-3.5" />
-          </button>
+          <div className="flex items-center gap-2 pl-2 border-l border-slate-800">
+            <div className="w-7 h-7 bg-blue-600 rounded-full flex items-center justify-center text-xs font-bold shrink-0">
+              {workerProfile.nombre.charAt(0).toUpperCase()}
+            </div>
+            <div className="hidden sm:block">
+              <p className="text-xs font-bold text-white leading-tight">{workerProfile.nombre}</p>
+              <p className="text-[9px] text-slate-400 font-mono uppercase">{workerProfile.rol}</p>
+            </div>
+            <button onClick={handleLogout} className="p-1.5 text-slate-400 hover:text-red-400 transition-colors cursor-pointer rounded-lg hover:bg-slate-800">
+              <LogOut className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Main tabs */}
-      {(() => {
-        const pendingInc = incidencias.filter(i => i.estado === 'abierta' || i.estado === 'en_curso').length;
-        return (
-          <div className="flex gap-1 px-4 pt-3 pb-1 bg-slate-950 border-b border-slate-800/60">
-            <button
-              onClick={() => setMainTab('trabajos')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-colors cursor-pointer ${
-                mainTab === 'trabajos' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'
-              }`}
-            >
-              <Route className="w-3 h-3" /> Trabajos
-            </button>
-            <button
-              onClick={() => setMainTab('mantenimiento')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-colors cursor-pointer ${
-                mainTab === 'mantenimiento' ? 'bg-amber-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'
-              }`}
-            >
-              <Wrench className="w-3 h-3" /> Mantenimiento
-              {pendingInc > 0 && (
-                <span className={`text-[9px] font-black rounded-full px-1.5 ${mainTab === 'mantenimiento' ? 'bg-white/25' : 'bg-red-600 text-white'}`}>{pendingInc}</span>
-              )}
-            </button>
-          </div>
-        );
-      })()}
-
-      {/* Admin sub-tabs (within trabajos) */}
-      {mainTab === 'trabajos' && isAdmin && (
-        <div className="flex gap-1 px-4 pt-2 pb-1 bg-slate-950">
-          <button
-            onClick={() => handleSetViewMode('mis')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-colors cursor-pointer ${
-              viewMode === 'mis' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'
-            }`}
-          >
-            <User className="w-3 h-3" /> Mis trabajos
-          </button>
-          <button
-            onClick={() => handleSetViewMode('todos')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-colors cursor-pointer ${
-              viewMode === 'todos' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'
-            }`}
-          >
-            <Users className="w-3 h-3" /> Todos
-          </button>
-        </div>
-      )}
-
-      {/* Week strip */}
-      {mainTab === 'trabajos' && calView === 'semana' && (
-        <WeekStrip
-          jobs={displayJobs}
-          selectedDate={weekDay}
-          weekOffset={weekOffset}
-          onSelectDate={setWeekDay}
-          onChangeWeek={delta => setWeekOffset(o => o + delta)}
-        />
-      )}
-
-      {/* Filter pills */}
-      {mainTab === 'trabajos' && displayJobs.length > 0 && (
-        <div className="flex gap-1.5 px-4 py-2 overflow-x-auto bg-slate-950" style={{ scrollbarWidth: 'none' }}>
-          {FILTER_OPTIONS.map(e => {
-            const count = e === 'todos' ? displayJobs.length : displayJobs.filter(j => j.estado === e).length;
-            if (count === 0 && e !== 'todos') return null;
-            const isActive = filterEstado === e;
-            return (
-              <button
-                key={e}
-                onClick={() => setFilterEstado(e)}
-                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[11px] font-bold uppercase whitespace-nowrap transition-colors cursor-pointer shrink-0 ${
-                  isActive ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'
-                }`}
-              >
-                {e === 'todos' ? 'Todos' : ESTADO_LABEL[e]}
-                <span className={`text-[10px] font-black rounded-full px-1.5 ${isActive ? 'bg-white/25' : 'bg-slate-700 text-slate-400'}`}>{count}</span>
-              </button>
-            );
-          })}
-        </div>
-      )}
-
-      {/* Content — jobs */}
-      {mainTab === 'trabajos' && <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-24">
-        {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
-          </div>
-        ) : displayJobs.length === 0 ? (
-          <div className="text-center py-20">
-            <CheckCircle className="w-12 h-12 text-emerald-500 mx-auto mb-3" />
-            <p className="text-white font-bold">¡Todo al día!</p>
-            <p className="text-slate-400 text-sm mt-1">No hay trabajos asignados.</p>
-            {viewMode === 'mis' && (
-              <button
-                onClick={() => setNewJobOpen(true)}
-                className="mt-4 flex items-center gap-2 mx-auto bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl cursor-pointer transition-colors"
-              >
-                <Plus className="w-3.5 h-3.5" /> Crear trabajo
-              </button>
-            )}
-          </div>
-        ) : baseJobs.length === 0 && calView === 'semana' ? (
-          <div className="text-center py-16">
-            <CalendarDays className="w-10 h-10 text-slate-600 mx-auto mb-3" />
-            <p className="text-slate-400 text-sm">Sin trabajos para este día.</p>
-            {viewMode === 'mis' && (
-              <button
-                onClick={() => setNewJobOpen(true)}
-                className="mt-4 flex items-center gap-2 mx-auto bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl cursor-pointer transition-colors"
-              >
-                <Plus className="w-3.5 h-3.5" /> Crear trabajo
-              </button>
-            )}
-          </div>
-        ) : filteredJobs.length === 0 ? (
-          <div className="text-center py-16">
-            <p className="text-slate-400 text-sm">Sin resultados para este filtro.</p>
-            <button onClick={() => setFilterEstado('todos')} className="mt-3 text-xs text-blue-400 hover:text-blue-300 cursor-pointer">
-              Ver todos
-            </button>
-          </div>
-        ) : (
+      {/* ── Tabs row ── */}
+      <div className="flex items-center gap-1 px-4 lg:px-6 pt-3 pb-2 bg-slate-950 border-b border-slate-800/60 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
+        <button onClick={() => setMainTab('trabajos')}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-colors cursor-pointer shrink-0 ${mainTab === 'trabajos' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'}`}>
+          <Route className="w-3 h-3" /> Trabajos
+        </button>
+        <button onClick={() => setMainTab('mantenimiento')}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-colors cursor-pointer shrink-0 ${mainTab === 'mantenimiento' ? 'bg-amber-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'}`}>
+          <Wrench className="w-3 h-3" /> Mantenimiento
+          {pendingInc > 0 && <span className={`text-[9px] font-black rounded-full px-1.5 ${mainTab === 'mantenimiento' ? 'bg-white/25' : 'bg-red-600 text-white'}`}>{pendingInc}</span>}
+        </button>
+        {isAdmin && (
           <>
-            {viewMode === 'mis' && todayJobsForSummary.length > 1 && filterEstado === 'todos' && (
-              <TodaySummary jobs={todayJobsForSummary} onFocus={id => setExpandedId(id)} />
-            )}
+            <div className="w-px h-4 bg-slate-800 mx-1 shrink-0" />
+            <button onClick={() => handleSetViewMode('mis')}
+              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[9px] font-bold uppercase transition-colors cursor-pointer shrink-0 ${viewMode === 'mis' ? 'bg-slate-600 text-white' : 'bg-slate-800/60 text-slate-500 hover:text-white'}`}>
+              <User className="w-3 h-3" /> Mis
+            </button>
+            <button onClick={() => handleSetViewMode('todos')}
+              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[9px] font-bold uppercase transition-colors cursor-pointer shrink-0 ${viewMode === 'todos' ? 'bg-slate-600 text-white' : 'bg-slate-800/60 text-slate-500 hover:text-white'}`}>
+              <Users className="w-3 h-3" /> Todos
+            </button>
+          </>
+        )}
+      </div>
 
-            {sortedDates.map(date => (
-              <div key={date}>
-                <div className="flex items-center gap-2 mb-3">
-                  <span className={`text-xs font-bold uppercase tracking-wider ${date === today ? 'text-blue-400' : 'text-slate-300'}`}>
-                    {fmtDate(date)}
-                  </span>
-                  <span className="text-[9px] text-slate-500 font-mono">
-                    · {grouped[date].length} trabajo{grouped[date].length > 1 ? 's' : ''}
-                  </span>
-                  {date === today && (
-                    <span className="ml-auto text-[8px] font-bold bg-blue-600 text-white px-2 py-0.5 rounded-full uppercase">HOY</span>
-                  )}
-                </div>
+      {/* ════════════════════════ TRABAJOS TAB ════════════════════════ */}
+      {mainTab === 'trabajos' && (
+        <div className="p-4 lg:p-6 max-w-7xl mx-auto">
 
-                <div className="space-y-3">
-                  {grouped[date].map(job => {
-                    const isExpanded = expandedId === job.id;
-                    const isDone = job.estado === 'completado';
-                    const photos = jobPhotos[job.id] ?? [];
-                    const isUploading = photoUploading === job.id;
-                    const assignedWorkers = job.trade_job_workers ?? [];
+          {/* Quick CTAs — admin only */}
+          {isAdmin && (
+            <div className="flex gap-2 overflow-x-auto pb-1 mb-5" style={{ scrollbarWidth: 'none' }}>
+              {/* Añadir trabajo opens a local modal — no navigation needed */}
+              <button onClick={() => setNewJobOpen(true)}
+                className="flex items-center gap-2 px-3.5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold whitespace-nowrap cursor-pointer transition-colors shrink-0">
+                <Plus className="w-3.5 h-3.5" /> Añadir trabajo
+              </button>
+              {/*
+                The following actions (voice AI, quotes, clients, contracts) live in the full
+                company panel (AppDashboardView). Deep-linking to a specific tab requires
+                a navigation prop that AppDashboardView does not currently accept.
+                Interim fix: single honest CTA that navigates to the company panel root.
+                TODO: pass initialTab prop to AppDashboardView to enable deep-links.
+              */}
+              <button onClick={() => setCurrentPage(ActivePage.AppDashboard)}
+                className="flex items-center gap-2 px-3.5 py-2.5 bg-gradient-to-r from-violet-700 to-blue-700 hover:from-violet-600 hover:to-blue-600 text-white rounded-xl text-xs font-bold whitespace-nowrap cursor-pointer transition-all shadow-md shrink-0">
+                <Mic className="w-3.5 h-3.5" /> Voz IA · Presupuestos · Contratos →
+              </button>
+            </div>
+          )}
+
+          {/* KPI cards */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+            <KPICard
+              label="Trabajos hoy"
+              value={kpiHoy}
+              sub={kpiHoy === 0 ? 'Sin trabajos hoy' : `${totalHorasHoy > 0 ? `~${totalHorasHoy}h estimadas` : `${kpiHoy} asignado${kpiHoy > 1 ? 's' : ''}`}`}
+              color={kpiHoy > 0 ? 'text-blue-400' : 'text-slate-500'}
+              icon={<CalendarDays className="w-4 h-4" />}
+            />
+            <KPICard
+              label="Semana activos"
+              value={kpiSemana}
+              sub="pendientes + en curso"
+              color={kpiSemana > 0 ? 'text-amber-400' : 'text-slate-500'}
+              icon={<Route className="w-4 h-4" />}
+            />
+            <KPICard
+              label="En curso ahora"
+              value={kpiEnCurso}
+              sub={kpiEnCurso > 0 ? 'activos en este momento' : 'ninguno activo'}
+              color={kpiEnCurso > 0 ? 'text-emerald-400' : 'text-slate-500'}
+              icon={<Play className="w-4 h-4" />}
+            />
+            <KPICard
+              label="Completados (mes)"
+              value={kpiMes}
+              sub={new Date().toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })}
+              color="text-emerald-400"
+              icon={<CheckCircle className="w-4 h-4" />}
+            />
+          </div>
+
+          {/* Unscheduled banner */}
+          {unscheduledJobs.length > 0 && (
+            <div className="flex items-center gap-3 bg-amber-900/20 border border-amber-700/40 rounded-xl px-4 py-3 mb-5">
+              <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
+              <p className="text-xs text-amber-300 flex-1">
+                <span className="font-bold">{unscheduledJobs.length} trabajo{unscheduledJobs.length > 1 ? 's' : ''}</span> sin fecha de planificación
+              </p>
+              <button onClick={() => setFilterEstado('planificado')} className="text-[9px] font-bold text-amber-400 hover:text-amber-300 cursor-pointer whitespace-nowrap">
+                Ver todos →
+              </button>
+            </div>
+          )}
+
+          {/* Main 2-column grid */}
+          <div className="flex flex-col lg:flex-row gap-6">
+
+            {/* ── Left: Calendar + full jobs list ── */}
+            <div className="flex-1 min-w-0 space-y-4">
+              <WeekCalendarGrid
+                jobs={displayJobs}
+                selectedDate={weekDay}
+                weekOffset={weekOffset}
+                onSelectDate={setWeekDay}
+                onChangeWeek={delta => setWeekOffset(o => o + delta)}
+              />
+
+              {/* Filter pills */}
+              {displayJobs.length > 0 && (
+                <div className="flex gap-1.5 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
+                  {(['todos', 'planificado', 'en_curso', 'pendiente_material', 'completado', 'cancelado'] as const).map(e => {
+                    const count = e === 'todos' ? displayJobs.length : displayJobs.filter(j => j.estado === e).length;
+                    if (count === 0 && e !== 'todos') return null;
                     return (
-                      <div key={job.id} className={`bg-slate-800/70 border rounded-xl overflow-hidden transition-all ${isDone ? 'border-emerald-800/40 opacity-70' : 'border-slate-700/60'}`}>
-                        <button
-                          onClick={() => handleExpand(job.id)}
-                          className="w-full px-4 py-3 flex items-start gap-3 text-left cursor-pointer"
-                        >
-                          <span className={`w-2 h-2 rounded-full shrink-0 mt-1.5 ${ESTADO_DOT[job.estado]}`} />
-                          <div className="flex-1 min-w-0">
-                            <p className="text-xs font-bold text-white leading-snug">{job.titulo}</p>
-                            <div className="flex items-center gap-3 mt-1 flex-wrap">
-                              {job.hora_inicio && (
-                                <span className="flex items-center gap-1 text-[10px] text-slate-400 font-mono">
-                                  <Clock className="w-2.5 h-2.5" />{job.hora_inicio}{job.duracion_horas ? ` · ${job.duracion_horas}h` : ''}
-                                </span>
-                              )}
-                              {job.trade_clients?.nombre && (
-                                <span className="flex items-center gap-1 text-[10px] text-slate-400">
-                                  <User className="w-2.5 h-2.5" />{job.trade_clients.nombre}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2 shrink-0">
-                            {(job.direccion || job.localidad) && (
-                              <a
-                                href={mapsUrl(job)}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={e => e.stopPropagation()}
-                                className="flex items-center gap-1 text-[9px] font-bold text-blue-400 hover:text-blue-300 bg-blue-950/60 border border-blue-800/60 px-2 py-1 rounded-lg"
-                              >
-                                <Navigation className="w-2.5 h-2.5" /> Maps
-                              </a>
-                            )}
-                            <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded ${
-                              isDone ? 'bg-emerald-900/50 text-emerald-400' :
-                              job.estado === 'en_curso' ? 'bg-amber-900/50 text-amber-400' :
-                              'bg-slate-800 text-slate-400'
-                            }`}>{ESTADO_LABEL[job.estado]}</span>
-                            {isExpanded ? <ChevronUp className="w-3.5 h-3.5 text-slate-500" /> : <ChevronDown className="w-3.5 h-3.5 text-slate-500" />}
-                          </div>
-                        </button>
-
-                        {isExpanded && (
-                          <div className="border-t border-slate-800 px-4 py-3 space-y-3">
-                            {(job.direccion || job.localidad) && (
-                              <div className="flex items-start gap-2">
-                                <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
-                                <p className="flex-1 text-xs text-slate-300 min-w-0">{[job.direccion, job.localidad, job.cp].filter(Boolean).join(', ')}</p>
-                                <a href={mapsUrl(job)} target="_blank" rel="noopener noreferrer"
-                                  className="flex items-center gap-1 text-[9px] font-bold text-blue-400 hover:text-blue-300 border border-blue-800 px-2 py-1 rounded cursor-pointer shrink-0">
-                                  <Navigation className="w-2.5 h-2.5" /> Maps
-                                </a>
-                              </div>
-                            )}
-
-                            {job.trade_clients?.telefono && (
-                              <div className="flex items-center gap-2">
-                                <Phone className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                                <a href={`tel:${job.trade_clients.telefono}`} className="text-xs text-blue-400 hover:text-blue-300">
-                                  {job.trade_clients.telefono}
-                                </a>
-                              </div>
-                            )}
-
-                            {job.descripcion && (
-                              <p className="text-[10px] text-slate-400 leading-relaxed bg-slate-800/50 rounded-lg px-3 py-2">
-                                {job.descripcion}
-                              </p>
-                            )}
-
-                            {/* Photos */}
-                            <div>
-                              {photos.length > 0 && (
-                                <div className="flex gap-2 flex-wrap mb-2">
-                                  {photos.map(p => (
-                                    <a key={p.id} href={p.photo_url} target="_blank" rel="noopener noreferrer">
-                                      <img src={p.photo_url} alt="foto trabajo" className="w-16 h-16 object-cover rounded-lg border border-slate-700 hover:opacity-80 transition-opacity" />
-                                    </a>
-                                  ))}
-                                </div>
-                              )}
-                              <button
-                                onClick={() => handlePhotoClick(job.id)}
-                                disabled={isUploading}
-                                className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 hover:text-white border border-slate-700 hover:border-slate-500 px-3 py-2 rounded-lg cursor-pointer transition-colors disabled:opacity-50"
-                              >
-                                {isUploading
-                                  ? <><Loader2 className="w-3 h-3 animate-spin" /> Subiendo...</>
-                                  : <><Camera className="w-3 h-3" /> {photos.length > 0 ? 'Añadir foto' : 'Adjuntar foto'}</>
-                                }
-                              </button>
-                            </div>
-
-                            {/* Workers (admin + todos mode) */}
-                            {isAdmin && viewMode === 'todos' && (
-                              <div>
-                                {assignedWorkers.length > 0 && (
-                                  <div className="flex flex-wrap gap-1.5 mb-2">
-                                    {assignedWorkers.map(jw => (
-                                      <span key={jw.id} className="flex items-center gap-1 bg-slate-800 border border-slate-700 px-2 py-1 rounded-lg text-[9px] text-slate-300">
-                                        <div className="w-3.5 h-3.5 bg-blue-600/70 rounded-full flex items-center justify-center text-[7px] font-bold shrink-0">
-                                          {(jw.trade_workers?.nombre ?? '?').charAt(0).toUpperCase()}
-                                        </div>
-                                        {jw.trade_workers?.nombre ?? '—'}
-                                      </span>
-                                    ))}
-                                  </div>
-                                )}
-                                <button
-                                  onClick={() => setAssigningJobId(job.id)}
-                                  className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 hover:text-white border border-slate-700 hover:border-slate-500 px-3 py-2 rounded-lg cursor-pointer transition-colors"
-                                >
-                                  <Users className="w-3 h-3" /> Gestionar trabajadores
-                                </button>
-                              </div>
-                            )}
-
-                            {isDone && job.notas_cierre && (
-                              <div className="bg-emerald-900/20 border border-emerald-800/40 rounded-lg px-3 py-2">
-                                <p className="text-[9px] font-bold text-emerald-400 uppercase mb-1">Notas de cierre</p>
-                                <p className="text-[10px] text-emerald-300">{job.notas_cierre}</p>
-                              </div>
-                            )}
-
-                            {isDone && job.parte_token && (
-                              <div className="flex gap-2 flex-wrap">
-                                <button
-                                  onClick={() => window.open(`/parte/${job.parte_token}`, '_blank')}
-                                  className="flex items-center gap-1.5 text-[10px] font-bold text-cyan-400 hover:text-cyan-300 border border-cyan-800 px-3 py-2 rounded-lg cursor-pointer transition-colors"
-                                >
-                                  <Eye className="w-3 h-3" /> Ver parte
-                                </button>
-                                {job.trade_clients?.telefono && (
-                                  <button
-                                    onClick={() => {
-                                      const tel = job.trade_clients!.telefono!.replace(/\D/g, '');
-                                      const msg = encodeURIComponent(`Hola ${job.trade_clients?.nombre ?? ''}, le enviamos el parte de trabajo firmado: ${job.titulo}.\n\nPuede verlo aquí:\nhttps://www.trabflow.com/parte/${job.parte_token}`);
-                                      window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
-                                    }}
-                                    className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-400 hover:text-emerald-300 border border-emerald-800 px-3 py-2 rounded-lg cursor-pointer transition-colors"
-                                  >
-                                    <MessageSquare className="w-3 h-3" /> Enviar parte
-                                  </button>
-                                )}
-                              </div>
-                            )}
-
-                            {!isDone && (
-                              <div className="flex items-center justify-between">
-                                <button
-                                  onClick={() => setEditModal(job)}
-                                  className="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 hover:text-slate-300 transition-colors cursor-pointer"
-                                >
-                                  <Edit2 className="w-3 h-3" /> Editar
-                                </button>
-                                {confirmDeleteId === job.id ? (
-                                  <div className="flex items-center gap-2">
-                                    <span className="text-[9px] text-slate-500">¿Eliminar?</span>
-                                    <button onClick={() => setConfirmDeleteId(null)} className="text-[9px] font-bold text-slate-400 hover:text-white cursor-pointer px-2 py-0.5">No</button>
-                                    <button onClick={() => handleDeleteJob(job.id)} className="text-[9px] font-bold text-red-400 hover:text-red-300 cursor-pointer border border-red-800/60 px-2 py-0.5 rounded-lg">Sí, eliminar</button>
-                                  </div>
-                                ) : (
-                                  <button
-                                    onClick={() => setConfirmDeleteId(job.id)}
-                                    className="flex items-center gap-1 text-[10px] font-bold text-slate-600 hover:text-red-400 transition-colors cursor-pointer"
-                                  >
-                                    <Trash2 className="w-3 h-3" /> Eliminar
-                                  </button>
-                                )}
-                              </div>
-                            )}
-
-                            {!isDone && (
-                              <div className="flex gap-2">
-                                {job.estado === 'planificado' && (
-                                  <button onClick={() => handleStatus(job, 'en_curso')}
-                                    className="flex-1 flex items-center justify-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-white text-[10px] font-bold uppercase py-2.5 rounded-lg cursor-pointer transition-colors">
-                                    <Play className="w-3 h-3" /> Iniciar trabajo
-                                  </button>
-                                )}
-                                {(job.estado === 'planificado' || job.estado === 'en_curso') && (
-                                  <button onClick={() => setParteJob(job)}
-                                    className="flex-1 flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold uppercase py-2.5 rounded-lg cursor-pointer transition-colors">
-                                    <CheckCircle className="w-3 h-3" /> Completar
-                                  </button>
-                                )}
-                                {job.estado === 'en_curso' && (
-                                  <button onClick={() => handleStatus(job, 'pendiente_material')}
-                                    className="flex items-center justify-center gap-1 bg-orange-600 hover:bg-orange-700 text-white text-[9px] font-bold uppercase px-3 py-2.5 rounded-lg cursor-pointer transition-colors">
-                                    Pdte. material
-                                  </button>
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </div>
+                      <button key={e} onClick={() => setFilterEstado(e)}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[10px] font-bold uppercase whitespace-nowrap cursor-pointer shrink-0 transition-colors ${filterEstado === e ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'}`}>
+                        {e === 'todos' ? 'Todos' : ESTADO_LABEL[e]}
+                        <span className={`text-[9px] font-black rounded-full px-1.5 ${filterEstado === e ? 'bg-white/25' : 'bg-slate-700 text-slate-400'}`}>{count}</span>
+                      </button>
                     );
                   })}
                 </div>
+              )}
+
+              {/* Jobs list */}
+              {loading ? (
+                <div className="flex items-center justify-center py-12">
+                  <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                </div>
+              ) : displayJobs.length === 0 ? (
+                <div className="text-center py-12 bg-slate-900 border border-slate-800 rounded-2xl">
+                  <CheckCircle className="w-10 h-10 text-emerald-500 mx-auto mb-3" />
+                  <p className="text-white font-bold">¡Todo al día!</p>
+                  <p className="text-slate-400 text-sm mt-1">No hay trabajos asignados.</p>
+                  <button onClick={() => setNewJobOpen(true)} className="mt-4 flex items-center gap-2 mx-auto bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl cursor-pointer transition-colors">
+                    <Plus className="w-3.5 h-3.5" /> Crear trabajo
+                  </button>
+                </div>
+              ) : filteredJobs.length === 0 ? (
+                <div className="text-center py-10 bg-slate-900 border border-slate-800 rounded-2xl">
+                  <p className="text-slate-400 text-sm">Sin resultados para este filtro.</p>
+                  <button onClick={() => setFilterEstado('todos')} className="mt-3 text-xs text-blue-400 hover:text-blue-300 cursor-pointer">Ver todos</button>
+                </div>
+              ) : (
+                <div className="space-y-5">
+                  {sortedDates.map(date => (
+                    <div key={date}>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className={`text-xs font-bold uppercase tracking-wider ${date === today ? 'text-blue-400' : 'text-slate-300'}`}>{fmtDate(date)}</span>
+                        <span className="text-[9px] text-slate-500 font-mono">· {grouped[date].length} trabajo{grouped[date].length > 1 ? 's' : ''}</span>
+                        {date === today && <span className="ml-auto text-[8px] font-bold bg-blue-600 text-white px-2 py-0.5 rounded-full uppercase">HOY</span>}
+                      </div>
+                      <div className="space-y-2">
+                        {grouped[date].map(job => {
+                          const isExpanded = expandedId === job.id;
+                          const isDone     = job.estado === 'completado';
+                          const photos     = jobPhotos[job.id] ?? [];
+                          const isUploading = photoUploading === job.id;
+                          const assignedWorkers = job.trade_job_workers ?? [];
+                          return (
+                            <div key={job.id} className={`bg-slate-800/70 border rounded-xl overflow-hidden transition-all ${isDone ? 'border-emerald-800/40 opacity-70' : 'border-slate-700/60'}`}>
+                              <button onClick={() => handleExpand(job.id)} className="w-full px-4 py-3 flex items-start gap-3 text-left cursor-pointer">
+                                <span className={`w-2 h-2 rounded-full shrink-0 mt-1.5 ${ESTADO_DOT[job.estado]}`} />
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-xs font-bold text-white leading-snug">{job.titulo}</p>
+                                  <div className="flex items-center gap-3 mt-1 flex-wrap">
+                                    {job.hora_inicio && <span className="flex items-center gap-1 text-[10px] text-slate-400 font-mono"><Clock className="w-2.5 h-2.5" />{job.hora_inicio}{job.duracion_horas ? ` · ${job.duracion_horas}h` : ''}</span>}
+                                    {job.trade_clients?.nombre && <span className="flex items-center gap-1 text-[10px] text-slate-400"><User className="w-2.5 h-2.5" />{job.trade_clients.nombre}</span>}
+                                  </div>
+                                </div>
+                                <div className="flex items-center gap-2 shrink-0">
+                                  {(job.direccion || job.localidad) && (
+                                    <a href={mapsUrl(job)} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
+                                      className="flex items-center gap-1 text-[9px] font-bold text-blue-400 hover:text-blue-300 bg-blue-950/60 border border-blue-800/60 px-2 py-1 rounded-lg">
+                                      <Navigation className="w-2.5 h-2.5" /> Maps
+                                    </a>
+                                  )}
+                                  <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded ${isDone ? 'bg-emerald-900/50 text-emerald-400' : job.estado === 'en_curso' ? 'bg-amber-900/50 text-amber-400' : 'bg-slate-800 text-slate-400'}`}>
+                                    {ESTADO_LABEL[job.estado]}
+                                  </span>
+                                  {isExpanded ? <ChevronUp className="w-3.5 h-3.5 text-slate-500" /> : <ChevronDown className="w-3.5 h-3.5 text-slate-500" />}
+                                </div>
+                              </button>
+
+                              {isExpanded && (
+                                <div className="border-t border-slate-800 px-4 py-3 space-y-3">
+                                  {(job.direccion || job.localidad) && (
+                                    <div className="flex items-start gap-2">
+                                      <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+                                      <p className="flex-1 text-xs text-slate-300 min-w-0">{[job.direccion, job.localidad, job.cp].filter(Boolean).join(', ')}</p>
+                                      <a href={mapsUrl(job)} target="_blank" rel="noopener noreferrer"
+                                        className="flex items-center gap-1 text-[9px] font-bold text-blue-400 hover:text-blue-300 border border-blue-800 px-2 py-1 rounded cursor-pointer shrink-0">
+                                        <Navigation className="w-2.5 h-2.5" /> Maps
+                                      </a>
+                                    </div>
+                                  )}
+                                  {job.trade_clients?.telefono && (
+                                    <div className="flex items-center gap-2">
+                                      <Phone className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                                      <a href={`tel:${job.trade_clients.telefono}`} className="text-xs text-blue-400 hover:text-blue-300">{job.trade_clients.telefono}</a>
+                                    </div>
+                                  )}
+                                  {job.descripcion && (
+                                    <p className="text-[10px] text-slate-400 leading-relaxed bg-slate-800/50 rounded-lg px-3 py-2">{job.descripcion}</p>
+                                  )}
+                                  <div>
+                                    {photos.length > 0 && (
+                                      <div className="flex gap-2 flex-wrap mb-2">
+                                        {photos.map(p => (
+                                          <a key={p.id} href={p.photo_url} target="_blank" rel="noopener noreferrer">
+                                            <img src={p.photo_url} alt="foto" className="w-16 h-16 object-cover rounded-lg border border-slate-700 hover:opacity-80 transition-opacity" />
+                                          </a>
+                                        ))}
+                                      </div>
+                                    )}
+                                    <button onClick={() => handlePhotoClick(job.id)} disabled={isUploading}
+                                      className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 hover:text-white border border-slate-700 hover:border-slate-500 px-3 py-2 rounded-lg cursor-pointer transition-colors disabled:opacity-50">
+                                      {isUploading ? <><Loader2 className="w-3 h-3 animate-spin" /> Subiendo...</> : <><Camera className="w-3 h-3" /> {photos.length > 0 ? 'Añadir foto' : 'Adjuntar foto'}</>}
+                                    </button>
+                                  </div>
+                                  {isAdmin && viewMode === 'todos' && (
+                                    <div>
+                                      {assignedWorkers.length > 0 && (
+                                        <div className="flex flex-wrap gap-1.5 mb-2">
+                                          {assignedWorkers.map(jw => (
+                                            <span key={jw.id} className="flex items-center gap-1 bg-slate-800 border border-slate-700 px-2 py-1 rounded-lg text-[9px] text-slate-300">
+                                              <div className="w-3.5 h-3.5 bg-blue-600/70 rounded-full flex items-center justify-center text-[7px] font-bold shrink-0">
+                                                {(jw.trade_workers?.nombre ?? '?').charAt(0).toUpperCase()}
+                                              </div>
+                                              {jw.trade_workers?.nombre ?? '—'}
+                                            </span>
+                                          ))}
+                                        </div>
+                                      )}
+                                      <button onClick={() => setAssigningJobId(job.id)}
+                                        className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 hover:text-white border border-slate-700 hover:border-slate-500 px-3 py-2 rounded-lg cursor-pointer transition-colors">
+                                        <Users className="w-3 h-3" /> Gestionar trabajadores
+                                      </button>
+                                    </div>
+                                  )}
+                                  {isDone && job.notas_cierre && (
+                                    <div className="bg-emerald-900/20 border border-emerald-800/40 rounded-lg px-3 py-2">
+                                      <p className="text-[9px] font-bold text-emerald-400 uppercase mb-1">Notas de cierre</p>
+                                      <p className="text-[10px] text-emerald-300">{job.notas_cierre}</p>
+                                    </div>
+                                  )}
+                                  {isDone && job.parte_token && (
+                                    <div className="flex gap-2 flex-wrap">
+                                      <button onClick={() => window.open(`/parte/${job.parte_token}`, '_blank')}
+                                        className="flex items-center gap-1.5 text-[10px] font-bold text-cyan-400 hover:text-cyan-300 border border-cyan-800 px-3 py-2 rounded-lg cursor-pointer transition-colors">
+                                        <Eye className="w-3 h-3" /> Ver parte
+                                      </button>
+                                      {job.trade_clients?.telefono && (
+                                        <button onClick={() => {
+                                          const tel = job.trade_clients!.telefono!.replace(/\D/g, '');
+                                          const msg = encodeURIComponent(`Hola ${job.trade_clients?.nombre ?? ''}, parte firmado: ${job.titulo}.\nhttps://www.trabflow.com/parte/${job.parte_token}`);
+                                          window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
+                                        }} className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-400 hover:text-emerald-300 border border-emerald-800 px-3 py-2 rounded-lg cursor-pointer transition-colors">
+                                          <MessageSquare className="w-3 h-3" /> Enviar parte
+                                        </button>
+                                      )}
+                                    </div>
+                                  )}
+                                  {!isDone && (
+                                    <div className="flex items-center justify-between">
+                                      <button onClick={() => setEditModal(job)} className="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 hover:text-slate-300 transition-colors cursor-pointer">
+                                        <Edit2 className="w-3 h-3" /> Editar
+                                      </button>
+                                      {confirmDeleteId === job.id ? (
+                                        <div className="flex items-center gap-2">
+                                          <span className="text-[9px] text-slate-500">¿Eliminar?</span>
+                                          <button onClick={() => setConfirmDeleteId(null)} className="text-[9px] font-bold text-slate-400 hover:text-white cursor-pointer px-2 py-0.5">No</button>
+                                          <button onClick={() => handleDeleteJob(job.id)} className="text-[9px] font-bold text-red-400 hover:text-red-300 cursor-pointer border border-red-800/60 px-2 py-0.5 rounded-lg">Sí, eliminar</button>
+                                        </div>
+                                      ) : (
+                                        <button onClick={() => setConfirmDeleteId(job.id)} className="flex items-center gap-1 text-[10px] font-bold text-slate-600 hover:text-red-400 transition-colors cursor-pointer">
+                                          <Trash2 className="w-3 h-3" /> Eliminar
+                                        </button>
+                                      )}
+                                    </div>
+                                  )}
+                                  {!isDone && (
+                                    <div className="flex gap-2">
+                                      {job.estado === 'planificado' && (
+                                        <button onClick={() => handleStatus(job, 'en_curso')} className="flex-1 flex items-center justify-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-white text-[10px] font-bold uppercase py-2.5 rounded-lg cursor-pointer transition-colors">
+                                          <Play className="w-3 h-3" /> Iniciar trabajo
+                                        </button>
+                                      )}
+                                      {(job.estado === 'planificado' || job.estado === 'en_curso') && (
+                                        <button onClick={() => setParteJob(job)} className="flex-1 flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold uppercase py-2.5 rounded-lg cursor-pointer transition-colors">
+                                          <CheckCircle className="w-3 h-3" /> Completar
+                                        </button>
+                                      )}
+                                      {job.estado === 'en_curso' && (
+                                        <button onClick={() => handleStatus(job, 'pendiente_material')} className="flex items-center justify-center gap-1 bg-orange-600 hover:bg-orange-700 text-white text-[9px] font-bold uppercase px-3 py-2.5 rounded-lg cursor-pointer transition-colors">
+                                          Pdte. material
+                                        </button>
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                  <div className="pt-2">
+                    <button onClick={handleLogout} className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold text-slate-600 hover:text-red-400 hover:bg-red-950/20 transition-colors cursor-pointer border border-slate-800/40">
+                      <LogOut className="w-3.5 h-3.5" /> Cerrar sesión
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* ── Right: Route map + Selected-day jobs ── */}
+            <div className="lg:w-[380px] xl:w-[420px] space-y-4 shrink-0">
+
+              {/* Ruta del día */}
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+                <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800">
+                  <div className="flex items-center gap-2">
+                    <Route className="w-4 h-4 text-blue-400" />
+                    <h2 className="text-xs font-bold text-white uppercase tracking-wide">Ruta del día</h2>
+                    {todayRouteJobs.length > 0 && (
+                      <span className="text-[9px] font-mono text-slate-500">{todayRouteJobs.length} parada{todayRouteJobs.length > 1 ? 's' : ''}</span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button onClick={reload} className="p-1 text-slate-500 hover:text-slate-300 cursor-pointer rounded transition-colors">
+                      <RefreshCw className="w-3 h-3" />
+                    </button>
+                    {mapsNavUrl && (
+                      <a href={mapsNavUrl} target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-[9px] font-bold text-blue-400 hover:text-blue-300 border border-blue-900/60 px-2.5 py-1 rounded-lg cursor-pointer transition-colors">
+                        <Navigation className="w-2.5 h-2.5" /> Abrir navegación
+                      </a>
+                    )}
+                  </div>
+                </div>
+                <RouteMap
+                  routeJobs={todayRouteJobs}
+                  startLocation={orgBaseGeo ?? (todayJobs[0]?.direccion ?? '')}
+                  geometry={routeResult?.geometry}
+                  className="h-52"
+                />
+                {/* Route metrics strip */}
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-2.5 bg-slate-950/50 border-t border-slate-800/60 text-[9px] text-slate-400 font-mono">
+                  {routeLoading ? (
+                    <span className="flex items-center gap-1">
+                      <Loader2 className="w-3 h-3 animate-spin text-blue-400" />
+                      Calculando ruta por carretera...
+                    </span>
+                  ) : routeResult ? (
+                    <>
+                      <span className="flex items-center gap-1"><MapPin className="w-3 h-3 text-slate-500" />{todayRouteJobs.length} parada{todayRouteJobs.length > 1 ? 's' : ''}</span>
+                      <span>{formatDistance(routeResult.distance_m)}</span>
+                      <span className="flex items-center gap-1"><Clock className="w-3 h-3 text-slate-500" />{formatDuration(routeResult.duration_s)} conducción</span>
+                      {totalHorasHoy > 0 && <span>+~{totalHorasHoy}h trabajo</span>}
+                      <button
+                        onClick={() => handleComputeRoute(todayRouteJobs, orgBaseGeo, workerProfile!.org_id)}
+                        className="ml-auto text-blue-400 hover:text-blue-300 cursor-pointer transition-colors"
+                      >
+                        Recalcular
+                      </button>
+                    </>
+                  ) : routeError ? (
+                    <>
+                      <span className="text-red-400 truncate">{routeError}</span>
+                      <button
+                        onClick={() => handleComputeRoute(todayRouteJobs, orgBaseGeo, workerProfile!.org_id)}
+                        className="ml-auto text-blue-400 hover:text-blue-300 cursor-pointer transition-colors"
+                      >
+                        Reintentar
+                      </button>
+                    </>
+                  ) : todayRouteJobs.length >= 2 ? (
+                    <button
+                      onClick={() => handleComputeRoute(todayRouteJobs, orgBaseGeo, workerProfile!.org_id)}
+                      className="flex items-center gap-1 text-blue-400 hover:text-blue-300 cursor-pointer transition-colors"
+                    >
+                      <Route className="w-3 h-3" /> Ver ruta por carretera
+                    </button>
+                  ) : (
+                    <>
+                      {totalHorasHoy > 0 && <span className="flex items-center gap-1"><Clock className="w-3 h-3 text-slate-500" />~{totalHorasHoy}h estimadas</span>}
+                      <span className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-emerald-600" />{todayJobs.filter(j => j.estado === 'completado').length}/{todayJobs.length} completados</span>
+                    </>
+                  )}
+                </div>
               </div>
-            ))}
-          </>
-        )}
 
-        {/* Logout button — visible at bottom of scroll */}
-        <div className="pt-4 mt-2">
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold text-slate-600 hover:text-red-400 hover:bg-red-950/20 transition-colors cursor-pointer border border-slate-800/40"
-          >
-            <LogOut className="w-3.5 h-3.5" />
-            Cerrar sesión
-          </button>
+              {/* Trabajos del día seleccionado */}
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+                <div className="px-4 py-3 border-b border-slate-800">
+                  <h2 className="text-xs font-bold text-white uppercase tracking-wide">
+                    {weekDay === today
+                      ? 'Trabajos de hoy'
+                      : `Trabajos — ${new Date(weekDay + 'T12:00:00').toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' })}`
+                    }
+                  </h2>
+                  <p className="text-[9px] text-slate-500 font-mono mt-0.5">
+                    {selectedDayJobs.length} trabajo{selectedDayJobs.length !== 1 ? 's' : ''}
+                    {selectedDayJobs.filter(j => j.estado === 'completado').length > 0
+                      ? ` · ${selectedDayJobs.filter(j => j.estado === 'completado').length} completado${selectedDayJobs.filter(j => j.estado === 'completado').length > 1 ? 's' : ''}`
+                      : ''}
+                  </p>
+                </div>
+                {selectedDayJobs.length === 0 ? (
+                  <div className="px-4 py-8 text-center">
+                    <CalendarDays className="w-8 h-8 text-slate-700 mx-auto mb-2" />
+                    <p className="text-xs text-slate-500">Sin trabajos para este día.</p>
+                    <button onClick={() => setNewJobOpen(true)} className="mt-3 flex items-center gap-1.5 mx-auto text-[10px] font-bold text-blue-400 hover:text-blue-300 cursor-pointer transition-colors">
+                      <Plus className="w-3 h-3" /> Crear trabajo
+                    </button>
+                  </div>
+                ) : (
+                  <div className="divide-y divide-slate-800/60">
+                    {selectedDayJobs.map(job => (
+                      <TodayJobRow
+                        key={job.id}
+                        job={job}
+                        onStart={() => handleStatus(job, 'en_curso')}
+                        onComplete={() => setParteJob(job)}
+                        onExpand={() => handleExpand(job.id)}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* FAB for non-admin mobile */}
+          {!isAdmin && (
+            <button onClick={() => setNewJobOpen(true)} className="fixed bottom-6 right-6 w-14 h-14 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white rounded-full shadow-xl shadow-blue-900/40 flex items-center justify-center cursor-pointer transition-all z-20 lg:hidden" aria-label="Nuevo trabajo">
+              <Plus className="w-6 h-6" />
+            </button>
+          )}
         </div>
-      </div>}
-
-      {/* Hidden file input */}
-      {mainTab === 'trabajos' && <input ref={photoInputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handlePhotoChange} />}
-
-      {/* FAB */}
-      {mainTab === 'trabajos' && viewMode === 'mis' && (
-        <button
-          onClick={() => setNewJobOpen(true)}
-          className="fixed bottom-6 right-6 w-14 h-14 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white rounded-full shadow-xl shadow-blue-900/40 flex items-center justify-center cursor-pointer transition-all z-20"
-          aria-label="Nuevo trabajo"
-        >
-          <Plus className="w-6 h-6" />
-        </button>
       )}
 
-      {/* Content — mantenimiento incidencias */}
+      {/* ════════════════════════ MANTENIMIENTO TAB ════════════════════════ */}
       {mainTab === 'mantenimiento' && (
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-24">
+        <div className="p-4 lg:p-6 max-w-3xl mx-auto space-y-4 pb-24">
           {incLoading ? (
             <div className="flex items-center justify-center py-20">
               <div className="w-6 h-6 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
@@ -1329,19 +1395,16 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
                         const cliente = inc.trade_maintenance_contratos?.nombre_cliente ?? null;
                         return (
                           <div key={inc.id} className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
-                            {/* Card header */}
-                            <button
-                              onClick={() => setExpandedIncId(isExpanded ? null : inc.id)}
-                              className="w-full flex items-start gap-3 p-3 text-left cursor-pointer hover:bg-slate-800/50 transition-colors"
-                            >
+                            <button onClick={() => setExpandedIncId(isExpanded ? null : inc.id)}
+                              className="w-full flex items-start gap-3 p-3 text-left cursor-pointer hover:bg-slate-800/50 transition-colors">
                               <span className={`w-1.5 h-full min-h-[2.5rem] rounded-full shrink-0 ${INC_PRIORIDAD_DOT[inc.prioridad]}`} />
                               <div className="flex-1 min-w-0">
                                 <p className="text-xs font-bold text-white leading-snug truncate">{inc.titulo}</p>
                                 {cliente && <p className="text-[10px] text-slate-400 mt-0.5 truncate">{cliente}</p>}
                                 <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
-                                  <span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full ${INC_PRIORIDAD_DOT[inc.prioridad]} bg-opacity-20 text-white`} style={{ backgroundColor: undefined }}>
-                                    <span className={`inline-block w-1.5 h-1.5 rounded-full mr-1 align-middle ${INC_PRIORIDAD_DOT[inc.prioridad]}`} />
-                                    {INC_PRIORIDAD_LABEL[inc.prioridad]}
+                                  <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full flex items-center gap-1">
+                                    <span className={`inline-block w-1.5 h-1.5 rounded-full ${INC_PRIORIDAD_DOT[inc.prioridad]}`} />
+                                    <span className="text-white">{INC_PRIORIDAD_LABEL[inc.prioridad]}</span>
                                   </span>
                                   <span className="text-[9px] text-slate-500 font-mono">
                                     {new Date(inc.fecha_reporte).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}
@@ -1352,8 +1415,6 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
                                 {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                               </div>
                             </button>
-
-                            {/* Expanded detail */}
                             {isExpanded && (
                               <div className="px-3 pb-3 border-t border-slate-800/60 space-y-2.5">
                                 {inc.descripcion && (
@@ -1362,14 +1423,12 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
                                     <p className="text-xs text-slate-300 leading-relaxed">{inc.descripcion}</p>
                                   </div>
                                 )}
-
                                 {inc.notas_resolucion && (
                                   <div>
                                     <p className="text-[9px] font-mono uppercase text-slate-500 mb-1">Notas de resolución</p>
                                     <p className="text-xs text-emerald-300 leading-relaxed">{inc.notas_resolucion}</p>
                                   </div>
                                 )}
-
                                 {inc.fecha_inicio_intervencion && (
                                   <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
                                     <Clock className="w-3 h-3" />
@@ -1382,48 +1441,27 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
                                     Resuelta: {new Date(inc.fecha_resolucion).toLocaleString('es-ES', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
                                   </div>
                                 )}
-
-                                {/* Action buttons */}
                                 <div className="flex gap-2 pt-1">
                                   {inc.estado === 'abierta' && (
-                                    <button
-                                      onClick={() => handleStartInc(inc)}
-                                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold cursor-pointer transition-colors"
-                                    >
+                                    <button onClick={() => handleStartInc(inc)} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold cursor-pointer transition-colors">
                                       <Play className="w-3.5 h-3.5" /> Iniciar intervención
                                     </button>
                                   )}
                                   {inc.estado === 'en_curso' && (
-                                    <button
-                                      onClick={() => setResolveModal(inc)}
-                                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold cursor-pointer transition-colors"
-                                    >
+                                    <button onClick={() => setResolveModal(inc)} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold cursor-pointer transition-colors">
                                       <Check className="w-3.5 h-3.5" /> Resolver
                                     </button>
                                   )}
                                   {(inc.estado === 'resuelta' || inc.estado === 'cerrada') && (
-                                    <button
-                                      onClick={() => handleSendParte(inc)}
-                                      disabled={incSending === inc.id}
-                                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-slate-700 hover:bg-slate-600 disabled:opacity-50 text-white rounded-xl text-xs font-bold cursor-pointer transition-colors"
-                                    >
-                                      {incSending === inc.id
-                                        ? <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                                        : <><FileText className="w-3.5 h-3.5" /> Enviar parte</>
-                                      }
+                                    <button onClick={() => handleSendParte(inc)} disabled={incSending === inc.id}
+                                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-slate-700 hover:bg-slate-600 disabled:opacity-50 text-white rounded-xl text-xs font-bold cursor-pointer transition-colors">
+                                      {incSending === inc.id ? <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <><FileText className="w-3.5 h-3.5" /> Enviar parte</>}
                                     </button>
                                   )}
                                   {inc.estado === 'en_curso' && (
-                                    <button
-                                      onClick={() => handleSendParte(inc)}
-                                      disabled={incSending === inc.id}
-                                      className="flex items-center justify-center gap-1 py-2.5 px-3 bg-slate-700 hover:bg-slate-600 disabled:opacity-50 text-slate-300 rounded-xl text-[10px] font-bold cursor-pointer transition-colors"
-                                      title="Enviar parte provisional"
-                                    >
-                                      {incSending === inc.id
-                                        ? <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                                        : <FileText className="w-3.5 h-3.5" />
-                                      }
+                                    <button onClick={() => handleSendParte(inc)} disabled={incSending === inc.id}
+                                      className="flex items-center justify-center gap-1 py-2.5 px-3 bg-slate-700 hover:bg-slate-600 disabled:opacity-50 text-slate-300 rounded-xl text-[10px] font-bold cursor-pointer transition-colors" title="Enviar parte provisional">
+                                      {incSending === inc.id ? <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <FileText className="w-3.5 h-3.5" />}
                                     </button>
                                   )}
                                 </div>
@@ -1436,15 +1474,9 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
                   </div>
                 );
               })}
-
-              {/* Logout */}
-              <div className="pt-4 mt-2">
-                <button
-                  onClick={handleLogout}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold text-slate-600 hover:text-red-400 hover:bg-red-950/20 transition-colors cursor-pointer border border-slate-800/40"
-                >
-                  <LogOut className="w-3.5 h-3.5" />
-                  Cerrar sesión
+              <div className="pt-2">
+                <button onClick={handleLogout} className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold text-slate-600 hover:text-red-400 hover:bg-red-950/20 transition-colors cursor-pointer border border-slate-800/40">
+                  <LogOut className="w-3.5 h-3.5" /> Cerrar sesión
                 </button>
               </div>
             </>
@@ -1452,7 +1484,12 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
         </div>
       )}
 
-      {/* Complete modal */}
+      {/* ── Hidden file input ── */}
+      {mainTab === 'trabajos' && (
+        <input ref={photoInputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handlePhotoChange} />
+      )}
+
+      {/* ── ScreenParteTrabajo (completion flow) ── */}
       {parteJob && (
         <ScreenParteTrabajo
           key={parteJob.id}
@@ -1467,7 +1504,7 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
             await workerSetJobStatus(jobId, workerProfile.id, 'completado', notas);
             const now = new Date().toISOString();
             const u = (prev: TradeJob[]) => prev.map(j =>
-              j.id === jobId ? { ...j, estado: 'completado' as const, notas_cierre: notas, completado_at: now, hora_fin: horaFin ?? j.hora_fin } : j
+              j.id === jobId ? { ...j, estado: 'completado' as const, notas_cierre: notas, completado_at: now, hora_fin: horaFin ?? j.hora_fin } : j,
             );
             setJobs(u); setAllJobs(u);
           }}
@@ -1476,42 +1513,36 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
         />
       )}
 
+      {/* ── Partes hoy modal ── */}
       {showPartesHoy && (
         <div className="fixed inset-0 bg-black/70 z-50 flex items-end justify-center" onClick={() => setShowPartesHoy(false)}>
           <div className="bg-slate-900 border border-slate-700 rounded-t-2xl w-full max-w-md p-5 shadow-2xl" onClick={e => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-4">
               <h3 className="font-bold text-sm text-white flex items-center gap-2">
-                <FileCheck className="w-4 h-4 text-cyan-400" />
-                Partes firmados hoy
+                <FileCheck className="w-4 h-4 text-cyan-400" /> Partes firmados hoy
               </h3>
               <button onClick={() => setShowPartesHoy(false)} className="text-slate-400 hover:text-white cursor-pointer"><X className="w-4 h-4" /></button>
             </div>
-            {jobs.filter(j => j.parte_token && j.fecha_inicio === today).length === 0 ? (
+            {partesHoy.length === 0 ? (
               <p className="text-xs text-slate-400 text-center py-4">Sin partes firmados hoy</p>
             ) : (
               <div className="space-y-2 max-h-72 overflow-y-auto">
-                {jobs.filter(j => j.parte_token && j.fecha_inicio === today).map(j => (
+                {partesHoy.map(j => (
                   <div key={j.id} className="bg-slate-800 rounded-xl p-3 flex items-center justify-between gap-2">
                     <div className="min-w-0 flex-1">
                       <p className="text-xs font-bold text-white truncate">{j.titulo}</p>
                       {j.trade_clients?.nombre && <p className="text-[10px] text-slate-400">{j.trade_clients.nombre}</p>}
                     </div>
                     <div className="flex gap-2 shrink-0">
-                      <button
-                        onClick={() => window.open(`/parte/${j.parte_token}`, '_blank')}
-                        className="p-2 bg-cyan-700 hover:bg-cyan-600 text-white rounded-lg cursor-pointer transition-colors"
-                      >
+                      <button onClick={() => window.open(`/parte/${j.parte_token}`, '_blank')} className="p-2 bg-cyan-700 hover:bg-cyan-600 text-white rounded-lg cursor-pointer transition-colors">
                         <Eye className="w-3.5 h-3.5" />
                       </button>
                       {j.trade_clients?.telefono && (
-                        <button
-                          onClick={() => {
-                            const tel = j.trade_clients!.telefono!.replace(/\D/g, '');
-                            const msg = encodeURIComponent(`Hola ${j.trade_clients?.nombre ?? ''}, parte de trabajo firmado: ${j.titulo}.\nhttps://www.trabflow.com/parte/${j.parte_token}`);
-                            window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
-                          }}
-                          className="p-2 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg cursor-pointer transition-colors"
-                        >
+                        <button onClick={() => {
+                          const tel = j.trade_clients!.telefono!.replace(/\D/g, '');
+                          const msg = encodeURIComponent(`Hola ${j.trade_clients?.nombre ?? ''}, parte firmado: ${j.titulo}.\nhttps://www.trabflow.com/parte/${j.parte_token}`);
+                          window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
+                        }} className="p-2 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg cursor-pointer transition-colors">
                           <MessageSquare className="w-3.5 h-3.5" />
                         </button>
                       )}
@@ -1524,10 +1555,9 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
         </div>
       )}
 
+      {/* ── Modals ── */}
       {editModal && <EditJobModal job={editModal} onSave={handleEditJob} onClose={() => setEditModal(null)} />}
-
       {newJobOpen && <NewJobModal clientes={clientes} onSave={handleCreateJob} onClose={() => setNewJobOpen(false)} />}
-
       {resolveModal && (
         <ResolveIncModal
           inc={resolveModal}
@@ -1535,7 +1565,6 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
           onClose={() => setResolveModal(null)}
         />
       )}
-
       {assigningJob && (
         <WorkerPickerModal
           job={assigningJob}
@@ -1545,9 +1574,9 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
         />
       )}
 
-      {/* Toast */}
+      {/* ── Toast ── */}
       {toast && (
-        <div className={`fixed bottom-24 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-xl text-xs font-bold shadow-xl whitespace-nowrap ${
+        <div className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-xl text-xs font-bold shadow-xl whitespace-nowrap ${
           toast.type === 'error' ? 'bg-red-600 text-white' :
           toast.type === 'info'  ? 'bg-blue-600 text-white' :
           'bg-emerald-600 text-white'
