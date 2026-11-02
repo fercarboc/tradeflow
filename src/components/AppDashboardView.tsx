@@ -7302,7 +7302,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 )}
                 {activeTab === 'transporte_tarifas' && orgId && caps.hasTransport && can('transport.view') && (
                   <div className="flex-1 overflow-y-auto min-h-0">
-                    <ScreenTransporteTarifas orgId={orgId} showToast={showToast} />
+                    <ScreenTransporteTarifas orgId={orgId} showToast={showToast} modalidad={caps.transportModalidad} />
                   </div>
                 )}
                 {activeTab === 'transporte_presupuestos' && orgId && caps.hasTransport && can('transport.view') && (

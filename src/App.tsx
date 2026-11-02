@@ -495,8 +495,19 @@ export default function App() {
       const wp = await loadWorkerByEmail(s.user.email ?? '');
       if (wp) {
         setWorkerProfile(wp);
-        setCurrentPage(wp.rol === 'admin' ? ActivePage.AppDashboard : ActivePage.Worker);
-        return;
+        // Org owners who also appear in trade_workers (e.g. transport conductors registered
+        // in their own org) must NOT be routed to /worker — they own an org and must reach
+        // their dashboard. Only pure employees (no owned org) go to the worker view.
+        const { data: ownedOrg } = await supabase
+          .from('trade_organizations')
+          .select('id')
+          .eq('owner_id', s.user.id)
+          .maybeSingle();
+        if (!ownedOrg) {
+          setCurrentPage(wp.rol === 'admin' ? ActivePage.AppDashboard : ActivePage.Worker);
+          return;
+        }
+        // Fall through to resolveAndRoute: user owns an org, route there instead.
       }
     } catch {
       // Usuario normal, no es worker
@@ -666,6 +677,21 @@ export default function App() {
         return <AdminView setCurrentPage={setCurrentPage} session={session} />;
 
       case ActivePage.Worker:
+        // Guard: org owners must never see the worker view, even if browser Back
+        // restores a stale history entry. resolvedWorkspaces being non-empty means
+        // this user owns an org and was correctly routed by resolveAndRoute.
+        if (resolvedWorkspaces && (resolvedWorkspaces.installers.length > 0 || resolvedWorkspaces.suppliers.length > 0)) {
+          return (
+            <AppDashboardView
+              setCurrentPage={setCurrentPage}
+              initialMobile={initialMobile}
+              session={session}
+              loginOnMount={loginOnMount}
+              workerOrgId={workerProfile?.org_id ?? null}
+              checkoutSuccess={checkoutSuccess}
+            />
+          );
+        }
         return (
           <ScreenWorkerView
             workerProfile={workerProfile}

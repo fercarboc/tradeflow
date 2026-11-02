@@ -17,6 +17,7 @@ import { missingRateFields } from '../lib/transportCostEngine';
 interface Props {
   orgId: string;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
+  modalidad?: string | null;
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -125,7 +126,8 @@ function Section({ title, icon, defaultOpen = true, children }: SectionProps) {
 
 // ── Componente principal ──────────────────────────────────────────────────────
 
-export default function ScreenTransporteTarifas({ orgId, showToast }: Props) {
+export default function ScreenTransporteTarifas({ orgId, showToast, modalidad }: Props) {
+  const isMercancias = modalidad === 'mercancias' || modalidad === 'reparto';
   const [rates, setRates] = useState<TransportRates>(DEFAULT_TRANSPORT_RATES);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -250,16 +252,20 @@ export default function ScreenTransporteTarifas({ orgId, showToast }: Props) {
         icon={<Fuel className="w-4 h-4 text-orange-500" />}
       >
         <RateField
-          label="Coste por km (con viajeros)"
+          label={isMercancias ? 'Coste por km (con carga)' : 'Coste por km (con viajeros)'}
           unit="€/km"
-          hint="Coste total por kilómetro recorrido con el cliente a bordo. Si usas este campo, no configures también el combustible por separado: se contabilizaría dos veces."
+          hint={isMercancias
+            ? 'Coste total por kilómetro recorrido con carga. Si usas este campo, no configures también el combustible por separado: se contabilizaría dos veces.'
+            : 'Coste total por kilómetro recorrido con el cliente a bordo. Si usas este campo, no configures también el combustible por separado: se contabilizaría dos veces.'}
           value={rates.coste_km_comercial}
           onChange={v => update('coste_km_comercial', v)}
         />
         <RateField
           label="Coste por km en vacío"
           unit="€/km"
-          hint="Coste por kilómetro sin viajeros: salida de cochera, regreso o reposicionamiento. Suele ser menor. Si no lo configuras, se estima al 70% del coste por km comercial."
+          hint={isMercancias
+            ? 'Coste por kilómetro sin carga: salida de cochera, regreso o reposicionamiento. Suele ser menor. Si no lo configuras, se estima al 70% del coste por km con carga.'
+            : 'Coste por kilómetro sin viajeros: salida de cochera, regreso o reposicionamiento. Suele ser menor. Si no lo configuras, se estima al 70% del coste por km comercial.'}
           value={rates.coste_km_vacio}
           onChange={v => update('coste_km_vacio', v)}
         />
