@@ -43,6 +43,7 @@ import {
   buildAgendaOccurrences,
   type AgendaOccurrence,
 } from './ScreenTransporteAgenda';
+import ScreenTransporteViajes from './ScreenTransporteViajes';
 import {
   loadSchedulesActive,
   loadExceptionsForRange,
@@ -1524,20 +1525,7 @@ export default function ScreenTransportePanel({
             {/* Viajes — coming soon */}
             <div className="space-y-4">
               <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
-                <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-100">
-                  <Truck className="w-4 h-4 text-amber-500" />
-                  <h2 className="text-sm font-black text-slate-800">Viajes operativos</h2>
-                </div>
-                <div className="p-8 flex flex-col items-center text-center gap-3">
-                  <div className="w-16 h-16 rounded-2xl bg-amber-100 flex items-center justify-center">
-                    <Truck className="w-8 h-8 text-amber-500" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-slate-700 mb-1">Gestión de viajes de mercancías</p>
-                    <p className="text-xs text-slate-400 max-w-xs">La planificación y seguimiento de viajes de transporte de mercancías estará disponible en la próxima actualización.</p>
-                  </div>
-                  <span className="text-[11px] font-semibold text-amber-600 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-full">Próximamente — TX-MC-1</span>
-                </div>
+                {orgId && <ScreenTransporteViajes orgId={orgId} />}
               </div>
 
               <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
