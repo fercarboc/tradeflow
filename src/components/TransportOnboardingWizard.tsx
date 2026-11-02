@@ -105,15 +105,19 @@ const STEPS = [
 // ─── Props ────────────────────────────────────────────────────────────────────
 
 interface Props {
+  orgId?: string;
   onComplete: () => void;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function TransportOnboardingWizard({ onComplete, showToast }: Props) {
+export default function TransportOnboardingWizard({ orgId: propOrgId, onComplete, showToast }: Props) {
   const { org, user } = useSession();
-  const orgId = org?.id ?? '';
+  // propOrgId is authoritative: AppDashboardView knows the DB org before SessionContext refreshes.
+  // This prevents the silent-skip loop that occurs when SessionContext.org is null
+  // because the transport org was created inside loadLiveData (registration flow).
+  const orgId = propOrgId || (org?.id ?? '');
   const orgAny = org as unknown as Record<string, unknown>;
 
   const [step, setStep] = useState(1);
@@ -199,12 +203,13 @@ export default function TransportOnboardingWizard({ onComplete, showToast }: Pro
   async function saveStep2And3() {
     if (!orgId || !especialidad) return;
     // Store modalidad and service types in separate columns — not mixed in a single array
-    await supabase.from('trade_organizations')
+    const { error } = await supabase.from('trade_organizations')
       .update({
         transport_modalidad:     especialidad,
         transport_service_types: Array.from(tiposServicio),
       } as Record<string, unknown>)
       .eq('id', orgId);
+    if (error) throw new Error(error.message);
   }
 
   async function saveStep4() {
@@ -269,10 +274,13 @@ export default function TransportOnboardingWizard({ onComplete, showToast }: Pro
   async function handleComplete() {
     setSaving(true);
     try {
-      if (orgId) {
-        await supabase.from('trade_organizations').update({ is_onboarded: true }).eq('id', orgId);
-      }
+      if (!orgId) throw new Error('ID de organización no disponible. Recarga la página e inténtalo de nuevo.');
+      const { error } = await supabase.from('trade_organizations').update({ is_onboarded: true }).eq('id', orgId);
+      if (error) throw new Error(error.message);
       onComplete();
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      showToast('Error al finalizar: ' + msg, 'error');
     } finally {
       setSaving(false);
     }

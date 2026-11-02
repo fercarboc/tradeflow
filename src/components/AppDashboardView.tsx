@@ -3027,6 +3027,25 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
 
           <div className="flex items-center gap-2">
+            {/* User / org identity pill */}
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200">
+              <div className={`w-6 h-6 rounded-lg flex items-center justify-center font-bold text-white text-[10px] shrink-0 ${isTecnico ? 'bg-gradient-to-tr from-emerald-600 to-teal-500' : 'bg-gradient-to-tr from-blue-600 to-indigo-500'}`}>
+                {isTecnico ? (workerProfile?.nombre?.[0] ?? 'T').toUpperCase() : (empresaAjustes.nombre?.[0] ?? orgData?.nombre?.[0] ?? 'T').toUpperCase()}
+              </div>
+              <div className="leading-tight max-w-[140px]">
+                <span className="text-[11px] font-bold text-slate-800 block truncate">
+                  {isTecnico ? (workerProfile?.nombre ?? 'Técnico') : (empresaAjustes.nombre || orgData?.nombre || 'Mi empresa')}
+                </span>
+                <span className="text-[9px] text-slate-400 block truncate">
+                  {isTecnico
+                    ? `Técnico · ${empresaAjustes.nombre}`
+                    : caps.isTransportOrg
+                      ? (caps.isTransportDemo ? 'Demo transporte' : 'Transporte')
+                      : (empresaAjustes.nif || session?.user?.email || '')}
+                </span>
+              </div>
+            </div>
+
             {session?.user?.email === ADMIN_EMAIL && (
               <button
                 onClick={() => setCurrentPage(ActivePage.Admin)}
@@ -3377,6 +3396,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               />
             : caps.isTransportOrg
               ? <TransportOnboardingWizard
+                  orgId={orgId ?? undefined}
                   onComplete={() => {
                     setShowOnboarding(false);
                     if (session) loadLiveData(session);
@@ -4324,6 +4344,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {transporteMobileSubTab === 'panel' && (
                   <ScreenTransportePanel
                     orgId={orgId}
+                    isViajerosPrimary={caps.isViajerosPrimary}
+                    isMercanciasPrimary={caps.isMercanciasPrimary}
+                    isCombinadaOrg={caps.isCombinadaOrg}
                     showToast={showToast}
                     onNavigate={(tab, action) => {
                       if (action === 'new') setTransporteTriggerNew(n => n + 1);
@@ -6733,30 +6756,29 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     return (
       <React.Fragment>
         {/* SIDEBAR NAVEGACIÓN */}
-        <aside className="hidden md:flex flex-col w-64 bg-slate-900 border-r border-slate-850 text-slate-300 shrink-0 select-none">
-          <div className="p-5 border-b border-slate-850 flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-white shadow-md shrink-0 ${isTecnico ? 'bg-gradient-to-tr from-emerald-600 to-teal-500 shadow-emerald-500/10' : 'bg-gradient-to-tr from-blue-600 to-indigo-500 shadow-blue-500/10'}`}>
-              {isTecnico ? (workerProfile?.nombre?.[0] ?? 'T').toUpperCase() : (empresaAjustes.nombre?.[0] ?? orgData?.nombre?.[0] ?? 'T').toUpperCase()}
+        <aside className={`hidden md:flex flex-col ${caps.isTransportOrg ? 'w-52' : 'w-64'} bg-slate-900 border-r border-slate-850 text-slate-300 shrink-0 select-none`}>
+
+          {/* Identity header: only for non-transport orgs (transport uses top-bar pill) */}
+          {!caps.isTransportOrg && (
+            <div className="p-5 border-b border-slate-850 flex items-center gap-3">
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-white shadow-md shrink-0 ${isTecnico ? 'bg-gradient-to-tr from-emerald-600 to-teal-500 shadow-emerald-500/10' : 'bg-gradient-to-tr from-blue-600 to-indigo-500 shadow-blue-500/10'}`}>
+                {isTecnico ? (workerProfile?.nombre?.[0] ?? 'T').toUpperCase() : (empresaAjustes.nombre?.[0] ?? orgData?.nombre?.[0] ?? 'T').toUpperCase()}
+              </div>
+              <div className="overflow-hidden">
+                {isTecnico ? (
+                  <>
+                    <span className="font-bold text-xs text-white block uppercase tracking-wide truncate">{workerProfile?.nombre ?? 'Técnico'}</span>
+                    <span className="text-[10px] text-emerald-500 block font-mono truncate">Técnico · {empresaAjustes.nombre}</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="font-bold text-xs text-white block uppercase tracking-wide truncate">{empresaAjustes.nombre}</span>
+                    <span className="text-[10px] text-slate-500 block font-mono truncate">{empresaAjustes.nif}</span>
+                  </>
+                )}
+              </div>
             </div>
-            <div className="overflow-hidden">
-              {isTecnico ? (
-                <>
-                  <span className="font-bold text-xs text-white block uppercase tracking-wide truncate">{workerProfile?.nombre ?? 'Técnico'}</span>
-                  <span className="text-[10px] text-emerald-500 block font-mono truncate">Técnico · {empresaAjustes.nombre}</span>
-                </>
-              ) : (
-                <>
-                  <span className="font-bold text-xs text-white block uppercase tracking-wide truncate">{empresaAjustes.nombre}</span>
-                  {caps.isTransportDemo
-                    ? <span className="text-[10px] text-amber-400 block truncate font-bold">Transporte Demo</span>
-                    : caps.isTransportOrg
-                      ? <span className="text-[10px] text-blue-400 block truncate">Transporte</span>
-                      : <span className="text-[10px] text-slate-500 block font-mono truncate">{empresaAjustes.nif}</span>
-                  }
-                </>
-              )}
-            </div>
-          </div>
+          )}
 
           {/* Enlaces sidebar */}
           <nav className="flex-grow p-4 space-y-1 overflow-y-auto min-h-0 scrollbar-hide">
@@ -7220,6 +7242,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <div className="flex-1 overflow-y-auto min-h-0">
                     <ScreenTransportePanel
                       orgId={orgId}
+                      isViajerosPrimary={caps.isViajerosPrimary}
+                      isMercanciasPrimary={caps.isMercanciasPrimary}
+                      isCombinadaOrg={caps.isCombinadaOrg}
                       showToast={showToast}
                       onNavigate={(tab, action) => {
                         if (action === 'new') setTransporteTriggerNew(n => n + 1);
