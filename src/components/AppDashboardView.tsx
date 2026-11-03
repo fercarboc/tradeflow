@@ -161,6 +161,8 @@ import {
   type PreparedDocumentPhoto,
   type PreparedWordPhoto,
 } from '../lib/quotePhotos';
+import OwnerDashboardDesktop from './OwnerDashboardDesktop';
+import OwnerDashboardMobile from './OwnerDashboardMobile';
 
 const InvoiceIcon = FileText;
 
@@ -4911,151 +4913,23 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ================= MÓVIL: INICIO SCREEN =================
   function MobileScreenInicio() {
-    const now = new Date();
-    const hour = now.getHours();
-    const greeting = hour < 12 ? 'Buenos días' : hour < 20 ? 'Buenas tardes' : 'Buenas noches';
-    const shortName = empresaAjustes.nombre.split(' ')[0] || 'Instalador';
-    const todayISO = now.toISOString().split('T')[0];
-    const todayJobs = jobs.filter(j => j.fecha_inicio === todayISO && j.estado !== 'cancelado');
-    const aceptados = presupuestos.filter(p => p.estado === 'Aceptado');
-
     return (
-      <div className="pb-6">
-
-        {/* Greeting */}
-        <div className="pb-5">
-          <h2 className="text-2xl font-black text-gray-900 leading-tight">{greeting}, {shortName}</h2>
-          <p className="text-sm text-gray-400 mt-1">¿Qué quieres hacer hoy?</p>
-        </div>
-
-        {/* KPI strip */}
-        <div className="grid grid-cols-3 gap-2.5 mb-5">
-          <div className="bg-white border border-gray-100 rounded-2xl p-3 text-center shadow-sm">
-            <p className="text-xl font-black text-gray-900 leading-none">{todayJobs.length}</p>
-            <p className="text-[10px] text-gray-400 mt-0.5">hoy</p>
-          </div>
-          <div className="bg-white border border-gray-100 rounded-2xl p-3 text-center shadow-sm">
-            <p className="text-xl font-black text-emerald-600 leading-none">{aceptados.length}</p>
-            <p className="text-[10px] text-gray-400 mt-0.5">aceptados</p>
-          </div>
-          <div className="bg-white border border-gray-100 rounded-2xl p-3 text-center shadow-sm">
-            <p className="text-xl font-black text-blue-600 leading-none">{presupuestos.length}</p>
-            <p className="text-[10px] text-gray-400 mt-0.5">presup.</p>
-          </div>
-        </div>
-
-        {/* Shortcuts 2×3 */}
-        <div className="grid grid-cols-2 gap-3">
-
-          {/* Crear presupuesto */}
-          <button
-            onClick={() => startWizard(2)}
-            className="border-2 border-blue-200 rounded-2xl p-4 flex flex-col gap-3 bg-white active:scale-95 transition-transform text-left"
-          >
-            <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
-              <Mic className="w-5 h-5 text-blue-600" />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-gray-900 leading-tight">Crear presupuesto</p>
-              <p className="text-xs text-gray-400 mt-0.5">Voz o por pasos</p>
-            </div>
-          </button>
-
-          {/* Trabajos de hoy */}
-          <button
-            onClick={() => setMobileTab('trabajos')}
-            className="border-2 border-emerald-200 rounded-2xl p-4 flex flex-col gap-3 bg-white active:scale-95 transition-transform text-left"
-          >
-            <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
-              <Briefcase className="w-5 h-5 text-emerald-600" />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-gray-900 leading-tight">Trabajos de hoy</p>
-              <p className="text-xs text-gray-400 mt-0.5">
-                {todayJobs.length > 0 ? `${todayJobs.length} pendiente${todayJobs.length !== 1 ? 's' : ''}` : 'Agenda del día'}
-              </p>
-            </div>
-          </button>
-
-          {/* Clientes */}
-          <button
-            onClick={() => setMobileTab('clientes')}
-            className="border-2 border-violet-200 rounded-2xl p-4 flex flex-col gap-3 bg-white active:scale-95 transition-transform text-left"
-          >
-            <div className="w-10 h-10 bg-violet-50 rounded-xl flex items-center justify-center">
-              <Users className="w-5 h-5 text-violet-600" />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-gray-900 leading-tight">Clientes</p>
-              <p className="text-xs text-gray-400 mt-0.5">Ver y gestionar</p>
-            </div>
-          </button>
-
-          {/* Proveedores */}
-          <button
-            onClick={() => { setMobileSuppliersSubTab('proveedores'); setMobileTab('suppliers'); setShowFloatingMenu(false); }}
-            className="border-2 border-amber-200 rounded-2xl p-4 flex flex-col gap-3 bg-white active:scale-95 transition-transform text-left"
-          >
-            <div className="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center">
-              <Truck className="w-5 h-5 text-amber-600" />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-gray-900 leading-tight">Proveedores</p>
-              <p className="text-xs text-gray-400 mt-0.5">Catálogos y precios</p>
-            </div>
-          </button>
-
-          {/* Normativa */}
-          <button
-            onClick={() => setMobileTab('asistente')}
-            className="border-2 border-teal-200 rounded-2xl p-4 flex flex-col gap-3 bg-white active:scale-95 transition-transform text-left"
-          >
-            <div className="w-10 h-10 bg-teal-50 rounded-xl flex items-center justify-center">
-              <BookOpen className="w-5 h-5 text-teal-600" />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-gray-900 leading-tight">Normativa</p>
-              <p className="text-xs text-gray-400 mt-0.5">REBT · RITE · GAS</p>
-            </div>
-          </button>
-
-          {/* Transporte (solo si habilitado y autorizado) */}
-          {caps.hasTransport && can('transport.view') && (
-            <button
-              onClick={() => { setMobileTab('transporte'); setShowFloatingMenu(false); }}
-              className="border-2 border-blue-200 rounded-2xl p-4 flex flex-col gap-3 bg-white active:scale-95 transition-transform text-left"
-            >
-              <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
-                <Bus className="w-5 h-5 text-blue-600" />
-              </div>
-              <div>
-                <p className="text-sm font-bold text-gray-900 leading-tight">Transporte</p>
-                <p className="text-xs text-gray-400 mt-0.5">Flota y conductores</p>
-              </div>
-            </button>
-          )}
-
-          {/* Partes firmados */}
-          <button
-            onClick={() => { setPartesDayFilter('hoy'); setMobileTab('partes'); }}
-            className="border-2 border-cyan-200 rounded-2xl p-4 flex flex-col gap-3 bg-white active:scale-95 transition-transform text-left"
-          >
-            <div className="w-10 h-10 bg-cyan-50 rounded-xl flex items-center justify-center">
-              <FileCheck className="w-5 h-5 text-cyan-600" />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-gray-900 leading-tight">Partes</p>
-              <p className="text-xs text-gray-400 mt-0.5">
-                {(() => {
-                  const n = jobs.filter(j => j.parte_token && j.fecha_inicio === todayISO).length;
-                  return n > 0 ? `${n} firmado${n !== 1 ? 's' : ''} hoy` : 'Firmados del día';
-                })()}
-              </p>
-            </div>
-          </button>
-
-        </div>
-      </div>
+      <OwnerDashboardMobile
+        jobs={jobs}
+        workers={trabajadores}
+        presupuestos={presupuestos}
+        facturas={facturas}
+        pendingPlanningQuotes={pendingPlanningQuotes.map(p => ({
+          id: p.id, dbId: p.dbId ?? '', nombreCliente: p.nombreCliente,
+          descripcion: p.descripcion, total: p.total ?? 0,
+        }))}
+        hasTransport={caps.hasTransport && can('transport.view')}
+        onNavigateMobileTab={tab => setMobileTab(tab as typeof mobileTab)}
+        onStartWizardVoz={() => startWizard(2)}
+        onNewQuoteSteps={() => setShowPresupuestoIncremental(true)}
+        onGoPartes={() => { setPartesDayFilter('hoy'); setMobileTab('partes'); }}
+        onGoSuppliers={() => { setMobileSuppliersSubTab('proveedores'); setMobileTab('suppliers'); setShowFloatingMenu(false); }}
+      />
     );
   }
 
@@ -7615,227 +7489,32 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </motion.div>
         )}
 
-        {/* KPIs */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white border border-slate-200 p-4 rounded-xl space-y-1">
-            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Trimestre Facturado</span>
-            <div className="text-xl sm:text-2xl font-black text-emerald-600 tracking-tight">
-              {totalFacturadoFacturas.toFixed(2)}€
-            </div>
-            <span className="text-[10px] text-slate-400 block">✓ Cobro confirmado</span>
-          </div>
+        <OwnerDashboardDesktop
+          jobs={jobs}
+          workers={trabajadores}
+          presupuestos={presupuestos}
+          facturas={facturas}
+          pendingPlanningQuotes={pendingPlanningQuotes.map(p => ({
+            id: p.id, dbId: p.dbId ?? '', nombreCliente: p.nombreCliente,
+            descripcion: p.descripcion, total: p.total ?? 0,
+          }))}
+          onNavigateTab={(tab, subTab) => {
+            if (subTab) setPlanificacionSubTab(subTab as HubSubTab);
+            setActiveTab(tab);
+          }}
+          onOpenVoiceModal={() => setIsVoiceModalOpen(true)}
+          onNewJob={() => { setActiveTab('planificacion'); setNewJobTrigger(p => p + 1); }}
+          onNewQuoteSteps={() => setShowPresupuestoIncremental(true)}
+          onNewClient={() => {
+            setNewClient({ tipo_cliente: 'particular', nombre: '', apellidos: '',
+              telefono: '', email: '', nif: '', direccion: '', cp: '', ciudad: '',
+              provincia: '', pais: 'España' });
+            setIsClientModalOpen(true);
+          }}
+          onNewMantenimiento={() => setShowMantenimientoWizard(true)}
+          onViewQuote={p => { setSelectedQuoteForPreview(p); setActiveTab('preview'); }}
+        />
 
-          <div className="bg-white border border-slate-200 p-4 rounded-xl space-y-1">
-            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Pendiente Cobro</span>
-            <div className="text-xl sm:text-2xl font-black text-amber-500 tracking-tight">
-              {totalPendienteFacturas.toFixed(2)}€
-            </div>
-            <span className="text-[10px] text-slate-400 block">⚠ En plazo de vencimiento</span>
-          </div>
-
-          <div className="bg-white border border-slate-200 p-4 rounded-xl space-y-1">
-            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Borradores en Espera</span>
-            <div className="text-xl sm:text-2xl font-black text-blue-500 tracking-tight">
-              {presupuestosPendientesCount}
-            </div>
-            <span className="text-[10px] text-slate-400 block">Presupuestos por firmar</span>
-          </div>
-
-          <div className="bg-white border border-slate-200 p-4 rounded-xl space-y-1">
-            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Tasa de Aceptación</span>
-            <div className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              {tasaAceptacion !== null ? `${tasaAceptacion}%` : '—'}
-            </div>
-            <span className="text-[10px] text-slate-400 block">
-              {tasaAceptacion !== null ? `${presupuestosAceptados.length} de ${presupuestosNoborrador.length} enviados` : 'Sin presupuestos enviados'}
-            </span>
-          </div>
-        </div>
-
-        {/* Acciones */}
-        <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
-          <button
-            onClick={() => setIsVoiceModalOpen(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white rounded-2xl p-5 text-center shadow-lg hover:shadow-blue-500/10 space-y-2 cursor-pointer flex flex-col items-center justify-center transition-transform hover:scale-101 border border-blue-500"
-          >
-            <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
-              <Mic className="w-6 h-6 text-white" />
-            </div>
-            <span className="font-black uppercase tracking-wider text-xs block">Presupuesto por Voz IA</span>
-            <p className="text-[10px] text-blue-105 leading-normal max-w-xs">Dicta en la furgoneta o en obra; creamos el presupuesto estructurado.</p>
-          </button>
-
-          <button
-            onClick={() => { setActiveTab('planificacion'); setNewJobTrigger(p => p + 1); }}
-            className="bg-violet-600 hover:bg-violet-700 text-white rounded-2xl p-5 text-center space-y-2 cursor-pointer flex flex-col items-center justify-center transition-transform hover:scale-101 border border-violet-500"
-          >
-            <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
-              <Briefcase className="w-6 h-6 text-white" />
-            </div>
-            <span className="font-black uppercase tracking-wider text-xs block">Añadir Trabajo / Visita</span>
-            <p className="text-[10px] text-violet-200 leading-normal max-w-xs">Anota una visita o llamada pendiente para ir a ver la obra.</p>
-          </button>
-
-
-          <button
-            onClick={() => {
-              setNewClient({ nombre: '', telefono: '', email: '', direccion: '', nif: '', cp: '', ciudad: '', provincia: '' });
-              setIsClientModalOpen(true);
-            }}
-            className="bg-white border border-slate-200 text-slate-800 rounded-2xl p-5 text-center space-y-2 cursor-pointer flex flex-col items-center justify-center transition-transform hover:scale-101"
-          >
-            <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center border border-slate-200">
-              <Plus className="w-6 h-6 text-slate-600" />
-            </div>
-            <span className="font-black uppercase tracking-wider text-xs block">Registrar Cliente CRM</span>
-            <p className="text-[10px] text-slate-455 leading-normal max-w-xs">Da de alta un cliente y guarda sus datos fiscales para futuros cobros.</p>
-          </button>
-
-          <button
-            onClick={() => setShowPresupuestoIncremental(true)}
-            className="bg-amber-500 hover:bg-amber-600 text-white rounded-2xl p-5 text-center space-y-2 cursor-pointer flex flex-col items-center justify-center transition-transform hover:scale-101 border border-amber-400"
-          >
-            <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
-              <span className="text-2xl">📋</span>
-            </div>
-            <span className="font-black uppercase tracking-wider text-xs block">Presupuesto por Pasos</span>
-            <p className="text-[10px] text-amber-100 leading-normal max-w-xs">Añade partidas poco a poco: mudanzas, reformas, trabajos complejos.</p>
-          </button>
-
-          <button
-            onClick={() => setShowMantenimientoWizard(true)}
-            className="bg-blue-700 hover:bg-blue-800 text-white rounded-2xl p-5 text-center space-y-2 cursor-pointer flex flex-col items-center justify-center transition-transform hover:scale-101 border border-blue-600"
-          >
-            <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
-              <span className="text-2xl">🔧</span>
-            </div>
-            <span className="font-black uppercase tracking-wider text-xs block">Contrato Mantenimiento</span>
-            <p className="text-[10px] text-blue-200 leading-normal max-w-xs">23 sectores, SLA, cláusulas y voz IA. Catálogo se actualiza automáticamente.</p>
-          </button>
-        </div>
-
-        {/* Visitas y trabajos pendientes en desktop */}
-        {jobs.filter(j => j.estado !== 'completado' && j.estado !== 'cancelado').length > 0 && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {/* Visitas pendientes */}
-            {jobs.filter(j => j.tipo === 'visita' && j.estado !== 'completado' && j.estado !== 'cancelado').length > 0 && (
-              <div className="bg-white border border-violet-200 rounded-xl p-4 space-y-3">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-[10px] font-bold text-violet-600 uppercase tracking-widest">👁 Visitas pendientes</h3>
-                  <span className="text-[9px] text-slate-400">{jobs.filter(j => j.tipo === 'visita' && j.estado !== 'completado' && j.estado !== 'cancelado').length} pendientes</span>
-                </div>
-                <div className="space-y-2">
-                  {jobs.filter(j => j.tipo === 'visita' && j.estado !== 'completado' && j.estado !== 'cancelado').slice(0, 4).map(j => (
-                    <div key={j.id} className="flex items-center gap-3 p-2.5 bg-violet-50 border border-violet-100 rounded-xl">
-                      <div className="w-1.5 h-8 bg-violet-500 rounded-full shrink-0" />
-                      <div className="min-w-0 flex-1">
-                        <p className="text-xs font-bold text-slate-800 truncate">{j.titulo}</p>
-                        {j.trade_clients?.nombre && <p className="text-[10px] text-slate-500 truncate">{j.trade_clients.nombre}</p>}
-                      </div>
-                      {j.fecha_inicio && (
-                        <span className="text-[10px] font-mono text-violet-600 shrink-0">
-                          {new Date(j.fecha_inicio + 'T12:00:00').toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })}
-                        </span>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Trabajos activos hoy */}
-            {(() => {
-              const todayISO = new Date().toISOString().split('T')[0];
-              const todayJobs = jobs.filter(j => j.fecha_inicio === todayISO && j.estado !== 'cancelado' && j.tipo !== 'visita');
-              if (todayJobs.length === 0) return null;
-              return (
-                <div className="bg-white border border-blue-200 rounded-xl p-4 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">🔧 Trabajos hoy</h3>
-                    <span className="text-[9px] text-slate-400">{todayJobs.length} programados</span>
-                  </div>
-                  <div className="space-y-2">
-                    {todayJobs.slice(0, 4).map(j => (
-                      <div key={j.id} className="flex items-center gap-3 p-2.5 bg-blue-50 border border-blue-100 rounded-xl">
-                        <div className={`w-1.5 h-8 rounded-full shrink-0 ${j.estado === 'en_curso' ? 'bg-amber-400' : j.estado === 'completado' ? 'bg-emerald-500' : 'bg-blue-500'}`} />
-                        <div className="min-w-0 flex-1">
-                          <p className="text-xs font-bold text-slate-800 truncate">{j.titulo}</p>
-                          {j.trade_clients?.nombre && <p className="text-[10px] text-slate-500 truncate">{j.trade_clients.nombre}</p>}
-                        </div>
-                        {j.hora_inicio && <span className="text-[10px] font-mono text-blue-600 shrink-0">{j.hora_inicio}</span>}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })()}
-          </div>
-        )}
-
-        {/* Evolución gráfica SVG */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="bg-white border border-slate-200 p-5 rounded-xl lg:col-span-7 space-y-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Historial</span>
-                <h3 className="text-sm font-black text-slate-900 uppercase">Ingresos Recientes</h3>
-              </div>
-            </div>
-
-            <div className="h-44 w-full flex items-end justify-between pt-6 gap-2">
-              {chartData.map((item, idx) => {
-                const pct = chartMax > 0 ? (item.total / chartMax) * 100 : 0;
-                const isLast = idx === chartData.length - 1;
-                return (
-                  <div key={idx} className="flex flex-col items-center flex-1 h-full justify-end group">
-                    <div className="text-[9px] font-bold text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity mb-1 font-mono">
-                      {item.total > 0 ? `${item.total.toFixed(0)}€` : ''}
-                    </div>
-                    {pct > 0 ? (
-                      isLast ? (
-                        <div className="w-full bg-gradient-to-t from-blue-600 via-indigo-500 to-emerald-400 rounded-t-lg shadow-md" style={{ height: `${pct}%` }} />
-                      ) : (
-                        <div className="w-full bg-blue-200 rounded-t-lg" style={{ height: `${pct}%` }} />
-                      )
-                    ) : (
-                      <div className="w-full bg-slate-100 rounded-t-lg" style={{ height: '4px' }} />
-                    )}
-                    <span className="text-[9px] mt-2 font-mono text-slate-400">{item.mes}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Ultimos Presupuestos */}
-          <div className="bg-white border border-slate-200 p-5 rounded-xl lg:col-span-5 space-y-4">
-            <div>
-              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Lista</span>
-              <h3 className="text-sm font-black text-slate-900 uppercase">Presupuestos Recientes</h3>
-            </div>
-
-            <div className="space-y-3">
-              {presupuestos.slice(0, 3).map(p => (
-                <div 
-                  key={p.id} 
-                  onClick={() => {
-                    setSelectedQuoteForPreview(p);
-                    setActiveTab('preview');
-                  }}
-                  className="flex items-center justify-between p-3 bg-slate-50 hover:bg-slate-100 rounded-xl border border-slate-200 cursor-pointer"
-                >
-                  <div className="space-y-0.5 truncate pr-2">
-                    <span className="text-xs font-bold text-slate-800 block truncate">{p.nombreCliente}</span>
-                    <span className="text-[10px] text-slate-450 block truncate">{p.descripcion}</span>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <span className="text-xs font-bold font-mono text-slate-800">{(p.total ?? 0).toFixed(0)}€</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
 
       </div>
     );
