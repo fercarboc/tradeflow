@@ -112,30 +112,45 @@ const GANTT_HOUR_MARKS    = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22];
 // Min-width of the scrollable timeline area — ensures ≥40px per 2-hour mark
 const GANTT_TIMELINE_MIN_W = 960;
 
+// Returns the ISO date string for the following calendar day (local TZ, DST-safe).
+// Uses noon to avoid any DST-midnight ambiguity when calling setDate.
+function nextDayISOStr(dayStr: string): string {
+  const d = new Date(`${dayStr}T12:00:00`);
+  d.setDate(d.getDate() + 1);
+  return isoDate(d);
+}
+
 /**
- * Returns the Gantt position for a service, correctly handling:
- * - Services that start before the window (07:00): left=0, width clips to visible range.
- * - Services that end after the window (21:00): width clips at window end.
- * - Midnight-crossing services: end < start → add 24h to end.
- * - Services fully outside the window: width=0 (invisible).
+ * Gantt position for a service/trip on a specific rendered day.
+ *
+ * Uses timestamp-level intersection of [svcStart, svcEnd) with [dayMidnight, nextDayMidnight).
+ * Both boundaries are LOCAL midnight via Date constructor (no 'Z' suffix), so DST days
+ * (23h spring-forward, 25h fall-back) are handled correctly.
+ * Never uses dayStartMs + 86_400_000 as a proxy for the next midnight.
  */
-function servicePosition(start: string, end: string | null | undefined): { left: number; width: number } {
-  const s = new Date(start);
-  if (isNaN(s.getTime())) return { left: 0, width: 0 };
+function servicePosition(
+  start: string,
+  end: string | null | undefined,
+  ganttDayStr: string,
+): { left: number; width: number } {
+  const svcStartMs = new Date(start).getTime();
+  if (isNaN(svcStartMs)) return { left: 0, width: 0 };
 
-  const startH = s.getHours() + s.getMinutes() / 60;
-  const endDate = end ? new Date(end) : new Date(s.getTime() + 2 * 3600 * 1000);
-  let endH = endDate.getHours() + endDate.getMinutes() / 60;
-  // Midnight-crossing: end of day appears as 0 or early next morning
-  if (endH < startH) endH += 24;
+  const svcEndMs = end
+    ? new Date(end).getTime()
+    : svcStartMs + 2 * 3600 * 1000;
 
-  const visStart = Math.max(startH, GANTT_START_H);
-  const visEnd   = Math.min(endH, GANTT_END_H);
-  if (visEnd <= visStart) return { left: 0, width: 0 };
+  const dayStartMs = new Date(`${ganttDayStr}T00:00:00`).getTime();
+  const dayEndMs   = new Date(`${nextDayISOStr(ganttDayStr)}T00:00:00`).getTime();
+  const dayMs      = dayEndMs - dayStartMs;
+
+  const visStartMs = Math.max(svcStartMs, dayStartMs);
+  const visEndMs   = Math.min(svcEndMs,   dayEndMs);
+  if (visEndMs <= visStartMs) return { left: 0, width: 0 };
 
   return {
-    left:  Math.max(0, (startH - GANTT_START_H) / GANTT_RANGE_H * 100),
-    width: Math.max(1.5, (visEnd - visStart) / GANTT_RANGE_H * 100),
+    left:  Math.max(0, (visStartMs - dayStartMs) / dayMs * 100),
+    width: Math.max(1.5, (visEndMs - visStartMs) / dayMs * 100),
   };
 }
 
@@ -361,12 +376,13 @@ interface GanttProps {
   workerMap: Map<string, TradeWorker>;
   isMercanciasPrimary: boolean;
   isCombinadaOrg: boolean;
+  ganttDayStr: string;
   onNavigate?: (tab: string) => void;
   /** Called when a trip block is clicked — passes the trip id so the panel can open the detail. */
   onTripClick?: (tripId: string) => void;
 }
 
-function GanttTimeline({ services, trips, vehicles, vehicleMap, workerMap, isMercanciasPrimary, isCombinadaOrg, onNavigate, onTripClick }: GanttProps) {
+function GanttTimeline({ services, trips, vehicles, vehicleMap, workerMap, isMercanciasPrimary, isCombinadaOrg, ganttDayStr, onNavigate, onTripClick }: GanttProps) {
   const activeVehicles = useMemo(() => {
     const active = vehicles.filter(v => v.activo);
     if (!isCombinadaOrg && isMercanciasPrimary) return active.filter(v => isVehicleCargo(v));
@@ -506,7 +522,7 @@ function GanttTimeline({ services, trips, vehicles, vehicleMap, workerMap, isMer
 
                   {/* Service blocks — upper band (top 1px → 27px) */}
                   {svcs.filter(s => s.estado !== 'cancelado').map(svc => {
-                    const pos = servicePosition(svc.fecha_inicio, svc.fecha_fin);
+                    const pos = servicePosition(svc.fecha_inicio, svc.fecha_fin, ganttDayStr);
                     if (pos.width === 0) return null;
                     const conductor = svc.conductor_id ? workerMap.get(svc.conductor_id) : undefined;
                     return (
@@ -529,7 +545,7 @@ function GanttTimeline({ services, trips, vehicles, vehicleMap, workerMap, isMer
 
                   {/* Trip blocks (TX-MC-1) — lower band (top 30px → bottom 2px) */}
                   {trps.filter(t => t.estado !== 'cancelado').map(trp => {
-                    const pos = servicePosition(trp.fecha_inicio, trp.fecha_fin);
+                    const pos = servicePosition(trp.fecha_inicio, trp.fecha_fin, ganttDayStr);
                     if (pos.width === 0) return null;
                     const conductor = trp.conductor_id ? workerMap.get(trp.conductor_id) : undefined;
                     const tripColor = trp.estado === 'en_curso' ? 'bg-orange-500 hover:bg-orange-600'
@@ -584,7 +600,7 @@ function GanttTimeline({ services, trips, vehicles, vehicleMap, workerMap, isMer
                   <div key={h} className="absolute top-0 bottom-0 w-px bg-blue-200/50" style={{ left: `${(h - GANTT_START_H) / GANTT_RANGE_H * 100}%` }} />
                 ))}
                 {unassignedServices.filter(s => s.estado !== 'cancelado').map(svc => {
-                  const pos = servicePosition(svc.fecha_inicio, svc.fecha_fin);
+                  const pos = servicePosition(svc.fecha_inicio, svc.fecha_fin, ganttDayStr);
                   if (pos.width === 0) return null;
                   return (
                     <button key={svc.id} onClick={() => onNavigate?.('transporte_servicios')}
@@ -617,7 +633,7 @@ function GanttTimeline({ services, trips, vehicles, vehicleMap, workerMap, isMer
                   <div key={h} className="absolute top-0 bottom-0 w-px bg-orange-200/50" style={{ left: `${(h - GANTT_START_H) / GANTT_RANGE_H * 100}%` }} />
                 ))}
                 {unassignedTrips.filter(t => t.estado !== 'cancelado').map(trp => {
-                  const pos = servicePosition(trp.fecha_inicio, trp.fecha_fin);
+                  const pos = servicePosition(trp.fecha_inicio, trp.fecha_fin, ganttDayStr);
                   if (pos.width === 0) return null;
                   return (
                     <button key={trp.id} onClick={() => onTripClick?.(trp.id)}
@@ -1339,6 +1355,7 @@ export default function ScreenTransportePanel({
                   workerMap={workerMap}
                   isMercanciasPrimary={isMercanciasPrimary}
                   isCombinadaOrg={isCombinadaOrg}
+                  ganttDayStr={ganttDayStr}
                   onNavigate={onNavigate}
                   onTripClick={id => {
                     setGanttTripId(id);
