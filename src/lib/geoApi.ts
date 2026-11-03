@@ -40,19 +40,26 @@ export interface GeoJSONMultiLineString {
 export type GeoJSONGeometry = GeoJSONLineString | GeoJSONMultiLineString;
 
 export interface RouteResult {
-  geometry:   GeoJSONGeometry;
-  distance_m: number;
-  duration_s: number;
-  provider:   string;
-  cached:     boolean;
+  geometry:        GeoJSONGeometry;
+  distance_m:      number;
+  duration_s:      number;
+  provider:        string;
+  cached:          boolean;
+  profile_warning?: string;
 }
 
 export type GeoFieldName = 'origen_detalle' | 'destino_detalle';
 
-// Tipo del invoker: compatible con supabase.functions.invoke
+// Tipo del invoker para Edge Functions (supabase.functions.invoke)
 export type FunctionInvoker = (
   fnName: string,
   opts: { body: Record<string, unknown> }
+) => Promise<{ data: unknown; error: { message: string } | null }>;
+
+// Tipo del invoker para RPCs (supabase.rpc), usado en tests sin vi.mock
+export type RpcInvoker = (
+  rpcName: string,
+  params: Record<string, unknown>
 ) => Promise<{ data: unknown; error: { message: string } | null }>;
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -84,24 +91,33 @@ export async function geocodeAddress(
   return result;
 }
 
+export type RoutingProfile = 'bus' | 'truck' | 'light_truck';
+
 /**
  * Solicita una ruta por carretera para una serie de waypoints.
  * El orden de los waypoints define el recorrido — no se reordena.
  * Devuelve null si hay menos de 2 waypoints válidos.
+ * invoker: opcional, sustituye supabase.functions.invoke en tests.
+ * profile: 'bus' para Viajeros, 'truck'/'light_truck' para Mercancías (posición 4).
  */
 export async function routeWaypoints(
   waypoints: Array<{ lat: number; lng: number }>,
   orgId:     string,
-  invoker:   FunctionInvoker = defaultInvoker
+  invoker?:  FunctionInvoker,
+  profile:   RoutingProfile = 'bus',
 ): Promise<RouteResult | null> {
   if (waypoints.length < 2) return null;
-  const { data, error } = await invoker('route', { body: { waypoints, org_id: orgId } as Record<string, unknown> });
+  const fn = invoker ?? defaultInvoker;
+  const { data, error } = await fn('route', { body: { waypoints, org_id: orgId, profile } as Record<string, unknown> });
   if (error) throw new Error(error.message || 'Error en cálculo de ruta');
   if (!data) return null;
   const result = data as RouteResult & { error?: string };
   if (result?.error) throw new Error(result.error);
   return result;
 }
+
+const defaultRpcInvoker: RpcInvoker = (rpcName, params) =>
+  supabase.rpc(rpcName, params) as unknown as Promise<{ data: unknown; error: { message: string } | null }>;
 
 /**
  * Persiste coordenadas en origen_detalle o destino_detalle de un servicio.
@@ -112,14 +128,45 @@ export async function saveTransportLocation(
   field:     GeoFieldName,
   lat:       number,
   lng:       number,
-  geoSource: 'geocoded' | 'confirmed' | 'manual' = 'confirmed'
+  geoSource: 'geocoded' | 'confirmed' | 'manual' = 'confirmed',
+  rpc?:      RpcInvoker,
 ): Promise<void> {
-  const { error } = await supabase.rpc('update_transport_location', {
+  const fn = rpc ?? defaultRpcInvoker;
+  const { error } = await fn('update_transport_location', {
     p_service_id: serviceId,
     p_field:      field,
     p_lat:        lat,
     p_lng:        lng,
     p_geo_source: geoSource,
+  });
+  if (error) throw new Error(error.message);
+}
+
+/**
+ * Persiste coordenadas en origen_detalle o destino_detalle de un viaje de mercancías.
+ * Requiere la migración trip_geo_detalle y el RPC update_transport_trip_location.
+ * addressText: texto de origen/destino cuando se inició la geocodificación (anti-stale).
+ *   Si la dirección ha cambiado desde entonces, el RPC devuelve GEO_STALE.
+ *   Pasar null omite la verificación (confirmación manual, retrocompatibilidad).
+ * rpc: optional injectable RpcInvoker para tests sin vi.mock.
+ */
+export async function saveTransportTripLocation(
+  tripId:       string,
+  field:        GeoFieldName,
+  lat:          number,
+  lng:          number,
+  geoSource:    'geocoded' | 'confirmed' | 'manual' = 'confirmed',
+  addressText?: string | null,
+  rpc?:         RpcInvoker,
+): Promise<void> {
+  const fn = rpc ?? defaultRpcInvoker;
+  const { error } = await fn('update_transport_trip_location', {
+    p_trip_id:      tripId,
+    p_field:        field,
+    p_lat:          lat,
+    p_lng:          lng,
+    p_geo_source:   geoSource,
+    p_address_text: addressText ?? null,
   });
   if (error) throw new Error(error.message);
 }

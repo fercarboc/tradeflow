@@ -6,6 +6,7 @@
  */
 
 import { supabase } from './supabase';
+import type { TransportLocation } from './transportLocations';
 
 // ── Catálogos ─────────────────────────────────────────────────────────────────
 
@@ -72,6 +73,9 @@ export interface TradeTransportTrip {
   // Odómetro
   odometro_inicio?: number | null;
   odometro_final?: number | null;
+  // Geo (añadidos con migración trip_geo_detalle)
+  origen_detalle?:  TransportLocation | null;
+  destino_detalle?: TransportLocation | null;
   // Auditoría
   created_at: string;
   updated_at: string;

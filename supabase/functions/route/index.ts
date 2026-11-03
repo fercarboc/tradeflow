@@ -3,11 +3,18 @@
  * Calcula la geometría de un recorrido por carretera para una serie de waypoints.
  *
  * Seguridad: JWT + pertenencia a org_id.
- * Caché: 30 días por hash de waypoints (agnóstico de org — rutas no son datos privados).
+ * Caché: 30 días por hash de waypoints + perfil (rutas por perfil cacheadas por separado).
  * Rate limit: compartido con geocode (mismo slot global en trade_geo_rate).
- * Perfil: bus (verifica accesos para autobuses; sin restricciones de altura/peso).
+ * Perfiles:
+ *   - 'bus'         → Viajeros (accesos para autobuses, límite 800 km en línea recta)
+ *   - 'truck'       → Mercancías/mixto (carreteras nacionales, límite 1000 km en línea recta)
+ *   - 'light_truck' → Reparto (furgoneta, límite 800 km en línea recta)
  *
- * Input:  { waypoints: [{lat, lng}], org_id: string }
+ * AVISO: Geoapify calcula restricciones de altura/peso según el perfil, pero NO aplica
+ * los datos reales del vehículo (tonelaje, dimensiones). Es responsabilidad del conductor
+ * verificar las restricciones reales de la ruta.
+ *
+ * Input:  { waypoints: [{lat, lng}], org_id: string, profile?: string }
  * Output: { geometry: GeoJSONLineString, distance_m, duration_s, provider, cached }
  *         | null si < 2 waypoints válidos
  */
@@ -29,15 +36,21 @@ const CACHE_TTL_DAYS = 30;
 const PILOT_MAX_WAYPOINTS = 10;
 
 /**
- * Distancia máxima en línea recta (km) admitida en el piloto.
- * Con factor carretera ≤ 1.875 → carretera ≤ 1 500 km → surcharge = floor(1500/500) = 3.
+ * Distancia máxima en línea recta (km) por perfil de ruta.
+ * 'bus' y 'light_truck': 800 km (rutas regionales).
+ * 'truck': 1000 km — cubre rutas nacionales peninsulares como Santander-Cádiz (~800 km).
+ * Con factor carretera ≤ 1.875: bus/light_truck ≤ 1 500 km, truck ≤ 1 875 km carretera.
  */
-const PILOT_MAX_ROUTE_STRAIGHT_KM = 800;
+const PILOT_MAX_STRAIGHT_KM: Record<string, number> = {
+  bus:         800,
+  light_truck: 800,
+  truck:       1000,
+};
 
 /**
  * Suplemento de distancia máximo reservado antes de llamar al proveedor.
- * Cubre hasta 1 500 km de carretera (floor(1500/500) = 3).
- * Nunca superado si PILOT_MAX_ROUTE_STRAIGHT_KM = 800 km y factor ≤ 1.875.
+ * Cubre hasta 1 875 km de carretera (floor(1875/500) = 3).
+ * Nunca superado si truck ≤ 1000 km línea recta y factor ≤ 1.875.
  */
 const PILOT_MAX_DIST_SURCHARGE = 3;
 
@@ -52,13 +65,11 @@ function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): nu
   return EARTH_RADIUS_KM * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-function routeCacheKey(waypoints: RouteWaypoint[]): string {
-  return JSON.stringify(
-    waypoints.map(w => [
-      Math.round(w.lat * 1e6) / 1e6,
-      Math.round(w.lng * 1e6) / 1e6,
-    ])
-  );
+function routeCacheKey(waypoints: RouteWaypoint[], profile: string): string {
+  return JSON.stringify({
+    w: waypoints.map(w => [Math.round(w.lat * 1e6) / 1e6, Math.round(w.lng * 1e6) / 1e6]),
+    p: profile,
+  });
 }
 
 function isValidWaypoint(w: unknown): w is RouteWaypoint {
@@ -106,8 +117,17 @@ Deno.serve(async (req: Request) => {
     return jsonRes({ error: 'GEO_AUTH: token inválido' }, 401);
   }
 
-  const body = await req.json() as { waypoints: unknown[]; org_id: string };
+  const body = await req.json() as { waypoints: unknown[]; org_id: string; profile?: string };
   const { waypoints: rawWaypoints, org_id } = body;
+
+  // Validar perfil de routing — solo perfiles permitidos (bus=Viajeros, truck/light_truck=Mercancías)
+  const ALLOWED_PROFILES = ['bus', 'truck', 'light_truck'] as const;
+  type AllowedProfile = typeof ALLOWED_PROFILES[number];
+  const rawProfile = body.profile ?? 'bus';
+  if (!ALLOWED_PROFILES.includes(rawProfile as AllowedProfile)) {
+    return jsonRes({ error: `GEO_PARAMS: perfil de ruta no permitido: ${rawProfile}` }, 400);
+  }
+  const routingProfile = rawProfile as AllowedProfile;
 
   if (!org_id || !Array.isArray(rawWaypoints)) {
     return jsonRes({ error: 'GEO_PARAMS: waypoints y org_id requeridos' }, 400);
@@ -139,17 +159,18 @@ Deno.serve(async (req: Request) => {
   }
 
   // Guarda de distancia piloto: rechazar antes de reservar créditos.
-  // Haversine (línea recta) ≤ PILOT_MAX_ROUTE_STRAIGHT_KM garantiza que el suplemento
+  // Haversine (línea recta) ≤ límite del perfil garantiza que el suplemento
   // de distancia ≤ PILOT_MAX_DIST_SURCHARGE (factor carretera ≤ 1.875).
+  const profileMaxKm = PILOT_MAX_STRAIGHT_KM[routingProfile] ?? 800;
   {
     let straightKm = 0;
     for (let i = 0; i < validWaypoints.length - 1; i++) {
       const w1 = validWaypoints[i], w2 = validWaypoints[i + 1];
       straightKm += haversineKm(w1.lat, w1.lng, w2.lat, w2.lng);
     }
-    if (straightKm > PILOT_MAX_ROUTE_STRAIGHT_KM) {
+    if (straightKm > profileMaxKm) {
       return jsonRes(
-        { error: `GEO_PARAMS_DISTANCE: ruta demasiado larga; distancia en línea recta supera ${PILOT_MAX_ROUTE_STRAIGHT_KM} km (piloto)` },
+        { error: `GEO_PARAMS_DISTANCE: ruta demasiado larga; distancia en línea recta supera ${profileMaxKm} km para perfil '${routingProfile}' (piloto)` },
         400,
       );
     }
@@ -160,7 +181,7 @@ Deno.serve(async (req: Request) => {
 
   // Cache lookup PRIMERO — ruta cacheada no consume cuota ni llama al proveedor.
   // geometry IS NOT NULL filtra entradas pendientes (geometry=NULL mientras están en curso).
-  const cacheKey = routeCacheKey(validWaypoints);
+  const cacheKey = routeCacheKey(validWaypoints, routingProfile);
   const cutoff   = new Date(Date.now() - CACHE_TTL_DAYS * 24 * 60 * 60 * 1000).toISOString();
   const { data: cachedRoute } = await supabase
     .from('trade_route_cache')
@@ -171,13 +192,17 @@ Deno.serve(async (req: Request) => {
     .single();
 
   if (cachedRoute) {
+    const cachedWarning = (routingProfile === 'truck' || routingProfile === 'light_truck')
+      ? 'La ruta usa restricciones generales del perfil. Verifica las restricciones reales del vehículo (altura, peso, ITV).'
+      : undefined;
     return jsonRes({
       geometry:   cachedRoute.geometry,
       distance_m: cachedRoute.distance_m,
       duration_s: cachedRoute.duration_s,
       provider:   'geoapify',
       cached:     true,
-    } as RouteResult & { cached: boolean });
+      ...(cachedWarning ? { profile_warning: cachedWarning } : {}),
+    } as RouteResult & { cached: boolean; profile_warning?: string });
   }
 
   // Reserva conservadora: segmentos + suplemento máximo piloto.
@@ -218,7 +243,7 @@ Deno.serve(async (req: Request) => {
   let result: RouteResult | null;
 
   try {
-    result = await provider.route(validWaypoints, 'bus');
+    result = await provider.route(validWaypoints, routingProfile);
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'GEO_PROVIDER_ERROR';
     // Error de proveedor — Geoapify no facturó: liberar reserva completa
@@ -255,5 +280,11 @@ Deno.serve(async (req: Request) => {
     pending_at:    null,
   }, { onConflict: 'waypoint_hash' });
 
-  return jsonRes({ ...result, cached: false });
+  // Para perfiles de camión, añadir advertencia: Geoapify no aplica restricciones
+  // reales del vehículo (tonelaje, altura, anchura). El conductor debe verificarlas.
+  const profileWarning = (routingProfile === 'truck' || routingProfile === 'light_truck')
+    ? 'La ruta usa restricciones generales del perfil. Verifica las restricciones reales del vehículo (altura, peso, ITV).'
+    : undefined;
+
+  return jsonRes({ ...result, cached: false, ...(profileWarning ? { profile_warning: profileWarning } : {}) });
 });

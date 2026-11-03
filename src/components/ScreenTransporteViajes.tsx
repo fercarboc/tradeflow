@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {
   Plus, MapPin, Package, ChevronLeft, X, Edit2,
   AlertTriangle, CheckCircle, Clock, Truck,
-  Loader2, ArrowRight, Weight, FileText, Route,
+  Loader2, ArrowRight, Weight, FileText,
 } from 'lucide-react';
 import {
   TIPO_CARGA_OPTIONS,
@@ -36,6 +36,11 @@ import { loadVehiclesAll } from '../lib/transport';
 import type { TradeVehicle } from '../lib/transport';
 import { loadWorkers } from '../lib/supabase';
 import type { TradeWorker } from '../lib/supabase';
+import TransportLocationForm from './TransportLocationForm';
+import TripRouteMap from './TripRouteMap';
+import type { RoutingProfile } from '../lib/geoApi';
+import { saveTransportTripLocation } from '../lib/geoApi';
+import type { TransportLocation } from '../lib/transportLocations';
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function toLocalDT(iso: string): string {
@@ -147,8 +152,29 @@ function TripForm({ orgId, vehicles, workers, initial, onSave, onCancel, editing
   const [precio, setPrecio]           = useState(initial?.precio_acordado?.toString() ?? '');
   const [clienteNombre, setClienteNombre] = useState(initial?.cliente_nombre ?? '');
   const [observaciones, setObservaciones] = useState(initial?.observaciones ?? '');
+  const [origenDetalle, setOrigenDetalle]   = useState<TransportLocation | null>(
+    (initial as Partial<TradeTransportTrip>)?.origen_detalle ?? null,
+  );
+  const [destinoDetalle, setDestinoDetalle] = useState<TransportLocation | null>(
+    (initial as Partial<TradeTransportTrip>)?.destino_detalle ?? null,
+  );
   const [saving, setSaving]           = useState(false);
   const [error, setError]             = useState<string | null>(null);
+  const [geoSaveWarning, setGeoSaveWarning] = useState<string | null>(null);
+
+  function handleOrigenTextChange(v: string) {
+    setOrigen(v);
+    if (origenDetalle?.lat != null) {
+      setOrigenDetalle(prev => prev ? { ...prev, lat: undefined, lng: undefined, geo_source: undefined } : null);
+    }
+  }
+
+  function handleDestinoTextChange(v: string) {
+    setDestino(v);
+    if (destinoDetalle?.lat != null) {
+      setDestinoDetalle(prev => prev ? { ...prev, lat: undefined, lng: undefined, geo_source: undefined } : null);
+    }
+  }
 
   const aptVehicles = mercVehicles(vehicles);
   const aptConductores = conductores(workers);
@@ -184,6 +210,7 @@ function TripForm({ orgId, vehicles, workers, initial, onSave, onCancel, editing
     }
 
     setSaving(true);
+    setGeoSaveWarning(null);
     try {
       let trip: TradeTransportTrip;
       if (editingId) {
@@ -191,7 +218,29 @@ function TripForm({ orgId, vehicles, workers, initial, onSave, onCancel, editing
       } else {
         trip = await createTransportTrip(orgId, input);
       }
-      onSave(trip);
+      // Persistir coordenadas (requiere migración trip_geo_detalle + RPC update_transport_trip_location)
+      const geoErrors: string[] = [];
+      if (origenDetalle?.lat != null && origenDetalle?.lng != null) {
+        try {
+          await saveTransportTripLocation(trip.id, 'origen_detalle', origenDetalle.lat, origenDetalle.lng, origenDetalle.geo_source ?? 'confirmed', trip.origen);
+        } catch (err) {
+          geoErrors.push(`Origen: ${(err as Error).message}`);
+        }
+      }
+      if (destinoDetalle?.lat != null && destinoDetalle?.lng != null) {
+        try {
+          await saveTransportTripLocation(trip.id, 'destino_detalle', destinoDetalle.lat, destinoDetalle.lng, destinoDetalle.geo_source ?? 'confirmed', trip.destino);
+        } catch (err) {
+          geoErrors.push(`Destino: ${(err as Error).message}`);
+        }
+      }
+      if (geoErrors.length > 0) {
+        setGeoSaveWarning(
+          'Viaje guardado. Las coordenadas no se pudieron persistir en la base de datos ' +
+          '(disponibles solo en esta sesión). ' + geoErrors.join(' · ')
+        );
+      }
+      onSave({ ...trip, origen_detalle: origenDetalle, destino_detalle: destinoDetalle });
     } catch (err) {
       setError((err as Error).message ?? 'Error al guardar el viaje');
     } finally {
@@ -236,27 +285,41 @@ function TripForm({ orgId, vehicles, workers, initial, onSave, onCancel, editing
           />
         </div>
 
-        <div>
-          <label className="block text-xs font-medium text-slate-700 mb-1">Origen *</label>
+        <div className="sm:col-span-2 space-y-1.5">
+          <label className="block text-xs font-medium text-slate-700">Origen *</label>
           <input
             type="text"
             value={origen}
-            onChange={e => setOrigen(e.target.value)}
+            onChange={e => handleOrigenTextChange(e.target.value)}
             placeholder="Ciudad, dirección de recogida"
             required
             className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
           />
+          <TransportLocationForm
+            label="Coordenadas de origen"
+            value={origenDetalle}
+            onChange={setOrigenDetalle}
+            orgId={orgId}
+            compact
+          />
         </div>
 
-        <div>
-          <label className="block text-xs font-medium text-slate-700 mb-1">Destino *</label>
+        <div className="sm:col-span-2 space-y-1.5">
+          <label className="block text-xs font-medium text-slate-700">Destino *</label>
           <input
             type="text"
             value={destino}
-            onChange={e => setDestino(e.target.value)}
+            onChange={e => handleDestinoTextChange(e.target.value)}
             placeholder="Ciudad, dirección de entrega"
             required
             className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+          />
+          <TransportLocationForm
+            label="Coordenadas de destino"
+            value={destinoDetalle}
+            onChange={setDestinoDetalle}
+            orgId={orgId}
+            compact
           />
         </div>
 
@@ -398,6 +461,13 @@ function TripForm({ orgId, vehicles, workers, initial, onSave, onCancel, editing
         </div>
       )}
 
+      {geoSaveWarning && (
+        <div className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 flex items-start gap-2">
+          <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+          <span>{geoSaveWarning}</span>
+        </div>
+      )}
+
       <div className="flex gap-2 justify-end pt-2">
         <button
           type="button"
@@ -511,68 +581,6 @@ function ParteModal({ trip, orgId, onClose, onCompleted }: ParteModalProps) {
   );
 }
 
-// ── Panel de ruta del viaje ───────────────────────────────────────────────────
-// trade_transport_trips solo almacena origen/destino como texto libre (sin coordenadas).
-// Mostramos el itinerario textual siempre disponible + estado "mapa pendiente coordenadas".
-// Para activar el mapa real se necesitaría añadir origen_lat/lng y destino_lat/lng a la tabla.
-
-interface TripRoutePanelProps {
-  origen: string;
-  destino: string;
-  fechaInicio: string;
-  fechaFin?: string | null;
-}
-
-function TripRoutePanel({ origen, destino, fechaInicio, fechaFin }: TripRoutePanelProps) {
-  function fmtDT(iso: string) {
-    return new Date(iso).toLocaleString('es-ES', {
-      day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit',
-    });
-  }
-
-  return (
-    <div className="space-y-3">
-      <div className="flex items-center gap-2">
-        <Route className="w-4 h-4 text-orange-500" />
-        <h4 className="text-sm font-semibold text-slate-800">Recorrido</h4>
-      </div>
-
-      {/* Text itinerary — always available */}
-      <div className="bg-slate-50 rounded-xl overflow-hidden border border-slate-100">
-        {/* Origin */}
-        <div className="flex items-start gap-3 px-4 py-3 border-b border-slate-100">
-          <div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-black shrink-0 mt-0.5">A</div>
-          <div className="min-w-0 flex-1">
-            <p className="text-sm font-semibold text-slate-800 leading-tight">{origen || '—'}</p>
-            <p className="text-[11px] text-slate-500 mt-0.5">{fmtDT(fechaInicio)}</p>
-          </div>
-        </div>
-        {/* Connector line */}
-        <div className="flex items-center gap-3 px-4 py-1.5 bg-slate-50/80">
-          <div className="w-7 flex justify-center"><div className="w-0.5 h-4 bg-slate-300 rounded-full" /></div>
-          <p className="text-[10px] text-slate-400 font-medium">Ruta por carretera</p>
-        </div>
-        {/* Destination */}
-        <div className="flex items-start gap-3 px-4 py-3">
-          <div className="w-7 h-7 rounded-full bg-emerald-600 flex items-center justify-center text-white text-xs font-black shrink-0 mt-0.5">B</div>
-          <div className="min-w-0 flex-1">
-            <p className="text-sm font-semibold text-slate-800 leading-tight">{destino || '—'}</p>
-            {fechaFin && <p className="text-[11px] text-slate-500 mt-0.5">{fmtDT(fechaFin)}</p>}
-          </div>
-        </div>
-      </div>
-
-      {/* Map placeholder — coordinates not yet stored */}
-      <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 flex flex-col items-center justify-center gap-2 py-8 px-4 text-center">
-        <MapPin className="w-7 h-7 text-slate-300" />
-        <p className="text-xs font-semibold text-slate-400">Mapa no disponible</p>
-        <p className="text-[11px] text-slate-400 max-w-[200px] leading-snug">
-          El mapa por carretera requiere coordenadas de origen y destino. Actualmente los viajes de Mercancías solo almacenan la dirección en texto libre.
-        </p>
-      </div>
-    </div>
-  );
-}
 
 // ── Vista de detalle ──────────────────────────────────────────────────────────
 
@@ -802,12 +810,20 @@ function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDelet
         </div>
 
         {/* Right column — route map */}
-        <TripRoutePanel
-          origen={trip.origen}
-          destino={trip.destino}
-          fechaInicio={trip.fecha_inicio}
-          fechaFin={trip.fecha_fin}
-        />
+        {(() => {
+          const vModalidad = vehicles.find(v => v.id === trip.vehicle_id)?.modalidad;
+          const profile: RoutingProfile = vModalidad === 'reparto' ? 'light_truck' : 'truck';
+          return (
+            <TripRouteMap
+              origen={trip.origen}
+              destino={trip.destino}
+              origenDetalle={trip.origen_detalle}
+              destinoDetalle={trip.destino_detalle}
+              orgId={orgId}
+              routingProfile={profile}
+            />
+          );
+        })()}
       </div>
 
       {/* Acciones */}
