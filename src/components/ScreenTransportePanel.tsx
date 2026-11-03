@@ -362,9 +362,11 @@ interface GanttProps {
   isMercanciasPrimary: boolean;
   isCombinadaOrg: boolean;
   onNavigate?: (tab: string) => void;
+  /** Called when a trip block is clicked — passes the trip id so the panel can open the detail. */
+  onTripClick?: (tripId: string) => void;
 }
 
-function GanttTimeline({ services, trips, vehicles, vehicleMap, workerMap, isMercanciasPrimary, isCombinadaOrg, onNavigate }: GanttProps) {
+function GanttTimeline({ services, trips, vehicles, vehicleMap, workerMap, isMercanciasPrimary, isCombinadaOrg, onNavigate, onTripClick }: GanttProps) {
   const activeVehicles = useMemo(() => {
     const active = vehicles.filter(v => v.activo);
     if (!isCombinadaOrg && isMercanciasPrimary) return active.filter(v => isVehicleCargo(v));
@@ -443,11 +445,12 @@ function GanttTimeline({ services, trips, vehicles, vehicleMap, workerMap, isMer
   return (
     <div className="overflow-x-auto">
       <div style={{ minWidth: `${GANTT_TIMELINE_MIN_W}px` }}>
-        {/* Hour axis header */}
+        {/* Hour axis header — marks at even hours + 24:00 boundary */}
         <div className="flex text-[10px] text-slate-400 font-medium mb-1 pl-[168px] select-none">
           {GANTT_HOUR_MARKS.map(h => (
             <div key={h} className="flex-1 text-center">{h.toString().padStart(2, '0')}:00</div>
           ))}
+          <div className="text-right pr-0.5 text-[9px] text-slate-300 font-semibold">24:00</div>
         </div>
 
         {/* Rows */}
@@ -485,6 +488,8 @@ function GanttTimeline({ services, trips, vehicles, vehicleMap, workerMap, isMer
                       style={{ left: `${(h - GANTT_START_H) / GANTT_RANGE_H * 100}%` }}
                     />
                   ))}
+                  {/* 24:00 right boundary */}
+                  <div className="absolute top-0 bottom-0 w-0.5 bg-slate-300/80" style={{ right: 0 }} />
 
                   {/* Band separator (only when both types present) */}
                   {svcs.some(s => s.estado !== 'cancelado') && trps.some(t => t.estado !== 'cancelado') && (
@@ -534,10 +539,10 @@ function GanttTimeline({ services, trips, vehicles, vehicleMap, workerMap, isMer
                     return (
                       <button
                         key={trp.id}
-                        onClick={() => onNavigate?.('mercancias')}
+                        onClick={() => onTripClick?.(trp.id)}
                         className={`absolute rounded px-1.5 py-0 text-left text-[9px] font-semibold truncate transition-opacity hover:opacity-90 cursor-pointer z-5 text-white ${tripColor}`}
                         style={{ left: `${pos.left}%`, width: `${pos.width}%`, minWidth: '36px', top: '30px', height: '22px' }}
-                        title={`📦 ${trp.titulo}${conductor ? ` · ${conductor.nombre}` : ''} (${trp.origen} → ${trp.destino})`}
+                        title={`📦 ${trp.titulo}${conductor ? ` · ${conductor.nombre}` : ''} (${trp.origen} → ${trp.destino}) · ${fmtTime(trp.fecha_inicio)}${trp.fecha_fin ? ` – ${fmtTime(trp.fecha_fin)}` : ''}`}
                       >
                         <div className="flex items-center gap-1 leading-none h-full">
                           <Package className="w-2.5 h-2.5 shrink-0 opacity-80" />
@@ -615,10 +620,10 @@ function GanttTimeline({ services, trips, vehicles, vehicleMap, workerMap, isMer
                   const pos = servicePosition(trp.fecha_inicio, trp.fecha_fin);
                   if (pos.width === 0) return null;
                   return (
-                    <button key={trp.id} onClick={() => onNavigate?.('mercancias')}
+                    <button key={trp.id} onClick={() => onTripClick?.(trp.id)}
                       className="absolute top-1 bottom-1 rounded px-2 py-0.5 bg-orange-400 hover:bg-orange-500 text-white text-[9.5px] font-semibold truncate flex items-center gap-1"
                       style={{ left: `${pos.left}%`, width: `${pos.width}%`, minWidth: '40px' }}
-                      title={trp.titulo}
+                      title={`${trp.titulo} · ${fmtTime(trp.fecha_inicio)}${trp.fecha_fin ? ` – ${fmtTime(trp.fecha_fin)}` : ''}`}
                     >
                       <Package className="w-2.5 h-2.5 shrink-0" />
                       <span className="truncate">{trp.titulo}</span>
@@ -788,6 +793,8 @@ export default function ScreenTransportePanel({
 
   type PanelTab = 'general' | 'viajeros' | 'mercancias';
   const [panelTab, setPanelTab] = useState<PanelTab>(defaultTab);
+  // Trip id to pre-select when the Gantt trip block is clicked
+  const [ganttTripId, setGanttTripId] = useState<string | null>(null);
 
   // Guard: if active tab becomes disabled (org data changed), reset to general
   useEffect(() => {
@@ -1333,6 +1340,10 @@ export default function ScreenTransportePanel({
                   isMercanciasPrimary={isMercanciasPrimary}
                   isCombinadaOrg={isCombinadaOrg}
                   onNavigate={onNavigate}
+                  onTripClick={id => {
+                    setGanttTripId(id);
+                    setPanelTab('mercancias');
+                  }}
                 />
               </div>
             </div>
@@ -1619,7 +1630,13 @@ export default function ScreenTransportePanel({
             {/* Viajes — coming soon */}
             <div className="space-y-4">
               <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
-                {orgId && <ScreenTransporteViajes orgId={orgId} />}
+                {orgId && (
+                  <ScreenTransporteViajes
+                    orgId={orgId}
+                    initialTripId={ganttTripId ?? undefined}
+                    onDetailClosed={() => setGanttTripId(null)}
+                  />
+                )}
               </div>
 
               <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">

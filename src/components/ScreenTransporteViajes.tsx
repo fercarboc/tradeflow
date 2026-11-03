@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {
   Plus, MapPin, Package, ChevronLeft, X, Edit2,
   AlertTriangle, CheckCircle, Clock, Truck,
-  Loader2, ArrowRight, Weight, FileText,
+  Loader2, ArrowRight, Weight, FileText, Route,
 } from 'lucide-react';
 import {
   TIPO_CARGA_OPTIONS,
@@ -16,6 +16,7 @@ import {
   startTransportTrip,
   completeTransportTrip,
   loadTransportTrips,
+  loadTransportTrip,
   getTripEstadoMeta,
   isTripEditable,
   canConfirmTrip,
@@ -510,6 +511,69 @@ function ParteModal({ trip, orgId, onClose, onCompleted }: ParteModalProps) {
   );
 }
 
+// ── Panel de ruta del viaje ───────────────────────────────────────────────────
+// trade_transport_trips solo almacena origen/destino como texto libre (sin coordenadas).
+// Mostramos el itinerario textual siempre disponible + estado "mapa pendiente coordenadas".
+// Para activar el mapa real se necesitaría añadir origen_lat/lng y destino_lat/lng a la tabla.
+
+interface TripRoutePanelProps {
+  origen: string;
+  destino: string;
+  fechaInicio: string;
+  fechaFin?: string | null;
+}
+
+function TripRoutePanel({ origen, destino, fechaInicio, fechaFin }: TripRoutePanelProps) {
+  function fmtDT(iso: string) {
+    return new Date(iso).toLocaleString('es-ES', {
+      day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit',
+    });
+  }
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center gap-2">
+        <Route className="w-4 h-4 text-orange-500" />
+        <h4 className="text-sm font-semibold text-slate-800">Recorrido</h4>
+      </div>
+
+      {/* Text itinerary — always available */}
+      <div className="bg-slate-50 rounded-xl overflow-hidden border border-slate-100">
+        {/* Origin */}
+        <div className="flex items-start gap-3 px-4 py-3 border-b border-slate-100">
+          <div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-black shrink-0 mt-0.5">A</div>
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-semibold text-slate-800 leading-tight">{origen || '—'}</p>
+            <p className="text-[11px] text-slate-500 mt-0.5">{fmtDT(fechaInicio)}</p>
+          </div>
+        </div>
+        {/* Connector line */}
+        <div className="flex items-center gap-3 px-4 py-1.5 bg-slate-50/80">
+          <div className="w-7 flex justify-center"><div className="w-0.5 h-4 bg-slate-300 rounded-full" /></div>
+          <p className="text-[10px] text-slate-400 font-medium">Ruta por carretera</p>
+        </div>
+        {/* Destination */}
+        <div className="flex items-start gap-3 px-4 py-3">
+          <div className="w-7 h-7 rounded-full bg-emerald-600 flex items-center justify-center text-white text-xs font-black shrink-0 mt-0.5">B</div>
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-semibold text-slate-800 leading-tight">{destino || '—'}</p>
+            {fechaFin && <p className="text-[11px] text-slate-500 mt-0.5">{fmtDT(fechaFin)}</p>}
+          </div>
+        </div>
+      </div>
+
+      {/* Map placeholder — coordinates not yet stored */}
+      <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 flex flex-col items-center justify-center gap-2 py-8 px-4 text-center">
+        <MapPin className="w-7 h-7 text-slate-300" />
+        <p className="text-xs font-semibold text-slate-400">Mapa no disponible</p>
+        <p className="text-[11px] text-slate-400 max-w-[200px] leading-snug">
+          El mapa por carretera requiere coordenadas de origen y destino. Actualmente los viajes de Mercancías solo almacenan la dirección en texto libre.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // ── Vista de detalle ──────────────────────────────────────────────────────────
 
 interface TripDetailProps {
@@ -628,109 +692,123 @@ function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDelet
         </div>
       </div>
 
-      {/* Ruta */}
-      <div className="bg-slate-50 rounded-xl p-3 space-y-2">
-        <div className="flex items-center gap-2 text-sm">
-          <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
-          <span className="text-slate-600 font-medium">{trip.origen}</span>
-          <ArrowRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-          <span className="text-slate-600 font-medium">{trip.destino}</span>
-        </div>
-        <div className="flex items-center gap-4 text-xs text-slate-500">
-          <span className="flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5" />
-            {fmtDateTime(trip.fecha_inicio)}
-          </span>
-          {trip.fecha_fin && (
-            <span>→ {fmtDateTime(trip.fecha_fin)}</span>
-          )}
-        </div>
-      </div>
-
-      {/* Carga */}
-      <div className="grid grid-cols-2 gap-3 text-xs">
-        <div className="bg-amber-50 border border-amber-100 rounded-lg p-2.5">
-          <p className="text-amber-600 font-medium mb-1 flex items-center gap-1">
-            <Package className="w-3.5 h-3.5" /> Tipo de carga
-          </p>
-          <TipoCargaBadge tipo={trip.tipo_carga} />
-        </div>
-        {(trip.peso_kg || trip.volumen_m3 || trip.num_bultos) ? (
-          <div className="bg-slate-50 border border-slate-100 rounded-lg p-2.5">
-            <p className="text-slate-500 font-medium mb-1 flex items-center gap-1">
-              <Weight className="w-3.5 h-3.5" /> Dimensiones
-            </p>
-            <div className="space-y-0.5 text-slate-600">
-              {trip.peso_kg && <p>{trip.peso_kg} kg</p>}
-              {trip.volumen_m3 && <p>{trip.volumen_m3} m³</p>}
-              {trip.num_bultos && <p>{trip.num_bultos} bultos</p>}
+      {/* Two-column layout: trip info (left) + route map (right) */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-start">
+        {/* Left column — trip data */}
+        <div className="space-y-3 min-w-0">
+          {/* Ruta resumen */}
+          <div className="bg-slate-50 rounded-xl p-3 space-y-2">
+            <div className="flex items-center gap-2 text-sm flex-wrap">
+              <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
+              <span className="text-slate-600 font-medium">{trip.origen}</span>
+              <ArrowRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+              <span className="text-slate-600 font-medium">{trip.destino}</span>
+            </div>
+            <div className="flex items-center gap-4 text-xs text-slate-500 flex-wrap">
+              <span className="flex items-center gap-1">
+                <Clock className="w-3.5 h-3.5" />
+                {fmtDateTime(trip.fecha_inicio)}
+              </span>
+              {trip.fecha_fin && (
+                <span>→ {fmtDateTime(trip.fecha_fin)}</span>
+              )}
             </div>
           </div>
-        ) : null}
+
+          {/* Carga */}
+          <div className="grid grid-cols-2 gap-3 text-xs">
+            <div className="bg-amber-50 border border-amber-100 rounded-lg p-2.5">
+              <p className="text-amber-600 font-medium mb-1 flex items-center gap-1">
+                <Package className="w-3.5 h-3.5" /> Tipo de carga
+              </p>
+              <TipoCargaBadge tipo={trip.tipo_carga} />
+            </div>
+            {(trip.peso_kg || trip.volumen_m3 || trip.num_bultos) ? (
+              <div className="bg-slate-50 border border-slate-100 rounded-lg p-2.5">
+                <p className="text-slate-500 font-medium mb-1 flex items-center gap-1">
+                  <Weight className="w-3.5 h-3.5" /> Dimensiones
+                </p>
+                <div className="space-y-0.5 text-slate-600">
+                  {trip.peso_kg && <p>{trip.peso_kg} kg</p>}
+                  {trip.volumen_m3 && <p>{trip.volumen_m3} m³</p>}
+                  {trip.num_bultos && <p>{trip.num_bultos} bultos</p>}
+                </div>
+              </div>
+            ) : null}
+          </div>
+
+          {/* Recursos */}
+          <div className="grid grid-cols-2 gap-3 text-xs">
+            <div className="border border-slate-100 rounded-lg p-2.5">
+              <p className="text-slate-500 font-medium mb-1 flex items-center gap-1">
+                <Truck className="w-3.5 h-3.5" /> Vehículo
+              </p>
+              {vehicle ? (
+                <p className="text-slate-700">{vehicle.nombre}<br /><span className="text-slate-400">{vehicle.matricula}</span></p>
+              ) : (
+                <p className="text-slate-400 italic">Sin asignar</p>
+              )}
+            </div>
+            <div className="border border-slate-100 rounded-lg p-2.5">
+              <p className="text-slate-500 font-medium mb-1 flex items-center gap-1">
+                <FileText className="w-3.5 h-3.5" /> Conductor
+              </p>
+              {conductor ? (
+                <p className="text-slate-700">{conductor.nombre}</p>
+              ) : (
+                <p className="text-slate-400 italic">Sin asignar</p>
+              )}
+            </div>
+          </div>
+
+          {/* Cliente y precio */}
+          {(trip.cliente_nombre || trip.precio_acordado) && (
+            <div className="flex flex-wrap gap-3 text-xs text-slate-600">
+              {trip.cliente_nombre && (
+                <span className="bg-slate-50 border border-slate-100 rounded-lg px-2.5 py-1.5">
+                  Cliente: <span className="font-medium">{trip.cliente_nombre}</span>
+                </span>
+              )}
+              {trip.precio_acordado && (
+                <span className="bg-slate-50 border border-slate-100 rounded-lg px-2.5 py-1.5">
+                  Precio: <span className="font-medium">{trip.precio_acordado.toFixed(2)} €</span>
+                </span>
+              )}
+            </div>
+          )}
+
+          {trip.observaciones && (
+            <p className="text-xs text-slate-500 italic">{trip.observaciones}</p>
+          )}
+
+          {/* Parte real (completado) */}
+          {trip.estado === 'completado' && (
+            <div className="bg-purple-50 border border-purple-100 rounded-xl p-3 space-y-1 text-xs">
+              <p className="text-purple-700 font-semibold mb-2">Parte de cierre</p>
+              {trip.km_inicio != null && trip.km_fin != null && (
+                <p className="text-purple-600">Km realizados: <span className="font-medium">{(trip.km_fin - trip.km_inicio).toLocaleString()} km</span></p>
+              )}
+              {trip.incidencias && <p className="text-purple-600">Incidencias: {trip.incidencias}</p>}
+              {trip.cerrado_at && <p className="text-purple-500">Cerrado: {fmtDateTime(trip.cerrado_at)}</p>}
+            </div>
+          )}
+
+          {/* Conflictos */}
+          <ConflictAlert conflicts={conflicts} />
+
+          {actionError && (
+            <p className="text-xs text-red-600 bg-red-50 border border-red-200 rounded px-3 py-2">{actionError}</p>
+          )}
+        </div>
+
+        {/* Right column — route map */}
+        <TripRoutePanel
+          origen={trip.origen}
+          destino={trip.destino}
+          fechaInicio={trip.fecha_inicio}
+          fechaFin={trip.fecha_fin}
+        />
       </div>
-
-      {/* Recursos */}
-      <div className="grid grid-cols-2 gap-3 text-xs">
-        <div className="border border-slate-100 rounded-lg p-2.5">
-          <p className="text-slate-500 font-medium mb-1 flex items-center gap-1">
-            <Truck className="w-3.5 h-3.5" /> Vehículo
-          </p>
-          {vehicle ? (
-            <p className="text-slate-700">{vehicle.nombre}<br /><span className="text-slate-400">{vehicle.matricula}</span></p>
-          ) : (
-            <p className="text-slate-400 italic">Sin asignar</p>
-          )}
-        </div>
-        <div className="border border-slate-100 rounded-lg p-2.5">
-          <p className="text-slate-500 font-medium mb-1 flex items-center gap-1">
-            <FileText className="w-3.5 h-3.5" /> Conductor
-          </p>
-          {conductor ? (
-            <p className="text-slate-700">{conductor.nombre}</p>
-          ) : (
-            <p className="text-slate-400 italic">Sin asignar</p>
-          )}
-        </div>
-      </div>
-
-      {/* Cliente y precio */}
-      {(trip.cliente_nombre || trip.precio_acordado) && (
-        <div className="flex flex-wrap gap-3 text-xs text-slate-600">
-          {trip.cliente_nombre && (
-            <span className="bg-slate-50 border border-slate-100 rounded-lg px-2.5 py-1.5">
-              Cliente: <span className="font-medium">{trip.cliente_nombre}</span>
-            </span>
-          )}
-          {trip.precio_acordado && (
-            <span className="bg-slate-50 border border-slate-100 rounded-lg px-2.5 py-1.5">
-              Precio: <span className="font-medium">{trip.precio_acordado.toFixed(2)} €</span>
-            </span>
-          )}
-        </div>
-      )}
-
-      {trip.observaciones && (
-        <p className="text-xs text-slate-500 italic">{trip.observaciones}</p>
-      )}
-
-      {/* Parte real (completado) */}
-      {trip.estado === 'completado' && (
-        <div className="bg-purple-50 border border-purple-100 rounded-xl p-3 space-y-1 text-xs">
-          <p className="text-purple-700 font-semibold mb-2">Parte de cierre</p>
-          {trip.km_inicio != null && trip.km_fin != null && (
-            <p className="text-purple-600">Km realizados: <span className="font-medium">{(trip.km_fin - trip.km_inicio).toLocaleString()} km</span></p>
-          )}
-          {trip.incidencias && <p className="text-purple-600">Incidencias: {trip.incidencias}</p>}
-          {trip.cerrado_at && <p className="text-purple-500">Cerrado: {fmtDateTime(trip.cerrado_at)}</p>}
-        </div>
-      )}
-
-      {/* Conflictos */}
-      <ConflictAlert conflicts={conflicts} />
-
-      {actionError && (
-        <p className="text-xs text-red-600 bg-red-50 border border-red-200 rounded px-3 py-2">{actionError}</p>
-      )}
 
       {/* Acciones */}
       <div className="flex flex-wrap gap-2 pt-1">
@@ -793,9 +871,13 @@ function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDelet
 
 export interface ScreenTransporteViajesProps {
   orgId: string;
+  /** When set, auto-opens the detail for this trip after loading. Set by Gantt click. */
+  initialTripId?: string;
+  /** Called when the detail opened via initialTripId is closed (back button). */
+  onDetailClosed?: () => void;
 }
 
-export default function ScreenTransporteViajes({ orgId }: ScreenTransporteViajesProps) {
+export default function ScreenTransporteViajes({ orgId, initialTripId, onDetailClosed }: ScreenTransporteViajesProps) {
   const [trips, setTrips]         = useState<TradeTransportTrip[]>([]);
   const [vehicles, setVehicles]   = useState<TradeVehicle[]>([]);
   const [workers, setWorkers]     = useState<TradeWorker[]>([]);
@@ -804,6 +886,9 @@ export default function ScreenTransporteViajes({ orgId }: ScreenTransporteViajes
   const [selected, setSelected]   = useState<TradeTransportTrip | null>(null);
   const [showForm, setShowForm]   = useState(false);
   const [filterEstado, setFilterEstado] = useState<TripEstado | ''>('');
+  // Track last processed initialTripId so consecutive Gantt clicks work correctly.
+  // Resets to null when initialTripId becomes undefined (detail closed).
+  const lastHandledTripId = React.useRef<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -817,12 +902,28 @@ export default function ScreenTransporteViajes({ orgId }: ScreenTransporteViajes
       setTrips(tripsData);
       setVehicles(vehiclesData);
       setWorkers(workersData);
+      // Auto-select trip from Gantt click.
+      // Uses lastHandledTripId to handle consecutive clicks and close/reopen correctly.
+      if (!initialTripId) {
+        lastHandledTripId.current = null;
+      } else if (initialTripId !== lastHandledTripId.current) {
+        lastHandledTripId.current = initialTripId;
+        const found = tripsData.find(t => t.id === initialTripId);
+        if (found) {
+          setSelected(found);
+        } else {
+          // Trip not in current filter — load it directly, bypassing the active filter
+          loadTransportTrip(initialTripId, orgId).then(t => {
+            if (t) setSelected(t);
+          }).catch(() => {});
+        }
+      }
     } catch (err) {
       setError((err as Error).message ?? 'Error al cargar los viajes');
     } finally {
       setLoading(false);
     }
-  }, [orgId, filterEstado]);
+  }, [orgId, filterEstado, initialTripId]);
 
   useEffect(() => { load(); }, [load]);
 
@@ -850,7 +951,7 @@ export default function ScreenTransporteViajes({ orgId }: ScreenTransporteViajes
           orgId={orgId}
           vehicles={vehicles}
           workers={workers}
-          onBack={() => setSelected(null)}
+          onBack={() => { setSelected(null); onDetailClosed?.(); }}
           onUpdated={handleTripUpdated}
           onDeleted={handleTripDeleted}
         />
