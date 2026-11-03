@@ -33,6 +33,7 @@ import {
   isoDate,
   classifyTimeSlot,
   getServicesForDay,
+  serviceOverlapsDay,
   computeVehicleAlerts,
   getAssignedConductorIds,
   type FleetStatus,
@@ -49,6 +50,8 @@ import {
   loadExceptionsForRange,
   loadOccurrenceLinksForRange,
 } from '../lib/transportSchedules';
+import { loadTripsOverlappingRange } from '../lib/transportTrips';
+import type { TradeTransportTrip } from '../lib/transportTrips';
 
 // ── Vehicle helpers ────────────────────────────────────────────────────────────
 
@@ -102,10 +105,12 @@ function fmtDayShort(d: Date): string {
 
 // ── Gantt constants ────────────────────────────────────────────────────────────
 
-const GANTT_START_H = 7;   // 07:00
-const GANTT_END_H   = 21;  // 21:00
-const GANTT_RANGE_H = GANTT_END_H - GANTT_START_H; // 14 h
-const GANTT_HOUR_MARKS = [8, 10, 12, 14, 16, 18, 20];
+const GANTT_START_H       = 0;   // 00:00
+const GANTT_END_H         = 24;  // 24:00
+const GANTT_RANGE_H       = 24;
+const GANTT_HOUR_MARKS    = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22];
+// Min-width of the scrollable timeline area — ensures ≥40px per 2-hour mark
+const GANTT_TIMELINE_MIN_W = 960;
 
 /**
  * Returns the Gantt position for a service, correctly handling:
@@ -350,6 +355,7 @@ function AlertIcon({ type, severity }: { type: VehicleAlertItem['type']; severit
 
 interface GanttProps {
   services: TradeTransportService[];
+  trips: TradeTransportTrip[];
   vehicles: TradeVehicle[];
   vehicleMap: Map<string, TradeVehicle>;
   workerMap: Map<string, TradeWorker>;
@@ -358,7 +364,7 @@ interface GanttProps {
   onNavigate?: (tab: string) => void;
 }
 
-function GanttTimeline({ services, vehicles, vehicleMap, workerMap, isMercanciasPrimary, isCombinadaOrg, onNavigate }: GanttProps) {
+function GanttTimeline({ services, trips, vehicles, vehicleMap, workerMap, isMercanciasPrimary, isCombinadaOrg, onNavigate }: GanttProps) {
   const activeVehicles = useMemo(() => {
     const active = vehicles.filter(v => v.activo);
     if (!isCombinadaOrg && isMercanciasPrimary) return active.filter(v => isVehicleCargo(v));
@@ -378,6 +384,19 @@ function GanttTimeline({ services, vehicles, vehicleMap, workerMap, isMercancias
   }, [services]);
 
   const unassignedServices = servicesByVehicle.get(null) ?? [];
+
+  // Group trips (TX-MC-1) by vehicle
+  const tripsByVehicle = useMemo(() => {
+    const map = new Map<string | null, TradeTransportTrip[]>();
+    for (const t of trips) {
+      const key = t.vehicle_id ?? null;
+      if (!map.has(key)) map.set(key, []);
+      map.get(key)!.push(t);
+    }
+    return map;
+  }, [trips]);
+
+  const unassignedTrips = tripsByVehicle.get(null) ?? [];
 
   function vehicleColor(v: TradeVehicle): { block: string; dot: string } {
     if (isVehiclePassenger(v)) return { block: 'bg-blue-500 hover:bg-blue-600', dot: 'bg-blue-500' };
@@ -414,137 +433,209 @@ function GanttTimeline({ services, vehicles, vehicleMap, workerMap, isMercancias
     );
   }
 
+  const statusBadgeCls: Record<string, string> = {
+    en_curso:   'bg-white/30 text-white',
+    confirmado: 'bg-white/20 text-white/80',
+    completado: 'bg-white/20 text-white/80',
+    borrador:   'bg-white/15 text-white/70',
+  };
+
   return (
     <div className="overflow-x-auto">
-      {/* Hour axis header */}
-      <div className="flex text-[10px] text-slate-400 font-medium mb-1 pl-[168px] select-none">
-        {GANTT_HOUR_MARKS.map(h => (
-          <div key={h} className="flex-1 text-center">{h.toString().padStart(2, '0')}:00</div>
-        ))}
-      </div>
+      <div style={{ minWidth: `${GANTT_TIMELINE_MIN_W}px` }}>
+        {/* Hour axis header */}
+        <div className="flex text-[10px] text-slate-400 font-medium mb-1 pl-[168px] select-none">
+          {GANTT_HOUR_MARKS.map(h => (
+            <div key={h} className="flex-1 text-center">{h.toString().padStart(2, '0')}:00</div>
+          ))}
+        </div>
 
-      {/* Rows */}
-      <div className="space-y-2">
-        {activeVehicles.map(vehicle => {
-          const svcs = servicesByVehicle.get(vehicle.id) ?? [];
-          const colors = vehicleColor(vehicle);
-          const isOos = isVehicleOutOfService(vehicle);
+        {/* Rows */}
+        <div className="space-y-2">
+          {activeVehicles.map(vehicle => {
+            const svcs  = servicesByVehicle.get(vehicle.id) ?? [];
+            const trps  = tripsByVehicle.get(vehicle.id) ?? [];
+            const colors = vehicleColor(vehicle);
+            const isOos  = isVehicleOutOfService(vehicle);
+            const hasContent = svcs.some(s => s.estado !== 'cancelado') || trps.some(t => t.estado !== 'cancelado');
 
-          return (
-            <div key={vehicle.id} className={`flex items-start gap-0 min-h-[52px] ${isOos ? 'opacity-50' : ''}`}>
-              {/* Vehicle cell */}
+            return (
+              <div key={vehicle.id} className={`flex items-start gap-0 min-h-[56px] ${isOos ? 'opacity-50' : ''}`}>
+                {/* Vehicle label cell */}
+                <div className="w-[168px] shrink-0 pr-3">
+                  <div className="flex items-center gap-2">
+                    <span className={`w-2 h-2 rounded-full shrink-0 ${colors.dot}`} />
+                    <div className="min-w-0">
+                      <p className="text-[11px] font-bold text-slate-800 truncate leading-tight">{vehicle.nombre}</p>
+                      <p className="text-[10px] text-slate-400 font-mono truncate">{vehicle.matricula}</p>
+                    </div>
+                  </div>
+                  {vehicleCapacityLabel(vehicle) && (
+                    <p className="text-[9px] text-slate-400 pl-4 mt-0.5">{vehicleCapacityLabel(vehicle)}</p>
+                  )}
+                </div>
+
+                {/* Timeline cell — services (upper band) + trips (lower band) */}
+                <div className="flex-1 relative h-[56px] bg-slate-50 rounded-lg border border-slate-100 overflow-hidden">
+                  {/* Grid lines */}
+                  {GANTT_HOUR_MARKS.map(h => (
+                    <div
+                      key={h}
+                      className="absolute top-0 bottom-0 w-px bg-slate-200/70"
+                      style={{ left: `${(h - GANTT_START_H) / GANTT_RANGE_H * 100}%` }}
+                    />
+                  ))}
+
+                  {/* Band separator (only when both types present) */}
+                  {svcs.some(s => s.estado !== 'cancelado') && trps.some(t => t.estado !== 'cancelado') && (
+                    <div className="absolute left-0 right-0 h-px bg-slate-200" style={{ top: '28px' }} />
+                  )}
+
+                  {/* Current time indicator */}
+                  {(() => {
+                    const now = new Date();
+                    const pct = timeToPercent(now.toISOString());
+                    if (pct <= 0 || pct >= 100) return null;
+                    return <div className="absolute top-0 bottom-0 w-0.5 bg-red-400 z-10" style={{ left: `${pct}%` }} />;
+                  })()}
+
+                  {/* Service blocks — upper band (top 1px → 27px) */}
+                  {svcs.filter(s => s.estado !== 'cancelado').map(svc => {
+                    const pos = servicePosition(svc.fecha_inicio, svc.fecha_fin);
+                    if (pos.width === 0) return null;
+                    const conductor = svc.conductor_id ? workerMap.get(svc.conductor_id) : undefined;
+                    return (
+                      <button
+                        key={svc.id}
+                        onClick={() => onNavigate?.('transporte_servicios')}
+                        className={`absolute rounded px-2 py-0.5 text-left text-white text-[9px] font-semibold truncate transition-opacity hover:opacity-90 cursor-pointer z-5 ${serviceBlockColor(vehicle, svc)}`}
+                        style={{ left: `${pos.left}%`, width: `${pos.width}%`, minWidth: '36px', top: '2px', height: '24px' }}
+                        title={`${svc.titulo}${conductor ? ` · ${conductor.nombre}` : ''}`}
+                      >
+                        <div className="flex items-center justify-between gap-1 leading-none h-full">
+                          <span className="truncate font-bold">{svc.origen && svc.destino ? `${svc.origen} → ${svc.destino}` : svc.titulo}</span>
+                          <span className={`shrink-0 text-[7px] px-1 rounded-full font-bold ${statusBadgeCls[svc.estado] ?? 'bg-white/20 text-white/80'}`}>
+                            {estadoLabel(svc.estado)}
+                          </span>
+                        </div>
+                      </button>
+                    );
+                  })}
+
+                  {/* Trip blocks (TX-MC-1) — lower band (top 30px → bottom 2px) */}
+                  {trps.filter(t => t.estado !== 'cancelado').map(trp => {
+                    const pos = servicePosition(trp.fecha_inicio, trp.fecha_fin);
+                    if (pos.width === 0) return null;
+                    const conductor = trp.conductor_id ? workerMap.get(trp.conductor_id) : undefined;
+                    const tripColor = trp.estado === 'en_curso' ? 'bg-orange-500 hover:bg-orange-600'
+                      : trp.estado === 'confirmado' ? 'bg-orange-400 hover:bg-orange-500'
+                      : trp.estado === 'completado' ? 'bg-orange-600 hover:bg-orange-700 opacity-70'
+                      : 'bg-orange-200 hover:bg-orange-300 text-orange-800';
+                    return (
+                      <button
+                        key={trp.id}
+                        onClick={() => onNavigate?.('mercancias')}
+                        className={`absolute rounded px-1.5 py-0 text-left text-[9px] font-semibold truncate transition-opacity hover:opacity-90 cursor-pointer z-5 text-white ${tripColor}`}
+                        style={{ left: `${pos.left}%`, width: `${pos.width}%`, minWidth: '36px', top: '30px', height: '22px' }}
+                        title={`📦 ${trp.titulo}${conductor ? ` · ${conductor.nombre}` : ''} (${trp.origen} → ${trp.destino})`}
+                      >
+                        <div className="flex items-center gap-1 leading-none h-full">
+                          <Package className="w-2.5 h-2.5 shrink-0 opacity-80" />
+                          <span className="truncate">{trp.origen && trp.destino ? `${trp.origen} → ${trp.destino}` : trp.titulo}</span>
+                        </div>
+                      </button>
+                    );
+                  })}
+
+                  {!hasContent && !isOos && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-[9px] text-slate-300 font-medium">Libre</span>
+                    </div>
+                  )}
+                  {isOos && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-slate-100/50">
+                      <span className="text-[9px] text-slate-400 font-medium italic">No operativo</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+
+          {/* Unassigned services row */}
+          {unassignedServices.filter(s => s.estado !== 'cancelado').length > 0 && (
+            <div className="flex items-start gap-0 min-h-[32px]">
               <div className="w-[168px] shrink-0 pr-3">
                 <div className="flex items-center gap-2">
-                  <span className={`w-2 h-2 rounded-full shrink-0 ${colors.dot}`} />
+                  <span className="w-2 h-2 rounded-full shrink-0 bg-slate-400" />
                   <div className="min-w-0">
-                    <p className="text-[11px] font-bold text-slate-800 truncate leading-tight">{vehicle.nombre}</p>
-                    <p className="text-[10px] text-slate-400 font-mono truncate">{vehicle.matricula}</p>
+                    <p className="text-[11px] font-bold text-slate-500 truncate leading-tight">Sin vehículo</p>
+                    <p className="text-[9px] text-blue-500 font-semibold">Servicios pdte.</p>
                   </div>
                 </div>
-                {vehicleCapacityLabel(vehicle) && (
-                  <p className="text-[9px] text-slate-400 pl-4 mt-0.5">{vehicleCapacityLabel(vehicle)}</p>
-                )}
               </div>
-
-              {/* Timeline cell */}
-              <div className="flex-1 relative h-[52px] bg-slate-50 rounded-lg border border-slate-100 overflow-hidden">
-                {/* Grid lines */}
+              <div className="flex-1 relative h-[32px] bg-blue-50 rounded-lg border border-blue-200 overflow-hidden">
                 {GANTT_HOUR_MARKS.map(h => (
-                  <div
-                    key={h}
-                    className="absolute top-0 bottom-0 w-px bg-slate-200/70"
-                    style={{ left: `${(h - GANTT_START_H) / GANTT_RANGE_H * 100}%` }}
-                  />
+                  <div key={h} className="absolute top-0 bottom-0 w-px bg-blue-200/50" style={{ left: `${(h - GANTT_START_H) / GANTT_RANGE_H * 100}%` }} />
                 ))}
-
-                {/* Current time indicator */}
-                {(() => {
-                  const now = new Date();
-                  const pct = timeToPercent(now.toISOString());
-                  if (pct <= 0 || pct >= 100) return null;
-                  return <div className="absolute top-0 bottom-0 w-0.5 bg-red-400 z-10" style={{ left: `${pct}%` }} />;
-                })()}
-
-                {/* Service blocks */}
-                {svcs.filter(s => s.estado !== 'cancelado').map(svc => {
+                {unassignedServices.filter(s => s.estado !== 'cancelado').map(svc => {
                   const pos = servicePosition(svc.fecha_inicio, svc.fecha_fin);
-                  if (pos.width === 0) return null; // outside window
-                  const conductor = svc.conductor_id ? workerMap.get(svc.conductor_id) : undefined;
-                  const statusBadge: Record<string, string> = {
-                    en_curso:  'bg-white/30 text-white',
-                    confirmado:'bg-white/20 text-white/80',
-                    completado:'bg-white/20 text-white/80',
-                    borrador:  'bg-white/15 text-white/70',
-                  };
-
+                  if (pos.width === 0) return null;
                   return (
-                    <button
-                      key={svc.id}
-                      onClick={() => onNavigate?.('transporte_servicios')}
-                      className={`absolute top-1 bottom-1 rounded px-2 py-0.5 text-left text-white text-[9.5px] font-semibold truncate transition-opacity hover:opacity-90 cursor-pointer z-5 ${serviceBlockColor(vehicle, svc)}`}
+                    <button key={svc.id} onClick={() => onNavigate?.('transporte_servicios')}
+                      className="absolute top-1 bottom-1 rounded px-2 py-0.5 bg-blue-400 hover:bg-blue-500 text-white text-[9.5px] font-semibold truncate"
                       style={{ left: `${pos.left}%`, width: `${pos.width}%`, minWidth: '40px' }}
-                      title={`${svc.titulo}${conductor ? ` · ${conductor.nombre}` : ''}`}
+                      title={svc.titulo}
                     >
-                      <div className="flex items-center justify-between gap-1 leading-tight">
-                        <span className="truncate font-bold">{svc.origen && svc.destino ? `${svc.origen} → ${svc.destino}` : svc.titulo}</span>
-                        <span className={`shrink-0 text-[8px] px-1 rounded-full font-bold ${statusBadge[svc.estado] ?? 'bg-white/20 text-white/80'}`}>
-                          {estadoLabel(svc.estado)}
-                        </span>
-                      </div>
-                      {conductor && (
-                        <p className="truncate opacity-80 mt-px">{conductor.nombre}</p>
-                      )}
+                      {svc.titulo}
                     </button>
                   );
                 })}
-
-                {svcs.length === 0 && !isOos && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-[9px] text-slate-300 font-medium">Libre</span>
-                  </div>
-                )}
-                {isOos && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-slate-100/50">
-                    <span className="text-[9px] text-slate-400 font-medium italic">No operativo</span>
-                  </div>
-                )}
               </div>
             </div>
-          );
-        })}
+          )}
 
-        {/* Unassigned services row */}
-        {unassignedServices.filter(s => s.estado !== 'cancelado').length > 0 && (
-          <div className="flex items-start gap-0 min-h-[52px]">
-            <div className="w-[168px] shrink-0 pr-3">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full shrink-0 bg-slate-400" />
-                <div className="min-w-0">
-                  <p className="text-[11px] font-bold text-slate-500 truncate leading-tight">Sin vehículo</p>
-                  <p className="text-[9px] text-amber-500 font-semibold">Pendiente asignación</p>
+          {/* Unassigned trips row */}
+          {unassignedTrips.filter(t => t.estado !== 'cancelado').length > 0 && (
+            <div className="flex items-start gap-0 min-h-[32px]">
+              <div className="w-[168px] shrink-0 pr-3">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full shrink-0 bg-orange-400" />
+                  <div className="min-w-0">
+                    <p className="text-[11px] font-bold text-slate-500 truncate leading-tight">Sin vehículo</p>
+                    <p className="text-[9px] text-orange-500 font-semibold">Viajes pdte.</p>
+                  </div>
                 </div>
               </div>
+              <div className="flex-1 relative h-[32px] bg-orange-50 rounded-lg border border-orange-200 overflow-hidden">
+                {GANTT_HOUR_MARKS.map(h => (
+                  <div key={h} className="absolute top-0 bottom-0 w-px bg-orange-200/50" style={{ left: `${(h - GANTT_START_H) / GANTT_RANGE_H * 100}%` }} />
+                ))}
+                {unassignedTrips.filter(t => t.estado !== 'cancelado').map(trp => {
+                  const pos = servicePosition(trp.fecha_inicio, trp.fecha_fin);
+                  if (pos.width === 0) return null;
+                  return (
+                    <button key={trp.id} onClick={() => onNavigate?.('mercancias')}
+                      className="absolute top-1 bottom-1 rounded px-2 py-0.5 bg-orange-400 hover:bg-orange-500 text-white text-[9.5px] font-semibold truncate flex items-center gap-1"
+                      style={{ left: `${pos.left}%`, width: `${pos.width}%`, minWidth: '40px' }}
+                      title={trp.titulo}
+                    >
+                      <Package className="w-2.5 h-2.5 shrink-0" />
+                      <span className="truncate">{trp.titulo}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-            <div className="flex-1 relative h-[52px] bg-amber-50 rounded-lg border border-amber-200 overflow-hidden">
-              {GANTT_HOUR_MARKS.map(h => (
-                <div key={h} className="absolute top-0 bottom-0 w-px bg-amber-200/50" style={{ left: `${(h - GANTT_START_H) / GANTT_RANGE_H * 100}%` }} />
-              ))}
-              {unassignedServices.filter(s => s.estado !== 'cancelado').map(svc => {
-                const pos = servicePosition(svc.fecha_inicio, svc.fecha_fin);
-                if (pos.width === 0) return null;
-                return (
-                  <button key={svc.id} onClick={() => onNavigate?.('transporte_servicios')}
-                    className="absolute top-1 bottom-1 rounded px-2 py-0.5 bg-slate-400 hover:bg-slate-500 text-white text-[9.5px] font-semibold truncate"
-                    style={{ left: `${pos.left}%`, width: `${pos.width}%`, minWidth: '40px' }}
-                    title={svc.titulo}
-                  >
-                    {svc.titulo}
-                  </button>
-                );
-              })}
-            </div>
+          )}
+
+          {/* Legend */}
+          <div className="flex items-center gap-3 pt-1 text-[9px] text-slate-400 font-medium pl-1">
+            <span className="flex items-center gap-1"><span className="w-3 h-2 rounded-sm bg-blue-400 inline-block" />Viajeros</span>
+            <span className="flex items-center gap-1"><span className="w-3 h-2 rounded-sm bg-amber-400 inline-block" />Servicios carga</span>
+            <span className="flex items-center gap-1"><span className="w-3 h-2 rounded-sm bg-orange-400 inline-block" />Viajes mercancías</span>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
@@ -729,6 +820,7 @@ export default function ScreenTransportePanel({
   const [weekLoading,   setWeekLoading]   = useState(false);
   const [todayServices, setTodayServices] = useState<TradeTransportService[]>([]);
   const [weekServices,  setWeekServices]  = useState<TradeTransportService[]>([]);
+  const [weekTrips,     setWeekTrips]     = useState<TradeTransportTrip[]>([]);
   const [occurrences,   setOccurrences]   = useState<AgendaOccurrence[]>([]);
   const [vehicles,      setVehicles]      = useState<TradeVehicle[]>([]);
   const [workers,       setWorkers]       = useState<TradeWorker[]>([]);
@@ -768,20 +860,29 @@ export default function ScreenTransportePanel({
     if (!orgId) return;
     setWeekLoading(true);
     try {
-      const desde = `${isoDate(weekStart)}T00:00:00`;
-      const hasta = `${isoDate(weekEnd)}T23:59:59`;
+      // Unified UTC boundaries for the week window.
+      // weekStart/weekEnd have local midnight (startOfWeek → setHours(0,0,0,0) and addDays).
+      // toISOString() converts each local instant to its UTC equivalent, so PostgREST/PG
+      // compares timestamptz values correctly regardless of the Spain UTC+1/UTC+2 offset.
+      const weekDesde = weekStart.toISOString();
+      const weekHasta = new Date(
+        weekEnd.getFullYear(), weekEnd.getMonth(), weekEnd.getDate(), 23, 59, 59, 999,
+      ).toISOString();
 
-      const [svcs, todaySvcs, schedules, exceptions, links] = await Promise.all([
-        loadServicesOverlappingRange(orgId, desde, hasta),
+      const [svcs, todaySvcs, trps, schedules, exceptions, links] = await Promise.all([
+        loadServicesOverlappingRange(orgId, weekDesde, weekHasta),
         weekOffset === 0
           ? loadServicesOverlappingRange(orgId, `${today}T00:00:00`, `${today}T23:59:59`)
           : Promise.resolve([] as TradeTransportService[]),
+        loadTripsOverlappingRange(orgId, weekDesde, weekHasta)
+          .catch(e => isModuleNotDeployed(e) ? [] as TradeTransportTrip[] : Promise.reject(e)),
         loadSchedulesActive(orgId).catch(e => isModuleNotDeployed(e) ? [] : Promise.reject(e)),
         loadExceptionsForRange(orgId, isoDate(weekStart), isoDate(weekEnd)).catch(e => isModuleNotDeployed(e) ? [] : Promise.reject(e)),
         loadOccurrenceLinksForRange(orgId, isoDate(weekStart), isoDate(weekEnd)).catch(e => isModuleNotDeployed(e) ? [] : Promise.reject(e)),
       ]);
 
       setWeekServices(svcs);
+      setWeekTrips(trps);
       if (weekOffset === 0) setTodayServices(todaySvcs);
 
       const occs = buildAgendaOccurrences(schedules, exceptions, links, weekStart, weekEnd);
@@ -835,12 +936,24 @@ export default function ScreenTransportePanel({
   const vehicleAlerts = useMemo(() => computeVehicleAlerts(vehicles, today), [vehicles, today]);
   const alertCount    = vehicleAlerts.length;
 
-  // Gantt: services for selected day
+  // Gantt: services and trips for selected day
   const ganttDay     = weekDays[ganttDayIdx] ?? new Date();
   const ganttDayStr  = isoDate(ganttDay);
   const ganttServices = useMemo(
     () => getServicesForDay(weekServices, ganttDayStr).filter(s => s.estado !== 'cancelado'),
     [weekServices, ganttDayStr],
+  );
+  const ganttTrips = useMemo(
+    () => weekTrips.filter(t => {
+      if (t.estado === 'cancelado') return false;
+      // Use serviceOverlapsDay (Date-based) instead of slice(0,10) to avoid
+      // UTC vs local date mismatch for trips near midnight in UTC+1/UTC+2 (Spain).
+      return serviceOverlapsDay(
+        { fecha_inicio: t.fecha_inicio, fecha_fin: t.fecha_fin ?? null },
+        ganttDayStr,
+      );
+    }),
+    [weekTrips, ganttDayStr],
   );
 
   const weekLabel = (() => {
@@ -1210,37 +1323,18 @@ export default function ScreenTransportePanel({
                 </div>
               </div>
 
-              {/* Mercancías-only: honest empty state since TX-MC-1 not deployed */}
-              {isMercanciasPrimary && !isCombinadaOrg ? (
-                <div className="p-6">
-                  <GanttTimeline
-                    services={[]}
-                    vehicles={vehicles}
-                    vehicleMap={vehicleMap}
-                    workerMap={workerMap}
-                    isMercanciasPrimary={isMercanciasPrimary}
-                    isCombinadaOrg={isCombinadaOrg}
-                    onNavigate={onNavigate}
-                  />
-                  <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-center">
-                    <Truck className="w-8 h-8 text-amber-400 mx-auto mb-2" />
-                    <p className="text-sm font-bold text-amber-800 mb-1">Planificación de viajes próximamente</p>
-                    <p className="text-xs text-amber-600">La gestión de viajes y expediciones de mercancías estará disponible en la próxima actualización.</p>
-                  </div>
-                </div>
-              ) : (
-                <div className="p-4">
-                  <GanttTimeline
-                    services={ganttServices}
-                    vehicles={vehicles}
-                    vehicleMap={vehicleMap}
-                    workerMap={workerMap}
-                    isMercanciasPrimary={isMercanciasPrimary}
-                    isCombinadaOrg={isCombinadaOrg}
-                    onNavigate={onNavigate}
-                  />
-                </div>
-              )}
+              <div className="p-4">
+                <GanttTimeline
+                  services={ganttServices}
+                  trips={ganttTrips}
+                  vehicles={vehicles}
+                  vehicleMap={vehicleMap}
+                  workerMap={workerMap}
+                  isMercanciasPrimary={isMercanciasPrimary}
+                  isCombinadaOrg={isCombinadaOrg}
+                  onNavigate={onNavigate}
+                />
+              </div>
             </div>
 
             {/* Pendientes de asignación */}

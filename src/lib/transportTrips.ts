@@ -295,6 +295,28 @@ export async function loadTripsForDay(
 }
 
 /**
+ * Carga todos los viajes que solapan con el rango UTC indicado.
+ * Equivalente a loadServicesOverlappingRange pero para trade_transport_trips.
+ * Condición: fecha_inicio <= hasta AND (fecha_fin >= desde OR fecha_fin IS NULL).
+ * Usar toISOString() en los límites garantiza la interpretación UTC correcta por PostgREST.
+ */
+export async function loadTripsOverlappingRange(
+  orgId: string,
+  desde: string,   // UTC ISO (e.g. weekStart.toISOString())
+  hasta: string,   // UTC ISO
+): Promise<TradeTransportTrip[]> {
+  const { data, error } = await supabase
+    .from('trade_transport_trips')
+    .select('*')
+    .eq('org_id', orgId)
+    .lte('fecha_inicio', hasta)
+    .or(`fecha_fin.gte.${desde},fecha_fin.is.null`)
+    .order('fecha_inicio', { ascending: true });
+  if (error) throw error;
+  return (data ?? []) as TradeTransportTrip[];
+}
+
+/**
  * Carga todos los viajes que se solapan con el día indicado.
  * Incluye viajes que empezaron antes y terminan ese día (viajes nocturnos).
  */
