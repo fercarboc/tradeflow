@@ -100,10 +100,12 @@ export interface TransportWeeklyFleetPlannerProps {
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
-const BAR_H   = 14; // px — altura de cada banda (mínimo táctil 14px)
-const BAR_GAP = 3;  // px — separación vertical entre bandas
-const ROW_PAD = 5;  // px — padding vertical mínimo por celda
-const MIN_ROW_H = BAR_H + ROW_PAD * 2; // 24px
+export const BAR_H       = 20;  // px — altura visible de cada banda
+export const BAR_GAP     = 5;   // px — separación vertical entre bandas
+export const ROW_PAD     = 12;  // px — padding vertical por celda
+export const MIN_ROW_H   = 64;  // px — altura mínima de fila (~1 banda + 2×ROW_PAD = 44, amplificado a 64 para legibilidad)
+export const VISIBLE_ROWS = 7;  // filas visibles antes de scroll interno
+export const HEADER_H     = 40; // px — altura aproximada de la cabecera (py-2 + 2 líneas de texto)
 
 const DAYS_ES   = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
 const MONTHS_ES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
@@ -331,6 +333,13 @@ export function TransportWeeklyFleetPlanner({
 
   const hasUnassigned = useMemo(() => allItems.some(it => it.vehicleId === null), [allItems]);
 
+  // ── 6. Altura del viewport: suma de las primeras VISIBLE_ROWS filas + cabecera ──
+  const viewportHeight = useMemo((): number => {
+    const topN  = filteredVehicles.slice(0, VISIBLE_ROWS);
+    const rowsH = topN.reduce((sum, v) => sum + (rowHeightPx.get(v.id) ?? MIN_ROW_H), 0);
+    return rowsH + HEADER_H;
+  }, [filteredVehicles, rowHeightPx]);
+
   // ── Render helpers ─────────────────────────────────────────────────────────
 
   function renderDayCell(vehicleId: string | null, dayIndex: number, rowH: number): React.ReactNode {
@@ -387,7 +396,7 @@ export function TransportWeeklyFleetPlanner({
                   onOccurrenceClick(item.occurrenceRef);
               }}
               className={`absolute ${color} text-white overflow-hidden
-                truncate text-[8px] font-semibold leading-none
+                truncate text-[10px] font-semibold leading-none
                 ${item.hasConflict ? 'ring-1 ring-inset ring-red-400' : ''}
                 ${clickable ? 'cursor-pointer' : 'cursor-default'}`}
               style={{
@@ -403,8 +412,8 @@ export function TransportWeeklyFleetPlanner({
                 borderRadius: radius,
                 // Borde discontinuo para operaciones sin hora de fin confirmada
                 borderRight: seg.isOpenEnd ? '2px dashed rgba(255,255,255,0.55)' : undefined,
-                paddingLeft: 3,
-                paddingRight: seg.isOpenEnd ? 4 : 2,
+                paddingLeft: 4,
+                paddingRight: seg.isOpenEnd ? 5 : 3,
               }}
               aria-label={tooltip}
             >
@@ -425,21 +434,21 @@ export function TransportWeeklyFleetPlanner({
 
     return (
       <div
-        className={`sticky left-0 z-10 flex items-start gap-2 px-3 py-1
+        className={`sticky left-0 z-10 flex items-start gap-2 px-3 py-3
           border-r border-b border-slate-200
           bg-white
           ${isOos ? 'opacity-50' : ''}`}
         style={{ height: rowH, minWidth: 160, width: 160 }}
         role="rowheader"
       >
-        <Icon className={`w-3.5 h-3.5 shrink-0 mt-1.5
+        <Icon className={`w-4 h-4 shrink-0 mt-0.5
           ${isVehiclePassenger(vehicle) ? 'text-blue-500' : 'text-orange-500'}`}
         />
         <div className="min-w-0 flex-1">
-          <div className="text-xs font-semibold text-slate-800 truncate leading-snug">
+          <div className="text-sm font-semibold text-slate-800 truncate leading-snug">
             {vehicle.nombre}
           </div>
-          <div className="text-[10px] font-mono text-slate-500 truncate">
+          <div className="text-xs font-mono text-slate-500 truncate">
             {vehicle.matricula}
           </div>
           {(hasError || hasWarning) && (
@@ -447,7 +456,7 @@ export function TransportWeeklyFleetPlanner({
               {hasError
                 ? <AlertCircle   className="w-3 h-3 text-red-500 shrink-0" />
                 : <AlertTriangle className="w-3 h-3 text-amber-500 shrink-0" />}
-              <span className={`text-[9px] font-medium truncate
+              <span className={`text-[10px] font-medium truncate
                 ${hasError ? 'text-red-500' : 'text-amber-600'}`}>
                 {vAlerts[0].label}
               </span>
@@ -481,85 +490,94 @@ export function TransportWeeklyFleetPlanner({
     >
       <div style={{ minWidth: 720 }}>
 
-        {/* ── Cabecera (7 días) — sticky top para scroll vertical ──────────── */}
+        {/* ── Scroll unificado: cabecera sticky + filas (alineación con scrollbar) ── */}
         <div
-          className="flex sticky top-0 z-10 bg-slate-50 border-b border-slate-200"
-          role="row"
+          style={{ maxHeight: `min(${viewportHeight}px, 80vh)`, overflowY: 'auto' }}
+          role="rowgroup"
+          aria-label="Planificación semanal"
         >
-          {/* Celda vacía sobre la columna de nombres */}
+
+          {/* ── Cabecera (7 días) — sticky dentro del scroll container ────────── */}
           <div
-            className="sticky left-0 z-20 bg-slate-50
-              border-r border-slate-200 px-3 py-2"
-            style={{ minWidth: 160, width: 160 }}
-            role="columnheader"
+            className="flex sticky top-0 z-10 bg-slate-50 border-b border-slate-200"
+            role="row"
           >
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-              {mode === 'viajeros'   ? 'Autocar / Bus'  :
-               mode === 'mercancias' ? 'Camión / Furgón' :
-                                       'Flota'}
-            </span>
+            {/* Celda vacía sobre la columna de nombres */}
+            <div
+              className="sticky left-0 z-20 bg-slate-50
+                border-r border-slate-200 px-3 py-2"
+              style={{ minWidth: 160, width: 160 }}
+              role="columnheader"
+            >
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                {mode === 'viajeros'   ? 'Autocar / Bus'  :
+                 mode === 'mercancias' ? 'Camión / Furgón' :
+                                         'Flota'}
+              </span>
+            </div>
+
+            {weekDays.map((day, i) => {
+              const isToday   = isoDate(day) === todayStr;
+              const isWeekend = i >= 5;
+              return (
+                <div
+                  key={i}
+                  className={`flex-1 border-r last:border-r-0 px-2 py-2 text-center
+                    border-slate-200
+                    ${isToday   ? 'bg-blue-100/70' :
+                      isWeekend ? 'bg-slate-100/60' : ''}`}
+                  style={{ minWidth: 80 }}
+                  role="columnheader"
+                  aria-label={`${DAYS_ES[i]} ${day.getDate()} de ${MONTHS_ES[day.getMonth()]}`}
+                >
+                  <div className={`text-[10px] font-bold uppercase
+                    ${isToday ? 'text-blue-600' : 'text-slate-500'}`}>
+                    {DAYS_ES[i]}
+                  </div>
+                  <div className={`text-[11px] font-semibold
+                    ${isToday ? 'text-blue-700' : 'text-slate-700'}`}>
+                    {day.getDate()} {MONTHS_ES[day.getMonth()]}
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
-          {weekDays.map((day, i) => {
-            const isToday   = isoDate(day) === todayStr;
-            const isWeekend = i >= 5;
+          {/* ── Filas de vehículos ─────────────────────────────────────────────── */}
+          {filteredVehicles.map(vehicle => {
+            const rowH = rowHeightPx.get(vehicle.id) ?? MIN_ROW_H;
             return (
-              <div
-                key={i}
-                className={`flex-1 border-r last:border-r-0 px-2 py-2 text-center
-                  border-slate-200
-                  ${isToday   ? 'bg-blue-100/70' :
-                    isWeekend ? 'bg-slate-100/60' : ''}`}
-                style={{ minWidth: 80 }}
-                role="columnheader"
-                aria-label={`${DAYS_ES[i]} ${day.getDate()} de ${MONTHS_ES[day.getMonth()]}`}
-              >
-                <div className={`text-[10px] font-bold uppercase
-                  ${isToday ? 'text-blue-600' : 'text-slate-500'}`}>
-                  {DAYS_ES[i]}
-                </div>
-                <div className={`text-[11px] font-semibold
-                  ${isToday ? 'text-blue-700' : 'text-slate-700'}`}>
-                  {day.getDate()} {MONTHS_ES[day.getMonth()]}
-                </div>
+              <div key={vehicle.id} className="flex" role="row">
+                {renderVehicleLabel(vehicle, rowH)}
+                {weekDays.map((_, dayIndex) =>
+                  renderDayCell(vehicle.id, dayIndex, rowH)
+                )}
               </div>
             );
           })}
-        </div>
 
-        {/* ── Filas de vehículos ─────────────────────────────────────────────── */}
-        {filteredVehicles.map(vehicle => {
-          const rowH = rowHeightPx.get(vehicle.id) ?? MIN_ROW_H;
-          return (
-            <div key={vehicle.id} className="flex" role="row">
-              {renderVehicleLabel(vehicle, rowH)}
-              {weekDays.map((_, dayIndex) =>
-                renderDayCell(vehicle.id, dayIndex, rowH)
-              )}
-            </div>
-          );
-        })}
-
-        {/* ── Fila "Sin vehículo" (solo si hay operaciones no asignadas) ───── */}
-        {hasUnassigned && (() => {
-          const rowH = rowHeightPx.get(null) ?? MIN_ROW_H;
-          return (
-            <div className="flex" role="row">
-              <div
-                className="sticky left-0 z-10 flex items-center px-3
-                  border-r border-b border-slate-200
-                  bg-white"
-                style={{ height: rowH, minWidth: 160, width: 160 }}
-                role="rowheader"
-              >
-                <span className="text-[10px] italic text-slate-400">— Sin asignar</span>
+          {/* ── Fila "Sin vehículo" (solo si hay operaciones no asignadas) ───── */}
+          {hasUnassigned && (() => {
+            const rowH = rowHeightPx.get(null) ?? MIN_ROW_H;
+            return (
+              <div className="flex" role="row">
+                <div
+                  className="sticky left-0 z-10 flex items-center px-3
+                    border-r border-b border-slate-200
+                    bg-white"
+                  style={{ height: rowH, minWidth: 160, width: 160 }}
+                  role="rowheader"
+                >
+                  <span className="text-xs italic text-slate-400">— Sin asignar</span>
+                </div>
+                {weekDays.map((_, dayIndex) =>
+                  renderDayCell(null, dayIndex, rowH)
+                )}
               </div>
-              {weekDays.map((_, dayIndex) =>
-                renderDayCell(null, dayIndex, rowH)
-              )}
-            </div>
-          );
-        })()}
+            );
+          })()}
+
+        </div>
 
         {/* ── Leyenda (solo en modo General para mostrar los tres tipos) ────── */}
         {mode === 'general' && (
