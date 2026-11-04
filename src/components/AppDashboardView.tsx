@@ -118,7 +118,7 @@ import ScreenTransporteConductores from './ScreenTransporteConductores';
 import ScreenTransporteServicios from './ScreenTransporteServicios';
 import ScreenTransportePartes from './ScreenTransportePartes';
 import ScreenTransportePanel from './ScreenTransportePanel';
-import ScreenTransporteAgenda from './ScreenTransporteAgenda';
+import ScreenTransporteAgenda, { type AgendaOccurrence } from './ScreenTransporteAgenda';
 import ScreenTransporteParteTrabajo from './ScreenTransporteParteTrabajo';
 import ScreenTransporteRutas from './ScreenTransporteRutas';
 import ScreenTransporteTarifas from './ScreenTransporteTarifas';
@@ -881,6 +881,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [transporteParteFromTab, setTransporteParteFromTab] = useState<string>('transporte_servicios');
   // Service ID to navigate to from Agenda
   const [transporteNavServiceId, setTransporteNavServiceId] = useState<string | null>(null);
+  const [transporteInitialOccurrence, setTransporteInitialOccurrence] = useState<AgendaOccurrence | null>(null);
   const [transporteTriggerNew, setTransporteTriggerNew] = useState(0);
   const [transporteConductorPreselectId, setTransporteConductorPreselectId] = useState<string | null>(null);
   const [newJobTrigger, setNewJobTrigger] = useState(0);
@@ -4362,6 +4363,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       };
                       if (map[tab]) setTransporteMobileSubTab(map[tab]);
                     }}
+                    onOpenOccurrence={occ => { setTransporteInitialOccurrence(occ); setTransporteMobileSubTab('agenda'); }}
                   />
                 )}
                 {transporteMobileSubTab === 'servicios' && (
@@ -4388,6 +4390,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       };
                       if (mobileMap[tab]) setTransporteMobileSubTab(mobileMap[tab]);
                     }}
+                    initialOccurrence={transporteInitialOccurrence ?? undefined}
+                    onConsumeInitialOccurrence={() => setTransporteInitialOccurrence(null)}
                   />
                 )}
                 {transporteMobileSubTab === 'vehiculos' && (
@@ -7106,6 +7110,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                         if (action === 'new') setTransporteTriggerNew(n => n + 1);
                         setActiveTab(tab);
                       }}
+                      onOpenOccurrence={occ => { setTransporteInitialOccurrence(occ); setActiveTab('transporte_agenda'); }}
                     />
                   </div>
                 )}
@@ -7131,6 +7136,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                         if (serviceId) setTransporteNavServiceId(serviceId);
                         setActiveTab(tab);
                       }}
+                      initialOccurrence={transporteInitialOccurrence ?? undefined}
+                      onConsumeInitialOccurrence={() => setTransporteInitialOccurrence(null)}
                     />
                   </div>
                 )}

@@ -52,6 +52,7 @@ import {
 } from '../lib/transportSchedules';
 import { loadTripsOverlappingRange } from '../lib/transportTrips';
 import type { TradeTransportTrip } from '../lib/transportTrips';
+import { TransportWeeklyFleetPlanner } from './TransportWeeklyFleetPlanner';
 
 // ── Vehicle helpers ────────────────────────────────────────────────────────────
 
@@ -787,6 +788,7 @@ interface Props {
   isLegacyTransport?: boolean;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   onNavigate?: (tab: string, action?: string) => void;
+  onOpenOccurrence?: (occ: AgendaOccurrence) => void;
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -799,6 +801,7 @@ export default function ScreenTransportePanel({
   isLegacyTransport = false,
   showToast,
   onNavigate,
+  onOpenOccurrence,
 }: Props) {
   const today = isoDate(new Date());
 
@@ -811,6 +814,8 @@ export default function ScreenTransportePanel({
   const [panelTab, setPanelTab] = useState<PanelTab>(defaultTab);
   // Trip id to pre-select when the Gantt trip block is clicked
   const [ganttTripId, setGanttTripId] = useState<string | null>(null);
+  // Toggle between daily/agenda view and weekly fleet planner
+  const [weeklyView, setWeeklyView] = useState(false);
 
   // Guard: if active tab becomes disabled (org data changed), reset to general
   useEffect(() => {
@@ -1313,70 +1318,121 @@ export default function ScreenTransportePanel({
             />
           </div>
 
-          {/* Main: Gantt + Pendientes */}
-          <div className="grid grid-cols-1 xl:grid-cols-[1fr_280px] gap-4 items-start">
-
-            {/* Planificación del día (Gantt) */}
-            <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-teal-500" />
-                  <h2 className="text-sm font-black text-slate-800">Planificación del día</h2>
-                  {weekLoading && <Loader2 className="w-3.5 h-3.5 animate-spin text-slate-400" />}
-                </div>
-                {/* Day navigation (within current week) */}
-                <div className="flex items-center gap-1.5">
-                  <button
-                    onClick={() => { setGanttDayIdx(i => Math.max(0, i - 1)); if (ganttDayIdx === 0 && weekOffset > 0) setWeekOffset(o => o - 1); }}
-                    className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-500 transition-colors"
-                    aria-label="Día anterior"
-                  >
-                    <ChevronLeft className="w-3.5 h-3.5" />
-                  </button>
-                  <span className="text-xs font-bold text-slate-700 capitalize min-w-[160px] text-center">
-                    {fmtDateLong(ganttDay).split(',').slice(0, 2).join(',')}
-                  </span>
-                  <button
-                    onClick={() => { setGanttDayIdx(i => Math.min(6, i + 1)); if (ganttDayIdx === 6) setWeekOffset(o => o + 1); }}
-                    className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-500 transition-colors"
-                    aria-label="Día siguiente"
-                  >
-                    <ChevronRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
-
-              <div className="p-4">
-                <GanttTimeline
-                  services={ganttServices}
-                  trips={ganttTrips}
-                  vehicles={vehicles}
-                  vehicleMap={vehicleMap}
-                  workerMap={workerMap}
-                  isMercanciasPrimary={isMercanciasPrimary}
-                  isCombinadaOrg={isCombinadaOrg}
-                  ganttDayStr={ganttDayStr}
-                  onNavigate={onNavigate}
-                  onTripClick={id => {
-                    setGanttTripId(id);
-                    setPanelTab('mercancias');
-                  }}
-                />
-              </div>
+          {/* View selector: Vista diaria / Flota semanal */}
+          <div className="flex items-center justify-between gap-4 flex-wrap">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setWeeklyView(false)}
+                className={`text-xs font-semibold px-3 py-2 rounded-lg border transition-colors ${!weeklyView ? 'bg-teal-600 text-white border-teal-600' : 'text-slate-600 border-slate-200 hover:bg-slate-50'}`}
+              >
+                Vista diaria
+              </button>
+              <button
+                onClick={() => setWeeklyView(true)}
+                className={`text-xs font-semibold px-3 py-2 rounded-lg border transition-colors ${weeklyView ? 'bg-teal-600 text-white border-teal-600' : 'text-slate-600 border-slate-200 hover:bg-slate-50'}`}
+              >
+                Flota semanal
+              </button>
             </div>
-
-            {/* Pendientes de asignación */}
-            <PendingAssignmentsPanel
-              services={ganttServices}
-              vehicles={vehicles}
-              workers={workers}
-              vehicleMap={vehicleMap}
-              workerMap={workerMap}
-              isMercanciasPrimary={isMercanciasPrimary}
-              isCombinadaOrg={isCombinadaOrg}
-              onNavigate={onNavigate}
-            />
+            {weeklyView && (
+              <div className="flex items-center gap-2 flex-wrap">
+                <button onClick={() => setWeekOffset(0)}
+                  className={`text-xs font-semibold px-3 py-2 rounded-lg border transition-colors ${weekOffset === 0 ? 'bg-teal-600 text-white border-teal-600' : 'text-slate-600 border-slate-200 hover:bg-slate-50'}`}>
+                  Hoy
+                </button>
+                <div className="flex items-center gap-1">
+                  <button onClick={() => setWeekOffset(o => o - 1)}
+                    className="p-2 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-500 transition-colors" aria-label="Semana anterior">
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <span className="text-xs font-semibold text-slate-600 min-w-[120px] text-center">{weekLabel}</span>
+                  <button onClick={() => setWeekOffset(o => o + 1)}
+                    className="p-2 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-500 transition-colors" aria-label="Semana siguiente">
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
+
+          {weeklyView ? (
+            <TransportWeeklyFleetPlanner
+              weekDays={weekDays}
+              vehicles={vehicles}
+              services={weekServices}
+              trips={weekTrips}
+              occurrences={occurrences}
+              mode="general"
+              alerts={vehicleAlerts}
+              onServiceClick={() => onNavigate?.('transporte_servicios')}
+              onTripClick={id => { setGanttTripId(id); setPanelTab('mercancias'); }}
+              onOccurrenceClick={occ => onOpenOccurrence ? onOpenOccurrence(occ) : onNavigate?.('transporte_agenda')}
+            />
+          ) : (
+            <div className="grid grid-cols-1 xl:grid-cols-[1fr_280px] gap-4 items-start">
+
+              {/* Planificación del día (Gantt) */}
+              <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+                <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-teal-500" />
+                    <h2 className="text-sm font-black text-slate-800">Planificación del día</h2>
+                    {weekLoading && <Loader2 className="w-3.5 h-3.5 animate-spin text-slate-400" />}
+                  </div>
+                  {/* Day navigation (within current week) */}
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => { setGanttDayIdx(i => Math.max(0, i - 1)); if (ganttDayIdx === 0 && weekOffset > 0) setWeekOffset(o => o - 1); }}
+                      className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-500 transition-colors"
+                      aria-label="Día anterior"
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5" />
+                    </button>
+                    <span className="text-xs font-bold text-slate-700 capitalize min-w-[160px] text-center">
+                      {fmtDateLong(ganttDay).split(',').slice(0, 2).join(',')}
+                    </span>
+                    <button
+                      onClick={() => { setGanttDayIdx(i => Math.min(6, i + 1)); if (ganttDayIdx === 6) setWeekOffset(o => o + 1); }}
+                      className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-500 transition-colors"
+                      aria-label="Día siguiente"
+                    >
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="p-4">
+                  <GanttTimeline
+                    services={ganttServices}
+                    trips={ganttTrips}
+                    vehicles={vehicles}
+                    vehicleMap={vehicleMap}
+                    workerMap={workerMap}
+                    isMercanciasPrimary={isMercanciasPrimary}
+                    isCombinadaOrg={isCombinadaOrg}
+                    ganttDayStr={ganttDayStr}
+                    onNavigate={onNavigate}
+                    onTripClick={id => {
+                      setGanttTripId(id);
+                      setPanelTab('mercancias');
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Pendientes de asignación */}
+              <PendingAssignmentsPanel
+                services={ganttServices}
+                vehicles={vehicles}
+                workers={workers}
+                vehicleMap={vehicleMap}
+                workerMap={workerMap}
+                isMercanciasPrimary={isMercanciasPrimary}
+                isCombinadaOrg={isCombinadaOrg}
+                onNavigate={onNavigate}
+              />
+            </div>
+          )}
 
           {/* Bottom blocks */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -1439,31 +1495,61 @@ export default function ScreenTransportePanel({
             />
           </div>
 
-          {/* Weekly calendar */}
-          <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-4 items-start">
+          {/* View selector: Agenda semanal / Flota semanal */}
+          <div className="flex items-center justify-between gap-4 flex-wrap">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setWeeklyView(false)}
+                className={`text-xs font-semibold px-3 py-2 rounded-lg border transition-colors ${!weeklyView ? 'bg-blue-600 text-white border-blue-600' : 'text-slate-600 border-slate-200 hover:bg-slate-50'}`}
+              >
+                Agenda semanal
+              </button>
+              <button
+                onClick={() => setWeeklyView(true)}
+                className={`text-xs font-semibold px-3 py-2 rounded-lg border transition-colors ${weeklyView ? 'bg-blue-600 text-white border-blue-600' : 'text-slate-600 border-slate-200 hover:bg-slate-50'}`}
+              >
+                Flota semanal
+              </button>
+            </div>
+            <div className="flex items-center gap-2 flex-wrap">
+              <button onClick={() => setWeekOffset(0)}
+                className={`text-xs font-semibold px-3 py-2 rounded-lg border transition-colors ${weekOffset === 0 ? 'bg-blue-600 text-white border-blue-600' : 'text-slate-600 border-slate-200 hover:bg-slate-50'}`}>
+                Hoy
+              </button>
+              <div className="flex items-center gap-1">
+                <button onClick={() => setWeekOffset(o => o - 1)}
+                  className="p-2 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-500 transition-colors" aria-label="Semana anterior">
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <span className="text-xs font-semibold text-slate-600 min-w-[120px] text-center">{weekLabel}</span>
+                <button onClick={() => setWeekOffset(o => o + 1)}
+                  className="p-2 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-500 transition-colors" aria-label="Semana siguiente">
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {weeklyView ? (
+            <TransportWeeklyFleetPlanner
+              weekDays={weekDays}
+              vehicles={vehicles}
+              services={weekServices}
+              trips={weekTrips}
+              occurrences={occurrences}
+              mode="viajeros"
+              alerts={vehicleAlerts}
+              onServiceClick={() => onNavigate?.('transporte_servicios')}
+              onTripClick={() => { /* viajeros mode: no trips */ }}
+              onOccurrenceClick={occ => onOpenOccurrence ? onOpenOccurrence(occ) : onNavigate?.('transporte_agenda')}
+            />
+          ) : (
+            <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-4 items-start">
             <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
               <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-blue-500" />
                   <h2 className="text-sm font-black text-slate-800">Planificación semanal de servicios</h2>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button onClick={() => setWeekOffset(0)}
-                    className={`text-xs font-semibold px-2.5 py-1 rounded-lg border transition-colors ${
-                      weekOffset === 0 ? 'bg-blue-600 text-white border-blue-600' : 'text-slate-600 border-slate-200 hover:bg-slate-50'}`}>
-                    Hoy
-                  </button>
-                  <div className="flex items-center gap-1">
-                    <button onClick={() => setWeekOffset(o => o - 1)}
-                      className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-500 transition-colors" aria-label="Semana anterior">
-                      <ChevronLeft className="w-3.5 h-3.5" />
-                    </button>
-                    <span className="text-xs font-semibold text-slate-600 min-w-[140px] text-center">{weekLabel}</span>
-                    <button onClick={() => setWeekOffset(o => o + 1)}
-                      className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-500 transition-colors" aria-label="Semana siguiente">
-                      <ChevronRight className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
                 </div>
               </div>
 
@@ -1612,6 +1698,7 @@ export default function ScreenTransportePanel({
               </div>
             </div>
           </div>
+          )}
 
           {/* Bottom: fleet + drivers + maintenance */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -1642,76 +1729,138 @@ export default function ScreenTransportePanel({
               sub="disponible próximamente" accent="slate" />
           </div>
 
-          {/* Two-column layout */}
-          <div className="grid grid-cols-1 xl:grid-cols-[1fr_280px] gap-4">
-            {/* Viajes — coming soon */}
-            <div className="space-y-4">
-              <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
-                {orgId && (
-                  <ScreenTransporteViajes
-                    orgId={orgId}
-                    initialTripId={ganttTripId ?? undefined}
-                    onDetailClosed={() => setGanttTripId(null)}
-                  />
-                )}
-              </div>
-
-              <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
-                <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-100">
-                  <Package className="w-4 h-4 text-amber-500" />
-                  <h2 className="text-sm font-black text-slate-800">Expediciones y cargas</h2>
-                </div>
-                <div className="p-8 flex flex-col items-center text-center gap-3">
-                  <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center">
-                    <Package className="w-8 h-8 text-slate-400" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-slate-700 mb-1">Gestión de expediciones</p>
-                    <p className="text-xs text-slate-400 max-w-xs">Las expediciones, albaranes y documentos de carga estarán disponibles próximamente.</p>
-                  </div>
-                  <span className="text-[11px] font-semibold text-slate-500 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full">Próximamente — TX-MC-2</span>
-                </div>
-              </div>
+          {/* View selector: Viajes / Flota semanal */}
+          <div className="flex items-center justify-between gap-4 flex-wrap">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setWeeklyView(false)}
+                className={`text-xs font-semibold px-3 py-2 rounded-lg border transition-colors ${!weeklyView ? 'bg-amber-500 text-white border-amber-500' : 'text-slate-600 border-slate-200 hover:bg-slate-50'}`}
+              >
+                Viajes
+              </button>
+              <button
+                onClick={() => setWeeklyView(true)}
+                className={`text-xs font-semibold px-3 py-2 rounded-lg border transition-colors ${weeklyView ? 'bg-amber-500 text-white border-amber-500' : 'text-slate-600 border-slate-200 hover:bg-slate-50'}`}
+              >
+                Flota semanal
+              </button>
             </div>
-
-            {/* Right: cargo vehicles + drivers */}
-            <div className="space-y-3">
-              {/* Cargo fleet */}
-              <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-xs font-black text-slate-700 uppercase tracking-wide flex items-center gap-1.5">
-                    <Truck className="w-3.5 h-3.5 text-amber-500" />Flota de carga
-                  </h3>
-                  <button onClick={() => onNavigate?.('transporte_vehiculos')}
-                    className="text-[10px] font-bold text-blue-600 hover:text-blue-800">Ver flota</button>
+            {weeklyView && (
+              <div className="flex items-center gap-2 flex-wrap">
+                <button onClick={() => setWeekOffset(0)}
+                  className={`text-xs font-semibold px-3 py-2 rounded-lg border transition-colors ${weekOffset === 0 ? 'bg-amber-500 text-white border-amber-500' : 'text-slate-600 border-slate-200 hover:bg-slate-50'}`}>
+                  Hoy
+                </button>
+                <div className="flex items-center gap-1">
+                  <button onClick={() => setWeekOffset(o => o - 1)}
+                    className="p-2 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-500 transition-colors" aria-label="Semana anterior">
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <span className="text-xs font-semibold text-slate-600 min-w-[120px] text-center">{weekLabel}</span>
+                  <button onClick={() => setWeekOffset(o => o + 1)}
+                    className="p-2 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-500 transition-colors" aria-label="Semana siguiente">
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
                 </div>
-                {cargoVehicles.length === 0 ? (
-                  <p className="text-xs text-slate-400 italic py-2">Sin vehículos de carga configurados</p>
-                ) : (
-                  <div className="space-y-2">
-                    {cargoVehicles.slice(0, 6).map(v => (
-                      <div key={v.id} className="flex items-center gap-2">
-                        <span className={`w-2 h-2 rounded-full shrink-0 ${v.estado === 'disponible' ? 'bg-emerald-500' : v.estado === 'en_mantenimiento' ? 'bg-amber-400' : 'bg-slate-300'}`} />
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs font-semibold text-slate-800 truncate">{v.nombre}</p>
-                          <p className="text-[10px] text-slate-400 font-mono">{v.matricula}
-                            {v.capacidad_carga_kg && <span> · {(v.capacidad_carga_kg / 1000).toFixed(1)} t</span>}
-                          </p>
-                        </div>
-                        <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${v.estado === 'disponible' ? 'bg-emerald-100 text-emerald-700' : v.estado === 'en_mantenimiento' ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-600'}`}>
-                          {v.estado === 'disponible' ? 'Disp.' : v.estado === 'en_mantenimiento' ? 'Taller' : v.estado}
-                        </span>
-                      </div>
-                    ))}
-                    {cargoVehicles.length > 6 && <p className="text-[10px] text-slate-400 text-center">+{cargoVehicles.length - 6} más</p>}
-                  </div>
-                )}
               </div>
-
-              <ConductoresBlock />
-              <MantenimientoBlock />
-            </div>
+            )}
           </div>
+
+          {weeklyView ? (
+            <>
+            <TransportWeeklyFleetPlanner
+              weekDays={weekDays}
+              vehicles={vehicles}
+              services={weekServices}
+              trips={weekTrips}
+              occurrences={occurrences}
+              mode="mercancias"
+              alerts={vehicleAlerts}
+              onServiceClick={() => { /* mercancias mode: no services */ }}
+              onTripClick={id => setGanttTripId(id)}
+              onOccurrenceClick={() => { /* mercancias mode: no occurrences */ }}
+            />
+            {ganttTripId && orgId && (
+              <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs mt-4">
+                <ScreenTransporteViajes
+                  orgId={orgId}
+                  initialTripId={ganttTripId}
+                  onDetailClosed={() => setGanttTripId(null)}
+                />
+              </div>
+            )}
+            </>
+          ) : (
+            <div className="grid grid-cols-1 xl:grid-cols-[1fr_280px] gap-4">
+              {/* Viajes */}
+              <div className="space-y-4">
+                <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
+                  {orgId && (
+                    <ScreenTransporteViajes
+                      orgId={orgId}
+                      initialTripId={ganttTripId ?? undefined}
+                      onDetailClosed={() => setGanttTripId(null)}
+                    />
+                  )}
+                </div>
+
+                <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
+                  <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-100">
+                    <Package className="w-4 h-4 text-amber-500" />
+                    <h2 className="text-sm font-black text-slate-800">Expediciones y cargas</h2>
+                  </div>
+                  <div className="p-8 flex flex-col items-center text-center gap-3">
+                    <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center">
+                      <Package className="w-8 h-8 text-slate-400" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-slate-700 mb-1">Gestión de expediciones</p>
+                      <p className="text-xs text-slate-400 max-w-xs">Las expediciones, albaranes y documentos de carga estarán disponibles próximamente.</p>
+                    </div>
+                    <span className="text-[11px] font-semibold text-slate-500 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full">Próximamente — TX-MC-2</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right: cargo vehicles + drivers */}
+              <div className="space-y-3">
+                {/* Cargo fleet */}
+                <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs">
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="text-xs font-black text-slate-700 uppercase tracking-wide flex items-center gap-1.5">
+                      <Truck className="w-3.5 h-3.5 text-amber-500" />Flota de carga
+                    </h3>
+                    <button onClick={() => onNavigate?.('transporte_vehiculos')}
+                      className="text-[10px] font-bold text-blue-600 hover:text-blue-800">Ver flota</button>
+                  </div>
+                  {cargoVehicles.length === 0 ? (
+                    <p className="text-xs text-slate-400 italic py-2">Sin vehículos de carga configurados</p>
+                  ) : (
+                    <div className="space-y-2">
+                      {cargoVehicles.slice(0, 6).map(v => (
+                        <div key={v.id} className="flex items-center gap-2">
+                          <span className={`w-2 h-2 rounded-full shrink-0 ${v.estado === 'disponible' ? 'bg-emerald-500' : v.estado === 'en_mantenimiento' ? 'bg-amber-400' : 'bg-slate-300'}`} />
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-semibold text-slate-800 truncate">{v.nombre}</p>
+                            <p className="text-[10px] text-slate-400 font-mono">{v.matricula}
+                              {v.capacidad_carga_kg && <span> · {(v.capacidad_carga_kg / 1000).toFixed(1)} t</span>}
+                            </p>
+                          </div>
+                          <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${v.estado === 'disponible' ? 'bg-emerald-100 text-emerald-700' : v.estado === 'en_mantenimiento' ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-600'}`}>
+                            {v.estado === 'disponible' ? 'Disp.' : v.estado === 'en_mantenimiento' ? 'Taller' : v.estado}
+                          </span>
+                        </div>
+                      ))}
+                      {cargoVehicles.length > 6 && <p className="text-[10px] text-slate-400 text-center">+{cargoVehicles.length - 6} más</p>}
+                    </div>
+                  )}
+                </div>
+
+                <ConductoresBlock />
+                <MantenimientoBlock />
+              </div>
+            </div>
+          )}
         </>
       )}
     </div>

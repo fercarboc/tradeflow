@@ -232,6 +232,8 @@ interface Props {
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   onOpenParte?: (svcId: string) => void;
   onNavigate?: (tab: string, serviceId?: string) => void;
+  initialOccurrence?: AgendaOccurrence;
+  onConsumeInitialOccurrence?: () => void;
 }
 
 interface MapsProps {
@@ -966,7 +968,7 @@ function AgendaDetailPanel({
 
 // ── Main component ────────────────────────────────────────────────────────────
 
-export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte, onNavigate }: Props) {
+export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte, onNavigate, initialOccurrence, onConsumeInitialOccurrence }: Props) {
   const showToastRef = useRef(showToast);
   useEffect(() => { showToastRef.current = showToast; }, [showToast]);
 
@@ -977,7 +979,10 @@ export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte, 
   const canViewPrecio = can('ingresos.view');
 
   const [viewMode,     setViewMode]     = useState<ViewMode>('weekly');
-  const [weekStart,    setWeekStart]    = useState(() => startOfWeek(new Date()));
+  const [weekStart,    setWeekStart]    = useState(() => {
+    if (initialOccurrence) return startOfWeek(new Date(initialOccurrence.fecha + 'T12:00:00'));
+    return startOfWeek(new Date());
+  });
   const [monthStart,   setMonthStart]   = useState(() => { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), 1); });
   const [intervalFrom, setIntervalFrom] = useState(() => isoDate(new Date()));
   const [intervalTo,   setIntervalTo]   = useState(() => isoDate(addDays(new Date(), 6)));
@@ -996,10 +1001,18 @@ export default function ScreenTransporteAgenda({ orgId, showToast, onOpenParte, 
   const [loading,      setLoading]      = useState(true);
   const [loadedOrgId,  setLoadedOrgId]  = useState<string | null>(null);
   const [error,        setError]        = useState<string | null>(null);
-  const [detail,       setDetail]       = useState<DetailState>({ kind: 'empty' });
+  const [detail,       setDetail]       = useState<DetailState>(() => initialOccurrence ? { kind: 'occurrence', occ: initialOccurrence } : { kind: 'empty' });
   const [mobileView, setMobileView] = useState<'list' | 'detail'>('list');
   const [filterVehicle,   setFilterVehicle]   = useState('');
   const [filterConductor, setFilterConductor] = useState('');
+
+  // Notify parent that initialOccurrence has been consumed so it can clear it.
+  // This prevents a stale occurrence from reopening when the user navigates
+  // directly to the agenda tab without clicking a new occurrence.
+  useEffect(() => {
+    if (initialOccurrence) onConsumeInitialOccurrence?.();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Recurring schedules state
   const [schedules,         setSchedules]         = useState<TradeTransportSchedule[]>([]);
