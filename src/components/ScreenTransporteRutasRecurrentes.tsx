@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import {
   Route, Clock, Bus, User, AlertCircle, Search,
-  ChevronLeft, Plus, X, Pause, Play, Square,
+  ChevronLeft, ChevronRight, Plus, X, Pause, Play, Square,
   ExternalLink, AlertTriangle, CalendarDays,
 } from 'lucide-react';
 import type {
@@ -40,6 +40,9 @@ interface Props {
   orgId: string;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   onNavigate?: (tab: string) => void;
+  /** ID del schedule recién creado: seleccionarlo automáticamente cuando cargue. */
+  highlightScheduleId?: string | null;
+  onConsumeHighlight?: () => void;
   initialServiceId?: string | null;
   onConsumeInitialServiceId?: () => void;
 }
@@ -337,8 +340,11 @@ interface ResumenTabProps {
   clientMap: Record<string, TradeClient>;
   vehicleMap: Record<string, TradeVehicle>;
   workerMap: Record<string, TradeWorker>;
+  showActivationGuide?: boolean;
+  onDismissGuide?: () => void;
+  onNavigate?: (tab: string) => void;
 }
-function ResumenTab({ schedule, clientMap, vehicleMap, workerMap }: ResumenTabProps) {
+function ResumenTab({ schedule, clientMap, vehicleMap, workerMap, showActivationGuide, onDismissGuide, onNavigate }: ResumenTabProps) {
   const client     = schedule.client_id    ? clientMap[schedule.client_id]     : null;
   const vehicle    = schedule.vehicle_id   ? vehicleMap[schedule.vehicle_id]   : null;
   const conductor  = schedule.conductor_id ? workerMap[schedule.conductor_id]  : null;
@@ -346,6 +352,37 @@ function ResumenTab({ schedule, clientMap, vehicleMap, workerMap }: ResumenTabPr
 
   return (
     <div className="space-y-5 px-5 py-4">
+      {showActivationGuide && (
+        <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 flex flex-col gap-3">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center shrink-0">
+                <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <p className="text-sm font-bold text-emerald-800">Ruta activada correctamente</p>
+            </div>
+            {onDismissGuide && (
+              <button onClick={onDismissGuide} className="text-emerald-400 hover:text-emerald-600 shrink-0">
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+          <p className="text-xs text-emerald-700 leading-relaxed">
+            Activar la ruta no crea servicios individuales. Para preparar cada salida, ve a <strong>Agenda</strong>, localiza el día y pulsa <em>Preparar</em> en cada ocurrencia (ida y vuelta por separado).
+          </p>
+          {onNavigate && (
+            <button
+              onClick={() => { onNavigate('transporte_agenda'); onDismissGuide?.(); }}
+              className="self-start flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition-colors"
+            >
+              <CalendarDays className="w-3.5 h-3.5" />
+              Ir a Agenda y preparar servicios
+            </button>
+          )}
+        </div>
+      )}
       <div>
         <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-wide mb-3">Datos generales</h3>
         <div className="space-y-2 text-sm">
@@ -507,21 +544,69 @@ interface CalendarioTabProps {
   occurrences: CalendarOccurrence[];
   onAddException: (fecha: string, sentido: ScheduleSentido) => void;
   onNavigate?: (tab: string) => void;
+  calendarOffsetDays: number;
+  onOffsetChange: (offset: number) => void;
 }
-function CalendarioTab({ schedule, occurrences, onAddException, onNavigate }: CalendarioTabProps) {
+function CalendarioTab({ schedule, occurrences, onAddException, onNavigate, calendarOffsetDays, onOffsetChange }: CalendarioTabProps) {
   const today  = isoToday();
   const future = occurrences.filter(o => o.fecha >= today);
 
+  // Calcular etiqueta del período visible
+  const windowFrom = (() => {
+    const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + calendarOffsetDays);
+    return d;
+  })();
+  const windowUntilDate = (() => {
+    const d = new Date(windowFrom); d.setDate(d.getDate() + 120);
+    return d;
+  })();
+  const windowUntil = windowUntilDate.toISOString().slice(0, 10);
+  const periodLabel = `${windowFrom.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })} – ${windowUntilDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })}`;
+
+  const navBar = (
+    <div className="flex items-center justify-between gap-2 px-5 py-2 bg-slate-50 border-b border-slate-100">
+      <button
+        onClick={() => onOffsetChange(Math.max(0, calendarOffsetDays - 120))}
+        disabled={calendarOffsetDays === 0}
+        className="text-xs text-slate-500 hover:text-slate-800 disabled:opacity-30 flex items-center gap-1 transition-colors"
+      >
+        <ChevronLeft className="w-3.5 h-3.5" /> Anterior
+      </button>
+      <span className="text-[11px] text-slate-500 font-medium">{periodLabel}</span>
+      <button
+        onClick={() => onOffsetChange(calendarOffsetDays + 120)}
+        className="text-xs text-slate-500 hover:text-slate-800 flex items-center gap-1 transition-colors"
+      >
+        Siguiente <ChevronRight className="w-3.5 h-3.5" />
+      </button>
+    </div>
+  );
+
   if (future.length === 0) {
+    const startsLater = schedule.periodo_inicio > windowUntil;
+    const isBorrador  = schedule.estado === 'borrador';
+    const isFinalizado = schedule.estado === 'finalizado';
+
+    const reason = isFinalizado
+      ? 'La ruta está finalizada.'
+      : isBorrador
+        ? 'Esta ruta está en borrador. Actívala desde la pestaña Resumen para que comience a funcionar.'
+        : startsLater
+          ? `Esta ruta existe, pero no tiene servicios previstos en el período mostrado. Comienza el ${
+              new Date(schedule.periodo_inicio + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })
+            }.`
+          : 'No hay días activos en las próximas semanas.';
+
     return (
-      <div className="flex flex-col items-center justify-center py-12 text-center px-5 gap-3">
-        <CalendarDays className="w-8 h-8 text-slate-300" />
-        <p className="text-sm font-semibold text-slate-500">Sin ocurrencias próximas</p>
-        <p className="text-xs text-slate-400 max-w-xs leading-relaxed">
-          {schedule.estado === 'finalizado'
-            ? 'La ruta está finalizada.'
-            : 'No hay días activos en las próximas 8 semanas.'}
-        </p>
+      <div className="flex flex-col h-full">
+        {navBar}
+        <div className="flex flex-col items-center justify-center py-12 text-center px-5 gap-3 flex-1">
+          <CalendarDays className="w-8 h-8 text-slate-300" />
+          <p className="text-sm font-semibold text-slate-500">Sin ocurrencias próximas</p>
+          <p className="text-xs text-slate-400 max-w-xs leading-relaxed">
+            {reason}
+          </p>
+        </div>
       </div>
     );
   }
@@ -538,61 +623,64 @@ function CalendarioTab({ schedule, occurrences, onAddException, onNavigate }: Ca
   }
 
   return (
-    <div className="px-5 py-4 space-y-4">
-      {[...byWeek.entries()].map(([wKey, occs]) => {
-        const wStart = new Date(wKey + 'T12:00:00');
-        const wEnd   = new Date(wKey + 'T12:00:00');
-        wEnd.setDate(wEnd.getDate() + 6);
-        const wLabel = `${wStart.getDate()} ${wStart.toLocaleDateString('es-ES', { month: 'short' })} — ${wEnd.getDate()} ${wEnd.toLocaleDateString('es-ES', { month: 'short' })}`;
+    <div className="flex flex-col h-full">
+      {navBar}
+      <div className="px-5 py-4 space-y-4 overflow-y-auto flex-1">
+        {[...byWeek.entries()].map(([wKey, occs]) => {
+          const wStart = new Date(wKey + 'T12:00:00');
+          const wEnd   = new Date(wKey + 'T12:00:00');
+          wEnd.setDate(wEnd.getDate() + 6);
+          const wLabel = `${wStart.getDate()} ${wStart.toLocaleDateString('es-ES', { month: 'short' })} — ${wEnd.getDate()} ${wEnd.toLocaleDateString('es-ES', { month: 'short' })}`;
 
-        return (
-          <div key={wKey}>
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-wide mb-2">{wLabel}</p>
-            <div className="space-y-1.5">
-              {occs.map((occ, i) => (
-                <div
-                  key={i}
-                  className={`flex items-center gap-2 p-2.5 rounded-lg border ${occStatusColor(occ.status)}`}
-                >
-                  <span className={`text-xs font-semibold w-24 shrink-0 ${occStatusTextColor(occ.status)}`}>
-                    {fmtDateShort(occ.fecha)}
-                  </span>
-                  <span className="text-[10px] font-black uppercase shrink-0 w-10 text-slate-400">
-                    {occ.sentido === 'ida' ? 'IDA' : 'VTA'}
-                  </span>
-                  <span className={`flex-1 min-w-0 truncate text-xs ${occStatusTextColor(occ.status)}`}>
-                    {occStatusLabel(occ.status)}
-                    {occ.exception?.motivo && (
-                      <span className="text-slate-400"> · {occ.exception.motivo}</span>
+          return (
+            <div key={wKey}>
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-wide mb-2">{wLabel}</p>
+              <div className="space-y-1.5">
+                {occs.map((occ, i) => (
+                  <div
+                    key={i}
+                    className={`flex items-center gap-2 p-2.5 rounded-lg border ${occStatusColor(occ.status)}`}
+                  >
+                    <span className={`text-xs font-semibold w-24 shrink-0 ${occStatusTextColor(occ.status)}`}>
+                      {fmtDateShort(occ.fecha)}
+                    </span>
+                    <span className="text-[10px] font-black uppercase shrink-0 w-10 text-slate-400">
+                      {occ.sentido === 'ida' ? 'IDA' : 'VTA'}
+                    </span>
+                    <span className={`flex-1 min-w-0 truncate text-xs ${occStatusTextColor(occ.status)}`}>
+                      {occStatusLabel(occ.status)}
+                      {occ.exception?.motivo && (
+                        <span className="text-slate-400"> · {occ.exception.motivo}</span>
+                      )}
+                    </span>
+                    {occ.status === 'materialized' && onNavigate && (
+                      <button
+                        onClick={() => onNavigate('transporte_servicios')}
+                        className="flex items-center gap-1 text-emerald-600 hover:text-emerald-800 shrink-0"
+                        title="Ver en Servicios"
+                      >
+                        <ExternalLink className="w-3 h-3" />
+                      </button>
                     )}
-                  </span>
-                  {occ.status === 'materialized' && onNavigate && (
-                    <button
-                      onClick={() => onNavigate('transporte_servicios')}
-                      className="flex items-center gap-1 text-emerald-600 hover:text-emerald-800 shrink-0"
-                      title="Ver en Servicios"
-                    >
-                      <ExternalLink className="w-3 h-3" />
-                    </button>
-                  )}
-                  {occ.status !== 'materialized' &&
-                   occ.status !== 'no_circula' &&
-                   schedule.estado !== 'finalizado' && (
-                    <button
-                      onClick={() => onAddException(occ.fecha, occ.sentido)}
-                      className="text-slate-300 hover:text-slate-600 shrink-0 transition-colors"
-                      title="Añadir excepción"
-                    >
-                      <Plus className="w-3.5 h-3.5" />
-                    </button>
-                  )}
-                </div>
-              ))}
+                    {occ.status !== 'materialized' &&
+                     occ.status !== 'no_circula' &&
+                     schedule.estado !== 'finalizado' && (
+                      <button
+                        onClick={() => onAddException(occ.fecha, occ.sentido)}
+                        className="text-slate-300 hover:text-slate-600 shrink-0 transition-colors"
+                        title="Añadir excepción"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        );
-      })}
-      <div className="h-4" />
+          );
+        })}
+        <div className="h-4" />
+      </div>
     </div>
   );
 }
@@ -922,6 +1010,10 @@ interface ScheduleDetailPanelProps {
   onTransition: (t: ScheduleTransition) => void;
   onAddException: (fecha?: string, sentido?: ScheduleSentido) => void;
   transitionSaving: boolean;
+  calendarOffsetDays: number;
+  onCalendarOffsetChange: (offset: number) => void;
+  showActivationGuide: boolean;
+  onDismissActivationGuide: () => void;
 }
 function ScheduleDetailPanel({
   schedule, activeTab, onTabChange,
@@ -929,6 +1021,8 @@ function ScheduleDetailPanel({
   exceptions, occurrences, occurrenceLinks,
   loadingDetail, onBack, onNavigate,
   onTransition, onAddException, transitionSaving,
+  calendarOffsetDays, onCalendarOffsetChange,
+  showActivationGuide, onDismissActivationGuide,
 }: ScheduleDetailPanelProps) {
   const today = isoToday();
   const pastCount = occurrenceLinks.filter(l => l.fecha < today).length;
@@ -1025,6 +1119,9 @@ function ScheduleDetailPanel({
             clientMap={clientMap}
             vehicleMap={vehicleMap}
             workerMap={workerMap}
+            showActivationGuide={showActivationGuide}
+            onDismissGuide={onDismissActivationGuide}
+            onNavigate={onNavigate}
           />
         ) : activeTab === 'calendario' ? (
           <CalendarioTab
@@ -1032,6 +1129,8 @@ function ScheduleDetailPanel({
             occurrences={occurrences}
             onAddException={onAddException}
             onNavigate={onNavigate}
+            calendarOffsetDays={calendarOffsetDays}
+            onOffsetChange={onCalendarOffsetChange}
           />
         ) : (
           <HistorialTab
@@ -1046,7 +1145,7 @@ function ScheduleDetailPanel({
 
 // ── Main component ─────────────────────────────────────────────────────────────
 
-export default function ScreenTransporteRutasRecurrentes({ orgId, showToast, onNavigate }: Props) {
+export default function ScreenTransporteRutasRecurrentes({ orgId, showToast, onNavigate, highlightScheduleId, onConsumeHighlight }: Props) {
   const showToastRef       = useRef(showToast);
   showToastRef.current     = showToast;
   const transitionSavingRef = useRef(false);
@@ -1072,11 +1171,13 @@ export default function ScreenTransporteRutasRecurrentes({ orgId, showToast, onN
   const [occurrenceLinks, setOccurrenceLinks] = useState<TradeTransportOccurrenceLink[]>([]);
   const [loadingDetail,   setLoadingDetail]   = useState(false);
 
-  const [transitionSaving, setTransitionSaving] = useState(false);
-  const [exceptionSaving,  setExceptionSaving]  = useState(false);
-  const [showExModal,      setShowExModal]      = useState(false);
-  const [exModalFecha,     setExModalFecha]     = useState<string | undefined>(undefined);
-  const [exModalSentido,   setExModalSentido]   = useState<ScheduleSentido | undefined>(undefined);
+  const [transitionSaving,    setTransitionSaving]    = useState(false);
+  const [exceptionSaving,     setExceptionSaving]     = useState(false);
+  const [showExModal,         setShowExModal]         = useState(false);
+  const [exModalFecha,        setExModalFecha]        = useState<string | undefined>(undefined);
+  const [exModalSentido,      setExModalSentido]      = useState<ScheduleSentido | undefined>(undefined);
+  const [calendarOffsetDays,    setCalendarOffsetDays]    = useState(0);
+  const [showActivationGuide,   setShowActivationGuide]   = useState(false);
 
   const loadBase = useCallback(async () => {
     setLoading(true);
@@ -1116,6 +1217,17 @@ export default function ScreenTransporteRutasRecurrentes({ orgId, showToast, onN
   useEffect(() => { void loadBase(); }, [loadBase]);
   useEffect(() => { if (!selected) setMobileView('list'); }, [selected]);
 
+  // Auto-seleccionar el schedule recién creado cuando carguen los datos
+  useEffect(() => {
+    if (!highlightScheduleId || loading || schedules.length === 0) return;
+    const found = schedules.find(s => s.id === highlightScheduleId);
+    if (found) {
+      handleSelect(found);
+      onConsumeHighlight?.();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [highlightScheduleId, loading, schedules]);
+
   useEffect(() => {
     if (!selected) {
       setExceptions([]);
@@ -1154,15 +1266,18 @@ export default function ScreenTransporteRutasRecurrentes({ orgId, showToast, onN
     if (!selected) return [];
     const from  = new Date();
     from.setHours(0, 0, 0, 0);
+    from.setDate(from.getDate() + calendarOffsetDays);
     const until = new Date(from);
-    until.setDate(until.getDate() + 56);
+    until.setDate(until.getDate() + 120);
     return buildCalendarProjection(selected, exceptions, occurrenceLinks, from, until);
-  }, [selected, exceptions, occurrenceLinks]);
+  }, [selected, exceptions, occurrenceLinks, calendarOffsetDays]);
 
   function handleSelect(s: TradeTransportSchedule) {
     setSelected(s);
     setActiveTab('resumen');
     setMobileView('detail');
+    setCalendarOffsetDays(0);
+    setShowActivationGuide(false);
   }
 
   async function handleTransition(transition: ScheduleTransition) {
@@ -1184,6 +1299,10 @@ export default function ScreenTransporteRutasRecurrentes({ orgId, showToast, onN
         finalizar: 'Ruta finalizada',
       };
       showToastRef.current(labels[transition], 'success');
+      if (transition === 'activar') {
+        setShowActivationGuide(true);
+        setActiveTab('resumen');
+      }
     } catch (e) {
       showToastRef.current(errMsg(e), 'error');
     } finally {
@@ -1311,6 +1430,10 @@ export default function ScreenTransporteRutasRecurrentes({ orgId, showToast, onN
               onTransition={handleTransition}
               onAddException={handleAddExceptionClick}
               transitionSaving={transitionSaving}
+              calendarOffsetDays={calendarOffsetDays}
+              onCalendarOffsetChange={setCalendarOffsetDays}
+              showActivationGuide={showActivationGuide}
+              onDismissActivationGuide={() => setShowActivationGuide(false)}
             />
           ) : (
             <div className="h-full flex flex-col items-center justify-center gap-3 text-center px-8">

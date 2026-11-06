@@ -884,6 +884,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [transporteInitialOccurrence, setTransporteInitialOccurrence] = useState<AgendaOccurrence | null>(null);
   const [transporteTriggerNew, setTransporteTriggerNew] = useState(0);
   const [transporteConductorPreselectId, setTransporteConductorPreselectId] = useState<string | null>(null);
+  const [transporteNewScheduleId, setTransporteNewScheduleId] = useState<string | null>(null);
   const [newJobTrigger, setNewJobTrigger] = useState(0);
   const [prefillJobFromQuote, setPrefillJobFromQuote] = useState<import('../types').Presupuesto | null>(null);
 
@@ -4374,6 +4375,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     initialServiceId={transporteNavServiceId}
                     onConsumeInitialServiceId={() => setTransporteNavServiceId(null)}
                     triggerNew={transporteTriggerNew}
+                    onNavigateToSchedules={(id) => { setTransporteMobileSubTab('rutas'); setTransporteNewScheduleId(id); }}
                   />
                 )}
                 {transporteMobileSubTab === 'agenda' && (
@@ -4414,9 +4416,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                         transporte_panel: 'panel',
                         transporte_servicios: 'servicios',
                         transporte_vehiculos: 'vehiculos',
+                        transporte_agenda: 'agenda',
                       };
                       if (map[tab]) setTransporteMobileSubTab(map[tab]);
                     }}
+                    highlightScheduleId={transporteNewScheduleId}
+                    onConsumeHighlight={() => setTransporteNewScheduleId(null)}
                   />
                 )}
                 {transporteMobileSubTab === 'partes' && orgId && !caps.isMercanciasPrimary && (
@@ -7123,6 +7128,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       initialServiceId={transporteNavServiceId}
                       onConsumeInitialServiceId={() => setTransporteNavServiceId(null)}
                       triggerNew={transporteTriggerNew}
+                      onNavigateToSchedules={(id) => { setActiveTab('transporte_rutas'); setTransporteNewScheduleId(id); }}
                     />
                   </div>
                 )}
@@ -7185,6 +7191,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       onNavigate={(tab) => setActiveTab(tab)}
                       initialServiceId={transporteNavServiceId}
                       onConsumeInitialServiceId={() => setTransporteNavServiceId(null)}
+                      highlightScheduleId={transporteNewScheduleId}
+                      onConsumeHighlight={() => setTransporteNewScheduleId(null)}
                     />
                   </div>
                 )}

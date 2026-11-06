@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Map, CalendarDays } from 'lucide-react';
 import ScreenTransporteMapaServicios from './ScreenTransporteMapaServicios';
 import ScreenTransporteRutasRecurrentes from './ScreenTransporteRutasRecurrentes';
@@ -27,6 +27,9 @@ interface Props {
   onNavigate?: (tab: string) => void;
   initialServiceId?: string | null;
   onConsumeInitialServiceId?: () => void;
+  /** ID del schedule recién creado: cambia a 'recurrentes' y lo selecciona automáticamente. */
+  highlightScheduleId?: string | null;
+  onConsumeHighlight?: () => void;
 }
 
 // ── Module-level sub-components ───────────────────────────────────────────────
@@ -67,8 +70,14 @@ function MainTabBar({ active, onChange }: MainTabBarProps) {
 
 export default function ScreenTransporteRutas({
   orgId, showToast, onNavigate, initialServiceId, onConsumeInitialServiceId,
+  highlightScheduleId, onConsumeHighlight,
 }: Props) {
   const [activeTab, setActiveTab] = useState<MainTab>('mapa');
+
+  // Cuando llega un schedule recién creado, cambiar a tab recurrentes automáticamente
+  useEffect(() => {
+    if (highlightScheduleId) setActiveTab('recurrentes');
+  }, [highlightScheduleId]);
 
   return (
     <div className="h-screen flex flex-col bg-slate-50">
@@ -97,6 +106,8 @@ export default function ScreenTransporteRutas({
           <ScreenTransporteRutasRecurrentes
             orgId={orgId}
             showToast={showToast}
+            highlightScheduleId={highlightScheduleId}
+            onConsumeHighlight={onConsumeHighlight}
           />
         )}
       </div>

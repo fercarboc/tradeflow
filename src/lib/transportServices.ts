@@ -110,6 +110,10 @@ export interface TradeTransportService {
   // ── TX-C3-C: campos añadidos en migración 20261030100000 ─────────────────
   iva_pct?: number | null;
   intake_data?: Record<string, unknown> | null;
+  // ── TX-RECURRING-F1: vinculación con plantilla recurrente ─────────────────
+  schedule_id?: string | null;
+  schedule_fecha?: string | null;
+  schedule_sentido?: string | null;
   created_at: string;
   updated_at: string;
 }

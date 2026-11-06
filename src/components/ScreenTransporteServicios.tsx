@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import ScheduleWizard from './ScheduleWizard';
 import {
   Plus, Calendar, MapPin, Users, ChevronLeft, ChevronRight, X, Edit2,
@@ -859,11 +859,13 @@ interface Props {
   initialServiceId?: string | null;
   onConsumeInitialServiceId?: () => void;
   triggerNew?: number;
+  /** Navegar a Rutas Recurrentes tras crear una plantilla, pasando su ID. */
+  onNavigateToSchedules?: (scheduleId: string) => void;
 }
 
 // ── Componente principal ──────────────────────────────────────────────────────
 
-export default function ScreenTransporteServicios({ orgId, showToast, onOpenParte, initialServiceId, onConsumeInitialServiceId, triggerNew }: Props) {
+export default function ScreenTransporteServicios({ orgId, showToast, onOpenParte, initialServiceId, onConsumeInitialServiceId, triggerNew, onNavigateToSchedules }: Props) {
   const { rol } = useSession();
   const canWrite = rol === 'owner' || rol === 'admin';
 
@@ -895,6 +897,7 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
   const [iniciandoLoading, setIniciandoLoading] = useState(false);
   const [recentlySaved, setRecentlySaved] = useState<TradeTransportService | null>(null);
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
+  const [filterOrigen, setFilterOrigen] = useState<'' | 'recurrente' | 'puntual'>();
 
   // Highlight service navigated from Agenda; consume once found so sidebar nav starts clean
   useEffect(() => {
@@ -1105,6 +1108,13 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
     setFilterHasta(hastaD.toISOString().split('T')[0]);
   };
 
+  const displayedServices = useMemo(() => {
+    let result = services;
+    if (filterOrigen === 'recurrente') result = result.filter(s => !!s.schedule_id);
+    if (filterOrigen === 'puntual')    result = result.filter(s => !s.schedule_id);
+    return result;
+  }, [services, filterOrigen]);
+
   const inputCls = "px-3 py-1.5 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500";
 
   return (
@@ -1156,6 +1166,22 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
               <option value="">Todos los estados</option>
               {SERVICIO_ESTADOS.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
             </select>
+            {/* Filtro origen: puntual vs recurrente */}
+            <div className="flex items-center gap-1 bg-slate-100 rounded-lg p-0.5">
+              {(['', 'puntual', 'recurrente'] as const).map(v => (
+                <button
+                  key={v || 'todos'}
+                  onClick={() => setFilterOrigen(v)}
+                  className={`px-2.5 py-1 text-xs font-semibold rounded-md transition-colors cursor-pointer ${
+                    filterOrigen === v
+                      ? 'bg-white text-blue-700 shadow-sm'
+                      : 'text-slate-500 hover:text-slate-700'
+                  }`}
+                >
+                  {v === '' ? 'Todos' : v === 'puntual' ? 'Puntual' : 'Recurrente'}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Banner de servicios futuros fuera del rango */}
@@ -1247,7 +1273,7 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
           )}
 
           {/* Sin resultados */}
-          {!loading && !loadError && services.length === 0 && (
+          {!loading && !loadError && displayedServices.length === 0 && (
             <div className="flex flex-col items-center justify-center py-20 gap-3 text-slate-400">
               <div className="w-14 h-14 bg-slate-100 rounded-full flex items-center justify-center">
                 <Calendar className="w-7 h-7 text-slate-300" />
@@ -1283,9 +1309,9 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
           )}
 
           {/* Lista de servicios */}
-          {!loading && !loadError && services.length > 0 && (
+          {!loading && !loadError && displayedServices.length > 0 && (
             <div className="space-y-3">
-              {services.map(s => (
+              {displayedServices.map(s => (
                 <ServicioRow
                   key={s.id}
                   s={s}
@@ -1344,9 +1370,10 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
           vehicles={vehicles}
           workers={workers}
           onClose={() => setShowWizard(false)}
-          onSaved={nombre => {
+          onSaved={(nombre, id) => {
             setShowWizard(false);
             showToast(`Ruta "${nombre}" guardada como borrador`, 'success');
+            onNavigateToSchedules?.(id);
           }}
         />
       )}

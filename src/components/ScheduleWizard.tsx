@@ -968,7 +968,7 @@ export interface ScheduleWizardProps {
   vehicles: TradeVehicle[];
   workers:  TradeWorker[];
   onClose:  () => void;
-  onSaved:  (nombre: string) => void;
+  onSaved:  (nombre: string, id: string) => void;
 }
 
 export default function ScheduleWizard({
@@ -1007,8 +1007,8 @@ export default function ScheduleWizard({
     setSaveError(null);
     try {
       const input = buildScheduleInput(draft);
-      await createSchedule(orgId, input);
-      onSaved(draft.nombre);
+      const saved = await createSchedule(orgId, input);
+      onSaved(draft.nombre, saved.id);
     } catch (err) {
       setSaveError(err instanceof Error ? err.message : 'Error al guardar');
       savingRef.current = false;
