@@ -17,7 +17,7 @@ interface TileProps { icon: React.ReactNode; label: string; value: number; accen
 
 function Tile({ icon, label, value, accent = 'text-slate-700 dark:text-slate-200' }: TileProps) {
   return (
-    <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-800/60 rounded-xl px-3 py-2 min-w-0">
+    <div className="flex items-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 min-w-0">
       <div className="shrink-0 text-slate-400 dark:text-slate-500">{icon}</div>
       <div className="min-w-0">
         <div className={`text-sm font-black leading-none ${accent}`}>{value}</div>

@@ -83,26 +83,17 @@ function makeHubProps() {
 import OperationsHub from '../../components/OperationsHub';
 
 describe('OperationsHub — mobile scroll clearance', () => {
-  it('MOBILE-SCROLL-1 pendientes scroll container has nav-bar bottom clearance', () => {
-    render(<OperationsHub {...makeHubProps()} initialSubTab="pendientes" pendingPlanningQuotes={[
-      { id: 'q1', dbId: 'q1', nombreCliente: 'Test', descripcion: '', total: 0, client_id: null },
-    ]} />);
-    const container = screen.getByTestId('hub-pendientes-scroll');
-    expect(hasNavBarClearance(container)).toBe(true);
-  });
-
   it('MOBILE-SCROLL-2 partes scroll container has nav-bar bottom clearance', () => {
     render(<OperationsHub {...makeHubProps()} initialSubTab="partes" />);
     const container = screen.getByTestId('hub-partes-scroll');
     expect(hasNavBarClearance(container)).toBe(true);
   });
 
-  it('MOBILE-SCROLL-3 switching to pendientes tab renders scroll container', () => {
+  it('MOBILE-SCROLL-3 switching to valoraciones tab renders scroll container with clearance', () => {
     render(<OperationsHub {...makeHubProps()} initialSubTab="agenda" />);
-    const pendientesBtn = screen.getByRole('button', { name: /pendientes/i });
-    fireEvent.click(pendientesBtn);
-    const container = screen.getByTestId('hub-pendientes-scroll');
-    expect(container).toBeTruthy();
+    const valoracionesBtn = screen.getByRole('button', { name: /valoraciones/i });
+    fireEvent.click(valoracionesBtn);
+    const container = screen.getByTestId('hub-valoraciones-scroll');
     expect(hasNavBarClearance(container)).toBe(true);
   });
 });

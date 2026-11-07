@@ -27,66 +27,8 @@ interface TarifaLike {
 interface WorkerRef { id: string; nombre: string; rol: string; activo: boolean; }
 interface ClienteLike { id: string; nombre: string; telefono: string; email?: string | null; }
 
-export type HubSubTab = 'pendientes' | 'agenda' | 'partes' | 'externalizados' | 'valoraciones';
+export type HubSubTab = 'agenda' | 'partes' | 'externalizados' | 'valoraciones';
 
-// ── PENDIENTES TAB ─────────────────────────────────────────────────────────────
-
-interface PendientesTabProps {
-  pendingPlanningQuotes: PresupuestoPendiente[];
-  onProgramar: (quote: PresupuestoPendiente) => void;
-  onViewAgenda: () => void;
-}
-
-function PendientesTab({ pendingPlanningQuotes, onProgramar, onViewAgenda }: PendientesTabProps) {
-  if (pendingPlanningQuotes.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center py-20 text-center">
-        <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mb-4">
-          <CheckCircle className="w-8 h-8 text-emerald-500" />
-        </div>
-        <p className="font-bold text-slate-700 text-base">Todo está planificado</p>
-        <p className="text-sm text-slate-400 mt-1 max-w-xs">
-          No hay presupuestos aceptados pendientes de programar.
-        </p>
-        <button
-          onClick={onViewAgenda}
-          className="mt-6 flex items-center gap-2 text-sm font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 px-5 py-2.5 rounded-xl transition-colors cursor-pointer"
-        >
-          Ver agenda <ArrowRight className="w-4 h-4" />
-        </button>
-      </div>
-    );
-  }
-
-  return (
-    <div className="space-y-3">
-      {pendingPlanningQuotes.map(quote => (
-        <div
-          key={quote.dbId ?? quote.id}
-          className="bg-white border border-slate-200 rounded-2xl p-4 flex items-start justify-between gap-4 hover:border-blue-200 hover:shadow-sm transition-all"
-        >
-          <div className="min-w-0 flex-1">
-            <p className="font-bold text-slate-900 text-base leading-tight">{quote.nombreCliente}</p>
-            {quote.descripcion && (
-              <p className="text-sm text-slate-500 mt-1 line-clamp-2">{quote.descripcion}</p>
-            )}
-            {typeof quote.total === 'number' && (
-              <p className="text-sm font-bold text-slate-700 mt-2">
-                {quote.total.toLocaleString('es-ES', { minimumFractionDigits: 2 })} €
-              </p>
-            )}
-          </div>
-          <button
-            onClick={() => onProgramar(quote)}
-            className="shrink-0 flex items-center gap-1.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
-          >
-            <Plus className="w-4 h-4" /> Programar
-          </button>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 // ── AGENDA TAB ────────────────────────────────────────────────────────────────
 
@@ -378,18 +320,18 @@ export interface OperationsHubProps {
 }
 
 const TAB_CFG: Array<{ id: HubSubTab; icon: React.ReactNode; label: string }> = [
-  { id: 'pendientes',   icon: <Clock className="w-3.5 h-3.5" />,    label: 'Pendientes' },
-  { id: 'agenda',       icon: <Calendar className="w-3.5 h-3.5" />, label: 'Agenda' },
+  { id: 'agenda',         icon: <Calendar className="w-3.5 h-3.5" />,  label: 'Agenda' },
   { id: 'partes',         icon: <FileCheck className="w-3.5 h-3.5" />, label: 'Partes' },
-  { id: 'externalizados', icon: <Layers className="w-3.5 h-3.5" />,   label: 'Externalizados' },
-  { id: 'valoraciones',   icon: <Star className="w-3.5 h-3.5" />,     label: 'Valoraciones' },
+  { id: 'externalizados', icon: <Layers className="w-3.5 h-3.5" />,    label: 'Externalizados' },
+  { id: 'valoraciones',   icon: <Star className="w-3.5 h-3.5" />,      label: 'Valoraciones' },
 ];
 
 export default function OperationsHub(props: OperationsHubProps) {
   const [activeSubTab, setActiveSubTab] = useState<HubSubTab>(() => {
-    if (props.initialSubTab) return props.initialSubTab;
+    const init = props.initialSubTab;
+    if (init && init !== ('pendientes' as string)) return init as HubSubTab;
     if (props.prefillJobFromQuote) return 'agenda';
-    return props.pendingPlanningQuotes.length > 0 ? 'pendientes' : 'agenda';
+    return 'agenda';
   });
 
   // Internal prefill: merges external prop (from presupuestos screen) + internal (from PendientesTab)
@@ -517,16 +459,11 @@ export default function OperationsHub(props: OperationsHubProps) {
   };
 
   // ── Render ──────────────────────────────────────────────────────────────────
-  const pendingCount = props.pendingPlanningQuotes.length;
 
   return (
     <div className="h-full flex flex-col min-h-0">
       {/* Hub header */}
       <div className="mb-4 shrink-0">
-        <p className="text-xs text-slate-400 mt-0.5">
-          Organiza trabajos, rutas y partes desde un único lugar.
-        </p>
-
         {/* Tab bar */}
         <div className="flex gap-1 mt-3 border-b border-slate-200 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
           {TAB_CFG.map(tab => {
@@ -543,13 +480,6 @@ export default function OperationsHub(props: OperationsHubProps) {
               >
                 {tab.icon}
                 {tab.label}
-                {tab.id === 'pendientes' && pendingCount > 0 && (
-                  <span className={`inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[9px] font-black ${
-                    isActive ? 'bg-blue-600 text-white' : 'bg-emerald-500 text-white'
-                  }`}>
-                    {pendingCount > 99 ? '99+' : pendingCount}
-                  </span>
-                )}
               </button>
             );
           })}
@@ -557,16 +487,6 @@ export default function OperationsHub(props: OperationsHubProps) {
       </div>
 
       {/* Tab content */}
-      {activeSubTab === 'pendientes' && (
-        <div data-testid="hub-pendientes-scroll" className="flex-1 overflow-y-auto min-h-0" style={{ paddingBottom: 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)' }}>
-          <PendientesTab
-            pendingPlanningQuotes={props.pendingPlanningQuotes}
-            onProgramar={handleProgramar}
-            onViewAgenda={() => setActiveSubTab('agenda')}
-          />
-        </div>
-      )}
-
       {activeSubTab === 'agenda' && (
         <div className="flex-1 min-h-0 overflow-hidden">
           <AgendaTab
@@ -619,10 +539,11 @@ export default function OperationsHub(props: OperationsHubProps) {
       )}
 
       {activeSubTab === 'valoraciones' && (
-        <div className="flex-1 overflow-y-auto min-h-0" style={{ paddingBottom: 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)' }}>
+        <div data-testid="hub-valoraciones-scroll" className="flex-1 overflow-y-auto min-h-0" style={{ paddingBottom: 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)' }}>
           <ScreenValoraciones showToast={props.showToast} />
         </div>
       )}
+
 
       {/* ScreenParteTrabajo overlay — rendered at hub level */}
       {hubParteJob && (() => {

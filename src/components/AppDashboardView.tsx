@@ -6788,8 +6788,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         {/* CUERPO CENTRAL DE LA CONSOLA DESKTOP */}
         <div className="flex-grow flex flex-col min-w-0 bg-slate-50">
 
-          {/* Header de la sección — oculto para módulos de Transporte (cada screen lleva su propia cabecera) */}
-          {!activeTab.startsWith('transporte') && (
+          {/* Header de la sección — oculto para Transporte y Planificación (cada screen lleva su propia cabecera) */}
+          {!activeTab.startsWith('transporte') && activeTab !== 'planificacion' && (
           <div className="bg-white border-b border-slate-200 px-6 py-4 flex items-center gap-4 shrink-0">
             <div className="flex-none">
               <span className="text-[9px] font-bold text-blue-600 uppercase tracking-widest block">
@@ -7421,7 +7421,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </div>
             </div>
             <button
-              onClick={() => { setPlanificacionSubTab('pendientes'); setActiveTab('planificacion'); }}
+              onClick={() => { setPlanificacionSubTab('agenda'); setActiveTab('planificacion'); }}
               className="shrink-0 flex items-center gap-1.5 text-[11px] font-bold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 px-4 py-2 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
             >
               Ver y programar <ChevronRight className="w-3.5 h-3.5" />
