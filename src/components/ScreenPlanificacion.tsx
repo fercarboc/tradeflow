@@ -11,6 +11,8 @@ import { loadWorkCalendar, getNextWorkingDay } from '../lib/workCalendar';
 import { geocodeAddress, addressChanged, hasSufficientAddress, validateGeoResult, type GeoStatus } from '../lib/geocoder';
 import LocationPicker from './LocationPicker';
 import { isValidLatLng } from './RouteMap';
+import MonthCalendar from './MonthCalendar';
+import KpiStrip from './KpiStrip';
 
 interface Worker { id: string; nombre: string; rol: string; activo: boolean; }
 interface Cliente { id: string; nombre: string; telefono: string; }
@@ -101,6 +103,37 @@ const EMPTY_DRAFT = (): Partial<TradeJob> => ({
   hora_inicio: '09:00', duracion_horas: 2,
   direccion: '', localidad: '', cp: '', client_id: null,
 });
+
+// ── PendienteCard ─────────────────────────────────────────────────────────────
+interface PendienteCardProps {
+  quote: PresupuestoPendiente;
+  onProgramar: (quote: PresupuestoPendiente) => void;
+}
+
+function PendienteCard({ quote, onProgramar }: PendienteCardProps) {
+  return (
+    <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-3 space-y-2">
+      <div className="flex items-start gap-2">
+        <div className="w-7 h-7 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center shrink-0">
+          <FileText className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 leading-tight truncate">{quote.descripcion || '—'}</p>
+          <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate">{quote.nombreCliente}</p>
+        </div>
+        {quote.total > 0 && (
+          <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 shrink-0">{quote.total.toFixed(0)}€</span>
+        )}
+      </div>
+      <button
+        onClick={() => onProgramar(quote)}
+        className="w-full py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold uppercase rounded-lg cursor-pointer transition-colors"
+      >
+        Programar
+      </button>
+    </div>
+  );
+}
 
 // ── JobModalPanel ─────────────────────────────────────────────────────────────
 interface JobModalPanelProps {
@@ -1453,6 +1486,28 @@ function JobDetailPanel({ job, linkedPresupuesto, onIniciar, onPause, onQuickSta
   );
 }
 
+// ── Utility: expand multi-day jobs to all dates in range ─────────────────────
+export function getDatesBetween(start: string, end?: string | null): string[] {
+  if (!end) return [start];
+  const [sy, sm, sd] = start.split('-').map(Number);
+  const [ey, em, ed] = end.split('-').map(Number);
+  const startD = new Date(sy, sm - 1, sd);
+  const endD = new Date(ey, em - 1, ed);
+  if (isNaN(startD.getTime()) || isNaN(endD.getTime()) || endD < startD) return [start];
+  const dates: string[] = [];
+  const current = new Date(startD);
+  let safety = 0;
+  while (current <= endD && safety < 365) {
+    const y = current.getFullYear();
+    const m = String(current.getMonth() + 1).padStart(2, '0');
+    const d = String(current.getDate()).padStart(2, '0');
+    dates.push(`${y}-${m}-${d}`);
+    current.setDate(current.getDate() + 1);
+    safety++;
+  }
+  return dates;
+}
+
 // ── Main component ────────────────────────────────────────────────────────────
 export default function ScreenPlanificacion({
   jobs: propJobs, workers, clientes, isLiveMode,
@@ -1913,14 +1968,84 @@ export default function ScreenPlanificacion({
     setSelectedDate(date);
     setFilterEstado('todos');
     setSelectedJobId(null);
+    // Sync weekOffset so DayCarousel shows the correct week on mobile
+    const getMonday = (d: Date) => {
+      const r = new Date(d); const dow = r.getDay();
+      r.setDate(r.getDate() - (dow === 0 ? 6 : dow - 1)); r.setHours(0, 0, 0, 0); return r;
+    };
+    const todayMonday  = getMonday(new Date());
+    const targetMonday = getMonday(new Date(date + 'T12:00:00'));
+    setWeekOffset(Math.round((targetMonday.getTime() - todayMonday.getTime()) / (7 * 24 * 60 * 60 * 1000)));
+  };
+
+  const jobDates = useMemo(
+    () => {
+      const s = new Set<string>();
+      jobs.forEach(j => {
+        if (!j.fecha_inicio) return;
+        getDatesBetween(j.fecha_inicio, j.fecha_fin).forEach(d => s.add(d));
+      });
+      return s;
+    },
+    [jobs],
+  );
+
+  const handleProgramarDesdeCalendario = (quote: PresupuestoPendiente) => {
+    const alreadyPlanned = propJobs.some(
+      j => j.quote_id === quote.dbId && j.estado !== 'cancelado' && j.estado !== 'no_realizado',
+    );
+    if (alreadyPlanned) { showToast('Este presupuesto ya tiene un trabajo programado.', 'info'); return; }
+    setEditingJob(null);
+    setDraft({
+      ...EMPTY_DRAFT(),
+      fecha_inicio: selectedDate,
+      titulo: quote.descripcion.slice(0, 80) || `Trabajo — ${quote.nombreCliente}`,
+      descripcion: quote.descripcion ?? '',
+      client_id: quote.client_id ?? null,
+      quote_id: quote.dbId ?? null,
+      prioridad: 'normal',
+    });
+    setSelectedWorkerIds(new Set());
+    setShowModal(true);
   };
 
   const hasDispatchBoard = workers.filter(w => w.activo).length > 0 && dayJobs.length > 0;
 
   return (
-    <div className="h-full flex flex-col">
-      {/* ── Cabecera 2 columnas: calendario + carga del equipo ── */}
-      <div className="shrink-0 sticky top-0 z-10 bg-white border-b border-slate-100 grid grid-cols-1 lg:grid-cols-2">
+    <div className="h-full flex flex-col lg:flex-row">
+
+      {/* ── Left column: MonthCalendar + Pendientes (desktop only) ── */}
+      <div className="hidden lg:flex lg:flex-col w-72 xl:w-80 shrink-0 border-r border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+        <div className="shrink-0 border-b border-slate-100 dark:border-slate-800 py-2">
+          <MonthCalendar
+            selectedDate={selectedDate}
+            onDateSelect={handleSelectDate}
+            jobDates={jobDates}
+          />
+        </div>
+        <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
+          <div className="px-3 pt-3 pb-4 space-y-2">
+            <p className="text-[9px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1 mb-2">
+              <Clock className="w-3 h-3" />
+              Pendientes de planificar{presupuestosAceptados.length > 0 ? ` (${presupuestosAceptados.length})` : ''}
+            </p>
+            {presupuestosAceptados.length === 0 ? (
+              <div className="text-center py-6">
+                <CheckCircle className="w-8 h-8 text-emerald-300 dark:text-emerald-700 mx-auto mb-2" />
+                <p className="text-xs text-slate-400 italic">Sin presupuestos pendientes</p>
+              </div>
+            ) : presupuestosAceptados.map(q => (
+              <PendienteCard key={q.id} quote={q} onProgramar={handleProgramarDesdeCalendario} />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Right column ── */}
+      <div className="flex-1 min-w-0 flex flex-col">
+
+      {/* ── Cabecera sticky: DayCarousel (mobile only) ── */}
+      <div className="lg:hidden shrink-0 sticky top-0 z-10 bg-white border-b border-slate-100 grid grid-cols-1">
         <div className={hasDispatchBoard ? 'lg:border-r border-slate-100' : ''}>
           <DayCarousel
             jobs={jobs}
@@ -2001,6 +2126,56 @@ export default function ScreenPlanificacion({
           </div>
         )}
       </div>
+
+      {/* ── KpiStrip (desktop only) ── */}
+      <div className="hidden lg:block shrink-0 border-b border-slate-100 dark:border-slate-800 px-4 py-2">
+        <KpiStrip
+          pendingCount={presupuestosAceptados.length}
+          todayJobsCount={dayJobs.length}
+          inProgressCount={jobs.filter(j => j.estado === 'en_curso').length}
+          unassignedCount={dayJobs.filter(j => !j.trade_job_workers?.length).length}
+          selectedDate={selectedDate}
+        />
+      </div>
+
+      {/* ── DispatchBoard desktop (carga del equipo) ── */}
+      {hasDispatchBoard && (
+        <div className="hidden lg:block shrink-0 border-b border-slate-100 dark:border-slate-800 max-h-40 overflow-y-auto px-4 py-2">
+          <p className="text-[9px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5 mb-1.5">
+            <Users className="w-3 h-3" />
+            Carga del equipo — {new Date(selectedDate + 'T12:00:00').toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'short' })}
+          </p>
+          <div className="space-y-1">
+            {workers.filter(w => w.activo).map(w => {
+              const workerJobs = dayJobs.filter(j =>
+                j.trade_job_workers?.some(jw => jw.worker_id === w.id) &&
+                j.estado !== 'cancelado'
+              );
+              const maxJobs = 6;
+              const pct = Math.min((workerJobs.length / maxJobs) * 100, 100);
+              const barColor = pct >= 85 ? 'bg-red-400' : pct >= 60 ? 'bg-amber-400' : 'bg-emerald-400';
+              return (
+                <div key={w.id} className="flex items-center gap-2">
+                  <div className="w-5 h-5 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold text-[9px] shrink-0">
+                    {w.nombre.slice(0, 2).toUpperCase()}
+                  </div>
+                  <div className="flex-grow min-w-0">
+                    <div className="flex items-center justify-between mb-0.5">
+                      <span className="text-[10px] font-semibold text-slate-700 dark:text-slate-200 truncate">{w.nombre}</span>
+                      <span className={`text-[9px] font-bold ml-2 shrink-0 ${workerJobs.length >= maxJobs ? 'text-red-500' : 'text-slate-400'}`}>
+                        {workerJobs.length}/{maxJobs}
+                      </span>
+                    </div>
+                    <div className="h-1 bg-slate-100 rounded-full overflow-hidden">
+                      <div className={`h-full ${barColor} rounded-full transition-all`} style={{ width: `${pct}%` }} />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* ── Bloques ancho completo ── */}
       <div className="shrink-0 px-4 pt-2 pb-2 space-y-2">
@@ -2102,11 +2277,17 @@ export default function ScreenPlanificacion({
           );
         })()}
 
-        {/* Pipeline: compact notice — the full list lives in the Pendientes tab */}
+        {/* Pipeline mobile: lista inline accesible (desktop lo muestra en columna izquierda) */}
         {presupuestosAceptados.length > 0 && (
-          <p className="text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2 leading-snug">
-            {presupuestosAceptados.length} presupuesto{presupuestosAceptados.length !== 1 ? 's' : ''} pendiente{presupuestosAceptados.length !== 1 ? 's' : ''} de programar · Ve a la pestaña <span className="font-bold">Pendientes</span>
-          </p>
+          <div className="lg:hidden space-y-2">
+            <p className="text-[9px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1">
+              <Clock className="w-3 h-3" />
+              Pendientes de planificar ({presupuestosAceptados.length})
+            </p>
+            {presupuestosAceptados.map(q => (
+              <PendienteCard key={q.id} quote={q} onProgramar={handleProgramarDesdeCalendario} />
+            ))}
+          </div>
         )}
 
         {/* Demo notice */}
@@ -2224,6 +2405,8 @@ export default function ScreenPlanificacion({
           )}
         </div>
       </div>
+
+      </div> {/* end right column */}
 
       {/* Modales: visitas anteriores + pausa + create/edit */}
       {pendingPrevJobs.length > 0 && targetInitJob && (
