@@ -13,6 +13,12 @@ import LocationPicker from './LocationPicker';
 import { isValidLatLng } from './RouteMap';
 import MonthCalendar from './MonthCalendar';
 import KpiStrip from './KpiStrip';
+import MobileWorkHub, { type MobileSection } from './MobileWorkHub';
+import MobileSectionEnCurso from './MobileSectionEnCurso';
+import MobileSectionPlanificados from './MobileSectionPlanificados';
+import MobileSectionRuta from './MobileSectionRuta';
+import MobileSectionPendientes from './MobileSectionPendientes';
+import MobileSectionAgenda from './MobileSectionAgenda';
 
 interface Worker { id: string; nombre: string; rol: string; activo: boolean; }
 interface Cliente { id: string; nombre: string; telefono: string; }
@@ -56,6 +62,8 @@ export interface ScreenPlanificacionProps {
   onCreatePresupuesto?: (job: TradeJob) => void;
   /** Abre la pantalla de Ruta del Día para la fecha seleccionada. */
   onViewRoute?: (fecha: string) => void;
+  /** Navega a la pestaña de Partes en el nivel superior (mobile). */
+  onGoPartes?: () => void;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   /** Incrementar para abrir el modal de creación desde fuera. */
   triggerNew?: number;
@@ -1514,7 +1522,7 @@ export default function ScreenPlanificacion({
   presupuestosAceptados = [],
   presupuestosPorId = {},
   onCreateJob, onUpdateJob, onDeleteJob, onAssignWorker, onRemoveWorker,
-  onOpenParte, onCreatePresupuesto, onViewRoute, showToast, triggerNew,
+  onOpenParte, onCreatePresupuesto, onViewRoute, onGoPartes, showToast, triggerNew,
   prefillJobFromQuote, onPrefillConsumed, onJobGeoConfirmed, onJobGeoAuto,
 }: ScreenPlanificacionProps) {
   const jobs  = isLiveMode ? propJobs : DEMO_JOBS;
@@ -1533,6 +1541,8 @@ export default function ScreenPlanificacion({
   const [locationPickerJob, setLocationPickerJob] = useState<TradeJob | null>(null);
   const [locationPickerSnapshot, setLocationPickerSnapshot] = useState<JobGeoAddressSnapshot | null>(null);
   const autoRescheduledRef                        = useRef(false);
+  const [mobileSection, setMobileSection]         = useState<MobileSection | null>(null);
+  const [previousMobileSection, setPreviousMobileSection] = useState<MobileSection | null>(null);
 
   // Modal: visitas anteriores sin resolver
   const [pendingPrevJobs, setPendingPrevJobs]   = useState<TradeJob[]>([]);
@@ -2042,7 +2052,66 @@ export default function ScreenPlanificacion({
       {/* ── Right column ── */}
       <div className="flex-1 min-w-0 flex flex-col">
 
-      {/* ── Cabecera sticky: DayCarousel (mobile only) ── */}
+      {/* ── MOBILE: Hub o sección activa ── */}
+      {mobileSection !== null ? (
+        <div className="lg:hidden flex-1 overflow-hidden flex flex-col">
+          {mobileSection === 'en-curso' && (
+            <MobileSectionEnCurso
+              jobs={jobs.filter(j => j.estado === 'en_curso')}
+              onBack={() => setMobileSection(null)}
+              onJobClick={job => { setPreviousMobileSection(mobileSection); setMobileSection(null); setSelectedJobId(job.id); }}
+            />
+          )}
+          {mobileSection === 'planificados' && (
+            <MobileSectionPlanificados
+              jobs={jobs.filter(j => j.estado === 'planificado')}
+              selectedDate={selectedDate}
+              onBack={() => setMobileSection(null)}
+              onJobClick={job => { setPreviousMobileSection(mobileSection); setMobileSection(null); setSelectedJobId(job.id); }}
+            />
+          )}
+          {mobileSection === 'ruta' && (
+            <MobileSectionRuta
+              jobs={jobs}
+              selectedDate={selectedDate}
+              onBack={() => setMobileSection(null)}
+              onJobClick={job => { setPreviousMobileSection(mobileSection); setMobileSection(null); setSelectedJobId(job.id); }}
+              onViewRoute={onViewRoute}
+            />
+          )}
+          {mobileSection === 'pendientes' && (
+            <MobileSectionPendientes
+              presupuestos={presupuestosAceptados}
+              onBack={() => setMobileSection(null)}
+              onProgramar={q => { setMobileSection(null); handleProgramarDesdeCalendario(q); }}
+            />
+          )}
+          {mobileSection === 'agenda' && (
+            <MobileSectionAgenda
+              jobs={jobs}
+              selectedDate={selectedDate}
+              onDateSelect={handleSelectDate}
+              jobDates={jobDates}
+              onBack={() => setMobileSection(null)}
+              onJobClick={job => { setPreviousMobileSection(mobileSection); setMobileSection(null); setSelectedJobId(job.id); }}
+            />
+          )}
+        </div>
+      ) : (
+        <>
+      {/* ── Cabecera sticky: Hub (mobile) + DayCarousel (mobile) ── */}
+      <div className="lg:hidden">
+        <MobileWorkHub
+          inProgressCount={jobs.filter(j => j.estado === 'en_curso').length}
+          scheduledCount={jobs.filter(j => j.estado === 'planificado').length}
+          pendingCount={presupuestosAceptados.length}
+          onNavigate={(section) => {
+            if (section === 'partes') { onGoPartes?.(); return; }
+            setMobileSection(section);
+          }}
+          selectedDate={selectedDate}
+        />
+      </div>
       <div className="lg:hidden shrink-0 sticky top-0 z-10 bg-white border-b border-slate-100">
         <DayCarousel
           jobs={jobs}
@@ -2286,7 +2355,7 @@ export default function ScreenPlanificacion({
                 onDelete={handleDelete}
                 onOpenParte={onOpenParte}
                 onCreatePresupuesto={onCreatePresupuesto}
-                onClose={() => setSelectedJobId(null)}
+                onClose={() => { setSelectedJobId(null); if (previousMobileSection) { setMobileSection(previousMobileSection); setPreviousMobileSection(null); } }}
                 onAdjustLocation={openLocationPicker}
               />
             </div>
@@ -2299,6 +2368,9 @@ export default function ScreenPlanificacion({
           )}
         </div>
       </div>
+
+      </>
+      )}
 
       </div> {/* end right column */}
 

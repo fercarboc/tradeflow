@@ -58,6 +58,7 @@ interface AgendaTabProps {
   triggerNew?: number;
   onJobGeoConfirmed?: (jobId: string, lat: number, lng: number, confirmedAt: string) => void;
   onJobGeoAuto?: (jobId: string, lat: number, lng: number, normAddress: string) => void;
+  onGoPartes?: () => void;
 }
 
 function AgendaTab(props: AgendaTabProps) {
@@ -119,6 +120,7 @@ function AgendaTab(props: AgendaTabProps) {
             onOpenParte={props.onOpenParte}
             onCreatePresupuesto={props.onCreatePresupuesto}
             onViewRoute={() => setAgendaView('ruta')}
+            onGoPartes={props.onGoPartes}
             showToast={props.showToast}
             triggerNew={props.triggerNew}
             onJobGeoConfirmed={props.onJobGeoConfirmed}
@@ -317,6 +319,7 @@ export interface OperationsHubProps {
   triggerNew?: number;
   onJobGeoConfirmed?: (jobId: string, lat: number, lng: number, confirmedAt: string) => void;
   onJobGeoAuto?: (jobId: string, lat: number, lng: number, normAddress: string) => void;
+  onGoPartes?: () => void;
 }
 
 const TAB_CFG: Array<{ id: HubSubTab; icon: React.ReactNode; label: string }> = [
@@ -513,6 +516,7 @@ export default function OperationsHub(props: OperationsHubProps) {
             triggerNew={internalTrigger}
             onJobGeoConfirmed={props.onJobGeoConfirmed}
             onJobGeoAuto={props.onJobGeoAuto}
+            onGoPartes={props.onGoPartes}
           />
         </div>
       )}

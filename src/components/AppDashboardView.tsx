@@ -4298,6 +4298,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               }}
               showToast={showToast}
               triggerNew={newJobTrigger}
+              onGoPartes={() => { setPartesDayFilter('hoy'); setMobileTab('partes'); }}
             />
           )}
           {mobileTab === 'mantenimiento' && orgId && (
