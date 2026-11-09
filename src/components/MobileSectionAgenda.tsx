@@ -47,7 +47,7 @@ export default function MobileSectionAgenda({
         </button>
         <h2 className="font-bold text-sm text-slate-900">Agenda mensual</h2>
       </div>
-      <div className="overflow-y-auto flex-1 pb-6">
+      <div className="overflow-y-auto flex-1" style={{ paddingBottom: 'calc(72px + env(safe-area-inset-bottom, 0px))' }}>
         <div className="px-2 pt-2">
           <MonthCalendar
             selectedDate={selectedDate}
