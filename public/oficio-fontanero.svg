@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" fill="none">
+  <!-- Llave inglesa grande de fondo -->
+  <path d="M148 35 Q168 35 172 55 Q176 72 162 82 L80 190 Q70 205 55 200 Q38 195 38 178 Q42 162 58 158 L140 55 Q142 42 148 35 Z" fill="white" opacity="0.15"/>
+  <!-- Llave inglesa principal -->
+  <path d="M142 48 Q158 44 165 58 Q172 72 160 82 L88 182 Q80 196 65 192 Q48 188 48 172 Q52 158 66 155 L138 60 Q138 50 142 48 Z" fill="white" opacity="0.85"/>
+  <circle cx="58" cy="175" r="18" fill="white" opacity="0.85"/>
+  <circle cx="58" cy="175" r="10" fill="#3b82f6" opacity="0.4"/>
+  <circle cx="152" cy="60" r="14" fill="white" opacity="0.85"/>
+  <circle cx="152" cy="60" r="8" fill="#3b82f6" opacity="0.4"/>
+  <!-- Apertura de la llave -->
+  <path d="M145 50 L158 50 L162 60 L158 70 L145 70" fill="#3b82f6" opacity="0.5"/>
+  <!-- Figura humana -->
+  <circle cx="102" cy="148" r="16" fill="white" opacity="0.85"/>
+  <path d="M82 165 Q102 155 122 165 L126 228 Q102 236 78 228 Z" fill="white" opacity="0.85"/>
+  <!-- Brazos -->
+  <path d="M82 168 Q62 178 56 155" stroke="white" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <path d="M122 168 Q144 175 150 155" stroke="white" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <!-- Piernas -->
+  <path d="M88 226 L83 273" stroke="white" stroke-width="12" stroke-linecap="round" opacity="0.85"/>
+  <path d="M116 226 L121 273" stroke="white" stroke-width="12" stroke-linecap="round" opacity="0.85"/>
+  <ellipse cx="81" cy="274" rx="14" ry="6" fill="#bfdbfe" opacity="0.9"/>
+  <ellipse cx="123" cy="274" rx="14" ry="6" fill="#bfdbfe" opacity="0.9"/>
+  <!-- Gotas de agua -->
+  <ellipse cx="35" cy="258" rx="5" ry="7" fill="#bfdbfe" opacity="0.8"/>
+  <path d="M35 250 Q38 244 35 240" stroke="#bfdbfe" stroke-width="3" fill="none" opacity="0.8"/>
+  <ellipse cx="22" cy="270" rx="4" ry="6" fill="#bfdbfe" opacity="0.6"/>
+</svg>

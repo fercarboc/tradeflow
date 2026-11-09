@@ -59,6 +59,7 @@ interface AgendaTabProps {
   onJobGeoConfirmed?: (jobId: string, lat: number, lng: number, confirmedAt: string) => void;
   onJobGeoAuto?: (jobId: string, lat: number, lng: number, normAddress: string) => void;
   onGoPartes?: () => void;
+  agendaTrigger?: number;
 }
 
 function AgendaTab(props: AgendaTabProps) {
@@ -75,8 +76,8 @@ function AgendaTab(props: AgendaTabProps) {
 
   return (
     <div className="h-full flex flex-col min-h-0">
-      {/* Toggle: AGENDA | RUTA DEL DÍA */}
-      <div className="flex gap-1.5 mb-4 shrink-0">
+      {/* Toggle: AGENDA | RUTA DEL DÍA — desktop only; mobile uses MobileSectionRuta */}
+      <div className="hidden md:flex gap-1.5 mb-4 shrink-0">
         <button
           onClick={() => setAgendaView('agenda')}
           className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
@@ -123,6 +124,7 @@ function AgendaTab(props: AgendaTabProps) {
             onGoPartes={props.onGoPartes}
             showToast={props.showToast}
             triggerNew={props.triggerNew}
+            agendaTrigger={props.agendaTrigger}
             onJobGeoConfirmed={props.onJobGeoConfirmed}
             onJobGeoAuto={props.onJobGeoAuto}
           />
@@ -317,6 +319,8 @@ export interface OperationsHubProps {
   onCreatePresupuesto?: (job: TradeJob) => void;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   triggerNew?: number;
+  /** Incrementar para abrir directamente la sección Agenda mensual en móvil. */
+  agendaTrigger?: number;
   onJobGeoConfirmed?: (jobId: string, lat: number, lng: number, confirmedAt: string) => void;
   onJobGeoAuto?: (jobId: string, lat: number, lng: number, normAddress: string) => void;
   onGoPartes?: () => void;
@@ -465,8 +469,8 @@ export default function OperationsHub(props: OperationsHubProps) {
 
   return (
     <div className="h-full flex flex-col min-h-0">
-      {/* Hub header */}
-      <div className="mb-4 shrink-0">
+      {/* Hub header — desktop only; mobile uses MobileWorkHub cards for navigation */}
+      <div className="hidden md:block mb-4 shrink-0">
         {/* Tab bar */}
         <div className="flex gap-1 mt-3 border-b border-slate-200 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
           {TAB_CFG.map(tab => {
@@ -514,6 +518,7 @@ export default function OperationsHub(props: OperationsHubProps) {
             onCreatePresupuesto={props.onCreatePresupuesto}
             showToast={props.showToast}
             triggerNew={internalTrigger}
+            agendaTrigger={props.agendaTrigger}
             onJobGeoConfirmed={props.onJobGeoConfirmed}
             onJobGeoAuto={props.onJobGeoAuto}
             onGoPartes={props.onGoPartes}

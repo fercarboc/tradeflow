@@ -918,6 +918,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [isSessionClosed, setIsSessionClosed] = useState(false);
   const [showFloatingMenu, setShowFloatingMenu] = useState<boolean>(false);
   const [showMobileMoreSheet, setShowMobileMoreSheet] = useState(false);
+  const [agendaTrigger, setAgendaTrigger] = useState(0);
   const [showVisitaModal, setShowVisitaModal] = useState(false);
   const [visitaDraft, setVisitaDraft] = useState<{ titulo: string; client_id: string | null; fecha: string }>({ titulo: '', client_id: null, fecha: new Date().toISOString().split('T')[0] });
   const [showPresupuestoFoto, setShowPresupuestoFoto] = useState(false);
@@ -4309,6 +4310,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               }}
               showToast={showToast}
               triggerNew={newJobTrigger}
+              agendaTrigger={agendaTrigger}
               onGoPartes={() => { setPartesDayFilter('hoy'); setMobileTab('partes'); }}
             />
           )}
@@ -4565,11 +4567,24 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 )}
               </>
             ) : (
-              /* ── BARRA MÓVIL INSTALADORES: 4 items ── */
+              /* ── BARRA MÓVIL INSTALADORES: 5 items ── */
               <>
-                {MobileTabButton({ tab: 'inicio',    icon: <Home          className="w-5 h-5" />, label: 'Inicio' })}
-                {MobileTabButton({ tab: 'trabajos',  icon: <CalendarDays  className="w-5 h-5" />, label: 'Agenda' })}
-                {MobileTabButton({ tab: 'clientes',  icon: <Users         className="w-5 h-5" />, label: 'Clientes' })}
+                {MobileTabButton({ tab: 'inicio',   icon: <Home          className="w-5 h-5" />, label: 'Inicio' })}
+                <button
+                  onClick={() => { setMobileTab('trabajos'); setAgendaTrigger(t => t + 1); setShowFloatingMenu(false); }}
+                  className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2 px-1 cursor-pointer transition-all active:scale-95 relative"
+                >
+                  <span className={`transition-colors ${mobileTab === 'trabajos' ? 'text-blue-600' : 'text-gray-400'}`}><CalendarDays className="w-5 h-5" /></span>
+                  <span className={`text-[10px] font-semibold transition-colors leading-tight ${mobileTab === 'trabajos' ? 'text-blue-600' : 'text-gray-400'}`}>Agenda</span>
+                </button>
+                <button
+                  onClick={() => { setMobileTab('trabajos'); setShowFloatingMenu(false); }}
+                  className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2 px-1 cursor-pointer transition-all active:scale-95 relative"
+                >
+                  <span className={`transition-colors ${mobileTab === 'trabajos' ? 'text-blue-600' : 'text-gray-400'}`}><Briefcase className="w-5 h-5" /></span>
+                  <span className={`text-[10px] font-semibold transition-colors leading-tight ${mobileTab === 'trabajos' ? 'text-blue-600' : 'text-gray-400'}`}>Trabajos</span>
+                </button>
+                {MobileTabButton({ tab: 'clientes', icon: <Users         className="w-5 h-5" />, label: 'Clientes' })}
                 <button
                   onClick={() => { setMobileTab('inicio'); setShowMobileMoreSheet(true); }}
                   className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors ${
@@ -4931,6 +4946,25 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ================= MÓVIL: INICIO SCREEN =================
   function MobileScreenInicio() {
+    const hoy = new Date().toISOString().split('T')[0];
+    const todayJobs = jobs.filter(j =>
+      j.estado !== 'cancelado' && j.estado !== 'no_realizado' && j.fecha_inicio === hoy,
+    );
+    const nextJobRaw = jobs
+      .filter(j => j.estado !== 'cancelado' && j.estado !== 'no_realizado' && (j.fecha_inicio ?? '') >= hoy)
+      .sort((a, b) => (a.fecha_inicio ?? '').localeCompare(b.fecha_inicio ?? ''))
+      [0];
+    const nextJobProp = nextJobRaw ? {
+      id: nextJobRaw.id,
+      title: nextJobRaw.titulo,
+      clientName: nextJobRaw.trade_clients?.nombre ?? '',
+      location: nextJobRaw.localidad ?? undefined,
+      scheduledTime: nextJobRaw.hora_inicio ?? undefined,
+    } : undefined;
+    const displayName = isTecnico
+      ? (workerProfile?.nombre ?? undefined)
+      : (empresaAjustes.nombre || orgData?.nombre || undefined);
+
     return (
       <MobileHomeHub
         jobsCount={jobs.length}
@@ -4942,9 +4976,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         clientesCount={clientes.length}
         hasTransport={caps.hasTransport && can('transport.view')}
         hasSuppliers={!caps.isTransportOrg}
+        userName={displayName}
+        oficioOrg={orgData?.oficio ?? undefined}
+        todayJobsCount={todayJobs.length}
+        nextJob={nextJobProp}
         onNavigate={tab => setMobileTab(tab as typeof mobileTab)}
         onGoPartes={() => { setPartesDayFilter('hoy'); setMobileTab('partes'); setShowMobileMoreSheet(false); }}
         onGoSuppliers={() => { setMobileSuppliersSubTab('proveedores'); setMobileTab('suppliers'); setShowFloatingMenu(false); setShowMobileMoreSheet(false); }}
+        onCreateQuote={() => setShowPresupuestoIncremental(true)}
+        onGoAgenda={() => { setMobileTab('trabajos'); setAgendaTrigger(t => t + 1); }}
+        onGoTrabajo={(_jobId) => { setMobileTab('trabajos'); }}
+        onGoRuta={() => { setMobileTab('trabajos'); }}
+        onGoAsistente={() => setMobileTab('asistente')}
         showMoreSheetExternal={showMobileMoreSheet}
         onMoreSheetChange={setShowMobileMoreSheet}
       />

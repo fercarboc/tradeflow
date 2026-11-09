@@ -40,14 +40,14 @@ export default function MobileSectionAgenda({
   const dateLabel = formatDateLabel(selectedDate);
 
   return (
-    <div className="flex flex-col h-full overflow-hidden">
-      <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-100 bg-white sticky top-0">
+    <div className="flex flex-col h-full overflow-hidden min-h-0">
+      <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-100 bg-white shrink-0">
         <button onClick={onBack} className="flex items-center gap-1 text-blue-600 text-sm font-medium cursor-pointer">
           <ChevronLeft className="w-4 h-4" /> Volver
         </button>
         <h2 className="font-bold text-sm text-slate-900">Agenda mensual</h2>
       </div>
-      <div className="overflow-y-auto flex-1" style={{ paddingBottom: 'calc(72px + env(safe-area-inset-bottom, 0px))' }}>
+      <div className="overflow-y-auto flex-1 min-h-0" style={{ paddingBottom: 'calc(72px + env(safe-area-inset-bottom, 0px))' }}>
         <div className="px-2 pt-2">
           <MonthCalendar
             selectedDate={selectedDate}

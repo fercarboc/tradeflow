@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" fill="none">
+  <!-- Sierra de fondo -->
+  <path d="M40 55 L160 55 L160 80 L40 80 Z" fill="white" opacity="0.12"/>
+  <!-- Mango de sierra -->
+  <rect x="38" y="52" width="30" height="30" rx="8" fill="white" opacity="0.85"/>
+  <rect x="42" y="58" width="22" height="18" rx="5" fill="#3b82f6" opacity="0.4"/>
+  <!-- Hoja de sierra -->
+  <rect x="68" y="62" width="94" height="8" rx="2" fill="white" opacity="0.9"/>
+  <!-- Dientes de sierra -->
+  <path d="M68 70 L75 80 L82 70 L89 80 L96 70 L103 80 L110 70 L117 80 L124 70 L131 80 L138 70 L145 80 L152 70 L159 80 L162 70" stroke="white" stroke-width="2" fill="none" opacity="0.9"/>
+  <!-- Martillo -->
+  <rect x="130" y="88" width="40" height="22" rx="6" fill="white" opacity="0.85"/>
+  <rect x="118" y="90" width="14" height="18" rx="4" fill="white" opacity="0.85"/>
+  <rect x="145" y="110" width="6" height="55" rx="3" fill="white" opacity="0.85"/>
+  <!-- Figura humana -->
+  <!-- Gorra de trabajo -->
+  <path d="M78 148 Q80 132 100 130 Q120 128 122 148 Z" fill="white" opacity="0.85"/>
+  <rect x="72" y="145" width="58" height="7" rx="3" fill="white" opacity="0.9"/>
+  <!-- Cabeza -->
+  <circle cx="100" cy="162" r="15" fill="white" opacity="0.85"/>
+  <!-- Cuerpo -->
+  <path d="M80 178 Q100 168 120 178 L124 236 Q100 244 76 236 Z" fill="white" opacity="0.85"/>
+  <!-- Brazos -->
+  <path d="M80 180 Q58 190 55 215" stroke="white" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <path d="M120 180 Q140 185 142 162" stroke="white" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <!-- Piernas -->
+  <path d="M86 234 L81 280" stroke="white" stroke-width="12" stroke-linecap="round" opacity="0.85"/>
+  <path d="M114 234 L119 280" stroke="white" stroke-width="12" stroke-linecap="round" opacity="0.85"/>
+  <ellipse cx="79" cy="281" rx="14" ry="6" fill="#bfdbfe" opacity="0.9"/>
+  <ellipse cx="121" cy="281" rx="14" ry="6" fill="#bfdbfe" opacity="0.9"/>
+  <!-- Virutas de madera -->
+  <path d="M38 230 Q42 220 48 228 Q52 236 46 242" stroke="#fde68a" stroke-width="3" fill="none" opacity="0.7"/>
+  <path d="M28 245 Q32 235 38 243 Q42 251 36 257" stroke="#fde68a" stroke-width="3" fill="none" opacity="0.5"/>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" fill="none">
+  <!-- Rayo grande de fondo -->
+  <path d="M130 30 L95 130 L118 130 L85 240 L155 115 L130 115 L160 30 Z" fill="white" opacity="0.15"/>
+  <!-- Rayo principal -->
+  <path d="M120 45 L88 135 L108 135 L78 225 L148 120 L125 120 L150 45 Z" fill="white" opacity="0.9"/>
+  <!-- Figura humana estilizada -->
+  <!-- Casco de trabajo -->
+  <path d="M68 148 Q70 128 95 125 Q120 122 125 148 Z" fill="white" opacity="0.9"/>
+  <rect x="65" y="145" width="65" height="8" rx="4" fill="white" opacity="0.9"/>
+  <!-- Cabeza -->
+  <circle cx="97" cy="162" r="16" fill="white" opacity="0.85"/>
+  <!-- Cuerpo -->
+  <path d="M76 180 Q97 170 118 180 L122 238 Q97 246 72 238 Z" fill="white" opacity="0.85"/>
+  <!-- Brazos -->
+  <path d="M76 182 Q52 195 48 220" stroke="white" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <path d="M118 182 Q142 190 148 215" stroke="white" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <!-- Herramienta (destornillador) en mano derecha -->
+  <line x1="148" y1="215" x2="168" y2="240" stroke="white" stroke-width="8" stroke-linecap="round" opacity="0.9"/>
+  <rect x="162" y="234" width="14" height="6" rx="2" fill="#bfdbfe" opacity="0.9" transform="rotate(45 169 237)"/>
+  <!-- Piernas -->
+  <path d="M83 236 L78 283" stroke="white" stroke-width="12" stroke-linecap="round" opacity="0.85"/>
+  <path d="M111 236 L116 283" stroke="white" stroke-width="12" stroke-linecap="round" opacity="0.85"/>
+  <ellipse cx="76" cy="284" rx="14" ry="6" fill="#bfdbfe" opacity="0.9"/>
+  <ellipse cx="118" cy="284" rx="14" ry="6" fill="#bfdbfe" opacity="0.9"/>
+  <!-- Chispas -->
+  <line x1="50" y1="225" x2="40" y2="218" stroke="#fde68a" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+  <line x1="50" y1="225" x2="38" y2="232" stroke="#fde68a" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+  <line x1="50" y1="225" x2="45" y2="212" stroke="#fde68a" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+</svg>

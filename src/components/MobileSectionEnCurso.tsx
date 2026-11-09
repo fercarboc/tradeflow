@@ -9,7 +9,7 @@ interface Props {
 
 export default function MobileSectionEnCurso({ jobs, onBack, onJobClick }: Props) {
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full overflow-hidden min-h-0">
       {/* Header */}
       <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 sticky top-0 z-10">
         <button
@@ -29,7 +29,7 @@ export default function MobileSectionEnCurso({ jobs, onBack, onJobClick }: Props
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3" style={{ paddingBottom: 'calc(72px + env(safe-area-inset-bottom, 0px))' }}>
+      <div className="flex-1 overflow-y-auto min-h-0 px-4 py-3 space-y-3" style={{ paddingBottom: 'calc(72px + env(safe-area-inset-bottom, 0px))' }}>
         {jobs.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">
             <div className="w-14 h-14 rounded-2xl bg-amber-50 dark:bg-amber-900/20 flex items-center justify-center mb-4">

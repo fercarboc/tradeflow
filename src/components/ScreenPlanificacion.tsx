@@ -67,6 +67,8 @@ export interface ScreenPlanificacionProps {
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   /** Incrementar para abrir el modal de creación desde fuera. */
   triggerNew?: number;
+  /** Incrementar para abrir directamente la sección Agenda mensual en móvil. */
+  agendaTrigger?: number;
   /** Presupuesto aceptado desde el que crear el trabajo (pre-rellena el formulario). */
   prefillJobFromQuote?: PresupuestoPendiente | null;
   onPrefillConsumed?: () => void;
@@ -1522,7 +1524,7 @@ export default function ScreenPlanificacion({
   presupuestosAceptados = [],
   presupuestosPorId = {},
   onCreateJob, onUpdateJob, onDeleteJob, onAssignWorker, onRemoveWorker,
-  onOpenParte, onCreatePresupuesto, onViewRoute, onGoPartes, showToast, triggerNew,
+  onOpenParte, onCreatePresupuesto, onViewRoute, onGoPartes, showToast, triggerNew, agendaTrigger,
   prefillJobFromQuote, onPrefillConsumed, onJobGeoConfirmed, onJobGeoAuto,
 }: ScreenPlanificacionProps) {
   const jobs  = isLiveMode ? propJobs : DEMO_JOBS;
@@ -1543,6 +1545,11 @@ export default function ScreenPlanificacion({
   const autoRescheduledRef                        = useRef(false);
   const [mobileSection, setMobileSection]         = useState<MobileSection | null>(null);
   const [previousMobileSection, setPreviousMobileSection] = useState<MobileSection | null>(null);
+
+  // Abrir directamente sección Agenda desde fuera (incrementar agendaTrigger)
+  useEffect(() => {
+    if (agendaTrigger != null && agendaTrigger > 0) setMobileSection('agenda');
+  }, [agendaTrigger]);
 
   // Modal: visitas anteriores sin resolver
   const [pendingPrevJobs, setPendingPrevJobs]   = useState<TradeJob[]>([]);
@@ -2099,7 +2106,7 @@ export default function ScreenPlanificacion({
             )}
           </div>
         ) : selectedJob ? (
-          <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 'calc(72px + env(safe-area-inset-bottom, 0px))' }}>
+          <div className="flex-1 overflow-y-auto min-h-0" style={{ paddingBottom: 'calc(72px + env(safe-area-inset-bottom, 0px))' }}>
             <div className="px-4 pt-3 pb-4">
               <JobDetailPanel
                 job={selectedJob}
@@ -2117,7 +2124,7 @@ export default function ScreenPlanificacion({
             </div>
           </div>
         ) : (
-          <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 'calc(72px + env(safe-area-inset-bottom, 0px))' }}>
+          <div className="flex-1 overflow-y-auto min-h-0" style={{ paddingBottom: 'calc(72px + env(safe-area-inset-bottom, 0px))' }}>
             <MobileWorkHub
               inProgressCount={jobs.filter(j => j.estado === 'en_curso').length}
               scheduledCount={jobs.filter(j => j.estado === 'planificado').length}
