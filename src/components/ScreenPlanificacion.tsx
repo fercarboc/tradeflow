@@ -2052,84 +2052,91 @@ export default function ScreenPlanificacion({
       {/* ── Right column ── */}
       <div className="flex-1 min-w-0 flex flex-col">
 
-      {/* ── MOBILE: Hub o sección activa ── */}
-      {mobileSection !== null ? (
-        <div className="lg:hidden flex-1 overflow-hidden flex flex-col">
-          {mobileSection === 'en-curso' && (
-            <MobileSectionEnCurso
-              jobs={jobs.filter(j => j.estado === 'en_curso')}
-              onBack={() => setMobileSection(null)}
-              onJobClick={job => { setPreviousMobileSection(mobileSection); setMobileSection(null); setSelectedJobId(job.id); }}
-            />
-          )}
-          {mobileSection === 'planificados' && (
-            <MobileSectionPlanificados
-              jobs={jobs.filter(j => j.estado === 'planificado')}
+      {/* ── MOBILE ONLY: Hub · Sección activa · Detalle trabajo ── */}
+      <div className="lg:hidden flex-1 flex flex-col overflow-hidden">
+        {mobileSection !== null ? (
+          <div className="flex-1 overflow-hidden flex flex-col">
+            {mobileSection === 'en-curso' && (
+              <MobileSectionEnCurso
+                jobs={jobs.filter(j => j.estado === 'en_curso')}
+                onBack={() => setMobileSection(null)}
+                onJobClick={job => { setPreviousMobileSection(mobileSection); setMobileSection(null); setSelectedJobId(job.id); }}
+              />
+            )}
+            {mobileSection === 'planificados' && (
+              <MobileSectionPlanificados
+                jobs={jobs.filter(j => j.estado === 'planificado')}
+                selectedDate={selectedDate}
+                onBack={() => setMobileSection(null)}
+                onJobClick={job => { setPreviousMobileSection(mobileSection); setMobileSection(null); setSelectedJobId(job.id); }}
+              />
+            )}
+            {mobileSection === 'ruta' && (
+              <MobileSectionRuta
+                jobs={jobs}
+                selectedDate={selectedDate}
+                onBack={() => setMobileSection(null)}
+                onJobClick={job => { setPreviousMobileSection(mobileSection); setMobileSection(null); setSelectedJobId(job.id); }}
+                onViewRoute={onViewRoute}
+              />
+            )}
+            {mobileSection === 'pendientes' && (
+              <MobileSectionPendientes
+                presupuestos={presupuestosAceptados}
+                onBack={() => setMobileSection(null)}
+                onProgramar={q => { setMobileSection(null); handleProgramarDesdeCalendario(q); }}
+              />
+            )}
+            {mobileSection === 'agenda' && (
+              <MobileSectionAgenda
+                jobs={jobs}
+                selectedDate={selectedDate}
+                onDateSelect={handleSelectDate}
+                jobDates={jobDates}
+                onBack={() => setMobileSection(null)}
+                onJobClick={job => { setPreviousMobileSection(mobileSection); setMobileSection(null); setSelectedJobId(job.id); }}
+              />
+            )}
+          </div>
+        ) : selectedJob ? (
+          <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 'calc(72px + env(safe-area-inset-bottom, 0px))' }}>
+            <div className="px-4 pt-3 pb-4">
+              <JobDetailPanel
+                job={selectedJob}
+                linkedPresupuesto={selectedJob.quote_id ? presupuestosPorId[selectedJob.quote_id] : undefined}
+                onIniciar={handleIniciar}
+                onPause={setPausingJob}
+                onQuickStatus={handleQuickStatus}
+                onEdit={openEdit}
+                onDelete={handleDelete}
+                onOpenParte={onOpenParte}
+                onCreatePresupuesto={onCreatePresupuesto}
+                onClose={() => { setSelectedJobId(null); if (previousMobileSection) { setMobileSection(previousMobileSection); setPreviousMobileSection(null); } }}
+                onAdjustLocation={openLocationPicker}
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 'calc(72px + env(safe-area-inset-bottom, 0px))' }}>
+            <MobileWorkHub
+              inProgressCount={jobs.filter(j => j.estado === 'en_curso').length}
+              scheduledCount={jobs.filter(j => j.estado === 'planificado').length}
+              pendingCount={presupuestosAceptados.length}
+              onNavigate={(section) => {
+                if (section === 'partes') { onGoPartes?.(); return; }
+                setMobileSection(section);
+              }}
               selectedDate={selectedDate}
-              onBack={() => setMobileSection(null)}
-              onJobClick={job => { setPreviousMobileSection(mobileSection); setMobileSection(null); setSelectedJobId(job.id); }}
             />
-          )}
-          {mobileSection === 'ruta' && (
-            <MobileSectionRuta
-              jobs={jobs}
-              selectedDate={selectedDate}
-              onBack={() => setMobileSection(null)}
-              onJobClick={job => { setPreviousMobileSection(mobileSection); setMobileSection(null); setSelectedJobId(job.id); }}
-              onViewRoute={onViewRoute}
-            />
-          )}
-          {mobileSection === 'pendientes' && (
-            <MobileSectionPendientes
-              presupuestos={presupuestosAceptados}
-              onBack={() => setMobileSection(null)}
-              onProgramar={q => { setMobileSection(null); handleProgramarDesdeCalendario(q); }}
-            />
-          )}
-          {mobileSection === 'agenda' && (
-            <MobileSectionAgenda
-              jobs={jobs}
-              selectedDate={selectedDate}
-              onDateSelect={handleSelectDate}
-              jobDates={jobDates}
-              onBack={() => setMobileSection(null)}
-              onJobClick={job => { setPreviousMobileSection(mobileSection); setMobileSection(null); setSelectedJobId(job.id); }}
-            />
-          )}
-        </div>
-      ) : (
-        <>
-      {/* ── Cabecera sticky: Hub (mobile) + DayCarousel (mobile) ── */}
-      <div className="lg:hidden">
-        <MobileWorkHub
-          inProgressCount={jobs.filter(j => j.estado === 'en_curso').length}
-          scheduledCount={jobs.filter(j => j.estado === 'planificado').length}
-          pendingCount={presupuestosAceptados.length}
-          onNavigate={(section) => {
-            if (section === 'partes') { onGoPartes?.(); return; }
-            setMobileSection(section);
-          }}
-          selectedDate={selectedDate}
-        />
-      </div>
-      <div className="lg:hidden shrink-0 sticky top-0 z-10 bg-white border-b border-slate-100">
-        <DayCarousel
-          jobs={jobs}
-          selectedDate={selectedDate}
-          weekOffset={weekOffset}
-          onSelectDate={handleSelectDate}
-          onChangeWeek={delta => {
-            const newOffset = weekOffset + delta;
-            setWeekOffset(newOffset);
-            const days = getWeekDays(newOffset);
-            if (!days.includes(selectedDate)) handleSelectDate(days[0]);
-          }}
-          className="bg-white px-3 pt-1.5 pb-2 space-y-1"
-        />
+          </div>
+        )}
       </div>
 
-      {/* ── KpiStrip (desktop only) ── */}
-      <div className="hidden lg:block shrink-0 border-b border-slate-100 dark:border-slate-800 px-4 py-2">
+      {/* ── DESKTOP ONLY: KpiStrip + filtros + trabajos ── */}
+      <div className="hidden lg:flex lg:flex-col flex-1 min-h-0">
+
+      {/* KpiStrip */}
+      <div className="shrink-0 border-b border-slate-100 dark:border-slate-800 px-4 py-2">
         <KpiStrip
           pendingCount={presupuestosAceptados.length}
           todayJobsCount={dayJobs.length}
@@ -2138,7 +2145,6 @@ export default function ScreenPlanificacion({
           selectedDate={selectedDate}
         />
       </div>
-
 
       {/* ── Bloques ancho completo ── */}
       <div className="shrink-0 px-4 pt-2 pb-2 space-y-2">
@@ -2203,7 +2209,6 @@ export default function ScreenPlanificacion({
           </button>
         </div>
 
-
         {/* Visitas pendientes (todas las fechas excepto el día seleccionado, que ya aparece abajo) */}
         {(() => {
           const dayJobIds = new Set(dayJobs.map(j => j.id));
@@ -2240,19 +2245,6 @@ export default function ScreenPlanificacion({
           );
         })()}
 
-        {/* Pipeline mobile: lista inline accesible (desktop lo muestra en columna izquierda) */}
-        {presupuestosAceptados.length > 0 && (
-          <div className="lg:hidden space-y-2">
-            <p className="text-[9px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1">
-              <Clock className="w-3 h-3" />
-              Pendientes de planificar ({presupuestosAceptados.length})
-            </p>
-            {presupuestosAceptados.map(q => (
-              <PendienteCard key={q.id} quote={q} onProgramar={handleProgramarDesdeCalendario} />
-            ))}
-          </div>
-        )}
-
         {/* Demo notice */}
         {!isLiveMode && (
           <div className="flex items-center gap-2 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2">
@@ -2264,10 +2256,10 @@ export default function ScreenPlanificacion({
       </div>
 
       {/* ── Grid lista + detalle ── */}
-      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2">
+      <div className="flex-1 min-h-0 grid grid-cols-2">
 
         {/* Columna izquierda — lista de trabajos */}
-        <div className={`overflow-y-auto overscroll-contain lg:border-r lg:border-slate-100 ${selectedJob ? 'hidden lg:block' : ''}`} style={{ paddingBottom: 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)' }}>
+        <div className="overflow-y-auto overscroll-contain border-r border-slate-100" style={{ paddingBottom: 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)' }}>
         <div className="px-4 pt-3 space-y-3">
 
         {/* Sección: Materiales pendientes (cross-date) */}
@@ -2342,7 +2334,7 @@ export default function ScreenPlanificacion({
         </div>
 
         {/* Columna derecha — panel de detalle */}
-        <div data-testid="planif-detail-scroll" className={`overflow-y-auto min-h-0 ${selectedJob ? 'block' : 'hidden lg:block'}`} style={{ paddingBottom: 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)' }}>
+        <div data-testid="planif-detail-scroll" className="overflow-y-auto min-h-0" style={{ paddingBottom: 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)' }}>
           {selectedJob ? (
             <div className="px-4 pt-3 pb-4">
               <JobDetailPanel
@@ -2360,7 +2352,7 @@ export default function ScreenPlanificacion({
               />
             </div>
           ) : (
-            <div className="hidden lg:flex flex-col items-center justify-center h-full py-16 text-center">
+            <div className="flex flex-col items-center justify-center h-full py-16 text-center">
               <CalendarDays className="w-12 h-12 text-slate-200 mb-3" />
               <p className="text-sm font-semibold text-slate-300">Selecciona un trabajo</p>
               <p className="text-xs text-slate-300 mt-1">El detalle aparecerá aquí</p>
@@ -2369,8 +2361,7 @@ export default function ScreenPlanificacion({
         </div>
       </div>
 
-      </>
-      )}
+      </div> {/* end desktop */}
 
       </div> {/* end right column */}
 
