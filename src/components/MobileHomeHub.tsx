@@ -185,7 +185,7 @@ export default function MobileHomeHub({
         {/* ── Hero: próximo trabajo ── */}
         {nextJob && (
           <div className="mx-4 mb-4 rounded-2xl bg-blue-600 overflow-hidden relative min-h-[148px]">
-            <div className="p-4 pr-32">
+            <div className="p-4 pr-36">
               <span className="text-[10px] font-bold text-blue-200 uppercase tracking-wider">Tu próximo trabajo</span>
               {nextJob.scheduledTime && (
                 <div className="inline-flex items-center gap-1 bg-white/20 rounded-full px-2.5 py-1 mt-1.5 mb-2">
@@ -222,7 +222,7 @@ export default function MobileHomeHub({
               src={getOficioImage(oficioOrg)}
               alt=""
               aria-hidden="true"
-              className="absolute right-0 bottom-0 h-full w-32 object-cover object-bottom"
+              className="absolute right-0 top-0 h-full w-36 object-cover object-top"
               onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/oficio-generic.svg'; }}
             />
           </div>
