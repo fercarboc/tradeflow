@@ -34,6 +34,7 @@ interface MobileHomeHubProps {
   onGoPartes: () => void;
   onGoSuppliers: () => void;
   onCreateQuote?: () => void;
+  onVoiceQuote?: () => void;
   onGoAgenda?: () => void;
   onGoTrabajo?: (jobId: string) => void;
   onGoRuta?: () => void;
@@ -44,11 +45,12 @@ interface MobileHomeHubProps {
 
 function getOficioImage(oficio?: string): string {
   const o = (oficio ?? '').toLowerCase();
-  if (o.includes('pint')) return '/oficio-pintor.svg';
-  if (o.includes('elec')) return '/oficio-electricista.svg';
-  if (o.includes('font') || o.includes('plom')) return '/oficio-fontanero.svg';
-  if (o.includes('carp')) return '/oficio-carpintero.svg';
-  return '/oficio-generic.svg';
+  if (o.includes('pint')) return '/pintor.png';
+  if (o.includes('elec')) return '/electricista.png';
+  if (o.includes('font') || o.includes('plom')) return '/fontanero.png';
+  if (o.includes('reform') || o.includes('carp') || o.includes('albañil') || o.includes('construct')) return '/reformas.png';
+  if (o.includes('climat') || o.includes('aire') || o.includes('frigoríf') || o.includes('termico')) return '/climatizacion.png';
+  return '/servicios.png';
 }
 
 function getGreeting(): string {
@@ -82,6 +84,7 @@ export default function MobileHomeHub({
   onGoPartes,
   onGoSuppliers,
   onCreateQuote,
+  onVoiceQuote,
   onGoAgenda,
   onGoTrabajo,
   onGoRuta,
@@ -234,15 +237,15 @@ export default function MobileHomeHub({
             <PlusCircle className="h-6 w-6 flex-shrink-0" />
             <div className="text-left flex-1">
               <div className="font-semibold text-sm">Crear presupuesto</div>
-              <div className="text-xs text-blue-100">Nuevo presupuesto para cliente</div>
+              <div className="text-xs text-blue-100">Presupuesto guiado</div>
             </div>
             <ChevronRight className="h-5 w-5 opacity-70" />
           </button>
         )}
 
-        {/* ── Asistente IA ── */}
+        {/* ── Asistente IA voz — presupuesto por voz ── */}
         <button
-          onClick={() => { onGoAsistente ? onGoAsistente() : onNavigate('asistente'); }}
+          onClick={() => { onVoiceQuote ? onVoiceQuote() : (onGoAsistente ? onGoAsistente() : onNavigate('asistente')); }}
           className="mx-4 mb-4 flex items-center gap-3 p-4 rounded-2xl bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 active:opacity-80 cursor-pointer"
         >
           <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0">
@@ -250,7 +253,7 @@ export default function MobileHomeHub({
           </div>
           <div className="text-left flex-1 min-w-0">
             <div className="font-semibold text-sm text-gray-900 dark:text-white">¿Qué necesitas hacer?</div>
-            <div className="text-xs text-gray-500 dark:text-gray-400 truncate">Pídeselo a TrabFlow</div>
+            <div className="text-xs text-gray-500 dark:text-gray-400 truncate">Presupuesto por voz con IA</div>
           </div>
           <ChevronRight className="h-4 w-4 text-gray-400 flex-shrink-0" />
         </button>

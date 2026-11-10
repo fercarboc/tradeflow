@@ -4983,7 +4983,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         onNavigate={tab => setMobileTab(tab as typeof mobileTab)}
         onGoPartes={() => { setPartesDayFilter('hoy'); setMobileTab('partes'); setShowMobileMoreSheet(false); }}
         onGoSuppliers={() => { setMobileSuppliersSubTab('proveedores'); setMobileTab('suppliers'); setShowFloatingMenu(false); setShowMobileMoreSheet(false); }}
-        onCreateQuote={() => setShowPresupuestoIncremental(true)}
+        onCreateQuote={() => startWizard(1)}
+        onVoiceQuote={() => setShowPresupuestoIncremental(true)}
         onGoAgenda={() => { setMobileTab('trabajos'); setAgendaTrigger(t => t + 1); }}
         onGoTrabajo={(_jobId) => { setMobileTab('trabajos'); }}
         onGoRuta={() => { setMobileTab('trabajos'); }}
