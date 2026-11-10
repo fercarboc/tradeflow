@@ -84,9 +84,10 @@ import { ADMIN_EMAIL, MARKETPLACE_ENABLED } from '../lib/constants';
 import { useIsMobile } from '../hooks/useIsMobile';
 import { canAccessMarketplaceV2 } from '../lib/marketplaceV2Preview';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, updateClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, emitirFactura, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, updateOrgGeoManual, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote, getOrgActiveOrders, loadInvoiceLines, updateDraftInvoice, normalizaNif, getClientDisplayName, createTransportServiceFromQuote, notifyTransportRegistration } from '../lib/supabase';
+import { supabase, loadDashboard, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, updateClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, emitirFactura, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, updateOrgGeoManual, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs, createJobReviewToken, createCartFromQuote, getOrgActiveOrders, loadInvoiceLines, enrichInvoiceLinesFromQuote, updateDraftInvoice, normalizaNif, getClientDisplayName, createTransportServiceFromQuote, notifyTransportRegistration } from '../lib/supabase';
 import type { TradeSubcontractor, TradeSubcontrata, ActiveSupplierCatalog, TradeClient, FiscalSnapshot, GeoAddressSnapshot } from '../lib/supabase';
-import { printTradeInvoice } from '../lib/printTradeInvoice';
+import { printTradeInvoice, buildInvoiceHtml, formatIban } from '../lib/printTradeInvoice';
+import { htmlToPdfFile, invoicePdfFilename, shareInvoicePdf, downloadFile } from '../lib/invoicePdf';
 import { savePurchaseContext } from '../lib/marketplace/purchase-context';
 import { geocodeAddress, buildOrgGeocodeParams, orgAddressChanged, createGeoScheduler } from '../lib/geocoder';
 import type { GeoScheduler } from '../lib/geocoder';
@@ -2389,6 +2390,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // --- Estado faltante completado ---
 
+  // Envío de factura por WhatsApp con PDF adjunto (móvil)
+  const [waPdfBusyId, setWaPdfBusyId] = useState<string | null>(null);
+  const [waPdfPending, setWaPdfPending] = useState<{ file: File; text: string; phone?: string } | null>(null);
+
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
   const [isVoiceModalOpen, setIsVoiceModalOpen] = useState<boolean>(false);
   const [desktopModalText, setDesktopModalText] = useState<string>('');
@@ -4155,6 +4160,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           {mobileTab === 'presupuestos' && MobileScreenPresupuestos()}
           {mobileTab === 'clientes' && MobileScreenClientes()}
           {mobileTab === 'facturas' && MobileScreenFacturas()}
+          {waPdfPending && (
+            <div className="fixed inset-0 z-[80] bg-black/40 flex items-end" onClick={() => setWaPdfPending(null)}>
+              <div className="w-full bg-white rounded-t-3xl p-5 space-y-3" onClick={e => e.stopPropagation()} style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 20px)' }}>
+                <p className="text-sm font-bold text-slate-900">PDF de la factura listo</p>
+                <p className="text-xs text-slate-500">{waPdfPending.file.name} · elige WhatsApp y el contacto del cliente.</p>
+                <button onClick={() => { void confirmWaPdfShare(); }} className="w-full bg-emerald-600 text-white font-bold py-3.5 rounded-2xl text-sm cursor-pointer active:opacity-80">💬 Enviar por WhatsApp</button>
+                <button onClick={() => setWaPdfPending(null)} className="w-full py-2 text-xs text-slate-500 cursor-pointer">Cancelar</button>
+              </div>
+            </div>
+          )}
           {mobileTab === 'ajustes' && ScreenSettings()}
           {mobileTab === 'asistente' && (
             <ScreenAsistenteTecnico
@@ -5827,13 +5842,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   )}
                   <div className="grid grid-cols-3 gap-2">
                     <button
-                      onClick={() => { handleRemindInvoice(f); setSelectedFactura(null); }}
+                      onClick={() => { void sendInvoiceWhatsAppPdf(f); setSelectedFactura(null); }}
+                      disabled={waPdfBusyId === f.id}
                       className="bg-gray-100 text-gray-700 font-bold py-3 rounded-2xl flex items-center justify-center gap-1.5 text-xs cursor-pointer active:bg-gray-200"
                     >
                       💬 WhatsApp
                     </button>
                     <button
-                      onClick={() => { printInvoice(f); setSelectedFactura(null); }}
+                      onClick={() => { void printInvoiceFiscal(f); setSelectedFactura(null); }}
                       className="bg-gray-100 text-gray-700 font-bold py-3 rounded-2xl flex items-center justify-center gap-1.5 text-xs cursor-pointer active:bg-gray-200"
                     >
                       <FileText className="w-3.5 h-3.5" /> PDF
@@ -9297,7 +9313,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                                 <button
                                   onClick={async () => {
                                     try {
-                                      const lines = await loadInvoiceLines(inv.id);
+                                      const lines = await enrichInvoiceLinesFromQuote(await loadInvoiceLines(inv.id), (inv as { quote_id?: string | null }).quote_id);
                                       let fiscalSnapshot: FiscalSnapshot | null = null;
                                       if (inv.fiscal_record_id) {
                                         const { data: fr } = await supabase
@@ -9310,7 +9326,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                                       await printTradeInvoice(
                                         { ...inv, numero: inv.numero ?? '' } as Parameters<typeof printTradeInvoice>[0],
                                         lines,
-                                        { nombre: orgData?.nombre, nif: orgData?.nif, direccion: orgData?.direccion, ciudad: (orgData as unknown as Record<string, unknown>)?.ciudad as string, telefono: orgData?.telefono, email: orgData?.email, logo_url: orgData?.logo_url },
+                                        { nombre: orgData?.nombre, nif: orgData?.nif, direccion: orgData?.direccion, ciudad: (orgData as unknown as Record<string, unknown>)?.ciudad as string, telefono: orgData?.telefono, email: orgData?.email, logo_url: orgData?.logo_url, iban: (orgData as unknown as Record<string, unknown>)?.iban as string | null, banco: (orgData as unknown as Record<string, unknown>)?.banco as string | null, titular_cuenta: (orgData as unknown as Record<string, unknown>)?.titular_cuenta as string | null },
                                         undefined,
                                         fiscalSnapshot,
                                       );
@@ -9731,31 +9747,121 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     printDocument(html);
   }
 
-  function printInvoice(factura: Factura) {
-    const cliente = clientes.find(c => c.nombre === factura.nombreCliente);
-    const quotePartidas = presupuestos.find(p => p.id === factura.idPresupuesto)?.partidas ?? [];
-    const partidas: PartidaPresupuesto[] = quotePartidas.length > 0
-      ? quotePartidas
-      : factura.concepto
-        ? [{ descripcion: factura.concepto, tipo: 'mano_de_obra', cantidad: 1, precioUnitario: factura.importe, total: factura.importe }]
-        : [];
-    const html = buildDocumentHTML({
-      tipo: 'factura',
-      numero: factura.numeroFactura,
-      fecha: factura.fecha,
-      fechaVencimiento: factura.fechaVencimiento,
-      clienteNombre: factura.nombreCliente,
-      clienteDireccion: cliente?.direccion,
-      clienteEmail: cliente?.email,
-      clienteTelefono: cliente?.telefono,
-      empresa: empresaAjustes,
-      logoUrl: orgData?.logo_url ?? undefined,
-      partidas,
-      total: factura.importe,
-      iva: factura.iva_pct ?? 21, // ?? 21: registros históricos sin iva_pct; NO usar ivaDefault (sería el default ACTUAL, no el del documento)
-      estado: factura.estado,
-    });
-    printDocument(html);
+  // Factura fiscal (trade_invoices) con detalle completo + datos bancarios + bloque VeriFactu/QR AEAT.
+  // Única plantilla de factura: la misma que ScreenFacturas (escritorio) y la vista pública.
+  // Carga todo lo necesario para la factura Verifactu (líneas con detalle, snapshot fiscal, datos de pago).
+  async function loadFiscalInvoiceDoc(facturaId: string) {
+    const { data: inv, error } = await supabase
+      .from('trade_invoices')
+      .select('*, trade_clients(nombre, telefono)')
+      .eq('id', facturaId)
+      .maybeSingle();
+    if (error || !inv) throw error ?? new Error('Factura no encontrada en trade_invoices');
+    const lines = await enrichInvoiceLinesFromQuote(await loadInvoiceLines(inv.id), inv.quote_id);
+    let fiscalSnapshot: FiscalSnapshot | null = null;
+    if (inv.fiscal_record_id) {
+      const { data: fr } = await supabase
+        .from('trade_fiscal_records')
+        .select('nif_emisor, numero_factura, fecha_expedicion_vf, importe_total')
+        .eq('id', inv.fiscal_record_id)
+        .maybeSingle();
+      fiscalSnapshot = fr ?? null;
+    }
+    let numeroOriginal: string | undefined;
+    if (inv.tipo_factura === 'rectificativa' && inv.rectifica_factura_id) {
+      const { data: orig } = await supabase
+        .from('trade_invoices').select('numero').eq('id', inv.rectifica_factura_id).maybeSingle();
+      numeroOriginal = orig?.numero ?? undefined;
+    }
+    const o = (orgData ?? {}) as unknown as Record<string, unknown>;
+    const org = {
+      nombre: (o.razon_social as string) ?? orgData?.nombre,
+      cif: (o.cif as string) ?? orgData?.nif,
+      nif: orgData?.nif,
+      direccion: orgData?.direccion,
+      ciudad: o.ciudad as string,
+      telefono: orgData?.telefono,
+      email: orgData?.email,
+      logo_url: orgData?.logo_url,
+      iban: o.iban as string | null,
+      banco: o.banco as string | null,
+      titular_cuenta: o.titular_cuenta as string | null,
+    };
+    const invDoc = { ...inv, numero: inv.numero ?? '' } as Parameters<typeof printTradeInvoice>[0];
+    const telefono = (inv.trade_clients as { telefono?: string | null } | null)?.telefono ?? null;
+    return { inv: invDoc, lines, org, numeroOriginal, fiscalSnapshot, telefono };
+  }
+
+  // Factura fiscal (trade_invoices) con detalle completo + datos bancarios + bloque VeriFactu/QR AEAT.
+  // Única plantilla de factura: la misma que ScreenFacturas (escritorio) y la vista pública.
+  async function printInvoiceFiscal(factura: Factura) {
+    // Abrir la ventana YA, dentro del gesto del usuario (si no, el móvil la bloquea)
+    const win = window.open('', '_blank');
+    if (win) win.document.write('<p style="font-family:sans-serif;padding:24px;color:#64748b">Cargando factura…</p>');
+    try {
+      const d = await loadFiscalInvoiceDoc(factura.id);
+      await printTradeInvoice(d.inv, d.lines, d.org, d.numeroOriginal, d.fiscalSnapshot, win);
+    } catch (err) {
+      console.error('[printInvoiceFiscal]', err);
+      if (win) win.close();
+      showToast('No se pudo cargar la factura', 'error');
+    }
+  }
+
+  // Enviar factura por WhatsApp con el PDF adjunto (móvil: menú compartir nativo → WhatsApp).
+  // Sin soporte de compartir archivos (p. ej. navegador de PC): descarga el PDF y abre WhatsApp con el texto.
+  async function sendInvoiceWhatsAppPdf(factura: Factura) {
+    if (waPdfBusyId) return;
+    setWaPdfBusyId(factura.id);
+    showToast('Preparando PDF de la factura…', 'info');
+    try {
+      const d = await loadFiscalInvoiceDoc(factura.id);
+      const html = await buildInvoiceHtml(d.inv, d.lines, d.org, d.numeroOriginal, d.fiscalSnapshot);
+      const file = await htmlToPdfFile(html, invoicePdfFilename(d.inv.numero));
+      const total = (d.inv.total ?? 0).toFixed(2);
+      const iban = d.org.iban && d.org.iban.trim() ? formatIban(d.org.iban) : '';
+      const viewToken = (d.inv as { view_token?: string | null }).view_token;
+      const text = [
+        `Hola ${factura.nombreCliente}, te envío la factura *${d.inv.numero}* por importe de *${total}€* (IVA incluido).`,
+        ...(d.inv.estado !== 'Pagada' && iban ? ['', 'Pago por transferencia:', `IBAN ${iban}`, ...(d.org.titular_cuenta ? [`Titular: ${d.org.titular_cuenta}`] : []), `Concepto: Factura ${d.inv.numero}`] : []),
+        ...(viewToken ? ['', `Ver factura online: https://www.trabflow.com/factura/${viewToken}`] : []),
+        '',
+        'Muchas gracias.',
+        ...(empresaAjustes.nombre ? [empresaAjustes.nombre] : []),
+      ].join('\n');
+      const phone = d.telefono ?? clientes.find(c => c.nombre === factura.nombreCliente)?.telefono;
+      const r = await shareInvoicePdf(file, text);
+      if (r === 'shared') showToast('Factura enviada ✓', 'success');
+      else if (r === 'needs_gesture') setWaPdfPending({ file, text, phone: phone ?? undefined });
+      else if (r === 'unsupported') {
+        downloadFile(file);
+        window.open(buildWaLink(phone, text), '_blank');
+        showToast('PDF descargado: adjúntalo en el chat de WhatsApp', 'info');
+      }
+    } catch (err) {
+      console.error('[sendInvoiceWhatsAppPdf]', err);
+      showToast('No se pudo generar el PDF de la factura', 'error');
+    } finally {
+      setWaPdfBusyId(null);
+    }
+  }
+
+  async function confirmWaPdfShare() {
+    if (!waPdfPending) return;
+    const { file, text, phone } = waPdfPending;
+    setWaPdfPending(null);
+    try {
+      const r = await shareInvoicePdf(file, text);
+      if (r === 'shared') showToast('Factura enviada ✓', 'success');
+      else if (r === 'unsupported' || r === 'needs_gesture') {
+        downloadFile(file);
+        window.open(buildWaLink(phone, text), '_blank');
+        showToast('PDF descargado: adjúntalo en el chat de WhatsApp', 'info');
+      }
+    } catch (err) {
+      console.error('[confirmWaPdfShare]', err);
+      showToast('No se pudo compartir el PDF', 'error');
+    }
   }
 
   // ── Pantalla Facturas (desktop) ───────────────────────────────────────────────
@@ -9992,7 +10098,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   )}
                   {f.estado !== 'Borrador' && (
                     <button
-                      onClick={() => printInvoice(f)}
+                      onClick={() => { void printInvoiceFiscal(f); }}
                       className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 text-slate-700 text-[9px] font-bold uppercase tracking-wider hover:bg-slate-200 cursor-pointer transition-colors"
                     >
                       <FileText className="w-3.5 h-3.5" />
@@ -10001,7 +10107,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   )}
                   {f.estado === 'Borrador' && (
                     <button
-                      onClick={() => printInvoice(f)}
+                      onClick={() => { void printInvoiceFiscal(f); }}
                       className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 text-slate-700 text-[9px] font-bold uppercase tracking-wider hover:bg-slate-200 cursor-pointer transition-colors"
                     >
                       <FileText className="w-3.5 h-3.5" />

@@ -12,6 +12,19 @@ interface OrgInfo {
   email?: string;
   logo_url?: string;
   iva_default?: number;
+  // Datos bancarios para el cobro (trade_organizations.iban / banco / titular_cuenta)
+  iban?: string | null;
+  banco?: string | null;
+  titular_cuenta?: string | null;
+}
+
+function escHtml(v: string): string {
+  return v.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+/** Formatea IBAN en grupos de 4: ES12 3456 7890 ... */
+export function formatIban(iban: string): string {
+  return iban.replace(/\s+/g, '').toUpperCase().replace(/(.{4})/g, '$1 ').trim();
 }
 
 export async function buildInvoiceHtml(
@@ -37,20 +50,84 @@ export async function buildInvoiceHtml(
   const empresaCif    = org.cif ?? org.nif ?? '';
   const empresaDir    = [org.direccion, org.ciudad].filter(Boolean).join(', ');
 
+  const ibanFmt = org.iban && org.iban.trim() ? formatIban(org.iban) : '';
+  const pagoBlock = ibanFmt ? `
+    <div class="pago-box">
+      <div class="info-label">Datos para el pago</div>
+      <div style="font-size:11px;color:#475569;line-height:1.9">
+        <b>Forma de pago:</b> Transferencia bancaria<br>
+        ${org.titular_cuenta ? `<b>Titular:</b> ${escHtml(org.titular_cuenta)}<br>` : ''}
+        <b>IBAN:</b> <span style="font-family:'Courier New',monospace;font-weight:700;color:#0f172a;letter-spacing:0.5px">${escHtml(ibanFmt)}</span><br>
+        <b>Concepto:</b> Factura ${escHtml(inv.numero ?? '')}
+      </div>
+    </div>` : '';
+
   const subtotal  = inv.subtotal ?? 0;
   const ivaPct    = inv.iva_pct ?? 21;
   const ivaImport = inv.iva_importe ?? subtotal * (ivaPct / 100);
   const total     = inv.total ?? subtotal + ivaImport;
 
-  const rows = lines.length > 0
-    ? lines.map((l, i) => `
-      <tr style="background:${i % 2 === 0 ? '#fff' : '#f8fafc'}">
-        <td style="padding:9px 8px;font-size:11.5px;color:#334155;border-bottom:1px solid #f1f5f9">${l.descripcion}</td>
-        <td style="padding:9px 8px;font-size:11px;text-align:center;color:#64748b;border-bottom:1px solid #f1f5f9">${l.cantidad}</td>
+  // ── Partidas: mismo detalle que el presupuesto impreso ──────────────────────
+  // Agrupadas por oficio (familia) con subtotal por sección; mano de obra al final.
+  // Bajo cada descripción: marca · modelo · medidas (si vienen del presupuesto).
+  const OFICIO_LABELS: Record<string, string> = {
+    fontaneria: 'Fontanería', electricidad: 'Electricidad', albanileria: 'Albañilería',
+    climatizacion: 'Climatización', pintura: 'Pintura', carpinteria: 'Carpintería',
+    cerrajeria: 'Cerrajería', suelos_alicatados: 'Suelos y alicatados',
+    suelos_tarimas: 'Suelos y tarimas', pladur_escayola: 'Pladur y escayola',
+    telecomunicaciones: 'Telecomunicaciones', impermeabilizacion: 'Impermeabilización',
+    tejados_cubiertas: 'Tejados y cubiertas', reforma_integral: 'Reforma integral',
+    fachadas: 'Fachadas', mantenimiento_general: 'Mantenimiento', energia_solar: 'Energía solar',
+    cristaleria: 'Cristalería', instalador_cctv: 'CCTV y seguridad', informatica: 'Informática',
+    contra_incendios: 'Contra incendios', persianas: 'Persianas', multiservicio: 'Multiservicio',
+    jardineria: 'Jardinería', limpieza: 'Limpieza', mecanica: 'Mecánica',
+    gestion_residuos: 'Gestión de residuos', cocina_amueblada: 'Cocina',
+  };
+  const groups: { key: string; label: string; items: TradeInvoiceLine[] }[] = [];
+  lines.forEach(l => {
+    const isLabor = l.tipo === 'mano_de_obra';
+    const raw = l.familia?.trim() || '';
+    const key = isLabor ? '___labor___' : (raw || '___other___');
+    const label = isLabor ? 'Mano de obra' : (OFICIO_LABELS[raw] ?? (raw || 'Partidas'));
+    let g = groups.find(x => x.key === key);
+    if (!g) { g = { key, label, items: [] }; groups.push(g); }
+    g.items.push(l);
+  });
+  groups.sort((a, b) => a.key === '___labor___' ? 1 : b.key === '___labor___' ? -1 : 0);
+  const showSections = groups.length > 1;
+
+  const lineRow = (l: TradeInvoiceLine, j: number, pre: string) => {
+    const detalle = [l.marca, l.modelo, l.medidas].filter(v => v && String(v).trim()).map(v => escHtml(String(v))).join(' · ');
+    const cant = `${l.cantidad}${l.unidad ? ` ${escHtml(l.unidad)}` : ''}`;
+    const dto = l.descuento_pct ? `<div style="font-size:9.5px;color:#16a34a;margin-top:2px">Dto. ${l.descuento_pct}%</div>` : '';
+    return `
+      <tr style="background:${j % 2 === 0 ? '#fff' : '#f8fafc'}">
+        <td style="padding:9px 8px;font-size:11.5px;color:#334155;border-bottom:1px solid #f1f5f9">${pre}${escHtml(l.descripcion ?? '')}${detalle ? `<div style="font-size:9.5px;color:#94a3b8;margin-top:2px">${detalle}</div>` : ''}${dto}</td>
+        <td style="padding:9px 8px;font-size:11px;text-align:center;color:#64748b;border-bottom:1px solid #f1f5f9">${cant}</td>
         <td style="padding:9px 8px;font-size:11px;text-align:right;color:#475569;border-bottom:1px solid #f1f5f9">${(l.precio_unitario ?? 0).toFixed(2)}€</td>
         <td style="padding:9px 8px;font-size:11.5px;text-align:right;font-weight:700;color:#0f172a;border-bottom:1px solid #f1f5f9">${(l.subtotal ?? 0).toFixed(2)}€</td>
-      </tr>`).join('')
-    : `<tr><td colspan="4" style="padding:14px 8px;text-align:left;color:#334155;font-size:11.5px">${inv.concepto ?? '—'}</td></tr>`;
+      </tr>`;
+  };
+
+  let rows = '';
+  if (lines.length === 0) {
+    rows = `<tr><td colspan="4" style="padding:14px 8px;text-align:left;color:#334155;font-size:11.5px">${escHtml(inv.concepto ?? '—')}</td></tr>`;
+  } else {
+    groups.forEach(({ label, items }, gi) => {
+      const sn = String(gi + 1).padStart(2, '0');
+      if (showSections) rows += `<tr><td colspan="4" style="background:${accentColor};color:#fff;font-weight:800;font-size:9.5px;text-transform:uppercase;letter-spacing:1.2px;padding:8px 10px">${sn} — ${escHtml(label)}</td></tr>`;
+      items.forEach((l, j) => { rows += lineRow(l, j, showSections ? `${gi + 1}.${j + 1} ` : ''); });
+      if (showSections) {
+        const st = items.reduce((acc, x) => acc + (x.subtotal ?? 0), 0);
+        rows += `<tr style="background:#f0f4f8"><td colspan="3" style="padding:6px 8px;font-size:10px;text-align:right;color:#64748b;font-weight:600;border-bottom:2px solid #e2e8f0">Subtotal ${sn}:</td><td style="padding:6px 8px;font-size:11px;text-align:right;font-weight:800;color:${accentColor};border-bottom:2px solid #e2e8f0">${st.toFixed(2)}€</td></tr>`;
+      }
+    });
+  }
+
+  // Concepto general de la obra (descripción del presupuesto), encima de la tabla
+  const conceptoHtml = inv.concepto && lines.length > 0
+    ? `<div style="font-size:11.5px;color:#334155;margin-bottom:10px"><b>Concepto:</b> ${escHtml(inv.concepto)}</div>`
+    : '';
 
   const logoHtml = org.logo_url
     ? `<img src="${org.logo_url}" alt="Logo" style="max-height:64px;max-width:200px;object-fit:contain;display:block;margin-bottom:8px" />`
@@ -128,6 +205,7 @@ export async function buildInvoiceHtml(
       .badge-paid{background:#d1fae5;color:#065f46}
       .badge-overdue{background:#fee2e2;color:#991b1b}
       .badge-draft{background:#f1f5f9;color:#475569}
+      .pago-box{border:1px solid #e2e8f0;border-radius:12px;padding:14px 18px;margin-bottom:24px;break-inside:avoid;page-break-inside:avoid}
       .footer{text-align:center;font-size:10px;color:#cbd5e1;padding-top:20px;border-top:1px solid #f1f5f9}
       ${esRectificativa ? '.rectif-notice{background:#fee2e2;border:1px solid #fca5a5;border-radius:10px;padding:10px 16px;margin-bottom:20px;font-size:11px;color:#991b1b;font-weight:600}' : ''}
     </style>
@@ -182,6 +260,7 @@ export async function buildInvoiceHtml(
 
     <hr class="divider">
 
+    ${conceptoHtml}
     <table>
       <thead>
         <tr>
@@ -199,6 +278,8 @@ export async function buildInvoiceHtml(
       <div class="totals-row"><span>IVA (${ivaPct}%)</span><span>${ivaImport.toFixed(2)}€</span></div>
       <div class="totals-row final"><span>TOTAL</span><span>${total.toFixed(2)}€</span></div>
     </div>
+
+    ${pagoBlock}
 
     <div class="footer">
       ${empresaNombre}${empresaCif ? ` · CIF ${empresaCif}` : ''}${empresaDir ? ` · ${empresaDir}` : ''}<br>
@@ -257,9 +338,12 @@ export async function printTradeInvoice(
   org: OrgInfo,
   numeroOriginal?: string,
   fiscalSnapshot?: FiscalSnapshot | null,
+  // Ventana abierta de forma síncrona en el gesto del usuario (móvil: los navegadores
+  // bloquean window.open tras un await). Opcional: sin él se mantiene el comportamiento previo.
+  preOpenedWin?: Window | null,
 ) {
   const html = await buildInvoiceHtml(inv, lines, org, numeroOriginal, fiscalSnapshot);
-  const win = window.open('', '_blank', 'width=900,height=700');
+  const win = preOpenedWin ?? window.open('', '_blank', 'width=900,height=700');
   if (!win) return;
   win.document.write(html);
   win.document.close();

@@ -35,6 +35,9 @@ export default function InvoicePublicView({ token }: Props) {
           telefono: org.telefono,
           email: org.email,
           logo_url: org.logo_url,
+          iban: (org as Record<string, unknown>).iban as string | null,
+          banco: (org as Record<string, unknown>).banco as string | null,
+          titular_cuenta: (org as Record<string, unknown>).titular_cuenta as string | null,
         };
         setHtml(await buildInvoiceHtml(invForPrint, lines, orgForPrint, undefined, fiscalSnapshot ?? null));
       })

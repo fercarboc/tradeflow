@@ -62,7 +62,7 @@ Deno.serve(async (req: Request) => {
 
   const { data: org } = await adminClient
     .from('trade_organizations')
-    .select('nombre, razon_social, nif, direccion, ciudad, telefono, email, logo_url')
+    .select('nombre, razon_social, nif, direccion, ciudad, telefono, email, logo_url, iban, banco, titular_cuenta')
     .eq('id', inv.org_id)
     .maybeSingle();
 
@@ -75,6 +75,31 @@ Deno.serve(async (req: Request) => {
       .eq('id', inv.fiscal_record_id)
       .maybeSingle();
     fiscalSnapshot = fr ?? null;
+  }
+
+  // Detalle de partidas heredado del presupuesto (oficio, marca, modelo, medidas, unidad)
+  if (inv.quote_id && Array.isArray(inv.trade_invoice_lines) && inv.trade_invoice_lines.length > 0) {
+    const { data: qItems } = await adminClient
+      .from('trade_quote_items')
+      .select('descripcion, posicion, tipo, familia, marca, modelo, medidas, unidad')
+      .eq('quote_id', inv.quote_id)
+      .order('posicion');
+    const items = (qItems ?? []) as Array<Record<string, unknown>>;
+    if (items.length) {
+      const norm = (v: unknown) => String(v ?? '').trim().toLowerCase();
+      const used = new Set<number>();
+      // deno-lint-ignore no-explicit-any
+      const sorted = [...inv.trade_invoice_lines].sort((a: any, b: any) => (a.orden ?? 0) - (b.orden ?? 0));
+      // deno-lint-ignore no-explicit-any
+      inv.trade_invoice_lines = sorted.map((l: any, idx: number) => {
+        let k = items.findIndex((it, i) => !used.has(i) && norm(it.descripcion) === norm(l.descripcion));
+        if (k < 0 && items.length === sorted.length && !used.has(idx)) k = idx;
+        if (k < 0) return l;
+        used.add(k);
+        const it = items[k];
+        return { ...l, tipo: it.tipo ?? l.tipo, familia: it.familia, marca: it.marca, modelo: it.modelo, medidas: it.medidas, unidad: it.unidad };
+      });
+    }
   }
 
   return new Response(JSON.stringify({ invoice: inv, org: org ?? {}, fiscalSnapshot }), {

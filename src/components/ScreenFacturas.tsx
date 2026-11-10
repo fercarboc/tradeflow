@@ -4,14 +4,14 @@ import {
   Download, Eye, Search, RotateCcw, FileDown, ArrowUpDown, CalendarRange,
   Banknote, CreditCard, Building2, Smartphone, Camera, Receipt,
 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { supabase, enrichInvoiceLinesFromQuote } from '../lib/supabase';
 import {
   loadAllInvoices, emitirFactura, markInvoicePaid,
   loadInvoiceLines, anularPago, crearFacturaRectificativaRPC, markInvoicePendiente,
   TradeInvoice, TradeInvoiceLine, loadJobPhotos, TradeJobPhoto,
   MOTIVOS_RECTIFICACION, FiscalSnapshot,
 } from '../lib/supabase';
-import { printTradeInvoice } from '../lib/printTradeInvoice';
+import { printTradeInvoice, formatIban } from '../lib/printTradeInvoice';
 import { downloadAsWordDocx } from '../lib/exportWord';
 import { useSession } from '../context/SessionContext';
 
@@ -310,7 +310,8 @@ export default function ScreenFacturas({ showToast, isLiveMode, initialMantenimi
     const originalNumero = inv.tipo_factura === 'rectificativa'
       ? (selectedInvOriginal?.numero ?? undefined)
       : undefined;
-    await printTradeInvoice(inv, lines, {
+    const linesDetalle = await enrichInvoiceLinesFromQuote(lines, inv.quote_id);
+    await printTradeInvoice(inv, linesDetalle, {
       nombre: (org as unknown as Record<string,unknown>).razon_social as string ?? org.nombre,
       cif: (org as unknown as Record<string,unknown>).cif as string ?? org.nif,
       nif: org.nif,
@@ -319,6 +320,9 @@ export default function ScreenFacturas({ showToast, isLiveMode, initialMantenimi
       telefono: org.telefono,
       email: org.email,
       logo_url: org.logo_url,
+      iban: (org as unknown as Record<string,unknown>).iban as string | null,
+      banco: (org as unknown as Record<string,unknown>).banco as string | null,
+      titular_cuenta: (org as unknown as Record<string,unknown>).titular_cuenta as string | null,
     }, originalNumero, fiscalSnapshot);
   }
 
@@ -356,13 +360,19 @@ export default function ScreenFacturas({ showToast, isLiveMode, initialMantenimi
   }
 
   function handleWhatsApp(inv: InvoiceWithClient) {
-    const telefono = inv.trade_clients?.telefono?.replace(/\D/g, '');
-    if (!telefono) { showToast('El cliente no tiene teléfono registrado', 'error'); return; }
+    // Sin teléfono: se abre WhatsApp (PC o móvil) para elegir el contacto, igual que en móvil.
+    const telefono = inv.trade_clients?.telefono?.replace(/\D/g, '') ?? '';
     const enlace = inv.view_token ? `\n\nVer factura:\nhttps://www.trabflow.com/factura/${inv.view_token}` : '';
     const parteLink = selectedParteToken ? `\n\nVer parte de trabajo firmado:\nhttps://www.trabflow.com/parte/${selectedParteToken}` : '';
+    const orgRec = (org ?? {}) as unknown as Record<string, unknown>;
+    const iban = typeof orgRec.iban === 'string' && orgRec.iban.trim() ? formatIban(orgRec.iban) : '';
+    const pago = iban && inv.estado !== 'Pagada'
+      ? `\n\nPago por transferencia:\nIBAN ${iban}${orgRec.titular_cuenta ? `\nTitular: ${orgRec.titular_cuenta as string}` : ''}\nConcepto: Factura ${inv.numero}`
+      : '';
     const texto = encodeURIComponent(
-      `Hola, le enviamos la factura ${inv.numero} por importe de ${fmt(inv.total ?? 0)}.${enlace}${parteLink}\n\n¿Podría confirmar la recepción? Muchas gracias.`
+      `Hola, le enviamos la factura ${inv.numero} por importe de ${fmt(inv.total ?? 0)}.${enlace}${pago}${parteLink}\n\n¿Podría confirmar la recepción? Muchas gracias.`
     );
+    if (!telefono) showToast('El cliente no tiene teléfono: elige el contacto en WhatsApp', 'info');
     window.open(`https://wa.me/${telefono}?text=${texto}`, '_blank');
   }
 
@@ -967,7 +977,7 @@ export default function ScreenFacturas({ showToast, isLiveMode, initialMantenimi
                     Word
                   </button>
                 )}
-                {selectedInv.trade_clients?.telefono && (
+                {selectedInv.estado !== 'Borrador' && (
                   <button
                     onClick={() => handleWhatsApp(selectedInv)}
                     className="flex-1 py-2 rounded-xl border border-green-200 text-green-700 bg-green-50 hover:bg-green-100 text-xs font-semibold cursor-pointer transition-colors flex items-center justify-center gap-1.5"

@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { mergeQuoteDetailIntoLines, type QuoteItemDetail } from './invoiceLineDetail';
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
@@ -227,6 +228,13 @@ export interface TradeInvoiceLine {
   orden: number;
   tipo: 'material' | 'mano_de_obra' | 'desplazamiento' | 'otro';
   created_at: string;
+  // Detalle heredado del presupuesto de origen (no persistido en trade_invoice_lines;
+  // se añade al imprimir con enrichInvoiceLinesFromQuote)
+  familia?: string | null;
+  marca?: string | null;
+  modelo?: string | null;
+  medidas?: string | null;
+  unidad?: string | null;
 }
 
 export interface TradeWaitlistEntry {
@@ -1308,6 +1316,20 @@ export async function loadInvoiceLines(facturaId: string): Promise<TradeInvoiceL
     .order('orden');
   if (error) throw error;
   return (data ?? []) as TradeInvoiceLine[];
+}
+
+export async function enrichInvoiceLinesFromQuote(lines: TradeInvoiceLine[], quoteId: string | null | undefined): Promise<TradeInvoiceLine[]> {
+  if (!quoteId || lines.length === 0) return lines;
+  try {
+    const { data } = await supabase
+      .from('trade_quote_items')
+      .select('descripcion, posicion, tipo, familia, marca, modelo, medidas, unidad')
+      .eq('quote_id', quoteId)
+      .order('posicion');
+    return mergeQuoteDetailIntoLines(lines, (data ?? []) as QuoteItemDetail[]);
+  } catch {
+    return lines;
+  }
 }
 
 export async function updateDraftInvoice(
