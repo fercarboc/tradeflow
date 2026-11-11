@@ -4719,24 +4719,27 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 )}
               </>
             ) : (
-              /* ── BARRA MÓVIL INSTALADORES: 5 items ── */
+              /* ── BARRA MÓVIL INSTALADORES: Inicio · Presupuestos · (+) · Agenda · Más ── */
               <>
-                {MobileTabButton({ tab: 'inicio',   icon: <Home          className="w-5 h-5" />, label: 'Inicio' })}
+                {MobileTabButton({ tab: 'inicio',       icon: <Home     className="w-5 h-5" />, label: 'Inicio' })}
+                {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presupuestos' })}
+                <div className="flex-1 flex items-start justify-center">
+                  <button
+                    onClick={() => { setShowMobileMoreSheet(false); setShowFloatingMenu(false); startWizard(1); }}
+                    aria-label="Nuevo presupuesto"
+                    data-testid="nav-new-quote"
+                    className="-mt-6 w-14 h-14 rounded-full bg-blue-600 text-white shadow-lg shadow-blue-600/30 flex items-center justify-center active:scale-95 transition-transform cursor-pointer"
+                  >
+                    <Plus className="w-7 h-7" />
+                  </button>
+                </div>
                 <button
-                  onClick={() => { setMobileTab('trabajos'); setAgendaTrigger(t => t + 1); setShowFloatingMenu(false); }}
+                  onClick={() => { setShowMobileMoreSheet(false); setMobileTab('trabajos'); setAgendaTrigger(t => t + 1); setShowFloatingMenu(false); }}
                   className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2 px-1 cursor-pointer transition-all active:scale-95 relative"
                 >
                   <span className={`transition-colors ${mobileTab === 'trabajos' ? 'text-blue-600' : 'text-gray-400'}`}><CalendarDays className="w-5 h-5" /></span>
                   <span className={`text-[10px] font-semibold transition-colors leading-tight ${mobileTab === 'trabajos' ? 'text-blue-600' : 'text-gray-400'}`}>Agenda</span>
                 </button>
-                <button
-                  onClick={() => { setMobileTab('trabajos'); setShowFloatingMenu(false); }}
-                  className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2 px-1 cursor-pointer transition-all active:scale-95 relative"
-                >
-                  <span className={`transition-colors ${mobileTab === 'trabajos' ? 'text-blue-600' : 'text-gray-400'}`}><Briefcase className="w-5 h-5" /></span>
-                  <span className={`text-[10px] font-semibold transition-colors leading-tight ${mobileTab === 'trabajos' ? 'text-blue-600' : 'text-gray-400'}`}>Trabajos</span>
-                </button>
-                {MobileTabButton({ tab: 'clientes', icon: <Users         className="w-5 h-5" />, label: 'Clientes' })}
                 <button
                   onClick={() => { setMobileTab('inicio'); setShowMobileMoreSheet(true); }}
                   className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors ${
@@ -5083,7 +5086,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       const isActive = mobileTab === tab;
       return (
         <button
-          onClick={() => { if (tab === 'facturas') setFacturaMantenimientoContext(null); setMobileTab(tab as typeof mobileTab); setShowFloatingMenu(false); }}
+          onClick={() => { if (tab === 'facturas') setFacturaMantenimientoContext(null); setShowMobileMoreSheet(false); setMobileTab(tab as typeof mobileTab); setShowFloatingMenu(false); }}
           className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2 px-1 cursor-pointer transition-all active:scale-95 relative"
         >
           {isActive && (
@@ -5123,6 +5126,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         jobsActiveCount={jobs.filter(j => j.estado === 'en_curso').length}
         presupuestosCount={presupuestos.length}
         presupuestosPendingCount={presupuestos.filter(p => p.estado === 'Enviado').length}
+        quotesInProgressAmount={presupuestos.filter(p => p.estado === 'Enviado' || p.estado === 'Aceptado').reduce((sum, p) => sum + p.total * (1 + (p.iva_pct ?? 21) / 100), 0)}
+        quotesInProgressCount={presupuestos.filter(p => p.estado === 'Enviado' || p.estado === 'Aceptado').length}
+        pendingInvoicesAmount={facturas.filter(f => f.estado === 'Emitida' || f.estado === 'Pendiente' || f.estado === 'Vencida').reduce((sum, f) => sum + (f.importe ?? 0) * (1 + (f.iva_pct ?? 21) / 100), 0)}
         facturasCount={facturas.length}
         facturasPendingCount={facturas.filter(f => f.estado === 'Emitida' || f.estado === 'Pendiente' || f.estado === 'Vencida').length}
         clientesCount={clientes.length}
