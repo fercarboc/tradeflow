@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {
   Plus, MapPin, Package, ChevronLeft, X, Edit2,
   AlertTriangle, CheckCircle, Clock, Truck,
-  Loader2, ArrowRight, Weight, FileText,
+  Loader2, ArrowRight, Weight, FileText, Receipt, QrCode,
 } from 'lucide-react';
 import {
   TIPO_CARGA_OPTIONS,
@@ -38,6 +38,9 @@ import { loadWorkers } from '../lib/supabase';
 import type { TradeWorker } from '../lib/supabase';
 import TransportLocationForm from './TransportLocationForm';
 import TripRouteMap from './TripRouteMap';
+import TripInvoiceModal from './transport-billing/TripInvoiceModal';
+import { loadTripInvoice, invoiceStateLabel } from '../lib/transportBilling';
+import { supabase, type TradeInvoice } from '../lib/supabase';
 import type { RoutingProfile } from '../lib/geoApi';
 import { saveTransportTripLocation } from '../lib/geoApi';
 import type { TransportLocation } from '../lib/transportLocations';
@@ -594,9 +597,29 @@ interface TripDetailProps {
   onDeleted: (id: string) => void;
   /** TX-DOCS-1: emitir el DeCA de este viaje (se abre el asistente con los datos). */
   onEmitDeca?: (trip: TradeTransportTrip) => void;
+  /** TX-DOCS-2: guardar el DeCA que entrega el dueño de la mercancía. */
+  onScanDeca?: (trip: TradeTransportTrip) => void;
+  /** TX-FACT-1: ir a Facturas para emitir la factura. */
+  onOpenInvoices?: () => void;
 }
 
-function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDeleted, onEmitDeca }: TripDetailProps) {
+function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDeleted, onEmitDeca, onScanDeca, onOpenInvoices }: TripDetailProps) {
+  // ── TX-FACT-1 / TX-DOCS: factura y documentos del viaje ──
+  const [factura, setFactura] = useState<TradeInvoice | null>(null);
+  const [facturaCargada, setFacturaCargada] = useState(false);
+  const [showFactura, setShowFactura] = useState<null | { intro?: string }>(null);
+  const [docs, setDocs] = useState<{ emitidos: string[]; recibidos: number }>({ emitidos: [], recibidos: 0 });
+  useEffect(() => {
+    let alive = true;
+    loadTripInvoice(orgId, trip.id).then(f => { if (alive) { setFactura(f); setFacturaCargada(true); } }).catch(() => setFacturaCargada(true));
+    Promise.all([
+      supabase.from('trade_transport_control_docs').select('numero').eq('org_id', orgId).eq('trip_id', trip.id).eq('estado', 'vigente'),
+      supabase.from('trade_transport_received_docs').select('id', { count: 'exact', head: true }).eq('org_id', orgId).eq('trip_id', trip.id),
+    ]).then(([e, r]) => { if (alive) setDocs({ emitidos: (e.data ?? []).map((x: { numero: string }) => x.numero), recibidos: r.count ?? 0 }); })
+      .catch(() => undefined);
+    return () => { alive = false; };
+  }, [orgId, trip.id]);
+  const matriculaViaje = vehicles.find(v => v.id === trip.vehicle_id)?.matricula ?? null;
   const [editing, setEditing] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const [starting, setStarting]     = useState(false);
@@ -828,6 +851,36 @@ function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDelet
         })()}
       </div>
 
+      {/* Documentos de control del viaje */}
+      {(docs.emitidos.length > 0 || docs.recibidos > 0) && (
+        <div className="flex flex-wrap items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
+          <FileText className="w-4 h-4 text-amber-600" />
+          {docs.emitidos.map(n => <span key={n} className="rounded-full bg-emerald-50 px-2 py-0.5 font-semibold text-emerald-800">{n}</span>)}
+          {docs.recibidos > 0 && <span className="rounded-full bg-sky-50 px-2 py-0.5 font-semibold text-sky-800">DeCA del cliente{docs.recibidos > 1 ? ` (${docs.recibidos})` : ''}</span>}
+        </div>
+      )}
+
+      {/* Facturación */}
+      {facturaCargada && trip.estado !== 'cancelado' && (
+        factura ? (
+          <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2.5">
+            <span className="flex items-center gap-2 text-sm font-semibold text-emerald-900">
+              <Receipt className="w-4 h-4" /> Factura: {invoiceStateLabel(factura)}
+            </span>
+            {onOpenInvoices && (
+              <button onClick={onOpenInvoices} className="text-sm font-bold text-emerald-800 underline">
+                {factura.estado === 'Borrador' ? 'Emitir en Facturas' : 'Ver en Facturas'}
+              </button>
+            )}
+          </div>
+        ) : (
+          <button onClick={() => setShowFactura({})}
+            className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-slate-800 bg-white py-2.5 text-sm font-bold text-slate-900 hover:bg-slate-50">
+            <Receipt className="w-4 h-4" /> Facturar viaje{trip.precio_acordado != null ? ` (${Number(trip.precio_acordado).toFixed(2)} €)` : ''}
+          </button>
+        )
+      )}
+
       {/* Acciones */}
       <div className="flex flex-wrap gap-2 pt-1">
         {canConfirmTrip(trip.estado) && (
@@ -868,6 +921,15 @@ function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDelet
             Emitir DeCA
           </button>
         )}
+        {onScanDeca && trip.estado !== 'cancelado' && trip.estado !== 'completado' && (
+          <button
+            onClick={() => onScanDeca(trip)}
+            className="flex-1 min-w-[120px] py-2 text-sm border-2 border-emerald-400 text-emerald-800 font-semibold rounded-lg hover:bg-emerald-50 flex items-center justify-center gap-2"
+          >
+            <QrCode className="w-4 h-4" />
+            Cargar DeCA del cliente
+          </button>
+        )}
         {canCancelTrip(trip.estado) && (
           <button
             onClick={handleCancel}
@@ -887,7 +949,20 @@ function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDelet
           onCompleted={() => {
             setShowParte(false);
             onUpdated({ ...trip, estado: 'completado' });
+            // Viaje terminado y descargado: proponer facturar si aún no tiene factura
+            if (!factura) setShowFactura({ intro: 'Viaje completado y mercancía descargada. ¿Lo facturamos? Quedará en borrador, pendiente de emitir con VeriFactu.' });
           }}
+        />
+      )}
+      {showFactura && (
+        <TripInvoiceModal
+          orgId={orgId}
+          trip={trip}
+          matricula={matriculaViaje}
+          intro={showFactura.intro}
+          onClose={() => setShowFactura(null)}
+          onCreated={f => setFactura(f)}
+          onOpenInvoices={onOpenInvoices ? () => { setShowFactura(null); onOpenInvoices(); } : undefined}
         />
       )}
     </div>
@@ -904,9 +979,13 @@ export interface ScreenTransporteViajesProps {
   onDetailClosed?: () => void;
   /** TX-DOCS-1: abre el asistente de DeCA con los datos del viaje. */
   onEmitDeca?: (trip: TradeTransportTrip, vehicle: TradeVehicle | null, conductor: TradeWorker | null) => void;
+  /** TX-DOCS-2: escanear el DeCA que entrega el cliente para este viaje. */
+  onScanDeca?: (trip: TradeTransportTrip, vehicle: TradeVehicle | null) => void;
+  /** TX-FACT-1: abrir Facturas. */
+  onOpenInvoices?: () => void;
 }
 
-export default function ScreenTransporteViajes({ orgId, initialTripId, onDetailClosed, onEmitDeca }: ScreenTransporteViajesProps) {
+export default function ScreenTransporteViajes({ orgId, initialTripId, onDetailClosed, onEmitDeca, onScanDeca, onOpenInvoices }: ScreenTransporteViajesProps) {
   const [trips, setTrips]         = useState<TradeTransportTrip[]>([]);
   const [vehicles, setVehicles]   = useState<TradeVehicle[]>([]);
   const [workers, setWorkers]     = useState<TradeWorker[]>([]);
@@ -988,6 +1067,8 @@ export default function ScreenTransporteViajes({ orgId, initialTripId, onDetailC
             vehicles.find(v => v.id === t.vehicle_id) ?? null,
             workers.find(w => w.id === t.conductor_id) ?? null,
           )) : undefined}
+          onScanDeca={onScanDeca ? (t => onScanDeca(t, vehicles.find(v => v.id === t.vehicle_id) ?? null)) : undefined}
+          onOpenInvoices={onOpenInvoices}
         />
       </div>
     );

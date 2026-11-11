@@ -110,3 +110,15 @@ describe('DeCA recibido → expedición', () => {
     expect(p.client_id).toBeNull();
   });
 });
+
+import { tripInvoiceConcept } from '../../lib/transportBilling';
+
+describe('Factura de viaje', () => {
+  it('concepto con ruta, fecha, carga, peso, vehículo y referencia', () => {
+    const c = tripInvoiceConcept({
+      id: 't', org_id: 'o', titulo: 'x', origen: 'Santander', destino: 'Huelva', fecha_inicio: '2026-11-04T12:00:00Z',
+      tipo_carga: 'carga_general', peso_kg: 15000, referencia: 'R-1', estado: 'confirmado', created_at: '', updated_at: '',
+    }, '9865MMX');
+    expect(c).toBe('Transporte de mercancías Santander → Huelva · 04/11/2026 · Carga general · 15.000 kg · Vehículo 9865MMX · Ref. R-1');
+  });
+});

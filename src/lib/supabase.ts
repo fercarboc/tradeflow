@@ -155,6 +155,9 @@ export interface TradeInvoice {
   devuelta_motivo?: string | null;
   // Nuevos campos (análisis facturación)
   mantenimiento_id?: string | null;
+  // TX-FACT-1: factura de un viaje de mercancías / servicio de viajeros
+  trip_id?: string | null;
+  transport_service_id?: string | null;
   tipo_factura?: 'contrato_cuota' | 'contrato_extra' | 'trabajo_puntual' | 'rectificativa';
   serie?: 'F' | 'M' | 'R' | null;
   mes_facturacion?: string | null;

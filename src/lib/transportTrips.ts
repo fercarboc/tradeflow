@@ -58,6 +58,8 @@ export interface TradeTransportTrip {
   num_bultos?: number | null;
   precio_acordado?: number | null;
   cliente_nombre?: string | null;
+  /** TX-FACT-1: ficha de cliente vinculada (se rellena al facturar) */
+  client_id?: string | null;
   observaciones?: string | null;
   estado: TripEstado;
   // Parte real

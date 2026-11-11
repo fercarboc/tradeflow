@@ -4283,6 +4283,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setActiveTab('transporte_expediciones');
     goTransport('expediciones');
   }
+  /** Ir a Facturas (móvil y PC) para emitir con VeriFactu. */
+  function openInvoices() {
+    setShowTransportMoreSheet(false); setShowTransportNewSheet(false);
+    setFacturaMantenimientoContext(null);
+    setMobileTab('facturas');
+    setActiveTab('invoices');
+  }
   function goSettings(section: string | null) {
     setShowTransportMoreSheet(false); setShowTransportNewSheet(false);
     setMobileSettingsSection(section); setMobileTab('ajustes');
@@ -4792,6 +4799,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <ScreenTransporteViajes
                     orgId={orgId}
                     onEmitDeca={(trip, vehicle, conductor) => openTransportDoc('deca', decaPrefillFromTrip(trip, vehicle, conductor))}
+                    onScanDeca={(trip, vehicle) => openReceivedScan('deca', { trip_id: trip.id, emisor_nombre: trip.cliente_nombre ?? null, fecha_servicio: trip.fecha_inicio.slice(0, 10), origen: trip.origen, destino: trip.destino, matricula: vehicle?.matricula ?? null })}
+                    onOpenInvoices={openInvoices}
                   />
                 )}
                 {transporteMobileSubTab === 'expediciones' && (
@@ -8003,6 +8012,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <ScreenTransporteViajes
                       orgId={orgId}
                       onEmitDeca={(trip, vehicle, conductor) => openTransportDoc('deca', decaPrefillFromTrip(trip, vehicle, conductor))}
+                      onScanDeca={(trip, vehicle) => openReceivedScan('deca', { trip_id: trip.id, emisor_nombre: trip.cliente_nombre ?? null, fecha_servicio: trip.fecha_inicio.slice(0, 10), origen: trip.origen, destino: trip.destino, matricula: vehicle?.matricula ?? null })}
+                      onOpenInvoices={openInvoices}
                     />
                   </div>
                 )}
