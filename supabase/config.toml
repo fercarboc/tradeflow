@@ -405,3 +405,8 @@ s3_secret_key = "env(S3_SECRET_KEY)"
 # Página online: formulario público de solicitudes (sin JWT; valida y limita en la propia función)
 [functions.trade-page-request]
 verify_jwt = false
+
+# Documentos de control (DeCA / hoja de ruta): URL pública con descarga directa
+# exigida por la Resolución DGTCF 5-jun-2026 — sin credenciales ni JWT.
+[functions.trade-transport-doc-public]
+verify_jwt = false

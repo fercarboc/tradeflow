@@ -1064,6 +1064,8 @@ export interface TradeWorker {
   cap_caducidad?: string | null;
   fecha_incorporacion?: string | null;
   observaciones_profesionales?: string | null;
+  // TX-DOCS-1: NIF del conductor (hoja de ruta de viajeros)
+  nif?: string | null;
   created_at: string;
   updated_at: string;
 }
