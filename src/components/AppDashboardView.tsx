@@ -6585,8 +6585,50 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </div>
               )}
 
+              {/* Análisis completado (móvil): elegir qué trabajo presupuestar */}
+              {isLiveMode && photoScanPhase === 'intent' && photoScene && (
+                <div className="space-y-3" data-testid="mobile-photo-intent">
+                  {realPhotoPreviewUrl && (
+                    <div className="relative rounded-2xl overflow-hidden border border-emerald-500 aspect-video bg-gray-100">
+                      <img src={realPhotoPreviewUrl} alt="Foto analizada" className="w-full h-full object-cover" />
+                      <span className="absolute bottom-2 left-2 text-xs font-bold text-white bg-emerald-600/90 px-2 py-1 rounded-lg">✓ Análisis completado</span>
+                    </div>
+                  )}
+                  {photoScene.descripcion && (
+                    <div className="bg-white border border-gray-200 rounded-2xl p-3">
+                      <span className="text-xs font-semibold text-gray-400 uppercase block mb-1">La IA ha visto</span>
+                      <p className="text-sm text-gray-800 leading-snug">{photoScene.descripcion}</p>
+                    </div>
+                  )}
+                  <div className="bg-blue-50 border border-blue-200 rounded-2xl p-3 space-y-2">
+                    <p className="text-sm font-bold text-blue-900">¿Qué trabajo quieres presupuestar?</p>
+                    {photoScene.acciones.map(accion => (
+                      <button
+                        key={accion}
+                        onClick={() => handleApplyPhotoResult(accion)}
+                        className="w-full text-left text-sm bg-white border border-blue-300 text-blue-900 font-semibold px-3 py-3 rounded-xl active:bg-blue-600 active:text-white cursor-pointer"
+                      >
+                        {accion}
+                      </button>
+                    ))}
+                    <button
+                      onClick={() => handleApplyPhotoResult()}
+                      className={`w-full text-sm font-bold px-3 py-3 rounded-xl cursor-pointer ${photoScene.acciones.length === 0 ? 'bg-blue-600 text-white' : 'text-blue-700'}`}
+                    >
+                      Usar todo lo detectado →
+                    </button>
+                  </div>
+                  <button
+                    onClick={() => { setRealPhotoFile(null); setRealPhotoPreviewUrl(null); setPhotoScanPhase('idle'); setPhotoScene(null); setPendingPhotoQuote(null); setScanProgress(0); }}
+                    className="w-full text-center text-sm text-gray-500 py-2 cursor-pointer"
+                  >
+                    ✕ Analizar otra foto
+                  </button>
+                </div>
+              )}
+
               {/* Preview foto real + botón analizar */}
-              {isLiveMode && realPhotoFile && realPhotoPreviewUrl && (
+              {isLiveMode && realPhotoFile && realPhotoPreviewUrl && photoScanPhase !== 'intent' && (
                 <div className="space-y-3">
                   <div className="relative rounded-2xl overflow-hidden border border-blue-600 aspect-video bg-gray-100">
                     <img src={realPhotoPreviewUrl} alt="Preview" className="w-full h-full object-cover" />
