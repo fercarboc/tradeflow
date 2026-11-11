@@ -4,6 +4,26 @@
 
 ---
 
+## TX-DOCS-1 — DeCA y hoja de ruta digitales (transporte)
+
+**Período:** 2026-11-11  
+**Estado:** IMPLEMENTADO — pendiente de aplicar migración y desplegar Edge Functions en producción
+
+### Normativa cubierta
+- DeCA de mercancías — Orden FOM/2861/2012 (art. 6: contenido mínimo)
+- Hoja de ruta de viajeros — Orden FOM/1230/2013 (art. 2: contenido mínimo)
+- Formato electrónico — Resolución DGTCF 5-jun-2026 (BOE-A-2026-12784): PDF nativo ≤ 5 MB, QR con URL única HTTPS, descarga directa sin login, fecha de creación en metadatos, modificación = PDF nuevo conservando el original, conservación ≥ 1 año
+
+### Ejecutado
+- Migración `20261112100000_tx_documentos_control.sql`: tabla `trade_transport_control_docs` (snapshot inmutable, sin borrado, solo lectura vía RLS), numeración `DECA-AAAA-NNNNNN` / `HR-AAAA-NNNNNN`, bucket privado `transport-control-docs`, columna `trade_workers.nif`
+- Edge Function `trade-transport-doc` (JWT): emitir, anular, sustituir, geocodificación inversa («Cargo aquí donde estoy»)
+- Edge Function `trade-transport-doc-public` (sin JWT): URL pública → descarga directa del PDF; 410 si anulado, sustituido o caducado (fin servicio + 7 días)
+- Rewrite Vercel `trabflow.com/d/:token`
+- Frontend: asistente paso a paso (móvil y PC), pantalla «Documentos» con QR, compartir por WhatsApp, modificar, repetir y anular; integrada en menú lateral y subpestañas móviles de Transporte
+- Tests: `src/test/transport/transport-docs.test.ts`
+
+---
+
 ## RC1-C.5B — Integración visual de locations, stock local y promociones
 
 **Período:** 2026-08-09  

@@ -131,6 +131,7 @@ import ScreenTransporteRutas from './ScreenTransporteRutas';
 import ScreenTransporteTarifas from './ScreenTransporteTarifas';
 import ScreenTransportePresupuestos from './ScreenTransportePresupuestos';
 import ScreenTransporteMercanciasComing from './ScreenTransporteMercanciasComing';
+import ScreenTransporteDocumentos from './transport-docs/ScreenTransporteDocumentos';
 import { getOrgCapabilities, TRANSPORT_PENDING_OFICIOS } from '../lib/orgCapabilities';
 import ScreenFacturas from './ScreenFacturas';
 import ScreenContratos from './ScreenContratos';
@@ -894,7 +895,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // Mobile suppliers hub sub-tab
   const [mobileSuppliersSubTab, setMobileSuppliersSubTab] = useState<'proveedores' | 'catalogo'>('proveedores');
   // Mobile transport sub-tab (includes mercancías placeholders: viajes, expediciones)
-  const [transporteMobileSubTab, setTransporteMobileSubTab] = useState<'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas' | 'partes' | 'viajes' | 'expediciones'>('vehiculos');
+  const [transporteMobileSubTab, setTransporteMobileSubTab] = useState<'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas' | 'partes' | 'viajes' | 'expediciones' | 'documentos'>('vehiculos');
   // Transport parte virtual tab
   const [transporteParteId, setTransporteParteId] = useState<string | null>(null);
   const [transporteParteFromTab, setTransporteParteFromTab] = useState<string>('transporte_servicios');
@@ -4550,12 +4551,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               <div className="sticky top-0 z-10 bg-white border-b border-gray-200 flex overflow-x-auto scrollbar-hide shrink-0">
                 {(caps.isMercanciasPrimary ? [
                   { id: 'panel',        icon: <LayoutDashboard className="w-3.5 h-3.5" />, label: 'Panel' },
+                  { id: 'documentos',   icon: <FileCheck className="w-3.5 h-3.5" />,       label: 'DeCA' },
                   { id: 'vehiculos',    icon: <Truck className="w-3.5 h-3.5" />,           label: 'Flota' },
                   { id: 'conductores',  icon: <UserPlus className="w-3.5 h-3.5" />,        label: 'Conductores' },
                   { id: 'viajes',       icon: <Package className="w-3.5 h-3.5" />,         label: 'Viajes' },
                   { id: 'expediciones', icon: <FileText className="w-3.5 h-3.5" />,        label: 'Expediciones' },
                 ] : [
                   { id: 'panel',       icon: <LayoutDashboard className="w-3.5 h-3.5" />, label: 'Panel' },
+                  { id: 'documentos',  icon: <FileCheck className="w-3.5 h-3.5" />,       label: caps.isViajerosPrimary ? 'Hoja ruta' : 'Documentos' },
                   { id: 'servicios',   icon: <Calendar className="w-3.5 h-3.5" />,        label: 'Servicios' },
                   { id: 'agenda',      icon: <CalendarDays className="w-3.5 h-3.5" />,    label: 'Agenda' },
                   { id: 'vehiculos',   icon: <Bus className="w-3.5 h-3.5" />,             label: 'Flota' },
@@ -4661,6 +4664,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     orgId={orgId}
                     onOpenParte={(id) => { setTransporteParteId(id); setMobileTab('partes'); }}
                     conductorId={transporteConductorPreselectId ?? undefined}
+                  />
+                )}
+                {transporteMobileSubTab === 'documentos' && (
+                  <ScreenTransporteDocumentos
+                    orgId={orgId}
+                    showToast={showToast}
+                    allowDeca={!caps.isViajerosPrimary}
+                    allowHojaRuta={!caps.isMercanciasPrimary}
                   />
                 )}
                 {/* Mercancías placeholders */}
@@ -7328,6 +7339,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {can('transport.view') && SidebarBtn({ id: 'transporte_vehiculos',  icon: <Bus className="w-4 h-4" />, label: 'Flota' })}
                 {can('transport.view') && SidebarBtn({ id: 'transporte_conductores', icon: <UserPlus className="w-4 h-4" />, label: 'Conductores' })}
                 {can('transport.view') && SidebarBtn({ id: 'transporte_tarifas',   icon: <Euro className="w-4 h-4" />, label: 'Tarifas' })}
+                {can('transport.view') && SidebarBtn({ id: 'transporte_documentos', icon: <FileCheck className="w-4 h-4" />, label: caps.isViajerosPrimary ? 'Hojas de ruta' : caps.isMercanciasPrimary ? 'DeCA' : 'DeCA / Hojas de ruta' })}
                 {/* Viajeros: Servicios, Agenda, Rutas, Partes */}
                 {!caps.isMercanciasPrimary && can('transport.view') && SidebarBtn({ id: 'transporte_servicios',  icon: <Calendar className="w-4 h-4" />, label: 'Servicios' })}
                 {!caps.isMercanciasPrimary && can('transport.view') && SidebarBtn({ id: 'transporte_agenda',     icon: <CalendarDays className="w-4 h-4" />, label: 'Agenda' })}
@@ -7380,6 +7392,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     {SidebarBtn({ id: 'transporte_vehiculos',  icon: <Bus  className="w-4 h-4" />, label: 'Flota' })}
                     {SidebarBtn({ id: 'transporte_conductores', icon: <UserPlus className="w-4 h-4" />, label: 'Conductores' })}
                     {SidebarBtn({ id: 'transporte_tarifas',   icon: <Euro className="w-4 h-4" />, label: 'Tarifas' })}
+                    {SidebarBtn({ id: 'transporte_documentos', icon: <FileCheck className="w-4 h-4" />, label: caps.isViajerosPrimary ? 'Hojas de ruta' : caps.isMercanciasPrimary ? 'DeCA' : 'DeCA / Hojas de ruta' })}
                     {/* Viajeros: solo si no es mercancías primaria */}
                     {!caps.isMercanciasPrimary && SidebarBtn({ id: 'transporte_servicios',  icon: <Calendar className="w-4 h-4" />, label: 'Servicios' })}
                     {!caps.isMercanciasPrimary && SidebarBtn({ id: 'transporte_agenda',     icon: <CalendarDays className="w-4 h-4" />, label: 'Agenda' })}
@@ -7877,6 +7890,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'transporte_presupuestos' && orgId && caps.hasTransport && can('transport.view') && (
                   <div className="flex-1 overflow-y-auto min-h-0">
                     <ScreenTransportePresupuestos orgId={orgId} showToast={showToast} />
+                  </div>
+                )}
+                {activeTab === 'transporte_documentos' && orgId && caps.hasTransport && can('transport.view') && (
+                  <div className="flex-1 overflow-y-auto min-h-0">
+                    <ScreenTransporteDocumentos
+                      orgId={orgId}
+                      showToast={showToast}
+                      allowDeca={!caps.isViajerosPrimary}
+                      allowHojaRuta={!caps.isMercanciasPrimary}
+                    />
                   </div>
                 )}
                 {activeTab === 'transporte_viajes' && orgId && caps.hasTransport && (caps.isMercanciasPrimary || caps.isCombinadaOrg) && can('transport.view') && (
