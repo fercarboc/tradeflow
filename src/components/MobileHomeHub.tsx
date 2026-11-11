@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   Briefcase, FileText, Receipt, Users, CalendarDays,
   MoreHorizontal, ChevronRight, Wrench, Package, MessageSquare,
-  X, FileCheck, Truck, PlusCircle, Clock, Navigation, Mic, Settings,
+  X, FileCheck, Truck, PlusCircle, Clock, Navigation, Mic, Settings, Inbox, Globe,
 } from 'lucide-react';
 
 interface NextJob {
@@ -45,6 +45,10 @@ interface MobileHomeHubProps {
   onGoRuta?: () => void;
   onGoAsistente?: () => void;
   showMoreSheetExternal?: boolean;
+  /** Mi página online */
+  newRequestsCount?: number;
+  onGoSolicitudes?: () => void;
+  onGoMiPagina?: () => void;
   onMoreSheetChange?: (open: boolean) => void;
 }
 
@@ -98,6 +102,9 @@ export default function MobileHomeHub({
   onGoRuta,
   onGoAsistente,
   showMoreSheetExternal,
+  newRequestsCount = 0,
+  onGoSolicitudes,
+  onGoMiPagina,
   onMoreSheetChange,
 }: MobileHomeHubProps) {
   const [showMoreSheetInternal, setShowMoreSheetInternal] = useState(false);
@@ -109,12 +116,14 @@ export default function MobileHomeHub({
   const moreItems: { id: string; label: string; icon: React.ReactNode; tone: string; badge?: number; onClick: () => void }[] = [
     { id: 'trabajos', label: 'Trabajos', icon: <Briefcase className="w-7 h-7" />, tone: 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-300', badge: jobsActiveCount, onClick: go(() => onNavigate('trabajos')) },
     { id: 'clientes', label: 'Clientes', icon: <Users className="w-7 h-7" />, tone: 'bg-teal-50 text-teal-600 dark:bg-teal-900/40 dark:text-teal-300', onClick: go(() => onNavigate('clientes')) },
+    ...(onGoSolicitudes ? [{ id: 'solicitudes', label: 'Solicitudes', icon: <Inbox className="w-7 h-7" />, tone: 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-300', badge: newRequestsCount, onClick: go(onGoSolicitudes) }] : []),
     { id: 'facturas', label: 'Facturas', icon: <Receipt className="w-7 h-7" />, tone: 'bg-amber-50 text-amber-600 dark:bg-amber-900/40 dark:text-amber-300', badge: facturasPendingCount, onClick: go(() => onNavigate('facturas')) },
     { id: 'mantenimiento', label: 'Mantenimiento', icon: <Wrench className="w-7 h-7" />, tone: 'bg-violet-50 text-violet-600 dark:bg-violet-900/40 dark:text-violet-300', onClick: go(() => onNavigate('mantenimiento')) },
     { id: 'partes', label: 'Partes firmados', icon: <FileCheck className="w-7 h-7" />, tone: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-300', onClick: go(onGoPartes) },
     ...(hasSuppliers ? [{ id: 'suppliers', label: 'Proveedores', icon: <Package className="w-7 h-7" />, tone: 'bg-indigo-50 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300', onClick: go(onGoSuppliers) }] : []),
     ...(hasTransport ? [{ id: 'transporte', label: 'Transporte', icon: <Truck className="w-7 h-7" />, tone: 'bg-orange-50 text-orange-600 dark:bg-orange-900/40 dark:text-orange-300', onClick: go(() => onNavigate('transporte')) }] : []),
     { id: 'asistente', label: 'Normativa', icon: <MessageSquare className="w-7 h-7" />, tone: 'bg-sky-50 text-sky-600 dark:bg-sky-900/40 dark:text-sky-300', onClick: go(() => { if (onGoAsistente) onGoAsistente(); else onNavigate('asistente'); }) },
+    ...(onGoMiPagina ? [{ id: 'mipagina', label: 'Mi página', icon: <Globe className="w-7 h-7" />, tone: 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-300', onClick: go(onGoMiPagina) }] : []),
     { id: 'ajustes', label: 'Configuración', icon: <Settings className="w-7 h-7" />, tone: 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300', onClick: go(() => onNavigate('ajustes')) },
   ];
   const eur = (n: number) => n.toLocaleString('es-ES', { maximumFractionDigits: 0 }) + ' €';

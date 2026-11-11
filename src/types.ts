@@ -44,6 +44,9 @@ UpdatePassword = 'update-password',
 // Public quote acceptance
 QuoteAccept = 'quote-accept',
 
+// Página pública del instalador (trabflow.com/pro/{slug})
+ProPage = 'pro-page',
+
 // Public invoice view
 InvoiceView = 'invoice-view',
 

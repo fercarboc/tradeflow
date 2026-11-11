@@ -60,6 +60,7 @@ const MarketplaceComingSoonView          = lazy(() => import('./components/marke
 const ProveedoresView                    = lazy(() => import('./components/landing/ProveedoresView'));
 const TransporteLandingView              = lazy(() => import('./components/landing/TransporteLandingView'));
 const FinDocPublicView                   = lazy(() => import('./pages/FinDocPublicView'));
+const PublicProPage                      = lazy(() => import('./pages/PublicProPage'));
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -171,6 +172,7 @@ const AUTH_FLOW_PAGES = new Set<ActivePage>([
   ActivePage.AuthCallback,
   ActivePage.UpdatePassword,
   ActivePage.QuoteAccept,
+  ActivePage.ProPage,                     // página pública del instalador
   ActivePage.Parte,                       // public viewer — don't override when user has session
   ActivePage.InvoiceView,                 // public viewer — idem
   ActivePage.Valorar,                     // public viewer — idem
@@ -248,6 +250,7 @@ function detectAuthRoute(): ActivePage | null {
   if (path === '/update-password') return ActivePage.UpdatePassword;
   if (path === '/login') return ActivePage.Login;
   if (path.startsWith('/p/')) return ActivePage.QuoteAccept;
+  if (path.startsWith('/pro/')) return ActivePage.ProPage;
   if (path.startsWith('/factura/')) return ActivePage.InvoiceView;
   if (path.startsWith('/valorar/')) return ActivePage.Valorar;
   if (path.startsWith('/parte/')) return ActivePage.Parte;
@@ -709,6 +712,9 @@ export default function App() {
       case ActivePage.FinDocPublic:
         return <FinDocPublicView token={finDocToken} />;
 
+      case ActivePage.ProPage:
+        return <PublicProPage slug={decodeURIComponent(window.location.pathname.split('/')[2] ?? '').toLowerCase()} />;
+
       case ActivePage.PartnerDemo:
         return <PartnerDemoView setCurrentPage={setCurrentPage} />;
 
@@ -824,7 +830,8 @@ export default function App() {
     currentPage === ActivePage.AuthCallback ||
     currentPage === ActivePage.AuthResetPassword ||
     currentPage === ActivePage.UpdatePassword ||
-    currentPage === ActivePage.QuoteAccept;
+    currentPage === ActivePage.QuoteAccept ||
+    currentPage === ActivePage.ProPage;
 
   // Spinner neutral mientras se resuelve el workspace — evita flash del onboarding ERP
   if (workspaceResolving) {
