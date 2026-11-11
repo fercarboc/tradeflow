@@ -166,6 +166,10 @@ import {
 import OwnerDashboardDesktop from './OwnerDashboardDesktop';
 import OwnerDashboardMobile from './OwnerDashboardMobile';
 import MobileHomeHub from './MobileHomeHub';
+import { ExpressProgress, ExpressTotalBar, ExpressStartPanel, QuoteTemplatesStrip, ExpressQuoteList, EXPRESS_STEPS } from './quick/ExpressQuote';
+import type { ExpressStep, ExpressQuoteAction } from './quick/ExpressQuote';
+import { loadQuoteTemplates, saveQuoteTemplate, markQuoteTemplateUsed, partidasFromTemplate, loadQuoteLinkTracking } from '../lib/quoteTemplates';
+import type { QuoteTemplate, QuoteLinkTracking, ExpressQuoteFilter } from '../lib/quoteTemplates';
 
 const InvoiceIcon = FileText;
 
@@ -954,6 +958,27 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     total: 0,
     estado: 'Borrador'
   });
+
+  // ── Modo Exprés (asistente simplificado de 4 pasos) ──────────────────────
+  const [expressMode, setExpressModeState] = useState<boolean>(() => {
+    try { return localStorage.getItem('tf_modo_expres') !== 'off'; } catch { return true; }
+  });
+  const setExpressMode = (on: boolean) => {
+    setExpressModeState(on);
+    try { localStorage.setItem('tf_modo_expres', on ? 'on' : 'off'); } catch { /* sin almacenamiento */ }
+  };
+  const [expressStep, setExpressStep] = useState<ExpressStep>('partidas');
+  const [quoteTemplates, setQuoteTemplates] = useState<QuoteTemplate[]>([]);
+  const [quoteTemplatesLoading, setQuoteTemplatesLoading] = useState(false);
+  const quoteTemplatesLoadedRef = useRef(false);
+  const [expressSaveTemplate, setExpressSaveTemplate] = useState(false);
+  const [expressTemplateName, setExpressTemplateName] = useState('');
+  const [expressConfirmZero, setExpressConfirmZero] = useState(false);
+  const [expressShowTranscript, setExpressShowTranscript] = useState(false);
+  const [quoteTracking, setQuoteTracking] = useState<Record<string, QuoteLinkTracking>>({});
+  const [presupuestoStateFilter, setPresupuestoStateFilter] = useState<ExpressQuoteFilter>('todos');
+  const [expressIvaChosen, setExpressIvaChosen] = useState(false);
+  const expressIvaFromTemplateRef = useRef(false);
 
   // Colapsar detalle partidas en el preview móvil
   const [itemsCollapsedMobile, setItemsCollapsedMobile] = useState<boolean>(true);
@@ -2027,7 +2052,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 orgId, clientId, finalQuote.descripcion ?? '',
                 itemsPayload,
                 kbActuacionesSaved.length > 0 ? kbActuacionesSaved : undefined,
-                empresaAjustes.ivaDefault,
+                // Modo Exprés: IVA elegido en el paso «IVA»; si no, el de la empresa (comportamiento anterior)
+                expressIvaChosen && wizardQuote.iva_pct != null ? wizardQuote.iva_pct : empresaAjustes.ivaDefault,
                 pendingQuoteMetadata.current ?? undefined,
               );
               pendingQuoteMetadata.current = null;
@@ -2067,6 +2093,117 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       showToast('Error al actualizar: ' + (e?.message ?? 'Error desconocido'), 'error');
     } finally {
       savingQuoteRef.current = false;
+    }
+  };
+
+  // ── Modo Exprés: sincronización, plantillas y seguimiento ──────────────────
+  // Los puntos de entrada existentes fijan wizardStep (1-5); el Modo Exprés lo traduce a sus 4 pasos.
+  useEffect(() => {
+    if (!wizardActive) return;
+    if (wizardStep === 5) setExpressStep('enviar');
+    else setExpressStep('partidas');
+  }, [wizardActive, wizardStep]);
+
+  useEffect(() => {
+    if (wizardActive) {
+      setExpressSaveTemplate(false);
+      setExpressTemplateName('');
+      setExpressConfirmZero(false);
+      setExpressShowTranscript(false);
+      // Si se abrió desde una plantilla con IVA propio, se conserva ese IVA
+      setExpressIvaChosen(expressIvaFromTemplateRef.current);
+      expressIvaFromTemplateRef.current = false;
+    }
+  }, [wizardActive]);
+
+  useEffect(() => {
+    if (!orgId || !isLiveMode || quoteTemplatesLoadedRef.current) return;
+    if (!(wizardActive || mobileTab === 'presupuestos')) return;
+    quoteTemplatesLoadedRef.current = true;
+    setQuoteTemplatesLoading(true);
+    loadQuoteTemplates(orgId)
+      .then(setQuoteTemplates)
+      .catch(() => { /* tabla aún no migrada: se muestran sin plantillas */ })
+      .finally(() => setQuoteTemplatesLoading(false));
+  }, [orgId, isLiveMode, wizardActive, mobileTab]);
+
+  useEffect(() => {
+    if (!orgId || !isLiveMode || !expressMode || mobileTab !== 'presupuestos') return;
+    let alive = true;
+    loadQuoteLinkTracking(orgId)
+      .then(t => { if (alive) setQuoteTracking(t); })
+      .catch(() => { /* sin seguimiento: se muestran los estados normales */ });
+    return () => { alive = false; };
+  }, [orgId, isLiveMode, expressMode, mobileTab, presupuestos.length]);
+
+  /** IVA que se aplicará: el elegido en el paso IVA, el del presupuesto si se edita, o el de la empresa. */
+  const expressIvaPct = (): number =>
+    expressIvaChosen && wizardQuote.iva_pct != null ? wizardQuote.iva_pct
+      : editingQuoteId ? (wizardQuote.iva_pct ?? empresaAjustes.ivaDefault ?? 21)
+      : (empresaAjustes.ivaDefault ?? 21);
+
+  const handleExpressUseTemplate = (t: QuoteTemplate) => {
+    const parts = partidasFromTemplate(t);
+    if (parts.length === 0) { showToast('Esta plantilla no tiene partidas', 'error'); return; }
+    setWizardQuote(prev => {
+      const existing = prev.partidas ?? [];
+      const merged = [...existing, ...parts];
+      return {
+        ...prev,
+        partidas: merged,
+        total: merged.reduce((s, p) => s + (p.total ?? 0), 0),
+        descripcion: existing.length > 0 ? prev.descripcion : (prev.descripcion || t.descripcion || t.nombre),
+        ...(existing.length === 0 && t.iva_pct != null ? { iva_pct: t.iva_pct } : {}),
+      };
+    });
+    if ((!wizardActive || (wizardQuote.partidas ?? []).length === 0) && t.iva_pct != null) {
+      setExpressIvaChosen(true);
+      if (!wizardActive) expressIvaFromTemplateRef.current = true;
+    }
+    setWizardStep(4);
+    setQuoteTemplates(prev => prev.map(x => x.id === t.id ? { ...x, uso_count: (x.uso_count ?? 0) + 1, last_used_at: new Date().toISOString() } : x));
+    if (isLiveMode && orgId && !t.id.startsWith('local-')) markQuoteTemplateUsed(t).catch(() => {});
+    showToast(`Plantilla «${t.nombre}» añadida ✓`, 'success');
+  };
+
+  const handleExpressFinish = async () => {
+    const parts = wizardQuote.partidas ?? [];
+    if (parts.length === 0) { showToast('Añade al menos una partida', 'error'); setExpressStep('partidas'); return; }
+    const nombre = (wizardQuote.nombreCliente ?? '').trim();
+    if (!nombre) { showToast('Falta el nombre del cliente', 'error'); setExpressStep('cliente'); return; }
+    const sinPrecio = parts.filter(p => !(p.precioUnitario > 0)).length;
+    if (sinPrecio > 0 && !expressConfirmZero) {
+      setExpressConfirmZero(true);
+      showToast(`${sinPrecio} partida${sinPrecio > 1 ? 's' : ''} sin precio. Pulsa otra vez para enviar igualmente.`, 'error');
+      return;
+    }
+    if (expressSaveTemplate) {
+      const tplName = (expressTemplateName || wizardQuote.descripcion || 'Plantilla').trim();
+      const ivaTpl = expressIvaChosen ? expressIvaPct() : null;
+      if (isLiveMode && orgId) {
+        try {
+          const t = await saveQuoteTemplate(orgId, tplName, wizardQuote.descripcion ?? '', parts, ivaTpl);
+          setQuoteTemplates(prev => [t, ...prev]);
+          showToast('Plantilla guardada ✓', 'success');
+        } catch {
+          showToast('No se pudo guardar la plantilla (el presupuesto sí se guarda)', 'error');
+        }
+      } else {
+        setQuoteTemplates(prev => [{ id: `local-${Date.now()}`, nombre: tplName, descripcion: wizardQuote.descripcion ?? '', partidas: parts, iva_pct: ivaTpl, uso_count: 0, last_used_at: null }, ...prev]);
+      }
+    }
+    await finishWizardAndSave(nombre, wizardQuote.telefonoCliente ?? '');
+  };
+
+  const handleExpressQuoteAction = (q: Presupuesto, action: ExpressQuoteAction) => {
+    if (action === 'enviar' || action === 'recordar') {
+      setTargetQuoteForWhatsApp(q);
+      setWhatsAppStep('confirm');
+      setShowWhatsAppModal(true);
+    } else if (action === 'facturar') {
+      handleQuickConvertInvoice(q);
+    } else {
+      setMobileTab('facturas');
     }
   };
 
@@ -4100,7 +4237,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
     // Si el Wizard paso a paso está activo
     if (wizardActive) {
-      return MobileWizardView();
+      return (expressMode && !wizardViewOnly) ? MobileExpressWizardView() : MobileWizardView();
     }
 
     return (
@@ -4157,7 +4294,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           }}
         >
           {mobileTab === 'inicio' && !isTecnico && MobileScreenInicio()}
-          {mobileTab === 'presupuestos' && MobileScreenPresupuestos()}
+          {mobileTab === 'presupuestos' && (expressMode ? MobileScreenPresupuestosExpress() : MobileScreenPresupuestos())}
           {mobileTab === 'clientes' && MobileScreenClientes()}
           {mobileTab === 'facturas' && MobileScreenFacturas()}
           {waPdfPending && (
@@ -5244,6 +5381,29 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     );
   }
 
+  // ================= MÓVIL: SEGUIMIENTO DE PRESUPUESTOS (MODO EXPRÉS) =================
+  function MobileScreenPresupuestosExpress() {
+    return (
+      <div className="space-y-3">
+        <ExpressQuoteList
+          quotes={presupuestos}
+          tracking={quoteTracking}
+          filter={presupuestoStateFilter}
+          onFilter={setPresupuestoStateFilter}
+          search={presupuestoClientFilter}
+          onSearch={setPresupuestoClientFilter}
+          onOpen={q => setPostConfirmQuote(q)}
+          onAction={handleExpressQuoteAction}
+          onNew={() => startWizard(1)}
+        />
+        <QuoteTemplatesStrip templates={quoteTemplates} loading={quoteTemplatesLoading} onUse={t => { startWizard(1); handleExpressUseTemplate(t); }} />
+        <button type="button" onClick={() => setExpressMode(false)} className="w-full text-center text-xs text-gray-400 py-2 cursor-pointer">
+          Ver la lista clásica
+        </button>
+      </div>
+    );
+  }
+
   // ================= MÓVIL: CLIENTES CRM SCREEN =================
   function MobileScreenClientes() {
     const selectedCliente = mobileClienteId ? clientes.find(c => c.id === mobileClienteId) : null;
@@ -5903,49 +6063,330 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     );
   }
 
-  // ================= MÓVIL: WIZARD DE CREACIÓN EN 5 PASOS =================
-  function MobileWizardView() {
+  // ================= MÓVIL: MODO EXPRÉS (4 pasos: Partidas → Cliente → IVA → Enviar) =================
+  function MobileExpressWizardView() {
+    const partidas = wizardQuote.partidas ?? [];
+    const base = partidas.reduce((s, p) => s + (p.total ?? 0), 0);
+    const ivaPct = expressIvaPct();
+    const sinPrecio = partidas.filter(p => !(p.precioUnitario > 0)).length;
+    const manoObra = partidas.filter(p => p.tipo === 'mano_de_obra').reduce((s, p) => s + (p.total ?? 0), 0);
+    const material = base - manoObra;
+    const stepIdx = EXPRESS_STEPS.indexOf(expressStep);
+    const inputPanel = expressStep === 'partidas' && (wizardStep === 2 || wizardStep === 3);
+    const fmt = (n: number) => n.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+    const nameNeedle = (wizardQuote.nombreCliente ?? '').trim().toLowerCase();
+    const clientSuggestions = nameNeedle.length >= 2
+      ? clientes.filter(c => (c.nombre ?? '').toLowerCase().includes(nameNeedle) && c.nombre !== wizardQuote.nombreCliente).slice(0, 5)
+      : [];
+
+    const goNext = () => {
+      if (expressStep === 'partidas') {
+        if (partidas.length === 0) { showToast('Añade al menos una partida', 'error'); return; }
+        setExpressStep('cliente');
+      } else if (expressStep === 'cliente') {
+        if (!(wizardQuote.nombreCliente ?? '').trim()) { showToast('Escribe el nombre del cliente', 'error'); return; }
+        setExpressStep('pago');
+      } else if (expressStep === 'pago') {
+        setExpressStep('enviar');
+      } else {
+        handleExpressFinish();
+      }
+    };
+    const goBack = () => {
+      if (inputPanel) { setWizardStep(4); return; }
+      if (stepIdx > 0) setExpressStep(EXPRESS_STEPS[stepIdx - 1]);
+    };
+    const close = () => { setWizardActive(false); setWizardViewOnly(false); setMobileTab('inicio'); };
+
     return (
-      <div className="flex flex-col h-full bg-gray-50 text-gray-900 select-none relative">
-        
-        {/* Progreso del Wizard */}
-        <div className="bg-white border-b border-gray-200 px-4 py-3 shrink-0">
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-[10px] font-mono font-bold text-blue-600 uppercase tracking-widest">
-              {wizardViewOnly ? 'Vista del Presupuesto' : `Paso ${wizardStep} de 5`}
-            </span>
-            <button
-              onClick={() => {
-                setWizardActive(false);
-                setWizardViewOnly(false);
-                if (wizardViewOnly) setPostConfirmQuote(wizardQuote as Presupuesto);
-                else setMobileTab('inicio');
-              }}
-              className="text-gray-500 hover:text-gray-700 p-0.5 rounded-full"
-            >
-              <X className="w-4 h-4" />
-            </button>
+      <div className="flex flex-col h-full bg-gray-50 text-gray-900 relative" data-testid="express-wizard">
+        {/* Cabecera: título, progreso y total fijo */}
+        <div className="bg-white border-b border-gray-200 px-4 pt-3 pb-3 shrink-0 space-y-3">
+          <div className="flex items-center justify-between">
+            <h1 className="text-lg font-bold">{editingQuoteId ? 'Editar presupuesto' : 'Nuevo presupuesto'}</h1>
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => { setExpressMode(false); showToast('Asistente clásico activado', 'info'); }}
+                className="text-xs font-semibold text-gray-400 px-2 py-1 cursor-pointer"
+              >
+                Asistente clásico
+              </button>
+              <button type="button" onClick={close} aria-label="Cerrar" className="p-2 text-gray-500 cursor-pointer">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
-          
-          {/* Barra indicadora de progreso */}
-          <div className="h-1 bg-gray-200 rounded-full w-full overflow-hidden">
-            <div 
-              className="h-full bg-blue-600 transition-all duration-300" 
-              style={{ width: `${(wizardStep / 5) * 100}%` }}
-            />
-          </div>
+          <ExpressProgress step={expressStep} onGo={s => { if (EXPRESS_STEPS.indexOf(s) < stepIdx) setExpressStep(s); }} />
+          {partidas.length > 0 && <ExpressTotalBar base={base} ivaPct={ivaPct} count={partidas.length} sinPrecio={sinPrecio} />}
         </div>
 
-        {/* Cuerpo del Wizard */}
-        <div className="flex-grow p-4 overflow-y-auto pb-24">
-          
-          {/* PASO 1: CLIENTE */}
-          {wizardStep === 1 && (
+        {/* Cuerpo */}
+        <div className="flex-grow p-4 overflow-y-auto pb-32 space-y-5">
+
+          {/* PASO 1 · PARTIDAS */}
+          {expressStep === 'partidas' && (
+            inputPanel ? (
+              <div className="space-y-4">
+                {wizardStep === 2 ? renderWizardStepDescribir(false) : renderWizardStepFoto(false)}
+              </div>
+            ) : partidas.length === 0 ? (
+              <>
+                <ExpressStartPanel
+                  onVoz={() => { setWizardOrigin('voz'); setWizardStep(2); }}
+                  onTexto={() => { setWizardOrigin('manual'); setWizardStep(2); }}
+                  onFoto={() => { setWizardOrigin('foto'); setWizardStep(3); }}
+                  onManual={() => { setWizardOrigin('manual'); handleAddManualItem(); }}
+                />
+                <QuoteTemplatesStrip templates={quoteTemplates} loading={quoteTemplatesLoading} onUse={handleExpressUseTemplate} />
+              </>
+            ) : (
+              <>
+                {(wizardQuote.descripcion ?? '').trim() && (
+                  <div className="bg-white border border-gray-200 rounded-2xl">
+                    <button
+                      type="button"
+                      onClick={() => setExpressShowTranscript(v => !v)}
+                      className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-gray-600 cursor-pointer"
+                    >
+                      Lo que dijiste {expressShowTranscript ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                    </button>
+                    {expressShowTranscript && <p className="px-4 pb-3 text-sm text-gray-700 italic leading-relaxed">{wizardQuote.descripcion}</p>}
+                  </div>
+                )}
+                {renderWizardStepPartidas(false)}
+                <div className="flex gap-2">
+                  <button type="button" onClick={() => { setWizardOrigin('voz'); setWizardStep(2); }}
+                    className="flex-1 flex items-center justify-center gap-2 bg-white border border-gray-200 rounded-xl py-3 text-sm font-semibold text-gray-700 cursor-pointer">
+                    <Mic className="w-4 h-4" /> Dictar de nuevo
+                  </button>
+                  <button type="button" onClick={() => { setWizardOrigin('foto'); setWizardStep(3); }}
+                    className="flex-1 flex items-center justify-center gap-2 bg-white border border-gray-200 rounded-xl py-3 text-sm font-semibold text-gray-700 cursor-pointer">
+                    <Camera className="w-4 h-4" /> Foto
+                  </button>
+                </div>
+                <QuoteTemplatesStrip
+                  title="Añadir desde plantilla"
+                  templates={quoteTemplates}
+                  loading={quoteTemplatesLoading}
+                  onUse={handleExpressUseTemplate}
+                  emptyHint="Cuando guardes plantillas, podrás añadir sus partidas aquí con un toque."
+                />
+              </>
+            )
+          )}
+
+          {/* PASO 2 · CLIENTE */}
+          {expressStep === 'cliente' && (
             <div className="space-y-4">
+              <h2 className="text-xl font-bold">¿Para quién es?</h2>
+              <label className="block space-y-1">
+                <span className="text-sm font-semibold text-gray-600">Nombre *</span>
+                <input
+                  type="text"
+                  autoComplete="off"
+                  value={wizardQuote.nombreCliente ?? ''}
+                  onChange={e => setWizardQuote(prev => ({ ...prev, nombreCliente: e.target.value }))}
+                  placeholder="Nombre del cliente"
+                  className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-blue-500"
+                />
+              </label>
+              {clientSuggestions.length > 0 && (
+                <div className="bg-white border border-gray-200 rounded-xl divide-y divide-gray-100 overflow-hidden">
+                  {clientSuggestions.map(c => (
+                    <button
+                      key={c.id}
+                      type="button"
+                      onClick={() => {
+                        setWizardQuote(prev => ({ ...prev, nombreCliente: c.nombre, telefonoCliente: c.telefono, emailCliente: c.email }));
+                        setQuickClientEmail(c.email ?? '');
+                      }}
+                      className="w-full text-left px-4 py-3 cursor-pointer active:bg-blue-50"
+                    >
+                      <span className="block text-sm font-bold text-gray-900">{c.nombre}</span>
+                      <span className="block text-xs text-gray-500">{[c.telefono, c.direccion].filter(Boolean).join(' · ')}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+              <label className="block space-y-1">
+                <span className="text-sm font-semibold text-gray-600">Teléfono (WhatsApp)</span>
+                <input
+                  type="tel"
+                  inputMode="tel"
+                  value={wizardQuote.telefonoCliente ?? ''}
+                  onChange={e => setWizardQuote(prev => ({ ...prev, telefonoCliente: e.target.value }))}
+                  placeholder="600 000 000"
+                  className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-blue-500"
+                />
+              </label>
+              <label className="block space-y-1">
+                <span className="text-sm font-semibold text-gray-600">Email (opcional)</span>
+                <input
+                  type="email"
+                  inputMode="email"
+                  value={wizardQuote.emailCliente ?? ''}
+                  onChange={e => { const v = e.target.value; setWizardQuote(prev => ({ ...prev, emailCliente: v })); setQuickClientEmail(v); }}
+                  className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-blue-500"
+                />
+              </label>
+              {clientes.length > 0 && nameNeedle.length < 2 && (
+                <div className="space-y-2">
+                  <span className="text-sm font-semibold text-gray-600 block">Clientes recientes</span>
+                  <div className="flex flex-wrap gap-2">
+                    {clientes.slice(0, 6).map(c => (
+                      <button
+                        key={c.id}
+                        type="button"
+                        onClick={() => {
+                          setWizardQuote(prev => ({ ...prev, nombreCliente: c.nombre, telefonoCliente: c.telefono, emailCliente: c.email }));
+                          setQuickClientEmail(c.email ?? '');
+                        }}
+                        className="px-3 py-2 bg-white border border-gray-200 rounded-full text-sm font-semibold text-gray-700 cursor-pointer"
+                      >
+                        {c.nombre}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+              <p className="text-xs text-gray-400 leading-snug">Si el cliente no existe, se crea al guardar. El NIF y la dirección se piden solo al facturar.</p>
+            </div>
+          )}
+
+          {/* PASO 3 · IVA */}
+          {expressStep === 'pago' && (
+            <div className="space-y-4">
+              <h2 className="text-xl font-bold">IVA del presupuesto</h2>
+              <div className="grid grid-cols-4 gap-2" role="radiogroup" aria-label="Tipo de IVA">
+                {[21, 10, 4, 0].map(pct => (
+                  <button
+                    key={pct}
+                    type="button"
+                    role="radio"
+                    aria-checked={ivaPct === pct}
+                    onClick={() => { setWizardQuote(prev => ({ ...prev, iva_pct: pct })); setExpressIvaChosen(true); }}
+                    className={`py-3 rounded-xl text-base font-bold border-2 cursor-pointer ${ivaPct === pct ? 'border-blue-600 bg-blue-50 text-blue-700' : 'border-gray-200 bg-white text-gray-700'}`}
+                  >
+                    {pct}%
+                  </button>
+                ))}
+              </div>
+              {ivaPct === 10 && (
+                <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-xl p-3 leading-snug">
+                  10 %: reformas en vivienda particular, si se cumplen las condiciones legales (entre ellas, el límite de coste de materiales). Confírmalo con tu gestoría.
+                </p>
+              )}
+              {ivaPct === 0 && (
+                <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-xl p-3 leading-snug">
+                  0 %: solo para operaciones exentas o con inversión del sujeto pasivo.
+                </p>
+              )}
+              <div className="bg-white border border-gray-200 rounded-2xl p-4 space-y-2 text-sm">
+                {manoObra > 0 && <div className="flex justify-between text-gray-500"><span>Mano de obra</span><span className="font-mono">{fmt(manoObra)}</span></div>}
+                {material > 0 && <div className="flex justify-between text-gray-500"><span>Materiales</span><span className="font-mono">{fmt(material)}</span></div>}
+                <div className="flex justify-between"><span>Base imponible</span><span className="font-mono">{fmt(base)}</span></div>
+                <div className="flex justify-between"><span>IVA {ivaPct}%</span><span className="font-mono">{fmt(base * ivaPct / 100)}</span></div>
+                <div className="flex justify-between pt-2 border-t border-gray-100 text-lg font-black"><span>Total</span><span className="font-mono">{fmt(base * (1 + ivaPct / 100))}</span></div>
+              </div>
+            </div>
+          )}
+
+          {/* PASO 4 · ENVIAR */}
+          {expressStep === 'enviar' && (
+            <div className="space-y-4">
+              <h2 className="text-xl font-bold">Revisa y envía</h2>
+              <label className="block space-y-1">
+                <span className="text-sm font-semibold text-gray-600">Título del trabajo</span>
+                <input
+                  type="text"
+                  value={wizardQuote.descripcion ?? ''}
+                  onChange={e => setWizardQuote(prev => ({ ...prev, descripcion: e.target.value }))}
+                  className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-blue-500"
+                />
+              </label>
+              <div className="bg-white border border-gray-200 rounded-2xl divide-y divide-gray-100">
+                <button type="button" onClick={() => setExpressStep('cliente')} className="w-full flex items-center justify-between px-4 py-3 text-left cursor-pointer">
+                  <span>
+                    <span className="block text-xs font-semibold text-gray-400 uppercase">Cliente</span>
+                    <span className="block text-base font-bold">{wizardQuote.nombreCliente || '—'}</span>
+                    {wizardQuote.telefonoCliente && <span className="block text-sm text-gray-500">{wizardQuote.telefonoCliente}</span>}
+                  </span>
+                  <Edit2 className="w-4 h-4 text-gray-400" />
+                </button>
+                <button type="button" onClick={() => setExpressStep('partidas')} className="w-full flex items-center justify-between px-4 py-3 text-left cursor-pointer">
+                  <span>
+                    <span className="block text-xs font-semibold text-gray-400 uppercase">Partidas</span>
+                    <span className="block text-base font-bold">{partidas.length} partida{partidas.length !== 1 ? 's' : ''}</span>
+                    {sinPrecio > 0 && <span className="block text-sm font-semibold text-amber-600">{sinPrecio} sin precio</span>}
+                  </span>
+                  <Edit2 className="w-4 h-4 text-gray-400" />
+                </button>
+                <div className="px-4 py-3 space-y-1 text-sm">
+                  <div className="flex justify-between text-gray-500"><span>Base</span><span className="font-mono">{fmt(base)}</span></div>
+                  <div className="flex justify-between text-gray-500"><span>IVA {ivaPct}%</span><span className="font-mono">{fmt(base * ivaPct / 100)}</span></div>
+                  <div className="flex justify-between text-lg font-black"><span>Total</span><span className="font-mono">{fmt(base * (1 + ivaPct / 100))}</span></div>
+                </div>
+              </div>
+              <div className="bg-white border border-gray-200 rounded-2xl p-4 space-y-3">
+                <label className="flex items-center justify-between gap-3 cursor-pointer">
+                  <span>
+                    <span className="block text-base font-bold">Guardar como plantilla</span>
+                    <span className="block text-sm text-gray-500">Para repetir este trabajo con un toque</span>
+                  </span>
+                  <input
+                    type="checkbox"
+                    checked={expressSaveTemplate}
+                    onChange={e => { setExpressSaveTemplate(e.target.checked); if (e.target.checked && !expressTemplateName) setExpressTemplateName(wizardQuote.descripcion ?? ''); }}
+                    className="w-6 h-6 accent-blue-600 shrink-0"
+                  />
+                </label>
+                {expressSaveTemplate && (
+                  <input
+                    type="text"
+                    value={expressTemplateName}
+                    onChange={e => setExpressTemplateName(e.target.value)}
+                    placeholder="Nombre de la plantilla"
+                    className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-blue-500"
+                  />
+                )}
+              </div>
+              <p className="text-xs text-gray-400 leading-snug">Se guarda el presupuesto y podrás enviarlo por WhatsApp con el enlace de aceptación, descargar el PDF o, cuando lo acepte, facturar con VeriFactu.</p>
+            </div>
+          )}
+        </div>
+
+        {/* Botones fijos */}
+        <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-30 flex gap-2">
+          {(stepIdx > 0 || inputPanel) && (
+            <button type="button" onClick={goBack} className="px-5 bg-gray-100 text-gray-700 py-4 rounded-2xl font-bold text-base cursor-pointer">
+              {inputPanel ? 'Cancelar' : 'Atrás'}
+            </button>
+          )}
+          {!inputPanel && (
+            <button
+              type="button"
+              onClick={goNext}
+              className={`flex-grow py-4 rounded-2xl text-base font-bold text-white cursor-pointer shadow-sm ${expressStep === 'enviar' ? 'bg-[#25D366] active:bg-[#1ebe5a]' : 'bg-blue-600 active:bg-blue-700'}`}
+            >
+              {expressStep === 'enviar' ? (expressConfirmZero && sinPrecio > 0 ? 'Guardar igualmente' : 'Guardar y enviar') : 'Siguiente'}
+            </button>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // Extraído del asistente móvil (sin cambios de comportamiento) para reutilizarlo en el Modo Exprés
+  function renderWizardStepCliente(showHeader: boolean = true) {
+    return (
+            <div className="space-y-4">
+              {showHeader && (<>
               <div className="space-y-1">
                 <h3 className="text-sm font-display font-bold uppercase">Paso 1: Selecciona el Cliente</h3>
                 <p className="text-[10.5px] text-gray-400 leading-relaxed font-sans">Elige un cliente existente de tu lista o regístralo rápidamente.</p>
               </div>
+              </>)}
 
               {/* Lista rápida de un toque */}
               <div className="space-y-2">
@@ -5987,15 +6428,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 + Alta rápida de nuevo cliente
               </button>
             </div>
-          )}
+    );
+  }
 
-          {/* PASO 2: DESCRIPCIÓN POR VOZ (VOICE-FIRST) */}
-          {wizardStep === 2 && (
+  // Extraído del asistente móvil (sin cambios de comportamiento) para reutilizarlo en el Modo Exprés
+  function renderWizardStepDescribir(showHeader: boolean = true) {
+    return (
             <div className="space-y-5">
+              {showHeader && (<>
               <div className="space-y-1">
                 <h3 className="text-sm font-display font-bold uppercase">Paso 2: Describe el Trabajo</h3>
                 <p className="text-[10.5px] text-gray-400 leading-relaxed font-sans">"Habla como lo harías por WhatsApp" — La IA estructurará las partidas y materiales por ti.</p>
               </div>
+              </>)}
 
               <div className="flex flex-col items-center py-4">
                 {voiceStep === 'listening' || voiceStep === 'transcribing' ? (
@@ -6073,11 +6518,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 )}
               </div>
             </div>
-          )}
+    );
+  }
 
-          {/* PASO 3: AÑADIR FOTOS */}
-          {wizardStep === 3 && (
+  // Extraído del asistente móvil (sin cambios de comportamiento) para reutilizarlo en el Modo Exprés
+  function renderWizardStepFoto(showHeader: boolean = true) {
+    return (
             <div className="space-y-4">
+              {showHeader && (<>
               <div className="flex items-start justify-between gap-2">
                 <div className="space-y-1">
                   <h3 className="text-sm font-display font-bold uppercase">Paso 3: Añadir Fotografía</h3>
@@ -6090,6 +6538,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   Saltar →
                 </button>
               </div>
+              </>)}
 
               {/* Inputs ocultos: galería (sin capture) y cámara (con capture) */}
               {(() => {
@@ -6213,15 +6662,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </>
               )}
             </div>
-          )}
+    );
+  }
 
-          {/* PASO 4: REVISAR PARTIDAS IA */}
-          {wizardStep === 4 && (
+  // Extraído del asistente móvil (sin cambios de comportamiento) para reutilizarlo en el Modo Exprés
+  function renderWizardStepPartidas(showHeader: boolean = true) {
+    return (
             <div className="space-y-4">
+              {showHeader && (<>
               <div className="space-y-1">
                 <h3 className="text-sm font-display font-bold uppercase">Paso 4: Revisa el Presupuesto</h3>
                 <p className="text-[10.5px] text-gray-400 leading-relaxed font-sans">Añade o modifica cantidades y precios sugeridos de los componentes detectados.</p>
               </div>
+              </>)}
 
               {/* Resumen de transporte detectado por IA */}
               {pendingTransportIntake && (
@@ -6538,7 +6991,56 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </button>
               </div>
             </div>
-          )}
+    );
+  }
+
+  // ================= MÓVIL: WIZARD DE CREACIÓN EN 5 PASOS =================
+  function MobileWizardView() {
+    return (
+      <div className="flex flex-col h-full bg-gray-50 text-gray-900 select-none relative">
+        
+        {/* Progreso del Wizard */}
+        <div className="bg-white border-b border-gray-200 px-4 py-3 shrink-0">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-[10px] font-mono font-bold text-blue-600 uppercase tracking-widest">
+              {wizardViewOnly ? 'Vista del Presupuesto' : `Paso ${wizardStep} de 5`}
+            </span>
+            <button
+              onClick={() => {
+                setWizardActive(false);
+                setWizardViewOnly(false);
+                if (wizardViewOnly) setPostConfirmQuote(wizardQuote as Presupuesto);
+                else setMobileTab('inicio');
+              }}
+              className="text-gray-500 hover:text-gray-700 p-0.5 rounded-full"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+          
+          {/* Barra indicadora de progreso */}
+          <div className="h-1 bg-gray-200 rounded-full w-full overflow-hidden">
+            <div 
+              className="h-full bg-blue-600 transition-all duration-300" 
+              style={{ width: `${(wizardStep / 5) * 100}%` }}
+            />
+          </div>
+        </div>
+
+        {/* Cuerpo del Wizard */}
+        <div className="flex-grow p-4 overflow-y-auto pb-24">
+          
+          {/* PASO 1: CLIENTE */}
+          {wizardStep === 1 && renderWizardStepCliente()}
+
+          {/* PASO 2: DESCRIPCIÓN POR VOZ (VOICE-FIRST) */}
+          {wizardStep === 2 && renderWizardStepDescribir()}
+
+          {/* PASO 3: AÑADIR FOTOS */}
+          {wizardStep === 3 && renderWizardStepFoto()}
+
+          {/* PASO 4: REVISAR PARTIDAS IA */}
+          {wizardStep === 4 && renderWizardStepPartidas()}
 
           {/* PASO 5: PREVISUALIZADOR Y ENVÍO */}
           {wizardStep === 5 && (

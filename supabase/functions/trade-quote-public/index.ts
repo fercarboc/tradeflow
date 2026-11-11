@@ -83,6 +83,18 @@ Deno.serve(async (req: Request) => {
       });
     }
 
+    // Modo Exprés: marcar "visto" la primera vez que el cliente abre el enlace.
+    // Best-effort: si la columna aún no existe o falla, no bloquea la respuesta.
+    if (data && data.viewed_at == null) {
+      try {
+        await adminClient
+          .from('trade_quote_tokens')
+          .update({ viewed_at: new Date().toISOString() })
+          .eq('token', token)
+          .is('viewed_at', null);
+      } catch { /* ignorar */ }
+    }
+
     return new Response(JSON.stringify({ data }), {
       headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
