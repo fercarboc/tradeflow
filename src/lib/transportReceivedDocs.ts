@@ -30,6 +30,8 @@ export interface ReceivedDoc {
   archivado: boolean;
   created_by: string | null;
   created_at: string;
+  datos_extraidos?: ExtractedDocData | null;
+  extraido_at?: string | null;
 }
 
 export interface ReceivedDocInput {
@@ -178,4 +180,90 @@ export async function signedUrls(paths: string[]): Promise<string[]> {
   const { data, error } = await supabase.storage.from(BUCKET).createSignedUrls(paths, 3600);
   if (error) throw new Error(error.message);
   return (data ?? []).map(d => d.signedUrl ?? '');
+}
+
+// ── TX-DOCS-3: lectura automática con IA ─────────────────────────────────────
+
+export interface ExtractedDocData {
+  tipo_documento: 'deca' | 'hoja_ruta' | 'otro';
+  numero?: string | null;
+  fecha_transporte?: string | null;
+  hora_salida?: string | null;
+  cargador_nombre?: string | null;
+  cargador_nif?: string | null;
+  cargador_domicilio?: string | null;
+  transportista_nombre?: string | null;
+  transportista_nif?: string | null;
+  origen?: string | null;
+  destino?: string | null;
+  paradas?: string[];
+  naturaleza_mercancia?: string | null;
+  peso_kg?: number | null;
+  otra_magnitud?: string | null;
+  num_bultos?: number | null;
+  matricula_vehiculo?: string | null;
+  matricula_remolque?: string | null;
+  conductor_nombre?: string | null;
+  conductor_nif?: string | null;
+  observaciones?: string | null;
+  confianza: 'alta' | 'media' | 'baja';
+  campos_dudosos: string[];
+}
+
+/** La IA lee el PDF guardado (o las fotos) y devuelve los datos. Hay que revisarlos siempre. */
+export async function extractReceivedData(orgId: string, id: string): Promise<ExtractedDocData> {
+  const { data, error } = await supabase.functions.invoke('trade-transport-received-doc', { body: { org_id: orgId, id, action: 'extract' } });
+  if (error) {
+    let msg = error.message;
+    const ctx = (error as { context?: Response }).context;
+    if (ctx && typeof ctx.json === 'function') { try { msg = (await ctx.json()).error ?? msg; } catch { /* sin cuerpo */ } }
+    throw new Error(msg);
+  }
+  return data.datos as ExtractedDocData;
+}
+
+export async function linkReceivedToShipment(orgId: string, id: string, shipmentId: string): Promise<void> {
+  const { error } = await supabase.from('trade_transport_received_docs').update({ shipment_id: shipmentId }).eq('id', id).eq('org_id', orgId);
+  if (error) throw new Error(error.message);
+}
+
+const normNif = (v?: string | null) => (v ?? '').toUpperCase().replace(/[\s.-]/g, '');
+
+/**
+ * Convierte lo leído del documento en datos de expedición.
+ * Si el NIF del cargador coincide con un cliente, se vincula a ese cliente.
+ */
+export function shipmentPrefillFromExtracted(
+  d: ExtractedDocData,
+  clients: { id: string; nif?: string | null }[] = [],
+): {
+  client_id: string | null; cargador_nombre: string; cargador_nif: string | null; cargador_domicilio: string | null;
+  origen: string; destino: string; fecha_recogida: string | null; hora_recogida: string | null;
+  naturaleza: string; peso_kg: number | null; num_bultos: number | null; referencia_cargador: string | null;
+  observaciones: string | null;
+} {
+  const nif = normNif(d.cargador_nif) || null;
+  const cliente = nif ? clients.find(c => normNif(c.nif) === nif) : undefined;
+  const fecha = d.fecha_transporte && /^\d{4}-\d{2}-\d{2}$/.test(d.fecha_transporte) ? d.fecha_transporte : null;
+  const hora = d.hora_salida && /^([01]\d|2[0-3]):[0-5]\d$/.test(d.hora_salida) ? d.hora_salida : null;
+  const obs = [
+    d.otra_magnitud ? `Cantidad: ${d.otra_magnitud}` : '',
+    d.paradas?.length ? `Paradas: ${d.paradas.join(' → ')}` : '',
+    d.observaciones ?? '',
+  ].filter(Boolean).join(' · ');
+  return {
+    client_id: cliente?.id ?? null,
+    cargador_nombre: d.cargador_nombre?.trim() ?? '',
+    cargador_nif: nif,
+    cargador_domicilio: d.cargador_domicilio?.trim() || null,
+    origen: d.origen?.trim() ?? '',
+    destino: d.destino?.trim() ?? '',
+    fecha_recogida: fecha,
+    hora_recogida: hora,
+    naturaleza: d.naturaleza_mercancia?.trim() ?? '',
+    peso_kg: typeof d.peso_kg === 'number' && d.peso_kg > 0 ? d.peso_kg : null,
+    num_bultos: typeof d.num_bultos === 'number' && d.num_bultos > 0 ? d.num_bultos : null,
+    referencia_cargador: d.numero?.trim() || null,
+    observaciones: obs || null,
+  };
 }

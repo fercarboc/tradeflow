@@ -7,7 +7,10 @@
  * directamente y sin login, pero el emisor puede desactivarla 7 días
  * después del servicio: por eso conservamos nuestra copia.
  *
- * POST { org_id, id }   (JWT obligatorio; miembro activo de la org)
+ * POST { org_id, id }                     → copia del PDF del QR (por defecto)
+ * POST { org_id, id, action: 'extract' }  → la IA lee el PDF (o las fotos) y
+ *        devuelve los datos para rellenar una expedición. El usuario SIEMPRE revisa.
+ *   (JWT obligatorio; miembro activo de la org)
  *
  * Protecciones de la descarga:
  *   · solo https:// y puerto 443; sin IPs literales ni nombres internos
@@ -22,6 +25,7 @@ const SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const ANON_KEY         = Deno.env.get('SUPABASE_ANON_KEY')!;
 const BUCKET           = 'transport-received-docs';
 const MAX_BYTES        = 5 * 1024 * 1024;
+const ANTHROPIC_API_KEY = Deno.env.get('ANTHROPIC_API_KEY') ?? '';
 
 const admin = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, { auth: { persistSession: false } });
 
@@ -103,6 +107,99 @@ async function downloadPdf(raw: string): Promise<Uint8Array> {
   throw new HttpError(502, 'Demasiadas redirecciones');
 }
 
+// ── Extracción con IA ─────────────────────────────────────────────────
+
+const EXTRACT_TOOL = {
+  name: 'datos_documento_control',
+  description: 'Datos leídos de un documento de control de transporte (DeCA de mercancías u hoja de ruta de viajeros).',
+  input_schema: {
+    type: 'object',
+    properties: {
+      tipo_documento: { type: 'string', enum: ['deca', 'hoja_ruta', 'otro'] },
+      numero: { type: ['string', 'null'], description: 'Número o referencia del documento' },
+      fecha_transporte: { type: ['string', 'null'], description: 'Fecha del transporte en formato YYYY-MM-DD' },
+      hora_salida: { type: ['string', 'null'], description: 'HH:MM' },
+      cargador_nombre: { type: ['string', 'null'], description: 'Cargador contractual (DeCA) o contratante del servicio (hoja de ruta)' },
+      cargador_nif: { type: ['string', 'null'] },
+      cargador_domicilio: { type: ['string', 'null'] },
+      transportista_nombre: { type: ['string', 'null'] },
+      transportista_nif: { type: ['string', 'null'] },
+      origen: { type: ['string', 'null'], description: 'Lugar de carga / origen' },
+      destino: { type: ['string', 'null'], description: 'Lugar de descarga / destino' },
+      paradas: { type: 'array', items: { type: 'string' } },
+      naturaleza_mercancia: { type: ['string', 'null'] },
+      peso_kg: { type: ['number', 'null'], description: 'Peso en kilogramos (convierte toneladas a kg)' },
+      otra_magnitud: { type: ['string', 'null'], description: 'Cantidad si no hay peso (bultos, palés, m3…)' },
+      num_bultos: { type: ['integer', 'null'] },
+      matricula_vehiculo: { type: ['string', 'null'] },
+      matricula_remolque: { type: ['string', 'null'] },
+      conductor_nombre: { type: ['string', 'null'] },
+      conductor_nif: { type: ['string', 'null'] },
+      observaciones: { type: ['string', 'null'] },
+      confianza: { type: 'string', enum: ['alta', 'media', 'baja'], description: 'Legibilidad global del documento' },
+      campos_dudosos: { type: 'array', items: { type: 'string' }, description: 'Nombres de campos leídos con dudas' },
+    },
+    required: ['tipo_documento', 'confianza', 'campos_dudosos', 'paradas'],
+  },
+};
+
+const EXTRACT_PROMPT = `Eres un asistente que transcribe documentos de control de transporte por carretera en España (DeCA según Orden FOM/2861/2012 u hoja de ruta según Orden FOM/1230/2013).
+Reglas:
+- Transcribe SOLO lo que está escrito. Si un dato no aparece o no se lee, devuelve null. Nunca inventes ni completes.
+- Fechas en formato YYYY-MM-DD (el documento suele usar DD/MM/AAAA). Horas HH:MM.
+- Peso siempre en kg (15,5 t = 15500). Si solo hay bultos, palés o volumen, ponlo en otra_magnitud.
+- NIF/CIF y matrículas sin espacios ni guiones, en mayúsculas.
+- Si el documento lleva la marca MUESTRA o NO VÁLIDO, indícalo en observaciones.
+- Marca en campos_dudosos cualquier dato que hayas leído con dudas.`;
+
+function toBase64(bytes: Uint8Array): string {
+  let bin = '';
+  const CH = 0x8000;
+  for (let i = 0; i < bytes.length; i += CH) bin += String.fromCharCode(...bytes.subarray(i, i + CH));
+  return btoa(bin);
+}
+
+// deno-lint-ignore no-explicit-any
+async function extractData(doc: any): Promise<Record<string, unknown>> {
+  if (!ANTHROPIC_API_KEY) throw new HttpError(503, 'La lectura automática no está disponible');
+  // deno-lint-ignore no-explicit-any
+  const content: any[] = [];
+  if (doc.pdf_path) {
+    const { data: f } = await admin.storage.from(BUCKET).download(doc.pdf_path);
+    if (f) content.push({ type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: toBase64(new Uint8Array(await f.arrayBuffer())) } });
+  }
+  if (!content.length) {
+    for (const path of (doc.fotos ?? []).slice(0, 3)) {
+      const { data: f } = await admin.storage.from(BUCKET).download(path);
+      if (f) content.push({ type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: toBase64(new Uint8Array(await f.arrayBuffer())) } });
+    }
+  }
+  if (doc.qr_text && !doc.qr_url) content.push({ type: 'text', text: `Texto del código QR del documento:\n${String(doc.qr_text).slice(0, 4000)}` });
+  if (!content.length) throw new HttpError(422, 'No hay PDF ni fotos que leer. Añada una foto del documento.');
+  content.push({ type: 'text', text: 'Extrae los datos de este documento de control con la herramienta datos_documento_control.' });
+
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'x-api-key': ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 1500,
+      system: EXTRACT_PROMPT,
+      tools: [EXTRACT_TOOL],
+      tool_choice: { type: 'tool', name: EXTRACT_TOOL.name },
+      messages: [{ role: 'user', content }],
+    }),
+  });
+  if (!res.ok) {
+    console.error('[trade-transport-received-doc] claude', res.status, (await res.text()).slice(0, 500));
+    throw new HttpError(502, 'No se pudo leer el documento automáticamente');
+  }
+  const j = await res.json() as { content?: Array<{ type: string; input?: Record<string, unknown> }> };
+  const out = j.content?.find(c => c.type === 'tool_use')?.input;
+  if (!out) throw new HttpError(502, 'La lectura no devolvió datos');
+  return out;
+}
+
 Deno.serve(async (request: Request) => {
   const headers = { ...cors(request), 'Content-Type': 'application/json' };
   if (request.method === 'OPTIONS') return new Response(null, { headers: cors(request) });
@@ -131,8 +228,26 @@ Deno.serve(async (request: Request) => {
     }
 
     const { data: doc } = await admin.from('trade_transport_received_docs')
-      .select('id, org_id, qr_url, pdf_path').eq('id', docId).eq('org_id', orgId).maybeSingle();
+      .select('id, org_id, qr_url, qr_text, pdf_path, fotos, emisor_nombre, numero_documento, fecha_servicio, matricula, origen, destino')
+      .eq('id', docId).eq('org_id', orgId).maybeSingle();
     if (!doc) throw new HttpError(404, 'Documento no encontrado');
+
+    if (body.action === 'extract') {
+      const datos = await extractData(doc);
+      const s = (k: string) => (typeof datos[k] === 'string' && (datos[k] as string).trim()) ? (datos[k] as string).trim() : null;
+      const fecha = s('fecha_transporte');
+      // Completa los datos rápidos que el conductor dejó vacíos (nunca sobrescribe)
+      await admin.from('trade_transport_received_docs').update({
+        datos_extraidos: datos, extraido_at: new Date().toISOString(),
+        emisor_nombre: doc.emisor_nombre ?? s('cargador_nombre'),
+        numero_documento: doc.numero_documento ?? s('numero'),
+        fecha_servicio: doc.fecha_servicio ?? (fecha && /^\d{4}-\d{2}-\d{2}$/.test(fecha) ? fecha : null),
+        matricula: doc.matricula ?? s('matricula_vehiculo'),
+        origen: doc.origen ?? s('origen'),
+        destino: doc.destino ?? s('destino'),
+      }).eq('id', doc.id);
+      return new Response(JSON.stringify({ ok: true, datos }), { status: 200, headers });
+    }
     if (doc.pdf_path) return new Response(JSON.stringify({ ok: true, pdf: true, already: true }), { status: 200, headers });
     if (!doc.qr_url) throw new HttpError(422, 'Este documento no tiene enlace en su QR');
 

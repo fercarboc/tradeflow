@@ -8,7 +8,12 @@ import {
   Package, Plus, X, Loader2, Search, MapPin, ArrowRight, Truck, CheckCircle2,
   AlertTriangle, Ban, Pencil, FileCheck, Phone, Weight, Boxes, Calendar, QrCode,
 } from 'lucide-react';
-import type { ReceivedDocInput } from '../../lib/transportReceivedDocs';
+import {
+  loadReceivedDocs, extractReceivedData, shipmentPrefillFromExtracted, linkReceivedToShipment, RECEIVED_TIPO_LABEL,
+  type ReceivedDocInput, type ReceivedDoc,
+} from '../../lib/transportReceivedDocs';
+import { ReceivedDocWizard } from '../transport-docs/ReceivedDocs';
+import { Sparkles, ScanLine } from 'lucide-react';
 import {
   loadShipments, createShipment, updateShipment, markPicked, markDelivered, markIncident,
   cancelShipment, assignTrip, emptyShipmentInput, validateShipment, shipmentEstadoMeta,
@@ -30,6 +35,9 @@ interface Props {
   onEmitDeca: (prefill: Partial<TransportDocInput>) => void;
   /** Escanear el DeCA que entrega el cliente para esta carga. */
   onScanDeca?: (link: Partial<ReceivedDocInput>) => void;
+  /** Abrir «Nueva expedición» rellenada a partir de un documento recibido. */
+  initialFromReceived?: ReceivedDoc | null;
+  onConsumeInitialFromReceived?: () => void;
 }
 
 type Filtro = 'activas' | ShipmentEstado | 'todas';
@@ -37,7 +45,7 @@ type Filtro = 'activas' | ShipmentEstado | 'todas';
 const inputCls = 'w-full rounded-xl border-2 border-gray-200 bg-white px-3 py-2.5 text-base text-gray-900 placeholder-gray-300 focus:border-amber-400 focus:outline-none';
 const labelCls = 'block text-xs font-bold uppercase tracking-wider text-gray-500 mb-1';
 
-export default function ScreenTransporteExpediciones({ orgId, showToast, onEmitDeca, onScanDeca }: Props) {
+export default function ScreenTransporteExpediciones({ orgId, showToast, onEmitDeca, onScanDeca, initialFromReceived, onConsumeInitialFromReceived }: Props) {
   const [items, setItems] = useState<TradeTransportShipment[]>([]);
   const [trips, setTrips] = useState<TradeTransportTrip[]>([]);
   const [vehicles, setVehicles] = useState<TradeVehicle[]>([]);
@@ -47,7 +55,10 @@ export default function ScreenTransporteExpediciones({ orgId, showToast, onEmitD
   const [loading, setLoading] = useState(true);
   const [filtro, setFiltro] = useState<Filtro>('activas');
   const [q, setQ] = useState('');
-  const [form, setForm] = useState<{ edit?: TradeTransportShipment } | null>(null);
+  const [form, setForm] = useState<{ edit?: TradeTransportShipment; fromReceived?: ReceivedDoc } | null>(null);
+  useEffect(() => {
+    if (initialFromReceived) { setForm({ fromReceived: initialFromReceived }); onConsumeInitialFromReceived?.(); }
+  }, [initialFromReceived, onConsumeInitialFromReceived]);
   const [selected, setSelected] = useState<TradeTransportShipment | null>(null);
 
   const reload = useCallback(async () => {
@@ -174,7 +185,7 @@ export default function ScreenTransporteExpediciones({ orgId, showToast, onEmitD
 
       {form && (
         <ShipmentForm
-          orgId={orgId} edit={form.edit} trips={trips} clients={clients} showToast={showToast}
+          orgId={orgId} edit={form.edit} fromReceived={form.fromReceived} trips={trips} clients={clients} showToast={showToast}
           onClose={() => setForm(null)}
           onSaved={s => { setForm(null); setItems(prev => form.edit ? prev.map(x => x.id === s.id ? s : x) : [s, ...prev]); setSelected(s); }}
         />
@@ -205,8 +216,8 @@ export default function ScreenTransporteExpediciones({ orgId, showToast, onEmitD
 
 // ── Formulario ────────────────────────────────────────────────────────────────
 
-function ShipmentForm({ orgId, edit, trips, clients, showToast, onClose, onSaved }: {
-  orgId: string; edit?: TradeTransportShipment; trips: TradeTransportTrip[]; clients: TradeClient[];
+function ShipmentForm({ orgId, edit, fromReceived, trips, clients, showToast, onClose, onSaved }: {
+  orgId: string; edit?: TradeTransportShipment; fromReceived?: ReceivedDoc; trips: TradeTransportTrip[]; clients: TradeClient[];
   showToast: Props['showToast']; onClose: () => void; onSaved: (s: TradeTransportShipment) => void;
 }) {
   const [f, setF] = useState<ShipmentInput>(() => {
@@ -219,6 +230,48 @@ function ShipmentForm({ orgId, edit, trips, clients, showToast, onClose, onSaved
   const [saving, setSaving] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const set = <K extends keyof ShipmentInput>(k: K, v: ShipmentInput[K]) => setF(p => ({ ...p, [k]: v }));
+
+  // ── Rellenar desde el DeCA del cliente (lectura con IA, siempre revisable) ──
+  const [importar, setImportar] = useState<null | 'menu' | 'scan'>(null);
+  const [leyendo, setLeyendo] = useState(false);
+  const [aviso, setAviso] = useState<{ confianza: string; dudosos: string[]; fuente: string } | null>(null);
+  const [receivedId, setReceivedId] = useState<string | null>(null);
+  const [guardados, setGuardados] = useState<ReceivedDoc[]>([]);
+
+  const applyFromDoc = async (doc: ReceivedDoc) => {
+    setImportar(null); setLeyendo(true); setErr(null);
+    try {
+      const datos = doc.datos_extraidos ?? await extractReceivedData(orgId, doc.id);
+      const p = shipmentPrefillFromExtracted(datos, clients);
+      setF(prev => {
+        const next = { ...prev } as Record<string, unknown>;
+        for (const [k, v] of Object.entries(p)) if (v !== null && v !== '') next[k] = v;
+        return next as unknown as ShipmentInput;
+      });
+      setReceivedId(doc.id);
+      const ETIQ: Record<string, string> = {
+        numero: 'nº de documento', fecha_transporte: 'fecha', hora_salida: 'hora', cargador_nombre: 'nombre del cargador',
+        cargador_nif: 'NIF del cargador', cargador_domicilio: 'domicilio del cargador', origen: 'lugar de recogida',
+        destino: 'lugar de entrega', naturaleza_mercancia: 'mercancía', peso_kg: 'peso', num_bultos: 'bultos',
+        matricula_vehiculo: 'matrícula', observaciones: 'observaciones',
+      };
+      setAviso({ confianza: datos.confianza, dudosos: (datos.campos_dudosos ?? []).map(c => ETIQ[c] ?? c.replace(/_/g, ' ')), fuente: doc.emisor_nombre || doc.numero_documento || RECEIVED_TIPO_LABEL[doc.tipo] });
+      showToast('Datos leídos del documento: revíselos antes de guardar', 'info');
+    } catch (x) {
+      setErr(x instanceof Error ? `No se pudo leer el documento: ${x.message}` : 'No se pudo leer el documento');
+    } finally { setLeyendo(false); }
+  };
+
+  useEffect(() => { if (fromReceived) applyFromDoc(fromReceived); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const abrirMenuImportar = async () => {
+    setImportar('menu');
+    try {
+      const docs = await loadReceivedDocs(orgId);
+      setGuardados(docs.filter(d => d.tipo === 'deca' && !d.shipment_id).slice(0, 6));
+    } catch { setGuardados([]); }
+  };
+
   const tripsAbiertos = trips.filter(t => t.estado !== 'cancelado' && t.estado !== 'completado');
   const clientes = clientQ.trim()
     ? clients.filter(c => `${c.nombre} ${c.apellidos ?? ''} ${c.nif ?? ''}`.toLowerCase().includes(clientQ.toLowerCase())).slice(0, 6)
@@ -230,6 +283,7 @@ function ShipmentForm({ orgId, edit, trips, clients, showToast, onClose, onSaved
     setSaving(true); setErr(null);
     try {
       const s = edit ? await updateShipment(orgId, edit.id, f) : await createShipment(orgId, f);
+      if (!edit && receivedId) await linkReceivedToShipment(orgId, receivedId, s.id).catch(() => undefined);
       showToast(edit ? 'Expedición actualizada' : `Expedición ${s.referencia} creada`, 'success');
       onSaved(s);
     } catch (x) { setErr(x instanceof Error ? x.message : 'No se pudo guardar'); }
@@ -241,6 +295,40 @@ function ShipmentForm({ orgId, edit, trips, clients, showToast, onClose, onSaved
       footer={<button type="button" onClick={save} disabled={saving} className="flex w-full items-center justify-center gap-2 rounded-2xl bg-amber-500 py-3.5 text-lg font-bold text-white disabled:opacity-50">
         {saving && <Loader2 className="animate-spin" size={18} />} Guardar
       </button>}>
+      {!edit && (
+        <div className="rounded-2xl border-2 border-emerald-300 bg-emerald-50 p-3">
+          {leyendo ? (
+            <p className="flex items-center gap-2 font-semibold text-emerald-900"><Loader2 className="animate-spin" size={18} /> Leyendo el documento… (unos segundos)</p>
+          ) : aviso ? (
+            <div className="text-sm text-emerald-900">
+              <p className="flex items-center gap-1.5 font-bold"><Sparkles size={16} /> Rellenado desde: {aviso.fuente}</p>
+              <p className="mt-0.5">Revise todos los datos antes de guardar.{aviso.confianza !== 'alta' ? ' El documento se leía con dificultad.' : ''}</p>
+              {aviso.dudosos.length > 0 && <p className="mt-0.5 font-semibold text-amber-800">Compruebe sobre todo: {aviso.dudosos.join(', ')}</p>}
+            </div>
+          ) : importar === 'menu' ? (
+            <div className="space-y-2">
+              <button type="button" onClick={() => setImportar('scan')}
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3 font-bold text-white"><ScanLine size={18} /> Escanear el DeCA ahora</button>
+              {guardados.length > 0 && <p className="pt-1 text-xs font-bold uppercase tracking-wider text-emerald-800">O elija uno ya guardado</p>}
+              {guardados.map(d => (
+                <button key={d.id} type="button" onClick={() => applyFromDoc(d)}
+                  className="w-full rounded-xl border border-emerald-200 bg-white px-3 py-2 text-left text-sm">
+                  <b>{d.emisor_nombre || 'DeCA recibido'}</b>
+                  <span className="text-gray-500">{d.fecha_servicio ? ` · ${fmtFechaEs(d.fecha_servicio)}` : ''}{d.numero_documento ? ` · ${d.numero_documento}` : ''}</span>
+                </button>
+              ))}
+              <button type="button" onClick={() => setImportar(null)} className="w-full text-sm text-emerald-800 underline">Rellenar a mano</button>
+            </div>
+          ) : (
+            <button type="button" onClick={abrirMenuImportar} className="flex w-full items-center gap-3 text-left">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white text-emerald-700"><Sparkles size={22} /></span>
+              <span><span className="block font-bold text-emerald-900">Rellenar desde el DeCA del cliente</span>
+                <span className="block text-sm text-emerald-800">Escanee el QR o haga una foto y se completa solo</span></span>
+            </button>
+          )}
+        </div>
+      )}
+
       <Section title="Cliente (cargador)">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -302,6 +390,10 @@ function ShipmentForm({ orgId, edit, trips, clients, showToast, onClose, onSaved
         <textarea className={`${inputCls} mt-2 min-h-[70px]`} placeholder="Observaciones" value={f.observaciones ?? ''} onChange={e => set('observaciones', e.target.value)} />
       </Section>
       {err && <p className="rounded-xl bg-red-50 px-3 py-2 text-sm font-medium text-red-700">{err}</p>}
+      {importar === 'scan' && (
+        <ReceivedDocWizard orgId={orgId} allowDeca allowHojaRuta={false} defaultTipo="deca" showToast={showToast}
+          onClose={() => setImportar('menu')} onSaved={d => applyFromDoc(d)} />
+      )}
     </Modal>
   );
 }

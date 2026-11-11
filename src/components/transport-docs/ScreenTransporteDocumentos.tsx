@@ -31,6 +31,8 @@ interface Props {
   /** Abrir directamente el escáner de un documento recibido (DeCA del cliente / hoja de ruta). */
   initialScan?: { tipo?: ReceivedDocTipo; link?: Partial<ReceivedDocInput> } | null;
   onConsumeInitialScan?: () => void;
+  /** Crear una expedición a partir de un DeCA recibido (solo empresas de mercancías). */
+  onCreateShipment?: (doc: ReceivedDoc) => void;
 }
 
 const ESTADO_BADGE: Record<TransportControlDoc['estado'], string> = {
@@ -39,7 +41,7 @@ const ESTADO_BADGE: Record<TransportControlDoc['estado'], string> = {
   anulado: 'bg-red-100 text-red-700',
 };
 
-export default function ScreenTransporteDocumentos({ orgId, showToast, allowDeca, allowHojaRuta, initialNew, onConsumeInitialNew, initialScan, onConsumeInitialScan }: Props) {
+export default function ScreenTransporteDocumentos({ orgId, showToast, allowDeca, allowHojaRuta, initialNew, onConsumeInitialNew, initialScan, onConsumeInitialScan, onCreateShipment }: Props) {
   const [vista, setVista] = useState<'emitidos' | 'recibidos'>(initialScan ? 'recibidos' : 'emitidos');
   const [recibidos, setRecibidos] = useState<ReceivedDoc[]>([]);
   const [verArchivados, setVerArchivados] = useState(false);
@@ -201,7 +203,8 @@ export default function ScreenTransporteDocumentos({ orgId, showToast, allowDeca
       )}
       {recibido && !scan && (
         <ReceivedDocViewer doc={recibido} orgId={orgId} showToast={showToast}
-          onClose={() => setRecibido(null)} onChanged={reloadRecibidos} />
+          onClose={() => setRecibido(null)} onChanged={reloadRecibidos}
+          onCreateShipment={onCreateShipment ? d => { setRecibido(null); onCreateShipment(d); } : undefined} />
       )}
 
       {wizard && (
