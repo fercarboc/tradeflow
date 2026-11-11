@@ -401,3 +401,7 @@ s3_secret_key = "env(S3_SECRET_KEY)"
 # declarative_schema_path = "./declarative"
 # JSON string passed through to pg-delta SQL formatting.
 # format_options = "{\"keywordCase\":\"upper\",\"indent\":2,\"maxWidth\":80,\"commaStyle\":\"trailing\"}"
+
+# Página online: formulario público de solicitudes (sin JWT; valida y limita en la propia función)
+[functions.trade-page-request]
+verify_jwt = false

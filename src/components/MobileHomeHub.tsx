@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   Briefcase, FileText, Receipt, Users, CalendarDays,
   MoreHorizontal, ChevronRight, Wrench, Package, MessageSquare,
-  X, FileCheck, Truck, PlusCircle, Clock, Navigation, Mic,
+  X, FileCheck, Truck, PlusCircle, Clock, Navigation, Mic, Settings, Inbox, Globe,
 } from 'lucide-react';
 
 interface NextJob {
@@ -19,6 +19,11 @@ interface MobileHomeHubProps {
   jobsActiveCount: number;
   presupuestosCount: number;
   presupuestosPendingCount: number;
+  /** Importe (IVA incl.) de presupuestos enviados o aceptados */
+  quotesInProgressAmount?: number;
+  quotesInProgressCount?: number;
+  /** Importe (IVA incl.) de facturas pendientes de cobro */
+  pendingInvoicesAmount?: number;
   facturasCount: number;
   facturasPendingCount: number;
   clientesCount: number;
@@ -40,6 +45,10 @@ interface MobileHomeHubProps {
   onGoRuta?: () => void;
   onGoAsistente?: () => void;
   showMoreSheetExternal?: boolean;
+  /** Mi página online */
+  newRequestsCount?: number;
+  onGoSolicitudes?: () => void;
+  onGoMiPagina?: () => void;
   onMoreSheetChange?: (open: boolean) => void;
 }
 
@@ -71,6 +80,9 @@ function getSunEmoji(): string {
 export default function MobileHomeHub({
   jobsActiveCount,
   presupuestosPendingCount,
+  quotesInProgressAmount = 0,
+  quotesInProgressCount = 0,
+  pendingInvoicesAmount = 0,
   facturasCount: _facturasCount,
   facturasPendingCount,
   clientesCount: _clientesCount,
@@ -90,62 +102,31 @@ export default function MobileHomeHub({
   onGoRuta,
   onGoAsistente,
   showMoreSheetExternal,
+  newRequestsCount = 0,
+  onGoSolicitudes,
+  onGoMiPagina,
   onMoreSheetChange,
 }: MobileHomeHubProps) {
   const [showMoreSheetInternal, setShowMoreSheetInternal] = useState(false);
   const showMoreSheet = showMoreSheetExternal ?? showMoreSheetInternal;
   const setShowMoreSheet = (v: boolean) => { setShowMoreSheetInternal(v); onMoreSheetChange?.(v); };
 
-  const moreItems = [
-    { id: 'mantenimiento', label: 'Mantenimiento', icon: <Wrench className="w-5 h-5" />, onClick: () => { onNavigate('mantenimiento'); setShowMoreSheet(false); } },
-    { id: 'partes', label: 'Partes firmados', icon: <FileCheck className="w-5 h-5" />, onClick: () => { onGoPartes(); setShowMoreSheet(false); } },
-    ...(hasSuppliers ? [{ id: 'suppliers', label: 'Proveedores', icon: <Package className="w-5 h-5" />, onClick: () => { onGoSuppliers(); setShowMoreSheet(false); } }] : []),
-    ...(hasTransport ? [{ id: 'transporte', label: 'Transporte', icon: <Truck className="w-5 h-5" />, onClick: () => { onNavigate('transporte'); setShowMoreSheet(false); } }] : []),
-    { id: 'asistente', label: 'Normativa', icon: <MessageSquare className="w-5 h-5" />, onClick: () => { onGoAsistente ? onGoAsistente() : onNavigate('asistente'); setShowMoreSheet(false); } },
+  const go = (fn: () => void) => () => { fn(); setShowMoreSheet(false); };
+  // Rejilla «Más»: todo lo que no está en la barra inferior, visual y con avisos
+  const moreItems: { id: string; label: string; icon: React.ReactNode; tone: string; badge?: number; onClick: () => void }[] = [
+    { id: 'trabajos', label: 'Trabajos', icon: <Briefcase className="w-7 h-7" />, tone: 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-300', badge: jobsActiveCount, onClick: go(() => onNavigate('trabajos')) },
+    { id: 'clientes', label: 'Clientes', icon: <Users className="w-7 h-7" />, tone: 'bg-teal-50 text-teal-600 dark:bg-teal-900/40 dark:text-teal-300', onClick: go(() => onNavigate('clientes')) },
+    ...(onGoSolicitudes ? [{ id: 'solicitudes', label: 'Solicitudes', icon: <Inbox className="w-7 h-7" />, tone: 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-300', badge: newRequestsCount, onClick: go(onGoSolicitudes) }] : []),
+    { id: 'facturas', label: 'Facturas', icon: <Receipt className="w-7 h-7" />, tone: 'bg-amber-50 text-amber-600 dark:bg-amber-900/40 dark:text-amber-300', badge: facturasPendingCount, onClick: go(() => onNavigate('facturas')) },
+    { id: 'mantenimiento', label: 'Mantenimiento', icon: <Wrench className="w-7 h-7" />, tone: 'bg-violet-50 text-violet-600 dark:bg-violet-900/40 dark:text-violet-300', onClick: go(() => onNavigate('mantenimiento')) },
+    { id: 'partes', label: 'Partes firmados', icon: <FileCheck className="w-7 h-7" />, tone: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-300', onClick: go(onGoPartes) },
+    ...(hasSuppliers ? [{ id: 'suppliers', label: 'Proveedores', icon: <Package className="w-7 h-7" />, tone: 'bg-indigo-50 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300', onClick: go(onGoSuppliers) }] : []),
+    ...(hasTransport ? [{ id: 'transporte', label: 'Transporte', icon: <Truck className="w-7 h-7" />, tone: 'bg-orange-50 text-orange-600 dark:bg-orange-900/40 dark:text-orange-300', onClick: go(() => onNavigate('transporte')) }] : []),
+    { id: 'asistente', label: 'Normativa', icon: <MessageSquare className="w-7 h-7" />, tone: 'bg-sky-50 text-sky-600 dark:bg-sky-900/40 dark:text-sky-300', onClick: go(() => { if (onGoAsistente) onGoAsistente(); else onNavigate('asistente'); }) },
+    ...(onGoMiPagina ? [{ id: 'mipagina', label: 'Mi página', icon: <Globe className="w-7 h-7" />, tone: 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-300', onClick: go(onGoMiPagina) }] : []),
+    { id: 'ajustes', label: 'Configuración', icon: <Settings className="w-7 h-7" />, tone: 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300', onClick: go(() => onNavigate('ajustes')) },
   ];
-
-  const modules = [
-    {
-      label: 'Trabajos',
-      desc: jobsActiveCount > 0 ? `${jobsActiveCount} en curso` : 'Organiza tu jornada',
-      icon: <Briefcase className="w-5 h-5" />,
-      iconBg: 'bg-blue-50 dark:bg-blue-900/40',
-      iconColor: 'text-blue-600 dark:text-blue-400',
-      badge: jobsActiveCount > 0,
-      badgeDot: 'bg-blue-500',
-      action: () => onNavigate('trabajos'),
-    },
-    {
-      label: 'Presupuestos',
-      desc: presupuestosPendingCount > 0 ? `${presupuestosPendingCount} pendiente${presupuestosPendingCount > 1 ? 's' : ''} de envío` : 'Prepara y envía en minutos',
-      icon: <FileText className="w-5 h-5" />,
-      iconBg: 'bg-violet-50 dark:bg-violet-900/40',
-      iconColor: 'text-violet-600 dark:text-violet-400',
-      badge: presupuestosPendingCount > 0,
-      badgeDot: 'bg-violet-500',
-      action: () => onNavigate('presupuestos'),
-    },
-    {
-      label: 'Facturas',
-      desc: facturasPendingCount > 0 ? `${facturasPendingCount} pendiente${facturasPendingCount > 1 ? 's' : ''} de cobro` : 'Gestiona tu facturación',
-      icon: <Receipt className="w-5 h-5" />,
-      iconBg: 'bg-emerald-50 dark:bg-emerald-900/40',
-      iconColor: 'text-emerald-600 dark:text-emerald-400',
-      badge: facturasPendingCount > 0,
-      badgeDot: 'bg-orange-500',
-      action: () => onNavigate('facturas'),
-    },
-    {
-      label: 'Clientes',
-      desc: 'Tus contactos, siempre a mano',
-      icon: <Users className="w-5 h-5" />,
-      iconBg: 'bg-amber-50 dark:bg-amber-900/40',
-      iconColor: 'text-amber-600 dark:text-amber-400',
-      badge: false,
-      badgeDot: '',
-      action: () => onNavigate('clientes'),
-    },
-  ];
+  const eur = (n: number) => n.toLocaleString('es-ES', { maximumFractionDigits: 0 }) + ' €';
 
   return (
     <>
@@ -258,61 +239,32 @@ export default function MobileHomeHub({
           <ChevronRight className="h-4 w-4 text-gray-400 flex-shrink-0" />
         </button>
 
-        {/* ── Sección "Todo a mano" ── */}
-        <div className="px-4 pb-2">
-          <h2 className="font-bold text-gray-800 dark:text-white text-base">Todo a mano</h2>
-        </div>
-
-        {/* ── Lista vertical de módulos ── */}
-        <div className="px-4 flex flex-col gap-2 pb-2">
-          {modules.map(item => (
-            <button
-              key={item.label}
-              onClick={item.action}
-              className="flex items-center gap-3 p-3.5 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm active:opacity-80 text-left w-full cursor-pointer"
-            >
-              <div className={`p-2.5 rounded-xl flex-shrink-0 ${item.iconBg}`}>
-                <span className={item.iconColor}>{item.icon}</span>
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="font-semibold text-sm text-gray-900 dark:text-white">{item.label}</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">{item.desc}</div>
-              </div>
-              {item.badge && <div className={`w-2 h-2 rounded-full flex-shrink-0 ${item.badgeDot}`} />}
-              <ChevronRight className="h-4 w-4 text-gray-300 dark:text-gray-600 flex-shrink-0" />
-            </button>
-          ))}
-
-          {/* Agenda item */}
-          <button
-            onClick={onGoAgenda ?? (() => onNavigate('trabajos'))}
-            className="flex items-center gap-3 p-3.5 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm active:opacity-80 text-left w-full cursor-pointer"
-          >
-            <div className="p-2.5 rounded-xl flex-shrink-0 bg-sky-50 dark:bg-sky-900/40">
-              <span className="text-sky-600 dark:text-sky-400"><CalendarDays className="w-5 h-5" /></span>
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="font-semibold text-sm text-gray-900 dark:text-white">Agenda</div>
-              <div className="text-xs text-gray-500 dark:text-gray-400">Calendario mensual</div>
-            </div>
-            <ChevronRight className="h-4 w-4 text-gray-300 dark:text-gray-600 flex-shrink-0" />
+        {/* ── Resumen: dinero pendiente y en proceso ── */}
+        <div className="mx-4 mb-4 grid grid-cols-2 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm divide-x divide-gray-100 dark:divide-gray-700">
+          <button onClick={() => onNavigate('facturas')} className="p-4 text-center active:opacity-80 cursor-pointer" data-testid="home-pending-invoices">
+            <span className="flex items-center justify-center gap-1 text-sm text-gray-500 dark:text-gray-400">Por cobrar <ChevronRight className="w-3.5 h-3.5" /></span>
+            <span className="block text-2xl font-black text-orange-600 mt-1">{eur(pendingInvoicesAmount)}</span>
+            <span className="block text-xs text-gray-400 mt-0.5">{facturasPendingCount} factura{facturasPendingCount !== 1 ? 's' : ''}</span>
           </button>
-
-          {/* Más módulos */}
-          <button
-            onClick={() => setShowMoreSheet(true)}
-            className="flex items-center gap-3 p-3.5 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm active:opacity-80 text-left w-full cursor-pointer"
-          >
-            <div className="p-2.5 rounded-xl flex-shrink-0 bg-gray-50 dark:bg-gray-700">
-              <span className="text-gray-500"><MoreHorizontal className="w-5 h-5" /></span>
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="font-semibold text-sm text-gray-900 dark:text-white">Más módulos</div>
-              <div className="text-xs text-gray-500 dark:text-gray-400">Mantenimiento, Partes y más</div>
-            </div>
-            <ChevronRight className="h-4 w-4 text-gray-300 dark:text-gray-600 flex-shrink-0" />
+          <button onClick={() => onNavigate('presupuestos')} className="p-4 text-center active:opacity-80 cursor-pointer" data-testid="home-quotes-in-progress">
+            <span className="flex items-center justify-center gap-1 text-sm text-gray-500 dark:text-gray-400">En proceso <ChevronRight className="w-3.5 h-3.5" /></span>
+            <span className="block text-2xl font-black text-gray-900 dark:text-white mt-1">{eur(quotesInProgressAmount)}</span>
+            <span className="block text-xs text-gray-400 mt-0.5">{quotesInProgressCount} presupuesto{quotesInProgressCount !== 1 ? 's' : ''}</span>
           </button>
         </div>
+        {presupuestosPendingCount > 0 && (
+          <button
+            onClick={() => onNavigate('presupuestos')}
+            className="mx-4 mb-4 flex items-center gap-3 p-3.5 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm active:opacity-80 text-left cursor-pointer"
+          >
+            <div className="p-2.5 rounded-xl flex-shrink-0 bg-violet-50 dark:bg-violet-900/40"><FileText className="w-5 h-5 text-violet-600" /></div>
+            <div className="flex-1 min-w-0">
+              <div className="font-semibold text-sm text-gray-900 dark:text-white">{presupuestosPendingCount} presupuesto{presupuestosPendingCount !== 1 ? 's' : ''} esperando respuesta</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">Revisa quién lo ha visto y recuérdaselo</div>
+            </div>
+            <ChevronRight className="h-4 w-4 text-gray-300 flex-shrink-0" />
+          </button>
+        )}
       </div>
 
       {/* ── More sheet overlay ── */}
@@ -327,25 +279,33 @@ export default function MobileHomeHub({
             onClick={e => e.stopPropagation()}
             style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
           >
-            <div className="flex items-center justify-between px-5 pt-5 pb-3 border-b border-slate-100 dark:border-gray-700">
-              <span className="text-base font-bold text-slate-900 dark:text-white">Más módulos</span>
+            <div className="flex justify-center pt-3 pb-1"><span className="w-10 h-1 rounded-full bg-gray-300 dark:bg-gray-600" /></div>
+            <div className="flex items-center justify-between px-5 pb-1">
+              <span className="text-base font-bold text-slate-900 dark:text-white">Más opciones</span>
               <button
                 onClick={() => setShowMoreSheet(false)}
+                aria-label="Cerrar"
                 className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-gray-700 text-slate-500 cursor-pointer active:bg-slate-200"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
-            <div className="py-2">
+            <div className="grid grid-cols-3 gap-y-5 gap-x-2 px-4 pt-3 pb-6" data-testid="more-grid">
               {moreItems.map(item => (
                 <button
                   key={item.id}
                   onClick={item.onClick}
-                  className="w-full flex items-center gap-4 px-5 py-3.5 text-left active:bg-slate-50 dark:active:bg-gray-800 cursor-pointer transition-colors"
+                  className="flex flex-col items-center gap-2 cursor-pointer active:scale-95 transition-transform"
                 >
-                  <span className="text-slate-500 dark:text-gray-400">{item.icon}</span>
-                  <span className="text-sm font-semibold text-slate-800 dark:text-gray-200 flex-1">{item.label}</span>
-                  <ChevronRight className="w-4 h-4 text-slate-300 dark:text-gray-600" />
+                  <span className={`relative w-16 h-16 rounded-2xl flex items-center justify-center ${item.tone}`}>
+                    {item.icon}
+                    {!!item.badge && item.badge > 0 && (
+                      <span className="absolute -top-1.5 -right-1.5 min-w-[22px] h-[22px] px-1 rounded-full bg-amber-400 text-gray-900 text-xs font-bold flex items-center justify-center">
+                        {item.badge > 99 ? '99+' : item.badge}
+                      </span>
+                    )}
+                  </span>
+                  <span className="text-sm font-semibold text-slate-800 dark:text-gray-200 text-center leading-tight">{item.label}</span>
                 </button>
               ))}
             </div>

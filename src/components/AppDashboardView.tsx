@@ -170,6 +170,10 @@ import { ExpressProgress, ExpressTotalBar, ExpressStartPanel, QuoteTemplatesStri
 import type { ExpressStep, ExpressQuoteAction } from './quick/ExpressQuote';
 import { loadQuoteTemplates, saveQuoteTemplate, markQuoteTemplateUsed, partidasFromTemplate, loadQuoteLinkTracking } from '../lib/quoteTemplates';
 import type { QuoteTemplate, QuoteLinkTracking, ExpressQuoteFilter } from '../lib/quoteTemplates';
+import ScreenSolicitudes from './quick/ScreenSolicitudes';
+import ScreenMiPagina from './quick/ScreenMiPagina';
+import { requestToDescription } from '../lib/publicPageUtils';
+import type { PageRequest } from '../lib/publicPageUtils';
 
 const InvoiceIcon = FileText;
 
@@ -907,7 +911,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }, [initialMobile]);
 
   // Tabs de navegación móvil
-  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'suppliers' | 'mantenimiento' | 'ruta' | 'asistente' | 'partes' | 'transporte'>(rol === 'tecnico' ? 'trabajos' : 'inicio');
+  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'suppliers' | 'mantenimiento' | 'ruta' | 'asistente' | 'partes' | 'transporte' | 'solicitudes' | 'mipagina'>(rol === 'tecnico' ? 'trabajos' : 'inicio');
   // Fix timing: session carga async, rol llega tarde — forzar tab correcto cuando cambia
   useEffect(() => {
     if (rol === 'tecnico') {
@@ -979,6 +983,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [presupuestoStateFilter, setPresupuestoStateFilter] = useState<ExpressQuoteFilter>('todos');
   const [expressIvaChosen, setExpressIvaChosen] = useState(false);
   const expressIvaFromTemplateRef = useRef(false);
+  // Mi página online: solicitudes nuevas pendientes (aviso en «Más»)
+  const [newRequestsCount, setNewRequestsCount] = useState(0);
 
   // Colapsar detalle partidas en el preview móvil
   const [itemsCollapsedMobile, setItemsCollapsedMobile] = useState<boolean>(true);
@@ -2193,6 +2199,27 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       }
     }
     await finishWizardAndSave(nombre, wizardQuote.telefonoCliente ?? '');
+  };
+
+  useEffect(() => {
+    if (!orgId || !isLiveMode) return;
+    let alive = true;
+    Promise.resolve(
+      supabase.from('trade_page_requests').select('id', { count: 'exact', head: true }).eq('org_id', orgId).eq('estado', 'nuevo'),
+    ).then(({ count }) => { if (alive && typeof count === 'number') setNewRequestsCount(count); }).catch(() => {});
+    return () => { alive = false; };
+  }, [orgId, isLiveMode]);
+
+  /** Solicitud de «Mi página» → asistente de presupuesto con el cliente y su descripción. */
+  const handleConvertPageRequest = (req: PageRequest, mode: 'ia' | 'vacio') => {
+    const desc = requestToDescription(req);
+    startWizard(1);
+    setWizardQuote(prev => ({ ...prev, nombreCliente: req.nombre, telefonoCliente: req.telefono, descripcion: desc }));
+    if (mode === 'ia' && desc) {
+      setWizardOrigin('manual');
+      setWizardStep(2);
+      handleTextToAI(desc);
+    }
   };
 
   const handleExpressQuoteAction = (q: Presupuesto, action: ExpressQuoteAction) => {
@@ -4478,6 +4505,27 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             />
           )}
           {mobileTab === 'partes' && MobileScreenPartes()}
+          {mobileTab === 'solicitudes' && (
+            <ScreenSolicitudes
+              orgId={orgId}
+              isLiveMode={isLiveMode}
+              empresaNombre={empresaAjustes.nombre ?? ''}
+              showToast={showToast}
+              onBack={() => setMobileTab('inicio')}
+              onConfigure={() => setMobileTab('mipagina')}
+              onConvert={handleConvertPageRequest}
+              onNewCountChange={setNewRequestsCount}
+            />
+          )}
+          {mobileTab === 'mipagina' && (
+            <ScreenMiPagina
+              orgId={orgId}
+              isLiveMode={isLiveMode}
+              defaults={{ nombre: empresaAjustes.nombre ?? '', oficio: orgData?.oficio ?? '', whatsapp: empresaAjustes.telefonoMovil ?? '' }}
+              showToast={showToast}
+              onBack={() => setMobileTab('solicitudes')}
+            />
+          )}
           {mobileTab === 'transporte' && orgId && caps.hasTransport && can('transport.view') && (
             <div className="absolute inset-0 flex flex-col bg-gray-50">
               {/* Sub-tabs: varían según modalidad */}
@@ -4719,24 +4767,27 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 )}
               </>
             ) : (
-              /* ── BARRA MÓVIL INSTALADORES: 5 items ── */
+              /* ── BARRA MÓVIL INSTALADORES: Inicio · Presupuestos · (+) · Agenda · Más ── */
               <>
-                {MobileTabButton({ tab: 'inicio',   icon: <Home          className="w-5 h-5" />, label: 'Inicio' })}
+                {MobileTabButton({ tab: 'inicio',       icon: <Home     className="w-5 h-5" />, label: 'Inicio' })}
+                {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presupuestos' })}
+                <div className="flex-1 flex items-start justify-center">
+                  <button
+                    onClick={() => { setShowMobileMoreSheet(false); setShowFloatingMenu(false); startWizard(1); }}
+                    aria-label="Nuevo presupuesto"
+                    data-testid="nav-new-quote"
+                    className="-mt-6 w-14 h-14 rounded-full bg-blue-600 text-white shadow-lg shadow-blue-600/30 flex items-center justify-center active:scale-95 transition-transform cursor-pointer"
+                  >
+                    <Plus className="w-7 h-7" />
+                  </button>
+                </div>
                 <button
-                  onClick={() => { setMobileTab('trabajos'); setAgendaTrigger(t => t + 1); setShowFloatingMenu(false); }}
+                  onClick={() => { setShowMobileMoreSheet(false); setMobileTab('trabajos'); setAgendaTrigger(t => t + 1); setShowFloatingMenu(false); }}
                   className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2 px-1 cursor-pointer transition-all active:scale-95 relative"
                 >
                   <span className={`transition-colors ${mobileTab === 'trabajos' ? 'text-blue-600' : 'text-gray-400'}`}><CalendarDays className="w-5 h-5" /></span>
                   <span className={`text-[10px] font-semibold transition-colors leading-tight ${mobileTab === 'trabajos' ? 'text-blue-600' : 'text-gray-400'}`}>Agenda</span>
                 </button>
-                <button
-                  onClick={() => { setMobileTab('trabajos'); setShowFloatingMenu(false); }}
-                  className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2 px-1 cursor-pointer transition-all active:scale-95 relative"
-                >
-                  <span className={`transition-colors ${mobileTab === 'trabajos' ? 'text-blue-600' : 'text-gray-400'}`}><Briefcase className="w-5 h-5" /></span>
-                  <span className={`text-[10px] font-semibold transition-colors leading-tight ${mobileTab === 'trabajos' ? 'text-blue-600' : 'text-gray-400'}`}>Trabajos</span>
-                </button>
-                {MobileTabButton({ tab: 'clientes', icon: <Users         className="w-5 h-5" />, label: 'Clientes' })}
                 <button
                   onClick={() => { setMobileTab('inicio'); setShowMobileMoreSheet(true); }}
                   className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors ${
@@ -5083,7 +5134,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       const isActive = mobileTab === tab;
       return (
         <button
-          onClick={() => { if (tab === 'facturas') setFacturaMantenimientoContext(null); setMobileTab(tab as typeof mobileTab); setShowFloatingMenu(false); }}
+          onClick={() => { if (tab === 'facturas') setFacturaMantenimientoContext(null); setShowMobileMoreSheet(false); setMobileTab(tab as typeof mobileTab); setShowFloatingMenu(false); }}
           className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2 px-1 cursor-pointer transition-all active:scale-95 relative"
         >
           {isActive && (
@@ -5123,6 +5174,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         jobsActiveCount={jobs.filter(j => j.estado === 'en_curso').length}
         presupuestosCount={presupuestos.length}
         presupuestosPendingCount={presupuestos.filter(p => p.estado === 'Enviado').length}
+        quotesInProgressAmount={presupuestos.filter(p => p.estado === 'Enviado' || p.estado === 'Aceptado').reduce((sum, p) => sum + p.total * (1 + (p.iva_pct ?? 21) / 100), 0)}
+        quotesInProgressCount={presupuestos.filter(p => p.estado === 'Enviado' || p.estado === 'Aceptado').length}
+        pendingInvoicesAmount={facturas.filter(f => f.estado === 'Emitida' || f.estado === 'Pendiente' || f.estado === 'Vencida').reduce((sum, f) => sum + (f.importe ?? 0) * (1 + (f.iva_pct ?? 21) / 100), 0)}
         facturasCount={facturas.length}
         facturasPendingCount={facturas.filter(f => f.estado === 'Emitida' || f.estado === 'Pendiente' || f.estado === 'Vencida').length}
         clientesCount={clientes.length}
@@ -5142,6 +5196,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         onGoRuta={() => { setMobileTab('trabajos'); }}
         onGoAsistente={() => setMobileTab('asistente')}
         showMoreSheetExternal={showMobileMoreSheet}
+        newRequestsCount={newRequestsCount}
+        onGoSolicitudes={() => setMobileTab('solicitudes')}
+        onGoMiPagina={() => setMobileTab('mipagina')}
         onMoreSheetChange={setShowMobileMoreSheet}
       />
     );
