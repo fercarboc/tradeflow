@@ -4254,14 +4254,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ================= RENDERIZADO MÓVIL REFACTORIZADO Y MEJORADO =================
   // ── Transporte móvil: contenido de las ventanas «+» y «Más» ──────────────
-  const goTransport = (sub: typeof transporteMobileSubTab) => {
+  // OJO: este bloque está después del `return` del componente → usar SIEMPRE
+  // declaraciones `function` (se elevan); una `const` aquí no se inicializa nunca.
+  function goTransport(sub: typeof transporteMobileSubTab) {
     setShowTransportMoreSheet(false); setShowTransportNewSheet(false); setShowFloatingMenu(false);
     setMobileTab('transporte'); setTransporteMobileSubTab(sub);
-  };
-  const goSettings = (section: string | null) => {
+  }
+  function goSettings(section: string | null) {
     setShowTransportMoreSheet(false); setShowTransportNewSheet(false);
     setMobileSettingsSection(section); setMobileTab('ajustes');
-  };
+  }
   function transportNewItems(): SheetItem[] {
     const allowDeca = !caps.isViajerosPrimary;
     const allowHoja = !caps.isMercanciasPrimary;
