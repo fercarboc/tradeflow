@@ -132,6 +132,8 @@ import ScreenTransporteTarifas from './ScreenTransporteTarifas';
 import ScreenTransportePresupuestos from './ScreenTransportePresupuestos';
 import ScreenTransporteMercanciasComing from './ScreenTransporteMercanciasComing';
 import ScreenTransporteDocumentos from './transport-docs/ScreenTransporteDocumentos';
+import { TransportMoreSheet, TransportNewSheet, type SheetItem } from './transport-mobile/TransportMobileSheets';
+import type { TransportDocTipo } from '../lib/transportDocs';
 import { getOrgCapabilities, TRANSPORT_PENDING_OFICIOS } from '../lib/orgCapabilities';
 import ScreenFacturas from './ScreenFacturas';
 import ScreenContratos from './ScreenContratos';
@@ -895,7 +897,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // Mobile suppliers hub sub-tab
   const [mobileSuppliersSubTab, setMobileSuppliersSubTab] = useState<'proveedores' | 'catalogo'>('proveedores');
   // Mobile transport sub-tab (includes mercancías placeholders: viajes, expediciones)
-  const [transporteMobileSubTab, setTransporteMobileSubTab] = useState<'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas' | 'partes' | 'viajes' | 'expediciones' | 'documentos'>('vehiculos');
+  const [transporteMobileSubTab, setTransporteMobileSubTab] = useState<'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas' | 'partes' | 'viajes' | 'expediciones' | 'documentos' | 'tarifas'>('vehiculos');
+  // Móvil transporte: ventanas «+» y «Más» (mismo patrón que instaladores)
+  const [showTransportMoreSheet, setShowTransportMoreSheet] = useState(false);
+  const [showTransportNewSheet, setShowTransportNewSheet] = useState(false);
+  const [transporteDocNew, setTransporteDocNew] = useState<{ tipo: TransportDocTipo } | null>(null);
   // Transport parte virtual tab
   const [transporteParteId, setTransporteParteId] = useState<string | null>(null);
   const [transporteParteFromTab, setTransporteParteFromTab] = useState<string>('transporte_servicios');
@@ -4247,6 +4253,64 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   );
 
   // ================= RENDERIZADO MÓVIL REFACTORIZADO Y MEJORADO =================
+  // ── Transporte móvil: contenido de las ventanas «+» y «Más» ──────────────
+  const goTransport = (sub: typeof transporteMobileSubTab) => {
+    setShowTransportMoreSheet(false); setShowTransportNewSheet(false); setShowFloatingMenu(false);
+    setMobileTab('transporte'); setTransporteMobileSubTab(sub);
+  };
+  const goSettings = (section: string | null) => {
+    setShowTransportMoreSheet(false); setShowTransportNewSheet(false);
+    setMobileSettingsSection(section); setMobileTab('ajustes');
+  };
+  function transportNewItems(): SheetItem[] {
+    const allowDeca = !caps.isViajerosPrimary;
+    const allowHoja = !caps.isMercanciasPrimary;
+    return [
+      ...(allowDeca ? [{ id: 'deca', label: 'Nuevo DeCA', hint: 'Camión o furgoneta · mercancías', icon: <Truck className="w-6 h-6" />, tone: 'bg-amber-50 text-amber-600',
+        onClick: () => { setTransporteDocNew({ tipo: 'deca' }); goTransport('documentos'); } }] : []),
+      ...(allowHoja ? [{ id: 'hoja', label: 'Nueva hoja de ruta', hint: 'Autocar o microbús · viajeros', icon: <Bus className="w-6 h-6" />, tone: 'bg-blue-50 text-blue-600',
+        onClick: () => { setTransporteDocNew({ tipo: 'hoja_ruta' }); goTransport('documentos'); } }] : []),
+      ...(!caps.isMercanciasPrimary ? [{ id: 'servicio', label: 'Nuevo servicio', hint: 'Excursión, traslado, ruta…', icon: <Calendar className="w-6 h-6" />, tone: 'bg-indigo-50 text-indigo-600',
+        onClick: () => { goTransport('servicios'); setTransporteTriggerNew(n => n + 1); } }] : []),
+      { id: 'presupuesto', label: 'Nuevo presupuesto', hint: 'Para enviar al cliente', icon: <FileText className="w-6 h-6" />, tone: 'bg-emerald-50 text-emerald-600',
+        onClick: () => { setShowTransportNewSheet(false); setMobileTab('presupuestos'); } },
+    ];
+  }
+  function transportMoreGroups(): { title: string; items: SheetItem[] }[] {
+    const viajeros = !caps.isMercanciasPrimary;
+    const mercancias = caps.isMercanciasPrimary || caps.isCombinadaOrg;
+    return [
+      { title: 'Operativa', items: [
+        { id: 'panel', label: 'Panel', icon: <LayoutDashboard className="w-7 h-7" />, tone: 'bg-slate-100 text-slate-700', onClick: () => goTransport('panel') },
+        ...(viajeros ? [
+          { id: 'servicios', label: 'Servicios', icon: <Calendar className="w-7 h-7" />, tone: 'bg-indigo-50 text-indigo-600', onClick: () => goTransport('servicios') },
+          { id: 'agenda', label: 'Agenda', icon: <CalendarDays className="w-7 h-7" />, tone: 'bg-blue-50 text-blue-600', onClick: () => goTransport('agenda') },
+          { id: 'rutas', label: 'Rutas', icon: <Route className="w-7 h-7" />, tone: 'bg-sky-50 text-sky-600', onClick: () => goTransport('rutas') },
+          { id: 'partes', label: 'Partes', icon: <FileCheck className="w-7 h-7" />, tone: 'bg-emerald-50 text-emerald-600', onClick: () => goTransport('partes') },
+        ] : []),
+        ...(mercancias ? [
+          { id: 'viajes', label: 'Viajes', icon: <Truck className="w-7 h-7" />, tone: 'bg-amber-50 text-amber-600', onClick: () => goTransport('viajes') },
+          { id: 'expediciones', label: 'Expediciones', icon: <Package className="w-7 h-7" />, tone: 'bg-orange-50 text-orange-600', onClick: () => goTransport('expediciones') },
+        ] : []),
+        { id: 'documentos', label: caps.isViajerosPrimary ? 'Hojas de ruta' : caps.isMercanciasPrimary ? 'DeCA emitidos' : 'DeCA y hojas', icon: <FileText className="w-7 h-7" />, tone: 'bg-amber-50 text-amber-700', onClick: () => goTransport('documentos') },
+      ]},
+      { title: 'Empresa', items: [
+        { id: 'flota', label: 'Flota', icon: caps.isMercanciasPrimary ? <Truck className="w-7 h-7" /> : <Bus className="w-7 h-7" />, tone: 'bg-orange-50 text-orange-600', onClick: () => goTransport('vehiculos') },
+        { id: 'conductores', label: 'Conductores', icon: <UserPlus className="w-7 h-7" />, tone: 'bg-teal-50 text-teal-600', onClick: () => goTransport('conductores') },
+        { id: 'tarifas', label: 'Tarifas', icon: <Euro className="w-7 h-7" />, tone: 'bg-lime-50 text-lime-700', onClick: () => goTransport('tarifas') },
+        { id: 'presupuestos', label: 'Presupuestos', icon: <FileText className="w-7 h-7" />, tone: 'bg-emerald-50 text-emerald-600', onClick: () => { setShowTransportMoreSheet(false); setMobileTab('presupuestos'); } },
+        { id: 'clientes', label: 'Clientes', icon: <Users className="w-7 h-7" />, tone: 'bg-cyan-50 text-cyan-700', onClick: () => { setShowTransportMoreSheet(false); setMobileTab('clientes'); } },
+        { id: 'facturas', label: 'Facturas', icon: <Receipt className="w-7 h-7" />, tone: 'bg-yellow-50 text-yellow-700', onClick: () => { setShowTransportMoreSheet(false); setFacturaMantenimientoContext(null); setMobileTab('facturas'); } },
+      ]},
+      { title: 'Cuenta', items: [
+        { id: 'empresa', label: 'Mi empresa', icon: <Building2 className="w-7 h-7" />, tone: 'bg-blue-50 text-blue-600', onClick: () => goSettings('empresa') },
+        { id: 'password', label: 'Contraseña', icon: <KeyRound className="w-7 h-7" />, tone: 'bg-slate-100 text-slate-600', onClick: () => goSettings('seguridad') },
+        { id: 'ajustes', label: 'Configuración', icon: <SettingsIcon className="w-7 h-7" />, tone: 'bg-gray-100 text-gray-600', onClick: () => goSettings(null) },
+        { id: 'legal', label: 'Legal', icon: <ShieldCheck className="w-7 h-7" />, tone: 'bg-slate-100 text-slate-600', onClick: () => goSettings('legal') },
+      ]},
+    ];
+  }
+
   function AppContentMobile() {
     // En dispositivo nativo (PWA/móvil) nunca mostrar el modo demo — siempre login
     if (isNativeDevice && !isLiveMode) {
@@ -4309,7 +4373,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               TRAB<span className="text-blue-600">FLOW</span>
             </div>
             <div className="text-[10px] text-gray-400 font-medium mt-0.5 leading-none">
-              {isTecnico ? (workerProfile?.nombre ?? 'Técnico') : (empresaAjustes.nombre || 'Instalaciones')}
+              {isTecnico ? (workerProfile?.nombre ?? 'Técnico') : (empresaAjustes.nombre || (caps.isTransportOrg ? 'Transporte' : 'Instalaciones'))}
             </div>
           </div>
 
@@ -4547,7 +4611,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           )}
           {mobileTab === 'transporte' && orgId && caps.hasTransport && can('transport.view') && (
             <div className="absolute inset-0 flex flex-col bg-gray-50">
-              {/* Sub-tabs: varían según modalidad */}
+              {/* Empresas de transporte: navegación en barra inferior («Más»); aquí solo el título de la sección */}
+              {caps.isTransportOrg && (
+                <div className="shrink-0 bg-white border-b border-gray-100 px-4 py-2.5">
+                  <span className="text-sm font-bold text-gray-900">{({
+                    panel: 'Panel', servicios: 'Servicios', agenda: 'Agenda', vehiculos: 'Flota', conductores: 'Conductores',
+                    rutas: 'Rutas', partes: 'Partes', viajes: 'Viajes', expediciones: 'Expediciones', tarifas: 'Tarifas',
+                    documentos: caps.isViajerosPrimary ? 'Hojas de ruta' : caps.isMercanciasPrimary ? 'DeCA' : 'DeCA y hojas de ruta',
+                  } as Record<string, string>)[transporteMobileSubTab]}</span>
+                </div>
+              )}
+              {/* Sub-tabs: varían según modalidad (solo empresas mixtas, que entran a Transporte desde «Más») */}
+              {!caps.isTransportOrg && (
               <div className="sticky top-0 z-10 bg-white border-b border-gray-200 flex overflow-x-auto scrollbar-hide shrink-0">
                 {(caps.isMercanciasPrimary ? [
                   { id: 'panel',        icon: <LayoutDashboard className="w-3.5 h-3.5" />, label: 'Panel' },
@@ -4579,6 +4654,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   </button>
                 ))}
               </div>
+              )}
               <div className="flex-1 overflow-y-auto min-h-0">
                 {transporteMobileSubTab === 'panel' && (
                   <ScreenTransportePanel
@@ -4672,7 +4748,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     showToast={showToast}
                     allowDeca={!caps.isViajerosPrimary}
                     allowHojaRuta={!caps.isMercanciasPrimary}
+                    initialNew={transporteDocNew}
+                    onConsumeInitialNew={() => setTransporteDocNew(null)}
                   />
+                )}
+                {transporteMobileSubTab === 'tarifas' && (
+                  <ScreenTransporteTarifas orgId={orgId} showToast={showToast} modalidad={caps.transportModalidad} />
                 )}
                 {/* Mercancías placeholders */}
                 {transporteMobileSubTab === 'viajes' && (
@@ -4726,74 +4807,57 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {MobileTabButton({ tab: 'asistente',icon: <BookOpen   className="w-5 h-5" />, label: 'Normativa' })}
               </>
             ) : caps.isTransportOrg ? (
-              /* ── BARRA MÓVIL TRANSPORTE ─────────────────────── */
+              /* ── BARRA MÓVIL TRANSPORTE: Panel · Documentos · (+) · Servicios/Flota · Más ── */
               <>
-                {caps.isMercanciasPrimary ? (
-                  /* Mercancías: Panel / Flota / Equipo / Viajes (próx) / Presupuestos */
-                  <>
-                    {([
-                      { subtab: 'panel'       as const, icon: <LayoutDashboard className="w-5 h-5" />, label: 'Panel' },
-                      { subtab: 'vehiculos'   as const, icon: <Truck           className="w-5 h-5" />, label: 'Flota' },
-                      { subtab: 'conductores' as const, icon: <UserPlus        className="w-5 h-5" />, label: 'Equipo' },
-                      { subtab: 'viajes'      as const, icon: <Package         className="w-5 h-5" />, label: 'Viajes' },
-                    ]).map(btn => (
-                      <button
-                        key={btn.subtab}
-                        onClick={() => { setMobileTab('transporte'); setTransporteMobileSubTab(btn.subtab); setShowFloatingMenu(false); }}
-                        className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors ${
-                          mobileTab === 'transporte' && transporteMobileSubTab === btn.subtab
-                            ? 'text-amber-600'
-                            : 'text-[#1C2535]/45'
-                        }`}
-                      >
-                        {btn.icon}
-                        <span>{btn.label}</span>
-                      </button>
-                    ))}
+                {([
+                  { subtab: 'panel' as const, icon: <LayoutDashboard className="w-5 h-5" />, label: 'Panel' },
+                  { subtab: 'documentos' as const, icon: <FileCheck className="w-5 h-5" />, label: caps.isViajerosPrimary ? 'Hojas ruta' : caps.isMercanciasPrimary ? 'DeCA' : 'Documentos' },
+                ]).map(btn => {
+                  const active = mobileTab === 'transporte' && transporteMobileSubTab === btn.subtab && !showTransportMoreSheet;
+                  return (
                     <button
-                      onClick={() => { setMobileTab('presupuestos'); setShowFloatingMenu(false); }}
-                      className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors ${
-                        mobileTab === 'presupuestos' ? 'text-amber-600' : 'text-[#1C2535]/45'
-                      }`}
+                      key={btn.subtab}
+                      onClick={() => { setShowTransportMoreSheet(false); setMobileTab('transporte'); setTransporteMobileSubTab(btn.subtab); setShowFloatingMenu(false); }}
+                      className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors ${active ? (caps.isMercanciasPrimary ? 'text-amber-600' : 'text-blue-600') : 'text-[#1C2535]/45'}`}
                     >
-                      <FileText className="w-5 h-5" />
-                      <span>Presupuestos</span>
+                      {btn.icon}
+                      <span>{btn.label}</span>
                     </button>
-                  </>
-                ) : (
-                  /* Viajeros (y combinada): Panel / Servicios / Agenda / Flota / Equipo + Presupuestos */
-                  <>
-                    {([
-                      { subtab: 'panel'       as const, icon: <LayoutDashboard className="w-5 h-5" />, label: 'Panel' },
-                      { subtab: 'servicios'   as const, icon: <Calendar        className="w-5 h-5" />, label: 'Servicios' },
-                      { subtab: 'agenda'      as const, icon: <CalendarDays    className="w-5 h-5" />, label: 'Agenda' },
-                      { subtab: 'vehiculos'   as const, icon: <Bus             className="w-5 h-5" />, label: 'Flota' },
-                      { subtab: 'conductores' as const, icon: <UserPlus        className="w-5 h-5" />, label: 'Equipo' },
-                    ]).map(btn => (
-                      <button
-                        key={btn.subtab}
-                        onClick={() => { setMobileTab('transporte'); setTransporteMobileSubTab(btn.subtab); setShowFloatingMenu(false); }}
-                        className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors ${
-                          mobileTab === 'transporte' && transporteMobileSubTab === btn.subtab
-                            ? 'text-blue-600'
-                            : 'text-[#1C2535]/45'
-                        }`}
-                      >
-                        {btn.icon}
-                        <span>{btn.label}</span>
-                      </button>
-                    ))}
+                  );
+                })}
+                <div className="flex-1 flex items-start justify-center">
+                  <button
+                    onClick={() => { setShowTransportMoreSheet(false); setShowFloatingMenu(false); setShowTransportNewSheet(true); }}
+                    aria-label="Crear"
+                    data-testid="nav-transport-new"
+                    className={`-mt-6 w-14 h-14 rounded-full text-white shadow-lg flex items-center justify-center active:scale-95 transition-transform cursor-pointer ${caps.isMercanciasPrimary ? 'bg-amber-500 shadow-amber-500/30' : 'bg-blue-600 shadow-blue-600/30'}`}
+                  >
+                    <Plus className="w-7 h-7" />
+                  </button>
+                </div>
+                {(() => {
+                  const third = caps.isMercanciasPrimary
+                    ? { subtab: 'vehiculos' as const, icon: <Truck className="w-5 h-5" />, label: 'Flota' }
+                    : { subtab: 'servicios' as const, icon: <Calendar className="w-5 h-5" />, label: 'Servicios' };
+                  const active = mobileTab === 'transporte' && transporteMobileSubTab === third.subtab && !showTransportMoreSheet;
+                  return (
                     <button
-                      onClick={() => { setMobileTab('presupuestos'); setShowFloatingMenu(false); }}
-                      className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors ${
-                        mobileTab === 'presupuestos' ? 'text-blue-600' : 'text-[#1C2535]/45'
-                      }`}
+                      onClick={() => { setShowTransportMoreSheet(false); setMobileTab('transporte'); setTransporteMobileSubTab(third.subtab); setShowFloatingMenu(false); }}
+                      className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors ${active ? (caps.isMercanciasPrimary ? 'text-amber-600' : 'text-blue-600') : 'text-[#1C2535]/45'}`}
                     >
-                      <FileText className="w-5 h-5" />
-                      <span>Presupuestos</span>
+                      {third.icon}
+                      <span>{third.label}</span>
                     </button>
-                  </>
-                )}
+                  );
+                })()}
+                <button
+                  onClick={() => { setShowTransportNewSheet(false); setShowTransportMoreSheet(true); }}
+                  data-testid="nav-transport-more"
+                  className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors ${showTransportMoreSheet ? (caps.isMercanciasPrimary ? 'text-amber-600' : 'text-blue-600') : 'text-[#1C2535]/45'}`}
+                >
+                  <MoreHorizontal className="w-5 h-5" />
+                  <span>Más</span>
+                </button>
               </>
             ) : (
               /* ── BARRA MÓVIL INSTALADORES: Inicio · Presupuestos · (+) · Agenda · Más ── */
@@ -4831,6 +4895,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         </div>
 
+
+        {/* ── Transporte móvil: ventanas «+» y «Más» ── */}
+        {caps.isTransportOrg && !isTecnico && showTransportNewSheet && (
+          <TransportNewSheet items={transportNewItems()} onClose={() => setShowTransportNewSheet(false)} />
+        )}
+        {caps.isTransportOrg && !isTecnico && showTransportMoreSheet && (
+          <TransportMoreSheet groups={transportMoreGroups()} onClose={() => setShowTransportMoreSheet(false)} />
+        )}
 
         {/* Presupuesto con Foto overlay */}
         {showPresupuestoFoto && (
