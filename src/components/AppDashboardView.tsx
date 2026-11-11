@@ -130,10 +130,11 @@ import ScreenTransporteParteTrabajo from './ScreenTransporteParteTrabajo';
 import ScreenTransporteRutas from './ScreenTransporteRutas';
 import ScreenTransporteTarifas from './ScreenTransporteTarifas';
 import ScreenTransportePresupuestos from './ScreenTransportePresupuestos';
-import ScreenTransporteMercanciasComing from './ScreenTransporteMercanciasComing';
 import ScreenTransporteDocumentos from './transport-docs/ScreenTransporteDocumentos';
+import ScreenTransporteExpediciones from './transport-shipments/ScreenTransporteExpediciones';
+import ScreenTransporteViajes from './ScreenTransporteViajes';
 import { TransportMoreSheet, TransportNewSheet, type SheetItem } from './transport-mobile/TransportMobileSheets';
-import type { TransportDocTipo } from '../lib/transportDocs';
+import { decaPrefillFromTrip, type TransportDocTipo, type TransportDocInput } from '../lib/transportDocs';
 import { getOrgCapabilities, TRANSPORT_PENDING_OFICIOS } from '../lib/orgCapabilities';
 import ScreenFacturas from './ScreenFacturas';
 import ScreenContratos from './ScreenContratos';
@@ -901,7 +902,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // Móvil transporte: ventanas «+» y «Más» (mismo patrón que instaladores)
   const [showTransportMoreSheet, setShowTransportMoreSheet] = useState(false);
   const [showTransportNewSheet, setShowTransportNewSheet] = useState(false);
-  const [transporteDocNew, setTransporteDocNew] = useState<{ tipo: TransportDocTipo } | null>(null);
+  const [transporteDocNew, setTransporteDocNew] = useState<{ tipo: TransportDocTipo; prefill?: Partial<TransportDocInput> } | null>(null);
   // Transport parte virtual tab
   const [transporteParteId, setTransporteParteId] = useState<string | null>(null);
   const [transporteParteFromTab, setTransporteParteFromTab] = useState<string>('transporte_servicios');
@@ -4260,6 +4261,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setShowTransportMoreSheet(false); setShowTransportNewSheet(false); setShowFloatingMenu(false);
     setMobileTab('transporte'); setTransporteMobileSubTab(sub);
   }
+  /** Abre el asistente de DeCA / hoja de ruta (móvil y PC) con datos ya rellenos. */
+  function openTransportDoc(tipo: TransportDocTipo, prefill?: Partial<TransportDocInput>) {
+    setTransporteDocNew({ tipo, prefill });
+    setActiveTab('transporte_documentos');
+    goTransport('documentos');
+  }
   function goSettings(section: string | null) {
     setShowTransportMoreSheet(false); setShowTransportNewSheet(false);
     setMobileSettingsSection(section); setMobileTab('ajustes');
@@ -4689,6 +4696,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     onConsumeInitialServiceId={() => setTransporteNavServiceId(null)}
                     triggerNew={transporteTriggerNew}
                     onNavigateToSchedules={(id) => { setTransporteMobileSubTab('rutas'); setTransporteNewScheduleId(id); }}
+                    onEmitHojaRuta={prefill => openTransportDoc('hoja_ruta', prefill)}
                   />
                 )}
                 {transporteMobileSubTab === 'agenda' && (
@@ -4759,33 +4767,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 )}
                 {/* Mercancías placeholders */}
                 {transporteMobileSubTab === 'viajes' && (
-                  <ScreenTransporteMercanciasComing
-                    feature="viajes"
-                    onNavigate={(tab) => {
-                      type MSubTab = 'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas' | 'partes' | 'viajes' | 'expediciones';
-                      const map: Record<string, MSubTab> = {
-                        transporte_panel: 'panel',
-                        transporte_vehiculos: 'vehiculos',
-                        transporte_conductores: 'conductores',
-                        transporte_tarifas: 'vehiculos',
-                      };
-                      if (map[tab]) setTransporteMobileSubTab(map[tab]);
-                    }}
+                  <ScreenTransporteViajes
+                    orgId={orgId}
+                    onEmitDeca={(trip, vehicle, conductor) => openTransportDoc('deca', decaPrefillFromTrip(trip, vehicle, conductor))}
                   />
                 )}
                 {transporteMobileSubTab === 'expediciones' && (
-                  <ScreenTransporteMercanciasComing
-                    feature="expediciones"
-                    onNavigate={(tab) => {
-                      type MSubTab = 'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas' | 'partes' | 'viajes' | 'expediciones';
-                      const map: Record<string, MSubTab> = {
-                        transporte_panel: 'panel',
-                        transporte_vehiculos: 'vehiculos',
-                        transporte_conductores: 'conductores',
-                        transporte_tarifas: 'vehiculos',
-                      };
-                      if (map[tab]) setTransporteMobileSubTab(map[tab]);
-                    }}
+                  <ScreenTransporteExpediciones
+                    orgId={orgId}
+                    showToast={showToast}
+                    onEmitDeca={prefill => openTransportDoc('deca', prefill)}
                   />
                 )}
               </div>
@@ -7889,6 +7880,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       onConsumeInitialServiceId={() => setTransporteNavServiceId(null)}
                       triggerNew={transporteTriggerNew}
                       onNavigateToSchedules={(id) => { setActiveTab('transporte_rutas'); setTransporteNewScheduleId(id); }}
+                      onEmitHojaRuta={prefill => openTransportDoc('hoja_ruta', prefill)}
                     />
                   </div>
                 )}
@@ -7973,22 +7965,25 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       showToast={showToast}
                       allowDeca={!caps.isViajerosPrimary}
                       allowHojaRuta={!caps.isMercanciasPrimary}
+                      initialNew={transporteDocNew}
+                      onConsumeInitialNew={() => setTransporteDocNew(null)}
                     />
                   </div>
                 )}
                 {activeTab === 'transporte_viajes' && orgId && caps.hasTransport && (caps.isMercanciasPrimary || caps.isCombinadaOrg) && can('transport.view') && (
                   <div className="flex-1 overflow-y-auto min-h-0">
-                    <ScreenTransporteMercanciasComing
-                      feature="viajes"
-                      onNavigate={(tab) => setActiveTab(tab)}
+                    <ScreenTransporteViajes
+                      orgId={orgId}
+                      onEmitDeca={(trip, vehicle, conductor) => openTransportDoc('deca', decaPrefillFromTrip(trip, vehicle, conductor))}
                     />
                   </div>
                 )}
                 {activeTab === 'transporte_expediciones' && orgId && caps.hasTransport && (caps.isMercanciasPrimary || caps.isCombinadaOrg) && can('transport.view') && (
                   <div className="flex-1 overflow-y-auto min-h-0">
-                    <ScreenTransporteMercanciasComing
-                      feature="expediciones"
-                      onNavigate={(tab) => setActiveTab(tab)}
+                    <ScreenTransporteExpediciones
+                      orgId={orgId}
+                      showToast={showToast}
+                      onEmitDeca={prefill => openTransportDoc('deca', prefill)}
                     />
                   </div>
                 )}

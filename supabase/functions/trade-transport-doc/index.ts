@@ -151,6 +151,16 @@ async function emitir(body: any, userId: string, isAdmin: boolean, org: any) {
   if (tipo !== 'deca' && tipo !== 'hoja_ruta') throw new HttpError(400, 'BAD_TIPO', 'Tipo de documento no válido');
   const d = body.datos ?? {};
 
+  // Cada empresa emite solo el documento de su actividad:
+  //   viajeros → hoja de ruta · mercancías/reparto → DeCA · combinada (o sin definir) → ambos
+  const modalidad = org.transport_modalidad as string | null;
+  if (tipo === 'deca' && modalidad === 'viajeros') {
+    throw new HttpError(403, 'TIPO_NO_PERMITIDO', 'Su empresa está dada de alta solo para viajeros: emita hojas de ruta');
+  }
+  if (tipo === 'hoja_ruta' && (modalidad === 'mercancias' || modalidad === 'reparto')) {
+    throw new HttpError(403, 'TIPO_NO_PERMITIDO', 'Su empresa está dada de alta solo para mercancías: emita DeCA');
+  }
+
   // Transportista = la org
   const transportistaNif = str(org.nif, 20);
   if (!transportistaNif || !validarNifCualquiera(transportistaNif)) {
@@ -237,12 +247,13 @@ async function emitir(body: any, userId: string, isAdmin: boolean, org: any) {
     const { data } = await admin.from(table).select('id').eq('id', id).eq('org_id', org.id).maybeSingle();
     return data?.id ?? null;
   }
-  const [vehicleId, conductorId, clientId, serviceId, tripId] = await Promise.all([
+  const [vehicleId, conductorId, clientId, serviceId, tripId, shipmentId] = await Promise.all([
     ownId('trade_vehicles', d.vehicle_id),
     ownId('trade_workers', d.conductor_id),
     ownId('trade_clients', d.client_id),
     ownId('trade_transport_services', d.service_id),
     ownId('trade_transport_trips', d.trip_id),
+    ownId('trade_transport_shipments', d.shipment_id),
   ]);
 
   // Sustitución (modificación con PDF nuevo)
@@ -272,7 +283,7 @@ async function emitir(body: any, userId: string, isAdmin: boolean, org: any) {
 
   const row = {
     org_id: org.id, tipo, numero, estado: 'vigente', public_token: token,
-    service_id: serviceId, trip_id: tripId, vehicle_id: vehicleId, conductor_id: conductorId, client_id: clientId,
+    service_id: serviceId, trip_id: tripId, shipment_id: tipo === 'deca' ? shipmentId : null, vehicle_id: vehicleId, conductor_id: conductorId, client_id: clientId,
     transportista_nombre: org.nombre, transportista_nif: transportistaNif.toUpperCase(), transportista_domicilio: transportistaDomicilio,
     cargador_nombre: cargadorNombre, cargador_nif: cargadorNif, cargador_domicilio: cargadorDomicilio,
     origen, destino, paradas, fecha_servicio: fechaServicio, hora_salida: horaSalida, fecha_fin: fechaFin,

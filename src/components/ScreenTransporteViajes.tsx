@@ -592,9 +592,11 @@ interface TripDetailProps {
   onBack: () => void;
   onUpdated: (trip: TradeTransportTrip) => void;
   onDeleted: (id: string) => void;
+  /** TX-DOCS-1: emitir el DeCA de este viaje (se abre el asistente con los datos). */
+  onEmitDeca?: (trip: TradeTransportTrip) => void;
 }
 
-function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDeleted }: TripDetailProps) {
+function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDeleted, onEmitDeca }: TripDetailProps) {
   const [editing, setEditing] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const [starting, setStarting]     = useState(false);
@@ -857,6 +859,15 @@ function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDelet
             Completar
           </button>
         )}
+        {onEmitDeca && trip.estado !== 'cancelado' && trip.estado !== 'completado' && (
+          <button
+            onClick={() => onEmitDeca(trip)}
+            className="flex-1 min-w-[120px] py-2 text-sm border-2 border-amber-400 text-amber-900 font-semibold rounded-lg hover:bg-amber-50 flex items-center justify-center gap-2"
+          >
+            <FileText className="w-4 h-4" />
+            Emitir DeCA
+          </button>
+        )}
         {canCancelTrip(trip.estado) && (
           <button
             onClick={handleCancel}
@@ -891,9 +902,11 @@ export interface ScreenTransporteViajesProps {
   initialTripId?: string;
   /** Called when the detail opened via initialTripId is closed (back button). */
   onDetailClosed?: () => void;
+  /** TX-DOCS-1: abre el asistente de DeCA con los datos del viaje. */
+  onEmitDeca?: (trip: TradeTransportTrip, vehicle: TradeVehicle | null, conductor: TradeWorker | null) => void;
 }
 
-export default function ScreenTransporteViajes({ orgId, initialTripId, onDetailClosed }: ScreenTransporteViajesProps) {
+export default function ScreenTransporteViajes({ orgId, initialTripId, onDetailClosed, onEmitDeca }: ScreenTransporteViajesProps) {
   const [trips, setTrips]         = useState<TradeTransportTrip[]>([]);
   const [vehicles, setVehicles]   = useState<TradeVehicle[]>([]);
   const [workers, setWorkers]     = useState<TradeWorker[]>([]);
@@ -970,6 +983,11 @@ export default function ScreenTransporteViajes({ orgId, initialTripId, onDetailC
           onBack={() => { setSelected(null); onDetailClosed?.(); }}
           onUpdated={handleTripUpdated}
           onDeleted={handleTripDeleted}
+          onEmitDeca={onEmitDeca ? (t => onEmitDeca(
+            t,
+            vehicles.find(v => v.id === t.vehicle_id) ?? null,
+            workers.find(w => w.id === t.conductor_id) ?? null,
+          )) : undefined}
         />
       </div>
     );

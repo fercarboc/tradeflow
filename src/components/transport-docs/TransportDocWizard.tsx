@@ -287,6 +287,7 @@ export default function TransportDocWizard({ orgId, tipo, onClose, onEmitted, sh
       observaciones: form.observaciones.trim() || null,
       service_id: prefill?.service_id ?? sustituye?.service_id ?? null,
       trip_id: prefill?.trip_id ?? sustituye?.trip_id ?? null,
+      shipment_id: prefill?.shipment_id ?? sustituye?.shipment_id ?? null,
     };
   };
 
