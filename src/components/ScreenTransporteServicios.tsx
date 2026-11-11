@@ -32,6 +32,7 @@ import type {
   ServicioEstado,
 } from '../lib/transportServices';
 import { loadClients, loadWorkers, getClientDisplayName } from '../lib/supabase';
+import { madridDateTime, type TransportDocInput } from '../lib/transportDocs';
 import type { TradeClient, TradeWorker } from '../lib/supabase';
 import { loadVehiclesAll, getVehicleDisplayImage } from '../lib/transport';
 import type { TradeVehicle } from '../lib/transport';
@@ -733,11 +734,13 @@ interface ServicioRowProps {
   onOpenParte: (svcId: string) => void;
   canWrite: boolean;
   highlighted?: boolean;
+  /** TX-DOCS-1: emitir la hoja de ruta de este servicio. */
+  onHojaRuta?: () => void;
 }
 
 function ServicioRow({
   s, clients, vehicles, workers,
-  onEdit, onCancel, onConfirm, onIniciar, onOpenParte, canWrite, highlighted,
+  onEdit, onCancel, onConfirm, onIniciar, onOpenParte, canWrite, highlighted, onHojaRuta,
 }: ServicioRowProps) {
   const client    = clients.find(c => c.id === s.client_id);
   const vehicle   = vehicles.find(v => v.id === s.vehicle_id);
@@ -808,6 +811,14 @@ function ServicioRow({
           {s.precio_acordado != null && (
             <p className="text-sm font-bold text-slate-800">{s.precio_acordado.toFixed(2)} €</p>
           )}
+          {onHojaRuta && !isTerminal && (
+            <div className="flex justify-end pt-1">
+              <button onClick={onHojaRuta}
+                className="px-2 py-1 text-[11px] font-semibold bg-amber-50 text-amber-800 border border-amber-300 hover:bg-amber-100 rounded-md cursor-pointer">
+                Hoja de ruta
+              </button>
+            </div>
+          )}
           {canWrite && !isTerminal && (
             <div className="flex items-center justify-end gap-1 pt-1">
               {s.estado === 'borrador' && (
@@ -861,11 +872,13 @@ interface Props {
   triggerNew?: number;
   /** Navegar a Rutas Recurrentes tras crear una plantilla, pasando su ID. */
   onNavigateToSchedules?: (scheduleId: string) => void;
+  /** TX-DOCS-1: abre el asistente de hoja de ruta con los datos del servicio. */
+  onEmitHojaRuta?: (prefill: Partial<TransportDocInput>) => void;
 }
 
 // ── Componente principal ──────────────────────────────────────────────────────
 
-export default function ScreenTransporteServicios({ orgId, showToast, onOpenParte, initialServiceId, onConsumeInitialServiceId, triggerNew, onNavigateToSchedules }: Props) {
+export default function ScreenTransporteServicios({ orgId, showToast, onOpenParte, initialServiceId, onConsumeInitialServiceId, triggerNew, onNavigateToSchedules, onEmitHojaRuta }: Props) {
   const { rol } = useSession();
   const canWrite = rol === 'owner' || rol === 'admin';
 
@@ -1325,6 +1338,23 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
                   onConfirm={() => handleConfirm(s)}
                   onIniciar={() => { setIniciando(s); setOdoInicio(''); setHoraInicioReal(''); setObsInicio(''); }}
                   onOpenParte={(id) => onOpenParte?.(id)}
+                  onHojaRuta={onEmitHojaRuta ? () => {
+                    const cl = clients.find(c => c.id === s.client_id);
+                    const ve = vehicles.find(v => v.id === s.vehicle_id);
+                    const co = workers.find(w => w.id === s.conductor_id);
+                    const { fecha, hora } = madridDateTime(s.fecha_inicio);
+                    onEmitHojaRuta({
+                      service_id: s.id, client_id: s.client_id ?? null,
+                      cargador_nombre: cl ? getClientDisplayName(cl) : '', cargador_nif: cl?.nif ?? null,
+                      origen: s.origen ?? '', destino: s.destino ?? '',
+                      paradas: (s.paradas ?? []).map(p => ({ nombre: p.nombre, hora: p.hora ?? null })),
+                      fecha_servicio: fecha, hora_salida: hora, fecha_fin: s.fecha_fin ?? null,
+                      vehicle_id: ve?.id ?? null, matricula_vehiculo: ve?.matricula ?? '',
+                      conductor_id: co?.id ?? null, conductor_nombre: co?.nombre ?? null, conductor_nif: co?.nif ?? null,
+                      naturaleza_servicio: 'discrecional',
+                      observaciones: s.num_viajeros ? `${s.num_viajeros} viajeros` : null,
+                    });
+                  } : undefined}
                 />
               ))}
             </div>

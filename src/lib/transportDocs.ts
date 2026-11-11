@@ -56,6 +56,7 @@ export interface TransportControlDoc {
   motivo_anulacion: string | null;
   pdf_path: string | null;
   pdf_sha256: string | null;
+  shipment_id?: string | null;
   public_hasta: string;
   created_at: string;
 }
@@ -87,6 +88,7 @@ export interface TransportDocInput {
   client_id?: string | null;
   service_id?: string | null;
   trip_id?: string | null;
+  shipment_id?: string | null;
 }
 
 export const NATURALEZA_SERVICIO_OPCIONES: { value: NaturalezaServicio; label: string; hint: string }[] = [
@@ -271,4 +273,75 @@ export async function loadOrgTransportista(orgId: string): Promise<{ nombre: str
 export function shareText(doc: Pick<TransportControlDoc, 'tipo' | 'numero' | 'origen' | 'destino' | 'fecha_servicio' | 'matricula_vehiculo' | 'public_token'>): string {
   const t = doc.tipo === 'deca' ? 'DeCA' : 'Hoja de ruta';
   return `${t} ${doc.numero}\n${doc.origen} → ${doc.destino}\n${fmtFechaEs(doc.fecha_servicio)} · ${doc.matricula_vehiculo}\n${publicDocUrl(doc.public_token)}`;
+}
+
+// ── Rellenos automáticos desde viajes y expediciones ─────────────────────────
+
+/** Fecha (YYYY-MM-DD) y hora (HH:MM) peninsulares de un instante ISO. */
+export function madridDateTime(iso: string): { fecha: string; hora: string } {
+  const d = new Date(iso);
+  return {
+    fecha: new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Madrid', year: 'numeric', month: '2-digit', day: '2-digit' }).format(d),
+    hora: new Intl.DateTimeFormat('es-ES', { timeZone: 'Europe/Madrid', hour: '2-digit', minute: '2-digit', hour12: false }).format(d),
+  };
+}
+
+interface TripLike {
+  id: string; origen: string; destino: string; fecha_inicio: string;
+  vehicle_id?: string | null; conductor_id?: string | null;
+  peso_kg?: number | null; cliente_nombre?: string | null; observaciones?: string | null;
+}
+interface VehicleLike { id: string; matricula: string }
+interface WorkerLike { id: string; nombre: string; nif?: string | null }
+
+/** DeCA a partir de un viaje de mercancías (el cargador y su NIF se completan en el asistente). */
+export function decaPrefillFromTrip(trip: TripLike, vehicle?: VehicleLike | null, conductor?: WorkerLike | null, naturaleza?: string): Partial<TransportDocInput> {
+  const { fecha, hora } = madridDateTime(trip.fecha_inicio);
+  return {
+    trip_id: trip.id,
+    origen: trip.origen, destino: trip.destino,
+    fecha_servicio: fecha, hora_salida: hora,
+    cargador_nombre: trip.cliente_nombre ?? '',
+    peso_kg: trip.peso_kg ?? null,
+    naturaleza_mercancia: naturaleza ?? null,
+    vehicle_id: vehicle?.id ?? trip.vehicle_id ?? null,
+    matricula_vehiculo: vehicle?.matricula ?? '',
+    conductor_id: conductor?.id ?? trip.conductor_id ?? null,
+    conductor_nombre: conductor?.nombre ?? null,
+    conductor_nif: conductor?.nif ?? null,
+  };
+}
+
+interface ShipmentLike {
+  id: string; trip_id: string | null; client_id: string | null;
+  cargador_nombre: string; cargador_nif: string | null; cargador_domicilio: string | null;
+  destinatario_nombre: string | null;
+  origen: string; destino: string; fecha_recogida: string; hora_recogida: string | null;
+  naturaleza: string; peso_kg: number | null; num_bultos: number | null; referencia_cargador: string | null;
+  observaciones: string | null;
+}
+
+/** DeCA a partir de una expedición (y del viaje al que va asignada, si lo hay). */
+export function decaPrefillFromShipment(sh: ShipmentLike, trip?: TripLike | null, vehicle?: VehicleLike | null, conductor?: WorkerLike | null): Partial<TransportDocInput> {
+  const base = trip ? decaPrefillFromTrip(trip, vehicle, conductor) : {};
+  const obs = [
+    sh.destinatario_nombre ? `Destinatario: ${sh.destinatario_nombre}` : '',
+    sh.num_bultos ? `${sh.num_bultos} bultos` : '',
+    sh.referencia_cargador ? `Ref. cargador: ${sh.referencia_cargador}` : '',
+    sh.observaciones ?? '',
+  ].filter(Boolean).join(' · ');
+  return {
+    ...base,
+    shipment_id: sh.id,
+    client_id: sh.client_id,
+    cargador_nombre: sh.cargador_nombre,
+    cargador_nif: sh.cargador_nif,
+    cargador_domicilio: sh.cargador_domicilio,
+    origen: sh.origen, destino: sh.destino,
+    fecha_servicio: sh.fecha_recogida,
+    hora_salida: sh.hora_recogida?.slice(0, 5) ?? base.hora_salida ?? null,
+    naturaleza_mercancia: sh.naturaleza,
+    peso_kg: sh.peso_kg,
+    observaciones: obs || null,
+  };
 }
