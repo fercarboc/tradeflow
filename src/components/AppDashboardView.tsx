@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useContext } from 'react';
 import { 
   Mic, 
   Image as ImageIcon, 
@@ -178,6 +178,8 @@ import type { QuoteTemplate, QuoteLinkTracking, ExpressQuoteFilter } from '../li
 import ScreenSolicitudes from './quick/ScreenSolicitudes';
 import ScreenMiPagina from './quick/ScreenMiPagina';
 import ChangePasswordCard from './quick/ChangePasswordCard';
+import LegalLinksCard from './quick/LegalLinksCard';
+import { CookieConsentContext } from '../context/CookieConsentContext';
 import { requestToDescription } from '../lib/publicPageUtils';
 import type { PageRequest } from '../lib/publicPageUtils';
 
@@ -993,6 +995,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [newRequestsCount, setNewRequestsCount] = useState(0);
   // Ajustes en móvil: sección abierta (null = menú)
   const [mobileSettingsSection, setMobileSettingsSection] = useState<string | null>(null);
+  const cookieConsent = useContext(CookieConsentContext);
   useEffect(() => { if (mobileTab !== 'ajustes') setMobileSettingsSection(null); }, [mobileTab]);
 
   // Colapsar detalle partidas en el preview móvil
@@ -4287,12 +4290,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           className="bg-white border-b border-gray-100 flex items-center justify-between shrink-0 px-4"
           style={{ paddingTop: isNativeDevice ? 'calc(env(safe-area-inset-top, 0px) + 12px)' : '12px', paddingBottom: '12px' }}
         >
-          <button
-            onClick={() => setMobileTab('ajustes')}
-            className="w-9 h-9 flex items-center justify-center rounded-full text-gray-500 active:bg-gray-100 cursor-pointer"
-          >
-            <Menu className="w-5 h-5" />
-          </button>
+          {isTecnico ? (
+            <button
+              onClick={() => setMobileTab('ajustes')}
+              aria-label="Configuración"
+              className="w-9 h-9 flex items-center justify-center rounded-full text-gray-500 active:bg-gray-100 cursor-pointer"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+          ) : (
+            /* Instaladores: la configuración está en «Más»; hueco para mantener el título centrado */
+            <span className="w-9 h-9" aria-hidden="true" />
+          )}
 
           <div className="text-center">
             <div className="font-black text-lg tracking-tight text-gray-900 leading-none">
@@ -11670,6 +11679,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 { k: 'calendario', icon: <CalendarDays className="w-5 h-5" />, tone: 'bg-orange-50 text-orange-600', title: 'Calendario laboral', desc: 'Horario, festivos y vacaciones' },
                 ...(isLiveMode && 'Notification' in window ? [{ k: 'notificaciones', icon: <Bell className="w-5 h-5" />, tone: 'bg-rose-50 text-rose-600', title: 'Notificaciones', desc: 'Avisos en este móvil' }] : []),
                 ...(isLiveMode && orgData?.referral_code ? [{ k: 'invita', icon: <Gift className="w-5 h-5" />, tone: 'bg-pink-50 text-pink-600', title: 'Invita a un colega', desc: '1 mes gratis para los dos' }] : []),
+                { k: 'legal', icon: <ShieldCheck className="w-5 h-5" />, tone: 'bg-gray-100 text-gray-600', title: 'Legal y privacidad', desc: 'Aviso legal, privacidad y cookies' },
               ]).map(it => (
                 <button
                   key={it.k}
@@ -12820,6 +12830,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
         {/* ── 9. Seguridad: cambiar contraseña ── */}
         {showSec('seguridad') && <ChangePasswordCard showToast={showToast} isLiveMode={isLiveMode} />}
+
+        {/* ── 10. Legal y privacidad ── */}
+        {showSec('legal') && <LegalLinksCard onCookiePreferences={cookieConsent?.openPreferences} />}
 
         {/* Móvil: los datos de cobro y precios se guardan con el mismo botón que los fiscales */}
         {mobileMenu && (mobileSettingsSection === 'cobro' || mobileSettingsSection === 'precios') && (
