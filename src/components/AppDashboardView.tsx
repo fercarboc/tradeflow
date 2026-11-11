@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useContext } from 'react';
 import { 
   Mic, 
   Image as ImageIcon, 
@@ -178,6 +178,8 @@ import type { QuoteTemplate, QuoteLinkTracking, ExpressQuoteFilter } from '../li
 import ScreenSolicitudes from './quick/ScreenSolicitudes';
 import ScreenMiPagina from './quick/ScreenMiPagina';
 import ChangePasswordCard from './quick/ChangePasswordCard';
+import LegalLinksCard from './quick/LegalLinksCard';
+import { CookieConsentContext } from '../context/CookieConsentContext';
 import { requestToDescription } from '../lib/publicPageUtils';
 import type { PageRequest } from '../lib/publicPageUtils';
 
@@ -993,6 +995,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [newRequestsCount, setNewRequestsCount] = useState(0);
   // Ajustes en móvil: sección abierta (null = menú)
   const [mobileSettingsSection, setMobileSettingsSection] = useState<string | null>(null);
+  const cookieConsent = useContext(CookieConsentContext);
   useEffect(() => { if (mobileTab !== 'ajustes') setMobileSettingsSection(null); }, [mobileTab]);
 
   // Colapsar detalle partidas en el preview móvil
@@ -4287,12 +4290,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           className="bg-white border-b border-gray-100 flex items-center justify-between shrink-0 px-4"
           style={{ paddingTop: isNativeDevice ? 'calc(env(safe-area-inset-top, 0px) + 12px)' : '12px', paddingBottom: '12px' }}
         >
-          <button
-            onClick={() => setMobileTab('ajustes')}
-            className="w-9 h-9 flex items-center justify-center rounded-full text-gray-500 active:bg-gray-100 cursor-pointer"
-          >
-            <Menu className="w-5 h-5" />
-          </button>
+          {isTecnico ? (
+            <button
+              onClick={() => setMobileTab('ajustes')}
+              aria-label="Configuración"
+              className="w-9 h-9 flex items-center justify-center rounded-full text-gray-500 active:bg-gray-100 cursor-pointer"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+          ) : (
+            /* Instaladores: la configuración está en «Más»; hueco para mantener el título centrado */
+            <span className="w-9 h-9" aria-hidden="true" />
+          )}
 
           <div className="text-center">
             <div className="font-black text-lg tracking-tight text-gray-900 leading-none">
@@ -5208,6 +5217,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         newRequestsCount={newRequestsCount}
         onGoSolicitudes={() => setMobileTab('solicitudes')}
         onGoMiPagina={() => setMobileTab('mipagina')}
+        onGoLegal={() => { setMobileSettingsSection('legal'); setMobileTab('ajustes'); }}
         onMoreSheetChange={setShowMobileMoreSheet}
       />
     );
@@ -11662,6 +11672,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 { k: 'empresa', icon: <Building2 className="w-5 h-5" />, tone: 'bg-blue-50 text-blue-600', title: 'Datos de empresa', desc: 'Nombre, NIF, dirección y logo' },
                 { k: 'cobro', icon: <Landmark className="w-5 h-5" />, tone: 'bg-indigo-50 text-indigo-600', title: 'Datos bancarios', desc: 'IBAN y banco para cobrar' },
                 { k: 'seguridad', icon: <KeyRound className="w-5 h-5" />, tone: 'bg-slate-100 text-slate-600', title: 'Contraseña', desc: 'Cambiar tu contraseña' },
+                { k: 'legal', icon: <ShieldCheck className="w-5 h-5" />, tone: 'bg-gray-100 text-gray-600', title: 'Legal y privacidad', desc: 'Aviso legal, privacidad y cookies' },
                 { k: 'plan', icon: <CreditCard className="w-5 h-5" />, tone: 'bg-amber-50 text-amber-600', title: 'Plan y pagos', desc: 'Tu suscripción, cambiar de plan y recibos' },
                 { k: 'precios', icon: <TrendingUp className="w-5 h-5" />, tone: 'bg-emerald-50 text-emerald-600', title: 'Precios y márgenes', desc: 'Hora de operario, márgenes e IVA' },
                 { k: 'equipo', icon: <Users className="w-5 h-5" />, tone: 'bg-teal-50 text-teal-600', title: 'Equipo', desc: 'Trabajadores y técnicos' },
@@ -12820,6 +12831,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
         {/* ── 9. Seguridad: cambiar contraseña ── */}
         {showSec('seguridad') && <ChangePasswordCard showToast={showToast} isLiveMode={isLiveMode} />}
+
+        {/* ── 10. Legal y privacidad ── */}
+        {showSec('legal') && <LegalLinksCard onCookiePreferences={cookieConsent?.openPreferences} />}
 
         {/* Móvil: los datos de cobro y precios se guardan con el mismo botón que los fiscales */}
         {mobileMenu && (mobileSettingsSection === 'cobro' || mobileSettingsSection === 'precios') && (

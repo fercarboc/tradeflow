@@ -173,6 +173,13 @@ const AUTH_FLOW_PAGES = new Set<ActivePage>([
   ActivePage.UpdatePassword,
   ActivePage.QuoteAccept,
   ActivePage.ProPage,                     // página pública del instalador
+  // Textos legales: se abren desde Ajustes → Legal en otra pestaña con la sesión ya iniciada;
+  // no deben redirigir al panel.
+  ActivePage.AvisoLegal,
+  ActivePage.Privacidad,
+  ActivePage.Cookies,
+  ActivePage.Terminos,
+  ActivePage.IADisclaimer,
   ActivePage.Parte,                       // public viewer — don't override when user has session
   ActivePage.InvoiceView,                 // public viewer — idem
   ActivePage.Valorar,                     // public viewer — idem

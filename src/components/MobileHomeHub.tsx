@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   Briefcase, FileText, Receipt, Users, CalendarDays,
   MoreHorizontal, ChevronRight, Wrench, Package, MessageSquare,
-  X, FileCheck, Truck, PlusCircle, Clock, Navigation, Mic, Settings, Inbox, Globe,
+  X, FileCheck, Truck, PlusCircle, Clock, Navigation, Mic, Settings, Inbox, Globe, ShieldCheck,
 } from 'lucide-react';
 
 interface NextJob {
@@ -49,6 +49,7 @@ interface MobileHomeHubProps {
   newRequestsCount?: number;
   onGoSolicitudes?: () => void;
   onGoMiPagina?: () => void;
+  onGoLegal?: () => void;
   onMoreSheetChange?: (open: boolean) => void;
 }
 
@@ -105,6 +106,7 @@ export default function MobileHomeHub({
   newRequestsCount = 0,
   onGoSolicitudes,
   onGoMiPagina,
+  onGoLegal,
   onMoreSheetChange,
 }: MobileHomeHubProps) {
   const [showMoreSheetInternal, setShowMoreSheetInternal] = useState(false);
@@ -125,6 +127,7 @@ export default function MobileHomeHub({
     { id: 'asistente', label: 'Normativa', icon: <MessageSquare className="w-7 h-7" />, tone: 'bg-sky-50 text-sky-600 dark:bg-sky-900/40 dark:text-sky-300', onClick: go(() => { if (onGoAsistente) onGoAsistente(); else onNavigate('asistente'); }) },
     ...(onGoMiPagina ? [{ id: 'mipagina', label: 'Mi página', icon: <Globe className="w-7 h-7" />, tone: 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-300', onClick: go(onGoMiPagina) }] : []),
     { id: 'ajustes', label: 'Configuración', icon: <Settings className="w-7 h-7" />, tone: 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300', onClick: go(() => onNavigate('ajustes')) },
+    ...(onGoLegal ? [{ id: 'legal', label: 'Legal', icon: <ShieldCheck className="w-7 h-7" />, tone: 'bg-slate-100 text-slate-600 dark:bg-gray-800 dark:text-gray-300', onClick: go(onGoLegal) }] : []),
   ];
   const eur = (n: number) => n.toLocaleString('es-ES', { maximumFractionDigits: 0 }) + ' €';
 
