@@ -16,3 +16,11 @@
     @apply font-display tracking-tight text-slate-950;
   }
 }
+
+/* Mapas Leaflet: sus capas usan z-index 400–1000 y, sin contexto propio,
+   se pintaban por encima de ventanas y menús (p. ej. «Más» en transporte móvil).
+   Se encierran en su propio contexto de apilamiento. */
+.leaflet-container {
+  isolation: isolate;
+  z-index: 0;
+}
