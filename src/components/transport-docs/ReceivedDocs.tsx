@@ -184,8 +184,10 @@ export function ReceivedDocWizard({ orgId, allowDeca, allowHojaRuta, defaultTipo
 
 // ── Ficha: «Mostrar a la inspección» ─────────────────────────────────────────
 
-export function ReceivedDocViewer({ doc: initial, orgId, showToast, onClose, onChanged }: {
+export function ReceivedDocViewer({ doc: initial, orgId, showToast, onClose, onChanged, onCreateShipment }: {
   doc: ReceivedDoc; orgId: string; showToast: Toast; onClose: () => void; onChanged: () => void;
+  /** Crear una expedición rellenada con los datos de este DeCA. */
+  onCreateShipment?: (doc: ReceivedDoc) => void;
 }) {
   const [doc, setDoc] = useState(initial);
   const [qrImg, setQrImg] = useState<string | null>(null);
@@ -299,6 +301,17 @@ export function ReceivedDocViewer({ doc: initial, orgId, showToast, onClose, onC
           </div>
         ) : <p className="text-sm text-gray-500">Sin fotos.</p>}
       </div>
+
+      {onCreateShipment && doc.tipo === 'deca' && (
+        doc.shipment_id ? (
+          <p className="flex items-center gap-2 rounded-2xl bg-emerald-50 px-3 py-2.5 text-sm font-semibold text-emerald-800"><CheckCircle2 size={16} /> Vinculado a una expedición</p>
+        ) : (
+          <button type="button" onClick={() => onCreateShipment(doc)}
+            className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-emerald-400 bg-emerald-50 py-3.5 font-bold text-emerald-900">
+            <Truck size={18} /> Crear expedición con estos datos
+          </button>
+        )
+      )}
 
       {doc.notas && <p className="rounded-2xl border border-slate-200 bg-white p-3 text-sm text-gray-700">{doc.notas}</p>}
       <p className="text-xs text-gray-500">Guardado el {new Date(doc.created_at).toLocaleString('es-ES', { timeZone: 'Europe/Madrid' })}.</p>

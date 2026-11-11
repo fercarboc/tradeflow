@@ -136,7 +136,7 @@ import ScreenTransporteExpediciones from './transport-shipments/ScreenTransporte
 import ScreenTransporteViajes from './ScreenTransporteViajes';
 import { TransportMoreSheet, TransportNewSheet, type SheetItem } from './transport-mobile/TransportMobileSheets';
 import { decaPrefillFromTrip, type TransportDocTipo, type TransportDocInput } from '../lib/transportDocs';
-import type { ReceivedDocTipo, ReceivedDocInput } from '../lib/transportReceivedDocs';
+import type { ReceivedDocTipo, ReceivedDocInput, ReceivedDoc } from '../lib/transportReceivedDocs';
 import { getOrgCapabilities, TRANSPORT_PENDING_OFICIOS } from '../lib/orgCapabilities';
 import ScreenFacturas from './ScreenFacturas';
 import ScreenContratos from './ScreenContratos';
@@ -906,6 +906,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [showTransportNewSheet, setShowTransportNewSheet] = useState(false);
   const [transporteDocNew, setTransporteDocNew] = useState<{ tipo: TransportDocTipo; prefill?: Partial<TransportDocInput> } | null>(null);
   const [transporteDocScan, setTransporteDocScan] = useState<{ tipo?: ReceivedDocTipo; link?: Partial<ReceivedDocInput> } | null>(null);
+  const [transporteShipmentFromDoc, setTransporteShipmentFromDoc] = useState<ReceivedDoc | null>(null);
   // Transport parte virtual tab
   const [transporteParteId, setTransporteParteId] = useState<string | null>(null);
   const [transporteParteFromTab, setTransporteParteFromTab] = useState<string>('transporte_servicios');
@@ -4276,6 +4277,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setActiveTab('transporte_documentos');
     goTransport('documentos');
   }
+  /** Abre «Nueva expedición» rellenada desde un DeCA recibido. */
+  function openShipmentFromReceived(doc: ReceivedDoc) {
+    setTransporteShipmentFromDoc(doc);
+    setActiveTab('transporte_expediciones');
+    goTransport('expediciones');
+  }
   function goSettings(section: string | null) {
     setShowTransportMoreSheet(false); setShowTransportNewSheet(false);
     setMobileSettingsSection(section); setMobileTab('ajustes');
@@ -4774,6 +4781,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     onConsumeInitialNew={() => setTransporteDocNew(null)}
                     initialScan={transporteDocScan}
                     onConsumeInitialScan={() => setTransporteDocScan(null)}
+                    onCreateShipment={(caps.isMercanciasPrimary || caps.isCombinadaOrg || caps.isLegacyTransport) ? openShipmentFromReceived : undefined}
                   />
                 )}
                 {transporteMobileSubTab === 'tarifas' && (
@@ -4792,6 +4800,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     showToast={showToast}
                     onEmitDeca={prefill => openTransportDoc('deca', prefill)}
                     onScanDeca={link => openReceivedScan('deca', link)}
+                    initialFromReceived={transporteShipmentFromDoc}
+                    onConsumeInitialFromReceived={() => setTransporteShipmentFromDoc(null)}
                   />
                 )}
               </div>
@@ -7984,6 +7994,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       onConsumeInitialNew={() => setTransporteDocNew(null)}
                       initialScan={transporteDocScan}
                       onConsumeInitialScan={() => setTransporteDocScan(null)}
+                      onCreateShipment={(caps.isMercanciasPrimary || caps.isCombinadaOrg || caps.isLegacyTransport) ? openShipmentFromReceived : undefined}
                     />
                   </div>
                 )}
@@ -8002,6 +8013,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       showToast={showToast}
                       onEmitDeca={prefill => openTransportDoc('deca', prefill)}
                       onScanDeca={link => openReceivedScan('deca', link)}
+                      initialFromReceived={transporteShipmentFromDoc}
+                      onConsumeInitialFromReceived={() => setTransporteShipmentFromDoc(null)}
                     />
                   </div>
                 )}

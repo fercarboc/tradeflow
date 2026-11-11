@@ -83,3 +83,30 @@ describe('Documentos recibidos — lectura del QR', () => {
     expect(qrToUrl(null)).toBeNull();
   });
 });
+
+import { shipmentPrefillFromExtracted } from '../../lib/transportReceivedDocs';
+
+describe('DeCA recibido → expedición', () => {
+  const datos = {
+    tipo_documento: 'deca' as const, numero: 'DECA-77', fecha_transporte: '2026-11-12', hora_salida: '07:30',
+    cargador_nombre: 'Carrefour España S.A.', cargador_nif: 'a-28425270', cargador_domicilio: 'Calle Campezo 16, Madrid',
+    origen: 'Santander', destino: 'Burgos', paradas: ['Ontaneda', 'El Escudo'], naturaleza_mercancia: 'Material de obra',
+    peso_kg: 15500, confianza: 'alta' as const, campos_dudosos: [],
+  };
+  it('rellena la expedición y vincula el cliente por NIF', () => {
+    const p = shipmentPrefillFromExtracted(datos, [{ id: 'c1', nif: 'A28425270' }]);
+    expect(p.client_id).toBe('c1');
+    expect(p.cargador_nif).toBe('A28425270');
+    expect(p.fecha_recogida).toBe('2026-11-12');
+    expect(p.hora_recogida).toBe('07:30');
+    expect(p.peso_kg).toBe(15500);
+    expect(p.referencia_cargador).toBe('DECA-77');
+    expect(p.observaciones).toContain('Ontaneda → El Escudo');
+  });
+  it('descarta fechas u horas mal formadas y no inventa cliente', () => {
+    const p = shipmentPrefillFromExtracted({ ...datos, fecha_transporte: '12/11/2026', hora_salida: '25:99' }, []);
+    expect(p.fecha_recogida).toBeNull();
+    expect(p.hora_recogida).toBeNull();
+    expect(p.client_id).toBeNull();
+  });
+});
