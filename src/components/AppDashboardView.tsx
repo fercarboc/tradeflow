@@ -12,6 +12,11 @@ import {
   Users, 
   ArrowRight,
   ArrowLeft,
+  Landmark,
+  KeyRound,
+  CreditCard,
+  Gift,
+  ChevronLeft,
   Star, 
   ShieldCheck, 
   HelpCircle, 
@@ -172,6 +177,7 @@ import { loadQuoteTemplates, saveQuoteTemplate, markQuoteTemplateUsed, partidasF
 import type { QuoteTemplate, QuoteLinkTracking, ExpressQuoteFilter } from '../lib/quoteTemplates';
 import ScreenSolicitudes from './quick/ScreenSolicitudes';
 import ScreenMiPagina from './quick/ScreenMiPagina';
+import ChangePasswordCard from './quick/ChangePasswordCard';
 import { requestToDescription } from '../lib/publicPageUtils';
 import type { PageRequest } from '../lib/publicPageUtils';
 
@@ -985,6 +991,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const expressIvaFromTemplateRef = useRef(false);
   // Mi página online: solicitudes nuevas pendientes (aviso en «Más»)
   const [newRequestsCount, setNewRequestsCount] = useState(0);
+  // Ajustes en móvil: sección abierta (null = menú)
+  const [mobileSettingsSection, setMobileSettingsSection] = useState<string | null>(null);
+  useEffect(() => { if (mobileTab !== 'ajustes') setMobileSettingsSection(null); }, [mobileTab]);
 
   // Colapsar detalle partidas en el preview móvil
   const [itemsCollapsedMobile, setItemsCollapsedMobile] = useState<boolean>(true);
@@ -4334,7 +4343,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </div>
             </div>
           )}
-          {mobileTab === 'ajustes' && ScreenSettings()}
+          {mobileTab === 'ajustes' && ScreenSettings(true)}
           {mobileTab === 'asistente' && (
             <ScreenAsistenteTecnico
               orgId={orgId ?? null}
@@ -11395,7 +11404,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }
 
   // ================= DESKTOP: SETTINGS SCREEN =================
-  function ScreenSettings() {
+  function ScreenSettings(mobileMenu: boolean = false) {
+    // Móvil: menú de secciones; cada botón abre solo su zona. Escritorio: todo como antes.
+    const showSec = (k: string) => !mobileMenu || mobileSettingsSection === k;
     const inp = "w-full bg-slate-50 border border-slate-200 p-2.5 rounded-lg text-slate-800 text-xs focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500";
     const lbl = "text-[9px] uppercase font-mono block text-slate-400 mb-1";
     const sec = "bg-white border border-slate-200 p-5 rounded-xl space-y-4";
@@ -11642,7 +11653,51 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
     return (
       <div className="space-y-5">
+        {/* ── Móvil: menú de secciones ── */}
+        {mobileMenu && !mobileSettingsSection && (
+          <div className="space-y-3" data-testid="settings-menu">
+            <h1 className="text-2xl font-bold text-slate-900">Configuración</h1>
+            <div className="bg-white border border-slate-200 rounded-2xl divide-y divide-slate-100 overflow-hidden">
+              {([
+                { k: 'empresa', icon: <Building2 className="w-5 h-5" />, tone: 'bg-blue-50 text-blue-600', title: 'Datos de empresa', desc: 'Nombre, NIF, dirección y logo' },
+                { k: 'cobro', icon: <Landmark className="w-5 h-5" />, tone: 'bg-indigo-50 text-indigo-600', title: 'Datos bancarios', desc: 'IBAN y banco para cobrar' },
+                { k: 'seguridad', icon: <KeyRound className="w-5 h-5" />, tone: 'bg-slate-100 text-slate-600', title: 'Contraseña', desc: 'Cambiar tu contraseña' },
+                { k: 'plan', icon: <CreditCard className="w-5 h-5" />, tone: 'bg-amber-50 text-amber-600', title: 'Plan y pagos', desc: 'Tu suscripción, cambiar de plan y recibos' },
+                { k: 'precios', icon: <TrendingUp className="w-5 h-5" />, tone: 'bg-emerald-50 text-emerald-600', title: 'Precios y márgenes', desc: 'Hora de operario, márgenes e IVA' },
+                { k: 'equipo', icon: <Users className="w-5 h-5" />, tone: 'bg-teal-50 text-teal-600', title: 'Equipo', desc: 'Trabajadores y técnicos' },
+                { k: 'catalogo', icon: <Package className="w-5 h-5" />, tone: 'bg-violet-50 text-violet-600', title: 'Catálogo', desc: 'Tus productos y precios' },
+                ...(isLiveMode && orgId ? [{ k: 'plantillas', icon: <MessageSquare className="w-5 h-5" />, tone: 'bg-sky-50 text-sky-600', title: 'Plantillas de mensajes', desc: 'Textos de WhatsApp y email' }] : []),
+                { k: 'calendario', icon: <CalendarDays className="w-5 h-5" />, tone: 'bg-orange-50 text-orange-600', title: 'Calendario laboral', desc: 'Horario, festivos y vacaciones' },
+                ...(isLiveMode && 'Notification' in window ? [{ k: 'notificaciones', icon: <Bell className="w-5 h-5" />, tone: 'bg-rose-50 text-rose-600', title: 'Notificaciones', desc: 'Avisos en este móvil' }] : []),
+                ...(isLiveMode && orgData?.referral_code ? [{ k: 'invita', icon: <Gift className="w-5 h-5" />, tone: 'bg-pink-50 text-pink-600', title: 'Invita a un colega', desc: '1 mes gratis para los dos' }] : []),
+              ]).map(it => (
+                <button
+                  key={it.k}
+                  onClick={() => setMobileSettingsSection(it.k)}
+                  className="w-full flex items-center gap-3 px-4 py-4 text-left active:bg-slate-50 cursor-pointer"
+                >
+                  <span className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${it.tone}`}>{it.icon}</span>
+                  <span className="flex-1 min-w-0">
+                    <span className="block text-base font-bold text-slate-900">{it.title}</span>
+                    <span className="block text-sm text-slate-500 truncate">{it.desc}</span>
+                  </span>
+                  <ChevronRight className="w-5 h-5 text-slate-300 shrink-0" />
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+        {mobileMenu && mobileSettingsSection && (
+          <button
+            onClick={() => setMobileSettingsSection(null)}
+            className="flex items-center gap-1 text-base font-semibold text-slate-600 cursor-pointer -ml-1"
+          >
+            <ChevronLeft className="w-5 h-5" /> Configuración
+          </button>
+        )}
 
+
+        {showSec('empresa') && (<>
         {/* ── 1. Datos fiscales ── */}
         <div className={sec}>
           <h3 className={secTitle}>Datos Fiscales y de Empresa</h3>
@@ -11731,7 +11786,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             Guardar datos fiscales y bancarios
           </button>
         </div>
+        </>)}
 
+        {showSec('cobro') && (<>
         {/* ── 1b. Datos bancarios ── */}
         <div className={sec}>
           <div className="flex items-center gap-3 pb-3 border-b border-slate-100">
@@ -11773,7 +11830,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             💡 Estos datos se usan al generar contratos de mantenimiento. Se guardan con el botón de arriba.
           </p>
         </div>
+        </>)}
 
+        {showSec('precios') && (<>
         {/* ── 2. Precios & Márgenes ── */}
         <div className={sec}>
           <div className="flex items-center gap-3 pb-3 border-b border-slate-100">
@@ -11863,7 +11922,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
           <p className="text-[9px] text-slate-400 italic">Los cambios se guardan automáticamente en este dispositivo.</p>
         </div>
+        </>)}
 
+        {showSec('equipo') && (<>
         {/* ── 3. Trabajadores ── */}
         <div className={sec}>
           <div className="flex items-center justify-between">
@@ -11959,7 +12020,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
           )}
         </div>
+        </>)}
 
+        {showSec('catalogo') && (<>
         {/* ── 3. Catálogo de precios ── */}
         <div className={sec}>
           <h3 className={secTitle}>Catálogo de Productos</h3>
@@ -12044,7 +12107,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             />
           )}
         </div>
+        </>)}
 
+        {showSec('plan') && (<>
         {/* ── 4. Suscripción ── */}
         <div className={sec}>
           <h3 className={secTitle}>Suscripción</h3>
@@ -12224,7 +12289,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
           )}
         </div>
+        </>)}
 
+        {showSec('plan') && (<>
         {/* ── 5. Historial de pagos completo (> 3 facturas) ── */}
         {isLiveMode && platformInvoices.length > 3 && (
           <div className={sec}>
@@ -12257,7 +12324,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
           </div>
         )}
+        </>)}
 
+        {showSec('invita') && (<>
         {/* ── 6. Código de invitación ── */}
         {isLiveMode && orgData?.referral_code && (
           <div className={sec}>
@@ -12279,7 +12348,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
           </div>
         )}
+        </>)}
 
+        {showSec('empresa') && (<>
         {/* ── Logo de empresa ── */}
         {isLiveMode && orgId && (
           <div className={sec}>
@@ -12343,8 +12414,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
           </div>
         )}
+        </>)}
 
 
+        {showSec('plantillas') && (<>
         {/* ── Plantillas ── */}
         {isLiveMode && orgId && (() => {
           const TEMPLATES: Array<{ tipo: TemplateType; label: string; icon: string; rows: number; varGroups: string[] }> = [
@@ -12471,7 +12544,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
           );
         })()}
+        </>)}
 
+        {showSec('calendario') && (<>
         {/* ── 7. Calendario laboral ── */}
         {(() => {
           const today = new Date().toISOString().split('T')[0];
@@ -12693,7 +12768,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
           );
         })()}
+        </>)}
 
+        {showSec('notificaciones') && (<>
         {/* ── 8. Notificaciones push ── */}
         {isLiveMode && 'Notification' in window && (
           <div className={sec}>
@@ -12738,6 +12815,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </button>
             </div>
           </div>
+        )}
+        </>)}
+
+        {/* ── 9. Seguridad: cambiar contraseña ── */}
+        {showSec('seguridad') && <ChangePasswordCard showToast={showToast} isLiveMode={isLiveMode} />}
+
+        {/* Móvil: los datos de cobro y precios se guardan con el mismo botón que los fiscales */}
+        {mobileMenu && (mobileSettingsSection === 'cobro' || mobileSettingsSection === 'precios') && (
+          <button onClick={handleSaveFiscal}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-3.5 rounded-xl cursor-pointer">
+            Guardar cambios
+          </button>
         )}
 
 
