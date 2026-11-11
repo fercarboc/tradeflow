@@ -37,6 +37,7 @@ import {
   Volume2, 
   Sparkles, 
   FileCheck, 
+  QrCode,
   CheckCircle2, CalendarRange,
   Mail,
   Zap,
@@ -135,6 +136,7 @@ import ScreenTransporteExpediciones from './transport-shipments/ScreenTransporte
 import ScreenTransporteViajes from './ScreenTransporteViajes';
 import { TransportMoreSheet, TransportNewSheet, type SheetItem } from './transport-mobile/TransportMobileSheets';
 import { decaPrefillFromTrip, type TransportDocTipo, type TransportDocInput } from '../lib/transportDocs';
+import type { ReceivedDocTipo, ReceivedDocInput } from '../lib/transportReceivedDocs';
 import { getOrgCapabilities, TRANSPORT_PENDING_OFICIOS } from '../lib/orgCapabilities';
 import ScreenFacturas from './ScreenFacturas';
 import ScreenContratos from './ScreenContratos';
@@ -903,6 +905,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [showTransportMoreSheet, setShowTransportMoreSheet] = useState(false);
   const [showTransportNewSheet, setShowTransportNewSheet] = useState(false);
   const [transporteDocNew, setTransporteDocNew] = useState<{ tipo: TransportDocTipo; prefill?: Partial<TransportDocInput> } | null>(null);
+  const [transporteDocScan, setTransporteDocScan] = useState<{ tipo?: ReceivedDocTipo; link?: Partial<ReceivedDocInput> } | null>(null);
   // Transport parte virtual tab
   const [transporteParteId, setTransporteParteId] = useState<string | null>(null);
   const [transporteParteFromTab, setTransporteParteFromTab] = useState<string>('transporte_servicios');
@@ -4267,6 +4270,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setActiveTab('transporte_documentos');
     goTransport('documentos');
   }
+  /** Abre el escáner de un documento recibido (DeCA del cliente / hoja de ruta). */
+  function openReceivedScan(tipo?: ReceivedDocTipo, link?: Partial<ReceivedDocInput>) {
+    setTransporteDocScan({ tipo, link });
+    setActiveTab('transporte_documentos');
+    goTransport('documentos');
+  }
   function goSettings(section: string | null) {
     setShowTransportMoreSheet(false); setShowTransportNewSheet(false);
     setMobileSettingsSection(section); setMobileTab('ajustes');
@@ -4279,6 +4288,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         onClick: () => { setTransporteDocNew({ tipo: 'deca' }); goTransport('documentos'); } }] : []),
       ...(allowHoja ? [{ id: 'hoja', label: 'Nueva hoja de ruta', hint: 'Autocar o microbús · viajeros', icon: <Bus className="w-6 h-6" />, tone: 'bg-blue-50 text-blue-600',
         onClick: () => { setTransporteDocNew({ tipo: 'hoja_ruta' }); goTransport('documentos'); } }] : []),
+      { id: 'scan', label: allowDeca && !allowHoja ? 'Escanear DeCA del cliente' : !allowDeca && allowHoja ? 'Escanear hoja de ruta recibida' : 'Escanear documento recibido',
+        hint: 'QR y fotos para enseñarlo en un control', icon: <QrCode className="w-6 h-6" />, tone: 'bg-emerald-50 text-emerald-700',
+        onClick: () => openReceivedScan(allowDeca && !allowHoja ? 'deca' : !allowDeca && allowHoja ? 'hoja_ruta' : undefined) },
       ...(!caps.isMercanciasPrimary ? [{ id: 'servicio', label: 'Nuevo servicio', hint: 'Excursión, traslado, ruta…', icon: <Calendar className="w-6 h-6" />, tone: 'bg-indigo-50 text-indigo-600',
         onClick: () => { goTransport('servicios'); setTransporteTriggerNew(n => n + 1); } }] : []),
       { id: 'presupuesto', label: 'Nuevo presupuesto', hint: 'Para enviar al cliente', icon: <FileText className="w-6 h-6" />, tone: 'bg-emerald-50 text-emerald-600',
@@ -4760,6 +4772,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     allowHojaRuta={!caps.isMercanciasPrimary}
                     initialNew={transporteDocNew}
                     onConsumeInitialNew={() => setTransporteDocNew(null)}
+                    initialScan={transporteDocScan}
+                    onConsumeInitialScan={() => setTransporteDocScan(null)}
                   />
                 )}
                 {transporteMobileSubTab === 'tarifas' && (
@@ -4777,6 +4791,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     orgId={orgId}
                     showToast={showToast}
                     onEmitDeca={prefill => openTransportDoc('deca', prefill)}
+                    onScanDeca={link => openReceivedScan('deca', link)}
                   />
                 )}
               </div>
@@ -7967,6 +7982,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       allowHojaRuta={!caps.isMercanciasPrimary}
                       initialNew={transporteDocNew}
                       onConsumeInitialNew={() => setTransporteDocNew(null)}
+                      initialScan={transporteDocScan}
+                      onConsumeInitialScan={() => setTransporteDocScan(null)}
                     />
                   </div>
                 )}
@@ -7984,6 +8001,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       orgId={orgId}
                       showToast={showToast}
                       onEmitDeca={prefill => openTransportDoc('deca', prefill)}
+                      onScanDeca={link => openReceivedScan('deca', link)}
                     />
                   </div>
                 )}

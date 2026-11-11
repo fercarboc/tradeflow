@@ -9,6 +9,9 @@ import {
   Pencil, Ban, CheckCircle2, AlertTriangle, ShieldCheck,
 } from 'lucide-react';
 import TransportDocWizard from './TransportDocWizard';
+import { ReceivedDocWizard, ReceivedDocViewer, ReceivedDocsList } from './ReceivedDocs';
+import { loadReceivedDocs, type ReceivedDoc, type ReceivedDocTipo, type ReceivedDocInput } from '../../lib/transportReceivedDocs';
+import { QrCode, ScanLine } from 'lucide-react';
 import {
   loadTransportDocs, loadTransportDoc, cancelTransportDoc, getTransportDocPdfUrl,
   publicDocUrl, isPublicLinkActive, shareText, fmtFechaEs, fmtPesoKg,
@@ -25,6 +28,9 @@ interface Props {
   /** Abrir el asistente directamente (p. ej. desde un servicio planificado). */
   initialNew?: { tipo: TransportDocTipo; prefill?: Partial<TransportDocInput> } | null;
   onConsumeInitialNew?: () => void;
+  /** Abrir directamente el escáner de un documento recibido (DeCA del cliente / hoja de ruta). */
+  initialScan?: { tipo?: ReceivedDocTipo; link?: Partial<ReceivedDocInput> } | null;
+  onConsumeInitialScan?: () => void;
 }
 
 const ESTADO_BADGE: Record<TransportControlDoc['estado'], string> = {
@@ -33,7 +39,20 @@ const ESTADO_BADGE: Record<TransportControlDoc['estado'], string> = {
   anulado: 'bg-red-100 text-red-700',
 };
 
-export default function ScreenTransporteDocumentos({ orgId, showToast, allowDeca, allowHojaRuta, initialNew, onConsumeInitialNew }: Props) {
+export default function ScreenTransporteDocumentos({ orgId, showToast, allowDeca, allowHojaRuta, initialNew, onConsumeInitialNew, initialScan, onConsumeInitialScan }: Props) {
+  const [vista, setVista] = useState<'emitidos' | 'recibidos'>(initialScan ? 'recibidos' : 'emitidos');
+  const [recibidos, setRecibidos] = useState<ReceivedDoc[]>([]);
+  const [verArchivados, setVerArchivados] = useState(false);
+  const [scan, setScan] = useState<{ tipo?: ReceivedDocTipo; link?: Partial<ReceivedDocInput> } | null>(null);
+  const [recibido, setRecibido] = useState<ReceivedDoc | null>(null);
+  const reloadRecibidos = useCallback(async () => {
+    try { setRecibidos(await loadReceivedDocs(orgId, { archivados: verArchivados })); }
+    catch (e) { showToast(e instanceof Error ? e.message : 'No se pudieron cargar los recibidos', 'error'); }
+  }, [orgId, verArchivados, showToast]);
+  useEffect(() => { reloadRecibidos(); }, [reloadRecibidos]);
+  useEffect(() => {
+    if (initialScan) { setVista('recibidos'); setScan(initialScan); onConsumeInitialScan?.(); }
+  }, [initialScan, onConsumeInitialScan]);
   const [docs, setDocs] = useState<TransportControlDoc[]>([]);
   const [loading, setLoading] = useState(true);
   const [filtro, setFiltro] = useState<'todos' | TransportDocTipo>('todos');
@@ -68,6 +87,33 @@ export default function ScreenTransporteDocumentos({ orgId, showToast, allowDeca
         </div>
       </div>
 
+      {/* Pestañas: emitidos por la empresa / recibidos de clientes */}
+      <div className="mt-4 grid grid-cols-2 gap-1 rounded-2xl bg-slate-200/70 p-1">
+        {([['emitidos', 'Emitidos por mí'], ['recibidos', `Recibidos${recibidos.length ? ` (${recibidos.length})` : ''}`]] as const).map(([v, l]) => (
+          <button key={v} type="button" onClick={() => setVista(v)}
+            className={`rounded-xl py-2.5 text-sm font-bold ${vista === v ? 'bg-white text-gray-900 shadow-sm' : 'text-slate-600'}`}>{l}</button>
+        ))}
+      </div>
+
+      {vista === 'recibidos' && (
+        <div className="mt-4 space-y-3">
+          <button type="button" onClick={() => setScan({})}
+            className="flex w-full items-center gap-4 rounded-2xl border-2 border-emerald-300 bg-white p-4 text-left shadow-sm hover:border-emerald-500">
+            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-emerald-50"><ScanLine className="text-emerald-600" size={28} /></span>
+            <span className="flex-1">
+              <span className="block text-lg font-bold text-gray-900">Escanear documento del cliente</span>
+              <span className="block text-sm text-gray-500">{allowDeca && allowHojaRuta ? 'DeCA u hoja de ruta' : allowDeca ? 'DeCA que le entrega el cargador' : 'Hoja de ruta que le entregan'} · QR y fotos</span>
+            </span>
+            <QrCode className="text-emerald-600" />
+          </button>
+          <ReceivedDocsList docs={recibidos} onOpen={setRecibido} />
+          <button type="button" onClick={() => setVerArchivados(v => !v)} className="text-sm font-semibold text-gray-500 underline">
+            {verArchivados ? 'Ver los activos' : 'Ver archivados'}
+          </button>
+        </div>
+      )}
+
+      {vista === 'emitidos' && (<>
       {/* Botones grandes de emisión */}
       <div className={`mt-4 grid gap-3 ${allowDeca && allowHojaRuta ? 'sm:grid-cols-2' : ''}`}>
         {allowDeca && (
@@ -142,6 +188,21 @@ export default function ScreenTransporteDocumentos({ orgId, showToast, allowDeca
           <ShieldCheck size={14} /> Los documentos se conservan al menos un año y no se pueden borrar ni editar una vez emitidos.
         </p>
       </div>
+
+      </>)}
+
+      {scan && (
+        <ReceivedDocWizard
+          orgId={orgId} allowDeca={allowDeca} allowHojaRuta={allowHojaRuta}
+          defaultTipo={scan.tipo} link={scan.link} showToast={showToast}
+          onClose={() => setScan(null)}
+          onSaved={async d => { setScan(null); await reloadRecibidos(); setRecibido(d); }}
+        />
+      )}
+      {recibido && !scan && (
+        <ReceivedDocViewer doc={recibido} orgId={orgId} showToast={showToast}
+          onClose={() => setRecibido(null)} onChanged={reloadRecibidos} />
+      )}
 
       {wizard && (
         <TransportDocWizard
