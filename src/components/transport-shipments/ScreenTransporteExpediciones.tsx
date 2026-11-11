@@ -6,8 +6,9 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Package, Plus, X, Loader2, Search, MapPin, ArrowRight, Truck, CheckCircle2,
-  AlertTriangle, Ban, Pencil, FileCheck, Phone, Weight, Boxes, Calendar,
+  AlertTriangle, Ban, Pencil, FileCheck, Phone, Weight, Boxes, Calendar, QrCode,
 } from 'lucide-react';
+import type { ReceivedDocInput } from '../../lib/transportReceivedDocs';
 import {
   loadShipments, createShipment, updateShipment, markPicked, markDelivered, markIncident,
   cancelShipment, assignTrip, emptyShipmentInput, validateShipment, shipmentEstadoMeta,
@@ -27,6 +28,8 @@ interface Props {
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   /** Abre el asistente de DeCA con los datos de la expedición. */
   onEmitDeca: (prefill: Partial<TransportDocInput>) => void;
+  /** Escanear el DeCA que entrega el cliente para esta carga. */
+  onScanDeca?: (link: Partial<ReceivedDocInput>) => void;
 }
 
 type Filtro = 'activas' | ShipmentEstado | 'todas';
@@ -34,7 +37,7 @@ type Filtro = 'activas' | ShipmentEstado | 'todas';
 const inputCls = 'w-full rounded-xl border-2 border-gray-200 bg-white px-3 py-2.5 text-base text-gray-900 placeholder-gray-300 focus:border-amber-400 focus:outline-none';
 const labelCls = 'block text-xs font-bold uppercase tracking-wider text-gray-500 mb-1';
 
-export default function ScreenTransporteExpediciones({ orgId, showToast, onEmitDeca }: Props) {
+export default function ScreenTransporteExpediciones({ orgId, showToast, onEmitDeca, onScanDeca }: Props) {
   const [items, setItems] = useState<TradeTransportShipment[]>([]);
   const [trips, setTrips] = useState<TradeTransportTrip[]>([]);
   const [vehicles, setVehicles] = useState<TradeVehicle[]>([]);
@@ -185,6 +188,15 @@ export default function ScreenTransporteExpediciones({ orgId, showToast, onEmitD
           onChanged={replace}
           onEdit={() => setForm({ edit: selected })}
           onEmitDeca={() => emitDeca(selected)}
+          onScanDeca={onScanDeca ? () => {
+            const t = selected.trip_id ? tripById[selected.trip_id] : null;
+            const v = t?.vehicle_id ? vehicles.find(x => x.id === t.vehicle_id) : null;
+            onScanDeca({
+              shipment_id: selected.id, trip_id: selected.trip_id, emisor_nombre: selected.cargador_nombre,
+              fecha_servicio: selected.fecha_recogida, origen: selected.origen, destino: selected.destino,
+              matricula: v?.matricula ?? null,
+            });
+          } : undefined}
         />
       )}
     </div>
@@ -296,10 +308,11 @@ function ShipmentForm({ orgId, edit, trips, clients, showToast, onClose, onSaved
 
 // ── Ficha ─────────────────────────────────────────────────────────────────────
 
-function ShipmentDetail({ s, orgId, trips, vehicles, workers, decaNumero, showToast, onClose, onChanged, onEdit, onEmitDeca }: {
+function ShipmentDetail({ s, orgId, trips, vehicles, workers, decaNumero, showToast, onClose, onChanged, onEdit, onEmitDeca, onScanDeca }: {
   s: TradeTransportShipment; orgId: string; trips: TradeTransportTrip[]; vehicles: TradeVehicle[]; workers: TradeWorker[];
   decaNumero?: string; showToast: Props['showToast'];
   onClose: () => void; onChanged: (s: TradeTransportShipment) => void; onEdit: () => void; onEmitDeca: () => void;
+  onScanDeca?: () => void;
 }) {
   const [busy, setBusy] = useState(false);
   const [prompt, setPrompt] = useState<null | 'entrega' | 'incidencia'>(null);
@@ -351,6 +364,12 @@ function ShipmentDetail({ s, orgId, trips, vehicles, workers, decaNumero, showTo
                 className="flex w-full items-center justify-center gap-2 rounded-xl border-2 border-amber-400 py-3 font-bold text-amber-900">
                 <FileCheck size={18} /> {decaNumero ? `Emitir otro DeCA (actual ${decaNumero})` : 'Emitir DeCA de esta carga'}
               </button>
+              {onScanDeca && (
+                <button type="button" onClick={onScanDeca}
+                  className="flex w-full items-center justify-center gap-2 rounded-xl border-2 border-emerald-300 py-3 font-bold text-emerald-800">
+                  <QrCode size={18} /> El cliente me da su DeCA: escanear
+                </button>
+              )}
               <div className="grid grid-cols-3 gap-2 text-sm">
                 {canEditShipment(s) && <button type="button" onClick={onEdit} className="flex items-center justify-center gap-1 rounded-xl py-2 font-semibold text-gray-700 hover:bg-gray-50"><Pencil size={15} /> Editar</button>}
                 <button type="button" onClick={() => setPrompt('incidencia')} className="flex items-center justify-center gap-1 rounded-xl py-2 font-semibold text-amber-800 hover:bg-amber-50"><AlertTriangle size={15} /> Incidencia</button>

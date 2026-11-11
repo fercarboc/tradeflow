@@ -71,3 +71,15 @@ describe('Presentación y enlace público', () => {
     expect(t).toContain('/tok');
   });
 });
+
+import { qrToUrl } from '../../lib/transportReceivedDocs';
+
+describe('Documentos recibidos — lectura del QR', () => {
+  it('acepta solo enlaces https', () => {
+    expect(qrToUrl('https://lavyqo.com/d/abc')).toBe('https://lavyqo.com/d/abc');
+    expect(qrToUrl('  https://x.es/d/1  ')).toBe('https://x.es/d/1');
+    expect(qrToUrl('http://x.es/d/1')).toBeNull();
+    expect(qrToUrl('DECA-2026-000001')).toBeNull();
+    expect(qrToUrl(null)).toBeNull();
+  });
+});
