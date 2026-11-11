@@ -3,6 +3,14 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import {defineConfig} from 'vite';
 
+// Vistas previas de Vercel (ramas): si el proyecto no tiene las variables públicas
+// de Supabase configuradas para "Preview", se usan las del proyecto TrabFlow.
+// Son valores públicos (van en el JS del navegador). No afecta a producción ni a local.
+if (process.env.VERCEL_ENV === 'preview') {
+  process.env.VITE_SUPABASE_URL ||= 'https://dqqjaujnulutinskmqsu.supabase.co';
+  process.env.VITE_SUPABASE_ANON_KEY ||= 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRxcWphdWpudWx1dGluc2ttcXN1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ4NzA1NTYsImV4cCI6MjA4MDQ0NjU1Nn0.bszEj5MKqZgG4B_TqllE7ijxrcV9JinFXeMIaP1ljOw';
+}
+
 export default defineConfig(() => {
   return {
     plugins: [react(), tailwindcss()],
