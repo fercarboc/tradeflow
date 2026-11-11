@@ -4397,10 +4397,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
         {/* Contenido dinámico según Pestaña Móvil */}
         <div
-          className={`flex-grow overscroll-contain ${(mobileTab === 'trabajos' || mobileTab === 'ruta') ? 'overflow-hidden' : 'overflow-y-auto'}`}
+          className={`flex-grow overscroll-contain ${mobileTab === 'transporte' ? 'relative overflow-hidden' : (mobileTab === 'trabajos' || mobileTab === 'ruta') ? 'overflow-hidden' : 'overflow-y-auto'}`}
           style={{
-            padding: (mobileTab === 'trabajos' || mobileTab === 'ruta') ? '0' : (isNativeDevice ? '20px 16px 0' : '20px 16px'),
-            paddingBottom: (mobileTab === 'trabajos' || mobileTab === 'ruta') ? '0' : (isNativeDevice
+            padding: (mobileTab === 'trabajos' || mobileTab === 'ruta' || mobileTab === 'transporte') ? '0' : (isNativeDevice ? '20px 16px 0' : '20px 16px'),
+            paddingBottom: (mobileTab === 'trabajos' || mobileTab === 'ruta' || mobileTab === 'transporte') ? '0' : (isNativeDevice
               ? 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)'
               : '88px'),
           }}
@@ -4657,7 +4657,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 ))}
               </div>
               )}
-              <div className="flex-1 overflow-y-auto min-h-0">
+              <div className="flex-1 overflow-y-auto min-h-0" style={{ paddingBottom: isNativeDevice ? 'calc(76px + env(safe-area-inset-bottom, 0px))' : '76px' }}>
                 {transporteMobileSubTab === 'panel' && (
                   <ScreenTransportePanel
                     orgId={orgId}
