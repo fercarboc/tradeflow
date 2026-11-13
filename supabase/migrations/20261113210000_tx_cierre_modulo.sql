@@ -43,7 +43,7 @@ BEGIN
     END IF;
     v_new := regexp_replace(v_def,
       E'\\)\\s*THEN\\s*\\n(\\s*)RAISE EXCEPTION ''TRANSPORT_FORBIDDEN: sin permisos para',
-      E'    UNION ALL\n    SELECT 1 FROM public.' || v_tabla || ' c\n     WHERE c.id = ' || v_param ||
+      E'    UNION ALL\n    SELECT 1 FROM public.' || v_tabla || E' c\n     WHERE c.id = ' || v_param ||
       E' AND c.org_id = p_org_id\n       AND c.conductor_id IS NOT NULL\n       AND c.conductor_id = public._transport_my_worker_id(p_org_id)\n  ) THEN\n\\1RAISE EXCEPTION ''TRANSPORT_FORBIDDEN: sin permisos para');
     IF v_new = v_def THEN
       RAISE EXCEPTION 'TX-CIERRE-1: no se encontró el bloque de permisos en %', r.proname;
@@ -245,11 +245,11 @@ BEGIN
   IF position('create_transport_trip_from_quote' IN v_def) > 0 THEN RETURN; END IF;
   v_new := regexp_replace(v_def,
     E'(\\n\\s*-- ── 1b\\. Verificar operativa)',
-    E'\n  -- TX-CIERRE-1: empresas de mercancías → viaje en lugar de servicio de viajeros\n'
-    '  IF EXISTS (SELECT 1 FROM public.trade_organizations\n'
-    '              WHERE id = p_org_id AND transport_modalidad IN (''mercancias'', ''reparto'')) THEN\n'
-    '    RETURN public.create_transport_trip_from_quote(p_org_id, p_quote_id) || jsonb_build_object(''service_id'', NULL);\n'
-    '  END IF;\n\\1');
+    E'\n  -- TX-CIERRE-1: empresas de mercancías → viaje en lugar de servicio de viajeros\n' ||
+    E'  IF EXISTS (SELECT 1 FROM public.trade_organizations\n' ||
+    E'              WHERE id = p_org_id AND transport_modalidad IN (''mercancias'', ''reparto'')) THEN\n' ||
+    E'    RETURN public.create_transport_trip_from_quote(p_org_id, p_quote_id) || jsonb_build_object(''service_id'', NULL);\n' ||
+    E'  END IF;\n\\1');
   IF v_new = v_def THEN
     RAISE EXCEPTION 'TX-CIERRE-1: no se encontró el punto de inserción en create_transport_service_from_quote';
   END IF;
