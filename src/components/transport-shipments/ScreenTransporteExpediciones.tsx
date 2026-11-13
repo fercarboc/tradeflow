@@ -1,13 +1,20 @@
 /**
  * Expediciones (cargas) de mercancías: alta, asignación a viaje, recogida,
- * entrega con nombre del receptor, incidencias y emisión del DeCA.
+ * entrega con prueba (nombre, DNI, firma, fotos), incidencias, DeCA y factura
+ * por expedición (grupaje).
  * Pensada para móvil (conductor) y válida en PC (tráfico).
  */
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Package, Plus, X, Loader2, Search, MapPin, ArrowRight, Truck, CheckCircle2,
-  AlertTriangle, Ban, Pencil, FileCheck, Phone, Weight, Boxes, Calendar, QrCode,
+  AlertTriangle, Ban, Pencil, FileCheck, Phone, Weight, Boxes, Calendar, QrCode, Receipt, Euro,
 } from 'lucide-react';
+import { DeliveryProofForm, DeliveryProofView } from './DeliveryProof';
+import { TransportInvoiceModal } from '../transport-billing/TripInvoiceModal';
+import {
+  loadTransportInvoice, loadTransportInvoiceMap, shipmentClientSuggestions, shipmentInvoiceConcept, invoiceStateLabel,
+} from '../../lib/transportBilling';
+import type { TradeInvoice } from '../../lib/supabase';
 import {
   loadReceivedDocs, extractReceivedData, shipmentPrefillFromExtracted, linkReceivedToShipment, RECEIVED_TIPO_LABEL,
   type ReceivedDocInput, type ReceivedDoc,
@@ -15,7 +22,7 @@ import {
 import { ReceivedDocWizard } from '../transport-docs/ReceivedDocs';
 import { Sparkles, ScanLine } from 'lucide-react';
 import {
-  loadShipments, createShipment, updateShipment, markPicked, markDelivered, markIncident,
+  loadShipments, createShipment, updateShipment, markPicked, markIncident,
   cancelShipment, assignTrip, emptyShipmentInput, validateShipment, shipmentEstadoMeta,
   tipoCargaLabel, canEditShipment, canPick, canDeliver, SHIPMENT_ESTADOS,
   type TradeTransportShipment, type ShipmentInput, type ShipmentEstado,
@@ -35,6 +42,10 @@ interface Props {
   onEmitDeca: (prefill: Partial<TransportDocInput>) => void;
   /** Escanear el DeCA que entrega el cliente para esta carga. */
   onScanDeca?: (link: Partial<ReceivedDocInput>) => void;
+  /** Ir a Facturas (para emitir la factura en borrador). */
+  onOpenInvoices?: () => void;
+  /** Abrir directamente el formulario de nueva expedición. */
+  triggerNew?: number;
   /** Abrir «Nueva expedición» rellenada a partir de un documento recibido. */
   initialFromReceived?: ReceivedDoc | null;
   onConsumeInitialFromReceived?: () => void;
@@ -45,7 +56,7 @@ type Filtro = 'activas' | ShipmentEstado | 'todas';
 const inputCls = 'w-full rounded-xl border-2 border-gray-200 bg-white px-3 py-2.5 text-base text-gray-900 placeholder-gray-300 focus:border-amber-400 focus:outline-none';
 const labelCls = 'block text-xs font-bold uppercase tracking-wider text-gray-500 mb-1';
 
-export default function ScreenTransporteExpediciones({ orgId, showToast, onEmitDeca, onScanDeca, initialFromReceived, onConsumeInitialFromReceived }: Props) {
+export default function ScreenTransporteExpediciones({ orgId, showToast, onEmitDeca, onScanDeca, initialFromReceived, onConsumeInitialFromReceived, onOpenInvoices, triggerNew }: Props) {
   const [items, setItems] = useState<TradeTransportShipment[]>([]);
   const [trips, setTrips] = useState<TradeTransportTrip[]>([]);
   const [vehicles, setVehicles] = useState<TradeVehicle[]>([]);
@@ -60,6 +71,8 @@ export default function ScreenTransporteExpediciones({ orgId, showToast, onEmitD
     if (initialFromReceived) { setForm({ fromReceived: initialFromReceived }); onConsumeInitialFromReceived?.(); }
   }, [initialFromReceived, onConsumeInitialFromReceived]);
   const [selected, setSelected] = useState<TradeTransportShipment | null>(null);
+  const [facturas, setFacturas] = useState<Record<string, TradeInvoice>>({});
+  useEffect(() => { if (triggerNew) setForm({}); }, [triggerNew]);
 
   const reload = useCallback(async () => {
     setLoading(true);
@@ -73,6 +86,7 @@ export default function ScreenTransporteExpediciones({ orgId, showToast, onEmitD
         supabase.from('trade_transport_control_docs').select('numero, shipment_id').eq('org_id', orgId).eq('estado', 'vigente').not('shipment_id', 'is', null),
       ]);
       setItems(sh); setTrips(tr); setVehicles(ve); setWorkers(wo); setClients(cl);
+      loadTransportInvoiceMap(orgId, 'shipment', sh.map(x => x.id)).then(setFacturas).catch(() => undefined);
       const map: Record<string, string> = {};
       for (const d of (docs.data ?? []) as { numero: string; shipment_id: string }[]) map[d.shipment_id] = d.numero;
       setDecaBy(map);
@@ -167,6 +181,7 @@ export default function ScreenTransporteExpediciones({ orgId, showToast, onEmitD
                       <span className="font-mono text-xs font-bold text-gray-500">{s.referencia}</span>
                       <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase ${meta.color}`}>{meta.label}</span>
                       {decaBy[s.id] && <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-700">DeCA</span>}
+                      {facturas[s.id] && <span className="rounded-full bg-yellow-50 px-2 py-0.5 text-[10px] font-bold text-yellow-800">Facturada</span>}
                       <span className="ml-auto text-xs text-gray-500">{fmtFechaEs(s.fecha_recogida)}</span>
                     </div>
                     <p className="mt-1 font-bold text-gray-900">{s.cargador_nombre}</p>
@@ -194,7 +209,8 @@ export default function ScreenTransporteExpediciones({ orgId, showToast, onEmitD
       {selected && !form && (
         <ShipmentDetail
           s={selected} orgId={orgId} trips={trips} vehicles={vehicles} workers={workers}
-          decaNumero={decaBy[selected.id]} showToast={showToast}
+          decaNumero={decaBy[selected.id]} showToast={showToast} onOpenInvoices={onOpenInvoices}
+          onInvoiced={inv => setFacturas(prev => ({ ...prev, [selected.id]: inv }))}
           onClose={() => setSelected(null)}
           onChanged={replace}
           onEdit={() => setForm({ edit: selected })}
@@ -379,7 +395,10 @@ function ShipmentForm({ orgId, edit, fromReceived, trips, clients, showToast, on
           <div><label className={labelCls}>Bultos</label><input inputMode="numeric" className={inputCls} value={f.num_bultos ?? ''} onChange={e => set('num_bultos', e.target.value ? parseInt(e.target.value, 10) : null)} /></div>
           <div><label className={labelCls}>m³</label><input inputMode="decimal" className={inputCls} value={f.volumen_m3 ?? ''} onChange={e => set('volumen_m3', e.target.value ? Number(e.target.value.replace(',', '.')) : null)} /></div>
         </div>
-        <div className="mt-2"><label className={labelCls}>Albarán / pedido del cliente</label><input className={inputCls} value={f.referencia_cargador ?? ''} onChange={e => set('referencia_cargador', e.target.value)} /></div>
+        <div className="mt-2 grid grid-cols-2 gap-2">
+          <div><label className={labelCls}>Albarán / pedido del cliente</label><input className={inputCls} value={f.referencia_cargador ?? ''} onChange={e => set('referencia_cargador', e.target.value)} /></div>
+          <div><label className={labelCls}>Precio del porte (€, sin IVA)</label><input inputMode="decimal" className={inputCls} value={f.precio_acordado ?? ''} onChange={e => set('precio_acordado', e.target.value ? Number(e.target.value.replace(',', '.')) : null)} /></div>
+        </div>
       </Section>
 
       <Section title="Viaje">
@@ -400,13 +419,20 @@ function ShipmentForm({ orgId, edit, fromReceived, trips, clients, showToast, on
 
 // ── Ficha ─────────────────────────────────────────────────────────────────────
 
-function ShipmentDetail({ s, orgId, trips, vehicles, workers, decaNumero, showToast, onClose, onChanged, onEdit, onEmitDeca, onScanDeca }: {
+function ShipmentDetail({ s, orgId, trips, vehicles, workers, decaNumero, showToast, onClose, onChanged, onEdit, onEmitDeca, onScanDeca, onOpenInvoices, onInvoiced }: {
   s: TradeTransportShipment; orgId: string; trips: TradeTransportTrip[]; vehicles: TradeVehicle[]; workers: TradeWorker[];
   decaNumero?: string; showToast: Props['showToast'];
   onClose: () => void; onChanged: (s: TradeTransportShipment) => void; onEdit: () => void; onEmitDeca: () => void;
-  onScanDeca?: () => void;
+  onScanDeca?: () => void; onOpenInvoices?: () => void; onInvoiced?: (inv: TradeInvoice) => void;
 }) {
   const [busy, setBusy] = useState(false);
+  const [factura, setFactura] = useState<TradeInvoice | null | undefined>(undefined);
+  const [facturar, setFacturar] = useState(false);
+  useEffect(() => {
+    let vivo = true;
+    loadTransportInvoice(orgId, 'shipment', s.id).then(f => { if (vivo) setFactura(f); }).catch(() => { if (vivo) setFactura(null); });
+    return () => { vivo = false; };
+  }, [orgId, s.id]);
   const [prompt, setPrompt] = useState<null | 'entrega' | 'incidencia'>(null);
   const [texto, setTexto] = useState('');
   const meta = shipmentEstadoMeta(s.estado);
@@ -426,18 +452,17 @@ function ShipmentDetail({ s, orgId, trips, vehicles, workers, decaNumero, showTo
 
   return (
     <Modal title={s.referencia ?? 'Expedición'} onClose={onClose}
-      footer={abierta ? (
+      footer={abierta && prompt !== 'entrega' ? (
         <div className="space-y-2">
           {prompt ? (
             <div className="space-y-2">
               <input autoFocus className={inputCls} value={texto} onChange={e => setTexto(e.target.value)}
-                placeholder={prompt === 'entrega' ? 'Nombre de quien recibe' : 'Qué ha pasado'} />
+                placeholder="Qué ha pasado" />
               <div className="grid grid-cols-2 gap-2">
                 <button type="button" onClick={() => { setPrompt(null); setTexto(''); }} className="rounded-xl border border-gray-200 py-3 font-semibold text-gray-700">Volver</button>
-                <button type="button" disabled={busy || (prompt === 'incidencia' && !texto.trim())}
-                  onClick={() => run(() => prompt === 'entrega' ? markDelivered(orgId, s.id, texto.trim()) : markIncident(orgId, s.id, texto.trim()),
-                    prompt === 'entrega' ? 'Entrega registrada' : 'Incidencia registrada')}
-                  className={`rounded-xl py-3 font-bold text-white disabled:opacity-50 ${prompt === 'entrega' ? 'bg-emerald-600' : 'bg-amber-500'}`}>Confirmar</button>
+                <button type="button" disabled={busy || !texto.trim()}
+                  onClick={() => run(() => markIncident(orgId, s.id, texto.trim()), 'Incidencia registrada')}
+                  className="rounded-xl bg-amber-500 py-3 font-bold text-white disabled:opacity-50">Confirmar</button>
               </div>
             </div>
           ) : (
@@ -472,10 +497,32 @@ function ShipmentDetail({ s, orgId, trips, vehicles, workers, decaNumero, showTo
           )}
         </div>
       ) : null}>
+      {prompt === 'entrega' && (
+        <Section title="Registrar la entrega">
+          <DeliveryProofForm orgId={orgId} shipment={s} onCancel={() => setPrompt(null)}
+            onDone={x => { onChanged(x); setPrompt(null); showToast('Entrega registrada con su prueba', 'success'); }} />
+        </Section>
+      )}
       <div className="flex flex-wrap items-center gap-2">
         <span className={`rounded-full px-2.5 py-1 text-xs font-bold uppercase ${meta.color}`}>{meta.label}</span>
         {decaNumero && <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-700">DeCA {decaNumero}</span>}
+        {factura && <span className="rounded-full bg-yellow-50 px-2.5 py-1 text-xs font-bold text-yellow-800">Factura: {invoiceStateLabel(factura)}</span>}
       </div>
+
+      {s.estado !== 'cancelada' && factura !== undefined && (
+        <div className="rounded-2xl border border-gray-200 bg-white p-4 text-sm">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className="flex items-center gap-1.5 text-gray-700"><Euro size={15} /> Precio del porte: <b>{s.precio_acordado != null ? `${Number(s.precio_acordado).toFixed(2)} €` : 'sin indicar'}</b></p>
+            {factura ? (
+              onOpenInvoices && <button type="button" onClick={onOpenInvoices} className="font-bold text-emerald-800 underline">{factura.estado === 'Borrador' ? 'Emitir en Facturas' : 'Ver en Facturas'}</button>
+            ) : (
+              <button type="button" onClick={() => setFacturar(true)}
+                className="flex items-center gap-1.5 rounded-xl bg-amber-500 px-3 py-2 font-bold text-white"><Receipt size={16} /> Facturar este porte</button>
+            )}
+          </div>
+          {!factura && <p className="mt-1 text-xs text-gray-500">Si el camión lleva cargas de varios clientes, facture cada expedición por separado.</p>}
+        </div>
+      )}
 
       <div className="rounded-2xl border border-gray-200 bg-white p-4">
         <p className="text-xs font-bold uppercase tracking-wider text-gray-400">Cargador</p>
@@ -525,7 +572,20 @@ function ShipmentDetail({ s, orgId, trips, vehicles, workers, decaNumero, showTo
           {s.recogida_at && <p>Recogida: {fmtTs(s.recogida_at)}</p>}
           {s.entregada_at && <p>Entregada: {fmtTs(s.entregada_at)}{s.receptor_nombre ? ` · recibe ${s.receptor_nombre}` : ''}</p>}
           {s.incidencia && <p className="text-amber-800">Incidencia: {s.incidencia}</p>}
+          <DeliveryProofView s={s} />
         </div>
+      )}
+      {facturar && (
+        <TransportInvoiceModal orgId={orgId}
+          target={{
+            kind: 'shipment', id: s.id, clientId: s.client_id, clienteNombre: s.cargador_nombre,
+            precioAcordado: s.precio_acordado ?? null, concepto: shipmentInvoiceConcept(s),
+            loadSuggestions: () => shipmentClientSuggestions(orgId, s),
+          }}
+          onClose={() => setFacturar(false)}
+          onCreated={inv => { setFactura(inv); onInvoiced?.(inv); }}
+          onOpenInvoices={onOpenInvoices ? () => { setFacturar(false); onOpenInvoices(); } : undefined}
+        />
       )}
     </Modal>
   );

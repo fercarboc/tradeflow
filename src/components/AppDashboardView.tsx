@@ -134,6 +134,8 @@ import ScreenTransportePresupuestos from './ScreenTransportePresupuestos';
 import ScreenTransporteDocumentos from './transport-docs/ScreenTransporteDocumentos';
 import ScreenTransporteExpediciones from './transport-shipments/ScreenTransporteExpediciones';
 import ScreenTransporteViajes from './ScreenTransporteViajes';
+import ScreenConductorTransporte from './transport-mobile/ScreenConductorTransporte';
+import { createTransportTripFromQuote } from '../lib/transportTrips';
 import { TransportMoreSheet, TransportNewSheet, type SheetItem } from './transport-mobile/TransportMobileSheets';
 import { decaPrefillFromTrip, type TransportDocTipo, type TransportDocInput } from '../lib/transportDocs';
 import type { ReceivedDocTipo, ReceivedDocInput, ReceivedDoc } from '../lib/transportReceivedDocs';
@@ -900,6 +902,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // Mobile suppliers hub sub-tab
   const [mobileSuppliersSubTab, setMobileSuppliersSubTab] = useState<'proveedores' | 'catalogo'>('proveedores');
   // Mobile transport sub-tab (includes mercancías placeholders: viajes, expediciones)
+  const [transporteTripNew, setTransporteTripNew] = useState(0);
+  const [transporteOpenTripId, setTransporteOpenTripId] = useState<string | undefined>(undefined);
+  const [transporteShipmentNew, setTransporteShipmentNew] = useState(0);
   const [transporteMobileSubTab, setTransporteMobileSubTab] = useState<'panel' | 'servicios' | 'agenda' | 'vehiculos' | 'conductores' | 'rutas' | 'partes' | 'viajes' | 'expediciones' | 'documentos' | 'tarifas'>('vehiculos');
   // Móvil transporte: ventanas «+» y «Más» (mismo patrón que instaladores)
   const [showTransportMoreSheet, setShowTransportMoreSheet] = useState(false);
@@ -931,7 +936,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }, [initialMobile]);
 
   // Tabs de navegación móvil
-  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'suppliers' | 'mantenimiento' | 'ruta' | 'asistente' | 'partes' | 'transporte' | 'solicitudes' | 'mipagina'>(rol === 'tecnico' ? 'trabajos' : 'inicio');
+  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'suppliers' | 'mantenimiento' | 'ruta' | 'asistente' | 'partes' | 'transporte' | 'solicitudes' | 'mipagina' | 'conductor'>(rol === 'tecnico' ? 'trabajos' : 'inicio');
   // Fix timing: session carga async, rol llega tarde — forzar tab correcto cuando cambia
   useEffect(() => {
     if (rol === 'tecnico') {
@@ -1107,6 +1112,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   useEffect(() => {
     if (caps.isMercanciasPrimary && VIAJEROS_ONLY_TABS.includes(activeTab)) {
       setActiveTab('transporte_panel');
+    }
+    // TX-CIERRE-1: el conductor de una empresa de transporte entra a «Mis viajes»
+    if (caps.isTransportOrg && rol === 'tecnico') {
+      if (mobileTab === 'trabajos' || mobileTab === 'inicio') setMobileTab('conductor');
+      if (activeTab === 'dashboard' || activeTab === 'transporte_panel' || activeTab === 'jobs') setActiveTab('conductor');
+      return;
     }
     if (caps.isTransportOrg) {
       if (activeTab === 'dashboard') setActiveTab('transporte_panel');
@@ -3075,6 +3086,26 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       if (selectedQuoteForPreview?.id === quote.id) setSelectedQuoteForPreview(prev => prev ? { ...prev, estado: newEstado as Presupuesto['estado'] } : null);
       showToast(`Presupuesto marcado como ${newEstado} ✓`, 'success');
 
+      // TX-CIERRE-1: empresa de mercancías → el presupuesto aceptado crea un viaje en borrador
+      if (
+        newEstado === 'Aceptado' &&
+        quote.metadata?.['vertical'] === 'transporte' &&
+        quote.dbId && orgId && isLiveMode &&
+        caps.hasTransport && caps.isMercanciasPrimary
+      ) {
+        try {
+          const r = await createTransportTripFromQuote(orgId, quote.dbId);
+          if (r.ok && r.trip_id) {
+            const updatedMeta = { ...(quote.metadata ?? {}), transport_trip_id: r.trip_id };
+            setPresupuestos(prev => prev.map(p => p.id === quote.id ? { ...p, metadata: updatedMeta } : p));
+            if (selectedQuoteForPreview?.id === quote.id) setSelectedQuoteForPreview(prev => prev ? { ...prev, metadata: updatedMeta } : null);
+            if (!r.idempotent) showToast('Viaje creado en borrador ✓ Asígnale camión y conductor en Viajes', 'success');
+          }
+        } catch {
+          showToast('Presupuesto aceptado. Crea el viaje manualmente desde Viajes.', 'info');
+        }
+        return;
+      }
       // TX-C3-C: Aceptación interna de presupuesto de transporte → crear servicio
       if (
         newEstado === 'Aceptado' &&
@@ -4305,6 +4336,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       { id: 'scan', label: allowDeca && !allowHoja ? 'Escanear DeCA del cliente' : !allowDeca && allowHoja ? 'Escanear hoja de ruta recibida' : 'Escanear documento recibido',
         hint: 'QR y fotos para enseñarlo en un control', icon: <QrCode className="w-6 h-6" />, tone: 'bg-emerald-50 text-emerald-700',
         onClick: () => openReceivedScan(allowDeca && !allowHoja ? 'deca' : !allowDeca && allowHoja ? 'hoja_ruta' : undefined) },
+      ...((caps.isMercanciasPrimary || caps.isCombinadaOrg) ? [
+        { id: 'viaje', label: 'Nuevo viaje', hint: 'Camión, conductor y fechas', icon: <Truck className="w-6 h-6" />, tone: 'bg-amber-50 text-amber-700',
+          onClick: () => { goTransport('viajes'); setTransporteTripNew(n => n + 1); } },
+        { id: 'expedicion', label: 'Nueva expedición', hint: 'Una carga de un cliente', icon: <Package className="w-6 h-6" />, tone: 'bg-orange-50 text-orange-600',
+          onClick: () => { goTransport('expediciones'); setTransporteShipmentNew(n => n + 1); } },
+      ] : []),
       ...(!caps.isMercanciasPrimary ? [{ id: 'servicio', label: 'Nuevo servicio', hint: 'Excursión, traslado, ruta…', icon: <Calendar className="w-6 h-6" />, tone: 'bg-indigo-50 text-indigo-600',
         onClick: () => { goTransport('servicios'); setTransporteTriggerNew(n => n + 1); } }] : []),
       { id: 'presupuesto', label: 'Nuevo presupuesto', hint: 'Para enviar al cliente', icon: <FileText className="w-6 h-6" />, tone: 'bg-emerald-50 text-emerald-600',
@@ -4432,7 +4469,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         <div
           className={`flex-grow overscroll-contain ${mobileTab === 'transporte' ? 'relative overflow-hidden' : (mobileTab === 'trabajos' || mobileTab === 'ruta') ? 'overflow-hidden' : 'overflow-y-auto'}`}
           style={{
-            padding: (mobileTab === 'trabajos' || mobileTab === 'ruta' || mobileTab === 'transporte') ? '0' : (isNativeDevice ? '20px 16px 0' : '20px 16px'),
+            padding: (mobileTab === 'trabajos' || mobileTab === 'ruta' || mobileTab === 'transporte' || mobileTab === 'conductor') ? '0' : (isNativeDevice ? '20px 16px 0' : '20px 16px'),
             paddingBottom: (mobileTab === 'trabajos' || mobileTab === 'ruta' || mobileTab === 'transporte') ? '0' : (isNativeDevice
               ? 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)'
               : '88px'),
@@ -4623,6 +4660,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             />
           )}
           {mobileTab === 'partes' && MobileScreenPartes()}
+          {mobileTab === 'conductor' && orgId && (
+            <ScreenConductorTransporte orgId={orgId} workerId={workerProfile?.id ?? null} nombre={workerProfile?.nombre} showToast={showToast} />
+          )}
           {mobileTab === 'solicitudes' && (
             <ScreenSolicitudes
               orgId={orgId}
@@ -4716,6 +4756,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {transporteMobileSubTab === 'servicios' && (
                   <ScreenTransporteServicios
                     orgId={orgId}
+                    onOpenInvoices={openInvoices}
                     showToast={showToast}
                     onOpenParte={(id) => { setTransporteParteId(id); setMobileTab('partes'); }}
                     initialServiceId={transporteNavServiceId}
@@ -4798,6 +4839,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {transporteMobileSubTab === 'viajes' && (
                   <ScreenTransporteViajes
                     orgId={orgId}
+                    initialTripId={transporteOpenTripId}
+                    onDetailClosed={() => setTransporteOpenTripId(undefined)}
+                    triggerNew={transporteTripNew}
                     onEmitDeca={(trip, vehicle, conductor) => openTransportDoc('deca', decaPrefillFromTrip(trip, vehicle, conductor))}
                     onScanDeca={(trip, vehicle) => openReceivedScan('deca', { trip_id: trip.id, emisor_nombre: trip.cliente_nombre ?? null, fecha_servicio: trip.fecha_inicio.slice(0, 10), origen: trip.origen, destino: trip.destino, matricula: vehicle?.matricula ?? null })}
                     onOpenInvoices={openInvoices}
@@ -4806,6 +4850,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {transporteMobileSubTab === 'expediciones' && (
                   <ScreenTransporteExpediciones
                     orgId={orgId}
+                    onOpenInvoices={openInvoices}
+                    triggerNew={transporteShipmentNew}
                     showToast={showToast}
                     onEmitDeca={prefill => openTransportDoc('deca', prefill)}
                     onScanDeca={link => openReceivedScan('deca', link)}
@@ -4827,7 +4873,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               minHeight: isNativeDevice ? 'calc(60px + env(safe-area-inset-bottom, 0px))' : '60px',
             }}
           >
-            {isTecnico ? (
+            {isTecnico && caps.isTransportOrg ? (
+              <>
+                <button
+                  onClick={() => { setShowMobileMoreSheet(false); setMobileTab('conductor'); setShowFloatingMenu(false); }}
+                  className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold ${mobileTab === 'conductor' ? (caps.isMercanciasPrimary ? 'text-amber-600' : 'text-blue-600') : 'text-[#1C2535]/45'}`}
+                >
+                  {caps.isMercanciasPrimary ? <Truck className="w-5 h-5" /> : <Bus className="w-5 h-5" />}
+                  <span>Mis viajes</span>
+                </button>
+                {MobileTabButton({ tab: 'asistente', icon: <BookOpen className="w-5 h-5" />, label: 'Normativa' })}
+              </>
+            ) : isTecnico ? (
               <>
                 {MobileTabButton({ tab: 'trabajos', icon: <Briefcase className="w-5 h-5" />, label: 'Trabajos' })}
                 {MobileTabButton({ tab: 'ruta',     icon: <Navigation className="w-5 h-5" />, label: 'Mi Ruta' })}
@@ -4864,7 +4921,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </div>
                 {(() => {
                   const third = caps.isMercanciasPrimary
-                    ? { subtab: 'vehiculos' as const, icon: <Truck className="w-5 h-5" />, label: 'Flota' }
+                    ? { subtab: 'viajes' as const, icon: <Truck className="w-5 h-5" />, label: 'Viajes' }
                     : { subtab: 'servicios' as const, icon: <Calendar className="w-5 h-5" />, label: 'Servicios' };
                   const active = mobileTab === 'transporte' && transporteMobileSubTab === third.subtab && !showTransportMoreSheet;
                   return (
@@ -7433,6 +7490,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               /* ── MENÚ TRANSPORTE PURO ──────────────────────── */
               <>
                 <p className="px-3 pt-1 pb-2 text-[9px] font-bold uppercase tracking-widest text-slate-500">Transporte</p>
+                {isTecnico && SidebarBtn({ id: 'conductor', icon: <Truck className="w-4 h-4" />, label: 'Mis viajes' })}
                 {can('transport.view') && SidebarBtn({ id: 'transporte_panel',      icon: <LayoutDashboard className="w-4 h-4" />, label: 'Panel' })}
                 {/* Tabs comunes: Flota, Conductores, Tarifas */}
                 {can('transport.view') && SidebarBtn({ id: 'transporte_vehiculos',  icon: <Bus className="w-4 h-4" />, label: 'Flota' })}
@@ -7887,6 +7945,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     )}
                   </div>
                 )}
+                {activeTab === 'conductor' && orgId && caps.isTransportOrg && (
+                  <div className="flex-1 overflow-y-auto min-h-0">
+                    <ScreenConductorTransporte orgId={orgId} workerId={workerProfile?.id ?? null} nombre={workerProfile?.nombre} showToast={showToast} />
+                  </div>
+                )}
                 {activeTab === 'transporte_panel' && orgId && caps.hasTransport && can('transport.view') && (
                   <div className="flex-1 overflow-y-auto min-h-0">
                     <ScreenTransportePanel
@@ -7908,6 +7971,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <div className="flex-1 overflow-y-auto min-h-0">
                     <ScreenTransporteServicios
                       orgId={orgId}
+                      onOpenInvoices={openInvoices}
                       showToast={showToast}
                       onOpenParte={(id) => { setTransporteParteId(id); setTransporteParteFromTab('transporte_servicios'); setActiveTab('transporte_parte'); }}
                       initialServiceId={transporteNavServiceId}
@@ -8011,6 +8075,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <div className="flex-1 overflow-y-auto min-h-0">
                     <ScreenTransporteViajes
                       orgId={orgId}
+                      initialTripId={transporteOpenTripId}
+                      onDetailClosed={() => setTransporteOpenTripId(undefined)}
+                      triggerNew={transporteTripNew}
                       onEmitDeca={(trip, vehicle, conductor) => openTransportDoc('deca', decaPrefillFromTrip(trip, vehicle, conductor))}
                       onScanDeca={(trip, vehicle) => openReceivedScan('deca', { trip_id: trip.id, emisor_nombre: trip.cliente_nombre ?? null, fecha_servicio: trip.fecha_inicio.slice(0, 10), origen: trip.origen, destino: trip.destino, matricula: vehicle?.matricula ?? null })}
                       onOpenInvoices={openInvoices}
@@ -8021,6 +8088,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <div className="flex-1 overflow-y-auto min-h-0">
                     <ScreenTransporteExpediciones
                       orgId={orgId}
+                      onOpenInvoices={openInvoices}
+                      triggerNew={transporteShipmentNew}
                       showToast={showToast}
                       onEmitDeca={prefill => openTransportDoc('deca', prefill)}
                       onScanDeca={link => openReceivedScan('deca', link)}
@@ -9167,9 +9236,51 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 Editar
               </button>
             )}
+            {/* TX-CIERRE-1: empresas de mercancías → viaje desde el presupuesto aceptado */}
+            {selectedQuoteForPreview.metadata?.['vertical'] === 'transporte' &&
+             selectedQuoteForPreview.estado === 'Aceptado' && caps.hasTransport && caps.isMercanciasPrimary && (
+              <div className="w-full flex flex-wrap items-center gap-2 mt-1">
+                {selectedQuoteForPreview.metadata?.['transport_trip_id'] ? (
+                  <>
+                    <span className="flex items-center gap-1 text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg px-2 py-1">
+                      <Truck className="w-3 h-3" /> Viaje creado
+                    </span>
+                    <button
+                      onClick={() => {
+                        setTransporteOpenTripId(String(selectedQuoteForPreview.metadata?.['transport_trip_id']));
+                        setActiveTab('transporte_viajes');
+                        goTransport('viajes');
+                      }}
+                      className="text-[10px] text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-2 py-1 hover:bg-amber-100 cursor-pointer"
+                    >
+                      Abrir viaje
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={async () => {
+                      if (!selectedQuoteForPreview.dbId || !orgId) return;
+                      try {
+                        const r = await createTransportTripFromQuote(orgId, selectedQuoteForPreview.dbId);
+                        if (r.ok && r.trip_id) {
+                          setSelectedQuoteForPreview(prev => prev ? { ...prev, metadata: { ...(prev.metadata ?? {}), transport_trip_id: r.trip_id } } : null);
+                          setPresupuestos(prev => prev.map(p => p.id === selectedQuoteForPreview.id ? { ...p, metadata: { ...(p.metadata ?? {}), transport_trip_id: r.trip_id } } : p));
+                          showToast('Viaje creado en borrador', 'success');
+                        } else if (r.message) showToast(r.message, 'info');
+                      } catch {
+                        showToast('Error al crear el viaje', 'error');
+                      }
+                    }}
+                    className="flex items-center gap-1 text-[10px] text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-2 py-1 hover:bg-amber-100 cursor-pointer"
+                  >
+                    <Truck className="w-3 h-3" /> Crear viaje de mercancías
+                  </button>
+                )}
+              </div>
+            )}
             {/* TX-C3-C: Badge servicio de transporte para presupuestos aceptados */}
             {selectedQuoteForPreview.metadata?.['vertical'] === 'transporte' &&
-             selectedQuoteForPreview.estado === 'Aceptado' && (
+             selectedQuoteForPreview.estado === 'Aceptado' && !caps.isMercanciasPrimary && (
               <div className="w-full flex flex-wrap items-center gap-2 mt-1">
                 {transportServiceIdForPreview ? (
                   <>

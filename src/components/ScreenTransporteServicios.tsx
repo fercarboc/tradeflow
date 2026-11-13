@@ -42,6 +42,11 @@ import TransportContactForm from './TransportContactForm';
 import { locationToText, TIPO_OPERACION_OPTIONS } from '../lib/transportLocations';
 import type { TipoOperacionParada } from '../lib/transportLocations';
 import { getServiceDays, isoDate } from '../lib/transportPanelHelpers';
+import { TransportInvoiceModal } from './transport-billing/TripInvoiceModal';
+import {
+  loadTransportInvoiceMap, serviceClientSuggestions, serviceInvoiceConcept, invoiceStateLabel,
+} from '../lib/transportBilling';
+import type { TradeInvoice } from '../lib/supabase';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -736,11 +741,16 @@ interface ServicioRowProps {
   highlighted?: boolean;
   /** TX-DOCS-1: emitir la hoja de ruta de este servicio. */
   onHojaRuta?: () => void;
+  /** TX-CIERRE-1: factura del servicio (si existe) y acción de facturar. */
+  factura?: TradeInvoice | null;
+  onFacturar?: () => void;
+  onOpenInvoices?: () => void;
 }
 
 function ServicioRow({
   s, clients, vehicles, workers,
   onEdit, onCancel, onConfirm, onIniciar, onOpenParte, canWrite, highlighted, onHojaRuta,
+  factura, onFacturar, onOpenInvoices,
 }: ServicioRowProps) {
   const client    = clients.find(c => c.id === s.client_id);
   const vehicle   = vehicles.find(v => v.id === s.vehicle_id);
@@ -855,6 +865,29 @@ function ServicioRow({
               </button>
             </div>
           )}
+          {s.estado === 'completado' && (
+            <div className="flex items-center justify-end gap-1 pt-1">
+              <button onClick={() => onOpenParte(s.id)}
+                className="px-2 py-1 text-[11px] font-semibold bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100 rounded-md cursor-pointer">
+                Ver parte
+              </button>
+            </div>
+          )}
+          {s.estado !== 'cancelado' && s.estado !== 'borrador' && (
+            <div className="flex justify-end pt-1">
+              {factura ? (
+                <button onClick={onOpenInvoices} disabled={!onOpenInvoices}
+                  className="px-2 py-1 text-[11px] font-semibold bg-yellow-50 text-yellow-800 border border-yellow-300 rounded-md cursor-pointer">
+                  Factura: {invoiceStateLabel(factura)}
+                </button>
+              ) : canWrite && onFacturar ? (
+                <button onClick={onFacturar}
+                  className="px-2 py-1 text-[11px] font-bold bg-slate-900 text-white rounded-md cursor-pointer">
+                  Facturar servicio
+                </button>
+              ) : null}
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -867,6 +900,8 @@ interface Props {
   orgId: string;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
   onOpenParte?: (svcId: string) => void;
+  /** TX-CIERRE-1: ir a Facturas para emitir. */
+  onOpenInvoices?: () => void;
   initialServiceId?: string | null;
   onConsumeInitialServiceId?: () => void;
   triggerNew?: number;
@@ -878,7 +913,7 @@ interface Props {
 
 // ── Componente principal ──────────────────────────────────────────────────────
 
-export default function ScreenTransporteServicios({ orgId, showToast, onOpenParte, initialServiceId, onConsumeInitialServiceId, triggerNew, onNavigateToSchedules, onEmitHojaRuta }: Props) {
+export default function ScreenTransporteServicios({ orgId, showToast, onOpenParte, initialServiceId, onConsumeInitialServiceId, triggerNew, onNavigateToSchedules, onEmitHojaRuta, onOpenInvoices }: Props) {
   const { rol } = useSession();
   const canWrite = rol === 'owner' || rol === 'admin';
 
@@ -888,6 +923,12 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
   const [vehicles,       setVehicles]       = useState<TradeVehicle[]>([]);
   const [workers,        setWorkers]        = useState<TradeWorker[]>([]);
   const [futureServices, setFutureServices] = useState<TradeTransportService[]>([]);
+  const [facturas,       setFacturas]       = useState<Record<string, TradeInvoice>>({});
+  const [facturando,     setFacturando]     = useState<TradeTransportService | null>(null);
+  useEffect(() => {
+    const ids = services.filter(x => x.estado !== 'borrador' && x.estado !== 'cancelado').map(x => x.id);
+    loadTransportInvoiceMap(orgId, 'service', ids).then(setFacturas).catch(() => undefined);
+  }, [orgId, services]);
 
   // Mini-calendario lateral
   const [calYear,     setCalYear]     = useState(() => new Date().getFullYear());
@@ -1338,6 +1379,9 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
                   onConfirm={() => handleConfirm(s)}
                   onIniciar={() => { setIniciando(s); setOdoInicio(''); setHoraInicioReal(''); setObsInicio(''); }}
                   onOpenParte={(id) => onOpenParte?.(id)}
+                  factura={facturas[s.id] ?? null}
+                  onFacturar={() => setFacturando(s)}
+                  onOpenInvoices={onOpenInvoices}
                   onHojaRuta={onEmitHojaRuta ? () => {
                     const cl = clients.find(c => c.id === s.client_id);
                     const ve = vehicles.find(v => v.id === s.vehicle_id);
@@ -1487,6 +1531,22 @@ export default function ScreenTransporteServicios({ orgId, showToast, onOpenPart
             </div>
           </div>
         </div>
+      )}
+
+      {facturando && (
+        <TransportInvoiceModal
+          orgId={orgId}
+          target={{
+            kind: 'service', id: facturando.id, clientId: facturando.client_id ?? null,
+            clienteNombre: (() => { const c = clients.find(x => x.id === facturando.client_id); return c ? getClientDisplayName(c) : null; })(),
+            precioAcordado: facturando.precio_acordado ?? null,
+            concepto: serviceInvoiceConcept(facturando, vehicles.find(v => v.id === facturando.vehicle_id)?.matricula ?? null),
+            loadSuggestions: () => serviceClientSuggestions(orgId, facturando),
+          }}
+          onClose={() => setFacturando(null)}
+          onCreated={inv => setFacturas(prev => ({ ...prev, [facturando.id]: inv }))}
+          onOpenInvoices={onOpenInvoices ? () => { setFacturando(null); onOpenInvoices(); } : undefined}
+        />
       )}
     </div>
   );

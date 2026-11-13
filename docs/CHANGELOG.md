@@ -4,6 +4,46 @@
 
 ---
 
+## TX-CIERRE-1 — Cierre del módulo de transporte para el piloto
+
+**Período:** 2026-11-13  
+**Estado:** IMPLEMENTADO — migración `20261113210000_tx_cierre_modulo.sql`
+
+### Viajeros
+- «Facturar servicio» en la lista de Servicios (borrador → emisión con VeriFactu en Facturas) y «Ver parte» en servicios completados.
+- El conductor asignado puede iniciar y cerrar su servicio desde el móvil.
+
+### Mercancías
+- Presupuesto aceptado en empresa de mercancías → **viaje en borrador** (`create_transport_trip_from_quote`), también desde el enlace público de aceptación. Antes se creaba un servicio de viajeros invisible para la empresa.
+- Ficha del viaje: expediciones asignadas, paradas en orden (recogidas y entregas), carga total y «Usar como carga del viaje».
+- Inicio de viaje por RPC `start_transport_trip` (admin o conductor asignado) con km del cuentakilómetros.
+- Expediciones: precio del porte, **factura por expedición** (grupaje) y aviso en el viaje si ya hay expediciones facturadas.
+- **Prueba de entrega**: nombre y DNI de quien recibe, firma en pantalla, hasta 4 fotos y posición. Bucket privado `transport-pod`.
+- Lista de Viajes: búsqueda, filtros rápidos por fecha y botones más grandes para el móvil.
+- Móvil: «Nuevo viaje» y «Nueva expedición» en el botón «+»; la barra inferior lleva a Viajes.
+
+### Conductor (rol técnico en empresa de transporte)
+- Nueva vista «Mis viajes» (móvil y PC): viajes y servicios asignados, cómo llegar, DeCA u hoja de ruta para enseñar en un control, empezar con km, recogidas, entregas con prueba, incidencias y terminar con el parte.
+- Permisos: `start_transport_service`, `complete_transport_service` y `complete_transport_trip` admiten al conductor asignado (`_transport_my_worker_id`).
+
+### Correcciones
+- Faltaba `GRANT UPDATE (client_id)` en `trade_transport_trips`: al facturar un viaje no se guardaba el cliente.
+- Eliminado `ScreenTransporteMercanciasComing` (pantalla «Próximamente», sin uso).
+- Tests: `src/test/transport/transport-cierre.test.ts`.
+
+---
+
+## TX-EXP-1 / TX-DOCS-2 / TX-FACT-1 — Expediciones, documentos recibidos y factura de viaje
+
+**Período:** 2026-11-11 / 2026-11-12  
+**Estado:** IMPLEMENTADO
+
+- Expediciones (cargas) con recogida, entrega, incidencias y DeCA por expedición.
+- Documentos de control recibidos: escanear el QR y fotos del DeCA del cliente; relleno de expediciones con IA.
+- Facturar un viaje de mercancías (borrador → VeriFactu).
+
+---
+
 ## TX-DOCS-1 — DeCA y hoja de ruta digitales (transporte)
 
 **Período:** 2026-11-11  
