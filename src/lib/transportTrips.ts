@@ -203,6 +203,22 @@ export async function updateTransportTrip(
   return data as TradeTransportTrip;
 }
 
+/**
+ * TX-CIERRE-1 — Presupuesto aceptado en una empresa de mercancías → viaje en
+ * borrador (idempotente: si ya existe, devuelve el mismo viaje).
+ */
+export async function createTransportTripFromQuote(
+  orgId: string,
+  quoteId: string,
+): Promise<{ ok: boolean; trip_id?: string; idempotent?: boolean; code?: string; message?: string }> {
+  const { data, error } = await supabase.rpc('create_transport_trip_from_quote', {
+    p_org_id: orgId,
+    p_quote_id: quoteId,
+  });
+  if (error) throw error;
+  return data as { ok: boolean; trip_id?: string; idempotent?: boolean; code?: string; message?: string };
+}
+
 /** Cancela un viaje (transición de estado controlada, sin borrado físico). */
 export async function cancelTransportTrip(
   id: string,
@@ -234,16 +250,21 @@ export async function confirmTransportTrip(
   return result;
 }
 
-/** Inicia un viaje confirmado (borrador→confirmado ya hecho; confirmado→en_curso). */
+/**
+ * Inicia un viaje confirmado (confirmado → en_curso). TX-CIERRE-1: por RPC,
+ * para que también pueda iniciarlo el conductor asignado, y con lectura
+ * opcional del odómetro y hora real de salida.
+ */
 export async function startTransportTrip(
   id: string,
   orgId: string,
+  odometroInicio?: number | null,
 ): Promise<void> {
-  const { error } = await supabase
-    .from('trade_transport_trips')
-    .update({ estado: 'en_curso' })
-    .eq('id', id)
-    .eq('org_id', orgId);
+  const { error } = await supabase.rpc('start_transport_trip', {
+    p_trip_id: id,
+    p_org_id: orgId,
+    p_odometro_inicio: odometroInicio ?? null,
+  });
   if (error) throw error;
 }
 

@@ -1,47 +1,80 @@
 /**
- * Facturar un viaje de mercancías: crea la factura en Borrador vinculada al viaje.
- * La emisión (numeración + VeriFactu) se hace después desde Facturas.
+ * Facturar un viaje, una expedición o un servicio de viajeros: crea la factura
+ * en Borrador vinculada a ese elemento. La emisión (numeración + VeriFactu) se
+ * hace después desde Facturas.
  */
 import React, { useEffect, useMemo, useState } from 'react';
 import { X, Loader2, Receipt, CheckCircle2, Search, FileText, AlertTriangle } from 'lucide-react';
 import { supabase, loadClients, getClientDisplayName, type TradeClient, type TradeInvoice } from '../../lib/supabase';
 import {
-  createTripDraftInvoice, tripClientSuggestions, tripInvoiceConcept, type BillingClientSuggestion,
+  createTransportDraftInvoice, tripClientSuggestions, tripInvoiceConcept, BILLING_NOUN,
+  type BillingClientSuggestion, type BillingKind,
 } from '../../lib/transportBilling';
 import { isValidNif } from '../../lib/transportDocs';
 import type { TradeTransportTrip } from '../../lib/transportTrips';
+
+/** Qué se factura. */
+export interface BillingTarget {
+  kind: BillingKind;
+  id: string;
+  /** Cliente ya vinculado (ficha de cliente). */
+  clientId?: string | null;
+  /** Nombre del cliente cuando solo se conoce como texto. */
+  clienteNombre?: string | null;
+  precioAcordado?: number | null;
+  concepto: string;
+  loadSuggestions: () => Promise<BillingClientSuggestion[]>;
+}
 
 const eur = (n: number) => n.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
 const inputCls = 'w-full rounded-xl border-2 border-gray-200 bg-white px-3 py-2.5 text-base text-gray-900 placeholder-gray-300 focus:border-amber-400 focus:outline-none';
 const labelCls = 'block text-xs font-bold uppercase tracking-wider text-gray-500 mb-1';
 
-export default function TripInvoiceModal({ orgId, trip, matricula, onClose, onCreated, onOpenInvoices, intro }: {
+/** Compatibilidad: facturar un viaje. */
+export default function TripInvoiceModal({ orgId, trip, matricula, ...rest }: {
   orgId: string;
   trip: TradeTransportTrip;
   matricula?: string | null;
   onClose: () => void;
   onCreated: (inv: TradeInvoice) => void;
   onOpenInvoices?: () => void;
+  intro?: string;
+}) {
+  const target: BillingTarget = {
+    kind: 'trip', id: trip.id, clientId: trip.client_id ?? null, clienteNombre: trip.cliente_nombre ?? null,
+    precioAcordado: trip.precio_acordado ?? null, concepto: tripInvoiceConcept(trip, matricula),
+    loadSuggestions: () => tripClientSuggestions(orgId, trip.id),
+  };
+  return <TransportInvoiceModal orgId={orgId} target={target} {...rest} />;
+}
+
+export function TransportInvoiceModal({ orgId, target, onClose, onCreated, onOpenInvoices, intro }: {
+  orgId: string;
+  target: BillingTarget;
+  onClose: () => void;
+  onCreated: (inv: TradeInvoice) => void;
+  onOpenInvoices?: () => void;
   /** Texto de cabecera opcional (p. ej. tras completar el viaje). */
   intro?: string;
 }) {
+  const noun = BILLING_NOUN[target.kind];
   const [clients, setClients] = useState<TradeClient[]>([]);
   const [sugerencias, setSugerencias] = useState<BillingClientSuggestion[]>([]);
   const [q, setQ] = useState('');
-  const [clientId, setClientId] = useState<string | null>(trip.client_id ?? null);
-  const [nombre, setNombre] = useState(trip.cliente_nombre ?? '');
+  const [clientId, setClientId] = useState<string | null>(target.clientId ?? null);
+  const [nombre, setNombre] = useState(target.clienteNombre ?? '');
   const [nif, setNif] = useState('');
   const [domicilio, setDomicilio] = useState('');
-  const [base, setBase] = useState<string>(trip.precio_acordado != null ? String(trip.precio_acordado) : '');
+  const [base, setBase] = useState<string>(target.precioAcordado != null ? String(target.precioAcordado) : '');
   const [iva, setIva] = useState<number>(21);
-  const [concepto, setConcepto] = useState(() => tripInvoiceConcept(trip, matricula));
+  const [concepto, setConcepto] = useState(() => target.concepto);
   const [saving, setSaving] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [creada, setCreada] = useState<TradeInvoice | null>(null);
 
   useEffect(() => {
     loadClients(orgId).then(setClients).catch(() => setClients([]));
-    tripClientSuggestions(orgId, trip.id).then(s => {
+    target.loadSuggestions().then(s => {
       setSugerencias(s);
       // Si aún no hay cliente vinculado, proponemos el primero con NIF
       const first = s.find(x => x.nif) ?? s[0];
@@ -49,7 +82,7 @@ export default function TripInvoiceModal({ orgId, trip, matricula, onClose, onCr
     }).catch(() => undefined);
     supabase.from('trade_organizations').select('iva_default').eq('id', orgId).maybeSingle()
       .then(({ data }) => { if (data?.iva_default != null) setIva(Number(data.iva_default)); });
-  }, [orgId, trip.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [orgId, target.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Si el NIF coincide con un cliente existente, lo usamos
   useEffect(() => {
@@ -79,9 +112,9 @@ export default function TripInvoiceModal({ orgId, trip, matricula, onClose, onCr
     if (!clientId && !nombre.trim()) { setErr('Indique el cliente'); return; }
     setSaving(true);
     try {
-      const inv = await createTripDraftInvoice(orgId, trip, {
+      const inv = await createTransportDraftInvoice(orgId, target.kind, target.id, {
         client: clientId ? { id: clientId } : { nombre, nif: nif || null, domicilio: domicilio || null },
-        base: baseNum, ivaPct: iva, concepto: concepto.trim() || tripInvoiceConcept(trip, matricula),
+        base: baseNum, ivaPct: iva, concepto: concepto.trim() || target.concepto,
       });
       setCreada(inv);
       onCreated(inv);
@@ -94,7 +127,7 @@ export default function TripInvoiceModal({ orgId, trip, matricula, onClose, onCr
     <div className="fixed inset-0 z-[70] flex items-stretch justify-center bg-black/40 sm:items-center sm:p-6" role="dialog" aria-modal="true">
       <div className="flex h-full w-full flex-col bg-slate-50 sm:h-auto sm:max-h-[92vh] sm:max-w-xl sm:rounded-3xl sm:shadow-2xl">
         <div className="flex shrink-0 items-center justify-between border-b border-slate-200 bg-white px-5 py-3 sm:rounded-t-3xl">
-          <p className="flex items-center gap-2 text-lg font-bold text-gray-900"><Receipt size={20} className="text-amber-600" /> Facturar viaje</p>
+          <p className="flex items-center gap-2 text-lg font-bold text-gray-900"><Receipt size={20} className="text-amber-600" /> Facturar {noun === 'expedición' ? 'porte' : noun}</p>
           <button type="button" onClick={onClose} aria-label="Cerrar" className="p-2 text-gray-500"><X size={22} /></button>
         </div>
 
@@ -177,7 +210,7 @@ export default function TripInvoiceModal({ orgId, trip, matricula, onClose, onCr
                   <p className="flex justify-between text-gray-600"><span>IVA {iva} %</span><span>{eur(ivaImporte)}</span></p>
                   <p className="flex justify-between text-lg font-black text-gray-900"><span>Total</span><span>{eur(total)}</span></p>
                 </div>
-                {trip.precio_acordado != null && <p className="mt-1 text-xs text-gray-500">Precio acordado del viaje: {eur(Number(trip.precio_acordado))}. Compruebe si lo pactó con o sin IVA.</p>}
+                {target.precioAcordado != null && <p className="mt-1 text-xs text-gray-500">Precio acordado: {eur(Number(target.precioAcordado))}. Compruebe si lo pactó con o sin IVA.</p>}
               </div>
 
               <div className="rounded-2xl border border-gray-200 bg-white p-4">

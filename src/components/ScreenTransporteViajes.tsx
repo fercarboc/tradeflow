@@ -39,6 +39,7 @@ import type { TradeWorker } from '../lib/supabase';
 import TransportLocationForm from './TransportLocationForm';
 import TripRouteMap from './TripRouteMap';
 import TripInvoiceModal from './transport-billing/TripInvoiceModal';
+import TripShipmentsPanel from './transport-shipments/TripShipmentsPanel';
 import { loadTripInvoice, invoiceStateLabel } from '../lib/transportBilling';
 import { supabase, type TradeInvoice } from '../lib/supabase';
 import type { RoutingProfile } from '../lib/geoApi';
@@ -620,6 +621,7 @@ function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDelet
     return () => { alive = false; };
   }, [orgId, trip.id]);
   const matriculaViaje = vehicles.find(v => v.id === trip.vehicle_id)?.matricula ?? null;
+  const [expInfo, setExpInfo] = useState<{ total: number; facturadas: number }>({ total: 0, facturadas: 0 });
   const [editing, setEditing] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const [starting, setStarting]     = useState(false);
@@ -650,11 +652,14 @@ function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDelet
   }
 
   async function handleStart() {
+    const odo = window.prompt('Kilómetros del cuentakilómetros al salir (opcional):', '');
+    if (odo === null) return;
+    const odometro = odo.trim() ? parseInt(odo.replace(/\D/g, ''), 10) : null;
     setStarting(true);
     setActionError(null);
     try {
-      await startTransportTrip(trip.id, orgId);
-      onUpdated({ ...trip, estado: 'en_curso' });
+      await startTransportTrip(trip.id, orgId, Number.isFinite(odometro as number) ? odometro : null);
+      onUpdated({ ...trip, estado: 'en_curso', odometro_inicio: odometro ?? trip.odometro_inicio, hora_real_salida: trip.hora_real_salida ?? new Date().toISOString() });
     } catch (err) {
       setActionError((err as Error).message);
     } finally {
@@ -860,7 +865,24 @@ function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDelet
         </div>
       )}
 
+      {/* Expediciones y paradas del viaje */}
+      <TripShipmentsPanel
+        orgId={orgId}
+        tripId={trip.id}
+        onLoaded={setExpInfo}
+        canApplyLoad={trip.estado !== 'completado' && trip.estado !== 'cancelado'}
+        onApplyLoad={async load => {
+          try { onUpdated(await updateTransportTrip(trip.id, orgId, load)); }
+          catch (err) { setActionError((err as Error).message); }
+        }}
+      />
+
       {/* Facturación */}
+      {facturaCargada && trip.estado !== 'cancelado' && !factura && expInfo.facturadas > 0 && (
+        <p className="rounded-lg bg-yellow-50 px-3 py-2 text-xs text-yellow-900">
+          {expInfo.facturadas} de {expInfo.total} expediciones ya se han facturado por separado (grupaje). Facture el viaje completo solo si es un único porte para un cliente.
+        </p>
+      )}
       {facturaCargada && trip.estado !== 'cancelado' && (
         factura ? (
           <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2.5">
@@ -887,7 +909,7 @@ function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDelet
           <button
             onClick={handleConfirm}
             disabled={confirming}
-            className="flex-1 min-w-[120px] py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center justify-center gap-2"
+            className="flex-1 min-w-[140px] py-3 text-sm font-semibold bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:opacity-50 flex items-center justify-center gap-2"
           >
             {confirming ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle className="w-4 h-4" />}
             Confirmar
@@ -897,7 +919,7 @@ function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDelet
           <button
             onClick={handleStart}
             disabled={starting}
-            className="flex-1 min-w-[120px] py-2 text-sm bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 flex items-center justify-center gap-2"
+            className="flex-1 min-w-[140px] py-3 text-sm font-semibold bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 disabled:opacity-50 flex items-center justify-center gap-2"
           >
             {starting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Truck className="w-4 h-4" />}
             Iniciar
@@ -906,7 +928,7 @@ function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDelet
         {canCompleteTrip(trip.estado) && (
           <button
             onClick={() => setShowParte(true)}
-            className="flex-1 min-w-[120px] py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 flex items-center justify-center gap-2"
+            className="flex-1 min-w-[140px] py-3 text-sm font-semibold bg-purple-600 text-white rounded-xl hover:bg-purple-700 flex items-center justify-center gap-2"
           >
             <CheckCircle className="w-4 h-4" />
             Completar
@@ -915,7 +937,7 @@ function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDelet
         {onEmitDeca && trip.estado !== 'cancelado' && trip.estado !== 'completado' && (
           <button
             onClick={() => onEmitDeca(trip)}
-            className="flex-1 min-w-[120px] py-2 text-sm border-2 border-amber-400 text-amber-900 font-semibold rounded-lg hover:bg-amber-50 flex items-center justify-center gap-2"
+            className="flex-1 min-w-[140px] py-3 text-sm font-semibold border-2 border-amber-400 text-amber-900 font-semibold rounded-xl hover:bg-amber-50 flex items-center justify-center gap-2"
           >
             <FileText className="w-4 h-4" />
             Emitir DeCA
@@ -924,7 +946,7 @@ function TripDetail({ trip, orgId, vehicles, workers, onBack, onUpdated, onDelet
         {onScanDeca && trip.estado !== 'cancelado' && trip.estado !== 'completado' && (
           <button
             onClick={() => onScanDeca(trip)}
-            className="flex-1 min-w-[120px] py-2 text-sm border-2 border-emerald-400 text-emerald-800 font-semibold rounded-lg hover:bg-emerald-50 flex items-center justify-center gap-2"
+            className="flex-1 min-w-[140px] py-3 text-sm font-semibold border-2 border-emerald-400 text-emerald-800 font-semibold rounded-xl hover:bg-emerald-50 flex items-center justify-center gap-2"
           >
             <QrCode className="w-4 h-4" />
             Cargar DeCA del cliente
@@ -983,9 +1005,26 @@ export interface ScreenTransporteViajesProps {
   onScanDeca?: (trip: TradeTransportTrip, vehicle: TradeVehicle | null) => void;
   /** TX-FACT-1: abrir Facturas. */
   onOpenInvoices?: () => void;
+  /** TX-CIERRE-1: abrir directamente «Nuevo viaje» (botón + del móvil). */
+  triggerNew?: number;
 }
 
-export default function ScreenTransporteViajes({ orgId, initialTripId, onDetailClosed, onEmitDeca, onScanDeca, onOpenInvoices }: ScreenTransporteViajesProps) {
+type FiltroFecha = 'proximos' | 'hoy' | 'semana' | 'mes' | 'todos';
+
+/** Rango de fechas (ISO) para el filtro rápido de la lista. */
+export function tripDateRange(f: FiltroFecha, now = new Date()): { desde?: string; hasta?: string } {
+  const d0 = new Date(now); d0.setHours(0, 0, 0, 0);
+  const plus = (days: number) => { const d = new Date(d0); d.setDate(d.getDate() + days); return d.toISOString(); };
+  switch (f) {
+    case 'hoy': return { desde: d0.toISOString(), hasta: plus(1) };
+    case 'proximos': return { desde: d0.toISOString() };
+    case 'semana': return { desde: plus(-7), hasta: plus(1) };
+    case 'mes': return { desde: plus(-31), hasta: plus(1) };
+    default: return {};
+  }
+}
+
+export default function ScreenTransporteViajes({ orgId, initialTripId, onDetailClosed, onEmitDeca, onScanDeca, onOpenInvoices, triggerNew }: ScreenTransporteViajesProps) {
   const [trips, setTrips]         = useState<TradeTransportTrip[]>([]);
   const [vehicles, setVehicles]   = useState<TradeVehicle[]>([]);
   const [workers, setWorkers]     = useState<TradeWorker[]>([]);
@@ -994,6 +1033,9 @@ export default function ScreenTransporteViajes({ orgId, initialTripId, onDetailC
   const [selected, setSelected]   = useState<TradeTransportTrip | null>(null);
   const [showForm, setShowForm]   = useState(false);
   const [filterEstado, setFilterEstado] = useState<TripEstado | ''>('');
+  const [filtroFecha, setFiltroFecha] = useState<FiltroFecha>('todos');
+  const [q, setQ] = useState('');
+  useEffect(() => { if (triggerNew) { setSelected(null); setShowForm(true); } }, [triggerNew]);
   // Track last processed initialTripId so consecutive Gantt clicks work correctly.
   // Resets to null when initialTripId becomes undefined (detail closed).
   const lastHandledTripId = React.useRef<string | null>(null);
@@ -1003,7 +1045,7 @@ export default function ScreenTransporteViajes({ orgId, initialTripId, onDetailC
     setError(null);
     try {
       const [tripsData, vehiclesData, workersData] = await Promise.all([
-        loadTransportTrips(orgId, filterEstado ? { estado: filterEstado as TripEstado } : {}),
+        loadTransportTrips(orgId, { ...(filterEstado ? { estado: filterEstado as TripEstado } : {}), ...tripDateRange(filtroFecha) }),
         loadVehiclesAll(orgId),
         loadWorkers(orgId),
       ]);
@@ -1031,9 +1073,20 @@ export default function ScreenTransporteViajes({ orgId, initialTripId, onDetailC
     } finally {
       setLoading(false);
     }
-  }, [orgId, filterEstado, initialTripId]);
+  }, [orgId, filterEstado, filtroFecha, initialTripId]);
 
   useEffect(() => { load(); }, [load]);
+
+  const visibles = React.useMemo(() => {
+    const t = q.trim().toLowerCase();
+    if (!t) return trips;
+    return trips.filter(trip => {
+      const v = vehicles.find(x => x.id === trip.vehicle_id);
+      const c = workers.find(x => x.id === trip.conductor_id);
+      return `${trip.referencia ?? ''} ${trip.titulo} ${trip.origen} ${trip.destino} ${trip.cliente_nombre ?? ''} ${v?.matricula ?? ''} ${c?.nombre ?? ''}`
+        .toLowerCase().includes(t);
+    });
+  }, [trips, q, vehicles, workers]);
 
   function handleTripUpdated(updated: TradeTransportTrip) {
     setTrips(prev => prev.map(t => t.id === updated.id ? updated : t));
@@ -1099,23 +1152,34 @@ export default function ScreenTransporteViajes({ orgId, initialTripId, onDetailC
       {/* Header */}
       <div className="flex items-center justify-between gap-2">
         <div>
-          <h2 className="text-sm font-semibold text-slate-900">Viajes de mercancías</h2>
-          <p className="text-xs text-slate-500">{trips.length} viaje{trips.length !== 1 ? 's' : ''}</p>
+          <h2 className="text-lg font-bold text-slate-900">Viajes de mercancías</h2>
+          <p className="text-sm text-slate-500">{visibles.length} viaje{visibles.length !== 1 ? 's' : ''}</p>
         </div>
         <button
           onClick={() => setShowForm(true)}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-amber-600 text-white rounded-lg hover:bg-amber-700"
+          className="flex items-center gap-1.5 px-4 py-2.5 text-sm font-bold bg-amber-600 text-white rounded-xl hover:bg-amber-700"
         >
-          <Plus className="w-3.5 h-3.5" /> Nuevo viaje
+          <Plus className="w-4 h-4" /> Nuevo viaje
         </button>
       </div>
 
       {/* Filtros */}
-      <div className="flex flex-wrap gap-2">
+      <input
+        type="search"
+        value={q}
+        onChange={e => setQ(e.target.value)}
+        placeholder="Buscar por referencia, cliente, lugar, matrícula o conductor"
+        className="w-full rounded-xl border-2 border-slate-200 bg-white px-3 py-2.5 text-base focus:border-amber-400 focus:outline-none"
+      />
+      <div className="flex gap-2 overflow-x-auto pb-1">
+        {([['todos', 'Todos'], ['hoy', 'Hoy'], ['proximos', 'Próximos'], ['semana', 'Últimos 7 días'], ['mes', 'Último mes']] as [FiltroFecha, string][]).map(([k, l]) => (
+          <button key={k} type="button" onClick={() => setFiltroFecha(k)}
+            className={`shrink-0 rounded-full border px-3 py-1.5 text-sm font-semibold ${filtroFecha === k ? 'border-amber-500 bg-amber-50 text-amber-800' : 'border-slate-200 bg-white text-slate-600'}`}>{l}</button>
+        ))}
         <select
           value={filterEstado}
           onChange={e => setFilterEstado(e.target.value as TripEstado | '')}
-          className="px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-500 bg-white"
+          className="shrink-0 px-3 py-1.5 text-sm border border-slate-200 rounded-full focus:outline-none focus:ring-1 focus:ring-amber-500 bg-white"
         >
           <option value="">Todos los estados</option>
           {TRIP_ESTADOS.map(e => (
@@ -1133,37 +1197,37 @@ export default function ScreenTransporteViajes({ orgId, initialTripId, onDetailC
         <div className="text-xs text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-3 flex gap-2">
           <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" /> {error}
         </div>
-      ) : trips.length === 0 ? (
+      ) : visibles.length === 0 ? (
         <div className="text-center py-16 text-slate-400">
           <Truck className="w-10 h-10 mx-auto mb-3 opacity-30" />
-          <p className="text-sm font-medium">Sin viajes registrados</p>
-          <p className="text-xs mt-1">Crea el primer viaje de mercancías con el botón de arriba</p>
+          <p className="text-sm font-medium">{trips.length === 0 && !q && filtroFecha === 'todos' && !filterEstado ? 'Sin viajes registrados' : 'Ningún viaje con estos filtros'}</p>
+          {trips.length === 0 && !q && filtroFecha === 'todos' && !filterEstado && <p className="text-xs mt-1">Crea el primer viaje de mercancías con el botón de arriba</p>}
         </div>
       ) : (
         <div className="space-y-2">
-          {trips.map(trip => {
+          {visibles.map(trip => {
             const vehicle = vehicles.find(v => v.id === trip.vehicle_id);
             const meta = getTripEstadoMeta(trip.estado);
             return (
               <button
                 key={trip.id}
                 onClick={() => setSelected(trip)}
-                className="w-full text-left border border-slate-200 rounded-xl p-3 hover:border-amber-300 hover:bg-amber-50/30 transition-colors"
+                className="w-full text-left bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:border-amber-300 hover:bg-amber-50/30 active:bg-amber-50 transition-colors"
               >
                 <div className="flex items-start justify-between gap-2 mb-1.5">
-                  <span className="text-sm font-medium text-slate-800 truncate">{trip.titulo}</span>
+                  <span className="text-base font-bold text-slate-900 truncate">{trip.referencia ? `${trip.referencia} · ` : ''}{trip.titulo}</span>
                   <EstadoBadge estado={trip.estado} />
                 </div>
-                <div className="flex items-center gap-1.5 text-xs text-slate-500 mb-1">
-                  <MapPin className="w-3 h-3 shrink-0" />
+                <div className="flex items-center gap-1.5 text-sm text-slate-600 mb-1">
+                  <MapPin className="w-3.5 h-3.5 shrink-0" />
                   <span className="truncate">{trip.origen}</span>
                   <ArrowRight className="w-3 h-3 shrink-0" />
                   <span className="truncate">{trip.destino}</span>
                 </div>
                 <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-1.5 text-xs text-slate-400">
-                    <Clock className="w-3 h-3" />
-                    {fmtDate(trip.fecha_inicio)}
+                  <div className="flex items-center gap-1.5 text-sm text-slate-500">
+                    <Clock className="w-3.5 h-3.5" />
+                    {fmtDate(trip.fecha_inicio)}{trip.cliente_nombre ? ` · ${trip.cliente_nombre}` : ''}
                   </div>
                   <div className="flex items-center gap-1.5">
                     <TipoCargaBadge tipo={trip.tipo_carga} />

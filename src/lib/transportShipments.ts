@@ -51,12 +51,22 @@ export interface TradeTransportShipment {
   receptor_nombre: string | null;
   incidencia: string | null;
   observaciones: string | null;
+  /** Precio pactado con el cargador (grupaje: se factura por expedición). */
+  precio_acordado?: number | null;
+  // ── Prueba de entrega (TX-CIERRE-1) ──
+  receptor_dni?: string | null;
+  firma_path?: string | null;
+  fotos?: string[];
+  entrega_lat?: number | null;
+  entrega_lng?: number | null;
+  entregada_por?: string | null;
   created_at: string;
   updated_at: string;
 }
 
 export type ShipmentInput = Omit<TradeTransportShipment,
-  'id' | 'org_id' | 'referencia' | 'estado' | 'recogida_at' | 'entregada_at' | 'receptor_nombre' | 'incidencia' | 'created_at' | 'updated_at'>;
+  'id' | 'org_id' | 'referencia' | 'estado' | 'recogida_at' | 'entregada_at' | 'receptor_nombre' | 'incidencia' | 'created_at' | 'updated_at'
+  | 'receptor_dni' | 'firma_path' | 'fotos' | 'entrega_lat' | 'entrega_lng' | 'entregada_por'>;
 
 export function emptyShipmentInput(fecha: string): ShipmentInput {
   return {
@@ -66,7 +76,7 @@ export function emptyShipmentInput(fecha: string): ShipmentInput {
     origen: '', destino: '', fecha_recogida: fecha, hora_recogida: null,
     naturaleza: '', tipo_carga: 'carga_general',
     peso_kg: null, num_bultos: null, volumen_m3: null, referencia_cargador: null,
-    observaciones: null,
+    observaciones: null, precio_acordado: null,
   };
 }
 
@@ -79,6 +89,7 @@ export function validateShipment(i: Partial<ShipmentInput>): string | null {
   if (!i.naturaleza?.trim()) return 'Indique qué mercancía es';
   if (i.peso_kg != null && (i.peso_kg < 0 || i.peso_kg > 100000)) return 'El peso no es válido';
   if (i.num_bultos != null && i.num_bultos < 0) return 'El número de bultos no es válido';
+  if (i.precio_acordado != null && (!Number.isFinite(i.precio_acordado) || i.precio_acordado < 0)) return 'El precio no es válido';
   return null;
 }
 
@@ -121,6 +132,71 @@ export const markIncident  = (orgId: string, id: string, texto: string) =>
   updateShipment(orgId, id, { estado: 'incidencia', incidencia: texto });
 export const cancelShipment = (orgId: string, id: string) => updateShipment(orgId, id, { estado: 'cancelada' });
 export const assignTrip    = (orgId: string, id: string, tripId: string | null) => updateShipment(orgId, id, { trip_id: tripId });
+
+// ── Prueba de entrega (firma, fotos, DNI y posición) ─────────────────────────
+
+export const POD_BUCKET = 'transport-pod';
+
+export interface DeliveryProof {
+  receptor: string;
+  dni?: string | null;
+  firma?: Blob | null;
+  fotos?: Blob[];
+  lat?: number | null;
+  lng?: number | null;
+}
+
+/** Reduce una foto a un JPEG de 1600 px como máximo (las del móvil pesan varios MB). */
+export async function compressPhoto(file: Blob, max = 1600, quality = 0.8): Promise<Blob> {
+  try {
+    const bmp = await createImageBitmap(file);
+    const scale = Math.min(1, max / Math.max(bmp.width, bmp.height));
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(bmp.width * scale);
+    canvas.height = Math.round(bmp.height * scale);
+    canvas.getContext('2d')!.drawImage(bmp, 0, 0, canvas.width, canvas.height);
+    const out = await new Promise<Blob | null>(res => canvas.toBlob(res, 'image/jpeg', quality));
+    return out ?? file;
+  } catch {
+    return file;
+  }
+}
+
+async function uploadPod(orgId: string, shipmentId: string, blob: Blob, nombre: string): Promise<string> {
+  const path = `${orgId}/${shipmentId}/${Date.now()}-${nombre}`;
+  const { error } = await supabase.storage.from(POD_BUCKET).upload(path, blob, {
+    contentType: blob.type || 'image/jpeg', upsert: false,
+  });
+  if (error) throw new Error('No se pudo guardar la prueba de entrega: ' + error.message);
+  return path;
+}
+
+/** Marca la expedición como entregada con su prueba de entrega. */
+export async function markDeliveredWithProof(orgId: string, id: string, proof: DeliveryProof): Promise<TradeTransportShipment> {
+  if (!proof.receptor.trim()) throw new Error('Indique el nombre de quien recibe');
+  const firma_path = proof.firma ? await uploadPod(orgId, id, proof.firma, 'firma.png') : null;
+  const fotos: string[] = [];
+  for (const [i, f] of (proof.fotos ?? []).slice(0, 4).entries()) {
+    fotos.push(await uploadPod(orgId, id, await compressPhoto(f), `foto-${i + 1}.jpg`));
+  }
+  return updateShipment(orgId, id, {
+    estado: 'entregada',
+    receptor_nombre: proof.receptor.trim(),
+    receptor_dni: proof.dni?.trim().toUpperCase() || null,
+    firma_path, fotos,
+    entrega_lat: proof.lat ?? null, entrega_lng: proof.lng ?? null,
+  });
+}
+
+/** Enlace temporal (10 min) para ver un archivo de la prueba de entrega. */
+export async function podSignedUrl(path: string): Promise<string | null> {
+  const { data } = await supabase.storage.from(POD_BUCKET).createSignedUrl(path, 600);
+  return data?.signedUrl ?? null;
+}
+
+export function hasDeliveryProof(s: TradeTransportShipment): boolean {
+  return !!(s.firma_path || (s.fotos && s.fotos.length) || s.receptor_dni);
+}
 
 export function canEditShipment(s: TradeTransportShipment) { return s.estado === 'pendiente'; }
 export function canPick(s: TradeTransportShipment) { return s.estado === 'pendiente' || s.estado === 'incidencia'; }
