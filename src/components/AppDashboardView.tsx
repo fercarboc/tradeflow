@@ -1779,6 +1779,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [photoScanPhase, setPhotoScanPhase] = useState<'idle' | 'scanning' | 'intent'>('idle');
   const [photoScene, setPhotoScene] = useState<{ descripcion: string; acciones: string[] } | null>(null);
   const [pendingPhotoQuote, setPendingPhotoQuote] = useState<AIQuote | null>(null);
+  // Foto ya analizada (base64) para regenerar partidas de la acción elegida sin volver a subirla
+  const photoB64Ref = useRef<string | null>(null);
+  const [photoAccionLoading, setPhotoAccionLoading] = useState<string | null>(null);
   const scanProgressIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const photoInputRef = useRef<HTMLInputElement>(null);
   const photoCameraRef = useRef<HTMLInputElement>(null);
@@ -1844,6 +1847,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           img.onerror = reject;
           img.src = url;
         });
+        photoB64Ref.current = base64;
         setScanProgress(40);
         // Animar lentamente de 40% → 88% mientras espera la respuesta de la API
         if (scanProgressIntervalRef.current) clearInterval(scanProgressIntervalRef.current);
@@ -1938,13 +1942,36 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     }, 100);
   };
 
-  const handleApplyPhotoResult = (accion?: string) => {
-    if (!pendingPhotoQuote) return;
-    const partidas = quoteToPartidas(pendingPhotoQuote);
+  const handleApplyPhotoResult = async (accion?: string) => {
+    if (!pendingPhotoQuote || photoAccionLoading) return;
+    let baseQuote: AIQuote = pendingPhotoQuote;
+    // Las partidas del primer análisis corresponden a la primera acción. Si se elige otra
+    // (p. ej. pintar el techo en vez de cambiar la luminaria), se regeneran para ese trabajo.
+    if (accion && accion !== photoScene?.acciones[0] && photoB64Ref.current) {
+      setPhotoAccionLoading(accion);
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/trade-photo-scan`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${session?.access_token ?? ''}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ image_base64: photoB64Ref.current, mime_type: 'image/jpeg', accion }),
+        });
+        const json = await res.json().catch(() => ({})) as { quote?: AIQuote; error?: string };
+        if (!res.ok || !json.quote) throw new Error(json.error ?? `HTTP ${res.status}`);
+        if (!Array.isArray(json.quote.partidas)) json.quote.partidas = [];
+        baseQuote = json.quote;
+      } catch (e) {
+        showToast('No se pudieron generar las partidas de ese trabajo: ' + (e as Error).message, 'error');
+        setPhotoAccionLoading(null);
+        return;
+      }
+      setPhotoAccionLoading(null);
+    }
+    const partidas = quoteToPartidas(baseQuote);
     const total = partidas.reduce((s, p) => s + p.total, 0);
-    const descBase = typeof pendingPhotoQuote.resumen === 'string'
-      ? pendingPhotoQuote.resumen
-      : (pendingPhotoQuote.resumen as any)?.texto_original ?? '';
+    const descBase = typeof baseQuote.resumen === 'string'
+      ? baseQuote.resumen
+      : (baseQuote.resumen as any)?.texto_original ?? '';
     setWizardQuote(prev => ({
       ...prev,
       descripcion: accion ?? descBase.slice(0, 120),
@@ -1955,6 +1982,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setPhotoScanPhase('idle');
     setPhotoScene(null);
     setPendingPhotoQuote(null);
+    photoB64Ref.current = null;
     setRealPhotoFile(null);
     setRealPhotoPreviewUrl(null);
     setScanProgress(0);
@@ -6849,9 +6877,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       <button
                         key={accion}
                         onClick={() => handleApplyPhotoResult(accion)}
-                        className="w-full text-left text-sm bg-white border border-blue-300 text-blue-900 font-semibold px-3 py-3 rounded-xl active:bg-blue-600 active:text-white cursor-pointer"
+                        disabled={!!photoAccionLoading}
+                        className="w-full text-left text-sm bg-white border border-blue-300 text-blue-900 font-semibold px-3 py-3 rounded-xl active:bg-blue-600 active:text-white cursor-pointer disabled:opacity-60"
                       >
-                        {accion}
+                        {photoAccionLoading === accion ? 'Preparando partidas…' : accion}
                       </button>
                     ))}
                     <button
@@ -9077,9 +9106,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       <button
                         key={accion}
                         onClick={() => handleApplyPhotoResult(accion)}
-                        className="text-[11px] bg-white border border-blue-300 text-blue-800 font-semibold px-3 py-2 rounded-xl hover:bg-blue-600 hover:text-white hover:border-blue-600 cursor-pointer transition-colors"
+                        disabled={!!photoAccionLoading}
+                        className="text-[11px] bg-white border border-blue-300 text-blue-800 font-semibold px-3 py-2 rounded-xl hover:bg-blue-600 hover:text-white hover:border-blue-600 cursor-pointer transition-colors disabled:opacity-60"
                       >
-                        {accion}
+                        {photoAccionLoading === accion ? 'Preparando partidas…' : accion}
                       </button>
                     ))}
                   </div>
