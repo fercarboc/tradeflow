@@ -212,6 +212,28 @@ export default function MobileHomeHub({
           </div>
         )}
 
+        {/* ── Hero: bienvenida (sin trabajos planificados) ── */}
+        {!nextJob && (
+          <div className="mx-4 mb-4 rounded-2xl bg-blue-600 overflow-hidden relative min-h-[148px]">
+            <div className="p-4 pr-36">
+              <span className="text-[10px] font-bold text-blue-200 uppercase tracking-wider">Bienvenido a TrabFlow</span>
+              <h2 className="text-white font-bold text-lg leading-tight mt-1.5 mb-1">
+                Tu día, organizado
+              </h2>
+              <p className="text-blue-100 text-xs leading-snug">
+                No tienes trabajos planificados. Crea un presupuesto y, cuando el cliente lo acepte, planifica el trabajo.
+              </p>
+            </div>
+            <img
+              src={getOficioImage(oficioOrg)}
+              alt=""
+              aria-hidden="true"
+              className="absolute right-0 top-0 h-full w-36 object-cover object-top"
+              onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/oficio-generic.svg'; }}
+            />
+          </div>
+        )}
+
         {/* ── CTA: Crear presupuesto ── */}
         {onCreateQuote && (
           <button
