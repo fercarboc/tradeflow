@@ -8,7 +8,11 @@ interface Props {
 }
 
 function fmtEur(n: number) {
-  return n.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
+  return Number(n ?? 0).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
+}
+
+function fmtCantidad(n: number) {
+  return Number(n ?? 0).toLocaleString('es-ES', { maximumFractionDigits: 2 });
 }
 
 export default function QuoteAcceptView({ token }: Props) {
@@ -107,29 +111,31 @@ export default function QuoteAcceptView({ token }: Props) {
 
           {/* Partidas */}
           <div className="h-px bg-slate-100" />
-          <table className="w-full text-xs">
-            <thead>
-              <tr className="text-slate-400 font-bold uppercase tracking-wider text-[10px]">
-                <th className="text-left pb-2">Concepto</th>
-                <th className="text-right pb-2">Cant.</th>
-                <th className="text-right pb-2">Total</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-50">
+          {/* Cada partida: concepto, «cantidad × precio» debajo y el total a la derecha (sin columnas que se junten en móvil) */}
+          <div>
+            <div className="flex justify-between text-slate-400 font-bold uppercase tracking-wider text-[10px] pb-2">
+              <span>Concepto</span>
+              <span>Importe</span>
+            </div>
+            <ul className="divide-y divide-slate-100">
               {(quote.partidas ?? []).map((p, i) => (
-                <tr key={i}>
-                  <td className="py-2 text-slate-700 pr-4">{p.descripcion}</td>
-                  <td className="py-2 text-right text-slate-500 whitespace-nowrap">{p.cantidad}</td>
-                  <td className="py-2 text-right font-mono font-bold text-slate-900 whitespace-nowrap">{fmtEur(p.total)}</td>
-                </tr>
+                <li key={i} className="flex justify-between items-start gap-4 py-2.5">
+                  <div className="min-w-0">
+                    <p className="text-xs text-slate-700">{p.descripcion}</p>
+                    <p className="text-[11px] text-slate-400 mt-0.5 tabular-nums">
+                      {fmtCantidad(p.cantidad)} × {fmtEur(p.precioUnitario)}
+                    </p>
+                  </div>
+                  <span className="text-xs font-bold text-slate-900 whitespace-nowrap tabular-nums shrink-0">{fmtEur(p.total)}</span>
+                </li>
               ))}
-            </tbody>
-          </table>
+            </ul>
+          </div>
 
           <div className="h-px bg-slate-200" />
           <div className="flex justify-between items-center">
             <span className="text-sm font-black text-slate-900 uppercase tracking-wide">Total</span>
-            <span className="text-lg font-black text-slate-900">{fmtEur(quote.total ?? 0)}</span>
+            <span className="text-lg font-black text-slate-900 tabular-nums">{fmtEur(quote.total ?? 0)}</span>
           </div>
         </div>
 
