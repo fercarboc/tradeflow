@@ -173,6 +173,12 @@ JSON válido. Sin markdown. Sin texto fuera del JSON.
     "Sustitución de lavabo y grifería",
     "Impermeabilización de paredes"
   ],
+  "acciones_oficio": [
+    { "oficio": "Fontanería", "del_profesional": true },
+    { "oficio": "Reformas", "del_profesional": false },
+    { "oficio": "Fontanería", "del_profesional": true },
+    { "oficio": "Albañilería", "del_profesional": false }
+  ],
   "oficio": "",
   "tipo_trabajo": "",
   "resumen": "",
@@ -212,7 +218,10 @@ Reglas para scene_detectada y acciones_sugeridas:
   * Climatización/calefacción: revisión o sustitución de equipos y radiadores
 - Si se indica el OFICIO DEL PROFESIONAL, las 2-3 primeras acciones deben ser de ese oficio (siempre que la foto lo permita);
   el resto, de otros oficios visibles.
-- partidas: corresponden a la PRIMERA acción de acciones_sugeridas (o a la acción concreta que se pida).
+- acciones_oficio: mismo orden y longitud que acciones_sugeridas. "oficio" = oficio al que pertenece cada acción.
+  "del_profesional" = true si ese oficio está entre los OFICIOS DEL PROFESIONAL indicados (o si no se indicó ninguno).
+- partidas: si se pide una acción concreta, SOLO las de esa acción (nada de otros oficios ni de otras acciones).
+  Si no se pide ninguna, las de TODAS las acciones sugeridas, resumidas (máximo 3 partidas por acción y 18 en total).
 
 Unidades válidas: "ud" | "ml" | "m" | "m2" | "m3" | "h" | "kg" | "jornada" | "kit"
 nivel_confianza: "alto" | "medio" | "bajo"
@@ -301,7 +310,7 @@ Deno.serve(async (req: Request) => {
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-6',
-        max_tokens: 3000,
+        max_tokens: 4000,
         system: AI_SYSTEM_PROMPT,
         messages: [{
           role: 'user',
@@ -316,7 +325,7 @@ Deno.serve(async (req: Request) => {
                 oficio ? `OFICIO DEL PROFESIONAL: ${oficio.slice(0, 80)}.` : 'Oficio del profesional: no indicado.',
                 accion
                   ? `El profesional quiere presupuestar exactamente este trabajo: «${accion}». Genera las partidas SOLO de ese trabajo (con desmontajes, materiales, mano de obra y residuos si aplican). Mantén scene_detectada y acciones_sugeridas.`
-                  : 'Primero identifica con máxima precisión todo lo visible (no confundas elementos similares). Propón trabajos de los distintos oficios posibles y genera las partidas de la primera acción.',
+                  : 'Primero identifica con máxima precisión todo lo visible (no confundas elementos similares). Propón trabajos de los distintos oficios posibles y genera las partidas de todas las acciones sugeridas.',
               ].join('\n'),
             },
           ],
