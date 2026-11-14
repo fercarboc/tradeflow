@@ -2865,7 +2865,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                           <span className={`text-xs font-bold shrink-0 ${t.days_left <= 1 ? 'text-red-400' : t.days_left <= 3 ? 'text-yellow-400' : 'text-slate-300'}`}>
                             {t.days_left === 0 ? 'Vence hoy' : `${t.days_left}d`}
                           </span>
-                          <a href={`mailto:${t.owner_email}?subject=Tu periodo de prueba en TradeFlow está por terminar&body=Hola, te recordamos que tu prueba gratuita vence en ${t.days_left} día${t.days_left !== 1 ? 's' : ''}. ¿Tienes alguna duda antes de activar tu plan?`}
+                          <a href={`mailto:${t.owner_email}?subject=Tu periodo de prueba en TrabFlow está por terminar&body=Hola, te recordamos que tu prueba gratuita vence en ${t.days_left} día${t.days_left !== 1 ? 's' : ''}. ¿Tienes alguna duda antes de activar tu plan?`}
                             className="flex items-center gap-1 px-2 py-1 rounded text-[9px] font-bold uppercase cursor-pointer border bg-slate-700 border-slate-600 text-slate-300 hover:bg-blue-900/40 hover:border-blue-700 hover:text-blue-300 transition-colors"
                             title="Enviar email">
                             <Mail className="h-2.5 w-2.5" /> Email
@@ -2945,7 +2945,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
                               topic,
-                              title: 'Test — TradeFlow Admin',
+                              title: 'Test — TrabFlow Admin',
                               message: 'Prueba de notificación desde el panel de administración ✓',
                               tags: ['white_check_mark'],
                               priority: 3,

@@ -165,7 +165,7 @@ export default function LandingFooter({ setCurrentPage }: LandingFooterProps) {
         {/* Bottom bar */}
         <div className="border-t border-white/8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-white/25">
-            © 2026 TradeFlow Technologies, S.L. Todos los derechos reservados.
+            © 2026 TrabFlow. Todos los derechos reservados.
           </p>
           <p className="text-xs text-white/20 flex items-center gap-1">
             Hecho en España 🇪🇸

@@ -82,7 +82,7 @@ export default function QuoteAcceptView({ token }: Props) {
         {/* Header empresa */}
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
           <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Presupuesto</p>
-          <h1 className="text-lg font-black text-slate-900">{quote.empresa ?? 'TradeFlow'}</h1>
+          <h1 className="text-lg font-black text-slate-900">{quote.empresa ?? 'TrabFlow'}</h1>
           {quote.emailEmpresa && <p className="text-xs text-slate-500 mt-0.5">{quote.emailEmpresa}</p>}
           {quote.telefonoEmpresa && <p className="text-xs text-slate-500">{quote.telefonoEmpresa}</p>}
         </div>
@@ -180,7 +180,7 @@ export default function QuoteAcceptView({ token }: Props) {
           </div>
         )}
 
-        <p className="text-center text-[10px] text-slate-400 pb-4">Gestionado con TradeFlow · trabflow.com</p>
+        <p className="text-center text-[10px] text-slate-400 pb-4">Gestionado con TrabFlow · trabflow.com</p>
       </div>
     </div>
   );

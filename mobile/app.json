@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "TradeFlow AI",
+    "name": "TrabFlow AI",
     "slug": "tradeflow-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,7 +15,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "ai.tradeflow.mobile",
       "infoPlist": {
-        "NSMicrophoneUsageDescription": "TradeFlow necesita acceso al micrófono para dictar presupuestos por voz."
+        "NSMicrophoneUsageDescription": "TrabFlow necesita acceso al micrófono para dictar presupuestos por voz."
       }
     },
     "android": {

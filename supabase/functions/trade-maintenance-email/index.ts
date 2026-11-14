@@ -101,9 +101,9 @@ Deno.serve(async (req: Request) => {
       <tr><td style="padding:12px 0 0;font-weight:700">Cuota mensual + IVA</td><td style="padding:12px 0 0;text-align:right;font-weight:700;font-size:20px;color:#2563eb">${fmtEur(conIva)}</td></tr>
     </table>
     ${p.descripcion_servicios ? `<div style="margin:20px 0;background:#f8fafc;border-radius:8px;padding:16px"><p style="margin:0 0 6px;font-size:12px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em">Servicios incluidos</p><p style="margin:0;font-size:13px;color:#475569;line-height:1.6">${p.descripcion_servicios as string}</p></div>` : ''}
-    <p style="margin:24px 0 0;font-size:13px;color:#64748b">Accede a <a href="https://app.trabflow.com" style="color:#2563eb">TradeFlow</a> para gestionar este presupuesto.</p>
+    <p style="margin:24px 0 0;font-size:13px;color:#64748b">Accede a <a href="https://app.trabflow.com" style="color:#2563eb">TrabFlow</a> para gestionar este presupuesto.</p>
   </div>
-  <div style="background:#f8fafc;padding:16px 32px;font-size:12px;color:#94a3b8;border-top:1px solid #e2e8f0">TradeFlow · trabflow.com</div>
+  <div style="background:#f8fafc;padding:16px 32px;font-size:12px;color:#94a3b8;border-top:1px solid #e2e8f0">TrabFlow · trabflow.com</div>
 </body></html>`;
 
     // ── contrato_activado ──────────────────────────────────────────────────────
@@ -137,9 +137,9 @@ Deno.serve(async (req: Request) => {
       <tr><td style="padding:10px 0;border-bottom:1px solid #e2e8f0;color:#64748b">Cuota mensual (neto)</td><td style="padding:10px 0;border-bottom:1px solid #e2e8f0;text-align:right">${fmtEur(cuota)}</td></tr>
       <tr><td style="padding:12px 0 0;font-weight:700">Cuota mensual + IVA</td><td style="padding:12px 0 0;text-align:right;font-weight:700;font-size:20px;color:#059669">${fmtEur(conIva)}</td></tr>
     </table>
-    <p style="margin:24px 0 0;font-size:13px;color:#64748b">Accede a <a href="https://app.trabflow.com" style="color:#059669">TradeFlow</a> para ver el contrato.</p>
+    <p style="margin:24px 0 0;font-size:13px;color:#64748b">Accede a <a href="https://app.trabflow.com" style="color:#059669">TrabFlow</a> para ver el contrato.</p>
   </div>
-  <div style="background:#f8fafc;padding:16px 32px;font-size:12px;color:#94a3b8;border-top:1px solid #e2e8f0">TradeFlow · trabflow.com</div>
+  <div style="background:#f8fafc;padding:16px 32px;font-size:12px;color:#94a3b8;border-top:1px solid #e2e8f0">TrabFlow · trabflow.com</div>
 </body></html>`;
 
     // ── factura_pendiente ──────────────────────────────────────────────────────
@@ -171,9 +171,9 @@ Deno.serve(async (req: Request) => {
       <tr><td style="padding:12px 0 0;font-weight:700">Total con IVA</td><td style="padding:12px 0 0;text-align:right;font-weight:700;font-size:20px;color:#2563eb">${fmtEur(Number(f.total_con_iva))}</td></tr>
     </table>
     ${f.fecha_vencimiento ? `<p style="margin:20px 0 0;font-size:13px;color:#64748b">Fecha de vencimiento: <strong>${fmtDate(f.fecha_vencimiento as string)}</strong></p>` : ''}
-    <p style="margin:12px 0 0;font-size:13px;color:#64748b">Accede a <a href="https://app.trabflow.com" style="color:#2563eb">TradeFlow</a> para gestionar esta factura.</p>
+    <p style="margin:12px 0 0;font-size:13px;color:#64748b">Accede a <a href="https://app.trabflow.com" style="color:#2563eb">TrabFlow</a> para gestionar esta factura.</p>
   </div>
-  <div style="background:#f8fafc;padding:16px 32px;font-size:12px;color:#94a3b8;border-top:1px solid #e2e8f0">TradeFlow · trabflow.com</div>
+  <div style="background:#f8fafc;padding:16px 32px;font-size:12px;color:#94a3b8;border-top:1px solid #e2e8f0">TrabFlow · trabflow.com</div>
 </body></html>`;
     } else {
       return new Response(JSON.stringify({ error: 'Tipo desconocido' }), { status: 400, headers: cors(req) });

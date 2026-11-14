@@ -312,7 +312,7 @@ Deno.serve(async (req: Request) => {
     <p style="margin:4px 0 0;color:#94a3b8;font-size:13px">${org.nombre}</p>
   </div>
   <div style="padding:32px">
-    <p style="margin:0 0 16px;color:#475569">Se ha generado automáticamente un borrador de factura. <strong>Revísalo y emítelo desde TradeFlow.</strong></p>
+    <p style="margin:0 0 16px;color:#475569">Se ha generado automáticamente un borrador de factura. <strong>Revísalo y emítelo desde TrabFlow.</strong></p>
     <table style="width:100%;border-collapse:collapse">
       <tr><td style="padding:10px 0;border-bottom:1px solid #e2e8f0;color:#64748b">Contrato</td><td style="padding:10px 0;border-bottom:1px solid #e2e8f0;text-align:right;font-weight:700">${contrato.numero}</td></tr>
       <tr><td style="padding:10px 0;border-bottom:1px solid #e2e8f0;color:#64748b">Cliente</td><td style="padding:10px 0;border-bottom:1px solid #e2e8f0;text-align:right">${cliente}</td></tr>
@@ -321,10 +321,10 @@ Deno.serve(async (req: Request) => {
       <tr><td style="padding:10px 0;border-bottom:1px solid #e2e8f0;color:#64748b">IVA (${ivaPct}%)</td><td style="padding:10px 0;border-bottom:1px solid #e2e8f0;text-align:right">${fmtEur(ivaImporte)}</td></tr>
       <tr><td style="padding:12px 0 0;font-weight:700">Total con IVA</td><td style="padding:12px 0 0;text-align:right;font-weight:700;font-size:20px;color:#2563eb">${fmtEur(total)}</td></tr>
     </table>
-    <p style="margin:24px 0 0;font-size:13px;color:#64748b">Accede a <a href="https://app.trabflow.com" style="color:#2563eb">TradeFlow</a> para revisar el borrador, completar los datos si es necesario y emitir la factura.</p>
+    <p style="margin:24px 0 0;font-size:13px;color:#64748b">Accede a <a href="https://app.trabflow.com" style="color:#2563eb">TrabFlow</a> para revisar el borrador, completar los datos si es necesario y emitir la factura.</p>
   </div>
   <div style="background:#f8fafc;padding:16px 32px;font-size:12px;color:#94a3b8;border-top:1px solid #e2e8f0">
-    Generado automáticamente · TradeFlow · trabflow.com
+    Generado automáticamente · TrabFlow · trabflow.com
   </div>
 </body></html>`,
             }),

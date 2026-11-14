@@ -39,7 +39,7 @@ export default function DemoAsistente({ onNext }: Props) {
         >
           <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-            Asistente IA — TradeFlow
+            Asistente IA — TrabFlow
           </div>
           <h2 className="text-2xl font-black text-white">¿Qué necesitas hacer?</h2>
         </motion.div>

@@ -39,7 +39,7 @@ export default function TabsLayout() {
         name="dashboard"
         options={{
           title: 'Inicio',
-          headerTitle: 'Panel TradeFlow AI',
+          headerTitle: 'Panel TrabFlow AI',
           tabBarIcon: ({ color, size }) => <LayoutDashboard size={22} color={color} />,
         }}
       />

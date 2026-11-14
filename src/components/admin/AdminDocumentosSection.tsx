@@ -526,9 +526,9 @@ function EntityModal({ entity, onSave, onClose }: {
             </div>
           </div>
           <div>
-            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Encaje TradeFlow</label>
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Encaje TrabFlow</label>
             <input value={form.encaje_tradeflow ?? ''} onChange={e => f('encaje_tradeflow', e.target.value)}
-              placeholder="Por qué es estratégico para TradeFlow"
+              placeholder="Por qué es estratégico para TrabFlow"
               className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
           </div>
           <div>
@@ -814,7 +814,7 @@ function EntityDetailPanel({ entity, docs, onEdit, onEmail, onClose, toast }: {
             <div className="p-5 space-y-4">
               {entity.encaje_tradeflow && (
                 <div className="bg-blue-900/20 border border-blue-700/30 rounded-xl p-3">
-                  <p className="text-[10px] font-bold text-blue-400 uppercase mb-1">Encaje TradeFlow</p>
+                  <p className="text-[10px] font-bold text-blue-400 uppercase mb-1">Encaje TrabFlow</p>
                   <p className="text-xs text-blue-200">{entity.encaje_tradeflow}</p>
                 </div>
               )}

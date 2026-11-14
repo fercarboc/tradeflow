@@ -246,7 +246,7 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
       ctx.fillStyle = '#FFFFFF';
       ctx.font = 'bold 26px Arial';
       ctx.textAlign = 'center';
-      ctx.fillText('Visualización de Reforma · TradeFlow AI', W / 2, 45);
+      ctx.fillText('Visualización de Reforma · TrabFlow AI', W / 2, 45);
 
       const imgY = 68, imgH = 900;
 
@@ -533,7 +533,7 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
               <Loader2 className="w-10 h-10 text-violet-400 animate-spin" />
             </div>
             <div className="text-center space-y-2">
-              <h2 className="text-lg font-bold text-white">TradeFlow AI trabajando…</h2>
+              <h2 className="text-lg font-bold text-white">TrabFlow AI trabajando…</h2>
               <p className="text-violet-400 text-sm font-medium">{processingStep}</p>
             </div>
             <div className="space-y-2 w-full max-w-sm">

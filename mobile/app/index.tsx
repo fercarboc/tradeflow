@@ -55,7 +55,7 @@ export default function LoginScreen() {
             <View style={styles.logoBadge}>
               <Sparkles size={24} color={COLORS.secondary} />
             </View>
-            <Text style={styles.appName}>TradeFlow AI</Text>
+            <Text style={styles.appName}>TrabFlow AI</Text>
             <Text style={styles.tagline}>La herramienta de presupuestos por voz diseñada para instaladores autónomos</Text>
           </View>
 
@@ -88,7 +88,7 @@ export default function LoginScreen() {
 
           {/* Value Props Grid */}
           <View style={styles.featuresSection}>
-            <Text style={styles.sectionTitle}>¿Por qué usar TradeFlow AI?</Text>
+            <Text style={styles.sectionTitle}>¿Por qué usar TrabFlow AI?</Text>
             
             <View style={styles.featureRow}>
               <View style={[styles.featureIconContainer, { backgroundColor: '#EFF6FF' }]}>
@@ -112,7 +112,7 @@ export default function LoginScreen() {
           </View>
 
           <View style={styles.footer}>
-            <Text style={styles.footerText}>TradeFlow AI • Lista de Espera Beta Cerrada v1.0</Text>
+            <Text style={styles.footerText}>TrabFlow AI • Lista de Espera Beta Cerrada v1.0</Text>
           </View>
 
         </ScrollView>
