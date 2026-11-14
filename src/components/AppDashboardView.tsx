@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo, useContext } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useContext, useCallback } from 'react';
 import { 
   Mic, 
   Image as ImageIcon, 
@@ -1071,11 +1071,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'info' | 'error'; id: number } | null>(null);
   const [notificationProgress, setNotificationProgress] = useState(100);
 
-  const showToast = (message: string, type: 'success' | 'info' | 'error' = 'success') => {
+  // Estable entre renders: la barra de progreso del aviso re-renderiza cada 60 ms y, si esta
+  // función cambiara, las pantallas que la usan como dependencia recargarían sus datos en bucle.
+  const showToast = useCallback((message: string, type: 'success' | 'info' | 'error' = 'success') => {
     const id = Date.now();
     setNotification({ message, type, id });
     setNotificationProgress(100);
-  };
+  }, []);
 
   useEffect(() => {
     if (!notification) return;
@@ -1777,7 +1779,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [realPhotoFile, setRealPhotoFile] = useState<File | null>(null);
   const [realPhotoPreviewUrl, setRealPhotoPreviewUrl] = useState<string | null>(null);
   const [photoScanPhase, setPhotoScanPhase] = useState<'idle' | 'scanning' | 'intent'>('idle');
-  const [photoScene, setPhotoScene] = useState<{ descripcion: string; acciones: string[] } | null>(null);
+  const [photoScene, setPhotoScene] = useState<{ descripcion: string; acciones: string[]; oficios?: Array<{ oficio?: string; del_profesional?: boolean } | undefined> } | null>(null);
   const [pendingPhotoQuote, setPendingPhotoQuote] = useState<AIQuote | null>(null);
   // Foto ya analizada (base64) para regenerar partidas de la acción elegida sin volver a subirla
   const photoB64Ref = useRef<string | null>(null);
@@ -1877,7 +1879,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         if (scanProgressIntervalRef.current) clearInterval(scanProgressIntervalRef.current);
         setScanProgress(95);
 
-        const json = await res.json().catch(() => ({})) as { quote?: AIQuote & { scene_detectada?: string; acciones_sugeridas?: string[] }; error?: string };
+        const json = await res.json().catch(() => ({})) as { quote?: AIQuote & { scene_detectada?: string; acciones_sugeridas?: string[]; acciones_oficio?: Array<{ oficio?: string; del_profesional?: boolean }> }; error?: string };
         if (!res.ok || !json.quote) {
           throw new Error(json.error ?? `HTTP ${res.status} — respuesta inesperada del servidor`);
         }
@@ -1891,6 +1893,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         setPhotoScene({
           descripcion: quote.scene_detectada ?? (typeof quote.resumen === 'string' ? quote.resumen : (quote.resumen as any)?.texto_original ?? ''),
           acciones: quote.acciones_sugeridas ?? [],
+          oficios: Array.isArray(quote.acciones_oficio) ? quote.acciones_oficio : [],
         });
         setPhotoScanPhase('intent');
       } catch (e: unknown) {
@@ -1945,9 +1948,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const handleApplyPhotoResult = async (accion?: string) => {
     if (!pendingPhotoQuote || photoAccionLoading) return;
     let baseQuote: AIQuote = pendingPhotoQuote;
-    // Las partidas del primer análisis corresponden a la primera acción. Si se elige otra
-    // (p. ej. pintar el techo en vez de cambiar la luminaria), se regeneran para ese trabajo.
-    if (accion && accion !== photoScene?.acciones[0] && photoB64Ref.current) {
+    // Trabajo de un oficio que no es el de la empresa: confirmar antes de seguir
+    if (accion && photoScene) {
+      const info = photoScene.oficios?.[photoScene.acciones.indexOf(accion)];
+      if (info && info.del_profesional === false) {
+        const ok = window.confirm(`Este trabajo es de ${info.oficio ?? 'otro oficio'} y no figura entre los oficios de tu empresa. ¿Seguro que quieres presupuestarlo?`);
+        if (!ok) return;
+      }
+    }
+    // El primer análisis trae las partidas de todo lo detectado. Al elegir un trabajo
+    // concreto se regeneran solo las partidas de ese trabajo.
+    if (accion && photoB64Ref.current) {
       setPhotoAccionLoading(accion);
       try {
         const { data: { session } } = await supabase.auth.getSession();

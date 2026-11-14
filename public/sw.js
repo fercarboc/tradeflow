@@ -1,4 +1,4 @@
-const CACHE = 'tradeflow-v22';
+const CACHE = 'tradeflow-v23';
 
 const PRECACHE = [
   '/',
@@ -32,6 +32,21 @@ self.addEventListener('fetch', e => {
     e.request.url.includes('api.') ||
     e.request.method !== 'GET'
   ) {
+    return;
+  }
+
+  // Páginas (index.html): primero la red, para que cada despliegue se vea a la primera.
+  // Sin conexión, la copia guardada.
+  if (e.request.mode === 'navigate') {
+    e.respondWith(
+      fetch(e.request).then(res => {
+        if (res.ok) {
+          const clone = res.clone();
+          caches.open(CACHE).then(c => c.put('/index.html', clone));
+        }
+        return res;
+      }).catch(() => caches.match(e.request).then(r => r || caches.match('/index.html')))
+    );
     return;
   }
 
