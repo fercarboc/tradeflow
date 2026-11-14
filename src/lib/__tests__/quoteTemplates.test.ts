@@ -13,6 +13,8 @@ describe('trackingState (Modo Exprés)', () => {
     expect(trackingState('Enviado', undefined)).toBe('enviado');
     expect(trackingState('Enviado', { viewedAt: null, status: 'pending' })).toBe('enviado');
     expect(trackingState('Enviado', { viewedAt: '2026-11-10T10:00:00Z', status: 'pending' })).toBe('visto');
+    // Aceptado por el cliente desde un enlace anterior (luego se reenvió otro): ya es aceptado
+    expect(trackingState('Enviado', { viewedAt: '2026-11-10T10:00:00Z', status: 'pending', accepted: true })).toBe('aceptado');
   });
 });
 

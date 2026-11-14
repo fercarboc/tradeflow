@@ -2211,7 +2211,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     if (!orgId || !isLiveMode || !expressMode || mobileTab !== 'presupuestos') return;
     let alive = true;
     loadQuoteLinkTracking(orgId)
-      .then(t => { if (alive) setQuoteTracking(t); })
+      .then(t => {
+        if (!alive) return;
+        setQuoteTracking(t);
+        // El cliente aceptó desde el enlace mientras la app estaba abierta: reflejarlo
+        // (la BD ya está en Aceptado) para que se pueda planificar el trabajo y facturar.
+        if (Object.values(t).some(x => x.accepted)) {
+          setPresupuestos(prev => prev.map(p =>
+            t[p.id]?.accepted && (p.estado === 'Enviado' || p.estado === 'Borrador')
+              ? { ...p, estado: 'Aceptado' as Presupuesto['estado'] }
+              : p));
+        }
+      })
       .catch(() => { /* sin seguimiento: se muestran los estados normales */ });
     return () => { alive = false; };
   }, [orgId, isLiveMode, expressMode, mobileTab, presupuestos.length]);
