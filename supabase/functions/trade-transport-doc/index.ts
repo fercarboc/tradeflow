@@ -10,6 +10,7 @@
  *   { action: 'emitir',          org_id, tipo, datos, sustituye_a?, motivo_modificacion? }
  *   { action: 'anular',          org_id, id, motivo }
  *   { action: 'reverse_geocode', org_id, lat, lng }
+ *   { action: 'enviar_email',    org_id, id, to_email }   → envía enlace + PDF adjunto por Resend
  *
  * Seguridad:
  *   1. JWT → user_id
@@ -26,6 +27,8 @@ const SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const ANON_KEY         = Deno.env.get('SUPABASE_ANON_KEY')!;
 const PUBLIC_BASE      = (Deno.env.get('TRANSPORT_DOC_PUBLIC_BASE') ?? 'https://trabflow.com/d').replace(/\/+$/, '');
 const BUCKET           = 'transport-control-docs';
+const RESEND_API_KEY   = Deno.env.get('RESEND2_API_KEY') ?? Deno.env.get('RESEND_API_KEY') ?? '';
+const EMAIL_FROM       = 'TrabFlow <contacto@trabflow.com>';
 
 const admin = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, { auth: { persistSession: false } });
 
@@ -163,8 +166,11 @@ async function emitir(body: any, userId: string, isAdmin: boolean, org: any) {
 
   // Transportista = la org
   const transportistaNif = str(org.nif, 20);
-  if (!transportistaNif || !validarNifCualquiera(transportistaNif)) {
+  if (!transportistaNif) {
     throw new HttpError(422, 'ORG_NIF_MISSING', 'Completa el NIF de tu empresa en Ajustes antes de emitir documentos de control');
+  }
+  if (!validarNifCualquiera(transportistaNif)) {
+    throw new HttpError(422, 'ORG_NIF_INVALID', `El NIF de tu empresa (${transportistaNif}) no es válido: revisa la letra o el dígito de control en Ajustes`);
   }
   const lugar = [org.cp, org.localidad ?? org.ciudad, org.provincia ? `(${org.provincia})` : null].filter(Boolean).join(' ');
   const transportistaDomicilio = [org.direccion, lugar].filter(Boolean).join(', ') || null;
@@ -377,6 +383,79 @@ async function reverseGeocode(body: any) {
   return { ok: true, address };
 }
 
+// ── Enviar por email (Resend) ─────────────────────────────────────────────
+
+function esc(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function fmtFechaCorta(iso: string): string {
+  const [y, m, d] = iso.slice(0, 10).split('-');
+  return `${d}/${m}/${y}`;
+}
+
+// deno-lint-ignore no-explicit-any
+async function enviarEmail(body: any, userId: string, org: any) {
+  if (!RESEND_API_KEY) throw new HttpError(503, 'EMAIL_UNAVAILABLE', 'El envío de emails no está configurado');
+  const to = str(body.to_email, 254)?.toLowerCase() ?? '';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(to)) throw new HttpError(422, 'BAD_EMAIL', 'Email no válido');
+
+  const { data: doc } = await admin.from('trade_transport_control_docs')
+    .select('id, tipo, numero, estado, origen, destino, fecha_servicio, hora_salida, matricula_vehiculo, conductor_nombre, public_token, public_hasta, pdf_path')
+    .eq('id', body.id).eq('org_id', org.id).maybeSingle();
+  if (!doc) throw new HttpError(404, 'DOC_NOT_FOUND', 'Documento no encontrado');
+  if (doc.estado !== 'vigente') throw new HttpError(409, 'DOC_NOT_VIGENTE', 'Solo se pueden enviar documentos vigentes');
+
+  // Límite anti-abuso: 30 envíos/hora por usuario (fail-closed)
+  const hashBuf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`txdoc:${userId}`));
+  const hash = Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  const { data: okRate, error: rlErr } = await admin.rpc('check_and_increment_email_rate', { p_ip_hash: hash, p_type: 'transport_doc', p_max: 30 });
+  if (rlErr) throw new HttpError(503, 'RATE_UNAVAILABLE', 'No se pudo enviar ahora. Inténtalo en unos minutos');
+  if (okRate !== true) throw new HttpError(429, 'RATE_LIMIT', 'Has enviado demasiados emails en la última hora');
+
+  const titulo = doc.tipo === 'deca' ? 'Documento de control (DeCA)' : 'Hoja de ruta';
+  const url = `${PUBLIC_BASE}/${doc.public_token}`;
+  const empresa = String(org.nombre ?? 'TrabFlow');
+
+  const attachments: Array<{ filename: string; content: string }> = [];
+  if (doc.pdf_path) {
+    const { data: file } = await admin.storage.from(BUCKET).download(doc.pdf_path);
+    if (file) {
+      const bytes = new Uint8Array(await file.arrayBuffer());
+      let bin = '';
+      for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+      attachments.push({ filename: `${doc.numero}.pdf`, content: btoa(bin) });
+    }
+  }
+
+  const fila = (k: string, v: string) => `<tr><td style="padding:4px 12px 4px 0;color:#64748b;font-size:13px">${k}</td><td style="padding:4px 0;color:#0f172a;font-size:13px;font-weight:600">${esc(v)}</td></tr>`;
+  const html = `<!DOCTYPE html><html><body style="margin:0;padding:24px 12px;background:#f1f5f9;font-family:Arial,sans-serif">
+<div style="max-width:560px;margin:0 auto;background:#fff;border-radius:12px;padding:24px">
+  <p style="margin:0 0 4px;color:#64748b;font-size:12px">${esc(empresa)}</p>
+  <h2 style="margin:0 0 16px;color:#0f172a;font-size:18px">${titulo} ${esc(doc.numero)}</h2>
+  <table style="border-collapse:collapse">
+    ${fila('Ruta', `${doc.origen} → ${doc.destino}`)}
+    ${fila('Fecha', fmtFechaCorta(doc.fecha_servicio) + (doc.hora_salida ? ` · salida ${doc.hora_salida}` : ''))}
+    ${fila('Vehículo', doc.matricula_vehiculo)}
+    ${doc.conductor_nombre ? fila('Conductor', doc.conductor_nombre) : ''}
+  </table>
+  <p style="margin:20px 0"><a href="${url}" style="display:inline-block;background:#059669;color:#fff;text-decoration:none;padding:12px 18px;border-radius:8px;font-weight:700">Ver documento</a></p>
+  <p style="margin:0;color:#64748b;font-size:12px">Se adjunta el PDF. El enlace con código QR está disponible hasta el ${fmtFechaCorta(doc.public_hasta)}.</p>
+  <p style="margin:24px 0 0;color:#94a3b8;font-size:11px">Enviado con TrabFlow · trabflow.com</p>
+</div></body></html>`;
+
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ from: EMAIL_FROM, to, subject: `${titulo} ${doc.numero} · ${empresa}`, html, attachments }),
+  });
+  if (!res.ok) {
+    console.error('[trade-transport-doc] resend', res.status, await res.text());
+    throw new HttpError(502, 'EMAIL_FAILED', 'No se pudo enviar el email');
+  }
+  return { ok: true, to };
+}
+
 // ── Servidor ──────────────────────────────────────────────────────────
 
 Deno.serve(async (request: Request) => {
@@ -397,6 +476,7 @@ Deno.serve(async (request: Request) => {
       case 'emitir':          result = await emitir(body, userId, isAdmin, org); break;
       case 'anular':          result = await anular(body, userId, isAdmin, body.org_id); break;
       case 'reverse_geocode': result = await reverseGeocode(body); break;
+      case 'enviar_email':    result = await enviarEmail(body, userId, org); break;
       default: throw new HttpError(400, 'BAD_ACTION', 'Acción no válida');
     }
     return new Response(JSON.stringify(result), { status: 200, headers });
