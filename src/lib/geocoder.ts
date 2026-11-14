@@ -16,7 +16,7 @@ export interface GeocodeResult {
   longitud: number;
   formatted_address: string;
   // Validation metadata forwarded from the edge function (GEO-AUTO-1)
-  provider?: 'google' | 'nominatim';
+  provider?: 'google' | 'nominatim' | 'geoapify';
   location_type?: string;
   country_code?: string;
   locality?: string;
@@ -41,9 +41,20 @@ export interface GeocodeAddressParams {
  */
 export async function geocodeAddress(
   params: GeocodeAddressParams,
+  orgId?: string | null,
 ): Promise<GeocodeResult | null> {
   const hasEnough = !!(params.direccion || params.localidad || params.cp);
   if (!hasEnough) return null;
+
+  // Primero el geocodificador de Transporte (Geoapify, con caché por empresa), que encuentra
+  // mejor las direcciones con número. Si no está disponible (p. ej. técnico sin permiso) o no
+  // encuentra nada, se usa el de siempre.
+  if (orgId) {
+    try {
+      const r = await geocodeWithGeoapify(params, orgId);
+      if (r) return r;
+    } catch { /* se usa el geocodificador de respaldo */ }
+  }
 
   const { data, error } = await supabase.functions.invoke<{
     status: string;
@@ -80,6 +91,52 @@ export async function geocodeAddress(
     postal_code: data.postal_code,
     route: data.route,
     house_number: data.house_number,
+  };
+}
+
+// ── Geoapify (función `geocode`, la misma que usan las rutas de Transporte) ─────
+
+function norm(t: string): string {
+  return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ').trim();
+}
+
+/** Número de portal: último número suelto de la dirección («Canalejas, 91» → «91»). */
+function portalDe(direccion: string): string | null {
+  const m = direccion.match(/\b(\d+)\s*[a-zA-Z]?\s*(?:[,º°ª]|$|\s)/g);
+  if (!m) return null;
+  const last = m[m.length - 1].match(/\d+/);
+  return last ? last[0] : null;
+}
+
+async function geocodeWithGeoapify(params: GeocodeAddressParams, orgId: string): Promise<GeocodeResult | null> {
+  const address = [params.direccion, params.cp, params.localidad, params.provincia, params.pais ?? 'España']
+    .map(x => (x ?? '').trim()).filter(Boolean).join(', ');
+  const { data, error } = await supabase.functions.invoke<{
+    candidates?: Array<{ lat: number; lng: number; display_name: string }>;
+    error?: string;
+  }>('geocode', { body: { address, org_id: orgId } });
+  if (error || !data || data.error) return null;
+  const c = data.candidates?.[0];
+  if (!c || !Number.isFinite(c.lat) || !Number.isFinite(c.lng)) return null;
+
+  // Metadatos a partir del texto devuelto, para que validateGeoResult pueda comprobar
+  // que el resultado corresponde a lo pedido (solo se rellenan si aparecen en la respuesta).
+  const shown = norm(c.display_name ?? '');
+  const loc = params.localidad?.trim();
+  const cp = params.cp?.trim();
+  const dir = params.direccion?.trim() ?? '';
+  const calle = norm(dir.replace(/\d.*$/, '').replace(/^(c\/|calle|avda\.?|avenida|plaza|pza\.?|paseo|ctra\.?)\s+/i, '').replace(/[,.]/g, ' '));
+  const portal = dir ? portalDe(dir) : null;
+  return {
+    latitud: c.lat,
+    longitud: c.lng,
+    formatted_address: c.display_name ?? '',
+    provider: 'geoapify',
+    country_code: 'ES', // la función restringe la búsqueda a España
+    locality: loc && shown.includes(norm(loc)) ? loc : undefined,
+    postal_code: cp && shown.includes(cp) ? cp : undefined,
+    route: calle && shown.includes(calle) ? calle : undefined,
+    house_number: portal && new RegExp(`\\b${portal}\\b`).test(shown) ? portal : undefined,
   };
 }
 

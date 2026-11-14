@@ -1520,7 +1520,7 @@ export function getDatesBetween(start: string, end?: string | null): string[] {
 
 // ── Main component ────────────────────────────────────────────────────────────
 export default function ScreenPlanificacion({
-  jobs: propJobs, workers, clientes, isLiveMode,
+  jobs: propJobs, workers, clientes, orgId, isLiveMode,
   presupuestosAceptados = [],
   presupuestosPorId = {},
   onCreateJob, onUpdateJob, onDeleteJob, onAssignWorker, onRemoveWorker,
@@ -1724,7 +1724,7 @@ export default function ScreenPlanificacion({
     if (!draft.direccion && !draft.localidad && !draft.cp) return;
     setGeoStatus('loading');
     try {
-      const geo = await geocodeAddress({ direccion: draft.direccion, localidad: draft.localidad, cp: draft.cp });
+      const geo = await geocodeAddress({ direccion: draft.direccion, localidad: draft.localidad, cp: draft.cp }, orgId);
       if (geo) {
         setDraft(d => ({ ...d, latitud: geo.latitud, longitud: geo.longitud, direccion_normalizada: geo.formatted_address, geo_source: 'auto', geo_confirmed_at: null }));
         setGeoStatus('ok');
@@ -1750,7 +1750,7 @@ export default function ScreenPlanificacion({
       let geoExtras: Partial<TradeJob> = {};
       if (needsGeocode && isLiveMode) {
         setGeoStatus('loading');
-        const geo = await geocodeAddress({ direccion: draft.direccion, localidad: draft.localidad, cp: draft.cp });
+        const geo = await geocodeAddress({ direccion: draft.direccion, localidad: draft.localidad, cp: draft.cp }, orgId);
         if (geo) {
           geoExtras = { latitud: geo.latitud, longitud: geo.longitud, direccion_normalizada: geo.formatted_address, geo_source: 'auto', geo_confirmed_at: null };
           setGeoStatus('ok');
@@ -1832,7 +1832,7 @@ export default function ScreenPlanificacion({
           const addrSnapshot: JobGeoAddressSnapshot = { direccion: saved.direccion ?? null, localidad: saved.localidad ?? null, cp: saved.cp ?? null };
           void (async () => {
             try {
-              const geo = await geocodeAddress({ direccion: saved.direccion, localidad: saved.localidad, cp: saved.cp });
+              const geo = await geocodeAddress({ direccion: saved.direccion, localidad: saved.localidad, cp: saved.cp }, orgId);
               if (!geo || !validateGeoResult(geo, { direccion: saved.direccion, localidad: saved.localidad, cp: saved.cp })) return;
               const { applied } = await updateJobGeoAuto(saved.id, geo.latitud, geo.longitud, geo.formatted_address, addrSnapshot);
               // Local state update only — DB was already written by updateJobGeoAuto.
