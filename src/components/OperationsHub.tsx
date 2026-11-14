@@ -351,7 +351,10 @@ export default function OperationsHub(props: OperationsHubProps) {
   // Uses Date.now() so every Programar click produces a unique non-zero value.
   // Reset to 0 (sentinel = no pending trigger) after consumption to prevent
   // stale-trigger reopening when AgendaTab remounts.
-  const [internalTrigger, setInternalTrigger] = useState<number>(0);
+  // Si el hub se monta ya con un presupuesto a planificar (botón «Crear trabajo» desde otra
+  // pantalla), el disparador externo llega en el mismo render y no se detectaría como cambio:
+  // abrir el formulario directamente.
+  const [internalTrigger, setInternalTrigger] = useState<number>(() => (props.prefillJobFromQuote ? Date.now() : 0));
   const prevExtTriggerRef = useRef<number | undefined>(props.triggerNew);
 
   // Sync external prefill + trigger changes (PROGRAMAR from Presupuestos screen)

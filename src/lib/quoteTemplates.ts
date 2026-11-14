@@ -105,10 +105,11 @@ export async function loadQuoteLinkTracking(orgId: string): Promise<Record<strin
   for (const row of (data ?? []) as Array<{ quote_numero: string; viewed_at: string | null; status: QuoteLinkTracking['status'] }>) {
     const prev = out[row.quote_numero];
     if (!prev) {
-      out[row.quote_numero] = { viewedAt: row.viewed_at ?? null, status: row.status };
-    } else if (!prev.viewedAt && row.viewed_at) {
-      // Si un enlace anterior ya se vio, cuenta como visto
-      prev.viewedAt = row.viewed_at;
+      out[row.quote_numero] = { viewedAt: row.viewed_at ?? null, status: row.status, accepted: row.status === 'accepted' };
+    } else {
+      // Si un enlace anterior ya se vio o se aceptó, cuenta
+      if (!prev.viewedAt && row.viewed_at) prev.viewedAt = row.viewed_at;
+      if (row.status === 'accepted') prev.accepted = true;
     }
   }
   return out;

@@ -3,6 +3,8 @@
 export interface QuoteLinkTracking {
   viewedAt: string | null;
   status: 'pending' | 'accepted' | 'rejected';
+  /** El cliente aceptó desde alguno de los enlaces enviados (aunque después se enviara otro). */
+  accepted?: boolean;
 }
 
 export type ExpressQuoteFilter = 'todos' | 'borrador' | 'enviado' | 'visto' | 'aceptado' | 'facturado';
@@ -13,7 +15,7 @@ export function trackingState(
   tracking: QuoteLinkTracking | undefined,
 ): Exclude<ExpressQuoteFilter, 'todos'> {
   if (estado === 'Facturado') return 'facturado';
-  if (estado === 'Aceptado') return 'aceptado';
+  if (estado === 'Aceptado' || tracking?.accepted) return 'aceptado';
   if (estado === 'Enviado') return tracking?.viewedAt ? 'visto' : 'enviado';
   return 'borrador';
 }
