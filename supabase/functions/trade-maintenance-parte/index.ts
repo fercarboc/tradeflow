@@ -159,7 +159,7 @@ Deno.serve(async (req: Request) => {
   </div>
 
   <div class="footer">
-    Parte generado automáticamente · ${orgNombre} · TradeFlow · trabflow.com
+    Parte generado automáticamente · ${orgNombre} · TrabFlow · trabflow.com
   </div>
 </body></html>`;
 

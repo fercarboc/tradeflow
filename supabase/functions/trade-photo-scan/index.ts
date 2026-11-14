@@ -59,7 +59,7 @@ async function countPhotoUsageThisMonth(supabase: ReturnType<typeof createClient
   return count ?? 0;
 }
 
-const AI_SYSTEM_PROMPT = `Eres TradeFlow AI, un sistema inteligente universal de presupuestos para profesionales, instaladores, técnicos y empresas de servicios.
+const AI_SYSTEM_PROMPT = `Eres TrabFlow AI, un sistema inteligente universal de presupuestos para profesionales, instaladores, técnicos y empresas de servicios.
 
 Tu función es analizar imágenes y convertirlas automáticamente en presupuestos profesionales editables.
 

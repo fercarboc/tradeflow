@@ -201,7 +201,7 @@ export function buildDocumentHTML(opts: BuildDocumentOpts): string {
       ${opts.photos && opts.photos.length > 0 ? buildPhotosHtml(opts.photos) : ''}
 
       <div class="footer">
-        Generado con TradeFlow AI · ${opts.empresa.nombre || ''}${opts.empresa.email ? ` · ${opts.empresa.email}` : ''}
+        Generado con TrabFlow AI · ${opts.empresa.nombre || ''}${opts.empresa.email ? ` · ${opts.empresa.email}` : ''}
       </div>
     </body></html>`;
 }

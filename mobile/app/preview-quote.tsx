@@ -39,7 +39,7 @@ export default function PreviewQuoteScreen() {
 
   const handleSendWhatsApp = () => {
     const formattedTotal = quote.total.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
-    const message = `Hola %2a${client?.name || 'Cliente'}%2a. Te presento el %2apresupuesto ${quote.quoteNumber}%2a de %2a${organization?.name || 'TradeFlow Instalador'}%2a por un importe total de %2a${formattedTotal}%2a (%2aIVA incl.%2a). Puedes revisarlo aquí: https://tradeflow.ai/preview/${quote.id}`;
+    const message = `Hola %2a${client?.name || 'Cliente'}%2a. Te presento el %2apresupuesto ${quote.quoteNumber}%2a de %2a${organization?.name || 'TrabFlow Instalador'}%2a por un importe total de %2a${formattedTotal}%2a (%2aIVA incl.%2a). Puedes revisarlo aquí: https://tradeflow.ai/preview/${quote.id}`;
     
     const phoneNo = client?.phone.replace(/[^0-9]/g, ''); // sanitize phone to raw digits
     const whatsappUrl = `whatsapp://send?phone=${phoneNo}&text=${message}`;
@@ -67,7 +67,7 @@ export default function PreviewQuoteScreen() {
     updateQuoteStatus(quote.id, 'accepted');
     Alert.alert(
       'Presupuesto Aceptado',
-      `¡Enhorabuena! El presupuesto ${quote.quoteNumber} ha sido aceptado por el cliente. De forma automática, TradeFlow AI ha generado la correspondiente Factura y lo ha añadido en tu módulo de Ajustes/Facturación.`,
+      `¡Enhorabuena! El presupuesto ${quote.quoteNumber} ha sido aceptado por el cliente. De forma automática, TrabFlow AI ha generado la correspondiente Factura y lo ha añadido en tu módulo de Ajustes/Facturación.`,
       [{ text: 'Ir al Dashboard', onPress: () => router.replace('/(tabs)/dashboard') }]
     );
   };

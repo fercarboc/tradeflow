@@ -10521,7 +10521,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       ${opts.photos && opts.photos.length > 0 ? buildPhotosHtml(opts.photos) : ''}
 
       <div class="footer">
-        Generado con TradeFlow AI · ${opts.empresa.nombre || ''}${opts.empresa.email ? ` · ${opts.empresa.email}` : ''}
+        Generado con TrabFlow AI · ${opts.empresa.nombre || ''}${opts.empresa.email ? ` · ${opts.empresa.email}` : ''}
       </div>
     </body></html>`;
   }
@@ -11238,7 +11238,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <button
               onClick={() => isLiveMode ? setShowGlobalCatalog(true) : showToast('Disponible solo con cuenta activa', 'info')}
               className="flex items-center gap-1 bg-[#FFC400] hover:brightness-110 text-[#020B16] text-[9px] font-black uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
-              title="Importar desde catálogo base TradeFlow"
+              title="Importar desde catálogo base TrabFlow"
             >
               <Globe className="h-3 w-3" />
               Catálogo Base
@@ -11447,13 +11447,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         ))}
 
-        {/* Catálogo base IA TradeFlow (trade_catalog_products) — sección colapsable */}
+        {/* Catálogo base IA TrabFlow (trade_catalog_products) — sección colapsable */}
         {catalogProducts.length > 0 && (
           <details className="group">
             {hasTarifas && (
               <summary className="cursor-pointer list-none flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono py-2 select-none hover:text-slate-600 border-t border-slate-200 pt-4">
                 <Sparkles className="h-3.5 w-3.5 text-blue-400 shrink-0" />
-                Catálogo base IA TradeFlow ({catalogProducts.length} productos con variantes)
+                Catálogo base IA TrabFlow ({catalogProducts.length} productos con variantes)
                 <span className="ml-auto text-[9px] normal-case font-normal">Mostrar / ocultar ▾</span>
               </summary>
             )}

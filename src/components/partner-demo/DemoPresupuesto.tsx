@@ -56,7 +56,7 @@ export default function DemoPresupuesto({ onNext }: Props) {
             className="mb-4 text-center"
           >
             <h2 className="text-2xl font-black text-white mb-1">Presupuesto generado</h2>
-            <p className="text-white/35 text-xs">Generado automáticamente por TradeFlow AI en 2 segundos</p>
+            <p className="text-white/35 text-xs">Generado automáticamente por TrabFlow AI en 2 segundos</p>
           </motion.div>
 
           {/* Budget card */}
@@ -215,7 +215,7 @@ export default function DemoPresupuesto({ onNext }: Props) {
                     <p className="text-xl font-black text-red-400">25 min</p>
                   </div>
                   <div className="bg-green-500/8 border border-green-500/15 rounded-lg px-3 py-2 text-center">
-                    <p className="text-[10px] text-green-400/60 mb-0.5">Con TradeFlow AI</p>
+                    <p className="text-[10px] text-green-400/60 mb-0.5">Con TrabFlow AI</p>
                     <p className="text-xl font-black text-green-400">30 seg</p>
                   </div>
                 </div>

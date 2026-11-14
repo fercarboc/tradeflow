@@ -1207,7 +1207,7 @@ export async function updateTarifaPrice(id: string, precio_base: number): Promis
   await supabase.from('trade_tarifas').update({ precio_base }).eq('id', id);
 }
 
-// ── Catálogo global TradeFlow ─────────────────────────────────────────────
+// ── Catálogo global TrabFlow ─────────────────────────────────────────────
 
 export interface TradeGlobalCatalogItem {
   id: string;

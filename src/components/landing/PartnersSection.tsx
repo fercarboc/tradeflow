@@ -103,7 +103,7 @@ export default function PartnersSection({ setCurrentPage }: Props) {
               </span>
             </div>
             <p className="text-[#1C2535]/55 text-sm mb-5 leading-relaxed">
-              Descarga nuestro pitch deck completo y conoce la oportunidad de inversión en TradeFlow.
+              Descarga nuestro pitch deck completo y conoce la oportunidad de inversión en TrabFlow.
             </p>
 
             {/* Deck preview */}
@@ -113,7 +113,7 @@ export default function PartnersSection({ setCurrentPage }: Props) {
                   <div className="w-4 h-4 bg-[#1A5A96] rounded flex items-center justify-center">
                     <span className="text-white text-[8px] font-black">TF</span>
                   </div>
-                  <span className="text-white/50 text-[9px] font-semibold tracking-wider uppercase">TradeFlow AI</span>
+                  <span className="text-white/50 text-[9px] font-semibold tracking-wider uppercase">TrabFlow AI</span>
                 </div>
                 <p className="text-white font-black text-xl leading-tight">Pitch Deck</p>
               </div>

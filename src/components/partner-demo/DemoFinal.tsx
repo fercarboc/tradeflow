@@ -25,7 +25,7 @@ export default function DemoFinal({ setCurrentPage }: Props) {
         >
           <div className="inline-flex items-center gap-2 border border-blue-500/25 bg-blue-500/8 text-blue-400 text-xs font-semibold px-4 py-2 rounded-full mb-8">
             <Sparkles className="w-3.5 h-3.5" />
-            Has visto TradeFlow en acción
+            Has visto TrabFlow en acción
           </div>
 
           <h1 className="text-5xl lg:text-[64px] font-black text-white leading-[1.0] mb-6 tracking-tight">

@@ -279,7 +279,7 @@ export async function downloadAsWordDocx(opts: DocExportOpts, filename: string):
         new Paragraph({ spacing: { after: 240 }, children: [] }),
         ...(opts.photos && opts.photos.length > 0 ? buildWordPhotosSection(opts.photos) : []),
         new Paragraph({
-          children: [new TextRun({ text: `Generado con TradeFlow AI · ${opts.empresa.nombre || ''}`, size: 16, color: C_MUTED })],
+          children: [new TextRun({ text: `Generado con TrabFlow AI · ${opts.empresa.nombre || ''}`, size: 16, color: C_MUTED })],
           alignment: AlignmentType.CENTER,
           border: { top: { style: BorderStyle.SINGLE, color: 'E2E8F0', size: 4 } },
           spacing: { before: 200 },

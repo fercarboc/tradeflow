@@ -107,7 +107,7 @@ export default function DemoDashboard({ onNext }: Props) {
               En semanas, no en años.
             </span>
           </h2>
-          <p className="text-white/35 text-sm">Basado en datos de instaladores que usan TradeFlow.</p>
+          <p className="text-white/35 text-sm">Basado en datos de instaladores que usan TrabFlow.</p>
         </motion.div>
 
         <div className="grid grid-cols-2 gap-3 mb-8">
@@ -145,7 +145,7 @@ export default function DemoDashboard({ onNext }: Props) {
         >
           <p className="text-sm text-white/60 leading-relaxed">
             Un instalador que factura{' '}
-            <span className="text-white font-bold">4.000 €/mes</span> con TradeFlow
+            <span className="text-white font-bold">4.000 €/mes</span> con TrabFlow
             puede escalar a{' '}
             <span className="text-green-400 font-bold">12.000 €/mes</span>
             {' '}en 90 días, sin contratar personal adicional.
