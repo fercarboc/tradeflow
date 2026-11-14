@@ -5,8 +5,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import QRCode from 'qrcode';
 import {
-  FileText, Plus, Truck, Bus, Loader2, X, Copy, Share2, Download, ExternalLink,
-  Pencil, Ban, CheckCircle2, AlertTriangle, ShieldCheck,
+  FileText, Plus, Truck, Bus, Loader2, X, Copy, Download, ExternalLink,
+  Pencil, Ban, CheckCircle2, AlertTriangle, ShieldCheck, Mail, MessageCircle, Send,
 } from 'lucide-react';
 import TransportDocWizard from './TransportDocWizard';
 import { ReceivedDocWizard, ReceivedDocViewer, ReceivedDocsList } from './ReceivedDocs';
@@ -15,6 +15,7 @@ import { QrCode, ScanLine } from 'lucide-react';
 import {
   loadTransportDocs, loadTransportDoc, cancelTransportDoc, getTransportDocPdfUrl,
   publicDocUrl, isPublicLinkActive, shareText, fmtFechaEs, fmtPesoKg,
+  sendTransportDocEmail, loadDocContacts, waPhone, type DocContacto,
   NATURALEZA_SERVICIO_LABEL,
   type TransportControlDoc, type TransportDocTipo, type TransportDocInput,
 } from '../../lib/transportDocs';
@@ -265,12 +266,35 @@ function DocDetail({ doc, orgId, showToast, onClose, onModify, onDuplicate, onCa
     catch (e) { showToast(e instanceof Error ? e.message : 'No se pudo abrir el PDF', 'error'); }
   };
 
-  const share = async () => {
-    const text = shareText(doc);
-    if (navigator.share) {
-      try { await navigator.share({ title: doc.numero, text }); return; } catch { /* cancelado */ }
-    }
-    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+  const [envio, setEnvio] = useState<'whatsapp' | 'email' | null>(null);
+  const [contactos, setContactos] = useState<DocContacto[]>([]);
+  const [destino, setDestino] = useState('');
+  const [enviando, setEnviando] = useState(false);
+
+  useEffect(() => { loadDocContacts(doc).then(setContactos).catch(() => setContactos([])); }, [doc]);
+
+  // Destinatario propuesto: en hoja de ruta, el conductor; en DeCA, el cliente (cargador)
+  const orden = (doc.tipo === 'hoja_ruta' ? ['conductor', 'cliente'] : ['cliente', 'conductor']) as DocContacto['tipo'][];
+  const abrirEnvio = (modo: 'whatsapp' | 'email') => {
+    const campo = modo === 'email' ? 'email' : 'telefono';
+    const c = orden.map(t => contactos.find(x => x.tipo === t)).find(x => x?.[campo]);
+    setDestino(c?.[campo] ?? '');
+    setEnvio(modo);
+  };
+
+  const enviarWhatsApp = () => {
+    const tel = waPhone(destino);
+    window.open(`https://wa.me/${tel}?text=${encodeURIComponent(shareText(doc))}`, '_blank', 'noopener');
+    setEnvio(null);
+  };
+
+  const enviarEmail = async () => {
+    const to = destino.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(to)) { showToast('Escribe un email válido', 'error'); return; }
+    setEnviando(true);
+    try { await sendTransportDocEmail(orgId, doc.id, to); showToast(`Enviado a ${to}`, 'success'); setEnvio(null); }
+    catch (e) { showToast(e instanceof Error ? e.message : 'No se pudo enviar', 'error'); }
+    finally { setEnviando(false); }
   };
 
   const copy = async () => {
@@ -368,10 +392,44 @@ function DocDetail({ doc, orgId, showToast, onClose, onModify, onDuplicate, onCa
         </div>
 
         <div className="shrink-0 border-t border-slate-200 bg-white px-5 py-3 sm:rounded-b-3xl" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          {envio && (
+            <div className="mb-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-3">
+              <label className="text-sm font-semibold text-gray-800">
+                {envio === 'email' ? 'Enviar por email a' : 'Enviar por WhatsApp a'}
+              </label>
+              {contactos.some(c => (envio === 'email' ? c.email : c.telefono)) && (
+                <div className="mt-1.5 flex flex-wrap gap-1.5">
+                  {contactos.filter(c => envio === 'email' ? c.email : c.telefono).map(c => (
+                    <button key={c.tipo} type="button" onClick={() => setDestino((envio === 'email' ? c.email : c.telefono) ?? '')}
+                      className="rounded-full border border-emerald-300 bg-white px-2.5 py-1 text-xs font-semibold text-emerald-800">
+                      {c.tipo === 'conductor' ? 'Conductor' : 'Cliente'}: {c.nombre}
+                    </button>
+                  ))}
+                </div>
+              )}
+              <input className="mt-2 w-full rounded-xl border-2 border-gray-200 bg-white px-3 py-2.5"
+                type={envio === 'email' ? 'email' : 'tel'} inputMode={envio === 'email' ? 'email' : 'tel'}
+                value={destino} onChange={e => setDestino(e.target.value)}
+                placeholder={envio === 'email' ? 'correo@ejemplo.com' : 'Teléfono (vacío: elegir contacto en WhatsApp)'} />
+              <div className="mt-2 flex gap-2">
+                <button type="button" onClick={() => setEnvio(null)} className="flex-1 rounded-xl border border-gray-200 bg-white py-2.5 font-semibold text-gray-700">Cancelar</button>
+                <button type="button" disabled={enviando} onClick={envio === 'email' ? enviarEmail : enviarWhatsApp}
+                  className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-emerald-600 py-2.5 font-semibold text-white disabled:opacity-50">
+                  {enviando ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />} {envio === 'email' ? 'Enviar email' : 'Abrir WhatsApp'}
+                </button>
+              </div>
+              {envio === 'email' && <p className="mt-1.5 text-xs text-gray-500">Se envía desde TrabFlow con el PDF adjunto y el enlace con QR.</p>}
+            </div>
+          )}
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
             {activo && (
-              <button type="button" onClick={share} className="col-span-2 flex items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3 font-semibold text-white sm:col-span-1">
-                <Share2 size={18} /> Enviar
+              <button type="button" onClick={() => abrirEnvio('whatsapp')} className="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3 font-semibold text-white">
+                <MessageCircle size={18} /> WhatsApp
+              </button>
+            )}
+            {activo && (
+              <button type="button" onClick={() => abrirEnvio('email')} className="flex items-center justify-center gap-2 rounded-xl bg-slate-800 py-3 font-semibold text-white">
+                <Mail size={18} /> Email
               </button>
             )}
             <button type="button" onClick={() => openPdf(false)} className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 py-3 font-semibold text-gray-800">

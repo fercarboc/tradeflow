@@ -226,6 +226,32 @@ export function cancelTransportDoc(orgId: string, id: string, motivo: string): P
   return invoke({ action: 'anular', org_id: orgId, id, motivo });
 }
 
+/** Envía el documento por email (Resend, con el PDF adjunto). */
+export function sendTransportDocEmail(orgId: string, id: string, toEmail: string): Promise<{ ok: true; to: string }> {
+  return invoke({ action: 'enviar_email', org_id: orgId, id, to_email: toEmail });
+}
+
+export interface DocContacto { tipo: 'conductor' | 'cliente'; nombre: string; email: string | null; telefono: string | null }
+
+/** Conductor y cliente vinculados al documento, para proponer destinatario. */
+export async function loadDocContacts(doc: Pick<TransportControlDoc, 'conductor_id' | 'client_id'>): Promise<DocContacto[]> {
+  const out: DocContacto[] = [];
+  const [w, c] = await Promise.all([
+    doc.conductor_id ? supabase.from('trade_workers').select('nombre, email, telefono').eq('id', doc.conductor_id).maybeSingle() : Promise.resolve({ data: null }),
+    doc.client_id ? supabase.from('trade_clients').select('nombre, email, telefono').eq('id', doc.client_id).maybeSingle() : Promise.resolve({ data: null }),
+  ]);
+  if (w.data) out.push({ tipo: 'conductor', nombre: w.data.nombre ?? 'Conductor', email: w.data.email ?? null, telefono: w.data.telefono ?? null });
+  if (c.data) out.push({ tipo: 'cliente', nombre: c.data.nombre ?? 'Cliente', email: c.data.email ?? null, telefono: c.data.telefono ?? null });
+  return out;
+}
+
+/** Teléfono para wa.me: solo dígitos y prefijo 34 si es un número español de 9 cifras. */
+export function waPhone(raw: string | null | undefined): string {
+  const d = (raw ?? '').replace(/\D/g, '').replace(/^00/, '');
+  if (/^[6789]\d{8}$/.test(d)) return `34${d}`;
+  return d;
+}
+
 export async function reverseGeocode(orgId: string, lat: number, lng: number): Promise<string | null> {
   const r = await invoke<{ ok: true; address: string | null }>({ action: 'reverse_geocode', org_id: orgId, lat, lng });
   return r.address;

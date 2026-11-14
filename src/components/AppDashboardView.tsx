@@ -137,7 +137,7 @@ import ScreenTransporteViajes from './ScreenTransporteViajes';
 import ScreenConductorTransporte from './transport-mobile/ScreenConductorTransporte';
 import { createTransportTripFromQuote } from '../lib/transportTrips';
 import { TransportMoreSheet, TransportNewSheet, type SheetItem } from './transport-mobile/TransportMobileSheets';
-import { decaPrefillFromTrip, type TransportDocTipo, type TransportDocInput } from '../lib/transportDocs';
+import { decaPrefillFromTrip, isValidNif, type TransportDocTipo, type TransportDocInput } from '../lib/transportDocs';
 import type { ReceivedDocTipo, ReceivedDocInput, ReceivedDoc } from '../lib/transportReceivedDocs';
 import { getOrgCapabilities, TRANSPORT_PENDING_OFICIOS } from '../lib/orgCapabilities';
 import ScreenFacturas from './ScreenFacturas';
@@ -11764,6 +11764,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         ...(geoInvalidated ? { base_latitud: null, base_longitud: null, geo_source: null, geo_confirmed_at: null } : {}),
       }).eq('id', orgId);
       if (error) { showToast('Error al guardar: ' + error.message, 'error'); return; }
+      if (empresaAjustes.nif?.trim() && !isValidNif(empresaAjustes.nif)) {
+        showToast(`Guardado, pero el NIF «${empresaAjustes.nif}» no es válido (revisa la letra o el dígito de control). Lo necesitas para facturas y documentos de control.`, 'error');
+      }
 
       // Actualizar orgData en estado con los nuevos valores de dirección y coords invalidadas
       setOrgData(prev => prev ? {
